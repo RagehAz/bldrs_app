@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x3_bz_authors_page_controllers.dart';
@@ -114,8 +114,8 @@ class AuthorCard extends StatelessWidget {
           children: <Widget>[
 
             /// PICTURE
-            AuthorPicInBzPage(
-              width: authorPicSize,
+            AuthorPic(
+              size: authorPicSize,
               authorPic: author.pic,
               cornerOverride: 15,
             ),

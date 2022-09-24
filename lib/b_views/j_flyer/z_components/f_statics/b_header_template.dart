@@ -156,7 +156,7 @@ class HeaderTemplate extends StatelessWidget {
                         // margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerBoxWidth * 0.01) : const EdgeInsets.all(0),
                         decoration: BoxDecoration(
                           // color: flyerShowsAuthor == false ? Colorz.nothing : Colorz.white20,
-                          borderRadius: FlyerDim.authorImageCorners(
+                          borderRadius: FlyerDim.authorPicCornersByFlyerBoxWidth(
                             context: context,
                             flyerBoxWidth: flyerBoxWidth,
                           ),
@@ -167,7 +167,7 @@ class HeaderTemplate extends StatelessWidget {
 
                             /// AUTHOR IMAGE
                             AuthorPic(
-                              size: FlyerDim.authorPicSize(flyerBoxWidth),
+                              size: FlyerDim.authorPicSizeBFlyerBoxWidth(flyerBoxWidth),
                               authorPic: authorImage,
                               // tinyBz:
                             ),

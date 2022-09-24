@@ -26,13 +26,17 @@ class ObjectCheck {
 
   // -----------------------------------------------------------------------------
   static String fileExtensionOf(dynamic file) {
-    return file == null ?
-    null
-        :
-    file is String == true ?
-    File(file).fileExtension
-        :
-    null;
+
+    if (file == null){
+      return null;
+    }
+    else if (file is String){
+      return File(file).fileExtension;
+    }
+    else {
+      return null;
+    }
+
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -86,6 +90,7 @@ class ObjectCheck {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool isBase64(dynamic value) {
+
     if (value is String == true) {
 
       final RegExp rx = RegExp(
@@ -108,6 +113,7 @@ class ObjectCheck {
     else {
       return false;
     }
+
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -123,14 +129,11 @@ class ObjectCheck {
         _isFile = true;
       }
 
-      // blog('objectIsFile : isFile : $_isFile : [file is File : $isFileA] - [file == _File] : $isFileB');
-
     }
 
     else {
       blog('objectIsFile : isFile : null');
     }
-
 
     return _isFile;
   }
@@ -141,7 +144,7 @@ class ObjectCheck {
 
     if (object != null) {
       if (
-      object.runtimeType.toString() == '_Uint8ArrayView'
+          object.runtimeType.toString() == '_Uint8ArrayView'
           ||
           object.runtimeType.toString() == 'Uint8List'
       ) {
@@ -154,7 +157,7 @@ class ObjectCheck {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsSVG(dynamic object) {
-    bool _isSVG;
+    bool _isSVG = false;
 
     if (fileExtensionOf(object) == 'svg') {
       _isSVG = true;
@@ -169,16 +172,23 @@ class ObjectCheck {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsJPGorPNG(dynamic object) {
-    bool _objectIsJPGorPNG;
+    bool _objectIsJPGorPNG = false;
 
-    if (fileExtensionOf(object) == 'jpeg' ||
-        fileExtensionOf(object) == 'jpg' ||
-        fileExtensionOf(object) == 'png') {
-      _objectIsJPGorPNG = true;
-    }
+    if (object != null){
+      if (
+          fileExtensionOf(object) == 'jpeg'
+          ||
+          fileExtensionOf(object) == 'jpg'
+          ||
+          fileExtensionOf(object) == 'png'
+      ) {
+        _objectIsJPGorPNG = true;
+      }
 
-    else {
-      _objectIsJPGorPNG = false;
+      else {
+        _objectIsJPGorPNG = false;
+      }
+
     }
 
     return _objectIsJPGorPNG;
@@ -215,7 +225,7 @@ class ObjectCheck {
   }
   // -----------------------------------------------------------------------------
   static Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
-    bool _objectIsIntInString;
+    bool _objectIsIntInString = false;
     int _int;
 
     if (string != null) {
@@ -230,16 +240,11 @@ class ObjectCheck {
       _objectIsIntInString = true;
     }
 
-    // print('objectIsIntInString : string is : $string');
-    // print('objectIsIntInString : _int is : $_int');
-    // print('objectIsIntInString : _objectIsIntInString is : $_objectIsIntInString');
-    // print('objectIsIntInString returns $_objectIsIntInString');
-
     return _objectIsIntInString;
   }
   // -----------------------------------------------------------------------------
   static bool objectIsDoubleInString(dynamic string) {
-    bool _objectIsDoubleInString;
+    bool _objectIsDoubleInString = false;
     double _double;
 
     if (string != null) {
@@ -254,24 +259,19 @@ class ObjectCheck {
       _objectIsDoubleInString = true;
     }
 
-    blog('objectIsDoubleInString : _double is : $_double');
-
     return _objectIsDoubleInString;
   }
   // -----------------------------------------------------------------------------
   static bool objectIsDateTime(dynamic object) {
-    final bool _isDatTime = object?.runtimeType == DateTime;
-    return _isDatTime;
+    return object?.runtimeType == DateTime;
   }
   // -----------------------------------------------------------------------------
   static bool objectIsGeoPoint(dynamic object) {
-    final bool _isGeoPoint = object?.runtimeType == GeoPoint;
-    return _isGeoPoint;
+    return object?.runtimeType == GeoPoint;
   }
   // -----------------------------------------------------------------------------
   static bool objectIsTimeStamp(dynamic object) {
-    final bool _isTimestamp = object?.runtimeType == Timestamp;
-    return _isTimestamp;
+    return object?.runtimeType == Timestamp;
   }
   // -----------------------------------------------------------------------------
   static bool objectIsListOfSpecs(dynamic object) {
@@ -286,20 +286,6 @@ class ObjectCheck {
     }
 
     return _objectsListIsSpecs;
-  }
-  // -----------------------------------------------------------------------------
-  static bool objectIsNull(dynamic object){
-    bool _isNull;
-
-    if (object == null){
-      _isNull = true;
-    }
-
-    else {
-      _isNull = false;
-    }
-
-    return _isNull;
   }
   // -----------------------------------------------------------------------------
 

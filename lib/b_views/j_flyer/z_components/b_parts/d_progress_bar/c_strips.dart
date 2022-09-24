@@ -142,25 +142,6 @@ class Strips extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // -----------------------------------------------------------------------------
-    /*
-    // print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips, slidingNext $swipeDirection');
-    // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-    // double _aStripThickness = flyerBoxWidth * 0.007;
-    // double _aStripOnePadding = _aStripThickness / 2;
-    // Color _stripColor = Colorz.White80;
-    // double _stripCorner = _aStripThickness * 0.5;
-    // Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
-    // double _boxWidth = boxWidth(flyerBoxWidth);
-    // double _boxHeight = boxHeight(flyerBoxWidth);
-    // EdgeInsets _boxMargins = boxMargins(margins: margins, flyerBoxWidth: flyerBoxWidth);
-    // double _allStripsOneSideMargin = stripsOneSideMargin(flyerBoxWidth);
-    // blog('flyerBoxWidth * 0.895 = $flyerBoxWidth * 0.895 = ${flyerBoxWidth * 0.895} = _stripsTotalLength = $_stripsTotalLength');
-    // blog('_aStripLength : $_aStripLength');
-   */
-    // -----------------------------------------------------------------------------
-    final double _stripsTotalLength = FlyerDim.progressStripsTotalLength(flyerBoxWidth);
-    // -----------------------------------------------------------------------------
 
     if (tinyMode == true || barIsOn == false){
       return const SizedBox();
@@ -177,7 +158,6 @@ class Strips extends StatelessWidget {
               numberOfStrips: _progModel.numberOfStrips,
             );
 
-
             final int _numberOfStrips = _getNumberOfWhiteStrips(
               currentSlideIndex: _progModel.index,
               numberOfStrips: _progModel.numberOfStrips,
@@ -189,7 +169,6 @@ class Strips extends StatelessWidget {
             }
 
             else {
-
               return ProgressBox(
                   flyerBoxWidth: flyerBoxWidth,
                   margins: margins,
@@ -274,7 +253,7 @@ class Strips extends StatelessWidget {
             stripsStack: <Widget>[
               StaticStrip(
                 flyerBoxWidth: flyerBoxWidth,
-                stripWidth: _stripsTotalLength,
+                stripWidth: FlyerDim.progressStripsTotalLength(flyerBoxWidth),
                 numberOfSlides: 1,
                 isWhite: true,
               ),

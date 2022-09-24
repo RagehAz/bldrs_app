@@ -15,9 +15,6 @@ class FlyerScreen extends StatelessWidget {
     @required this.bzModel,
     @required this.flyerZone,
     @required this.heroTag,
-    // @required this.progressBarModel,
-    // @required this.onSaveFlyer,
-    // @required this.flyerIsSaved,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,16 +23,12 @@ class FlyerScreen extends StatelessWidget {
   final ZoneModel flyerZone;
   final double minWidthFactor;
   final String heroTag;
-  // final ValueNotifier<ProgressBarModel> progressBarModel;
-  // final ValueNotifier<bool> flyerIsSaved;
-  // final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
     await Nav.goBack(
       context: context,
       invoker: 'FlyerFullScreen._onDismiss',
     );
-    // currentSlideIndex.value = 0;
   }
   // -----------------------------------------------------------------------------
   @override
@@ -47,7 +40,6 @@ class FlyerScreen extends StatelessWidget {
       isFullScreen: false,
       dragSensitivity: .4,
       maxTransformValue: 4,
-      // direction: DismissDirection.horizontal,
       reverseDuration: Ratioz.duration150ms,
       child: Material(
         color: Colors.transparent,
@@ -60,9 +52,6 @@ class FlyerScreen extends StatelessWidget {
           isFullScreen: true,
           minWidthFactor: minWidthFactor,
           heroTag: heroTag,
-          // progressBarModel: progressBarModel,
-          // flyerIsSaved: flyerIsSaved,
-          // onSaveFlyer: onSaveFlyer,
         ),
 
       ),

@@ -1,4 +1,5 @@
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_color.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +23,16 @@ class StaticStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _aStripThickness = StaticStrips.stripThickness(flyerBoxWidth);
-    // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-    // double _stripsTotalLength = Strips.stripsTotalLength(flyerBoxWidth);
+    final double _aStripThickness = FlyerDim.progressStripThickness(flyerBoxWidth);
+
     final double _aStripOnePadding = _aStripThickness / 2;
-    final double _aStripLength = StaticStrips.oneStripLength(
-        flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfSlides);
-    final double _stripCorner = StaticStrips.stripCornerValue(flyerBoxWidth);
-    final Color _stripColor = StaticStrips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
+
+    final double _aStripLength = FlyerDim.progressStripLength(
+        flyerBoxWidth: flyerBoxWidth,
+        numberOfStrips: numberOfSlides,
+    );
+
+    final double _stripCorner = FlyerDim.progressStripCornerValue(flyerBoxWidth);
     // --------------------
     return Container(
       width: stripWidth,
@@ -39,8 +42,12 @@ class StaticStrip extends StatelessWidget {
         width: _aStripLength - (2 * _aStripOnePadding),
         height: _aStripThickness,
         decoration: BoxDecoration(
-            color: _stripColor,
-            borderRadius: Borderers.superBorderAll(context, _stripCorner)),
+            color: FlyerColors.progressStripColor(
+                isWhite: isWhite,
+                numberOfSlides: numberOfSlides,
+            ),
+            borderRadius: Borderers.superBorderAll(context, _stripCorner),
+        ),
       ),
     );
     // --------------------

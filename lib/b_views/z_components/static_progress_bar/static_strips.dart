@@ -1,9 +1,7 @@
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -26,94 +24,6 @@ class StaticStrips extends StatelessWidget {
   final EdgeInsets margins;
   final SwipeDirection swipeDirection;
   /// --------------------------------------------------------------------------
-  static double boxWidth(double flyerBoxWidth) {
-    return flyerBoxWidth;
-  }
-  // --------------------
-  static double boxHeight(double flyerBoxWidth) {
-    final double _boxHeight = flyerBoxWidth * FlyerDim.xProgressBarHeightRatio;
-    return _boxHeight;
-  }
-  // --------------------
-  static EdgeInsets boxMargins({
-    EdgeInsets margins,
-    double flyerBoxWidth,
-  }) {
-    final EdgeInsets _boxMargins = margins ?? EdgeInsets.only(top: flyerBoxWidth * 0.27);
-    return _boxMargins;
-  }
-  // --------------------
-  static double stripsTotalLength(double flyerBoxWidth) {
-    final double _stripsTotalLength = flyerBoxWidth * 0.895;
-    return _stripsTotalLength;
-  }
-  // --------------------
-  static double stripThickness(double flyerBoxWidth) {
-    final double _thickness = flyerBoxWidth * 0.007;
-    return _thickness;
-  }
-  // --------------------
-  static double stripCornerValue(double flyerBoxWidth) {
-    final double _thickness = stripThickness(flyerBoxWidth);
-    final double _stripCorner = _thickness * 0.5;
-    return _stripCorner;
-  }
-  // --------------------
-  static BorderRadius stripBorders({
-    BuildContext context,
-    double flyerBoxWidth,
-  }) {
-    final double _stripCorner = stripCornerValue(flyerBoxWidth);
-    final BorderRadius _borders = Borderers.superBorderAll(context, _stripCorner);
-    return _borders;
-  }
-  // --------------------
-  static double stripsOneSideMargin(double flyerBoxWidth) {
-    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    final double _allStripsOneSideMargin = (flyerBoxWidth - _stripsTotalLength) / 2;
-    return _allStripsOneSideMargin;
-  }
-  // --------------------
-  static double oneStripLength({double flyerBoxWidth, int numberOfStrips}) {
-    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    final int _numberOfStrips = numberOfStrips ?? 0;
-    final double _oneStripLength = _stripsTotalLength / _numberOfStrips;
-    return _oneStripLength;
-  }
-  // --------------------
-  static const Color stripOffColor = Colorz.white10;
-  static const Color stripFadedColor = Colorz.white80;
-  static const Color stripOnColor = Colorz.white200;
-  static const Color stripLoadingColor = Colorz.yellow200;
-  // --------------------
-  static Color stripColor({
-    bool isWhite,
-    int numberOfSlides,
-  }) {
-    final int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-
-    final Color _stripColor = !isWhite ?
-    stripFadedColor
-        :
-    _numberOfSlides == 0 ? stripOffColor
-        :
-    stripOnColor;
-
-    return _stripColor;
-  }
-  // --------------------
-  static bool canBuildStrips(int numberOfStrips) {
-    bool _canBuild = false;
-
-    if (numberOfStrips != null) {
-      if (numberOfStrips > 0) {
-        _canBuild = true;
-      }
-    }
-
-    return _canBuild;
-  }
-  // --------------------
   int _getNumberOfWhiteStrips() {
     // -----------------------------------------o
     int _numberOfStrips;
@@ -189,143 +99,137 @@ class StaticStrips extends StatelessWidget {
     return _numberOfStrips;
   }
   // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    // --------------------
-    /*
-    // print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips, slidingNext $swipeDirection');
-    // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-    // double _aStripThickness = flyerBoxWidth * 0.007;
-    // double _aStripOnePadding = _aStripThickness / 2;
-    // Color _stripColor = Colorz.White80;
-    // double _stripCorner = _aStripThickness * 0.5;
-    // Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
-    // double _boxWidth = boxWidth(flyerBoxWidth);
-    // double _boxHeight = boxHeight(flyerBoxWidth);
-     */
-    // --------------------
-    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    // EdgeInsets _boxMargins = boxMargins(margins: margins, flyerBoxWidth: flyerBoxWidth);
-    // double _allStripsOneSideMargin = stripsOneSideMargin(flyerBoxWidth);
-    final double _aStripLength = oneStripLength(
+  Tween<double> _tween() {
+    Tween<double> _tween;
+
+    final double _aStripLength = FlyerDim.progressStripLength(
       flyerBoxWidth: flyerBoxWidth,
       numberOfStrips: numberOfStrips,
     );
-    // --------------------
-    final bool _tinyMode = FlyerDim.isTinyMode(context, flyerBoxWidth);
-    // --------------------
-    Tween<double> _tween() {
-      Tween<double> _tween;
 
-      /// NO TWEEN
-      if (swipeDirection == SwipeDirection.freeze) {
-        _tween = Tween<double>(begin: _aStripLength, end: _aStripLength);
-      }
-
-      /// GOING NEXT
-      else if (swipeDirection == SwipeDirection.next) {
-        _tween = Tween<double>(begin: 0, end: _aStripLength);
-      }
-
-      /// GOING PREVIOUS
-      else {
-        _tween = Tween<double>(begin: _aStripLength, end: 0);
-      }
-
-      return _tween;
+    /// NO TWEEN
+    if (swipeDirection == SwipeDirection.freeze) {
+      _tween = Tween<double>(begin: _aStripLength, end: _aStripLength);
     }
-    // --------------------
-    final int _numberOfStrips = _getNumberOfWhiteStrips();
-    // --------------------
-    return _tinyMode == true || barIsOn == false ? Container() :
-    numberOfStrips == 1 ?
-    ProgressBox(
-        flyerBoxWidth: flyerBoxWidth,
-        margins: margins,
-        stripsStack: <Widget>[
 
-          StaticStrip(
-            flyerBoxWidth: flyerBoxWidth,
-            stripWidth: _stripsTotalLength,
-            numberOfSlides: 1,
-            isWhite: true,
-          ),
+    /// GOING NEXT
+    else if (swipeDirection == SwipeDirection.next) {
+      _tween = Tween<double>(begin: 0, end: _aStripLength);
+    }
 
-        ]
-    )
-        :
-    ProgressBox(
-        flyerBoxWidth: flyerBoxWidth,
-        margins: margins,
-        stripsStack: <Widget>[
+    /// GOING PREVIOUS
+    else {
+      _tween = Tween<double>(begin: _aStripLength, end: 0);
+    }
 
-          /// --- BASE STRIP
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children:
-            List<Widget>.generate(numberOfStrips, (int index) {
+    return _tween;
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
 
-              return StaticStrip(
-                flyerBoxWidth: flyerBoxWidth,
-                stripWidth: _aStripLength,
-                numberOfSlides: numberOfStrips,
-                margins: margins,
-                isWhite: false,
-              );
-            }
+    if (FlyerDim.isTinyMode(context, flyerBoxWidth) == true || barIsOn == false){
+      return const SizedBox();
+    }
+
+    else if (numberOfStrips == 1){
+      return ProgressBox(
+          flyerBoxWidth: flyerBoxWidth,
+          margins: margins,
+          stripsStack: <Widget>[
+
+            StaticStrip(
+              flyerBoxWidth: flyerBoxWidth,
+              stripWidth: FlyerDim.progressStripsTotalLength(flyerBoxWidth),
+              numberOfSlides: 1,
+              isWhite: true,
             ),
-          ),
 
-          /// --- TOP STRIP
-          TweenAnimationBuilder<double>(
-            duration: Ratioz.duration150ms,
-            tween: _tween(),
-            curve: Curves.easeOut,
-            // onEnd: (){},
-            key: ValueKey<int>(slideIndex),
-            builder: (BuildContext context, double tweenVal, Widget child) {
+          ]
+      );
+    }
 
-              final double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
+    else {
+      // --------------------
+      final int _numberOfStrips = _getNumberOfWhiteStrips();
+      // --------------------
+      final double _aStripLength = FlyerDim.progressStripLength(
+        flyerBoxWidth: flyerBoxWidth,
+        numberOfStrips: numberOfStrips,
+      );
+      // --------------------
+      return ProgressBox(
+          flyerBoxWidth: flyerBoxWidth,
+          margins: margins,
+          stripsStack: <Widget>[
 
-              // blog('_numberOfStrips : $_numberOfStrips');
+            /// --- BASE STRIP
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children:
+              List<Widget>.generate(numberOfStrips, (int index) {
 
-              return
-                Row(
+                return StaticStrip(
+                  flyerBoxWidth: flyerBoxWidth,
+                  stripWidth: _aStripLength,
+                  numberOfSlides: numberOfStrips,
+                  margins: margins,
+                  isWhite: false,
+                );
+              }
+              ),
+            ),
+
+            /// --- TOP STRIP
+            TweenAnimationBuilder<double>(
+              duration: Ratioz.duration150ms,
+              tween: _tween(),
+              curve: Curves.easeOut,
+              // onEnd: (){},
+              key: ValueKey<int>(slideIndex),
+              builder: (BuildContext context, double tweenVal, Widget child) {
+
+                final double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
+
+                return Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
 
-                    ...List<Widget>.generate(_numberOfStrips,
-                            (int index) {
-                          // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
-                          return
-                            /// IF ITS LAST STRIP
-                            // index == slideIndex ?
-                            index + 1 == _numberOfStrips ?
-                            StaticStrip(
-                              flyerBoxWidth: flyerBoxWidth,
-                              stripWidth: _tweenVal,
-                              numberOfSlides: numberOfStrips,
-                              isWhite: true,
-                            )
-                                :
-                            /// IF STATIC STRIPS
-                            StaticStrip(
-                              flyerBoxWidth: flyerBoxWidth,
-                              stripWidth: _aStripLength,
-                              numberOfSlides: numberOfStrips,
-                              isWhite: true,
-                            );
-                        }
-                    ),
+                    ...List<Widget>.generate(_numberOfStrips, (int index) {
+
+                      /// IF ITS LAST STRIP
+                      if (index + 1 == _numberOfStrips){
+                        return StaticStrip(
+                          flyerBoxWidth: flyerBoxWidth,
+                          stripWidth: _tweenVal,
+                          numberOfSlides: numberOfStrips,
+                          isWhite: true,
+                        );
+                      }
+
+                      /// IF STATIC STRIPS
+                      else {
+                        return StaticStrip(
+                          flyerBoxWidth: flyerBoxWidth,
+                          stripWidth: _aStripLength,
+                          numberOfSlides: numberOfStrips,
+                          isWhite: true,
+                        );
+                      }
+
+                    }),
 
                   ],
                 );
-            },
-          ),
 
-        ]
-    );
-    // --------------------
+              },
+            ),
+
+          ]
+      );
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 }
