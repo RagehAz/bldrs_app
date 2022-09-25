@@ -8,6 +8,7 @@ class FlyerLoading extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerLoading({
     @required this.flyerBoxWidth,
+    @required this.animate,
     this.loadingColor = Colorz.white10,
     this.boxColor = Colorz.white20,
     Key key
@@ -16,6 +17,7 @@ class FlyerLoading extends StatelessWidget {
   final double flyerBoxWidth;
   final Color loadingColor;
   final Color boxColor;
+  final bool animate;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,14 +31,15 @@ class FlyerLoading extends StatelessWidget {
           boxColor: boxColor,
           stackWidgets: <Widget>[
 
-            RotatedBox(
-              quarterTurns: TextDir.appIsLeftToRight(context) ? 2 : 0,
-              child: LinearProgressIndicator(
-                color: loadingColor,
-                backgroundColor: Colorz.nothing,
-                minHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+            if (animate == true)
+              RotatedBox(
+                quarterTurns: TextDir.appIsLeftToRight(context) ? 2 : 0,
+                child: LinearProgressIndicator(
+                  color: loadingColor,
+                  backgroundColor: Colorz.nothing,
+                  minHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+                ),
               ),
-            ),
 
           ],
         ),

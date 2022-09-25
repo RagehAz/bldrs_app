@@ -104,6 +104,7 @@ class SmallFlyer extends StatelessWidget {
 
       return FlyerLoading(
         flyerBoxWidth: flyerBoxWidth,
+        animate: false,
       );
 
     }
