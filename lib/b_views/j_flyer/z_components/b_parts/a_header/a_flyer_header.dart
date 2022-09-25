@@ -238,7 +238,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
             const NeverScrollableScrollPhysics()
                 :
             const BouncingScrollPhysics(),
-            padding: EdgeInsets.zero,
+            padding: EdgeInsets.zero,/// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
             controller: widget.headerScrollController,
             child: Stack(
               alignment: Alignment.topCenter,
@@ -246,13 +246,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
                 Column(
                   key: const PageStorageKey<String>('FlyerHeader_ListView'),
-                  // shrinkWrap: true,
-                  // physics: widget.tinyMode == true || widget.headerIsExpanded.value == false ?
-                  // const NeverScrollableScrollPhysics()
-                  //     :
-                  // const BouncingScrollPhysics(),
-                  // padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
-                  // controller: widget.headerScrollController,
                   children: <Widget>[
 
                     /// MINI HEADER STRIP

@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class Flyer extends StatefulWidget {
@@ -57,9 +57,16 @@ class _FlyerState extends State<Flyer> {
 
         if (widget.flyerModel != null){
 
-          _bzModel.value = await BzProtocols.fetchBz(
+          final BzModel _bz = await BzProtocols.fetchBz(
             context: context,
             bzID: widget.flyerModel.bzID,
+          );
+
+          setNotifier(
+            notifier: _bzModel,
+            mounted: mounted,
+            value: _bz,
+            addPostFrameCallBack: false,
           );
 
         }
@@ -85,9 +92,9 @@ class _FlyerState extends State<Flyer> {
 
     if (widget.flyerModel == null){
 
-      return FlyerBox(
+      return FlyerLoading(
         flyerBoxWidth: widget.flyerBoxWidth,
-        boxColor: Colorz.white10,
+        animate: false,
       );
 
     }
@@ -100,14 +107,10 @@ class _FlyerState extends State<Flyer> {
 
           if (loading == true){
 
-            return FlyerBox(
+            return FlyerLoading(
               flyerBoxWidth: widget.flyerBoxWidth,
-              boxColor: Colorz.white10,
+              animate: false,
             );
-
-            // return FlyerLoading(
-            //   flyerBoxWidth: widget.flyerBoxWidth,
-            // );
 
           }
 
@@ -116,23 +119,35 @@ class _FlyerState extends State<Flyer> {
           }
 
         },
-        child: WidgetFader(
-          fadeType: FadeType.fadeIn,
-          duration: const Duration(milliseconds: 100),
-          child: ValueListenableBuilder(
-            valueListenable: _bzModel,
-            builder: (_, BzModel bzModel, Widget child){
+        child: Stack(
+          children: <Widget>[
 
-              return FlyerHero(
-                flyerModel: widget.flyerModel,
-                bzModel: _bzModel.value,
-                isFullScreen: false,
-                flyerBoxWidth: widget.flyerBoxWidth,
-                heroTag: '${widget.screenName}/${widget.flyerModel.id}/',
-              );
+            /// FLYER MATTRESS
+            FlyerLoading(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              animate: false,
+            ),
 
-            },
-          ) ,
+            WidgetFader(
+              fadeType: FadeType.fadeIn,
+              duration: const Duration(milliseconds: 100),
+              child: ValueListenableBuilder(
+                valueListenable: _bzModel,
+                builder: (_, BzModel bzModel, Widget child){
+
+                  return FlyerHero(
+                    flyerModel: widget.flyerModel,
+                    bzModel: _bzModel.value,
+                    isFullScreen: false,
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    heroTag: '${widget.screenName}/${widget.flyerModel.id}/',
+                  );
+
+                },
+              ) ,
+            ),
+
+          ],
         ),
       );
 

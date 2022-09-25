@@ -48,6 +48,7 @@ class SlideImagePart extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
       loadingColor: Colorz.white30,
       boxColor: Colorz.nothing,
+      animate: true,
     );
 
     bool _isLoading = true;
