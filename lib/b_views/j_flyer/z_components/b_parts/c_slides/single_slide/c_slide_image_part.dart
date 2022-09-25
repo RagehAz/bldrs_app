@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_loading.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_slide_tap_area.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
