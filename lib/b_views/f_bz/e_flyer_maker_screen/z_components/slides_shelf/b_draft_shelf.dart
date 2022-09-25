@@ -115,7 +115,8 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
               alignment: Alignment.bottomCenter,
               padding: const EdgeInsets.all(Ratioz.appBarPadding),
               child: const FlyerLoading(
-                  flyerBoxWidth: ShelfSlide.flyerBoxWidth
+                flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                animate: false,
               ),
             );
           }

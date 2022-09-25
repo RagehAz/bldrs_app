@@ -192,6 +192,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
             if (_isLoading == true){
               return FlyerLoading(
                 flyerBoxWidth: widget.width,
+                animate: true,
               );
             }
 

@@ -81,13 +81,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           image: bzModel?.logo,
           corners: logoCorners,
           zeroCornerIsOn: flyerModel.showsAuthor,
-          // onTap:
-          //superFlyer.onHeaderTap,
-          // (){
-          //   setState(() {
-          //     _statelessFadeMaxHeader();
-          //   });
-          // }
         ),
 
         /// MIDDLE SPACER

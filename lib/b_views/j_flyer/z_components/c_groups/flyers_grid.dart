@@ -1,10 +1,11 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyer_selection_stack.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyer_selection_stack.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -88,7 +89,7 @@ class FlyersGrid extends StatelessWidget {
       isLoadingGrid: isLoadingGrid,
     );
     // --------------------
-    final double _flyerGridFlyerBoxWidth = FlyerDim.flyerGridFlyerBoxWidth(
+    final double _gridSlotWidth = FlyerDim.flyerGridFlyerBoxWidth(
       context: context,
       scrollDirection: scrollDirection,
       numberOfColumnsOrRows: numberOfColumnsOrRows,
@@ -112,11 +113,11 @@ class FlyersGrid extends StatelessWidget {
           padding: FlyerDim.flyerGridPadding(
             context: context,
             topPaddingValue: topPadding,
-            gridSpacingValue: FlyerDim.flyerGridGridSpacingValue(_flyerGridFlyerBoxWidth),
+            gridSpacingValue: FlyerDim.flyerGridGridSpacingValue(_gridSlotWidth),
             isVertical: scrollDirection == Axis.vertical,
           ),
           gridDelegate: FlyerDim.flyerGridDelegate(
-            flyerBoxWidth: _flyerGridFlyerBoxWidth,
+            flyerBoxWidth: _gridSlotWidth,
             numberOfColumnsOrRows: numberOfColumnsOrRows,
             scrollDirection: scrollDirection,
           ),
@@ -133,7 +134,8 @@ class FlyersGrid extends StatelessWidget {
             if (_showLoadingGrid == true){
 
               return FlyerLoading(
-                flyerBoxWidth: _flyerGridFlyerBoxWidth,
+                flyerBoxWidth: _gridSlotWidth,
+                animate: false,
               );
 
             }
@@ -144,7 +146,7 @@ class FlyersGrid extends StatelessWidget {
               /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
               if (authorMode == true && index == 0){
                 return AddFlyerButton(
-                  flyerBoxWidth: _flyerGridFlyerBoxWidth,
+                  flyerBoxWidth: _gridSlotWidth,
                 );
               }
 
@@ -174,8 +176,10 @@ class FlyersGrid extends StatelessWidget {
                         if (Streamer.connectionIsLoading(snap) == true){
 
                           return FlyerLoading(
-                            flyerBoxWidth: _flyerGridFlyerBoxWidth,
+                            flyerBoxWidth: _gridSlotWidth,
+                            animate: false,
                           );
+
                         }
 
                         else {
@@ -195,7 +199,7 @@ class FlyersGrid extends StatelessWidget {
                           {
                             return FlyerSelectionStack(
                               flyerModel: _flyerModel,
-                              flyerBoxWidth: _flyerGridFlyerBoxWidth,
+                              flyerBoxWidth: _gridSlotWidth,
                               heroPath: heroPath,
                               onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyerModel),
                               onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyerModel),
@@ -222,7 +226,7 @@ class FlyersGrid extends StatelessWidget {
 
                   return FlyerSelectionStack(
                     flyerModel: _flyer,
-                    flyerBoxWidth: _flyerGridFlyerBoxWidth,
+                    flyerBoxWidth: _gridSlotWidth,
                     heroPath: heroPath,
                     onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
                     onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),

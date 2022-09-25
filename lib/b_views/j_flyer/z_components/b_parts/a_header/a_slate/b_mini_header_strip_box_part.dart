@@ -31,16 +31,16 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
       height: (minHeaderHeight * logoSizeRatioTween.value) + (headerLeftSpacerTween.value),
       alignment: Alignment.center,
       padding: EdgeInsets.only(top: headerLeftSpacerTween.value),
-      decoration: BoxDecoration(
-        color: tinyMode == true ? Colorz.white50 : Colorz.black80,
-        borderRadius: Borderers.superBorderOnly(
-          context: context,
-          enTopRight: headerBorders.topRight.x,
-          enTopLeft: headerBorders.topRight.x,
-          enBottomRight: 0,
-          enBottomLeft: 0,
-        ),
-      ),
+      // decoration: BoxDecoration(
+        // color: tinyMode == true ? Colorz.white50 : Colorz.black80,
+        // borderRadius: Borderers.superBorderOnly(
+        //   context: context,
+        //   enTopRight: headerBorders.topRight.x,
+        //   enTopLeft: headerBorders.topRight.x,
+        //   enBottomRight: 0,
+        //   enBottomLeft: 0,
+        // ),
+      // ),
       child: SingleChildScrollView(
         key: const PageStorageKey<String>('miniHeaderStrip'),
         // shrinkWrap: true,
