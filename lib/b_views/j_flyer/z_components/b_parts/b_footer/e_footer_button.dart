@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_color.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_verse.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
