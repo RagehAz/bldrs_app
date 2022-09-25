@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -8,9 +8,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
-class FlyerScreen extends StatelessWidget {
+class FlyerBigView extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerScreen({
+  const FlyerBigView({
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.bzModel,

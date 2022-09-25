@@ -52,7 +52,7 @@ class FlyerDim {
   // ---------
   /// TAMAM : WORKS PERFECT
   static double flyerWidthByFlyerHeight(BuildContext context, double flyerBoxHeight){
-    return flyerWidthByFactor(context, flyerFactorByFlyerHeight(context, flyerBoxHeight));
+    return flyerBoxHeight / _xFlyerBoxHeight;
   }
   // ---------
   /// TAMAM : WORKS PERFECT

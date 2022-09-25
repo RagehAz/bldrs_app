@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
