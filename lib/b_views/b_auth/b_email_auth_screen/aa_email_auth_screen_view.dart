@@ -2,10 +2,10 @@ import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -26,6 +26,8 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.onSignup,
     @required this.isSigningIn,
     @required this.appBarType,
+    @required this.passwordNode,
+    @required this.confirmPasswordNode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,6 +43,8 @@ class EmailAuthScreenView extends StatelessWidget {
   final Function onSignup;
   final ValueNotifier<bool> isSigningIn;
   final AppBarType appBarType;
+  final FocusNode passwordNode;
+  final FocusNode confirmPasswordNode;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
     @required bool signingIn,
@@ -71,7 +75,6 @@ class EmailAuthScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
     const double _buttonHeight = 50;
     const double _verseScaleFactor = 0.7;
     // --------------------
@@ -114,6 +117,8 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// PASSWORD - CONFIRMATION
               PasswordBubbles(
+                confirmPasswordNode: confirmPasswordNode,
+                passwordNode: passwordNode,
                 appBarType: appBarType,
                 passwordController: passwordController,
                 showPasswordOnly: _isSigningIn,
@@ -214,11 +219,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 ],
               ),
 
-              if (_keyboardIsOn == true)
-                const SizedBox(
-                  width: 20,
-                  height: 300,
-                ),
+              const Horizon(),
 
             ],
           );

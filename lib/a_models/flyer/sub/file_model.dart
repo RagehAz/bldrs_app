@@ -174,7 +174,7 @@ class FileModel {
 
     dynamic _pic;
 
-    if (newFile is FileModel){
+    if (newFile != null && newFile is FileModel){
       final FileModel _fileModel = newFile;
       _pic = _fileModel.file ?? _fileModel.url;
     }

@@ -45,13 +45,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // --------------------
   bool _canValidate = false;
   void _switchOnValidation(){
-    if (_canValidate != true){
-      setState(() {
-        _canValidate = true;
-      });
+    if (mounted == true){
+      if (_canValidate != true){
+        setState(() {
+          _canValidate = true;
+        });
+      }
     }
-  }
-  // --------------------
+  }  // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<AuthorModel> _tempAuthor = ValueNotifier(null);
@@ -336,9 +337,12 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     validator: (String text) => Formers.contactsPhoneValidator(
-                        contacts: authorModel.contacts,
-                        zoneModel: widget.bzModel.zone,
-                        canValidate: _canValidate
+                      contacts: authorModel.contacts,
+                      zoneModel: widget.bzModel.zone,
+                      canValidate: _canValidate,
+                      context: context,
+                      isRequired: true,
+
                     ),
                   ),
 

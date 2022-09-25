@@ -353,10 +353,11 @@ String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
   /// THE PHID VERSES
   else {
 
-    final String _translation = _phraseProvider.getTranslatedPhraseByID(id);
+     String _translation = _phraseProvider.getTranslatedPhraseByID(id);
 
     if (_translation == null){
       _phraseProvider.addToPhidsPendingTranslation(id);
+      _translation = '^^$phid';
     }
 
     return _translation;

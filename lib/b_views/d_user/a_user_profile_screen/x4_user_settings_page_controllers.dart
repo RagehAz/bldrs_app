@@ -48,6 +48,8 @@ Future<void> onEditProfileTap(BuildContext context) async {
       screen: EditProfileScreen(
         userModel: _myUserModel,
         reAuthBeforeConfirm: true,
+        validateOnStartup: true,
+        // checkLastSession: true,
         canGoBack: true,
         onFinish: () async {
           await Nav.goBack(

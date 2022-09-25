@@ -13,7 +13,6 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -86,11 +85,9 @@ class AddImagePicBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     // --------------------
     return Bubble(
-        width: _screenWidth,
         bubbleColor: Formers.validatorBubbleColor(
           validator: validator == null ? null : () => validator(),
         ),
