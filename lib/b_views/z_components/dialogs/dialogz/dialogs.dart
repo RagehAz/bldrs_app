@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
@@ -845,7 +845,7 @@ class Dialogs {
           gridHeight: _gridHeight,
           topPadding: 0,
           numberOfColumnsOrRows: 1,
-          heroTag: 'flyersDialogGrid',
+          heroPath: 'flyersDialogGrid',
         ),
       ),
 
@@ -880,10 +880,10 @@ class Dialogs {
       child: SizedBox(
         height: _flyerBoxHeight,
         child: AbsorbPointer(
-          child: FlyerStarter(
+          child: Flyer(
             flyerModel: flyer,
-            minWidthFactor: FlyerDim.flyerFactorByFlyerHeight(context, _flyerBoxHeight),
-            heroTag: 'flyerDialogGrid',
+            flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(context, _flyerBoxHeight),
+            screenName: 'flyerDialogGrid',
           ),
         ),
       ),

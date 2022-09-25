@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -44,13 +45,11 @@ class FlyerScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colorz.skyDarkBlue,
-        body: FlyerStarter(
+        body: Flyer(
           key: PageStorageKey<String>(_flyerID),
-          minWidthFactor: 1,
-          isFullScreen: true,
+          flyerBoxWidth: Scale.superScreenWidth(context),
           flyerModel: flyerModel,
-          startFromIndex: initialSlideIndex ?? 0,
-          heroTag: 'FlyerScreen',
+          screenName: 'FlyerScreen',
           // isSponsored: isSponsored,
         ),
       ),

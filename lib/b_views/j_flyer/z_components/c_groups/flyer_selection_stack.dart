@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
@@ -20,7 +20,7 @@ class FlyerSelectionStack extends StatelessWidget {
     @required this.onSelectFlyer,
     @required this.onFlyerOptionsTap,
     @required this.flyerBoxWidth,
-    @required this.heroTag,
+    @required this.heroPath,
     @required this.isSelected,
     Key key
   }) : super(key: key);
@@ -29,7 +29,7 @@ class FlyerSelectionStack extends StatelessWidget {
   final Function onFlyerOptionsTap;
   final FlyerModel flyerModel;
   final double flyerBoxWidth;
-  final String heroTag;
+  final String heroPath;
   final bool isSelected;
   /// --------------------------------------------------------------------------
   @override
@@ -54,11 +54,11 @@ class FlyerSelectionStack extends StatelessWidget {
 
           AbsorbPointer(
             absorbing: _isSelectionMode,
-            child: FlyerStarter(
+            child: Flyer(
               key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
               flyerModel: flyerModel,
-              minWidthFactor: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
-              heroTag: heroTag,
+              flyerBoxWidth: flyerBoxWidth,
+              screenName: heroPath,
             ),
           ),
 

@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class FlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGrid({
-    @required this.heroTag,
+    @required this.heroPath,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -40,7 +40,7 @@ class FlyersGrid extends StatelessWidget {
   /// depends on scroll dirction (vertical => numberOfColumns, horizontal => numberOfRows)
   final int numberOfColumnsOrRows;
   /// when grid is inside a flyer
-  final String heroTag;
+  final String heroPath;
   final bool authorMode;
   final ValueChanged<FlyerModel> onFlyerOptionsTap;
   final List<FlyerModel> selectedFlyers;
@@ -196,7 +196,7 @@ class FlyersGrid extends StatelessWidget {
                             return FlyerSelectionStack(
                               flyerModel: _flyerModel,
                               flyerBoxWidth: _flyerGridFlyerBoxWidth,
-                              heroTag: heroTag,
+                              heroPath: heroPath,
                               onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyerModel),
                               onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyerModel),
                               isSelected: _isSelected,
@@ -223,7 +223,7 @@ class FlyersGrid extends StatelessWidget {
                   return FlyerSelectionStack(
                     flyerModel: _flyer,
                     flyerBoxWidth: _flyerGridFlyerBoxWidth,
-                    heroTag: heroTag,
+                    heroPath: heroPath,
                     onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
                     onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
                     isSelected: _isSelected,

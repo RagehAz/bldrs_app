@@ -1,12 +1,6 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_header_template.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +28,7 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
+      // blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------
@@ -55,10 +49,6 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
         _flyerModel = await FlyerProtocols.fetchFlyer(
           context: context,
           flyerID: flyerID,
-        );
-        _bzModel = await BzProtocols.fetchBz(
-          context: context,
-          bzID: _flyerModel.bzID,
         );
 
 
@@ -81,7 +71,6 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
   }
   // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
-  BzModel _bzModel;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -91,28 +80,11 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
       listWidgets: <Widget>[
 
         if (_flyerModel != null)
-          FlyerHero(
+          Flyer(
             key: const ValueKey<String>('FlyerHero'),
-            heroTag: createHeroTag(
-              heroTag: 'test',
-              flyerID: _flyerModel.id,
-            ),
-            flyerZone: _flyerModel.zone,
-            // flyerIsSaved: ValueNotifier(false),
-            isFullScreen: false,
-            minWidthFactor: 0.4,
-            // onSaveFlyer: null,
-            // progressBarModel: null,
+            flyerBoxWidth: 250,
+            screenName: 'FlyerTestScreen',
             flyerModel: _flyerModel,
-            bzModel: _bzModel,
-            // heroTag: 'TestNewFlyer${_flyerModel.id}',
-            // onFlyerTap: (){
-            //   blog('kokoko');
-            // },
-            // onMoreTap: (){
-            //   blog('kddddddokoko');
-            // },
-
         ),
 
         const SizedBox(
@@ -120,27 +92,27 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
           width: 20,
         ),
 
-        if (_flyerModel != null)
-          Stack(
-            children: <Widget>[
-
-              // StaticHeader(
-              //     flyerBoxWidth: Scale.superScreenWidth(context),
-              //     bzModel: _bzModel,
-              //     authorID: _flyerModel.id,
-              //     flyerShowsAuthor: true
-              // ),
-
-              Opacity(
-                opacity: 0.5,
-                child: HeaderTemplate(
-                  flyerBoxWidth: Scale.superScreenWidth(context),
-
-                ),
-              ),
-
-            ],
-          ),
+        // if (_flyerModel != null)
+        //   Stack(
+        //     children: <Widget>[
+        //
+        //       // StaticHeader(
+        //       //     flyerBoxWidth: Scale.superScreenWidth(context),
+        //       //     bzModel: _bzModel,
+        //       //     authorID: _flyerModel.id,
+        //       //     flyerShowsAuthor: true
+        //       // ),
+        //
+        //       Opacity(
+        //         opacity: 0.5,
+        //         child: HeaderTemplate(
+        //           flyerBoxWidth: Scale.superScreenWidth(context),
+        //
+        //         ),
+        //       ),
+        //
+        //     ],
+        //   ),
 
 
 
