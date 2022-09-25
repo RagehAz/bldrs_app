@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -105,10 +105,10 @@ class FlyerInNoteCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: AbsorbPointer(
           absorbing: _absorbFlyerTap(),
-          child: FlyerStarter(
-            heroTag: noteID,
-            minWidthFactor: FlyerDim.flyerFactorByFlyerHeight(context, 200),
+          child: Flyer(
+            flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(context, 200),
             flyerModel: flyerModel,
+            screenName: noteID,
           ),
         ),
       ),

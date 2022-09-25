@@ -95,7 +95,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           // numberOfColumns: 2,
           flyers: _wallFlyers,
           scrollController: _scrollController,
-          heroTag: 'userHomeScreen',
+          heroPath: 'userHomeScreen',
         ),
       );
     }

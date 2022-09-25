@@ -55,7 +55,7 @@ class _PickerScreenState extends State<PickerScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
+
     }
   }
    */

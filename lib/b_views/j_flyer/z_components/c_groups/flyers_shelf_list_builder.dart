@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -81,6 +81,8 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
     if (Mapper.checkCanLoopList(widget.flyers) == true){
 
+      final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(context, widget.flyerSizeFactor);
+
       return ListView.separated(
         physics: const BouncingScrollPhysics(),
         itemCount: widget.flyers.length,
@@ -89,7 +91,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         padding: Scale.superPadding(
           context: context,
           enLeft: Ratioz.appBarMargin,
-          enRight: FlyerDim.flyerWidthByFactor(context, widget.flyerSizeFactor),
+          enRight: _flyerBoxWidth,
         ),
 
         separatorBuilder: (BuildContext context, int _y) => const SizedBox(
@@ -102,10 +104,10 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
             onTap: widget.flyerOnTap == null ? null : () => widget.flyerOnTap(widget.flyers[_x]),
             child: AbsorbPointer(
                 absorbing: _absorbingFlyerTap(),
-                child: FlyerStarter(
-                  minWidthFactor: widget.flyerSizeFactor,
+                child: Flyer(
+                  flyerBoxWidth: _flyerBoxWidth,
                   flyerModel: widget.flyers[_x],
-                  heroTag: '${widget.flyers[_x].id}$_x',
+                  screenName: 'FlyersShelfListBuilder',
                 ),
 
               ),
