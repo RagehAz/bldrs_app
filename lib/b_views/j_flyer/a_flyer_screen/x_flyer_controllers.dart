@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_small_flyer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -15,6 +15,7 @@ import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -104,13 +105,13 @@ ZoneModel getZoneModel({
 int getNumberOfSlides({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
-  @required String heroTag,
+  @required String heroPath,
 }){
   int _numberOfSlides;
 
   final bool _canShowGallery = canShowGalleryPage(
     bzModel: bzModel,
-    heroTag: heroTag,
+    heroPath: heroPath,
   );
 
   if (_canShowGallery == true){
@@ -132,24 +133,24 @@ int getPossibleStartingIndex({
   @required int startFromIndex,
 }){
 
-  int _output = 0;
+  const int _output = 0;
 
-  final int _numberOfSlides = getNumberOfSlides(
-    flyerModel: flyerModel,
-    bzModel: bzModel,
-    heroTag: heroTag,
-  );
-
-
-  final int _lastIndex = _numberOfSlides - 1;
-
-  if (startFromIndex > _lastIndex){
-    _output = 0;
-  }
-
-  else {
-    _output = startFromIndex;
-  }
+  // final int _numberOfSlides = getNumberOfSlides(
+  //   flyerModel: flyerModel,
+  //   bzModel: bzModel,
+  //   heroTag: heroTag,
+  // );
+  //
+  //
+  // final int _lastIndex = _numberOfSlides - 1;
+  //
+  // if (startFromIndex > _lastIndex){
+  //   _output = 0;
+  // }
+  //
+  // else {
+  //   _output = startFromIndex;
+  // }
 
 
   blog('getPossibleStartingIndex : $_output');
@@ -160,36 +161,52 @@ int getPossibleStartingIndex({
 /// HERO
 
 // --------------------
-String createHeroTag({
-  @required String heroTag,
-  @required String flyerID
+///
+String createFlyerHeroTag({
+  @required String flyerID,
+  @required String heroPath,
 }){
-  String _heroTag;
+  // ------
+  assert(flyerID != null, 'createFlyerHeroTag : flyerID can not be null');
+  assert(heroPath != null, 'createFlyerHeroTag : heroPath can not be null');
+  // ------
+  /// NOTES
+  /// - flyer either is at screen level or inside flyer's gallery slide
+  /// heroTag = 'screenName/firstFlyerID/galleryFlyerID';
+  // ------
 
-  if (heroTag == null){
-    _heroTag = '${flyerID}_';
+  final List<String> _nodes = ChainPathConverter.splitPathNodes(heroPath);
+
+  if (_nodes.length == 1){
+    return '$heroPath$flyerID/';
   }
 
+  else if (_nodes.length == 2){
+    return '$heroPath$flyerID/';
+  }
+  else if (_nodes.length == 3){
+    return null;
+  }
   else {
-    _heroTag = '$heroTag${flyerID}_';
+    return null;
   }
 
-  return _heroTag;
+
 }
-// --------------------
-List<String> splitHeroTagIntoFlyersIDs({
-  @required String heroTag,
-}){
-  final List<String> _flyersIDs = heroTag?.split('_');
 
-  List<String> _output = <String>[];
+bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
+  bool _has = false;
 
-  if (Mapper.checkCanLoopList(_flyersIDs)){
-    _output = [..._flyersIDs];
+  if (TextCheck.isEmpty(heroTag) == false){
+
+    final List<String> _nodes = ChainPathConverter.splitPathNodes(heroTag);
+    _has = _nodes.length == 3;
+
   }
 
-  return _output;
+  return _has;
 }
+
 // --------------------
 Widget flyerFlightShuttle({
   @required BuildContext flightContext,
@@ -199,10 +216,8 @@ Widget flyerFlightShuttle({
   @required BuildContext toHeroContext,
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
-  @required double minWidthFactor,
-  // @required ValueNotifier<ProgressBarModel> progressBarModel,
-  // @required Function onSaveFlyer,
-  // @required ValueNotifier<bool> flyerIsSaved,
+  @required double flyerBoxWidth,
+  @required String heroTag,
 }) {
 
   /*
@@ -240,13 +255,13 @@ Widget flyerFlightShuttle({
       curve: _curve,
       builder: (ctx, double value, Widget child){
 
-        final double _flyerWidthFactor = flyerWidthSizeFactor(
-          tween: value,
-          minWidthFactor: minWidthFactor,
-          // maxWidthFactor: 1, REDUNDANT
-        );
+        // final double _flyerWidthFactor = flyerWidthSizeFactor(
+        //   tween: value,
+        //   minWidthFactor: minWidthFactor,
+        //   // maxWidthFactor: 1, REDUNDANT
+        // );
 
-        final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(flightContext, _flyerWidthFactor);
+        // final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(flightContext, _flyerWidthFactor);
 
         final FlightDirection _flightDirection = getFlightDirection(flightDirection.name);
 
@@ -255,10 +270,10 @@ Widget flyerFlightShuttle({
           body: SmallFlyer(
             flyerModel: flyerModel,
             bzModel: bzModel,
-            flyerBoxWidth: _flyerBoxWidth,
+            flyerBoxWidth: flyerBoxWidth,
             flightTweenValue: value,
             flightDirection: _flightDirection,
-            // heroTag: 'heroTagInFlight',
+            heroTag: heroTag,
           ),
         );
 
@@ -266,6 +281,7 @@ Widget flyerFlightShuttle({
   );
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 FlightDirection getFlightDirection(String direction){
 
   switch(direction){
@@ -275,17 +291,15 @@ FlightDirection getFlightDirection(String direction){
   }
 
 }
-
-
 // -----------------------------------------------------------------------------
 
 /// GALLERY
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 bool canShowGalleryPage({
   @required BzModel bzModel,
-  @required String heroTag,
+  @required String heroPath,
 }){
   bool _canShowGallery = false;
   assert(bzModel != null, 'canShowGalleryPage : BzModel can not be null');
@@ -294,28 +308,13 @@ bool canShowGalleryPage({
 
     if (Mapper.checkCanLoopList(bzModel.flyersIDs)){
 
-      /// only CAN SHOW : WHEN BZ FLYERS ARE MORE THAN THE SHOWN FLYER
       final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
 
-      /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
-      final List<String> _heroFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
-      final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.isNotEmpty;
+      final bool isGalleryFlyer = checkFlyerHeroTagHasGalleryFlyerID(heroPath);
 
-      /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
-      final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 2;
+      if (_bzHasMoreThanOneFlyer == true && isGalleryFlyer == false){
 
-      /// so :-
-      if (_bzHasMoreThanOneFlyer == true){
-
-        if (_heroTagHasMoreThanOneFlyerID == true){
-
-          if (_heroTagHasLessThanThreeFlyersIDs == true){
-
-            _canShowGallery = true;
-
-          }
-
-        }
+        _canShowGallery = true;
 
       }
 
@@ -328,7 +327,7 @@ bool canShowGalleryPage({
 // --------------------
 /// GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
 List<String> getNextFlyersIDs({
-  @required List<String> allFlyersIDs,
+  @required List<String> allFlyersIDsWithoutParentFlyerID,
   @required List<String> loadedFlyersIDs,
   @required String heroTag,
   @required FlyerModel flyerModel,
@@ -342,24 +341,24 @@ List<String> getNextFlyersIDs({
   ///   A - if next flyers IDs reach max count [numberOfFlyers] => break
   ///   B - if not : insert that id
 
-  for (int i = 0; i < allFlyersIDs.length; i++){
+  for (int i = 0; i < allFlyersIDsWithoutParentFlyerID.length; i++){
 
     /// A - WHILE TARGET [numberOfFlyers] NOT YET REACHED
     if (_nextFlyersIDs.length <= numberOfFlyers){
 
-      final String _flyerID = allFlyersIDs[i];
+      final String _flyerID = allFlyersIDsWithoutParentFlyerID[i];
 
       final bool _alreadyLoaded = Stringer.checkStringsContainString(
         strings: loadedFlyersIDs,
         string: _flyerID,
       );
 
-      final List<String> _parentFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
+      // final List<String> _parentFlyersIDs = splitHeroTagIntoFlyersIDs(heroPath: heroTag);
 
-      final bool _alreadyAParentFlyer = Stringer.checkStringsContainString(
-          strings: _parentFlyersIDs,
-          string: _flyerID
-      );
+      // final bool _alreadyAParentFlyer = Stringer.checkStringsContainString(
+      //     strings: _parentFlyersIDs,
+      //     string: _flyerID
+      // );
 
       final bool _flyerIsAlreadyActive = _flyerID == flyerModel.id;
 
@@ -368,8 +367,8 @@ List<String> getNextFlyersIDs({
       _alreadyLoaded == false
           &&
           _flyerIsAlreadyActive == false
-          &&
-          _alreadyAParentFlyer == false
+          // &&
+          // _alreadyAParentFlyer == false
       ){
         /// do nothing and go next
         _nextFlyersIDs.add(_flyerID);
@@ -405,7 +404,10 @@ Future<List<FlyerModel>> fetchMoreFlyers({
   final List<String> _nextFlyersIDs = getNextFlyersIDs(
     flyerModel: flyerModel,
     heroTag: heroTag,
-    allFlyersIDs: bzModel.flyersIDs,
+    allFlyersIDsWithoutParentFlyerID: Stringer.removeStringsFromStrings(
+        removeFrom: bzModel.flyersIDs,
+        removeThis: [flyerModel.id],
+    ),
     loadedFlyersIDs: _loadedFlyersIDs,
     // numberOfFlyers: 4
   );

@@ -23,7 +23,7 @@ class SmallFlyer extends StatelessWidget {
     @required this.bzModel,
     @required this.flyerModel,
     @required this.flyerBoxWidth,
-    this.heroTag,
+    @required this.heroTag,
     this.onFlyerTap,
     this.onMoreTap,
     this.flightTweenValue = 0,
@@ -55,33 +55,48 @@ class SmallFlyer extends StatelessWidget {
 
     return _opacity;
   }
-  // -----------------------------------------------------------------------------
-  Future<void> _openFullScreenFlyer(BuildContext context) async {
+  // --------------------
+  Future<void> _openFullScreenFlyer({
+    @required BuildContext context,
+    @required bool flyerIsBigNow,
+  }) async {
 
-    flyerModel.blogFlyer(methodName: '_openFullScreenFlyer');
+    if (flyerIsBigNow == false){
 
-    unawaited(recordFlyerView(
-      context: context,
-      index: 0,
-      flyerModel: flyerModel,
-    ));
+      // flyerModel.blogFlyer(methodName: '_openFullScreenFlyer');
 
-    await context.pushTransparentRoute(
-        FlyerScreen(
-          key: const ValueKey<String>('Flyer_Full_Screen'),
-          flyerModel: flyerModel,
-          bzModel: bzModel,
-          minWidthFactor: 1,
-          flyerZone: flyerModel.zone,
-          heroTag: heroTag,
-          // progressBarModel: null,
-          // flyerIsSaved: ValueNotifier<bool>(false),
-          // onSaveFlyer: null,
-        )
-    );
+      unawaited(recordFlyerView(
+        context: context,
+        index: 0,
+        flyerModel: flyerModel,
+      ));
+
+      await context.pushTransparentRoute(
+          FlyerScreen(
+            key: const ValueKey<String>('Flyer_Full_Screen'),
+            flyerModel: flyerModel,
+            bzModel: bzModel,
+            flyerBoxWidth: flyerBoxWidth,
+            heroTag: heroTag,
+          )
+      );
+
+    }
 
   }
   // --------------------
+  FadeType _getFadeType({
+    @required bool flyerIsBigNow,
+  }){
+    return flyerIsBigNow == true ? FadeType.fadeOut : FadeType.stillAtMax;
+  }
+  // --------------------
+  Duration _getFadeDuration({
+    @required bool flyerIsBigNow,
+  }){
+    return flyerIsBigNow == true ? const Duration(milliseconds: 200) : const Duration(milliseconds: 500);
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -101,51 +116,58 @@ class SmallFlyer extends StatelessWidget {
           && flightDirection == FlightDirection.non
           && _tweenValue == 1;
 
+      final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
+      final Duration _duration = _getFadeDuration(flyerIsBigNow: _flyerIsBigNow);
+
       return FlyerBox(
         key: const ValueKey<String>('StaticFlyer'),
         flyerBoxWidth: flyerBoxWidth,
-        onTap: () => _openFullScreenFlyer(context),
+        onTap: () => _openFullScreenFlyer(
+          context: context,
+          flyerIsBigNow: _flyerIsBigNow,
+        ),
         stackWidgets: <Widget>[
 
-          SingleSlide(
-            flyerBoxWidth: flyerBoxWidth,
-            flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
-            slideModel: flyerModel.slides[0],
-            tinyMode: false,
-            onSlideNextTap: null,
-            onSlideBackTap: null,
-            onDoubleTap: null,
+          /// STATIC SINGLE SLIDE
+          WidgetFader(
+            fadeType: _fadeType,
+            duration: _duration,
+              child: SingleSlide(
+                flyerBoxWidth: flyerBoxWidth,
+                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+                slideModel: flyerModel.slides[0],
+                tinyMode: false,
+                onSlideNextTap: null,
+                onSlideBackTap: null,
+                onDoubleTap: null,
+              ),
+            ),
+
+          /// STATIC HEADER
+          WidgetFader(
+            fadeType: _fadeType,
+            duration: _duration,
+            child: StaticHeader(
+              flyerBoxWidth: flyerBoxWidth,
+              bzModel: bzModel,
+              authorID: flyerModel?.authorID,
+              flyerShowsAuthor: flyerModel?.showsAuthor,
+              flightTweenValue: _tweenValue,
+              flightDirection: flightDirection,
+              // onTap: ,
+            ),
           ),
 
-          // WidgetFader(
-          //   fadeType: _flyerIsBigNow == true ? FadeType.fadeOut : FadeType.stillAtMax,
-          //   duration: const Duration(milliseconds: 200),
-          //     child: SingleSlide(
-          //       flyerBoxWidth: flyerBoxWidth,
-          //       flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
-          //       slideModel: flyerModel.slides[0],
-          //       tinyMode: false,
-          //       onSlideNextTap: null,
-          //       onSlideBackTap: null,
-          //       onDoubleTap: null,
-          //     ),
-          //   ),
-
-          StaticHeader(
-            flyerBoxWidth: flyerBoxWidth,
-            bzModel: bzModel,
-            authorID: flyerModel?.authorID,
-            flyerShowsAuthor: flyerModel?.showsAuthor,
-            flightTweenValue: _tweenValue,
-            flightDirection: flightDirection,
-            // onTap: ,
-          ),
-
-          StaticFooter(
-            flyerBoxWidth: flyerBoxWidth,
-            isSaved: true,
-            onMoreTap: onMoreTap,
-            flightTweenValue: _tweenValue,
+          /// STATIC FOOTER
+          WidgetFader(
+            fadeType: _fadeType,
+            duration: _duration,
+            child: StaticFooter(
+              flyerBoxWidth: flyerBoxWidth,
+              isSaved: true,
+              onMoreTap: onMoreTap,
+              flightTweenValue: _tweenValue,
+            ),
           ),
 
           if (_flyerIsBigNow == true)
@@ -153,7 +175,7 @@ class SmallFlyer extends StatelessWidget {
               fadeType: FadeType.fadeIn,
               duration: const Duration(milliseconds: 100),
               child: BigFlyer(
-                heroTag: heroTag,
+                heroPath: heroTag,
                 flyerBoxWidth: flyerBoxWidth,
                 flyerModel: flyerModel,
                 bzModel: bzModel,
