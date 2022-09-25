@@ -47,7 +47,8 @@ class ShelfSlidesPart extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           padding: const EdgeInsets.all(Ratioz.appBarPadding),
           child: const FlyerLoading(
-              flyerBoxWidth: ShelfSlide.flyerBoxWidth
+              flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+            animate: false,
           ),
         ),
         builder: (_, bool isLoading, Widget loadingWidget){

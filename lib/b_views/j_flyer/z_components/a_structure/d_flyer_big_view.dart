@@ -33,8 +33,6 @@ class FlyerBigView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    blog('FlyerScreen : heroTag : $heroTag');
-
     return DismissiblePage(
       key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
       onDismissed: () => _onDismiss(context),
