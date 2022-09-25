@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
 class PasswordBubbles extends StatelessWidget {
@@ -12,6 +13,8 @@ class PasswordBubbles extends StatelessWidget {
     @required this.onSubmitted,
     @required this.passwordConfirmationController,
     @required this.passwordConfirmationValidator,
+    @required this.passwordNode,
+    @required this.confirmPasswordNode,
     this.boxWidth,
     this.isTheSuperKeyboardField = false,
     Key key
@@ -26,6 +29,8 @@ class PasswordBubbles extends StatelessWidget {
   final String Function(String) passwordConfirmationValidator;
   final bool isTheSuperKeyboardField;
   final AppBarType appBarType;
+  final FocusNode passwordNode;
+  final FocusNode confirmPasswordNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -36,6 +41,7 @@ class PasswordBubbles extends StatelessWidget {
 
         /// PASSWORD
         TextFieldBubble(
+          focusNode: passwordNode,
           appBarType: appBarType,
           bubbleWidth: boxWidth,
           isFormField: true,
@@ -51,13 +57,24 @@ class PasswordBubbles extends StatelessWidget {
             Verse(text: 'phid_min6Char', translate: true,),
           ],
           canObscure: true,
-          onSubmitted: onSubmitted,
+          onSubmitted: (String text){
+
+            if (onSubmitted != null){
+              onSubmitted(text);
+            }
+
+            if (showPasswordOnly == false){
+              Formers.focusOnNode(confirmPasswordNode);
+            }
+
+          },
           isFloatingField: isTheSuperKeyboardField,
         ),
 
         /// CONFIRM PASSWORD
         if (showPasswordOnly == false)
           TextFieldBubble(
+            focusNode: confirmPasswordNode,
             appBarType: appBarType,
             isFormField: true,
             key: const ValueKey<String>('confirm'),

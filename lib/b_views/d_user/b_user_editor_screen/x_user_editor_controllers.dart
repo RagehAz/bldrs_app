@@ -395,6 +395,7 @@ Future<void> confirmEdits({
         final AuthModel _originalAuthModel = await AuthLDBOps.readAuthModel();
         final AuthModel _authModel = _originalAuthModel.copyWith(
           userModel: _uploadedUserModel,
+          firstTimer: false,
         );
 
         await setUserAndAuthModelsAndCompleteUserZoneLocally(

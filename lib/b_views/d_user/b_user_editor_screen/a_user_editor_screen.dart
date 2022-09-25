@@ -28,8 +28,8 @@ class EditProfileScreen extends StatefulWidget {
     @required this.onFinish,
     @required this.canGoBack,
     @required this.reAuthBeforeConfirm,
+    @required this.validateOnStartup,
     this.checkLastSession = true,
-    this.validateOnStartup = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -51,10 +51,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // --------------------
   bool _canValidate = false;
   void _switchOnValidation(){
-    if (_canValidate != true){
-      setState(() {
-        _canValidate = true;
-      });
+    if (mounted == true){
+      if (_canValidate != true){
+        setState(() {
+          _canValidate = true;
+        });
+      }
     }
   }
   // --------------------
@@ -127,7 +129,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         // -----------------------------
         if (mounted == true){
           _tempUser.addListener((){
-            _switchOnValidation();
+            // _switchOnValidation();
             saveUserEditorSession(
               context: context,
               mounted: mounted,
@@ -380,6 +382,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     contacts: userModel.contacts,
                     zoneModel: userModel?.zone,
                     canValidate: _canValidate,
+                    context: context,
+                    isRequired: false,
                   ),
                 ),
 

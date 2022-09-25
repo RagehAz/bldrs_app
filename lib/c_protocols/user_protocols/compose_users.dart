@@ -26,6 +26,7 @@ class ComposeUserProtocols {
       authSucceeds: authSucceeds,
       authError: authError,
       userCredential: userCredential,
+      firstTimer: true,
     );
     // -----------------------------
     /// CREATE USER MODEL IS AUTH SUCCEEDS
