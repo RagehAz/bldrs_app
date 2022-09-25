@@ -35,13 +35,14 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   // --------------------
   bool _canValidate = false;
   void _switchOnValidation(){
-    if (_canValidate != true){
-      setState(() {
-        _canValidate = true;
-      });
+    if (mounted == true){
+      if (_canValidate != true){
+        setState(() {
+          _canValidate = true;
+        });
+      }
     }
-  }
-  // --------------------
+  }  // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<DraftFlyerModel> _draftFlyer = ValueNotifier(null);

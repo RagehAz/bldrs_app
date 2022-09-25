@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -11,6 +12,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -195,7 +197,25 @@ Future<void> _controlAuthResult({
     await AuthLDBOps.updateAuthModel(authModel);
     await UserLDBOps.updateUserModel(authModel.userModel);
 
-    await _goToLogoScreen(context);
+    if (authModel.firstTimer == true){
+
+      final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(authModel?.userModel);
+
+      if (_thereAreMissingFields == true){
+        await _goToUserEditorForFirstTime(
+          context: context,
+          authModel: authModel,
+        );
+      }
+      else {
+        await _goToLogoScreen(context);
+      }
+
+    }
+    else {
+      await _goToLogoScreen(context);
+    }
+
 
   }
 
@@ -315,6 +335,29 @@ Future<void> _goToLogoScreen(BuildContext context) async {
       context: context,
       animatedLogoScreen: true,
   );
+}
+// --------------------
+Future<void> _goToUserEditorForFirstTime({
+  @required BuildContext context,
+  @required AuthModel authModel,
+}) async {
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: EditProfileScreen(
+        userModel: authModel.userModel,
+        reAuthBeforeConfirm: false,
+        canGoBack: false,
+        validateOnStartup: false,
+        checkLastSession: false,
+        onFinish: () async {
+          await _goToLogoScreen(context);
+        },
+      )
+
+  );
+
+
 }
 // -----------------------------------------------------------------------------
 

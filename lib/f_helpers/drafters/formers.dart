@@ -323,24 +323,30 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsPhoneValidator({
+    @required BuildContext context,
     @required List<ContactModel> contacts,
     @required ZoneModel zoneModel,
     @required bool canValidate,
+    @required bool isRequired,
     FocusNode focusNode,
   }){
     String _message;
 
     if (canValidate == true){
+
       final String _phone = ContactModel.getValueFromContacts(
         contacts: contacts,
         contactType: ContactType.phone,
       );
 
-      if (TextCheck.isEmpty(_phone) == true){
+      /// EMPTY
+      if (TextCheck.isEmpty(_phone) == true && isRequired == true){
         _message = '##Phone number should not be empty';
       }
-      else {
 
+      if (TextCheck.isEmpty(_phone) == false){
+
+        /// COUNTRY CODE
         if (zoneModel != null && zoneModel.countryID != null){
 
           final String _code = CountryModel.getCountryPhoneCode(zoneModel.countryID);
@@ -350,10 +356,26 @@ class Formers {
           );
 
           if (_startsWithCode == false){
-            _message = '##Phone numbers in ${zoneModel.countryName} should start with\n( $_code )';
+            _message ??= '##Phone numbers in ${zoneModel.countryName} should start with\n( $_code )';
           }
 
         }
+
+        /// NUMBER FORMAT
+        _message ??= _numbersOnlyValidator(
+          context: context,
+          text: TextMod.replaceVarTag(
+            input: _phone,
+            customTag: '+',
+            customValue: '',
+          ),
+        );
+
+        _message ??= _maxDigitsExceededValidator(
+            context: context,
+            maxDigits: 0,
+            text: _phone,
+          );
 
       }
 
@@ -976,18 +998,36 @@ class Formers {
   }){
     String _message;
 
-    if (TextCheck.isEmpty(text) == false && maxDigits != null){
+    if (TextCheck.isEmpty(text) == false){
 
-      final bool _invalidDigits = Numeric.checkNumberAsStringHasInvalidDigits(
-        numberAsText: text,
-        maxDigits: maxDigits,
-      );
+      if (maxDigits == 0){
 
-      if (_invalidDigits == true){
+        final bool _hasDigits = TextCheck.stringContainsSubString(
+          string: text,
+          subString: '.',
+        );
 
-        _message =  '${xPhrase(context, 'phid_number_fractions_cant_exceed')}'
-                    ' $maxDigits'
-                    ' ${xPhrase(context, 'phid_fraction_digits')}';
+        if (_hasDigits == true){
+          _message ??= xPhrase(context, 'phid_number_cant_have_fractions');
+        }
+
+      }
+
+      else {
+
+        final bool _invalidDigits = Numeric.checkNumberAsStringHasInvalidDigits(
+          numberAsText: text,
+          maxDigits: maxDigits,
+        );
+
+        if (_invalidDigits == true){
+
+          _message ??= '${xPhrase(context, 'phid_number_fractions_cant_exceed')}'
+                ' $maxDigits'
+                ' ${xPhrase(context, 'phid_fraction_digits')}';
+
+        }
+
       }
 
     }

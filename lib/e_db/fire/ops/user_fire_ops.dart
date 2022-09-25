@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
@@ -232,10 +233,15 @@ class UserFireOps {
     String _userPicURL;
     if (ObjectCheck.objectIsFile(newUserModel.pic) == true) {
 
+      final FileModel _oldFile = FileModel.initializePicForEditing(
+          pic: oldUserModel.pic,
+          fileName: oldUserModel.id,
+      );
+
       /// A1 - update pic to fireStorage/usersPics/userID and get new URL
       _userPicURL = await Storage.createOrUpdatePic(
         context: context,
-        oldURL: oldUserModel.pic,
+        oldURL: _oldFile?.url,
         newPic: newUserModel.pic,
         picName: newUserModel.id,
         ownersIDs: <String>[newUserModel.id],
