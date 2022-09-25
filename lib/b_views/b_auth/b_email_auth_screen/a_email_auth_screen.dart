@@ -26,16 +26,20 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // --------------------
   bool _canValidate = false;
   void _switchOnValidation(){
-    if (_canValidate != true){
-      setState(() {
-        _canValidate = true;
-      });
+    if (mounted == true){
+      if (_canValidate != true){
+        setState(() {
+          _canValidate = true;
+        });
+      }
     }
-  }
-  // --------------------
+  }  // --------------------
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordConfirmationController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  // --------------------
+  final FocusNode _passwordNode = FocusNode();
+  final FocusNode _confirmPasswordNode = FocusNode();
   // --------------------
   final ValueNotifier<bool> _isSigningIn = ValueNotifier(true);
   // -----------------------------------------------------------------------------
@@ -49,7 +53,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _passwordConfirmationController.dispose();
+    _confirmPasswordController.dispose();
     _isSigningIn.dispose();
     super.dispose();
   }
@@ -92,7 +96,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         context: context,
         email: _emailController.text,
         password: _passwordController.text,
-        passwordConfirmation: _passwordConfirmationController.text,
+        passwordConfirmation: _confirmPasswordController.text,
         formKey: _formKey,
       );
 
@@ -113,7 +117,9 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         formKey: _formKey,
         emailController: _emailController,
         passwordController: _passwordController,
-        passwordConfirmationController: _passwordConfirmationController,
+        passwordConfirmationController: _confirmPasswordController,
+        passwordNode: _passwordNode,
+        confirmPasswordNode: _confirmPasswordNode,
         emailValidator: (String text) => Formers.emailValidator(
           email: _emailController.text,
           canValidate: _canValidate,
@@ -125,7 +131,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         passwordConfirmationValidator: (String text) => Formers.passwordConfirmationValidation(
           context: context,
           password: _passwordController.text,
-          passwordConfirmation: _passwordConfirmationController.text,
+          passwordConfirmation: _confirmPasswordController.text,
           canValidate: _canValidate,
         ),
         switchSignIn: _switchSignIn,
