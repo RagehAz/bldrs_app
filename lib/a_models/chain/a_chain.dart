@@ -521,7 +521,7 @@ class Chain {
     if (chain != null && phid != null){
 
       /// IF ITS CHAIN ID
-      if (chain.id == phid){
+      if (Phider.removeIndexFromPhid(phid: chain.id) == Phider.removeIndexFromPhid(phid: phid)){
         _includes = true;
         // blog('boss : chain ${chain.id} includes $phid : $_includes');
       }
@@ -529,8 +529,8 @@ class Chain {
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
       else if (Phider.checkIsPhids(chain.sons) == true){
         _includes = Stringer.checkStringsContainString(
-          strings: chain.sons,
-          string: phid,
+          strings: Phider.removePhidsIndexes(chain.sons),
+          string: Phider.removeIndexFromPhid(phid: phid),
         );
         // blog('boss : chain ${chain.id} STRINGS SONS includes $phid : $_includes');
       }
@@ -539,7 +539,7 @@ class Chain {
       else if (checkIsChains(chain.sons) == true){
         _includes = checkChainsIncludeThisPhid(
           chains: chain.sons,
-          phid: phid,
+          phid: Phider.removeIndexFromPhid(phid: phid),
         );
         // blog('boss : chain ${chain.id} CHAINS SONS includes $phid : $_includes');
       }
@@ -566,7 +566,7 @@ class Chain {
 
         final bool _chainIncludes = checkChainIncludeThisPhid(
             chain: chain,
-            phid: phid
+            phid: Phider.removeIndexFromPhid(phid: phid)
         );
 
         if (_chainIncludes == true){

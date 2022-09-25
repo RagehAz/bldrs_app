@@ -52,14 +52,14 @@ class ChainsScreenBrowseView extends StatelessWidget {
       strings: _translations,
     );
     // ------
-    final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
-    '' : '\n$_flyerTypesString';
+    // final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
+    // '' : '\n$_flyerTypesString';
     // ------
     final String _instructions =
         onlyUseCityChains == true ?
             '${xPhrase(context, 'phid_showing_only_keywords_used_in')}\n'
             '${_zone.cityName}, ${_zone.countryName}'
-            '$_flyerTypesStringWithNewLineIfNotNull'
+            // '$_flyerTypesStringWithNewLineIfNotNull'
                 :
             '${xPhrase(context, 'phid_showing_all_available_keywords')}\n'
             '$_flyerTypesString';

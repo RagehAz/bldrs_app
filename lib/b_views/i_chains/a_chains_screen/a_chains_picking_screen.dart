@@ -112,6 +112,8 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
       /// ( IN BZ EDITOR FOR BZ SCOPE SELECTION ) WHEN USING CHAIN K ONLY
       if (widget.onlyChainKSelection == true){
+
+
         _allSortedPickers = PickerModel.createHomeWallPickers(
           context: context,
           canPickMany: true,
@@ -123,12 +125,14 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       else {
 
         /// ( IN WALL PHID SELECTION ) WHEN NO FLYER TYPES GIVE
-        if (Mapper.checkCanLoopList([widget.flyerTypeFilter]) == false){
+        if (widget.flyerTypeFilter == null){
+
+          blog('should pick a phid');
 
           _allSortedPickers = PickerModel.createHomeWallPickers(
             context: context,
             canPickMany: false,
-            onlyUseTheseFlyerTypes: FlyerTyper.flyerTypesList,
+            onlyUseTheseFlyerTypes: FlyerTyper.concludePossibleFlyerTypesByChains(_bldrsChains),
           );
         }
 

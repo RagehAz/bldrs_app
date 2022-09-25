@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -59,18 +61,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
 
 
-    // unawaited(WaitDialog.showWaitDialog(
-    //   context: context,
-    //   loadingVerse: Verse.plain('fak yo'),
-    //   canManuallyGoBack: true,
-    // ));
-    // await Future.delayed( const Duration(seconds: 3,), () async {
-    //
-    //   await TopDialog.showTopDialog(context: context, firstVerse: Verse.plain('faki foko foo'));
-    //
-    // });
-    // await WaitDialog.closeWaitDialog(context);
-
 
 
 
@@ -81,19 +71,19 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
 
 
+    final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
+      context: context,
+      onlyUseCityChains: true,
+      listen: false,
+    );
 
 
 
 
+    final List<FlyerType> _types = FlyerTyper.concludePossibleFlyerTypesByChains(_bldrsChains);
 
 
-
-
-
-
-
-
-
+    blog('types : $_types');
 
 
 
