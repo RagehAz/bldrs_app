@@ -410,7 +410,7 @@ Future<bool> _showDeleteAllAuthorFlyers({
         gridWidth: CenterDialog.getWidth(context) - 10,
         gridHeight: 200,
         numberOfColumnsOrRows: 1,
-        heroTag: 'showDeleteAllAuthorFlyersGrid',
+        heroPath: 'showDeleteAllAuthorFlyersGrid',
       ),
     ),
   );

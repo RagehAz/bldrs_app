@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
@@ -167,7 +166,7 @@ class _GallerySlideState extends State<GallerySlide> {
               flyers: flyers,
               topPadding: _headerAndProgressHeights,
               // numberOfColumns: 2,
-              heroTag: widget.heroTag,
+              heroPath: widget.heroTag,
               scrollController: _scrollController,
             );
 

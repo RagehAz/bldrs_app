@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -32,14 +31,14 @@ class BigFlyer extends StatefulWidget {
   const BigFlyer({
     @required this.flyerModel, // will never be null at this point
     @required this.bzModel,
-    @required this.heroTag,
+    @required this.heroPath,
     @required this.flyerBoxWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final String heroTag;
+  final String heroPath;
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------
   @override
@@ -106,13 +105,13 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
         index: getPossibleStartingIndex(
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
-          heroTag: widget.heroTag,
+          heroTag: widget.heroPath,
           startFromIndex: 0,
         ),
         numberOfStrips: getNumberOfSlides(
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
-          heroTag: widget.heroTag,
+          heroPath: widget.heroPath,
         ),
       ),
       addPostFrameCallBack: false,
@@ -491,7 +490,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
             onSlideBackTap: _onSlideBackTap,
             onSlideNextTap: _onSlideNextTap,
             onDoubleTap: _onSaveFlyer,
-            heroTag: widget.heroTag,
+            heroTag: widget.heroPath,
             progressBarModel: _progressBarModel,
             flightDirection: FlightDirection.non,
           ),

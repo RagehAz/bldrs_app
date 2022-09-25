@@ -149,7 +149,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         // numberOfColumns: 2,
         flyers: _flyers,
         scrollController: ScrollController(),
-        heroTag: 'allFlyersScreenGrid',
+        heroPath: 'allFlyersScreenGrid',
       ),
 
     );

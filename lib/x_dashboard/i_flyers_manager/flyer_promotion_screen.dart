@@ -4,8 +4,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -144,10 +143,10 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
           const Stratosphere(),
 
-          FlyerStarter(
-            minWidthFactor: FlyerDim.flyerFactorByFlyerWidth(context, _screenWidth * 0.7),
+          Flyer(
+            flyerBoxWidth: _screenWidth * 0.7,
             flyerModel: widget.flyer,
-            heroTag: 'flyerPromotionScreen',
+            screenName: 'flyerPromotionScreen',
           ),
 
           const Expander(),
