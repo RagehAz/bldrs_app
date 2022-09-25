@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -445,6 +446,38 @@ String getSectionIcon({
       default: return null;
     }
   }
+
+  static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain> chains){
+    final List<FlyerType> _types = <FlyerType>[];
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      Chain.blogChains(chains);
+
+      for (final FlyerType flyerType in flyerTypesList){
+
+        final String _chainID = concludeChainIDByFlyerType(
+            flyerType: flyerType
+        );
+
+        final bool _includePhid = Chain.checkChainsIncludeThisPhid(
+            chains: chains,
+            phid: _chainID,
+        );
+
+        if (_includePhid == true){
+          _types.add(flyerType);
+        }
+
+
+      }
+
+
+    }
+
+
+    return _types;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHAINS IDS
@@ -455,6 +488,7 @@ String getSectionIcon({
   static const String tradesChainID = 'phid_k_flyer_type_trades';
   static const String productChainID = 'phid_k_flyer_type_product';
   static const String equipmentChainID = 'phid_k_flyer_type_equipment';
+  static const String PROJECTSCHAINID = null;
   // --------------------
   static List<String> chainKSonsIDs = <String>[
     propertyChainID,
@@ -462,6 +496,7 @@ String getSectionIcon({
     tradesChainID,
     productChainID,
     equipmentChainID,
+    // PROJECTSCHAINID,
   ];
   // -----------------------------------------------------------------------------
 }

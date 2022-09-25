@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -13,7 +15,10 @@ import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_scree
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
+import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -35,6 +40,7 @@ import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -42,6 +48,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -981,4 +988,137 @@ bool _checkNoteDotIsOn({
 //   return _count;
 // }
  */
+// -----------------------------------------------------------------------------
+
+/// SETTING ACTIVE PHIDK
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onSectionButtonTap(BuildContext context) async {
+
+  final dynamic result = await Nav.goToNewScreen(
+    context: context,
+    transitionType: Nav.superHorizontalTransition(context),
+    screen: ChainsPickingScreen(
+      flyerTypeFilter: null,
+      onlyUseCityChains: true,
+      isMultipleSelectionMode: false,
+      // onlyChainKSelection: false,
+      pageTitleVerse: const Verse(
+        text: 'phid_browse_flyers_by_keyword',
+        translate: true,
+      ),
+      zone: ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: false,
+      ),
+    ),
+  );
+
+  if (result != null && result is String){
+
+    await _setActivePhidK(
+      context: context,
+      phidK: result,
+    );
+
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> _setActivePhidK({
+  @required BuildContext context,
+  @required String phidK,
+}) async {
+
+  const bool deactivated = false;
+
+  final List<Chain> allChains = ChainsProvider.proGetBldrsChains(
+      context: context,
+      onlyUseCityChains: false,
+      listen: false
+  );
+
+  final String _chainID = Chain.getRootChainIDOfPhid(
+    allChains: allChains,
+    phid: phidK,
+  );
+
+  final FlyerType _flyerType = FlyerTyper.concludeFlyerTypeByChainID(
+    chainID: _chainID,
+  );
+
+  /// A - if section is not active * if user is author or not
+  if (deactivated == true) {
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final String _currentCityID = _zoneProvider.currentZone.cityID;
+
+    final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
+        flyerType: _flyerType
+    );
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: Verse(
+          text: '##Section "$_flyerTypePhid" is\nTemporarily closed in $_currentCityID',
+          translate: true,
+          variables: [_flyerTypePhid, _currentCityID]
+      ),
+      bodyVerse: Verse(
+        text: '##The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
+        translate: true,
+        variables: _currentCityID,
+      ),
+      height: 400,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+
+          DialogButton(
+            verse: const Verse(
+              text: 'phid_inform_a_friend',
+              translate: true,
+            ),
+            width: 133,
+            onTap: () => Launcher.shareLink(
+              context : context,
+              link: Standards.bldrsWebSiteLink,
+            ),
+          ),
+
+          DialogButton(
+            verse: const Verse(
+              text: 'phid_go_back',
+              translate: true,
+            ),
+            color: Colorz.yellow255,
+            verseColor: Colorz.black230,
+            onTap: () => Nav.goBack(
+              context: context,
+              invoker: '_setActivePhidK.centerDialog',
+            ),
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  /// A - if section is active
+  else {
+
+    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    await _keywordsProvider.changeHomeWallFlyerType(
+      context: context,
+      flyerType: _flyerType,
+      phid: phidK,
+      notify: true,
+    );
+
+  }
+
+
+}
 // -----------------------------------------------------------------------------
