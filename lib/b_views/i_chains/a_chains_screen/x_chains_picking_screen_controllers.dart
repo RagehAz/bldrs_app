@@ -4,20 +4,12 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/b_picker_screen.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -56,12 +48,11 @@ bool allChainsCanNotBeBuilt({
   bool _allCanNotBeBuilt = false;
 
   if (
-  canBuildChain(_propertyChain) == false &&
+      canBuildChain(_propertyChain) == false &&
       canBuildChain(_designChain) == false &&
       canBuildChain(_tradesChain) == false &&
       canBuildChain(_productChain) == false &&
       canBuildChain(_equipmentChain) == false
-
   ){
     _allCanNotBeBuilt = true;
   }
@@ -74,138 +65,6 @@ bool allChainsCanNotBeBuilt({
 /// TESTED : WORKS PERFECT
 bool canBuildChain(Chain chain){
   return Mapper.checkCanLoopList(chain?.sons) == true;
-}
-// -----------------------------------------------------------------------------
-
-/// SETTING ACTIVE PHIDK
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onSectionButtonTap(BuildContext context) async {
-
-  final dynamic result = await Nav.goToNewScreen(
-    context: context,
-    transitionType: Nav.superHorizontalTransition(context),
-    screen: ChainsPickingScreen(
-      flyerTypeFilter: null,
-      onlyUseCityChains: true,
-      isMultipleSelectionMode: false,
-      pageTitleVerse: const Verse(
-        text: 'phid_browse_flyers_by_keyword',
-        translate: true,
-      ),
-      zone: ZoneProvider.proGetCurrentZone(
-        context: context,
-        listen: false,
-      ),
-    ),
-  );
-
-  if (result != null && result is String){
-
-    await _setActivePhidK(
-      context: context,
-      phidK: result,
-    );
-
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _setActivePhidK({
-  @required BuildContext context,
-  @required String phidK,
-}) async {
-
-  const bool deactivated = false;
-
-  final List<Chain> allChains = ChainsProvider.proGetBldrsChains(
-      context: context,
-      onlyUseCityChains: false,
-      listen: false
-  );
-
-  final String _chainID = Chain.getRootChainIDOfPhid(
-    allChains: allChains,
-    phid: phidK,
-  );
-
-  final FlyerType _flyerType = FlyerTyper.concludeFlyerTypeByChainID(
-    chainID: _chainID,
-  );
-
-  /// A - if section is not active * if user is author or not
-  if (deactivated == true) {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final String _currentCityID = _zoneProvider.currentZone.cityID;
-
-    final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
-        flyerType: _flyerType
-    );
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: Verse(
-        text: '##Section "$_flyerTypePhid" is\nTemporarily closed in $_currentCityID',
-        translate: true,
-        variables: [_flyerTypePhid, _currentCityID]
-      ),
-      bodyVerse: Verse(
-        text: '##The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
-        translate: true,
-        variables: _currentCityID,
-      ),
-      height: 400,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-
-          DialogButton(
-            verse: const Verse(
-              text: 'phid_inform_a_friend',
-              translate: true,
-            ),
-            width: 133,
-            onTap: () => Launcher.shareLink(
-              context : context,
-              link: Standards.bldrsWebSiteLink,
-            ),
-          ),
-
-          DialogButton(
-            verse: const Verse(
-              text: 'phid_go_back',
-              translate: true,
-            ),
-            color: Colorz.yellow255,
-            verseColor: Colorz.black230,
-            onTap: () => Nav.goBack(
-              context: context,
-              invoker: '_setActivePhidK.centerDialog',
-            ),
-          ),
-
-        ],
-      ),
-    );
-  }
-
-  /// A - if section is active
-  else {
-
-    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    await _keywordsProvider.changeHomeWallFlyerType(
-      context: context,
-      flyerType: _flyerType,
-      phid: phidK,
-      notify: true,
-    );
-
-  }
-
-
 }
 // -----------------------------------------------------------------------------
 
