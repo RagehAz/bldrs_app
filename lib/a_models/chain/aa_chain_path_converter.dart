@@ -394,7 +394,8 @@ class ChainPathConverter {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+      final String _fixed = fixPathFormatting(path);
+      final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(_fixed, '/');
       final List<String> _pathNodes = _cleanedPath.split('/');
       _node = _pathNodes.last;
 

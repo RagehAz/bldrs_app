@@ -153,42 +153,56 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   ColorTween _borderColor;
   ColorTween _headlineColorTween;
   ColorTween _tileColorTween;
-  ColorTween _subtitleLabelColorTween;
-  BorderRadiusTween _borderRadius;
+  // ColorTween _subtitleLabelColorTween;
+  // BorderRadiusTween _borderRadius;
   Animation<double> _arrowTurns;
   // --------------------
-  ValueNotifier<bool> _isExpanded;
+  final ValueNotifier<bool> _isExpanded = ValueNotifier<bool>(false);
   // --------------------
   static const Duration _expansionDuration = Duration(milliseconds: 200);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
+    // ---
     _controller = AnimationController(
       duration: _expansionDuration,
       vsync: this,
     );
-
+    // ---
     _easeInAnimation = CurvedAnimation(
       parent: _controller,
       curve: Curves.easeIn,
     );
-
+    // ---
     _borderColor = ColorTween();
-    _headlineColorTween = ColorTween();
-    _tileColorTween = ColorTween();
-    _subtitleLabelColorTween = ColorTween();
+    _borderColor.end = Colorz.green255;
+    // ---
+    _headlineColorTween = ColorTween(
+      begin: Colorz.white255,
+      end: Colorz.white255,
+    );
+    // ---
+    _tileColorTween = ColorTween(
+      begin: widget.initialColor ?? ExpandingTile.collapsedColor,
+      end: widget.expansionColor ?? ExpandingTile.expandedColor,
+    );
+    // ---
+    /*
+     _subtitleLabelColorTween = ColorTween(
+       begin: Colorz.white10,
+       end: Colorz.white10,
+     );
+     _borderRadius = BorderRadiusTween();
+     */
+    // ---
     _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
-    _borderRadius = BorderRadiusTween();
-
-    _isExpanded = PageStorage.of(context)?.readState(context) ??
-        ValueNotifier(widget.initiallyExpanded);
-
+    // ---
+    _isExpanded.value = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
     if (_isExpanded.value == true) {
       _controller.value = 1.0;
     }
-
+    // ---
   }
   // --------------------
   @override
@@ -196,8 +210,8 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     _controller.dispose();
     _easeInAnimation.dispose();
 
-    // blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
-    _isExpanded.dispose();
+    blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
+    // _isExpanded.dispose();
 
     super.dispose();
   }
@@ -238,7 +252,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
         }
 
         /// SAVE STATE
-        PageStorage.of(context)?.writeState(context, _isExpanded);
+        PageStorage.of(context)?.writeState(context, _isExpanded.value);
 
         /// PASS ON TILE TAP
         if (widget.onTileTap != null) {
@@ -252,31 +266,18 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    ///--------------------------------o
-    _borderColor.end = Colorz.green255;
-    ///----------------o
-    _headlineColorTween
-      ..begin = Colorz.white255
-      ..end = Colorz.white255;
-    ///----------------o
-    _tileColorTween
-      ..begin = widget.initialColor ?? ExpandingTile.collapsedColor
-      ..end = widget.expansionColor ?? ExpandingTile.expandedColor;
-    ///----------------o
-    _subtitleLabelColorTween
-      ..begin = Colorz.white10
-      ..end = Colorz.white10;
-    ///----------------o
-    _borderRadius
-      ..begin = BorderRadius.circular(Ratioz.appBarCorner - 5)
-      ..end = BorderRadius.circular(Ratioz.appBarCorner - 5);
+    ///------------------------------------------------------------o
+    // _borderRadius = BorderRadiusTween(
+    //   begin: BorderRadius.circular(Ratioz.appBarCorner - 5),
+    //   end: BorderRadius.circular(Ratioz.appBarCorner - 5),
+    // );
     ///------------------------------------------------------------o
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
     final double _bottomStripHeight =
     widget.collapsedHeight == null ? ExpandingTile.collapsedGroupHeight * 0.75
         :
     widget.collapsedHeight * 0.75;
-    // --------------------
+    ///------------------------------------------------------------o
     return Container(
       key: widget.key,
       // height: widget.height,
