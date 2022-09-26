@@ -269,6 +269,22 @@ class ChainsProvider extends ChangeNotifier {
     }
 
   }
+
+  static Chain proGetChainByID({
+    @required BuildContext context,
+    @required String chainID,
+  }){
+
+    return Chain.getChainFromChainsByID(
+        chainID: chainID,
+        chains: proGetBldrsChains(
+          context: context,
+          onlyUseCityChains: false,
+          listen: false,
+        ),
+    );
+
+  }
   // --------------------
   ///
   Future<void> _fetchSetBldrsChains({
@@ -532,6 +548,21 @@ class ChainsProvider extends ChangeNotifier {
         flyerTypes: FlyerTyper.flyerTypesList,
         sort: true,
         listen: listen
+    );
+
+  }
+
+  static PickerModel proGetPickerByChainID({
+    @required BuildContext context,
+    @required String chainID,
+  }){
+
+    return PickerModel.getPickerByChainID(
+      chainID: Phider.removeIndexFromPhid(phid: chainID),
+      pickers: proGetAllPickers(
+        context: context,
+        listen: false,
+      ),
     );
 
   }

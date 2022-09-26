@@ -46,18 +46,18 @@ Future<void> onSelectPhidInPickerScreen({
   @required String phid,
   @required bool isMultipleSelectionMode,
   @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
 }) async {
 
   picker?.blogPicker();
   blog('onSelectPhidInPickerScreen : phid : $phid : isMultipleSelectionMode : $isMultipleSelectionMode');
 
   if (isMultipleSelectionMode == true){
-    await _updateSelectedSpecsAtPhidSelection(
+    await _insertPhidToSelectedSpecs(
       context: context,
       phid: phid,
       picker: picker,
-      selectedSpecs: selectedSpecs,
+      selectedSpecs: selectedSpecsNotifier,
     );
   }
 
@@ -66,14 +66,14 @@ Future<void> onSelectPhidInPickerScreen({
       context: context,
       phidToPassBack: phid,
       isMultipleSelectionMode: isMultipleSelectionMode,
-      specsToPassBack: selectedSpecs.value,
+      specsToPassBack: selectedSpecsNotifier.value,
     );
   }
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _updateSelectedSpecsAtPhidSelection({
+Future<void> _insertPhidToSelectedSpecs({
   @required BuildContext context,
   @required String phid,
   @required PickerModel picker,
