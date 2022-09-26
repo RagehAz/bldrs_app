@@ -23,6 +23,7 @@ class PriceDataCreator extends StatefulWidget {
     @required this.dataCreatorType,
     @required this.onlyUseCityChains,
     @required this.appBarType,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class PriceDataCreator extends StatefulWidget {
   final DataCreator dataCreatorType;
   final bool onlyUseCityChains;
   final AppBarType appBarType;
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   State<PriceDataCreator> createState() => _PriceDataCreatorState();
@@ -99,7 +101,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
           translate: true,
         ),
       ),
-      width: BldrsAppBar.width(context),
+      width: widget.width ?? BldrsAppBar.width(context),
       columnChildren: <Widget>[
 
         // /// BULLET POINTS
@@ -109,6 +111,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
         /// DATA CREATOR ROW
         NumberDataCreatorFieldRow(
+          width: widget.width,
           appBarType: widget.appBarType,
           hasUnit: true,
           hintVerse: const Verse(

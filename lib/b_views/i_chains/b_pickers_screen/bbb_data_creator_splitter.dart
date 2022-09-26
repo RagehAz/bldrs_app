@@ -28,10 +28,12 @@ class DataCreatorSplitter extends StatelessWidget {
     @required this.searchText,
     @required this.onExportSpecs,
     @required this.onPhidTap,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double height;
+  final double width;
   final PickerModel picker;
   final List<SpecModel> selectedSpecs;
   final bool onlyUseCityChains;
@@ -110,6 +112,7 @@ class DataCreatorSplitter extends StatelessWidget {
 
       return PhidsDataCreator(
         allowableHeight: height,
+        width: width,
         specPicker: picker,
         selectedSpecs: _selectedSpecs,
         onlyUseCityChains: onlyUseCityChains,
@@ -135,6 +138,7 @@ class DataCreatorSplitter extends StatelessWidget {
 
       return PriceDataCreator(
         dataCreatorType: _dataCreatorType,
+        width: width,
         picker: picker,
         zone: zone,
         initialValue: _initialPrice,
@@ -163,6 +167,7 @@ class DataCreatorSplitter extends StatelessWidget {
       );
 
       return NumberDataCreator(
+        width: width,
         appBarType: appBarType,
         dataCreatorType: _dataCreatorType,
         initialValue: _valueSpec,

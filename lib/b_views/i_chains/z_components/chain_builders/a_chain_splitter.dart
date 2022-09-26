@@ -1,11 +1,17 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/i_chains/b_pickers_screen/bbb_data_creator_splitter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/b_chains_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/c_chain_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -82,7 +88,7 @@ class ChainSplitter extends StatelessWidget {
     final double _width = width ?? BldrsAppBar.width(context);
     // --------------------
     /// IF SON IS A PHID
-    if (chainOrChainsOrSonOrSons is String) {
+    if (Phider.checkIsPhid(chainOrChainsOrSonOrSons) == true) {
 
       final String _phid = chainOrChainsOrSonOrSons;
       final String _path = ChainPathConverter.fixPathFormatting('$previousPath/$_phid/');
@@ -110,8 +116,8 @@ class ChainSplitter extends StatelessWidget {
 
     }
     // --------------------
-    /// IF SONS IS List<String>
-    else if (chainOrChainsOrSonOrSons is List<String>){
+    /// IF SONS IS PHIDS
+    else if (Phider.checkIsPhids(chainOrChainsOrSonOrSons) == true){
       return ChainsBuilder(
         width: _width,
         sons: chainOrChainsOrSonOrSons,
@@ -167,6 +173,36 @@ class ChainSplitter extends StatelessWidget {
 
     }
     // --------------------
+    /// DATA CREATOR
+    else if (DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
+
+
+      final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
+
+      final String _chainID = ChainPathConverter.getLastPathNode(previousPath);
+      final PickerModel _picker = PickerModel.getPickerByChainID(
+          pickers: ChainsProvider.proGetAllPickers(context: context, listen: false),
+          chainID: Phider.removeIndexFromPhid(phid: _chainID),
+      );
+
+      blog('previousPath : $previousPath : _chainID : $_chainID : _dataCreator : $_dataCreator');
+
+      return DataCreatorSplitter(
+        height: 100,
+        width: Bubble.clearWidth(context) - 40,
+        picker: _picker,
+        onlyUseCityChains: false,
+        zone: ZoneModel.dummyZone(),
+        onKeyboardSubmitted: (){blog('we will continue from here and fix this');},
+        isMultipleSelectionMode: false,
+        appBarType: AppBarType.non,
+        searchText: searchText,
+        onPhidTap: onPhidTap,
+        selectedSpecs: [                                                                        ],
+        onExportSpecs: (List<SpecModel> specs){},
+      );
+    }
+    // --------------------
     /// IF SONS IS List<Chain>
     else if (Chain.checkIsChains(chainOrChainsOrSonOrSons) == true){
 
@@ -185,8 +221,6 @@ class ChainSplitter extends StatelessWidget {
       );
 
     }
-    // --------------------
-    /// EDIT MODE AND DATA CREATOR
     /*
     else if (editMode == true && DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
 
