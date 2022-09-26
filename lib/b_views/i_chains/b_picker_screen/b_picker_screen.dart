@@ -3,12 +3,12 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/bb_pickers_screen_view.dart';
+import 'package:bldrs/b_views/i_chains/b_picker_screen/bb_picker_screen_browse_view.dart';
+import 'package:bldrs/b_views/i_chains/b_picker_screen/x_picker_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -153,7 +153,12 @@ class _PickerScreenState extends State<PickerScreen> {
       searchController: _searchController,
       onSearchChanged: (String text){blog('PickerScreen : onSearchChanged : $text');},
       onSearchSubmit: (String text){blog('PickerScreen : onSearchSubmit : $text');},
-      onSearchCancelled: (String text){blog('PickerScreen : onSearchCancelled : $text');},
+      onSearchCancelled: () => MainLayout.onCancelSearch(
+        context: context,
+        controller: _searchController,
+        foundResultNotifier: null,
+        isSearching: null,
+      ),
       searchHintVerse: const Verse(text: 'phid_search_keywords', translate: true),
       // appBarBackButton: true,
       skyType: SkyType.black,
@@ -176,7 +181,7 @@ class _PickerScreenState extends State<PickerScreen> {
           phidToPassBack: null, /// onSelectPhidInPickerScreen() handles this
         ),
       ),
-      layoutWidget: PickersScreenView(
+      layoutWidget: PickerScreenBrowseView(
           appBarType: _appBarType,
           picker: widget.picker,
           selectedSpecs: _tempSpecs,
@@ -185,7 +190,7 @@ class _PickerScreenState extends State<PickerScreen> {
           isMultipleSelectionMode: widget.isMultipleSelectionMode,
           onlyUseCityChains: widget.onlyUseCityChains,
           zone: widget.zone,
-          onKeyboardSubmitted: () => onGoBackFromPickerScreen(
+          onKeyboardSubmitted: (String text) => onGoBackFromPickerScreen(
             context: context,
             specsToPassBack: _tempSpecs.value,
             isMultipleSelectionMode: widget.isMultipleSelectionMode,

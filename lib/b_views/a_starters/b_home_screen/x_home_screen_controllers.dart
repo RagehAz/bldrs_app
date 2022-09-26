@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_scree
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
@@ -999,7 +999,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   final dynamic result = await Nav.goToNewScreen(
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
-    screen: ChainsPickingScreen(
+    screen: PickersScreen(
       flyerTypeFilter: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,

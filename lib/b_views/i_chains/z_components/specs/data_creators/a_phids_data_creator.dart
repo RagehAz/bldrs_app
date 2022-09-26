@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -13,22 +14,28 @@ class PhidsDataCreator extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsDataCreator({
     @required this.specPicker,
-    @required this.onlyUseCityChains,
     @required this.selectedSpecs,
     @required this.allowableHeight,
     @required this.searchText,
     @required this.onPhidTap,
+    @required this.zone,
+    @required this.onlyUseCityChains,
+    @required this.isMultipleSelectionMode,
+    @required this.onDataCreatorKeyboardSubmitted,
     this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final PickerModel specPicker;
-  final bool onlyUseCityChains;
   final List<SpecModel> selectedSpecs;
   final double allowableHeight;
   final ValueNotifier<dynamic> searchText;
   final Function(String path, String phid) onPhidTap;
   final double width;
+  final ZoneModel zone;
+  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final bool isMultipleSelectionMode;
+  final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -51,6 +58,11 @@ class PhidsDataCreator extends StatelessWidget {
         onPhidDoubleTap: (String path, String phid){blog('PhidsDataCreator : onPhidDoubleTap : $path : $phid');},
         onPhidLongTap:(String path, String phid){blog('PhidsDataCreator : onPhidLongTap : $path : $phid');},
         searchText: searchText,
+        onExportSpecs: (List<SpecModel> specs) => blog('PhidsDataCreator : ${specs.length} specs'),
+        isMultipleSelectionMode: isMultipleSelectionMode,
+        onlyUseCityChains: onlyUseCityChains,
+        zone: zone,
+        onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
       ),
     );
     // --------------------

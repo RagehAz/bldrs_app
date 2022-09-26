@@ -87,7 +87,7 @@ Future<void> onCurrencySelectorButtonTap({
   @required ZoneModel zone,
   @required ValueNotifier<String> selectedCurrencyID,
   @required GlobalKey<FormState> formKey,
-  @required TextEditingController textController,
+  @required String text,
   @required ValueNotifier<dynamic> specValue,
   @required PickerModel picker,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
@@ -107,7 +107,7 @@ Future<void> onCurrencySelectorButtonTap({
     Formers.validateForm(formKey);
 
     _createSpecsFromLocalDataAndExport(
-      textController: textController,
+      text: text,
       specValue: specValue,
       picker: picker,
       selectedUnitID: selectedCurrencyID.value,
@@ -186,7 +186,7 @@ void _initializeNumberUnit({
 Future<void> onUnitSelectorButtonTap({
   @required BuildContext context,
   @required PickerModel picker,
-  @required TextEditingController textController,
+  @required String text,
   @required ValueNotifier<String> selectedUnitID,
   @required ValueNotifier<dynamic> specValue,
   @required DataCreator dataCreatorType,
@@ -234,7 +234,7 @@ Future<void> onUnitSelectorButtonTap({
                     _onSelectUnit(
                       unitID: _unitID,
                       formKey: formKey,
-                      textController: textController,
+                      text: text,
                       dataCreatorType: dataCreatorType,
                       specValue: specValue,
                       picker: picker,
@@ -268,7 +268,7 @@ Future<void> onUnitSelectorButtonTap({
 /// TESTED : WORKS PERFECT
 void _onSelectUnit({
   @required String unitID,
-  @required TextEditingController textController,
+  @required String text,
   @required ValueNotifier<String> selectedUnitID,
   @required PickerModel picker,
   @required ValueNotifier<dynamic> specValue,
@@ -282,7 +282,7 @@ void _onSelectUnit({
   selectedUnitID.value = unitID;
 
   onDataCreatorKeyboardChanged(
-    textController: textController,
+    text: text,
     formKey: formKey,
     dataCreatorType: dataCreatorType,
     specValue: specValue,
@@ -300,7 +300,7 @@ void _onSelectUnit({
 /// TESTED : WORKS PERFECT
 void onDataCreatorKeyboardChanged({
   @required GlobalKey<FormState> formKey,
-  @required TextEditingController textController,
+  @required String text,
   @required DataCreator dataCreatorType,
   @required ValueNotifier<dynamic> specValue,
   @required PickerModel picker,
@@ -311,13 +311,13 @@ void onDataCreatorKeyboardChanged({
   Formers.validateForm(formKey);
 
   _fixValueDataTypeAndSetValue(
-    controller: textController,
+    text: text,
     dataCreatorType: dataCreatorType,
     specValue: specValue,
   );
 
   _createSpecsFromLocalDataAndExport(
-    textController: textController,
+    text: text,
     specValue: specValue,
     picker: picker,
     selectedUnitID: selectedUnitID,
@@ -327,21 +327,21 @@ void onDataCreatorKeyboardChanged({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onDataCreatorKeyboardSubmitted({
+Future<void> onDataCreatorKeyboardSubmittedAnd({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
-  @required TextEditingController textController,
+  @required String text,
   @required DataCreator dataCreatorType,
   @required ValueNotifier<dynamic> specValue,
   @required PickerModel picker,
   @required String selectedUnitID,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
-  @required Function onKeyboardSubmitted,
+  ValueChanged<String> onKeyboardSubmitted,
 }) async {
 
   onDataCreatorKeyboardChanged(
     formKey: formKey,
-    textController: textController,
+    text: text,
     dataCreatorType: dataCreatorType,
     specValue: specValue,
     picker: picker,
@@ -351,15 +351,18 @@ Future<void> onDataCreatorKeyboardSubmitted({
 
   Keyboard.closeKeyboard(context);
 
-  await Future<void>.delayed(Ratioz.durationSliding400,
-          () async {
-        await onKeyboardSubmitted();
-      });
+  if (onKeyboardSubmitted != null){
+    await Future<void>.delayed(Ratioz.durationSliding400,
+            () async {
+          onKeyboardSubmitted(text);
+        });
+  }
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 void _fixValueDataTypeAndSetValue({
-  @required TextEditingController controller,
+  @required String text,
   @required DataCreator dataCreatorType,
   @required ValueNotifier<dynamic> specValue,
 }){
@@ -384,7 +387,7 @@ void _fixValueDataTypeAndSetValue({
 
   /// TASK : TEST THIS
   specValue.value = _fixValueDataType(
-    value: controller.text,
+    value: text,
     dataCreatorType: dataCreatorType,
   );
 
@@ -434,7 +437,7 @@ dynamic _fixValueDataType({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _createSpecsFromLocalDataAndExport({
-  @required TextEditingController textController,
+  @required String text,
   @required ValueNotifier<dynamic> specValue,
   @required PickerModel picker,
   @required String selectedUnitID,
@@ -442,7 +445,7 @@ void _createSpecsFromLocalDataAndExport({
 }){
 
   final List<SpecModel> _specs = _createSpecsForValueAndUnit(
-    controller: textController,
+    text: text,
     value: specValue.value,
     picker: picker,
     selectedUnitID: selectedUnitID,
@@ -453,7 +456,7 @@ void _createSpecsFromLocalDataAndExport({
 // --------------------
 /// TESTED : WORKS PERFECT
 List<SpecModel> _createSpecsForValueAndUnit({
-  @required TextEditingController controller,
+  @required String text,
   @required PickerModel picker,
   @required dynamic value,
   @required String selectedUnitID,
@@ -461,7 +464,7 @@ List<SpecModel> _createSpecsForValueAndUnit({
   final List<SpecModel> _output = <SpecModel>[];
 
   /// when there is value
-  if (TextCheck.isEmpty(controller.text) == false){
+  if (TextCheck.isEmpty(text) == false){
 
     /// CREATE SPEC FOR VALUE
     final SpecModel _valueSpec = SpecModel(

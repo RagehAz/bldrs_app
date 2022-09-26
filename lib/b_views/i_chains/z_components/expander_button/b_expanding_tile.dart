@@ -199,6 +199,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
     // ---
     _isExpanded.value = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
+
     if (_isExpanded.value == true) {
       _controller.value = 1.0;
     }
@@ -211,7 +212,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     _easeInAnimation.dispose();
 
     blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
-    // _isExpanded.dispose();
+    _isExpanded.dispose();
 
     super.dispose();
   }
@@ -242,6 +243,16 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       addPostFrameCallBack: false,
       onFinish: () async {
 
+        /// SAVE STATE
+        if (mounted == true){
+          PageStorage.of(context)?.writeState(context, _isExpanded.value);
+        }
+
+        /// PASS ON TILE TAP
+        if (widget.onTileTap != null) {
+          widget.onTileTap(_isExpanded.value);
+        }
+
         /// ANIMATE FORWARD
         if (isExpanded == true) {
           await _controller.forward();
@@ -249,14 +260,6 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
         /// ANIMATE BACKWARDS
         else {
           await _controller.reverse().then<void>((dynamic value) {});
-        }
-
-        /// SAVE STATE
-        PageStorage.of(context)?.writeState(context, _isExpanded.value);
-
-        /// PASS ON TILE TAP
-        if (widget.onTileTap != null) {
-          widget.onTileTap(_isExpanded.value);
         }
 
         },

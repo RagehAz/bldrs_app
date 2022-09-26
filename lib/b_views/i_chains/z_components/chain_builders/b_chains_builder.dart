@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -18,6 +20,11 @@ class ChainsBuilder extends StatelessWidget {
     @required this.onPhidTap,
     @required this.onPhidDoubleTap,
     @required this.onPhidLongTap,
+    @required this.onExportSpecs,
+    @required this.zone,
+    @required this.onlyUseCityChains,
+    @required this.isMultipleSelectionMode,
+    @required this.onDataCreatorKeyboardSubmitted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,6 +39,11 @@ class ChainsBuilder extends StatelessWidget {
   final Function(String path, String phid) onPhidTap;
   final Function(String path, String phid) onPhidDoubleTap;
   final Function(String path, String phid) onPhidLongTap;
+  final ValueChanged<List<SpecModel>> onExportSpecs;
+  final ZoneModel zone;
+  final Function onDataCreatorKeyboardSubmitted;
+  final bool isMultipleSelectionMode;
+  final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -81,6 +93,13 @@ class ChainsBuilder extends StatelessWidget {
                 onPhidTap: onPhidTap,
                 onPhidDoubleTap: onPhidDoubleTap,
                 onPhidLongTap: onPhidLongTap,
+                onExportSpecs: onExportSpecs,
+
+                isMultipleSelectionMode: isMultipleSelectionMode,
+                onlyUseCityChains: onlyUseCityChains,
+                zone: zone,
+                onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
+
               ),
             );
 

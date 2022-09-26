@@ -5,11 +5,11 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_picking_screen_browse_view.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_picking_screen_search_view.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/x_chains_picking_screen_controllers.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/xx_chains_search_controller.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_browse_view.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_search_view.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
+import 'package:bldrs/b_views/i_chains/b_picker_screen/x_picker_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -24,9 +24,9 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChainsPickingScreen extends StatefulWidget {
+class PickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ChainsPickingScreen({
+  const PickersScreen({
     @required this.flyerTypeFilter,
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
@@ -47,11 +47,11 @@ class ChainsPickingScreen extends StatefulWidget {
   final ZoneModel zone;
   /// --------------------------------------------------------------------------
   @override
-  State<ChainsPickingScreen> createState() => _ChainsPickingScreenState();
+  State<PickersScreen> createState() => _PickersScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
+class _PickersScreenState extends State<PickersScreen> {
   // -----------------------------------------------------------------------------
   /// DATA
   // --------------------
@@ -355,11 +355,14 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
             if (isSearching == true){
 
               /// NEW METHOD - NEED CHECK
-              return ChainsScreenSearchView(
+              return PickersScreenSearchView(
                 screenHeight: _screenHeight,
                 foundChains: _foundChains,
                 selectedSpecs: _selectedSpecs,
                 searchText: _searchText,
+                zone: widget.zone,
+                onlyUseCityChains: widget.onlyUseCityChains,
+                isMultipleSelectionMode: widget.isMultipleSelectionMode,
                 onSelectPhid: (String path, String phid) => onSelectPhidInPickerScreen(
                   context: context,
                   phid: phid,
@@ -370,6 +373,28 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                     chainID: ChainPathConverter.getFirstPathNode(path: Phider.removePathIndexes(path)),
                   ),
                 ),
+                refinedPickers: _refinedPickers,
+                onPickerTap: (PickerModel picker) => onChainPickingPickerTap(
+                  context: context,
+                  zone: widget.zone,
+                  selectedSpecs: _selectedSpecs,
+                  isMultipleSelectionMode: widget.isMultipleSelectionMode,
+                  onlyUseCityChains: widget.onlyUseCityChains,
+                  allSpecPickers: _allSortedPickers,
+                  picker: picker,
+                  refinedSpecsPickers: _refinedPickers,
+                ),
+                onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
+                  valueSpec: value,
+                  unitSpec: unit,
+                  pickers: _allSortedPickers,
+                  selectedSpecs: _selectedSpecs,
+                ),
+                onSpecTap: ({SpecModel value, SpecModel unit}){
+                  blog('ChainsPickingScreen : onSpecTap');
+                  value.blogSpec();
+                  unit?.blogSpec();
+                },
               );
 
             }
@@ -377,7 +402,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
             /// WHILE BROWSING
             else {
 
-              return ChainsScreenBrowseView(
+              return PickersScreenBrowseView(
                 onlyUseCityChains: widget.onlyUseCityChains,
                 refinedPickers: _refinedPickers,
                 selectedSpecs: _selectedSpecs,
