@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
@@ -364,12 +365,9 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                   phid: phid,
                   isMultipleSelectionMode: widget.isMultipleSelectionMode,
                   selectedSpecs: _selectedSpecs,
-                  picker: PickerModel.getPickerByChainIDOrUnitChainID(
+                  picker: PickerModel.getPickerByChainID(
                     pickers: _allSortedPickers,
-                    chainIDOrUnitChainID: PickerModel.getPickerChainIDOfPhid(
-                      context: context,
-                      phid: phid,
-                    ),
+                    chainID: ChainPathConverter.getFirstPathNode(path: Phider.removePathIndexes(path)),
                   ),
                 ),
               );
