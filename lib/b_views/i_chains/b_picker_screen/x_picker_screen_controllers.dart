@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -32,36 +31,6 @@ Future<void> onGoBackFromPickerScreen({
         context: context,
         invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
         passedData: phidToPassBack
-    );
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onGoBackFromChainsPickingScreen({
-  @required BuildContext context,
-  @required bool isMultipleSelectionMode,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required List<SpecModel> widgetSelectedSpecs,
-}) async {
-
-  bool _canContinue = true;
-
-  if (isMultipleSelectionMode == true){
-    final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
-        widgetSelectedSpecs ?? [],
-        selectedSpecs.value
-    ) == false;
-
-    if (_specsChanged == true){
-      _canContinue = await Dialogs.discardChangesGoBackDialog(context);
-    }
-  }
-
-  if (_canContinue == true){
-    await Nav.goBack(
-      context: context,
-      invoker: 'SpecPickerScreen.goBack',
     );
   }
 
@@ -193,60 +162,5 @@ Future<void> _updateSelectedSpecsAtPhidSelection({
   }
 
 
-}
-// -----------------------------------------------------------------------------
-
-/// MODIFIERS
-
-// --------------------
-/// TESTED : WORKS PERFECT
-void onRemoveSpecs({
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required SpecModel valueSpec,
-  @required SpecModel unitSpec,
-  @required List<PickerModel> pickers,
-}){
-
-  blog('should remove these specs from the list');
-
-  List<SpecModel> _newList = SpecModel.removeSpecFromSpecs(
-    specs: selectedSpecs.value,
-    spec: valueSpec,
-  );
-
-  final bool _specsIncludeOtherSpecUsingThisUnit = SpecModel.specsIncludeOtherSpecUsingThisUnit(
-    specs: selectedSpecs.value,
-    pickers: pickers,
-    unitSpec: unitSpec,
-  );
-
-  if (_specsIncludeOtherSpecUsingThisUnit == false){
-
-    _newList = SpecModel.removeSpecFromSpecs(
-      specs: selectedSpecs.value,
-      spec: unitSpec,
-    );
-
-  }
-
-
-  selectedSpecs.value = _newList;
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-void onAddSpecs({
-  @required List<SpecModel> specs,
-  @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-}) {
-
-  final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
-    parentSpecs: selectedSpecs.value,
-    inputSpecs: specs,
-    canPickMany: picker.canPickMany,
-  );
-
-  selectedSpecs.value = _updatedList;
 }
 // -----------------------------------------------------------------------------

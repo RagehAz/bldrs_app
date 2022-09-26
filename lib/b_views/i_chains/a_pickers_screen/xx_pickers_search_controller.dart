@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
-/// SEARCHING OLD METHOD
+/// CHAINS SEARCH TRIGGER
 
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -30,7 +30,7 @@ Future<void> onChainsSearchChanged({
   TextCheck.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
-    onResume: () => onChainsSearchSubmitted(
+    onResume: () => onSearchChains(
       context: context,
       foundChains: foundChains,
       isSearching: isSearching,
@@ -45,9 +45,13 @@ Future<void> onChainsSearchChanged({
   );
 
 }
+// -----------------------------------------------------------------------------
+
+/// SEARCHING CHAINS
+
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onChainsSearchSubmitted({
+Future<void> onSearchChains({
   @required BuildContext context,
   @required String text,
   @required ValueNotifier<bool> isSearching,
@@ -245,6 +249,10 @@ Future<void> _setFoundResults({
   }
 
 }
+// -----------------------------------------------------------------------------
+
+/// CLEAR SEARCH
+
 // --------------------
 /// TESTED : WORKS PERFECT
 void _clearSearchResult({
