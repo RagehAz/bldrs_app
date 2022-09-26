@@ -20,14 +20,14 @@ class DataCreatorSplitter extends StatelessWidget {
     @required this.height,
     @required this.picker,
     @required this.selectedSpecs,
-    @required this.onlyUseCityChains,
-    @required this.zone,
-    @required this.onKeyboardSubmitted,
-    @required this.isMultipleSelectionMode,
     @required this.appBarType,
     @required this.searchText,
     @required this.onExportSpecs,
     @required this.onPhidTap,
+    @required this.zone,
+    @required this.onlyUseCityChains,
+    @required this.isMultipleSelectionMode,
+    @required this.onKeyboardSubmitted,
     this.width,
     Key key
   }) : super(key: key);
@@ -36,14 +36,14 @@ class DataCreatorSplitter extends StatelessWidget {
   final double width;
   final PickerModel picker;
   final List<SpecModel> selectedSpecs;
-  final bool onlyUseCityChains;
-  final ZoneModel zone;
-  final Function onKeyboardSubmitted;
-  final bool isMultipleSelectionMode;
   final AppBarType appBarType;
   final ValueNotifier<dynamic> searchText;
   final ValueChanged<List<SpecModel>> onExportSpecs;
   final Function(String path, String phid) onPhidTap;
+  final ZoneModel zone;
+  final ValueChanged<String> onKeyboardSubmitted;
+  final bool isMultipleSelectionMode;
+  final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -115,9 +115,12 @@ class DataCreatorSplitter extends StatelessWidget {
         width: width,
         specPicker: picker,
         selectedSpecs: _selectedSpecs,
-        onlyUseCityChains: onlyUseCityChains,
         searchText: searchText,
         onPhidTap: onPhidTap,
+        isMultipleSelectionMode: isMultipleSelectionMode,
+        onlyUseCityChains: onlyUseCityChains,
+        zone: zone,
+        onDataCreatorKeyboardSubmitted: onKeyboardSubmitted,
       );
 
     }

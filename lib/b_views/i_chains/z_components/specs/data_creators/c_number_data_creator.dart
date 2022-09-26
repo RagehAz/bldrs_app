@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_data_creator_field_row.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/xxx_data_creators_controllers.dart';
+import 'package:bldrs/b_views/i_chains/b_picker_screen/xxx_data_creators_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
@@ -129,7 +129,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             formKey: _formKey,
             specValue: _specValue,
             dataCreatorType: widget.dataCreatorType,
-            textController: _textController,
+            text: _textController.text,
             selectedUnitID: _selectedUnitID,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
@@ -138,18 +138,18 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             formKey: _formKey,
             specValue: _specValue,
             dataCreatorType: widget.dataCreatorType,
-            textController: _textController,
+            text: _textController.text,
             selectedUnitID: _selectedUnitID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
           ),
-          onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmitted(
+          onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmittedAnd(
             context: context,
             onKeyboardSubmitted: widget.onKeyboardSubmitted,
             formKey: _formKey,
             specValue: _specValue,
             dataCreatorType: widget.dataCreatorType,
-            textController: _textController,
+            text: _textController.text,
             selectedUnitID: _selectedUnitID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,

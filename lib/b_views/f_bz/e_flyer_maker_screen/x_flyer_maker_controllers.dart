@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -283,7 +283,7 @@ Future<void> onAddSpecsToDraftTap({
 
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
-      screen: ChainsPickingScreen(
+      screen: PickersScreen(
         pageTitleVerse: const Verse(
           text: 'phid_flyer_specs',
           translate: true,

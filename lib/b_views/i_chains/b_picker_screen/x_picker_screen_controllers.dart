@@ -80,7 +80,7 @@ Future<void> onSelectPhidInPickerScreen({
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) async {
 
-  picker.blogPicker();
+  picker?.blogPicker();
   blog('onSelectPhidInPickerScreen : phid : $phid : isMultipleSelectionMode : $isMultipleSelectionMode');
 
   if (isMultipleSelectionMode == true){
