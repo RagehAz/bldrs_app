@@ -2,23 +2,22 @@ import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// BUILDING THE CHAINS
 
 // --------------------
+/*
 /// TESTED : WORKS PERFECT
-bool allChainsCanNotBeBuilt({
+bool allChainsCanNotBeBuiltt({
   @required BuildContext context,
 }){
 
@@ -61,18 +60,51 @@ bool allChainsCanNotBeBuilt({
 
 
 }
+ */
 // --------------------
+/*
 /// TESTED : WORKS PERFECT
 bool canBuildChain(Chain chain){
   return Mapper.checkCanLoopList(chain?.sons) == true;
 }
+ */
 // -----------------------------------------------------------------------------
 
-/// SELECTION
+/// NAVIGATION & SELECTION
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onChainPickingPickerTap({
+Future<void> onGoBackFromPickersScreen({
+  @required BuildContext context,
+  @required bool isMultipleSelectionMode,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required List<SpecModel> widgetSelectedSpecs,
+}) async {
+
+  bool _canContinue = true;
+
+  if (isMultipleSelectionMode == true){
+    final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
+        widgetSelectedSpecs ?? [],
+        selectedSpecs.value
+    ) == false;
+
+    if (_specsChanged == true){
+      _canContinue = await Dialogs.discardChangesGoBackDialog(context);
+    }
+  }
+
+  if (_canContinue == true){
+    await Nav.goBack(
+      context: context,
+      invoker: 'SpecPickerScreen.goBack',
+    );
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onGoToPickerScreen({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -101,7 +133,7 @@ Future<void> onChainPickingPickerTap({
     /// WHILE SELECTING MULTIPLE PHIDS
     if (isMultipleSelectionMode == true){
 
-      _updatePickersAndGroups(
+      _updateSelectedSpecsAndRefinePickers(
         context: context,
         picker: picker,
         selectedSpecs: selectedSpecs,
@@ -126,7 +158,7 @@ Future<void> onChainPickingPickerTap({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-void _updatePickersAndGroups({
+void _updateSelectedSpecsAndRefinePickers({
   @required BuildContext context,
   @required dynamic specPickerResult,
   @required PickerModel picker,
@@ -167,5 +199,60 @@ void _updatePickersAndGroups({
     // ------------------------------------
   }
   // -------------------------------------------------------------
+}
+// -----------------------------------------------------------------------------
+
+/// MODIFIERS
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onRemoveSpecs({
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required SpecModel valueSpec,
+  @required SpecModel unitSpec,
+  @required List<PickerModel> pickers,
+}){
+
+  blog('should remove these specs from the list');
+
+  List<SpecModel> _newList = SpecModel.removeSpecFromSpecs(
+    specs: selectedSpecs.value,
+    spec: valueSpec,
+  );
+
+  final bool _specsIncludeOtherSpecUsingThisUnit = SpecModel.specsIncludeOtherSpecUsingThisUnit(
+    specs: selectedSpecs.value,
+    pickers: pickers,
+    unitSpec: unitSpec,
+  );
+
+  if (_specsIncludeOtherSpecUsingThisUnit == false){
+
+    _newList = SpecModel.removeSpecFromSpecs(
+      specs: selectedSpecs.value,
+      spec: unitSpec,
+    );
+
+  }
+
+
+  selectedSpecs.value = _newList;
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onAddSpecs({
+  @required List<SpecModel> specs,
+  @required PickerModel picker,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+}) {
+
+  final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
+    parentSpecs: selectedSpecs.value,
+    inputSpecs: specs,
+    canPickMany: picker.canPickMany,
+  );
+
+  selectedSpecs.value = _updatedList;
 }
 // -----------------------------------------------------------------------------
