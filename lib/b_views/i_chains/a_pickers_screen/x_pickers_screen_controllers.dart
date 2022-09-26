@@ -107,11 +107,11 @@ Future<void> onGoBackFromPickersScreen({
 Future<void> onGoToPickerScreen({
   @required BuildContext context,
   @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
   @required bool onlyUseCityChains,
   @required bool isMultipleSelectionMode,
-  @required ValueNotifier<List<PickerModel>> refinedSpecsPickers,
-  @required List<PickerModel> allSpecPickers,
+  @required ValueNotifier<List<PickerModel>> refinedPickersNotifier,
+  @required List<PickerModel> allPickers,
   @required ZoneModel zone,
 }) async {
 
@@ -120,7 +120,7 @@ Future<void> onGoToPickerScreen({
     transitionType: Nav.superHorizontalTransition(context),
     screen: PickerScreen(
       picker: picker,
-      selectedSpecs: selectedSpecs,
+      selectedSpecs: selectedSpecsNotifier,
       onlyUseCityChains: onlyUseCityChains,
       showInstructions: isMultipleSelectionMode,
       isMultipleSelectionMode:  isMultipleSelectionMode,
@@ -136,9 +136,9 @@ Future<void> onGoToPickerScreen({
       _updateSelectedSpecsAndRefinePickers(
         context: context,
         picker: picker,
-        selectedSpecs: selectedSpecs,
-        refinedPickers: refinedSpecsPickers,
-        sourcePickers: allSpecPickers,
+        selectedSpecs: selectedSpecsNotifier,
+        refinedPickers: refinedPickersNotifier,
+        sourcePickers: allPickers,
         specPickerResult: _result,
       );
 
@@ -207,7 +207,7 @@ void _updateSelectedSpecsAndRefinePickers({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onRemoveSpecs({
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
   @required SpecModel valueSpec,
   @required SpecModel unitSpec,
   @required List<PickerModel> pickers,
@@ -216,12 +216,12 @@ void onRemoveSpecs({
   blog('should remove these specs from the list');
 
   List<SpecModel> _newList = SpecModel.removeSpecFromSpecs(
-    specs: selectedSpecs.value,
+    specs: selectedSpecsNotifier.value,
     spec: valueSpec,
   );
 
   final bool _specsIncludeOtherSpecUsingThisUnit = SpecModel.specsIncludeOtherSpecUsingThisUnit(
-    specs: selectedSpecs.value,
+    specs: selectedSpecsNotifier.value,
     pickers: pickers,
     unitSpec: unitSpec,
   );
@@ -229,14 +229,14 @@ void onRemoveSpecs({
   if (_specsIncludeOtherSpecUsingThisUnit == false){
 
     _newList = SpecModel.removeSpecFromSpecs(
-      specs: selectedSpecs.value,
+      specs: selectedSpecsNotifier.value,
       spec: unitSpec,
     );
 
   }
 
 
-  selectedSpecs.value = _newList;
+  selectedSpecsNotifier.value = _newList;
 
 }
 // --------------------

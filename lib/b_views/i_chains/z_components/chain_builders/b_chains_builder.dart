@@ -58,6 +58,12 @@ class ChainsBuilder extends StatelessWidget {
     }
 
     else {
+
+      final double _bottomMargin = level == 0 ?
+      Ratioz.appBarPadding + MediaQuery.of(context).viewInsets.bottom
+          :
+      Ratioz.appBarPadding;
+
       return SizedBox(
         key: const ValueKey<String>('ChainsBuilder'),
         width: width,
@@ -67,7 +73,7 @@ class ChainsBuilder extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.only(
             top: Ratioz.appBarPadding,
-            bottom: Ratioz.appBarPadding + MediaQuery.of(context).viewInsets.bottom,
+            bottom: _bottomMargin,
           ),
           itemCount: sons.length,
           itemBuilder: (_, int index){
