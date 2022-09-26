@@ -5,7 +5,8 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/bbb_data_creator_splitter.dart';
+import 'package:bldrs/b_views/i_chains/z_components/pickers/data_creator_splitter.dart';
+import 'package:bldrs/b_views/i_chains/b_picker_screen/xxx_data_creators_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/b_chains_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/c_chain_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
@@ -39,6 +40,11 @@ class ChainSplitter extends StatelessWidget {
     @required this.onPhidDoubleTap,
     @required this.selectedPhids,
     @required this.searchText,
+    @required this.onExportSpecs,
+    @required this.zone,
+    @required this.onlyUseCityChains,
+    @required this.isMultipleSelectionMode,
+    this.onDataCreatorKeyboardSubmitted,
     this.previousPath = '',
     this.level = 0,
     this.width,
@@ -56,6 +62,11 @@ class ChainSplitter extends StatelessWidget {
   final Function(String path, String phid) onPhidTap;
   final Function(String path, String phid) onPhidDoubleTap;
   final Function(String path, String phid) onPhidLongTap;
+  final ValueChanged<List<SpecModel>> onExportSpecs;
+  final ZoneModel zone;
+  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final bool isMultipleSelectionMode;
+  final bool onlyUseCityChains;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Verse createSecondLineVerse(ChainSecondLinesType type, String phid, {int index}){
@@ -130,6 +141,11 @@ class ChainSplitter extends StatelessWidget {
         onPhidTap: onPhidTap,
         onPhidDoubleTap: onPhidDoubleTap,
         onPhidLongTap: onPhidLongTap,
+        onExportSpecs: onExportSpecs,
+        onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
+        zone: zone,
+        onlyUseCityChains: onlyUseCityChains,
+        isMultipleSelectionMode: isMultipleSelectionMode,
       );
     }
     // --------------------
@@ -164,6 +180,12 @@ class ChainSplitter extends StatelessWidget {
         onTileDoubleTap: (String path, String phid){blog('ChainSplitter : onTileDoubleTap : $path : $phid');},
         onTileLongTap: (String path, String phid){blog('ChainSplitter : onTileLongTap : $path : $phid');},
 
+        onExportSpecs: onExportSpecs,
+        isMultipleSelectionMode: isMultipleSelectionMode,
+        onlyUseCityChains: onlyUseCityChains,
+        zone: zone,
+        onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
+
         // deactivated: ,
         // expansionColor: ,
         // initialColor: ,
@@ -187,19 +209,36 @@ class ChainSplitter extends StatelessWidget {
 
       blog('previousPath : $previousPath : _chainID : $_chainID : _dataCreator : $_dataCreator');
 
+      final List<SpecModel> _specs = SpecModel.generateSpecsByPhids(
+          context: context,
+          phids: selectedPhids,
+      );
+
       return DataCreatorSplitter(
         height: 100,
         width: Bubble.clearWidth(context) - 40,
         picker: _picker,
-        onlyUseCityChains: false,
-        zone: ZoneModel.dummyZone(),
-        onKeyboardSubmitted: (){blog('we will continue from here and fix this');},
-        isMultipleSelectionMode: false,
         appBarType: AppBarType.non,
         searchText: searchText,
+        selectedSpecs: _specs,
         onPhidTap: onPhidTap,
-        selectedSpecs: [                                                                        ],
-        onExportSpecs: (List<SpecModel> specs){},
+        onExportSpecs: onExportSpecs,
+
+        onlyUseCityChains: onlyUseCityChains,
+        zone: zone,
+        onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmittedAnd(
+          context: context,
+          formKey: GlobalKey<FormState>(),
+          specValue: ValueNotifier(12),
+          dataCreatorType: _dataCreator,
+          text: text,
+          selectedUnitID: null,
+          picker: _picker,
+          onExportSpecs: (List<SpecModel> specs){
+            SpecModel.blogSpecs(specs);
+          },
+        ),
+        isMultipleSelectionMode: isMultipleSelectionMode,
       );
     }
     // --------------------
@@ -218,6 +257,11 @@ class ChainSplitter extends StatelessWidget {
         onPhidTap: onPhidTap,
         onPhidDoubleTap: onPhidDoubleTap,
         onPhidLongTap: onPhidLongTap,
+        onExportSpecs: onExportSpecs,
+        isMultipleSelectionMode: isMultipleSelectionMode,
+        onlyUseCityChains: onlyUseCityChains,
+        zone: zone,
+        onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
       );
 
     }

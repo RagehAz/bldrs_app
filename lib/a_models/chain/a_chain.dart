@@ -785,6 +785,21 @@ class Chain {
   /// GETTERS
 
   // --------------------
+
+  static List<String> getChainsIDs(List<Chain> chains){
+    final List<String> chainsIDs = <String>[];
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      for (final Chain chain in chains){
+        chainsIDs.add(chain.id);
+      }
+
+    }
+
+    return chainsIDs;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainSonsIDs({
     @required Chain chain,

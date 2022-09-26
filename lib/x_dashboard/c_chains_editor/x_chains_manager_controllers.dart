@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -56,7 +56,7 @@ Future<dynamic> goToChainsPickingScreen({
 
   final dynamic _received =  await Nav.goToNewScreen(
       context: context,
-      screen: ChainsPickingScreen(
+      screen: PickersScreen(
         flyerTypeFilter: flyerType,
         onlyUseCityChains: onlyUseCityChains,
         isMultipleSelectionMode: isMultipleSelectionMode,
