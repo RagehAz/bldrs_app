@@ -19,6 +19,8 @@ class PickerTile extends StatelessWidget {
     @required this.onDeleteSpec,
     @required this.onSpecTap,
     @required this.onTap,
+    this.searchText,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,12 +29,14 @@ class PickerTile extends StatelessWidget {
   final Function onTap;
   final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
   final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
-  /// --------------------------------------------------------------------------
+  final ValueNotifier<String> searchText;
+  final double width;
+/// --------------------------------------------------------------------------
   static double height() {
     return 70;
   }
   // --------------------
-  static double width(BuildContext context) {
+  static double getDefaultWidth(BuildContext context) {
     final double _specTileWidth = BldrsAppBar.width(context);
     return _specTileWidth;
   }
@@ -41,7 +45,7 @@ class PickerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _specTileHeight = height();
-    final double _specTileWidth = width(context);
+    final double _specTileWidth = width ?? getDefaultWidth(context);
     final BorderRadius _tileBorders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
     final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
     // --------------------
@@ -74,7 +78,7 @@ class PickerTile extends StatelessWidget {
                       color: Colorz.white10,
                       corners: _tileBorders,
                       bubble: false,
-                      icon: phidIcon(context, picker.chainID),
+                      icon: phidIcon(context, picker?.chainID),
                       iconSizeFactor: 0.6,
                     ),
 
@@ -84,13 +88,14 @@ class PickerTile extends StatelessWidget {
                       height: _specTileHeight,
                       child: SuperVerse(
                         verse: Verse(
-                          text: picker.chainID,
+                          text: picker?.chainID,
                           translate: true,
                         ),
                         centered: false,
                         margin: 10,
                         maxLines: 2,
-                        redDot: picker.isRequired,
+                        redDot: picker?.isRequired,
+                        highlight: searchText,
                       ),
                     ),
 
@@ -102,6 +107,7 @@ class PickerTile extends StatelessWidget {
                       icon: Iconizer.superArrowENRight(context),
                       iconSizeFactor: 0.15,
                       bubble: false,
+
                     ),
 
                   ],
@@ -129,6 +135,8 @@ class PickerTile extends StatelessWidget {
                         onSpecTap: onSpecTap,
                         onDeleteSpec: onDeleteSpec,
                         xIsOn: true,
+                        searchText: searchText,
+
                       ),
 
                     ],

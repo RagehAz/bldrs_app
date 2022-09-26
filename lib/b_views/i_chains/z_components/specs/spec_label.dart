@@ -14,6 +14,7 @@ class SpecLabel extends StatelessWidget {
     @required this.onTap,
     @required this.onXTap,
     this.maxBoxWidth,
+    this.searchText,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class SpecLabel extends StatelessWidget {
   final Function onTap;
   final Function onXTap;
   final double maxBoxWidth;
+  final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   static const double height = 40;
   // --------------------
@@ -74,6 +76,7 @@ class SpecLabel extends StatelessWidget {
                 weight: VerseWeight.thin,
                 italic: true,
                 centered: false,
+                highlight: searchText,
               ),
             ),
           ),

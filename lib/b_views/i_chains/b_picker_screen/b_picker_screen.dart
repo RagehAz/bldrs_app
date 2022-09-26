@@ -205,7 +205,7 @@ class _PickerScreenState extends State<PickerScreen> {
           onPhidTap: (String path, String phid) => onSelectPhidInPickerScreen(
             context: context,
             phid: phid,
-            selectedSpecs: _tempSpecs,
+            selectedSpecsNotifier: _tempSpecs,
             isMultipleSelectionMode: widget.isMultipleSelectionMode,
             picker: widget.picker,
           ),

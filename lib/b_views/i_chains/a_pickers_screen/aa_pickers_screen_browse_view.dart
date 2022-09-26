@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instruction.dart';
 import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_splitter.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -17,23 +19,21 @@ import 'package:flutter/material.dart';
 class PickersScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickersScreenBrowseView({
-    @required this.selectedSpecs,
-    @required this.refinedPickers,
+    @required this.selectedSpecsNotifier,
+    @required this.refinedPickersNotifier,
     @required this.onlyUseCityChains,
     @required this.flyerTypes,
-    @required this.onSpecTap,
-    @required this.onDeleteSpec,
-    @required this.onPickerTap,
+    @required this.isMultipleSelectionMode,
+    @required this.zone,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<List<SpecModel>> selectedSpecs;
-  final ValueNotifier<List<PickerModel>> refinedPickers;
+  final ValueNotifier<List<SpecModel>> selectedSpecsNotifier;
+  final ValueNotifier<List<PickerModel>> refinedPickersNotifier;
   final bool onlyUseCityChains;
   final List<FlyerType> flyerTypes;
-  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
-  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
-  final ValueChanged<PickerModel> onPickerTap;
+  final bool isMultipleSelectionMode;
+  final ZoneModel zone;
   // --------------------------------------------------------------------------
   /// CHAIN GROUPS ( PICKERS )  INSTRUCTIONS
   Verse _getInstructions(BuildContext context){
@@ -94,13 +94,13 @@ class PickersScreenBrowseView extends StatelessWidget {
     // PickerModel.blogPickers(pickers, methodName: 'ChainsScreenBrowseView');
 
     return ValueListenableBuilder(
-      valueListenable: refinedPickers,
+      valueListenable: refinedPickersNotifier,
       builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
 
         /// WHEN PICKERS ARE PROVIDED
-        if (refinedPickers != null){
+        if (refinedPickersNotifier != null){
           return ValueListenableBuilder(
-            valueListenable: selectedSpecs,
+            valueListenable: selectedSpecsNotifier,
             builder: (_, List<SpecModel> _allSelectedSpecs, Widget childC){
 
               return ListView.builder(
@@ -117,17 +117,42 @@ class PickersScreenBrowseView extends StatelessWidget {
                       return instructions;
                     }
 
-                    /// GROUPS BUILDER
+                    /// PICKERS
                     else {
 
                       final PickerModel _picker = _refinedPickers[index - 1];
 
                       return PickerSplitter(
                         picker: _picker,
-                        onTap: () => onPickerTap(_picker),
-                        onDeleteSpec: onDeleteSpec,
-                        onSpecTap: onSpecTap,
                         allSelectedSpecs: _allSelectedSpecs,
+
+                        /// TAPPING ON PICKER IT SELF => GO TO PICKER SCREEN
+                        onPickerTap: () => onGoToPickerScreen(
+                          context: context,
+                          zone: zone,
+                          selectedSpecsNotifier: selectedSpecsNotifier,
+                          isMultipleSelectionMode: isMultipleSelectionMode,
+                          onlyUseCityChains: onlyUseCityChains,
+                          allPickers: _refinedPickers,
+                          picker: _picker,
+                          refinedPickersNotifier: refinedPickersNotifier,
+                        ),
+
+                        /// TAPPING ON BLACK SPEC => NOTHING FOR NOW
+                        onSelectedSpecTap: ({SpecModel value, SpecModel unit}){
+                          blog('PickersScreenBrowseView : onSpecTap');
+                          value.blogSpec();
+                          unit?.blogSpec();
+                        },
+
+                        /// TAPPING ON X ON BLACK SPEC => REMOVE THAT SPEC/COMPOUND SPEC
+                        onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
+                          valueSpec: value,
+                          unitSpec: unit,
+                          pickers: _refinedPickers,
+                          selectedSpecsNotifier: selectedSpecsNotifier,
+                        ),
+
                       );
 
                     }

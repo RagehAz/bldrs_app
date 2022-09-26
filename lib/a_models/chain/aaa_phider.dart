@@ -495,7 +495,7 @@ class Phider {
   static bool checkVerseIsPhid(String text){
 
     final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: text,
+      input: removeIndexFromPhid(phid: text),
       numberOfChars: phidCut.length, // 'phid'
     )?.toLowerCase();
 
@@ -509,7 +509,7 @@ class Phider {
     if (text != null && text is String){
 
       final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: text,
+        input: removeIndexFromPhid(phid: text),
         numberOfChars: currencyCut.length,
       )?.toLowerCase();
 
@@ -532,7 +532,7 @@ class Phider {
     if (text != null){
 
       final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: text,
+        input: removeIndexFromPhid(phid: text),
         numberOfChars: headlineCut.length,
       )?.toLowerCase();
 

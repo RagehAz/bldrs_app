@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_browse
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_search_view.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
-import 'package:bldrs/b_views/i_chains/b_picker_screen/x_picker_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -58,7 +56,7 @@ class _PickersScreenState extends State<PickersScreen> {
   List<Chain> _bldrsChains;
   List<Chain> _pickersChains;
   // --------------------
-  List<PickerModel> _allSortedPickers = <PickerModel>[];
+  List<PickerModel> _allPickers = <PickerModel>[];
   final ValueNotifier<List<PickerModel>> _refinedPickers = ValueNotifier([]);
   // --------------------
   /// SEARCHING
@@ -111,11 +109,13 @@ class _PickersScreenState extends State<PickersScreen> {
     if (_isInitialized == false){
       // ------------------------------
 
+      List<PickerModel> _pickers = _refinedPickers.value;
+
       /// ( IN BZ EDITOR FOR BZ SCOPE SELECTION ) WHEN USING CHAIN K ONLY
       if (widget.onlyChainKSelection == true){
 
 
-        _allSortedPickers = PickerModel.createHomeWallPickers(
+        _pickers = PickerModel.createHomeWallPickers(
           context: context,
           canPickMany: true,
           onlyUseTheseFlyerTypes: [widget.flyerTypeFilter],
@@ -130,7 +130,7 @@ class _PickersScreenState extends State<PickersScreen> {
 
           blog('should pick a phid');
 
-          _allSortedPickers = PickerModel.createHomeWallPickers(
+          _pickers = PickerModel.createHomeWallPickers(
             context: context,
             canPickMany: false,
             onlyUseTheseFlyerTypes: FlyerTyper.concludePossibleFlyerTypesByChains(_bldrsChains),
@@ -139,7 +139,7 @@ class _PickersScreenState extends State<PickersScreen> {
 
         /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
         else if ([widget.flyerTypeFilter].length == 1){
-          _allSortedPickers = ChainsProvider.proGetPickersByFlyerType(
+          _pickers = ChainsProvider.proGetPickersByFlyerType(
             context: context,
             flyerType: [widget.flyerTypeFilter][0],
             listen: false,
@@ -147,7 +147,7 @@ class _PickersScreenState extends State<PickersScreen> {
           );
         }
         else {
-          _allSortedPickers = ChainsProvider.proGetSortedPickersByFlyerTypes(
+          _pickers = ChainsProvider.proGetSortedPickersByFlyerTypes(
             context: context,
             flyerTypes: [widget.flyerTypeFilter],
             sort: true,
@@ -160,32 +160,35 @@ class _PickersScreenState extends State<PickersScreen> {
       // ------------------------------
       _selectedSpecs.value = widget.selectedSpecs ?? [];
       // ------------------------------
-      final List<PickerModel> _theRefinedSortedPickers = PickerModel.applyBlockersAndSort(
-        sourcePickers: _allSortedPickers,
+      setState(() {
+        _allPickers = _pickers;
+      });
+
+      _refinedPickers.value = PickerModel.applyBlockersAndSort(
+        sourcePickers: _pickers,
         selectedSpecs: widget.selectedSpecs,
         sort: true,
       );
-      _refinedPickers.value = _theRefinedSortedPickers;
       // ------------------------------
-      _generatePhidsFromAllSpecPickers();
+      _generatePhidsFromAllPickers(_refinedPickers.value);
       // ------------------------------
       _isInitialized = true;
       // ------------------------------
       _pickersChains = Chain.getChainsFromChainsByIDs(
         allChains: _bldrsChains,
-        phids: PickerModel.getPickersChainsIDs(_allSortedPickers),
+        phids: PickerModel.getPickersChainsIDs(_refinedPickers.value),
       );
     }
   }
   // --------------------
   List<String> _phidsOfAllPickers = <String>[];
-  void _generatePhidsFromAllSpecPickers(){
+  void _generatePhidsFromAllPickers(List<PickerModel> refinedPickers){
 
-    if (Mapper.checkCanLoopList(_allSortedPickers) == true){
+    if (Mapper.checkCanLoopList(refinedPickers) == true){
 
       final List<Chain> _sons = <Chain>[];
 
-      for (final PickerModel _picker in _allSortedPickers){
+      for (final PickerModel _picker in refinedPickers){
         final Chain _chain = ChainsProvider.proFindChainByID(
           context: context,
           chainID: _picker.chainID,
@@ -358,43 +361,13 @@ class _PickersScreenState extends State<PickersScreen> {
               return PickersScreenSearchView(
                 screenHeight: _screenHeight,
                 foundChains: _foundChains,
-                selectedSpecs: _selectedSpecs,
+                selectedSpecsNotifier: _selectedSpecs,
                 searchText: _searchText,
                 zone: widget.zone,
                 onlyUseCityChains: widget.onlyUseCityChains,
                 isMultipleSelectionMode: widget.isMultipleSelectionMode,
-                onSelectPhid: (String path, String phid) => onSelectPhidInPickerScreen(
-                  context: context,
-                  phid: phid,
-                  isMultipleSelectionMode: widget.isMultipleSelectionMode,
-                  selectedSpecs: _selectedSpecs,
-                  picker: PickerModel.getPickerByChainID(
-                    pickers: _allSortedPickers,
-                    chainID: ChainPathConverter.getFirstPathNode(path: Phider.removePathIndexes(path)),
-                  ),
-                ),
-                refinedPickers: _refinedPickers,
-                onPickerTap: (PickerModel picker) => onGoToPickerScreen(
-                  context: context,
-                  zone: widget.zone,
-                  selectedSpecs: _selectedSpecs,
-                  isMultipleSelectionMode: widget.isMultipleSelectionMode,
-                  onlyUseCityChains: widget.onlyUseCityChains,
-                  allSpecPickers: _allSortedPickers,
-                  picker: picker,
-                  refinedSpecsPickers: _refinedPickers,
-                ),
-                onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
-                  valueSpec: value,
-                  unitSpec: unit,
-                  pickers: _allSortedPickers,
-                  selectedSpecs: _selectedSpecs,
-                ),
-                onSpecTap: ({SpecModel value, SpecModel unit}){
-                  blog('ChainsPickingScreen : onSpecTap');
-                  value.blogSpec();
-                  unit?.blogSpec();
-                },
+                refinedPickersNotifier: _refinedPickers,
+                allPickers: _allPickers,
               );
 
             }
@@ -404,30 +377,11 @@ class _PickersScreenState extends State<PickersScreen> {
 
               return PickersScreenBrowseView(
                 onlyUseCityChains: widget.onlyUseCityChains,
-                refinedPickers: _refinedPickers,
-                selectedSpecs: _selectedSpecs,
+                refinedPickersNotifier: _refinedPickers,
+                selectedSpecsNotifier: _selectedSpecs,
                 flyerTypes: [widget.flyerTypeFilter],
-                onPickerTap: (PickerModel picker) => onGoToPickerScreen(
-                  context: context,
-                  zone: widget.zone,
-                  selectedSpecs: _selectedSpecs,
-                  isMultipleSelectionMode: widget.isMultipleSelectionMode,
-                  onlyUseCityChains: widget.onlyUseCityChains,
-                  allSpecPickers: _allSortedPickers,
-                  picker: picker,
-                  refinedSpecsPickers: _refinedPickers,
-                ),
-                onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
-                  valueSpec: value,
-                  unitSpec: unit,
-                  pickers: _allSortedPickers,
-                  selectedSpecs: _selectedSpecs,
-                ),
-                onSpecTap: ({SpecModel value, SpecModel unit}){
-                  blog('ChainsPickingScreen : onSpecTap');
-                  value.blogSpec();
-                  unit?.blogSpec();
-                },
+                zone: widget.zone,
+                isMultipleSelectionMode: widget.isMultipleSelectionMode,
               );
 
             }

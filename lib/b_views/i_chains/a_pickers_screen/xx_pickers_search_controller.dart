@@ -95,6 +95,8 @@ Future<void> onSearchChains({
   );
   */
 
+  Stringer.blogStrings(strings: _combinedPaths, invoker: 'onSearchChains : _combinedPaths');
+
   await _setFoundResults(
     context: context,
     foundChainsResult: ChainPathConverter.createChainsFromPaths(paths: _combinedPaths),

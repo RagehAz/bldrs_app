@@ -19,6 +19,7 @@ class SpecsWrapper extends StatelessWidget {
     @required this.xIsOn,
     @required this.picker,
     this.padding = Ratioz.appBarMargin,
+    this.searchText,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class SpecsWrapper extends StatelessWidget {
   final dynamic padding;
   final Function({SpecModel value, SpecModel unit}) onDeleteSpec;
   final Function({SpecModel value, SpecModel unit}) onSpecTap;
+  final ValueNotifier<String> searchText;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool combineTheTwoSpecs({
@@ -124,6 +126,7 @@ class SpecsWrapper extends StatelessWidget {
 
                   return SpecLabel(
                     maxBoxWidth: boxWidth - (padding * 2),
+                    searchText: searchText,
                     xIsOn: xIsOn,
                     verse: Verse(
                       text: Phider.removeIndexFromPhid(phid: _spec.value.toString()),
@@ -138,6 +141,7 @@ class SpecsWrapper extends StatelessWidget {
           if (_combineTwoSpecs == true)
             SpecLabel(
               xIsOn: xIsOn,
+              searchText: searchText,
               verse: _getCombinedSpecsVerse(
                 context: context,
                 picker: picker,

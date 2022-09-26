@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/a_phids_
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/b_price_data_creator.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/c_number_data_creator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -80,6 +79,7 @@ class DataCreatorSplitter extends StatelessWidget {
       dataCreator: DataCreator.doubleKeyboard,
     );
     // --------------------
+    /*
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     // blog('DataCreatorSplitter - BUILDING');
     // picker?.blogPicker();
@@ -98,6 +98,7 @@ class DataCreatorSplitter extends StatelessWidget {
     // blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     // SpecModel.blogSpecs(selectedSpecs);
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+     */
     // --------------------
     /// PHIDS OR CHAINS
     if (_isPhids == true || _isChains == true){
