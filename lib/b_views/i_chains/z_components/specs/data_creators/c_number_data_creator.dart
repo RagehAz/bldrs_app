@@ -23,6 +23,7 @@ class NumberDataCreator extends StatefulWidget {
     @required this.zone,
     @required this.onlyUseCityChains,
     @required this.appBarType,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class NumberDataCreator extends StatefulWidget {
   final ZoneModel zone;
   final bool onlyUseCityChains;
   final AppBarType appBarType;
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   State<NumberDataCreator> createState() => _NumberDataCreatorState();
@@ -88,7 +90,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = BldrsAppBar.width(context);
+    final double _bubbleWidth = widget.width ?? BldrsAppBar.width(context);
     // --------------------
     return Bubble(
       key:  const ValueKey<String>('NumberDataCreator'),
@@ -111,6 +113,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
 
         /// DATA CREATOR ROW
         NumberDataCreatorFieldRow(
+          width: _bubbleWidth,
           appBarType: widget.appBarType,
           hasUnit: widget.picker.unitChainID != null,
           validator: (String text) => _validator(text),

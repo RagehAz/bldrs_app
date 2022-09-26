@@ -1,5 +1,7 @@
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/bb_pickers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -7,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -115,6 +118,26 @@ class _PickerScreenState extends State<PickerScreen> {
 
   }
   // -----------------------------------------------------------------------------
+  AppBarType _getAppBarType(){
+
+    final Chain _valueChain = ChainsProvider.proFindChainByID(
+      context: context,
+      chainID: widget.picker?.chainID,
+      onlyUseCityChains: widget.onlyUseCityChains,
+      // includeChainSInSearch: true,
+    );
+
+    final bool _isDataCreator = DataCreation.checkIsDataCreator(_valueChain?.sons);
+
+    if (_isDataCreator == true){
+      return AppBarType.basic;
+    }
+    else {
+      return AppBarType.search;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -122,10 +145,11 @@ class _PickerScreenState extends State<PickerScreen> {
     // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final String _chainID = widget.picker?.chainID;
+    final AppBarType _appBarType = _getAppBarType();
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('PickerScreen'),
-      appBarType: AppBarType.search,
+      appBarType: _appBarType,
       searchController: _searchController,
       onSearchChanged: (String text){blog('PickerScreen : onSearchChanged : $text');},
       onSearchSubmit: (String text){blog('PickerScreen : onSearchSubmit : $text');},
@@ -153,7 +177,7 @@ class _PickerScreenState extends State<PickerScreen> {
         ),
       ),
       layoutWidget: PickersScreenView(
-          appBarType: AppBarType.search,
+          appBarType: _appBarType,
           picker: widget.picker,
           selectedSpecs: _tempSpecs,
           screenHeight: _screenHeight,

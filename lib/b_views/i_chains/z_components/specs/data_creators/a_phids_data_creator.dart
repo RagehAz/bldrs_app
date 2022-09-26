@@ -18,6 +18,7 @@ class PhidsDataCreator extends StatelessWidget {
     @required this.allowableHeight,
     @required this.searchText,
     @required this.onPhidTap,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,14 +28,16 @@ class PhidsDataCreator extends StatelessWidget {
   final double allowableHeight;
   final ValueNotifier<dynamic> searchText;
   final Function(String path, String phid) onPhidTap;
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return PickersViewBox(
       height: allowableHeight,
+      width: width,
       child: ChainSplitter(
-        width: BldrsAppBar.width(context),
+        width: width ?? BldrsAppBar.width(context),
         previousPath: specPicker.chainID,
         chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
           picker: specPicker,
@@ -60,10 +63,12 @@ class PickersViewBox extends StatelessWidget {
   const PickersViewBox({
     @required this.height,
     @required this.child,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double height;
+  final double width;
   final Widget child;
   /// --------------------------------------------------------------------------
   @override
@@ -73,7 +78,7 @@ class PickersViewBox extends StatelessWidget {
     final double _boxHeight = height - ( Ratioz.appBarMargin);
     // --------------------
     return Container(
-      width: BldrsAppBar.width(context),
+      width: width ?? BldrsAppBar.width(context),
       height: _boxHeight,
       decoration: BoxDecoration(
         color: Colorz.white10,

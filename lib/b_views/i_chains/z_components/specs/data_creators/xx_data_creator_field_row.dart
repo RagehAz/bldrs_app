@@ -22,6 +22,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     @required this.onUnitSelectorButtonTap,
     @required this.hintVerse,
     @required this.appBarType,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
   final Function onUnitSelectorButtonTap;
   final Verse hintVerse;
   final AppBarType appBarType;
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -51,10 +53,10 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     );
     // --------------------
     /// WIDTH
-    final double _clearWidth = Bubble.clearWidth(context);
+    final double _clearWidth = width ?? Bubble.clearWidth(context);
     final double _unitButtonSpacer = hasUnit == true ? Ratioz.appBarMargin : 0;
     final double _unitButtonWidth = hasUnit == true ? 80 : 0;
-    final double _textFieldWidth = _clearWidth - _unitButtonWidth - _unitButtonSpacer;
+    final double _textFieldWidth = _clearWidth - _unitButtonWidth - _unitButtonSpacer - 20;
     // --------------------
     return Row(
       key: const ValueKey<String>('NumberDataCreatorFieldRow'),

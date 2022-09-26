@@ -53,8 +53,9 @@ class ChainsBuilder extends StatelessWidget {
         child: ListView.builder(
           shrinkWrap: true, /// TASK : SO UNTIL YOU DEFINE THE LIST HEIGHT : WE WILL TOLERATE SHRINK WRAP UNTIL THEN
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(
-            vertical: Ratioz.appBarPadding,
+          padding: EdgeInsets.only(
+            top: Ratioz.appBarPadding,
+            bottom: Ratioz.appBarPadding + MediaQuery.of(context).viewInsets.bottom,
           ),
           itemCount: sons.length,
           itemBuilder: (_, int index){
