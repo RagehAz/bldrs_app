@@ -259,7 +259,7 @@ class _PickersScreenState extends State<PickersScreen> {
 
       ],
 
-      onBack: () => onGoBackFromChainsPickingScreen(
+      onBack: () => onGoBackFromPickersScreen(
         context: context,
         isMultipleSelectionMode: widget.isMultipleSelectionMode,
         selectedSpecs: _selectedSpecs,
@@ -288,7 +288,7 @@ class _PickersScreenState extends State<PickersScreen> {
           phidsOfAllPickers: _phidsOfAllPickers,
           chains: _pickersChains,
       ),
-      onSearchSubmit: (String text) => onChainsSearchSubmitted(
+      onSearchSubmit: (String text) => onSearchChains(
           text: text,
           isSearching: _isSearching,
           foundChains: _foundChains,
@@ -374,7 +374,7 @@ class _PickersScreenState extends State<PickersScreen> {
                   ),
                 ),
                 refinedPickers: _refinedPickers,
-                onPickerTap: (PickerModel picker) => onChainPickingPickerTap(
+                onPickerTap: (PickerModel picker) => onGoToPickerScreen(
                   context: context,
                   zone: widget.zone,
                   selectedSpecs: _selectedSpecs,
@@ -407,7 +407,7 @@ class _PickersScreenState extends State<PickersScreen> {
                 refinedPickers: _refinedPickers,
                 selectedSpecs: _selectedSpecs,
                 flyerTypes: [widget.flyerTypeFilter],
-                onPickerTap: (PickerModel picker) => onChainPickingPickerTap(
+                onPickerTap: (PickerModel picker) => onGoToPickerScreen(
                   context: context,
                   zone: widget.zone,
                   selectedSpecs: _selectedSpecs,
