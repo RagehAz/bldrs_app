@@ -14,9 +14,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ChainsScreenBrowseView extends StatelessWidget {
+class PickersScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainsScreenBrowseView({
+  const PickersScreenBrowseView({
     @required this.selectedSpecs,
     @required this.refinedPickers,
     @required this.onlyUseCityChains,

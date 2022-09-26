@@ -91,9 +91,16 @@ class MainLayout extends StatelessWidget {
   }){
 
     Keyboard.closeKeyboard(context);
-    controller.text = '';
-    foundResultNotifier.value = null;
-    isSearching.value = false;
+
+      controller?.text = '';
+
+    if (foundResultNotifier != null){
+      foundResultNotifier.value = null;
+    }
+
+    if (isSearching != null){
+      isSearching.value = false;
+    }
 
   }
   // --------------------------------------------------------------------------

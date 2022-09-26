@@ -3,17 +3,17 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/b_picker_screen.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/bbb_data_creator_splitter.dart';
+import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
+import 'package:bldrs/b_views/i_chains/z_components/pickers/data_creator_splitter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instruction.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:flutter/material.dart';
 
-class PickersScreenView extends StatelessWidget {
+class PickerScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const PickersScreenView({
+  const PickerScreenBrowseView({
     @required this.picker,
     @required this.selectedSpecs,
     @required this.screenHeight,
@@ -36,7 +36,7 @@ class PickersScreenView extends StatelessWidget {
   final bool isMultipleSelectionMode;
   final bool onlyUseCityChains;
   final ZoneModel zone;
-  final Function onKeyboardSubmitted;
+  final ValueChanged<String> onKeyboardSubmitted;
   final AppBarType appBarType;
   final ValueNotifier<dynamic> searchText;
   final ValueChanged<List<SpecModel>> onExportSpecs;

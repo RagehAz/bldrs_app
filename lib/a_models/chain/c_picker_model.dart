@@ -637,6 +637,33 @@ class PickerModel {
     return _specPicker;
   }
   // --------------------
+
+  static List<PickerModel> getPickersByChainsIDs({
+    @required List<String> chainsIDs,
+    @required List<PickerModel> pickers,
+  }){
+    final List<PickerModel> _output = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(pickers) == true && Mapper.checkCanLoopList(chainsIDs) == true){
+
+      for (final String chainID in chainsIDs){
+
+        final PickerModel _picker = getPickerByChainID(
+            pickers: pickers,
+            chainID: chainID
+        );
+
+        if (_picker != null){
+          _output.add(_picker);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> getPickersByGroupID({
