@@ -9,26 +9,31 @@ class PickerSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickerSplitter({
     @required this.picker,
-    @required this.onTap,
+    @required this.onPickerTap,
     @required this.allSelectedSpecs,
     @required this.onDeleteSpec,
-    @required this.onSpecTap,
+    @required this.onSelectedSpecTap,
+    this.searchText,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final PickerModel picker;
   final List<SpecModel> allSelectedSpecs;
-  final Function onTap;
-  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
+  final Function onPickerTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onSelectedSpecTap;
   final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
-  /// --------------------------------------------------------------------------
+  final ValueNotifier<String> searchText;
+  final double width;
+/// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     /// HEADLINE
-    if (picker.isHeadline == true){
+    if (picker?.isHeadline == true){
 
       return PickersGroupHeadline(
+        width: width,
         headline: Verse(
           text: picker.chainID,
           translate: true,
@@ -54,11 +59,13 @@ class PickerSplitter extends StatelessWidget {
       );
 
       return PickerTile(
-        onTap: onTap,
+        width: width,
+        onTap: onPickerTap,
         picker: picker,
         pickerSelectedSpecs: _pickerSelectedSpecs,
         onDeleteSpec: onDeleteSpec,
-        onSpecTap: onSpecTap,
+        onSpecTap: onSelectedSpecTap,
+        searchText: searchText,
       );
 
     }

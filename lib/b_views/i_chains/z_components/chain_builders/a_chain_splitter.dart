@@ -5,11 +5,10 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/z_components/pickers/data_creator_splitter.dart';
-import 'package:bldrs/b_views/i_chains/b_picker_screen/xxx_data_creators_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/b_chains_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/c_chain_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
+import 'package:bldrs/b_views/i_chains/z_components/pickers/data_creator_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -198,21 +197,18 @@ class ChainSplitter extends StatelessWidget {
     /// DATA CREATOR
     else if (DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
 
-
-      final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
-
+      // final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
       final String _chainID = ChainPathConverter.getLastPathNode(previousPath);
       final PickerModel _picker = PickerModel.getPickerByChainID(
           pickers: ChainsProvider.proGetAllPickers(context: context, listen: false),
           chainID: Phider.removeIndexFromPhid(phid: _chainID),
       );
-
-      blog('previousPath : $previousPath : _chainID : $_chainID : _dataCreator : $_dataCreator');
-
       final List<SpecModel> _specs = SpecModel.generateSpecsByPhids(
           context: context,
           phids: selectedPhids,
       );
+
+      // blog('previousPath : $previousPath : _chainID : $_chainID : _dataCreator : $_dataCreator');
 
       return DataCreatorSplitter(
         height: 100,
@@ -223,21 +219,9 @@ class ChainSplitter extends StatelessWidget {
         selectedSpecs: _specs,
         onPhidTap: onPhidTap,
         onExportSpecs: onExportSpecs,
-
         onlyUseCityChains: onlyUseCityChains,
         zone: zone,
-        onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmittedAnd(
-          context: context,
-          formKey: GlobalKey<FormState>(),
-          specValue: ValueNotifier(12),
-          dataCreatorType: _dataCreator,
-          text: text,
-          selectedUnitID: null,
-          picker: _picker,
-          onExportSpecs: (List<SpecModel> specs){
-            SpecModel.blogSpecs(specs);
-          },
-        ),
+        onKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
         isMultipleSelectionMode: isMultipleSelectionMode,
       );
     }
