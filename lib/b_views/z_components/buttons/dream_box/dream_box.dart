@@ -111,12 +111,13 @@ class DreamBox extends StatelessWidget {
     Color colorOverride
   }) {
 
-    final Color _iconColor = blackAndWhite == true || inActiveMode == true ?
-    Colorz.white30
-        :
-    colorOverride;
+    if (blackAndWhite == true || inActiveMode == true){
+      return Colorz.white30;
+    }
+    else {
+      return colorOverride;
+    }
 
-    return _iconColor;
   }
   // --------------------
   static double graphicWidth({
@@ -126,21 +127,21 @@ class DreamBox extends StatelessWidget {
     double iconSizeFactor,
   }) {
 
-    final double _svgGraphicWidth = height * iconSizeFactor;
-    final double _jpgGraphicWidth = height * iconSizeFactor;
-
-    final double _graphicWidth = icon == null && loading == false ? 0
-        :
-    ObjectCheck.fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth
-        :
+    if (icon == null && loading == false){
+      return 0;
+    }
+    else if (
+    ObjectCheck.fileExtensionOf(icon) == 'svg' ||
     ObjectCheck.fileExtensionOf(icon) == 'jpg' ||
-        ObjectCheck.fileExtensionOf(icon) == 'jpeg' ||
-        ObjectCheck.fileExtensionOf(icon) == 'png' ?
-    _jpgGraphicWidth
-        :
-    height;
+    ObjectCheck.fileExtensionOf(icon) == 'jpeg' ||
+    ObjectCheck.fileExtensionOf(icon) == 'png'
+    ){
+      return height * iconSizeFactor;
+    }
+    else {
+      return height;
+    }
 
-    return _graphicWidth;
   }
   // --------------------
   static double iconMargin({
@@ -150,125 +151,67 @@ class DreamBox extends StatelessWidget {
     String verse,
   }) {
 
-    return verse == null || icon == null ? 0 : (height - graphicWidth) / 2;
+    if (verse == null || icon == null){
+      return 0;
+    }
+    else {
+      return (height - graphicWidth) / 2;
+    }
+
   }
   // --------------------
   static Color boxColor({
     bool blackAndWhite,
     Color color
   }) {
-    return (blackAndWhite == true && color != Colorz.nothing) ?
-    Colorz.grey80
-        :
-    (color == Colorz.nothing && blackAndWhite == true) ?
-    Colorz.nothing
-        :
-    color;
+
+    if (blackAndWhite == true && color != Colorz.nothing){
+      return Colorz.grey80;
+    }
+    else if (color == Colorz.nothing && blackAndWhite == true){
+      return Colorz.nothing;
+    }
+    else {
+      return color;
+    }
+
   }
   // --------------------
   static BorderRadius boxCorners = const BorderRadius.all(Radius.circular(Ratioz.boxCorner12));
+  // --------------------
+  static BorderRadius getBoxCorners({
+    @required BuildContext context,
+    @required dynamic cornersOverride,
+  }){
+
+    if (cornersOverride == null){
+      return boxCorners;
+    }
+    else {
+      return Borderers.getCornersAsBorderRadius(context, cornersOverride ?? 0);
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    /// double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
-    // --------------------
-    final double _graphicWidth = graphicWidth(
-      icon: icon,
-      height: height,
-      iconSizeFactor: iconSizeFactor,
-      loading: loading,
+    final BorderRadius _boxCorners = getBoxCorners(
+      context: context,
+      cornersOverride: corners,
     );
-    // --------------------
-    final double _iconMargin = iconMargin(
-      height: height,
-      icon: icon,
-      verse: verse?.text,
-      graphicWidth: _graphicWidth,
-    );
-    // --------------------
-    final int _verseSize = iconSizeFactor == 1 ? 4 : 4;
-    // --------------------
-    /*
-     //  double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
-     */
-    // --------------------
-    /*
-//     BorderRadius _getIconCornerByRadius(){
-//       BorderRadius _IconCornerAsBorderRadius;
-//       double _iconCorners;
-//
-//       /// IF ICON IS ROUNDED
-//       if(iconRounded == true){
-//         _iconCorners =  (Borderers.getCornersAsDouble(corners) - _iconMargin);
-//         _IconCornerAsBorderRadius = Borderers.superBorderAll(context, _iconCorners);
-//       }
-//
-//       /// IF CUSTOM BORDER RADIUS PASSES THROUGH corners
-//       else if (corners.runtimeType ==  BorderRadius){
-//         BorderRadius _cornerBorders;
-//
-//         _IconCornerAsBorderRadius = Borderers.superBorderOnly(
-//           context: context,
-//           enTopRight: corners.topRight.x - _iconMargin,
-//           enTopLeft: corners.topLeft.x - _iconMargin,
-//           enBottomRight: corners.bottomRight.x - _iconMargin,
-//           enBottomLeft: corners.bottomLeft.x - _iconMargin,
-//         );
-//       }
-//
-//       /// IF corners IS DOUBLE AND ICON IS NOT ROUNDED
-//       else {
-//         _IconCornerAsBorderRadius = Borderers.superBorderAll(context, 0);
-//       }
-//
-//
-//       return _IconCornerAsBorderRadius;
-//     }
-
-     */
-    // --------------------
-    final BorderRadius _boxCorners = corners == null ? boxCorners
-        :
-    Borderers.getCornersAsBorderRadius(context, corners ?? 0);
-
-    final BorderRadius _iconCorners = Borderers.getCornersAsBorderRadius(context, _boxCorners);
-    // --------------------
-    final Color _boxColor = boxColor(
-      color: color,
-      blackAndWhite: greyscale,
-    );
-    // --------------------
-    final Color _iconColor = getIconColor(
-      inActiveMode: isDeactivated,
-      blackAndWhite: greyscale,
-      colorOverride: iconColor,
-    );
-    // --------------------
-    final TextDirection _textDirection = textDirection ?? TextDir.textDirectionAsPerAppDirection(context);
-    // --------------------
-    final EdgeInsets _boxMargins = Scale.superMargins(margins: margins);
-    // --------------------
-    /*
-//     CrossAxisAlignment _versesCrossAlignment =
-//     icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center
-//         :
-//     textDirection != null ? CrossAxisAlignment.end // dunno why
-//         :
-//     (icon != null && secondLine != null) || (verseCentered == false) ? CrossAxisAlignment.start
-//         :
-//     CrossAxisAlignment.center; // verseCentered
-     */
-    // --------------------
     // --------------------
     return TheBoxOfDreamBox(
       key: const ValueKey<String>('Dream_box_the_box'),
       inActiveMode: isDeactivated,
       opacity: opacity,
-      boxMargins: _boxMargins,
+      boxMargins: Scale.superMargins(margins: margins),
       width: width,
       height: height,
-      boxColor: _boxColor,
+      boxColor: boxColor(
+        color: color,
+        blackAndWhite: greyscale,
+      ),
       cornersAsBorderRadius: _boxCorners,
       children: <Widget>[
 
@@ -297,21 +240,35 @@ class DreamBox extends StatelessWidget {
         DreamBoxIconVerseSecondLine(
           key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
           verse: verse,
-          textDirection: _textDirection,
+          textDirection: textDirection ?? TextDir.getAppLangTextDirection(context),
           icon: icon,
           loading: loading,
           height: height,
           width: width,
-          iconCorners: _iconCorners,
-          iconMargin: _iconMargin,
+          iconCorners: Borderers.getCornersAsBorderRadius(context, _boxCorners),
+          iconMargin: iconMargin(
+            height: height,
+            icon: icon,
+            verse: verse?.text,
+            graphicWidth: graphicWidth(
+              icon: icon,
+              height: height,
+              iconSizeFactor: iconSizeFactor,
+              loading: loading,
+            ),
+          ),
           greyscale: greyscale,
           bubble: bubble,
-          iconColor: _iconColor,
+          iconColor: getIconColor(
+            inActiveMode: isDeactivated,
+            blackAndWhite: greyscale,
+            colorOverride: iconColor,
+          ),
           iconSizeFactor: iconSizeFactor,
           verseScaleFactor: verseScaleFactor,
           verseCentered: verseCentered,
           secondLine: secondLine,
-          verseSize: _verseSize,
+          verseSize: iconSizeFactor == 1 ? 4 : 4,
           verseWeight: verseWeight,
           inActiveMode: isDeactivated,
           verseColor: verseColor,
@@ -330,12 +287,6 @@ class DreamBox extends StatelessWidget {
 
         /// --- BOX HIGHLIGHT
         if (bubble == true)
-        // GradientLayer(
-        //   width: size.hasBoundedWidth ? 100 : SuperVerse.,
-        //   height: size.maxHeight,
-        //   isWhite: true,
-        // ),
-
           DreamBoxHighlight(
               key: const ValueKey<String>('DreamBoxHighlight'),
               width: width,

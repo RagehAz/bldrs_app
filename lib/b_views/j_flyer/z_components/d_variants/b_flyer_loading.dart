@@ -33,7 +33,7 @@ class FlyerLoading extends StatelessWidget {
 
             if (animate == true)
               RotatedBox(
-                quarterTurns: TextDir.appIsLeftToRight(context) ? 2 : 0,
+                quarterTurns: TextDir.checkAppIsLeftToRight(context) ? 2 : 0,
                 child: LinearProgressIndicator(
                   color: loadingColor,
                   backgroundColor: Colorz.nothing,

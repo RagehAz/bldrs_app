@@ -45,14 +45,14 @@ class TheBoxOfDreamBox extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: inActiveMode == true ? Colorz.white10 : boxColor,
                       // borderRadius: cornersAsBorderRadius,
-                      boxShadow: const <BoxShadow>[
+                      // boxShadow: const <BoxShadow>[
                         // CustomBoxShadow(
                         //     color: bubble == true ? Colorz.Black200 : Colorz.Nothing,
                         //     offset: new Offset(0, 0),
                         //     blurRadius: height * 0.15,
                         //     blurStyle: BlurStyle.outer
                         // ),
-                      ]
+                      // ]
                   ),
                   child: Stack(
                     alignment: Alignment.center,

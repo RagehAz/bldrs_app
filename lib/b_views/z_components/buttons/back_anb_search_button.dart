@@ -34,34 +34,52 @@ class BackAndSearchButton extends StatelessWidget {
   final String icon;
   final double iconSizeFactor;
   /// --------------------------------------------------------------------------
+  String _getIcon(BuildContext context){
+
+    if (backAndSearchAction == BackAndSearchAction.goBack){
+      return Iconizer.superBackIcon(context);
+    }
+    else if (backAndSearchAction == BackAndSearchAction.goToSearchScreen){
+      return Iconz.search;
+    }
+    else if (backAndSearchAction == BackAndSearchAction.showHistory){
+      return Iconz.clock;
+    }
+    else {
+      return null;
+    }
+
+  }
+  // --------------------
+  double getIconSizeFactor(){
+
+    if (backAndSearchAction == BackAndSearchAction.goBack){
+      return 1;
+    }
+
+    else if (backAndSearchAction == BackAndSearchAction.goToSearchScreen){
+      return 0.5;
+    }
+    else if (backAndSearchAction == BackAndSearchAction.showHistory){
+      return 0.5;
+    }
+    else {
+      return 1;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    final String _icon =
-    backAndSearchAction == BackAndSearchAction.goBack ? Iconizer.superBackIcon(context)
-        :
-    backAndSearchAction == BackAndSearchAction.goToSearchScreen ? Iconz.search
-        :
-    backAndSearchAction == BackAndSearchAction.showHistory ? Iconz.clock
-        :
-    null;
-    // --------------------
-    final double _iconSizeFactor = backAndSearchAction == BackAndSearchAction.goBack ? 1
-        :
-    backAndSearchAction == BackAndSearchAction.goToSearchScreen ? 0.5
-        :
-    backAndSearchAction == BackAndSearchAction.showHistory ? 0.5
-        :
-    1;
     // --------------------
     return DreamBox(
         height: Ratioz.appBarButtonSize,
         width: Ratioz.appBarButtonSize,
         corners: Ratioz.appBarButtonCorner,
         // margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-        icon: icon ?? _icon,
+        icon: icon ?? _getIcon(context),
         iconRounded: false,
-        iconSizeFactor: iconSizeFactor ?? _iconSizeFactor,
+        iconSizeFactor: iconSizeFactor ?? getIconSizeFactor(),
         bubble: false,
         color: color,
         // textDirection: superInverseTextDirection(context),

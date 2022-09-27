@@ -904,7 +904,7 @@ class BzModel{
     String _output = '$_bzTypesOneString\n$_bzFormString';
 
     /// ENGLISH
-    if (TextDir.appIsLeftToRight(context) == false){
+    if (TextDir.checkAppIsLeftToRight(context) == false){
 
       if (oneLine == true){
         _output = '$_bzFormString, $_bzTypesOneString';

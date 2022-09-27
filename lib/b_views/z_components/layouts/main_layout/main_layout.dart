@@ -115,7 +115,9 @@ class MainLayout extends StatelessWidget {
   );
   // --------------------
   static double clearHeight(BuildContext context) {
-    return Scale.superScreenHeight(context) - Ratioz.stratosphere - (2 * Ratioz.appBarMargin);
+    return  Scale.superScreenHeight(context)
+            - Ratioz.stratosphere
+            - (2 * Ratioz.appBarMargin);
   }
   // --------------------
   static double clearLayoutHeight({
@@ -123,25 +125,25 @@ class MainLayout extends StatelessWidget {
     AppBarType appBarType = AppBarType.basic,
   }){
 
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    final double _appBarHeight = BldrsAppBar.height(context, appBarType);
-
-    return _screenHeight - _appBarHeight;
+    return  Scale.superScreenHeightWithoutSafeArea(context)
+            -
+            BldrsAppBar.height(context, appBarType);
 
   }
   // --------------------
   static Color _mainLayoutBackGroundColor(SkyType skyType){
 
-    final Color _backgroundColor =
-    skyType == SkyType.non ?
-    Colorz.black255
-        :
-    skyType == SkyType.black ?
-    Colorz.blackSemi255
-        :
-    Colorz.skyDarkBlue;
+    if (skyType == SkyType.non){
+      return Colorz.black255;
+    }
 
-    return _backgroundColor;
+    else if (skyType == SkyType.black){
+      return Colorz.blackSemi255;
+    }
+    else {
+      return Colorz.skyDarkBlue;
+    }
+
   }
   // --------------------
   Future<void> _onBack(BuildContext context) async {

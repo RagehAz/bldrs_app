@@ -23,8 +23,7 @@ class DreamBoxHighlight extends StatelessWidget {
       height: height * 0.27,
       decoration: BoxDecoration(
           // color: Colorz.White,
-          borderRadius: BorderRadius.circular(
-              Borderers.getCornersAsDouble(corners) - (height * 0.8)),
+          borderRadius: BorderRadius.circular(Borderers.getCornersAsDouble(corners) - (height * 0.8)),
           boxShadow: <BoxShadow>[
             CustomBoxShadow(
                 color: Colorz.white50,

@@ -33,11 +33,9 @@ class WideButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _buttonWith = width ?? BldrsAppBar.width(context);
-
     return DreamBox(
       height: height,
-      width: _buttonWith,
+      width: width ?? BldrsAppBar.width(context),
       verse: verse,
       verseColor: verseColor,
       verseScaleFactor: verseScaleFactor,

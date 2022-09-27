@@ -46,7 +46,7 @@ class Scale {
     double top = 0,
   }) {
 
-    if (TextDir.appIsLeftToRight(context) == true){
+    if (TextDir.checkAppIsLeftToRight(context) == true){
       return EdgeInsets.only(
           bottom: bottom,
           left: enLeft,
@@ -75,7 +75,7 @@ class Scale {
     double bottom = 0,
   }) {
 
-    if (TextDir.appIsLeftToRight(context) == true){
+    if (TextDir.checkAppIsLeftToRight(context) == true){
       return EdgeInsets.only(
           left: enLeft,
           right: enRight,

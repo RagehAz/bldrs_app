@@ -112,24 +112,9 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _noteSenderTypeButtonWidth = Scale.getUniformRowItemWidth(
-      context: context,
-      numberOfItems: NoteModel.noteSenderTypesList.length,
-      boxWidth: TileBubble.childWidth(context: context),
-    );
-    final double _noteTypeButtonWidth = Scale.getUniformRowItemWidth(
-      context: context,
-      numberOfItems: NoteModel.noteTypesList.length,
-      boxWidth: TileBubble.childWidth(context: context),
-    );
     final double _noteButtonButtonWidth = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: NoteModel.noteButtonsList.length,
-      boxWidth: TileBubble.childWidth(context: context),
-    );
-    final double _noteAttachmentTypeButtonWidth = Scale.getUniformRowItemWidth(
-      context: context,
-      numberOfItems: NoteModel.noteAttachmentTypesList.length,
       boxWidth: TileBubble.childWidth(context: context),
     );
     // --------------------
@@ -144,7 +129,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
         const Expander(),
 
-        /// ALL NOTES VIEWER
+        /// GO TO => ALL NOTES VIEWER
         AppBarButton(
           verse: Verse.plain('ALL\nNOTES'),
           onTap: () => Nav.goToNewScreen(
@@ -153,7 +138,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           ),
         ),
 
-        /// TESTING LAB
+        /// GO TO =>  NOTES TESTING LAB
         AppBarButton(
           // verse: Verse.plain('Templates'),
           icon: Iconz.lab,
@@ -163,7 +148,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           ),
         ),
 
-        /// TEMPLATES
+        /// GO TO => NOTES TEMPLATES
         AppBarButton(
           // verse: Verse.plain('Templates'),
           icon: Iconz.form,
@@ -324,7 +309,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                                     return DreamBox(
                                       height: 40,
-                                      width: _noteTypeButtonWidth,
+                                      width: Scale.getUniformRowItemWidth(
+                                        context: context,
+                                        numberOfItems: NoteModel.noteTypesList.length,
+                                        boxWidth: TileBubble.childWidth(context: context),
+                                      ),
                                       verse: Verse(
                                         text: _noteTypeString,
                                         translate: false,
@@ -397,7 +386,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                                     return DreamBox(
                                       height: 40,
-                                      width: _noteSenderTypeButtonWidth,
+                                      width: Scale.getUniformRowItemWidth(
+                                        context: context,
+                                        numberOfItems: NoteModel.noteSenderTypesList.length,
+                                        boxWidth: TileBubble.childWidth(context: context),
+                                      ),
                                       verse: Verse(
                                         text: _senderTypeString,
                                         translate: false,
@@ -682,7 +675,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                                     return DreamBox(
                                       height: 40,
-                                      width: _noteAttachmentTypeButtonWidth,
+                                      width: Scale.getUniformRowItemWidth(
+                                        context: context,
+                                        numberOfItems: NoteModel.noteAttachmentTypesList.length,
+                                        boxWidth: TileBubble.childWidth(context: context),
+                                      ),
                                       verse: Verse(
                                         text: _attachmentTypeString,
                                         translate: false,
