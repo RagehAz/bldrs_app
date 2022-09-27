@@ -518,8 +518,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                   builder: (_, AsyncSnapshot<Object> snap){
 
                                     return NoteSenderDynamicButton(
-                                      model : snap.data,
                                       width: TileBubble.childWidth(context: context),
+                                      model : snap.data,
                                     );
 
                                   }
@@ -527,6 +527,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                           ],
                         );
+
                       },
                     ),
                   ),
@@ -547,6 +548,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         leadingIconSizeFactor: 0.5,
                         leadingIconBoxColor: Colorz.grey50,
                         switchValue: noteModel?.sendFCM,
+                        hasSwitch: true,
                         onSwitchTap: (bool val) => onSwitchSendFCM(
                           note: _note,
                           value: val,

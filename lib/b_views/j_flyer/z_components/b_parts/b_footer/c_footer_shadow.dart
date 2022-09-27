@@ -18,16 +18,20 @@ class FooterShadow extends StatelessWidget {
     return Align(
       key: const ValueKey<String>('FooterShadow'),
       alignment: Alignment.bottomCenter,
-      child: WebsafeSvg.asset(
-        Iconz.footerShadow,
-        fit: BoxFit.fitWidth,
-        width: flyerBoxWidth,
-        height: FlyerDim.footerBoxHeight(
-          context: context,
-          flyerBoxWidth: flyerBoxWidth,
-          infoButtonExpanded: false,
+      
+      child: ClipRRect(
+        borderRadius: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: flyerBoxWidth),
+        child: WebsafeSvg.asset(
+          Iconz.footerShadow,
+          fit: BoxFit.fitWidth,
+          width: flyerBoxWidth,
+          height: FlyerDim.footerBoxHeight(
+            context: context,
+            flyerBoxWidth: flyerBoxWidth,
+            infoButtonExpanded: false,
+          ),
+          alignment: Alignment.bottomCenter,
         ),
-        alignment: Alignment.bottomCenter,
       ),
     );
     // --------------------
