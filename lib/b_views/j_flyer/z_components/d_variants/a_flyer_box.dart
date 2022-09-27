@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -28,27 +29,24 @@ class FlyerBox extends StatelessWidget {
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
     // --------------------
     return Center(
+      key: const ValueKey<String>('flyer_box'),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          key: const ValueKey<String>('flyer_box'),
           width: flyerBoxWidth,
           height: _flyerBoxHeight,
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
             color: boxColor,
             borderRadius: _flyerBorders,
-            // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
+            boxShadow: Shadower.flyerZoneShadow,
           ),
           child: SizedBox(
             width: flyerBoxWidth,
             height: _flyerBoxHeight,
-            child: ClipRRect( /// because I will not pass borders to all children
-              borderRadius: _flyerBorders,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: stackWidgets ?? <Widget>[],
-              ),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: stackWidgets ?? <Widget>[],
             ),
           ),
         ),

@@ -54,6 +54,7 @@ class ComposeNoteProtocols {
       // senderImageURL:
       buttons: NoteModel.generateAcceptDeclineButtons(),
       token: userModelToSendTo?.fcmToken?.token,
+      topic: null,
     );
 
     await NoteFireOps.createNote(
@@ -99,6 +100,10 @@ class ComposeNoteProtocols {
       responseTime: null,
       buttons: null,
       token: null, // ????????????????????????????????????????????????????
+      topic: NoteModel.generateTopic(
+          topicType: TopicType.authorshipAcceptance,
+          id: bzID,
+      ),
     );
 
     await NoteFireOps.createNote(
@@ -145,6 +150,10 @@ class ComposeNoteProtocols {
       responseTime: null,
       buttons: null,
       token: null, // ????????????????????????????????????????????????????
+      topic: NoteModel.generateTopic(
+        topicType: TopicType.authorRoleChanged,
+        id: bzID,
+      ),
     );
 
     await NoteFireOps.createNote(
@@ -187,6 +196,10 @@ class ComposeNoteProtocols {
       responseTime: null,
       buttons: null,
       token: null, // ????????????????????????????????????????????????????????
+      topic: NoteModel.generateTopic(
+        topicType: TopicType.authorDeletion,
+        id: bzModel.id,
+      ),
     );
 
     await NoteFireOps.createNote(
@@ -223,6 +236,7 @@ class ComposeNoteProtocols {
         responseTime: null,
         buttons: null,
         token: _userModel?.fcmToken?.token,
+        topic: null,
       );
 
       await NoteFireOps.createNote(
@@ -291,6 +305,7 @@ class ComposeNoteProtocols {
               responseTime: null,
               buttons: null,
               token: _userModel?.fcmToken?.token,
+              topic: null,
             );
 
             await NoteFireOps.createNote(
@@ -340,6 +355,10 @@ class ComposeNoteProtocols {
       responseTime: null,
       buttons: null,
       token: null,
+      topic: NoteModel.generateTopic(
+          topicType: TopicType.flyerUpdate,
+          id: bzModel.id,
+      ),
     );
 
     await NoteFireOps.createNote(
@@ -384,6 +403,10 @@ class ComposeNoteProtocols {
       responseTime: null,
       buttons: null,
       token: null,
+      topic: NoteModel.generateTopic(
+          topicType: TopicType.generalBzNotes,
+          id: bzModel.id,
+      ),
     );
 
     await NoteFireOps.createNote(

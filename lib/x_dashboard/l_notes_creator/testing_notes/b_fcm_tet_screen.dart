@@ -31,12 +31,11 @@ class FCMTestScreen extends StatefulWidget {
 }
 
 class _FCMTestScreenState extends State<FCMTestScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// FCM : firebase cloud messaging
+  // StreamSubscription _iosSubscription;
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-// -----------------------------------------------------------------------------
-  /// StreamSubscription _iosSubscription;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -66,29 +65,15 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     //   // fbm.getToken();
     //   // firebaseMessaging.unsubscribeFromTopic('flyers');
     // }
-  }
-// -----------------------------------------------------------------------------
-  void _subscribeToFlyers() {
-    _fcm.subscribeToTopic('flyers');
-    blog('subscribed to [ flyers ]');
-  }
-// ------------------------------------
-  void _unsubscribeFromFlyers() {
-    _fcm.unsubscribeFromTopic('flyers');
-  }
-// ------------------------------------
-  Future<String> _getToken() async {
-    final String _fcmToken = await _fcm.getToken();
-    blog('_getToken : _fcmToken : $_fcmToken');
-    return _fcmToken;
-  }
-// ------------------------------------
-  Future<void> _updateMyUserFCMToken() async {
-
-    await Notifications.updateMyUserFCMToken(context: context);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   Future<void> checkPermissions() async {
     final NotificationSettings _settings = await _fcm.requestPermission(
       alert: true,
@@ -100,12 +85,34 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
       criticalAlert: true,
     );
 
-    blog(_settings.toString());
+    Notifications.blogNotificationSettings(_settings);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  Future<String> _getToken() async {
+    final String _fcmToken = await _fcm.getToken();
+    blog('_getToken : _fcmToken : $_fcmToken');
+    return _fcmToken;
+  }
+  // --------------------
+  void _subscribeToFlyers() {
+    _fcm.subscribeToTopic('flyers');
+    blog('subscribed to [ flyers ]');
+  }
+  // --------------------
+  void _unsubscribeFromFlyers() {
+    _fcm.unsubscribeFromTopic('flyers');
+  }
+  // --------------------
+  Future<void> _updateMyUserFCMToken() async {
+
+    await Notifications.updateMyUserFCMToken(context: context);
+
+  }
+  // --------------------
+  // --------------------
   NoteModel _note;
   bool _noteIsOn = false;
-
+  // --------------------
   /*
   void _setNoti(NoteModel note) {
     if (note != null) {
@@ -116,20 +123,11 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     }
   }
    */
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-
-    super.dispose();
-  }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   String _received = 'Nothing yet';
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    blog('FUCK YOU');
 
     return CenteredListLayout(
       titleVerse: Verse.plain('Notifications'),
@@ -269,6 +267,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
               responseTime: null,
               buttons: null,
               token: _userModel?.fcmToken?.token,
+              topic: NoteModel.dummyTopic,
             );
 
             await NoteFireOps.createNote(
@@ -286,6 +285,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
       ],
     );
+
   }
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

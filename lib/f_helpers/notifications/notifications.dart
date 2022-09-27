@@ -529,6 +529,31 @@ class Notifications {
 
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
   }
+  // --------------------
+  static void blogNotificationSettings(NotificationSettings settings){
+
+    if (settings == null){
+      blog('blogNotificationSettings : settings are null');
+    }
+    else {
+      blog('blogNotificationSettings : -------------START');
+
+      blog('alert               : ${settings.alert.index} : ${settings.alert.name}');
+      blog('announcement        : ${settings.announcement.index} : ${settings.announcement.name}');
+      blog('authorizationStatus : ${settings.authorizationStatus.index} : ${settings.authorizationStatus.name}');
+      blog('badge               : ${settings.badge.index} : ${settings.badge.name}');
+      blog('carPlay             : ${settings.carPlay.index} : ${settings.carPlay.name}');
+      blog('lockScreen          : ${settings.lockScreen.index} : ${settings.lockScreen.name}');
+      blog('notificationCenter  : ${settings.notificationCenter.index} : ${settings.notificationCenter.name}');
+      blog('showPreviews        : ${settings.showPreviews.index} : ${settings.showPreviews.name}');
+      blog('sound               : ${settings.sound.index} : ${settings.sound.name}');
+      blog('timeSensitive       : ${settings.timeSensitive.index} : ${settings.timeSensitive.name}');
+
+
+      blog('blogNotificationSettings : -------------END');
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// OLD CODES

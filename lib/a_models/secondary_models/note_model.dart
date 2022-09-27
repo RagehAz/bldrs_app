@@ -76,6 +76,7 @@ class NoteModel {
     @required this.responseTime,
     @required this.buttons,
     @required this.token,
+    @required this.topic,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -99,6 +100,7 @@ class NoteModel {
   final DateTime responseTime;
   final List<String> buttons;
   final String token;
+  final String topic;
   final QueryDocumentSnapshot<Object> docSnapshot;
   // -----------------------------------------------------------------------------
 
@@ -150,6 +152,7 @@ class NoteModel {
     DateTime responseTime,
     List<String> buttons,
     String token,
+    String topic,
   }){
     return NoteModel(
       id: id ?? this.id,
@@ -172,6 +175,7 @@ class NoteModel {
       responseTime: responseTime ?? this.responseTime,
       buttons: buttons ?? this.buttons,
       token: token ?? this.token,
+      topic: topic ?? this.topic,
     );
   }
   // -----------------------------------------------------------------------------
@@ -203,6 +207,7 @@ class NoteModel {
       'responseTime': Timers.cipherTime(time: responseTime, toJSON: toJSON),
       'buttons': buttons,
       'token': token,
+      'topic': topic,
     };
   }
   // --------------------
@@ -280,6 +285,7 @@ class NoteModel {
         ),
         buttons: Stringer.getStringsFromDynamics(dynamics: map['buttons']),
         token: map['token'],
+        topic: map['topic'],
         docSnapshot: map['docSnapshot'],
       );
     }
@@ -606,6 +612,8 @@ class NoteModel {
     blog('response : $response');
     blog('responseTime : $responseTime');
     blog('buttons : ${buttons?.toString()}');
+    blog('token: $token');
+    blog('topic: $topic');
     blog('docSnapshot : $docSnapshot');
 
     blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
@@ -767,6 +775,10 @@ class NoteModel {
 
         if (note.buttons == null){
           _missingFields.add('buttons');
+        }
+
+        if (note.topic == null){
+          _missingFields.add('topic');
         }
 
       }
@@ -949,7 +961,9 @@ class NoteModel {
           note1.noteType == note2.noteType &&
           note1.response == note2.response &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
-          Mapper.checkListsAreIdentical(list1: note1.buttons, list2: note2.buttons)
+          Mapper.checkListsAreIdentical(list1: note1.buttons, list2: note2.buttons) &&
+          note1.token == note2.token &&
+          note1.topic == note2.topic
       ){
         _areIdentical = true;
       }
@@ -1258,6 +1272,8 @@ class NoteModel {
   /// DUMMIES
 
   // --------------------
+  static const String dummyTopic = 'dummyTopic';
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel dummyNote(){
     return NoteModel(
@@ -1281,6 +1297,7 @@ class NoteModel {
       responseTime: Timers.createClock(hour: 10, minute: 50),
       buttons: const <String>['Fuck', 'You'],
       token: null,
+      topic: dummyTopic,
     );
   }
   // --------------------
@@ -1294,7 +1311,18 @@ class NoteModel {
     ];
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// TOPICS
+
+  // --------------------
+  static String generateTopic({
+    @required TopicType topicType,
+    @required String id,
+  }){
+    return '$topicType/$id/';
+  }
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
@@ -1344,6 +1372,27 @@ class NoteModel {
       responseTime.hashCode^
       buttons.hashCode^
       token.hashCode^
+      topic.hashCode^
       docSnapshot.hashCode;
   // -----------------------------------------------------------------------------
+}
+
+enum TopicType {
+  /// authors notified on their any new flyer getting verified
+  flyerVerification, // 'flyerVerification/bzID/'
+
+  /// authors notifier on any of bz flyers got updated
+  flyerUpdate, // 'flyerUpdate/bzID/'
+
+  /// authors notified on new user joined their team
+  authorshipAcceptance, // 'authorshipAcceptance/bzID/'
+
+  /// authors notified on any of them got his role changed
+  authorRoleChanged, // 'authorRoleChanged/bzID/'
+
+  /// authors notified on any of them got removed from the team
+  authorDeletion, // 'authorDeletion/bzID/'
+
+  /// authors notified on this general topic for general bz related notes
+  generalBzNotes, // 'generalBzNotes/bzID/'
 }

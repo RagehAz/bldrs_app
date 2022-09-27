@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -23,6 +26,9 @@ class FlyerBigView extends StatelessWidget {
   final String heroTag;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
+
+    unawaited(Sounder.playAssetSound(Sounder.whip_long));
+
     await Nav.goBack(
       context: context,
       invoker: 'FlyerFullScreen._onDismiss',
