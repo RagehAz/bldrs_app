@@ -250,6 +250,10 @@ Future<void> _sendFlyerVerificationUpdateNote({
     responseTime: null,
     buttons: null,
     token: null,
+    topic: NoteModel.generateTopic(
+      topicType: TopicType.flyerVerification,
+      id: bzID,
+    ),
   );
 
   await NoteFireOps.createNote(

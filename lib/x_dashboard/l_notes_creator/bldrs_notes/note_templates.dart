@@ -26,6 +26,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user did not sign in for 4 weeks',
@@ -58,6 +59,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user did not sign in for a 5 weeks',
@@ -90,6 +92,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user did not sign in for  6 weeks',
@@ -122,6 +125,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user downloaded app but did not sign up aslan for 7 days',
@@ -154,6 +158,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user downloaded app but did not sign up aslan for 14 days',
@@ -186,6 +191,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when city goes public',
@@ -218,6 +224,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'after user posts opinion feedback with 24 hours',
@@ -250,6 +257,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when bldrs.net replies over customer feedback',
@@ -282,6 +290,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when bldrs.net replies over customer feedback',
@@ -314,6 +323,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.ad,
     //   eventTrigger: 'every month',
@@ -346,6 +356,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when followed premium bz adds new flyers',
@@ -378,6 +389,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when author replies on user review',
@@ -410,6 +422,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when user posts flyer review',
@@ -442,6 +455,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.flyersIDs,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a user saves a flyer',
@@ -474,6 +488,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.flyersIDs,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a user shares a flyer',
@@ -506,6 +521,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a user follows bz',
@@ -543,6 +559,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.ad,
     //   eventTrigger: 'every week',
@@ -575,6 +592,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: <String>['phid_accept', 'phid_decline'],
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when author sends author invitation to a user',
@@ -607,6 +625,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when user replies on author invitation',
@@ -639,6 +658,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when author sends author invitation to a user',
@@ -671,6 +691,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a county goes global',
@@ -703,6 +724,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a section goes live',
@@ -737,6 +759,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.ad,
     //   eventTrigger: 'every week',
@@ -769,6 +792,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when user ask a question related to a specific keyword topic',
@@ -801,6 +825,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.non,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when an author answers a question by user',
@@ -833,6 +858,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     attachmentType: NoteAttachmentType.imageURL,
     buttons: null,
     token: null,
+    topic: null,
     /// pseudo
     //   subject: NotiSubject.welcome,
     //   eventTrigger: 'when new user joins bldrs.net',
