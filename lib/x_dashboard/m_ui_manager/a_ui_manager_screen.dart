@@ -1,11 +1,14 @@
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/x_dashboard/x_modules/m_ui_manager/d_balloon_types_screen.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/animations_lab.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/d_balloon_types_screen.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/super_rage7.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/x_modules/m_ui_manager/c_emoji_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/m_ui_manager/b_bldrs_icons_screen.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/c_emoji_test_screen.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/b_bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +27,7 @@ class UIManager extends StatelessWidget {
 
         const Stratosphere(),
 
+        /// BLDRS ICONS
         WideButton(
           verse: Verse.plain('Bldrs icons'),
           icon: Iconz.dvGouran,
@@ -37,6 +41,7 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        /// EMOJIS
         WideButton(
           verse: Verse.plain('Emojis'),
           icon: Iconz.emoji,
@@ -50,6 +55,7 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        /// BALLOON TYPES
         WideButton(
           verse: Verse.plain('Balloons'),
           icon: Iconz.utSelling,
@@ -62,6 +68,36 @@ class UIManager extends StatelessWidget {
 
           },
         ),
+
+        /// SUPER RAGE7
+        WideButton(
+          verse: Verse.plain('Super Rage7'),
+          icon: Iconz.dvRageh,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const SuperRage7Screen(),
+            );
+
+          },
+        ),
+
+        /// ANIMATIONS LAB
+        WideButton(
+          verse: Verse.plain('Animations Lab'),
+          icon: Iconz.dvDonaldDuck,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const AnimationsLab(),
+            );
+
+          },
+        ),
+
+        const Horizon(),
 
       ],
     );

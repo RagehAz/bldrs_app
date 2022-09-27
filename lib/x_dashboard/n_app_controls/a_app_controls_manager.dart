@@ -1,14 +1,17 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/x_modules/n_app_controls/x_app_controls_controller.dart';
-import 'package:bldrs/x_dashboard/x_modules/n_app_controls/xx_app_controls_model.dart';
+import 'package:bldrs/x_dashboard/n_app_controls/b_pricing_screen.dart';
+import 'package:bldrs/x_dashboard/n_app_controls/x_app_controls_controller.dart';
+import 'package:bldrs/x_dashboard/n_app_controls/xx_app_controls_model.dart';
 import 'package:flutter/material.dart';
 
 class AppControlsManager extends StatefulWidget {
@@ -87,6 +90,19 @@ class _AppControlsManagerState extends State<AppControlsManager> {
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       loading: _loading,
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
+        AppBarButton(
+          icon: Iconz.bigMac,
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const PricingScreen(),
+          ),
+        ),
+
+      ],
       layoutWidget: ValueListenableBuilder(
         valueListenable: _appControls,
         builder: (_, AppControlsModel controls, Widget child){
