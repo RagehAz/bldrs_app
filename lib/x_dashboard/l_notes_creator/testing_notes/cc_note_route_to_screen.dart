@@ -4,9 +4,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class SecondNotiTestScreen extends StatelessWidget {
+class NoteRouteToScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SecondNotiTestScreen({
+  const NoteRouteToScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -15,7 +15,7 @@ class SecondNotiTestScreen extends StatelessWidget {
 
     return MainLayout(
       pyramidsAreOn: true,
-      pageTitleVerse: Verse.plain('Second Notification Screen'),
+      pageTitleVerse: Verse.plain('Note Route to Screen'),
       sectionButtonIsOn: false,
       layoutWidget: Column(
         children: <Widget>[
@@ -28,7 +28,7 @@ class SecondNotiTestScreen extends StatelessWidget {
             color: Colorz.bloodTest,
             child: const SuperVerse(
               verse: Verse(
-                text: 'Second Notification Screen',
+                text: 'Note auto route comes here',
                 translate: false,
               ),
             ),

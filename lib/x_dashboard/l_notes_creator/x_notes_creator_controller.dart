@@ -29,6 +29,7 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/search_bzz_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/search_users_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/template_notes_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/a_notes_testing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -1005,4 +1006,17 @@ Future<void> onSelectNoteTemplateTap({
   );
 
 }
+// -----------------------------------------------------------------------------
+
+/// NOTES TESTING SCREEN
+
 // --------------------
+Future<void> onGoToNotesTestingScreen(BuildContext context) async {
+
+  await Nav.goToNewScreen(
+      context: context,
+      screen: const NotesTestingScreen(),
+  );
+
+}
+// -----------------------------------------------------------------------------
