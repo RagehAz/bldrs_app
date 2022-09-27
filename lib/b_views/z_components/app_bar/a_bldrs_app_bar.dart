@@ -53,116 +53,133 @@ class BldrsAppBar extends StatelessWidget {
   final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context) {
-    final double _abWidth = Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
-    return _abWidth;
+    return Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
   }
   // --------------------
   static double clearWidth(BuildContext context){
-    final double _appBarWidth = width(context);
-    return _appBarWidth - (2 * Ratioz.appBarPadding);
+    return width(context) - (2 * Ratioz.appBarPadding);
   }
   // --------------------
   static double height(BuildContext context, AppBarType appBarType) {
-    final double _abHeight = appBarType == AppBarType.search ?
-    Ratioz.appBarBigHeight
-        :
-    Ratioz.appBarSmallHeight;
-    return _abHeight;
+
+    if (appBarType == AppBarType.search){
+      return Ratioz.appBarBigHeight;
+    }
+    else {
+      return Ratioz.appBarSmallHeight;
+    }
+
   }
   // --------------------
   static double scrollWidth(BuildContext context) {
-    final double _appBarScrollWidth = Scale.superScreenWidth(context) -
-        (Ratioz.appBarMargin * 2) -
-        (Ratioz.appBarPadding * 2) -
-        Ratioz.appBarButtonSize -
-        Ratioz.appBarPadding;
-    return _appBarScrollWidth;
+    return  Scale.superScreenWidth(context)
+            - (Ratioz.appBarMargin * 2)
+            - (Ratioz.appBarPadding * 2)
+            - Ratioz.appBarButtonSize
+            - Ratioz.appBarPadding;
   }
   // -----------------------------------------------------------------------------
   bool _backButtonIsOnCheck() {
-    bool _isOn = false;
 
     if (canGoBack == true){
 
       if (appBarType == AppBarType.basic) {
-        _isOn = true;
-      } else if (appBarType == AppBarType.scrollable) {
-        _isOn = true;
-      } else if (appBarType == AppBarType.main) {
-        _isOn = false;
-      } else if (appBarType == AppBarType.intro) {
-        _isOn = false;
-      } else if (appBarType == AppBarType.search) {
-        _isOn = true;
-      } else if (appBarType == AppBarType.non) {
-        _isOn = false;
-      } else {
-        _isOn = false;
+        return true;
+      }
+      else if (appBarType == AppBarType.scrollable) {
+        return true;
+      }
+      else if (appBarType == AppBarType.main) {
+        return false;
+      }
+      else if (appBarType == AppBarType.intro) {
+        return false;
+      }
+      else if (appBarType == AppBarType.search) {
+        return true;
+      }
+      else if (appBarType == AppBarType.non) {
+        return false;
+      }
+      else {
+        return false;
       }
 
     }
+    else {
+      return false;
+    }
 
-    return _isOn;
   }
   // --------------------
   bool _searchButtonIsOnCheck() {
-    bool _isOn;
 
     if (appBarType == AppBarType.basic) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.scrollable) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.main) {
-      _isOn = true;
-    } else if (appBarType == AppBarType.intro) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.search) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.non) {
-      _isOn = false;
-    } else {
-      _isOn = false;
+      return false;
+    }
+    else if (appBarType == AppBarType.scrollable) {
+      return false;
+    }
+    else if (appBarType == AppBarType.main) {
+      return true;
+    }
+    else if (appBarType == AppBarType.intro) {
+      return false;
+    }
+    else if (appBarType == AppBarType.search) {
+      return false;
+    }
+    else if (appBarType == AppBarType.non) {
+      return false;
+    }
+    else {
+      return false;
     }
 
-    return _isOn;
   }
   // --------------------
   bool _sectionButtonIsOnCheck() {
-    bool _isOn;
 
     if (sectionButtonIsOn != null) {
-      _isOn = sectionButtonIsOn;
-    } else if (sectionButtonIsOn == false) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.basic) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.scrollable) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.main) {
-      _isOn = true;
-    } else if (appBarType == AppBarType.intro) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.search) {
-      _isOn = false;
-    } else if (appBarType == AppBarType.non) {
-      _isOn = false;
-    } else {
-      _isOn = false;
+      return sectionButtonIsOn;
+    }
+    else if (sectionButtonIsOn == false) {
+      return false;
+    }
+    else if (appBarType == AppBarType.basic) {
+      return false;
+    }
+    else if (appBarType == AppBarType.scrollable) {
+      return false;
+    }
+    else if (appBarType == AppBarType.main) {
+      return true;
+    }
+    else if (appBarType == AppBarType.intro) {
+      return false;
+    }
+    else if (appBarType == AppBarType.search) {
+      return false;
+    }
+    else if (appBarType == AppBarType.non) {
+      return false;
+    }
+    else {
+      return false;
     }
 
-    return _isOn;
   }
   // --------------------
   bool _scrollableCheck() {
-    bool _scrollable;
 
     if (appBarType == AppBarType.scrollable) {
-      _scrollable = true;
-    } else {
-      _scrollable = false;
+      return true;
     }
 
-    return _scrollable;
+    else {
+      return false;
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -181,11 +198,12 @@ class BldrsAppBar extends StatelessWidget {
     // --------------------
     final bool _scrollable = _scrollableCheck();
     // --------------------
-    final double _titleWidth =
-        _abClearWidth
-            - _backButtonWidth
-            - AppBarTitle.getTitleHorizontalMargin(backButtonIsOn: _backButtonIsOn)
-            - 60;
+    final double _titleWidth =  _abClearWidth
+                                - _backButtonWidth
+                                - 60
+                                - AppBarTitle.getTitleHorizontalMargin(
+                                      backButtonIsOn: _backButtonIsOn
+                                  );
     // --------------------
     return Container(
       width: _abWidth,

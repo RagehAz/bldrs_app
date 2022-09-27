@@ -171,7 +171,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final TextDirection _textDirection = textDirection ?? TextDir.textDirectionAsPerAppDirection(context);
+    final TextDirection _textDirection = textDirection ?? TextDir.getAppLangTextDirection(context);
     // --------------------
     final double _jpgGraphicWidth = height * iconSizeFactor;
     // --------------------

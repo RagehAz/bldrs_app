@@ -22,10 +22,7 @@ class TextMod {
     @required String replacement,
     @required String input,
   }) {
-
-    final String _output = input.replaceAll(characterToReplace, replacement);
-
-    return _output;
+    return input.replaceAll(characterToReplace, replacement);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -33,13 +30,10 @@ class TextMod {
     @required String text,
     String obscurityCharacter = '*',
   }){
-
     String _output = '';
 
-    final int _length = text.length;
-
-    if (_length != 0){
-      for (int i = 0; i < _length; i++){
+    if (text.isNotEmpty == true){
+      for (int i = 0; i < text.length; i++){
         _output = '$_output$obscurityCharacter';
       }
 
@@ -190,44 +184,50 @@ class TextMod {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String cutFirstCharacterAfterRemovingSpacesFromAString(String string) {
-    final String _stringTrimmed = string?.trim();
 
-    final String _stringWithoutSpaces = removeSpacesFromAString(_stringTrimmed);
-
+    final String _stringWithoutSpaces = removeSpacesFromAString(string?.trim());
     final String _firstCharacter = cutNumberOfCharactersOfAStringBeginning(_stringWithoutSpaces, 1);
 
-    final String _output =
-    _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' ' ?
-    null
-        :
-    _firstCharacter == '' ? null
-        :
-    _firstCharacter;
+    if (_stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' '){
+      return null;
+    }
+    else if (_firstCharacter == ''){
+      return null;
+    }
+    else {
+      return _firstCharacter;
+    }
 
-    // blog('string($string) - _stringTrimmed($_stringTrimmed) - _stringWithoutSpaces($_stringWithoutSpaces) - _firstCharacter($_firstCharacter) - _output($_output)');
-    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String cutNumberOfCharactersOfAStringBeginning(String string, int number) {
-    final String _output = string == null || string.isEmpty || string == '' || string == ' ' ?
-    null
-        :
-    string?.substring(0, number);
 
-    return _output == null || _output == '' || _output == '' ? null : _output;
+    if (string == null || string?.isEmpty == true || string == '' || string == ' '){
+      return null;
+    }
+    else {
+      return string?.substring(0, number);
+
+    }
+
   }
   // --------------------
   static String cutLastTwoCharactersFromAString(String string) {
+
     final List<String> _stringSplit = string.split('');
     final int _listLength = _stringSplit.length;
-    final int _lastIndex = _listLength - 1;
-    final int _beforeLastIndex = _listLength - 2;
 
-    return _listLength == 0 ?
-    null
-        :
-    '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
+    if (_listLength == 0){
+      return null;
+    }
+
+    else {
+      final int _lastIndex = _listLength - 1;
+      final int _beforeLastIndex = _listLength - 2;
+      return '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -235,8 +235,7 @@ class TextMod {
 
   // --------------------
   static String removeFirstCharacterFromAString(String string) {
-    final String stringWithoutFirstCharacter = string.isNotEmpty ? string?.substring(1) : null;
-    return stringWithoutFirstCharacter;
+    return string.isNotEmpty ? string?.substring(1) : null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -261,27 +260,33 @@ class TextMod {
   }
   // --------------------
   static String removeNumberOfCharactersFromEndOfAString(String string, int numberOfCharacters) {
-    String _stringTrimmed;
+
     // if (numberOfCharacters > string.length){
     //   blog('can not remove ($numberOfCharacters) from the given string because : numberOfCharacters > string.length');
     //   throw('can not remove ($numberOfCharacters) from the given string because');
     // } else {}
-
     // blog('string length ${string.trim().length} and : numberOfCharacters : $numberOfCharacters');
 
     if (string != null && string.trim().isNotEmpty) {
+
       if (string.trim().length == numberOfCharacters) {
-        _stringTrimmed = '';
+        return '';
       }
+
       else if (string.trim().length > numberOfCharacters) {
-        _stringTrimmed = string.substring(0, string.trim().length - numberOfCharacters);
+        return string.substring(0, string.trim().length - numberOfCharacters);
       }
+
       else {
-        _stringTrimmed = '';
+        return '';
       }
+
     }
 
-    return _stringTrimmed;
+    else {
+      return null;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -492,8 +497,7 @@ class TextMod {
   // --------------------
   /// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
   static String getFileNameFromAsset(String asset) {
-    final String _fileName = removeTextBeforeLastSpecialCharacter(asset, '/');
-    return _fileName;
+    return removeTextBeforeLastSpecialCharacter(asset, '/');
   }
   // --------------------
   /// converts list of strings to map of keywords with true map value
@@ -543,10 +547,11 @@ class TextMod {
     return _result;
   }
   // --------------------
-  static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map) {
-    final List<dynamic> _flyersIDs = map.keys.toList();
-    return _flyersIDs;
-  }
+  /*
+  // static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map) {
+  //   return map.keys.toList();
+  // }
+   */
   // -----------------------------------------------------------------------------
 
   /// FIXERS
@@ -660,8 +665,7 @@ class TextMod {
   }
   // --------------------
   static Future<void> controllerPaste(TextEditingController controller) async {
-    final String value = await FlutterClipboard.paste();
-    controller.text = value;
+    controller.text = await FlutterClipboard.paste();
   }
   // --------------------
   static Future<void> controllerCopy(BuildContext context, String value) async {

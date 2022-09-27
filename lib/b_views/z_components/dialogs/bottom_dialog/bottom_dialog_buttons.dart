@@ -76,7 +76,7 @@ class BottomDialogButtons extends StatelessWidget {
               margins: const EdgeInsets.all(Ratioz.appBarPadding),
               verseScaleFactor: 0.8,
               color: Colorz.white10,
-              textDirection: TextDir.textDirectionAsPerAppDirection(context),
+              textDirection: TextDir.getAppLangTextDirection(context),
               // bottomDialogType == BottomDialogType.bottomSheet ?
               // textDirectionAsPerAppDirection(context)
               //     :

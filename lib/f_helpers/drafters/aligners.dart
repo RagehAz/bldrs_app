@@ -8,42 +8,42 @@ class Aligners {
 
   // -----------------------------------------------------------------------------
   static Alignment superTopAlignment(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Alignment.topLeft
         :
     Alignment.topRight;
   }
   // -----------------------------------------------------------------------------
   static Alignment superBottomAlignment(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Alignment.bottomLeft
         :
     Alignment.bottomRight;
   }
   // -----------------------------------------------------------------------------
   static Alignment superCenterAlignment(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Alignment.centerLeft
         :
     Alignment.centerRight;
   }
   // -----------------------------------------------------------------------------
   static Alignment superInverseCenterAlignment(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Alignment.centerRight
         :
     Alignment.centerLeft;
   }
   // -----------------------------------------------------------------------------
   static Alignment superInverseTopAlignment(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Alignment.topRight
         :
     Alignment.topLeft;
   }
   // -----------------------------------------------------------------------------
   static Alignment superInverseBottomAlignment(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Alignment.bottomRight
         :
     Alignment.bottomLeft;
@@ -54,7 +54,7 @@ class Aligners {
     double _rightOffset;
 
     /// when in English
-    if (TextDir.appIsLeftToRight(context) == true) {
+    if (TextDir.checkAppIsLeftToRight(context) == true) {
       /// right offset position should be programmatic
       _rightOffset = null;
     }
@@ -73,7 +73,7 @@ class Aligners {
     double _leftOffset;
 
     /// when in English
-    if (TextDir.appIsLeftToRight(context) == true) {
+    if (TextDir.checkAppIsLeftToRight(context) == true) {
       /// left offset position should have the offset value
       _leftOffset = offsetFromLeft;
     }

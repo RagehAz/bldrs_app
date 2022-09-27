@@ -358,7 +358,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // _textLength = ValueNotifier(_controller.text.length);
     // _errors = ValueNotifier<List<String>>(_initializeErrors());
 
-    final TextDirection _initialTextDirection = TextDir.superTextDirectionSwitcher(
+    final TextDirection _initialTextDirection = TextDir.autoSwitchTextDirection(
       val: widget.textController?.text,
       context: context,
     );
@@ -544,7 +544,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   void _changeTextDirection(String val) {
     /// USE LIKE THIS :-
     /// onChanged: (val){_changeTextDirection();},
-    _textDirection.value = TextDir.superTextDirectionSwitcher(
+    _textDirection.value = TextDir.autoSwitchTextDirection(
       val: val,
       context: context,
     );
