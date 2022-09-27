@@ -215,7 +215,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                     countryID: widget.countryIDCurrencyOverride ?? _zoneProvider.currentZone.countryID,
                     onTap: (CurrencyModel currency) => onSelectCurrency(
                       context: context,
-                      currency: currency,
+                      currency: _currentCurrency,
                     ),
                   ),
 

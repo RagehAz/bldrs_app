@@ -21,7 +21,7 @@ class DreamBox extends StatelessWidget {
     this.icon,
     this.iconSizeFactor = 1,
     this.color = Colorz.nothing,
-    this.corners = Ratioz.boxCorner12,
+    this.corners,
     this.iconColor,
     this.verse,
     this.verseColor = Colorz.white255,
@@ -165,6 +165,8 @@ class DreamBox extends StatelessWidget {
         :
     color;
   }
+  // --------------------
+  static BorderRadius boxCorners = const BorderRadius.all(Radius.circular(Ratioz.boxCorner12));
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -226,7 +228,11 @@ class DreamBox extends StatelessWidget {
 
      */
     // --------------------
-    final BorderRadius _iconCorners = Borderers.getCornersAsBorderRadius(context, corners);
+    final BorderRadius _boxCorners = corners == null ? boxCorners
+        :
+    Borderers.getCornersAsBorderRadius(context, corners ?? 0);
+
+    final BorderRadius _iconCorners = Borderers.getCornersAsBorderRadius(context, _boxCorners);
     // --------------------
     final Color _boxColor = boxColor(
       color: color,
@@ -254,15 +260,6 @@ class DreamBox extends StatelessWidget {
 //     CrossAxisAlignment.center; // verseCentered
      */
     // --------------------
-    /// underline should only available if dreambox is portrait && verse is null && secondVerse is null
-    // double _iconBoxHeight = width ?? 0;
-    // double _underLineHeight = height?? 0 - _iconBoxHeight;
-    // double _underLineTopMargin = underLine == null ? 0 :
-    // ObjectChecker.objectIsSVG(icon) ? (width - (_underLineHeight * 0.1)) * 1 : // (width - ((width - _graphicWidth)/2)) * 0.0 :
-    // width;
-    // double _underlineHeight = underLine == null ? 0 : height - _underLineTopMargin;
-// -----------------------------------------------------------------------------
-    final BorderRadius _cornersAsBorderRadius = Borderers.getCornersAsBorderRadius(context, corners);
     // --------------------
     return TheBoxOfDreamBox(
       key: const ValueKey<String>('Dream_box_the_box'),
@@ -272,7 +269,7 @@ class DreamBox extends StatelessWidget {
       width: width,
       height: height,
       boxColor: _boxColor,
-      cornersAsBorderRadius: _cornersAsBorderRadius,
+      cornersAsBorderRadius: _boxCorners,
       children: <Widget>[
 
         // /// --- BLUR LAYER
@@ -290,7 +287,7 @@ class DreamBox extends StatelessWidget {
             height: height,
             width: width,
             decoration: BoxDecoration(
-              borderRadius: _cornersAsBorderRadius,
+              borderRadius: _boxCorners,
             ),
             alignment: childAlignment,
             child: subChild,
@@ -343,7 +340,7 @@ class DreamBox extends StatelessWidget {
               key: const ValueKey<String>('DreamBoxHighlight'),
               width: width,
               height: height,
-              corners: corners
+              corners: _boxCorners
           ),
 
         /// --- BOX GRADIENT
@@ -352,7 +349,7 @@ class DreamBox extends StatelessWidget {
             key: const ValueKey<String>('DreamBoxGradient'),
             width: width,
             height: height,
-            corners: _cornersAsBorderRadius,
+            corners: _boxCorners,
           ),
 
         /// --- RIPPLE & TAP LAYER

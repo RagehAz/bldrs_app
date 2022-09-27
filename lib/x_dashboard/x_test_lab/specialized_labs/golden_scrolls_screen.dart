@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/only_for_dev_widgets/the_golden_scroll.dart';
+import 'package:bldrs/x_dashboard/z_widgets/the_golden_scroll.dart';
 import 'package:flutter/material.dart';
 
 class GoldenScrollsScreen extends StatelessWidget {

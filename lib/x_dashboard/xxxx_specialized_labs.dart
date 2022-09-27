@@ -2,32 +2,30 @@ import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.d
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/images_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/animations_lab/super_rage7.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/back_end_lab/cloud_functions_test.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/pagination_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/dynamic_links_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/email_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/keyboard_field_widget_test.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/notifications_test/awesome_noti_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/notifications_test/fcm_tet_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/redorder_list_test.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/slider_test.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
-import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/tiny_flyer_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/video_player.dart';
-import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/zoning_workspace.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/awesome_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/fcm_tet_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/cloud_functions_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/pagination_and_streaming/pagination_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/sembast_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/images_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/dynamic_links_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/email_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/go_back_widget_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/golden_scrolls_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/keyboard_field_widget_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/location_test_screen/locations_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/redorder_list_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/slider_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/sounds_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/tiny_flyer_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/video_player.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/zoning_workspace.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -162,20 +160,6 @@ class SpecializedLabs extends StatelessWidget {
         verse:  'Video Player',
         icon: Iconz.play,
         screen: VideoPlayerScreen(),
-      ),
-
-      /// ANIMATIONS LAB
-      DashButtonModel(
-        verse:  'Animations lab',
-        icon: Iconz.dvDonaldDuck,
-        screen: AnimationsLab(),
-      ),
-
-      /// SUPER RAGE7
-      DashButtonModel(
-        verse:  'Super Rage7',
-        icon: Iconz.dvRageh2,
-        screen: SuperRage7Screen(),
       ),
 
       /// CLOUD FUNCTIONS

@@ -24,7 +24,6 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
-import 'package:bldrs/x_dashboard/x_modules/l_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/b_phrases_editor/a_phrase_manager_screen.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/a_chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/d_pickers_editors/a_pickers_manager_screen.dart';
@@ -36,10 +35,10 @@ import 'package:bldrs/x_dashboard/j_flyers_auditor/a_flyers_auditor_screen.dart'
 import 'package:bldrs/x_dashboard/i_flyers_manager/all_flyers_screen.dart';
 import 'package:bldrs/x_dashboard/k_statistics/statistics_screen.dart';
 import 'package:bldrs/x_dashboard/h_currency_manager/a_currency_manager_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/k_pricing_manager/pricing_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/l_ldb_manager/ldb_manager_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/m_ui_manager/a_ui_manager_screen.dart';
-import 'package:bldrs/x_dashboard/x_modules/n_app_controls/a_app_controls_manager.dart';
+import 'package:bldrs/x_dashboard/o_ldb_manager/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/a_ui_manager_screen.dart';
+import 'package:bldrs/x_dashboard/n_app_controls/a_app_controls_manager.dart';
+import 'package:bldrs/x_dashboard/p_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/xxx_test_lab.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -181,12 +180,8 @@ class DashBoardHomeScreen extends StatelessWidget {
       ),
       /// EMPTY
       null,
-      /// BIG MAC
-      DashButtonModel(
-        verse:  'BigMc',
-        icon: Iconz.bigMac,
-        screen: PricingScreen(),
-      ),
+      /// EMPTY
+      null,
       /// APP CONTROLS
       DashButtonModel(
         verse:  'App Controls',
