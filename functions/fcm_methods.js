@@ -38,6 +38,7 @@ admin.initializeApp();
 //  METHODS
 
 // -------------------------------------
+// TESTED : WORKS
 const onNoteCreation = functions.firestore
     .document('notes/{note}')
     .onCreate((snapshot, context) => {
@@ -75,10 +76,29 @@ const onNoteCreation = functions.firestore
         },
       };
       functions.logger.log('onNoteCreation : isa works');
-      admin.messaging().send(map);
+      if (noteModel.sendFCM == true){
+        if (noteModel.topic == null){
+          admin.messaging().send(map);
+        }
+        else {
+          admin.messaging().sendToTopic(noteModel.topic, map);
+        }
+      }
       functions.logger.log('onNoteCreation : END');
       return noteModel;
     });
+// -------------------------------------
+// const x_myFunction = fireFunction
+// .document('flyers/{flyer}')
+// .onCreate((snapshot, context) => {
+//   return fireMessaging.sendToTopic('flyers', {
+//     notification: {
+//       title: snapshot.data().username,
+//       body: snapshot.data().text,
+//       clickAction: 'FLUTTER_NOTIFICATION_CLICK',
+//     },
+//   });
+// });
 // -------------------------------------
 // const oldFcmToDevice = functions.firestore
 //     .document('notes/{note}')
@@ -166,18 +186,6 @@ const onNoteCreation = functions.firestore
 //         throw ('Notification sent: ', error);
 //       }
 //     });
-// -------------------------------------
-// const x_myFunction = fireFunction
-// .document('flyers/{flyer}')
-// .onCreate((snapshot, context) => {
-//   return fireMessaging.sendToTopic('flyers', {
-//     notification: {
-//       title: snapshot.data().username,
-//       body: snapshot.data().text,
-//       clickAction: 'FLUTTER_NOTIFICATION_CLICK',
-//     },
-//   });
-// });
 // --------------------------------------------------------------------------
 
 //  MODULE EXPORTS

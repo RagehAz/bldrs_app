@@ -56,16 +56,13 @@ class Shadower {
   /// FLYER SHADOWS
 
   // --------------------
-  static List<BoxShadow> flyerZoneShadow(double flyerBoxWidth) {
-    final List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
-      CustomBoxShadow(
-          color: Colorz.black230,
-          blurRadius: flyerBoxWidth * 0.055,
-          style: BlurStyle.outer),
-    ];
-
-    return _flyerZoneShadow;
-  }
+  static const List<BoxShadow> flyerZoneShadow = <BoxShadow>[
+    CustomBoxShadow(
+        color: Colorz.black230,
+        blurRadius: 5,
+        style: BlurStyle.outer
+    ),
+  ];
   // --------------------
   static List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth) {
     final List<BoxShadow> _shadows = <BoxShadow>[
@@ -95,7 +92,6 @@ class Shadower {
     //       blurStyle: BlurStyle.outer),
     // ];
     // return _btShadow;
-    /// TASK : optimize shadows
     return null;
   }
   // -----------------------------------------------------------------------------

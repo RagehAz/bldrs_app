@@ -94,7 +94,7 @@ class UserTileButton extends StatelessWidget {
             onTap: onUserTap,
           ),
 
-          if (sideButtonVerse == null)
+          if (sideButtonVerse != null)
             const SizedBox(width: boxPadding,),
 
           if (sideButtonVerse != null)

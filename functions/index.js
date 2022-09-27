@@ -8,6 +8,12 @@
 const fcmMethods = require('./fcm_methods');
 // --------------------------------------------------------------------------
 
+// EXPORTS
+
+// -------------------------------------
+exports.onNoteCreation = fcmMethods.onNoteCreation;
+// --------------------------------------------------------------------------
+
 // INITIALIZATION
 
 // -------------------------------------
@@ -23,12 +29,6 @@ const fcmMethods = require('./fcm_methods');
 // const flyerDoc = 'flyers/{flyerID}';
 // const userDoc = 'users/{userID}';
 // const docStatistics = fireAdmin.collection('admin').doc('statistics');
-// --------------------------------------------------------------------------
-
-// EXPORTS
-
-// -------------------------------------
-exports.onNoteCreation = fcmMethods.onNoteCreation;
 // --------------------------------------------------------------------------
 
 // TRACERS
