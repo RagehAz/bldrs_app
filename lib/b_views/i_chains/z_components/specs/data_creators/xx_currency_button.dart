@@ -51,8 +51,8 @@ class CurrencyButton extends StatelessWidget {
         iconSizeFactor: 0.7,
         verseCentered: false,
         bubble: false,
-        onTap: () => onTap(currency),
-        margins: 5,
+        onTap: onTap == null ? null : () => onTap(currency),
+        margins: const EdgeInsets.only(bottom: 5),
         verseHighlight: highlightController,
       );
     }
