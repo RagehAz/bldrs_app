@@ -52,7 +52,7 @@ class Obelisk extends StatelessWidget {
         children: <Widget>[
 
           /// ICONS
-          if (TextDir.appIsLeftToRight(context) == true)
+          if (TextDir.checkAppIsLeftToRight(context) == true)
             ObeliskIconsBuilder(
               isExpanded: isExpanded,
               navModels: navModels,
@@ -69,7 +69,7 @@ class Obelisk extends StatelessWidget {
           ),
 
           /// ICONS
-          if (TextDir.appIsLeftToRight(context) == false)
+          if (TextDir.checkAppIsLeftToRight(context) == false)
           ObeliskIconsBuilder(
             isExpanded: isExpanded,
             navModels: navModels,

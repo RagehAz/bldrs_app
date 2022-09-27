@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
@@ -132,6 +133,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
     return CenteredListLayout(
       titleVerse: Verse.plain('Notifications'),
+      skyType: SkyType.night,
       columnChildren: <Widget>[
 
         const Stratosphere(),

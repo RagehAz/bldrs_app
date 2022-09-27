@@ -36,11 +36,10 @@ class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = confirmButtonModel.firstLine.text.length > 20 ? 200 : null;
     final Widget _button = DreamBox(
       isDeactivated: confirmButtonModel.isDeactivated,
       height: 50,
-      width: _width,
+      width: confirmButtonModel.firstLine.text.length > 20 ? 200 : null,
       verseMaxLines: 2,
       color: Colorz.yellow255,
       verseColor: Colorz.black230,

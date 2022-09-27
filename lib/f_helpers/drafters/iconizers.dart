@@ -50,7 +50,7 @@ class Iconizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String superBackIcon(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Iconz.back
         :
     Iconz.backArabic;
@@ -58,7 +58,7 @@ class Iconizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String superInverseBackIcon(BuildContext context) {
-    return TextDir.appIsLeftToRight(context) ?
+    return TextDir.checkAppIsLeftToRight(context) ?
     Iconz.backArabic
         :
     Iconz.back;
