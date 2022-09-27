@@ -11,7 +11,7 @@ import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/notifications/notifications_models/fcm_channel.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/second_noti_test_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/cc_note_route_to_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
@@ -163,7 +163,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
         await Nav.pushAndRemoveUntil(
           context: context,
-          screen: const SecondNotiTestScreen(
+          screen: const NoteRouteToScreen(
 
           ),
         );

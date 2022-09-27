@@ -30,6 +30,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/note_sender_dynamic_button.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/all_notes_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/a_notes_testing_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -143,16 +144,29 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
         const Expander(),
 
+        /// ALL NOTES VIEWER
         AppBarButton(
-          verse: Verse.plain('All Notes'),
+          verse: Verse.plain('ALL\nNOTES'),
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const AllNotesScreen(),
           ),
         ),
 
+        /// TESTING LAB
         AppBarButton(
-          verse: Verse.plain('Templates'),
+          // verse: Verse.plain('Templates'),
+          icon: Iconz.lab,
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const NotesTestingScreen(),
+          ),
+        ),
+
+        /// TEMPLATES
+        AppBarButton(
+          // verse: Verse.plain('Templates'),
+          icon: Iconz.form,
           onTap: () => onGoToNoteTemplatesScreen(
             context: context,
             scrollController: _scrollController,
