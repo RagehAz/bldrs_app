@@ -369,27 +369,27 @@ void _fixValueDataTypeAndSetValue({
   // NOTE : controller.text = '$_value'; => can not redefine controller, it bugs text field
 
   /// OLD WAY AND WORKS
-  // /// IF INT
-  // if (isIntDataCreator(dataCreatorType) == true){
-  //   final double _doubleFromString = Numeric.transformStringToDouble(controller.text);
-  //   specValue.value = _doubleFromString.toInt();
-  // }
-  //
-  // /// IF DOUBLE
-  // else if (isDoubleDataCreator(dataCreatorType) == true){
-  //   specValue.value = Numeric.transformStringToDouble(controller.text);
-  // }
-  //
-  // /// OTHERWISE
-  // else {
-  //   specValue.value = controller.text;
-  // }
+  /// IF INT
+  if (DataCreation.checkIsIntDataCreator(dataCreatorType) == true){
+    final double _doubleFromString = Numeric.transformStringToDouble(text);
+    specValue.value = _doubleFromString.toInt();
+  }
+
+  /// IF DOUBLE
+  else if (DataCreation.checkIsDoubleDataCreator(dataCreatorType) == true){
+    specValue.value = Numeric.transformStringToDouble(text);
+  }
+
+  /// OTHERWISE
+  else {
+    specValue.value = text;
+  }
 
   /// TASK : TEST THIS
-  specValue.value = _fixValueDataType(
-    value: text,
-    dataCreatorType: dataCreatorType,
-  );
+  // specValue.value = _fixValueDataType(
+  //   value: text,
+  //   dataCreatorType: dataCreatorType,
+  // );
 
 }
 // --------------------

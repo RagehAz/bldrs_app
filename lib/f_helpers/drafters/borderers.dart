@@ -102,21 +102,25 @@ class Borderers {
   // -----------------------------------------------------------------------------
   static double getCornersAsDouble(dynamic corners) {
 
-    BorderRadius _cornerBorders;
-    double _topLeftCorner;
+    double _topLeftCorner = 0;
 
-    if (corners.runtimeType == BorderRadius) {
-      _cornerBorders = corners;
-      final Radius _topLeftCornerRadius = _cornerBorders?.topLeft;
-      _topLeftCorner = _topLeftCornerRadius?.x;
-      // print('_topLeftCorner : $_topLeftCorner');
+    if (corners != null){
+
+      if (corners.runtimeType == BorderRadius) {
+        final BorderRadius _cornerBorders = corners;
+        final Radius _topLeftCornerRadius = _cornerBorders?.topLeft;
+        _topLeftCorner = _topLeftCornerRadius?.x;
+        // print('_topLeftCorner : $_topLeftCorner');
+      }
+
+      else {
+        _topLeftCorner = corners?.toDouble();
+      }
+
+
     }
 
-    else {
-      _topLeftCorner = corners.toDouble();
-    }
-
-    return _topLeftCorner ?? 0;
+    return _topLeftCorner;
   }
   // -----------------------------------------------------------------------------
   static BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners) {
@@ -132,7 +136,7 @@ class Borderers {
     }
 
     else {
-      _cornerBorders = superBorderAll(context, corners.toDouble());
+      _cornerBorders = superBorderAll(context, corners?.toDouble());
     }
 
     return _cornerBorders;
