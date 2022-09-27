@@ -54,7 +54,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: TextDir.appIsLeftToRight(context) ?
+        crossAxisAlignment: TextDir.checkAppIsLeftToRight(context) ?
         CrossAxisAlignment.start
             :
         CrossAxisAlignment.end,

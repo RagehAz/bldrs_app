@@ -29,26 +29,29 @@ class Sky extends StatelessWidget {
     @required SkyType skyType,
   }){
 
-    final List<Color> _skyColors = skyType == SkyType.night ? <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue]
-        :
-    skyType == SkyType.black ?
-    <Color>[Colorz.blackSemi230, Colorz.blackSemi230]
-        :
-    <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
+    if (skyType == SkyType.night){
+      return <Color>[Colorz.skyLightBlue, Colorz.skyDarkBlue];
+    }
+    else if (skyType == SkyType.black){
+      return <Color>[Colorz.blackSemi230, Colorz.blackSemi230];
+    }
+    else {
+      return <Color>[Colorz.skyDarkBlue, Colorz.skyDarkBlue];
+    }
 
-    return _skyColors;
   }
   // --------------------
   static Color _getBaseColor({
     @required SkyType skyType,
   }){
 
-    final Color _baseColor = skyType == SkyType.night || skyType == SkyType.black ?
-    null
-        :
-    Colorz.skyDarkBlue;
+    if (skyType == SkyType.night || skyType == SkyType.black){
+      return null;
+    }
+    else {
+      return Colorz.skyDarkBlue;
+    }
 
-    return _baseColor;
   }
   // --------------------
   static Gradient _getSkyGradient({
@@ -56,43 +59,36 @@ class Sky extends StatelessWidget {
     @required bool gradientIsOn,
   }){
 
-    final List<Color> _skyColors = _getSkyColors(skyType: skyType);
+    if (gradientIsOn == true){
+      return RadialGradient(
+          center: const Alignment(0.75, 1.25),
+          radius: 1,
+          colors: _getSkyColors(skyType: skyType),
+          stops: const <double>[0, 0.65]
+      );
+    }
 
-    final Gradient _skyGradient = gradientIsOn == true ?
-    RadialGradient(
-        center: const Alignment(0.75, 1.25),
-        radius: 1,
-        colors: _skyColors,
-        stops: const <double>[0, 0.65]
-    )
-        :
-    null;
+    else {
+      return null;
+    }
 
-    return _skyGradient;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
-    // --------------------
-    final Gradient _skyGradient = _getSkyGradient(
-      skyType: skyType,
-      gradientIsOn: gradientIsOn,
-    );
-    // --------------------
-    final Color _plainColor = _getBaseColor(
-      skyType: skyType,
-    );
-    // --------------------
     return Container(
       key: key,
-      width: _screenWidth,
-      height: _screenHeight,
+      width: Scale.superScreenWidth(context),
+      height: Scale.superScreenHeight(context),
       decoration: BoxDecoration(
-        color: _plainColor,
-        gradient: _skyGradient,
+        color: _getBaseColor(
+          skyType: skyType,
+        ),
+        gradient: _getSkyGradient(
+          skyType: skyType,
+          gradientIsOn: gradientIsOn,
+        ),
       ),
       child: SkyStars(
         starsAreOn: skyType == SkyType.blackStars || skyType == SkyType.nightStars,
@@ -114,17 +110,14 @@ class SkyStars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
-    // --------------------
     if (starsAreOn == false){
       return const SizedBox();
     }
     // --------------------
     else {
       return SizedBox(
-        width: _screenWidth,
-        height: _screenHeight,
+        width: Scale.superScreenWidth(context),
+        height: Scale.superScreenHeight(context),
         child: Stack(
           children: const <Widget>[
 
@@ -229,12 +222,9 @@ class RandomStar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
-    // --------------------
     return Positioned(
-      left: (Numeric.createRandomIndex(listLength: 100) / 100) * _screenWidth,
-      bottom: (Numeric.createRandomIndex(listLength: 100) / 100) * _screenHeight,
+      left: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.superScreenWidth(context),
+      bottom: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.superScreenHeight(context),
       child: SuperImage(
         width: size,
         height: size,

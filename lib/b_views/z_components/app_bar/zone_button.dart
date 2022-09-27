@@ -37,7 +37,7 @@ class ZoneButton extends StatelessWidget {
     final String _cityName = _currentZone.cityName;
     final String _districtName = _currentZone.districtName;
     // --------------------
-    final String _countryAndCityNames = TextDir.appIsLeftToRight(context) ?
+    final String _countryAndCityNames = TextDir.checkAppIsLeftToRight(context) ?
     '$_cityName - $_countryName'
         :
     '$_countryName - $_cityName';

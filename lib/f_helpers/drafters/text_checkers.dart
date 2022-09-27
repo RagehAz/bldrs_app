@@ -182,44 +182,49 @@ class TextCheck {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool textControllerIsEmpty(TextEditingController controller) {
-    bool _controllerIsEmpty;
 
     if (controller == null ||
         controller.text == '' ||
         controller.text.isEmpty ||
         TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
         TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(controller.text) == null) {
-      _controllerIsEmpty = true;
+      return true;
     }
 
     else {
-      _controllerIsEmpty = false;
+      return false;
     }
 
-    return _controllerIsEmpty;
   }
   // --------------------
   static bool textControllersAreIdentical({
     @required TextEditingController controller1,
     @required TextEditingController controller2,
   }){
-    bool _areIdentical = false;
 
     if (controller1 == null && controller2 == null){
-      _areIdentical = true;
+      return true;
     }
+
     else if (controller1 != null && controller2 != null){
 
       if (
-      controller1.text == controller2.text &&
+          controller1.text == controller2.text &&
           controller1.hashCode == controller2.hashCode
       ){
-        _areIdentical = true;
+        return true;
+      }
+
+      else {
+        return false;
       }
 
     }
 
-    return _areIdentical;
+    else {
+      return false;
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -276,7 +281,6 @@ class TextCheck {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool isEmpty(String string) {
-    bool _isEmpty = true;
 
     if (string == null || string == '' || string.isEmpty == true
 
@@ -286,14 +290,13 @@ class TextCheck {
     // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == null
 
     ) {
-      _isEmpty = true;
+      return true;
     }
 
     else {
-      _isEmpty = false;
+      return false;
     }
 
-    return _isEmpty;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

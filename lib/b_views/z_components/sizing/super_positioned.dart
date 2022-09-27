@@ -95,7 +95,7 @@ class SuperPositioned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _isLTR = TextDir.appIsLeftToRight(context);
+    final bool _isLTR = TextDir.checkAppIsLeftToRight(context);
 
     /// LEFT TO RIGHT ( ENGLISH )
     if (_isLTR == true){

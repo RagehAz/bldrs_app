@@ -74,7 +74,7 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
 
         /// FCM TEST
         WideButton(
-          verse: Verse.plain('FCM tests'),
+          verse: Verse.plain('go to FCM tests'),
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const FCMTestScreen(),
@@ -83,7 +83,7 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
 
         /// AWESOME NOTIFICATIONS TEST
         WideButton(
-          verse: Verse.plain('Awesome Notifications tests'),
+          verse: Verse.plain('go to Awesome Notifications tests'),
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const AwesomeNotiTestScreen(),
@@ -92,7 +92,7 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
 
         /// NOTE ROUTE TO SCREEN
         WideButton(
-          verse: Verse.plain('Note route to screen'),
+          verse: Verse.plain('go to Note route to screen'),
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const NoteRouteToScreen(),

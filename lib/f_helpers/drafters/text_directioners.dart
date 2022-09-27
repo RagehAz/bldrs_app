@@ -20,38 +20,58 @@ class TextDir {
  }
   */
   // -----------------------------------------------------------------------------
-  static bool appIsLeftToRight(BuildContext context) {
-    bool _isLTR;
+
+    /// CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkAppIsLeftToRight(BuildContext context) {
 
     if (Words.textDirection(context) == 'ltr') {
-      _isLTR = true;
-    } else {
-      _isLTR = false;
+      return true;
     }
 
-    return _isLTR;
+    else {
+      return false;
+    }
+
   }
   // -----------------------------------------------------------------------------
-  static TextDirection textDirectionAsPerAppDirection(BuildContext context) {
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+  /// GETTERS
 
-    if (_phraseProvider.currentLangCode == 'en') {
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static TextDirection getAppLangTextDirection(BuildContext context) {
+
+    if (Provider.of<PhraseProvider>(context, listen: false).currentLangCode == 'en') {
       return TextDirection.ltr;
-    } else {
+    }
+
+    else {
       return TextDirection.rtl;
     }
   }
-  // -----------------------------------------------------------------------------
-  static TextDirection superInverseTextDirection(BuildContext context) {
-    if (appIsLeftToRight(context)) {
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static TextDirection getAppLangInverseTextDirection(BuildContext context) {
+
+    if (checkAppIsLeftToRight(context)) {
       return TextDirection.rtl;
-    } else {
+    }
+
+    else {
       return TextDirection.ltr;
     }
+
   }
   // -----------------------------------------------------------------------------
-  static TextDirection superTextDirectionSwitcherByController(TextEditingController controller) {
+
+  /// AUTO SWITCHERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static TextDirection autoSwitchTextDirectionByController(TextEditingController controller) {
 
     /// if keyboard lang is ltr ? ltr : rtl
     /// On native iOS the current keyboard language can be gotten from
@@ -63,103 +83,100 @@ class TextDir {
     /// to get the keyboard language, but I'm not seeing a way to listen
     /// to keyboard language changes.
 
-    TextDirection _textDirection;
+    if (TextCheck.textControllerIsEmpty(controller) == false) {
 
-    final bool controllerIsEmpty = TextCheck.textControllerIsEmpty(controller);
-
-    if (!controllerIsEmpty) {
-      final String _string = controller.text;
-
-      final String _trimmedVal = TextMod.removeSpacesFromAString(_string.trim());
-
+      /// first character defines the direction
+      final String _trimmedVal = TextMod.removeSpacesFromAString(controller.text.trim());
       final String _firstCharacter = TextMod.cutNumberOfCharactersOfAStringBeginning(_trimmedVal, 1);
 
-      // String _val = _trimmedVal; // first character defines the direction
-
-      // print('_firstCharacter is ($_firstCharacter)');
-
-      if (TextCheck.textStartsInEnglish(_firstCharacter)) {
-        _textDirection = TextDirection.ltr;
-      } else if (TextCheck.textStartsInArabic(_firstCharacter)) {
-        _textDirection = TextDirection.rtl;
-      } else {
-        _textDirection = null;
+      if (TextCheck.textStartsInEnglish(_firstCharacter) == true) {
+        return TextDirection.ltr;
       }
-    } else {
-      _textDirection = null;
+
+      else if (TextCheck.textStartsInArabic(_firstCharacter) == true) {
+        return TextDirection.rtl;
+      }
+
+      else {
+        return null;
+      }
+
     }
 
-    return _textDirection;
+    else {
+      return null;
+    }
+
   }
-  // -----------------------------------------------------------------------------
-  static TextDirection superTextDirectionSwitcher({
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static TextDirection autoSwitchTextDirection({
     @required BuildContext context,
     @required String val,
   }) {
-    TextDirection _textDirection;
 
     // bool _appIsLeftToRight = appIsLeftToRight(context);
     // TextDirection _defaultByLang = _appIsLeftToRight == true ? TextDirection.ltr : TextDirection.rtl;
 
-    final bool _controllerIsEmpty = TextCheck.isEmpty(val);
-
     /// when val has a value
-    if (!_controllerIsEmpty) {
-      final String _trimmedVal = TextMod.removeSpacesFromAString(val.trim());
+    if (TextCheck.isEmpty(val) == false) {
 
+      /// first character defines the direction
+      final String _trimmedVal = TextMod.removeSpacesFromAString(val.trim());
       final String _firstCharacter = TextMod.cutNumberOfCharactersOfAStringBeginning(_trimmedVal, 1);
 
-      // String _val = _trimmedVal; // first character defines the direction
-
-      // print('_firstCharacter is ($_firstCharacter)');
-
       if (TextCheck.textStartsInEnglish(_firstCharacter)) {
-        _textDirection = TextDirection.ltr;
-      } else if (TextCheck.textStartsInArabic(_firstCharacter)) {
-        _textDirection = TextDirection.rtl;
-      } else {
-        // _textDirection = _defaultByLang; // can not check app is left to right in initState of SuperTextField
-
-        _textDirection = TextDirection.ltr; // instead of null
+        return TextDirection.ltr;
       }
+
+      else if (TextCheck.textStartsInArabic(_firstCharacter)) {
+        return TextDirection.rtl;
+      }
+
+      else {
+        // _textDirection = _defaultByLang; // can not check app is left to right in initState of SuperTextField
+        return TextDirection.ltr; // instead of null
+      }
+
     }
 
     /// when val is empty
     else {
       // _textDirection = _defaultByLang;
       /// can not check app is left to right in initState of SuperTextField
-      _textDirection = textDirectionAsPerAppDirection(context); // instead of null
-
+      return getAppLangTextDirection(context); // instead of null
     }
 
-    return _textDirection;
   }
   // -----------------------------------------------------------------------------
+
+  /// CONCLUDERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static TextDirection concludeTextDirection({
     @required BuildContext context,
     @required TextDirection definedDirection,
     @required TextDirection detectedDirection,
   }) {
-    TextDirection _concludedTextDirection;
 
     /// when definedDirection is already defined, it overrides all
     if (definedDirection != null) {
-      _concludedTextDirection = definedDirection;
+      return definedDirection;
     }
 
     /// when it is not defined outside, and detectedDirection hadn't changed yet we
     /// use default superTextDirection that detects current app language
     else if (detectedDirection == null) {
-      _concludedTextDirection = textDirectionAsPerAppDirection(context);
+      return getAppLangTextDirection(context);
     }
 
     /// so otherwise we use detectedDirection that auto detects current input
     /// language
     else {
-      _concludedTextDirection = detectedDirection;
+      return detectedDirection;
     }
 
-    return _concludedTextDirection;
   }
   // -----------------------------------------------------------------------------
 }

@@ -227,7 +227,7 @@ class Nav {
         :
     PageTransitionType.rightToLeftWithFade;
 
-    final PageTransitionType _transition = TextDir.appIsLeftToRight(context) == true ?
+    final PageTransitionType _transition = TextDir.checkAppIsLeftToRight(context) == true ?
     _enBookDirection
         :
     _arBookDirection;
