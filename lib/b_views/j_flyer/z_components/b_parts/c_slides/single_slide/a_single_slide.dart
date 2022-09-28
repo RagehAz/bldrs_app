@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/c_slide_image_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
@@ -73,6 +74,12 @@ class SingleSlide extends StatelessWidget {
         /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
         SlideShadow(
           key: const ValueKey<String>('SingleSlideShadow'),
+          flyerBoxWidth: flyerBoxWidth,
+        ),
+
+        /// BOTTOM SHADOW
+        FooterShadow(
+          key: const ValueKey<String>('FooterShadow'),
           flyerBoxWidth: flyerBoxWidth,
         ),
 

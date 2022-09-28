@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 class FooterShadow extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -15,23 +15,20 @@ class FooterShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return Align(
-      key: const ValueKey<String>('FooterShadow'),
-      alignment: Alignment.bottomCenter,
-      
-      child: ClipRRect(
-        borderRadius: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: flyerBoxWidth),
-        child: WebsafeSvg.asset(
-          Iconz.footerShadow,
-          fit: BoxFit.fitWidth,
-          width: flyerBoxWidth,
-          height: FlyerDim.footerBoxHeight(
-            context: context,
-            flyerBoxWidth: flyerBoxWidth,
-            infoButtonExpanded: false,
-          ),
-          alignment: Alignment.bottomCenter,
-        ),
+    final double _height = FlyerDim.footerBoxHeight(
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+      infoButtonExpanded: false,
+    );
+    // --------------------
+    return Positioned(
+      bottom: -0.4,
+      child: SuperImage(
+        width: flyerBoxWidth,
+        height: _height,
+        pic: Iconz.footerShadow,
+        corners: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: flyerBoxWidth),
+        boxFit: BoxFit.fitWidth,
       ),
     );
     // --------------------
