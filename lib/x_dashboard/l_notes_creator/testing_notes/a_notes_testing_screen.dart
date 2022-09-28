@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/all_notes_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/c_awesome_noti_test_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/b_fcm_tet_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/cc_note_route_to_screen.dart';
@@ -71,6 +72,15 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
     return DashBoardLayout(
       loading: _loading,
       listWidgets: <Widget>[
+
+        /// VIEW ALL NOTES
+        WideButton(
+          verse: Verse.plain('Paginate all fire Notes'),
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const AllNotesScreen(),
+          ),
+        ),
 
         /// FCM TEST
         WideButton(

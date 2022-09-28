@@ -76,11 +76,10 @@ const onNoteCreation = functions.firestore
         },
       };
       functions.logger.log('onNoteCreation : isa works');
-      if (noteModel.sendFCM == true){
-        if (noteModel.topic == null){
+      if (noteModel.sendFCM == true) {
+        if (noteModel.topic == null) {
           admin.messaging().send(map);
-        }
-        else {
+        } else {
           admin.messaging().sendToTopic(noteModel.topic, map);
         }
       }

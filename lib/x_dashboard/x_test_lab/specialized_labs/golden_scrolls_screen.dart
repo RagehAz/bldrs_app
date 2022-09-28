@@ -24,20 +24,20 @@ class GoldenScrollsScreen extends StatelessWidget {
           Stratosphere(),
 
           GoldenScroll(
-            scrollTitle: 'To run on my Note3 mobile',
-            scrollScript: 'flutter run --release -d 4d00c32746ba80bf',
+            headline: 'To run on my Note3 mobile',
+            text: 'flutter run --release -d 4d00c32746ba80bf',
           ),
           GoldenScroll(
-            scrollTitle: 'To run on all emulators',
-            scrollScript: 'flutter run -d all',
+            headline: 'To run on all emulators',
+            text: 'flutter run -d all',
           ),
           GoldenScroll(
-            scrollTitle: 'Google Maps API key',
-            scrollScript: 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI',
+            headline: 'Google Maps API key',
+            text: 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI',
           ),
           GoldenScroll(
-            scrollTitle: 'Google Maps Platform API key',
-            scrollScript:
+            headline: 'Google Maps Platform API key',
+            text:
             'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU', // AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4
           ),
         ],

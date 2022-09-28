@@ -106,14 +106,15 @@ class _UserNotesPageState extends State<UserNotesPage> {
     ));
 
     if (Mapper.checkCanLoopList(_notesToMark) == true){
-      WidgetsBinding.instance.addPostFrameCallback((_){
-
-        NotesProvider.proSetIsFlashing(
-          context: context,
-          setTo: false,
-          notify: true,
-        );
-      });
+      if (mounted == true){
+        WidgetsBinding.instance.addPostFrameCallback((_){
+          NotesProvider.proSetIsFlashing(
+            context: context,
+            setTo: false,
+            notify: true,
+          );
+        });
+      }
 
     }
 

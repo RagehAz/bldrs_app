@@ -393,6 +393,7 @@ class BottomDialog extends StatelessWidget {
     bool verseCentered = false,
     bool isDeactivated = false,
     Function onDeactivatedTap,
+    Color color,
   }) {
 
     return DreamBox(
@@ -409,6 +410,7 @@ class BottomDialog extends StatelessWidget {
       onTap: onTap,
       isDeactivated: isDeactivated,
       onDeactivatedTap: onDeactivatedTap,
+      color: color,
     );
 
   }
