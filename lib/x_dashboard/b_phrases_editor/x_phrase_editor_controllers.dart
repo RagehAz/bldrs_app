@@ -24,6 +24,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/b_phrases_editor/b_phrase_editor_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/a_notes_creator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
@@ -783,10 +784,12 @@ class FastTranslatorButton extends StatelessWidget {
   /// ---------------------------------------------------------------------------
   const FastTranslatorButton({
     @required this.isInTransScreen,
+    @required this.pyramidsAreOn,
     Key key
   }) : super(key: key);
   /// ---------------------------------------------------------------------------
   final bool isInTransScreen;
+  final bool pyramidsAreOn;
   /// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -798,7 +801,7 @@ class FastTranslatorButton extends StatelessWidget {
       listen: true,
     );
 
-    if (Mapper.checkCanLoopList(_phidsPendingTranslation) == true && _user?.isAdmin == true){
+    if (_user?.isAdmin == true){
 
       return Container(
         width: Scale.superScreenWidth(context),
@@ -806,36 +809,60 @@ class FastTranslatorButton extends StatelessWidget {
         alignment: Alignment.bottomRight,
         child: Padding(
           padding: const EdgeInsets.only(right: 10, bottom: 40),
-          child: NoteRedDotWrapper(
-            childWidth: 40,
-            redDotIsOn: true,
-            count: _phidsPendingTranslation.length,
-            shrinkChild: true,
-            child: DreamBox(
-              height: 40,
-              width: 40,
-              corners: 20,
-              color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
-              icon: Iconz.language,
-              iconSizeFactor: 0.6,
-              onTap: () async {
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
 
-                if (isInTransScreen == true){
+              /// TRANSLATION BUTTON
+              if (Mapper.checkCanLoopList(_phidsPendingTranslation) == true)
+              NoteRedDotWrapper(
+                childWidth: 40,
+                redDotIsOn: true,
+                count: _phidsPendingTranslation.length,
+                shrinkChild: true,
+                child: DreamBox(
+                  height: 40,
+                  width: 40,
+                  corners: 20,
+                  color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
+                  icon: Iconz.language,
+                  iconSizeFactor: 0.6,
+                  onTap: () async {
 
-                  await showPhidsPendingTranslationDialog(context);
+                    if (isInTransScreen == true){
 
-                }
+                      await showPhidsPendingTranslationDialog(context);
 
-                else {
+                    }
 
-                  await createAPhidFast(
-                    context: context,
-                    verse: Verse.plain(_phidsPendingTranslation[0]),
-                  );
+                    else {
 
-                }
-              },
-            ),
+                      await createAPhidFast(
+                        context: context,
+                        verse: Verse.plain(_phidsPendingTranslation[0]),
+                      );
+
+                    }
+                  },
+                ),
+              ),
+
+              /// CREATE NOTES BUTTON
+              if (pyramidsAreOn == true)
+              DreamBox(
+                height: 40,
+                width: 40,
+                corners: 20,
+                color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
+                icon: Iconz.news,
+                iconSizeFactor: 0.6,
+                onTap: () => Nav.goToNewScreen(
+                  context: context,
+                  screen: const NotesCreatorScreen(),
+                ),
+              ),
+
+            ],
           ),
         ),
       );

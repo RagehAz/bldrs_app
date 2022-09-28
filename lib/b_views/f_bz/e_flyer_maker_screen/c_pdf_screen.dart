@@ -43,7 +43,6 @@ class _PDFScreenState extends State<PDFScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------
@@ -167,16 +166,12 @@ class _PDFScreenState extends State<PDFScreen> {
 
                 /// EVENTS
                 onPageChanged: (int newIndex, int numberOfPages){
-                  blog('onPageChanged : x : $newIndex : y : $numberOfPages');
-
-                  ProgressBarModel.updateProgressBarNotifierOnIndexChanged(
-                    context: context,
-                    newIndex: newIndex,
+                  // blog('onPageChanged : x : $newIndex : y : $numberOfPages');
+                  ProgressBarModel.onSwipe(
                     progressBarModel: _progressBarModel,
-                    syncFocusScope: false,
-                    numberOfPages: numberOfPages,
+                    newIndex: newIndex,
+                    context: context,
                   );
-
                 },
                 onError: (dynamic error){
                   blog('onError : error.runtimeType : ${error.runtimeType} : error : ${error.toString()}');

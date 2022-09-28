@@ -332,6 +332,7 @@ class BldrsAppBar extends StatelessWidget {
             AppBarProgressBar(
               progressBarModel: progressBarModel,
               loading: loading,
+              appBarType: appBarType,
             ),
 
         ],

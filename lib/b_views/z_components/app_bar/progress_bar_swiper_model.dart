@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/animators.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,39 @@ class ProgressBarModel {
   /// SETTERS
 
   // --------------------
-  static void updateProgressBarNotifierOnIndexChanged({
+  /// TESTED : WORKS PERFECT
+  static void onSwipe({
+    @required BuildContext context,
+    @required int newIndex,
+    @required ValueNotifier<ProgressBarModel> progressBarModel,
+  }){
+
+    /// A - if Keyboard is active
+    if (Keyboard.keyboardIsOn(context) == true) {
+
+      ProgressBarModel._updateProgressBarNotifierOnIndexChanged(
+        context: context,
+        progressBarModel: progressBarModel,
+        newIndex: newIndex,
+        // syncFocusScope: true,
+      );
+
+    }
+
+    /// A - if keyboard is not active
+    else {
+      ProgressBarModel._updateProgressBarNotifierOnIndexChanged(
+        context: context,
+        progressBarModel: progressBarModel,
+        newIndex: newIndex,
+        syncFocusScope: false,
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void _updateProgressBarNotifierOnIndexChanged({
     @required BuildContext context,
     @required ValueNotifier<ProgressBarModel> progressBarModel,
     @required int newIndex,

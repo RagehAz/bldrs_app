@@ -249,7 +249,8 @@ class MainLayout extends StatelessWidget {
 
                 /// PLAN : for translation purposes and for dev mode only
                 FastTranslatorButton(
-                    isInTransScreen: isInPhrasesScreen,
+                  isInTransScreen: isInPhrasesScreen,
+                  pyramidsAreOn: pyramidsAreOn,
                 ),
 
               ],

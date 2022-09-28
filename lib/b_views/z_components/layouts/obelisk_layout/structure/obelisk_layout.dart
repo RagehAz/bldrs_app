@@ -1,15 +1,14 @@
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_slides_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:flutter/material.dart';
 
 class ObeliskLayout extends StatefulWidget {
@@ -97,7 +96,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           tabController: _tabController,
         );
 
-        onHorizontalSlideSwipe(
+        ProgressBarModel.onSwipe(
           context: context,
           newIndex: _tabController.index,
           progressBarModel: _progressBarModel,
@@ -149,7 +148,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitleVerse.notifier.value}');
 
 
-    onHorizontalSlideSwipe(
+    ProgressBarModel.onSwipe(
       context: context,
       newIndex: index,
       progressBarModel: _progressBarModel,
