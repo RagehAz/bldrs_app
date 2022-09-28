@@ -36,13 +36,11 @@ class Bubble extends StatelessWidget {
   static double clearWidth(BuildContext context, {double bubbleWidthOverride}) {
     final double _bubbleWidth = bubbleWidth(context, bubbleWidthOverride: bubbleWidthOverride);
     const double _bubblePaddings = Ratioz.appBarMargin * 2;
-    final double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
-    return _inBubbleClearWidth;
+    return _bubbleWidth - _bubblePaddings;
   }
   // --------------------
   static double bubbleWidth(BuildContext context, {double bubbleWidthOverride}) {
-    final double _bubbleWidth = bubbleWidthOverride ?? BldrsAppBar.width(context);
-    return _bubbleWidth;
+    return bubbleWidthOverride ?? BldrsAppBar.width(context);
   }
   // --------------------
   static double _getTitleHeight(BuildContext context){
@@ -56,10 +54,7 @@ class Bubble extends StatelessWidget {
   }
   // --------------------
   static double getHeightWithoutChildren(BuildContext context){
-    final double _titleHeight = _getTitleHeight(context);
-    final double _heights = (_pageMargin * 3) + _titleHeight;
-
-    return _heights;
+    return (_pageMargin * 3) + _getTitleHeight(context);
   }
   // --------------------
   static const double cornersValue = Ratioz.appBarCorner;

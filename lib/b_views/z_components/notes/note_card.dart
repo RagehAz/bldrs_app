@@ -25,6 +25,7 @@ class NoteCard extends StatelessWidget {
     this.onNoteOptionsTap,
     this.onCardTap,
     this.bubbleWidth,
+    this.bubbleColor,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class NoteCard extends StatelessWidget {
   final Function onNoteOptionsTap;
   final Function onCardTap;
   final double bubbleWidth;
+  final Color bubbleColor;
   /// --------------------------------------------------------------------------
   static double getBubbleWidth(BuildContext context) {
     return Bubble.bubbleWidth(context);
@@ -88,12 +90,12 @@ class NoteCard extends StatelessWidget {
         ),
         width: _bubbleWidth,
         childrenCentered: true,
-        margins: const EdgeInsets.symmetric(
-            horizontal: Ratioz.appBarMargin,
-            vertical: Ratioz.appBarMargin,
+        margins: const EdgeInsets.only(
+            // horizontal: Ratioz.appBarMargin,
+            bottom: Ratioz.appBarMargin,
         ),
         onBubbleTap: _noteHasButtons ? null : onCardTap,
-        bubbleColor: noteModel?.seen == true ? Colorz.white10 : Colorz.yellow50,
+        bubbleColor: bubbleColor ?? (noteModel?.seen == true ? Colorz.white10 : Colorz.yellow50),
         columnChildren: <Widget>[
 
           /// SENDER BALLOON - TITLE - TIMESTAMP - BODY
