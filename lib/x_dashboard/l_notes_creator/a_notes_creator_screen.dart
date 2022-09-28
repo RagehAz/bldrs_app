@@ -14,9 +14,9 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
@@ -29,7 +29,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/note_sender_dynamic_button.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/all_notes_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/a_notes_testing_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
@@ -117,6 +116,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       numberOfItems: NoteModel.noteButtonsList.length,
       boxWidth: TileBubble.childWidth(context: context),
     );
+
+    blog('a77a');
     // --------------------
     return MainLayout(
       loading: _loading,
@@ -129,15 +130,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
         const Expander(),
 
-        /// GO TO => ALL NOTES VIEWER
-        AppBarButton(
-          verse: Verse.plain('ALL\nNOTES'),
-          onTap: () => Nav.goToNewScreen(
-            context: context,
-            screen: const AllNotesScreen(),
-          ),
-        ),
-
         /// GO TO =>  NOTES TESTING LAB
         AppBarButton(
           // verse: Verse.plain('Templates'),
@@ -145,21 +137,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const NotesTestingScreen(),
-          ),
-        ),
-
-        /// GO TO => NOTES TEMPLATES
-        AppBarButton(
-          // verse: Verse.plain('Templates'),
-          icon: Iconz.form,
-          onTap: () => onGoToNoteTemplatesScreen(
-            context: context,
-            scrollController: _scrollController,
-            selectedSenderType: _selectedSenderType,
-            selectedSenderModel: _selectedSenderModel,
-            note: _note,
-            bodyController: _bodyController,
-            titleController: _titleController,
           ),
         ),
 
@@ -207,6 +184,15 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       return NoteCard(
                         noteModel: noteModel,
                         isDraftNote: true,
+                        onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
+                          context: context,
+                          note: _note,
+                          titleController: _titleController,
+                          bodyController: _bodyController,
+                          scrollController: _scrollController,
+                          selectedSenderModel: _selectedSenderModel,
+                          selectedSenderType: _selectedSenderType,
+                        ),
                       );
 
                     }

@@ -9,11 +9,13 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
@@ -43,14 +45,13 @@ void initializeVariables({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
 }){
-  final NoteModel _initialNote = createInitialNote(context);
-  note.value = _initialNote;
+  note.value = _createInitialNote(context);
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-NoteModel createInitialNote(BuildContext context) {
+NoteModel _createInitialNote(BuildContext context) {
 
-  final NoteModel _noteModel = NoteModel(
+  return NoteModel(
     id: null,
     senderID: NoteModel.bldrsSenderModel.key,
     senderImageURL: NoteModel.bldrsSenderModel.value,
@@ -74,7 +75,96 @@ NoteModel createInitialNote(BuildContext context) {
     topic: null,
   );
 
-  return _noteModel;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onNoteCreatorCardOptionsTap({
+  @required BuildContext context,
+  @required ValueNotifier<NoteModel> note,
+  @required TextEditingController titleController,
+  @required TextEditingController bodyController,
+  @required ValueNotifier<NoteSenderType> selectedSenderType,
+  @required ValueNotifier<dynamic> selectedSenderModel,
+  @required ScrollController scrollController,
+}) async {
+
+  await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      numberOfWidgets: 2,
+      titleVerse: const Verse(
+        text: 'phid_options',
+        translate: true,
+      ),
+      buttonHeight: 50,
+      builder: (_, PhraseProvider pro){
+
+        return <Widget>[
+
+          /// IMPORT TEMPLATE
+          BottomDialog.wideButton(
+              context: context,
+              verse: const Verse(
+                text: 'Import Template',
+                translate: false,
+                casing: Casing.upperCase,
+              ),
+              height: 50,
+              onTap: () async {
+
+                await Nav.goBack(
+                    context: context,
+                    invoker: 'onNoteCreatorCardOptionsTap : Import Template',
+                );
+
+                await onGoToNoteTemplatesScreen(
+                  context: context,
+                  scrollController: scrollController,
+                  selectedSenderType: selectedSenderType,
+                  selectedSenderModel: selectedSenderModel,
+                  note: note,
+                  bodyController: bodyController,
+                  titleController: titleController,
+                );
+
+              }
+          ),
+
+          /// CLEAR NOTE
+          BottomDialog.wideButton(
+              context: context,
+              verse: const Verse(
+                text: 'Clear Note',
+                translate: false,
+                casing: Casing.upperCase,
+              ),
+              color: Colorz.bloodTest,
+              height: 50,
+              onTap: () async {
+
+                await Nav.goBack(
+                  context: context,
+                  invoker: 'onNoteCreatorCardOptionsTap : Import Template',
+                );
+
+                _clearNote(
+                    context: context,
+                    note: note,
+                    titleController: titleController,
+                    bodyController: bodyController,
+                    selectedSenderType: selectedSenderType,
+                    selectedSenderModel: selectedSenderModel
+                );
+
+              }
+          ),
+
+        ];
+
+      }
+  );
+
+
 }
 // -----------------------------------------------------------------------------
 
@@ -156,7 +246,7 @@ Future<void> onChangeNoteType({
 /// NOTE RECEIVER
 
 // --------------------
-
+/*
 // /// TESTED : WORKS PERFECT
 // Future<void> onSelectNoteReceiverTap({
 //   @required BuildContext context,
@@ -183,8 +273,8 @@ Future<void> onChangeNoteType({
 //     }
 //
 // }
+ */
 // --------------------
-
 Future<void> onSelectReceiverType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -881,7 +971,7 @@ void _clearNote({
   @required ValueNotifier<NoteSenderType> selectedSenderType,
   @required ValueNotifier<dynamic> selectedSenderModel,
 }){
-  note.value = createInitialNote(context);
+  note.value = _createInitialNote(context);
   titleController.clear();
   bodyController.clear();
   selectedSenderType.value = NoteSenderType.bldrs;
