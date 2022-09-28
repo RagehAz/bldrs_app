@@ -74,7 +74,7 @@ class WipeNoteProtocols {
     await NoteFireOps.deleteAllReceivedNotes(
       context: context,
       receiverID: bzID,
-      receiverType: NoteReceiverType.bz,
+      receiverType: NoteSenderOrRecieverType.bz,
     );
 
     blog('NoteProtocol.deleteAllBzReceivedNotes : END');
@@ -104,7 +104,7 @@ class WipeNoteProtocols {
     await NoteFireOps.deleteAllReceivedNotes(
       context: context,
       receiverID: userID,
-      receiverType: NoteReceiverType.user,
+      receiverType: NoteSenderOrRecieverType.user,
     );
 
     blog('NoteProtocol.deleteAllUserReceivedNotes : END');

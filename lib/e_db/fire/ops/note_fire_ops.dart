@@ -51,7 +51,7 @@ class NoteFireOps {
   static Future<List<NoteModel>> readReceivedNotes({
     @required BuildContext context,
     @required String recieverID,
-    @required NoteReceiverType receiverType,
+    @required NoteSenderOrRecieverType receiverType,
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
     QueryOrderBy orderBy,
@@ -76,7 +76,7 @@ class NoteFireOps {
         FireFinder(
           field: 'receiverType',
           comparison: FireComparison.equalTo,
-          value: NoteModel.cipherNoteReceiverType(receiverType),
+          value: NoteModel.cipherNoteSenderOrRecieverType(receiverType),
         ),
 
       ],
@@ -496,7 +496,7 @@ class NoteFireOps {
   static Future<void> deleteAllReceivedNotes({
     @required BuildContext context,
     @required String receiverID,
-    @required NoteReceiverType receiverType,
+    @required NoteSenderOrRecieverType receiverType,
   }) async {
 
     final List<NoteModel> _notesToDelete = <NoteModel>[];

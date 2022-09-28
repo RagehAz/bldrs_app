@@ -26,7 +26,7 @@ enum NoteAttachmentType {
   imageURL,
 }
 
-enum NoteSenderType {
+enum NoteSenderOrRecieverType {
   bldrs,
   user,
   // author,
@@ -34,10 +34,10 @@ enum NoteSenderType {
   country,
 }
 
-enum NoteReceiverType {
-  user,
-  bz,
-}
+// enum NoteReceiverType {
+//   user,
+//   bz,
+// }
 
 enum NoteResponse{
   accepted, /// when receiver accepted
@@ -59,7 +59,7 @@ class NoteModel {
     @required this.id,
     @required this.senderID,
     @required this.senderImageURL,
-    @required this.noteSenderType,
+    @required this.senderType,
     @required this.receiverID,
     @required this.receiverType,
     @required this.title,
@@ -83,9 +83,9 @@ class NoteModel {
   final String id;
   final String senderID;
   final String senderImageURL;
-  final NoteSenderType noteSenderType;
+  final NoteSenderOrRecieverType senderType;
   final String receiverID;
-  final NoteReceiverType receiverType;
+  final NoteSenderOrRecieverType receiverType;
   final String title; /// max 30 char
   final String body; /// max 80 char
   final Map<String, dynamic> metaData;
@@ -135,9 +135,9 @@ class NoteModel {
     String id,
     String senderID,
     String senderImageURL,
-    NoteSenderType noteSenderType,
+    NoteSenderOrRecieverType senderType,
     String receiverID,
-    NoteReceiverType receiverType,
+    NoteSenderOrRecieverType receiverType,
     String title,
     String body,
     dynamic metaData,
@@ -158,7 +158,7 @@ class NoteModel {
       id: id ?? this.id,
       senderID: senderID ?? this.senderID,
       senderImageURL: senderImageURL ?? this.senderImageURL,
-      noteSenderType: noteSenderType ?? this.noteSenderType,
+      senderType: senderType ?? this.senderType,
       receiverID: receiverID ?? this.receiverID,
       receiverType: receiverType ?? this.receiverType,
       title: title ?? this.title,
@@ -191,9 +191,9 @@ class NoteModel {
       // 'id': id, /// no need
       'senderID': senderID,
       'senderImageURL': senderImageURL,
-      'noteSenderType': cipherNoteSenderType(noteSenderType),
+      'senderType': cipherNoteSenderOrRecieverType(senderType),
       'receiverID': receiverID,
-      'receiverType' : cipherNoteReceiverType(receiverType),
+      'receiverType' : cipherNoteSenderOrRecieverType(receiverType),
       /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
       'notification': _cipherNotificationField(),
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
@@ -256,9 +256,9 @@ class NoteModel {
         id: map['id'],
         senderID: map['senderID'],
         senderImageURL: map['senderImageURL'],
-        noteSenderType: decipherNoteSenderType(map['noteSenderType']),
+        senderType: decipherNoteSenderOrReceiverType(map['senderType']),
         receiverID: map['receiverID'],
-        receiverType: decipherNoteReceiverType(map['receiverType']),
+        receiverType: decipherNoteSenderOrReceiverType(map['receiverType']),
         title: _decipherNotificationField(map: map, titleNotBody: true),
         body: _decipherNotificationField(map: map, titleNotBody: false),
         metaData: _decipherNotificationData(map),
@@ -472,42 +472,43 @@ class NoteModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherNoteSenderType(NoteSenderType type){
+  static String cipherNoteSenderOrRecieverType(NoteSenderOrRecieverType type){
     switch (type) {
-      case NoteSenderType.bz:           return 'bz';      break; /// data type : String bzID
-    // case NoteSenderType.author:       return 'author';  break; /// data type : String authorID
-      case NoteSenderType.user:         return 'user';    break; /// data type : String userID
-      case NoteSenderType.country:      return 'country'; break; /// data type : String countryID
-      case NoteSenderType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
+      case NoteSenderOrRecieverType.bz:           return 'bz';      break; /// data type : String bzID
+    // case NoteSenderOrRecieverType.author:       return 'author';  break; /// data type : String authorID
+      case NoteSenderOrRecieverType.user:         return 'user';    break; /// data type : String userID
+      case NoteSenderOrRecieverType.country:      return 'country'; break; /// data type : String countryID
+      case NoteSenderOrRecieverType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
       default:return 'non';
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteSenderType decipherNoteSenderType(String type){
+  static NoteSenderOrRecieverType decipherNoteSenderOrReceiverType(String type){
     switch (type) {
-      case 'bldrs':   return NoteSenderType.bldrs;    break;
-      case 'user':    return NoteSenderType.user;     break;
-    // case 'author':  return NoteSenderType.author;   break;
-      case 'bz':      return NoteSenderType.bz;       break;
-      case 'country': return NoteSenderType.country;  break;
+      case 'bldrs':   return NoteSenderOrRecieverType.bldrs;    break;
+      case 'user':    return NoteSenderOrRecieverType.user;     break;
+    // case 'author':  return NoteSenderOrRecieverType.author;   break;
+      case 'bz':      return NoteSenderOrRecieverType.bz;       break;
+      case 'country': return NoteSenderOrRecieverType.country;  break;
       default:        return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const List<NoteSenderType> noteSenderTypesList = <NoteSenderType>[
-    NoteSenderType.bz,
-    // NoteSenderType.author,
-    NoteSenderType.user,
-    NoteSenderType.country,
-    NoteSenderType.bldrs,
+  static const List<NoteSenderOrRecieverType> noteSenderTypesList = <NoteSenderOrRecieverType>[
+    NoteSenderOrRecieverType.bz,
+    // NoteSenderOrRecieverType.author,
+    NoteSenderOrRecieverType.user,
+    NoteSenderOrRecieverType.country,
+    NoteSenderOrRecieverType.bldrs,
   ];
   // -----------------------------------------------------------------------------
 
   /// NOTE SENDER TYPE CYPHERS
 
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static String cipherNoteReceiverType(NoteReceiverType type){
     switch (type) {
@@ -516,7 +517,9 @@ class NoteModel {
       default: return null;
     }
   }
+   */
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static NoteReceiverType decipherNoteReceiverType(String type){
     switch (type) {
@@ -525,11 +528,13 @@ class NoteModel {
       default:        return null;
     }
   }
+   */
   // --------------------
+
   /// TESTED : WORKS PERFECT
-  static const List<NoteReceiverType> noteReceiverTypesList = <NoteReceiverType>[
-    NoteReceiverType.bz,
-    NoteReceiverType.user,
+  static const List<NoteSenderOrRecieverType> noteReceiverTypesList = <NoteSenderOrRecieverType>[
+    NoteSenderOrRecieverType.bz,
+    NoteSenderOrRecieverType.user,
   ];
 // -----------------------------------------------------------------------------
 
@@ -596,7 +601,7 @@ class NoteModel {
     blog('id : $id');
     blog('senderID : $senderID');
     blog('senderImageURL : $senderImageURL');
-    blog('noteSenderType : $noteSenderType');
+    blog('senderType : $senderType');
     blog('receiverID : $receiverID');
     blog('receiverType : $receiverType');
     blog('title : $title');
@@ -710,8 +715,8 @@ class NoteModel {
         _missingFields.add('senderImageURL');
       }
 
-      if (note.noteSenderType == null){
-        _missingFields.add('noteSenderType');
+      if (note.senderType == null){
+        _missingFields.add('senderType');
       }
 
       if (note.receiverID == null){
@@ -910,7 +915,7 @@ class NoteModel {
       // noteModel.id != null &&
       noteModel.senderID != null &&
           noteModel.senderImageURL != null &&
-          noteModel.noteSenderType != null &&
+          noteModel.senderType != null &&
           noteModel.receiverID != null &&
           noteModel.title != null &&
           noteModel.body != null &&
@@ -947,7 +952,7 @@ class NoteModel {
       note1.id == note2.id &&
           note1.senderID == note2.senderID &&
           note1.senderImageURL == note2.senderImageURL &&
-          note1.noteSenderType == note2.noteSenderType &&
+          note1.senderType == note2.senderType &&
           note1.receiverID == note2.receiverID &&
           note1.title == note2.title &&
           note1.body == note2.body &&
@@ -1280,9 +1285,9 @@ class NoteModel {
       id: 'id',
       senderID: 'senderID',
       senderImageURL: 'senderImageURL',
-      noteSenderType: NoteSenderType.bldrs,
+      senderType: NoteSenderOrRecieverType.bldrs,
       receiverID: 'receiverID',
-      receiverType: NoteReceiverType.user,
+      receiverType: NoteSenderOrRecieverType.user,
       title: 'title',
       body: 'body',
       metaData: const {'metaData' : 'thing'},
@@ -1355,7 +1360,7 @@ class NoteModel {
       id.hashCode^
       senderID.hashCode^
       senderImageURL.hashCode^
-      noteSenderType.hashCode^
+      senderType.hashCode^
       receiverID.hashCode^
       receiverType.hashCode^
       title.hashCode^
