@@ -5,6 +5,8 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -48,11 +50,15 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
+  final TextEditingController _titleController = TextEditingController();
+  final FocusNode _titleNode = FocusNode();
+  final TextEditingController _bodyController = TextEditingController();
+  final FocusNode _bodyNode = FocusNode();
+  // --------------------
   final ValueNotifier<NoteModel> _note = ValueNotifier<NoteModel>(null);
   final ValueNotifier<NoteSenderType> _selectedSenderType = ValueNotifier<NoteSenderType>(NoteSenderType.bldrs);
   final ValueNotifier<dynamic> _selectedSenderModel = ValueNotifier<dynamic>(NoteModel.bldrsSenderModel);
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _bodyController = TextEditingController();
+  // --------------------
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -104,6 +110,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _titleController.dispose();
     _bodyController.dispose();
     _scrollController.dispose();
+    _titleNode.dispose();
+    _bodyNode.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -118,7 +126,10 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     // --------------------
     return MainLayout(
       loading: _loading,
-      pageTitleVerse: Verse.plain('Note Creator'),
+      pageTitleVerse: Verse.plain('Create Note ${Timers.generateString_on_dd_month_yyyy(
+          context: context,
+          time: DateTime.now()
+      )}'),
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
@@ -149,54 +160,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
               physics: const BouncingScrollPhysics(),
               children:  <Widget>[
 
-                /// TIME STAMP
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                  child: SuperVerse(
-                    verse: Verse(
-                      text: Timers.generateString_on_dd_month_yyyy(
-                          context: context,
-                          time: DateTime.now()
-                      ),
-                      translate: false,
-                    ),
-                    color: Colorz.grey255,
-                    italic: true,
-                    weight: VerseWeight.thin,
-                    size: 1,
-                    maxLines: 2,
-                    centered: false,
-                  ),
-                ),
-
-                /// LINE
-                const SeparatorLine(),
-
-                /// NOTE PREVIEW
-                ValueListenableBuilder(
-                    valueListenable: _note,
-                    builder: (_, NoteModel noteModel, Widget child){
-
-                      return NoteCard(
-                        noteModel: noteModel,
-                        isDraftNote: true,
-                        onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
-                          context: context,
-                          note: _note,
-                          titleController: _titleController,
-                          bodyController: _bodyController,
-                          scrollController: _scrollController,
-                          selectedSenderModel: _selectedSenderModel,
-                          selectedSenderType: _selectedSenderType,
-                        ),
-                      );
-
-                    }
-                ),
-
-                /// LINE
-                const SeparatorLine(),
-
                 /// TITLE
                 TextFieldBubble(
                   appBarType: AppBarType.basic,
@@ -221,6 +184,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       return null;
                     }
                   },
+                  focusNode: _titleNode,
+                  keyboardTextInputAction: TextInputAction.next,
                 ),
 
                 /// BODY
@@ -249,6 +214,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       return null;
                     }
                   },
+                  focusNode: _bodyNode,
                 ),
 
                 /// NOTE TYPE
@@ -709,25 +675,49 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           ),
 
           /// CONFIRM BUTTON
-          SuperPositioned(
-            enAlignment: Alignment.bottomLeft,
-            child: ValueListenableBuilder(
-                valueListenable: _note,
-                builder: (_, NoteModel note, Widget child){
+          ValueListenableBuilder(
+              valueListenable: _note,
+              builder: (_, NoteModel note, Widget child){
 
-                  final List<String> _missingNoteFields = NoteModel.getMissingNoteFields(
-                    note: note,
-                    considerAllFields: false,
-                  );
+                final List<String> _missingNoteFields = NoteModel.getMissingNoteFields(
+                  note: note,
+                  considerAllFields: false,
+                );
 
-                  final String _missingFieldsString = Stringer.generateStringFromStrings(
-                    strings: _missingNoteFields,
-                    stringsSeparator: ' - ',
-                  );
+                final String _missingFieldsString = Stringer.generateStringFromStrings(
+                  strings: _missingNoteFields,
+                  stringsSeparator: ' - ',
+                );
 
-                  return Row(
+                return CornerWidgetMaximizer(
+                  minWidth: 150,
+                  maxWidth: PageBubble.width(context),
+                  childWidth: PageBubble.width(context),
+                  topChild: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
+
+                      /// MISSING FIELDS BOX
+                      if (Mapper.checkCanLoopList(_missingNoteFields) == true)
+                        Container(
+                          width: 250,
+                          height: 60,
+                          alignment: Aligners.superTopAlignment(context),
+                          child: SuperVerse(
+                            verse: Verse(
+                              text: 'Missing : $_missingFieldsString',
+                              translate: false,
+                            ),
+                            color: Colorz.red255,
+                            size: 2,
+                            italic: true,
+                            weight: VerseWeight.thin,
+                            maxLines: 3,
+                            centered: false,
+                            labelColor: Colorz.white20,
+                            onTap: () => note.blogNoteModel(),
+                          ),
+                        ),
 
                       /// CONFIRM BUTTON
                       FutureBuilder(
@@ -782,35 +772,37 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           }
                       ),
 
-                      /// MISSING FIELDS BOX
-                      if (Mapper.checkCanLoopList(_missingNoteFields) == true)
-                        Container(
-                          width: 220,
-                          height: 50,
-                          alignment: Aligners.superTopAlignment(context),
-                          child: SuperVerse(
-                            verse: Verse(
-                              text: 'Missing Fields :-\n$_missingFieldsString',
-                              translate: false,
-                            ),
-                            color: Colorz.red255,
-                            size: 1,
-                            italic: true,
-                            weight: VerseWeight.thin,
-                            maxLines: 3,
-                            centered: false,
-                            labelColor: Colorz.black255,
-                            onTap: () => note.blogNoteModel(),
-                          ),
-                        ),
 
                     ],
-                  );
+                  ),
+                  child: ValueListenableBuilder(
+                      valueListenable: _note,
+                      builder: (_, NoteModel noteModel, Widget child){
 
-                }
-            ),
+                        return NoteCard(
+                          bubbleWidth: PageBubble.width(context),
+                          bubbleColor: Colorz.blue125,
+                          noteModel: noteModel,
+                          isDraftNote: true,
+                          onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
+                            context: context,
+                            note: _note,
+                            titleController: _titleController,
+                            bodyController: _bodyController,
+                            scrollController: _scrollController,
+                            selectedSenderModel: _selectedSenderModel,
+                            selectedSenderType: _selectedSenderType,
+                          ),
+                        );
+
+                      }
+                  ),
+
+                );
+
+
+              }
           ),
-
 
         ],
       ),
