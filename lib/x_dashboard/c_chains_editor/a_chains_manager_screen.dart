@@ -47,7 +47,6 @@ class _ChainsManagerState extends State<ChainsManager> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------
