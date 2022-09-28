@@ -37,14 +37,14 @@ class NoteSenderBalloon extends StatelessWidget {
     else {
 
       /// BLDRS
-      if (noteModel.noteSenderType == NoteSenderType.bldrs){
+      if (noteModel.senderType == NoteSenderOrRecieverType.bldrs){
         return const BldrsName(
           size: balloonWidth,
         );
       }
 
       /// USER
-      else if (noteModel.noteSenderType == NoteSenderType.user){
+      else if (noteModel.senderType == NoteSenderOrRecieverType.user){
         return FutureBuilder(
           future: UserProtocols.fetchUser(
               context: context,
@@ -65,7 +65,7 @@ class NoteSenderBalloon extends StatelessWidget {
       }
 
        /// AUTHOR
-      // else if (noteModel.noteSenderType == NoteSenderType.author){
+      // else if (noteModel.senderType == NoteSenderOrRecieverType.author){
       //   return FutureBuilder(
       //       future: BzzProvider.proFetchBzModel(
       //         context: context,
@@ -90,7 +90,7 @@ class NoteSenderBalloon extends StatelessWidget {
       // }
 
       /// BZ
-      else if (noteModel.noteSenderType == NoteSenderType.bz){
+      else if (noteModel.senderType == NoteSenderOrRecieverType.bz){
 
         /// IN AUTHORSHIP NOTES : author pic is sender image url
         if (noteModel.noteType == NoteType.authorship){
@@ -125,7 +125,7 @@ class NoteSenderBalloon extends StatelessWidget {
       }
 
       /// COUNTRY
-      else if (noteModel.noteSenderType == NoteSenderType.country){
+      else if (noteModel.senderType == NoteSenderOrRecieverType.country){
         return DreamBox(
           width: balloonWidth,
           height: balloonWidth,

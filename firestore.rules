@@ -144,7 +144,7 @@ service cloud.firestore {
         let isSender = userID == noteModel.senderID;
         let isReceiver = userID == noteModel.receiverID;
 
-  	    let senderIsBz = noteModel.noteSenderType == "bz";
+  	    let senderIsBz = noteModel.senderType == "bz";
         let isAuthorSender = senderIsBz == true ? isBzAuthor(noteModel.senderID) : false;
         let receiverIsBz = noteModel.receiverType == "bz";
         let isAuthorReceiver = receiverIsBz == true ? isBzAuthor(noteModel.receiverID) : false;

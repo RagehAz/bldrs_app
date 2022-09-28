@@ -55,7 +55,7 @@ NoteModel _createInitialNote(BuildContext context) {
     id: null,
     senderID: NoteModel.bldrsSenderModel.key,
     senderImageURL: NoteModel.bldrsSenderModel.value,
-    noteSenderType: null,
+    senderType: null,
     receiverID: null,
     receiverType: null,
     title: null,
@@ -83,8 +83,7 @@ Future<void> onNoteCreatorCardOptionsTap({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
-  @required ValueNotifier<dynamic> selectedSenderModel,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ScrollController scrollController,
 }) async {
 
@@ -121,7 +120,6 @@ Future<void> onNoteCreatorCardOptionsTap({
                   context: context,
                   scrollController: scrollController,
                   selectedSenderType: selectedSenderType,
-                  selectedSenderModel: selectedSenderModel,
                   note: note,
                   bodyController: bodyController,
                   titleController: titleController,
@@ -153,7 +151,6 @@ Future<void> onNoteCreatorCardOptionsTap({
                     titleController: titleController,
                     bodyController: bodyController,
                     selectedSenderType: selectedSenderType,
-                    selectedSenderModel: selectedSenderModel
                 );
 
               }
@@ -176,14 +173,13 @@ Future<void> onChangeNoteType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required NoteType noteType,
-  @required ValueNotifier<dynamic> selectedSenderModel,
-  @required ValueNotifier<NoteSenderType> noteSenderType,
+  @required ValueNotifier<NoteSenderOrRecieverType> senderType,
 }) async {
 
   if (
   noteType == NoteType.authorship
       &&
-      noteSenderType.value != NoteSenderType.bz
+      senderType.value != NoteSenderOrRecieverType.bz
   ){
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -196,14 +192,13 @@ Future<void> onChangeNoteType({
 
     if (_result == true){
 
-      selectedSenderModel.value = null;
-      noteSenderType.value = NoteSenderType.bz;
+      senderType.value = NoteSenderOrRecieverType.bz;
 
       final NoteModel _old = note.value;
 
       note.value = NoteModel(
         noteType: noteType,
-        noteSenderType: NoteSenderType.bz,
+        senderType: NoteSenderOrRecieverType.bz,
         senderID: null,
         senderImageURL: null,
         receiverType: null,
@@ -278,13 +273,13 @@ Future<void> onChangeNoteType({
 Future<void> onSelectReceiverType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteReceiverType receiverType,
+  @required NoteSenderOrRecieverType receiverType,
 }) async {
 
   String _receiverID;
 
   /// if user
-  if (receiverType == NoteReceiverType.user){
+  if (receiverType == NoteSenderOrRecieverType.user){
     _receiverID = await _onSelectUserAsNoteReceiver(
       context: context,
     );
@@ -407,9 +402,8 @@ void onBodyChanged({
 /// TESTED : WORKS PERFECT
 Future<void> onSelectNoteSender({
   @required BuildContext context,
-  @required NoteSenderType senderType,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
-  @required ValueNotifier<dynamic> selectedSenderModel,
+  @required NoteSenderOrRecieverType senderType,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ValueNotifier<NoteModel> note,
 }) async {
 
@@ -421,12 +415,11 @@ Future<void> onSelectNoteSender({
   if (_continue == true){
 
     /// BY USER
-    if (senderType == NoteSenderType.user){
+    if (senderType == NoteSenderOrRecieverType.user){
 
       await _onSelectUserAsNoteSender(
         context: context,
         note: note,
-        selectedSenderModel: selectedSenderModel,
         senderType: senderType,
         selectedSenderType: selectedSenderType,
       );
@@ -434,32 +427,29 @@ Future<void> onSelectNoteSender({
     }
 
     /// BY BZ
-    if (senderType == NoteSenderType.bz){
+    if (senderType == NoteSenderOrRecieverType.bz){
       await _onSelectBzAsNoteSender(
         context: context,
         note: note,
-        selectedSenderModel: selectedSenderModel,
         senderType: senderType,
         selectedSenderType: selectedSenderType,
       );
     }
 
     /// BY COUNTRY
-    if (senderType == NoteSenderType.country){
+    if (senderType == NoteSenderOrRecieverType.country){
       await _onSelectCountryAsNoteSender(
         context: context,
         note: note,
-        selectedSenderModel: selectedSenderModel,
         senderType: senderType,
         selectedSenderType: selectedSenderType,
       );
     }
 
-    if (senderType == NoteSenderType.bldrs){
+    if (senderType == NoteSenderOrRecieverType.bldrs){
       await _onSelectBldrsAsNoteSender(
         context: context,
         note: note,
-        selectedSenderModel: selectedSenderModel,
         senderType: senderType,
         selectedSenderType: selectedSenderType,
       );
@@ -472,18 +462,18 @@ Future<void> onSelectNoteSender({
 /// TESTED : WORKS PERFECT
 Future<bool> _showEthicalConfirmationDialog({
   @required BuildContext context,
-  @required NoteSenderType senderType,
+  @required NoteSenderOrRecieverType senderType,
 }) async {
 
   bool _canContinue = true;
 
   if (
-  senderType == NoteSenderType.bz
+  senderType == NoteSenderOrRecieverType.bz
       ||
-      senderType == NoteSenderType.user
+      senderType == NoteSenderOrRecieverType.user
   ){
 
-    final String _senderTypeString = NoteModel.cipherNoteSenderType(senderType);
+    final String _senderTypeString = NoteModel.cipherNoteSenderOrRecieverType(senderType);
 
     _canContinue = await CenterDialog.showCenterDialog(
       context: context,
@@ -503,10 +493,9 @@ Future<bool> _showEthicalConfirmationDialog({
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
-  @required ValueNotifier<dynamic> selectedSenderModel,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderType senderType,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
+  @required NoteSenderOrRecieverType senderType,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
@@ -525,11 +514,10 @@ Future<void> _onSelectUserAsNoteSender({
     null;
 
     selectedSenderType.value = senderType;
-    selectedSenderModel.value = _userModel;
     note.value = note.value.copyWith(
       senderID: _userModel.id,
       senderImageURL: _userModel.pic,
-      noteSenderType: senderType,
+      senderType: senderType,
     );
 
   }
@@ -539,10 +527,9 @@ Future<void> _onSelectUserAsNoteSender({
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
-  @required ValueNotifier<dynamic> selectedSenderModel,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderType senderType,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
+  @required NoteSenderOrRecieverType senderType,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -558,12 +545,11 @@ Future<void> _onSelectBzAsNoteSender({
         :
     null;
 
-    selectedSenderModel.value = _bzModel;
     selectedSenderType.value = senderType;
     note.value = note.value.copyWith(
       senderID: _bzModel.id,
       senderImageURL: _bzModel.logo,
-      noteSenderType: senderType,
+      senderType: senderType,
     );
 
   }
@@ -573,10 +559,9 @@ Future<void> _onSelectBzAsNoteSender({
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
-  @required ValueNotifier<dynamic> selectedSenderModel,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderType senderType,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
+  @required NoteSenderOrRecieverType senderType,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
 
   final ZoneModel _zoneModel = await controlSelectCountryOnly(context);
@@ -589,13 +574,11 @@ Future<void> _onSelectCountryAsNoteSender({
       countryID: _zoneModel.countryID,
     );
 
-
-    selectedSenderModel.value = _countryModel;
     selectedSenderType.value = senderType;
     note.value = note.value.copyWith(
       senderID: _countryModel.id,
       senderImageURL: Flag.getFlagIcon(_countryModel.id),
-      noteSenderType: senderType,
+      senderType: senderType,
     );
 
   }
@@ -605,19 +588,17 @@ Future<void> _onSelectCountryAsNoteSender({
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
-  @required ValueNotifier<dynamic> selectedSenderModel,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderType senderType,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
+  @required NoteSenderOrRecieverType senderType,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
 
   selectedSenderType.value = senderType;
-  selectedSenderModel.value = NoteModel.bldrsSenderModel;
 
   note.value = note.value.copyWith(
     senderID: NoteModel.bldrsSenderModel.key,
     senderImageURL: NoteModel.bldrsSenderModel.value,
-    noteSenderType: senderType,
+    senderType: senderType,
   );
 
 }
@@ -806,7 +787,7 @@ void _onClearAttachments({
     id: _note.id,
     senderID: _note.senderID,
     senderImageURL: _note.senderImageURL,
-    noteSenderType: _note.noteSenderType,
+    senderType: _note.senderType,
     receiverID: _note.receiverID,
     receiverType: _note.receiverType,
     title: _note.title,
@@ -838,8 +819,7 @@ Future<void> onSendNote({
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
   @required String receiverName,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
-  @required ValueNotifier<dynamic> selectedSenderModel,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ScrollController scrollController,
 }) async {
 
@@ -881,7 +861,6 @@ Future<void> onSendNote({
         note: note,
         titleController: titleController,
         bodyController: bodyController,
-        selectedSenderModel: selectedSenderModel,
         selectedSenderType: selectedSenderType,
       );
 
@@ -946,16 +925,16 @@ List<String> _concludeImageOwnersIDs(NoteModel noteModel){
 
   String _ownerID;
 
-  if (noteModel.noteSenderType == NoteSenderType.bz){
+  if (noteModel.senderType == NoteSenderOrRecieverType.bz){
     _ownerID = noteModel.senderID;
   }
-  else if (noteModel.noteSenderType == NoteSenderType.user){
+  else if (noteModel.senderType == NoteSenderOrRecieverType.user){
     _ownerID = noteModel.senderID;
   }
-  else if (noteModel.noteSenderType == NoteSenderType.country){
+  else if (noteModel.senderType == NoteSenderOrRecieverType.country){
     _ownerID = noteModel.senderID;
   }
-  else if (noteModel.noteSenderType == NoteSenderType.bldrs){
+  else if (noteModel.senderType == NoteSenderOrRecieverType.bldrs){
     _ownerID = noteModel.senderID;
   }
 
@@ -968,14 +947,12 @@ void _clearNote({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
-  @required ValueNotifier<dynamic> selectedSenderModel,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }){
   note.value = _createInitialNote(context);
   titleController.clear();
   bodyController.clear();
-  selectedSenderType.value = NoteSenderType.bldrs;
-  selectedSenderModel.value = null;
+  selectedSenderType.value = NoteSenderOrRecieverType.bldrs;
 
 }
 // -----------------------------------------------------------------------------
@@ -1059,9 +1036,8 @@ Future<void> onGoToNoteTemplatesScreen({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<NoteSenderType> selectedSenderType,
+  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ScrollController scrollController,
-  @required ValueNotifier<dynamic> selectedSenderModel,
 }) async {
 
   final NoteModel _templateNote = await Nav.goToNewScreen(
@@ -1075,8 +1051,7 @@ Future<void> onGoToNoteTemplatesScreen({
     note.value = _templateNote;
     titleController.text = _templateNote.title;
     bodyController.text = _templateNote.body;
-    selectedSenderType.value = _templateNote.noteSenderType;
-    selectedSenderModel.value = null;
+    selectedSenderType.value = _templateNote.senderType;
 
     await Scrollers.scrollToTop(
       controller: scrollController,
