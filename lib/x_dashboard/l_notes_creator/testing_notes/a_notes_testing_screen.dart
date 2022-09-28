@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/all_notes_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/c_awesome_noti_test_screen.dart';
@@ -33,7 +32,6 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------

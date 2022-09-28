@@ -55,7 +55,6 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------

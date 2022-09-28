@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -7,15 +8,14 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_slides_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/f_saving_notice/a_saving_notice.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -312,7 +312,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       flyerModel: widget.flyerModel,
     ));
 
-    onHorizontalSlideSwipe(
+    ProgressBarModel.onSwipe(
       context: context,
       newIndex: index,
       progressBarModel: _progressBarModel,

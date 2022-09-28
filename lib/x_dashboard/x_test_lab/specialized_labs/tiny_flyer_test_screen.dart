@@ -28,7 +28,6 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
       else {
         _loading.value = setTo;
       }
-      // blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------

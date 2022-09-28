@@ -66,7 +66,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'NotesCreatorScreen',);
     }
   }
   // -----------------------------------------------------------------------------
@@ -116,14 +115,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       numberOfItems: NoteModel.noteButtonsList.length,
       boxWidth: TileBubble.childWidth(context: context),
     );
-
-    blog('a77a');
     // --------------------
     return MainLayout(
       loading: _loading,
       pageTitleVerse: Verse.plain('Note Creator'),
       sectionButtonIsOn: false,
-      pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[

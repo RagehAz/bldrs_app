@@ -54,7 +54,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------
