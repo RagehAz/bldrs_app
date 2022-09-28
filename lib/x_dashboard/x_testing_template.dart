@@ -42,11 +42,11 @@ class _TestingTemplateState extends State<TestingTemplate> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         /// FUCK
 
-        await _triggerLoading();
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;
@@ -54,7 +54,6 @@ class _TestingTemplateState extends State<TestingTemplate> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// XXXX
   @override
   void dispose() {
     _loading.dispose();

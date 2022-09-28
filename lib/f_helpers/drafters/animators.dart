@@ -56,12 +56,19 @@ class Animators {
   static Animation<double> animateDouble({
     @required double begin,
     @required double end,
-    @required AnimationController controller
+    @required AnimationController controller,
+    Cubic curve = Curves.easeIn,
+    Cubic reverseCurve = Curves.easeIn,
   }) {
+
     return Tween<double>(
       begin: begin,
       end: end,
-    ).animate(controller);
+    ).animate(CurvedAnimation(
+      parent: controller,
+      curve: curve,
+      reverseCurve: reverseCurve,
+    ));
 
     /// can do stuff here
     //   ..addListener(() {
