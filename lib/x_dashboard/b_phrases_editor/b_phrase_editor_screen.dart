@@ -1,10 +1,12 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/b_phrases_editor/pages/phrase_creator_page.dart';
@@ -45,6 +47,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
   final PageController _pageController = PageController();
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // --------------------
   final GlobalKey<FormState> _globalKey = GlobalKey();
   // -----------------------------------------------------------------------------
@@ -59,13 +62,18 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
+    _progressBarModel.value = const ProgressBarModel(
+      swipeDirection: SwipeDirection.freeze,
+      index: 0,
+      numberOfStrips: 2,
+    );
 
   }
   // --------------------
@@ -121,6 +129,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
     _pageController.dispose();
     _scrollController.dispose();
     _isSearching.dispose();
+    _progressBarModel.dispose();
 
     _loading.dispose();
 
@@ -140,6 +149,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       searchController: _searchController,
+      progressBarModel: _progressBarModel,
       onSearchCancelled: (){
         _searchController.text = '';
         _isSearching.value = false;
@@ -256,6 +266,11 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
 
             return PageView(
               controller: _pageController,
+              onPageChanged: (int index) => ProgressBarModel.onSwipe(
+                context: context,
+                newIndex: index,
+                progressBarModel: _progressBarModel,
+              ),
               physics: const BouncingScrollPhysics(),
               children: <Widget>[
 

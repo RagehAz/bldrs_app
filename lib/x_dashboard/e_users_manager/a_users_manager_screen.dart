@@ -1,12 +1,14 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/x_dashboard/e_users_manager/aa_users_page.dart';
 import 'package:bldrs/x_dashboard/e_users_manager/aaa_selected_user_page.dart';
 import 'package:bldrs/x_dashboard/e_users_manager/x_users_manager_controller.dart';
-import 'package:bldrs/x_dashboard/e_users_manager/aa_users_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +27,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   final PageController _pageController = PageController();
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // --------------------
   final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null);
   final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]);
@@ -41,13 +44,19 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'UsersManagerScreen',);
     }
   }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
+    _progressBarModel.value = const ProgressBarModel(
+      swipeDirection: SwipeDirection.freeze,
+      index: 0,
+      numberOfStrips: 2,
+    );
+
   }
   // --------------------
   bool _isInit = true;
@@ -55,15 +64,16 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
+      _triggerLoading(setTo: true).then((_) async {
+        /// ---------------------------------------------------------0
         await readMoreUsers(
           context: context,
           usersModels: _usersModels,
           scrollController: _scrollController,
           lastSnapshot: _lastSnapshot,
         );
-
+        /// ---------------------------------------------------------0
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;
@@ -80,6 +90,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     _selectedUser.dispose();
     _pageController.dispose();
     _scrollController.dispose();
+    _progressBarModel.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -92,10 +103,12 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     return MainLayout(
       key: const ValueKey<String>('UsersManagerScreen'),
       // loading: _loading,
-      pageTitleVerse: Verse.plain('Users Manager'),
+      pageTitleVerse: Verse.plain('Userss Manager'),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       skyType: SkyType.black,
+      progressBarModel: _progressBarModel,
+      loading: _loading,
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -127,6 +140,11 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       layoutWidget: PageView(
         physics: const BouncingScrollPhysics(),
         controller: _pageController,
+        onPageChanged: (int index) => ProgressBarModel.onSwipe(
+          context: context,
+          newIndex: index,
+          progressBarModel: _progressBarModel,
+        ),
         children: <Widget>[
 
           /// USERS PAGE
