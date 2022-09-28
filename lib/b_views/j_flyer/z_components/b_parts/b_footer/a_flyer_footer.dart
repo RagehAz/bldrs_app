@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/d_flyer_footer_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
@@ -190,11 +189,11 @@ class _FlyerFooterState extends State<FlyerFooter> {
             alignment: Alignment.bottomCenter,
             children: <Widget>[
 
-              /// BOTTOM SHADOW
-              FooterShadow(
-                key: const ValueKey<String>('FooterShadow'),
-                flyerBoxWidth: widget.flyerBoxWidth,
-              ),
+              // /// BOTTOM SHADOW
+              // FooterShadow(
+              //   key: const ValueKey<String>('FooterShadow'),
+              //   flyerBoxWidth: widget.flyerBoxWidth,
+              // ),
 
               /// FOOTER BUTTONS
               // if (widget.tinyMode == false)// && widget.inFlight == false)
