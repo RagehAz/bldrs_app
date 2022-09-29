@@ -5,13 +5,17 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/e_db/ldb/ops/note_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/bldrs_notes/note_templates.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/note_sender_or_reciever_dynamic_button.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -65,6 +69,12 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
       _triggerLoading(setTo: true).then((_) async {
         /// ---------------------------------------------------------0
 
+        final List<NoteModel> _ldbNotes = await NoteLDBOps.readAllNotes(context);
+
+        if (Mapper.checkCanLoopList(_ldbNotes) == true){
+          _ldbRecentNotes.value = _ldbNotes;
+        }
+
         /// ---------------------------------------------------------0
         await _triggerLoading(setTo: false);
       });
@@ -93,13 +103,20 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
       pageTitleVerse: Verse.plain('Template notes'),
       sectionButtonIsOn: false,
       loading: _loading,
-      // appBarRowWidgets: <Widget>[
-        // const Expander(),
-        // AppBarButton(
-        //   icon: Iconz.clock,
-        //   onTap: () {blog('to dismissed notifications');},
-        // ),
-      // ],
+      appBarRowWidgets: <Widget>[
+        const Expander(),
+        AppBarButton(
+          icon: Iconz.clock,
+          onTap: () async {
+
+            final List<NoteModel> _ldbNotes = await NoteLDBOps.readAllNotes(context);
+            if (Mapper.checkCanLoopList(_ldbNotes) == true){
+              _ldbRecentNotes.value = _ldbNotes;
+            }
+
+            },
+        ),
+      ],
       skyType: SkyType.black,
       progressBarModel: _progressBarModel,
       layoutWidget: PageView(
@@ -126,6 +143,7 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
           PageBubble(
             screenHeightWithoutSafeArea: _screenHeight,
             appBarType: AppBarType.basic,
+            color: Colorz.white10,
             child: ValueListenableBuilder(
               valueListenable: _ldbRecentNotes,
               builder: (_, List<NoteModel> notes, Widget child){
@@ -191,15 +209,38 @@ class _NotesBuilderPage extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 25),
                 ),
 
-                NoteCard(
-                  bubbleWidth: PageBubble.clearWidth(context),
-                  noteModel: _noteModel,
-                  isDraftNote: true,
-                  onCardTap: () => onSelectNoteTemplateTap(
-                    context: context,
-                    noteModel: _noteModel,
-                  ),
+
+                Stack(
+                  alignment: Alignment.bottomRight,
+                  children: <Widget>[
+
+                    NoteCard(
+                      bubbleWidth: PageBubble.clearWidth(context),
+                      noteModel: _noteModel,
+                      isDraftNote: true,
+                      onCardTap: () => onSelectNoteTemplateTap(
+                        context: context,
+                        noteModel: _noteModel,
+                      ),
+                    ),
+
+                    if (_noteModel.receiverID != null)
+                    Transform.scale(
+                      scale: 0.7,
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: NoteSenderOrRecieverDynamicButton(
+                          width: PageBubble.clearWidth(context) * 0.5,
+                          type: _noteModel.receiverType,
+                          id: _noteModel.receiverID,
+                        ),
+                      ),
+                    ),
+
+                  ],
                 ),
+
 
               ],
             );

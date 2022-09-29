@@ -22,6 +22,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/note_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -87,6 +88,7 @@ Future<void> onNoteCreatorCardOptionsTap({
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
   @required ScrollController scrollController,
+  @required ValueNotifier<List<String>> receiversIDs,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -124,6 +126,7 @@ Future<void> onNoteCreatorCardOptionsTap({
                   note: note,
                   bodyController: bodyController,
                   titleController: titleController,
+                  receiversIDs: receiversIDs,
                 );
 
               }
@@ -806,7 +809,7 @@ Future<void> onSendNote({
         sentTime: DateTime.now(),
       );
 
-      await NoteFireOps.createNotes(
+      final List<NoteModel> _uploadedNotes = await NoteFireOps.createNotes(
         context: context,
         noteModel: _finalNoteModel,
         receiversIDs: receiversIDs.value,
@@ -815,6 +818,8 @@ Future<void> onSendNote({
       /// TASK : SHOULD VISIT THIS onSendNoteOps thing
       /// MAYBE SAVE A REFERENCE OF THIS NOTE ID SOMEWHERE ON SUB DOC OF BZ
       /// TO BE EASY TO TRACE AND DELETE WHILE IN DELETE BZ OPS
+
+      await NoteLDBOps.insertNotes(_uploadedNotes);
 
       _clearNote(
         context: context,
@@ -996,6 +1001,7 @@ Future<void> onGoToNoteTemplatesScreen({
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
   @required ScrollController scrollController,
+  @required ValueNotifier<List<String>> receiversIDs,
 }) async {
 
   final NoteModel _templateNote = await Nav.goToNewScreen(
@@ -1007,6 +1013,7 @@ Future<void> onGoToNoteTemplatesScreen({
   if (_templateNote != null){
 
     note.value = _templateNote;
+    receiversIDs.value = <String>[_templateNote.receiverID];
     titleController.text = _templateNote.title;
     bodyController.text = _templateNote.body;
 
