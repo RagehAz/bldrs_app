@@ -76,6 +76,7 @@ class StaticHeader extends StatelessWidget {
               bzModel: bzModel,
               headerIsExpanded: false,
               flyerShowsAuthor: flyerShowsAuthor,
+              showHeaderLabels: showHeaderLabels,
             ),
           ),
 
@@ -96,6 +97,7 @@ class StaticHeader extends StatelessWidget {
                   children: <Widget>[
 
                     /// FOLLOW BUTTON
+                    if (showHeaderLabels == true)
                     FollowButton(
                       flyerBoxWidth: flyerBoxWidth,
                       onFollowTap: null,
@@ -104,12 +106,14 @@ class StaticHeader extends StatelessWidget {
                     ),
 
                     /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
-                    StaticHeaderSlateSpacer(
-                        flyerBoxWidth: flyerBoxWidth,
+                    if (showHeaderLabels == true)
+                      StaticHeaderSlateSpacer(
+                      flyerBoxWidth: flyerBoxWidth,
                     ),
 
                     /// Call BUTTON
-                    CallButton(
+                    if (showHeaderLabels == true)
+                      CallButton(
                       flyerBoxWidth: flyerBoxWidth,
                       onCallTap: null,
                     ),
@@ -120,8 +124,9 @@ class StaticHeader extends StatelessWidget {
             ),
           ),
 
+
           /// RIGHT SPACER
-          StaticHeaderSlateSpacer(
+            StaticHeaderSlateSpacer(
             flyerBoxWidth: flyerBoxWidth,
           ),
 

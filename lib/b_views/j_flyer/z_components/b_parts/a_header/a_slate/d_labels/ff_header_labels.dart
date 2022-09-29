@@ -12,6 +12,7 @@ class HeaderLabels extends StatelessWidget {
     @required this.flyerShowsAuthor,
     @required this.headerIsExpanded,
     @required this.authorID,
+    @required this.showHeaderLabels,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,19 +21,21 @@ class HeaderLabels extends StatelessWidget {
   final bool flyerShowsAuthor;
   final bool headerIsExpanded;
   final String authorID;
+  final bool showHeaderLabels;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return SizedBox(
-        width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
         height: FlyerDim.headerLabelsHeight(flyerBoxWidth),
+        width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
         child: Column(
           mainAxisAlignment: flyerShowsAuthor == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
             /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
+            if (showHeaderLabels == true)
             BzLabel(
               flyerBoxWidth: flyerBoxWidth,
               bzModel: bzModel,
@@ -40,7 +43,7 @@ class HeaderLabels extends StatelessWidget {
             ),
 
             /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-            if (flyerShowsAuthor == true)
+            if (flyerShowsAuthor == true && showHeaderLabels == true)
               AuthorLabel(
                 flyerBoxWidth: flyerBoxWidth,
                 authorID: authorID,

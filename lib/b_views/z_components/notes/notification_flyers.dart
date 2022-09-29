@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -11,6 +12,7 @@ class NotificationFlyers extends StatelessWidget {
     @required this.bodyWidth,
     @required this.flyers,
     @required this.noteID,
+    @required this.canOpenFlyer,
     this.onFlyerTap,
     Key key,
   }) : super(key: key);
@@ -19,6 +21,7 @@ class NotificationFlyers extends StatelessWidget {
   final List<FlyerModel> flyers;
   final ValueChanged<FlyerModel> onFlyerTap;
   final String noteID;
+  final bool canOpenFlyer;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class NotificationFlyers extends StatelessWidget {
         noteID: noteID,
         flyerModel: flyers[0],
         onFlyerTap: onFlyerTap,
+        canOpenFlyer: canOpenFlyer,
       )
           :
       ListView.builder(
@@ -56,6 +60,7 @@ class NotificationFlyers extends StatelessWidget {
               noteID: noteID,
               flyerModel: _flyer,
               onFlyerTap: onFlyerTap,
+              canOpenFlyer: canOpenFlyer,
             );
 
           }
@@ -74,12 +79,14 @@ class FlyerInNoteCard extends StatelessWidget {
     @required this.flyerModel,
     @required this.onFlyerTap,
     @required this.noteID,
+    @required this.canOpenFlyer,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final ValueChanged<FlyerModel> onFlyerTap;
   final String noteID;
+  final bool canOpenFlyer;
   /// --------------------------------------------------------------------------
   bool _absorbFlyerTap() {
     bool _absorb;
@@ -96,23 +103,34 @@ class FlyerInNoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-      onTap: onFlyerTap == null ?
-      null
-          :
-          () => onFlyerTap(flyerModel),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: AbsorbPointer(
-          absorbing: _absorbFlyerTap(),
-          child: Flyer(
-            flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(context, 200),
-            flyerModel: flyerModel,
-            screenName: noteID,
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(context, 200);
+
+    if (canOpenFlyer == true){
+      return GestureDetector(
+        onTap: onFlyerTap == null ? null : () => onFlyerTap(flyerModel),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: AbsorbPointer(
+            absorbing: _absorbFlyerTap(),
+            child: Flyer(
+              flyerBoxWidth: _flyerBoxWidth,
+              flyerModel: flyerModel,
+              screenName: noteID,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
+
+    else {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: StaticFlyer(
+            flyerBoxWidth: _flyerBoxWidth,
+            flyerModel: flyerModel,
+        ),
+      );
+    }
 
   }
 // -----------------------------------------------------------------------------
