@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class WideButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const WideButton({
-    @required this.verse,
+    this.verse,
     this.onTap,
     this.icon,
     this.isActive = true,

@@ -19,37 +19,55 @@ class NoteCardButtons extends StatelessWidget {
   final double boxWidth;
   final NoteModel noteModel;
   /// --------------------------------------------------------------------------
-  String _getResponseTimeString(BuildContext context, NoteModel noteModel){
+  Verse _getResponseTimeString(BuildContext context, NoteModel noteModel){
 
     final String _string = Timers.calculateSuperTimeDifferenceString(
       from: noteModel.responseTime,
       to: DateTime.now(),
     );
 
-    return _string;
+    return Verse(
+      text: _string,
+      translate: false,
+    );
   }
   // --------------------
   /// TASK : FINALIZE THIS SHIT
-  String _getResponseString(BuildContext context, NoteModel noteModel){
+  Verse _getResponseVerse(BuildContext context, NoteModel noteModel){
 
-    String _output = 'responded';
+    Verse _output = const Verse(
+      text: 'phid_responded',
+      translate: true,
+    );
 
     if (noteModel != null){
 
       if (noteModel.response == NoteResponse.accepted){
-        _output = 'Accepted';
+        _output = const Verse(
+          text: 'phid_accepted',
+          translate: true,
+        );
       }
 
       else if (noteModel.response == NoteResponse.declined){
-        _output = 'Declined';
+        _output = const Verse(
+          text: 'phid_declined',
+          translate: true,
+        );
       }
 
       else if (noteModel.response == NoteResponse.cancelled){
-        _output = 'Cancelled';
+        _output = const Verse(
+          text: 'phid_cancelled',
+          translate: true,
+        );
       }
 
       else {
-        _output = noteModel.response.toString();
+        _output = Verse(
+          text: noteModel.response.toString(),
+          translate: false,
+        );
       }
 
     }
@@ -62,7 +80,7 @@ class NoteCardButtons extends StatelessWidget {
 
     return SizedBox(
       width: boxWidth,
-      height: 70,
+      // height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -107,15 +125,32 @@ class NoteCardButtons extends StatelessWidget {
                 duration: const Duration(minutes: 1),
                 builder: (int fuck, Widget child){
 
-                  return SuperVerse(
-                    verse: Verse.plain('${_getResponseString(context, noteModel)}\n${_getResponseTimeString(context, noteModel)}'),
-                    maxLines: 3,
-                    weight: VerseWeight.black,
-                    italic: true,
-                    color: Colorz.yellow255,
-                    size: 3,
-                    margin: 5,
-                    shadow: true,
+                  return Column(
+                    children: <Widget>[
+
+                      SuperVerse(
+                        verse: _getResponseVerse(context, noteModel),
+                        maxLines: 3,
+                        weight: VerseWeight.black,
+                        italic: true,
+                        color: Colorz.yellow255,
+                        size: 3,
+                        margin: 5,
+                        shadow: true,
+                      ),
+
+                      SuperVerse(
+                        verse: _getResponseTimeString(context, noteModel),
+                        maxLines: 3,
+                        weight: VerseWeight.black,
+                        italic: true,
+                        color: Colorz.yellow255,
+                        size: 3,
+                        margin: 5,
+                        shadow: true,
+                      ),
+
+                    ],
                   );
 
                 },

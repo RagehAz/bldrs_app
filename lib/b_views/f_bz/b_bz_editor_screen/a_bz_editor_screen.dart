@@ -370,17 +370,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         valueListenable: _inactiveBzForms,
                         builder: (_, List<BzForm> inactiveBzForms, Widget child){
 
-                          final List<String> _buttonsList = BzModel.translateBzForms(
+                          final List<String> _buttonsList = BzModel.getBzFormsPhids(
                             context: context,
                             bzForms: BzModel.bzFormsList,
                           );
 
-                          final String _selectedButton = BzModel.translateBzForm(
+                          final String _selectedButton = BzModel.getBzFormPhid(
                             context: context,
                             bzForm: bzModel?.bzForm,
                           );
 
-                          final List<String> _inactiveButtons = BzModel.translateBzForms(
+                          final List<String> _inactiveButtons = BzModel.getBzFormsPhids(
                             context: context,
                             bzForms: inactiveBzForms,
                           );

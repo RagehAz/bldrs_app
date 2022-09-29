@@ -633,9 +633,18 @@ void onAddNoteButton({
     string: button,
   );
 
-  note.value = note.value.copyWith(
+  NoteModel _note = note.value.copyWith(
     buttons: _updatedButtons,
+    response: NoteResponse.pending,
   );
+
+  if (_updatedButtons.isEmpty == true){
+    _note = _note.nullifyField(
+      response: true,
+    );
+  }
+
+  note.value = _note;
 
 }
 // -----------------------------------------------------------------------------
@@ -731,8 +740,7 @@ Future<void> _onSelectFlyersIDsAsAttachment({
     ),
   );
 
-  final bool _newSelection = Mapper.checkCanLoopList(_selectedFlyers);
-  if (_newSelection == true){
+  if (Mapper.checkCanLoopList(_selectedFlyers) == true){
 
     _ids = FlyerModel.getFlyersIDsFromFlyers(_selectedFlyers);
 

@@ -11,6 +11,7 @@ class ZoneLine extends StatelessWidget {
     this.showCity = true,
     this.showDistrict = true,
     this.centered = true,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,6 +19,7 @@ class ZoneLine extends StatelessWidget {
   final bool showCity;
   final bool showDistrict;
   final bool centered;
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,10 @@ class ZoneLine extends StatelessWidget {
       showDistrict: showDistrict,
     );
     // --------------------
+    final double _width = width ?? 200;
+
     return Container(
+      width: _width - 20,
       height: 35,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
@@ -47,6 +52,7 @@ class ZoneLine extends StatelessWidget {
           ),
 
           SuperVerse(
+            width: _width - 20 - 25 - 10,
             verse: _zoneVerse,
             weight: VerseWeight.thin,
             italic: true,
