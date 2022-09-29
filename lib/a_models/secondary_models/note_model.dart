@@ -140,7 +140,7 @@ class NoteModel {
     NoteSenderOrRecieverType receiverType,
     String title,
     String body,
-    dynamic metaData,
+    Map<String, dynamic> metaData,
     DateTime sentTime,
     dynamic attachment,
     NoteAttachmentType attachmentType,
@@ -997,11 +997,12 @@ class NoteModel {
     if (note1 != null && note2 != null){
 
       if (
-      note1.id == note2.id &&
+          note1.id == note2.id &&
           note1.senderID == note2.senderID &&
           note1.senderImageURL == note2.senderImageURL &&
           note1.senderType == note2.senderType &&
           note1.receiverID == note2.receiverID &&
+          note1.receiverType == note2.receiverType &&
           note1.title == note2.title &&
           note1.body == note2.body &&
           Mapper.checkMapsAreIdentical(map1: note1.metaData, map2: note2.metaData) == true &&

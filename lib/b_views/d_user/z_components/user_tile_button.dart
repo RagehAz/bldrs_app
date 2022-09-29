@@ -72,9 +72,10 @@ class UserTileButton extends StatelessWidget {
       boxWidth: boxWidth,
     );
     // --------------------
-    return SizedBox(
+    return Container(
       width: boxWidth,
-      height: boxHeight,
+      height: buttonHeight,
+      margin: const EdgeInsets.only(bottom: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

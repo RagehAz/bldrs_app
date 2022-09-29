@@ -618,7 +618,18 @@ class UserModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static List<String> getUsersIDs(List<UserModel> usersModels){
+    final List<String> _usersIDs = <String>[];
+
+    if (Mapper.checkCanLoopList(usersModels) == true){
+      for (final UserModel user in usersModels){
+        _usersIDs.add(user.id);
+      }
+    }
+
+    return _usersIDs;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS

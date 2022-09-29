@@ -21,7 +21,7 @@ class BzPreviewScreen extends StatelessWidget {
       skyType: SkyType.black,
       pyramidsAreOn: true,
       pageTitleVerse: Verse(
-        text: bzModel.name,
+        text: bzModel?.name,
         translate: false,
       ),
       appBarType: AppBarType.basic,
