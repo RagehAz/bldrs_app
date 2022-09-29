@@ -52,7 +52,7 @@ class BzAboutPage extends StatelessWidget {
         ),
 
         /// ABOUT
-        if (TextCheck.isEmpty(_bzModel.about) == false)
+        if (TextCheck.isEmpty(_bzModel?.about) == false)
           ParagraphBubble(
             headerViewModel: const BubbleHeaderVM(
               headlineVerse: Verse(
@@ -61,7 +61,7 @@ class BzAboutPage extends StatelessWidget {
               ),
             ),
             paragraph: Verse(
-              text: _bzModel.about,
+              text: _bzModel?.about,
               translate: false,
             ),
           ),
@@ -76,7 +76,7 @@ class BzAboutPage extends StatelessWidget {
 
 
         /// SCOPE
-        if (Mapper.checkCanLoopList(_bzModel.scope) == true)
+        if (Mapper.checkCanLoopList(_bzModel?.scope) == true)
           Bubble(
             headerViewModel: const BubbleHeaderVM(
               headlineVerse: Verse(
@@ -88,14 +88,14 @@ class BzAboutPage extends StatelessWidget {
 
               PhidsViewer(
                 pageWidth: Scale.superScreenWidth(context),
-                phids: _bzModel.scope,
+                phids: _bzModel?.scope,
               ),
 
             ],
           ),
 
         /// SEPARATOR
-        if (Mapper.checkCanLoopList(_bzModel.scope) == true)
+        if (Mapper.checkCanLoopList(_bzModel?.scope) == true)
           const DotSeparator(),
 
         /// STATS
@@ -107,9 +107,9 @@ class BzAboutPage extends StatelessWidget {
         if (showGallery == true)
           SuperVerse(
             verse: Verse(
-              text: '##Flyers By ${bzModel.name}',
+              text: '##Flyers By ${bzModel?.name}',
               translate: false,
-              variables: bzModel.name,
+              variables: bzModel?.name,
             ),
             centered: false,
             maxLines: 2,
@@ -122,7 +122,7 @@ class BzAboutPage extends StatelessWidget {
         if (showGallery == true)
           FlyersGrid(
             scrollController: ScrollController(),
-            paginationFlyersIDs: _bzModel.flyersIDs,
+            paginationFlyersIDs: _bzModel?.flyersIDs,
             topPadding: 0,
             heroPath: 'BzAboutPageFlyersGrid',
           ),

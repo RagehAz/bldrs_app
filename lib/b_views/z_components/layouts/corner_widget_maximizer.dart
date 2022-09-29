@@ -78,8 +78,8 @@ class _CornerWidgetMaximizerState extends State<CornerWidgetMaximizer> with Sing
     );
 
     _scaleAnimation = Animators.animateDouble(
-      begin: _getBegin(),
-      end: _getEnd(),
+      begin: _getBeginRatio(),
+      end: _getEndRatio(),
       controller: _animationController,
       curve: Curves.easeInOut,
       reverseCurve: Curves.easeInOut,
@@ -112,17 +112,17 @@ class _CornerWidgetMaximizerState extends State<CornerWidgetMaximizer> with Sing
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  double _getBegin(){
+  double _getBeginRatio(){
     return widget.minWidth / widget.childWidth;
   }
   // --------------------
-  double _getEnd(){
+  double _getEndRatio(){
     return widget.maxWidth / widget.childWidth;
   }
   // -----------------------------------------------------------------------------
   Future<void> _animate() async {
 
-    if (_scaleAnimation.value >= _getEnd()){
+    if (_scaleAnimation.value >= _getEndRatio()){
       await _animationController.reverse();
       _isExpanded.value = false;
     }
@@ -184,18 +184,15 @@ class _CornerWidgetMaximizerState extends State<CornerWidgetMaximizer> with Sing
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
 
-                              SizedBox(
-                                width: widget.maxWidth,
-                                child: DreamBox(
-                                  height: 35,
-                                  width: 35,
-                                  icon: expanded == true ? Iconz.arrowDown : Iconz.arrowUp,
-                                  iconSizeFactor: 0.6,
-                                  bubble: false,
-                                ),
+                              DreamBox(
+                                height: 35,
+                                width: 35,
+                                icon: expanded == true ? Iconz.arrowDown : Iconz.arrowUp,
+                                iconSizeFactor: 0.6,
+                                bubble: false,
                               ),
 
                               /// TOP CHILD

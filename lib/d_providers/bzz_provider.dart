@@ -175,7 +175,7 @@ class BzzProvider extends ChangeNotifier {
   }){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
-    final List<String> _myBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
+    final List<String> _myBzzIDs = BzModel.getBzzIDs(_myBzz);
     return _myBzzIDs;
   }
   // --------------------

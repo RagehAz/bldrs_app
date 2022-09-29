@@ -95,7 +95,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
         valueListenable: _bzCounter,
         builder: (_, BzCounterModel bzCounter, Widget child){
 
-          final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel.id);
+          final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel?.id);
 
           return Bubble(
             headerViewModel: const BubbleHeaderVM(
@@ -130,10 +130,10 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     text: '${_counter.allSlides} '
                         '${xPhrase( context, 'phid_slidesPublished')} '
                         '${xPhrase( context, 'phid_inn')} '
-                        '${_bzModel.flyersIDs.length} '
+                        '${_bzModel?.flyersIDs?.length} '
                         '${xPhrase( context, 'phid_flyers')}',
                     translate: false,
-                    variables: [_counter.allSlides, _bzModel.flyersIDs.length]
+                    variables: [_counter.allSlides, _bzModel?.flyersIDs?.length]
                   ),
                   icon: Iconz.gallery,
                 ),
@@ -168,7 +168,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// BIRTH
                 StatsLine(
                   verse: Verse(
-                    text: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel.createdAt),
+                    text: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel?.createdAt),
                     translate: false,
                   ),
                   icon: Iconz.calendar,
