@@ -124,7 +124,7 @@ class FlyerDim {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static double headerSlateHeight(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim._xFlyerHeaderMiniHeight;
+    return flyerBoxWidth * _xFlyerHeaderMiniHeight;
   }
   // ---------
   /*
@@ -156,7 +156,7 @@ class FlyerDim {
   }
   // ---------
   static EdgeInsets headerSlatePaddings(double flyerBoxWidth){
-    return EdgeInsets.all(FlyerDim.headerSlatePaddingValue(flyerBoxWidth));
+    return EdgeInsets.all(headerSlatePaddingValue(flyerBoxWidth));
   }
   // ---------
 
@@ -179,7 +179,7 @@ class FlyerDim {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static double logoWidth(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim._xFlyerLogoWidth;
+    return flyerBoxWidth * _xFlyerLogoWidth;
   }
   // ---------
 
@@ -224,7 +224,7 @@ class FlyerDim {
     bool zeroCornerIsOn = false
 }){
 
-    final double _roundCornerValue = FlyerDim.logoCornerValueByLogoWidth(logoWidth);
+    final double _roundCornerValue = logoCornerValueByLogoWidth(logoWidth);
     final double _zeroCornerValue = zeroCornerIsOn == true ? 0 : _roundCornerValue;
 
     return cornersOverride ??
@@ -265,11 +265,13 @@ class FlyerDim {
   }){
 
     if (flyerShowsAuthor == true){
-      return FlyerDim.headerSlateHeight(flyerBoxWidth) * 0.4;
+      return  headerLabelsHeight(flyerBoxWidth)
+              - authorLabelBoxHeight(flyerBoxWidth: flyerBoxWidth) //* 0.4;
+              ;
     }
 
     else {
-      return FlyerDim.headerSlateHeight(flyerBoxWidth) * 0.7; //0.0475;
+      return headerSlateHeight(flyerBoxWidth) * 0.7; //0.0475;
     }
 
   }
@@ -351,7 +353,7 @@ class FlyerDim {
     @required double picSize,
   }){
 
-    return FlyerDim.authorPicCornersByFlyerBoxWidth(
+    return authorPicCornersByFlyerBoxWidth(
         context: context,
         flyerBoxWidth: picSize / _xFlyerAuthorPicWidth,
     );
@@ -367,7 +369,7 @@ class FlyerDim {
   }
   // ---------
   static EdgeInsets authorLabelVersesPadding(double flyerBoxWidth){
-    final double _authorLabelVersesPaddingValue = flyerBoxWidth * FlyerDim._xFlyersGridSpacing;
+    final double _authorLabelVersesPaddingValue = flyerBoxWidth * _xFlyersGridSpacing;
     return EdgeInsets.symmetric(horizontal: _authorLabelVersesPaddingValue);
   }
   // -----------------------------------------------------------------------------
@@ -450,11 +452,11 @@ class FlyerDim {
   }){
 
     if (infoButtonExpanded == true){
-      return FlyerDim._footerBoxExpandedHeight(flyerBoxWidth);
+      return _footerBoxExpandedHeight(flyerBoxWidth);
     }
 
     else {
-      return FlyerDim._footerBoxCollapsedHeight(
+      return _footerBoxCollapsedHeight(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
       );
@@ -487,8 +489,8 @@ class FlyerDim {
     @required double flyerBoxWidth,
   }){
 
-    final double _headerHeight = FlyerDim.headerBoxHeight(flyerBoxWidth);
-    final double _flyerBox = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final double _headerHeight = headerBoxHeight(flyerBoxWidth);
+    final double _flyerBox = flyerHeightByFlyerWidth(context, flyerBoxWidth);
 
     final double _expandedReviewHeight = _flyerBox - _headerHeight;
 
@@ -545,12 +547,12 @@ class FlyerDim {
     @required int buttonNumber,
     @required double flightTweenValue,
   }){
-    final double _buttonSize = FlyerDim.footerButtonSize(
+    final double _buttonSize = footerButtonSize(
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
 
-    final double _spacing = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+    final double _spacing = footerButtonMarginValue(flyerBoxWidth);
 
     final double _rightEnMarginValue =  ((_buttonSize + _spacing) * (buttonNumber - 1)) + _spacing;
 
@@ -678,12 +680,12 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    final _footerButtonWidth = FlyerDim.footerButtonSize(
+    final _footerButtonWidth = footerButtonSize(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    final _footerSpacerWidth = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+    final _footerSpacerWidth = footerButtonMarginValue(flyerBoxWidth);
 
     return flyerBoxWidth
         - (3 * _footerSpacerWidth)
@@ -695,12 +697,12 @@ class FlyerDim {
     @required double flyerBoxWidth,
   }){
 
-    final double _footerButtonSize = FlyerDim.footerButtonSize(
+    final double _footerButtonSize = footerButtonSize(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    final double _footerButtonMargin = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+    final double _footerButtonMargin = footerButtonMarginValue(flyerBoxWidth);
 
     final double _infoButtonCollapsedMargin = infoButtonCollapsedMarginValue(
       context: context,
@@ -721,14 +723,14 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return flyerBoxWidth - (2 * FlyerDim.footerButtonMarginValue(flyerBoxWidth));
+    return flyerBoxWidth - (2 * footerButtonMarginValue(flyerBoxWidth));
   }
   // ---------
   static double _infoButtonTinyHeight({
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return FlyerDim.footerButtonSize(
+    return footerButtonSize(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -738,7 +740,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return 0.7 * FlyerDim.footerButtonSize(
+    return 0.7 * footerButtonSize(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -796,7 +798,7 @@ class FlyerDim {
     @required double flyerBoxWidth,
   }){
 
-    final double _footerBottomCorners = FlyerDim.footerBoxBottomCornerValue(flyerBoxWidth);
+    final double _footerBottomCorners = footerBoxBottomCornerValue(flyerBoxWidth);
 
     final double _tinyMargin = _infoButtonTinyMarginValue(
       context: context,
@@ -811,7 +813,7 @@ class FlyerDim {
     @required double flyerBoxWidth,
   }){
 
-    final double _footerBottomCorners = FlyerDim.footerBoxBottomCornerValue(flyerBoxWidth);
+    final double _footerBottomCorners = footerBoxBottomCornerValue(flyerBoxWidth);
 
     final double _infoButtonMargin = infoButtonCollapsedMarginValue(
         context: context,
@@ -825,7 +827,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return FlyerDim.footerButtonRadius(
+    return footerButtonRadius(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
@@ -876,7 +878,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+    return footerButtonMarginValue(flyerBoxWidth);
   }
   // ---------
   static double infoButtonCollapsedMarginValue({
@@ -889,7 +891,7 @@ class FlyerDim {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    final double _footerMinHeight = FlyerDim.footerBoxHeight(
+    final double _footerMinHeight = footerBoxHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
       infoButtonExpanded: false,
@@ -903,7 +905,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return FlyerDim.footerButtonMarginValue(flyerBoxWidth);
+    return footerButtonMarginValue(flyerBoxWidth);
   }
   // -----------------------------------------------------------------------------
 
@@ -1102,12 +1104,12 @@ class FlyerDim {
 
     if (scrollDirection == Axis.vertical){
 
-      final double _gridZoneWidth = FlyerDim.flyerGridWidth(
+      final double _gridZoneWidth = flyerGridWidth(
         context: context,
         givenGridWidth: gridWidth,
       );
 
-      return FlyerDim.flyerGridVerticalScrollFlyerBoxWidth(
+      return flyerGridVerticalScrollFlyerBoxWidth(
         numberOfColumns: numberOfColumnsOrRows,
         gridZoneWidth: _gridZoneWidth,
       );
@@ -1116,12 +1118,12 @@ class FlyerDim {
 
     else {
 
-      final double _gridZoneHeight = FlyerDim.flyerGridHeight(
+      final double _gridZoneHeight = flyerGridHeight(
         context: context,
         givenGridHeight: gridHeight,
       );
 
-      return FlyerDim.flyerGridHorizontalScrollFlyerBoxWidth(
+      return flyerGridHorizontalScrollFlyerBoxWidth(
         context: context,
         numberOfRows: numberOfColumnsOrRows,
         gridZoneHeight: _gridZoneHeight,
@@ -1173,12 +1175,12 @@ class FlyerDim {
     @required int numberOfColumnsOrRows,
   }){
 
-    final double _gridSpacingValue = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
+    final double _gridSpacingValue = flyerGridGridSpacingValue(flyerBoxWidth);
 
     return SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisSpacing: scrollDirection == Axis.vertical ? _gridSpacingValue : 0,
       mainAxisSpacing: _gridSpacingValue,
-      childAspectRatio: FlyerDim.flyerAspectRatio,
+      childAspectRatio: flyerAspectRatio,
       crossAxisCount: numberOfColumnsOrRows,
       mainAxisExtent: scrollDirection == Axis.vertical ? flyerBoxWidth * _xFlyerBoxHeight : flyerBoxWidth,
       // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,

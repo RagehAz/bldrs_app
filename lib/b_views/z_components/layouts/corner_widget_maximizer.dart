@@ -178,29 +178,32 @@ class _CornerWidgetMaximizerState extends State<CornerWidgetMaximizer> with Sing
                           color: Colorz.black255,
                         ),
                         alignment: Alignment.bottomCenter,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
 
-                            /// TOP CHILD
-                            if (expanded == true && widget.topChild != null)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: WidgetFader(
-                                  fadeType: FadeType.fadeIn,
-                                  duration: const Duration(milliseconds: 200),
-                                  child: widget.topChild,
+                              /// TOP CHILD
+                              if (expanded == true && widget.topChild != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: WidgetFader(
+                                    fadeType: FadeType.fadeIn,
+                                    duration: const Duration(milliseconds: 200),
+                                    child: widget.topChild,
+                                  ),
                                 ),
+
+                              /// BOTTOM CHILD
+                              AbsorbPointer(
+                                absorbing: !expanded,
+                                child: child,
                               ),
 
-                            /// BOTTOM CHILD
-                            AbsorbPointer(
-                              absorbing: !expanded,
-                              child: child,
-                            ),
-
-                          ],
+                            ],
+                          ),
                         ),
                       );
 

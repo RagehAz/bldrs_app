@@ -189,6 +189,7 @@ class NoteCard extends StatelessWidget {
           NoteAttachment(
             noteModel: noteModel,
             boxWidth: _bodyWidth,
+            canOpenFlyer: !isDraftNote,
           ),
 
           /// BUTTONS
