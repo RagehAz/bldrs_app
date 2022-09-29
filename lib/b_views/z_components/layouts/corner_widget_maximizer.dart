@@ -1,9 +1,11 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -184,6 +186,17 @@ class _CornerWidgetMaximizerState extends State<CornerWidgetMaximizer> with Sing
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
+
+                              SizedBox(
+                                width: widget.maxWidth,
+                                child: DreamBox(
+                                  height: 35,
+                                  width: 35,
+                                  icon: expanded == true ? Iconz.arrowDown : Iconz.arrowUp,
+                                  iconSizeFactor: 0.6,
+                                  bubble: false,
+                                ),
+                              ),
 
                               /// TOP CHILD
                               if (expanded == true && widget.topChild != null)
