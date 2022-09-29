@@ -108,6 +108,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _scrollController.dispose();
     _titleNode.dispose();
     _bodyNode.dispose();
+    _receiversIDs.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -305,8 +306,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     final double _bubbleWidth = PageBubble.width(context);
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     // --------------------
-    blog('la 77aa bgad');
-
     return MainLayout(
       loading: _loading,
       pageTitleVerse: Verse.plain('Create Note ${Timers.generateString_on_dd_month_yyyy(
@@ -960,6 +959,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     titleController: _titleController,
                     bodyController: _bodyController,
                     scrollController: _scrollController,
+                    receiversIDs: _receiversIDs,
                   ),
                 ),
 

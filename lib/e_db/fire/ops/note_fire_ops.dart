@@ -28,27 +28,43 @@ class NoteFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> createNote({
+  static Future<NoteModel> createNote({
     @required BuildContext context,
     @required NoteModel noteModel,
+    ValueChanged<String> onFinished,
   }) async {
+    NoteModel _output;
 
     if (noteModel != null){
-      await Fire.createDoc(
+
+      final DocumentReference _ref = await Fire.createDoc(
         context: context,
         collName: FireColl.notes,
         input: noteModel.toMap(toJSON: false),
       );
+
+      _output = noteModel.copyWith(
+        id: _ref.id,
+      );
+
+      if (onFinished != null){
+        onFinished(_ref.id);
+      }
+
     }
 
+    return _output;
   }
   // --------------------
-
-  static Future<void> createNotes({
+  /// TESTED : WORKS PERFECT
+  static Future<List<NoteModel>> createNotes({
     @required BuildContext context,
     @required NoteModel noteModel,
     @required List<String> receiversIDs,
   }) async {
+
+    final List<NoteModel> _output = <NoteModel>[];
+    bool _success = false;
 
     if (noteModel != null && Mapper.checkCanLoopList(receiversIDs) == true){
 
@@ -56,19 +72,33 @@ class NoteFireOps {
 
         ...List.generate(receiversIDs.length, (index){
 
+          NoteModel _note = noteModel.copyWith(
+            receiverID: receiversIDs[index],
+          );
+
           return createNote(
             context: context,
-            noteModel: noteModel.copyWith(
-              receiverID: receiversIDs[index],
-            ),
+            noteModel: _note,
+            onFinished: (String docID){
+
+              _note = _note.copyWith(
+                id: docID,
+              );
+
+              _output.add(_note);
+
+
+            }
           );
 
         }),
 
       ]);
 
+      _success = true;
     }
 
+    return _success == true ? _output : null;
   }
   // -----------------------------------------------------------------------------
 
@@ -219,7 +249,7 @@ class NoteFireOps {
         value: senderID,
       ),
       FireFinder(
-        field: 'noteType',
+        field: 'type',
         comparison: FireComparison.equalTo,
         value: NoteModel.cipherNoteType(NoteType.authorship),
       ),
@@ -294,7 +324,7 @@ class NoteFireOps {
             value: receiverID,
           ),
           FireFinder(
-            field: 'noteType',
+            field: 'type',
             comparison: FireComparison.equalTo,
             value: NoteModel.cipherNoteType(NoteType.authorship),
           ),
