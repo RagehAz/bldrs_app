@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.da
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -57,10 +58,14 @@ class BzLongButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _bubbleWidth = Bubble.clearWidth(context, bubbleWidthOverride: boxWidth);
-    final double _textZoneWidth =  _bubbleWidth - height;
+    final double _textZoneWidth =  _bubbleWidth - height - 20;
 
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(),
+      width: _bubbleWidth,
+      headerViewModel: BubbleHeaderVM(
+        headerWidth: _bubbleWidth - 20,
+      ),
+      bubbleColor: isSelected == true ? Colorz.green255 : Colorz.white10,
       onBubbleTap: () => _onTap(
         context: context,
         bzModel: bzModel,
@@ -68,7 +73,7 @@ class BzLongButton extends StatelessWidget {
       columnChildren: <Widget>[
 
         SizedBox(
-          width: _bubbleWidth,
+          width: _bubbleWidth - 20,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -76,7 +81,7 @@ class BzLongButton extends StatelessWidget {
               /// LOGO
               DreamBox(
                 height: height,
-                icon: bzModel.logo,
+                icon: bzModel?.logo,
               ),
 
               /// INFO
@@ -91,7 +96,7 @@ class BzLongButton extends StatelessWidget {
                       width: _textZoneWidth,
                       child: SuperVerse(
                         verse: Verse(
-                          text: bzModel.name,
+                          text: bzModel?.name,
                           translate: false,
                         ),
                         centered: false,
@@ -115,6 +120,7 @@ class BzLongButton extends StatelessWidget {
                     /// ZONE
                     if (bzModel?.zone != null)
                       ZoneLine(
+                        width: _textZoneWidth,
                         zoneModel: bzModel?.zone,
                         centered: false,
                       ),

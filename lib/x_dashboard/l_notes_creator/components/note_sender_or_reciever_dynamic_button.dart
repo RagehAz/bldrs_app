@@ -91,7 +91,9 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
 
     /// NOTHINGNESS
     else {
-      return const SizedBox();
+      return WideButton(
+        width: width,
+      );
     }
 
   }

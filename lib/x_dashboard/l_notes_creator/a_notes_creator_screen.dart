@@ -511,7 +511,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                         width: _noteButtonButtonWidth,
                                         verse: Verse(
                                           text: _phid,
-                                          translate: false,
+                                          translate: true,
                                           casing: Casing.upperCase,
                                         ),
                                         verseScaleFactor: 0.5,
@@ -624,106 +624,123 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 minWidth: 150,
                 maxWidth: PageBubble.width(context),
                 childWidth: PageBubble.width(context),
-                topChild: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
+                topChild: SizedBox(
+                  width: PageBubble.width(context),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
 
-                    /// MISSING FIELDS BOX
-                    if (Mapper.checkCanLoopList(_missingNoteFields) == true)
                       Container(
-                        width: 250,
-                        height: 60,
-                        alignment: Aligners.superTopAlignment(context),
-                        child: SuperVerse(
-                          verse: Verse(
-                            text: 'Missing : $_missingFieldsString',
-                            translate: false,
-                          ),
-                          color: Colorz.red255,
-                          italic: true,
-                          weight: VerseWeight.thin,
-                          maxLines: 3,
-                          centered: false,
-                          labelColor: Colorz.white20,
-                          onTap: () => note.blogNoteModel(),
+                        color: Colorz.bloodTest,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+
+                            SuperVerse(
+                              verse: Verse(text: 'Sending ${NoteModel.cipherNoteType(note.noteType)} to', translate: false),
+                            ),
+
+                            NoteSenderOrRecieverDynamicButton(
+                                type: note.receiverType,
+                                id: note.receiverID,
+                                width: 300
+                            ),
+
+                          ],
                         ),
                       ),
 
-                    /// CONFIRM BUTTON
-                    FutureBuilder(
-                        future:
-                        note?.receiverType == NoteSenderOrRecieverType.user ?
-                        UserProtocols.fetchUser(
-                          context: context,
-                          userID: note.receiverID,
-                        )
-                            :
-                        note?.receiverType == NoteSenderOrRecieverType.bz ?
-                        BzProtocols.fetchBz(
-                          context: context,
-                          bzID: note.receiverID,
-                        )
-                            :
-                        null
-                        ,
-                        builder: (_, AsyncSnapshot<Object> snapshot){
+                      const Expander(),
 
-
-                          String _receiverName;
-
-                          if (note?.receiverType == NoteSenderOrRecieverType.user){
-                            final UserModel _user = snapshot.data;
-                            _receiverName = _user?.name;
-                          }
-                          else if (note?.receiverType == NoteSenderOrRecieverType.bz){
-                            final BzModel _bz = snapshot.data;
-                            _receiverName = _bz?.name;
-                          }
-
-                          return ConfirmButton(
-                            confirmButtonModel: ConfirmButtonModel(
-                              firstLine: Verse.plain('Send'),
-                              secondLine: Verse.plain('to $_receiverName'),
-                              isDeactivated: !NoteModel.checkCanSendNote(note),
-                              onTap: () => onSendNote(
-                                context: context,
-                                note: _note,
-                                formKey: _formKey,
-                                titleController: _titleController,
-                                bodyController: _bodyController,
-                                receiverName: _receiverName,
-                                selectedSenderType: _selectedSenderType,
-                                scrollController: _scrollController,
-                              ),
+                      /// MISSING FIELDS BOX
+                      if (Mapper.checkCanLoopList(_missingNoteFields) == true)
+                        Container(
+                          width: 250,
+                          height: 60,
+                          alignment: Aligners.superTopAlignment(context),
+                          child: SuperVerse(
+                            verse: Verse(
+                              text: 'Missing : $_missingFieldsString',
+                              translate: false,
                             ),
-                          );
-
-                        }
-                    ),
-
-
-                  ],
-                ),
-                child: ValueListenableBuilder(
-                    valueListenable: _note,
-                    builder: (_, NoteModel noteModel, Widget child){
-
-                      return NoteCard(
-                        bubbleWidth: PageBubble.width(context),
-                        bubbleColor: Colorz.blue125,
-                        noteModel: noteModel,
-                        isDraftNote: true,
-                        onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
-                          context: context,
-                          note: _note,
-                          titleController: _titleController,
-                          bodyController: _bodyController,
-                          scrollController: _scrollController,
-                          selectedSenderType: _selectedSenderType,
+                            color: Colorz.red255,
+                            italic: true,
+                            weight: VerseWeight.thin,
+                            maxLines: 3,
+                            centered: false,
+                            labelColor: Colorz.white20,
+                            onTap: () => note.blogNoteModel(),
+                          ),
                         ),
-                      );
 
-                    }
+                      /// CONFIRM BUTTON
+                      FutureBuilder(
+                          future:
+                          note?.receiverType == NoteSenderOrRecieverType.user ?
+                          UserProtocols.fetchUser(
+                            context: context,
+                            userID: note.receiverID,
+                          )
+                              :
+                          note?.receiverType == NoteSenderOrRecieverType.bz ?
+                          BzProtocols.fetchBz(
+                            context: context,
+                            bzID: note.receiverID,
+                          )
+                              :
+                          null
+                          ,
+                          builder: (_, AsyncSnapshot<Object> snapshot){
+
+
+                            String _receiverName;
+
+                            if (note?.receiverType == NoteSenderOrRecieverType.user){
+                              final UserModel _user = snapshot.data;
+                              _receiverName = _user?.name;
+                            }
+                            else if (note?.receiverType == NoteSenderOrRecieverType.bz){
+                              final BzModel _bz = snapshot.data;
+                              _receiverName = _bz?.name;
+                            }
+
+                            return ConfirmButton(
+                              confirmButtonModel: ConfirmButtonModel(
+                                firstLine: Verse.plain('Send'),
+                                secondLine: Verse.plain('to $_receiverName'),
+                                isDeactivated: !NoteModel.checkCanSendNote(note),
+                                onTap: () => onSendNote(
+                                  context: context,
+                                  note: _note,
+                                  formKey: _formKey,
+                                  titleController: _titleController,
+                                  bodyController: _bodyController,
+                                  receiverName: _receiverName,
+                                  selectedSenderType: _selectedSenderType,
+                                  scrollController: _scrollController,
+                                ),
+                              ),
+                            );
+
+                          }
+                      ),
+
+                    ],
+                  ),
+                ),
+                child: NoteCard(
+                  bubbleWidth: PageBubble.width(context),
+                  bubbleColor: note.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
+                  noteModel: note,
+                  isDraftNote: true,
+                  onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
+                    context: context,
+                    note: _note,
+                    titleController: _titleController,
+                    bodyController: _bodyController,
+                    scrollController: _scrollController,
+                    selectedSenderType: _selectedSenderType,
+                  ),
                 ),
 
               ),

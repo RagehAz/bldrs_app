@@ -1,9 +1,11 @@
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/aa_saved_flyers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SavedFlyersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -47,7 +49,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
     await Nav.goBack(
       context: context,
       invoker: '_passSelectedFlyersBack',
-      passedData: [],
+      passedData: Provider.of<FlyersProvider>(context, listen: false).selectedFlyers,
     );
 
   }

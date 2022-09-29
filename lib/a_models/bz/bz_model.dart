@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -886,31 +887,33 @@ class BzModel{
     bool oneLine = false,
   }){
 
-    final List<String> _bzTypesStrings = BzModel.getBzTypesPhids(
+    final List<String> _bzTypesPhids = BzModel.getBzTypesPhids(
       context: context,
       bzTypes: bzTypes,
       pluralTranslation: false,
     );
+    final List<String> _typesTranslated = xPhrases(context, _bzTypesPhids);
+    final String _bzTypesOneString = Stringer.generateStringFromStrings(
+      strings: _typesTranslated,
+    );
 
-    final String _bzFormString = BzModel.translateBzForm(
+    final String _bzFormPhid = BzModel.getBzFormPhid(
       context: context,
       bzForm: bzForm,
     );
+    final String _formTranslated = xPhrase(context, _bzFormPhid);
 
-    final String _bzTypesOneString = Stringer.generateStringFromStrings(
-      strings: _bzTypesStrings,
-    );
 
-    String _output = '$_bzTypesOneString\n$_bzFormString';
+    String _output = '$_bzTypesOneString\n$_formTranslated';
 
     /// ENGLISH
     if (TextDir.checkAppIsLeftToRight(context) == false){
 
       if (oneLine == true){
-        _output = '$_bzFormString, $_bzTypesOneString';
+        _output = '$_formTranslated, $_bzTypesOneString';
       }
       else {
-        _output = '$_bzFormString\n$_bzTypesOneString';
+        _output = '$_formTranslated\n$_bzTypesOneString';
       }
 
     }
@@ -919,17 +922,17 @@ class BzModel{
     else {
 
       if (oneLine == true){
-        _output = '$_bzTypesOneString, $_bzFormString';
+        _output = '$_bzTypesOneString, $_formTranslated';
       }
       else {
-        _output = '$_bzTypesOneString\n$_bzFormString';
+        _output = '$_bzTypesOneString\n$_formTranslated';
       }
 
     }
 
     return _output;
   }
-
+  // --------------------
   static String translateBzTypeAskHint(BuildContext context, BzType bzType){
 
     final String _askHint =
@@ -1188,7 +1191,7 @@ class BzModel{
   /// BZ FORM TRANSLATION
 
   // --------------------
-  static String translateBzForm({
+  static String getBzFormPhid({
     @required BuildContext context,
     @required BzForm bzForm,
   }){
@@ -1207,7 +1210,7 @@ class BzModel{
 
   }
   // --------------------
-  static List<String> translateBzForms({
+  static List<String> getBzFormsPhids({
     @required BuildContext context,
     @required List<BzForm> bzForms,
   }){
@@ -1216,7 +1219,7 @@ class BzModel{
     if (Mapper.checkCanLoopList(bzForms) == true){
 
       for (final BzForm bzForm in bzForms){
-        final String _translation = translateBzForm(
+        final String _translation = getBzFormPhid(
           context: context,
           bzForm: bzForm,
         );
