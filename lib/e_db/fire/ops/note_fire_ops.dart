@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
@@ -31,24 +33,29 @@ class NoteFireOps {
   static Future<NoteModel> createNote({
     @required BuildContext context,
     @required NoteModel noteModel,
-    ValueChanged<String> onFinished,
+    ValueChanged<NoteModel> onFinished,
   }) async {
     NoteModel _output;
 
     if (noteModel != null){
 
+      final NoteModel _note = await _adjustNoteToken(
+          context: context,
+          noteModel: noteModel
+      );
+
       final DocumentReference _ref = await Fire.createDoc(
         context: context,
         collName: FireColl.notes,
-        input: noteModel.toMap(toJSON: false),
+        input: _note.toMap(toJSON: false),
       );
 
-      _output = noteModel.copyWith(
+      _output = _note.copyWith(
         id: _ref.id,
       );
 
       if (onFinished != null){
-        onFinished(_ref.id);
+        onFinished(_output);
       }
 
     }
@@ -72,22 +79,15 @@ class NoteFireOps {
 
         ...List.generate(receiversIDs.length, (index){
 
-          NoteModel _note = noteModel.copyWith(
+          final NoteModel _note = noteModel.copyWith(
             receiverID: receiversIDs[index],
           );
 
           return createNote(
             context: context,
             noteModel: _note,
-            onFinished: (String docID){
-
-              _note = _note.copyWith(
-                id: docID,
-              );
-
-              _output.add(_note);
-
-
+            onFinished: (NoteModel uploaded){
+              _output.add(uploaded);
             }
           );
 
@@ -99,6 +99,34 @@ class NoteFireOps {
     }
 
     return _success == true ? _output : null;
+  }
+  // --------------------
+
+  static Future<NoteModel> _adjustNoteToken({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+  }) async {
+
+    NoteModel _note = noteModel;
+
+    if (noteModel != null){
+
+      if (noteModel.receiverType == NoteSenderOrRecieverType.user){
+
+        final UserModel _user = await UserProtocols.fetchUser(
+            context: context,
+            userID: noteModel.receiverID,
+        );
+
+        _note = _note.copyWith(
+          token: _user?.fcmToken?.token,
+        );
+
+      }
+
+    }
+
+    return _note;
   }
   // -----------------------------------------------------------------------------
 
