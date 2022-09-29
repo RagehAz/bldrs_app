@@ -20,9 +20,7 @@ import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -123,6 +121,9 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       boxWidth: TileBubble.childWidth(context: context),
     );
     // --------------------
+    final double _bubbleWidth = PageBubble.width(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context);
+    // --------------------
     return MainLayout(
       loading: _loading,
       pageTitleVerse: Verse.plain('Create Note ${Timers.generateString_on_dd_month_yyyy(
@@ -150,17 +151,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       layoutWidget: ValueListenableBuilder(
         valueListenable: _note,
         builder: (_, NoteModel note, Widget child){
-
-
-          final List<String> _missingNoteFields = NoteModel.getMissingNoteFields(
-            note: note,
-            considerAllFields: false,
-          );
-
-          final String _missingFieldsString = Stringer.generateStringFromStrings(
-            strings: _missingNoteFields,
-            stringsSeparator: ' - ',
-          );
 
           return Stack(
             children: <Widget>[
@@ -249,8 +239,16 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           text: 'Select Note Type',
                           translate: false,
                         ),
+                        validator: (){
+                          if (note.noteType == null){
+                            return 'NoteType can not be null';
+                          }
+                          else {
+                            return null;
+                          }
+                        },
                         child: SizedBox(
-                          width: Bubble.clearWidth(context),
+                          width: _bubbleClearWidth,
                           child: Column(
                             children: <Widget>[
 
@@ -297,6 +295,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                 ),
                               ),
 
+
                             ],
                           ),
                         ),
@@ -317,8 +316,22 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           text: 'Select Note Sender',
                           translate: false,
                         ),
+                        validator: (){
+                          if (note.senderID == null){
+                            return 'Select a sender';
+                          }
+                          else if (note.senderImageURL == null){
+                            return 'Sender pic is null';
+                          }
+                          else if (note.senderType == null){
+                            return 'SenderType is null';
+                          }
+                          else {
+                            return null;
+                          }
+                        },
                         child: SizedBox(
-                          width: Bubble.clearWidth(context),
+                          width: _bubbleClearWidth,
                           child: Column(
                             children: <Widget>[
 
@@ -393,8 +406,20 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           text: 'Select who will receive this Note',
                           translate: false,
                         ),
+                        validator: (){
+                          if (note.receiverID == null){
+                            return 'Select a Reciever';
+                          }
+
+                          else if (note.receiverType == null){
+                            return 'Reciever type is not defined';
+                          }
+                          else {
+                            return null;
+                          }
+                        },
                         child: SizedBox(
-                          width: Bubble.clearWidth(context),
+                          width: _bubbleClearWidth,
                           child: Column(
                             children: <Widget>[
 
@@ -488,7 +513,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           translate: false,
                         ),
                         child: SizedBox(
-                          width: Bubble.clearWidth(context),
+                          width: _bubbleClearWidth,
                           child: Column(
                             children: <Widget>[
 
@@ -553,7 +578,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           translate: false,
                         ),
                         child: SizedBox(
-                          width: Bubble.clearWidth(context),
+                          width: _bubbleClearWidth,
                           child: Column(
                             children: <Widget>[
 
@@ -603,7 +628,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                               /// ATTACHMENT
                               NoteAttachment(
                                 noteModel: note,
-                                boxWidth: Bubble.clearWidth(context),
+                                boxWidth: _bubbleClearWidth,
                                 canOpenFlyer: false,
                               ),
 
@@ -623,10 +648,10 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
               /// CONFIRM BUTTON
               CornerWidgetMaximizer(
                 minWidth: 150,
-                maxWidth: PageBubble.width(context),
-                childWidth: PageBubble.width(context),
+                maxWidth: _bubbleWidth,
+                childWidth: _bubbleWidth,
                 topChild: SizedBox(
-                  width: PageBubble.width(context),
+                  width: _bubbleWidth,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
@@ -634,7 +659,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       /// SENDING TO INFO
                       Container(
                         decoration: BoxDecoration(
-                          color: Colorz.bloodTest,
+                          color: note.receiverID == null ? Colorz.bloodTest : Colorz.white50,
                           borderRadius: Borderers.superBorderAll(context, 10),
                         ),
                         padding: Scale.superMargins(margins: 5),
@@ -645,27 +670,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-
-                            /// MISSING FIELDS BOX
-                            if (Mapper.checkCanLoopList(_missingNoteFields) == true)
-                              Container(
-                                width: 200,
-                                height: 60,
-                                alignment: Aligners.superTopAlignment(context),
-                                child: SuperVerse(
-                                  verse: Verse(
-                                    text: 'Missing : $_missingFieldsString',
-                                    translate: false,
-                                  ),
-                                  color: Colorz.red255,
-                                  italic: true,
-                                  weight: VerseWeight.thin,
-                                  maxLines: 3,
-                                  centered: false,
-                                  labelColor: Colorz.white20,
-                                  onTap: () => note.blogNoteModel(),
-                                ),
-                              ),
 
                             SuperVerse(
                               verse: Verse(text: 'Sending ${NoteModel.cipherNoteType(note?.noteType)} to', translate: false),
@@ -738,7 +742,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   ),
                 ),
                 child: NoteCard(
-                  bubbleWidth: PageBubble.width(context),
+                  bubbleWidth: _bubbleWidth,
                   bubbleColor: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
                   noteModel: note,
                   isDraftNote: false,
