@@ -262,7 +262,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
               seen: false,
               seenTime: null,
               sendFCM: true,
-              noteType: NoteType.announcement,
+              type: NoteType.notice,
               response: null,
               responseTime: null,
               buttons: null,

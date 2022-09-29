@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_attachment.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
@@ -53,8 +52,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final FocusNode _bodyNode = FocusNode();
   // --------------------
   final ValueNotifier<NoteModel> _note = ValueNotifier<NoteModel>(null);
-  final ValueNotifier<NoteSenderOrRecieverType> _selectedSenderType = ValueNotifier<NoteSenderOrRecieverType>(NoteSenderOrRecieverType.bldrs);
-  // final ValueNotifier<dynamic> _selectedSenderModel = ValueNotifier<dynamic>(null);
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
@@ -102,14 +99,194 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   void dispose() {
     _loading.dispose();
     _note.dispose();
-    _selectedSenderType.dispose();
-    // _selectedSenderModel.dispose();
     _titleController.dispose();
     _bodyController.dispose();
     _scrollController.dispose();
     _titleNode.dispose();
     _bodyNode.dispose();
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  List<Verse> _getNotTypeBulletPoints(NoteType noteType){
+
+    /// NOTHING SELECTED
+    if (noteType == null){
+      return <Verse>[];
+    }
+
+    /// NOTICE
+    else if (noteType == NoteType.notice){
+      return <Verse>[
+        const Verse(
+          text: 'Notice note : is the default type of notes',
+          translate: false,
+        ),
+      ];
+    }
+
+    /// AUTHORSHIP
+    else if (noteType == NoteType.authorship){
+      return <Verse>[
+        const Verse(
+          text: 'Authorship note : is when business invites user to become an author in the team',
+          translate: false,
+        ),
+      ];
+    }
+
+    /// FLYER UPDATE
+    else if (noteType == NoteType.flyerUpdate){
+      return <Verse>[
+        const Verse(
+          text: 'FlyerUpdate note : is when an author updates a flyer, note is sent to his bz',
+          translate: false,
+        ),
+        const Verse(
+          text: 'This fires [reFetchFlyer] mesh faker esm el protocol',
+          translate: false,
+        ),
+      ];
+    }
+
+    /// BZ DELETION
+    else if (noteType == NoteType.bzDeletion){
+      return <Verse>[
+        const Verse(
+          text: 'bzDeletion note : is when an author deletes his bz, all authors team receive this',
+          translate: false,
+        ),
+        const Verse(
+          text: 'This fires [deleteBzLocally] protocol, bardo mesh faker esm el protocol awy delwa2ty',
+          translate: false,
+        ),
+      ];
+    }
+
+    /// OTHERWISE
+    else {
+      return null;
+    }
+
+  }
+  // --------------------
+  String _noteTypeValidator(NoteModel note){
+    String _message;
+
+    /// NOTE NULL
+    if (note == null){
+      _message = 'Note is null';
+    }
+
+    /// TYPE IS NULL
+    else if (note.type == null){
+      _message = 'Select note type';
+    }
+
+    /// OTHERWISE
+    else {
+      
+      _message ??= NoteModel.receiverVsNoteTypeValidator(
+          receiverType: note.receiverType,
+          noteType: note.type,
+      );
+      
+      _message ??= NoteModel.senderVsNoteTypeValidator(
+          senderType: note.senderType,
+        noteType: note.type,
+      );
+      
+    }
+
+    return _message;
+  }
+  // --------------------
+  String _noteSenderValidator(NoteModel note){
+    String _message;
+
+    /// NOTE IS NULL
+    if (note == null){
+      _message = 'Note is null';
+    }
+    
+    /// NO SENDER SELECTED
+    else if (note?.senderID == null){
+      _message = 'Select a sender';
+    }
+    
+    /// NO SENDER TYPE
+    else if (note?.senderType == null){
+      _message = 'SenderType is null';
+    }
+    
+    /// IMAGE IN NULL
+    else if (note?.senderImageURL == null){
+      _message = 'Sender pic is null';
+    }
+    
+    /// OTHERWISE
+    else {
+      
+      _message ??= NoteModel.senderVsNoteTypeValidator(
+          senderType: note.senderType,
+          noteType: note.type,
+      );
+      
+      _message ??= NoteModel.receiverVsSenderValidator(
+          senderType: note.senderType,
+          receiverType: note.receiverType
+      );
+      
+    }
+
+    return _message;
+  }
+  // --------------------
+  String _noteRecieverValidator(NoteModel note){
+    String _message;
+
+    /// NOTE IS NULL
+    if (note == null){
+      _message = 'Note is null';
+    }
+
+    /// NO SENDER SELECTED
+    else if (note?.receiverID == null){
+      _message = 'Select a receiver';
+    }
+
+    /// NO SENDER TYPE
+    else if (note?.receiverType == null){
+      _message = 'Receiver type is null';
+    }
+
+    /// OTHERWISE
+    else {
+      
+      _message ??= NoteModel.receiverVsNoteTypeValidator(
+          receiverType: note.receiverType,
+          noteType: note.type,
+      );
+
+      _message ??= NoteModel.receiverVsSenderValidator(
+          senderType: note.senderType,
+          receiverType: note.receiverType
+      );
+      
+    }
+
+    return _message;
+  }
+  // --------------------
+  String _noteButtonsValidator(NoteModel note){
+    String _message;
+
+    if (note.type == NoteType.authorship){
+      if (note.buttons?.length != 2){
+        return 'Authorship Note should include yes & no buttons';
+      }
+    }
+
+    return _message;
   }
   // -----------------------------------------------------------------------------
   @override
@@ -155,493 +332,457 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           return Stack(
             children: <Widget>[
 
-              /// CREATOR BUBBLES
+              /// NOTE CREATOR BUBBLES
               Form(
                 key: _formKey,
-                child: Scroller(
+                child: ListView(
                   controller: _scrollController,
-                  child: ListView(
-                    controller: _scrollController,
-                    padding: Stratosphere.stratosphereInsets,
-                    physics: const BouncingScrollPhysics(),
-                    children:  <Widget>[
+                  padding: Stratosphere.stratosphereInsets,
+                  physics: const BouncingScrollPhysics(),
+                  children:  <Widget>[
 
-                      /// TITLE
-                      TextFieldBubble(
-                        appBarType: AppBarType.basic,
-                        titleVerse: Verse.plain('Note Title'),
-                        isFormField: true,
-                        textController: _titleController,
-                        textOnChanged: (String text) => onTitleChanged(
-                          note: _note,
-                          text: text,
-                        ),
-                        counterIsOn: true,
-                        maxLines: 2,
-                        maxLength: 30,
-                        validator: (String text){
-                          if (_titleController.text.length >= 30){
-                            return 'max length exceeded Bitch';
-                          }
-                          else if (_titleController.text.length < 5){
-                            return 'write something for fuck sake !';
-                          }
-                          else {
-                            return null;
-                          }
-                        },
-                        focusNode: _titleNode,
-                        keyboardTextInputAction: TextInputAction.next,
+                    /// TITLE
+                    TextFieldBubble(
+                      appBarType: AppBarType.basic,
+                      titleVerse: Verse.plain('Note Title'),
+                      isFormField: true,
+                      textController: _titleController,
+                      textOnChanged: (String text) => onTitleChanged(
+                        note: _note,
+                        text: text,
                       ),
+                      counterIsOn: true,
+                      maxLines: 2,
+                      maxLength: 30,
+                      validator: (String text){
+                        if (_titleController.text.length >= 30){
+                          return 'max length exceeded Bitch';
+                        }
+                        else if (_titleController.text.length < 5){
+                          return 'write something for fuck sake !';
+                        }
+                        else {
+                          return null;
+                        }
+                      },
+                      focusNode: _titleNode,
+                      keyboardTextInputAction: TextInputAction.next,
+                    ),
 
-                      /// BODY
-                      TextFieldBubble(
-                        appBarType: AppBarType.basic,
-                        titleVerse: Verse.plain('Note Body'),
-                        isFormField: true,
-                        textController: _bodyController,
-                        textOnChanged: (String text) => onBodyChanged(
-                          note: _note,
-                          text: text,
-                        ),
-                        counterIsOn: true,
-                        maxLines: 7,
-                        maxLength: 80,
-                        keyboardTextInputType: TextInputType.multiline,
-                        keyboardTextInputAction: TextInputAction.newline,
-                        validator: (String text){
-                          if (_titleController.text.length >= 80){
-                            return 'max length exceeded Bitch';
-                          }
-                          else if (_titleController.text.length < 5){
-                            return 'write something for fuck sake !';
-                          }
-                          else {
-                            return null;
-                          }
-                        },
-                        focusNode: _bodyNode,
+                    /// BODY
+                    TextFieldBubble(
+                      appBarType: AppBarType.basic,
+                      titleVerse: Verse.plain('Note Body'),
+                      isFormField: true,
+                      textController: _bodyController,
+                      textOnChanged: (String text) => onBodyChanged(
+                        note: _note,
+                        text: text,
                       ),
+                      counterIsOn: true,
+                      maxLines: 7,
+                      maxLength: 80,
+                      keyboardTextInputType: TextInputType.multiline,
+                      keyboardTextInputAction: TextInputAction.newline,
+                      validator: (String text){
+                        if (_titleController.text.length >= 80){
+                          return 'max length exceeded Bitch';
+                        }
+                        else if (_titleController.text.length < 5){
+                          return 'write something for fuck sake !';
+                        }
+                        else {
+                          return null;
+                        }
+                      },
+                      focusNode: _bodyNode,
+                    ),
 
-                      /// NOTE TYPE
-                      TileBubble(
-                        bubbleHeaderVM: const BubbleHeaderVM(
-                          headlineVerse: Verse(
-                            text: 'Note Type',
-                            translate: false,
-                          ),
-                          leadingIcon: Iconz.star,
-                          leadingIconSizeFactor: 0.5,
-                          leadingIconBoxColor: Colorz.grey50,
-
-                        ),
-                        secondLineVerse: const Verse(
-                          text: 'Select Note Type',
+                    /// NOTE TYPE
+                    TileBubble(
+                      bubbleHeaderVM: const BubbleHeaderVM(
+                        headlineVerse: Verse(
+                          text: 'Note Type',
                           translate: false,
                         ),
-                        validator: (){
-                          if (note.noteType == null){
-                            return 'NoteType can not be null';
-                          }
-                          else {
-                            return null;
-                          }
-                        },
-                        child: SizedBox(
-                          width: _bubbleClearWidth,
-                          child: Column(
-                            children: <Widget>[
+                        leadingIcon: Iconz.star,
+                        leadingIconSizeFactor: 0.5,
+                        leadingIconBoxColor: Colorz.grey50,
+                      ),
+                      secondLineVerse: const Verse(
+                        text: 'Select Note Type',
+                        translate: false,
+                      ),
+                      validator: () => _noteTypeValidator(note),
+                      bulletPoints: _getNotTypeBulletPoints(note?.type),
+                      child: SizedBox(
+                        width: _bubbleClearWidth,
+                        child: Column(
+                          children: <Widget>[
 
-                              SizedBox(
-                                width: TileBubble.childWidth(context: context),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
+                            SizedBox(
+                              width: TileBubble.childWidth(context: context),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
 
-                                    ...List.generate(NoteModel.noteTypesList.length, (index){
+                                  ...List.generate(NoteModel.noteTypesList.length, (index){
 
-                                      final NoteType _noteType = NoteModel.noteTypesList[index];
-                                      final bool _isSelected = note?.noteType == _noteType;
-                                      final String _noteTypeString = NoteModel.cipherNoteType(_noteType);
+                                    final NoteType _noteType = NoteModel.noteTypesList[index];
+                                    final bool _isSelected = note?.type == _noteType;
+                                    final String _noteTypeString = NoteModel.cipherNoteType(_noteType);
 
-                                      return DreamBox(
-                                        height: 40,
-                                        width: Scale.getUniformRowItemWidth(
-                                          context: context,
-                                          numberOfItems: NoteModel.noteTypesList.length,
-                                          boxWidth: TileBubble.childWidth(context: context),
-                                        ),
-                                        verse: Verse(
-                                          text: _noteTypeString,
-                                          translate: false,
-                                          casing: Casing.upperCase,
-                                        ),
-                                        verseScaleFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () => onChangeNoteType(
-                                          context: context,
-                                          note: _note,
-                                          noteType: _noteType,
-                                          senderType: _selectedSenderType,
-                                        ),
-                                      );
+                                    return DreamBox(
+                                      height: 40,
+                                      width: Scale.getUniformRowItemWidth(
+                                        context: context,
+                                        numberOfItems: NoteModel.noteTypesList.length,
+                                        boxWidth: TileBubble.childWidth(context: context),
+                                      ),
+                                      verse: Verse(
+                                        text: _noteTypeString,
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
+                                      verseScaleFactor: 0.5,
+                                      color: _isSelected == true ? Colorz.yellow255 : null,
+                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                      onTap: () => onChangeNoteType(
+                                        context: context,
+                                        note: _note,
+                                        noteType: _noteType,
+                                      ),
+                                    );
 
-                                    }),
+                                  }),
 
-                                  ],
-                                ),
+                                ],
                               ),
+                            ),
 
-
-                            ],
-                          ),
+                          ],
                         ),
                       ),
+                    ),
 
-                      /// SENDER
-                      TileBubble(
-                        bubbleHeaderVM: const BubbleHeaderVM(
-                          headlineVerse: Verse(
-                            text: 'Sender',
-                            translate: false,
-                          ),
-                          leadingIcon: Iconz.normalUser,
-                          leadingIconSizeFactor: 0.5,
-                          leadingIconBoxColor: Colorz.grey50,
-                        ),
-                        secondLineVerse: const Verse(
-                          text: 'Select Note Sender',
+                    /// SENDER
+                    TileBubble(
+                      bubbleHeaderVM: const BubbleHeaderVM(
+                        headlineVerse: Verse(
+                          text: 'Sender',
                           translate: false,
                         ),
-                        validator: (){
-                          if (note.senderID == null){
-                            return 'Select a sender';
-                          }
-                          else if (note.senderImageURL == null){
-                            return 'Sender pic is null';
-                          }
-                          else if (note.senderType == null){
-                            return 'SenderType is null';
-                          }
-                          else {
-                            return null;
-                          }
-                        },
-                        child: SizedBox(
-                          width: _bubbleClearWidth,
-                          child: Column(
-                            children: <Widget>[
+                        leadingIcon: Iconz.normalUser,
+                        leadingIconSizeFactor: 0.5,
+                        leadingIconBoxColor: Colorz.grey50,
+                      ),
+                      secondLineVerse: const Verse(
+                        text: 'Select Note Sender',
+                        translate: false,
+                      ),
+                      validator: () => _noteSenderValidator(note),
+                      child: SizedBox(
+                        width: _bubbleClearWidth,
+                        child: Column(
+                          children: <Widget>[
 
-                              /// NOTE SENDER TYPES
-                              SizedBox(
-                                width: TileBubble.childWidth(context: context),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
+                            /// NOTE SENDER TYPES
+                            SizedBox(
+                              width: TileBubble.childWidth(context: context),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
 
-                                    ...List.generate(NoteModel.noteSenderTypesList.length, (index){
+                                  ...List.generate(NoteModel.noteSenderTypesList.length, (index){
 
-                                      final NoteSenderOrRecieverType _senderType = NoteModel.noteSenderTypesList[index];
-                                      final bool _isSelected = note?.senderType == _senderType;
-                                      final String _senderTypeString = NoteModel.cipherNoteSenderOrRecieverType(_senderType);
+                                    final NoteSenderOrRecieverType _senderType = NoteModel.noteSenderTypesList[index];
+                                    final bool _isSelected = note?.senderType == _senderType;
+                                    final String _senderTypeString = NoteModel.cipherNoteSenderOrRecieverType(_senderType);
 
-                                      return DreamBox(
-                                        height: 40,
-                                        width: Scale.getUniformRowItemWidth(
-                                          context: context,
-                                          numberOfItems: NoteModel.noteSenderTypesList.length,
-                                          boxWidth: TileBubble.childWidth(context: context),
-                                        ),
-                                        verse: Verse(
-                                          text: _senderTypeString,
-                                          translate: false,
-                                          casing: Casing.upperCase,
-                                        ),
-                                        verseScaleFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () => onSelectNoteSender(
-                                          context: context,
-                                          senderType: _senderType,
-                                          selectedSenderType: _selectedSenderType,
-                                          note: _note,
-                                        ),
-                                      );
+                                    return DreamBox(
+                                      height: 40,
+                                      width: Scale.getUniformRowItemWidth(
+                                        context: context,
+                                        numberOfItems: NoteModel.noteSenderTypesList.length,
+                                        boxWidth: TileBubble.childWidth(context: context),
+                                      ),
+                                      verse: Verse(
+                                        text: _senderTypeString,
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
+                                      verseScaleFactor: 0.5,
+                                      color: _isSelected == true ? Colorz.yellow255 : null,
+                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                      onTap: () => onSelectNoteSender(
+                                        context: context,
+                                        senderType: _senderType,
+                                        note: _note,
+                                      ),
+                                    );
 
-                                    }),
+                                  }),
 
-                                  ],
-                                ),
+                                ],
                               ),
+                            ),
 
-                              /// NOTE SENDER BUTTON
+                            /// NOTE SENDER BUTTON
+                            NoteSenderOrRecieverDynamicButton(
+                              width: TileBubble.childWidth(context: context),
+                              type: note?.senderType,
+                              id: note?.senderID,
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    /// RECEIVER
+                    TileBubble(
+                      bubbleHeaderVM: const BubbleHeaderVM(
+                        headlineVerse: Verse(
+                          text: 'Receiver',
+                          translate: false,
+                        ),
+                        leadingIcon: Iconz.news,
+                        leadingIconSizeFactor: 0.5,
+                        leadingIconBoxColor: Colorz.grey50,
+                      ),
+                      secondLineVerse: const Verse(
+                        text: 'Select who will receive this Note',
+                        translate: false,
+                      ),
+                      validator: () => _noteRecieverValidator(note),
+                      child: SizedBox(
+                        width: _bubbleClearWidth,
+                        child: Column(
+                          children: <Widget>[
+
+                            SizedBox(
+                              width: TileBubble.childWidth(context: context),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+
+                                  ...List.generate(NoteModel.noteReceiverTypesList.length, (index){
+
+                                    final NoteSenderOrRecieverType _receiverType = NoteModel.noteReceiverTypesList[index];
+                                    final bool _isSelected = note?.receiverType == _receiverType;
+
+                                    return DreamBox(
+                                      height: 40,
+                                      width: _noteButtonButtonWidth,
+                                      verse: Verse(
+                                        text: NoteModel.cipherNoteSenderOrRecieverType(_receiverType),
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
+                                      verseScaleFactor: 0.5,
+                                      color: _isSelected == true ? Colorz.yellow255 : null,
+                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                      onTap: () => onSelectReceiverType(
+                                        context: context,
+                                        note: _note,
+                                        receiverType: _receiverType,
+                                      ),
+                                    );
+
+                                  }),
+
+                                ],
+                              ),
+                            ),
+
+                            if (note?.receiverID != null)
                               NoteSenderOrRecieverDynamicButton(
                                 width: TileBubble.childWidth(context: context),
-                                type: note?.senderType,
-                                id: note?.senderID,
+                                id: note?.receiverID,
+                                type: note?.receiverType,
                               ),
 
-                            ],
-                          ),
+                          ],
                         ),
                       ),
+                    ),
 
-                      /// RECEIVER
-                      TileBubble(
-                        bubbleHeaderVM: const BubbleHeaderVM(
-                          headlineVerse: Verse(
-                            text: 'Receiver',
-                            translate: false,
-                          ),
-                          leadingIcon: Iconz.news,
-                          leadingIconSizeFactor: 0.5,
-                          leadingIconBoxColor: Colorz.grey50,
-                        ),
-                        secondLineVerse: const Verse(
-                          text: 'Select who will receive this Note',
+                    /// FCM SWITCH
+                    TileBubble(
+                      bubbleHeaderVM: BubbleHeaderVM(
+                        headlineVerse: const Verse(
+                          text: 'Send FCM',
                           translate: false,
                         ),
-                        validator: (){
-                          if (note.receiverID == null){
-                            return 'Select a Reciever';
-                          }
-
-                          else if (note.receiverType == null){
-                            return 'Reciever type is not defined';
-                          }
-                          else {
-                            return null;
-                          }
-                        },
-                        child: SizedBox(
-                          width: _bubbleClearWidth,
-                          child: Column(
-                            children: <Widget>[
-
-                              SizedBox(
-                                width: TileBubble.childWidth(context: context),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-
-                                    ...List.generate(NoteModel.noteReceiverTypesList.length, (index){
-
-                                      final NoteSenderOrRecieverType _receiverType = NoteModel.noteReceiverTypesList[index];
-                                      final bool _isSelected = note?.receiverType == _receiverType;
-
-                                      return DreamBox(
-                                        height: 40,
-                                        width: _noteButtonButtonWidth,
-                                        verse: Verse(
-                                          text: NoteModel.cipherNoteSenderOrRecieverType(_receiverType),
-                                          translate: false,
-                                          casing: Casing.upperCase,
-                                        ),
-                                        verseScaleFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () => onSelectReceiverType(
-                                          context: context,
-                                          note: _note,
-                                          receiverType: _receiverType,
-                                        ),
-                                      );
-
-                                    }),
-
-                                  ],
-                                ),
-                              ),
-
-                              if (note?.receiverID != null)
-                                NoteSenderOrRecieverDynamicButton(
-                                  width: TileBubble.childWidth(context: context),
-                                  id: note?.receiverID,
-                                  type: note.receiverType,
-                                ),
-
-                            ],
-                          ),
+                        leadingIcon: Iconz.news,
+                        leadingIconSizeFactor: 0.5,
+                        leadingIconBoxColor: Colorz.grey50,
+                        switchValue: note?.sendFCM,
+                        hasSwitch: true,
+                        onSwitchTap: (bool val) => onSwitchSendFCM(
+                          note: _note,
+                          value: val,
                         ),
+
                       ),
+                      secondLineVerse: const Verse(
+                        text: 'This sends firebase cloud message to the receiver or '
+                            'to a group of receivers through a channel',
+                        translate: false,
+                      ),
+                    ),
 
-                      /// FCM SWITCH
-                      TileBubble(
-                        bubbleHeaderVM: BubbleHeaderVM(
-                          headlineVerse: const Verse(
-                            text: 'Send FCM',
-                            translate: false,
-                          ),
-                          leadingIcon: Iconz.news,
-                          leadingIconSizeFactor: 0.5,
-                          leadingIconBoxColor: Colorz.grey50,
-                          switchValue: note?.sendFCM,
-                          hasSwitch: true,
-                          onSwitchTap: (bool val) => onSwitchSendFCM(
-                            note: _note,
-                            value: val,
-                          ),
-
-                        ),
-                        secondLineVerse: const Verse(
-                          text: 'This sends firebase cloud message to the receiver or '
-                              'to a group of receivers through a channel',
+                    /// BUTTONS
+                    TileBubble(
+                      bubbleHeaderVM: const BubbleHeaderVM(
+                        headlineVerse: Verse(
+                          text: 'Buttons',
                           translate: false,
                         ),
+                        leadingIcon: Iconz.pause,
+                        leadingIconSizeFactor: 0.5,
+                        leadingIconBoxColor: Colorz.grey50,
                       ),
+                      secondLineVerse: const Verse(
+                        text: 'Add buttons to the Note',
+                        translate: false,
+                      ),
+                      validator: () => _noteButtonsValidator(note),
+                      child: SizedBox(
+                        width: _bubbleClearWidth,
+                        child: Column(
+                          children: <Widget>[
 
-                      /// BUTTONS
-                      TileBubble(
-                        bubbleHeaderVM: const BubbleHeaderVM(
-                          headlineVerse: Verse(
-                            text: 'Buttons',
-                            translate: false,
-                          ),
-                          leadingIcon: Iconz.pause,
-                          leadingIconSizeFactor: 0.5,
-                          leadingIconBoxColor: Colorz.grey50,
+                            SizedBox(
+                              width: TileBubble.childWidth(context: context),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+
+                                  ...List.generate(NoteModel.noteButtonsList.length, (index){
+
+                                    final String _phid = NoteModel.noteButtonsList[index];
+                                    final bool _isSelected = Stringer.checkStringsContainString(
+                                        strings: note?.buttons,
+                                        string: _phid
+                                    );
+
+                                    return DreamBox(
+                                      height: 40,
+                                      width: _noteButtonButtonWidth,
+                                      verse: Verse(
+                                        text: _phid,
+                                        translate: true,
+                                        casing: Casing.upperCase,
+                                      ),
+                                      verseScaleFactor: 0.5,
+                                      color: _isSelected == true ? Colorz.yellow255 : null,
+                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                      onTap: () => onAddNoteButton(
+                                        note: _note,
+                                        button: _phid,
+                                      ),
+                                    );
+
+                                  }),
+
+                                ],
+                              ),
+                            ),
+
+                          ],
                         ),
-                        secondLineVerse: const Verse(
-                          text: 'Add buttons to the Note',
+                      ),
+                    ),
+
+                    /// ATTACHMENTS
+                    TileBubble(
+                      bubbleHeaderVM: const BubbleHeaderVM(
+                        headlineVerse: Verse(
+                          text: 'Attachments',
                           translate: false,
                         ),
-                        child: SizedBox(
-                          width: _bubbleClearWidth,
-                          child: Column(
-                            children: <Widget>[
+                        leadingIcon: Iconz.flyer,
+                        leadingIconSizeFactor: 0.5,
+                        leadingIconBoxColor: Colorz.grey50,
 
-                              SizedBox(
-                                width: TileBubble.childWidth(context: context),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
+                      ),
+                      secondLineVerse: const Verse(
+                        text: 'Add attachments',
+                        translate: false,
+                      ),
+                      child: SizedBox(
+                        width: _bubbleClearWidth,
+                        child: Column(
+                          children: <Widget>[
 
-                                    ...List.generate(NoteModel.noteButtonsList.length, (index){
+                            /// ATTACHMENT TYPES
+                            SizedBox(
+                              width: TileBubble.childWidth(context: context),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
 
-                                      final String _phid = NoteModel.noteButtonsList[index];
-                                      final bool _isSelected = Stringer.checkStringsContainString(
-                                          strings: note?.buttons,
-                                          string: _phid
-                                      );
+                                  ...List.generate(NoteModel.noteAttachmentTypesList.length, (index){
 
-                                      return DreamBox(
-                                        height: 40,
-                                        width: _noteButtonButtonWidth,
-                                        verse: Verse(
-                                          text: _phid,
-                                          translate: true,
-                                          casing: Casing.upperCase,
-                                        ),
-                                        verseScaleFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () => onAddNoteButton(
-                                          note: _note,
-                                          button: _phid,
-                                        ),
-                                      );
+                                    final NoteAttachmentType _attachmentType = NoteModel.noteAttachmentTypesList[index];
+                                    final bool _isSelected = note?.attachmentType == _attachmentType;
+                                    final String _attachmentTypeString = NoteModel.cipherNoteAttachmentType(_attachmentType);
 
-                                    }),
+                                    return DreamBox(
+                                      height: 40,
+                                      width: Scale.getUniformRowItemWidth(
+                                        context: context,
+                                        numberOfItems: NoteModel.noteAttachmentTypesList.length,
+                                        boxWidth: TileBubble.childWidth(context: context),
+                                      ),
+                                      verse: Verse(
+                                        text: _attachmentTypeString,
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
+                                      verseScaleFactor: 0.5,
+                                      color: _isSelected == true ? Colorz.yellow255 : null,
+                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                      onTap: () => onSelectAttachmentType(
+                                        context: context,
+                                        note: _note,
+                                        attachmentType: _attachmentType,
+                                      ),
+                                    );
 
-                                  ],
-                                ),
+                                  }),
+
+                                ],
                               ),
+                            ),
 
-                            ],
-                          ),
+                            /// ATTACHMENT
+                            NoteAttachment(
+                              noteModel: note,
+                              boxWidth: _bubbleClearWidth,
+                              canOpenFlyer: false,
+                            ),
+
+                          ],
                         ),
                       ),
+                    ),
 
-                      /// ATTACHMENTS
-                      TileBubble(
-                        bubbleHeaderVM: const BubbleHeaderVM(
-                          headlineVerse: Verse(
-                            text: 'Attachments',
-                            translate: false,
-                          ),
-                          leadingIcon: Iconz.flyer,
-                          leadingIconSizeFactor: 0.5,
-                          leadingIconBoxColor: Colorz.grey50,
+                    /// HORIZON
+                    const Horizon(heightFactor: 2),
 
-                        ),
-                        secondLineVerse: const Verse(
-                          text: 'Add attachments',
-                          translate: false,
-                        ),
-                        child: SizedBox(
-                          width: _bubbleClearWidth,
-                          child: Column(
-                            children: <Widget>[
-
-                              /// ATTACHMENT TYPES
-                              SizedBox(
-                                width: TileBubble.childWidth(context: context),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-
-                                    ...List.generate(NoteModel.noteAttachmentTypesList.length, (index){
-
-                                      final NoteAttachmentType _attachmentType = NoteModel.noteAttachmentTypesList[index];
-                                      final bool _isSelected = note?.attachmentType == _attachmentType;
-                                      final String _attachmentTypeString = NoteModel.cipherNoteAttachmentType(_attachmentType);
-
-                                      return DreamBox(
-                                        height: 40,
-                                        width: Scale.getUniformRowItemWidth(
-                                          context: context,
-                                          numberOfItems: NoteModel.noteAttachmentTypesList.length,
-                                          boxWidth: TileBubble.childWidth(context: context),
-                                        ),
-                                        verse: Verse(
-                                          text: _attachmentTypeString,
-                                          translate: false,
-                                          casing: Casing.upperCase,
-                                        ),
-                                        verseScaleFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () => onSelectAttachmentType(
-                                          context: context,
-                                          note: _note,
-                                          attachmentType: _attachmentType,
-                                        ),
-                                      );
-
-                                    }),
-
-                                  ],
-                                ),
-                              ),
-
-                              /// ATTACHMENT
-                              NoteAttachment(
-                                noteModel: note,
-                                boxWidth: _bubbleClearWidth,
-                                canOpenFlyer: false,
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      /// HORIZON
-                      const Horizon(heightFactor: 2),
-
-                    ],
-                  ),
+                  ],
                 ),
               ),
 
@@ -659,7 +800,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       /// SENDING TO INFO
                       Container(
                         decoration: BoxDecoration(
-                          color: note.receiverID == null ? Colorz.bloodTest : Colorz.white50,
+                          color: note?.receiverID == null ? Colorz.bloodTest : Colorz.white50,
                           borderRadius: Borderers.superBorderAll(context, 10),
                         ),
                         padding: Scale.superMargins(margins: 5),
@@ -671,10 +812,24 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
 
-                            SuperVerse(
-                              verse: Verse(text: 'Sending ${NoteModel.cipherNoteType(note?.noteType)} to', translate: false),
+                            DreamBox(
+                              width: 250,
+                              height: 30,
+                              icon: note.sendFCM == true ? Iconz.news : Iconz.star,
+                              iconSizeFactor: 0.5,
+                              verseScaleFactor: 0.9,
+                              verseItalic: true,
+                              // verseWeight: VerseWeight.thin,
+                              verse: Verse(
+                                text: '${NoteModel.cipherNoteType(note?.type)} note '
+                                      '${note.sendFCM == true ? 'with FCM' : 'without FCM'} to',
+                                translate: false,
+                                casing: Casing.upperCase,
+                              ),
+                              color: note.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
+                              bubble: false,
+                              verseCentered: false,
                             ),
-
                             NoteSenderOrRecieverDynamicButton(
                                 width: 250,
                                 type: note?.receiverType,
@@ -693,13 +848,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           note?.receiverType == NoteSenderOrRecieverType.user ?
                           UserProtocols.fetchUser(
                             context: context,
-                            userID: note.receiverID,
+                            userID: note?.receiverID,
                           )
                               :
                           note?.receiverType == NoteSenderOrRecieverType.bz ?
                           BzProtocols.fetchBz(
                             context: context,
-                            bzID: note.receiverID,
+                            bzID: note?.receiverID,
                           )
                               :
                           null
@@ -729,7 +884,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                   titleController: _titleController,
                                   bodyController: _bodyController,
                                   receiverName: _receiverName,
-                                  selectedSenderType: _selectedSenderType,
                                   scrollController: _scrollController,
                                 ),
                               ),
@@ -752,7 +906,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     titleController: _titleController,
                     bodyController: _bodyController,
                     scrollController: _scrollController,
-                    selectedSenderType: _selectedSenderType,
                   ),
                 ),
 
@@ -763,6 +916,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
         },
       ),
+
     );
     // --------------------
   }
