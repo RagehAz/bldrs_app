@@ -236,7 +236,7 @@ class NoteModel {
     @required bool toJSON,
   }) {
     return <String, dynamic>{
-      // 'id': id, /// no need
+      'id': toJSON == true ? id : null,
       'senderID': senderID,
       'senderImageURL': senderImageURL,
       'senderType': cipherNoteSenderOrRecieverType(senderType),
@@ -578,7 +578,6 @@ class NoteModel {
   }
    */
   // --------------------
-
   /// TESTED : WORKS PERFECT
   static const List<NoteSenderOrRecieverType> noteReceiverTypesList = <NoteSenderOrRecieverType>[
     NoteSenderOrRecieverType.bz,
@@ -641,6 +640,7 @@ class NoteModel {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogNoteModel({
     String methodName,
   }) {
@@ -672,6 +672,7 @@ class NoteModel {
     blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogNotes({
     @required List<NoteModel> notes,
     String methodName,
@@ -699,6 +700,7 @@ class NoteModel {
   /// GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getReceiversIDs({
     @required List<NoteModel> notes,
   }){
