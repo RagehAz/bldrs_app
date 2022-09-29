@@ -13,11 +13,13 @@ class NoteAttachment extends StatelessWidget {
   const NoteAttachment({
     @required this.noteModel,
     @required this.boxWidth,
+    @required this.canOpenFlyer,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
   final double boxWidth;
+  final bool canOpenFlyer;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,7 @@ class NoteAttachment extends StatelessWidget {
               noteID: noteModel.id,
               bodyWidth: boxWidth,
               flyers: _flyers,
+              canOpenFlyer: canOpenFlyer,
             );
 
           }

@@ -66,6 +66,7 @@ class HeaderLabelsTree extends StatelessWidget {
                   bzModel: bzModel,
                   headerIsExpanded: false, //_headerIsExpanded,
                   flyerShowsAuthor: flyerModel.showsAuthor,
+                  showHeaderLabels: true,
                 ),
 
             ],

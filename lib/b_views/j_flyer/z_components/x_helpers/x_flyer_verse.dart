@@ -65,7 +65,7 @@ class FlyerVerses {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return (flyerBoxWidth / Scale.superScreenWidth(context)) * 0.9;
+    return flyerBoxWidth * 0.0021;
   }
   // --------------------
   static double authorLabelVersesScaleFactor({
