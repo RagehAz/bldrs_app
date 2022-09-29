@@ -93,7 +93,7 @@ class NoteSenderBalloon extends StatelessWidget {
       else if (noteModel.senderType == NoteSenderOrRecieverType.bz){
 
         /// IN AUTHORSHIP NOTES : author pic is sender image url
-        if (noteModel.noteType == NoteType.authorship){
+        if (noteModel.type == NoteType.authorship){
           return BzLogo(
             width: balloonWidth,
             image: noteModel.senderImageURL,

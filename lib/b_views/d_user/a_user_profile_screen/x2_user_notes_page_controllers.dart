@@ -161,7 +161,7 @@ Future<void> onNoteButtonTap({
 }) async {
 
   /// AUTHORSHIP NOTES
-  if (noteModel.noteType == NoteType.authorship){
+  if (noteModel.type == NoteType.authorship){
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
       context: context,

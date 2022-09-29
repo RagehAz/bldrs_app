@@ -12,7 +12,7 @@ enum NoteType {
   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
   authorship,
   /// WHEN BLDRS.NET SENDS A USER SOME NEWS
-  announcement,
+  notice,
   /// WHEN FLYER UPDATES ON DB AND NEED TO ACTIVATE [ LOCAL FLYER UPDATE PROTOCOL ]
   flyerUpdate,
   /// WHEN A MASTER AUTHOR DELETES BZ, A NOTE IS SENT TO ALL AUTHORS
@@ -71,7 +71,7 @@ class NoteModel {
     @required this.seen,
     @required this.seenTime,
     @required this.sendFCM,
-    @required this.noteType,
+    @required this.type,
     @required this.response,
     @required this.responseTime,
     @required this.buttons,
@@ -95,7 +95,7 @@ class NoteModel {
   final bool seen; /// TASK : CREATE NEW FIREBASE QUERY INDEX
   final DateTime seenTime;
   final bool sendFCM;
-  final NoteType noteType;
+  final NoteType type;
   final NoteResponse response;
   final DateTime responseTime;
   final List<String> buttons;
@@ -147,7 +147,7 @@ class NoteModel {
     bool seen,
     DateTime seenTime,
     bool sendFCM,
-    NoteType noteType,
+    NoteType type,
     NoteResponse response,
     DateTime responseTime,
     List<String> buttons,
@@ -170,7 +170,7 @@ class NoteModel {
       seen: seen ?? this.seen,
       seenTime: seenTime ?? this.seenTime,
       sendFCM: sendFCM ?? this.sendFCM,
-      noteType: noteType ?? this.noteType,
+      type: type ?? this.type,
       response: response ?? this.response,
       responseTime: responseTime ?? this.responseTime,
       buttons: buttons ?? this.buttons,
@@ -195,7 +195,7 @@ class NoteModel {
     bool seen = false,
     bool seenTime = false,
     bool sendFCM = false,
-    bool noteType = false,
+    bool type = false,
     bool response = false,
     bool responseTime = false,
     bool buttons = false,
@@ -218,7 +218,7 @@ class NoteModel {
       seen: seen == true ? null : this.seen,
       seenTime: seenTime == true ? null : this.seenTime,
       sendFCM: sendFCM == true ? null : this.sendFCM,
-      noteType: noteType == true ? null : this.noteType,
+      type: type == true ? null : this.type,
       response: response == true ? null : this.response,
       responseTime: responseTime == true ? null : this.responseTime,
       buttons: buttons == true ? null : this.buttons,
@@ -250,7 +250,7 @@ class NoteModel {
       'seen': seen,
       'seenTime': Timers.cipherTime(time: seenTime, toJSON: toJSON),
       'sendFCM': sendFCM,
-      'noteType': cipherNoteType(noteType),
+      'type': cipherNoteType(type),
       'response': cipherResponse(response),
       'responseTime': Timers.cipherTime(time: responseTime, toJSON: toJSON),
       'buttons': buttons,
@@ -325,7 +325,7 @@ class NoteModel {
           fromJSON: fromJSON,
         ),
         sendFCM: map['sendFCM'],
-        noteType: decipherNoteType(map['noteType']),
+        type: decipherNoteType(map['type']),
         response: decipherResponse(map['response']),
         responseTime: Timers.decipherTime(
           time: map['responseTime'],
@@ -425,9 +425,9 @@ class NoteModel {
   static String cipherNoteType(NoteType noteType){
     switch(noteType){
       case NoteType.authorship:   return 'authorship';    break;
-      case NoteType.announcement: return 'announcement';  break;
-      case NoteType.flyerUpdate: return 'flyerUpdate';  break;
-      case NoteType.bzDeletion: return 'bzDeletion';  break;
+      case NoteType.notice:       return 'notice';        break;
+      case NoteType.flyerUpdate:  return 'flyerUpdate';   break;
+      case NoteType.bzDeletion:   return 'bzDeletion';    break;
       default : return null;
     }
   }
@@ -435,17 +435,17 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static NoteType decipherNoteType(String noteType){
     switch(noteType){
-      case 'authorship': return NoteType.authorship;      break;
-      case 'announcement': return NoteType.announcement;  break;
-      case 'flyerUpdate': return NoteType.flyerUpdate;  break;
-      case 'bzDeletion': return NoteType.bzDeletion;  break;
+      case 'authorship':    return NoteType.authorship;   break;
+      case 'notice':        return NoteType.notice;       break;
+      case 'flyerUpdate':   return NoteType.flyerUpdate;  break;
+      case 'bzDeletion':    return NoteType.bzDeletion;   break;
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static const List<NoteType> noteTypesList = <NoteType>[
-    NoteType.announcement,
+    NoteType.notice,
     NoteType.authorship,
     NoteType.flyerUpdate,
     NoteType.bzDeletion,
@@ -661,7 +661,7 @@ class NoteModel {
     blog('seen : $seen');
     blog('seenTime : $seenTime');
     blog('sendFCM : $sendFCM');
-    blog('noteType : $noteType');
+    blog('type : $type');
     blog('response : $response');
     blog('responseTime : $responseTime');
     blog('buttons : ${buttons?.toString()}');
@@ -787,8 +787,8 @@ class NoteModel {
         _missingFields.add('sendFCM');
       }
 
-      if (note.noteType == null){
-        _missingFields.add('noteType');
+      if (note.type == null){
+        _missingFields.add('type');
       }
 
       /// IF NOT ONLY ESSENTIAL FIELDS REQUIRED TO SEND A NOTE ARE TO BE CONSIDERED
@@ -916,7 +916,7 @@ class NoteModel {
 
       for (final NoteModel note in notes){
 
-        if (note.noteType == noteType){
+        if (note.type == noteType){
           _output.add(note);
         }
 
@@ -974,7 +974,7 @@ class NoteModel {
           // noteModel.seen != null &&
           // noteModel.seenTime != null &&
           noteModel.sendFCM != null &&
-          noteModel.noteType != null
+          noteModel.type != null
       // && noteModel.response != null &&
       // noteModel.responseTime != null &&
       // noteModel.buttons != null
@@ -1011,7 +1011,7 @@ class NoteModel {
           note1.seen == note2.seen &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.seenTime, time2: note2.seenTime) &&
           note1.sendFCM == note2.sendFCM &&
-          note1.noteType == note2.noteType &&
+          note1.type == note2.type &&
           note1.response == note2.response &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
           Mapper.checkListsAreIdentical(list1: note1.buttons, list2: note2.buttons) &&
@@ -1345,7 +1345,7 @@ class NoteModel {
       seen: true,
       seenTime: Timers.createDate(year: 1950, month: 10, day: 6),
       sendFCM: true,
-      noteType: NoteType.announcement,
+      type: NoteType.notice,
       response: NoteResponse.pending,
       responseTime: Timers.createClock(hour: 10, minute: 50),
       buttons: const <String>['Fuck', 'You'],
@@ -1374,6 +1374,145 @@ class NoteModel {
     @required String id,
   }){
     return '$topicType/$id/';
+  }
+  // --------------------
+  static List<TopicType> getAllBzzTopics(){
+    return <TopicType>[
+      TopicType.flyerVerification, // 'flyerVerification/bzID/'
+      TopicType.flyerUpdate, // 'flyerUpdate/bzID/'
+      TopicType.authorshipAcceptance, // 'authorshipAcceptance/bzID/'
+      TopicType.authorRoleChanged, // 'authorRoleChanged/bzID/'
+      TopicType.authorDeletion, // 'authorDeletion/bzID/'
+      TopicType.generalBzNotes, // 'generalBzNotes/bzID/'
+
+    ];
+  }
+  // -----------------------------------------------------------------------------
+
+  /// VALIDATION
+
+  // --------------------
+  static String receiverVsNoteTypeValidator({
+    @required NoteSenderOrRecieverType receiverType,
+    @required NoteType noteType,
+  }){
+
+    if (receiverType == NoteSenderOrRecieverType.user){
+      switch (noteType){
+        case NoteType.notice        : return null; break; /// user can receive notice
+        case NoteType.authorship    : return null; break; /// only user receive authorship
+        case NoteType.bzDeletion    : return null; break; /// only user receive bzDeletion
+        case NoteType.flyerUpdate   : return 'User does not receive flyer update note'; break;
+        default: return null;
+      }
+    }
+    else if (receiverType == NoteSenderOrRecieverType.bz){
+      switch (noteType){
+        case NoteType.notice  : return null; break; /// bz can receive notice
+        case NoteType.authorship    : return 'Only User receive authorship note'; break;
+        case NoteType.bzDeletion    : return 'Only user can receive bzDeletion note'; break;
+        case NoteType.flyerUpdate   : return null; break; /// bz can receive flyerUpdate
+        default: return null;
+      }
+    }
+    else {
+      return 'Receiver can only be a user or a bz';
+    }
+
+  }
+  // --------------------
+  static String senderVsNoteTypeValidator({
+    @required NoteSenderOrRecieverType senderType,
+    @required NoteType noteType,
+  }){
+
+    /// USER
+    if (senderType == NoteSenderOrRecieverType.user){
+      switch (noteType){
+        case NoteType.notice        : return null; break; /// user can send notice
+        case NoteType.authorship    : return 'Only Bz can send Authorship note'; break;
+        case NoteType.bzDeletion    : return 'Only Bldrs can send bzDeletion notes'; break;
+        case NoteType.flyerUpdate   : return 'User can not send flyerUpdate note'; break;
+        default: return null;
+      }
+    }
+
+    /// BZ
+    else if (senderType == NoteSenderOrRecieverType.bz){
+      switch (noteType){
+        case NoteType.notice        : return null; break; /// bz can send notice
+        case NoteType.authorship    : return null; break; /// only bz send authorship
+        case NoteType.bzDeletion    : return 'Only Bldrs can send bzDeletion notes'; break;
+        case NoteType.flyerUpdate   : return null; break; /// bz can send flyerUpdate note
+        default: return null;
+      }
+    }
+
+    /// BLDRS
+    else if (senderType == NoteSenderOrRecieverType.bldrs){
+      switch (noteType){
+        case NoteType.notice        : return null; break; /// Bldrs can send notice
+        case NoteType.authorship    : return 'Only Bz can send Authorship note'; break;
+        case NoteType.bzDeletion    : return null; break; /// only Bldrs send bzDeletion
+        case NoteType.flyerUpdate   : return null; break; /// Bldrs can send flyerUpdate note
+        default: return null;
+      }
+    }
+
+    /// COUNTRY
+    else if (senderType == NoteSenderOrRecieverType.country){
+      switch (noteType){
+        case NoteType.notice        : return null; break; /// Country can send notice
+        case NoteType.authorship    : return 'Only Bz can send Authorship note'; break;
+        case NoteType.bzDeletion    : return 'Only Bldrs can send bzDeletion notes'; break;
+        case NoteType.flyerUpdate   : return 'Country can not send FlyerUpdate note'; break;
+        default: return null;
+      }
+    }
+
+    /// OTHERWISE
+    else {
+      return 'Sender can not be null';
+    }
+
+  }
+  // --------------------
+  static String receiverVsSenderValidator({
+    @required NoteSenderOrRecieverType senderType,
+    @required NoteSenderOrRecieverType receiverType,
+  }){
+
+    /// USER
+    if (receiverType == NoteSenderOrRecieverType.user){
+
+      switch(senderType){
+        case NoteSenderOrRecieverType.user     : return null; break; /// user can receive from user
+        case NoteSenderOrRecieverType.bz       : return null; break; /// user can receive from bz
+        case NoteSenderOrRecieverType.bldrs    : return null; break; /// user can receive from bldrs
+        case NoteSenderOrRecieverType.country  : return null; break; /// user can receive from country
+        default: return null;
+      }
+
+    }
+
+    /// BZ
+    else if (receiverType == NoteSenderOrRecieverType.bz){
+
+      switch(senderType){
+        case NoteSenderOrRecieverType.user     : return null; break; /// bz can receive from user
+        case NoteSenderOrRecieverType.bz       : return null; break; /// bz can receive from bz
+        case NoteSenderOrRecieverType.bldrs    : return null; break; /// bz can receive from bldrs
+        case NoteSenderOrRecieverType.country  : return null; break; /// bz can receive from country
+        default: return null;
+      }
+
+    }
+
+    /// OTHERWISE
+    else {
+      return 'receiver can only be a user or a bz';
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -1420,7 +1559,7 @@ class NoteModel {
       seen.hashCode^
       seenTime.hashCode^
       sendFCM.hashCode^
-      noteType.hashCode^
+      type.hashCode^
       response.hashCode^
       responseTime.hashCode^
       buttons.hashCode^

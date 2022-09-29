@@ -59,6 +59,7 @@ class ZoneLine extends StatelessWidget {
             color: Colorz.grey255,
             margin: 5,
             maxLines: 3,
+            centered: centered,
           ),
 
         ],

@@ -67,7 +67,7 @@ NoteModel _createInitialNote(BuildContext context) {
     seen: false,
     seenTime: null,
     sendFCM: false,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     buttons: null,
@@ -83,7 +83,6 @@ Future<void> onNoteCreatorCardOptionsTap({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ScrollController scrollController,
 }) async {
 
@@ -119,7 +118,6 @@ Future<void> onNoteCreatorCardOptionsTap({
                 await onGoToNoteTemplatesScreen(
                   context: context,
                   scrollController: scrollController,
-                  selectedSenderType: selectedSenderType,
                   note: note,
                   bodyController: bodyController,
                   titleController: titleController,
@@ -150,7 +148,6 @@ Future<void> onNoteCreatorCardOptionsTap({
                     note: note,
                     titleController: titleController,
                     bodyController: bodyController,
-                    selectedSenderType: selectedSenderType,
                 );
 
               }
@@ -173,67 +170,11 @@ Future<void> onChangeNoteType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required NoteType noteType,
-  @required ValueNotifier<NoteSenderOrRecieverType> senderType,
 }) async {
 
-  if (
-  noteType == NoteType.authorship
-      &&
-      senderType.value != NoteSenderOrRecieverType.bz
-  ){
-
-    final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: Verse.plain('Watch out!'),
-      bodyVerse: Verse.plain('Only Business note Sender Type can send Authorship notes'
-          '\n want to continue and wipe selected sender type?'),
-      boolDialog: true,
-    );
-
-    if (_result == true){
-
-      senderType.value = NoteSenderOrRecieverType.bz;
-
-      final NoteModel _old = note.value;
-
-      note.value = NoteModel(
-        noteType: noteType,
-        senderType: NoteSenderOrRecieverType.bz,
-        senderID: null,
-        senderImageURL: null,
-        receiverType: null,
-        id: _old.id,
-        receiverID: _old.receiverID,
-        title: _old.title,
-        body: _old.body,
-        metaData: _old.metaData,
-        sentTime: _old.sentTime,
-        attachment: _old.attachment,
-        attachmentType: _old.attachmentType,
-        seen: _old.seen,
-        seenTime: _old.seenTime,
-        sendFCM: _old.sendFCM,
-        response: _old.response,
-        responseTime: _old.responseTime,
-        buttons: _old.buttons,
-        token: _old.token,
-        topic: _old.topic,
-      );
-
-
-    }
-
-  }
-
-  else {
-
-    note.value = note.value.copyWith(
-      noteType: noteType,
-    );
-
-  }
-
-
+  note.value = note.value.copyWith(
+    type: noteType,
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -403,7 +344,6 @@ void onBodyChanged({
 Future<void> onSelectNoteSender({
   @required BuildContext context,
   @required NoteSenderOrRecieverType senderType,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ValueNotifier<NoteModel> note,
 }) async {
 
@@ -421,7 +361,6 @@ Future<void> onSelectNoteSender({
         context: context,
         note: note,
         senderType: senderType,
-        selectedSenderType: selectedSenderType,
       );
 
     }
@@ -432,7 +371,6 @@ Future<void> onSelectNoteSender({
         context: context,
         note: note,
         senderType: senderType,
-        selectedSenderType: selectedSenderType,
       );
     }
 
@@ -442,7 +380,6 @@ Future<void> onSelectNoteSender({
         context: context,
         note: note,
         senderType: senderType,
-        selectedSenderType: selectedSenderType,
       );
     }
 
@@ -451,7 +388,6 @@ Future<void> onSelectNoteSender({
         context: context,
         note: note,
         senderType: senderType,
-        selectedSenderType: selectedSenderType,
       );
     }
   }
@@ -495,7 +431,6 @@ Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required NoteSenderOrRecieverType senderType,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
@@ -513,7 +448,6 @@ Future<void> _onSelectUserAsNoteSender({
         :
     null;
 
-    selectedSenderType.value = senderType;
     note.value = note.value.copyWith(
       senderID: _userModel.id,
       senderImageURL: _userModel.pic,
@@ -529,7 +463,6 @@ Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required NoteSenderOrRecieverType senderType,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -545,7 +478,6 @@ Future<void> _onSelectBzAsNoteSender({
         :
     null;
 
-    selectedSenderType.value = senderType;
     note.value = note.value.copyWith(
       senderID: _bzModel.id,
       senderImageURL: _bzModel.logo,
@@ -561,7 +493,6 @@ Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required NoteSenderOrRecieverType senderType,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
 
   final ZoneModel _zoneModel = await controlSelectCountryOnly(context);
@@ -574,7 +505,6 @@ Future<void> _onSelectCountryAsNoteSender({
       countryID: _zoneModel.countryID,
     );
 
-    selectedSenderType.value = senderType;
     note.value = note.value.copyWith(
       senderID: _countryModel.id,
       senderImageURL: Flag.getFlagIcon(_countryModel.id),
@@ -590,10 +520,7 @@ Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required NoteSenderOrRecieverType senderType,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }) async {
-
-  selectedSenderType.value = senderType;
 
   note.value = note.value.copyWith(
     senderID: NoteModel.bldrsSenderModel.key,
@@ -774,10 +701,12 @@ Future<void> _onSelectImageURLAsAttachment({
   //   graphicHeight: _picSize.height,
   // );
 
-  note.value = note.value.copyWith(
-    attachmentType: attachmentType,
-    attachment: _fileModel.file,
-  );
+  if (_fileModel != null){
+    note.value = note.value.copyWith(
+      attachmentType: attachmentType,
+      attachment: _fileModel.file,
+    );
+  }
 
 }
 // --------------------
@@ -805,7 +734,7 @@ void _onClearAttachments({
     seen: _note.seen,
     seenTime: _note.seenTime,
     sendFCM: _note.sendFCM,
-    noteType: _note.noteType,
+    type: _note.type,
     response: _note.response,
     responseTime: _note.responseTime,
     buttons: _note.buttons,
@@ -827,7 +756,6 @@ Future<void> onSendNote({
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
   @required String receiverName,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ScrollController scrollController,
 }) async {
 
@@ -869,7 +797,6 @@ Future<void> onSendNote({
         note: note,
         titleController: titleController,
         bodyController: bodyController,
-        selectedSenderType: selectedSenderType,
       );
 
       await Scrollers.scrollToTop(
@@ -955,12 +882,10 @@ void _clearNote({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
 }){
   note.value = _createInitialNote(context);
   titleController.clear();
   bodyController.clear();
-  selectedSenderType.value = NoteSenderOrRecieverType.bldrs;
 
 }
 // -----------------------------------------------------------------------------
@@ -1044,7 +969,6 @@ Future<void> onGoToNoteTemplatesScreen({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required ValueNotifier<NoteSenderOrRecieverType> selectedSenderType,
   @required ScrollController scrollController,
 }) async {
 
@@ -1059,7 +983,6 @@ Future<void> onGoToNoteTemplatesScreen({
     note.value = _templateNote;
     titleController.text = _templateNote.title;
     bodyController.text = _templateNote.body;
-    selectedSenderType.value = _templateNote.senderType;
 
     await Scrollers.scrollToTop(
       controller: scrollController,
