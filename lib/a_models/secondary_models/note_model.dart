@@ -178,6 +178,54 @@ class NoteModel {
       topic: topic ?? this.topic,
     );
   }
+  // --------------------
+  NoteModel nullifyField({
+    bool id = false,
+    bool senderID = false,
+    bool senderImageURL = false,
+    bool senderType = false,
+    bool receiverID = false,
+    bool receiverType = false,
+    bool title = false,
+    bool body = false,
+    bool metaData = false,
+    bool sentTime = false,
+    bool attachment = false,
+    bool attachmentType = false,
+    bool seen = false,
+    bool seenTime = false,
+    bool sendFCM = false,
+    bool noteType = false,
+    bool response = false,
+    bool responseTime = false,
+    bool buttons = false,
+    bool token = false,
+    bool topic = false,
+}){
+    return NoteModel(
+      id: id == true ? null : this.id,
+      senderID: senderID == true ? null : this.senderID,
+      senderImageURL: senderImageURL == true ? null : this.senderImageURL,
+      senderType: senderType == true ? null : this.senderType,
+      receiverID: receiverID == true ? null : this.receiverID,
+      receiverType: receiverType == true ? null : this.receiverType,
+      title: title == true ? null : this.title,
+      body: body == true ? null : this.body,
+      metaData: metaData == true ? null : this.metaData,
+      sentTime: sentTime == true ? null : this.sentTime,
+      attachment: attachment == true ? null : this.attachment,
+      attachmentType: attachmentType == true ? null : this.attachmentType,
+      seen: seen == true ? null : this.seen,
+      seenTime: seenTime == true ? null : this.seenTime,
+      sendFCM: sendFCM == true ? null : this.sendFCM,
+      noteType: noteType == true ? null : this.noteType,
+      response: response == true ? null : this.response,
+      responseTime: responseTime == true ? null : this.responseTime,
+      buttons: buttons == true ? null : this.buttons,
+      token: token == true ? null : this.token,
+      topic: topic == true ? null : this.topic,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// CYPHERS

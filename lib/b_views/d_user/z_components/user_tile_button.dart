@@ -82,8 +82,8 @@ class UserTileButton extends StatelessWidget {
           DreamBox(
             width: _userButtonWidth,
             height: buttonHeight,
-            icon: userModel.pic,
-            verse: Verse(text: userModel.name,translate: false),
+            icon: userModel?.pic,
+            verse: Verse(text: userModel?.name,translate: false),
             verseCentered: false,
             secondLine: UserModel.generateUserJobLine(userModel),
             secondLineScaleFactor: 1.2,

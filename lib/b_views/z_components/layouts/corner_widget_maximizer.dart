@@ -161,7 +161,7 @@ class _CornerWidgetMaximizerState extends State<CornerWidgetMaximizer> with Sing
         SuperPositioned(
           enAlignment: Alignment.bottomLeft,
           horizontalOffset: 10,
-          verticalOffset: 5,
+          verticalOffset: MediaQuery.of(context).viewInsets.bottom + 5,
           child: ScaleTransition(
               alignment: Alignment.bottomLeft,
               scale: _scaleAnimation,
