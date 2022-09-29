@@ -365,6 +365,23 @@ String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
 
 }
 //---------------------
+List<String> xPhrases(BuildContext context, List<String> phids, {PhraseProvider phrasePro}){
+  final List<String> _output = <String>[];
+
+  if (Mapper.checkCanLoopList(phids) == true){
+
+    for (final String phid in phids){
+      final String _trans = xPhrase(context, phid, phrasePro: phrasePro);
+      _output.add(_trans);
+    }
+
+  }
+  return _output;
+
+
+
+}
+//---------------------
 String phidIcon(BuildContext context, dynamic icon){
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
