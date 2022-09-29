@@ -58,6 +58,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
             return BzLongButton(
               boxWidth: width,
               bzModel: snap.data,
+              showAuthorsPics: true,
             );
 
           }

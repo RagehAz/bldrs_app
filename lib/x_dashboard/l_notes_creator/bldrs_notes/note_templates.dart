@@ -15,7 +15,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -48,7 +48,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -81,7 +81,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -114,7 +114,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -147,7 +147,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -180,7 +180,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -213,7 +213,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -246,7 +246,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -279,7 +279,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -312,7 +312,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -345,7 +345,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -378,7 +378,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -411,7 +411,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -444,7 +444,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -477,7 +477,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -510,7 +510,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -543,7 +543,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -581,7 +581,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.authorship,
+    type: NoteType.authorship,
     response: null,
     responseTime: null,
     /// variables
@@ -614,7 +614,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.authorship,
+    type: NoteType.authorship,
     response: null,
     responseTime: null,
     /// variables
@@ -647,7 +647,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -680,7 +680,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -713,7 +713,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -746,7 +746,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -781,7 +781,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -814,7 +814,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables
@@ -847,7 +847,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.announcement,
+    type: NoteType.notice,
     response: null,
     responseTime: null,
     /// variables

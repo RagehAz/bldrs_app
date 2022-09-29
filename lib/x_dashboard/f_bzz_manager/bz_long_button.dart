@@ -1,11 +1,15 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/fff_author_label.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -19,6 +23,7 @@ class BzLongButton extends StatelessWidget {
     this.showID = true,
     this.onTap,
     this.isSelected = false,
+    this.showAuthorsPics = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +32,7 @@ class BzLongButton extends StatelessWidget {
   final bool showID;
   final Function onTap;
   final bool isSelected;
+  final bool showAuthorsPics;
   /// --------------------------------------------------------------------------
   static const double height = 60;
   static const double bzButtonMargin = Ratioz.appBarPadding;
@@ -123,6 +129,59 @@ class BzLongButton extends StatelessWidget {
                         width: _textZoneWidth,
                         zoneModel: bzModel?.zone,
                         centered: false,
+                      ),
+
+                    /// BZ AUTHORS
+                    if (showAuthorsPics == true)
+                      Container(
+                        width: _textZoneWidth,
+                        constraints: const BoxConstraints(
+                          maxHeight: 200,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colorz.white10,
+                          borderRadius: Borderers.superBorderAll(context, 10),
+                        ),
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.all(5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+
+                              if (Mapper.checkCanLoopList(bzModel?.authors) == true)
+                                SuperVerse(
+                                verse: Verse.plain('${bzModel.authors.length} Authors in ${bzModel.name} '),
+                                margin: 5,
+                                italic: true,
+                                weight: VerseWeight.black,
+                                color: Colorz.white80,
+                              ),
+
+                              if (Mapper.checkCanLoopList(bzModel?.authors) == true)
+                              ...List.generate( bzModel?.authors?.length, (index){
+
+                                // final AuthorModel _author = bzModel.authors[index];
+                                final AuthorModel _author = bzModel.authors[0];
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: AuthorLabel(
+                                    flyerBoxWidth: _textZoneWidth * 1.5,
+                                    authorID: _author.userID,
+                                    bzModel: bzModel,
+                                    showLabel: true,
+                                    labelIsOn: true,
+                                    authorGalleryCount: _author.flyersIDs.length,
+                                    onTap: null,
+                                  ),
+                                );
+
+                              }),
+
+                            ],
+                          ),
+                        ),
                       ),
 
                   ],

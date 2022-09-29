@@ -245,7 +245,7 @@ Future<void> _sendFlyerVerificationUpdateNote({
     seen: false,
     seenTime: null,
     sendFCM: true,
-    noteType: NoteType.flyerUpdate,
+    type: NoteType.flyerUpdate,
     response: null,
     responseTime: null,
     buttons: null,

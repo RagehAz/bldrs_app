@@ -8,7 +8,7 @@ service cloud.firestore {
 
     // ---------------------------
     function isRageh(){
-      return getUserID() == "XvwGvt42RFhvcz5CYr8xFujzI5F2";
+      return getUserID() == "z0Obwze3JLYjoEl6uVeXfo4Luup1";
     }
     // ---------------------------
     match /{document=**} {
@@ -85,6 +85,28 @@ service cloud.firestore {
       allow read: if true;
       allow update: if isAdmin();
       allow delete: if isAdmin();
+    }
+    // ------------------------------------------------------------
+
+    // FLYERS : db / flyers / $flyerID / reviews
+
+    // ---------------------------
+    function getReviewModel(reviewID, flyerID){
+      return get(/databases/$(database)/documents/flyers/$(flyerID)/reviews/$(reviewID)).data;
+    }
+    // ---------------------------
+    function isReviewCreatorOrFlyerBzMember(reviewID, flyerID){
+    	let reviewModel = getReviewModel(reviewID, flyerID);
+    	let isBzTeamMemeber = isFlyerBzTeamMember(flyerID);
+      let isReviewCreator = getUserID() == reviewModel.userID;
+      return isBzTeamMemeber || isReviewCreator;
+    }
+    // ---------------------------
+    match /flyers/{flyerID}/reviews/{reviewID} {
+    	allow create: if isOnlineUser();
+      allow read: if true;
+      allow update: if isReviewCreatorOrFlyerBzMember(reviewID, flyerID);
+      allow delete: if isReviewCreatorOrFlyerBzMember(reviewID, flyerID);
     }
     // ------------------------------------------------------------
 
