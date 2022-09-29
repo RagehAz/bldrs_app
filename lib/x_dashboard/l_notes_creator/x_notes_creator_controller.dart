@@ -53,8 +53,8 @@ NoteModel _createInitialNote(BuildContext context) {
 
   return NoteModel(
     id: null,
-    senderID: NoteModel.bldrsSenderModel.key,
-    senderImageURL: NoteModel.bldrsSenderModel.value,
+    senderID: null, //NoteModel.bldrsSenderModel.key,
+    senderImageURL: null, //NoteModel.bldrsSenderModel.value,
     senderType: null,
     receiverID: null,
     receiverType: null,
