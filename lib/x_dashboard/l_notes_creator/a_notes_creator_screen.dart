@@ -21,6 +21,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -603,8 +604,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                               NoteAttachment(
                                 noteModel: note,
                                 boxWidth: Bubble.clearWidth(context),
+                                canOpenFlyer: false,
                               ),
-
 
                             ],
                           ),
@@ -612,7 +613,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       ),
 
                       /// HORIZON
-                      const Horizon(),
+                      const Horizon(heightFactor: 2),
 
                     ],
                   ),
@@ -630,20 +631,50 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
 
+                      /// SENDING TO INFO
                       Container(
-                        color: Colorz.bloodTest,
+                        decoration: BoxDecoration(
+                          color: Colorz.bloodTest,
+                          borderRadius: Borderers.superBorderAll(context, 10),
+                        ),
+                        padding: Scale.superMargins(margins: 5),
+                        margin: Scale.superInsets(
+                          context: context,
+                          top: 10,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
 
+                            /// MISSING FIELDS BOX
+                            if (Mapper.checkCanLoopList(_missingNoteFields) == true)
+                              Container(
+                                width: 200,
+                                height: 60,
+                                alignment: Aligners.superTopAlignment(context),
+                                child: SuperVerse(
+                                  verse: Verse(
+                                    text: 'Missing : $_missingFieldsString',
+                                    translate: false,
+                                  ),
+                                  color: Colorz.red255,
+                                  italic: true,
+                                  weight: VerseWeight.thin,
+                                  maxLines: 3,
+                                  centered: false,
+                                  labelColor: Colorz.white20,
+                                  onTap: () => note.blogNoteModel(),
+                                ),
+                              ),
+
                             SuperVerse(
-                              verse: Verse(text: 'Sending ${NoteModel.cipherNoteType(note.noteType)} to', translate: false),
+                              verse: Verse(text: 'Sending ${NoteModel.cipherNoteType(note?.noteType)} to', translate: false),
                             ),
 
                             NoteSenderOrRecieverDynamicButton(
-                                type: note.receiverType,
-                                id: note.receiverID,
-                                width: 300
+                                width: 250,
+                                type: note?.receiverType,
+                                id: note?.receiverID,
                             ),
 
                           ],
@@ -652,28 +683,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                       const Expander(),
 
-                      /// MISSING FIELDS BOX
-                      if (Mapper.checkCanLoopList(_missingNoteFields) == true)
-                        Container(
-                          width: 250,
-                          height: 60,
-                          alignment: Aligners.superTopAlignment(context),
-                          child: SuperVerse(
-                            verse: Verse(
-                              text: 'Missing : $_missingFieldsString',
-                              translate: false,
-                            ),
-                            color: Colorz.red255,
-                            italic: true,
-                            weight: VerseWeight.thin,
-                            maxLines: 3,
-                            centered: false,
-                            labelColor: Colorz.white20,
-                            onTap: () => note.blogNoteModel(),
-                          ),
-                        ),
-
-                      /// CONFIRM BUTTON
+                      /// SEND BUTTON
                       FutureBuilder(
                           future:
                           note?.receiverType == NoteSenderOrRecieverType.user ?
@@ -707,7 +717,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                             return ConfirmButton(
                               confirmButtonModel: ConfirmButtonModel(
                                 firstLine: Verse.plain('Send'),
-                                secondLine: Verse.plain('to $_receiverName'),
                                 isDeactivated: !NoteModel.checkCanSendNote(note),
                                 onTap: () => onSendNote(
                                   context: context,
@@ -730,9 +739,9 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 ),
                 child: NoteCard(
                   bubbleWidth: PageBubble.width(context),
-                  bubbleColor: note.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
+                  bubbleColor: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
                   noteModel: note,
-                  isDraftNote: true,
+                  isDraftNote: false,
                   onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
                     context: context,
                     note: _note,
