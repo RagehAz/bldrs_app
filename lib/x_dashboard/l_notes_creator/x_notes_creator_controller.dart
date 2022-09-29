@@ -9,11 +9,14 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -89,7 +92,7 @@ Future<void> onNoteCreatorCardOptionsTap({
   await BottomDialog.showButtonsBottomDialog(
       context: context,
       draggable: true,
-      numberOfWidgets: 2,
+      numberOfWidgets: 3,
       titleVerse: const Verse(
         text: 'phid_options',
         translate: true,
@@ -125,6 +128,23 @@ Future<void> onNoteCreatorCardOptionsTap({
 
               }
           ),
+
+          /// BLOG
+          BottomDialog.wideButton(
+              context: context,
+              verse: const Verse(
+                text: 'Blog Note',
+                translate: false,
+                casing: Casing.upperCase,
+              ),
+              height: 50,
+              onTap: () async {
+
+                note.value.blogNoteModel();
+
+              }
+          ),
+
 
           /// CLEAR NOTE
           BottomDialog.wideButton(
@@ -213,88 +233,90 @@ Future<void> onChangeNoteType({
 // --------------------
 Future<void> onSelectReceiverType({
   @required BuildContext context,
-  @required ValueNotifier<NoteModel> note,
-  @required NoteSenderOrRecieverType receiverType,
+  @required ValueNotifier<NoteModel> noteNotifier,
+  @required NoteSenderOrRecieverType selectedReceiverType,
+  @required ValueNotifier<List<String>> receiversIDs,
 }) async {
 
-  String _receiverID;
+  List<String> _receiversIDs = <String>[];
 
-  /// if user
-  if (receiverType == NoteSenderOrRecieverType.user){
-    _receiverID = await _onSelectUserAsNoteReceiver(
+  /// IF USER
+  if (selectedReceiverType == NoteSenderOrRecieverType.user){
+    _receiversIDs = await _onSelectUserAsNoteReceiver(
       context: context,
+      selectedUsersIDs: receiversIDs,
     );
   }
 
-  /// if bz
+  /// IF BZ
   else {
-    _receiverID = await _onSelectBzAsNoteReceiver(
+    _receiversIDs = await _onSelectBzAsNoteReceiver(
       context: context,
+      selectedBzzIDs: receiversIDs,
     );
   }
 
-  if (_receiverID != null){
-    note.value = note.value.copyWith(
-      receiverType: receiverType,
-      receiverID: _receiverID,
-    );
-  }
+  noteNotifier.value = noteNotifier.value.copyWith(
+    receiverType: selectedReceiverType,
+    receiverID: 'xyx',
+  );
+
+  receiversIDs.value = _receiversIDs;
 
 }
 // --------------------
 
-Future<String> _onSelectUserAsNoteReceiver({
+Future<List<String>> _onSelectUserAsNoteReceiver({
   @required BuildContext context,
+  @required ValueNotifier<List<String>> selectedUsersIDs,
 }) async {
-  String _userID;
+  List<String> _usersIDs = <String>[];
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
     context: context,
-    screen: const SearchUsersScreen(
-      userIDsToExcludeInSearch: <String>[],
+    screen: SearchUsersScreen(
+      userIDsToExcludeInSearch: const <String>[],
+      multipleSelection: true,
+      selectedUsers: await UserProtocols.fetchUsers(
+          context: context,
+          usersIDs: selectedUsersIDs.value,
+      ),
     ),
   );
 
-  final bool _newSelection = Mapper.checkCanLoopList(_selectedUsers);
-  if (_newSelection == true) {
-
-    final UserModel _userModel = _newSelection == true ?
-    _selectedUsers.first
-        :
-    null;
-
-    _userID = _userModel?.id;
-
+  if (Mapper.checkCanLoopList(_selectedUsers) == true) {
+    _usersIDs = UserModel.getUsersIDs(_selectedUsers);
   }
 
-  return _userID;
+  return _usersIDs;
 }
 // --------------------
 
-Future<String> _onSelectBzAsNoteReceiver({
+Future<List<String>> _onSelectBzAsNoteReceiver({
   @required BuildContext context,
+  @required ValueNotifier<List<String>> selectedBzzIDs,
 }) async {
-  String _bzID;
 
-  final List<BzModel> _bzModels = await Nav.goToNewScreen(
+  List<String> _bzzIDs = <String>[];
+
+  final List<BzModel> _bzzModels = await Nav.goToNewScreen(
     context: context,
-    screen: const SearchBzzScreen(),
+    screen: SearchBzzScreen(
+      multipleSelection: true,
+      selectedBzz: await BzProtocols.fetchBzz(
+          context: context,
+          bzzIDs: selectedBzzIDs.value,
+      ),
+    ),
   );
 
-  final bool _newSelection = Mapper.checkCanLoopList(_bzModels);
-  if (_newSelection == true){
+  if (Mapper.checkCanLoopList(_bzzModels) == true){
 
-    final BzModel _bzModel = Mapper.checkCanLoopList(_bzModels) == true ?
-    _bzModels.first
-        :
-    null;
-
-    _bzID = _bzModel?.id;
+    _bzzIDs = BzModel.getBzzIDs(_bzzModels);
 
   }
 
-
-  return _bzID;
+  return _bzzIDs;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -757,6 +779,7 @@ Future<void> onSendNote({
   @required TextEditingController bodyController,
   @required String receiverName,
   @required ScrollController scrollController,
+  @required ValueNotifier<List<String>> receiversIDs,
 }) async {
 
   final bool _formIsValid = formKey.currentState.validate();
@@ -772,7 +795,7 @@ Future<void> onSendNote({
 
     if (_confirmSend == true){
 
-      // blog('should send note naaaaaw');
+      unawaited(WaitDialog.showWaitDialog(context: context));
 
       await _modifyAttachmentIfFile(
         context: context,
@@ -783,9 +806,10 @@ Future<void> onSendNote({
         sentTime: DateTime.now(),
       );
 
-      await NoteFireOps.createNote(
+      await NoteFireOps.createNotes(
         context: context,
         noteModel: _finalNoteModel,
+        receiversIDs: receiversIDs.value,
       );
 
       /// TASK : SHOULD VISIT THIS onSendNoteOps thing
@@ -798,6 +822,8 @@ Future<void> onSendNote({
         titleController: titleController,
         bodyController: bodyController,
       );
+
+      await WaitDialog.closeWaitDialog(context);
 
       await Scrollers.scrollToTop(
         controller: scrollController,

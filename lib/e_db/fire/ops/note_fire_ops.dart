@@ -42,6 +42,34 @@ class NoteFireOps {
     }
 
   }
+  // --------------------
+
+  static Future<void> createNotes({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+    @required List<String> receiversIDs,
+  }) async {
+
+    if (noteModel != null && Mapper.checkCanLoopList(receiversIDs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(receiversIDs.length, (index){
+
+          return createNote(
+            context: context,
+            noteModel: noteModel.copyWith(
+              receiverID: receiversIDs[index],
+            ),
+          );
+
+        }),
+
+      ]);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// ALL NOTES PAGINATION

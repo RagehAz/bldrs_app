@@ -20,6 +20,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -51,7 +52,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _bodyNode = FocusNode();
   // --------------------
-  final ValueNotifier<NoteModel> _note = ValueNotifier<NoteModel>(null);
+  final ValueNotifier<NoteModel> _noteNotifier = ValueNotifier<NoteModel>(null);
+  final ValueNotifier<List<String>> _receiversIDs = ValueNotifier<List<String>>(<String>[]);
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
@@ -72,6 +74,12 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   @override
   void initState() {
     super.initState();
+
+    initializeVariables(
+      context: context,
+      note: _noteNotifier,
+    );
+
   }
   // --------------------
   bool _isInit = true;
@@ -81,10 +89,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
       _triggerLoading().then((_) async {
 
-        initializeVariables(
-          context: context,
-          note: _note,
-        );
 
         await _triggerLoading();
       });
@@ -98,7 +102,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    _note.dispose();
+    _noteNotifier.dispose();
     _titleController.dispose();
     _bodyController.dispose();
     _scrollController.dispose();
@@ -178,7 +182,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     }
 
     /// TYPE IS NULL
-    else if (note.type == null){
+    else if (note?.type == null){
       _message = 'Select note type';
     }
 
@@ -186,13 +190,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     else {
       
       _message ??= NoteModel.receiverVsNoteTypeValidator(
-          receiverType: note.receiverType,
-          noteType: note.type,
+          receiverType: note?.receiverType,
+          noteType: note?.type,
       );
       
       _message ??= NoteModel.senderVsNoteTypeValidator(
-          senderType: note.senderType,
-        noteType: note.type,
+          senderType: note?.senderType,
+        noteType: note?.type,
       );
       
     }
@@ -227,13 +231,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     else {
       
       _message ??= NoteModel.senderVsNoteTypeValidator(
-          senderType: note.senderType,
-          noteType: note.type,
+          senderType: note?.senderType,
+          noteType: note?.type,
       );
       
       _message ??= NoteModel.receiverVsSenderValidator(
-          senderType: note.senderType,
-          receiverType: note.receiverType
+          senderType: note?.senderType,
+          receiverType: note?.receiverType
       );
       
     }
@@ -263,13 +267,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     else {
       
       _message ??= NoteModel.receiverVsNoteTypeValidator(
-          receiverType: note.receiverType,
-          noteType: note.type,
+          receiverType: note?.receiverType,
+          noteType: note?.type,
       );
 
       _message ??= NoteModel.receiverVsSenderValidator(
-          senderType: note.senderType,
-          receiverType: note.receiverType
+          senderType: note?.senderType,
+          receiverType: note?.receiverType
       );
       
     }
@@ -280,8 +284,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   String _noteButtonsValidator(NoteModel note){
     String _message;
 
-    if (note.type == NoteType.authorship){
-      if (note.buttons?.length != 2){
+    if (note?.type == NoteType.authorship){
+      if (note?.buttons?.length != 2){
         return 'Authorship Note should include yes & no buttons';
       }
     }
@@ -301,6 +305,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     final double _bubbleWidth = PageBubble.width(context);
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     // --------------------
+    blog('la 77aa bgad');
+
     return MainLayout(
       loading: _loading,
       pageTitleVerse: Verse.plain('Create Note ${Timers.generateString_on_dd_month_yyyy(
@@ -314,7 +320,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
         const Expander(),
 
-        /// GO TO =>  NOTES TESTING LAB
+        /// NOTES LAB
         AppBarButton(
           // verse: Verse.plain('Templates'),
           icon: Iconz.lab,
@@ -326,7 +332,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
       ],
       layoutWidget: ValueListenableBuilder(
-        valueListenable: _note,
+        valueListenable: _noteNotifier,
         builder: (_, NoteModel note, Widget child){
 
           return Stack(
@@ -348,7 +354,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       isFormField: true,
                       textController: _titleController,
                       textOnChanged: (String text) => onTitleChanged(
-                        note: _note,
+                        note: _noteNotifier,
                         text: text,
                       ),
                       counterIsOn: true,
@@ -359,7 +365,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           return 'max length exceeded Bitch';
                         }
                         else if (_titleController.text.length < 5){
-                          return 'write something for fuck sake !';
+                          return 'Atleast put 5 Characters man';
                         }
                         else {
                           return null;
@@ -376,7 +382,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       isFormField: true,
                       textController: _bodyController,
                       textOnChanged: (String text) => onBodyChanged(
-                        note: _note,
+                        note: _noteNotifier,
                         text: text,
                       ),
                       counterIsOn: true,
@@ -385,11 +391,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       keyboardTextInputType: TextInputType.multiline,
                       keyboardTextInputAction: TextInputAction.newline,
                       validator: (String text){
-                        if (_titleController.text.length >= 80){
+                        if (_bodyController.text.length >= 80){
                           return 'max length exceeded Bitch';
                         }
-                        else if (_titleController.text.length < 5){
-                          return 'write something for fuck sake !';
+                        else if (_bodyController.text.length < 5){
+                          return 'Add more than 5 Characters';
                         }
                         else {
                           return null;
@@ -451,7 +457,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                       verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
                                       onTap: () => onChangeNoteType(
                                         context: context,
-                                        note: _note,
+                                        note: _noteNotifier,
                                         noteType: _noteType,
                                       ),
                                     );
@@ -521,7 +527,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                       onTap: () => onSelectNoteSender(
                                         context: context,
                                         senderType: _senderType,
-                                        note: _note,
+                                        note: _noteNotifier,
                                       ),
                                     );
 
@@ -564,6 +570,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         child: Column(
                           children: <Widget>[
 
+                            /// RECEIVERS TYPES BUTTONS
                             SizedBox(
                               width: TileBubble.childWidth(context: context),
                               height: 50,
@@ -575,6 +582,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                                     final NoteSenderOrRecieverType _receiverType = NoteModel.noteReceiverTypesList[index];
                                     final bool _isSelected = note?.receiverType == _receiverType;
+
+                                    blog('the fucking selected receiverType is ${note?.receiverType}');
 
                                     return DreamBox(
                                       height: 40,
@@ -588,11 +597,14 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                       color: _isSelected == true ? Colorz.yellow255 : null,
                                       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                                       verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                      onTap: () => onSelectReceiverType(
-                                        context: context,
-                                        note: _note,
-                                        receiverType: _receiverType,
-                                      ),
+                                      onTap: () async {
+                                        await onSelectReceiverType(
+                                          context: context,
+                                          selectedReceiverType: _receiverType,
+                                          noteNotifier: _noteNotifier,
+                                          receiversIDs: _receiversIDs,
+                                        );
+                                      },
                                     );
 
                                   }),
@@ -601,11 +613,32 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                               ),
                             ),
 
+                            /// RECEIVERS LABELS
                             if (note?.receiverID != null)
-                              NoteSenderOrRecieverDynamicButton(
-                                width: TileBubble.childWidth(context: context),
-                                id: note?.receiverID,
-                                type: note?.receiverType,
+                              ValueListenableBuilder(
+                                valueListenable: _receiversIDs,
+                                  builder: (_, List<String> receiversIDs, Widget child){
+
+                                  /// RECEIVERS SELECTED
+                                  if (Mapper.checkCanLoopList(receiversIDs) == true){
+
+                                    return NoteSenderOrRecieverDynamicButtonsColumn(
+                                      width: TileBubble.childWidth(context: context),
+                                      type: note?.receiverType,
+                                      ids: receiversIDs,
+                                    );
+
+                                  }
+
+                                  /// NO RECEIVERS SELECTED
+                                  else {
+                                    return NoteSenderOrRecieverDynamicButton(
+                                      width: TileBubble.childWidth(context: context),
+                                      id: null,
+                                      type: null,
+                                    );
+                                  }
+                                  },
                               ),
 
                           ],
@@ -626,7 +659,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         switchValue: note?.sendFCM,
                         hasSwitch: true,
                         onSwitchTap: (bool val) => onSwitchSendFCM(
-                          note: _note,
+                          note: _noteNotifier,
                           value: val,
                         ),
 
@@ -687,7 +720,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                                       verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
                                       onTap: () => onAddNoteButton(
-                                        note: _note,
+                                        note: _noteNotifier,
                                         button: _phid,
                                       ),
                                     );
@@ -756,7 +789,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                       verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
                                       onTap: () => onSelectAttachmentType(
                                         context: context,
-                                        note: _note,
+                                        note: _noteNotifier,
                                         attachmentType: _attachmentType,
                                       ),
                                     );
@@ -789,7 +822,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
               /// CONFIRM BUTTON
               CornerWidgetMaximizer(
                 minWidth: 150,
-                maxWidth: _bubbleWidth,
+                maxWidth: _bubbleWidth * 0.8,
                 childWidth: _bubbleWidth,
                 topChild: SizedBox(
                   width: _bubbleWidth,
@@ -799,6 +832,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                       /// SENDING TO INFO
                       Container(
+                        width: 260,
+                        constraints: const BoxConstraints(
+                          maxHeight: 300,
+
+                        ),
                         decoration: BoxDecoration(
                           color: note?.receiverID == null ? Colorz.bloodTest : Colorz.white50,
                           borderRadius: Borderers.superBorderAll(context, 10),
@@ -808,35 +846,50 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           context: context,
                           top: 10,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+                        child: ValueListenableBuilder(
+                            valueListenable: _receiversIDs,
+                            builder: (_, List<String> receiversIDs, Widget child){
 
-                            DreamBox(
-                              width: 250,
-                              height: 30,
-                              icon: note.sendFCM == true ? Iconz.news : Iconz.star,
-                              iconSizeFactor: 0.5,
-                              verseScaleFactor: 0.9,
-                              verseItalic: true,
-                              // verseWeight: VerseWeight.thin,
-                              verse: Verse(
-                                text: '${NoteModel.cipherNoteType(note?.type)} note '
-                                      '${note.sendFCM == true ? 'with FCM' : 'without FCM'} to',
-                                translate: false,
-                                casing: Casing.upperCase,
-                              ),
-                              color: note.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
-                              bubble: false,
-                              verseCentered: false,
-                            ),
-                            NoteSenderOrRecieverDynamicButton(
-                                width: 250,
-                                type: note?.receiverType,
-                                id: note?.receiverID,
-                            ),
+                              return ListView(
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                physics: const BouncingScrollPhysics(),
+                                padding: EdgeInsets.zero,
+                                children: <Widget>[
 
-                          ],
+                                  DreamBox(
+                                    width: 250,
+                                    height: 40,
+                                    icon: note?.sendFCM == true ? Iconz.news : Iconz.star,
+                                    iconSizeFactor: 0.5,
+                                    verseScaleFactor: 0.9,
+                                    verseItalic: true,
+                                    // verseWeight: VerseWeight.thin,
+                                    verse: Verse(
+                                      text: '${NoteModel.cipherNoteType(note?.type)} note '
+                                          '${note?.sendFCM == true ? 'with FCM' : 'without FCM'} to',
+                                      translate: false,
+                                      casing: Casing.upperCase,
+                                    ),
+                                    secondLine: Verse(
+                                      text: '${receiversIDs.length} ${note?.receiverType == NoteSenderOrRecieverType.bz ? 'bzz' : 'users'}',
+                                      translate: false,
+                                    ),
+                                    color: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
+                                    bubble: false,
+                                    verseCentered: false,
+                                    margins: const EdgeInsets.only(bottom: 10),
+                                  ),
+
+                                  NoteSenderOrRecieverDynamicButtonsColumn(
+                                    width: 250,
+                                    type: note?.receiverType,
+                                    ids: receiversIDs,
+                                  ),
+
+                                ],
+                              );
+
+                            }
                         ),
                       ),
 
@@ -879,12 +932,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                 isDeactivated: !NoteModel.checkCanSendNote(note),
                                 onTap: () => onSendNote(
                                   context: context,
-                                  note: _note,
+                                  note: _noteNotifier,
                                   formKey: _formKey,
                                   titleController: _titleController,
                                   bodyController: _bodyController,
                                   receiverName: _receiverName,
                                   scrollController: _scrollController,
+                                  receiversIDs: _receiversIDs,
                                 ),
                               ),
                             );
@@ -902,7 +956,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   isDraftNote: false,
                   onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
                     context: context,
-                    note: _note,
+                    note: _noteNotifier,
                     titleController: _titleController,
                     bodyController: _bodyController,
                     scrollController: _scrollController,
