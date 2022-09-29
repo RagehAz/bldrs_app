@@ -529,13 +529,18 @@ class BzModel{
   }
    */
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzModel> addOrRemoveBzToBzz({
     @required List<BzModel> bzzModels,
     @required BzModel bzModel,
   }){
-    final List<BzModel> _output = <BzModel>[...bzzModels];
+    final List<BzModel> _output = <BzModel>[];
 
     if (bzModel != null){
+
+      if (Mapper.checkCanLoopList(bzzModels) == true){
+        _output.addAll(bzzModels);
+      }
 
       final bool _alreadySelected = checkBzzContainThisBz(
           bzz: _output,
@@ -1549,7 +1554,7 @@ class BzModel{
 
   }
   // --------------------
-  static List<String> getBzzIDsFromBzz(List<BzModel> bzzModels) {
+  static List<String> getBzzIDs(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
 
     if (Mapper.checkCanLoopList(bzzModels)) {

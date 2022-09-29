@@ -28,7 +28,7 @@ class NotesProvider extends ChangeNotifier {
     final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: false);
 
     final List<String> _allNavModelsIDs = NavModel.generateAllNavModelsIDs(
-      myBzzIDs: BzModel.getBzzIDsFromBzz(_bzzModels),
+      myBzzIDs: BzModel.getBzzIDs(_bzzModels),
     );
 
     final List<MapModel> _initialList = <MapModel>[];
@@ -168,7 +168,7 @@ class NotesProvider extends ChangeNotifier {
       listen: false,
     );
 
-    final List<String> _bzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
+    final List<String> _bzzIDs = BzModel.getBzzIDs(_myBzz);
 
     if (Mapper.checkCanLoopList(_bzzIDs) == true){
 

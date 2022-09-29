@@ -100,3 +100,41 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
   }
   /// --------------------------------------------------------------------------
 }
+
+class NoteSenderOrRecieverDynamicButtonsColumn extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const NoteSenderOrRecieverDynamicButtonsColumn({
+    @required this.ids,
+    @required this.width,
+    @required this.type,
+    Key key
+  }) : super(key: key);
+
+  final List<String> ids;
+  final double width;
+  final NoteSenderOrRecieverType type;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Column(
+      children: <Widget>[
+
+        ...List.generate(ids.length, (index){
+
+          final String _id = ids[index];
+
+          return NoteSenderOrRecieverDynamicButton(
+            width: width,
+            id: _id,
+            type: type,
+          );
+
+        }),
+
+      ],
+    );
+
+  }
+  /// --------------------------------------------------------------------------
+}
