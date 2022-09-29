@@ -2,7 +2,9 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -22,6 +24,8 @@ class TileBubble extends StatelessWidget {
     this.child,
     this.bulletPoints,
     this.bubbleColor = Colorz.white10,
+    this.validator,
+    this.autoValidate = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +40,8 @@ class TileBubble extends StatelessWidget {
   final Widget child;
   final List<Verse> bulletPoints;
   final Color bubbleColor;
+  final String Function() validator;
+  final bool autoValidate;
   /// --------------------------------------------------------------------------
   static const double iconBoxWidth = 30; /// delete me 5alas (im in BubbleHeader class)
   /// --------------------------------------------------------------------------
@@ -67,19 +73,24 @@ class TileBubble extends StatelessWidget {
       context: context,
       bubbleWidthOverride: bubbleWidth,
     );
+    final double _clearWidth = Bubble.clearWidth(context, bubbleWidthOverride: _bubbleWidth);
 
     return Bubble(
       headerViewModel: const BubbleHeaderVM(),
       width: _bubbleWidth,
       onBubbleTap: btOnTap,
-      bubbleColor: bubbleColor,
+      bubbleColor: Formers.validatorBubbleColor(
+        // canErrorize: true,
+        defaultColor: bubbleColor,
+        validator: validator,
+      ),
       columnChildren: <Widget>[
 
         /// BUBBLE HEADER
         if (bubbleHeaderVM != null)
         BubbleHeader(
           viewModel: bubbleHeaderVM.copyWith(
-            headerWidth: _bubbleWidth - (2 * Ratioz.appBarMargin),
+            headerWidth: _clearWidth,
           ),
         ),
 
@@ -157,6 +168,13 @@ class TileBubble extends StatelessWidget {
               ],
             ),
           ),
+
+        if (validator != null)
+          SuperValidator(
+          width: _clearWidth,
+          validator: validator,
+          autoValidate: autoValidate,
+        ),
 
       ],
     );

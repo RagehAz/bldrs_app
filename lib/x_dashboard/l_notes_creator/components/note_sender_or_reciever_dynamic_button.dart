@@ -83,7 +83,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
 
       return WideButton(
         width: width,
-        verse: const Verse(text: 'phid_bldrs_net', translate: true),
+        verse: const Verse(text: 'phid_bldrsFullName', translate: true),
         icon: Iconz.bldrsNameSquare,
         iconSizeFactor: 0.7,
       );
