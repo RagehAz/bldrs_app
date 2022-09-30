@@ -77,6 +77,7 @@ class Atlas {
   /// HAVERSINE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double haversineGeoPoints({
     @required GeoPoint pointA,
     @required GeoPoint pointB,
@@ -118,6 +119,7 @@ class Atlas {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogGeoPoint({
     @required GeoPoint point,
     String methodName = 'GeoPoint',
@@ -129,6 +131,7 @@ class Atlas {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkPointsAreIdentical({
     @required GeoPoint point1,
     @required GeoPoint point2,

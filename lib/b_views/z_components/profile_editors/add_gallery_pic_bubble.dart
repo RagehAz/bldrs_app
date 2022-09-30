@@ -59,23 +59,23 @@ class AddImagePicBubble extends StatelessWidget {
 
     return
       bubbleType == BubbleType.bzLogo ?
-      Borderers.superLogoShape(
+      Borderers.shapeOfLogo(
           context: context,
           corner: corner,
           zeroCornerEnIsRight: true
       )
           :
       bubbleType == BubbleType.authorPic ?
-      Borderers.superLogoShape(
+      Borderers.shapeOfLogo(
           context: context,
           corner: corner,
           zeroCornerEnIsRight: false
       )
           :
       bubbleType == BubbleType.userPic ?
-      Borderers.superBorderAll(context, picWidth * 0.5)
+      Borderers.cornerAll(context, picWidth * 0.5)
           :
-      Borderers.superBorderAll(context, corner);
+      Borderers.cornerAll(context, corner);
   }
   // -----------------------------------------------------------------------------
   static const double picWidth = 100;
@@ -201,23 +201,23 @@ class _FilePicSplitter extends StatelessWidget {
 
     return
       bubbleType == BubbleType.bzLogo ?
-      Borderers.superLogoShape(
+      Borderers.shapeOfLogo(
           context: context,
           corner: corner,
           zeroCornerEnIsRight: true
       )
           :
       bubbleType == BubbleType.authorPic ?
-      Borderers.superLogoShape(
+      Borderers.shapeOfLogo(
           context: context,
           corner: corner,
           zeroCornerEnIsRight: false
       )
           :
       bubbleType == BubbleType.userPic ?
-      Borderers.superBorderAll(context, picWidth * 0.5)
+      Borderers.cornerAll(context, picWidth * 0.5)
           :
-      Borderers.superBorderAll(context, corner);
+      Borderers.cornerAll(context, corner);
   }
   // -----------------------------------------------------------------------------
   @override

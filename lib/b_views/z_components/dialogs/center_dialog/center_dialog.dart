@@ -50,7 +50,7 @@ class CenterDialog extends StatelessWidget {
   static const double dialogCornerValue = 20;
   // --------------------
   static BorderRadius dialogBorders(BuildContext context) {
-    return Borderers.superBorderAll(context, dialogCornerValue);
+    return Borderers.cornerAll(context, dialogCornerValue);
   }
   // --------------------
   static double getHeight({

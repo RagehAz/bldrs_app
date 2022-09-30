@@ -58,7 +58,7 @@ class SpecsBuilder extends StatelessWidget {
               return Container(
                 width: pageWidth,
                 decoration: BoxDecoration(
-                  borderRadius: Borderers.superBorderAll(context, pageWidth * 0.04),
+                  borderRadius: Borderers.cornerAll(context, pageWidth * 0.04),
                   color: Colorz.white50,
                 ),
                 margin: const EdgeInsets.only(bottom: 2.5),

@@ -105,8 +105,7 @@ class Timers {
     @required DateTime time,
     @required bool toJSON,
   }){
-    final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
-    return _output;
+    return toJSON ? _cipherDateTimeIso8601(time) : time;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -115,19 +114,19 @@ class Timers {
     @required bool fromJSON,
   }){
 
-    // blog('decipherTime : time : $time : type : ${time.runtimeType}');
+    if (fromJSON == true){
+      return _decipherDateTimeIso8601(time);
+    }
+    else if (time?.runtimeType.toString() == 'Timestamp'){
+      return time?.toDate();
+    }
+    else if (time?.runtimeType.toString() == 'DateTime'){
+      return time;
+    }
+    else {
+      return time;
+    }
 
-    final DateTime _output =
-    fromJSON == true ? _decipherDateTimeIso8601(time)
-        :
-    time?.runtimeType.toString() == 'Timestamp' ? time?.toDate()
-        :
-    time?.runtimeType.toString() == 'DateTime' ? time
-        :
-    time
-    ;
-
-    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -263,9 +262,9 @@ class Timers {
     final String _day = '${time.day}';
     final String _monthPhid = getMonthPhidByInt(context, time.month);
     final String _year = '${time.year}';
-    final String _timeString = 'on $_day ${xPhrase(context, _monthPhid)} $_year';
+    final String _on = xPhrase(context, 'phid_on_4date');
 
-    return _timeString;
+    return '$_on $_day ${xPhrase(context, _monthPhid)} $_year';
   }
   // --------------------
   /// GENERATES => [ 'dd month yyyy' ]
@@ -276,8 +275,7 @@ class Timers {
     final String _day = '${time.day}';
     final String _monthPhid = getMonthPhidByInt(context, time.month);
     final String _year = '${time.year}';
-    final String _timeString = '$_day ${xPhrase(context, _monthPhid)} $_year';
-    return _timeString;
+    return '$_day ${xPhrase(context, _monthPhid)} $_year';
   }
   // --------------------
   /// GENERATES => [ 'dd / MM / yyyy' ]
@@ -288,8 +286,7 @@ class Timers {
     final String _dd = '${time.day}';
     final String _mm = '${time.month}';
     final String _yyyy = '${time.year}';
-    final String _timeString = '$_dd / $_mm / $_yyyy';
-    return _timeString;
+    return '$_dd / $_mm / $_yyyy';
   }
   // --------------------
   /// GENERATES => [ 'hh : mm ampm' ]
@@ -300,9 +297,7 @@ class Timers {
     final String _hh = DateFormat('h').format(time);
     final String _mm = '${time.minute}';
     final String _ampm = DateFormat('a').format(time);
-    final String _timeString = '$_hh:$_mm $_ampm';
-
-    return _timeString;
+    return '$_hh:$_mm $_ampm';
   }
   // --------------------
   static String generateString_in_bldrs_since_month_yyyy(BuildContext context, DateTime time){
@@ -310,12 +305,11 @@ class Timers {
     String _output = '';
 
     if (time != null && time.year != null && time.month != null){
-      _output =
-      '${xPhrase( context, 'phid_inn')} '
-          '${Words.bldrsShortName(context)} '
-          '${xPhrase( context, 'phid_since')} : '
-          '${getMonthPhidByInt(context, time.month)} '
-          '${time.year}';
+      _output = '${xPhrase( context, 'phid_inn')} '
+                '${Words.bldrsShortName(context)} '
+                '${xPhrase( context, 'phid_since')} : '
+                '${getMonthPhidByInt(context, time.month)} '
+                '${time.year}';
     }
 
     return _output;
@@ -326,7 +320,7 @@ class Timers {
     String _output = '';
 
     if (
-    time != null
+        time != null
         &&
         time.year != null
         &&
@@ -334,13 +328,12 @@ class Timers {
         &&
         time.day != null
     ){
-      _output =
-      '${xPhrase( context, 'phid_inn')} '
-          '${xPhrase( context, 'phid_phid_bldrsShortName')} '
-          '${xPhrase( context, 'phid_since')} : '
-          '${time.day} '
-          '${getMonthPhidByInt(context, time.month)} '
-          '${time.year}';
+      _output = '${xPhrase( context, 'phid_inn')} '
+                '${xPhrase( context, 'phid_phid_bldrsShortName')} '
+                '${xPhrase( context, 'phid_since')} : '
+                '${time.day} '
+                '${getMonthPhidByInt(context, time.month)} '
+                '${time.year}';
     }
 
     return _output;
@@ -352,7 +345,7 @@ class Timers {
     String _output = '';
 
     if (
-    time != null
+        time != null
         &&
         time.hour != null
         &&
@@ -451,9 +444,9 @@ String generateStringsList_index_hh_i_mm_i_ss({
     int millisecond,
     int microsecond,
   }){
+
     final DateTime _now = DateTime.now();
     final DateTime _localTime = _now.toLocal();
-
     final int _year = year ?? _localTime.year;
     final int _month = month ?? _localTime.month;
     final int _day = day ?? _localTime.day;
@@ -463,9 +456,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     final int _millisecond = millisecond ?? _localTime.millisecond;
     final int _microsecond = microsecond ?? _localTime.microsecond;
 
-    final DateTime _output = DateTime(_year, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
-
-    return _output;
+    return DateTime(_year, _month, _day, _hour, _minute, _second, _millisecond, _microsecond);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -538,17 +529,16 @@ String generateStringsList_index_hh_i_mm_i_ss({
     @required int minute,
     int second,
   }){
-    return
-      createDateTime(
-        year: year,
-        month: month,
-        day: day,
-        hour: hour,
-        minute: minute,
-        second: 0,//second ?? DateTime.now().toLocal().second,
-        millisecond: 0,
-        microsecond: 0,
-      );
+    return createDateTime(
+      year: year,
+      month: month,
+      day: day,
+      hour: hour,
+      minute: minute,
+      second: 0,//second ?? DateTime.now().toLocal().second,
+      millisecond: 0,
+      microsecond: 0,
+    );
   }
   // --------------------
   static DateTime createDateTimeAfterNumberOfDays({
@@ -557,7 +547,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     final DateTime _now = DateTime.now();
 
-    final DateTime _dayAndClock = createDateAndClock(
+    return createDateAndClock(
       year: _now.year,
       month: _now.month,
       day: _now.day + days,
@@ -565,7 +555,6 @@ String generateStringsList_index_hh_i_mm_i_ss({
       minute: 0,
     );
 
-    return _dayAndClock;
   }
   // -----------------------------------------------------------------------------
 
@@ -577,7 +566,6 @@ String generateStringsList_index_hh_i_mm_i_ss({
     @required DateTime from,
     @required DateTime to,
   }){
-
     int _output;
 
     if (to != null && from != null){

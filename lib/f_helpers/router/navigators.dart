@@ -217,22 +217,20 @@ class Nav {
 
     /// NOTE: IMAGINE OPENING AN ENGLISH BOOK => NEXT PAGE COMES FROM RIGHT TO LEFT
 
-    final PageTransitionType _enBookDirection = inverse == false ?
-    PageTransitionType.rightToLeftWithFade
-        :
-    PageTransitionType.leftToRightWithFade;
+    if (TextDir.checkAppIsLeftToRight(context) == true){
+      return inverse == false ?
+      PageTransitionType.rightToLeftWithFade
+          :
+      PageTransitionType.leftToRightWithFade;
+    }
 
-    final PageTransitionType _arBookDirection = inverse == false ?
-    PageTransitionType.leftToRightWithFade
-        :
-    PageTransitionType.rightToLeftWithFade;
+    else {
+      return inverse == false ?
+      PageTransitionType.leftToRightWithFade
+          :
+      PageTransitionType.rightToLeftWithFade;
+    }
 
-    final PageTransitionType _transition = TextDir.checkAppIsLeftToRight(context) == true ?
-    _enBookDirection
-        :
-    _arBookDirection;
-
-    return _transition;
   // -----------------------------------------------------------------------------
   }
   // -----------------------------------------------------------------------------

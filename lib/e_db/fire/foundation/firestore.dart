@@ -108,9 +108,7 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static CollectionReference<Object> getCollectionRef(String collName) {
-    final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-    final CollectionReference<Object> _collection = _fireInstance.collection(collName);
-    return _collection;
+    return FirebaseFirestore.instance.collection(collName);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -118,8 +116,6 @@ String pathOfSubDoc({
     @required String collName,
     @required String docName,
   }) {
-    final CollectionReference<Object> _collection = getCollectionRef(collName);
-    final DocumentReference<Object> _doc = _collection.doc(docName);
 
     /// or this syntax
     /// final DocumentReference<Object> _doc =
@@ -127,7 +123,7 @@ String pathOfSubDoc({
     ///     .collection(collName)
     ///     .doc(docName)
 
-    return _doc;
+    return getCollectionRef(collName).doc(docName);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -137,10 +133,6 @@ String pathOfSubDoc({
     @required String subCollName,
   }) {
 
-    final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
-    final CollectionReference<Object> _subCollection = _fireInstance
-        .collection('$collName/$docName/$subCollName');
-
     /// or this syntax
     /// final CollectionReference<Object> _subCollection =
     /// FirebaseFirestore.instance
@@ -148,7 +140,7 @@ String pathOfSubDoc({
     ///     .doc(docName)
     ///     .collection(subCollName);
 
-    return _subCollection;
+    return FirebaseFirestore.instance.collection('$collName/$docName/$subCollName');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -163,8 +155,6 @@ String pathOfSubDoc({
         .instance
         .collection('$collName/$docName/$subCollName');
 
-    final DocumentReference<Object> _subDocRef = _subCollection.doc(subDocName);
-
     /// or this syntax
     /// final DocumentReference<Object> _subDocRef =
     /// FirebaseFirestore.instance
@@ -173,7 +163,7 @@ String pathOfSubDoc({
     ///     .collection(subCollName)
     ///     .doc(subDocName);
 
-    return _subDocRef;
+    return _subCollection.doc(subDocName);
   }
   // -----------------------------------------------------------------------------
 
@@ -630,9 +620,7 @@ String pathOfSubDoc({
       finders: queryModel.finders,
     );
 
-    final Stream<QuerySnapshot<Object>> _snapshots = _query.snapshots();
-
-    return _snapshots;
+    return _query.snapshots();
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -660,9 +648,7 @@ String pathOfSubDoc({
       finders: finders,
     );
 
-    final Stream<QuerySnapshot<Object>> _snapshots = _query.snapshots();
-
-    return _snapshots;
+    return _query.snapshots();
   }
   // --------------------
   static Stream<DocumentSnapshot<Object>> streamDoc({
@@ -675,9 +661,7 @@ String pathOfSubDoc({
       docName: docName,
     );
 
-    final Stream<DocumentSnapshot<Object>> _snapshots = _docRef.snapshots();
-
-    return _snapshots;
+    return _docRef.snapshots();
   }
   // --------------------
   static Stream<DocumentSnapshot<Object>> streamSubDoc({
@@ -694,9 +678,7 @@ String pathOfSubDoc({
       subDocName: subDocName,
     );
 
-    final Stream<DocumentSnapshot<Object>> _snapshots = _docRef.snapshots();
-
-    return _snapshots;
+    return _docRef.snapshots();
   }
   // --------------------
 

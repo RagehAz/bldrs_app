@@ -25,7 +25,7 @@ class SuperTextFieldBox extends StatelessWidget {
       width: width,
       margin: Scale.superMargins(margins: margins),
       decoration: BoxDecoration(
-        borderRadius: Borderers.superBorderAll(context, corners),
+        borderRadius: Borderers.cornerAll(context, corners),
       ),
       alignment: Alignment.topCenter,
       child: child,

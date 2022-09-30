@@ -98,7 +98,7 @@ class FlyerDim {
     final double _flyerTopCorners = flyerTopCornerValue(flyerBoxWidth);
     final double _flyerBottomCorners = flyerBottomCornerValue(flyerBoxWidth);
 
-    return Borderers.superBorderOnly(
+    return Borderers.cornerOnly(
       context: context,
       enTopLeft: _flyerTopCorners,
       enBottomLeft: _flyerBottomCorners,
@@ -169,7 +169,7 @@ class FlyerDim {
     @required double flyerBoxWidth
   }) {
 
-    return Borderers.superBorderAll(context, flyerBoxWidth * _xFlyerTopCorners);
+    return Borderers.cornerAll(context, flyerBoxWidth * _xFlyerTopCorners);
 
   }
   // -----------------------------------------------------------------------------
@@ -198,7 +198,7 @@ class FlyerDim {
                                       headerSlatePaddingValue(flyerBoxWidth);
 
     if (zeroCornerIsOn == true){
-      return Borderers.superBorderOnly(
+      return Borderers.cornerOnly(
           context: context,
           enTopLeft: _logoRoundCorners,
           enBottomLeft: _logoRoundCorners,
@@ -208,7 +208,7 @@ class FlyerDim {
     }
 
     else {
-      return Borderers.superBorderAll(context, _logoRoundCorners);
+      return Borderers.cornerAll(context, _logoRoundCorners);
     }
 
   }
@@ -228,7 +228,7 @@ class FlyerDim {
     final double _zeroCornerValue = zeroCornerIsOn == true ? 0 : _roundCornerValue;
 
     return cornersOverride ??
-        Borderers.superBorderOnly(
+        Borderers.cornerOnly(
             context: context,
             enTopLeft: _roundCornerValue,
             enBottomLeft: _roundCornerValue,
@@ -338,7 +338,7 @@ class FlyerDim {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    return Borderers.superBorderOnly(
+    return Borderers.cornerOnly(
         context: context,
         enTopLeft: _authorImageCorners,
         enBottomLeft: 0,
@@ -411,14 +411,14 @@ class FlyerDim {
     final double followBTCornerBL = flyerBoxWidth * _xAuthorImageCorners;
     final double followBTCornerBR = flyerBoxWidth * 0.021;
 
-    final BorderRadius followCorners = Borderers.superBorderOnly(
+    final BorderRadius followCorners = Borderers.cornerOnly(
       context: context,
       enTopLeft: followBTCornerTL,
       enBottomLeft: followBTCornerBL,
       enBottomRight: followBTCornerBR,
       enTopRight: followBTCornerTR,
     );
-    final BorderRadius callCorners = Borderers.superBorderOnly(
+    final BorderRadius callCorners = Borderers.cornerOnly(
       context: context,
       enTopLeft: followBTCornerBL,
       enBottomLeft: followBTCornerTL,
@@ -509,7 +509,7 @@ class FlyerDim {
 
     final double _bottomCorner = footerBoxBottomCornerValue(flyerBoxWidth);
 
-    return Borderers.superBorderOnly(
+    return Borderers.cornerOnly(
       context: context,
       enBottomLeft: _bottomCorner,
       enBottomRight: _bottomCorner,
@@ -790,7 +790,7 @@ class FlyerDim {
 
     }
 
-    return Borderers.superBorderAll(context, _cornersValue);
+    return Borderers.cornerAll(context, _cornersValue);
   }
   // ---------
   static double _infoButtonTinyCornerValue({
@@ -971,7 +971,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth
   }) {
-    return Borderers.superBorderAll(context, progressStripCornerValue(flyerBoxWidth));
+    return Borderers.cornerAll(context, progressStripCornerValue(flyerBoxWidth));
   }
   // -----------------------------------------------------------------------------
 

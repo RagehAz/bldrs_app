@@ -60,7 +60,7 @@ class NoteRedDot extends StatelessWidget {
         maxWidth: _count == null ? _size : maxWidth,
       ),
       decoration: BoxDecoration(
-        borderRadius: Borderers.superBorderAll(context, _size * 0.5),
+        borderRadius: Borderers.cornerAll(context, _size * 0.5),
         color: Colorz.red255,
       ),
       // padding: EdgeInsets.symmetric(horizontal: 2 * factor),

@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -38,7 +37,7 @@ class CallButton extends StatelessWidget {
         width: _callBTWidth,
         decoration: BoxDecoration(
           color: FlyerColors.callButtonColor,
-          boxShadow: Shadower.superFollowBtShadow(_callBTHeight),
+          // boxShadow: Shadower.superFollowBtShadow(_callBTHeight),
           borderRadius: _corners,
         ),
         child: Stack(

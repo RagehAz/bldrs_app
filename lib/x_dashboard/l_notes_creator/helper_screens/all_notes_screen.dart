@@ -213,7 +213,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
                   return Container(
                     width: BldrsAppBar.width(context),
-                    margin: Scale.superInsets(context: context, bottom: 5),
+                    margin: const EdgeInsets.only(bottom: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[

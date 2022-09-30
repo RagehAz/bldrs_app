@@ -17,16 +17,13 @@ class Streamer {
   static bool _connectionIsWaiting(AsyncSnapshot<dynamic> snapshot){
 
     /// this page has all functions that are related to streams checking
-    bool _isWaiting;
-
     if (snapshot.connectionState == ConnectionState.waiting){
-      _isWaiting = true;
+      return true;
     }
     else {
-      _isWaiting = false;
+      return false;
     }
 
-    return _isWaiting;
   }
   // -----------------------------------------------------------------------------
   /*
@@ -54,7 +51,6 @@ class Streamer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool connectionIsLoading(AsyncSnapshot<dynamic> snapshot){
-    bool _isLoading;
 
     if (
     _connectionIsWaiting(snapshot) == true
@@ -63,13 +59,12 @@ class Streamer {
     //     ||
     // snapshot.error == null
     ){
-      _isLoading = true;
+      return true;
     }
     else {
-      _isLoading = false;
+      return false;
     }
 
-    return _isLoading;
   }
   // -----------------------------------------------------------------------------
 

@@ -37,14 +37,12 @@ class Storage {
     @required String storageDocName,
     @required String fileName, // without extension
   }) {
-    blog('getting fire storage reference');
 
-    final Reference _ref = FirebaseStorage.instance
+    return FirebaseStorage.instance
         .ref()
         .child(storageDocName)
         .child(fileName);
 
-    return _ref;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -329,7 +327,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     final List<String> _picsURLs = <String>[];
 
     if (
-    Mapper.checkCanLoopList(pics)
+        Mapper.checkCanLoopList(pics)
         &&
         Mapper.checkCanLoopList(names)
         &&

@@ -12,7 +12,6 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/users_tile_buttons_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,11 +52,7 @@ class AuthorSearchScreenView extends StatelessWidget {
                 ),
               ),
               width: Bubble.bubbleWidth(context),
-              margins: Scale.superPadding(
-                context: context,
-                enLeft: Ratioz.appBarMargin,
-                enRight: Ratioz.appBarMargin,
-              ),
+              margins: Scale.constantHorizontal10,
               columnChildren: <Widget>[
 
                 SizedBox(

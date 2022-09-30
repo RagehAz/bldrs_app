@@ -30,7 +30,7 @@ class GoldenScroll extends StatelessWidget {
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          borderRadius: Borderers.superBorderAll(context, 10),
+          borderRadius: Borderers.constantCornersAll10,
           border: Border.all(
               width: 0.5,
               color: Colorz.yellow80,

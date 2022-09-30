@@ -138,9 +138,9 @@ class BzLongButton extends StatelessWidget {
                         constraints: const BoxConstraints(
                           maxHeight: 200,
                         ),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colorz.white10,
-                          borderRadius: Borderers.superBorderAll(context, 10),
+                          borderRadius: Borderers.constantCornersAll10,
                         ),
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),

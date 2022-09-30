@@ -148,15 +148,16 @@ class TextCheck {
   /// TESTED : WORKS PERFECT
   static String concludeEnglishOrArabicLang(String text) {
 
-    final String _lingoCode =
-    textStartsInArabic(text) == true ? 'ar'
-        :
-    textStartsInEnglish(text) == true ?
-    'en'
-        :
-    'en';
+    if (textStartsInArabic(text) == true){
+      return 'ar';
+    }
+    else if (textStartsInEnglish(text) == true){
+      return 'en';
+    }
+    else {
+      return 'en';
+    }
 
-    return _lingoCode;
   }
   // -----------------------------------------------------------------------------
 
@@ -183,11 +184,13 @@ class TextCheck {
   /// TESTED : WORKS PERFECT
   static bool textControllerIsEmpty(TextEditingController controller) {
 
-    if (controller == null ||
+    if (
+        controller == null ||
         controller.text == '' ||
         controller.text.isEmpty ||
         TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(controller.text) == '' ||
-        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(controller.text) == null) {
+        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(controller.text) == null
+    ) {
       return true;
     }
 
@@ -472,18 +475,15 @@ class TextCheck {
     int minCharLimit = Standards.minSearchChar,
   }){
 
-    bool _output;
-
     if (text.length >= minCharLimit){
 
-      _output = true;
+      return true;
 
     }
     else {
-      _output = false;
+      return  false;
     }
 
-    return  _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

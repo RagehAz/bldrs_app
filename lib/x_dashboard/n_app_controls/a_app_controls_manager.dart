@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/n_app_controls/b_pricing_screen.dart';
@@ -112,7 +111,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
           }
           else {
             return  ListView(
-              padding: Scale.superInsets(context: context, top: Stratosphere.smallAppBarStratosphere),
+              padding: const EdgeInsets.only(top: Stratosphere.smallAppBarStratosphere),
               physics: const BouncingScrollPhysics(),
               children: <Widget>[
 

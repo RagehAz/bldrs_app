@@ -1076,11 +1076,13 @@ class Formers {
     if (validator == null){
       return null;
     }
+
     else {
 
       if (keepEmbeddedBubbleColor == true){
         return validator(text);
       }
+
       else {
         return Formers._bakeValidatorMessage(validator(text));
       }

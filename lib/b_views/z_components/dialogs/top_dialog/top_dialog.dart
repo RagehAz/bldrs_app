@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -49,7 +48,7 @@ class TopDialog extends StatelessWidget {
 
       /// SIZING ----------------------------------------------
       maxWidth: _screenWidth,
-      borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+      borderRadius: BldrsAppBar.corners,
       padding: EdgeInsets.zero,
       margin: const EdgeInsets.all(Ratioz.appBarMargin),
 
@@ -83,9 +82,9 @@ class TopDialog extends StatelessWidget {
         constraints: BoxConstraints(
           minHeight: BldrsAppBar.height(context, AppBarType.basic) - 5,
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           // color: Colorz.Black255,
-          borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+          borderRadius: BldrsAppBar.corners,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +192,7 @@ class TopDialog extends StatelessWidget {
       // title: 'wtf',
       // padding: EdgeInsets.zero,
       // margin: EdgeInsets.zero,
-      borderRadius: Borderers.superBorderAll(context, 0),
+      borderRadius: BorderRadius.zero,
       animationDuration: const Duration(milliseconds: 5000),
       backgroundColor: Colorz.black10,
       barBlur: 5,
