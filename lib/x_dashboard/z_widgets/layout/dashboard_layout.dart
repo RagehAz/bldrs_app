@@ -64,9 +64,12 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
           ...widget.appBarWidgets,
 
         const Expander(),
+
+        if (widget.onBldrsTap != null)
         BldrsNameButton(
           onTap: widget.onBldrsTap,
         ),
+
       ],
 
       layoutWidget: Scroller(
