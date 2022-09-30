@@ -30,11 +30,9 @@ class ReviewBubbleBox extends StatelessWidget {
       constraints: const BoxConstraints(
         minHeight: ReviewBubble.userBalloonSize,
       ),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colorz.white20,
-        borderRadius: ReviewBubble.textBubbleCorners(
-          context: context,
-        ),
+        borderRadius: ReviewBubble.textBubbleCorners,
       ),
       padding: const EdgeInsets.all(_spacing),
       alignment: Aligners.superTopAlignment(context),

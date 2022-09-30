@@ -46,7 +46,7 @@ class StaticStrip extends StatelessWidget {
                 isWhite: isWhite,
                 numberOfSlides: numberOfSlides,
             ),
-            borderRadius: Borderers.superBorderAll(context, _stripCorner),
+            borderRadius: Borderers.cornerAll(context, _stripCorner),
         ),
       ),
     );

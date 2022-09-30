@@ -167,7 +167,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static BorderRadius dialogCorners(BuildContext context) {
-    final BorderRadius _dialogCorners = Borderers.superBorderOnly(
+    final BorderRadius _dialogCorners = Borderers.cornerOnly(
       context: context,
       enTopLeft: Ratioz.bottomSheetCorner,
       enBottomLeft: 0,
@@ -182,7 +182,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static BorderRadius dialogClearCorners(BuildContext context) {
-    final BorderRadius _corners = Borderers.superBorderOnly(
+    final BorderRadius _corners = Borderers.cornerOnly(
       context: context,
       enBottomRight: 0,
       enBottomLeft: 0,
@@ -204,7 +204,7 @@ class BottomDialog extends StatelessWidget {
 
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
-            borderRadius: Borderers.superBorderOnly(
+            borderRadius: Borderers.cornerOnly(
               context: context,
               enTopLeft: Ratioz.bottomSheetCorner,
               enBottomLeft: 0,
@@ -503,7 +503,7 @@ class BottomDialog extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colorz.white200,
                         borderRadius:
-                        Borderers.superBorderAll(context, _draggerCorner),
+                        Borderers.cornerAll(context, _draggerCorner),
                       ),
                     ),
                   ),

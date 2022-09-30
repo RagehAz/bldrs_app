@@ -170,15 +170,19 @@ static img.Image decodeToImgImage({
   static Uint8List getUint8ListFromByteData(ByteData byteData) {
 
     /// METHOD 1 : WORKS PERFECT
-    final Uint8List _uInts = byteData.buffer.asUint8List(
-      byteData.offsetInBytes,
-      byteData.lengthInBytes,
-    );
+    // final Uint8List _uInts = byteData.buffer.asUint8List(
+    //   byteData.offsetInBytes,
+    //   byteData.lengthInBytes,
+    // );
 
     /// METHOD 2 : WORKS PERFECT
     // final Uint8List _uInts = Uint8List.view(byteData.buffer);
 
-    return _uInts;
+    return byteData.buffer.asUint8List(
+      byteData.offsetInBytes,
+      byteData.lengthInBytes,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -326,8 +330,6 @@ static img.Image decodeToImgImage({
 
     final List<int> imageBytes = _file.readAsBytesSync();
 
-    final String _base64Image = base64Encode(imageBytes);
-
     /*
 
         Uint8List _bytesImage;
@@ -340,7 +342,7 @@ static img.Image decodeToImgImage({
 
      */
 
-    return _base64Image;
+    return base64Encode(imageBytes);
   }
   // -----------------------------------------------------------------------------
 

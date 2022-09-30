@@ -70,9 +70,7 @@ class Trinity {
       _x,     _y,     _m[14], _m[15]
     ]);
 
-    final Matrix4 _output = Matrix4.fromFloat64List(_list);
-
-    return _output;
+    return Matrix4.fromFloat64List(_list);
   }
   // --------------------
   /// TESTED : WORKS PERFECT : adjust Matrix Translation To Be In pixels
@@ -100,9 +98,7 @@ class Trinity {
       _x,     _y,     _m[14], _m[15]
     ]);
 
-    final Matrix4 _output = Matrix4.fromFloat64List(_list);
-
-    return _output;
+    return Matrix4.fromFloat64List(_list);
   }
   // -----------------------------------------------------------------------------
 

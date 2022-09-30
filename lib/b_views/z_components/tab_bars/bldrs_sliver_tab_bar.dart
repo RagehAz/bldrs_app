@@ -36,9 +36,9 @@ class BldrsSliverTabBar extends StatelessWidget {
             // indicatorColor: Colorz.BloodTest,
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorWeight: 0,
-            indicator: BoxDecoration(
+            indicator: const BoxDecoration(
               color: Colorz.yellow255,
-              borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner12 + 2.5),
+              borderRadius: Borderers.constantCornersAll15,
             ),
 
             isScrollable: true,

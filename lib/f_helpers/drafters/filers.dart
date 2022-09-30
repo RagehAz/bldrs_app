@@ -44,9 +44,7 @@ class Filers {
       useTemporaryDirectory: useTemporaryDirectory,
     );
 
-    final File _file = File(_filePath);
-
-    return _file;
+    return File(_filePath);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -95,10 +93,8 @@ class Filers {
         :
     await getApplicationDocumentsDirectory();
 
-    final String _appDocPath = _appDocDir.path;
-    final String _filePath = '$_appDocPath/$fileName';
 
-    return _filePath;
+    return '${_appDocDir.path}/$fileName';
   }
   // --------------------
   /// TESTED : WORKS PERFECT

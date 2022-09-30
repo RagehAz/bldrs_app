@@ -369,14 +369,12 @@ class Imagers {
 
     final File _file = await entity?.file;
 
-    final FileModel _fileModel = FileModel(
+    return FileModel(
       size: Filers.getFileSize(_file),
       fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
       file: _file,
       // url: null,
     );
-
-    return _fileModel;
   }
   // -----------------------------------------------------------------------------
 
@@ -630,11 +628,13 @@ class Imagers {
     return _output;
   }
   // --------------------
+  /*
   static dynamic decipherPic({
     @required String pic,
     @required bool fromJSON,
   }){
 
   }
+   */
 // --------------------
 }

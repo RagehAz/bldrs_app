@@ -355,8 +355,7 @@ class Notifications {
   }) async {
 
     if (AuthModel.userIsSignedIn() == true){
-      final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
-      await _fireMessaging.subscribeToTopic(topicName);
+      await FirebaseMessaging.instance.subscribeToTopic(topicName);
     }
 
   }
@@ -366,8 +365,7 @@ class Notifications {
     @required String topicName,
   }) async {
     if (AuthModel.userIsSignedIn() == true){
-      final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
-      await _fireMessaging.unsubscribeFromTopic(topicName);
+      await FirebaseMessaging.instance.unsubscribeFromTopic(topicName);
     }
   }
   // -----------------------------------------------------------------------------
@@ -385,9 +383,9 @@ class Notifications {
   // --------------------
   static String getNotificationChannelName(FCMChannel channel) {
     switch (channel) {
-      case FCMChannel.basic: return 'Basic Notifications';break;
-      case FCMChannel.scheduled: return 'Scheduled Notifications';break;
-      default: return 'Basic Notifications';
+      case FCMChannel.basic:      return 'Basic Notifications';break;
+      case FCMChannel.scheduled:  return 'Scheduled Notifications';break;
+      default:                    return 'Basic Notifications';
     }
   }
   // --------------------

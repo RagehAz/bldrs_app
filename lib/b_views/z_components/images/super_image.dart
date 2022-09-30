@@ -138,7 +138,7 @@ class SuperImage extends StatelessWidget {
 
       return ClipRRect(
         key: const ValueKey<String>('SuperImage'),
-        borderRadius: Borderers.superBorder(
+        borderRadius: Borderers.superCorners(
           context: context,
           corners: corners,
         ),

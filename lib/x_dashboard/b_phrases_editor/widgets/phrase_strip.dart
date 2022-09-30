@@ -39,7 +39,7 @@ class PhraseStrip extends StatelessWidget {
     return Container(
       width: width,
       decoration: BoxDecoration(
-        borderRadius: Borderers.superBorderAll(context, 20),
+        borderRadius: Borderers.constantCornersAll20,
         color: _idsAreTheSame ? Colorz.white20 : Colorz.red255,
       ),
       margin: const EdgeInsets.only(bottom: 5),

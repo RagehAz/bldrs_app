@@ -41,7 +41,7 @@ class SpecLabel extends StatelessWidget {
         maxWidth: _maxLabelWidth,
       ),
       decoration: BoxDecoration(
-        borderRadius: Borderers.superBorderAll(context, height * 0.3),
+        borderRadius: Borderers.cornerAll(context, height * 0.3),
         color: Colorz.black255,
       ),
       margin: _margins,

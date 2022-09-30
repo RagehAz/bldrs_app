@@ -35,11 +35,11 @@ class BalloonTypesScreen extends StatelessWidget {
             final NeedType _needType = _needTypes[index];
 
             return Container(
-              padding: Scale.superMargins(margins: 10),
-              margin: Scale.superInsets(context: context, bottom: 2),
-              decoration: BoxDecoration(
+              padding: Scale.constantMarginsAll10,
+              margin: const EdgeInsets.only(bottom: 2),
+              decoration: const BoxDecoration(
                 color: Colorz.white10,
-                borderRadius: Borderers.superBorderAll(context, 15),
+                borderRadius: Borderers.constantCornersAll15,
               ),
               child: Row(
                 children: <Widget>[

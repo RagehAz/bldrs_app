@@ -57,9 +57,9 @@ class FlyerRecordsBox extends StatelessWidget {
               return Container(
                 width: pageWidth,
                 height: 100,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colorz.white20,
-                  borderRadius: Borderers.superBorderAll(context, 10),
+                  borderRadius: Borderers.constantCornersAll10,
                 ),
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),

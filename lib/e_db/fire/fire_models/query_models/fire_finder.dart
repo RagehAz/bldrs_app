@@ -93,7 +93,7 @@ class FireFinder {
 
     /// IF array contains any
     if (finder.comparison == FireComparison.arrayContainsAny) {
-      _output = _output.where(finder.field, arrayContainsAny: finder.value);
+      return _output.where(finder.field, arrayContainsAny: finder.value);
     }
 
     return _output;

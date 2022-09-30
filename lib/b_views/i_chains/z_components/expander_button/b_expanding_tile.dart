@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/bb_collapsed_tile.dart';
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -64,9 +64,7 @@ class ExpandingTile extends StatefulWidget {
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.white30;
   // --------------------
-  static BorderRadius borders(BuildContext context) {
-    return Borderers.superBorderAll(context, cornersValue);
-  }
+  static BorderRadius borders = BldrsAppBar.corners;
   // --------------------
   static double calculateButtonExtent() {
     return collapsedTileHeight + buttonVerticalPadding;

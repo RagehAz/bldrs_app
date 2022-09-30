@@ -179,13 +179,8 @@ class Numeric {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int concludeNumberOfDigits(int length){
-
     final int _length = length == null || length <= 0 ? 0 : length - 1;
-
-    final String _stringed = _length.toString();
-    final int _digits = _stringed.length;
-
-    return _digits;
+    return _length.toString().length;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -237,8 +232,7 @@ class Numeric {
   static int createRandomIndex({
     int listLength = 1001, /// FOR 1000 ITEMS => ONLY VALUES FROM ( 0 -> 999 ) MAY RESULT
   }) {
-    final math.Random _random = math.Random();
-    return _random.nextInt(listLength);
+    return math.Random().nextInt(listLength);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -247,10 +241,8 @@ class Numeric {
     int maxIndex = 999999,
   }) {
 
-    final math.Random _random = math.Random();
-
     /// from 0 up to 999'999 included if max index is not defined
-    int _randomNumber = _random.nextInt(maxIndex + 1);
+    int _randomNumber = math.Random().nextInt(maxIndex + 1);
 
     // blog('random number is : $_randomNumber');
 
@@ -270,20 +262,17 @@ class Numeric {
   static int createUniqueID({
     int maxDigitsCount = 16, // 8'640'000'000'000'000'000
   }) {
-
     assert(maxDigitsCount > 0 && maxDigitsCount <= 16, 'Take care : 0 < maxDigitsCount <= 16',);
 
     final String _string = DateTime.now().microsecondsSinceEpoch.toString();
-    final int _numberOfDigitsToTrim = _string.length - maxDigitsCount;
+
     final String _trimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(
       string: _string,
-      numberOfCharacters: _numberOfDigitsToTrim,
+      numberOfCharacters: _string.length - maxDigitsCount,
     );
-    final int _output = transformStringToInt(_trimmed);
 
-    // blog('createUniqueID : _string : $_string : _trimmed : $_trimmed');
 
-    return _output;
+    return transformStringToInt(_trimmed);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -406,7 +395,8 @@ class Numeric {
 
     /// NOTE : for 1.123 => returns 0.123
 
-    final String _numberAsString = fractionDigits == null ? number.toString()
+    final String _numberAsString =
+    fractionDigits == null ? number.toString()
         :
     getFractionStringWithoutZero(
         fraction: number,
@@ -414,8 +404,8 @@ class Numeric {
     );
 
     final String _fractionsString = TextMod.removeTextBeforeLastSpecialCharacter(_numberAsString, '.');
-    final double _fraction = transformStringToDouble('0.$_fractionsString');
-    return _fraction;
+
+    return transformStringToDouble('0.$_fractionsString');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -429,8 +419,7 @@ class Numeric {
   /// TESTED : WORKS PERFECT
   static double roundFractions(double value, int fractions) {
     final String _roundedAsString = value.toStringAsFixed(fractions);
-    final double _rounded = transformStringToDouble(_roundedAsString);
-    return _rounded;
+    return transformStringToDouble(_roundedAsString);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -458,13 +447,16 @@ class Numeric {
   static int getNumberOfFractions({
     @required double number,
   }) {
-    final double _numberFraction = getFractions(number: number, fractionDigits: 100);
+
+    final double _numberFraction = getFractions(
+        number: number,
+        fractionDigits: 100,
+    );
+
     final String _numberFractionsString = TextMod.removeTextBeforeFirstSpecialCharacter(
         _numberFraction.toString(), '.');
-    blog('getNumberOfFractions : _numberFractionsString : $_numberFractionsString');
-    final int _numberFractions = _numberFractionsString.trim().length;
-    blog('_numberFractions : $_numberFractions');
-    return _numberFractions;
+
+    return _numberFractionsString.trim().length;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -537,8 +529,7 @@ class Numeric {
     /// incrementing the angle degree,, while rotates counter clockwise when decrementing
     /// the angle degree.
     /// simply, Negative value goes counter ClockWise
-    final double _radian = degree * ( math.pi / 180 );
-    return _radian;
+    return degree * ( math.pi / 180 );
   }
   // -----------------------------------------------------------------------------
 

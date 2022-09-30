@@ -102,7 +102,7 @@ class SlidesShelf extends StatelessWidget {
                         height: _flyerNumberTagZoneHeight,
                         // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
                         decoration: BoxDecoration(
-                          borderRadius: Borderers.superBorderAll(
+                          borderRadius: Borderers.cornerAll(
                               context, Ratioz.appBarButtonCorner * 0.5),
                           // color: Colorz.WhiteAir,
                         ),

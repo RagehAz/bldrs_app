@@ -331,15 +331,15 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                               // color: Colorz.bloodTest,
                               alignment: Alignment.bottomRight,
                               padding: EdgeInsets.only(right: _val * 300),
-                              child: SuperVerse(
-                                verse: const Verse(
+                              child: const SuperVerse(
+                                verse: Verse(
                                   text: 'phid_bldrsTagLine',
                                   translate: true,
                                   casing: Casing.upperCase,
                                 ),
                                 shadow: true,
                                 scaleFactor: 1.8,
-                                margin: Scale.superInsets(context: context, bottom: 10),
+                                margin: EdgeInsets.only(bottom: 10),
                                 // italic: true,
                               ),
                             ),
