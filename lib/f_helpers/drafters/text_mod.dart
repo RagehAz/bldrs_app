@@ -717,8 +717,6 @@ class TextMod {
   }){
     String _output;
 
-
-
     if (number != null && countryID != null){
 
       final String _code = CountryModel.getCountryPhoneCode(countryID);

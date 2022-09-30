@@ -65,9 +65,9 @@ class _FloatingDialogState extends State<FloatingDialog> {
         Container(
           width: Bubble.clearWidth(context),
           height: _stripHeight,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colorz.white10,
-            borderRadius: Borderers.superBorderAll(context, 10),
+            borderRadius: Borderers.constantCornersAll10,
           ),
           child: DropdownButtonFormField<String>(
             /// INEFFECTIVE

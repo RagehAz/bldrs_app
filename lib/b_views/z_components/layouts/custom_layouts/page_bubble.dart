@@ -104,9 +104,9 @@ class PageBubble extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // --------------------
     final BorderRadius _borders = corners == null ?
-    Borderers.superBorderAll(context, Ratioz.appBarCorner)
+    BldrsAppBar.corners
     :
-    Borderers.superBorder(context: context, corners: corners)
+    Borderers.superCorners(context: context, corners: corners)
     ;
     // --------------------
     return Container(

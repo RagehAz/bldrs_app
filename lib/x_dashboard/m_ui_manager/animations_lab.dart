@@ -432,7 +432,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                         image: AssetImage(Iconz.dumAuthorPic),
                         fit: BoxFit.fitHeight,
                     ),
-                    borderRadius: Borderers.superBorderOnly(
+                    borderRadius: Borderers.cornerOnly(
                         context: context,
                         enTopLeft: _btCorner,
                         enBottomLeft: _btCorner,

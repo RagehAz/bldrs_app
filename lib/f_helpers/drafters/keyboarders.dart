@@ -105,9 +105,8 @@ class Keyboard {
     /// SOLUTION 4
     // final bool _keyboardIsOn = KeyboardVisibilityProvider?.isKeyboardVisible(context);
     /// FINAL SOLUTION ISA
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
-    return _keyboardIsOn;
+
+    return Provider.of<UiProvider>(context, listen: false).keyboardIsOn;
   }
   // -----------------------------------------------------------------------------
 
@@ -129,10 +128,7 @@ class Keyboard {
   ];
   // --------------------
   static String cipherTextInputType(TextInputType type){
-
-    final String _type = TextMod.removeTextBeforeLastSpecialCharacter(type.toJson()['name'], '.');
-
-    return _type;
+    return TextMod.removeTextBeforeLastSpecialCharacter(type.toJson()['name'], '.');
   }
   // --------------------
   static TextInputType decipherTextInputType(String type){

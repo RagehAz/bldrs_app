@@ -129,17 +129,21 @@ class Sliders {
   // -----------------------------------------------------------------------------
   static SwipeDirection slidingDecision(int numberOfSlides, int currentSlide) {
 
-    final SwipeDirection _decision =
-    numberOfSlides == 0 ? SwipeDirection.freeze
-        :
-    numberOfSlides == 1 ? SwipeDirection.freeze
-        :
-    numberOfSlides > 1 && currentSlide + 1 == numberOfSlides ? SwipeDirection.back
-        :
-    numberOfSlides > 1 && currentSlide == 0 ? SwipeDirection.next
-        :
-    SwipeDirection.back;
-    return _decision;
+    if (numberOfSlides == 0){
+      return SwipeDirection.freeze;
+    }
+    else if (numberOfSlides == 1){
+      return SwipeDirection.freeze;
+    }
+    else if (numberOfSlides > 1 && currentSlide + 1 == numberOfSlides){
+      return SwipeDirection.back;
+    }
+    else if (numberOfSlides > 1 && currentSlide == 0){
+      return SwipeDirection.next;
+    }
+    else {
+      return SwipeDirection.back;
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -151,33 +155,32 @@ class Sliders {
 
     // blog('i: $currentSlide || #: $numberOfSlides || -> before slidingAction');
 
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.next ?
-    await slideToNext(
-        pageController: slidingController,
-        numberOfSlides: numberOfSlides,
-        currentSlide: currentSlide
-    )
-        :
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.back ?
-    await slideToBackFrom(
-        pageController: slidingController,
-        currentSlide: currentSlide
-    )
-        :
-    slidingDecision(numberOfSlides, currentSlide) == SwipeDirection.freeze ?
-    await slideTo(
-        controller: slidingController,
-        toIndex: currentSlide
-    )
-        :
-    blog('no sliding possible ');
+    final SwipeDirection _direction = slidingDecision(numberOfSlides, currentSlide);
 
-    // blog('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
+    if (_direction == SwipeDirection.next){
+      await slideToNext(
+          pageController: slidingController,
+          numberOfSlides: numberOfSlides,
+          currentSlide: currentSlide
+      );
+    }
 
-  }
-  // -----------------------------------------------------------------------------
-  static void zombie(int slideIndex) {
-    blog('i wont slide');
+    else if (_direction == SwipeDirection.back){
+      await slideToBackFrom(
+          pageController: slidingController,
+          currentSlide: currentSlide
+      );
+    }
+    else if (_direction == SwipeDirection.freeze){
+      await slideTo(
+          controller: slidingController,
+          toIndex: currentSlide
+      );
+    }
+    else {
+      blog('no sliding possible ');
+    }
+
   }
   // -----------------------------------------------------------------------------
 }

@@ -114,7 +114,7 @@ class CurrencyManagerScreen extends StatelessWidget {
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
                                     itemCount: _currency.countriesIDs.length,
-                                    padding: Scale.superMargins(margins: 10),
+                                    padding: Scale.constantMarginsAll10,
                                     itemBuilder: (_, index){
 
                                       final String _countryID = _currency.countriesIDs[index];

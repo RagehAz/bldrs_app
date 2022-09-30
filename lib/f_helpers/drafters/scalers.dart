@@ -38,7 +38,7 @@ class Scale {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static EdgeInsets superInsets({
+  static EdgeInsets superInsets({ // clean all trances to become constants
     @required BuildContext context,
     double bottom = 0,
     double enLeft = 0,
@@ -48,9 +48,9 @@ class Scale {
 
     if (TextDir.checkAppIsLeftToRight(context) == true){
       return EdgeInsets.only(
-          bottom: bottom,
           left: enLeft,
           right: enRight,
+          bottom: bottom,
           top: top
       );
     }
@@ -66,6 +66,7 @@ class Scale {
 
   }
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static EdgeInsets superPadding({
     @required BuildContext context,
@@ -79,8 +80,8 @@ class Scale {
       return EdgeInsets.only(
           left: enLeft,
           right: enRight,
+          bottom: bottom,
           top: top,
-          bottom: bottom
       );
     }
 
@@ -94,6 +95,7 @@ class Scale {
     }
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets superMargins({dynamic margins}) {
@@ -124,6 +126,17 @@ class Scale {
   static double superDeviceRatio(BuildContext context) {
     return MediaQuery.of(context).size.aspectRatio;
   }
+  // -----------------------------------------------------------------------------
+
+  /// CONSTANTS
+
+  // --------------------
+  static const EdgeInsets constantMarginsAll5 = EdgeInsets.all(5);
+  static const EdgeInsets constantMarginsAll10 = EdgeInsets.all(10);
+  static const EdgeInsets constantMarginsAll20 = EdgeInsets.all(20);
+
+  static const EdgeInsets constantHorizontal5 = EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding);
+  static const EdgeInsets constantHorizontal10 = EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin);
   // -----------------------------------------------------------------------------
 
   /// DIVISION

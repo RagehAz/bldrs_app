@@ -164,7 +164,7 @@ class DataStripValue extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           color: color,
-          borderRadius: Borderers.superBorderAll(context, Ratioz.boxCorner8),
+          borderRadius: Borderers.constantCornersAll10,
         ),
         child: Stack(
           alignment: Aligners.superCenterAlignment(context),
@@ -176,7 +176,7 @@ class DataStripValue extends StatelessWidget {
                 height: height,
                 // decoration: BoxDecoration(
                 color: Colorz.yellow80,
-                corners: Borderers.superBorderAll(
+                corners: Borderers.cornerAll(
                     context, Ratioz.boxCorner8),
                 // ),
               ),

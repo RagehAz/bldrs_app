@@ -49,9 +49,9 @@ class TargetProgressBar extends StatelessWidget {
                   width: _progressBoxWidth,
                   height: _barHeight,
                   margin: _barMargin,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colorz.white20,
-                    borderRadius: Borderers.superBorderAll(context, 3),
+                    borderRadius: Borderers.constantCornersAll5,
                   ),
                 ),
 
@@ -63,9 +63,9 @@ class TargetProgressBar extends StatelessWidget {
                         (_progress.current / _progress.objective),
                     height: _barHeight,
                     margin: _barMargin,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colorz.yellow255,
-                      borderRadius: Borderers.superBorderAll(context, 3),
+                      borderRadius: Borderers.constantCornersAll5,
                     ),
                   ),
                 ),

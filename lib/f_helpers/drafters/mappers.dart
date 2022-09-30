@@ -90,15 +90,11 @@ class Mapper {
     @required bool addDocSnapshotToEachMap,
   }) {
 
-    final List<QueryDocumentSnapshot<Object>> _docsSnapshots = querySnapshot?.docs;
-
-    final List<Map<String, dynamic>> _maps = getMapsFromQueryDocumentSnapshotsList(
-      queryDocumentSnapshots: _docsSnapshots,
+    return getMapsFromQueryDocumentSnapshotsList(
+      queryDocumentSnapshots: querySnapshot?.docs,
       addDocsIDs: addDocsIDs,
       addDocSnapshotToEachMap: addDocSnapshotToEachMap,
     );
-
-    return _maps;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -322,8 +318,7 @@ class Mapper {
   static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
   }){
-    final Map<String, dynamic> _map = Map.from(internalHashLinkedMapObjectObject);
-    return _map;
+    return Map.from(internalHashLinkedMapObjectObject);
   }
   // --------------------
   static List<Map<String, dynamic>> getMapsFromInternalHashLinkedMapObjectObject({
@@ -374,10 +369,9 @@ class Mapper {
   static int indexOfMapByValueInListOfMaps({
     @required List<Map<String, dynamic>> listOfMaps,
     @required String key,
-    @required dynamic value}) {
-    final int _indexOfTheMap =
-    listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
-    return _indexOfTheMap;
+    @required dynamic value,
+  }) {
+    return listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
   }
   // -----------------------------------------------------------------------------
 

@@ -2,11 +2,9 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
@@ -112,8 +110,8 @@ class _StopWatchBarState extends State<StopWatchBar> {
     return Container(
       width: _boxWidth,
       height: _boxHeight,
-      decoration: BoxDecoration(
-        borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
+      decoration: const BoxDecoration(
+        borderRadius: BldrsAppBar.corners,
         color: Colorz.white20
       ),
       child: Row(

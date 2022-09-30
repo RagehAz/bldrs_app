@@ -78,6 +78,8 @@ class BldrsAppBar extends StatelessWidget {
             - Ratioz.appBarButtonSize
             - Ratioz.appBarPadding;
   }
+  // --------------------
+  static const BorderRadius corners = BorderRadius.all(Radius.circular(Ratioz.appBarCorner));
   // -----------------------------------------------------------------------------
   bool _backButtonIsOnCheck() {
 
@@ -212,7 +214,7 @@ class BldrsAppBar extends StatelessWidget {
       margin: const EdgeInsets.all(Ratioz.appBarMargin),
       decoration: const BoxDecoration(
         color: Colorz.black230,
-        borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
+        borderRadius: corners,
         boxShadow: Shadower.appBarShadow,
       ),
       child: Stack(

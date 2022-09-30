@@ -37,17 +37,21 @@ class Animators {
   /// PAGE CONTROLLERS
 
   // --------------------
+  /*
   static void disposePageControllerIfPossible(PageController controller) {
     if (controller != null) {
       controller.dispose();
     }
   }
+   */
   // --------------------
+  /*
   static void disposeScrollControllerIfPossible(ScrollController controller) {
     if (controller != null) {
       controller.dispose();
     }
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// Animation<double>

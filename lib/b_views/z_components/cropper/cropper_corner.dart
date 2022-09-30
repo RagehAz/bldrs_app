@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +16,9 @@ class CropperCorner extends StatelessWidget {
       width: 32,
       height: 32,
       alignment: Alignment.center,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colorz.black20,
-        borderRadius: Borderers.superBorderAll(context, 16),
+        borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       child: const SuperImage(
         width: 10,

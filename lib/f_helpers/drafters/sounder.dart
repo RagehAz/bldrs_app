@@ -27,8 +27,7 @@ class Sounder  {
   }
   // --------------------
   static AudioPlayer _getPlayer() {
-    final AudioPlayer _result = Sounder.instance.player;
-    return _result;
+    return Sounder.instance.player;
   }
   // -----------------------------------------------------------------------------
 

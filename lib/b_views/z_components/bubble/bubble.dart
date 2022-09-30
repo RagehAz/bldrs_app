@@ -65,7 +65,7 @@ class Bubble extends StatelessWidget {
   static BorderRadius borders(
       BuildContext context,
       ) {
-    return Borderers.superBorder(
+    return Borderers.superCorners(
       context: context,
       corners: cornersValue,
     );
@@ -74,7 +74,7 @@ class Bubble extends StatelessWidget {
   static BorderRadius clearBorders(
       BuildContext context,
       ) {
-    return Borderers.superBorder(
+    return Borderers.superCorners(
       context: context,
       corners: clearCornersValue,
     );
@@ -94,7 +94,7 @@ class Bubble extends StatelessWidget {
     final BorderRadius _corners = corners == null ?
     borders(context)
         :
-    Borderers.superBorder(context: context, corners: corners);
+    Borderers.superCorners(context: context, corners: corners);
     // --------------------
     final Alignment _alignment = childrenCentered == true ?
     (areTopCentered == true ? Alignment.topCenter : Alignment.center)

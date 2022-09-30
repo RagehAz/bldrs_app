@@ -28,7 +28,7 @@ class BzCreditsCounter extends StatelessWidget {
       decoration: BoxDecoration(
         // color: Colorz.White30,
         borderRadius:
-            Borderers.superBorderAll(context, Ratioz.appBarButtonCorner * 0.5),
+            Borderers.cornerAll(context, Ratioz.appBarButtonCorner * 0.5),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

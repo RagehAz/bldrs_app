@@ -106,7 +106,7 @@ class AuthorCard extends StatelessWidget {
       headerViewModel: const BubbleHeaderVM(),
       width: _bubbleWidth,
       corners: bubbleCornerValue(),
-      margins: Scale.superInsets(context: context, bottom: 10, enLeft: 10, enRight: 10),
+      margins: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
       columnChildren: <Widget>[
 
         Row(

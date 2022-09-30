@@ -64,6 +64,7 @@ class Shadower {
     ),
   ];
   // --------------------
+  /*
   static List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth) {
     final List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
@@ -73,11 +74,13 @@ class Shadower {
     ];
     return _shadows;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// FOLLOW BUTTON SHADOW
 
   // --------------------
+  /*
   static List<BoxShadow> superFollowBtShadow(double btHeight) {
     // List<BoxShadow> _btShadow = <BoxShadow>[
     //   CustomBoxShadow(
@@ -94,5 +97,6 @@ class Shadower {
     // return _btShadow;
     return null;
   }
+   */
   // -----------------------------------------------------------------------------
 }

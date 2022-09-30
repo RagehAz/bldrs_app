@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -86,13 +85,13 @@ class PickersViewBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BorderRadius _corners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
+    const BorderRadius _corners = BldrsAppBar.corners;
     final double _boxHeight = height - ( Ratioz.appBarMargin);
     // --------------------
     return Container(
       width: width ?? BldrsAppBar.width(context),
       height: _boxHeight,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colorz.white10,
         borderRadius: _corners,
       ),

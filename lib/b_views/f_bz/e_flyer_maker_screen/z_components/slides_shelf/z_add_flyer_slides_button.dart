@@ -129,7 +129,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
 
     final double _topCorners = _topFlyerCorners - _spacing;
 
-    final BorderRadius _upperBoxCorners = Borderers.superBorderOnly(
+    final BorderRadius _upperBoxCorners = Borderers.cornerOnly(
       context: context,
       enTopLeft: _topCorners,
       enTopRight: _topCorners,
@@ -137,7 +137,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
       enBottomLeft: _topCorners,
     );
 
-    final BorderRadius _bottomBoxCorners = Borderers.superBorderOnly(
+    final BorderRadius _bottomBoxCorners = Borderers.cornerOnly(
       context: context,
       enTopLeft: _topCorners,
       enTopRight: _topCorners,

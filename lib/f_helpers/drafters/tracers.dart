@@ -72,10 +72,11 @@ import 'package:flutter/material.dart';
     @required bool loading,
     @required String callerName,
   }){
-
     if (loading == true) {
       blog('$callerName : LOADING --------------------------------------');
-    } else {
+    }
+
+    else {
       blog('$callerName : LOADING COMPLETE -----------------------------');
     }
   }

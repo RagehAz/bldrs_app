@@ -23,8 +23,6 @@ class Colorizer {
   static Color decipherColor(String colorString) {
     Color _color;
 
-    // print('decipherColor : colorString : $colorString');
-
     if (colorString != null) {
       /// reference ciphered color code
       // String _string = '${_alpha}*${_r}*${_g}*${_b}';
@@ -108,13 +106,17 @@ class Colorizer {
     return _isBlack;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkColorsAreIdentical(Color color1, Color color2) {
     bool _areIdentical = false;
 
-    if (color1.alpha == color2.alpha &&
+    if (
+    color1.alpha == color2.alpha &&
         color1.red == color2.red &&
         color1.green == color2.green &&
-        color1.blue == color2.blue) {
+        color1.blue == color2.blue
+
+    ) {
       _areIdentical = true;
     }
 
