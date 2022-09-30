@@ -341,7 +341,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                         _pdf.value = FileModel(
                           file: _file,
                           fileName: _fileName,
-                          size: Filers.getFileSize(_file),
+                          size: Filers.getFileSizeInMb(_file),
                           // url: null,
                         );
 

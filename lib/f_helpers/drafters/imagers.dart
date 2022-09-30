@@ -102,7 +102,7 @@ class Imagers {
       _fileModels = await resizeImages(
         inputFileModels: _fileModels,
         resizeToWidth: resizeToWidth,
-        isFlyerRatio: isFlyerRatio,
+        // isFlyerRatio: isFlyerRatio,
       );
     }
 
@@ -246,7 +246,7 @@ class Imagers {
         final File _file = await asset.file;
 
         final FileModel _fileModel = FileModel(
-          size: Filers.getFileSize(_file),
+          size: Filers.getFileSizeInMb(_file),
           fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
           file: _file,
           // url: null,
@@ -298,7 +298,7 @@ class Imagers {
         _outputFiles = await resizeImages(
           inputFileModels: _outputFiles,
           resizeToWidth: resizeToWidth,
-          isFlyerRatio: isFlyerRatio,
+          // isFlyerRatio: isFlyerRatio,
         );
       }
 
@@ -370,7 +370,7 @@ class Imagers {
     final File _file = await entity?.file;
 
     return FileModel(
-      size: Filers.getFileSize(_file),
+      size: Filers.getFileSizeInMb(_file),
       fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
       file: _file,
       // url: null,
@@ -435,7 +435,7 @@ class Imagers {
   static Future<List<FileModel>> resizeImages({
     @required List<FileModel> inputFileModels,
     @required double resizeToWidth,
-    @required bool isFlyerRatio,
+    // @required bool isFlyerRatio,
   }) async {
 
     List<FileModel> _fileModels = <FileModel>[];
@@ -444,7 +444,7 @@ class Imagers {
 
       final List<File> _files = await Filers.resizeImages(
         files: FileModel.getFilesFromModels(inputFileModels),
-        aspectRatio: isFlyerRatio == true ? FlyerDim.flyerAspectRatio : 1,
+        // aspectRatio: isFlyerRatio == true ? FlyerDim.flyerAspectRatio : 1,
         finalWidth: resizeToWidth,
       );
 
@@ -636,5 +636,5 @@ class Imagers {
 
   }
    */
-// --------------------
+  // --------------------
 }

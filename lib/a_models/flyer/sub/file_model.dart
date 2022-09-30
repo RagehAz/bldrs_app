@@ -55,7 +55,7 @@ class FileModel {
       _model = FileModel(
         // url: null,
         file: file,
-        size: Filers.getFileSize(file),
+        size: Filers.getFileSizeInMb(file),
         fileName: Filers.getFileNameFromFile(
           file: file,
           withExtension: true,
@@ -98,7 +98,7 @@ class FileModel {
       _model = FileModel(
         url: url,
         file: _file,
-        size: Filers.getFileSize(_file),
+        size: Filers.getFileSizeInMb(_file),
         fileName: fileName ?? Filers.getFileNameFromFile(
           file: _file,
           withExtension: true,
@@ -500,7 +500,7 @@ class FileModel {
         /// MISSING SIZE
         if (_output.size == null){
           _output = _output.copyWith(
-            size: Filers.getFileSize(_output.file),
+            size: Filers.getFileSizeInMb(_output.file),
           );
         }
 

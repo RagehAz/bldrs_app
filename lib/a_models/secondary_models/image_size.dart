@@ -23,6 +23,7 @@ class ImageSize {
   /// CYPHERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'width': width,
@@ -30,6 +31,7 @@ class ImageSize {
     };
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static ImageSize decipherImageSize(Map<String, dynamic> map) {
     ImageSize _imageSize;
     if (map != null) {
@@ -49,6 +51,7 @@ class ImageSize {
   /// GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   double getAspectRatio(){
 
     /*
@@ -57,7 +60,35 @@ class ImageSize {
        final double _scale = _flyerBoxHeight / _imageHeight;
    */
 
-    return height / width;
+    /// ASPECT RATIO IS WITH / HEIGHT
+    return width / height;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<double> getFileAspectRatio(File file) async {
+    double _output;
+
+    if (file != null){
+
+      final ImageSize _imageSize = await superImageSize(file);
+
+      if (_imageSize != null){
+
+        _output = _imageSize.getAspectRatio();
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  static double getHeightByAspectRatio({
+    @required double aspectRatio,
+    @required double originalWidth,
+  }){
+    /// AspectRatio is width / height => so = oWidth / oHeight
+    return originalWidth / aspectRatio;
   }
   // --------------------
   /*
@@ -138,6 +169,7 @@ class ImageSize {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogSize({String methodName = 'ImageSize'}) {
     blog('blogSize : $methodName : image size: W [ $width ] x H [ $height ]');
   }
@@ -146,6 +178,7 @@ class ImageSize {
   /// BOX FIT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static int cipherBoxFit(BoxFit boxFit) {
     switch (boxFit) {
       case BoxFit.fitHeight:
@@ -174,6 +207,7 @@ class ImageSize {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BoxFit decipherBoxFit(int boxFit) {
     switch (boxFit) {
       case 1:   return BoxFit.fitHeight;
@@ -204,6 +238,7 @@ class ImageSize {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkSizesAreIdentical({
     @required ImageSize sizeA,
     @required ImageSize sizeB,
@@ -215,7 +250,7 @@ class ImageSize {
       _identical = true;
     }
     else if (
-    sizeA.width == sizeB.width &&
+        sizeA.width == sizeB.width &&
         sizeA.height == sizeB.height
     ){
       _identical = true;

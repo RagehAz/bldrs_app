@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -11,11 +12,13 @@ class SlideFullScreen extends StatelessWidget {
   const SlideFullScreen({
     @required this.image,
     @required this.imageSize,
+    this.title,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final dynamic image;
   final ImageSize imageSize;
+  final Verse title;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -24,13 +27,12 @@ class SlideFullScreen extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
     // --------------------
     return MainLayout(
-      pageTitleVerse: const Verse(
-        text: 'phid_flyerSlides',
-        translate: true,
-      ),
+      pageTitleVerse: title,
       pyramidsAreOn: true,
-      appBarType: AppBarType.non,
+      appBarType: AppBarType.basic,
       skyType: SkyType.black,
+      sectionButtonIsOn: false,
+      pyramidType: PyramidType.white,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Container(
         width: _screenWidth,

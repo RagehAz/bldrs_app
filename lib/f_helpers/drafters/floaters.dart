@@ -191,7 +191,7 @@ static img.Image decodeToImgImage({
 
     // blog('transformFileToUint8List : START');
     //
-    // if (file != null){
+    if (file != null){
     //   await tryAndCatch(
     //       methodName: 'transformFileToUint8List',
     //       functions: () async {
@@ -201,7 +201,7 @@ static img.Image decodeToImgImage({
     //         blog('transformFileToUint8List : _uInt : $_uInt');
     //
     //       });
-    // }
+    }
 
     blog('transformFileToUint8List : END');
 
