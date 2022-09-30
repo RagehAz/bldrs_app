@@ -467,7 +467,7 @@ Future<bool> _preEditCheck({
         context: context,
         titleVerse: const Verse(text: '7aseb !', translate: false),
         boolDialog: true,
-        bodyVerse: Verse.plain('$_alertMessage\n$_actionTypeMessage\nWanna continue uploading ?'),
+        bodyVerse: Verse.plain('$_alertMessage\n\n$_actionTypeMessage\n\nWanna continue uploading ?'),
       );
 
     }
