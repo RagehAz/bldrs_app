@@ -14,16 +14,16 @@ class KeyboardScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const KeyboardScreen({
     @required this.keyboardModel,
-    @required this.onSubmit,
     this.confirmButtonIsOn = true,
     this.columnChildren,
+    this.screenTitleVerse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final KeyboardModel keyboardModel;
-  final ValueChanged<String> onSubmit;
   final bool confirmButtonIsOn;
   final List<Widget> columnChildren;
+  final Verse screenTitleVerse;
   /// --------------------------------------------------------------------------
   @override
   _KeyboardScreenState createState() => _KeyboardScreenState();
@@ -32,6 +32,7 @@ class KeyboardScreen extends StatefulWidget {
   static Future<String> goToKeyboardScreen({
     @required BuildContext context,
     KeyboardModel keyboardModel,
+    Verse screenTitleVerse,
   }) async {
     String _output;
 
@@ -39,13 +40,8 @@ class KeyboardScreen extends StatefulWidget {
       context: context,
       screen: KeyboardScreen(
         keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),
+        screenTitleVerse: screenTitleVerse,
         // confirmButtonIsOn: true,
-        onSubmit: (String text){
-
-          blog('goToKeyboardScreen : aho : text : $text');
-
-          _output = text;
-        },
       ),
     );
 
@@ -178,6 +174,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
+      pageTitleVerse: widget.screenTitleVerse,
       layoutWidget: ValueListenableBuilder(
         valueListenable: _canSubmit,
         builder: (_, bool canSubmit, Widget child){
@@ -204,7 +201,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 keyboardTextInputAction: _keyboardModel.textInputAction,
                 autoFocus: true,
                 isFormField: true,
-                onSubmitted: widget.onSubmit,
+                onSubmitted: (String text) => _onSubmit(text),
                 // autoValidate: true,
                 validator: (String text){
                   if (_keyboardModel?.validator != null){
