@@ -446,7 +446,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
       _pdf = FileModel(
         fileName: pdf.fileName,
-        size: Filers.getFileSize(_fileFromURL),
+        size: Filers.getFileSizeInMb(_fileFromURL),
         url: _url,
         // file: null,
       );
