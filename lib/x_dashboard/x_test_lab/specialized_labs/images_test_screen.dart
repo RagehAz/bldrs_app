@@ -4,21 +4,33 @@ import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
+import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
@@ -31,14 +43,14 @@ class ImagesTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _ImagesTestScreenState createState() => _ImagesTestScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _ImagesTestScreenState extends State<ImagesTestScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -49,12 +61,12 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       }
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -71,21 +83,119 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   File _file;
   Uint8List uInt;
   img.Image imgImage;
   ui.Image uiImage;
+  File _ldbBase64;
+  File _ldbUint;
+  // --------------------
+  ImageSize _imageSize;
   bool isLoading;
-// -----------------------------------------------------------------------------
+  // --------------------
+  Future<void> setImage(FileModel fileModel) async {
+
+    blog('a7');
+
+    if (fileModel != null){
+
+      _loading.value = true;
+
+      final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.file);
+      final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
+      final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
+      final ImageSize _size = await ImageSize.superImageSize(fileModel.file);
+
+      await Future.wait(<Future>[
+
+        LDBOps.insertMap(
+          docName: 'tempPicDoc',
+          input: {
+            'id': 'ldbUint',
+            'data' : await Floaters.getUint8ListFromFile(fileModel.file),
+          },
+        ),
+
+        LDBOps.insertMap(
+          docName: 'tempPicDoc',
+          input: {
+            'id': 'ldbBase64',
+            'data' : await Floaters.getBase64FromFileOrURL(fileModel.file),
+          },
+        ),
+
+      ]);
+
+      File _fileBase64;
+      File _fileUint;
+      final List<Map<String, dynamic>> _mapBase64 = await LDBOps.readMaps(
+          ids: ['ldbBase64'],
+          docName: 'tempPicDoc',
+      );
+      if (Mapper.checkCanLoopList(_mapBase64) == true){
+        _fileBase64 = await Filers.getFileFromBase64(_mapBase64.first['data']);
+      }
+
+      final List<Map<String, dynamic>> _mapUint = await LDBOps.readMaps(
+        ids: ['ldbUint'],
+        docName: 'tempPicDoc',
+      );
+      if (Mapper.checkCanLoopList(_mapUint) == true){
+        _fileUint = await Filers.getFileFromUint8List(
+          uInt8List: _mapUint.first['data'],
+          fileName: 'ldbUint',
+        );
+      }
+
+      setState(() {
+        _file = fileModel.file;
+        uInt = _uInt;
+        uiImage = _uiImage;
+        imgImage = _imgImage;
+        _ldbBase64 = _fileBase64;
+        _ldbUint = _fileUint;
+
+        _imageSize = _size;
+      });
+
+      _loading.value = false;
+
+    }
+
+
+  }
+  // --------------------
+  void _clearImage(){
+    setState(() {
+      _file = null;
+      uInt = null;
+      uiImage = null;
+      imgImage = null;
+      _imageSize = null;
+      isLoading = false;
+    });
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    // final double _buttonWidth = PageBubble.clearWidth(context);
+
+    final List<Map<String, dynamic>> _maps = [
+      {'pic' : _file,       'text' : 'FILE : $_file'},
+      {'pic' : uInt,        'text' : 'uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums'},
+      {'pic' : imgImage,    'text' : 'imgImage : ${imgImage?.toString()}'},
+      {'pic' : uiImage,     'text' : 'uiImage : ${uiImage?.toString()}'},
+      {'pic' : _ldbBase64,  'text' : 'ldbBase64 : ${_ldbBase64?.toString()}'},
+      {'pic' : _ldbUint,    'text' : 'ldbUint : ${_ldbUint?.toString()}'},
+    ];
 
     return MainLayout(
       loading: _loading,
@@ -104,24 +214,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                 isFlyerRatio: false,
             );
 
-            if (_pickedFileModel != null){
-
-              _loading.value = true;
-
-              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFileModel.file);
-              final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
-              final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
-
-              setState(() {
-                _file = _pickedFileModel.file;
-                uInt = _uInt;
-                uiImage = _uiImage;
-                imgImage = _imgImage;
-              });
-
-              _loading.value = false;
-
-            }
+            await setImage(_pickedFileModel);
 
           },
         ),
@@ -137,24 +230,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               isFlyerRatio: false,
             );
 
-            if (_pickedFileModel != null){
-
-              _loading.value = true;
-
-              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFileModel.file);
-              final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
-              final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
-
-              setState(() {
-                _file = _pickedFileModel.file;
-                uInt = _uInt;
-                uiImage = _uiImage;
-                imgImage = _imgImage;
-              });
-
-              _loading.value = false;
-
-            }
+            await setImage(_pickedFileModel);
 
           },
         ),
@@ -171,24 +247,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               // resizeToWidth: null,
             );
 
-            if (_pickedFileModel != null){
-
-              _loading.value = true;
-
-              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFileModel.file);
-              final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
-              final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
-
-              setState(() {
-                _file = _pickedFileModel.file;
-                uInt = _uInt;
-                uiImage = _uiImage;
-                imgImage = _imgImage;
-              });
-
-              _loading.value = false;
-
-            }
+            await setImage(_pickedFileModel);
 
           },
         ),
@@ -198,28 +257,37 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.resize,
           onTap: () async {
 
-            final File _pickedFile = await Filers.resizeImage(
-                file: _file,
-                finalWidth: 1080,
-                aspectRatio: 1
+            final String _result = await Nav.goToNewScreen(
+                context: context,
+                screen: KeyboardScreen(
+                  screenTitleVerse: const Verse(
+                    text: 'Crop Image',
+                    translate: false,
+                  ),
+                  keyboardModel: KeyboardModel.standardModel().copyWith(
+                    textInputType: TextInputType.number,
+                    titleVerse: const Verse(
+                      text: 'Add new width',
+                      translate: false,
+                    ),
+                    hintVerse: Verse(
+                      text: 'width was ${uiImage?.width}',
+                      translate: false,
+                    ),
+                  ),
+                ),
             );
 
-            if (_pickedFile != null){
+            if (TextCheck.isEmpty(_result) == false){
 
-              _loading.value = true;
+              final double _value = Numeric.transformStringToDouble(_result);
 
-              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFile);
-              final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
-              final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
+              final File _pickedFile = await Filers.resizeImage(
+                  file: _file,
+                  finalWidth: _value,
+              );
 
-              setState(() {
-                _file = _pickedFile;
-                uInt = _uInt;
-                uiImage = _uiImage;
-                imgImage = _imgImage;
-              });
-
-              _loading.value = false;
+              await setImage(FileModel.createModelByNewFile(_pickedFile));
 
             }
 
@@ -229,15 +297,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// CLEAR
         AppBarButton(
           icon: Iconz.xLarge,
-          onTap: (){
-            setState(() {
-              _file = null;
-              uInt = null;
-              uiImage = null;
-              imgImage = null;
-
-            });
-          },
+          onTap: _clearImage,
         ),
 
       ],
@@ -294,73 +354,81 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                             //   },
                             // ),
 
-                            const SeparatorLine(),
-
                             /// TAMAM : FILE
-                            WideButton(
-                              verse: Verse.plain('FILE : $_file'),
-                              icon: _file,
-                              iconSizeFactor: 1,
-                              verseScaleFactor: 0.6,
-
-                            ),
+                            // WideButton(
+                            //   width: _buttonWidth,
+                            //   color: Colorz.bloodTest,
+                            //   bubble: false,
+                            //   verse: Verse.plain('FILE : $_file'),
+                            //   icon: _file,
+                            //   iconSizeFactor: 1,
+                            //   verseScaleFactor: 0.6,
+                            //
+                            // ),
 
                             /// TAMAM : uInt8List
-                            WideButton(
-                              verse: Verse.plain('uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums'),
-                              icon: uInt,
-                              iconSizeFactor: 1,
-                              verseScaleFactor: 0.6,
-                              // onTap: () async {
-                              //
-                              //   // final Uint8List _uInt = await Floaters.getUint8ListFromFile(_file);
-                              //   //
-                              //   // setState(() {
-                              //   //   uInt = _uInt;
-                              //   // });
-                              //
-                              // },
-                            ),
+                            // WideButton(
+                            //   width: _buttonWidth,
+                            //   color: Colorz.bloodTest,
+                            //   bubble: false,
+                            //   verse: Verse.plain('uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums'),
+                            //   icon: uInt,
+                            //   iconSizeFactor: 1,
+                            //   verseScaleFactor: 0.6,
+                            //   // onTap: () async {
+                            //   //
+                            //   //   // final Uint8List _uInt = await Floaters.getUint8ListFromFile(_file);
+                            //   //   //
+                            //   //   // setState(() {
+                            //   //   //   uInt = _uInt;
+                            //   //   // });
+                            //   //
+                            //   // },
+                            // ),
 
                             /// TAMAM : uiImage
-                            WideButton(
-                              verse: Verse.plain('uiImage : ${uiImage?.toString()}'),
-                              icon: uiImage,
-                              iconSizeFactor: 1,
-                              verseScaleFactor: 0.6,
-                              // onTap: () async {
-                              //
-                              //   // final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(uInt);
-                              //   //
-                              //   // setState(() {
-                              //   //   uiImage = _uiImage;
-                              //   // });
-                              //   //
-                              //   // blog('getUiImageFromUint8List image test screen');
-                              //
-                              // },
-                            ),
+                            // WideButton(
+                            //   width: _buttonWidth,
+                            //   color: Colorz.bloodTest,
+                            //   bubble: false,
+                            //   verse: Verse.plain('uiImage : ${uiImage?.toString()}'),
+                            //   icon: uiImage,
+                            //   iconSizeFactor: 1,
+                            //   verseScaleFactor: 0.6,
+                            //   // onTap: () async {
+                            //   //
+                            //   //   // final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(uInt);
+                            //   //   //
+                            //   //   // setState(() {
+                            //   //   //   uiImage = _uiImage;
+                            //   //   // });
+                            //   //   //
+                            //   //   // blog('getUiImageFromUint8List image test screen');
+                            //   //
+                            //   // },
+                            // ),
 
                             /// imgImage
-                            WideButton(
-                              verse: Verse.plain('imgImage : ${imgImage?.toString()}'),
-                              icon: imgImage,
-                              iconSizeFactor: 1,
-                              verseScaleFactor: 0.6,
-                              // onTap: () async {
-                              //
-                              //   // blog('${imgImage.channels.name}');
-                              //
-                              //   // final img.Image _imgImage = await Floaters.getImgImageFromUint(uInt);
-                              //   //
-                              //   // setState(() {
-                              //   //   imgImage = _imgImage;
-                              //   // });
-                              //
-                              // },
-                            ),
-
-                            const SeparatorLine(),
+                            // WideButton(
+                            //   width: _buttonWidth,
+                            //   color: Colorz.bloodTest,
+                            //   bubble: false,
+                            //   verse: Verse.plain('imgImage : ${imgImage?.toString()}'),
+                            //   icon: imgImage,
+                            //   iconSizeFactor: 1,
+                            //   verseScaleFactor: 0.6,
+                            //   // onTap: () async {
+                            //   //
+                            //   //   // blog('${imgImage.channels.name}');
+                            //   //
+                            //   //   // final img.Image _imgImage = await Floaters.getImgImageFromUint(uInt);
+                            //   //   //
+                            //   //   // setState(() {
+                            //   //   //   imgImage = _imgImage;
+                            //   //   // });
+                            //   //
+                            //   // },
+                            // ),
 
                             /// FILE NAME
                             DataStrip(
@@ -380,13 +448,22 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                             /// FILE SIZE (Byte)
                             DataStrip(
                               dataKey: 'Size (b)',
-                              dataValue: _file?.lengthSync(),
+                              dataValue: '${Numeric.formatNumToSeparatedKilos(number: _file?.lengthSync())} Bytes',
+                            ),
+
+                            /// FILE SIZE (MB)
+                            DataStrip(
+                              dataKey: 'Size (Kb)',
+                              dataValue: '${Filers.getFileSizeWithUnit(
+                                file: _file,
+                                unit: FileSizeUnit.kiloByte,
+                              )} KiloByte',
                             ),
 
                             /// FILE SIZE (MB)
                             DataStrip(
                               dataKey: 'Size (Mb)',
-                              dataValue: Filers.getFileSize(_file),
+                              dataValue: '${Filers.getFileSizeInMb(_file)} MegaBytes',
                             ),
 
                             /// FILE SIZE
@@ -416,6 +493,41 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                               dataValue: _file?.path == null ? '' : TextMod.removeTextBeforeLastSpecialCharacter(extension(_file?.path), '.'),
                             ),
 
+                            /// ASPECT RATIO
+                            DataStrip(
+                              dataKey: 'Aspect Ratio',
+                              dataValue: '${_imageSize?.getAspectRatio()}',
+                            ),
+
+                            if (_file != null)
+                            GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(20),
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 5,
+                                crossAxisSpacing: 5,
+                                childAspectRatio: _imageSize?.getAspectRatio() ?? 1,
+                                // mainAxisExtent: PageBubble.width(context),
+                              ),
+                              itemCount: _maps.length,
+                              itemBuilder: (_, int index){
+
+                                final Map<String, dynamic> _map = _maps[index];
+
+                                return ImageTile(
+                                    pic: _map['pic'],
+                                    text: _map['text'],
+                                    tileWidth: (PageBubble.width(context) - 20) / 3,
+                                    imageSize: _imageSize
+                                );
+
+                              },
+                            ),
+
+                            const Horizon(),
+
                           ]
                       ),
 
@@ -428,11 +540,27 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                   minWidth: 70,
                   maxWidth: uiImage?.width?.toDouble(),
                   childWidth: uiImage?.width?.toDouble(),
-                  child: SuperImage(
+
+                  // child: SuperImage(
+                  //   width: uiImage?.width?.toDouble(),
+                  //   height: uiImage?.height?.toDouble(),
+                  //   pic: _file,
+                  //   loading: isLoading,
+                  // ),
+                  child: SizedBox(
                     width: uiImage?.width?.toDouble(),
                     height: uiImage?.height?.toDouble(),
-                    pic: _file,
-                    loading: isLoading,
+                    child: ZoomablePicture(
+                      isOn: true,
+                      isFullScreen: true,
+                      autoShrink: false,
+                      child: SuperFilteredImage(
+                          filterModel: ImageFilterModel.bldrsImageFilters[2],
+                          imageFile: _file,
+                          width: uiImage?.width?.toDouble(),
+                          height: uiImage?.height?.toDouble(),
+                      ),
+                    ),
                   ),
                 ),
 
@@ -444,6 +572,68 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       ),
     );
 
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class ImageTile extends StatelessWidget {
+
+  const ImageTile({
+    @required this.pic,
+    @required this.tileWidth,
+    @required this.imageSize,
+    @required this.text,
+    Key key
+  }) : super(key: key);
+
+  final dynamic pic;
+  final double tileWidth;
+  final ImageSize imageSize;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+
+    if (pic == null){
+      return const SizedBox();
+    }
+
+    else {
+
+      final double _picHeight = ImageSize.getHeightByAspectRatio(
+        originalWidth: tileWidth,
+        aspectRatio: imageSize.getAspectRatio(),
+      );
+
+      return GestureDetector(
+        onTap: () => Nav.goToNewScreen(context: context, screen: SlideFullScreen(image: pic, imageSize: imageSize)),
+        child: SizedBox(
+          width: tileWidth,
+          height: _picHeight,
+          child: Stack(
+            children: <Widget>[
+
+              SuperImage(
+                width: tileWidth,
+                height: _picHeight,
+                pic: pic,
+              ),
+
+              SuperVerse(
+                width: tileWidth - 10,
+                verse: Verse.plain(text),
+                margin: 5,
+                labelColor: Colorz.black200,
+                maxLines: 5,
+                size: 1,
+              ),
+
+            ],
+          ),
+        ),
+      );
+
+    }
   }
 
 }

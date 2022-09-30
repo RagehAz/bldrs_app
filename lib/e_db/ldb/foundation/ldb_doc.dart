@@ -43,7 +43,7 @@ class LDBDoc {
       case LDBDoc.reviewEditor: return 'id';
 
       case 'test': return 'id';
-      default: return null;
+      default: return 'id';
     }
   }
   // -----------------------------------------------------------------------------

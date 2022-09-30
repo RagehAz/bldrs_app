@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
@@ -168,24 +169,44 @@ class Filers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double getFileSize(File file){
+  static double getFileSizeInMb(File file){
 
-    double _output;
+    return getFileSizeWithUnit(
+      file: file,
+      unit: FileSizeUnit.megaByte,
+    );
 
-    if (file != null){
-
-      final int sizeInBytes = file.lengthSync();
-      final double sizeInMb = sizeInBytes / (1024 * 1024);
-      _output = Numeric.roundFractions(sizeInMb, 1);
-
-      blog('getFileSize : '
-          'sizeInBytes : $sizeInBytes : '
-          'sizeInMb : $sizeInMb : '
-          '_output : $_output');
-    }
-
-    return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getFileSizeWithUnit({
+    @required File file,
+    @required FileSizeUnit unit,
+    int fractionDigits = 1,
+  }){
+      double _output;
+
+      if (file != null){
+
+        final int _bytes = file.lengthSync();
+
+        _output = _bytes.toDouble();
+
+        switch (unit){
+          case FileSizeUnit.byte:       _output = _bytes.toDouble(); break;
+          case FileSizeUnit.kiloByte:   _output = _bytes / 1024; break;
+          case FileSizeUnit.megaByte:   _output = _bytes/ (1024 * 1024); break;
+          case FileSizeUnit.gigaByte:   _output = _bytes/ (1024 * 1024 * 1024); break;
+          case FileSizeUnit.teraByte:   _output = _bytes/ (1024 * 1024 * 1024 * 1024); break;
+          default:                      _output = _bytes.toDouble(); break;
+        }
+
+        _output = Numeric.roundFractions(_output, fractionDigits);
+
+      }
+
+      return _output;
+    }
   // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS
@@ -556,7 +577,6 @@ class Filers {
     @required File file,
     /// image width will be resized to this final width
     @required double finalWidth,
-    @required double aspectRatio,
   }) async {
 
     blog('resizeImage : START');
@@ -570,10 +590,12 @@ class Filers {
       /// only resize if final width is smaller than original
       if (finalWidth < _imgImage.width){
 
+        final double _aspectRatio = await ImageSize.getFileAspectRatio(file);
+
         _imgImage = Floaters.resizeImgImage(
           imgImage: _imgImage,
           width: finalWidth.floor(),
-          height:  (aspectRatio * finalWidth.floor()).floor(),
+          height:  (_aspectRatio * finalWidth.floor()).floor(),
         );
 
         final File _refile = await Filers.getFileFromImgImage(
@@ -595,7 +617,6 @@ class Filers {
   /// TESTED : WORKS PERFECT
   static Future<List<File>> resizeImages({
     @required List<File> files,
-    @required double aspectRatio,
     @required double finalWidth,
   }) async {
     final List<File> _files = <File>[];
@@ -608,7 +629,6 @@ class Filers {
 
           final File _file = await resizeImage(
             file: files[index],
-            aspectRatio: aspectRatio,
             finalWidth: finalWidth ?? 500,
           );
 
@@ -660,4 +680,12 @@ class Filers {
     return _file;
   }
   // -----------------------------------------------------------------------------
+}
+
+enum FileSizeUnit {
+  byte,
+  kiloByte,
+  megaByte,
+  gigaByte,
+  teraByte,
 }
