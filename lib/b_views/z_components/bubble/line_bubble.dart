@@ -26,9 +26,9 @@ class LineBubble extends StatelessWidget {
       child: Container(
         width: width ?? BldrsAppBar.width(context),
         alignment: alignment ?? Alignment.center,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colorz.white20,
-          borderRadius: Borderers.superBorderAll(context, 10),
+          borderRadius: Borderers.constantCornersAll10,
         ),
         padding: const EdgeInsets.only(top: 5, bottom: 5),
         margin: const EdgeInsets.only(bottom: 5),

@@ -838,13 +838,10 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         ),
                         decoration: BoxDecoration(
                           color: note?.receiverID == null ? Colorz.bloodTest : Colorz.white50,
-                          borderRadius: Borderers.superBorderAll(context, 10),
+                          borderRadius: Borderers.constantCornersAll10,
                         ),
-                        padding: Scale.superMargins(margins: 5),
-                        margin: Scale.superInsets(
-                          context: context,
-                          top: 10,
-                        ),
+                        padding: Scale.constantMarginsAll5,
+                        margin: const EdgeInsets.only(top: 10),
                         child: ValueListenableBuilder(
                             valueListenable: _receiversIDs,
                             builder: (_, List<String> receiversIDs, Widget child){

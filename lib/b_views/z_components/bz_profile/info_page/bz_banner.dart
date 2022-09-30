@@ -46,7 +46,7 @@ class BzBanner extends StatelessWidget {
         height: boxHeight,
         decoration: BoxDecoration(
           color: Colorz.white10,
-          borderRadius: Borderers.superBorderAll(context, corners ?? boxWidth * 0.1),
+          borderRadius: Borderers.cornerAll(context, corners ?? boxWidth * 0.1),
         ),
         padding: const EdgeInsets.symmetric(vertical: 20),
         alignment: Alignment.center,

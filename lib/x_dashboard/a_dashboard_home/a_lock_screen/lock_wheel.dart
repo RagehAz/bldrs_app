@@ -52,7 +52,7 @@ class LockWheel extends StatelessWidget {
       height: boxHeight,
       decoration: BoxDecoration(
         color: Colorz.white10,
-        borderRadius: Borderers.superBorderAll(context, unitWidth * 0.3)
+        borderRadius: Borderers.cornerAll(context, unitWidth * 0.3)
       ),
 
       child: Stack(

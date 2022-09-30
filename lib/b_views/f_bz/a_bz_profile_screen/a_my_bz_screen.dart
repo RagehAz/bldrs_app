@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -10,7 +11,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/go_back_widget_test.dart';
@@ -98,7 +98,7 @@ class MyBzScreen extends StatelessWidget {
                     width: 40,
                     image: _bzModel.logo,
                     margins: const EdgeInsets.symmetric(horizontal: 5),
-                    corners: Borderers.superBorderAll(context, Ratioz.appBarCorner - 5),
+                    corners: BldrsAppBar.corners, // was corners - 5
                   ),
 
                 ],

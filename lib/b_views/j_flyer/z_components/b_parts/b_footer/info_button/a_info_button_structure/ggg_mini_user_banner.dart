@@ -25,7 +25,7 @@ class MiniUserBanner extends StatelessWidget {
           height: size,
           width: size,
           icon: userModel?.pic,
-          margins: Scale.superInsets(context: context, enRight: 5, enLeft: 5),
+          margins: Scale.constantHorizontal5,
           onTap: (){},
         ),
 

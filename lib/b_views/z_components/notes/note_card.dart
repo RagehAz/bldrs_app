@@ -47,7 +47,8 @@ class NoteCard extends StatelessWidget {
     return Bubble.clearWidth(context, bubbleWidthOverride: widthOverride) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
   }
   // --------------------
-  static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
+  static const double bannerCornersValue = Bubble.cornersValue - Ratioz.appBarMargin;
+  static const BorderRadius bannerCorners = BorderRadius.all(Radius.circular(bannerCornersValue));
   // --------------------
   Future<void> _onNoteOptionsTap({
     @required BuildContext context,

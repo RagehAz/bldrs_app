@@ -23,12 +23,10 @@ class Scrollers {
   static ScrollPhysics superScroller({
     @required bool trigger,
   }) {
-    final ScrollPhysics scroller = trigger == true ?
+    return trigger == true ?
     const BouncingScrollPhysics()
         :
     const NeverScrollableScrollPhysics();
-
-    return scroller;
   }
   // -----------------------------------------------------------------------------
 
@@ -36,15 +34,11 @@ class Scrollers {
 
   // --------------------
   static bool checkIsAtTop(ScrollController scrollController) {
-    final bool _atTop =
-        scrollController.offset == scrollController.position.minScrollExtent;
-    return _atTop;
+    return scrollController.offset == scrollController.position.minScrollExtent;
   }
   // --------------------
   static bool checkIsAtBottom(ScrollController scrollController) {
-    final bool _atTop =
-        scrollController.offset == scrollController.position.maxScrollExtent;
-    return _atTop;
+    return scrollController.offset == scrollController.position.maxScrollExtent;
   }
   // --------------------
   static bool checkIsGoingDown(ScrollController scrollController) {
@@ -61,9 +55,7 @@ class Scrollers {
   }
   // --------------------
   static bool checkIsGoingUp(ScrollController scrollController) {
-    final bool _goingUp =
-        scrollController.position.userScrollDirection == ScrollDirection.reverse;
-    return _goingUp;
+    return scrollController.position.userScrollDirection == ScrollDirection.reverse;
   }
   // --------------------
   static bool checkIsAtPercentFromTop({
@@ -74,11 +66,7 @@ class Scrollers {
     final double _min = scrollController.position.minScrollExtent;
     final double _max = maxHeight; //scrollController.position.maxScrollExtent;
     final double _fraction = percent / 100;
-
-    final bool _isAtTenPercentFromTop =
-        scrollController.offset <= (_min + (_max * _fraction));
-
-    return _isAtTenPercentFromTop;
+    return scrollController.offset <= (_min + (_max * _fraction));
   }
   // --------------------
   static bool checkCanSlide({
@@ -88,28 +76,23 @@ class Scrollers {
     @required Axis axis,
     int numberOfBoxes = 2,
   }) {
+
     final double _offset = details.metrics.pixels;
-
     const double _limitRatio = 0.2;
-
     final double _backLimit = boxDistance * _limitRatio * (-1);
+    final double _nextLimit = (boxDistance * (numberOfBoxes - 1)) + (_backLimit * (-1));
 
-    final double _nextLimit =
-        (boxDistance * (numberOfBoxes - 1)) + (_backLimit * (-1));
-
-    bool _canSlide;
 
     if (details.metrics.axis != axis) {
-      _canSlide = false;
-    } else if (goesBackOnly == true) {
-      _canSlide = _offset < _backLimit;
-    } else {
-      _canSlide = _offset < _backLimit || _offset > _nextLimit;
+      return false;
+    }
+    else if (goesBackOnly == true) {
+      return _offset < _backLimit;
+    }
+    else {
+      return _offset < _backLimit || _offset > _nextLimit;
     }
 
-    // print('boxDistance * numberOfBoxes = $boxDistance * ${numberOfBoxes - 1} = ${boxDistance * (numberOfBoxes - 1)} : _backLimit : $_backLimit : _offset : $_offset');
-
-    return _canSlide;
   }
   // -----------------------------------------------------------------------------
 
@@ -134,8 +117,6 @@ class Scrollers {
     @required ScrollController controller,
   }) async {
 
-    blog('scrolling to End of scroll controller ${controller.position.maxScrollExtent}');
-
     await controller.animateTo(controller.position.maxScrollExtent,
       duration: Ratioz.durationSliding400,
       curve: Curves.easeInOutCirc,
@@ -147,8 +128,6 @@ class Scrollers {
   static Future<void> scrollToTop({
     @required ScrollController controller,
   }) async {
-
-    blog('scrolling to Top of scroll controller ${controller.position.maxScrollExtent}');
 
     await controller.animateTo(controller.position.minScrollExtent,
       duration: Ratioz.durationSliding400,

@@ -31,7 +31,7 @@ class AuthorPic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BorderRadius _authorPicBorders = Borderers.superBorder(
+    final BorderRadius _authorPicBorders = Borderers.superCorners(
       context: context,
       corners: cornerOverride ?? FlyerDim.authorPicCornersByPicSize(
         context: context,

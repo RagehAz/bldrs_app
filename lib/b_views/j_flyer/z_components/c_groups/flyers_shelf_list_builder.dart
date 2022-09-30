@@ -88,7 +88,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         itemCount: widget.flyers.length,
         controller: _controller,
         scrollDirection: Axis.horizontal,
-        padding: Scale.superPadding(
+        padding: Scale.superInsets(
           context: context,
           enLeft: Ratioz.appBarMargin,
           enRight: _flyerBoxWidth,

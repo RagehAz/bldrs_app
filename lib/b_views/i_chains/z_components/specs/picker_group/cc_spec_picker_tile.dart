@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -46,7 +45,7 @@ class PickerTile extends StatelessWidget {
     // --------------------
     final double _specTileHeight = height();
     final double _specTileWidth = width ?? getDefaultWidth(context);
-    final BorderRadius _tileBorders = Borderers.superBorderAll(context, Ratioz.appBarCorner);
+    const BorderRadius _tileBorders = BldrsAppBar.corners;
     final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
     // --------------------
     return GestureDetector(
@@ -57,7 +56,7 @@ class PickerTile extends StatelessWidget {
           width: _specTileWidth,
           // height: _specTileHeight,
           margin: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colorz.white10,
             borderRadius: _tileBorders,
           ),

@@ -9,7 +9,48 @@ class Borderers {
   // -----------------------------------------------------------------------------
   /// TASK : use clipBehaviour : Clip.antiAliasWithSaveLayer instead of ClipRRect
   // -----------------------------------------------------------------------------
-  static BorderRadius superBorderOnly({
+
+  /// CONSTANTS
+
+  // --------------------
+  static const BorderRadius constantCornersAll5 = BorderRadius.all(Radius.circular(5));
+  static const BorderRadius constantCornersAll10 = BorderRadius.all(Radius.circular(10));
+  static const BorderRadius constantCornersAll15 = BorderRadius.all(Radius.circular(15));
+  static const BorderRadius constantCornersAll20 = BorderRadius.all(Radius.circular(20));
+  // -----------------------------------------------------------------------------
+  /// BORDER RADIUS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BorderRadius superCorners({
+    @required BuildContext context,
+    dynamic corners,
+  }) {
+    BorderRadius _corner;
+
+    if (corners == null || corners == 0) {
+      _corner = BorderRadius.zero;
+    }
+
+    else if (corners is num) {
+      _corner = cornerAll(context, corners.toDouble());
+    }
+
+    else if (corners is BorderRadius) {
+      _corner = corners;
+    }
+
+    else {
+      final Error _error = ArgumentError('superBorder corners is invalid', 'superBorder');
+
+      throw _error;
+    }
+
+    return _corner;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BorderRadius cornerOnly({
     @required BuildContext context,
     double enTopLeft,
     double enBottomLeft,
@@ -31,8 +72,18 @@ class Borderers {
       bottomRight: Radius.circular(enBottomRight),
     );
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BorderRadius cornerAll(BuildContext context, double corners) {
+    return BorderRadius.all(Radius.circular(corners));
+  }
   // -----------------------------------------------------------------------------
-  static OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
+
+  /// OUTLINE BORDER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static OutlineInputBorder outlines(Color borderColor, double corner) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(corner),
       borderSide: BorderSide(
@@ -43,18 +94,19 @@ class Borderers {
     );
   }
   // -----------------------------------------------------------------------------
-  static BorderRadius superBorderAll(BuildContext context, double corners) {
-    return BorderRadius.all(Radius.circular(corners));
-  }
-  // -----------------------------------------------------------------------------
-  static BorderRadius superLogoShape({
+
+  /// SHAPES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BorderRadius shapeOfLogo({
     @required BuildContext context,
     bool zeroCornerEnIsRight,
     double corner,
   }) {
 
     final BorderRadius _superLogoShape = zeroCornerEnIsRight ?
-    superBorderOnly(
+    cornerOnly(
       context: context,
       enBottomLeft: corner,
       enBottomRight: 0,
@@ -62,7 +114,7 @@ class Borderers {
       enTopRight: corner,
     )
         :
-    superBorderOnly(
+    cornerOnly(
       context: context,
       enBottomLeft: 0,
       enBottomRight: corner,
@@ -72,36 +124,65 @@ class Borderers {
 
     return _superLogoShape;
   }
-  // -----------------------------------------------------------------------------
-  static BorderRadius superBorder({
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BorderRadius shapeOfOneSideCorners({
     @required BuildContext context,
-    dynamic corners,
+    @required AxisDirection side,
+    @required double corner
   }) {
-    BorderRadius _corner;
+    switch (side) {
+      case AxisDirection.up:
+        return cornerOnly(
+          context: context,
+          enTopLeft: corner,
+          enTopRight: corner,
+          enBottomLeft: 0,
+          enBottomRight: 0,
+        );
+        break;
 
-    if (corners == null || corners == 0) {
-      _corner = BorderRadius.zero;
+      case AxisDirection.down:
+        return cornerOnly(
+          context: context,
+          enTopLeft: 0,
+          enTopRight: 0,
+          enBottomLeft: corner,
+          enBottomRight: corner,
+        );
+        break;
+
+      case AxisDirection.right:
+        return cornerOnly(
+          context: context,
+          enTopLeft: 0,
+          enTopRight: corner,
+          enBottomLeft: 0,
+          enBottomRight: corner,
+        );
+        break;
+
+      case AxisDirection.left:
+        return cornerOnly(
+          context: context,
+          enTopLeft: corner,
+          enTopRight: 0,
+          enBottomLeft: corner,
+          enBottomRight: 0,
+        );
+        break;
+
+      default:
+        return null;
     }
-
-    else if (corners is num) {
-      _corner = superBorderAll(context, corners.toDouble());
-    }
-
-    else if (corners is BorderRadius) {
-      _corner = corners;
-    }
-
-    else {
-      final Error _error = ArgumentError('superBorder corners is invalid', 'superBorder');
-
-      throw _error;
-    }
-
-    return _corner;
   }
   // -----------------------------------------------------------------------------
-  static double getCornersAsDouble(dynamic corners) {
 
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getCornersAsDouble(dynamic corners) {
     double _topLeftCorner = 0;
 
     if (corners != null){
@@ -122,9 +203,9 @@ class Borderers {
 
     return _topLeftCorner;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners) {
-
     BorderRadius _cornerBorders;
 
     if (corners == 0) {
@@ -136,61 +217,10 @@ class Borderers {
     }
 
     else {
-      _cornerBorders = superBorderAll(context, corners?.toDouble());
+      _cornerBorders = cornerAll(context, corners?.toDouble());
     }
 
     return _cornerBorders;
   }
   // -----------------------------------------------------------------------------
-  static BorderRadius superOneSideBorders({
-    @required BuildContext context,
-    @required AxisDirection side,
-    @required double corner
-  }) {
-    switch (side) {
-      case AxisDirection.up:
-        return superBorderOnly(
-          context: context,
-          enTopLeft: corner,
-          enTopRight: corner,
-          enBottomLeft: 0,
-          enBottomRight: 0,
-        );
-        break;
-
-      case AxisDirection.down:
-        return superBorderOnly(
-          context: context,
-          enTopLeft: 0,
-          enTopRight: 0,
-          enBottomLeft: corner,
-          enBottomRight: corner,
-        );
-        break;
-
-      case AxisDirection.right:
-        return superBorderOnly(
-          context: context,
-          enTopLeft: 0,
-          enTopRight: corner,
-          enBottomLeft: 0,
-          enBottomRight: corner,
-        );
-        break;
-
-      case AxisDirection.left:
-        return superBorderOnly(
-          context: context,
-          enTopLeft: corner,
-          enTopRight: 0,
-          enBottomLeft: corner,
-          enBottomRight: 0,
-        );
-        break;
-
-      default:
-        return null;
-    }
-  }
-// -----------------------------------------------------------------------------
 }

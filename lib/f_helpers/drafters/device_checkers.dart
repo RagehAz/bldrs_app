@@ -16,32 +16,28 @@ class DeviceChecker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool deviceIsIOS(){
-    bool _isIOS;
 
     if (Platform.isIOS == true){
-      _isIOS = true;
+      return true;
     }
 
     else {
-      _isIOS = false;
+      return false;
     }
 
-    return _isIOS;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool deviceIsAndroid(){
-    bool _inAndroid;
 
     if (Platform.isAndroid == true){
-      _inAndroid = true;
+      return true;
     }
 
     else {
-      _inAndroid = false;
+      return false;
     }
 
-    return _inAndroid;
   }
   // -----------------------------------------------------------------------------
 
@@ -50,19 +46,17 @@ class DeviceChecker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool deviceIsLandscape(BuildContext context){
+
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
 
-    bool _isLandscape;
-
     if (_mediaQuery.orientation == Orientation.landscape){
-      _isLandscape = true;
+      return true;
     }
 
     else {
-      _isLandscape = false;
+      return false;
     }
 
-    return _isLandscape;
   }
   // -----------------------------------------------------------------------------
 
@@ -75,7 +69,6 @@ class DeviceChecker {
     ConnectivityResult streamResult,
   }) async {
 
-    bool _connected = false;
     ConnectivityResult _result;
 
     await tryAndCatch(
@@ -91,34 +84,33 @@ class DeviceChecker {
 
     /// THROUGH MOBILE NETWORK
     if (_result == ConnectivityResult.mobile) {
-      _connected = true;
+      return true;
     }
 
     /// THROUGH WIFI
     else if (_result == ConnectivityResult.wifi) {
-      _connected = true;
+      return true;
     }
 
     /// THROUGH BLUETOOTH
     else if (_result == ConnectivityResult.bluetooth){
-      _connected = true;
+      return true;
     }
 
     /// THROUGH ETHERNET
     else if (_result == ConnectivityResult.ethernet){
-      _connected = true;
+      return true;
     }
 
     /// NOT CONNECTED
     else if (_result == ConnectivityResult.none){
-      _connected = false;
+      return false;
     }
 
     else {
-      _connected = false;
+      return false;
     }
 
-    return _connected;
   }
   // -----------------------------------------------------------------------------
 }

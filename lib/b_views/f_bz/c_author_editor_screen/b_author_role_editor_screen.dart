@@ -107,9 +107,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
           headerViewModel: const BubbleHeaderVM(
               centered: true
           ),
-          margins: Scale.superMargins(
-              margins: 20
-          ),
+          margins: Scale.constantMarginsAll20,
           columnChildren: <Widget>[
 
             /// PADDING

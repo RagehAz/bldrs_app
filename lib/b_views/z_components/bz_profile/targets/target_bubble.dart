@@ -30,9 +30,9 @@ class TargetCard extends StatelessWidget {
     // --------------------
     return Container(
       width: _bubbleClearWidth,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colorz.white20,
-        borderRadius: Borderers.superBorderAll(context, 20),
+        borderRadius: Borderers.constantCornersAll20,
       ),
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(5),

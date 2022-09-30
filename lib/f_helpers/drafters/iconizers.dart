@@ -150,9 +150,7 @@ class Iconizer {
       phid: assetName,
     );
 
-    final String _path = _assetPath.isNotEmpty ? _assetPath?.first : null;
-
-    return _path;
+    return _assetPath.isNotEmpty ? _assetPath?.first : null;
   }
   // -----------------------------------------------------------------------------
 }
