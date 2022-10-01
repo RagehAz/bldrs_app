@@ -365,7 +365,9 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 
 // --------------------
 Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
+  blog('_initializeMyDeviceFCMToken : START');
   await FCM.updateMyUserFCMToken(context: context);
+  blog('_initializeMyDeviceFCMToken : END');
 }
 // -----------------------------------------------------------------------------
 
