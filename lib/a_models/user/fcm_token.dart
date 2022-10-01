@@ -46,6 +46,35 @@ class FCMToken {
   }
   // -----------------------------------------------------------------------------
 
+  /// CHECKERS
+
+  // --------------------
+  static bool checkTokensAreIdentical(FCMToken token1, FCMToken token2){
+    bool _identical = false;
+
+    if (token1 == null && token2 == null){
+      _identical = true;
+    }
+    else {
+
+      if (token1 != null && token2 != null){
+
+        if (
+            token1.token == token2.token &&
+            Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: token1.createdAt, time2: token2.createdAt) &&
+            token1.platform == token2.platform
+        ){
+          _identical = true;
+        }
+
+      }
+
+    }
+
+    return _identical;
+  }
+  // -----------------------------------------------------------------------------
+
   /// BLOGGING
 
   // --------------------
@@ -53,4 +82,34 @@ class FCMToken {
     blog('Token : platform $platform : createdAt : $createdAt : token : $token');
   }
   // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+  // --------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+  // --------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is FCMToken){
+      _areIdentical = checkTokensAreIdentical(this, other);
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      token.hashCode^
+      createdAt.hashCode^
+      platform.hashCode;
+// -----------------------------------------------------------------------------
 }

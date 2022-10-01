@@ -569,8 +569,8 @@ class UserModel {
           user1.isAdmin == user2.isAdmin &&
           Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
           Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
-          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState)
-      // FCMToken fcmToken;
+          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) &&
+          FCMToken.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken)
       // DocumentSnapshot docSnapshot;
 
       ){
