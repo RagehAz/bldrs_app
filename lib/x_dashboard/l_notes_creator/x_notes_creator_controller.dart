@@ -33,7 +33,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/search_bzz_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/search_users_screen.dart';
+import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/a_notes_testing_screen.dart';
 import 'package:flutter/material.dart';

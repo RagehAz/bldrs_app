@@ -283,6 +283,7 @@ class BldrsAppBar extends StatelessWidget {
                           height: _abHeight - (2 * Ratioz.appBarPadding),
                           alignment: Alignment.center,
                           child: ListView(
+                            physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             controller: appBarScrollController,
                             children: appBarRowWidgets,
