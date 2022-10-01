@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:flutter/material.dart';

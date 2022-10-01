@@ -13,12 +13,11 @@ import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/notifications/notifications.dart';
-import 'package:bldrs/f_helpers/notifications/local_note.dart';
+import 'package:bldrs/e_back_end/e_fcm/notifications.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,7 +43,7 @@ Future<void> main() async {
   // --------------------
   await Firebase.initializeApp();
   // --------------------
-  await Notifications.preInitializeNotifications();
+  await FCM.preInitializeNotifications();
   /// --------------------------------------------------------------------------
   runApp(const BldrsApp());
   /// --------------------------------------------------------------------------
@@ -106,8 +105,7 @@ class _BldrsAppState extends State<BldrsApp> {
         );
 
         /// NOTIFICATIONS
-        await LocalNotification.initialize(context);
-        await Notifications.initializeNotifications(context);
+        await FCM.initializeNotifications(context);
 
         /// DYNAMIC LINKS
         await DynamicLinks.initializeDynamicLinks(context);

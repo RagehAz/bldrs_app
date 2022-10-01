@@ -1,5 +1,0 @@
-
-enum FCMChannel {
-  basic,
-  scheduled,
-}

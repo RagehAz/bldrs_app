@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/streamers/real/real_coll_paginator.dart';
 import 'package:bldrs/b_views/z_components/streamers/real/real_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/streamers/real/real_doc_streamer.dart';
-import 'package:bldrs/e_db/real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';

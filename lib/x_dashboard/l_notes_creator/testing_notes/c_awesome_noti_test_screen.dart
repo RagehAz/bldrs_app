@@ -7,8 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/notifications.dart';
-import 'package:bldrs/f_helpers/notifications/notifications_models/fcm_channel.dart';
+import 'package:bldrs/e_back_end/e_fcm/notifications.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/cc_note_route_to_screen.dart';
@@ -152,7 +151,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
       _awesomeNotification.actionStream.listen((ReceivedAction notification) async {
 
-        final bool _isBasicChannel = notification.channelKey == Notifications.getNotificationChannelName(FCMChannel.basic);
+        final bool _isBasicChannel = notification.channelKey == FCM.getNotificationChannelName(FCMChannel.basic);
 
         final bool _isIOS = DeviceChecker.deviceIsIOS();
 
@@ -175,7 +174,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSendScheduledNotification() async {
-    await Notifications.createScheduledNotification();
+    await FCM.createScheduledNotification();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -232,7 +231,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             verseColor: Colorz.black255,
             verseShadow: false,
             onTap: () async {
-              await Notifications.cancelScheduledNotification();
+              await FCM.cancelScheduledNotification();
             },
           ),
 
