@@ -11,9 +11,9 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/auth_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

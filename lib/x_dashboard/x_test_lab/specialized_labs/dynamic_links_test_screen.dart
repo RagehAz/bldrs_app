@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
+import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 

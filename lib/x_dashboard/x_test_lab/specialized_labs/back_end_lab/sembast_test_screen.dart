@@ -3,8 +3,8 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/foundation/sembast_api.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:bldrs/e_back_end/d_ldb/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
