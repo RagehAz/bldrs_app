@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -32,7 +33,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/search_bzz_screen.dart';
+import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/a_notes_testing_screen.dart';
@@ -780,19 +781,22 @@ Future<void> onSendNote({
   @required GlobalKey<FormState> formKey,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
-  @required String receiverName,
   @required ScrollController scrollController,
   @required ValueNotifier<List<String>> receiversIDs,
 }) async {
+
+  blog('a77a? ');
 
   final bool _formIsValid = formKey.currentState.validate();
 
   if (_formIsValid == true){
 
+    final String _receiverTypeString = note.value.receiverType == NoteSenderOrRecieverType.bz ? 'Bzz' : 'Users';
+
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse.plain('Send ?'),
-      bodyVerse: Verse.plain('Do you want to confirm sending this notification to $receiverName : ( ${note.value.receiverType} )'),
+      bodyVerse: Verse.plain('Do you want to confirm sending this notification to ${receiversIDs.value.length} $_receiverTypeString '),
       boolDialog: true,
     );
 

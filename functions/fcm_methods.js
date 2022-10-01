@@ -42,7 +42,7 @@ admin.initializeApp();
 const onNoteCreation = functions.firestore
     .document('notes/{note}')
     .onCreate((snapshot, context) => {
-      functions.logger.log('onNoteCreation : START');
+      functions.logger.log('onNoteCreation : 1 - IT WAS WORKING OXEM BELLAH');
       const noteModel = snapshot.data();
       const token = noteModel.token;
       const noteTitle = noteModel.notification.notification.title;
@@ -75,15 +75,23 @@ const onNoteCreation = functions.firestore
           },
         },
       };
-      functions.logger.log('onNoteCreation : isa works');
-      if (noteModel.sendFCM == true) {
-        if (noteModel.topic == null) {
-          admin.messaging().send(map);
-        } else {
-          admin.messaging().sendToTopic(noteModel.topic, map);
-        }
-      }
-      functions.logger.log('onNoteCreation : END');
+      functions.logger.log('onNoteCreation : JUST BEFORE I SEND AHO');
+      admin.messaging().send(map)
+          .then(function(response) {
+            functions.logger.log(
+                'onNoteCreation : message is sent & the fukin response is',
+                response,
+            );
+            functions.logger.log(
+                response.results[0].error,
+            );
+          }).catch(function(error) {
+            functions.logger.log(
+                'onNoteCreation : some wise error is preventing shit from going loud',
+                error,
+            );
+          });
+      functions.logger.log('onNoteCreation : I JUST SENT THE DAMN THING AND SHOULD WORK');
       return noteModel;
     });
 // -------------------------------------
