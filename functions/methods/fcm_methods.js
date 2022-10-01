@@ -28,7 +28,7 @@ const admin = require('firebase-admin');
 //  INITIALIZATION
 
 // -------------------------------------
-admin.initializeApp();
+// admin.initializeApp();
 // admin.initializeApp(functions.config().firebase);
 // const fireFunction = functions.firestore;
 // const fireMessaging = admin.messaging();
@@ -42,11 +42,14 @@ admin.initializeApp();
 const onNoteCreation = functions.firestore
     .document('notes/{note}')
     .onCreate((snapshot, context) => {
-      functions.logger.log('onNoteCreation : 1 - IT WAS WORKING OXEM BELLAH');
       const noteModel = snapshot.data();
+      functions.logger.log(`onNoteCreation : 1 - noteID is : ${noteModel.senderID}`);
       const token = noteModel.token;
+      functions.logger.log(`onNoteCreation : 2 - token is : ${token}`);
       const noteTitle = noteModel.notification.notification.title;
+      functions.logger.log(`onNoteCreation : 3 - noteTitle is : ${noteTitle}`);
       const body = noteModel.notification.notification.body;
+      functions.logger.log(`onNoteCreation : 4 - body is : ${body}`);
       const map = {
         token: token,
         notification: {
@@ -75,11 +78,11 @@ const onNoteCreation = functions.firestore
           },
         },
       };
-      functions.logger.log('onNoteCreation : JUST BEFORE I SEND AHO');
+      functions.logger.log('onNoteCreation : 5 - JUST BEFORE I SEND AHO');
       admin.messaging().send(map)
           .then(function(response) {
             functions.logger.log(
-                'onNoteCreation : message is sent & the fukin response is',
+                'onNoteCreation : 6 - message is sent & the fukin response is',
                 response,
             );
             functions.logger.log(
@@ -87,13 +90,21 @@ const onNoteCreation = functions.firestore
             );
           }).catch(function(error) {
             functions.logger.log(
-                'onNoteCreation : some wise error is preventing shit from going loud',
-                error,
+                'onNoteCreation : 7 - some wise error is preventing shit from going loud',
+                error.errorInfo.code,
+                error.errorInfo.message,
+                error.codePrefix,
             );
+            if (error.errorInfo.code == 'messaging/registration-token-not-registered') {
+              functions.logger.log('onNoteCreation : 8 - we should delete user token nowwwwww');
+            }
           });
-      functions.logger.log('onNoteCreation : I JUST SENT THE DAMN THING AND SHOULD WORK');
+      functions.logger.log('onNoteCreation : 9 - I JUST SENT THE DAMN THING AND SHOULD WORK');
       return noteModel;
     });
+// -------------------------------------
+// firebase deploy --only functions:onNoteCreation
+// firebase deploy --only functions
 // -------------------------------------
 // const x_myFunction = fireFunction
 // .document('flyers/{flyer}')
