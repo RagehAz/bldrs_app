@@ -85,10 +85,10 @@ class ImageSize {
   // --------------------
   static double getHeightByAspectRatio({
     @required double aspectRatio,
-    @required double originalWidth,
+    @required double width,
   }){
     /// AspectRatio is width / height => so = oWidth / oHeight
-    return originalWidth / aspectRatio;
+    return width / aspectRatio;
   }
   // --------------------
   /*

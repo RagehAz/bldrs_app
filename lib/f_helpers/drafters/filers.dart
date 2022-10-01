@@ -604,7 +604,10 @@ class Filers {
         _imgImage = Floaters.resizeImgImage(
           imgImage: _imgImage,
           width: finalWidth.floor(),
-          height:  (_aspectRatio * finalWidth.floor()).floor(),
+          height: ImageSize.getHeightByAspectRatio(
+              aspectRatio: _aspectRatio,
+              width: finalWidth
+          ).floor(),
         );
 
         final File _refile = await Filers.getFileFromImgImage(
