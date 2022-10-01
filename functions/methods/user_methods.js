@@ -12,12 +12,22 @@ const admin = require('firebase-admin');
 // -------------------------------------
 const deleteUserToken = (userID) => {
   functions.logger.log(`deleteUserToken : 1 - START : with userID : [${userID}]`);
-  const userDoc = admin.firestore().collection('users').doc('userID');
-  functions.logger.log(`deleteUserToken : 2 - got user doc : [${userDoc}]`);
-  userDoc.update({
-    token: null,
+  const userDocRef = admin.firestore().collection('users').doc(userID);
+  functions.logger.log('deleteUserToken : 2 - should start deleting fcmToken field now');
+  userDocRef.update({
+    fcmToken: admin.firestore.FieldValue.delete(),
+  }).then(function(response) {
+    functions.logger.log(
+        'deleteUserToken : 3 - just finished deleting and',
+        `response : [${response}]`,
+    );
+  }).catch(function(error) {
+    functions.logger.log(
+        'deleteUserToken : 3 - could not delete user token',
+        `error : [${error}]`,
+    );
   });
-  functions.logger.log('deleteUserToken : 3 - END : user token should have been assigned as null');
+  functions.logger.log('deleteUserToken : 4 - END');
 };
 // --------------------------------------------------------------------------
 
