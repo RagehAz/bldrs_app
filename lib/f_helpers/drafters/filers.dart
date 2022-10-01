@@ -269,16 +269,25 @@ class Filers {
     @required String fileName,
   }) async {
 
-    final File _file = await createNewEmptyFile(
-      fileName: fileName,
-    );
+    if (uInt8List != null){
+      final File _file = await createNewEmptyFile(
+        fileName: fileName,
+      );
 
-    final File _result = await writeUint8ListOnFile(
-      uint8list: uInt8List,
-      file: _file,
-    );
+      final File _result = await writeUint8ListOnFile(
+        uint8list: uInt8List,
+        file: _file,
+      );
 
-    return _result;
+      return _result;
+
+    }
+
+    else {
+      return null;
+    }
+
+
   }
 // ---------------------
   /// TESTED : WORKS PERFECT
