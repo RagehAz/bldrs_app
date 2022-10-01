@@ -5,8 +5,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
-import 'package:bldrs/e_db/real/ops/phrase_real_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/phrase_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/real_ops/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';

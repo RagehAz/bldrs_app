@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/real_ops/bz_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
