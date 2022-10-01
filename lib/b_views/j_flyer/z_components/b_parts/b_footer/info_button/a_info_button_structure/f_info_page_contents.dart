@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/report_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';

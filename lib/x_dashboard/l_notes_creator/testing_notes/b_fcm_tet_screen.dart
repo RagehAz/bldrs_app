@@ -7,13 +7,13 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
-import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
-import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
-import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
+import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/notifications/notifications.dart';
+import 'package:bldrs/e_back_end/e_fcm/notifications.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -85,7 +85,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
       criticalAlert: true,
     );
 
-    Notifications.blogNotificationSettings(_settings);
+    FCM.blogNotificationSettings(_settings);
   }
   // --------------------
   Future<String> _getToken() async {
@@ -105,7 +105,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   // --------------------
   Future<void> _updateMyUserFCMToken() async {
 
-    await Notifications.updateMyUserFCMToken(context: context);
+    await FCM.updateMyUserFCMToken(context: context);
 
   }
   // --------------------

@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_controllers.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/users_tile_buttons_list.dart';

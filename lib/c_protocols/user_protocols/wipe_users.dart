@@ -10,10 +10,10 @@ import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/auth_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 

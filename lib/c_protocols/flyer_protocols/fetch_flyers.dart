@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';

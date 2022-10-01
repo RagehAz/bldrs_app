@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';

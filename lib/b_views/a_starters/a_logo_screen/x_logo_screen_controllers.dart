@@ -13,15 +13,15 @@ import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
-import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/app_state_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/auth_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/notifications/notifications.dart';
+import 'package:bldrs/e_back_end/e_fcm/notifications.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -365,7 +365,7 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 
 // --------------------
 Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
-  await Notifications.updateMyUserFCMToken(context: context);
+  await FCM.updateMyUserFCMToken(context: context);
 }
 // -----------------------------------------------------------------------------
 

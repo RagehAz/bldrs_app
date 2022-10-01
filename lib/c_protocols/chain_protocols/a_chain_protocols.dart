@@ -6,10 +6,10 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/chain_ldb_ops.dart';
-import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
-import 'package:bldrs/e_db/real/ops/city_phids_real_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/app_state_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/chain_ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/real_ops/chain_real_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/real_ops/city_phids_real_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

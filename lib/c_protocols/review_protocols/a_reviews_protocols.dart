@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
-import 'package:bldrs/e_db/real/foundation/real.dart';
-import 'package:bldrs/e_db/real/foundation/real_colls.dart';
-import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
-import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
-import 'package:bldrs/e_db/fire/ops/review_fire_ops.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';
+import 'package:bldrs/e_back_end/x_ops/real_ops/bz_record_real_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/real_ops/flyer_record_real_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/review_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 

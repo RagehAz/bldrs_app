@@ -16,7 +16,7 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
-import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
