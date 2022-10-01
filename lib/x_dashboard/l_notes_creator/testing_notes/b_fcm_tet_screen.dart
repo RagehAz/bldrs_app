@@ -13,7 +13,7 @@ import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/e_back_end/e_fcm/notifications.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
