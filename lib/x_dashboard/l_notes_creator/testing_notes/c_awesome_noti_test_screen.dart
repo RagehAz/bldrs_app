@@ -27,28 +27,22 @@ class AwesomeNotiTestScreen extends StatefulWidget {
 
 class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   //var vibrationPattern = new Int64List.fromList([1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]);
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
       }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'StaticLogoScreen',);
     }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   AwesomeNotifications _awesomeNotification;
   GlobalKey _scaffoldKey;
   StreamSubscription _streamSubscription;
@@ -185,6 +179,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('Awesome notification test'),
+      loading: _loading,
       layoutWidget: Column(
         children: <Widget>[
 

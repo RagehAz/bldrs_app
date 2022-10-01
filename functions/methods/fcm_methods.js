@@ -1,38 +1,11 @@
 // --------------------------------------------------------------------------
 
-//  NOTES
-
-// -------------------------------------
-// const dummyRealTimeOnCreateMethod = functions.database
-//     .ref('/collName/{docID}')
-//     .onWrite(async (event, context) => {
-//        const docMap = event.after.val();
-//       return stuff;
-//     });
-// -------------------------------------
-// const dummyFireOnCreateMethod = functions.firestore
-//     .document('/collName/{docID}')
-//     .onWrite((snapshot, context) => {
-//        const docMap = change.data();
-//       return stuff;
-//     });
-// --------------------------------------------------------------------------
-
 //  IMPORTS
 
 // -------------------------------------
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-// --------------------------------------------------------------------------
-
-//  INITIALIZATION
-
-// -------------------------------------
-// admin.initializeApp();
-// admin.initializeApp(functions.config().firebase);
-// const fireFunction = functions.firestore;
-// const fireMessaging = admin.messaging();
-// const fireAdmin = admin.firestore();
+const userMethods = require('./user_methods');
 // --------------------------------------------------------------------------
 
 //  METHODS
@@ -43,13 +16,13 @@ const onNoteCreation = functions.firestore
     .document('notes/{note}')
     .onCreate((snapshot, context) => {
       const noteModel = snapshot.data();
-      functions.logger.log(`onNoteCreation : 1 - noteID is : ${noteModel.senderID}`);
+      functions.logger.log(`onNoteCreation : 1 - START : senderID is : [${noteModel.senderID}]`);
       const token = noteModel.token;
-      functions.logger.log(`onNoteCreation : 2 - token is : ${token}`);
+      functions.logger.log(`onNoteCreation : 2 - token is : [${token}]`);
       const noteTitle = noteModel.notification.notification.title;
-      functions.logger.log(`onNoteCreation : 3 - noteTitle is : ${noteTitle}`);
+      functions.logger.log(`onNoteCreation : 3 - noteTitle is : [${noteTitle}]`);
       const body = noteModel.notification.notification.body;
-      functions.logger.log(`onNoteCreation : 4 - body is : ${body}`);
+      functions.logger.log(`onNoteCreation : 4 - body is : [${body}]`);
       const map = {
         token: token,
         notification: {
@@ -78,132 +51,34 @@ const onNoteCreation = functions.firestore
           },
         },
       };
-      functions.logger.log('onNoteCreation : 5 - JUST BEFORE I SEND AHO');
-      admin.messaging().send(map)
-          .then(function(response) {
-            functions.logger.log(
-                'onNoteCreation : 6 - message is sent & the fukin response is',
-                response,
-            );
-            functions.logger.log(
-                response.results[0].error,
-            );
-          }).catch(function(error) {
-            functions.logger.log(
-                'onNoteCreation : 7 - some wise error is preventing shit from going loud',
-                error.errorInfo.code,
-                error.errorInfo.message,
-                error.codePrefix,
-            );
-            if (error.errorInfo.code == 'messaging/registration-token-not-registered') {
-              functions.logger.log('onNoteCreation : 8 - we should delete user token nowwwwww');
-            }
-          });
-      functions.logger.log('onNoteCreation : 9 - I JUST SENT THE DAMN THING AND SHOULD WORK');
+      functions.logger.log('onNoteCreation : 5 - just before fcm is sent');
+      if (noteModel.sendFCM == true) {
+        admin.messaging().send(map)
+            .then(function(response) {
+              functions.logger.log(
+                  'onNoteCreation : 6 - message is sent SUCCESSFULLY and response is :',
+                  response,
+              );
+            }).catch(function(error) {
+              functions.logger.log(
+                  'onNoteCreation : 6 - some wise error is preventing shit from going loud',
+                  `code : [${error.errorInfo.code}]`,
+                  `message : [${error.errorInfo.message}]`,
+                  `codePrefix : [${error.codePrefix}]`,
+              );
+              if (noteModel.receiverType == 'user') {
+                if (error.errorInfo.code == 'messaging/registration-token-not-registered') {
+                  userMethods.deleteUserToken(noteModel.receiverID);
+                }
+              }
+            });
+      }
+      functions.logger.log('onNoteCreation : 9 - END : FCM should have been sent by now');
       return noteModel;
     });
 // -------------------------------------
 // firebase deploy --only functions:onNoteCreation
 // firebase deploy --only functions
-// -------------------------------------
-// const x_myFunction = fireFunction
-// .document('flyers/{flyer}')
-// .onCreate((snapshot, context) => {
-//   return fireMessaging.sendToTopic('flyers', {
-//     notification: {
-//       title: snapshot.data().username,
-//       body: snapshot.data().text,
-//       clickAction: 'FLUTTER_NOTIFICATION_CLICK',
-//     },
-//   });
-// });
-// -------------------------------------
-// const oldFcmToDevice = functions.firestore
-//     .document('notes/{note}')
-//     .onCreate((snapshot, context) => {
-//       functions.logger.log(
-//           'fcmToDevice : START',
-//       );
-//       const noteModel = snapshot.data();
-//       const token = noteModel.token;
-//       const noteTitle = noteModel.notification.notification.title;
-//       const body = noteModel.notification.notification.body;
-//       const payload = {
-//         notification: {
-//           title: noteTitle,
-//           body: body,
-//           sound: 'default',
-//           badge: '1',
-//           clickAction: 'FLUTTER_NOTIFICATION_CLICK',
-//           data: 'bitch',
-//         },
-//         data: {
-//           to: token,
-//           // mutable_content: true,
-//           // content_available: true,
-//           priority: 'high',
-//           data: {
-//             content: {
-//               id: noteModel.id,
-//               title: noteTitle,
-//               body: body,
-//               // showWhen: true,
-//               // autoDismissible: true,
-//               privacy: 'Private',
-//             },
-//           },
-//         },
-//       };
-//       const options = {
-//         priority: 'high',
-//       };
-//       functions.logger.log(
-//           'fcmToDevice : this will work isa 2ool yarab',
-//       );
-//       admin.messaging().send(token, payload, options);
-//       functions.logger.log(
-//           'fcmToDevice : END',
-//       );
-//       return noteModel;
-//     });
-// -------------------------------------
-// const sendNotificationToDevice = functions.firestore
-//     .document('notes/{note}')
-//     .onCreate((snapshot, context) => {
-//       const noteModel = snapshot.data();
-//       const title = noteModel.title;
-//       const token = noteModel.token;
-//       const body = noteModel.body;
-//       const payload = {
-//         notification: {
-//           title: title,
-//           body: body,
-//           sound: 'default',
-//           badge: '1',
-//         },
-//       };
-//       const options = {
-//         priority: 'high',
-//       };
-//       functions.logger.log(
-//           'testing this fucking function why is not working sendNotificationToDevice',
-//       );
-//       try {
-//         const response = admin.messaging()
-//             .sendToDevice(token, payload, options);
-//         functions.logger.log(
-//             'sendNotification : message sent successfuly',
-//             response);
-//         functions.logger.log(
-//             response.results[0].error);
-//         return 'Notification send: ', response;
-//       } catch (error) {
-//         functions.logger.log(
-//             'sendNotification : error sending notification',
-//             error);
-//         throw ('Notification sent: ', error);
-//       }
-//     });
 // --------------------------------------------------------------------------
 
 //  MODULE EXPORTS

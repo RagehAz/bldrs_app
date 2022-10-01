@@ -1,6 +1,8 @@
 import 'dart:io';
 /// ~~~~~~~~~~~~~~
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 /// ~~~~~~~~~~~~~~
@@ -384,15 +386,24 @@ class FCM {
           }
 
         },
-        onError: (String error){
+        onError: (String error) async {
+
+          await CenterDialog.showCenterDialog(
+            context: context,
+            titleVerse: const Verse(
+              text: '##Notifications are temporarily suspended',
+              translate: true,
+            ),
+            onOk: (){
+              blog('error is : $error');
+            }
+          );
 
           /// error codes reference
           // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
           // UNREGISTERED (HTTP 404)
           // INVALID_ARGUMENT (HTTP 400)
           // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-
-          /// TASK : SHOULD DELETE THE FCM TOKEN FROM USER DOC AND GENERATE NEW TOKEN !
 
         },
       );
@@ -408,6 +419,8 @@ class FCM {
             createdAt: DateTime.now(),
             platform: Platform.operatingSystem,
           );
+
+          _token.blogToken();
 
           final UserModel _updated = _myUserModel.copyWith(
             fcmToken: _token,
