@@ -1,6 +1,4 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -17,8 +15,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -892,54 +888,20 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       const Expander(),
 
                       /// SEND BUTTON
-                      FutureBuilder(
-                          future:
-                          note?.receiverType == NoteSenderOrRecieverType.user ?
-                          UserProtocols.fetchUser(
+                      ConfirmButton(
+                        confirmButtonModel: ConfirmButtonModel(
+                          firstLine: Verse.plain('Send'),
+                          isDeactivated: !NoteModel.checkCanSendNote(note),
+                          onTap: () => onSendNote(
                             context: context,
-                            userID: note?.receiverID,
-                          )
-                              :
-                          note?.receiverType == NoteSenderOrRecieverType.bz ?
-                          BzProtocols.fetchBz(
-                            context: context,
-                            bzID: note?.receiverID,
-                          )
-                              :
-                          null
-                          ,
-                          builder: (_, AsyncSnapshot<Object> snapshot){
-
-
-                            String _receiverName;
-
-                            if (note?.receiverType == NoteSenderOrRecieverType.user){
-                              final UserModel _user = snapshot.data;
-                              _receiverName = _user?.name;
-                            }
-                            else if (note?.receiverType == NoteSenderOrRecieverType.bz){
-                              final BzModel _bz = snapshot.data;
-                              _receiverName = _bz?.name;
-                            }
-
-                            return ConfirmButton(
-                              confirmButtonModel: ConfirmButtonModel(
-                                firstLine: Verse.plain('Send'),
-                                isDeactivated: !NoteModel.checkCanSendNote(note),
-                                onTap: () => onSendNote(
-                                  context: context,
-                                  note: _noteNotifier,
-                                  formKey: _formKey,
-                                  titleController: _titleController,
-                                  bodyController: _bodyController,
-                                  receiverName: _receiverName,
-                                  scrollController: _scrollController,
-                                  receiversIDs: _receiversIDs,
-                                ),
-                              ),
-                            );
-
-                          }
+                            note: _noteNotifier,
+                            formKey: _formKey,
+                            titleController: _titleController,
+                            bodyController: _bodyController,
+                            scrollController: _scrollController,
+                            receiversIDs: _receiversIDs,
+                          ),
+                        ),
                       ),
 
                     ],
