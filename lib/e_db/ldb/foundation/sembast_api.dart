@@ -285,7 +285,7 @@ class Sembast  {
       }).toList();
 
     }
-    blog('Sembast : readMaps : $docName : $primaryKeyName : $_maps');
+    blog('Sembast : readMaps : $docName : $primaryKeyName : ${_maps.length} maps');
 
     return _maps;
   }

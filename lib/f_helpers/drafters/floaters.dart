@@ -390,12 +390,29 @@ static img.Image decodeToImgImage({
   /// INTs : List<int>
 
   // --------------------
-  static List<int> getIntsFromUint7List(Uint8List uInt){
+  static List<int> getIntsFromUint8List(Uint8List uInt){
     List<int> _ints;
 
     if (uInt != null){
       _ints = uInt.toList();
     }
+
+    return _ints;
+  }
+
+  static List<int> getIntsFromDynamics(List<dynamic> ints){
+    final List<int> _ints = <int>[];
+
+    if (ints != null){
+      // _ints.addAll(_ints);
+
+      for (int i = 0; i < ints.length; i++){
+        _ints.add(ints[0]);
+      }
+
+    }
+
+
 
     return _ints;
   }

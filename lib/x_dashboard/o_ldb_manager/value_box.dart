@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -20,10 +21,16 @@ class ValueBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: () => Keyboard.copyToClipboard(
-        context: context,
-        copy: value,
-      ),
+      onTap: () async {
+
+        blog('copyToClipboard : value.runTimeType : ${value.runtimeType}');
+
+        await Keyboard.copyToClipboard(
+          context: context,
+          copy: value,
+        );
+
+      },
       child: Container(
         height: 40,
         width: 80,
