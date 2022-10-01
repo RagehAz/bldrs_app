@@ -102,7 +102,7 @@ class FCM {
       await onReceiveNotification(
         context: context,
         remoteMessage: remoteMessage,
-        callerName: 'onMessage',
+        invoker: 'onMessage',
       );
     });
 
@@ -114,7 +114,7 @@ class FCM {
       onReceiveNotification(
         context: context,
         remoteMessage: remoteMessage,
-        callerName: 'onMessageOpenedApp',
+        invoker: 'onMessageOpenedApp',
       );
 
       /// to display the notification while app in foreground
@@ -134,11 +134,11 @@ class FCM {
   static Future<void> onReceiveNotification({
     @required BuildContext context,
     @required RemoteMessage remoteMessage,
-    @required String callerName,
+    @required String invoker,
   }) async {
 
     blogRemoteMessage(
-      methodName: 'callerName : $callerName',
+      methodName: 'callerName : $invoker',
       remoteMessage: remoteMessage,
     );
 

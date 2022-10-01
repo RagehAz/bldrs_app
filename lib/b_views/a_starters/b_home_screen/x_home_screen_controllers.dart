@@ -607,7 +607,7 @@ StreamSubscription initializeUserNotes(BuildContext context){
       onChange: (List<Map<String, dynamic>> allUpdatedMaps) async {
 
         blog('new maps are :-');
-        Mapper.blogMaps(allUpdatedMaps);
+        Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
 
         final List<NoteModel> _notes = NoteModel.decipherNotes(
           maps: allUpdatedMaps,

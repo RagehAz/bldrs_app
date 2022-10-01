@@ -17,7 +17,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/e_back_end/e_fcm/notifications.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_core/firebase_core.dart';
