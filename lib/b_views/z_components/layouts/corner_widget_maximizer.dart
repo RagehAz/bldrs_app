@@ -236,63 +236,65 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
               scale: _scaleAnimation,
               child: GestureDetector(
                 onTap: _animate,
-                child: ValueListenableBuilder(
-                  valueListenable: _isExpanded,
-                  builder: (_, bool expanded, Widget child){
+                child: SingleChildScrollView(
+                  child: ValueListenableBuilder(
+                    valueListenable: _isExpanded,
+                    builder: (_, bool expanded, Widget child){
 
-                    return Container(
-                      // constraints: BoxConstraints(
+                      return Container(
+                        // constraints: BoxConstraints(
                         // maxHeight: PageBubble.height(
                         //     appBarType: AppBarType.basic,
                         //     context: context,
                         //     screenHeight: Scale.superScreenHeight(context),
                         // ) - 20,
                         // maxWidth: widget.maxAllowableWidth,
-                      // ),
-                      decoration: BoxDecoration(
-                        borderRadius: Bubble.borders(context),
-                        color: Colorz.black255,
-                      ),
-                      alignment: Alignment.bottomCenter,
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
+                        // ),
+                        decoration: BoxDecoration(
+                          borderRadius: Bubble.borders(context),
+                          color: Colorz.black255,
+                        ),
+                        alignment: Alignment.bottomCenter,
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
 
-                            DreamBox(
-                              height: 35,
-                              width: 35,
-                              icon: expanded == true ? Iconz.arrowDown : Iconz.arrowUp,
-                              iconSizeFactor: 0.6,
-                              bubble: false,
-                            ),
-
-                            /// TOP CHILD
-                            if (expanded == true && widget.topChild != null)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: WidgetFader(
-                                  fadeType: FadeType.fadeIn,
-                                  duration: const Duration(milliseconds: 200),
-                                  child: widget.topChild,
-                                ),
+                              DreamBox(
+                                height: 35,
+                                width: 35,
+                                icon: expanded == true ? Iconz.arrowDown : Iconz.arrowUp,
+                                iconSizeFactor: 0.6,
+                                bubble: false,
                               ),
 
-                            /// BOTTOM CHILD
-                            AbsorbPointer(
-                              absorbing: !expanded,
-                              child: child,
-                            ),
+                              /// TOP CHILD
+                              if (expanded == true && widget.topChild != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: WidgetFader(
+                                    fadeType: FadeType.fadeIn,
+                                    duration: const Duration(milliseconds: 200),
+                                    child: widget.topChild,
+                                  ),
+                                ),
 
-                          ],
+                              /// BOTTOM CHILD
+                              AbsorbPointer(
+                                absorbing: !expanded,
+                                child: child,
+                              ),
+
+                            ],
+                          ),
                         ),
-                      ),
-                    );
+                      );
 
-                  },
-                  child: widget.child,
+                    },
+                    child: widget.child,
+                  ),
                 ),
               ),
             ),
