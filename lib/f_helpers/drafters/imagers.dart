@@ -298,7 +298,6 @@ class Imagers {
         _outputFiles = await resizeImages(
           inputFileModels: _outputFiles,
           resizeToWidth: resizeToWidth,
-          // isFlyerRatio: isFlyerRatio,
         );
       }
 

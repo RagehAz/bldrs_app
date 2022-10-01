@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_controllers.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/users_tile_buttons_list.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,25 @@ class SearchUsersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SearchUsersScreenState createState() => _SearchUsersScreenState();
+  /// --------------------------------------------------------------------------
+  static Future<UserModel> selectUser(BuildContext context) async {
+
+    final List<UserModel> _users = await Nav.goToNewScreen(
+        context: context,
+        screen: const SearchUsersScreen(
+          userIDsToExcludeInSearch: [],
+          // multipleSelection: false,
+        ),
+    );
+
+    if (Mapper.checkCanLoopList(_users) == true){
+      return _users.first;
+    }
+    else {
+      return null;
+    }
+
+  }
   /// --------------------------------------------------------------------------
 }
 

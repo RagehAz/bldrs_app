@@ -5,10 +5,9 @@ import 'dart:ui' as ui;
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
@@ -20,6 +19,8 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
+import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
@@ -53,14 +54,12 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // -----------
   Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+    setNotifier(
+      notifier: _loading,
+      value: setTo,
+      mounted: mounted,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -175,8 +174,31 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
     return MainLayout(
       loading: _loading,
       sectionButtonIsOn: false,
-      appBarType: AppBarType.basic,
+      appBarType: AppBarType.scrollable,
       appBarRowWidgets: <Widget>[
+
+        /// URL
+        AppBarButton(
+          icon: Iconz.comWebsite,
+          onTap: () async {
+
+            final UserModel _user = await SearchUsersScreen.selectUser(context);
+
+            if (_user != null){
+
+              await _triggerLoading(setTo: true);
+
+              final FileModel _pickedFileModel = await FileModel.createModelByUrl(
+                  url: _user.pic,
+                  fileName: _user.id,
+              );
+
+              await setImage(_pickedFileModel);
+
+            }
+
+          },
+        ),
 
         /// GALLERY PICK
         AppBarButton(
@@ -275,8 +297,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           onTap: _clearImage,
         ),
 
-        const Expander(),
-
         /// LDB
         AppBarButton(
           icon: Iconz.form,
@@ -288,6 +308,26 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                   ldbDocName:'tempPicDoc',
                 ),
             );
+
+          },
+        ),
+
+        /// LDB
+        AppBarButton(
+          icon: Iconz.arrowUp,
+          onTap: () async {
+
+           await  _triggerLoading(setTo: true);
+
+            await Storage.createStoragePicAndGetURL(
+                context: context,
+                docName: 'testFolder',
+                fileName: 'test',
+                ownersIDs: [AuthFireOps.superUserID()],
+                inputFile: await Filers.getFileFromBase64(_ldbBase64),
+            );
+
+           await  _triggerLoading(setTo: false);
 
           },
         ),
@@ -344,82 +384,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                             //     // await _ref.updateMetadata(metaData);
                             //
                             //   },
-                            // ),
-
-                            /// TAMAM : FILE
-                            // WideButton(
-                            //   width: _buttonWidth,
-                            //   color: Colorz.bloodTest,
-                            //   bubble: false,
-                            //   verse: Verse.plain('FILE : $_file'),
-                            //   icon: _file,
-                            //   iconSizeFactor: 1,
-                            //   verseScaleFactor: 0.6,
-                            //
-                            // ),
-
-                            /// TAMAM : uInt8List
-                            // WideButton(
-                            //   width: _buttonWidth,
-                            //   color: Colorz.bloodTest,
-                            //   bubble: false,
-                            //   verse: Verse.plain('uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums'),
-                            //   icon: uInt,
-                            //   iconSizeFactor: 1,
-                            //   verseScaleFactor: 0.6,
-                            //   // onTap: () async {
-                            //   //
-                            //   //   // final Uint8List _uInt = await Floaters.getUint8ListFromFile(_file);
-                            //   //   //
-                            //   //   // setState(() {
-                            //   //   //   uInt = _uInt;
-                            //   //   // });
-                            //   //
-                            //   // },
-                            // ),
-
-                            /// TAMAM : uiImage
-                            // WideButton(
-                            //   width: _buttonWidth,
-                            //   color: Colorz.bloodTest,
-                            //   bubble: false,
-                            //   verse: Verse.plain('uiImage : ${uiImage?.toString()}'),
-                            //   icon: uiImage,
-                            //   iconSizeFactor: 1,
-                            //   verseScaleFactor: 0.6,
-                            //   // onTap: () async {
-                            //   //
-                            //   //   // final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(uInt);
-                            //   //   //
-                            //   //   // setState(() {
-                            //   //   //   uiImage = _uiImage;
-                            //   //   // });
-                            //   //   //
-                            //   //   // blog('getUiImageFromUint8List image test screen');
-                            //   //
-                            //   // },
-                            // ),
-
-                            /// imgImage
-                            // WideButton(
-                            //   width: _buttonWidth,
-                            //   color: Colorz.bloodTest,
-                            //   bubble: false,
-                            //   verse: Verse.plain('imgImage : ${imgImage?.toString()}'),
-                            //   icon: imgImage,
-                            //   iconSizeFactor: 1,
-                            //   verseScaleFactor: 0.6,
-                            //   // onTap: () async {
-                            //   //
-                            //   //   // blog('${imgImage.channels.name}');
-                            //   //
-                            //   //   // final img.Image _imgImage = await Floaters.getImgImageFromUint(uInt);
-                            //   //   //
-                            //   //   // setState(() {
-                            //   //   //   imgImage = _imgImage;
-                            //   //   // });
-                            //   //
-                            //   // },
                             // ),
 
                             /// FILE NAME
@@ -479,18 +443,19 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                                 }
                             ),
 
-                            /// EXTENSION
-                            DataStrip(
-                              dataKey: 'Ext.',
-                              dataValue: _file?.path == null ? '' : TextMod.removeTextBeforeLastSpecialCharacter(extension(_file?.path), '.'),
-                            ),
-
                             /// ASPECT RATIO
                             DataStrip(
                               dataKey: 'Aspect Ratio',
                               dataValue: '${_imageSize?.getAspectRatio()}',
                             ),
 
+                            /// EXTENSION
+                            DataStrip(
+                              dataKey: 'Ext.',
+                              dataValue: _file?.path == null ? '' : TextMod.removeTextBeforeLastSpecialCharacter(extension(_file?.path), '.'),
+                            ),
+
+                            /// IMAGES GRID
                             if (_file != null)
                             GridView.builder(
                               physics: const NeverScrollableScrollPhysics(),
@@ -533,27 +498,27 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                   maxWidth: uiImage?.width?.toDouble(),
                   childWidth: uiImage?.width?.toDouble(),
 
-                  // child: SuperImage(
-                  //   width: uiImage?.width?.toDouble(),
-                  //   height: uiImage?.height?.toDouble(),
-                  //   pic: _file,
-                  //   loading: isLoading,
-                  // ),
-                  child: SizedBox(
+                  child: SuperImage(
                     width: uiImage?.width?.toDouble(),
                     height: uiImage?.height?.toDouble(),
-                    child: ZoomablePicture(
-                      isOn: true,
-                      isFullScreen: true,
-                      autoShrink: false,
-                      child: SuperFilteredImage(
-                          filterModel: ImageFilterModel.bldrsImageFilters[2],
-                          imageFile: _file,
-                          width: uiImage?.width?.toDouble(),
-                          height: uiImage?.height?.toDouble(),
-                      ),
-                    ),
+                    pic: _file,
+                    loading: isLoading,
                   ),
+                  // child: SizedBox(
+                  //   width: uiImage?.width?.toDouble(),
+                  //   height: uiImage?.height?.toDouble(),
+                  //   child: ZoomablePicture(
+                  //     isOn: true,
+                  //     isFullScreen: true,
+                  //     autoShrink: false,
+                  //     child: SuperFilteredImage(
+                  //         filterModel: ImageFilterModel.bldrsImageFilters[2],
+                  //         imageFile: _file,
+                  //         width: uiImage?.width?.toDouble(),
+                  //         height: uiImage?.height?.toDouble(),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
 
               ],
@@ -593,7 +558,7 @@ class ImageTile extends StatelessWidget {
     else {
 
       final double _picHeight = ImageSize.getHeightByAspectRatio(
-        originalWidth: tileWidth,
+        width: tileWidth,
         aspectRatio: imageSize.getAspectRatio(),
       );
 
