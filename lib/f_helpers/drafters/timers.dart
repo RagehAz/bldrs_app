@@ -243,6 +243,7 @@ class Timers {
       case 7    :    return  'phid_july'      ; break;
       case 8    :    return  'phid_august'    ; break;
       case 9    :    return  'phid_september' ; break;
+      case 10   :    return  'phid_october'   ; break;
       case 11   :    return  'phid_november'  ; break;
       case 12   :    return  'phid_december'  ; break;
       default : return null;

@@ -31,6 +31,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/o_ldb_manager/ldb_viewer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
@@ -94,15 +95,14 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   Uint8List uInt;
   img.Image imgImage;
   ui.Image uiImage;
-  File _ldbBase64;
-  File _ldbUint;
+  String _ldbBase64;
   // --------------------
   ImageSize _imageSize;
   bool isLoading;
   // --------------------
   Future<void> setImage(FileModel fileModel) async {
 
-    blog('a7');
+    blog('a7aaaaaaaaaaaa');
 
     if (fileModel != null){
 
@@ -112,46 +112,21 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
       final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
       final ImageSize _size = await ImageSize.superImageSize(fileModel.file);
+      await LDBOps.insertMap(
+        docName: 'tempPicDoc',
+        input: {
+          'id': 'ldbBase64',
+          'data' : await Floaters.getBase64FromFileOrURL(fileModel.file),
+        },
+      );
 
-      await Future.wait(<Future>[
-
-        LDBOps.insertMap(
-          docName: 'tempPicDoc',
-          input: {
-            'id': 'ldbUint',
-            'data' : await Floaters.getUint8ListFromFile(fileModel.file),
-          },
-        ),
-
-        LDBOps.insertMap(
-          docName: 'tempPicDoc',
-          input: {
-            'id': 'ldbBase64',
-            'data' : await Floaters.getBase64FromFileOrURL(fileModel.file),
-          },
-        ),
-
-      ]);
-
-      File _fileBase64;
-      File _fileUint;
+      String _base64FromLDB;
       final List<Map<String, dynamic>> _mapBase64 = await LDBOps.readMaps(
           ids: ['ldbBase64'],
           docName: 'tempPicDoc',
       );
       if (Mapper.checkCanLoopList(_mapBase64) == true){
-        _fileBase64 = await Filers.getFileFromBase64(_mapBase64.first['data']);
-      }
-
-      final List<Map<String, dynamic>> _mapUint = await LDBOps.readMaps(
-        ids: ['ldbUint'],
-        docName: 'tempPicDoc',
-      );
-      if (Mapper.checkCanLoopList(_mapUint) == true){
-        _fileUint = await Filers.getFileFromUint8List(
-          uInt8List: _mapUint.first['data'],
-          fileName: 'ldbUint',
-        );
+        _base64FromLDB = _mapBase64.first['data'];
       }
 
       setState(() {
@@ -159,8 +134,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         uInt = _uInt;
         uiImage = _uiImage;
         imgImage = _imgImage;
-        _ldbBase64 = _fileBase64;
-        _ldbUint = _fileUint;
+        _ldbBase64 = _base64FromLDB;
 
         _imageSize = _size;
       });
@@ -178,6 +152,8 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       uInt = null;
       uiImage = null;
       imgImage = null;
+      _ldbBase64 = null;
+
       _imageSize = null;
       isLoading = false;
     });
@@ -193,8 +169,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       {'pic' : uInt,        'text' : 'uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums'},
       {'pic' : imgImage,    'text' : 'imgImage : ${imgImage?.toString()}'},
       {'pic' : uiImage,     'text' : 'uiImage : ${uiImage?.toString()}'},
-      {'pic' : _ldbBase64,  'text' : 'ldbBase64 : ${_ldbBase64?.toString()}'},
-      {'pic' : _ldbUint,    'text' : 'ldbUint : ${_ldbUint?.toString()}'},
+      {'pic' : _ldbBase64,  'text' : 'ldbBase64 : $_ldbBase64'},
     ];
 
     return MainLayout(
@@ -298,6 +273,23 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         AppBarButton(
           icon: Iconz.xLarge,
           onTap: _clearImage,
+        ),
+
+        const Expander(),
+
+        /// LDB
+        AppBarButton(
+          icon: Iconz.form,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+                context: context,
+                screen: const LDBViewerScreen(
+                  ldbDocName:'tempPicDoc',
+                ),
+            );
+
+          },
         ),
 
       ],
@@ -624,7 +616,7 @@ class ImageTile extends StatelessWidget {
                 verse: Verse.plain(text),
                 margin: 5,
                 labelColor: Colorz.black200,
-                maxLines: 5,
+                maxLines: 3,
                 size: 1,
               ),
 
