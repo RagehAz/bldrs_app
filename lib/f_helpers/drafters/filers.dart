@@ -12,7 +12,6 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -222,39 +221,34 @@ class Filers {
   }) async {
 
     File _file;
-    final String _asset = ObjectCheck.objectIsSVG(localAsset) ? Iconz.bldrsAppIcon : localAsset;
 
     await tryAndCatch(
         context: context,
         methodName: 'getFileFromLocalRasterAsset',
         functions: () async {
-          // blog('0. removing [assets/] from input image path');
-          final String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(
-            string: _asset,
-            numberOfCharacters: 7,
-          );
-          // blog('1. starting getting image from assets');
-          // final ByteData _byteData = await rootBundle.load('assets/$_pathTrimmed');
-          // blog('2. we got byteData and creating the File aho');
-          final String _fileName = TextMod.getFileNameFromAsset(_pathTrimmed);
-          // final File _tempFile = await getEmptyFile(_fileNae);
-          // blog('3. we created the FILE and will overwrite image data as bytes');
-          // final File _finalFile = await writeBytesOnFile(file: _tempFile, byteData: _byteData);
-          // _tempFile.delete(recursive: true);
-          //
-          // _file = _finalFile;
-          //
-          // blog('4. file is ${_file.path}');
 
-          final Uint8List _uInt = await Floaters.getUint8ListFromLocalRasterAsset(
-            asset: _asset,
-            width: width,
-          );
+          Uint8List _uInt;
 
-          _file = await getFileFromUint8List(
-            uInt8List: _uInt,
-            fileName: _fileName,
-          );
+          /// IF SVG
+          if (ObjectCheck.objectIsSVG(localAsset) == true){
+            _uInt = await Floaters.getUint8ListFromLocalSVGAsset(localAsset);
+          }
+
+          /// ANYTHING ELSE
+          else {
+            _uInt = await Floaters.getUint8ListFromLocalRasterAsset(
+              asset: localAsset,
+              width: width,
+            );
+          }
+
+          /// ASSIGN UINT TO FILE
+          if (Mapper.checkCanLoopList(_uInt) == true){
+            _file = await getFileFromUint8List(
+              uInt8List: _uInt,
+              fileName: Floaters.getLocalAssetName(localAsset),
+            );
+          }
 
         });
 

@@ -4,9 +4,13 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +41,18 @@ class Floaters {
 
     return _byteData;
   }
+  // --------------------
+  ///
+  static Future<ByteData> getByteDataFromPath(String assetPath) async {
+    /// NOTE : Asset path can be local path or url
+    ByteData _byteData;
+
+    if (TextCheck.isEmpty(assetPath) == false){
+      _byteData = await rootBundle.load(assetPath);
+    }
+
+    return _byteData;
+  }
   // -----------------------------------------------------------------------------
 
   /// ui.Image
@@ -47,7 +63,12 @@ class Floaters {
     ui.Image _decodedImage;
 
     if (uInt != null) {
-      _decodedImage = await decodeImageFromList(uInt);
+      await tryAndCatch(
+        methodName: 'getUiImageFromUint8List',
+        functions: () async {
+          _decodedImage = await decodeImageFromList(uInt);
+          },
+      );
     }
 
     return _decodedImage;
@@ -224,28 +245,6 @@ static img.Image decodeToImgImage({
     return _screenShots;
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
-  static Future<Uint8List> getUint8ListFromLocalRasterAsset({
-    @required String asset,
-    @required int width
-  }) async {
-    final ByteData _byteData = await rootBundle.load(asset);
-
-    final ui.Codec _codec = await ui.instantiateImageCodec(
-      _byteData.buffer.asUint8List(),
-      targetWidth: width,
-    );
-
-    final ui.FrameInfo _fi = await _codec.getNextFrame();
-
-    final Uint8List _result =
-    (await _fi.image.toByteData(format: ui.ImageByteFormat.png))
-        .buffer
-        .asUint8List();
-
-    return _result;
-  }
-  // --------------------
   static Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAsset) async {
     final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
     final Canvas _canvas = Canvas(_pictureRecorder);
@@ -262,9 +261,9 @@ static img.Image decodeToImgImage({
         ),
         _paint);
 
-    final ByteData _detail = await rootBundle.load(urlAsset);
+    final ByteData _byteData = await getByteDataFromPath(urlAsset);
     final ui.Image _imaged =
-    await getUiImageFromInts(Uint8List.view(_detail.buffer));
+    await getUiImageFromInts(Uint8List.view(_byteData.buffer));
 
     _canvas.drawImage(_imaged, Offset.zero, Paint());
 
@@ -310,6 +309,7 @@ static img.Image decodeToImgImage({
     }
     return uInt;
   }
+  // --------------------
   // -----------------------------------------------------------------------------
 
   /// Base64
@@ -439,6 +439,74 @@ static img.Image decodeToImgImage({
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// LOCAL ASSETS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getLocalAssetName(String assetPath){
+    final String _pathTrimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+      string: assetPath,
+      numberOfCharacters: 7,
+    );
+    return TextMod.getFileNameFromAsset(_pathTrimmed);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Uint8List> getUint8ListFromLocalSVGAsset(String asset) async {
+    Uint8List _output;
+
+    if (TextCheck.isEmpty(asset) == false){
+
+      final String _fileName = getLocalAssetName(asset);
+      final ByteData byteData = await Floaters.getByteDataFromPath(asset);
+      final Uint8List _raw = Floaters.getUint8ListFromByteData(byteData);
+      final PictureInfo _info = await svg.svgPictureDecoder(
+        _raw, // Uint8List raw
+        true, // allowDrawingOutsideOfViewBox
+        ColorFilter.matrix(ImageFilterModel.getStandardMatrix()), // colorFilter
+        _fileName, // key
+        // theme: const SvgTheme(),
+      );
+
+      if (_info != null){
+
+        // Imagers.blogPictureInfo(_info);
+
+        final double _width = _info.viewport.right ?? 100;
+        final double _height = _info.viewport.bottom ?? 100;
+        final ui.Image _image = await _info.picture.toImage(_width.toInt(), _height.toInt());
+
+        _output = await Floaters.getUint8ListFromUiImage(_image);
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TAMAM : WORKS PERFECT
+  static Future<Uint8List> getUint8ListFromLocalRasterAsset({
+    @required String asset,
+    @required int width
+  }) async {
+    final ByteData _byteData = await getByteDataFromPath(asset);
+
+    final ui.Codec _codec = await ui.instantiateImageCodec(
+      _byteData.buffer.asUint8List(),
+      targetWidth: width,
+    );
+
+    final ui.FrameInfo _fi = await _codec.getNextFrame();
+
+    final Uint8List _result =
+    (await _fi.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
+
+    return _result;
   }
   // -----------------------------------------------------------------------------
 }

@@ -269,7 +269,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
             final NoteModel _noteModel = NoteModel(
               id: 'x',
               senderID: NoteModel.bldrsSenderID,
-              senderImageURL: NoteModel.bldrsLogoURL,
+              senderImageURL: NoteModel.bldrsLogoStaticURL,
               senderType: NoteSenderOrRecieverType.bldrs,
               receiverID: _userModel.id,
               receiverType: NoteSenderOrRecieverType.user,
