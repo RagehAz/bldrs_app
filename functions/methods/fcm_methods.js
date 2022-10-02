@@ -78,6 +78,7 @@ const sendFCMToDevice = (noteModel) => {
             'sendFCMToDevice : 6 - END : FCM is sent SUCCESSFULLY and response is :',
             `[${response}]`,
         );
+        // return { success: true };
         return true;
       }).catch(function(error) {
         if (error != null) {
@@ -93,6 +94,7 @@ const sendFCMToDevice = (noteModel) => {
             }
           }
           // throw new functions.https.HttpsError('invalid-argument', "some message");
+          // return { error: error.code };
           return false;
         }
       });
