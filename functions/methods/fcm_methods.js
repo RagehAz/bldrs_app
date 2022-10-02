@@ -92,6 +92,7 @@ const sendFCMToDevice = (noteModel) => {
               userMethods.deleteUserToken(noteModel.receiverID);
             }
           }
+          // throw new functions.https.HttpsError('invalid-argument', "some message");
           return false;
         }
       });

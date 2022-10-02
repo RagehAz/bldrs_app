@@ -805,12 +805,12 @@ Future<void> onSendNote({
 
       await NoteLDBOps.insertNotes(_uploadedNotes);
 
-      _clearNote(
-        context: context,
-        note: note,
-        titleController: titleController,
-        bodyController: bodyController,
-      );
+      // _clearNote(
+      //   context: context,
+      //   note: note,
+      //   titleController: titleController,
+      //   bodyController: bodyController,
+      // );
 
       await WaitDialog.closeWaitDialog(context);
 

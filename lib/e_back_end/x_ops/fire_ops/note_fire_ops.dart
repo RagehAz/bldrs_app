@@ -12,6 +12,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -48,35 +49,35 @@ class NoteFireOps {
 
       _note = await _adjustBldrsLogoURL(
         context: context,
-        noteModel: noteModel,
+        noteModel: _note,
       );
 
-      await Future.wait(<Future>[
+      Mapper.blogMap( _note.toMap(toJSON: true), methodName: 'fuck the fucking map');
 
-        /// returns true on success and false of failure
-        if (_note.sendFCM == true)
-        CloudFunction.call(
+      await Fire.createDoc(
+        context: context,
+        collName: FireColl.notes,
+        input: _note.toMap(toJSON: false),
+        onFinish: (DocumentReference ref){
+          _output = _note.copyWith(id: ref.id,);
+        },
+      );
+
+      blog('createNote : _note.sendFCM : ${_output.sendFCM} : _note.token : ${_output.token}');
+
+      /// returns true on success and false of failure
+      if (_output.sendFCM == true && _output.token != null) {
+        await CloudFunction.call(
             context: context,
             functionName: CloudFunction.callSendFCMToDevice,
-            mapToPass: _note.toMap(toJSON: true),
+            mapToPass: _output.toMap(toJSON: true),
             onFinish: (dynamic result){
               blog('NoteFireOps.createNote : FCM SENT : $result');
             }
-        ),
+        );
+      }
 
-        Fire.createDoc(
-          context: context,
-          collName: FireColl.notes,
-          input: _note.toMap(toJSON: false),
-          onFinish: (DocumentReference ref){
-            _output = _note.copyWith(id: ref.id,);
-          },
-        )
-
-      ]);
-
-
-      if (onFinished != null){
+    if (onFinished != null){
         onFinished(_output);
       }
 
@@ -134,7 +135,6 @@ class NoteFireOps {
 
       if (noteModel.receiverType == NoteSenderOrRecieverType.user){
 
-
         final UserModel _user = await UserFireOps.readUser(
             context: context,
             userID: noteModel.receiverID,
@@ -142,13 +142,23 @@ class NoteFireOps {
 
         blog('_adjustNoteToken : userToken is : ${_user?.fcmToken?.token}');
 
-        _note = _note.copyWith(
-          token: _user?.fcmToken?.token,
-        );
+        if (TextCheck.isEmpty(_user?.fcmToken?.token) == true){
+          _note = _note.nullifyField(
+            token: true,
+          );
+        }
+        else {
+          _note = _note.copyWith(
+            token: _user?.fcmToken?.token,
+          );
+        }
+
 
       }
 
     }
+
+    blog('_adjustNoteToken : _note out is : ${_note.token}');
 
     return _note;
   }
@@ -158,7 +168,9 @@ class NoteFireOps {
     @required BuildContext context,
     @required NoteModel noteModel,
   }) async {
-    NoteModel _note = noteModel;
+    NoteModel _note;
+
+    blog('_adjustBldrsLogoURL : noteModel.token : ${noteModel.token}');
 
     if (noteModel != null){
 
@@ -170,13 +182,24 @@ class NoteFireOps {
             fileName: NoteModel.bldrsFCMIconFireStorageFileName,
         );
 
-        _note = _note.copyWith(
+        _note = noteModel.copyWith(
           senderImageURL: _bldrsNotificationIconURL ?? NoteModel.bldrsLogoStaticURL,
         );
+
+        blog('_adjustBldrsLogoURL : noteModel.token : ${_note.token}');
+
+        blog('_adjustBldrsLogoURL : senderImageURL is : ${_note?.senderImageURL}');
+
+      }
+      else {
+        _note = noteModel.copyWith();
+        blog('_adjustBldrsLogoURL : noteModel.token  xxxxxx : ${_note.token}');
 
       }
 
     }
+
+    blog('_adjustBldrsLogoURL : noteModel.token  rerererere : ${_note.token}');
 
     return _note;
   }
