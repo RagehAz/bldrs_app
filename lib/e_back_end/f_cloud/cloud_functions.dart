@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -85,63 +84,67 @@ class CloudFunction {
 
     dynamic _output;
 
-    await tryAndCatch(
-        context: context,
-        methodName: 'CloudFunction.call',
-        functions: () async {
+    try {
+      final HttpsCallable _function = _getCallableFunctionInstance(
+        funcName: functionName,
+      );
 
-          final HttpsCallable _function = _getCallableFunctionInstance(
-            funcName: functionName,
-          );
+      final Map<String, dynamic> _map = mapToPass ?? <String, dynamic>{};
 
-          final Map<String, dynamic> _map = mapToPass ?? <String, dynamic>{};
+      final HttpsCallableResult _result = await _function.call(_map);
 
-          final HttpsCallableResult _result = await _function.call(_map);
+      blog('call : _result : $_result');
+      _output = _result.data;
+      blog('call : _output : $_output');
+    }
 
-          blog('call : _result : $_result');
-          _output = _result.data;
-          blog('call : _output : $_output');
-        },
-        onError: (String error) async {
+    on FirebaseFunctionsException catch (exception) {
+      blog('callFunction : exception.message    : ${exception.message}');
+      blog('callFunction : exception.details    : ${exception.details}');
+      blog('callFunction : exception.code       : ${exception.code}');
+      blog('callFunction : exception.plugin     : ${exception.plugin}');
+      blog('callFunction : exception.stackTrace : ${exception.stackTrace}');
+    }
 
-          final bool _unauthenticated = TextCheck.stringContainsSubString(
-            string: error,
-            subString: '/unauthenticated]',
-          );
+    on Exception catch (error){
+      blog('callFunction : error.message    : ${error.runtimeType}');
+      blog('callFunction : error.toString() : ${error.toString()}');
 
-          blog('callFunction : unauthenticated IS $_unauthenticated');
+      final bool _unauthenticated = TextCheck.stringContainsSubString(
+        string: error.toString(),
+        subString: '/unauthenticated]',
+      );
 
-          if (_unauthenticated == true) {
-            await CenterDialog.showCenterDialog(
-              context: context,
-              titleVerse: const Verse(
-                pseudo: 'You Are not Signed in',
-                text: 'phid_your_not_signed_in',
-                translate: true,
-              ),
-              bodyVerse: const Verse(
-                text: 'phid_please_sign_in_first',
-                translate: true,
-              ),
-            );
-          }
+      blog('callFunction : unauthenticated IS $_unauthenticated');
 
-          else {
-            await CenterDialog.showCenterDialog(
-              context: context,
-              titleVerse: const Verse(
-                text: 'phid_error',
-                translate: true,
-              ),
-              bodyVerse: Verse(
-                text: error,
-                translate: false,
-              ),
-            );
-          }
-
-        }
-    );
+      if (_unauthenticated == true) {
+        await CenterDialog.showCenterDialog(
+          context: context,
+          titleVerse: const Verse(
+            pseudo: 'You Are not Signed in',
+            text: 'phid_your_not_signed_in',
+            translate: true,
+          ),
+          bodyVerse: const Verse(
+            text: 'phid_please_sign_in_first',
+            translate: true,
+          ),
+        );
+      }
+      else {
+        await CenterDialog.showCenterDialog(
+          context: context,
+          titleVerse: const Verse(
+            text: 'phid_error',
+            translate: true,
+          ),
+          bodyVerse: Verse(
+            text: error.toString(),
+            translate: false,
+          ),
+        );
+      }
+    }
 
     if (onFinish != null){
       onFinish(_output);
