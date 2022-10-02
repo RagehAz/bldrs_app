@@ -6,7 +6,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// 28 days reminder
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -39,7 +39,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// 35 days reminder
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -72,7 +72,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// 42 days reminder
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -105,7 +105,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// 7 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -138,7 +138,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// 14 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -204,7 +204,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// after user feedback
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -237,7 +237,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// feedback bldrs reply
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -270,7 +270,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// profile status reminder
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -303,7 +303,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// monthly statistics
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.bz,
@@ -534,7 +534,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   ///  weekly bz statistics
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.bz,
@@ -704,7 +704,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// section went live
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,
@@ -737,7 +737,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// monthly bz statistics
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.bz,
@@ -838,7 +838,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
   /// welcome to bldrs
   NoteModel(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: null,
     receiverType: NoteSenderOrRecieverType.user,

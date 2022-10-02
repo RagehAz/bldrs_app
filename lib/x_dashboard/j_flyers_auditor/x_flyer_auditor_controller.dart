@@ -232,7 +232,7 @@ Future<void> _sendFlyerVerificationUpdateNote({
   final NoteModel _note = NoteModel(
     id: 'x',
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
     receiverID: bzID,
     receiverType: NoteSenderOrRecieverType.bz,
