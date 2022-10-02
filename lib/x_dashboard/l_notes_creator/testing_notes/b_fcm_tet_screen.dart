@@ -124,7 +124,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
    */
   // --------------------
-  String _received = 'Nothing yet';
+  // String _received = 'Nothing yet';
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -245,9 +245,9 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
             blog('The Map type : ${map.runtimeType} : map : $map');
 
-            setState(() {
-              _received = 'received : ${map.toString()}';
-            });
+            // setState(() {
+            //   _received = 'received : ${map.toString()}';
+            // });
 
           },
         ),
