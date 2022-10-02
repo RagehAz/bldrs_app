@@ -8,6 +8,7 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -40,9 +41,14 @@ class NoteFireOps {
 
     if (noteModel != null){
 
-      final NoteModel _note = await _adjustNoteToken(
+      NoteModel _note = await _adjustNoteToken(
           context: context,
           noteModel: noteModel
+      );
+
+      _note = await _adjustBldrsLogoURL(
+        context: context,
+        noteModel: noteModel,
       );
 
       await Future.wait(<Future>[
@@ -117,12 +123,11 @@ class NoteFireOps {
     return _success == true ? _output : null;
   }
   // --------------------
-
+  ///
   static Future<NoteModel> _adjustNoteToken({
     @required BuildContext context,
     @required NoteModel noteModel,
   }) async {
-
     NoteModel _note = noteModel;
 
     if (noteModel != null){
@@ -139,6 +144,34 @@ class NoteFireOps {
 
         _note = _note.copyWith(
           token: _user?.fcmToken?.token,
+        );
+
+      }
+
+    }
+
+    return _note;
+  }
+  // --------------------
+  ///
+  static Future<NoteModel> _adjustBldrsLogoURL({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+  }) async {
+    NoteModel _note = noteModel;
+
+    if (noteModel != null){
+
+      if (noteModel.senderID == NoteModel.bldrsSenderID){
+
+        final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
+            context: context,
+            storageDocName: 'admin',
+            fileName: NoteModel.bldrsFCMIconFireStorageFileName,
+        );
+
+        _note = _note.copyWith(
+          senderImageURL: _bldrsNotificationIconURL ?? NoteModel.bldrsLogoStaticURL,
         );
 
       }
