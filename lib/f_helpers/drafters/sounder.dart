@@ -94,10 +94,8 @@ class Sounder  {
   /// FCM SOUNDS
 
   // --------------------
-  static const String _soundFileNameNicole = 'res_name_nicole';
-  static const String _soundFileNameJustina = 'res_name_justina';
-  static const String _soundFileNameEmma = 'res_name_emma';
-  static const String _soundFileNameAmy = 'res_name_amy';
+  static const String nicoleSaysBldrsDotNet = 'res_name_nicole';
+  static const String justinaSaysBldrsDotNet = 'res_name_justina';
   // --------------------
   static String getNotificationFilesPath(String fileNameWithoutExtension){
     return 'resource://raw/$fileNameWithoutExtension';
@@ -106,10 +104,8 @@ class Sounder  {
   static String randomBldrsNameSoundPath(){
 
     final List<String> _notiSounds = <String>[
-      _soundFileNameNicole,
-      _soundFileNameJustina,
-      _soundFileNameEmma,
-      _soundFileNameAmy,
+      nicoleSaysBldrsDotNet,
+      justinaSaysBldrsDotNet,
     ];
 
     final int _index = Numeric.createRandomIndex(listLength: _notiSounds.length);

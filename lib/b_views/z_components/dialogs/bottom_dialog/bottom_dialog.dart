@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
@@ -11,7 +10,6 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 enum BottomDialogType {
   countries,
@@ -252,7 +250,7 @@ class BottomDialog extends StatelessWidget {
     @required bool draggable,
     @required int numberOfWidgets,
     double buttonHeight = wideButtonHeight,
-    List<Widget> Function(BuildContext, PhraseProvider) builder,
+    List<Widget> Function(BuildContext) builder,
     Verse titleVerse,
   }) async {
 
@@ -274,9 +272,7 @@ class BottomDialog extends StatelessWidget {
       titleVerse: titleVerse,
       builder: (BuildContext ctx, title){
 
-        final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(ctx, listen: false);
-
-        final List<Widget> _widgets = builder(ctx, _phraseProvider);
+        final List<Widget> _widgets = builder(ctx);
 
         return ListView.builder(
           itemCount: _widgets.length,

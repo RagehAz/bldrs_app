@@ -19,7 +19,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
@@ -101,7 +100,7 @@ Future<void> onNoteCreatorCardOptionsTap({
         translate: true,
       ),
       buttonHeight: 50,
-      builder: (_, PhraseProvider pro){
+      builder: (_){
 
         return <Widget>[
 
@@ -549,8 +548,8 @@ Future<void> _onSelectBldrsAsNoteSender({
 }) async {
 
   note.value = note.value.copyWith(
-    senderID: NoteModel.bldrsSenderModel.key,
-    senderImageURL: NoteModel.bldrsSenderModel.value,
+    senderID: NoteModel.bldrsSenderID,
+    senderImageURL: NoteModel.bldrsLogoURL,
     senderType: senderType,
   );
 
@@ -736,36 +735,17 @@ Future<void> _onSelectImageURLAsAttachment({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void _onClearAttachments({
   @required ValueNotifier<NoteModel> note,
 }){
 
-  final NoteModel _note = note.value;
+  final NoteModel _note = note.value.nullifyField(
+    attachment: true,
+  );
 
-  note.value = NoteModel(
-    attachment: null,
+  note.value = _note.copyWith(
     attachmentType: NoteAttachmentType.non,
-
-    id: _note.id,
-    senderID: _note.senderID,
-    senderImageURL: _note.senderImageURL,
-    senderType: _note.senderType,
-    receiverID: _note.receiverID,
-    receiverType: _note.receiverType,
-    title: _note.title,
-    body: _note.body,
-    metaData: _note.metaData,
-    sentTime: _note.sentTime,
-    seen: _note.seen,
-    seenTime: _note.seenTime,
-    sendFCM: _note.sendFCM,
-    type: _note.type,
-    response: _note.response,
-    responseTime: _note.responseTime,
-    buttons: _note.buttons,
-    token: _note.token,
-    topic: _note.topic,
   );
 
 }

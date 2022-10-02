@@ -224,7 +224,7 @@ static img.Image decodeToImgImage({
     return _screenShots;
   }
   // --------------------
-  /// TAMAM
+  /// TAMAM : WORKS PERFECT
   static Future<Uint8List> getUint8ListFromLocalRasterAsset({
     @required String asset,
     @required int width

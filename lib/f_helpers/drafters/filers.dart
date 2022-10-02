@@ -214,7 +214,7 @@ class Filers {
   // --------------------
   /// LOCAL RASTER ASSET
 // ---------------------
-  /// TAMAM
+  /// TAMAM : WORKS PERFECT
   static Future<File> getFileFromLocalRasterAsset({
     @required BuildContext context,
     @required String localAsset,
