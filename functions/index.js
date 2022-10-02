@@ -19,13 +19,14 @@ admin.initializeApp();
 
 // -------------------------------------
 exports.onNoteCreation = fcmMethods.onNoteCreation;
+exports.callSendFCMToDevice = fcmMethods.callSendFCMToDevice;
 // --------------------------------------------------------------------------
 
 // DEPLOYMENT
 
 // -------------------------------------
 // firebase deploy --only functions
-// firebase deploy --only functions:t007_onCreateNewFlyer
+// firebase deploy --only functions:callSendFCMToDevice
 // firebase login --reauth
 // firebase functions:log --only increaseNumberOfUsersInStatistics
 // --------------------------------------------------------------------------
