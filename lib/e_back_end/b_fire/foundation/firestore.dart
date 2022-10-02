@@ -234,6 +234,7 @@ String pathOfSubDoc({
     @required BuildContext context,
     @required String collName,
     @required Map<String, dynamic> input,
+    ValueChanged<DocumentReference> onFinish,
     bool addDocID = false,
   }) async {
 
@@ -267,6 +268,10 @@ String pathOfSubDoc({
 
       },
     );
+
+    if (onFinish != null){
+      onFinish(_docRef);
+    }
 
     return _docRef;
   }

@@ -50,6 +50,7 @@ class CloudFunction {
   /// CALLABLE FUNCTIONS NAMES
 
   // --------------------
+  /// returns true on success - false on failure
   static const String callSendFCMToDevice = 'callSendFCMToDevice';
   // -----------------------------------------------------------------------------
 
@@ -79,6 +80,7 @@ class CloudFunction {
     @required BuildContext context,
     @required String functionName,
     Map<String, dynamic> mapToPass,
+    ValueChanged<dynamic> onFinish,
   }) async {
 
     dynamic _output;
@@ -140,6 +142,10 @@ class CloudFunction {
 
         }
     );
+
+    if (onFinish != null){
+      onFinish(_output);
+    }
 
     return _output;
   }
