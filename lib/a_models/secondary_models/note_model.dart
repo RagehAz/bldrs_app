@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -107,20 +106,17 @@ class NoteModel {
   /// CONSTANTS
 
   // --------------------
-  static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
-  static const String notiSound = 'default';
-  static const String notiStatus = 'done';
+  /// TASK ADJUST BLDRS LOGO URL
+  static const String bldrsLogoURL = Iconz.bldrsNameEn;//'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/users%2Fz0Obwze3JLYjoEl6uVeXfo4Luup1?alt=media&token=5d338147-f2f5-43dd-9218-cafdb535d2c5';
   static const String bldrsSenderID = 'Bldrs.net';
+  static const String fcmSound = 'default';
+  static const String fcmStatus = 'done';
   static const dynamic defaultMetaData = <String, dynamic>{
     'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-    'sound': notiSound,
-    'status': notiStatus,
+    'sound': fcmSound,
+    'status': fcmStatus,
     'screen': '',
   };
-  static const MapModel bldrsSenderModel =  MapModel(
-    key: 'Bldrs.net',
-    value: Iconz.bldrsNameEn,
-  );
   static const List<String> noteButtonsList = <String>[
     'phid_accept',
     'phid_decline',
@@ -1366,6 +1362,37 @@ class NoteModel {
       dummyNote(),
     ];
 
+  }
+  // --------------------
+  static NoteModel quickUserNotice({
+    @required String userID,
+    @required String title,
+    @required String body
+  }){
+    return NoteModel(
+      receiverID: userID,
+      title: title,
+      body: body,
+
+      id: 'x',
+      senderID: bldrsSenderID,
+      senderImageURL: bldrsLogoURL,
+      senderType: NoteSenderOrRecieverType.bldrs,
+      receiverType: NoteSenderOrRecieverType.user,
+      metaData: NoteModel.defaultMetaData,
+      sentTime: DateTime.now(),
+      attachment: null,
+      attachmentType: NoteAttachmentType.non,
+      seen: false,
+      seenTime: null,
+      sendFCM: true,
+      type: NoteType.notice,
+      response: null,
+      responseTime: null,
+      buttons: null,
+      token: 'will be auto adjusted on NoteFireOps.create.adjustToken',
+      topic: null,
+    );
   }
   // -----------------------------------------------------------------------------
 

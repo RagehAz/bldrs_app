@@ -19,7 +19,6 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -601,7 +600,7 @@ class Dialogs {
         draggable: true,
         buttonHeight: 50,
         numberOfWidgets: cities.length + 1,
-        builder: (BuildContext context, PhraseProvider _phraseProvider){
+        builder: (_){
 
           return <Widget>[
 

@@ -14,7 +14,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -175,10 +174,8 @@ Future<void> onAuthorOptionsTap({
       context: context,
       draggable: true,
       numberOfWidgets: _buttons.length,
-      builder: (_, PhraseProvider phraseProvider){
-
+      builder: (_){
         return _buttons;
-
       }
   );
 

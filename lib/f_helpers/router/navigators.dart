@@ -188,17 +188,55 @@ class Nav {
 
   }
   // --------------------
-  static void goBackUntil(BuildContext context, String routeName) {
+  static Future<void> goBackUntil({
+    @required BuildContext context,
+    @required String routeName,
+    bool addPostFrameCallback = false,
+  }) async {
 
-    Navigator.popUntil(context, ModalRoute.withName(routeName));
+    if (context != null){
+
+      if (addPostFrameCallback == true){
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.popUntil(context, ModalRoute.withName(routeName));
+        });
+      }
+
+      else {
+        await Future.delayed(Duration.zero, (){
+          Navigator.popUntil(context, ModalRoute.withName(routeName));
+        });
+      }
+
+
+    }
+
   }
   // --------------------
-  static void goBackToHomeScreen({
+  static Future<void> goBackToHomeScreen({
     @required BuildContext context,
     @required String invoker,
-  }) {
+    bool addPostFrameCallback = false,
+  }) async {
     blog('goBackToHomeScreen : popUntil Routing.home : $invoker');
-    Navigator.popUntil(context, ModalRoute.withName(Routing.home));
+
+    if (context != null){
+
+      if (addPostFrameCallback == true){
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.popUntil(context, ModalRoute.withName(Routing.home));
+        });
+      }
+
+      else {
+        await Future.delayed(Duration.zero, (){
+          Navigator.popUntil(context, ModalRoute.withName(Routing.home));
+        });
+      }
+
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 

@@ -1,31 +1,42 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class IconsViewerScreen extends StatefulWidget {
+class BldrsIconsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const IconsViewerScreen({
+  const BldrsIconsScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<IconsViewerScreen> createState() => _IconsViewerScreenState();
+  State<BldrsIconsScreen> createState() => _BldrsIconsScreenState();
+  /// --------------------------------------------------------------------------
+  static Future<String> selectIcon(BuildContext context) async {
+
+    final String _icon = await Nav.goToNewScreen(
+        context: context,
+        screen: const BldrsIconsScreen(),
+    );
+
+    return _icon;
+  }
   /// --------------------------------------------------------------------------
 }
 
-class _IconsViewerScreenState extends State<IconsViewerScreen> {
+class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<String>> _found = ValueNotifier(<String>[]);
@@ -76,6 +87,42 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
     }
 
   }
+  // --------------------
+  Future<void> _onIconTap(String icon) async {
+
+    await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      numberOfWidgets: 1,
+      builder: (_){
+        return <Widget>[
+
+          /// SELECT
+          BottomDialog.wideButton(
+              context: context,
+              verse: const Verse(
+                text: 'Select',
+                translate: false,
+                casing: Casing.upperCase,
+              ),
+            onTap: () async {
+
+                await Nav.goBack(context: context, invoker: 'BldrsIconsScreen.closeDialog');
+
+                await Nav.goBack(
+                    context: context,
+                    invoker: 'BldrsIconsScreen.goBack',
+                    passedData: icon,
+                );
+
+            }
+          ),
+
+        ];
+      }
+    );
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -87,7 +134,6 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
       appBarType: AppBarType.search,
       onSearchChanged: _onSearchChanged,
       layoutWidget: Scroller(
-
 
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
@@ -102,6 +148,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
                     return IconsGridBuilder(
                       icons: found,
                       textHighlight: _textHighlight,
+                      onTap: _onIconTap,
                     );
 
                   }
@@ -113,6 +160,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
 
               return IconsGridBuilder(
                 icons: _icons,
+                onTap: _onIconTap,
               );
 
             }
@@ -130,12 +178,14 @@ class IconsGridBuilder extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const IconsGridBuilder({
     @required this.icons,
+    @required this.onTap,
     this.textHighlight,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final List<String> icons;
   final ValueNotifier<String> textHighlight;
+  final ValueChanged<String> onTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -180,10 +230,7 @@ class IconsGridBuilder extends StatelessWidget {
                 corners: 0,
                 color: Colorz.bloodTest,
                 bubble: false,
-                onTap: () => Keyboard.copyToClipboard(
-                  context: context,
-                  copy: icons[index],
-                ),
+                onTap: () => onTap(icons[index]),
               ),
 
               Container(

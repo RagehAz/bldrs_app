@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -168,7 +167,7 @@ Future<void> onReviewOptions({
       context: context,
       draggable: true,
       numberOfWidgets: 2,
-      builder: (_, PhraseProvider pro){
+      builder: (_){
 
         return <Widget>[
 
@@ -421,7 +420,7 @@ Future<void> onReplyOptions({
       context: context,
       draggable: true,
       numberOfWidgets: 2,
-      builder: (_, PhraseProvider pro){
+      builder: (_){
 
         return <Widget>[
 
