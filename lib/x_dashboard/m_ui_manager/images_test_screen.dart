@@ -9,7 +9,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
@@ -21,13 +20,10 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -243,18 +239,23 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
             final String _icon = await BldrsIconsScreen.selectIcon(context);
 
+            blog('icon is : $_icon');
+
             if (_icon != null){
 
               await _triggerLoading(setTo: true);
 
               final File _file = await Filers.getFileFromLocalRasterAsset(
-                  context: context,
-                  localAsset: _icon,
+                context: context,
+                localAsset: _icon,
               );
 
-              final FileModel _pickedFileModel = FileModel.createModelByNewFile(_file);
+              if (_file != null){
+                final FileModel _pickedFileModel = FileModel.createModelByNewFile(_file);
+                await setImage(_pickedFileModel);
+              }
 
-              await setImage(_pickedFileModel);
+              await _triggerLoading(setTo: false);
 
             }
 
@@ -353,28 +354,29 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// UPLOAD TO STORAGE AND GET URL
         AppBarButton(
           icon: Iconz.arrowUp,
+          isDeactivated: true,
           onTap: () async {
 
            await  _triggerLoading(setTo: true);
 
-            final String url = await Storage.createStoragePicAndGetURL(
-                context: context,
-                docName: 'testFolder',
-                fileName: 'test',
-                ownersIDs: [AuthFireOps.superUserID()],
-                inputFile: await Filers.getFileFromBase64(_ldbBase64),
-            );
+            // final String url = await Storage.createStoragePicAndGetURL(
+            //     context: context,
+            //     docName: 'admin',
+            //     fileName: NoteModel.bldrsFCMIconFireStorageFileName,
+            //     ownersIDs: [AuthFireOps.superUserID()],
+            //     inputFile: await Filers.getFileFromBase64(_ldbBase64),
+            // );
 
-            await Dialogs.showSuccessDialog(
-                context: context,
-                firstLine: const Verse(
-                  text: 'Image uploaded successfully',
-                  translate: false,
-                ),
-              secondLine: Verse.plain(url),
-            );
-
-            await Keyboard.copyToClipboard(context: context, copy: url);
+            // await Dialogs.showSuccessDialog(
+            //     context: context,
+            //     firstLine: const Verse(
+            //       text: 'Image uploaded successfully',
+            //       translate: false,
+            //     ),
+            //   secondLine: Verse.plain(url),
+            // );
+            //
+            // await Keyboard.copyToClipboard(context: context, copy: url);
 
            await  _triggerLoading(setTo: false);
 

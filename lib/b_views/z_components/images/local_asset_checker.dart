@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +24,7 @@ class LocalAssetChecker extends StatefulWidget {
     if (asset is String){
       if (TextCheck.isEmpty(asset) == false){
 
-        final ByteData _bytes = await rootBundle.load(asset).catchError((Object error){
+        final ByteData _bytes = await Floaters.getByteDataFromPath(asset).catchError((Object error){
 
           // blog('LocalAssetChecker : _checkAsset : error : ${error.toString()}');
 

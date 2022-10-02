@@ -287,7 +287,7 @@ class ComposeNoteProtocols {
             final NoteModel _note = NoteModel(
               id: 'x',
               senderID: NoteModel.bldrsSenderID,
-              senderImageURL: NoteModel.bldrsLogoURL,
+              senderImageURL: NoteModel.bldrsLogoStaticURL,
               senderType: NoteSenderOrRecieverType.bldrs,
               receiverID: author.userID,
               receiverType: NoteSenderOrRecieverType.user,

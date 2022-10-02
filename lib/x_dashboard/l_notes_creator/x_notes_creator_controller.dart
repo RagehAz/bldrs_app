@@ -549,7 +549,7 @@ Future<void> _onSelectBldrsAsNoteSender({
 
   note.value = note.value.copyWith(
     senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoURL,
+    senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: senderType,
   );
 

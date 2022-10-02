@@ -4,12 +4,14 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
@@ -635,5 +637,45 @@ class Imagers {
 
   }
    */
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
   // --------------------
+  static void blogPictureInfo(PictureInfo info){
+    blog('blogPictureInfo : START');
+
+    blog('x---');
+    blog('info.size.height                   : ${info.size.height}');
+    blog('info.size.width                    : ${info.size.width}');
+    blog('info.size.aspectRatio              : ${info.size.aspectRatio}');
+    blog('info.size.longestSide              : ${info.size.longestSide}');
+    blog('info.size.shortestSide             : ${info.size.shortestSide}');
+    blog('x---');
+    blog('info.picture.approximateBytesUsed  : ${info.picture.approximateBytesUsed}');
+    blog('x---');
+    blog('info.size.isEmpty                  : ${info.size.isEmpty}');
+    blog('info.size.isFinite                 : ${info.size.isFinite}');
+    blog('info.size.isInfinite               : ${info.size.isInfinite}');
+    blog('x---');
+    blog('info.viewport.left                 : ${info.viewport.left}');
+    blog('info.viewport.bottom               : ${info.viewport.bottom}');
+    blog('info.viewport.right                : ${info.viewport.right}');
+    blog('info.viewport.top                  : ${info.viewport.top}');
+    blog('x---');
+    blog('info.viewport.bottomLeft           : ${info.viewport.bottomLeft}');
+    blog('info.viewport.bottomCenter         : ${info.viewport.bottomCenter}');
+    blog('info.viewport.bottomRight          : ${info.viewport.bottomRight}');
+    blog('info.viewport.centerLeft           : ${info.viewport.centerLeft}');
+    blog('info.viewport.center               : ${info.viewport.center}');
+    blog('info.viewport.centerRight          : ${info.viewport.centerRight}');
+    blog('info.viewport.topLeft              : ${info.viewport.topLeft}');
+    blog('info.viewport.topCenter            : ${info.viewport.topCenter}');
+    blog('info.viewport.topRight             : ${info.viewport.topRight}');
+    blog('x---');
+
+    // info.size.flipped.
+    blog('blogPictureInfo : END');
+  }
+  // -----------------------------------------------------------------------------
 }

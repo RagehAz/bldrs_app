@@ -3,7 +3,6 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
@@ -106,17 +105,23 @@ class NoteModel {
   /// CONSTANTS
 
   // --------------------
-  /// TASK ADJUST BLDRS LOGO URL
-  static const String bldrsLogoURL = Iconz.bldrsNameEn;//'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/users%2Fz0Obwze3JLYjoEl6uVeXfo4Luup1?alt=media&token=5d338147-f2f5-43dd-9218-cafdb535d2c5';
+  /// URL will be reassigned in NoteFireOps.create if note.sender == bldrsSenderID
+  // i bet the below link will be expired soon : today is 2 Oct 2022 => validate my claim when u see this again please
+  static const String bldrsLogoStaticURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/admin%2Fbldrs_notification_icon?alt=media&token=d4f781f3-ea1b-4974-b6e3-990da03c980b';
+  // --------------------
   static const String bldrsSenderID = 'Bldrs.net';
+  static const String bldrsFCMIconFireStorageFileName = 'bldrs_notification_icon';
+  // --------------------
   static const String fcmSound = 'default';
   static const String fcmStatus = 'done';
+  // --------------------
   static const dynamic defaultMetaData = <String, dynamic>{
     'click_action': 'FLUTTER_NOTIFICATION_CLICK',
     'sound': fcmSound,
     'status': fcmStatus,
     'screen': '',
   };
+  // --------------------
   static const List<String> noteButtonsList = <String>[
     'phid_accept',
     'phid_decline',
@@ -1331,7 +1336,7 @@ class NoteModel {
     return NoteModel(
       id: 'id',
       senderID: bldrsSenderID,
-      senderImageURL: bldrsLogoURL,
+      senderImageURL: bldrsLogoStaticURL,
       senderType: NoteSenderOrRecieverType.bldrs,
       receiverID: 'receiverID',
       receiverType: NoteSenderOrRecieverType.user,
@@ -1376,7 +1381,7 @@ class NoteModel {
 
       id: 'x',
       senderID: bldrsSenderID,
-      senderImageURL: bldrsLogoURL,
+      senderImageURL: bldrsLogoStaticURL,
       senderType: NoteSenderOrRecieverType.bldrs,
       receiverType: NoteSenderOrRecieverType.user,
       metaData: NoteModel.defaultMetaData,
