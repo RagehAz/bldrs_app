@@ -213,8 +213,7 @@ Future<void> onUnitSelectorButtonTap({
         draggable: true,
         buttonHeight: 40,
         numberOfWidgets: _unitChain.sons.length,
-        builder: (_, PhraseProvider pro){
-
+        builder: (_){
 
           return List.generate(_unitChain.sons.length,
                   (index){

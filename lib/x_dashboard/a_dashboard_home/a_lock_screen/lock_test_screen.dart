@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -7,6 +7,7 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_wheel.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,7 @@ class _LockScreenState extends State<LockScreen> {
   void _changeB(String b){_b = b;}
   void _changeC(String c){_c = c;}
   // --------------------
-  Future<void> _onOpenSesame() async {
+  Future<void> _onGoBeyond() async {
 
     final List<String> _selections = <String>[_a, _b, _c];
     const List<String> _correctCode = <String>[
@@ -72,7 +73,7 @@ class _LockScreenState extends State<LockScreen> {
         milliseconds: 500,
       );
 
-      await Nav.goBack(context: context, invoker: 'Open Sesame', passedData: true);
+      await Nav.goBack(context: context, invoker: 'Go Beyond', passedData: true);
 
     }
 
@@ -99,10 +100,6 @@ class _LockScreenState extends State<LockScreen> {
       sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('Lock Test'),
       appBarType: AppBarType.basic,
-      confirmButtonModel: ConfirmButtonModel(
-        firstLine: Verse.plain('Open Sesame'),
-        onTap: _onOpenSesame,
-      ),
       layoutWidget: Container(
         width: Scale.superScreenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
@@ -153,6 +150,17 @@ class _LockScreenState extends State<LockScreen> {
                 ),
 
               ],
+            ),
+
+            DreamBox(
+              width: Scale.superScreenWidth(context) * 0.7,
+              height: 70,
+              margins: 20,
+              // verse: Verse.plain('Go Beyond'),
+              icon: Iconz.dvGouran,
+              iconColor: Colorz.white125,
+              iconSizeFactor: 0.8,
+              onTap: _onGoBeyond,
             ),
 
           ],

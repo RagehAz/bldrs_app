@@ -195,7 +195,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
         draggable: true,
         buttonHeight: 40,
         numberOfWidgets: 1,
-        builder: (xxx, phrasePro){
+        builder: (_){
 
           return <Widget>[
 

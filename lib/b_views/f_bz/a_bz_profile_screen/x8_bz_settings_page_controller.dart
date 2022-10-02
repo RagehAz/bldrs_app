@@ -61,7 +61,7 @@ Future<void> onDeleteBzButtonTap({
 
     /// re-route back
     // if (routeBackHome == true){
-    Nav.goBackToHomeScreen(
+    await Nav.goBackToHomeScreen(
         context: context,
         invoker: 'onDeleteBzButtonTap'
     );

@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/b_slide_editor_screen.da
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -340,7 +339,7 @@ Future<void> onMoreTap({
     draggable: true,
     // buttonHeight: BottomDialog.wideButtonHeight,
     numberOfWidgets: 3,
-    builder: (BuildContext ctx, PhraseProvider phraseProvider){
+    builder: (_){
 
       final List<Widget> _widgets = <Widget>[
 

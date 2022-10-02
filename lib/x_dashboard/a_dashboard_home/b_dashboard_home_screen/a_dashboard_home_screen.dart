@@ -336,7 +336,7 @@ class DashBoardHomeScreen extends StatelessWidget {
             height: 50,
             child: SuperVerse(
               verse: Verse(
-                text: "You've been here for ( $_youHaveBeenHereFor ) days",
+                text: "You've been Blding for ( $_youHaveBeenHereFor ) days",
                 translate: false,
               ),
               size: 1,

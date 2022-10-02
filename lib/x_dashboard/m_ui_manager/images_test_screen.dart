@@ -8,6 +8,8 @@ import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
@@ -25,6 +27,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -32,6 +35,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/b_bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/o_ldb_manager/ldb_viewer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
@@ -177,29 +181,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       appBarType: AppBarType.scrollable,
       appBarRowWidgets: <Widget>[
 
-        /// URL
-        AppBarButton(
-          icon: Iconz.comWebsite,
-          onTap: () async {
-
-            final UserModel _user = await SearchUsersScreen.selectUser(context);
-
-            if (_user != null){
-
-              await _triggerLoading(setTo: true);
-
-              final FileModel _pickedFileModel = await FileModel.createModelByUrl(
-                  url: _user.pic,
-                  fileName: _user.id,
-              );
-
-              await setImage(_pickedFileModel);
-
-            }
-
-          },
-        ),
-
         /// GALLERY PICK
         AppBarButton(
           icon: Iconz.phoneGallery,
@@ -231,6 +212,57 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
           },
         ),
+
+        /// URL
+        AppBarButton(
+          icon: Iconz.comWebsite,
+          onTap: () async {
+
+            final UserModel _user = await SearchUsersScreen.selectUser(context);
+
+            if (_user != null){
+
+              await _triggerLoading(setTo: true);
+
+              final FileModel _pickedFileModel = await FileModel.createModelByUrl(
+                url: _user.pic,
+                fileName: _user.id,
+              );
+
+              await setImage(_pickedFileModel);
+
+            }
+
+          },
+        ),
+
+        /// ASSET
+        AppBarButton(
+          icon: Iconz.dvDonaldDuck,
+          onTap: () async {
+
+            final String _icon = await BldrsIconsScreen.selectIcon(context);
+
+            if (_icon != null){
+
+              await _triggerLoading(setTo: true);
+
+              final File _file = await Filers.getFileFromLocalRasterAsset(
+                  context: context,
+                  localAsset: _icon,
+              );
+
+              final FileModel _pickedFileModel = FileModel.createModelByNewFile(_file);
+
+              await setImage(_pickedFileModel);
+
+            }
+
+          },
+        ),
+
+        /// SEPARATOR
+        const DotSeparator(boxWidth: 20,),
 
         /// CROP IMAGE
         AppBarButton(
@@ -297,6 +329,9 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           onTap: _clearImage,
         ),
 
+        /// SEPARATOR
+        const DotSeparator(boxWidth: 20,),
+
         /// LDB
         AppBarButton(
           icon: Iconz.form,
@@ -312,20 +347,34 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           },
         ),
 
-        /// LDB
+        /// SEPARATOR
+        const DotSeparator(boxWidth: 20,),
+
+        /// UPLOAD TO STORAGE AND GET URL
         AppBarButton(
           icon: Iconz.arrowUp,
           onTap: () async {
 
            await  _triggerLoading(setTo: true);
 
-            await Storage.createStoragePicAndGetURL(
+            final String url = await Storage.createStoragePicAndGetURL(
                 context: context,
                 docName: 'testFolder',
                 fileName: 'test',
                 ownersIDs: [AuthFireOps.superUserID()],
                 inputFile: await Filers.getFileFromBase64(_ldbBase64),
             );
+
+            await Dialogs.showSuccessDialog(
+                context: context,
+                firstLine: const Verse(
+                  text: 'Image uploaded successfully',
+                  translate: false,
+                ),
+              secondLine: Verse.plain(url),
+            );
+
+            await Keyboard.copyToClipboard(context: context, copy: url);
 
            await  _triggerLoading(setTo: false);
 

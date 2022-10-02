@@ -13,14 +13,13 @@ import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/pagin
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/sembast_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/email_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/keyboard_field_widget_test.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/location_test_screen/locations_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/redorder_list_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/reorder_list_test.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/tiny_flyer_test_screen.dart';
@@ -67,13 +66,6 @@ class SpecializedLabs extends StatelessWidget {
         verse:  'email Test Screen',
         icon: Iconz.comEmail,
         screen: EmailTestScreen(),
-      ),
-
-      /// IMAGES TEST SCREEN
-      DashButtonModel(
-        verse:  'images Test Screen',
-        icon: Iconz.camera,
-        screen: ImagesTestScreen(),
       ),
 
       /// DYNAMIC LINKS TEST

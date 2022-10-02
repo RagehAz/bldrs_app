@@ -495,8 +495,9 @@ class TextMod {
   /// TRANSFORMERS
 
   // --------------------
-  /// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
+  /// TAMAM : WORKS PERFECT
   static String getFileNameFromAsset(String asset) {
+  /// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
     return removeTextBeforeLastSpecialCharacter(asset, '/');
   }
   // --------------------

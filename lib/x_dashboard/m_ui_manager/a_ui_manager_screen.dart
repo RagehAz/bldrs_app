@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/animations_lab.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/d_balloon_types_screen.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/super_rage7.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -35,7 +36,7 @@ class UIManager extends StatelessWidget {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: const IconsViewerScreen(),
+              screen: const BldrsIconsScreen(),
             );
 
           },
@@ -92,6 +93,20 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const AnimationsLab(),
+            );
+
+          },
+        ),
+
+        /// IMAGE TEST SCREEN
+        WideButton(
+          verse: Verse.plain('Images testing'),
+          icon: Iconz.camera,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const ImagesTestScreen(),
             );
 
           },
