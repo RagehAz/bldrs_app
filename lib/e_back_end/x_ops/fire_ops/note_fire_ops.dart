@@ -158,12 +158,10 @@ class NoteFireOps {
 
     }
 
-    blog('_adjustNoteToken : _note out is : ${_note.token}');
-
     return _note;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> _adjustBldrsLogoURL({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -174,6 +172,7 @@ class NoteFireOps {
 
     if (noteModel != null){
 
+      /// ADJUST IMAGE IF SENDER IS BLDRS
       if (noteModel.senderID == NoteModel.bldrsSenderID){
 
         final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
@@ -186,20 +185,14 @@ class NoteFireOps {
           senderImageURL: _bldrsNotificationIconURL ?? NoteModel.bldrsLogoStaticURL,
         );
 
-        blog('_adjustBldrsLogoURL : noteModel.token : ${_note.token}');
-
-        blog('_adjustBldrsLogoURL : senderImageURL is : ${_note?.senderImageURL}');
-
       }
+
+      /// KEEP IT AS IS
       else {
         _note = noteModel.copyWith();
-        blog('_adjustBldrsLogoURL : noteModel.token  xxxxxx : ${_note.token}');
-
       }
 
     }
-
-    blog('_adjustBldrsLogoURL : noteModel.token  rerererere : ${_note.token}');
 
     return _note;
   }

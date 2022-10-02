@@ -168,7 +168,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSendScheduledNotification() async {
-    await FCM.createScheduledNotification();
+    // await FCM.pushScheduledNotification();
   }
 // -----------------------------------------------------------------------------
   @override
