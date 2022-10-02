@@ -264,6 +264,7 @@ class Numeric {
   }) {
     assert(maxDigitsCount > 0 && maxDigitsCount <= 16, 'Take care : 0 < maxDigitsCount <= 16',);
 
+    /// some smart ass stunt online said : DateTime.now().millisecondsSinceEpoch ~/ 1000;
     final String _string = DateTime.now().microsecondsSinceEpoch.toString();
 
     final String _trimmed = TextMod.removeNumberOfCharactersFromBeginningOfAString(
