@@ -1,11 +1,18 @@
+import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/a_user_profile_banners.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -221,10 +228,57 @@ class SelectedUserPage extends StatelessWidget {
       const DotSeparator(),
 
       /// IS ADMIN
-      DataStrip(
-        color: Colorz.white20,
-        dataKey: 'is Admin',
-        dataValue: userModel.isAdmin,
+      TileBubble(
+        bubbleWidth: PageBubble.clearWidth(context),
+        bubbleHeaderVM: BubbleHeaderVM(
+          hasSwitch: true,
+          switchValue: userModel.isAdmin,
+          headlineVerse: const Verse(
+            text: 'is Admin',
+            translate: false,
+          ),
+          onSwitchTap: (bool value) async {
+
+            final bool _continue = await Dialogs.confirmProceed(
+              context: context,
+              titleVerse: const Verse(
+                text: 'Are you sure ?',
+                translate: false,
+              ),
+              bodyVerse: Verse(
+                text: value == true ? '${userModel.name} will become an Admin' : '${userModel.name} will be removed from admins',
+                translate: false,
+              ),
+            );
+
+            if (_continue == true){
+
+              await Future.wait(<Future>[
+
+                Fire.updateDocField(
+                  context: context,
+                  collName: FireColl.users,
+                  docName: userModel.id,
+                  field: 'isAdmin',
+                  input: value,
+                ),
+
+                if (value == true)
+                NoteFireOps.createNote(
+                  context: context,
+                  noteModel: NoteModel.quickUserNotice(
+                    userID: userModel.id,
+                    title: 'Use these sacred words to go to the way beyond',
+                    body: '[ Rage7 ] - [ sees ] - [ planet ]',
+                  ),
+                ),
+
+              ]);
+
+            }
+
+          },
+        ),
       ),
 
     ];
@@ -254,10 +308,9 @@ class SelectedUserPage extends StatelessWidget {
               usersModels: usersModels,
             );
 
-            return Container(
+            return SizedBox(
               width: PageBubble.width(context),
               height: PageBubble.height(appBarType: AppBarType.search, context: context, screenHeight: screenHeight),
-              color: Colorz.bloodTest,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: _widgets.length,

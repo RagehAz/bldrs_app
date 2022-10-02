@@ -7,16 +7,18 @@ class DotSeparator extends StatelessWidget {
   const DotSeparator({
     this.bottomMarginIsOn = true,
     this.color = Colorz.grey80,
+    this.boxWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool bottomMarginIsOn;
   final Color color;
+  final double boxWidth;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double screenWidth = Scale.superScreenWidth(context);
+    final double screenWidth = boxWidth ?? Scale.superScreenWidth(context);
 
     return Container(
       width: screenWidth,

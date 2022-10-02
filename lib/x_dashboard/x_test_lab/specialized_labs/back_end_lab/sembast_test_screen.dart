@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -206,15 +205,13 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
     ];
 
     await BottomDialog.showButtonsBottomDialog(
-      context: context,
-      draggable: true,
-      numberOfWidgets: _buttons.length,
-      builder: (_, PhraseProvider phrasePro){
-
-        return _buttons;
-
-      }
-    );
+        context: context,
+        draggable: true,
+        numberOfWidgets: _buttons.length,
+        builder: (_){
+          return _buttons;
+        }
+        );
 
   }
 // ----------------------------------------

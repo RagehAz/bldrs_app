@@ -16,7 +16,7 @@ class NotesTestingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _NotesTestingScreenState createState() => _NotesTestingScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _NotesTestingScreenState extends State<NotesTestingScreen> {

@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -274,7 +273,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
         draggable: true,
         numberOfWidgets: DataCreation.dataCreatorsList.length,
         buttonHeight: 40,
-        builder: (_, PhraseProvider phrasePro){
+        builder: (_){
 
           return <Widget>[
 

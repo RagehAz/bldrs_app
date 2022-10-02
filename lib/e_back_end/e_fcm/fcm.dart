@@ -43,8 +43,8 @@ class FCM {
 
   // --------------------
   static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
-  static const String flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
-  static const String flatBldrsNotiIcon2 = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+  static const String fcmIconFlat = 'resource://drawable/res_flat_logo';
+  static const String fcmIconFlat2 = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -60,7 +60,7 @@ class FCM {
     final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
 
     await _awesomeNotification.initialize(
-      flatBldrsNotiIcon,
+      fcmIconFlat,
       <NotificationChannel>[
         basicNotificationChannel(),
         scheduledNotificationChannel(),
@@ -157,7 +157,7 @@ class FCM {
     final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
 
     const InitializationSettings initializationSettings = InitializationSettings(
-      android: AndroidInitializationSettings(FCM.flatBldrsNotiIcon2),
+      android: AndroidInitializationSettings(FCM.fcmIconFlat2),
     );
 
     await _notiPlugin.initialize(initializationSettings,
@@ -301,7 +301,7 @@ class FCM {
         NotificationActionButton(
           key: 'MARK_DONE',
           label: 'Mark Done',
-          icon: flatBldrsNotiIcon2,
+          icon: fcmIconFlat2,
           buttonType: ActionButtonType.KeepOnTop,
           // autoCancel: false,
           enabled: true,
@@ -483,15 +483,15 @@ class FCM {
     return NotificationChannel(
       channelKey: getNotificationChannelName(FCMChannel.basic),
       channelName: getNotificationChannelName(FCMChannel.basic),
-      channelDescription: 'this is for testing', // this will be visible to user in android notification settings
-      defaultColor: Colorz.yellow255,
+      channelDescription: 'Bldrs.net notification', // this will be visible to user in android notification settings
+      defaultColor: Colorz.green255, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO GREEN TO TEST
       channelShowBadge: true,
-      icon: flatBldrsNotiIcon,
-      ledColor: Colorz.yellow255,
+      icon: fcmIconFlat,
+      ledColor: Colorz.facebook, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO facebook color TO TEST
       importance: NotificationImportance.High,
       locked: true,
       playSound: true,
-      soundSource: 'resource://raw/res_hi', //Audioz.randomBldrsNameSoundPath(),
+      soundSource: Sounder.getNotificationFilesPath(Sounder.nicoleSaysBldrsDotNet),
       enableLights: true,
       enableVibration: true,
     );
@@ -505,13 +505,13 @@ class FCM {
       defaultColor: Colorz.yellow255,
       channelShowBadge: true,
       enableLights: true,
-      icon: flatBldrsNotiIcon,
+      icon: fcmIconFlat,
       ledColor: Colorz.yellow255,
       importance: NotificationImportance.High,
       enableVibration: true,
       playSound: true,
       locked: true,
-      soundSource: Sounder.randomBldrsNameSoundPath(),
+      soundSource: Sounder.getNotificationFilesPath(Sounder.justinaSaysBldrsDotNet),
     );
   }
   // -----------------------------------------------------------------------------
