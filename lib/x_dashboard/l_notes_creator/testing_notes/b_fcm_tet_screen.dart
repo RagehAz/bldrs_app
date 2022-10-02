@@ -213,14 +213,34 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// CLOUD FUNCTION
         WideButton(
-          width: 250,
-          verse: Verse.plain('call cloud function \n$_received'),
+          verse: Verse.plain('call CloudFunction.callSendFCMToDevice'),
           color: Colorz.blue80,
           onTap: () async {
 
-            final dynamic map = await CloudFunction.callFunction(
+            final UserModel _user = await UserFireOps.readUser(context: context, userID: AuthFireOps.superUserID());
+
+            final NoteModel _note = NoteModel.dummyNote().copyWith(
+              title: '1111111111',
+              body: '222222222',
+              receiverID: _user.id,
+              receiverType: NoteSenderOrRecieverType.user,
+              sendFCM: true,
+              token: _user.fcmToken.token,
+            );
+
+            final Map<String, dynamic> _noteMap = _note.toMap(toJSON: true);
+            // await Fire.readDoc(
+            //   context: context,
+            //   collName: FireColl.notes,
+            //   docName: '0y4PVyUKCOOflclNi61X',
+            // );
+
+            // Mapper.blogMap(_noteMap);
+
+            final dynamic map = await CloudFunction.call(
               context: context,
-              cloudFunctionName: CloudFunction.sendNotificationToDevice,
+              functionName: CloudFunction.callSendFCMToDevice,
+              mapToPass: _noteMap,
             );
 
             blog('The Map type : ${map.runtimeType} : map : $map');
