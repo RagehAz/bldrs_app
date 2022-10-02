@@ -12,13 +12,13 @@ const userMethods = require('./user_methods');
 
 // --------------------
 // TESTED : WORKS PERFECT
-const onNoteCreation = functions.firestore
-    .document('notes/{note}')
-    .onCreate((snapshot, context) => {
-      const noteModel = snapshot.data();
-      const result = sendFCMToDevice(noteModel);
-      return result;
-    });
+// const onNoteCreation = functions.firestore
+//    .document('notes/{note}')
+//    .onCreate((snapshot, context) => {
+//      const noteModel = snapshot.data();
+//      const result = sendFCMToDevice(noteModel);
+//      return result;
+//    });
 // --------------------------------------------------------------------------
 
 //  CALLABLES
@@ -106,8 +106,8 @@ const sendFCMToDevice = (noteModel) => {
 
 // -------------------------------------
 module.exports = {
-  // 'send_fcm_on_note_creation': send_fcm_on_note_creation,
-  'onNoteCreation': onNoteCreation,
+// 'send_fcm_on_note_creation': send_fcm_on_note_creation,
+//  'onNoteCreation': onNoteCreation,
   'callSendFCMToDevice': callSendFCMToDevice,
 };
 // firebase deploy --only functions:onNoteCreation

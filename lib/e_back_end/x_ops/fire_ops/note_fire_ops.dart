@@ -8,6 +8,7 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,15 +45,30 @@ class NoteFireOps {
           noteModel: noteModel
       );
 
-      final DocumentReference _ref = await Fire.createDoc(
-        context: context,
-        collName: FireColl.notes,
-        input: _note.toMap(toJSON: false),
-      );
+      await Future.wait(<Future>[
 
-      _output = _note.copyWith(
-        id: _ref.id,
-      );
+        /// returns true on success and false of failure
+        if (_note.sendFCM == true)
+        CloudFunction.call(
+            context: context,
+            functionName: CloudFunction.callSendFCMToDevice,
+            mapToPass: _note.toMap(toJSON: true),
+            onFinish: (dynamic result){
+              blog('NoteFireOps.createNote : FCM SENT : $result');
+            }
+        ),
+
+        Fire.createDoc(
+          context: context,
+          collName: FireColl.notes,
+          input: _note.toMap(toJSON: false),
+          onFinish: (DocumentReference ref){
+            _output = _note.copyWith(id: ref.id,);
+          },
+        )
+
+      ]);
+
 
       if (onFinished != null){
         onFinished(_output);

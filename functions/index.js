@@ -18,7 +18,7 @@ admin.initializeApp();
 // EXPORTS
 
 // -------------------------------------
-exports.onNoteCreation = fcmMethods.onNoteCreation;
+// exports.onNoteCreation = fcmMethods.onNoteCreation;
 exports.callSendFCMToDevice = fcmMethods.callSendFCMToDevice;
 // --------------------------------------------------------------------------
 
