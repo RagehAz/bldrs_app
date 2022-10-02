@@ -101,10 +101,10 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
             WideButton(
                 verse: Verse.plain('call a cloud function callable_sayHello'),
                 onTap: () async {
-                  final dynamic map = await CloudFunction.callFunction(
+                  final dynamic map = await CloudFunction.call(
                       context: context,
-                      cloudFunctionName: 'n001_notifyUser',
-                      toDBMap: <String, dynamic>{
+                      functionName: 'n001_notifyUser',
+                      mapToPass: <String, dynamic>{
                         'from': AuthFireOps.superUserID(),
                         'to': '60a1SPzftGdH6rt15NF96m0j9Et2', // rageh by facebook
                         'title': 'Targetted notification',
