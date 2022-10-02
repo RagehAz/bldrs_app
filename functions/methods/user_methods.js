@@ -10,6 +10,7 @@ const admin = require('firebase-admin');
 //  FCM TOKEN
 
 // -------------------------------------
+// TESTED : WORKS
 const deleteUserToken = (userID) => {
   functions.logger.log(`deleteUserToken : 1 - START : with userID : [${userID}]`);
   const userDocRef = admin.firestore().collection('users').doc(userID);

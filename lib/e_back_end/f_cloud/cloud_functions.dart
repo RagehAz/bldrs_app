@@ -36,43 +36,69 @@ class CloudFunction {
   // -----------------------------------------------------------------------------
 
   const CloudFunction();
-
+  // -----------------------------------------------------------------------------
+  /// NOTES :
+  /// http trigger -> ( callable function - end point request )
   // -----------------------------------------------------------------------------
 
-  /// CLOUD FUNCTIONS NAMES
+  /// CLOUD FUNCTIONS REGION
 
   // --------------------
-  static const String sendNotificationToDevice = 'sendNotificationToDevice';
+  static const String bldrsCloudFunctionsRegion = 'us-central1';
   // -----------------------------------------------------------------------------
 
-  /// CALLERS
+  /// CALLABLE FUNCTIONS NAMES
 
   // --------------------
-  /// TESTED :
-  static Future<dynamic> callFunction({
-    @required BuildContext context,
-    String cloudFunctionName,
-    Map<String, dynamic> toDBMap,
-  }) async {
+  static const String callSendFCMToDevice = 'callSendFCMToDevice';
+  // -----------------------------------------------------------------------------
 
-    /// http trigger -> ( callable function - end point request )
+  /// INSTANCE
 
-    final HttpsCallable _function = _getCallableFunction(
-      funcName: cloudFunctionName,
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static HttpsCallable _getCallableFunctionInstance({
+    @required String funcName,
+    String region = bldrsCloudFunctionsRegion,
+    Duration timeout = const Duration(seconds: 60),
+  }) {
+    return FirebaseFunctions.instanceFor(region: region).httpsCallable(
+      funcName,
+      options: HttpsCallableOptions(
+        timeout: timeout,
+      ),
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CALLING
+
+  // --------------------
+  /// TESTED : WORKS
+  static Future<dynamic> call({
+    @required BuildContext context,
+    @required String functionName,
+    Map<String, dynamic> mapToPass,
+  }) async {
 
     dynamic _output;
 
     await tryAndCatch(
         context: context,
-        methodName: 'CLOUD FUNCTIONS : callFunction',
+        methodName: 'CloudFunction.call',
         functions: () async {
 
-          final Map<String, dynamic> _arguments = toDBMap ?? <String, dynamic>{};
+          final HttpsCallable _function = _getCallableFunctionInstance(
+            funcName: functionName,
+          );
 
-          final HttpsCallableResult _result = await _function.call(_arguments);
+          final Map<String, dynamic> _map = mapToPass ?? <String, dynamic>{};
 
+          final HttpsCallableResult _result = await _function.call(_map);
+
+          blog('call : _result : $_result');
           _output = _result.data;
+          blog('call : _output : $_output');
         },
         onError: (String error) async {
 
@@ -117,25 +143,11 @@ class CloudFunction {
 
     return _output;
   }
-  // --------------------
-  static HttpsCallable _getCallableFunction({String funcName}) {
-    return FirebaseFunctions.instance.httpsCallable(
-      funcName,
-      options: HttpsCallableOptions(
-        // timeout:
-      ),
-    );
-  }
   // -----------------------------------------------------------------------------
 }
 /// ------------------------------------------------o
-const String funcNameMyFunction = 'myFunction';
-// String callable_toBlackHole = 'toBlackHole';
-const String callableRandomNumber = 'randomNumber';
-const String callableSayHello = 'x_sayHello';
-/// ------------------------------------------------o
-Future<String> deleteFirebaseUser({String userID}) async {
-  blog('will delete user tomorrow isa, after 3eid');
-  return 'rabena ysahhel';
-}
+// Future<String> deleteFirebaseUser({String userID}) async {
+//   blog('will delete user tomorrow isa, after 3eid');
+//   return 'rabena ysahhel';
+// }
 /// ------------------------------------------------o
