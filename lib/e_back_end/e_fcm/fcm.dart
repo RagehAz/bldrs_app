@@ -1,6 +1,15 @@
+import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
+import 'package:bldrs/a_models/user/fcm_token.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
@@ -10,13 +19,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'dart:io';
-import 'package:bldrs/a_models/user/fcm_token.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 
 enum FCMChannel {
   basic,
@@ -62,14 +64,15 @@ class FCM {
 
   // --------------------
   static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
-  static const String fcmIconFlat = 'resource://drawable/res_flat_logo';
-  static const String fcmIconFlat2 = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+  static const String fcmWhiteLogoFilePath = 'resource://drawable/res_flat_logo';
+  static const String fcmWhiteLogoFileName = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+  static const String fcmColorLogoFileName = 'res_color_logo';
   // -----------------------------------------------------------------------------
 
   /// PUSHING NOTIFICATION
 
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> pushGlobalNotification({
     @required String body,
     @required String title,
@@ -97,15 +100,18 @@ class FCM {
 
   }
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> pushLocalNotification({
     @required String title,
     @required String body,
     @required String payload,
+    File picture,
   }) async {
 
     final NotificationDetails _notificationDetails = NotificationDetails(
-      android: _createAndroidNotificationDetails(),
+      android: _createAndroidNotificationDetails(
+        largeIcon: await _getLargeIcon(picture),
+      ),
       iOS: _createIOSNotificationDetails(),
       // macOS: ,
       // linux: ,
@@ -119,6 +125,20 @@ class FCM {
       payload: payload,
     );
 
+  }
+  // --------------------
+  ///
+  static Future<AndroidBitmap> _getLargeIcon(File file) async {
+    AndroidBitmap _largeIcon;
+
+    if (file != null){
+
+      final String _base64 = await Floaters.getBase64FromFileOrURL(file);
+      _largeIcon = ByteArrayAndroidBitmap.fromBase64String(_base64);
+
+    }
+
+    return _largeIcon;
   }
   // -----------------------------------------------------------------------------
 
@@ -225,20 +245,26 @@ class FCM {
   }
   // --------------------
   ///
-  static AndroidNotificationDetails _createAndroidNotificationDetails(){
+  static AndroidNotificationDetails _createAndroidNotificationDetails({
+    AndroidBitmap<Object> largeIcon,
+  }){
 
-    return const AndroidNotificationDetails(
-      'bldrs',
-      'bldrs channel',
+    return AndroidNotificationDetails(
+      'bldrs', // channelId
+      'bldrs channel', // channelName
       // 'bldrs network',
       importance: Importance.max,
       priority: Priority.high,
-      // color: ,
-      // icon: ,
+
+      /// ICON
+      color: Colorz.black255, /// ICON COLOR
+      icon: fcmWhiteLogoFileName,
+      largeIcon: largeIcon,
+
+
       // ticker: ,
       // showWhen: ,
       // progress: ,
-      // largeIcon: ,
       // groupKey: ,
       // fullScreenIntent: ,
       // category: ,
@@ -325,7 +351,7 @@ class FCM {
       ///
       defaultColor: Colorz.green255, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO GREEN TO TEST
       channelShowBadge: true,
-      icon: fcmIconFlat,
+      icon: fcmWhiteLogoFilePath,
       ledColor: Colorz.facebook, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO facebook color TO TEST
       importance: NotificationImportance.High,
       locked: true,
@@ -357,7 +383,7 @@ class FCM {
       defaultColor: Colorz.yellow255,
       channelShowBadge: true,
       enableLights: true,
-      icon: fcmIconFlat,
+      icon: fcmWhiteLogoFilePath,
       ledColor: Colorz.yellow255,
       importance: NotificationImportance.High,
       enableVibration: true,

@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
@@ -66,30 +68,40 @@ class Rest {
     @required bool showErrorDialog,
     Map<String, String> headers,
     String invoker = '',
-    int timeout = 2,
+    int timeoutSeconds = 10,
   }) async {
 
     http.Response _response;
 
-    await tryAndCatch(
-      context: context,
-      methodName: 'REST : get : $invoker',
-      functions: () async {
+    try {
 
-        /// GET REQUEST
-        _response = await http.get(
-          Uri.parse(rawLink),
-          headers: headers,
-        ).timeout(
-            Duration(seconds: timeout),
-            onTimeout: () async {
-              blog('Rest.get timeout occurred');
-              return null;
-            }
-            );
-      },
+      blog('rest.get : _imageUri : $rawLink');
 
-    );
+      /// GET REQUEST
+      _response = await http.get(
+        Uri.parse(rawLink),
+        headers: headers,
+      ).timeout(
+          Duration(seconds: timeoutSeconds),
+          onTimeout: () async {
+            blog('Rest.get timeout occurred');
+            return null;
+          }
+      );
+
+      blog('rest.get : _response : ${_response?.body}');
+
+    }
+    on TimeoutException catch (error) {
+      blog('Rest.get.TimeoutException : $invoker : error.message : ${error.message}');
+    }
+    on Exception catch (error) {
+      blog('Rest.get.Exception : $invoker : error.message : $error');
+    }
+
+    // if (_response != null){
+      // final response = await request.close().timeout(const Duration(seconds: 10));
+    // }
 
     return _checkUpResponse(
       context: context,
@@ -97,6 +109,44 @@ class Rest {
       showErrorDialog: showErrorDialog,
       invoker: invoker,
     );
+
+  }
+
+  static Future<Uint8List> readBytes({
+    // @required BuildContext context,
+    @required String rawLink,
+    String invoker = '',
+    int timeoutSeconds = 2,
+    Map<String, String> headers,
+
+  }) async {
+
+    Uint8List _uInts;
+
+    await tryAndCatch(
+      // context: context,
+      methodName: 'REST : get : $invoker',
+      functions: () async {
+
+        /// GET REQUEST
+        _uInts = await http.readBytes(
+          Uri.parse(rawLink),
+          headers: headers,
+        ).timeout(
+            Duration(seconds: timeoutSeconds),
+            onTimeout: () async {
+              blog('Rest.get timeout occurred');
+              return null;
+            }
+        );
+
+
+      },
+
+
+    );
+
+    return _uInts;
 
   }
   // -----------------------------------------------------------------------------
