@@ -1,16 +1,16 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/o_ldb_manager/ldb_viewer_screen.dart';
-import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/o_ldb_manager/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,36 +33,48 @@ class LDBViewersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DashBoardLayout(
-      pageTitle: 'LDB viewers',
-      onBldrsTap: () async {
+    return MainLayout(
+      pageTitleVerse: Verse.plain('LDB viewers'),
+      appBarType: AppBarType.basic,
+      appBarRowWidgets: <Widget>[
 
-        blog('starting the thing');
+        const Expander(),
 
-        final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
-          context: context,
-          flyerID: 'f002',
-        );
+        AppBarButton(
+          icon: Iconz.lab,
+          onTap: () async {
 
-        _flyer.blogFlyer(
-          methodName: 'LDB Manager : [onBldrsTap button]',
-        );
-      },
-      listWidgets: <Widget>[
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const SembastTestScreen(),
+            );
 
-        ...List<Widget>.generate(LDBDoc.allDocs.length, (int index) {
-
-          final String ldbDoc = LDBDoc.allDocs[index];
-
-          return WideButton(
-            verse: Verse.plain(ldbDoc), // notifications prefs, my user model
-            onTap: () => goToLDBViewer(context, ldbDoc),
-            icon: Iconz.info,
-          );
-
-        }
+          },
         ),
+
       ],
+
+      layoutWidget: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        padding: Stratosphere.stratosphereSandwich,
+        child: Column(
+          children: <Widget>[
+
+            ...List<Widget>.generate(LDBDoc.allDocs.length, (int index) {
+
+              final String ldbDoc = LDBDoc.allDocs[index];
+
+              return WideButton(
+                verse: Verse.plain(ldbDoc), // notifications prefs, my user model
+                onTap: () => goToLDBViewer(context, ldbDoc),
+                icon: Iconz.info,
+              );
+
+            }
+            ),
+          ],
+        ),
+      ),
     );
 
   }

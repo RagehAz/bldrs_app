@@ -43,6 +43,7 @@ class DashButton extends StatelessWidget {
             height: size * 0.5,
             width: size * 0.5,
             icon: dashButtonModel.icon,
+            iconColor: dashButtonModel.iconColor,
             iconSizeFactor: 0.8,
             bubble: false,
             margins: size * 0.05,
