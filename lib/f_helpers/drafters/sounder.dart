@@ -18,16 +18,22 @@ class Sounder  {
   /// Singleton accessor
   static Sounder get instance => _singleton;
   // --------------------
-  ///
+  /// local instance
   AudioPlayer _freePlayer;
   // --------------------
-  /// db object accessor
+  /// instance getter
   AudioPlayer get player {
     return _freePlayer ??= AudioPlayer();
   }
   // --------------------
+  /// static instance getter
   static AudioPlayer _getPlayer() {
     return Sounder.instance.player;
+  }
+  // --------------------
+  /// Static dispose
+  static void dispose(){
+    _getPlayer().dispose();
   }
   // -----------------------------------------------------------------------------
 

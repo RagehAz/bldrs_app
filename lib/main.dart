@@ -14,10 +14,12 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
+import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,9 +28,9 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 Future<void> main() async {
-  // -----------------------------------------------------------------------------
-  /// TASK : In optimization : study this : https://pub.dev/packages/keframe
+  /// -----------------------------------------------------------------------------
   /*
+    /// TASK : In optimization : study this : https://pub.dev/packages/keframe
   // debugPrintMarkNeedsPaintStacks = false;
   // debugProfilePaintsEnabled = false;
   // debugProfileBuildsEnabled = false;
@@ -43,10 +45,10 @@ Future<void> main() async {
   // --------------------
   await Firebase.initializeApp();
   // --------------------
-  await FCM.preInitializeNotifications();
-  /// --------------------------------------------------------------------------
+  await FCMStarter.preInitializeNotifications();
+  /// --------------------
   runApp(const BldrsApp());
-  /// --------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
 }
 
 class BldrsApp extends StatefulWidget {
@@ -105,7 +107,7 @@ class _BldrsAppState extends State<BldrsApp> {
         );
 
         /// NOTIFICATIONS
-        await FCM.initializeNotifications(context);
+        await FCMStarter.initializeNotifications(context);
 
         /// DYNAMIC LINKS
         await DynamicLinks.initializeDynamicLinks(context);
@@ -125,6 +127,11 @@ class _BldrsAppState extends State<BldrsApp> {
     _loading.dispose();
     _locale.dispose();
     _fireError.dispose();
+
+    // Sembast.dispose(); async function,, and no need to close sembast I guess
+    Sounder.dispose();
+    FCM.dispose();
+
     super.dispose();
   }
   // -----------------------------------------------------------------------------

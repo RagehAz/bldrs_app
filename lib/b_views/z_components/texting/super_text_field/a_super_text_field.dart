@@ -618,10 +618,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   Widget build(BuildContext context) {
 
-    // blog('rebuilding field : ${widget.titleVerse} : ${widget.textController.hashCode}');
-
-    /// NORMAL TEXT FIELD
-    // if (widget.isFloatingField == false){
     return SuperTextFieldBox(
       width: widget.width,
       margins: widget.margins,
@@ -637,62 +633,112 @@ class _SuperTextFieldState extends State<SuperTextField> {
               detectedDirection: textDirection,
             );
 
-            return Selector<UiProvider, bool>(
-              selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
-              shouldRebuild: (bool oldVal, bool newVal){
-                return oldVal != newVal;
-              },
-              builder: (_, bool _isObscured, Widget child){
+            if (widget.canObscure == true){
+              return Selector<UiProvider, bool>(
+                selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+                shouldRebuild: (bool oldVal, bool newVal){
+                  return oldVal != newVal;
+                },
+                builder: (_, bool _isObscured, Widget child){
 
-                return TextFormFieldSwitcher(
-                  appBarType: widget.appBarType,
-                  /// main
-                  isFormField: widget.isFormField,
-                  controller: _controller,
-                  hintVerse: widget.hintVerse,
-                  autoFocus: widget.autofocus,
-                  focusNode: _focusNode,
-                  counterIsOn: widget.counterIsOn,
-                  autoValidate: widget.autoValidate,
+                  return TextFormFieldSwitcher(
+                    appBarType: widget.appBarType,
+                    /// main
+                    isFormField: widget.isFormField,
+                    controller: _controller,
+                    hintVerse: widget.hintVerse,
+                    autoFocus: widget.autofocus,
+                    focusNode: _focusNode,
+                    counterIsOn: widget.counterIsOn,
+                    autoValidate: widget.autoValidate,
 
-                  /// box
-                  corners: widget.corners,
+                    /// box
+                    corners: widget.corners,
 
-                  /// keyboard
-                  textInputAction: widget.textInputAction,
-                  textInputType: widget.textInputType,
+                    /// keyboard
+                    textInputAction: widget.textInputAction,
+                    textInputType: widget.textInputType,
 
-                  /// text
-                  textDirection: _concludedTextDirection,
-                  obscured: _checkCanObscure(_isObscured),
-                  minLines: widget.minLines,
-                  maxLines: widget.maxLines,
-                  maxLength: widget.maxLength,
-                  scrollController: _scrollController,
+                    /// text
+                    textDirection: _concludedTextDirection,
+                    obscured: _checkCanObscure(_isObscured),
+                    minLines: widget.minLines,
+                    maxLines: widget.maxLines,
+                    maxLength: widget.maxLength,
+                    scrollController: _scrollController,
 
-                  /// styling
-                  centered: widget.centered,
-                  textShadow: widget.textShadow,
-                  textWeight: widget.textWeight,
-                  textSize: widget.textSize,
-                  textSizeFactor: widget.textSizeFactor,
-                  textItalic: widget.textItalic,
-                  textColor: widget.textColor,
-                  fieldColor: widget.fieldColor,
+                    /// styling
+                    centered: widget.centered,
+                    textShadow: widget.textShadow,
+                    textWeight: widget.textWeight,
+                    textSize: widget.textSize,
+                    textSizeFactor: widget.textSizeFactor,
+                    textItalic: widget.textItalic,
+                    textColor: widget.textColor,
+                    fieldColor: widget.fieldColor,
 
-                  /// functions
-                  onTap: () => _onTap(context),
-                  onChanged: _onTextChanged,
-                  onSubmitted: widget.onSubmitted,
-                  onSavedForForm: widget.onSavedForForm,
-                  onEditingComplete: widget.onEditingComplete,
-                  validator: widget.validator,
-                  readOnly: widget.isFloatingField,
-                  // readOnly: widget.isFloatingField,
-                );
+                    /// functions
+                    onTap: () => _onTap(context),
+                    onChanged: _onTextChanged,
+                    onSubmitted: widget.onSubmitted,
+                    onSavedForForm: widget.onSavedForForm,
+                    onEditingComplete: widget.onEditingComplete,
+                    validator: widget.validator,
+                    readOnly: widget.isFloatingField,
+                    // readOnly: widget.isFloatingField,
+                  );
 
-              },
-            );
+                },
+              );
+            }
+            else {
+              return TextFormFieldSwitcher(
+                appBarType: widget.appBarType,
+                /// main
+                isFormField: widget.isFormField,
+                controller: _controller,
+                hintVerse: widget.hintVerse,
+                autoFocus: widget.autofocus,
+                focusNode: _focusNode,
+                counterIsOn: widget.counterIsOn,
+                autoValidate: widget.autoValidate,
+
+                /// box
+                corners: widget.corners,
+
+                /// keyboard
+                textInputAction: widget.textInputAction,
+                textInputType: widget.textInputType,
+
+                /// text
+                textDirection: _concludedTextDirection,
+                obscured: false,
+                minLines: widget.minLines,
+                maxLines: widget.maxLines,
+                maxLength: widget.maxLength,
+                scrollController: _scrollController,
+
+                /// styling
+                centered: widget.centered,
+                textShadow: widget.textShadow,
+                textWeight: widget.textWeight,
+                textSize: widget.textSize,
+                textSizeFactor: widget.textSizeFactor,
+                textItalic: widget.textItalic,
+                textColor: widget.textColor,
+                fieldColor: widget.fieldColor,
+
+                /// functions
+                onTap: () => _onTap(context),
+                onChanged: _onTextChanged,
+                onSubmitted: widget.onSubmitted,
+                onSavedForForm: widget.onSavedForForm,
+                onEditingComplete: widget.onEditingComplete,
+                validator: widget.validator,
+                readOnly: widget.isFloatingField,
+                // readOnly: widget.isFloatingField,
+              );
+            }
 
           }
       ),
