@@ -1,43 +1,61 @@
-import 'dart:io';
-/// ~~~~~~~~~~~~~~
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-/// ~~~~~~~~~~~~~~
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/c_awesome_noti_test_screen.dart';
-/// ~~~~~~~~~~~~~~
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/user/fcm_token.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-/// ~~~~~~~~~~~~~~
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:io';
+import 'package:bldrs/a_models/user/fcm_token.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+
 enum FCMChannel {
   basic,
   scheduled,
 }
-/// ~~~~~~~~~~~~~~
-enum FCMTiming {
-  onMessage,
-  onResume,
-  onLaunch,
-}
-/// ~~~~~~~~~~~~~~
+
+/// AWESOME NOTIFICATIONS PUSHER
 class FCM {
   // -----------------------------------------------------------------------------
 
-  const FCM();
+  /// AWESOME NOTIFICATIONS SINGLETON
 
+  // --------------------
+  /// private constructor to create instances of this class only in itself
+  FCM._thing();
+  // --------------------
+  /// Singleton instance
+  static final FCM _singleton = FCM._thing();
+  // --------------------
+  /// Singleton accessor
+  static FCM get instance => _singleton;
+  // --------------------
+  /// local instance
+  AwesomeNotifications _awesomeNotifications;
+  // --------------------
+  /// instance getter
+  AwesomeNotifications get awesomeNotifications {
+    return _awesomeNotifications ??= AwesomeNotifications();
+  }
+  // --------------------
+  /// static instance getter
+  static AwesomeNotifications getAwesomeNotifications() {
+    return FCM.instance.awesomeNotifications;
+  }
+  // --------------------
+  /// Static dispose
+  static void dispose(){
+    getAwesomeNotifications().dispose();
+  }
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -48,244 +66,60 @@ class FCM {
   static const String fcmIconFlat2 = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
   // -----------------------------------------------------------------------------
 
-  /// INITIALIZATION
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> preInitializeNotifications() async {
-
-    /// THIS GOES BEFORE RUNNING THE BLDRS APP
-    FirebaseMessaging.onBackgroundMessage(
-        (RemoteMessage remoteMessage) => _pushGlobalNotification(
-          remoteMessage: remoteMessage,
-          invoker: 'preInitializeNotifications.onBackgroundMessage'
-        )
-    );
-
-    final AwesomeNotifications _awesomeNotification = AwesomeNotifications();
-
-    await _awesomeNotification.initialize(
-      fcmIconFlat, // defaultIcon
-      <NotificationChannel>[
-        basicNotificationChannel(),
-        scheduledNotificationChannel(),
-      ],
-      // channelGroups: <NotificationChannelGroup>[
-      //   NotificationChannelGroup(
-      //     channelGroupkey: ,
-      //     channelGroupName: ,
-      //   ),
-      // ], // channelGroups
-      // debug: true,
-    );
-
-  }
-  // --------------------
-  /// TESTED : ...
-  static Future<void> initializeNotifications(BuildContext context) async {
-
-    /// NOTE : THIS GOES IN MAIN WIDGET INIT
-
-    blog('1 - initializeNotifications : START');
-
-    await _initializeLocalNotificationService(context);
-
-    final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
-
-    if (initialRemoteMessage != null) {
-
-      blogRemoteMessage(
-        methodName: '2 - initializeNotifications.initialRemoteMessage',
-        remoteMessage: initialRemoteMessage,
-      );
-
-      blog('3 - initializeNotifications : can navigate here and shit');
-
-    }
-
-    await FirebaseMessaging.instance.requestPermission(
-      criticalAlert: true,
-      carPlay: true,
-      announcement: true,
-      sound: true,
-      provisional: true,
-      badge: true,
-      alert: true,
-    );
-
-    blog('4 - initializeNotifications : permission requested ');
-
-    /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
-    FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
-      await _pushGlobalNotification(
-        remoteMessage: remoteMessage,
-        invoker: '5 - onMessage',
-      );
-    });
-
-    /// APP IS LAUNCHING ( AT STARTUP )
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async {
-
-      await _pushGlobalNotification(
-        remoteMessage: remoteMessage,
-        invoker: '6 - onMessageOpenedApp',
-      );
-
-      /// to display the notification while app in foreground
-      await _pushLocalNotification(remoteMessage);
-    });
-
-    /// when app running in background and notification tapped while having
-    /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-    FirebaseMessaging.onBackgroundMessage(
-            (RemoteMessage remoteMessage) =>
-                _pushGlobalNotification(
-                  remoteMessage: remoteMessage,
-                  invoker: '7 - onBackgroundMessage',
-                )
-    );
-
-    // fbm.getToken();
-    // await _fireMessaging.subscribeToTopic('flyers');
-
-  }
-  // --------------------
-  /// TESTED : ...
-  static Future<void> _initializeLocalNotificationService(BuildContext context) async {
-
-    final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
-
-    const InitializationSettings initializationSettings = InitializationSettings(
-      android: AndroidInitializationSettings(FCM.fcmIconFlat2),
-    );
-
-    await _notiPlugin.initialize(initializationSettings,
-        onSelectNotification: (String route) async {
-
-          if (route != null) {
-
-            blog('initializing localNotificationService : route is : $route');
-
-            await Nav.goToNewScreen(
-              context: context,
-              screen: const AwesomeNotiTestScreen(),
-            );
-
-          }
-
-        }
-
-    );
-  }
-  // -----------------------------------------------------------------------------
-
-  /// PUSHING
+  /// PUSHING NOTIFICATION
 
   // --------------------
   /// TESTED : ...
-  static Future<void> _pushGlobalNotification({
-    @required RemoteMessage remoteMessage,
-    @required String invoker,
+  static Future<void> pushGlobalNotification({
+    @required String body,
+    @required String title,
   }) async {
-
-    if (remoteMessage != null){
-
-      blogRemoteMessage(
-        methodName: 'pushNotificationFromRemoteMessage.$invoker',
-        remoteMessage: remoteMessage,
-      );
-
-      final String body = remoteMessage?.notification?.body;
-      final String title = remoteMessage?.notification?.title;
-      // final AndroidNotification android = remoteMessage?.notification?.android;
-      // final AppleNotification apple = remoteMessage?.notification?.apple;
-      // final String analyticsLabel = remoteMessage?.notification?.web?.analyticsLabel;
-      // final String image = remoteMessage?.notification?.web?.image;
-      // final String link = remoteMessage?.notification?.web?.link;
-      // final String bodyLocKey = remoteMessage?.notification?.bodyLocKey;
-      // final List<String> bodyLocArgs = remoteMessage?.notification?.bodyLocArgs;
-      // final String titleLocKey = remoteMessage?.notification?.titleLocKey;
-      // final List<String> titleLocArgs = remoteMessage?.notification?.titleLocArgs;
-      // final String category = remoteMessage?.category;
-      // final String collapseKey = remoteMessage?.collapseKey;
-      // final bool contentAvailable = remoteMessage?.contentAvailable;
-      // final String from = remoteMessage?.from;
-      // final String messageId = remoteMessage?.messageId;
-      // final String messageType = remoteMessage?.messageType;
-      // final bool mutableContent = remoteMessage?.mutableContent;
-      // final String senderId = remoteMessage?.senderId;
-      // final DateTime sentTime = remoteMessage?.sentTime;
-      // final String threadId = remoteMessage?.threadId;
-      // final int ttl = remoteMessage?.ttl;
-      // final Map<String, dynamic> data = remoteMessage?.data;
-
-      await AwesomeNotifications().createNotification(
-        /// CONTENT
-        content: _createNotificationContent(
-          body: body,
-          title: title,
-        ),
-        /// BUTTONS
-        actionButtons: _createNotificationActionButtons(),
-        /// SCHEDULE
-        schedule: _createNotificationSchedule(),
-      );
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : ...
-  static Future<void> _pushLocalNotification(RemoteMessage remoteMessage) async {
 
     await tryAndCatch(
+      methodName: 'pushGlobalNotification',
+
       functions: () async {
-        // --------
-        final int _id = Numeric.createUniqueID(maxDigitsCount: 8);
-        final String _title = remoteMessage.notification.title;
-        final String _body = remoteMessage.notification.body;
-        // --------
-        final NotificationDetails _notificationDetails = NotificationDetails(
-          android: _createAndroidNotificationDetails(),
-          iOS: _createIOSNotificationDetails(),
-          // macOS: ,
-          // linux: ,
+
+        await getAwesomeNotifications().createNotification(
+          /// CONTENT
+          content: _createNotificationContent(
+            body: body,
+            title: title,
+          ),
+          /// BUTTONS
+          actionButtons: _createNotificationActionButtons(),
+          /// SCHEDULE
+          schedule: _createNotificationSchedule(),
         );
-        // ---
-        await FlutterLocalNotificationsPlugin().show(
-          _id,
-          _title,
-          _body,
-          _notificationDetails,
-          payload: remoteMessage.data['route'],
-        );
-        // -------
-      }
+
+      },
     );
 
   }
   // --------------------
-  /// NOT TESTED
-  /*
-  static Future<void> pushScheduledNotification({
+  /// TESTED : ...
+  static Future<void> pushLocalNotification({
     @required String title,
     @required String body,
+    @required String payload,
   }) async {
 
-    await AwesomeNotifications().createNotification(
-      /// CONTENT
-      content: _createNotificationContent(
-        title: title,
-        body: body,
-      ),
-      /// ACTION BUTTONS
-      actionButtons: _createNotificationActionButtons(),
-      /// SCHEDULE
-      schedule: _createNotificationSchedule(),
+    final NotificationDetails _notificationDetails = NotificationDetails(
+      android: _createAndroidNotificationDetails(),
+      iOS: _createIOSNotificationDetails(),
+      // macOS: ,
+      // linux: ,
+    );
+
+    await FlutterLocalNotificationsPlugin().show(
+      Numeric.createUniqueID(maxDigitsCount: 8),
+      title,
+      body,
+      _notificationDetails,
+      payload: payload,
     );
 
   }
-   */
   // -----------------------------------------------------------------------------
 
   /// NOTIFICATION CONTENTS
@@ -356,15 +190,15 @@ class FCM {
       return
         <NotificationActionButton>[
           // NotificationActionButton(
-            // icon: ,
-            // autoDismissible: ,
-            // color: ,
-            // buttonType: ,
-            // enabled: ,
-            // isDangerousOption: ,
-            // key: ,
-            // label: ,
-            // showInCompactView: ,
+          // icon: ,
+          // autoDismissible: ,
+          // color: ,
+          // buttonType: ,
+          // enabled: ,
+          // isDangerousOption: ,
+          // key: ,
+          // label: ,
+          // showInCompactView: ,
           // ),
         ];
 
@@ -458,6 +292,211 @@ class FCM {
   }
   // -----------------------------------------------------------------------------
 
+  /// CANCELLATION
+
+  // --------------------
+  ///
+  static Future<void> cancelScheduledNotification() async {
+    await getAwesomeNotifications().cancelAllSchedules();
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHANNELS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getNotificationChannelName(FCMChannel channel) {
+    switch (channel) {
+      case FCMChannel.basic:      return 'Basic Notifications';break;
+      case FCMChannel.scheduled:  return 'Scheduled Notifications';break;
+      default:                    return 'Basic Notifications';
+    }
+  }
+  // --------------------
+  ///
+  static NotificationChannel basicNotificationChannel() {
+
+    /// NOTE : WORKS WHEN APP IS IN FOREGROUND
+    return NotificationChannel(
+      channelKey: getNotificationChannelName(FCMChannel.basic),
+      channelName: getNotificationChannelName(FCMChannel.basic),
+      channelDescription: 'Bldrs.net notification', // this will be visible to user in android notification settings
+
+      ///
+      defaultColor: Colorz.green255, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO GREEN TO TEST
+      channelShowBadge: true,
+      icon: fcmIconFlat,
+      ledColor: Colorz.facebook, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO facebook color TO TEST
+      importance: NotificationImportance.High,
+      locked: true,
+      playSound: true,
+      soundSource: Sounder.getNotificationFilesPath(Sounder.nicoleSaysBldrsDotNet),
+      enableLights: true,
+      enableVibration: true,
+      // groupKey: ,
+      // vibrationPattern: ,
+      // onlyAlertOnce: ,
+      // ledOnMs: ,
+      // ledOffMs: ,
+      // groupAlertBehavior: ,
+      // channelGroupKey: ,
+      // criticalAlerts: ,
+      // defaultPrivacy: ,
+      // defaultRingtoneType: ,
+      // groupSort: ,
+    );
+
+  }
+  // --------------------
+  ///
+  static NotificationChannel scheduledNotificationChannel() {
+    return NotificationChannel(
+      channelKey: getNotificationChannelName(FCMChannel.scheduled),
+      channelName: getNotificationChannelName(FCMChannel.scheduled),
+      channelDescription: 'This is the first scheduled notification', // this will be visible to user in android notification settings
+      defaultColor: Colorz.yellow255,
+      channelShowBadge: true,
+      enableLights: true,
+      icon: fcmIconFlat,
+      ledColor: Colorz.yellow255,
+      importance: NotificationImportance.High,
+      enableVibration: true,
+      playSound: true,
+      locked: true,
+      soundSource: Sounder.getNotificationFilesPath(Sounder.justinaSaysBldrsDotNet),
+      // groupSort: ,
+      // defaultRingtoneType: ,
+      // defaultPrivacy: ,
+      // criticalAlerts: ,
+      // channelGroupKey: ,
+      // groupAlertBehavior: ,
+      // ledOffMs: ,
+      // ledOnMs: ,
+      // onlyAlertOnce: ,
+      // vibrationPattern: ,
+      // groupKey: ,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// NOTIFY THING
+
+  // --------------------
+  ///
+  static Future<void> onNotifyButtonTap({
+    @required BuildContext context,
+    @required Widget screenToGoToOnNotiTap,
+  }) async {
+
+    await notify();
+
+    getAwesomeNotifications().actionStream.listen((ReceivedAction receivedAction) {
+      Nav.pushAndRemoveUntil(
+        context: context,
+        screen: screenToGoToOnNotiTap,
+      );
+    });
+
+  }
+  // --------------------
+  ///
+  static Future<void> notify() async {
+    // String _timeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
+
+    await getAwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 1,
+        channelKey: 'onNotifyTap',
+        title: 'Local Notify by tap',
+        body: 'this was sent by tapping a button',
+        bigPicture: redBldrsBanner,
+        notificationLayout: NotificationLayout.BigPicture,
+        // groupKey: ,
+        // color: ,
+        // autoDismissible: ,
+        // criticalAlert: ,
+        // customSound: ,
+        // displayOnBackground: ,
+        // displayOnForeground: ,
+        // hideLargeIconOnExpand: ,
+        // locked: ,
+        // payload: ,
+        // roundedBigPicture: ,
+        // roundedLargeIcon: ,
+        // summary: ,
+        // wakeUpScreen: ,
+        // icon: ,
+        // ticker: ,
+        // showWhen: ,
+        // progress: ,
+        // largeIcon: ,
+        // fullScreenIntent: ,
+        // category: ,
+        // backgroundColor: ,
+      ),
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  ///
+  static Future<bool> checkIsNotificationAllowed() async {
+    bool _allowed = false;
+
+    final AwesomeNotifications _awesomeNotification = getAwesomeNotifications();
+
+    if (_awesomeNotification != null){
+      _allowed = await _awesomeNotification.isNotificationAllowed();
+    }
+
+    blog('checkIsNotificationAllowed : allowed : $_allowed');
+
+    return _allowed;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PERMISSIONS
+
+  // --------------------
+  ///
+  static Future<void> requestAwesomePermission() async {
+    await getAwesomeNotifications().requestPermissionToSendNotifications(
+      // channelKey: ,
+      // permissions: <NotificationPermission>[
+      //   NotificationPermission.Alert,
+      //   NotificationPermission.Sound,
+      //   NotificationPermission.Badge,
+      //   NotificationPermission.Light,
+      //   NotificationPermission.Vibration,
+      //   NotificationPermission.FullScreenIntent,
+      //   NotificationPermission.PreciseAlarms,
+      //   NotificationPermission.CriticalAlert,
+      //   NotificationPermission.OverrideDnD,
+      //   NotificationPermission.Provisional,
+      //   NotificationPermission.Car,
+      // ],
+    );
+  }
+  // --------------------
+  ///
+  static Future<void> requestFCMPermission() async {
+    final NotificationSettings _settings = await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      badge: true,
+      provisional: true,
+      sound: true,
+      announcement: true,
+      carPlay: true,
+      criticalAlert: true,
+    );
+
+    FCM.blogNotificationSettings(_settings);
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// TOKEN
 
   // --------------------
@@ -511,14 +550,14 @@ class FCM {
         onError: (String error) async {
 
           await CenterDialog.showCenterDialog(
-            context: context,
-            titleVerse: const Verse(
-              text: '##Notifications are temporarily suspended',
-              translate: true,
-            ),
-            onOk: (){
-              blog('error is : $error');
-            }
+              context: context,
+              titleVerse: const Verse(
+                text: '##Notifications are temporarily suspended',
+                translate: true,
+              ),
+              onOk: (){
+                blog('error is : $error');
+              }
           );
 
           /// error codes reference
@@ -653,6 +692,7 @@ class FCM {
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogNotificationSettings(NotificationSettings settings){
 
     if (settings == null){
@@ -678,200 +718,4 @@ class FCM {
 
   }
   // -----------------------------------------------------------------------------
-
-  /// CANCELLATION
-
-  // --------------------
-  static Future<void> cancelScheduledNotification() async {
-    await AwesomeNotifications().cancelAllSchedules();
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CHANNELS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getNotificationChannelName(FCMChannel channel) {
-    switch (channel) {
-      case FCMChannel.basic:      return 'Basic Notifications';break;
-      case FCMChannel.scheduled:  return 'Scheduled Notifications';break;
-      default:                    return 'Basic Notifications';
-    }
-  }
-  // --------------------
-  ///
-  static NotificationChannel basicNotificationChannel() {
-
-    /// NOTE : WORKS WHEN APP IS IN FOREGROUND
-    return NotificationChannel(
-      channelKey: getNotificationChannelName(FCMChannel.basic),
-      channelName: getNotificationChannelName(FCMChannel.basic),
-      channelDescription: 'Bldrs.net notification', // this will be visible to user in android notification settings
-
-      ///
-      defaultColor: Colorz.green255, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO GREEN TO TEST
-      channelShowBadge: true,
-      icon: fcmIconFlat,
-      ledColor: Colorz.facebook, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO facebook color TO TEST
-      importance: NotificationImportance.High,
-      locked: true,
-      playSound: true,
-      soundSource: Sounder.getNotificationFilesPath(Sounder.nicoleSaysBldrsDotNet),
-      enableLights: true,
-      enableVibration: true,
-      // groupKey: ,
-      // vibrationPattern: ,
-      // onlyAlertOnce: ,
-      // ledOnMs: ,
-      // ledOffMs: ,
-      // groupAlertBehavior: ,
-      // channelGroupKey: ,
-      // criticalAlerts: ,
-      // defaultPrivacy: ,
-      // defaultRingtoneType: ,
-      // groupSort: ,
-    );
-
-  }
-  // --------------------
-  static NotificationChannel scheduledNotificationChannel() {
-    return NotificationChannel(
-      channelKey: getNotificationChannelName(FCMChannel.scheduled),
-      channelName: getNotificationChannelName(FCMChannel.scheduled),
-      channelDescription: 'This is the first scheduled notification', // this will be visible to user in android notification settings
-      defaultColor: Colorz.yellow255,
-      channelShowBadge: true,
-      enableLights: true,
-      icon: fcmIconFlat,
-      ledColor: Colorz.yellow255,
-      importance: NotificationImportance.High,
-      enableVibration: true,
-      playSound: true,
-      locked: true,
-      soundSource: Sounder.getNotificationFilesPath(Sounder.justinaSaysBldrsDotNet),
-      // groupSort: ,
-      // defaultRingtoneType: ,
-      // defaultPrivacy: ,
-      // criticalAlerts: ,
-      // channelGroupKey: ,
-      // groupAlertBehavior: ,
-      // ledOffMs: ,
-      // ledOnMs: ,
-      // onlyAlertOnce: ,
-      // vibrationPattern: ,
-      // groupKey: ,
-    );
-  }
-  // -----------------------------------------------------------------------------
-
-  /// NOTIFY THING
-
-  // --------------------
-  static Future<void> onNotifyButtonTap({
-    @required BuildContext context,
-    @required Widget screenToGoToOnNotiTap,
-  }) async {
-
-    await notify();
-
-    AwesomeNotifications().actionStream.listen((ReceivedAction receivedAction) {
-      Nav.pushAndRemoveUntil(
-        context: context,
-        screen: screenToGoToOnNotiTap,
-      );
-    });
-
-  }
-  // --------------------
-  static Future<void> notify() async {
-    // String _timeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
-
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: 1,
-        channelKey: 'onNotifyTap',
-        title: 'Local Notify by tap',
-        body: 'this was sent by tapping a button',
-        bigPicture: redBldrsBanner,
-        notificationLayout: NotificationLayout.BigPicture,
-        // groupKey: ,
-        // color: ,
-        // autoDismissible: ,
-        // criticalAlert: ,
-        // customSound: ,
-        // displayOnBackground: ,
-        // displayOnForeground: ,
-        // hideLargeIconOnExpand: ,
-        // locked: ,
-        // payload: ,
-        // roundedBigPicture: ,
-        // roundedLargeIcon: ,
-        // summary: ,
-        // wakeUpScreen: ,
-        // icon: ,
-        // ticker: ,
-        // showWhen: ,
-        // progress: ,
-        // largeIcon: ,
-        // fullScreenIntent: ,
-        // category: ,
-        // backgroundColor: ,
-      ),
-    );
-  }
-  // -----------------------------------------------------------------------------
-
-  /// OLD CODES
-
-  // --------------------
-  /*
-  /// fcm on background
-  //  AndroidNotificationChannel channel;
-  // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  // static Future<void> createAwesomeNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
-  //
-  //   // blogRemoteMessage(
-  //   //   methodName: 'notificationPushHandler',
-  //   //   remoteMessage: remoteMessage,
-  //   // );
-  //
-  //   await pushNotificationFromRemoteMessage(remoteMessage);
-  //
-  //
-  //   // final bool _notificationCreated = await AwesomeNotifications().createNotificationFromJsonData(remoteMessage.data);
-  //
-  //   // blog('_notificationCreated : $_notificationCreated');
-  //
-  //   // if (!kIsWeb) {
-  //   //   channel = const AndroidNotificationChannel(
-  //   //     'high_importance_channel', // id
-  //   //     'High Importance Notifications', // title
-  //   //     'This channel is used for important notifications.', // description
-  //   //     importance: Importance.high,
-  //   //   );
-  //   //
-  //   //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  //   //
-  //   //   /// Create an Android Notification Channel.
-  //   //   ///
-  //   //   /// We use this channel in the `AndroidManifest.xml` file to override the
-  //   //   /// default FCM channel to enable heads up notifications.
-  //   //   await flutterLocalNotificationsPlugin
-  //   //       .resolvePlatformSpecificImplementation<
-  //   //       AndroidFlutterLocalNotificationsPlugin>()
-  //   //       ?.createNotificationChannel(channel);
-  //
-  //   // /// Update the iOS foreground notification presentation options to allow
-  //   // /// heads up notifications.
-  //   // await FirebaseMessaging.instance
-  //   //     .setForegroundNotificationPresentationOptions(
-  //   //   alert: true,
-  //   //   badge: true,
-  //   //   sound: true,
-  //   // );
-  //   // }
-  // }
-   */
-  // -----------------------------------------------------------------------------
 }
-/// ~~~~~~~~~~~~~~
