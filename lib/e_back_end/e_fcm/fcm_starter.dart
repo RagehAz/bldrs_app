@@ -1,8 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/c_awesome_noti_test_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -22,15 +20,10 @@ class FCMStarter {
   static Future<void> preInitializeNotifications() async {
 
     /// THIS GOES BEFORE RUNNING THE BLDRS APP
-    FirebaseMessaging.onBackgroundMessage(
-            (RemoteMessage remoteMessage) => _pushGlobalNotificationFromRemoteMessage(
-            remoteMessage: remoteMessage,
-            invoker: 'preInitializeNotifications.onBackgroundMessage'
-        )
-    );
+    FirebaseMessaging.onBackgroundMessage(_onBackgroundMessageHandler);
 
     await FCM.getAwesomeNotifications().initialize(
-      FCM.fcmIconFlat, // defaultIcon
+      FCM.fcmWhiteLogoFilePath, // defaultIcon
       <NotificationChannel>[
         FCM.basicNotificationChannel(),
         FCM.scheduledNotificationChannel(),
@@ -46,7 +39,7 @@ class FCMStarter {
 
   }
   // --------------------
-  /// TESTED : ...
+  ///
   static Future<void> initializeNotifications(BuildContext context) async {
 
     /// NOTE : THIS GOES IN MAIN WIDGET INIT
@@ -112,26 +105,27 @@ class FCMStarter {
 
   }
   // --------------------
-  /// TESTED : ...
+  ///
   static Future<void> _initializeLocalNotificationService(BuildContext context) async {
 
     final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
 
     const InitializationSettings initializationSettings = InitializationSettings(
-      android: AndroidInitializationSettings(FCM.fcmIconFlat2),
+      android: AndroidInitializationSettings(FCM.fcmWhiteLogoFileName),
     );
 
     await _notiPlugin.initialize(initializationSettings,
-        onSelectNotification: (String route) async {
+        onSelectNotification: (String payload) async {
 
-          if (route != null) {
+          if (payload != null) {
 
-            blog('initializing localNotificationService : route is : $route');
+            /// ROUTE IS NOTIFICATION [PAYLOAD] BABY
+            blog('initializing localNotificationService : route is : $payload');
 
-            await Nav.goToNewScreen(
-              context: context,
-              screen: const AwesomeNotiTestScreen(),
-            );
+            // await Nav.goToNewScreen(
+            //   context: context, // context is bitch
+            //   screen: const AwesomeNotiTestScreen(),
+            // );
 
           }
 
@@ -144,7 +138,15 @@ class FCMStarter {
   /// REMOTE MESSAGE PUSHING TO NOTIFICATION
 
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
+  static Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
+    await _pushGlobalNotificationFromRemoteMessage(
+        remoteMessage: remoteMessage,
+        invoker: 'preInitializeNotifications.onBackgroundMessage'
+    );
+  }
+  // --------------------
+  ///
   static Future<void> _pushGlobalNotificationFromRemoteMessage({
     @required RemoteMessage remoteMessage,
     @required String invoker,
@@ -190,7 +192,7 @@ class FCMStarter {
 
   }
   // --------------------
-  /// TESTED : ...
+  ///
   static Future<void> _pushLocalNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
 
     final String _title = remoteMessage.notification.title;

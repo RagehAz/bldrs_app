@@ -142,11 +142,12 @@ class TileBubble extends StatelessWidget {
         /// CHILD
         if (child != null)
           SizedBox(
-            width: Bubble.bubbleWidth(context),
+            width: _bubbleWidth,
             // height: 200,
             // padding: const EdgeInsets.symmetric(horizontal: 5),
             // color: Colorz.Yellow255,
             child: Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
 
                 /// UNDER LEADING ICON AREA
@@ -156,7 +157,7 @@ class TileBubble extends StatelessWidget {
 
                 /// CHILD
                 Container(
-                  width: childWidth(context: context),
+                  width: childWidth(context: context, bubbleWidthOverride: _bubbleWidth),
                   // decoration: BoxDecoration(
                   //     color: Colorz.white10,
                   //     borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue)
