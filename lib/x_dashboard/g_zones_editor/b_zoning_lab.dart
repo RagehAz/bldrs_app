@@ -8,18 +8,18 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
-class ZoningWorkSpace extends StatefulWidget {
+class ZoningLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ZoningWorkSpace({
+  const ZoningLab({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<ZoningWorkSpace> createState() => _ZoningWorkSpaceState();
+  State<ZoningLab> createState() => _ZoningLabState();
 /// --------------------------------------------------------------------------
 }
 
-class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
+class _ZoningLabState extends State<ZoningLab> {
 
   ZoneModel _bubbleZone;
 
