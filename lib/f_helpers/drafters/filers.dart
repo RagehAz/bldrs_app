@@ -345,12 +345,11 @@ class Filers {
       blog('getFileFromURL : START');
 
       /// call http.get method and pass imageUrl into it to get response.
-      // final Uri _imageUri = Uri.parse(fileURL);
-      // final http.Response _response = await http.get(_imageUri);
       final http.Response _response = await Rest.get(
         context: null,
         rawLink: url,
-        showErrorDialog: false,
+        showErrorDialog: true,
+        // timeout: 60,
         invoker: 'getFileFromURL',
       );
       // blog('getFileFromURL : _response : $_response');
