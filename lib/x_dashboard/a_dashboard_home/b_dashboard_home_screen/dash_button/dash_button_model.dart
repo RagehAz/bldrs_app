@@ -8,11 +8,13 @@ class DashButtonModel {
     @required this.icon,
     @required this.screen,
     this.transitionType,
+    this.iconColor,
   });
   /// --------------------------------------------------------------------------
   final String verse;
   final String icon;
   final Widget screen;
   final PageTransitionType transitionType;
+  final Color iconColor;
   /// --------------------------------------------------------------------------
 }
