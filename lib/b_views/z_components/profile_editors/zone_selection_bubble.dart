@@ -238,6 +238,15 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
   }
   // -----------------------------------------------------------------------------
+  String _validator(){
+    if (widget.validator == null){
+      return null;
+    }
+    else {
+      return widget.validator();
+    }
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -251,7 +260,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
               return Bubble(
                   bubbleColor: Formers.validatorBubbleColor(
-                    validator: () => widget.validator(),
+                    validator: _validator,
                   ),
                   headerViewModel: BubbleHeaderVM(
                     headlineVerse: widget.titleVerse ?? const Verse(
@@ -323,7 +332,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     if (widget.validator != null)
                     SuperValidator(
                       width: Bubble.clearWidth(context) - 20,
-                      validator: widget.validator,
+                      validator: _validator,
                       autoValidate: widget.autoValidate,
                     ),
 
