@@ -27,10 +27,10 @@ class Sembast  {
   /// Singleton accessor
   static Sembast get instance => _singleton;
   // --------------------
-  /// to transform from synchronous into asynchronous
+  /// local instance : to transform from synchronous into asynchronous
   Completer<Database> _dbOpenCompleter;
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// instance getter
   Future<Database> get database async {
     /// NOTE :this is db object accessor
     if (_dbOpenCompleter == null) {
@@ -55,6 +55,14 @@ class Sembast  {
     return _db;
   }
   // --------------------
+  /*
+  /// Static close
+  static Future<void> dispose() async {
+    final Database _result = await _getDB();
+    await _result.close();
+  }
+   */
+  // -----------------------------------------------------------------------------
   /// static const String _storeName = 'blah';
   /// final StoreRef<int, Map<String, Object>> _doc = intMapStoreFactory.store(_storeName);
   /// Future<Database> get _db async => await AppDatabase.instance.database;
