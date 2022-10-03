@@ -1,10 +1,17 @@
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/animations_lab.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/d_balloon_types_screen.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/super_rage7.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/go_back_widget_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/keyboard_field_widget_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/reorder_list_test.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/sounds_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/tiny_flyer_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -84,6 +91,20 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        /// LOCK SCREEN
+        WideButton(
+          verse: Verse.plain('Lock Screen'),
+          icon: Iconz.password,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const LockScreen(),
+            );
+
+          },
+        ),
+
         /// ANIMATIONS LAB
         WideButton(
           verse: Verse.plain('Animations Lab'),
@@ -107,6 +128,90 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const ImagesTestScreen(),
+            );
+
+          },
+        ),
+
+        /// SOUNDS TEST
+        WideButton(
+          verse: Verse.plain('Sounds'),
+          icon: Iconz.play,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const SoundsTestScreen(),
+            );
+
+          },
+        ),
+
+        /// VIDEO EDITOR
+        WideButton(
+          verse: Verse.plain('Video Player'),
+          icon: Iconz.play,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const VideoPlayerScreen(),
+            );
+
+          },
+        ),
+
+        /// GO BACK WIDGET
+        WideButton(
+          verse: Verse.plain('GO BACK WIDGET'),
+          icon: Iconz.back,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const GoBackWidgetTest(),
+            );
+
+          },
+        ),
+
+        /// KEYBOARD FIELD TEST
+        WideButton(
+          verse: Verse.plain('KEYBOARD FIELD TEST'),
+          icon: Iconz.language,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const KeyboardFieldWidgetTest(),
+            );
+
+          },
+        ),
+
+        /// RE-ORDER-ABLE LIST
+        WideButton(
+          verse: Verse.plain('RE-ORDER-ABLE LIST TEST'),
+          icon: Iconz.statistics,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const ReOrderListTest(),
+            );
+
+          },
+        ),
+
+        /// STATIC FLYER TEST
+        WideButton(
+          verse: Verse.plain('Static Flyer test'),
+          icon: Iconz.statistics,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const StaticFlyerTest(),
             );
 
           },

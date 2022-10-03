@@ -7,10 +7,13 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/g_zones_editor/aaa_edit_city_page.dart';
 import 'package:bldrs/x_dashboard/g_zones_editor/aa_edit_country_page.dart';
 import 'package:bldrs/x_dashboard/g_zones_editor/x_zones_manager_controller.dart';
+import 'package:bldrs/x_dashboard/g_zones_editor/b_zoning_lab.dart';
 import 'package:flutter/material.dart';
 
 class ZonesEditorScreen extends StatefulWidget {
@@ -97,6 +100,17 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       appBarRowWidgets: <Widget>[
 
         const Expander(),
+
+        /// ZONING LAB
+        AppBarButton(
+          icon: Iconz.lab,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const ZoningLab(),
+            );
+          },
+        ),
 
         /// SYNCING
         ValueListenableBuilder(
