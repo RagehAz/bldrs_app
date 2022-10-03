@@ -1,16 +1,19 @@
 import 'dart:async';
-import 'package:awesome_notifications/awesome_notifications.dart';
+
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/cc_note_route_to_screen.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +25,19 @@ class AwesomeNotiTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AwesomeNotiTestScreenState createState() => _AwesomeNotiTestScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
-  //var vibrationPattern = new Int64List.fromList([1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]);
+  // -----------------------------------------------------------------------------
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  // --------------------
+  final ValueNotifier<bool> _isGlobalNotification = ValueNotifier(true);
+  final ValueNotifier<Map<String, dynamic>> _notificationData = ValueNotifier(null);
+  // --------------------
+  bool _isNotificationAllowed = false;
+  // --------------------
+  StreamSubscription _streamSubscription;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -43,86 +54,83 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     }
   }
   // -----------------------------------------------------------------------------
-  AwesomeNotifications _awesomeNotification;
-  GlobalKey _scaffoldKey;
-  StreamSubscription _streamSubscription;
   @override
   void initState() {
     super.initState();
 
-    /// should be put in main
-    // FirebaseMessaging.onBackgroundMessage(_firebasePushHandler)
+    _notificationData.value = {
+      'title': '',
+      'body': '',
+    };
 
-    // final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-    _awesomeNotification = AwesomeNotifications();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
-      _triggerLoading().then((_) async {
+      // ---------
+      _triggerLoading(setTo: true).then((_) async {
 
-        final bool _isAllowed = await isNotificationAllowed();
+        await _checkAndUpdateIsNotificationAllowed();
 
-        if (_isAllowed == false) {
-          await _requestNotificationPermission();
-        }
-
-        await _listenToNotificationsStream(context);
-
-        unawaited(_triggerLoading());
+        await _triggerLoading(setTo: false);
       });
-
+      // ---------
       _isInit = false;
     }
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
-    _awesomeNotification.actionSink.close();
-    _awesomeNotification.createdSink.close();
-    _awesomeNotification.dispose();
+    _loading.dispose();
+    _isGlobalNotification.dispose();
+    _notificationData.dispose();
+
+    // _awesomeNotification.actionSink.close();
+    // _awesomeNotification.createdSink.close();
+    // _awesomeNotification.dispose();
+
     _streamSubscription?.cancel();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-//   Future<void> _firebasePushHandler(RemoteMessage message){
-//     blog('_firebasePushHandler : message : $message');
-//
-//     _awesomeNotification.createNotificationFromJsonData(message.data);
-//   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  Future<void> _checkAndUpdateIsNotificationAllowed() async {
+
+    final bool _isAllowed = await FCM.checkIsNotificationAllowed();
+
+    setState(() {
+      _isNotificationAllowed = _isAllowed;
+    });
+
+  }
+  // --------------------
   Future<void> _requestNotificationPermission() async {
 
-    final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: Verse.plain('Allow notifications'),
-      bodyVerse: Verse.plain('To be able to know what is going on'),
-      boolDialog: true,
-    );
+    if (_isNotificationAllowed == false){
 
-    if (_result == true) {
-      await _awesomeNotification.requestPermissionToSendNotifications();
+      final bool _result = await CenterDialog.showCenterDialog(
+        context: context,
+        titleVerse: Verse.plain('Allow notifications ?'),
+        bodyVerse: Verse.plain('To be able show Global & Local notifications'),
+        boolDialog: true,
+      );
+
+      if (_result == true) {
+        await FCM.requestAwesomePermission();
+        await _checkAndUpdateIsNotificationAllowed();
+      }
+
     }
 
   }
-// -----------------------------------------------------------------------------
-  Future<bool> isNotificationAllowed() async {
-
-    bool _allowed = false;
-
-    if (_awesomeNotification != null){
-      _allowed = await _awesomeNotification.isNotificationAllowed();
-    }
-
-    blog('isNotificationAllowed : $_allowed');
-
-    return _allowed;
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
+  /*
+  //var vibrationPattern = new Int64List.fromList([1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]);
+   */
+  // --------------------
+  /*
   Future<void> _listenToNotificationsStream(BuildContext context) async {
 
     blog('_listenToNotificationsStream --------- START');
@@ -166,88 +174,233 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     blog('_listenToNotificationsStream --------- END');
   }
-// -----------------------------------------------------------------------------
-  Future<void> _onSendScheduledNotification() async {
-    // await FCM.pushScheduledNotification();
-  }
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final double _clearWidth = Bubble.clearWidth(context);
+
     return MainLayout(
-      scaffoldKey: _scaffoldKey,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('Awesome notification test'),
       loading: _loading,
-      layoutWidget: Column(
-        children: <Widget>[
+      appBarRowWidgets: <Widget>[
 
-          const Stratosphere(),
+        const Expander(),
 
-          /// SEND NOTIFICATION
-          Container(
-            width: 300,
-            height: 300,
-            alignment: Alignment.center,
-            child: DreamBox(
-              height: 60,
-              width: 250,
-              verse: Verse.plain('Send Notification'),
-              verseScaleFactor: 0.7,
-              color: Colorz.yellow255,
-              verseColor: Colorz.black255,
-              verseShadow: false,
-              onTap: (){
-                blog('SHOULD SEND NOTIFICATION NOW');
-              },
-            ),
-          ),
+        /// NOTIFICATIONS ALLOWED - PERMISSION REQUEST
+        AppBarButton(
+          icon: Iconz.news,
+          verseColor: _isNotificationAllowed == true ? Colorz.white255 : Colorz.white50,
+          buttonColor: _isNotificationAllowed == true ? Colorz.green255 : Colorz.white10,
+          onTap: _requestNotificationPermission,
+        ),
 
-          /// SEND SCHEDULED
-          DreamBox(
-            height: 60,
-            width: 250,
-            verse: Verse.plain('send scheduled'),
-            verseScaleFactor: 0.7,
-            color: Colorz.yellow255,
-            verseColor: Colorz.black255,
-            verseShadow: false,
-            onTap: _onSendScheduledNotification,
-          ),
+      ],
+      layoutWidget: ValueListenableBuilder(
+        valueListenable: _notificationData,
+        builder: (_, Map<String, dynamic> notification, Widget child){
 
-          /// CANCEL SCHEDULED
-          DreamBox(
-            height: 60,
-            width: 250,
-            verse: Verse.plain('cancel schedules'),
-            verseScaleFactor: 0.7,
-            color: Colorz.yellow255,
-            verseColor: Colorz.black255,
-            verseShadow: false,
-            onTap: () async {
-              await FCM.cancelScheduledNotification();
-            },
-          ),
+          return ListView(
+            padding: Stratosphere.stratosphereSandwich,
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
 
-          WideButton(
-            verse:  Verse.plain('Cancel Stream'),
-            onTap: () async {
+              /// NOTIFICATION MAKER
+              ValueListenableBuilder(
+                  valueListenable: _isGlobalNotification,
+                  builder: (_, bool isGlobal, Widget child){
 
-              if (_streamSubscription == null){
-                blog('_streamSubscription is null');
-              }
-              else {
-                await _streamSubscription.cancel();
-                blog('_streamSubscription is cancelled');
-              }
+                    final String _notificationTypeString = isGlobal == true ? 'Global' : 'Local';
 
-            },
-          ),
+                    return Bubble(
+                      headerViewModel: BubbleHeaderVM(
+                        headlineVerse: Verse.plain('Send $_notificationTypeString Notification'),
+                      ),
+                      columnChildren: <Widget>[
 
-        ],
+                        /// GLOBAL - LOCAL SWITCH
+                        TileBubble(
+                          bubbleWidth: _clearWidth,
+                          bubbleHeaderVM: BubbleHeaderVM(
+                            headlineVerse: Verse.plain('is $_notificationTypeString'),
+                            hasSwitch: true,
+                            switchValue: isGlobal,
+                            onSwitchTap: (bool value){
+                              _isGlobalNotification.value = value;
+                            }
+                          ),
+                        ),
+
+                        /// TITLE
+                        TextFieldBubble(
+                          bubbleWidth: _clearWidth,
+                          appBarType: AppBarType.basic,
+                          titleVerse: Verse.plain('Title'),
+                          isFormField: true,
+                          // textController: _titleController,
+                          textOnChanged: (String text){
+                            final Map<String, dynamic> _map = Mapper.replacePair(
+                              map: _notificationData.value,
+                              fieldKey: 'title',
+                              inputValue: text,
+                            );
+                            _notificationData.value = _map;
+                          },
+                          counterIsOn: true,
+                          maxLines: 2,
+                          maxLength: 30,
+                          initialText: notification['title'],
+                          validator: (String text){
+                            final int _length = text?.length ?? 0;
+                            if (_length >= 30){
+                              return 'max length exceeded Bitch';
+                            }
+                            else if (_length < 5){
+                              return 'Atleast put 5 Characters man';
+                            }
+                            else {
+                              return null;
+                            }
+                          },
+                          // focusNode: _titleNode,
+                          keyboardTextInputAction: TextInputAction.next,
+                        ),
+
+                        /// BODY
+                        TextFieldBubble(
+                          bubbleWidth: _clearWidth,
+                          appBarType: AppBarType.basic,
+                          titleVerse: Verse.plain('Body'),
+                          isFormField: true,
+                          // textController: _bodyController,
+                          textOnChanged: (String text){
+
+                            final Map<String, dynamic> _map = Mapper.replacePair(
+                              map: _notificationData.value,
+                              fieldKey: 'body',
+                              inputValue: text,
+                            );
+
+                            _notificationData.value = _map;
+
+                          },
+                          counterIsOn: true,
+                          maxLines: 7,
+                          maxLength: 80,
+                          keyboardTextInputType: TextInputType.multiline,
+                          keyboardTextInputAction: TextInputAction.newline,
+                          initialText: notification['body'],
+                          validator: (String text){
+                            final int _length = text?.length ?? 0;
+                            if (_length >= 80){
+                              return 'max length exceeded Bitch';
+                            }
+                            else if (_length < 5){
+                              return 'Add more than 5 Characters';
+                            }
+                            else {
+                              return null;
+                            }
+                          },
+                          // focusNode: _bodyNode,
+                        ),
+
+                        /// SEND NOTIFICATION
+                        DreamBox(
+                          width: 100,
+                          height: 50,
+                          verse: Verse.plain('Send $_notificationTypeString'),
+                          verseScaleFactor: 0.7,
+                          color: Colorz.yellow255,
+                          verseColor: Colorz.black255,
+                          verseShadow: false,
+                          onTap: () async {
+
+                            final bool _continue = Formers.validateForm(_formKey);
+
+                            if (_continue == true){
+
+                              /// PUSH GLOBAL NOTIFICATION
+                              if (isGlobal == true){
+                                await FCM.pushGlobalNotification(
+                                    title: notification['title'],
+                                    body: notification['body'],
+                                );
+                              }
+
+                              /// PUSH LOCAL NOTIFICATION
+                              else {
+                                await FCM.pushLocalNotification(
+                                    title: notification['title'],
+                                    body: notification['body'],
+                                    payload: 'fucking payload',
+                                );
+                              }
+
+                            }
+
+                          },
+                        ),
+
+                      ],
+                    );
+
+                  }
+              ),
+
+
+
+              // /// SEND SCHEDULED
+              // DreamBox(
+              //   height: 60,
+              //   width: 250,
+              //   verse: Verse.plain('send scheduled'),
+              //   verseScaleFactor: 0.7,
+              //   color: Colorz.yellow255,
+              //   verseColor: Colorz.black255,
+              //   verseShadow: false,
+              //   onTap: _onSendScheduledNotification,
+              // ),
+
+              // /// CANCEL SCHEDULED
+              // DreamBox(
+              //   height: 60,
+              //   width: 250,
+              //   verse: Verse.plain('cancel schedules'),
+              //   verseScaleFactor: 0.7,
+              //   color: Colorz.yellow255,
+              //   verseColor: Colorz.black255,
+              //   verseShadow: false,
+              //   onTap: () async {
+              //     await FCM.cancelScheduledNotification();
+              //   },
+              // ),
+
+              WideButton(
+                verse:  Verse.plain('Cancel Stream'),
+                onTap: () async {
+
+                  if (_streamSubscription == null){
+                    blog('_streamSubscription is null');
+                  }
+                  else {
+                    await _streamSubscription.cancel();
+                    blog('_streamSubscription is cancelled');
+                  }
+
+                },
+              ),
+
+            ],
+          );
+
+        },
       ),
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

@@ -7,13 +7,13 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -75,17 +75,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
   // -----------------------------------------------------------------------------
   Future<void> checkPermissions() async {
-    final NotificationSettings _settings = await _fcm.requestPermission(
-      alert: true,
-      badge: true,
-      provisional: true,
-      sound: true,
-      announcement: true,
-      carPlay: true,
-      criticalAlert: true,
-    );
-
-    FCM.blogNotificationSettings(_settings);
+    await FCM.requestFCMPermission();
   }
   // --------------------
   Future<String> _getToken() async {
@@ -104,11 +94,8 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
   // --------------------
   Future<void> _updateMyUserFCMToken() async {
-
     await FCM.updateMyUserFCMToken(context: context);
-
   }
-  // --------------------
   // --------------------
   NoteModel _note;
   bool _noteIsOn = false;
