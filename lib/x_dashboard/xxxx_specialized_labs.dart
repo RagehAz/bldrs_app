@@ -8,12 +8,9 @@ import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/pagin
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/sembast_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/dynamic_links_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/back_end_lab/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/email_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/location_test_screen/locations_test_screen.dart';
-import 'package:bldrs/x_dashboard/x_test_lab/specialized_labs/slider_test.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -73,13 +70,6 @@ class SpecializedLabs extends StatelessWidget {
         transitionType: PageTransitionType.leftToRightWithFade,
       ),
 
-      /// SEMBAST TESTER
-      DashButtonModel(
-        verse:  'SEMBAST',
-        icon: Iconz.terms,
-        screen: SembastReaderTestScreen(),
-      ),
-
       /// CLOUD FUNCTIONS
       DashButtonModel(
         verse:  'Cloud Functions',
@@ -90,22 +80,8 @@ class SpecializedLabs extends StatelessWidget {
       /// LOCATION TEST SCREEN
       DashButtonModel(
         verse:  'Locations Test screen',
-        icon: Iconz.dumPinPNG,
+        icon: Iconz.locationPin,
         screen: LocationsTestScreen(),
-      ),
-
-      /// SLIDER TEST SCREEN
-      DashButtonModel(
-        verse:  'Slider Test Screen',
-        icon: Iconz.dashBoard,
-        screen: SliderTestScreen(),
-      ),
-
-      /// GOLDEN SCROLLS
-      DashButtonModel(
-        verse:  'Golden Scrolls',
-        icon: Iconz.cleopatra,
-        screen: GoldenScrollsScreen(),
       ),
 
     ];
