@@ -30,7 +30,7 @@ class BubbleHeaderVM {
   });
   /// --------------------------------------------------------------------------
   final double headerWidth;
-  final String leadingIcon;
+  final dynamic leadingIcon;
   final double leadingIconSizeFactor;
   final Color leadingIconBoxColor;
   final bool leadingIconIsBubble;
@@ -47,7 +47,7 @@ class BubbleHeaderVM {
   /// --------------------------------------------------------------------------
   BubbleHeaderVM copyWith({
     double headerWidth,
-    String leadingIcon,
+    dynamic leadingIcon,
     double leadingIconSizeFactor,
     Color leadingIconBoxColor,
     bool leadingIconIsBubble,

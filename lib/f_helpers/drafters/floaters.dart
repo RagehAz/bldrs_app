@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/e_back_end/a_rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -310,6 +311,20 @@ static img.Image decodeToImgImage({
     return uInt;
   }
   // --------------------
+  static Future<Uint8List> getUint8ListFromURL(String url) async {
+    Uint8List _uints;
+
+    if (ObjectCheck.isAbsoluteURL(url) == true){
+
+      _uints = await Rest.readBytes(
+        rawLink: url,
+        invoker: 'getUint8ListFromURL',
+      );
+
+    }
+
+    return _uints;
+  }
   // -----------------------------------------------------------------------------
 
   /// Base64
