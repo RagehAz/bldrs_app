@@ -1,10 +1,8 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 
 class FCMStarter {
   // -----------------------------------------------------------------------------
@@ -17,137 +15,157 @@ class FCMStarter {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> preInitializeNotifications() async {
+  static Future<void> preInitializeNootsInMainFunction() async {
 
-    /// THIS GOES BEFORE RUNNING THE BLDRS APP
+    /// INITIALIZE AWESOME NOTIFICATIONS
+    await _initializeAwesomeNootsService();
+
+    /// HANDLE BACKGROUND REMOTE MESSAGE
     FirebaseMessaging.onBackgroundMessage(_onBackgroundMessageHandler);
 
-    await FCM.getAwesomeNotifications().initialize(
-      FCM.fcmWhiteLogoFilePath, // defaultIcon
-      <NotificationChannel>[
-        FCM.basicNotificationChannel(),
-        FCM.scheduledNotificationChannel(),
-      ],
-      // channelGroups: <NotificationChannelGroup>[
-      //   NotificationChannelGroup(
-      //     channelGroupkey: ,
-      //     channelGroupName: ,
-      //   ),
-      // ], // channelGroups
-      // debug: true,
+  }
+  // --------------------
+  ///
+  static Future<void> initializeNootsInBldrsAppStarter(BuildContext context) async {
+
+    /// FCM PERMISSION
+    await FCM.requestFCMPermission();
+
+    /// INITIALIZE LOCAL NOOTS
+    await _initializeLocalNootsService(context);
+
+    /// INITIALIZE LISTENERS
+    _initializeNootsListeners();
+
+    /// RECEIVE INITIAL MESSAGE
+    await _receiveInitialRemoteMessage();
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// (AWESOME - LOCAL NOOTS) SERVICES INITIALIZATION
+
+  // --------------------
+  ///
+  static Future<void> _initializeAwesomeNootsService() async {
+
+    await FCM.getAwesomeNoots().initialize(
+
+      /// NOOTS DEFAULT ICON
+      FCM.fcmWhiteLogoFilePath,
+
+      /// CHANNELS
+      FCM.getBldrsNootsChannels(),
+
+      /// CHANNEL GROUPS
+      channelGroups: FCM.getBldrsChannelGroups(),
+
+      /// DEBUG
+      debug: false,
     );
 
   }
   // --------------------
   ///
-  static Future<void> initializeNotifications(BuildContext context) async {
+  static Future<void> _initializeLocalNootsService(BuildContext context) async {
 
-    /// NOTE : THIS GOES IN MAIN WIDGET INIT
+    await FCM.getLocalNootsPlugin().initialize(
 
-    blog('1 - initializeNotifications : START');
+      /// INITIALIZATION SETTINGS
+      const InitializationSettings(
+        android: AndroidInitializationSettings(FCM.fcmWhiteLogoFileName),
+        iOS: IOSInitializationSettings(
+          // defaultPresentAlert: ,
+          // defaultPresentBadge: ,
+          // defaultPresentSound: ,
+          // onDidReceiveLocalNotification: ,
+          // requestAlertPermission: ,
+          // requestBadgePermission: ,
+          // requestSoundPermission: ,
+        ),
+        // macOS: ,
+        // linux: ,
+      ),
 
-    await _initializeLocalNotificationService(context);
+      /// ON NOOT TAP
+      onSelectNotification: FCM.onLocalNootTap,
 
-    final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
-
-    if (initialRemoteMessage != null) {
-
-      FCM.blogRemoteMessage(
-        methodName: '2 - initializeNotifications.initialRemoteMessage',
-        remoteMessage: initialRemoteMessage,
-      );
-
-      blog('3 - initializeNotifications : can navigate here and shit');
-
-    }
-
-    await FirebaseMessaging.instance.requestPermission(
-      criticalAlert: true,
-      carPlay: true,
-      announcement: true,
-      sound: true,
-      provisional: true,
-      badge: true,
-      alert: true,
     );
 
-    blog('4 - initializeNotifications : permission requested ');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// HANDLERS & LISTENERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
+    await _pushGlobalNootFromRemoteMessage(
+        remoteMessage: remoteMessage,
+        invoker: '_onBackgroundMessageHandler'
+    );
+  }
+  // --------------------
+  ///
+  static void _initializeNootsListeners(){
 
     /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
-      await _pushGlobalNotificationFromRemoteMessage(
+      await _pushGlobalNootFromRemoteMessage(
         remoteMessage: remoteMessage,
-        invoker: '5 - onMessage',
+        invoker: 'initializeNoots.onMessage',
       );
     });
 
     /// APP IS LAUNCHING ( AT STARTUP )
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async {
 
-      await _pushGlobalNotificationFromRemoteMessage(
+      await _pushGlobalNootFromRemoteMessage(
         remoteMessage: remoteMessage,
-        invoker: '6 - onMessageOpenedApp',
+        invoker: 'initializeNoots.onMessageOpenedApp',
       );
 
       /// to display the notification while app in foreground
-      await _pushLocalNotificationFromRemoteMessage(remoteMessage);
+      await _pushLocalNootFromRemoteMessage(remoteMessage);
     });
 
     /// when app running in background and notification tapped while having
     /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
     FirebaseMessaging.onBackgroundMessage(
             (RemoteMessage remoteMessage) =>
-                _pushGlobalNotificationFromRemoteMessage(
-                  remoteMessage: remoteMessage,
-                  invoker: '7 - onBackgroundMessage',
-                )
+            _pushGlobalNootFromRemoteMessage(
+              remoteMessage: remoteMessage,
+              invoker: 'initializeNoots.onBackgroundMessage',
+            )
     );
+
 
   }
   // --------------------
   ///
-  static Future<void> _initializeLocalNotificationService(BuildContext context) async {
+  static Future<void> _receiveInitialRemoteMessage() async {
 
-    final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
+    final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
-    const InitializationSettings initializationSettings = InitializationSettings(
-      android: AndroidInitializationSettings(FCM.fcmWhiteLogoFileName),
-    );
+    if (initialRemoteMessage != null) {
 
-    await _notiPlugin.initialize(initializationSettings,
-        onSelectNotification: (String payload) async {
+      FCM.blogRemoteMessage(
+        remoteMessage: initialRemoteMessage,
+        invoker: 'initializeNoots',
+      );
 
-          if (payload != null) {
+      blog('initializeNoots : can navigate here and shit');
 
-            /// ROUTE IS NOTIFICATION [PAYLOAD] BABY
-            blog('initializing localNotificationService : route is : $payload');
+    }
 
-            // await Nav.goToNewScreen(
-            //   context: context, // context is bitch
-            //   screen: const AwesomeNotiTestScreen(),
-            // );
-
-          }
-
-        }
-
-    );
   }
   // -----------------------------------------------------------------------------
 
-  /// REMOTE MESSAGE PUSHING TO NOTIFICATION
+  /// PUSHING (REMOTE-MESSAGE) INTO (NOOTS)
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
-    await _pushGlobalNotificationFromRemoteMessage(
-        remoteMessage: remoteMessage,
-        invoker: 'preInitializeNotifications.onBackgroundMessage'
-    );
-  }
-  // --------------------
   ///
-  static Future<void> _pushGlobalNotificationFromRemoteMessage({
+  static Future<void> _pushGlobalNootFromRemoteMessage({
     @required RemoteMessage remoteMessage,
     @required String invoker,
   }) async {
@@ -155,7 +173,7 @@ class FCMStarter {
     if (remoteMessage != null){
 
       FCM.blogRemoteMessage(
-        methodName: 'pushNotificationFromRemoteMessage.$invoker',
+        invoker: 'pushNotificationFromRemoteMessage.$invoker',
         remoteMessage: remoteMessage,
       );
 
@@ -183,9 +201,17 @@ class FCMStarter {
       // final int ttl = remoteMessage?.ttl;
       // final Map<String, dynamic> data = remoteMessage?.data;
 
-      await FCM.pushGlobalNotification(
+      await FCM.pushGlobalNoot(
         body: body,
         title: title,
+        // channel: ,
+        // buttonsTexts: ,
+        // payloadMap: ,
+        // progress: ,
+        // canBeDismissedWithoutTapping: ,
+        // progressBarIsLoading: ,
+        // bannerURL: ,
+        // largeIconURL: ,
       );
 
     }
@@ -193,93 +219,28 @@ class FCMStarter {
   }
   // --------------------
   ///
-  static Future<void> _pushLocalNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
+  static Future<void> _pushLocalNootFromRemoteMessage(RemoteMessage remoteMessage) async {
 
     final String _title = remoteMessage.notification.title;
     final String _body = remoteMessage.notification.body;
+
+    /// TASK : MAKE SURE THIS FIELD NAME ('route) IS CORRECT
     final String _payload = remoteMessage.data['route'];
 
-    await FCM.pushLocalNotification(
-      body: _body,
+    await FCM.pushLocalNoot(
       title: _title,
+      body: _body,
       payloadString: _payload,
+      // progressBarIsLoading: ,
+      // canBeDismissedWithoutTapping: ,
+      // progress: ,
+      // channel: ,
+      // showTime: ,
+      // showStopWatch: ,
+      // subText: ,
+      // largeIconFile: ,
     );
 
   }
-  // -----------------------------------------------------------------------------
-
-  /// OLD CODES
-
-  // --------------------
-  /*
-  /// fcm on background
-  //  AndroidNotificationChannel channel;
-  // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  // static Future<void> createAwesomeNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
-  //
-  //   // blogRemoteMessage(
-  //   //   methodName: 'notificationPushHandler',
-  //   //   remoteMessage: remoteMessage,
-  //   // );
-  //
-  //   await pushNotificationFromRemoteMessage(remoteMessage);
-  //
-  //
-  //   // final bool _notificationCreated = await getAwesomeNotifications().createNotificationFromJsonData(remoteMessage.data);
-  //
-  //   // blog('_notificationCreated : $_notificationCreated');
-  //
-  //   // if (!kIsWeb) {
-  //   //   channel = const AndroidNotificationChannel(
-  //   //     'high_importance_channel', // id
-  //   //     'High Importance Notifications', // title
-  //   //     'This channel is used for important notifications.', // description
-  //   //     importance: Importance.high,
-  //   //   );
-  //   //
-  //   //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  //   //
-  //   //   /// Create an Android Notification Channel.
-  //   //   ///
-  //   //   /// We use this channel in the `AndroidManifest.xml` file to override the
-  //   //   /// default FCM channel to enable heads up notifications.
-  //   //   await flutterLocalNotificationsPlugin
-  //   //       .resolvePlatformSpecificImplementation<
-  //   //       AndroidFlutterLocalNotificationsPlugin>()
-  //   //       ?.createNotificationChannel(channel);
-  //
-  //   // /// Update the iOS foreground notification presentation options to allow
-  //   // /// heads up notifications.
-  //   // await FirebaseMessaging.instance
-  //   //     .setForegroundNotificationPresentationOptions(
-  //   //   alert: true,
-  //   //   badge: true,
-  //   //   sound: true,
-  //   // );
-  //   // }
-  // }
-   */
-  // --------------------
-  /// NOT TESTED
-  /*
-  static Future<void> pushScheduledNotification({
-    @required String title,
-    @required String body,
-  }) async {
-
-    await getAwesomeNotifications().createNotification(
-      /// CONTENT
-      content: _createNotificationContent(
-        title: title,
-        body: body,
-      ),
-      /// ACTION BUTTONS
-      actionButtons: _createNotificationActionButtons(),
-      /// SCHEDULE
-      schedule: _createNotificationSchedule(),
-    );
-
-  }
-   */
   // -----------------------------------------------------------------------------
 }
