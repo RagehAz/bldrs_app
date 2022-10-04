@@ -114,7 +114,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   // -----------------------------------------------------------------------------
   Future<void> _checkAndUpdateIsNotificationAllowed() async {
 
-    final bool _isAllowed = await FCM.checkIsNotificationAllowed();
+    final bool _isAllowed = await FCM.checkIsNootAllowed();
 
     setState(() {
       _isNotificationAllowed = _isAllowed;
@@ -146,27 +146,31 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     final bool _continue = Formers.validateForm(_formKey);
 
-    blog('_continue : $_continue');
+    blog('_pushNotification :" _continue : $_continue');
 
     if (_continue == true){
 
       /// PUSH GLOBAL NOTIFICATION
       if (_isGlobalNotification.value == true){
-        await FCM.pushGlobalNotification(
+        await FCM.pushGlobalNoot(
           title: _notificationData.value['title'],
           body: _notificationData.value['body'],
           largeIconURL: _picURL,
           bannerURL: _picURL,
+          payloadMap: {
+            'fuck': 'you',
+            'whore': 'payloadMapaho',
+          },
         );
       }
 
       /// PUSH LOCAL NOTIFICATION
       else {
-        await FCM.pushLocalNotification(
+        await FCM.pushLocalNoot(
           title: _notificationData.value['title'],
           body: _notificationData.value['body'],
           payloadString: 'fucking payload',
-          picture: _selectedPic,
+          largeIconFile: _selectedPic,
         );
       }
 

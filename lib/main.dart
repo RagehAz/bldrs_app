@@ -45,29 +45,29 @@ Future<void> main() async {
   // --------------------
   await Firebase.initializeApp();
   // --------------------
-  await FCMStarter.preInitializeNotifications();
+  await FCMStarter.preInitializeNootsInMainFunction();
   /// --------------------
-  runApp(const BldrsApp());
+  runApp(const BldrsAppStarter());
   /// -----------------------------------------------------------------------------
 }
 
-class BldrsApp extends StatefulWidget {
+class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const BldrsApp({
+  const BldrsAppStarter({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   static void setLocale(BuildContext context, Locale locale) {
-    final _BldrsAppState state = context.findAncestorStateOfType<_BldrsAppState>();
+    final _BldrsAppStarterState state = context.findAncestorStateOfType<_BldrsAppStarterState>();
     state._setLocale(locale);
   }
   /// --------------------------------------------------------------------------
   @override
-  _BldrsAppState createState() => _BldrsAppState();
+  _BldrsAppStarterState createState() => _BldrsAppStarterState();
 /// --------------------------------------------------------------------------
 }
 
-class _BldrsAppState extends State<BldrsApp> {
+class _BldrsAppStarterState extends State<BldrsAppStarter> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<String> _fireError = ValueNotifier<String>(null); /// tamam disposed
   // -----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ class _BldrsAppState extends State<BldrsApp> {
         );
 
         /// NOTIFICATIONS
-        await FCMStarter.initializeNotifications(context);
+        await FCMStarter.initializeNootsInBldrsAppStarter(context);
 
         /// DYNAMIC LINKS
         await DynamicLinks.initializeDynamicLinks(context);
@@ -130,7 +130,7 @@ class _BldrsAppState extends State<BldrsApp> {
 
     // Sembast.dispose(); async function,, and no need to close sembast I guess
     Sounder.dispose();
-    FCM.dispose();
+    FCM.disposeAwesomeNoots();
 
     super.dispose();
   }
