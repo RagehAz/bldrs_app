@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/record_model.dart';
+import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';

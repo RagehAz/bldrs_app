@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/bz/author_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/compose_authors.dart';
 import 'package:bldrs/c_protocols/author_protocols/renovate_authors.dart';
 import 'package:bldrs/c_protocols/author_protocols/wipe_authors.dart';

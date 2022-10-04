@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/x_utilities/link_model.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:flutter/material.dart';
 

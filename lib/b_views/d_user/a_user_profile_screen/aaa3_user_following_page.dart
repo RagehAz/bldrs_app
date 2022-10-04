@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x3_user_follows_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';

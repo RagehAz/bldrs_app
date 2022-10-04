@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';

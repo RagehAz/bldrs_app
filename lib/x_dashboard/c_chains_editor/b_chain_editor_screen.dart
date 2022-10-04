@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

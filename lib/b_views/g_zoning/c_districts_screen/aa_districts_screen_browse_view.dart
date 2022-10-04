@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/zone/district_model.dart';
+import 'package:bldrs/a_models/d_zone/district_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_district_button.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

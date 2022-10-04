@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';

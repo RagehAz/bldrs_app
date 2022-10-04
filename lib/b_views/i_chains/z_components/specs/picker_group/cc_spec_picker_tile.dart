@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
+import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';

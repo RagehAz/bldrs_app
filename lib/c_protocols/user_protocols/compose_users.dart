@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:firebase_auth/firebase_auth.dart';

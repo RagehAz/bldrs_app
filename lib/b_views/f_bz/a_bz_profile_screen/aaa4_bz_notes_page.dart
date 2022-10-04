@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';

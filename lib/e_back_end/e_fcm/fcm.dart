@@ -4,12 +4,12 @@ import 'dart:typed_data';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import 'package:bldrs/a_models/bz/target/target_progress.dart';
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/user/fcm_token.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/e_notes/fcm_token.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -280,7 +280,7 @@ class FCM {
 
         await getAwesomeNoots().createNotification(
           /// CONTENT
-          content: _createNootContent(
+          content: _createGlobalNootContent(
             body: body,
             title: title,
             largeIconURL: largeIconURL,
@@ -292,7 +292,7 @@ class FCM {
             channel: channel,
           ),
           /// BUTTONS
-          actionButtons: _createNootActionButtons(
+          actionButtons: _createGlobalNootActionButtons(
             buttonsTexts: buttonsTexts,
           ),
           /// SCHEDULE
@@ -329,8 +329,8 @@ class FCM {
       body,
       /// DETAILS
       NotificationDetails(
-        android: _createAndroidNootDetails(
-          largeIcon: await _getLargeIconForLocalNoot(largeIconFile),
+        android: _createLocalNootAndroidDetails(
+          largeIcon: await _getLocalNootLargeIcon(largeIconFile),
           subText: subText,
           progress: progress,
           canBeDismissedWithoutTapping: canBeDismissedWithoutTapping,
@@ -339,7 +339,7 @@ class FCM {
           showTime: showTime,
           channel: channel,
         ),
-        iOS: _createIOSNootDetails(),
+        iOS: _createLocalNootIOSDetails(),
         // macOS: ,
         // linux: ,
       ),
@@ -350,7 +350,7 @@ class FCM {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<AndroidBitmap> _getLargeIconForLocalNoot(File file) async {
+  static Future<AndroidBitmap> _getLocalNootLargeIcon(File file) async {
     AndroidBitmap _largeIcon;
 
     if (file != null){
@@ -368,7 +368,7 @@ class FCM {
 
   // --------------------
   /// TAMAM : WORKS PERFECT : TASK : (except for notification sound)
-  static NotificationContent _createNootContent({
+  static NotificationContent _createGlobalNootContent({
     @required String title,
     @required String body,
     bool canBeDismissedWithoutTapping = true,
@@ -452,7 +452,7 @@ class FCM {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<NotificationActionButton> _createNootActionButtons({
+  static List<NotificationActionButton> _createGlobalNootActionButtons({
     @required List<String> buttonsTexts,
   }){
 
@@ -462,7 +462,7 @@ class FCM {
       final List<NotificationActionButton> _nootButtons = [];
 
       for (final String buttonText in buttonsTexts) {
-        _nootButtons.add(_createNotificationActionButton(
+        _nootButtons.add(_createGlobalNootActionButton(
           text: buttonText,
         ));
       }
@@ -479,7 +479,7 @@ class FCM {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NotificationActionButton _createNotificationActionButton({
+  static NotificationActionButton _createGlobalNootActionButton({
     @required String text,
     Color textColor = Colorz.black255,
   }){
@@ -507,7 +507,7 @@ class FCM {
   }
   // --------------------
   /// --- TAMAM : WORKS PERFECT : TASK : (except for notification sound)
-  static AndroidNotificationDetails _createAndroidNootDetails({
+  static AndroidNotificationDetails _createLocalNootAndroidDetails({
     String subText,
     AndroidBitmap<Object> largeIcon,
     TargetProgress progress,
@@ -547,7 +547,7 @@ class FCM {
 
       /// VIBRATION
       // enableVibration: true, // default
-      vibrationPattern: _createVibration(),
+      vibrationPattern: _createLocalNootVibration(),
       ticker: 'what is the ticker text ?',
 
       /// PROGRESS
@@ -595,7 +595,7 @@ class FCM {
   }
   // --------------------
   /// TASK : TEST THIS ON IOS
-  static IOSNotificationDetails _createIOSNootDetails(){
+  static IOSNotificationDetails _createLocalNootIOSDetails(){
     return null;
     // return IOSNotificationDetails(
     //   sound: ,
@@ -610,7 +610,7 @@ class FCM {
   }
   // --------------------
   /// --- FAKES NOW
-  static Int64List _createVibration(){
+  static Int64List _createLocalNootVibration(){
     return Int64List.fromList(vibrationPatternInts);
   }
   // -----------------------------------------------------------------------------

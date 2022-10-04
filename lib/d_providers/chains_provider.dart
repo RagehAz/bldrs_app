@@ -1,10 +1,10 @@
-import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
-import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
-import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
+import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
+import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';

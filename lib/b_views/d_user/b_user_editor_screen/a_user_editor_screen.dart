@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';

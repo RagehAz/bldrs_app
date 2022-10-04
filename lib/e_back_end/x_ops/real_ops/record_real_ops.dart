@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/secondary_models/record_model.dart';
-import 'package:bldrs/a_models/user/auth_model.dart';
+import 'package:bldrs/a_models/x_secondary/record_model.dart';
+import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
