@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_footer.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_pages.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

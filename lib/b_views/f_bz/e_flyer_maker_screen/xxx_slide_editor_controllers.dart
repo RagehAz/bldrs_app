@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
-import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/x_utilities/image_size.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';

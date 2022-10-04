@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/search_result.dart';
+import 'package:bldrs/a_models/x_secondary/search_result.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';

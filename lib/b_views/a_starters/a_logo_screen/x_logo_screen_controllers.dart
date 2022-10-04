@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:bldrs/a_models/secondary_models/app_state.dart';
-import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';

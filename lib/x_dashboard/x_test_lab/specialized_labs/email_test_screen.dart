@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';

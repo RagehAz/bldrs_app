@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
+import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';

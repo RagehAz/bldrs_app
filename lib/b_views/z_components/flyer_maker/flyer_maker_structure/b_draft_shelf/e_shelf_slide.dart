@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_header_template.dart';
 import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';

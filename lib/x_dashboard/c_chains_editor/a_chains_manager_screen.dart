@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
