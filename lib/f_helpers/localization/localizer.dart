@@ -177,7 +177,7 @@ class Localizer {
 
     final Locale _temp = await setLocale(code);
 
-    BldrsApp.setLocale(context, _temp);
+    BldrsAppStarter.setLocale(context, _temp);
 
     if (AuthFireOps.superUserID() != null) {
       await Fire.updateDocField(

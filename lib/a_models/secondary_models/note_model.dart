@@ -1604,6 +1604,7 @@ class NoteModel {
   // -----------------------------------------------------------------------------
 }
 
+///
 enum TopicType {
   /// authors notified on their any new flyer getting verified
   flyerVerification, // 'flyerVerification/bzID/'
