@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/counters/bz_counter_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';

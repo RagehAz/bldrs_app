@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';

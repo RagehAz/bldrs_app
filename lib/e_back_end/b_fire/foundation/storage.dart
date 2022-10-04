@@ -1,10 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
-import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/a_models/x_utilities/image_size.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';

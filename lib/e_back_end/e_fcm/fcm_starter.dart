@@ -20,12 +20,12 @@ class FCMStarter {
     /// INITIALIZE AWESOME NOTIFICATIONS
     await _initializeAwesomeNootsService();
 
-    /// HANDLE BACKGROUND REMOTE MESSAGE
+    /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
     FirebaseMessaging.onBackgroundMessage(_onBackgroundMessageHandler);
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> initializeNootsInBldrsAppStarter(BuildContext context) async {
 
     /// FCM PERMISSION
@@ -46,7 +46,7 @@ class FCMStarter {
   /// (AWESOME - LOCAL NOOTS) SERVICES INITIALIZATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _initializeAwesomeNootsService() async {
 
     await FCM.getAwesomeNoots().initialize(
@@ -66,7 +66,7 @@ class FCMStarter {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _initializeLocalNootsService(BuildContext context) async {
 
     await FCM.getLocalNootsPlugin().initialize(
@@ -100,13 +100,13 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
-    await _pushGlobalNootFromRemoteMessage(
-        remoteMessage: remoteMessage,
-        invoker: '_onBackgroundMessageHandler'
-    );
+    // await _pushGlobalNootFromRemoteMessage(
+    //     remoteMessage: remoteMessage,
+    //     invoker: '_onBackgroundMessageHandler'
+    // );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void _initializeNootsListeners(){
 
     /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
@@ -125,8 +125,8 @@ class FCMStarter {
         invoker: 'initializeNoots.onMessageOpenedApp',
       );
 
-      /// to display the notification while app in foreground
-      await _pushLocalNootFromRemoteMessage(remoteMessage);
+      // /// to display the notification while app in foreground
+      // await _pushLocalNootFromRemoteMessage(remoteMessage);
     });
 
     /// when app running in background and notification tapped while having
@@ -164,7 +164,7 @@ class FCMStarter {
   /// PUSHING (REMOTE-MESSAGE) INTO (NOOTS)
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _pushGlobalNootFromRemoteMessage({
     @required RemoteMessage remoteMessage,
     @required String invoker,
@@ -173,7 +173,7 @@ class FCMStarter {
     if (remoteMessage != null){
 
       FCM.blogRemoteMessage(
-        invoker: 'pushNotificationFromRemoteMessage.$invoker',
+        invoker: '_pushGlobalNootFromRemoteMessage.$invoker',
         remoteMessage: remoteMessage,
       );
 
@@ -218,7 +218,7 @@ class FCMStarter {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _pushLocalNootFromRemoteMessage(RemoteMessage remoteMessage) async {
 
     final String _title = remoteMessage.notification.title;

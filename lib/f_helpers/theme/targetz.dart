@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/bz/target/target_model.dart';
-import 'package:bldrs/a_models/bz/target/target_progress.dart';
-import 'package:bldrs/a_models/bz/target/target_reward.dart';
+import 'package:bldrs/a_models/b_bz/target/target_model.dart';
+import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/b_bz/target/target_reward.dart';
 // -----------------------------------------------------------------------------
 const TargetReward startupReward = TargetReward(targetID: 'startup', ankh: 1, slides: 10);
 const TargetReward completeAccountReward = TargetReward(targetID: 'completeAccount', ankh: 1, slides: 14);

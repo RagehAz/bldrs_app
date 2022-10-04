@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/author_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';

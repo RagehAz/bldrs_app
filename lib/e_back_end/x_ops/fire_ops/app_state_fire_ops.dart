@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/app_state.dart';
+import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';

@@ -1,7 +1,7 @@
-import 'package:bldrs/a_models/bz/author_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/compose_notes.dart';
 import 'package:bldrs/c_protocols/note_protocols/renovate_notes.dart';
 import 'package:bldrs/c_protocols/note_protocols/wipe_notes.dart';

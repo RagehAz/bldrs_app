@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 
 List<Phrase> bldrsTranslationsArabic = const <Phrase>[
     // -----------------------------------------------------------------------

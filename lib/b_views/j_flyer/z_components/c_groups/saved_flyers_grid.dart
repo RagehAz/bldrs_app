@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_grid.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';

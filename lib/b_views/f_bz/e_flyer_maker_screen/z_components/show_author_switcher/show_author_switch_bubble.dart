@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';

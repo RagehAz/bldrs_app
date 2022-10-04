@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/bz/author_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';

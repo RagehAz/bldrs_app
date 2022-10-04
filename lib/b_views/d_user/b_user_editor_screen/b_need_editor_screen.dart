@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/user/need_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/a_user/need_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';

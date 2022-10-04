@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

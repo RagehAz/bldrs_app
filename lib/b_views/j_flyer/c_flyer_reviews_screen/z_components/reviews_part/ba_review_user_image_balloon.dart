@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/b_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/image_size.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';

@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';

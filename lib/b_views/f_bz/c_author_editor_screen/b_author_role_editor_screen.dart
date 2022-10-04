@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/bz/author_model.dart';
-import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/z_components/author_role_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';

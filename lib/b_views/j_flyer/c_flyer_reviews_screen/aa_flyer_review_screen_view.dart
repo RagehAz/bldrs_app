@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/a_slides_part/flyer_slides_shelf.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/a_submitted_reviews.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';

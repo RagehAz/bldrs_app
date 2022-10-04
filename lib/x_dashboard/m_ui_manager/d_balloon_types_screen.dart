@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/user/need_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/a_user/need_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';

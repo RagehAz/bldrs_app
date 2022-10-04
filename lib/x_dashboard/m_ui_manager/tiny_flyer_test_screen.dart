@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';

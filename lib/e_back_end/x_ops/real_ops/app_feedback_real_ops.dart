@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
+import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';
 import 'package:flutter/cupertino.dart';
