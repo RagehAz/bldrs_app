@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
-import 'package:bldrs/a_models/chain/dd_data_creation.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/z_components/chain_tree_viewer/c_chain_tree_strip.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/flyer/sub/review_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';

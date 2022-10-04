@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

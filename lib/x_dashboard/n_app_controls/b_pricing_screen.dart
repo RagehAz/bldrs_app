@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/secondary_models/big_mac.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
+import 'package:bldrs/a_models/h_money/big_mac.dart';
+import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';

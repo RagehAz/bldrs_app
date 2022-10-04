@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/zone/city_model.dart';
+import 'package:bldrs/a_models/d_zone/city_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

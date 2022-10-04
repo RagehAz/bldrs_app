@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';

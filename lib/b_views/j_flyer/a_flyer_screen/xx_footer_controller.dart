@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/secondary_models/link_model.dart';
-import 'package:bldrs/a_models/user/auth_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/x_utilities/link_model.dart';
+import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/flyer_record_real_ops.dart';

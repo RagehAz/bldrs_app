@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
@@ -606,8 +606,8 @@ StreamSubscription initializeUserNotes(BuildContext context){
       oldMaps: _oldMaps,
       onChange: (List<Map<String, dynamic>> allUpdatedMaps) async {
 
-        blog('new maps are :-');
-        Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
+        // blog('new maps are :-');
+        // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
 
         final List<NoteModel> _notes = NoteModel.decipherNotes(
           maps: allUpdatedMaps,

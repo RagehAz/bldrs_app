@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';

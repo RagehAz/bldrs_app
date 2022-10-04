@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/user_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
