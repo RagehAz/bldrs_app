@@ -48,6 +48,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   // --------------------
   bool _isNotificationAllowed = false;
   File _selectedPic;
+  String _picURL;
   // --------------------
   StreamSubscription _streamSubscription;
   // -----------------------------------------------------------------------------
@@ -154,6 +155,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         await FCM.pushGlobalNotification(
           title: _notificationData.value['title'],
           body: _notificationData.value['body'],
+          largeIconURL: _picURL,
+          bannerURL: _picURL,
         );
       }
 
@@ -162,7 +165,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         await FCM.pushLocalNotification(
           title: _notificationData.value['title'],
           body: _notificationData.value['body'],
-          payload: 'fucking payload',
+          payloadString: 'fucking payload',
           picture: _selectedPic,
         );
       }
@@ -211,16 +214,13 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       else {
         setState(() {
           _selectedPic = _file;
+          _picURL = _user.pic;
         });
       }
 
     }
 
   }
-  // --------------------
-  /*
-  //var vibrationPattern = new Int64List.fromList([1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]);
-   */
   // --------------------
   /*
   Future<void> _listenToNotificationsStream(BuildContext context) async {
