@@ -202,7 +202,7 @@ class FCMStarter {
     await FCM.pushLocalNotification(
       body: _body,
       title: _title,
-      payload: _payload,
+      payloadString: _payload,
     );
 
   }

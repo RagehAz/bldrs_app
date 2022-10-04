@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:bldrs/a_models/bz/target/target_progress.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
@@ -64,9 +66,19 @@ class FCM {
 
   // --------------------
   static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
+  // --------------------
   static const String fcmWhiteLogoFilePath = 'resource://drawable/res_flat_logo';
   static const String fcmWhiteLogoFileName = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
+  // --------------------
+  static const String fcmColorLogoFilePath = 'resource://drawable/res_color_logo';
   static const String fcmColorLogoFileName = 'res_color_logo';
+  // --------------------
+  static const List<int> vibrationPatternInts = <int>[
+    1000,1000,1000,1000,
+    1000,1000,1000,1000,
+    1000,1000,1000,1000,
+    1000,1000,1000,1000,
+  ];
   // -----------------------------------------------------------------------------
 
   /// PUSHING NOTIFICATION
@@ -76,11 +88,15 @@ class FCM {
   static Future<void> pushGlobalNotification({
     @required String body,
     @required String title,
+    String largeIconURL,
+    String bannerURL,
+    TargetProgress progress,
+    Map<String, String> payloadMap,
   }) async {
+
 
     await tryAndCatch(
       methodName: 'pushGlobalNotification',
-
       functions: () async {
 
         await getAwesomeNotifications().createNotification(
@@ -88,6 +104,12 @@ class FCM {
           content: _createNotificationContent(
             body: body,
             title: title,
+            largeIconURL: largeIconURL,
+            bannerURL: bannerURL,
+            progress: progress,
+            payloadMap: payloadMap,
+            // progressBarIsLoading: false,
+            // canBeDismissedWithoutTapping: true,
           ),
           /// BUTTONS
           actionButtons: _createNotificationActionButtons(),
@@ -104,30 +126,42 @@ class FCM {
   static Future<void> pushLocalNotification({
     @required String title,
     @required String body,
-    @required String payload,
+    @required String payloadString,
     File picture,
+    String subText,
+    TargetProgress progress,
   }) async {
 
-    final NotificationDetails _notificationDetails = NotificationDetails(
-      android: _createAndroidNotificationDetails(
-        largeIcon: await _getLargeIcon(picture),
-      ),
-      iOS: _createIOSNotificationDetails(),
-      // macOS: ,
-      // linux: ,
-    );
-
     await FlutterLocalNotificationsPlugin().show(
+      /// ID
       Numeric.createUniqueID(maxDigitsCount: 8),
+      /// TITLE
       title,
+      /// BODY
       body,
-      _notificationDetails,
-      payload: payload,
+      /// DETAILS
+      NotificationDetails(
+        android: _createAndroidNotificationDetails(
+          largeIcon: await _getLargeIcon(picture),
+          subText: subText,
+          progress: progress,
+          // canBeDismissedWithoutTapping: ,
+          // channel: ,
+          // progressBarIsLoading: ,
+          // showStopWatch: ,
+          // showTime: ,
+        ),
+        iOS: _createIOSNotificationDetails(),
+        // macOS: ,
+        // linux: ,
+      ),
+      /// PAYLOAD : data to be passed through
+      payload: payloadString,
     );
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<AndroidBitmap> _getLargeIcon(File file) async {
     AndroidBitmap _largeIcon;
 
@@ -145,57 +179,85 @@ class FCM {
   /// NOTIFICATION CONTENTS
 
   // --------------------
-  ///
+  /// TAMAM : WORKS PERFECT : TASK : (except for notification sound)
   static NotificationContent _createNotificationContent({
     @required String title,
     @required String body,
+    bool canBeDismissedWithoutTapping = true,
+    String largeIconURL,
+    String bannerURL,
+    Map<String, String> payloadMap,
+    TargetProgress progress,
+    bool progressBarIsLoading = false,
   }){
+
+    blog('_createNotificationContent : START');
+
+    int _progress;
+    if (progress != null && progressBarIsLoading == false){
+      _progress = ((progress.current / progress.objective) * 100).toInt();
+    }
+
+    NotificationLayout _layout;
+    if (progress != null || progressBarIsLoading == true){
+      _layout = NotificationLayout.ProgressBar;
+    }
+    else if (bannerURL != null){
+      _layout = NotificationLayout.BigPicture;
+    }
+    else {
+      _layout = NotificationLayout.BigText;
+    }
+
     return NotificationContent(
       /// IDENTIFICATION
       id: Numeric.createUniqueID(maxDigitsCount: 8),
-      channelKey: FCM.getNotificationChannelName(FCMChannel.basic),
-      // groupKey: ,
+      channelKey: FCM.getNotificationChannelID(FCMChannel.basic),
 
       /// TEXT
       title: title,
       body: body,
 
-      /// LAYOUT
-      // notificationLayout: NotificationLayout.BigPicture,
-      // wakeUpScreen: ,
-
       /// IMAGES
-      // bigPicture: Notifications.redBldrsBanner,
-      // roundedBigPicture: ,
-      // largeIcon: ,
-      // roundedLargeIcon: ,
-      // icon: ,
+      notificationLayout: _layout,
+      bigPicture: bannerURL, //redBldrsBanner,
 
-      /// COLORS
-      // color: Colorz.yellow255,
-      // backgroundColor: Colorz.bloodTest,
+      /// ICON
+      icon: fcmWhiteLogoFilePath,
+      backgroundColor: Colorz.black255, /// is icon color bardo , bas override color
+      color: Colorz.bloodTest, /// is icon color.. is igonore when backgroundColor is assigned
+
+      /// LARGE ICON
+      largeIcon: largeIconURL, //NoteModel.bldrsLogoStaticURL,//fcmColorLogoFilePath,
+      roundedLargeIcon: true,
+      hideLargeIconOnExpand: false,
 
       /// BEHAVIOUR
-      // autoDismissible: ,
-      // displayOnBackground: ,
-      // displayOnForeground: ,
-      // fullScreenIntent: ,
-      // locked: ,
-      // hideLargeIconOnExpand: ,
-      // showWhen: ,
+      locked: !canBeDismissedWithoutTapping,
+      displayOnBackground: true,
+      displayOnForeground: true,
+      wakeUpScreen: true,
 
       /// SOUND
-      // customSound: ,
+      customSound: Sounder.getNotificationFilesPath(Sounder.nicoleSaysBldrsDotNet), // NOT WORKING
 
       /// DATA
-      // payload: ,
-      // summary: ,
-      // category: ,
+      payload: payloadMap,
 
-      /// UN-CLASSIFIED
-      // criticalAlert: ,
-      // progress: ,
-      // ticker: ,
+      /// PROGRESS
+      progress: _progress,
+
+      /// FAKES
+      // roundedBigPicture: false, /// very silly
+      // autoDismissible: false,
+      // fullScreenIntent: false,
+      // showWhen: ,
+      // summary: 'wtf is this summery',
+      // category: NotificationCategory.Email,
+      // criticalAlert: false,
+      // ticker: 'wtf is ticker',
+      // groupKey: ,
+
     );
 
 
@@ -230,6 +292,118 @@ class FCM {
 
   }
   // --------------------
+  /// TAMAM : WORKS PERFECT : TASK : (except for notification sound)
+  static AndroidNotificationDetails _createAndroidNotificationDetails({
+    String subText,
+    AndroidBitmap<Object> largeIcon,
+    TargetProgress progress,
+    FCMChannel channel = FCMChannel.basic,
+    bool showStopWatch = false,
+    bool showTime = true,
+    bool canBeDismissedWithoutTapping = true,
+    bool progressBarIsLoading = false,
+  }){
+
+    return AndroidNotificationDetails(
+      /// CHANNEL
+      getNotificationChannelID(channel), // channelId
+      getNotificationChannelName(channel), // channelName
+      channelDescription: getNotificationChannelDescription(channel),
+      // channelAction: AndroidNotificationChannelAction.createIfNotExists, // default
+
+      /// SUB TEXT
+      subText: subText,
+
+      /// ICON
+      icon: fcmWhiteLogoFileName,
+      color: Colorz.black255, /// is icon color
+
+      /// PICTURE
+      largeIcon: largeIcon, /// is the side picture
+
+      /// SOUNDS
+      // playSound: true, /// TASK : NOT WORKING
+      sound: const RawResourceAndroidNotificationSound(Sounder.nicoleSaysBldrsDotNet), /// TASK : NOT WORKING
+
+      /// LIGHTS
+      enableLights: true,
+      ledColor: Colorz.yellow255, /// NOT TESTED
+      ledOffMs: 2, /// NOT IMPORTANT : NOT TESTED
+      ledOnMs: 2, /// NOT IMPORTANT : NOT TESTED
+
+      /// VIBRATION
+      // enableVibration: true, // default
+      vibrationPattern: _createVibration(),
+      ticker: 'what is the ticker text ?',
+
+      /// PROGRESS
+      showProgress: progress != null,
+      progress: progress?.current ?? 0,
+      maxProgress: progress?.objective ?? 0,
+      indeterminate: progressBarIsLoading,
+
+      /// BEHAVIOUR
+      // autoCancel: true, /// is auto dismiss notification on tap ,, true be default
+      onlyAlertOnce: true, /// auto stop sound-ticker-vibration on show
+      visibility: NotificationVisibility.public, /// is lock screen notification visibility
+      ongoing: !canBeDismissedWithoutTapping,
+
+      /// TIMING
+      usesChronometer: showStopWatch,
+      showWhen: showTime,
+      // when: , /// is notification time stamp,, and no need to modify its default
+      // timeoutAfter: , /// is millisecond to wait to cancel notification if not yet cancelled ?? weird
+
+      /// BADGE : NOT EFFECTIVE
+      // channelShowBadge: true, //showAppBadge,
+      // number: 69,
+
+      /// NO EFFECT
+      colorized: true, /// background color : has no effect on local notification
+      fullScreenIntent: true,
+      importance: Importance.max,
+      priority: Priority.max,
+
+      /// GROUP
+      // groupAlertBehavior: GroupAlertBehavior.all, /// FAKES
+      // setAsGroupSummary: true, /// FAKES
+      // groupKey: 'groupOfShits', /// FAKES
+
+      /// FAKES
+      // shortcutId: ,
+      // styleInformation: StyleInformation,
+      // additionalFlags: ,
+      // category: ,
+      // tag: 'fakes',
+
+    );
+
+  }
+  // --------------------
+  /// TASK : TEST THIS ON IOS
+  static IOSNotificationDetails _createIOSNotificationDetails(){
+    return null;
+    // return IOSNotificationDetails(
+    //   sound: ,
+    //   attachments: ,
+    //   badgeNumber: ,
+    //   presentAlert: ,
+    //   presentBadge: ,
+    //   presentSound: ,
+    //   subtitle: ,
+    //   threadIdentifier: ,
+    // );
+  }
+  // --------------------
+  ///
+  static Int64List _createVibration(){
+    return Int64List.fromList(vibrationPatternInts);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SCHEDULING
+
+  // --------------------
   ///
   static NotificationSchedule _createNotificationSchedule(){
 
@@ -245,83 +419,6 @@ class FCM {
   }
   // --------------------
   ///
-  static AndroidNotificationDetails _createAndroidNotificationDetails({
-    AndroidBitmap<Object> largeIcon,
-  }){
-
-    return AndroidNotificationDetails(
-      'bldrs', // channelId
-      'bldrs channel', // channelName
-      // 'bldrs network',
-      importance: Importance.max,
-      priority: Priority.high,
-
-      /// ICON
-      color: Colorz.black255, /// ICON COLOR
-      icon: fcmWhiteLogoFileName,
-      largeIcon: largeIcon,
-
-
-      // ticker: ,
-      // showWhen: ,
-      // progress: ,
-      // groupKey: ,
-      // fullScreenIntent: ,
-      // category: ,
-      // additionalFlags: ,
-      // autoCancel: ,
-      // channelAction: ,
-      // channelDescription: ,
-      // channelShowBadge: ,
-      // colorized: ,
-      // enableLights: ,
-      // enableVibration: ,
-      // groupAlertBehavior: ,
-      // indeterminate: ,
-      // ledColor: ,
-      // ledOffMs: ,
-      // ledOnMs: ,
-      // maxProgress: ,
-      // number: ,
-      // ongoing: ,
-      // onlyAlertOnce: ,
-      // playSound: ,
-      // setAsGroupSummary: ,
-      // shortcutId: ,
-      // showProgress: ,
-      // sound: ,
-      // styleInformation: ,
-      // subText: ,
-      // tag: ,
-      // timeoutAfter: ,
-      // usesChronometer: ,
-      // vibrationPattern: ,
-      // visibility: ,
-      // when: ,
-    );
-
-  }
-  // --------------------
-  ///
-  static IOSNotificationDetails _createIOSNotificationDetails(){
-    return null;
-    // return IOSNotificationDetails(
-    //   sound: ,
-    //   attachments: ,
-    //   badgeNumber: ,
-    //   presentAlert: ,
-    //   presentBadge: ,
-    //   presentSound: ,
-    //   subtitle: ,
-    //   threadIdentifier: ,
-    // );
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CANCELLATION
-
-  // --------------------
-  ///
   static Future<void> cancelScheduledNotification() async {
     await getAwesomeNotifications().cancelAllSchedules();
   }
@@ -331,11 +428,29 @@ class FCM {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static String getNotificationChannelID(FCMChannel channel) {
+    switch (channel) {
+      case FCMChannel.basic:      return 'basic_noti';break;
+      case FCMChannel.scheduled:  return 'scheduled_noti';break;
+      default:                    return 'basic_noti';
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static String getNotificationChannelName(FCMChannel channel) {
     switch (channel) {
-      case FCMChannel.basic:      return 'Basic Notifications';break;
+      case FCMChannel.basic:      return 'إشعارات';break; /// TASK : NEED BETTER NAME
       case FCMChannel.scheduled:  return 'Scheduled Notifications';break;
       default:                    return 'Basic Notifications';
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getNotificationChannelDescription(FCMChannel channel) {
+    switch (channel) {
+      case FCMChannel.basic:      return 'Bldrs.net is amazing';break;
+      case FCMChannel.scheduled:  return 'Bldrs.net is outstanding';break;
+      default:                    return 'Bldrs.net is amazing';
     }
   }
   // --------------------
@@ -344,9 +459,9 @@ class FCM {
 
     /// NOTE : WORKS WHEN APP IS IN FOREGROUND
     return NotificationChannel(
-      channelKey: getNotificationChannelName(FCMChannel.basic),
+      channelKey: getNotificationChannelID(FCMChannel.basic),
       channelName: getNotificationChannelName(FCMChannel.basic),
-      channelDescription: 'Bldrs.net notification', // this will be visible to user in android notification settings
+      channelDescription: getNotificationChannelDescription(FCMChannel.basic), // this will be visible to user in android notification settings
 
       ///
       defaultColor: Colorz.green255, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO GREEN TO TEST
