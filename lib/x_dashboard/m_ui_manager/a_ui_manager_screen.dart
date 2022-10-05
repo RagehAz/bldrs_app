@@ -67,7 +67,7 @@ class UIManager extends StatelessWidget {
         /// BALLOON TYPES
         WideButton(
           verse: Verse.plain('Balloons'),
-          icon: Iconz.utSelling,
+          icon: Iconz.balloonRoundCornered,
           onTap: () async {
 
             await Nav.goToNewScreen(

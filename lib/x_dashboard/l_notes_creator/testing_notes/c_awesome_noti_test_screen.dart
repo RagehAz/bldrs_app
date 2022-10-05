@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/e_notes/channels.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
@@ -47,8 +49,14 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   final TextEditingController _bodyController = TextEditingController();
   // --------------------
   bool _isNotificationAllowed = false;
-  File _selectedPic;
-  String _picURL;
+  File _largeImageFile;
+  String _largeIconURL;
+  final List<String> _buttons = <String>[];
+  TargetProgress _progress;
+  Channel _channel;
+  bool _isLoading = false;
+  String _bannerURL;
+  bool _canBeDismissedWithoutTapping;
   // --------------------
   StreamSubscription _streamSubscription;
   // -----------------------------------------------------------------------------
@@ -155,12 +163,17 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
         await FCM.pushGlobalNoot(
           title: _notificationData.value['title'],
           body: _notificationData.value['body'],
-          largeIconURL: _picURL,
-          bannerURL: _picURL,
+          largeIconURL: _largeIconURL,
+          bannerURL: _bannerURL,
+          buttonsTexts: _buttons,
+          channel: _channel,
+          progress: _progress,
+          progressBarIsLoading: _isLoading,
           payloadMap: {
             'fuck': 'you',
             'whore': 'payloadMapaho',
           },
+          canBeDismissedWithoutTapping: _canBeDismissedWithoutTapping,
         );
       }
 
@@ -170,7 +183,14 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           title: _notificationData.value['title'],
           body: _notificationData.value['body'],
           payloadString: 'fucking payload',
-          largeIconFile: _selectedPic,
+          largeIconFile: _largeImageFile,
+          canBeDismissedWithoutTapping: _canBeDismissedWithoutTapping,
+          channel: _channel,
+          progress: _progress,
+          progressBarIsLoading: _isLoading,
+          // subText: '...',
+          // showStopWatch: false,
+          // showTime: true,
         );
       }
 
@@ -188,40 +208,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     if (_pickedFileModel != null){
       setState(() {
-        _selectedPic = _pickedFileModel.file;
+        _largeImageFile = _pickedFileModel.file;
       });
-    }
-
-  }
-  // --------------------
-  Future<void> _selectURL() async {
-
-    final UserModel _user = await SearchUsersScreen.selectUser(context);
-
-    if (_user != null){
-
-      blog(_user.pic);
-      // final Uint8List _uints = await Floaters.getUint8ListFromURL(_user.pic);
-      // final File _file = await Filers.getFileFromUint8List(
-      //   uInt8List: _uints,
-      //   fileName: _user.id,
-      // );
-      final File _file = await Filers.getFileFromURL(_user.pic);
-
-      if (_file == null){
-        await Dialogs.errorDialog(
-          context: context,
-          titleVerse: Verse.plain('Something is wrong with this image'),
-          bodyVerse: Verse.plain('Maybe check another picture !'),
-        );
-      }
-      else {
-        setState(() {
-          _selectedPic = _file;
-          _picURL = _user.pic;
-        });
-      }
-
     }
 
   }
@@ -415,7 +403,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                             bubbleWidth: Bubble.clearWidth(context),
                             bubbleHeaderVM: BubbleHeaderVM(
                               headerWidth: Bubble.clearWidth(context) - 20,
-                              leadingIcon: _selectedPic ?? Iconz.phoneGallery,
+                              leadingIcon: Iconz.balloonArrowed,
                               headlineVerse: Verse.plain('LargeIcon'),
                             ),
                             child: Row(
@@ -429,7 +417,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                                   iconSizeFactor: 0.4,
                                   onTap: (){
                                     setState(() {
-                                      _selectedPic = null;
+                                      _largeImageFile = null;
+                                      _largeIconURL = null;
                                     });
                                   },
                                 ),
@@ -441,11 +430,35 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
                                 /// URL
                                 DreamBox(
-                                  width: 50,
                                   height: 50,
-                                  icon: Iconz.comWebsite,
-                                  iconSizeFactor: 0.4,
-                                  onTap: _selectURL,
+                                  isDeactivated: !isGlobal,
+                                  icon: isGlobal == true ? Iconz.comWebsite  : (_largeIconURL ?? Iconz.comWebsite),
+                                  verseScaleFactor: 0.4,
+                                  verse: Verse.plain('URL'),
+                                  onTap: () async {
+
+                                    final UserModel _user = await SearchUsersScreen.selectUser(context);
+
+                                    if (_user != null){
+
+                                      final File _file = await Filers.getFileFromURL(_user.pic);
+
+                                      if (_file == null){
+                                        await Dialogs.errorDialog(
+                                          context: context,
+                                          titleVerse: Verse.plain('Something is wrong with this image'),
+                                          bodyVerse: Verse.plain('Maybe check another picture !'),
+                                        );
+                                      }
+                                      else {
+                                        setState(() {
+                                          _largeIconURL = _user.pic;
+                                        });
+                                      }
+
+                                    }
+
+                                  },
                                 ),
 
                                 const SizedBox(
@@ -455,17 +468,47 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
                                 /// GALLERY
                                 DreamBox(
-                                  width: 50,
                                   height: 50,
-                                  icon: Iconz.phoneGallery,
-                                  iconSizeFactor: 0.4,
-                                  onTap: _selectGalleryPic,
+                                  isDeactivated: isGlobal,
+                                  icon: isGlobal == true ? (_largeImageFile ?? Iconz.phoneGallery) : Iconz.phoneGallery,
+                                  verseScaleFactor: 0.4,
+                                  verse: Verse.plain('File'),
+                                  onTap: () async {
+
+                                    final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
+                                      context: context,
+                                      cropAfterPick: true,
+                                      isFlyerRatio: false,
+                                    );
+
+                                    if (_pickedFileModel != null){
+                                      setState(() {
+                                        _largeImageFile = _pickedFileModel.file;
+                                      });
+                                    }
+
+                                  },
                                 ),
 
 
                               ],
                             ),
                           ),
+
+                          /// BANNER URL
+
+
+                          /// PROGRESS
+
+
+                          /// IS LOADING
+
+
+                          /// CHANNEL
+
+
+                          /// BUTTONS
+
 
                           /// CONFIRM BUTTON
                           Row(
