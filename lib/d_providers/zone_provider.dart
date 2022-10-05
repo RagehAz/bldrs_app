@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/h_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -213,7 +212,7 @@ class ZoneProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    blog('_fetchSetAllCurrenciesAndCurrentCurrency : START');
+    // blog('_fetchSetAllCurrenciesAndCurrentCurrency : START');
 
     final List<CurrencyModel> _currencies = await ZoneProtocols.fetchCurrencies(context: context);
 

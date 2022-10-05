@@ -6,6 +6,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
+/// should be re-named and properly handled to become { triggers / function triggers }
 enum NoteType {
   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
   authorship,
@@ -1644,5 +1645,7 @@ WHEN DO WE HAVE NOTIFICATIONS
     -> new followers
     -> user-flyer interaction [new flyer share - new flyer save - new flyer review]
     -> general bz related news
+
+    -----> my bz is deleted
 
  */

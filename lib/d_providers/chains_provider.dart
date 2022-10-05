@@ -677,7 +677,7 @@ class ChainsProvider extends ChangeNotifier {
           flyerType: _flyerType,
           onFinish: (List<PickerModel> pickers){
 
-            blog('fetchSetAllPickers : DONE WITH $_flyerType');
+            // blog('fetchSetAllPickers : DONE WITH $_flyerType');
 
             final bool _isLastIndex = index + 1 == FlyerTyper.flyerTypesList.length;
             bool _notify = false;
@@ -712,7 +712,7 @@ class ChainsProvider extends ChangeNotifier {
 
     final String _pickersID = PickerModel.getPickersIDByFlyerType(flyerType);
 
-    blog('setFlyerTypePickers : $_pickersID : $flyerType');
+    // blog('setFlyerTypePickers : $_pickersID : $flyerType');
 
     _allPickers = Mapper.insertPairInMap(
       map: _allPickers,

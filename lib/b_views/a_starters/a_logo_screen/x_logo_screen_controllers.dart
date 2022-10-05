@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
@@ -88,7 +87,7 @@ Future<void> _onRestartAppInTimeCorrectionDialog({
 // --------------------
 Future<void> _initializeUserModel(BuildContext context) async {
 
-  blog('_initializeUserModel : START');
+  // blog('_initializeUserModel : START');
 
   /// IF USER IS SIGNED IN
   if (AuthModel.userIsSignedIn() == true) {
@@ -108,7 +107,7 @@ Future<void> _initializeUserModel(BuildContext context) async {
   /// WILL CONTINUE NORMALLY AS ANONYMOUS
   // }
 
-  blog('_initializeUserModel : END');
+  // blog('_initializeUserModel : END');
 
 }
 // --------------------
@@ -117,7 +116,7 @@ Future<UserModel> completeUserZoneModel({
   @required UserModel userModel,
 }) async {
 
-  blog('completeUserZoneModel : START');
+  // blog('completeUserZoneModel : START');
 
   UserModel _output = userModel;
 
@@ -136,7 +135,7 @@ Future<UserModel> completeUserZoneModel({
 
   }
 
-  blog('completeUserZoneModel : END');
+  // blog('completeUserZoneModel : END');
 
   return _output;
 }
@@ -147,7 +146,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required bool notify,
 }) async {
 
-  blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');
+  // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');
 
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
 
@@ -178,7 +177,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   await AuthLDBOps.updateAuthModel(authModel);
   await UserLDBOps.updateUserModel(authModel.userModel);
 
-  blog('setUserAndAuthModelsAndCompleteUserZoneLocally : END');
+  // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : END');
 
 }
 // -----------------------------------------------------------------------------
@@ -188,7 +187,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 // --------------------
 Future<void> _initializeAppState(BuildContext context) async {
 
-  blog('_initializeAppState : START');
+  // blog('_initializeAppState : START');
 
   if (AuthModel.userIsSignedIn() == true){
 
@@ -283,7 +282,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
   }
 
-  blog('_initializeAppState : END');
+  // blog('_initializeAppState : END');
 
 }
 // --------------------
@@ -323,7 +322,7 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
 // --------------------
 Future<void> _initializeAppControls(BuildContext context) async {
-  blog('_initializeAppControls : START');
+  // blog('_initializeAppControls : START');
 
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
   await _generalProvider.fetchSetAppControls(
@@ -331,7 +330,7 @@ Future<void> _initializeAppControls(BuildContext context) async {
     notify: true,
   );
 
-  blog('_initializeAppControls : END');
+  // blog('_initializeAppControls : END');
 }
 // -----------------------------------------------------------------------------
 
@@ -339,10 +338,10 @@ Future<void> _initializeAppControls(BuildContext context) async {
 
 // --------------------
 Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
-  blog('_initializeLocalAssetsPaths : START');
+  // blog('_initializeLocalAssetsPaths : START');
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   await _uiProvider.getSetLocalAssetsPaths(notify: true);
-  blog('_initializeLocalAssetsPaths : END');
+  // blog('_initializeLocalAssetsPaths : END');
 }
 // -----------------------------------------------------------------------------
 
@@ -350,14 +349,14 @@ Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
 
 // --------------------
 Future<void> _initializeAppLanguage(BuildContext context) async {
-  blog('_initializeAppLanguage : START');
+  // blog('_initializeAppLanguage : START');
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
   await _phraseProvider.fetchSetCurrentLangAndAllPhrases(
     context: context,
   );
 
-  blog('_initializeAppLanguage : END');
+  // blog('_initializeAppLanguage : END');
 }
 // -----------------------------------------------------------------------------
 
@@ -365,9 +364,9 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 
 // --------------------
 Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
-  blog('_initializeMyDeviceFCMToken : START');
+  // blog('_initializeMyDeviceFCMToken : START');
   await FCM.updateMyUserFCMToken(context: context);
-  blog('_initializeMyDeviceFCMToken : END');
+  // blog('_initializeMyDeviceFCMToken : END');
 }
 // -----------------------------------------------------------------------------
 

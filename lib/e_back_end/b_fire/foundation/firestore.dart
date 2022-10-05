@@ -30,13 +30,14 @@ class Fire{
         context: context,
         functions: () async {
 
-          final FirebaseApp _firebaseApp = await Firebase.initializeApp();
+          // final FirebaseApp _firebaseApp =
+          await Firebase.initializeApp();
 
-          blog('_firebaseApp.name : ${_firebaseApp.name}');
-          blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
-          blog('_firebaseApp.options :-');
+          // blog('_firebaseApp.name : ${_firebaseApp.name}');
+          // blog('_firebaseApp.isAutomaticDataCollectionEnabled : ${_firebaseApp.isAutomaticDataCollectionEnabled}');
+          // blog('_firebaseApp.options :-');
 
-          Mapper.blogMap(_firebaseApp.options.asMap);
+          // Mapper.blogMap(_firebaseApp.options.asMap);
 
         },
         onError: (String error) {
@@ -517,8 +518,8 @@ String pathOfSubDoc({
       },
     );
 
-    final String _found = _map == null ? 'NOT FOUND' : 'FOUND';
-    blog('readDoc() : reading doc : firestore/$collName/$docName : $_found');
+    // final String _found = _map == null ? 'NOT FOUND' : 'FOUND';
+    // blog('readDoc() : reading doc : firestore/$collName/$docName : $_found');
 
     return _result.runtimeType == String ? null : _map;
   }
