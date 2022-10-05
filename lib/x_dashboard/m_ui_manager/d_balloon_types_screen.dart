@@ -51,12 +51,34 @@ class BalloonTypesScreen extends StatelessWidget {
                     loading: false,
                   ),
 
-                  SuperVerse(
-                    verse: Verse(
-                      text: _needType.toString(),
-                      translate: false,
-                    ),
-                    margin: 10,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+
+                      /// NEED NAME
+                      SuperVerse(
+                        verse: Verse(
+                          text: _needType.toString(),
+                          translate: false,
+                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        color: Colorz.yellow255,
+                      ),
+
+                      /// BALLOON NAME
+                      SuperVerse(
+                        verse: Verse(
+                          text: Balloon.concludeBalloonByNeedType(_needType).toString(),
+                          translate: false,
+                        ),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        size: 1,
+                        italic: true,
+                        weight: VerseWeight.thin,
+                        color: Colorz.white200,
+                      ),
+
+                    ],
                   ),
 
                 ],

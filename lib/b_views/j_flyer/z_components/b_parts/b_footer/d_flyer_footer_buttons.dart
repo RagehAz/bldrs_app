@@ -91,7 +91,7 @@ class FlyerFooterButtons extends StatelessWidget {
                 FooterButton(
                   count: counter?.reviews,
                   flyerBoxWidth: flyerBoxWidth,
-                  icon: Iconz.utPlanning,
+                  icon: Iconz.balloonSpeaking,
                   phid: 'phid_review',
                   isOn: false,
                   canTap: !tinyMode,

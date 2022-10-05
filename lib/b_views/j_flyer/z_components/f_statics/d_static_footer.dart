@@ -113,7 +113,7 @@ class StaticFooter extends StatelessWidget {
                 child: FooterButton(
                   count: null,
                   flyerBoxWidth: flyerBoxWidth,
-                  icon: Iconz.utPlanning,
+                  icon: Iconz.balloonSpeaking,
                   phid: 'phid_review',
                   isOn: false,
                   canTap: false,

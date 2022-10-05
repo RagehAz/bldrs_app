@@ -173,7 +173,7 @@ class ReviewTextBalloon extends StatelessWidget {
                       /// REPLY
                       if (_imAuthorInFlyerBz == true)
                         ReviewBubbleButton(
-                          icon: Iconz.utPlanning,
+                          icon: Iconz.balloonSpeaking,
                           verse: '##Reply',
                           count: null,
                           isOn: false,
