@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Bldrs.net</string>
+    <string name="title_activity_main">Bldrs.net</string>
+    <string name="package_name">com.bldrs.net</string>
+    <string name="custom_url_scheme">com.bldrs.net</string>
     <string name="facebook_app_id">427786221866015</string>
     <string name="fb_login_protocol_scheme">fb427786221866015</string>
+    <string name="default_notification_channel_id">com.bldrs.net.urgent</string>
 </resources>

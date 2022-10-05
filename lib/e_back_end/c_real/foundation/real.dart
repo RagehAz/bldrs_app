@@ -634,9 +634,9 @@ class Real {
       },
     );
 
-    if (_map != null){
-      blog('Real.readDocOnce : map read from [REAL/$collName/$docName] : map : ${_map.length} keys');
-    }
+    // if (_map != null){
+      // blog('Real.readDocOnce : map read from [REAL/$collName/$docName] : map : ${_map.length} keys');
+    // }
 
     return _map;
   }

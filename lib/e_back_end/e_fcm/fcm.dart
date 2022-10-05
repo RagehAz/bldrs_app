@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:bldrs/a_models/e_notes/channels.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
@@ -24,12 +25,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-enum FCMChannel {
-  basic,
-  scheduled,
-}
-
-/// AWESOME NOTIFICATIONS PUSHER
 class FCM {
   // -----------------------------------------------------------------------------
 
@@ -129,9 +124,10 @@ class FCM {
   ///
   static Future<void> requestFCMPermission() async {
 
-    blog('requestFCMPermission : START');
+    // blog('requestFCMPermission : START');
 
-    final NotificationSettings _settings = await FirebaseMessaging.instance.requestPermission(
+    // final NotificationSettings _settings =
+    await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,
       provisional: true,
@@ -141,12 +137,12 @@ class FCM {
       criticalAlert: true,
     );
 
-    FCM.blogNootSettings(
-      settings: _settings,
-      invoker: 'requestFCMPermission',
-    );
+    // FCM.blogNootSettings(
+    //   settings: _settings,
+    //   invoker: 'requestFCMPermission',
+    // );
 
-    blog('requestFCMPermission : END');
+    // blog('requestFCMPermission : END');
 
   }
   // -----------------------------------------------------------------------------
@@ -267,12 +263,11 @@ class FCM {
     TargetProgress progress,
     bool progressBarIsLoading = false,
     bool canBeDismissedWithoutTapping = true,
-    FCMChannel channel = FCMChannel.basic,
+    Channel channel = Channel.bulletin,
     /// special fields in awesome notification package
     String bannerURL,
     List<String> buttonsTexts,
   }) async {
-
 
     await tryAndCatch(
       methodName: 'pushGlobalNotification',
@@ -313,7 +308,7 @@ class FCM {
     TargetProgress progress,
     bool progressBarIsLoading = false,
     bool canBeDismissedWithoutTapping = true,
-    FCMChannel channel = FCMChannel.basic,
+    Channel channel = Channel.bulletin,
     /// special fields in flutter local notification package
     String subText,
     bool showStopWatch = false,
@@ -377,7 +372,7 @@ class FCM {
     Map<String, String> payloadMap,
     TargetProgress progress,
     bool progressBarIsLoading = false,
-    FCMChannel channel = FCMChannel.basic,
+    Channel channel = Channel.bulletin,
   }){
 
     blog('_createNotificationContent : START');
@@ -398,10 +393,16 @@ class FCM {
       _layout = NotificationLayout.BigText;
     }
 
+    final ChannelModel _channelModel = ChannelModel.getChannelModel(channel);
+
     return NotificationContent(
       /// IDENTIFICATION
       id: Numeric.createUniqueID(maxDigitsCount: 8),
-      channelKey: FCM.getNootChannelID(channel),
+
+      /// CHANNEL
+      channelKey: _channelModel.id,
+      summary: _channelModel.description,
+      groupKey: _channelModel.group,
 
       /// TEXT
       title: title,
@@ -441,11 +442,9 @@ class FCM {
       // autoDismissible: false,
       // fullScreenIntent: false,
       // showWhen: ,
-      // summary: 'wtf is this summery',
       // category: NotificationCategory.Email,
       // criticalAlert: false,
       // ticker: 'wtf is ticker',
-      // groupKey: ,
 
     );
 
@@ -511,39 +510,46 @@ class FCM {
     String subText,
     AndroidBitmap<Object> largeIcon,
     TargetProgress progress,
-    FCMChannel channel = FCMChannel.basic,
+    Channel channel = Channel.bulletin,
     bool showStopWatch = false,
     bool showTime = true,
     bool canBeDismissedWithoutTapping = true,
     bool progressBarIsLoading = false,
   }){
 
+    final ChannelModel _channelModel = ChannelModel.getChannelModel(channel);
+
     return AndroidNotificationDetails(
       /// CHANNEL
-      getNootChannelID(channel), // channelId
-      getNootChannelName(channel), // channelName
-      channelDescription: getNootChannelDescription(channel),
+      _channelModel.id, // channelId
+      _channelModel.name, // channelName
+      channelDescription: _channelModel.description,
       // channelAction: AndroidNotificationChannelAction.createIfNotExists, // default
+
+      /// GROUP
+      groupKey: _channelModel.group, /// FAKES
+      setAsGroupSummary: true,
+      // groupAlertBehavior: GroupAlertBehavior.all, /// FAKES
 
       /// SUB TEXT
       subText: subText,
 
       /// ICON
       icon: fcmWhiteLogoFileName,
-      color: Colorz.black255, /// is icon color
+      color: Colorz.black255, // is icon color
 
       /// PICTURE
-      largeIcon: largeIcon, /// is the side picture
+      largeIcon: largeIcon, // is the side picture
 
       /// SOUNDS
-      // playSound: true, /// TASK : NOT WORKING
+      // playSound: true, /// true by default - TASK : NOT WORKING
       sound: const RawResourceAndroidNotificationSound(Sounder.nicoleSaysBldrsDotNet), /// TASK : NOT WORKING
 
       /// LIGHTS
       enableLights: true,
-      ledColor: Colorz.yellow255, /// NOT TESTED
-      ledOffMs: 2, /// NOT IMPORTANT : NOT TESTED
-      ledOnMs: 2, /// NOT IMPORTANT : NOT TESTED
+      ledColor: Colorz.yellow255, // NOT TESTED
+      ledOffMs: 2, // NOT IMPORTANT : NOT TESTED
+      ledOnMs: 2, // NOT IMPORTANT : NOT TESTED
 
       /// VIBRATION
       // enableVibration: true, // default
@@ -569,7 +575,7 @@ class FCM {
       // timeoutAfter: , /// is millisecond to wait to cancel notification if not yet cancelled ?? weird
 
       /// BADGE : NOT EFFECTIVE
-      // channelShowBadge: true, //showAppBadge,
+      // channelShowBadge: true, // showAppBadge - true by default,
       // number: 69,
 
       /// NO EFFECT
@@ -577,11 +583,6 @@ class FCM {
       fullScreenIntent: true,
       importance: Importance.max,
       priority: Priority.max,
-
-      /// GROUP
-      // groupAlertBehavior: GroupAlertBehavior.all, /// FAKES
-      // setAsGroupSummary: true, /// FAKES
-      // groupKey: 'groupOfShits', /// FAKES
 
       /// FAKES
       // shortcutId: ,
@@ -722,88 +723,84 @@ class FCM {
 
   // --------------------
   ///
-  static List<NotificationChannel> getBldrsNootsChannels(){
+  static List<NotificationChannel> generateBldrsNootChannels(){
+    final List<NotificationChannel> _channels = <NotificationChannel>[];
 
-    return <NotificationChannel>[
-      FCM.basicNootChannel(),
-    ];
+    for (final ChannelModel channel in ChannelModel.bldrsChannels){
 
+      _channels.add(NotificationChannel(
+        /// CHANNEL
+        channelKey: channel.id,
+        channelName: channel.name,
+        /// this will be visible to user in android notification settings
+        channelDescription: channel.description,
+
+        /// GROUP
+        channelGroupKey: channel.group,
+        groupKey: channel.group,
+        groupSort: GroupSort.Asc,
+
+        /// ICON
+        icon: fcmWhiteLogoFilePath,
+        defaultColor: Colorz.black255,
+
+        /// SOUND
+        playSound: true,
+        soundSource: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
+        defaultRingtoneType: DefaultRingtoneType.Notification,
+
+        /// LIGHTS
+        enableLights: true,
+        ledColor: Colorz.yellow255,
+        // ledOnMs: 2, /// NOT IMPORTANT : NOT TESTED
+        // ledOffMs: 2, /// NOT IMPORTANT : NOT TESTED
+
+        /// VIBRATION
+        enableVibration: true,
+        vibrationPattern: _createLocalNootVibration(),
+
+        /// BEHAVIOUR
+        locked: false, //  = !canBeDismissedWithoutTapping,
+        channelShowBadge: true,
+
+        /// FAKES
+        importance: NotificationImportance.High,
+        defaultPrivacy: NotificationPrivacy.Public,
+        onlyAlertOnce: true,
+        // groupAlertBehavior: GroupAlertBehavior(),
+        // criticalAlerts: ,
+
+      ));
+
+    }
+
+    return _channels;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<NotificationChannelGroup> getBldrsChannelGroups(){
 
     return <NotificationChannelGroup>[
 
-      // NotificationChannelGroup(
-      //   channelGroupkey: ,
-      //   channelGroupName: ,
-      // ),
+      /// GENERAL
+      NotificationChannelGroup(
+        channelGroupkey: ChannelModel.generalGroup,
+        channelGroupName: ChannelModel.generalGroup,
+      ),
+
+      /// GENERAL
+      NotificationChannelGroup(
+        channelGroupkey: ChannelModel.flyersGroup,
+        channelGroupName: ChannelModel.flyersGroup,
+      ),
+
+      /// GENERAL
+      NotificationChannelGroup(
+        channelGroupkey: ChannelModel.myBzzGroup,
+        channelGroupName: ChannelModel.myBzzGroup,
+      ),
 
     ];
-
-  }
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getNootChannelID(FCMChannel channel) {
-    switch (channel) {
-      case FCMChannel.basic:      return 'basic_noot';break;
-      case FCMChannel.scheduled:  return 'scheduled_noot';break;
-      default:                    return 'basic_noot';
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getNootChannelName(FCMChannel channel) {
-    switch (channel) {
-      case FCMChannel.basic:      return 'إشعارات';break; /// TASK : NEED BETTER NAME
-      case FCMChannel.scheduled:  return 'Scheduled Notifications';break;
-      default:                    return 'Basic Notifications';
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getNootChannelDescription(FCMChannel channel) {
-    switch (channel) {
-      case FCMChannel.basic:      return 'Bldrs.net is amazing';break;
-      case FCMChannel.scheduled:  return 'Bldrs.net is outstanding';break;
-      default:                    return 'Bldrs.net is amazing';
-    }
-  }
-  // --------------------
-  ///
-  static NotificationChannel basicNootChannel() {
-
-    /// NOTE : WORKS WHEN APP IS IN FOREGROUND
-    return NotificationChannel(
-      channelKey: getNootChannelID(FCMChannel.basic),
-      channelName: getNootChannelName(FCMChannel.basic),
-      channelDescription: getNootChannelDescription(FCMChannel.basic), // this will be visible to user in android notification settings
-
-      ///
-      defaultColor: Colorz.green255, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO GREEN TO TEST
-      channelShowBadge: true,
-      icon: fcmWhiteLogoFilePath,
-      ledColor: Colorz.facebook, /// TASK : IS THIS THE YELLOW ICON ON TOP,, NOW WILL DO facebook color TO TEST
-      importance: NotificationImportance.High,
-      locked: true,
-      playSound: true,
-      soundSource: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
-      enableLights: true,
-      enableVibration: true,
-      // groupKey: ,
-      // vibrationPattern: ,
-      // onlyAlertOnce: ,
-      // ledOnMs: ,
-      // ledOffMs: ,
-      // groupAlertBehavior: ,
-      // channelGroupKey: ,
-      // criticalAlerts: ,
-      // defaultPrivacy: ,
-      // defaultRingtoneType: ,
-      // groupSort: ,
-    );
 
   }
   // -----------------------------------------------------------------------------
