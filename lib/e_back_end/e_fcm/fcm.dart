@@ -829,8 +829,8 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogRemoteMessage({
-    String invoker,
-    RemoteMessage remoteMessage
+    @required RemoteMessage remoteMessage,
+    @required String invoker,
   }) {
 
     blog('blogRemoteMessage : $invoker : START');
@@ -857,7 +857,8 @@ class FCM {
     blog('remoteMessage?.sentTime                          : ${remoteMessage?.sentTime}');
     blog('remoteMessage?.threadId                          : ${remoteMessage?.threadId}');
     blog('remoteMessage?.ttl                               : ${remoteMessage?.ttl}');
-    blog('remoteMessage?.data                              : ${remoteMessage?.data}');
+
+    Mapper.blogMap(remoteMessage?.data, invoker: invoker);
 
     blog('blogRemoteMessage : $invoker : END');
   }

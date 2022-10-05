@@ -112,7 +112,7 @@ class RealHttpTestScreen extends StatelessWidget {
                 docName: 'flyerID',
             );
 
-            Mapper.blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+            Mapper.blogMap(_map, invoker: 'REAL FUCKING TIME MAP IS :');
 
           },
         ),
@@ -130,7 +130,7 @@ class RealHttpTestScreen extends StatelessWidget {
             );
 
 
-            Mapper.blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+            Mapper.blogMap(_map, invoker: 'REAL FUCKING TIME MAP IS :');
 
           },
         ),
@@ -149,7 +149,7 @@ class RealHttpTestScreen extends StatelessWidget {
             );
 
 
-            Mapper.blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+            Mapper.blogMap(_map, invoker: 'REAL FUCKING TIME MAP IS :');
 
           },
         ),

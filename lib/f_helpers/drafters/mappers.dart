@@ -834,11 +834,11 @@ class Mapper {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogMap(Map<dynamic, dynamic> map, {String methodName = ''}) {
+  static void blogMap(Map<dynamic, dynamic> map, {String invoker = ''}) {
 
     if (map != null){
 
-      blog('$methodName ~~~> <String, dynamic>{');
+      blog('$invoker ~~~> <String, dynamic>{');
 
       final List<dynamic> _keys = map.keys.toList();
       final List<dynamic> _values = map.values.toList();
@@ -867,7 +867,7 @@ class Mapper {
   static void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
     if (checkCanLoopList(maps)) {
       for (final Map<dynamic, dynamic> map in maps) {
-        blogMap(map, methodName: methodName);
+        blogMap(map, invoker: methodName);
       }
     }
   }
