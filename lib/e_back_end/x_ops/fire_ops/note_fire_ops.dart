@@ -52,7 +52,7 @@ class NoteFireOps {
         noteModel: _note,
       );
 
-      Mapper.blogMap( _note.toMap(toJSON: true), methodName: 'fuck the fucking map');
+      Mapper.blogMap( _note.toMap(toJSON: true), invoker: 'fuck the fucking map');
 
       await Fire.createDoc(
         context: context,

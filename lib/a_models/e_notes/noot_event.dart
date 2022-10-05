@@ -1,4 +1,3 @@
-
 import 'package:bldrs/a_models/e_notes/channels.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,7 @@ class NootEvent {
   final String channelID;
   final String description;
 
-  static const List<NootEvent> _allEvent = <NootEvent>[
+  static const List<NootEvent> allEvent = <NootEvent>[
     // ------------------------------------------------
     /// GENERAL
     NootEvent(
@@ -92,7 +91,6 @@ class NootEvent {
       channelID: ChannelModel.myBzzTeamsChannelID,
       description: 'A team member role has changed',
     ),
-
     // --------------------
     /// A TEAM MEMBER EXITED
     NootEvent(
