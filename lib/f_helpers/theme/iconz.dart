@@ -188,12 +188,12 @@ class Iconz {
   static const String pyramidsWhiteClean = '$_iconsPath/pyramids_white_clean.svg';
   // --------------------
   /// USER TYPE
-  static const String utNormal = '$_iconsPath/ut_normal_user.svg';
-  static const String utSearching = '$_iconsPath/ut_searching_user.svg';
-  static const String utBuilding = '$_iconsPath/ut_building_user.svg';
-  static const String utSelling = '$_iconsPath/ut_selling_user.svg';
-  static const String utPlanning = '$_iconsPath/ut_planning_user.svg';
-  static const String utExecuting = '$_iconsPath/ut_executing_user.svg';
+  static const String balloonArrowed = '$_iconsPath/balloon_arrowed.svg';
+  static const String balloonCircle = '$_iconsPath/balloon_circle.svg';
+  static const String balloonZeroCornered = '$_iconsPath/balloon_zero_cornered.svg';
+  static const String balloonRoundCornered = '$_iconsPath/balloon_round_cornered.svg';
+  static const String balloonThinking = '$_iconsPath/balloon_thinking.svg';
+  static const String balloonSpeaking = '$_iconsPath/balloon_speaking.svg';
   // --------------------
   static const String contAfrica = '$_iconsPath/cont_africa.svg';
   static const String contAsia = '$_iconsPath/cont_asia.svg';
@@ -331,12 +331,12 @@ class Iconz {
       pyramidzWhite,
       pyramidSingleYellow,
       pyramidSingleWhite,
-      utNormal,
-      utSearching,
-      utBuilding,
-      utSelling,
-      utPlanning,
-      utExecuting,
+      balloonCircle,
+      balloonThinking,
+      balloonArrowed,
+      balloonRoundCornered,
+      balloonSpeaking,
+      balloonZeroCornered,
       contAfrica,
       contAsia,
       contAustralia,

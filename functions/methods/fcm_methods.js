@@ -45,7 +45,7 @@ const sendFCMToDevice = (noteModel) => {
   functions.logger.log(`sendFCMToDevice : 4 - body is : [${body}]`);
   const map = {
     token: token,
-    // this lets FireBaseMessaging force a notification 
+    // this lets FireBaseMessaging force a notification
     // but we are already handling it by AwesomeNotification package
     // notification: {
     //   body: body,
