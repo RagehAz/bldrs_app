@@ -25,7 +25,7 @@ class TargetCard extends StatelessWidget {
     final double _bubbleClearWidth = Bubble.clearWidth(context) - 10;
     // final double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
     // const double _titleBoxHeight = 30;
-    final TargetProgress _progress = target.progress;
+    final Progress _progress = target.progress;
     final bool _targetReached = _progress.current == _progress.objective;
     // --------------------
     return Container(

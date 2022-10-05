@@ -75,7 +75,7 @@ class Rest {
 
     try {
 
-      blog('rest.get : _imageUri : $rawLink');
+      // blog('rest.get : _imageUri : $rawLink');
 
       /// GET REQUEST
       _response = await http.get(
@@ -89,7 +89,7 @@ class Rest {
           }
       );
 
-      blog('rest.get : _response : ${_response?.body}');
+      // blog('rest.get : _response : ${_response?.body}');
 
     }
     on TimeoutException catch (error) {

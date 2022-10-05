@@ -19,12 +19,14 @@ class ChannelModel {
     @required this.name,
     @required this.description,
     @required this.group,
+    @required this.channel,
   });
   // --------------------
   final String id;
   final String name;
   final String description;
   final String group;
+  final Channel channel;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -54,6 +56,7 @@ class ChannelModel {
       name: 'Bulletin',
       description: 'Major news & general notifications',
       group: generalGroup,
+      channel: Channel.bulletin,
     ),
     // ------------------------------------------------
     /// MY REVIEWS
@@ -62,6 +65,7 @@ class ChannelModel {
       name: 'My reviews',
       description: 'Interactions over my submitted reviews',
       group: flyersGroup,
+      channel: Channel.myReviews,
     ),
     // --------------------
     /// MY SAVED FLYERS
@@ -70,6 +74,7 @@ class ChannelModel {
       name: 'My saved flyers',
       description: 'News about the flyers I saved',
       group: flyersGroup,
+      channel: Channel.savedFlyers,
     ),
     // --------------------
     /// NEW PUBLISHED FLYERS
@@ -78,6 +83,7 @@ class ChannelModel {
       name: 'New published flyers',
       description: 'News about flyers published by businesses I follow',
       group: flyersGroup,
+      channel: Channel.newFlyers,
     ),
     // ------------------------------------------------
     /// MY BUSINESS BULLETIN
@@ -86,6 +92,7 @@ class ChannelModel {
       name: 'My Business Bulletin',
       description: 'General news & statistics about my business account',
       group: myBzzGroup,
+      channel: Channel.myBzzBulletin,
     ),
     // --------------------
     /// MY BUSINESS ACCOUNT FLYERS
@@ -94,6 +101,7 @@ class ChannelModel {
       name: 'My Business account flyers',
       description: 'News about flyers published by my business accounts',
       group: myBzzGroup,
+      channel: Channel.myBzzFlyers,
     ),
     // --------------------
     /// MY BUSINESS ACCOUNT TEAM
@@ -102,6 +110,7 @@ class ChannelModel {
       name: 'My Business account team',
       description: 'News about the team members of my business account',
       group: myBzzGroup,
+      channel: Channel.myBzzTeams,
     ),
     // --------------------
     /// MY BUSINESS ACCOUNT FOLLOWERS
@@ -110,6 +119,7 @@ class ChannelModel {
       name: 'My Business account followers',
       description: 'News about new users following my Business account',
       group: myBzzGroup,
+      channel: Channel.myBzzFollowers,
     ),
     // --------------------
     /// MY BUSINESS FLYERS ENGAGEMENT
@@ -118,6 +128,7 @@ class ChannelModel {
       name: 'My Business flyers engagements',
       description: 'News about users saving, sharing & revewing my flyers',
       group: myBzzGroup,
+      channel: Channel.myBzzFlyersEngagement,
     ),
     // ------------------------------------------------
 
