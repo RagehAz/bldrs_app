@@ -190,38 +190,38 @@ List<TargetModel> allTargets() {
   ];
 }
 // -----------------------------------------------------------------------------
-List<TargetProgress> dummyTargetsProgress() {
-  return const <TargetProgress>[
-    TargetProgress(targetID: 'startup', objective: 1, current: 1),
-    TargetProgress(targetID: 'completeAccount', objective: 12, current: 12),
-    TargetProgress(targetID: 'verifyAccount', objective: 1, current: 0),
-    TargetProgress(targetID: 'perfectFlyer', objective: 1, current: 1),
-    TargetProgress(targetID: 'threeFlyersAWeek', objective: 3, current: 3),
-    TargetProgress(targetID: 'aFlyerADay', objective: 4, current: 7),
-    TargetProgress(targetID: 'communityGrowth', objective: 5, current: 2),
-    TargetProgress(targetID: 'payItBack', objective: 5, current: 2),
-    TargetProgress(targetID: 'makeARhythm', objective: 0, current: 1),
-    TargetProgress(
+List<Progress> dummyTargetsProgress() {
+  return const <Progress>[
+    Progress(targetID: 'startup', objective: 1, current: 1),
+    Progress(targetID: 'completeAccount', objective: 12, current: 12),
+    Progress(targetID: 'verifyAccount', objective: 1, current: 0),
+    Progress(targetID: 'perfectFlyer', objective: 1, current: 1),
+    Progress(targetID: 'threeFlyersAWeek', objective: 3, current: 3),
+    Progress(targetID: 'aFlyerADay', objective: 4, current: 7),
+    Progress(targetID: 'communityGrowth', objective: 5, current: 2),
+    Progress(targetID: 'payItBack', objective: 5, current: 2),
+    Progress(targetID: 'makeARhythm', objective: 0, current: 1),
+    Progress(
         targetID: 'tenPotentialCustomers', objective: 10, current: 9),
-    TargetProgress(targetID: 'richGallery', objective: 30, current: 24),
-    TargetProgress(targetID: 'callToAction', objective: 10, current: 4),
-    TargetProgress(targetID: 'shareWorthy', objective: 10, current: 3),
-    TargetProgress(targetID: 'diversity', objective: 20, current: 12),
-    TargetProgress(targetID: 'publisher', objective: 3, current: 0),
-    TargetProgress(targetID: 'influencer', objective: 10, current: 8),
-    TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
+    Progress(targetID: 'richGallery', objective: 30, current: 24),
+    Progress(targetID: 'callToAction', objective: 10, current: 4),
+    Progress(targetID: 'shareWorthy', objective: 10, current: 3),
+    Progress(targetID: 'diversity', objective: 20, current: 12),
+    Progress(targetID: 'publisher', objective: 3, current: 0),
+    Progress(targetID: 'influencer', objective: 10, current: 8),
+    Progress(targetID: 'masterBldr', objective: 1, current: 0),
   ];
 }
 // -----------------------------------------------------------------------------
 List<TargetModel> insertTargetsProgressIntoTargetsModels({
   List<TargetModel> allTargets,
-  List<TargetProgress> targetsProgress,
+  List<Progress> targetsProgress,
 }) {
   final List<TargetModel> _targets = <TargetModel>[];
 
   for (final TargetModel target in allTargets) {
-    final TargetProgress _progress = targetsProgress.singleWhere(
-        (TargetProgress prog) => prog.targetID == target.id,
+    final Progress _progress = targetsProgress.singleWhere(
+        (Progress prog) => prog.targetID == target.id,
         orElse: () => null);
 
     final TargetModel _target = TargetModel(
