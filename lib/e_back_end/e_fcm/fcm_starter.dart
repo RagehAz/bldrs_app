@@ -55,7 +55,7 @@ class FCMStarter {
       FCM.fcmWhiteLogoFilePath,
 
       /// CHANNELS
-      FCM.getBldrsNootsChannels(),
+      FCM.generateBldrsNootChannels(),
 
       /// CHANNEL GROUPS
       channelGroups: FCM.getBldrsChannelGroups(),
@@ -100,10 +100,10 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
-    // await _pushGlobalNootFromRemoteMessage(
-    //     remoteMessage: remoteMessage,
-    //     invoker: '_onBackgroundMessageHandler'
-    // );
+    await _pushGlobalNootFromRemoteMessage(
+        remoteMessage: remoteMessage,
+        invoker: '_onBackgroundMessageHandler'
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -117,28 +117,28 @@ class FCMStarter {
       );
     });
 
-    /// APP IS LAUNCHING ( AT STARTUP )
+    /// ONCE APP STARTS AFTER NOOT TAP WHILE APP WAS IN BACKGROUND
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async {
 
-      await _pushGlobalNootFromRemoteMessage(
+      blog('APP WAS IN BACKGROUND AND YOU HAVE JUST TAPPED THIS NOTIFICATION : -');
+
+      FCM.blogRemoteMessage(
         remoteMessage: remoteMessage,
-        invoker: 'initializeNoots.onMessageOpenedApp',
+        invoker: '_initializeNootsListeners.onMessageOpenedApp',
       );
+
+      // await _pushGlobalNootFromRemoteMessage(
+      //   remoteMessage: remoteMessage,
+      //   invoker: 'initializeNoots.onMessageOpenedApp',
+      // );
 
       // /// to display the notification while app in foreground
       // await _pushLocalNootFromRemoteMessage(remoteMessage);
     });
 
-    /// when app running in background and notification tapped while having
-    /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-    FirebaseMessaging.onBackgroundMessage(
-            (RemoteMessage remoteMessage) =>
-            _pushGlobalNootFromRemoteMessage(
-              remoteMessage: remoteMessage,
-              invoker: 'initializeNoots.onBackgroundMessage',
-            )
-    );
-
+    // /// when app running in background and notification tapped while having
+    // /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
+    // FirebaseMessaging.onBackgroundMessage(_onBackgroundMessageHandler);
 
   }
   // --------------------
@@ -151,7 +151,7 @@ class FCMStarter {
 
       FCM.blogRemoteMessage(
         remoteMessage: initialRemoteMessage,
-        invoker: 'initializeNoots',
+        invoker: '_receiveInitialRemoteMessage',
       );
 
       blog('initializeNoots : can navigate here and shit');
