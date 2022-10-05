@@ -44,7 +44,7 @@ class AppSettingsScreen extends StatelessWidget {
           /// FEEDBACK
           SettingsWideButton(
             verse: const Verse(text: 'phid_feedback', translate: true),
-            icon: Iconz.utSearching,
+            icon: Iconz.balloonThinking,
             isOn : _userIsOnline,
             onTap: () => onFeedbackTap(context),
           ),

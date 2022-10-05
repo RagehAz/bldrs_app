@@ -101,7 +101,7 @@ class FCM {
   /// PERMISSIONS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> requestAwesomePermission() async {
     await getAwesomeNoots().requestPermissionToSendNotifications(
       // channelKey: ,
@@ -121,7 +121,7 @@ class FCM {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> requestFCMPermission() async {
 
     // blog('requestFCMPermission : START');
@@ -150,7 +150,7 @@ class FCM {
   /// TOKEN
 
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> updateMyUserFCMToken({
     @required BuildContext context,
   }) async {
@@ -722,7 +722,7 @@ class FCM {
   /// CHANNELS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<NotificationChannel> generateBldrsNootChannels(){
     final List<NotificationChannel> _channels = <NotificationChannel>[];
 
@@ -808,7 +808,7 @@ class FCM {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkIsNootAllowed() async {
     bool _allowed = false;
 
