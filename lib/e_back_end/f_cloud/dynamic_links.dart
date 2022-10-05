@@ -85,7 +85,7 @@ class DynamicLinks {
   /// TESTED : old - not needed
   static Future<void> initializeDynamicLinks(BuildContext context) async {
 
-    blog('initializeDynamicLinks : START');
+    // blog('initializeDynamicLinks : START');
 
     /// 1 - GET INITIAL LINK AT APP STARTUP
     final PendingDynamicLinkData _data = await FirebaseDynamicLinks.instance.getInitialLink();
@@ -94,7 +94,7 @@ class DynamicLinks {
 
     /// HANDLE LINK ON FOREGROUND
 
-    blog('initializeDynamicLinks : END');
+    // blog('initializeDynamicLinks : END');
 
   }
   // --------------------

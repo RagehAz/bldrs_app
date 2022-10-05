@@ -100,7 +100,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _initializeUserZone(BuildContext context) async {
-  blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
   final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
@@ -118,12 +118,12 @@ Future<void> _initializeUserZone(BuildContext context) async {
     );
 
   }
-  blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _initializeCurrentZone(BuildContext context) async {
-  blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
   final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
@@ -155,7 +155,7 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
 
   }
 
-  blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -163,24 +163,24 @@ Future<void> _initializeSponsors({
   @required BuildContext context,
   @required bool notify,
 }) async {
-  blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ START');
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
   await _bzzProvider.fetchSetSponsors(
     context: context,
     notify: notify,
   );
-  blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _initializeAllChains(BuildContext context) async {
-  blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   await _chainsProvider.initializeAllChains(
     context: context,
     notify: true,
   );
-  blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -188,7 +188,7 @@ Future<void> _initializeUserBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
-  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
   if (AuthModel.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetMyBzz(
@@ -196,7 +196,7 @@ Future<void> _initializeUserBzz({
       notify: notify,
     );
   }
-  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -204,7 +204,7 @@ Future<void> _initializeUserFollowedBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
-  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
   if (AuthModel.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetFollowedBzz(
@@ -212,12 +212,12 @@ Future<void> _initializeUserFollowedBzz({
       notify: notify,
     );
   }
-  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _initializePromotedFlyers(BuildContext context) async {
-  blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ START');
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
@@ -239,7 +239,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   //
   //   });
   // }
-  blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ END');
 
 }
 // -----------------------------------------------------------------------------
@@ -251,7 +251,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
 Future<void> checkIfUserIsMissingFields({
   @required BuildContext context,
 }) async {
-  blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
+  // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
   if (AuthFireOps.superUserID() != null){
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
@@ -269,7 +269,7 @@ Future<void> checkIfUserIsMissingFields({
     }
 
   }
-  blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ END');
+  // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -703,7 +703,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
   @required List<NoteModel> notes,
 }) async {
 
-  blog('_checkForBzDeletionNoteAndProceed : start');
+  // blog('_checkForBzDeletionNoteAndProceed : start');
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
     context: context,
@@ -712,7 +712,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
   if (UserModel.checkUserIsAuthor(_userModel) == true){
 
-    blog('_checkForBzDeletionNoteAndProceed : user is author');
+    // blog('_checkForBzDeletionNoteAndProceed : user is author');
 
     final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesFromNotesByNoteType(
       notes: notes,
@@ -721,7 +721,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
     if (Mapper.checkCanLoopList(_bzDeletionNotes) == true){
 
-      blog('_checkForBzDeletionNoteAndProceed : ${_bzDeletionNotes.length} bz deletion notes');
+      // blog('_checkForBzDeletionNoteAndProceed : ${_bzDeletionNotes.length} bz deletion notes');
 
       for (final NoteModel note in _bzDeletionNotes){
 
@@ -760,7 +760,7 @@ List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
   final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
-  blog('initializeMyBzzNotes : _userIsAuthor : $_userIsAuthor');
+  // blog('initializeMyBzzNotes : _userIsAuthor : $_userIsAuthor');
 
   if (_userIsAuthor == true){
 
