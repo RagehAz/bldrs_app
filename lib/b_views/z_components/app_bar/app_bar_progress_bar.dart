@@ -43,7 +43,7 @@ class AppBarProgressBar extends StatelessWidget {
             loading: isLoading,
             flyerBoxWidth: _abWidth,
             margins: _margins,
-            shrinkThickness: 0.4,
+            stripThicknessFactor: 0.4,
           );
         }
 
@@ -60,7 +60,7 @@ class AppBarProgressBar extends StatelessWidget {
                   loading: isLoading,
                   flyerBoxWidth: _abWidth,
                   margins: _margins,
-                  shrinkThickness: 0.4,
+                  stripThicknessFactor: 0.4,
                 );
 
               }

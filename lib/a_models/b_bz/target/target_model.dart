@@ -20,7 +20,7 @@ class TargetModel {
   final String description;
   final List<String> instructions;
   final TargetReward reward;
-  final TargetProgress progress;
+  final Progress progress;
 
   /// --------------------------------------------------------------------------
 }

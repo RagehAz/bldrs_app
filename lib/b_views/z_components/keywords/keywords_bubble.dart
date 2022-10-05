@@ -50,7 +50,7 @@ class KeywordsBubble extends StatelessWidget {
                                   Ratioz.appBarMargin;
     // --------------------
     return Bubble(
-      key: key,
+      key: const ValueKey<String>('KeywordsBubble'),
       bubbleColor: bubbleColor,
       margins: margins,
       corners: corners,

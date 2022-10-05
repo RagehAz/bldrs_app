@@ -16,7 +16,7 @@ class StaticProgressBar extends StatelessWidget {
     @required this.swipeDirection,
     this.loading = true,
     this.margins,
-    this.shrinkThickness = 1,
+    this.stripThicknessFactor = 1,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,7 +27,7 @@ class StaticProgressBar extends StatelessWidget {
   final bool loading;
   final SwipeDirection swipeDirection;
   final EdgeInsets margins;
-  final double shrinkThickness;
+  final double stripThicknessFactor;
   /// --------------------------------------------------------------------------
   static bool canBuildStrips(int numberOfStrips) {
     bool _canBuild = false;
@@ -58,7 +58,7 @@ class StaticProgressBar extends StatelessWidget {
 
               Container(
                 width: FlyerDim.progressStripsTotalLength(flyerBoxWidth),
-                height: _thickness,
+                height: _thickness * stripThicknessFactor,
                 decoration: BoxDecoration(
                   color: FlyerColors.progressStripOffColor,
                   borderRadius: FlyerDim.progressStripCorners(
@@ -68,7 +68,7 @@ class StaticProgressBar extends StatelessWidget {
                 ),
                 child: LinearProgressIndicator(
                   backgroundColor: Colorz.nothing,
-                  minHeight: _thickness,
+                  minHeight: _thickness * stripThicknessFactor,
                   valueColor: const AlwaysStoppedAnimation(FlyerColors.progressStripFadedColor),
                 ),
               ),
@@ -83,7 +83,7 @@ class StaticProgressBar extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           opacity: opacity,
           child: Transform.scale(
-            scaleY: shrinkThickness,
+            scaleY: stripThicknessFactor,
             alignment: Alignment.bottomCenter,
             child: StaticStrips(
               flyerBoxWidth: flyerBoxWidth,
