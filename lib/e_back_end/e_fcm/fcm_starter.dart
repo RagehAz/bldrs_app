@@ -177,8 +177,8 @@ class FCMStarter {
         remoteMessage: remoteMessage,
       );
 
-      final String body = remoteMessage?.notification?.body;
-      final String title = remoteMessage?.notification?.title;
+      // final String body = remoteMessage?.notification?.body;
+      // final String title = remoteMessage?.notification?.title;
       // final AndroidNotification android = remoteMessage?.notification?.android;
       // final AppleNotification apple = remoteMessage?.notification?.apple;
       // final String analyticsLabel = remoteMessage?.notification?.web?.analyticsLabel;
@@ -199,26 +199,33 @@ class FCMStarter {
       // final DateTime sentTime = remoteMessage?.sentTime;
       // final String threadId = remoteMessage?.threadId;
       // final int ttl = remoteMessage?.ttl;
-      // final Map<String, dynamic> data = remoteMessage?.data;
+      final Map<String, dynamic> data = remoteMessage?.data;
 
-      await FCM.pushGlobalNoot(
-        body: body,
-        title: title,
-        // channel: ,
-        // buttonsTexts: ,
-        // payloadMap: ,
-        // progress: ,
-        // canBeDismissedWithoutTapping: ,
-        // progressBarIsLoading: ,
-        // bannerURL: ,
-        // largeIconURL: ,
-      );
+      if (data != null){
+        await FCM.pushGlobalNoot(
+          body: data['body'],
+          title: data['title'],
+          largeIconURL: data['senderImageURL'],
+          // bannerURL: ,
+          // channel: ,
+          // buttonsTexts: ,
+          // payloadMap: ,
+          // progress: ,
+          // canBeDismissedWithoutTapping: ,
+          // progressBarIsLoading: ,
+        );
+      }
+
+      else {
+        blog('_pushGlobalNootFromRemoteMessage : remoteMessage.data is null');
+      }
 
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  /*
   static Future<void> _pushLocalNootFromRemoteMessage(RemoteMessage remoteMessage) async {
 
     final String _title = remoteMessage.notification.title;
@@ -242,5 +249,6 @@ class FCMStarter {
     );
 
   }
+  */
   // -----------------------------------------------------------------------------
 }

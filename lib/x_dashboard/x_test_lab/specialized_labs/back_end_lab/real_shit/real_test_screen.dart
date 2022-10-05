@@ -83,7 +83,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
               addDocIDToOutput: true,
             );
 
-            Mapper.blogMap(_maw, methodName: 'MAW IS');
+            Mapper.blogMap(_maw, invoker: 'MAW IS');
 
           },
         ),
@@ -122,7 +122,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
               docName: _dummyDocName,
             );
 
-            Mapper.blogMap(_map, methodName: 'REAL READ DOC TEST');
+            Mapper.blogMap(_map, invoker: 'REAL READ DOC TEST');
 
           },
         ),
@@ -138,7 +138,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
               docName: _dummyDocName,
             );
 
-            Mapper.blogMap(_map, methodName: 'REAL READ DOC TEST');
+            Mapper.blogMap(_map, invoker: 'REAL READ DOC TEST');
 
           },
         ),
