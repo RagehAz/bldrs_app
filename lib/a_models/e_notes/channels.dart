@@ -140,6 +140,7 @@ class ChannelModel {
   /// GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getChannelID(Channel channel){
     switch (channel){
       case Channel.bulletin:                return bulletinChannelID;               break;
@@ -155,6 +156,7 @@ class ChannelModel {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static ChannelModel getChannelModel(Channel channel){
     final String _channelID = getChannelID(channel);
     final ChannelModel _model = bldrsChannels.singleWhere(

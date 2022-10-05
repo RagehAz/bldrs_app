@@ -29,6 +29,7 @@ class Progress{
   /// CHECKER
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkProgressesAreIdentical({
     @required Progress progress1,
     @required Progress progress2,
