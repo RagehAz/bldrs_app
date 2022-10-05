@@ -28,7 +28,7 @@ class TargetProgressBar extends StatelessWidget {
     const double _barHeight = 12;
     const double _iconsHeight = 15;
     const EdgeInsets _barMargin = EdgeInsets.only(top: 9);
-    final TargetProgress _progress = target.progress;
+    final Progress _progress = target.progress;
     // --------------------
     return Container(
       width: _progressBoxWidth,

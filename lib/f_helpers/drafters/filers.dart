@@ -342,7 +342,7 @@ class Filers {
     File _file;
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
-      blog('getFileFromURL : START');
+      // blog('getFileFromURL : START');
 
       /// call http.get method and pass imageUrl into it to get response.
       final http.Response _response = await Rest.get(
