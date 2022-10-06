@@ -883,7 +883,7 @@ class Dialogs {
         child: AbsorbPointer(
           child: Flyer(
             flyerModel: flyer,
-            flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(context, _flyerBoxHeight),
+            flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight),
             screenName: 'flyerDialogGrid',
           ),
         ),

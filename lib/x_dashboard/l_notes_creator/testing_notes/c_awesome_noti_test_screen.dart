@@ -487,7 +487,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                           final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
                             context: context,
                             cropAfterPick: true,
-                            isFlyerRatio: false,
+                            aspectRatio: 1,
                           );
 
                           if (_pickedFileModel != null){

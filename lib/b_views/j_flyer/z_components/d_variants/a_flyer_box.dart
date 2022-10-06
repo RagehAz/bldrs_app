@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class FlyerBox extends StatelessWidget {
     this.stackWidgets,
     this.boxColor = Colorz.white20,
     this.onTap,
+    this.shadowIsOn = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,6 +22,7 @@ class FlyerBox extends StatelessWidget {
   final List<Widget> stackWidgets;
   final Color boxColor;
   final Function onTap;
+  final bool shadowIsOn;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class FlyerBox extends StatelessWidget {
           decoration: BoxDecoration(
             color: boxColor,
             borderRadius: _flyerBorders,
-            // boxShadow: Shadower.flyerZoneShadow,
+            boxShadow: shadowIsOn == true ? Shadower.flyerZoneShadow : null,
           ),
           child: ClipRRect(
             borderRadius: _flyerBorders,
