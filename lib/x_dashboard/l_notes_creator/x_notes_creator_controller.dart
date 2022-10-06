@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/z_components/notes/note_banner_box.dart';
+import 'package:bldrs/b_views/z_components/notes/banner/note_banner_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -620,7 +620,7 @@ Future<void> onSelectAttachmentType({
   }
 
   /// BZ ID
-  else if (attachmentType == NoteAttachmentType.bzID){
+  else if (attachmentType == NoteAttachmentType.bz){
     await _onSelectBzAsAttachment(
       context: context,
       note: note,
@@ -629,7 +629,7 @@ Future<void> onSelectAttachmentType({
   }
 
   /// FLYERS IDS
-  else if (attachmentType == NoteAttachmentType.flyersIDs){
+  else if (attachmentType == NoteAttachmentType.flyer){
     await _onSelectFlyersIDsAsAttachment(
       context: context,
       note: note,
@@ -638,7 +638,7 @@ Future<void> onSelectAttachmentType({
   }
 
   /// IMAGE
-  else if (attachmentType == NoteAttachmentType.imageURL){
+  else if (attachmentType == NoteAttachmentType.image){
     await _onSelectImageURLAsAttachment(
       context: context,
       note: note,
@@ -933,7 +933,7 @@ Future<void> onDeleteNote({
     loading.value = true;
 
     /// DELETE ATTACHMENT IF IMAGE
-    if (noteModel.attachmentType == NoteAttachmentType.imageURL){
+    if (noteModel.attachmentType == NoteAttachmentType.image){
 
       final String _picName = await Storage.getImageNameByURL(
         context: context,
