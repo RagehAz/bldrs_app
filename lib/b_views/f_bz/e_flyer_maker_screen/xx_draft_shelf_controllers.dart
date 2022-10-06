@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/b_slide_editor_screen.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -164,7 +165,7 @@ Future<void> _addImagesForNewFlyer({
       final List<FileModel> _fileModels = await Imagers.pickAndCropMultipleImages(
         context: context,
         // maxAssets: 10,
-        isFlyerRatio: true,
+        aspectRatio: FlyerDim.flyerAspectRatio,
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );
@@ -180,7 +181,7 @@ Future<void> _addImagesForNewFlyer({
       final FileModel _fileModel = await Imagers.shootAndCropCameraImage(
         context: context,
         // maxAssets: 10,
-        isFlyerRatio: true,
+        aspectRatio: FlyerDim.flyerAspectRatio,
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );

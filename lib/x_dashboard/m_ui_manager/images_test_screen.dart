@@ -50,6 +50,8 @@ class ImagesTestScreen extends StatefulWidget {
 
 class _ImagesTestScreenState extends State<ImagesTestScreen> {
   // -----------------------------------------------------------------------------
+  final double _aspectRatio = 1;
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // -----------
@@ -185,7 +187,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
                 context: context,
                 cropAfterPick: false,
-                isFlyerRatio: false,
+                aspectRatio: _aspectRatio,
             );
 
             await setImage(_pickedFileModel);
@@ -201,7 +203,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             final FileModel _pickedFileModel = await Imagers.shootAndCropCameraImage(
               context: context,
               cropAfterPick: false,
-              isFlyerRatio: false,
+              aspectRatio: _aspectRatio,
             );
 
             await setImage(_pickedFileModel);
@@ -273,7 +275,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             final FileModel _pickedFileModel = await Imagers.cropImage(
               context: context,
               pickedFile: FileModel.createModelByNewFile(_file),
-              isFlyerRatio: false,
+              aspectRatio: _aspectRatio,
               // resizeToWidth: null,
             );
 

@@ -181,7 +181,7 @@ Future<void> takeAuthorImage({
       _imageFileModel = await Imagers.pickAndCropSingleImage(
         context: context,
         cropAfterPick: true,
-        isFlyerRatio: false,
+        aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,
       );
     }
@@ -189,7 +189,7 @@ Future<void> takeAuthorImage({
       _imageFileModel = await Imagers.shootAndCropCameraImage(
         context: context,
         cropAfterPick: true,
-        isFlyerRatio: false,
+        aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,
       );
     }

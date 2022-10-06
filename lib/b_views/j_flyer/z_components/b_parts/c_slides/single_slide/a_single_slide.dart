@@ -18,6 +18,7 @@ class SingleSlide extends StatelessWidget {
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
     @required this.onDoubleTap,
+    this.slideShadowIsOn = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class SingleSlide extends StatelessWidget {
   final Function onSlideNextTap;
   final Function onSlideBackTap;
   final Function onDoubleTap;
+  final bool slideShadowIsOn;
   /// --------------------------------------------------------------------------
   /*
   int _getSlideTitleSize(BuildContext context){
@@ -45,6 +47,7 @@ class SingleSlide extends StatelessWidget {
 
     return _slideTitleSize;
   }
+
    */
   // -----------------------------------------------------------------------------
   @override
@@ -56,6 +59,7 @@ class SingleSlide extends StatelessWidget {
       flyerBoxHeight: flyerBoxHeight,
       tinyMode: tinyMode,
       slideMidColor: slideModel.midColor,
+      shadowIsOn: slideShadowIsOn,
       stackChildren: <Widget>[
 
         /// --- IMAGE NETWORK

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
@@ -45,7 +44,7 @@ class Imagers {
   static Future<FileModel> pickAndCropSingleImage({
     @required BuildContext context,
     @required bool cropAfterPick,
-    @required bool isFlyerRatio,
+    @required double aspectRatio,
     double resizeToWidth,
     AssetEntity selectedAsset,
   }) async {
@@ -62,7 +61,7 @@ class Imagers {
       maxAssets: 1,
       selectedAssets: _assets,
       cropAfterPick: cropAfterPick,
-      isFlyerRatio: isFlyerRatio,
+      aspectRatio: aspectRatio,
       resizeToWidth: resizeToWidth,
     );
 
@@ -76,7 +75,7 @@ class Imagers {
   /// TESTED : WORKS PERFECT
   static Future<List<FileModel>> pickAndCropMultipleImages({
     @required BuildContext context,
-    @required bool isFlyerRatio,
+    @required double aspectRatio,
     @required bool cropAfterPick,
     double resizeToWidth,
     int maxAssets = 10,
@@ -95,7 +94,8 @@ class Imagers {
       _fileModels = await cropImages(
         context: context,
         pickedFileModels: _fileModels,
-        isFlyerRatio: isFlyerRatio,
+        aspectRatio: aspectRatio,
+
       );
     }
 
@@ -270,7 +270,7 @@ class Imagers {
   static Future<FileModel> shootAndCropCameraImage({
     @required BuildContext context,
     @required bool cropAfterPick,
-    @required bool isFlyerRatio,
+    @required double aspectRatio,
     double resizeToWidth,
   }) async {
 
@@ -291,7 +291,7 @@ class Imagers {
         _outputFiles = await cropImages(
           context: context,
           pickedFileModels: _outputFiles,
-          isFlyerRatio: isFlyerRatio,
+          aspectRatio: aspectRatio,
         );
       }
 
@@ -386,7 +386,7 @@ class Imagers {
   static Future<FileModel> cropImage({
     @required BuildContext context,
     @required FileModel pickedFile,
-    @required bool isFlyerRatio,
+    @required double aspectRatio,
   }) async {
 
     FileModel _fileModel;
@@ -394,7 +394,7 @@ class Imagers {
     final List<FileModel> _fileModels = await cropImages(
       context: context,
       pickedFileModels: <FileModel>[pickedFile],
-      isFlyerRatio: isFlyerRatio,
+      aspectRatio: aspectRatio,
     );
 
     if (Mapper.checkCanLoopList(_fileModels) == true){
@@ -408,7 +408,7 @@ class Imagers {
   static Future<List<FileModel>> cropImages({
     @required BuildContext context,
     @required List<FileModel> pickedFileModels,
-    @required bool isFlyerRatio,
+    @required double aspectRatio,
   }) async {
 
     List<FileModel> _fileModels = <FileModel>[];
@@ -419,7 +419,7 @@ class Imagers {
         context: context,
         screen: CroppingScreen(
           fileModels: pickedFileModels,
-          aspectRatio: isFlyerRatio == true ? FlyerDim.flyerAspectRatio : 1,
+          aspectRatio: aspectRatio,
         ),
       );
 

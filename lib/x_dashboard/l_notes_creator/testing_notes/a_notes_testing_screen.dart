@@ -4,6 +4,7 @@ import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/all_notes_scree
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/c_awesome_noti_test_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/b_fcm_test_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/cc_note_route_to_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/d_note_banner_baker.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +105,15 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const NoteRouteToScreen(),
+          ),
+        ),
+
+        /// NOTE BANNER BAKER
+        WideButton(
+          verse: Verse.plain('Note Banner Baker'),
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const NoteBannerBaker(),
           ),
         ),
 

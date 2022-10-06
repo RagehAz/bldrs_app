@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/notes/note_banner_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -715,7 +716,7 @@ Future<void> _onSelectImageURLAsAttachment({
   final FileModel _fileModel = await Imagers.pickAndCropSingleImage(
     context: context,
     cropAfterPick: true,
-    isFlyerRatio: false,
+    aspectRatio: NoteBannerBox.getAspectRatio(),
     resizeToWidth: Standards.noteAttachmentWidthPixels,
   );
 

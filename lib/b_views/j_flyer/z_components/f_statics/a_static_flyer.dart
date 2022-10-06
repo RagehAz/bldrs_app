@@ -14,11 +14,15 @@ class StaticFlyer extends StatelessWidget {
   const StaticFlyer({
     @required this.flyerModel,
     @required this.flyerBoxWidth,
+    this.index = 0,
+    this.flyerShadowIsOn = false,
     Key key
   }) : super(key: key);
 
   final FlyerModel flyerModel;
   final double flyerBoxWidth;
+  final bool flyerShadowIsOn;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +42,14 @@ class StaticFlyer extends StatelessWidget {
           return FlyerBox(
             key: const ValueKey<String>('StaticFlyer'),
             flyerBoxWidth: flyerBoxWidth,
+            shadowIsOn: flyerShadowIsOn,
             stackWidgets: <Widget>[
 
               /// STATIC SINGLE SLIDE
               SingleSlide(
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
-                slideModel: flyerModel.slides[0],
+                slideModel: flyerModel.slides[index],
                 tinyMode: false,
                 onSlideNextTap: null,
                 onSlideBackTap: null,
