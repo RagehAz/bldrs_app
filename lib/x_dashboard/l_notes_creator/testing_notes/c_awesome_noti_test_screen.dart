@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/channels.dart';
 import 'package:bldrs/a_models/e_notes/note_model.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -17,6 +19,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/notes/banner/note_banner_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -24,6 +27,8 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_b
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
@@ -35,6 +40,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_banner_maker.dart';
 import 'package:flutter/material.dart';
 
 class AwesomeNotiTestScreen extends StatefulWidget {
@@ -58,17 +64,21 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   // --------------------
   bool isGlobal = true;
   bool _isNotificationAllowed = false;
+  // --------------------
+  Channel _channel = Channel.bulletin;
+  // --------------------
+  String _bannerURL;
+  dynamic _attachment;
+  dynamic _attachmentHelper;
+  NoteAttachmentType _attachmentType;
+  // --------------------
   File _largeImageFile;
   String _largeIconURL;
-  final List<String> _buttons = <String>[];
-  Progress _progress = const Progress(
-    targetID: 'noot',
-    current: 0,
-    objective: 20,
-  );
-  Channel _channel = Channel.bulletin;
+  // --------------------
+  Progress _progress;
   bool _nootProgressIsLoading = false;
-  String _bannerURL;
+  final List<String> _buttons = <String>[];
+  // --------------------
   bool _canBeDismissedWithoutTapping = true;
   // --------------------
   StreamSubscription _streamSubscription;
@@ -504,7 +514,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                   ),
                 ),
 
-                /// BANNER URL
+                /// BANNER
                 WidgetFader(
                   fadeType: _bannerIsOn == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                   min: 0.35,
@@ -516,52 +526,170 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                       leadingIcon: Iconz.phoneGallery,
                       headlineVerse: Verse.plain('Banner'),
                     ),
-                    child: Row(
+                    child: Column(
                       children: <Widget>[
 
-                        /// CLEAR
-                        DreamBox(
-                          width: 50,
-                          height: 50,
-                          icon: Iconz.xLarge,
-                          iconSizeFactor: 0.4,
-                          onTap: (){
-                            setState(() {
-                              _bannerURL = null;
-                            });
-                          },
+                        Row(
+                          children: <Widget>[
+
+                            /// CLEAR
+                            DreamBox(
+                              width: 40,
+                              height: 40,
+                              icon: Iconz.xLarge,
+                              iconSizeFactor: 0.4,
+                              onTap: (){
+                                setState(() {
+                                  _bannerURL = null;
+                                  _attachmentType = null;
+                                  _attachment = null;
+                                  _attachmentHelper = null;
+                                });
+                              },
+                            ),
+
+                            const SizedBox(height: 5, width: 5,),
+
+                            /// URL
+                            DreamBox(
+                              height: 40,
+                              isDeactivated: !_bannerIsOn,
+                              icon: _bannerURL ?? Iconz.comWebsite,
+                              iconSizeFactor: 0.5,
+                              // verse: Verse.plain('URL'),
+                              onTap: () async {
+
+                                // final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+                                //   context: context,
+                                //   screen: const SavedFlyersScreen(
+                                //     selectionMode: true,
+                                //   ),
+                                // );
+                                //
+                                // if (Mapper.checkCanLoopList(_selectedFlyers) == true){
+                                //
+                                //   setState(() {
+                                //     _bannerURL = _selectedFlyers.first.slides[0].pic;
+                                //   });
+                                //
+                                // }
+
+                              },
+                            ),
+
+                            const SizedBox(height: 5, width: 5,),
+
+                            /// GALLERY
+                            DreamBox(
+                              height: 40,
+                              isDeactivated: !_bannerIsOn,
+                              icon: _bannerURL ?? Iconz.phoneGallery,
+                              iconSizeFactor: 0.5,
+                              // verse: Verse.plain('URL'),
+                              onTap: () async {
+
+                                final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
+                                  context: context,
+                                  cropAfterPick: true,
+                                  aspectRatio: NoteBannerBox.getAspectRatio(),
+                                );
+
+                                if (_pickedFileModel != null){
+                                  setState(() {
+                                    _attachmentType = NoteAttachmentType.image;
+                                    _attachment = _pickedFileModel.file;
+                                    _attachmentHelper = null;
+                                  });
+                                }
+
+                              },
+                            ),
+
+                            const SizedBox(height: 5, width: 5,),
+
+                            /// BZ
+                            DreamBox(
+                              height: 40,
+                              isDeactivated: !_bannerIsOn,
+                              icon: _bannerURL ?? Iconz.bz,
+                              iconSizeFactor: 0.5,
+                              // verse: Verse.plain('URL'),
+                              onTap: () async {
+
+                                final List<BzModel> bzModels = await Nav.goToNewScreen(
+                                  context: context,
+                                  screen: const SearchBzzScreen(),
+                                );
+
+                                if (Mapper.checkCanLoopList(bzModels) == true){
+
+                                  final FlyerModel _allBzSlidesInOneFlyer = await FlyerProtocols.fetchAndCombineBzSlidesInOneFlyer(
+                                    context: context,
+                                    bzModel: bzModels.first,
+                                    maxSlides: 20,
+                                  );
+
+                                  blog('slides are : ${_allBzSlidesInOneFlyer.slides.length} slides');
+
+                                  setState(() {
+                                    _attachmentType = NoteAttachmentType.bz;
+                                    _attachment = bzModels.first;
+                                    _attachmentHelper = _allBzSlidesInOneFlyer;
+                                  });
+
+                                }
+
+                              },
+                            ),
+
+                            const SizedBox(height: 5, width: 5,),
+
+                            /// FLYER
+                            DreamBox(
+                              height: 40,
+                              isDeactivated: !_bannerIsOn,
+                              icon: _bannerURL ?? Iconz.addFlyer,
+                              iconSizeFactor: 0.5,
+                              // verse: Verse.plain('URL'),
+                              onTap: () async {
+
+                                final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+                                  context: context,
+                                  screen: const SavedFlyersScreen(
+                                    selectionMode: true,
+                                  ),
+                                );
+
+                                if (Mapper.checkCanLoopList(_selectedFlyers) == true){
+
+                                  final BzModel _bz = await BzProtocols.fetchBz(
+                                      context: context,
+                                      bzID: _selectedFlyers.first.bzID,
+                                  );
+
+                                  setState(() {
+                                    _attachmentType = NoteAttachmentType.flyer;
+                                    _attachment = _selectedFlyers.first;
+                                    _attachmentHelper = _bz;
+                                  });
+
+                                }
+
+
+                              },
+                            ),
+
+                          ],
                         ),
 
-                        const SizedBox(
-                          height: 10,
-                          width: 10,
-                        ),
+                        const SizedBox(height: 5, width: 5,),
 
-                        /// URL
-                        DreamBox(
-                          height: 50,
-                          isDeactivated: !_bannerIsOn,
-                          icon: _bannerURL ?? Iconz.comWebsite,
-                          iconSizeFactor: 0.5,
-                          verse: Verse.plain('URL'),
-                          onTap: () async {
-
-                            final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
-                              context: context,
-                              screen: const SavedFlyersScreen(
-                                selectionMode: true,
-                              ),
-                            );
-
-                            if (Mapper.checkCanLoopList(_selectedFlyers) == true){
-
-                              setState(() {
-                                _bannerURL = _selectedFlyers.first.slides[0].pic;
-                              });
-
-                            }
-
-                          },
+                        if (_attachment != null)
+                        NoteBannerMaker(
+                          attachmentType: _attachmentType,
+                          width: TileBubble.childWidth(context: context, bubbleWidthOverride: Bubble.clearWidth(context)),
+                          attachment: _attachment,
+                          attachmentHelper: _attachmentHelper,
                         ),
 
                       ],

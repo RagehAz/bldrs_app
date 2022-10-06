@@ -9,21 +9,21 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:flutter/material.dart';
 
-class StaticFlyer extends StatelessWidget {
-
-  const StaticFlyer({
+class StaticFlyerStarter extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const StaticFlyerStarter({
     @required this.flyerModel,
     @required this.flyerBoxWidth,
-    this.index = 0,
+    this.slideIndex = 0,
     this.flyerShadowIsOn = false,
     Key key
   }) : super(key: key);
-
+  // -----------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final double flyerBoxWidth;
   final bool flyerShadowIsOn;
-  final int index;
-
+  final int slideIndex;
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -49,7 +49,7 @@ class StaticFlyer extends StatelessWidget {
               SingleSlide(
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
-                slideModel: flyerModel.slides[index],
+                slideModel: flyerModel.slides[slideIndex],
                 tinyMode: false,
                 onSlideNextTap: null,
                 onSlideBackTap: null,
@@ -81,4 +81,66 @@ class StaticFlyer extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
+}
+
+class StaticFlyer extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const StaticFlyer({
+    @required this.flyerModel,
+    @required this.bzModel,
+    @required this.flyerBoxWidth,
+    this.slideIndex = 0,
+    this.flyerShadowIsOn = false,
+    Key key
+  }) : super(key: key);
+  // --------------------
+  final FlyerModel flyerModel;
+  final BzModel bzModel;
+  final double flyerBoxWidth;
+  final bool flyerShadowIsOn;
+  final int slideIndex;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return FlyerBox(
+      key: const ValueKey<String>('StaticFlyer'),
+      flyerBoxWidth: flyerBoxWidth,
+      shadowIsOn: flyerShadowIsOn,
+      stackWidgets: <Widget>[
+
+        /// STATIC SINGLE SLIDE
+        SingleSlide(
+          flyerBoxWidth: flyerBoxWidth,
+          flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+          slideModel: flyerModel.slides[slideIndex],
+          tinyMode: false,
+          onSlideNextTap: null,
+          onSlideBackTap: null,
+          onDoubleTap: null,
+        ),
+
+        /// STATIC HEADER
+        StaticHeader(
+          flyerBoxWidth: flyerBoxWidth,
+          bzModel: bzModel,
+          authorID: flyerModel?.authorID,
+          flyerShowsAuthor: flyerModel?.showsAuthor,
+          flightTweenValue: 0,
+        ),
+
+        /// STATIC FOOTER
+        StaticFooter(
+          flyerBoxWidth: flyerBoxWidth,
+          isSaved: true,
+          flightTweenValue: 0,
+          // showHeaderLabels: false,
+        ),
+
+      ],
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }

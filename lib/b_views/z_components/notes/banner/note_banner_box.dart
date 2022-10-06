@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/x_utilities/image_size.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class NoteBannerBox extends StatelessWidget {
@@ -7,7 +8,7 @@ class NoteBannerBox extends StatelessWidget {
   const NoteBannerBox({
     @required this.width,
     @required this.child,
-    this.color,
+    this.color = Colorz.white10,
     Key key
   }) : super(key: key);
   // --------------------

@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
@@ -13,6 +14,7 @@ class FlyerDeck extends StatelessWidget {
     @required this.maxPossibleWidth,
     @required this.deckHeight,
     @required this.flyerModel,
+    @required this.bzModel,
     @required this.expansion,
     @required this.minSlideHeightFactor,
     Key key
@@ -21,6 +23,7 @@ class FlyerDeck extends StatelessWidget {
   final double maxPossibleWidth;
   final double deckHeight;
   final FlyerModel flyerModel;
+  final BzModel bzModel;
   /// HEIGHT FACTOR OF SMALLEST SLIDE TO THE BIGGEST SLIDE HEIGHT
   final double minSlideHeightFactor;
   final double expansion;
@@ -213,73 +216,81 @@ class FlyerDeck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _deckWidth = concludeDeckWidth(
-      numberOfSlides: flyerModel.slides.length,
-      deckHeight: deckHeight,
-      maxPossibleWidth: maxPossibleWidth,
-      expansion: expansion,
-      minSlideHeightFactor: minSlideHeightFactor,
-    );
+    if (flyerModel == null){
+      return const SizedBox();
+    }
 
-    return SizedBox(
-      width: _deckWidth,
-      height: deckHeight,
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
+    else {
 
-          ...List.generate(flyerModel.slides.length, (_index){
+      final double _deckWidth = concludeDeckWidth(
+        numberOfSlides: flyerModel.slides.length,
+        deckHeight: deckHeight,
+        maxPossibleWidth: maxPossibleWidth,
+        expansion: expansion,
+        minSlideHeightFactor: minSlideHeightFactor,
+      );
 
-            final _reverseIndex = Numeric.reverseIndex(
-              listLength: flyerModel.slides.length,
-              index: _index,
-            );
+      return SizedBox(
+        width: _deckWidth,
+        height: deckHeight,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
 
-            final double _flyerBoxWidth = _getSlideWidth(
-              maxSlideHeight: deckHeight,
-              reverseIndex: _index,
-              minSlideHeightFactor: minSlideHeightFactor,
-              numberOfSlides: flyerModel.slides.length,
-            );
+            ...List.generate(flyerModel.slides.length, (_index){
 
-            return SuperPositioned(
-              enAlignment: Alignment.centerLeft,
-              horizontalOffset: _getSlideOffset(
-                deckWidth: _deckWidth,
-                reverseIndex: _index,
+              final _reverseIndex = Numeric.reverseIndex(
+                listLength: flyerModel.slides.length,
+                index: _index,
+              );
+
+              final double _flyerBoxWidth = _getSlideWidth(
                 maxSlideHeight: deckHeight,
+                reverseIndex: _index,
                 minSlideHeightFactor: minSlideHeightFactor,
                 numberOfSlides: flyerModel.slides.length,
-              ),
-              child:
+              );
 
-              _index + 1 ==  flyerModel.slides.length?
-              StaticFlyer(
-                flyerModel: flyerModel,
-                flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
-                flyerShadowIsOn: true,
-                // index: 0,
-              )
+              return SuperPositioned(
+                enAlignment: Alignment.centerLeft,
+                horizontalOffset: _getSlideOffset(
+                  deckWidth: _deckWidth,
+                  reverseIndex: _index,
+                  maxSlideHeight: deckHeight,
+                  minSlideHeightFactor: minSlideHeightFactor,
+                  numberOfSlides: flyerModel.slides.length,
+                ),
+                child:
 
-                  :
+                _index + 1 ==  flyerModel.slides.length?
+                StaticFlyer(
+                  bzModel: bzModel,
+                  flyerModel: flyerModel,
+                  flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
+                  flyerShadowIsOn: true,
+                )
 
-              SingleSlide(
-                flyerBoxWidth: _flyerBoxWidth,
-                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth),
-                slideModel: flyerModel.slides[_reverseIndex],
-                tinyMode: false,
-                onSlideNextTap: null,
-                onSlideBackTap: null,
-                onDoubleTap: null,
-                slideShadowIsOn: true,
-              ),
-            );
+                    :
 
-          }),
+                SingleSlide(
+                  flyerBoxWidth: _flyerBoxWidth,
+                  flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth),
+                  slideModel: flyerModel.slides[_reverseIndex],
+                  tinyMode: false,
+                  onSlideNextTap: null,
+                  onSlideBackTap: null,
+                  onDoubleTap: null,
+                  slideShadowIsOn: true,
+                ),
+              );
 
-        ],
-      ),
-    );
+            }),
+
+          ],
+        ),
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
