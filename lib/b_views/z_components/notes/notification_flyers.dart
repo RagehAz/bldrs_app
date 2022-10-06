@@ -103,7 +103,7 @@ class FlyerInNoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(context, 200);
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(200);
 
     if (canOpenFlyer == true){
       return GestureDetector(

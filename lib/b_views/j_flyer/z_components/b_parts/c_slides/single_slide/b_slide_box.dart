@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:flutter/material.dart';
 
 class SlideBox extends StatelessWidget {
@@ -9,6 +10,7 @@ class SlideBox extends StatelessWidget {
     @required this.tinyMode,
     @required this.slideMidColor,
     @required this.stackChildren,
+    this.shadowIsOn = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,6 +19,7 @@ class SlideBox extends StatelessWidget {
   final bool tinyMode;
   final Color slideMidColor;
   final List<Widget> stackChildren;
+  final bool shadowIsOn;
   // -----------------------------------------------------------------------------
   bool _canTapSlide(){
     bool _canTap = false;
@@ -30,6 +33,8 @@ class SlideBox extends StatelessWidget {
   // --------------------
   @override
   Widget build(BuildContext context) {
+
+    final BorderRadius _flyerBorders = FlyerDim.flyerCorners(context, flyerBoxWidth);
 
     return AbsorbPointer(
       absorbing: !_canTapSlide(),
@@ -46,12 +51,13 @@ class SlideBox extends StatelessWidget {
               height: flyerBoxHeight,
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
-                borderRadius: FlyerDim.flyerCorners(context, flyerBoxWidth),
+                borderRadius: _flyerBorders,
                 color: slideMidColor,
+                boxShadow: shadowIsOn == true ? Shadower.flyerZoneShadow : null,
                 // image: slideModel.pic,
               ),
               child: ClipRRect(
-                borderRadius: FlyerDim.flyerCorners(context, flyerBoxWidth),
+                borderRadius: _flyerBorders,
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: stackChildren,

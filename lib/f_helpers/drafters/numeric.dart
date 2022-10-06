@@ -591,5 +591,26 @@ class Numeric {
 
     return _val;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// INDEX MANIPULATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static int reverseIndex({
+    @required int listLength,
+    @required int index,
+  }){
+
+    List<int> _indexes = <int>[];
+    for (int i = 0; i < listLength; i++){
+      _indexes.add(i);
+    }
+    _indexes = _indexes.reversed.toList();
+
+    final int _reversedIndex = _indexes.indexOf(index);
+
+    return _reversedIndex;
+  }
+  // -----------------------------------------------------------------------------
 }
