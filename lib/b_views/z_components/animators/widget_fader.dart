@@ -52,6 +52,8 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
     _animationController = AnimationController(
         reverseDuration: _duration,
         duration: _duration,
+        lowerBound: widget.min,
+        upperBound: widget.max,
         vsync: this
     );
 
@@ -74,7 +76,9 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
   Future<void> _animate() async {
 
     if (widget.fadeType == FadeType.fadeIn){
-      await _animationController.forward(from: widget.min,);
+      await _animationController.forward(
+        from: widget.min,
+      );
     }
     else if (widget.fadeType == FadeType.fadeOut){
       await _animationController.reverse(from: widget.max);

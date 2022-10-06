@@ -125,7 +125,7 @@ class FlyerInNoteCard extends StatelessWidget {
     else {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: StaticFlyer(
+        child: StaticFlyerStarter(
             flyerBoxWidth: _flyerBoxWidth,
             flyerModel: flyerModel,
         ),

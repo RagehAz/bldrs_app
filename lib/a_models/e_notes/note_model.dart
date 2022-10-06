@@ -20,9 +20,9 @@ enum NoteType {
 
 enum NoteAttachmentType {
   non,
-  flyersIDs,
-  bzID,
-  imageURL,
+  flyer,
+  bz,
+  image,
 }
 
 enum NoteSenderOrRecieverType {
@@ -471,7 +471,7 @@ class NoteModel {
     }
     /// flyers  : data type : List<String> flyersIDs
     else if (
-    attachmentType == NoteAttachmentType.flyersIDs
+    attachmentType == NoteAttachmentType.flyer
     ){
       final List<String> _strings = Stringer.getStringsFromDynamics(
         dynamics: attachment,
@@ -491,9 +491,9 @@ class NoteModel {
   static NoteAttachmentType decipherNoteAttachmentType(String attachmentType) {
     switch (attachmentType) {
       case 'non':       return NoteAttachmentType.non;        break;
-      case 'flyersIDs': return NoteAttachmentType.flyersIDs;  break;
-      case 'bzID':      return NoteAttachmentType.bzID;       break;
-      case 'imageURL':  return NoteAttachmentType.imageURL;   break;
+      case 'flyer':     return NoteAttachmentType.flyer;      break;
+      case 'bz':        return NoteAttachmentType.bz;       break;
+      case 'image':     return NoteAttachmentType.image;      break;
       default:          return NoteAttachmentType.non;
     }
   }
@@ -502,9 +502,9 @@ class NoteModel {
   static String cipherNoteAttachmentType(NoteAttachmentType attachmentType) {
     switch (attachmentType) {
       case NoteAttachmentType.non:          return 'non';       break; /// data type : null
-      case NoteAttachmentType.flyersIDs:    return 'flyersIDs'; break; /// data type : List<String> flyersIDs
-      case NoteAttachmentType.imageURL:     return 'imageURL';  break; /// data type : String imageURL
-      case NoteAttachmentType.bzID:         return 'bzID';      break; /// data type : String bzID
+      case NoteAttachmentType.flyer:        return 'flyer';     break; /// data type : List<String> flyersIDs
+      case NoteAttachmentType.image:        return 'image';     break; /// data type : String imageURL
+      case NoteAttachmentType.bz:           return 'bz';        break; /// data type : String bzID
       default:return 'non';
     }
   }
@@ -512,9 +512,9 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static const List<NoteAttachmentType> noteAttachmentTypesList = <NoteAttachmentType>[
     NoteAttachmentType.non,
-    NoteAttachmentType.flyersIDs,
-    NoteAttachmentType.imageURL,
-    NoteAttachmentType.bzID,
+    NoteAttachmentType.flyer,
+    NoteAttachmentType.image,
+    NoteAttachmentType.bz,
   ];
   // -----------------------------------------------------------------------------
 
@@ -593,9 +593,9 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static String cipherResponse(NoteResponse response){
     switch (response){
-      case NoteResponse.accepted:   return 'accepted'; break;
-      case NoteResponse.declined:   return 'declines'; break;
-      case NoteResponse.pending:    return 'pending'; break;
+      case NoteResponse.accepted:   return 'accepted';  break;
+      case NoteResponse.declined:   return 'declines';  break;
+      case NoteResponse.pending:    return 'pending';   break;
       case NoteResponse.cancelled:  return 'cancelled'; break;
       default: return null;
     }
@@ -604,10 +604,10 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static NoteResponse decipherResponse(String response){
     switch (response){
-      case 'accepted':  return NoteResponse.accepted; break;
-      case 'declines':  return NoteResponse.declined; break;
-      case 'pending':   return NoteResponse.pending; break;
-      case 'cancelled':   return NoteResponse.cancelled; break;
+      case 'accepted':    return NoteResponse.accepted;   break;
+      case 'declines':    return NoteResponse.declined;   break;
+      case 'pending':     return NoteResponse.pending;    break;
+      case 'cancelled':   return NoteResponse.cancelled;  break;
       default: return null;
     }
   }
