@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fetch_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/renovate_flyers.dart';
@@ -48,6 +50,75 @@ class FlyerProtocols {
       context: context,
       flyersIDs: flyersIDs
   );
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<FlyerModel> fetchAndCombineBzSlidesInOneFlyer({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required int maxSlides,
+  }) async {
+    FlyerModel _flyer;
+
+    if (bzModel != null && maxSlides != null && maxSlides != 0){
+
+      final List<SlideModel> _bzSlides = <SlideModel>[];
+
+      for (int i = 0; i < bzModel.flyersIDs.length; i++){
+
+        final String _flyerID = bzModel.flyersIDs[i];
+
+        final FlyerModel _flyer = await fetchFlyer(
+          context: context,
+          flyerID: _flyerID,
+        );
+
+        for (final SlideModel _slide in _flyer.slides){
+
+          _bzSlides.add(_slide);
+
+          blog('added slide with index ${_slide.slideIndex}');
+
+          if (_bzSlides.length >= maxSlides){
+            blog('breaking _bzSlides.length ${_bzSlides.length} : maxSlides $maxSlides : ${_bzSlides.length >= maxSlides}');
+            break;
+          }
+
+        }
+
+        if (_bzSlides.length >= maxSlides){
+          break;
+        }
+
+      }
+
+      if (_bzSlides.isNotEmpty == true){
+        _flyer = FlyerModel(
+          id: 'combinedSlidesInOneFlyer_${bzModel.id}',
+          headline: _bzSlides[0].headline,
+          trigram: const [],
+          description: null,
+          flyerType: null,
+          publishState: PublishState.published,
+          auditState: AuditState.verified,
+          keywordsIDs: const [],
+          zone: bzModel.zone,
+          authorID: null,
+          bzID: bzModel.id,
+          position: null,
+          slides: _bzSlides,
+          specs: const [],
+          times: const [],
+          priceTagIsOn: false,
+          showsAuthor: false,
+          score: null,
+          pdf: null,
+        );
+      }
+
+    }
+
+    return _flyer;
+  }
   // -----------------------------------------------------------------------------
 
   /// RENOVATE

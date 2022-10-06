@@ -241,7 +241,7 @@ Future<void> _sendFlyerVerificationUpdateNote({
     metaData: NoteModel.defaultMetaData,
     sentTime: DateTime.now(),
     attachment: <String>[flyerID],
-    attachmentType: NoteAttachmentType.flyersIDs,
+    attachmentType: NoteAttachmentType.flyer,
     seen: false,
     seenTime: null,
     sendFCM: true,
