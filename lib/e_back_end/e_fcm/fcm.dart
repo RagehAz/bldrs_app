@@ -2,15 +2,13 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:bldrs/a_models/e_notes/channels.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/e_notes/fcm_token.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/e_notes/channels.dart';
+import 'package:bldrs/a_models/e_notes/fcm_token.dart';
+import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -20,10 +18,10 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class FCM {
   // -----------------------------------------------------------------------------
@@ -404,6 +402,9 @@ class FCM {
       summary: _channelModel.description,
       groupKey: _channelModel.group,
 
+      /// ACTION
+      // actionType: ActionType.Default,
+
       /// TEXT
       title: title,
       body: body,
@@ -420,12 +421,12 @@ class FCM {
       /// LARGE ICON
       largeIcon: largeIconURL, //NoteModel.bldrsLogoStaticURL,//fcmColorLogoFilePath,
       roundedLargeIcon: true,
-      hideLargeIconOnExpand: false,
+      // hideLargeIconOnExpand: false,
 
       /// BEHAVIOUR
       locked: !canBeDismissedWithoutTapping,
-      displayOnBackground: true,
-      displayOnForeground: true,
+      // displayOnBackground: true,
+      // displayOnForeground: true,
       wakeUpScreen: true,
 
       /// SOUND
@@ -441,10 +442,11 @@ class FCM {
       // roundedBigPicture: false, /// very silly
       // autoDismissible: false,
       // fullScreenIntent: false,
-      // showWhen: ,
+      // showWhen: null,
       // category: NotificationCategory.Email,
       // criticalAlert: false,
       // ticker: 'wtf is ticker',
+
 
     );
 
@@ -491,17 +493,18 @@ class FCM {
       color: textColor,
 
       /// CAN TAP BUTTON ?
-      enabled: true,
+      // enabled: true,
       /// DISMISS NOTIFICATION ON BUTTON TAP
-      autoDismissible: true,
+      // autoDismissible: true,
       /// MAKES TEXT RED
-      isDangerousOption: false,
+      // isDangerousOption: false,
 
       /// NOT WORKING - NOT IMPACTFUL
       icon: NoteModel.bldrsLogoStaticURL,
       showInCompactView: true,
       // buttonType: ActionButtonType.Default, // ActionButtonType.Default is default
 
+      // requireInputText: false, // TASK : not tested
     );
   }
   // --------------------
@@ -640,6 +643,7 @@ class FCM {
 
   // --------------------
   ///
+  /*
   static Future<void> onNotifyButtonTap({
     @required BuildContext context,
     @required Widget screenToGoToOnNotiTap,
@@ -655,8 +659,9 @@ class FCM {
     });
 
   }
+   */
   // --------------------
-  ///
+  /*
   static Future<void> notify() async {
     // String _timeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
 
@@ -693,6 +698,7 @@ class FCM {
       ),
     );
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// TOPICS
@@ -784,19 +790,19 @@ class FCM {
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupkey: ChannelModel.generalGroup,
+        channelGroupKey: ChannelModel.generalGroup,
         channelGroupName: ChannelModel.generalGroup,
       ),
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupkey: ChannelModel.flyersGroup,
+        channelGroupKey: ChannelModel.flyersGroup,
         channelGroupName: ChannelModel.flyersGroup,
       ),
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupkey: ChannelModel.myBzzGroup,
+        channelGroupKey: ChannelModel.myBzzGroup,
         channelGroupName: ChannelModel.myBzzGroup,
       ),
 

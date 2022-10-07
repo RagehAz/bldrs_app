@@ -103,7 +103,9 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
           verse: Verse.plain('go to Note route to screen'),
           onTap: () => Nav.goToNewScreen(
             context: context,
-            screen: const NoteRouteToScreen(),
+            screen: const NoteRouteToScreen(
+              receivedAction: null,
+            ),
           ),
         ),
 
