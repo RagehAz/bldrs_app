@@ -790,19 +790,19 @@ class FCM {
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupKey: ChannelModel.generalGroup,
+        channelGroupkey: ChannelModel.generalGroup,
         channelGroupName: ChannelModel.generalGroup,
       ),
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupKey: ChannelModel.flyersGroup,
+        channelGroupkey: ChannelModel.flyersGroup,
         channelGroupName: ChannelModel.flyersGroup,
       ),
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupKey: ChannelModel.myBzzGroup,
+        channelGroupkey: ChannelModel.myBzzGroup,
         channelGroupName: ChannelModel.myBzzGroup,
       ),
 
