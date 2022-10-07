@@ -17,18 +17,18 @@ import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.da
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
-class AllNotesScreen extends StatefulWidget {
+class PaginateAllNotesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const AllNotesScreen({
+  const PaginateAllNotesScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<AllNotesScreen> createState() => _AllNotesScreenState();
+  State<PaginateAllNotesScreen> createState() => _PaginateAllNotesScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _AllNotesScreenState extends State<AllNotesScreen> {
+class _PaginateAllNotesScreenState extends State<PaginateAllNotesScreen> {
   // -----------------------------------------------------------------------------
   ///
   //   final ValueNotifier<List<NoteModel>> _notes = ValueNotifier(<NoteModel>[]);
