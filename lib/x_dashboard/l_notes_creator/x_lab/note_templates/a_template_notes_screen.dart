@@ -14,8 +14,8 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/bldrs_notes/note_templates.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/note_sender_or_reciever_dynamic_button.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/note_templates/x_note_templates.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
