@@ -457,6 +457,26 @@ class Imagers {
 
     return _fileModels;
   }
+  // --------------------
+  static Future<FileModel> resizeImage({
+    @required FileModel fileModel,
+    @required double resizeToWidth,
+  }) async {
+    FileModel _output;
+
+    if (fileModel != null){
+
+      final List<FileModel> _resized = await resizeImages(
+          inputFileModels: <FileModel>[fileModel],
+          resizeToWidth: resizeToWidth
+      );
+
+      _output = _resized.first;
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS

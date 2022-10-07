@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
@@ -30,18 +31,25 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_banner_maker.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_image_banner_maker.dart';
+import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 
 class AwesomeNotiTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -58,6 +66,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey();
   // --------------------
+  final ScreenshotController screenshotController = ScreenshotController();
+  // --------------------
   /// JUST TO ACTIVATE VALIDATORS
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
@@ -71,6 +81,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   dynamic _attachment;
   dynamic _attachmentHelper;
   NoteAttachmentType _attachmentType;
+  File _bannerPreviewFile;
   // --------------------
   File _largeImageFile;
   String _largeIconURL;
@@ -103,7 +114,6 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     super.initState();
 
 
-
   }
   // --------------------
   bool _isInit = true;
@@ -126,7 +136,6 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
   @override
   void dispose() {
     _loading.dispose();
-
     _titleController.dispose();
     _bodyController.dispose();
 
@@ -176,6 +185,21 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     if (_continue == true){
 
+      if (_bannerPreviewFile != null){
+
+        final String _url = await Storage.createStoragePicAndGetURL(
+          context: context,
+          docName: 'testNotesBanners',
+          fileName: Numeric.createUniqueID().toString(),
+          ownersIDs: [AuthFireOps.superUserID()],
+          inputFile: _bannerPreviewFile,
+        );
+        setState(() {
+          _bannerURL = _url;
+        });
+
+      }
+
       /// PUSH GLOBAL NOTIFICATION
       if (isGlobal == true){
         await FCM.pushGlobalNoot(
@@ -215,6 +239,50 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       }
 
     }
+
+  }
+  // --------------------
+  Future<void> _takeBannerScreenshot() async {
+
+    blog('_takeBannerScreenshot : START');
+
+    final double pixelRatio = MediaQuery.of(context).devicePixelRatio;
+
+    final Uint8List uint8List = await screenshotController.capture(
+      pixelRatio: pixelRatio,
+      delay: const Duration(milliseconds: 200),
+    );
+
+    final String _fileName = Numeric.createUniqueID().toString();
+
+    final FileModel _fileModel = await Imagers.resizeImage(
+        resizeToWidth: NoteBannerBox.standardSize.width,
+        fileModel: FileModel(
+          fileName: _fileName,
+          file: await Filers.getFileFromUint8List(
+            uInt8List: uint8List,
+            fileName: _fileName,
+          )
+        ),
+    );
+
+    setState(() {
+      _bannerPreviewFile = _fileModel.file;
+    });
+
+    blog('_takeBannerScreenshot : END');
+
+    // if (_attachmentType == NoteAttachmentType.flyer){
+    //
+    //  
+    //
+    // }
+    // else if (_attachmentType == NoteAttachmentType.bz){
+    //
+    // }
+    // else if (_attachmentType == NoteAttachmentType.image){
+    //
+    // }
 
   }
   // --------------------
@@ -271,6 +339,11 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     final bool _bannerIsOn = isGlobal == true && _progress == null;
     final String _notificationTypeString = isGlobal == true ? 'Global' : 'Local';
+
+    final double _tileChildWidth = TileBubble.childWidth(
+        context: context,
+        bubbleWidthOverride: Bubble.clearWidth(context)
+    );
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -544,6 +617,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                                   _attachmentType = null;
                                   _attachment = null;
                                   _attachmentHelper = null;
+                                  _bannerPreviewFile = null;
                                 });
                               },
                             ),
@@ -554,7 +628,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                             DreamBox(
                               height: 40,
                               isDeactivated: !_bannerIsOn,
-                              icon: _bannerURL ?? Iconz.comWebsite,
+                              icon: Iconz.comWebsite,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
                               onTap: () async {
@@ -583,7 +657,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                             DreamBox(
                               height: 40,
                               isDeactivated: !_bannerIsOn,
-                              icon: _bannerURL ?? Iconz.phoneGallery,
+                              icon: Iconz.phoneGallery,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
                               onTap: () async {
@@ -595,12 +669,17 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                                 );
 
                                 if (_pickedFileModel != null){
+
                                   setState(() {
                                     _attachmentType = NoteAttachmentType.image;
                                     _attachment = _pickedFileModel.file;
                                     _attachmentHelper = null;
                                   });
+
+                                  await _takeBannerScreenshot();
+
                                 }
+
 
                               },
                             ),
@@ -611,7 +690,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                             DreamBox(
                               height: 40,
                               isDeactivated: !_bannerIsOn,
-                              icon: _bannerURL ?? Iconz.bz,
+                              icon: Iconz.bz,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
                               onTap: () async {
@@ -629,13 +708,15 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                                     maxSlides: 20,
                                   );
 
-                                  blog('slides are : ${_allBzSlidesInOneFlyer.slides.length} slides');
+                                  blog('slides are : ${_allBzSlidesInOneFlyer?.slides?.length} slides');
 
                                   setState(() {
                                     _attachmentType = NoteAttachmentType.bz;
                                     _attachment = bzModels.first;
                                     _attachmentHelper = _allBzSlidesInOneFlyer;
                                   });
+
+                                  await _takeBannerScreenshot();
 
                                 }
 
@@ -648,7 +729,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                             DreamBox(
                               height: 40,
                               isDeactivated: !_bannerIsOn,
-                              icon: _bannerURL ?? Iconz.addFlyer,
+                              icon: Iconz.addFlyer,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
                               onTap: () async {
@@ -673,8 +754,9 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                                     _attachmentHelper = _bz;
                                   });
 
-                                }
+                                  await _takeBannerScreenshot();
 
+                                }
 
                               },
                             ),
@@ -685,13 +767,25 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
                         const SizedBox(height: 5, width: 5,),
 
                         if (_attachment != null)
-                        NoteBannerMaker(
-                          attachmentType: _attachmentType,
-                          width: TileBubble.childWidth(context: context, bubbleWidthOverride: Bubble.clearWidth(context)),
-                          attachment: _attachment,
-                          attachmentHelper: _attachmentHelper,
-                        ),
+                          Screenshot(
+                            controller: screenshotController,
+                            child: NoteBannerMaker(
+                              attachmentType: _attachmentType,
+                              width: _tileChildWidth,
+                              attachment: _attachment,
+                              attachmentHelper: _attachmentHelper,
+                            ),
+                          ),
 
+                        if (_bannerPreviewFile != null)
+                        const SizedBox(height: 5, width: 5,),
+
+                        if (_bannerPreviewFile != null)
+                        NoteImageBannerMaker(
+                            width: _tileChildWidth,
+                            file: _bannerPreviewFile,
+                        ),
+                        
                       ],
                     ),
                   ),
@@ -952,6 +1046,22 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
               ],
             ),
+          ),
+
+          WideButton(
+            verse: Verse.plain('Activate Listeners'),
+            onTap: () async {
+
+              await FCM.getAwesomeNoots().setListeners(
+                  onActionReceivedMethod:         NootController.onActionReceivedMethod,
+                  onNotificationCreatedMethod:    NootController.onNotificationCreatedMethod,
+                  onNotificationDisplayedMethod:  NootController.onNotificationDisplayedMethod,
+                  onDismissActionReceivedMethod:  NootController.onDismissActionReceivedMethod,
+              );
+
+
+
+            },
           ),
 
           const Horizon(),

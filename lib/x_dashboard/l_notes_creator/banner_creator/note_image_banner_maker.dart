@@ -26,10 +26,10 @@ class NoteImageBannerMaker extends StatelessWidget {
         width: width,
         height: _bannerHeight,
         pic: file,
-        corners: NoteBannerBox.getCorners(
-          context: context,
-          boxWidth: width,
-        ),
+        // corners: NoteBannerBox.getCorners(
+        //   context: context,
+        //   boxWidth: width,
+        // ),
       )
 
     );
