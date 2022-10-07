@@ -100,7 +100,7 @@ abstract class NootController {
       blog('noot.backgroundColor    : ${noot.backgroundColor}');
       blog('noot.privacy            : ${noot.privacy}');
       blog('noot.category           : ${noot.category}');
-      blog('noot.actionType         : ${noot.actionType}');
+      // blog('noot.actionType         : ${noot.actionType}');
       blog('noot.roundedLargeIcon   : ${noot.roundedLargeIcon}');
       blog('noot.roundedBigPicture  : ${noot.roundedBigPicture}');
 
