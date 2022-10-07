@@ -81,10 +81,10 @@ class NoteBannerBox extends StatelessWidget {
         height: getBoxHeight(width),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: getCorners(
-            context: context,
-            boxWidth: width,
-          ),
+          // borderRadius: getCorners(
+          //   context: context,
+          //   boxWidth: width,
+          // ),
         ),
         alignment: Alignment.center,
         child: child,

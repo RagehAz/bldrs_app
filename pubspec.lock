@@ -49,7 +49,7 @@ packages:
       name: awesome_notifications
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.21"
+    version: "0.7.1"
   bindings_compatible:
     dependency: transitive
     description:

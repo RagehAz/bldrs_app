@@ -33,6 +33,7 @@ class NoteBzBannerMaker extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: <Widget>[
 
+          /// HEADER
           Container(
             width: _clearWidth,
             height: _bannerHeight,
@@ -49,6 +50,7 @@ class NoteBzBannerMaker extends StatelessWidget {
             ),
           ),
 
+          /// SLIDES IN ONE FLYER
           SuperPositioned(
             enAlignment: Alignment.bottomRight,
             verticalOffset: width * 0.04,
