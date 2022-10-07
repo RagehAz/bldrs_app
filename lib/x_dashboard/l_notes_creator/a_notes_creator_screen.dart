@@ -23,8 +23,8 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/note_sender_or_reciever_dynamic_button.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/a_notes_testing_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -321,7 +321,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           icon: Iconz.lab,
           onTap: () => Nav.goToNewScreen(
             context: context,
-            screen: const NotesTestingScreen(),
+            screen: const NotesLabHome(),
           ),
         ),
 

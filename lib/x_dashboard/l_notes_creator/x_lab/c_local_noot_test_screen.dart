@@ -30,10 +30,10 @@ import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -45,24 +45,25 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_banner_maker.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_image_banner_maker.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_banner_maker.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_image_banner_maker.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 
-class AwesomeNotiTestScreen extends StatefulWidget {
+class LocalNootTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const AwesomeNotiTestScreen({
+  const LocalNootTestScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _AwesomeNotiTestScreenState createState() => _AwesomeNotiTestScreenState();
+  _LocalNootTestScreenState createState() => _LocalNootTestScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
+class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey();
   // --------------------
@@ -1048,6 +1049,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             ),
           ),
 
+          /// ACTIVATE NOOT LISTENERS
           WideButton(
             verse: Verse.plain('Activate Listeners'),
             onTap: () async {
@@ -1058,6 +1060,39 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
               //     onNotificationDisplayedMethod:  NootController.onNotificationDisplayedMethod,
               //     onDismissActionReceivedMethod:  NootController.onDismissActionReceivedMethod,
               // );
+
+            },
+          ),
+
+          /// REQUEST FCM PERMISSION
+          WideButton(
+            verse: Verse.plain('Activate Listeners'),
+            onTap: () async {
+
+              blog('REQUEST FCM PERMISSION : START');
+
+              final NotificationSettings _settings = await FCM.requestFCMPermission();
+
+              FCM.blogNootSettings(
+                settings: _settings,
+                invoker: 'requestFCMPermission',
+              );
+
+              blog('REQUEST FCM PERMISSION : END');
+
+            },
+          ),
+
+          /// UPDATE USER PROTOCOL
+          WideButton(
+            verse: Verse.plain('Update user protocol'),
+            onTap: () async {
+
+              blog('UPDATE USER PROTOCOL : START');
+
+              await UserProtocols.updateMyUserFCMToken(context: context);
+
+              blog('UPDATE USER PROTOCOL : END');
 
             },
           ),

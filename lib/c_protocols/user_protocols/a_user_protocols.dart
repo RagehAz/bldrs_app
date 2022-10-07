@@ -133,6 +133,13 @@ class UserProtocols {
     bzID: bzID,
     slideIndex: slideIndex,
   );
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateMyUserFCMToken({
+    @required BuildContext context,
+  }) => RenovateUserProtocols.updateMyUserFCMToken(
+    context: context,
+  );
   // -----------------------------------------------------------------------------
 
   /// WIPE

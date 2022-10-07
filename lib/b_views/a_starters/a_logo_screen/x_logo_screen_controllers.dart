@@ -12,7 +12,6 @@ import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/app_state_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
@@ -44,7 +43,6 @@ Future<void> initializeLogoScreen({
         _initializeLocalAssetsPaths(context),
         /// APP LANGUAGE
         _initializeAppLanguage(context),
-
         /// APP STATE
         _initializeAppState(context),
 
@@ -363,9 +361,10 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 /// MY DEVICE FCM TOKEN
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
   // blog('_initializeMyDeviceFCMToken : START');
-  await FCM.updateMyUserFCMToken(context: context);
+  await UserProtocols.updateMyUserFCMToken(context: context);
   // blog('_initializeMyDeviceFCMToken : END');
 }
 // -----------------------------------------------------------------------------

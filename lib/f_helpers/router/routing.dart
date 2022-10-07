@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/a_dashboard_home_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/cc_note_route_to_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/d_noot_route_to_screen.dart';
 import 'package:flutter/material.dart';
 
 

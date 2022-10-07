@@ -35,8 +35,8 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/template_notes_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/a_notes_testing_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/note_templates/a_template_notes_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -1032,7 +1032,7 @@ Future<void> onGoToNotesTestingScreen(BuildContext context) async {
 
   await Nav.goToNewScreen(
       context: context,
-      screen: const NotesTestingScreen(),
+      screen: const NotesLabHome(),
   );
 
 }
