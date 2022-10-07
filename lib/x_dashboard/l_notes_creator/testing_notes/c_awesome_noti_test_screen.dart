@@ -1052,14 +1052,12 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             verse: Verse.plain('Activate Listeners'),
             onTap: () async {
 
-              await FCM.getAwesomeNoots().setListeners(
-                  onActionReceivedMethod:         NootController.onActionReceivedMethod,
-                  onNotificationCreatedMethod:    NootController.onNotificationCreatedMethod,
-                  onNotificationDisplayedMethod:  NootController.onNotificationDisplayedMethod,
-                  onDismissActionReceivedMethod:  NootController.onDismissActionReceivedMethod,
-              );
-
-
+              // await FCM.getAwesomeNoots().setListeners(
+              //     onActionReceivedMethod:         NootController.onActionReceivedMethod,
+              //     onNotificationCreatedMethod:    NootController.onNotificationCreatedMethod,
+              //     onNotificationDisplayedMethod:  NootController.onNotificationDisplayedMethod,
+              //     onDismissActionReceivedMethod:  NootController.onDismissActionReceivedMethod,
+              // );
 
             },
           ),
