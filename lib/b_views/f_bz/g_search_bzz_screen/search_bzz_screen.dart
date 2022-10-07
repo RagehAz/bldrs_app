@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/bzz_tile_buttons_list.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/bzz_tile_buttons_list.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

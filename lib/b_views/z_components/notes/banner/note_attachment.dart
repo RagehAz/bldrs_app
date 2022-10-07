@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/notes/banner/notification_flyers.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/note_image_banner.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_image_banner.dart';
 import 'package:flutter/material.dart';
 
 class NoteAttachment extends StatelessWidget {

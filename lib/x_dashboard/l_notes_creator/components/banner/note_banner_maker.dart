@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/e_notes/note_model.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_bz_banner_maker.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_flyer_banner_maker.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/banner_creator/note_image_banner_maker.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_bz_banner_maker.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_flyer_banner_maker.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_image_banner_maker.dart';
 import 'package:flutter/material.dart';
 
 class NoteBannerMaker extends StatelessWidget {

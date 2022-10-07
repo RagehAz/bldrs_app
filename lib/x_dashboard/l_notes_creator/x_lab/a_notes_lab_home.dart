@@ -1,25 +1,24 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/helper_screens/all_notes_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/b_fcm_test_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/c_awesome_noti_test_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/testing_notes/cc_note_route_to_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/b_paginate_all_notes_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/c_local_noot_test_screen.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/d_noot_route_to_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
-class NotesTestingScreen extends StatefulWidget {
+class NotesLabHome extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const NotesTestingScreen({
+  const NotesLabHome({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _NotesTestingScreenState createState() => _NotesTestingScreenState();
+  _NotesLabHomeState createState() => _NotesLabHomeState();
   /// --------------------------------------------------------------------------
 }
 
-class _NotesTestingScreenState extends State<NotesTestingScreen> {
+class _NotesLabHomeState extends State<NotesLabHome> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -76,16 +75,7 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
           verse: Verse.plain('Paginate all fire Notes'),
           onTap: () => Nav.goToNewScreen(
             context: context,
-            screen: const AllNotesScreen(),
-          ),
-        ),
-
-        /// FCM TEST
-        WideButton(
-          verse: Verse.plain('go to FCM tests'),
-          onTap: () => Nav.goToNewScreen(
-            context: context,
-            screen: const FCMTestScreen(),
+            screen: const PaginateAllNotesScreen(),
           ),
         ),
 
@@ -94,7 +84,7 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
           verse: Verse.plain('go to Awesome Notifications tests'),
           onTap: () => Nav.goToNewScreen(
             context: context,
-            screen: const AwesomeNotiTestScreen(),
+            screen: const LocalNootTestScreen(),
           ),
         ),
 
@@ -108,16 +98,6 @@ class _NotesTestingScreenState extends State<NotesTestingScreen> {
             ),
           ),
         ),
-
-        // /// NOTE BANNER BAKER
-        // WideButton(
-        //   verse: Verse.plain('Note Banner Baker'),
-        //   onTap: () => Nav.goToNewScreen(
-        //     context: context,
-        //     screen: const NoteBannerBakerScreen(),
-        //   ),
-        // ),
-
 
       ],
     );

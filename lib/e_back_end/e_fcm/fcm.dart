@@ -3,16 +3,10 @@ import 'dart:typed_data';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/channels.dart';
-import 'package:bldrs/a_models/e_notes/fcm_token.dart';
 import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -120,12 +114,17 @@ class FCM {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> requestFCMPermission() async {
+  static Future<NotificationSettings> requestFCMPermission() async {
 
     // blog('requestFCMPermission : START');
 
-    // final NotificationSettings _settings =
-    await FirebaseMessaging.instance.requestPermission(
+    // if (Platform.isIOS) {
+      // iosSubscription = FirebaseMessaging.instance.onIosSettingsRegistered.listen((data) {
+      //   _saveDeviceTokenToUserDocInFireStore();
+      // });
+    // }
+
+    final NotificationSettings _settings = await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,
       provisional: true,
@@ -142,110 +141,7 @@ class FCM {
 
     // blog('requestFCMPermission : END');
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// TOKEN
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> updateMyUserFCMToken({
-    @required BuildContext context,
-  }) async {
-
-    if (AuthModel.userIsSignedIn() == true){
-
-      /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
-      /*
-         - Unsubscribe stale tokens from topics
-         Managing topics subscriptions to remove stale registration
-         tokens is another consideration. It involves two steps:
-
-         - Your app should resubscribe to topics once per month and/or
-          whenever the registration token changes. This forms a self-healing
-          solution, where the subscriptions reappear automatically
-          when an app becomes active again.
-
-         - If an app instance is idle for 2 months (or your own staleness window)
-         you should unsubscribe it from topics using the Firebase Admin
-         SDK to delete the token/topic mapping from the FCM backend.
-
-         - The benefit of these two steps is that your fanouts will occur
-         faster since there are fewer stale tokens to fan out to, and your
-          stale app instances will automatically resubscribe once they are active again.
-
-     */
-
-      String _fcmToken;
-
-      /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-
-      final bool _continue = await tryCatchAndReturnBool(
-        context: context,
-        methodName: 'updateMyUserFCMToken',
-        functions: () async {
-
-          final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
-          if (Platform.isIOS) {
-            _fcmToken = await _fcm.getToken();
-          }
-          else {
-            _fcmToken = await _fcm.getToken();
-          }
-
-        },
-        onError: (String error) async {
-
-          await CenterDialog.showCenterDialog(
-              context: context,
-              titleVerse: const Verse(
-                text: '##Notifications are temporarily suspended',
-                translate: true,
-              ),
-              onOk: (){
-                blog('error is : $error');
-              }
-          );
-
-          /// error codes reference
-          // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
-          // UNREGISTERED (HTTP 404)
-          // INVALID_ARGUMENT (HTTP 400)
-          // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-
-        },
-      );
-
-      final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
-
-      if (_continue == true && _fcmToken != null && _myUserModel != null){
-
-        if (_myUserModel?.fcmToken?.token != _fcmToken){
-
-          final FCMToken _token = FCMToken(
-            token: _fcmToken,
-            createdAt: DateTime.now(),
-            platform: Platform.operatingSystem,
-          );
-
-          _token.blogToken();
-
-          final UserModel _updated = _myUserModel.copyWith(
-            fcmToken: _token,
-          );
-
-          await UserProtocols.renovateMyUserModel(
-            context: context,
-            newUserModel: _updated,
-          );
-
-        }
-
-      }
-
-    }
-
+    return _settings;
   }
   // -----------------------------------------------------------------------------
 
