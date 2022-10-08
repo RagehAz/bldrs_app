@@ -28,6 +28,7 @@ class NoteEventsOfAuthorship {
   /// LISTENERS
 
   // --------------------
+  ///
   static Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
     @required BuildContext context,
     @required String receiverID,
