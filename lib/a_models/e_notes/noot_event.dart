@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/e_notes/channels.dart';
+import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:flutter/material.dart';
 
 class NootEvent {

@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -102,11 +103,13 @@ class NoteEventsOfAuthorship {
 
     final NoteModel _note = NoteModel(
       id: null, // will be defined in composeNoteProtocol
-      senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
-      senderImageURL: bzModel.logo,
-      senderType: NoteSenderOrRecieverType.bz,
-      receiverID: userModelToSendTo.id,
-      receiverType: NoteSenderOrRecieverType.user,
+      parties: NoteParties(
+        senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
+        senderImageURL: bzModel.logo,
+        senderType: NotePartyType.bz,
+        receiverID: userModelToSendTo.id,
+        receiverType: NotePartyType.user,
+      ),
       title: _title.value,
       body: _body.value,
       metaData: NoteModel.defaultMetaData,
@@ -152,11 +155,13 @@ class NoteEventsOfAuthorship {
 
     final NoteModel _note =  NoteModel(
       id: null,
-      senderID: senderModel.id,
-      senderImageURL: senderModel.pic,
-      senderType: NoteSenderOrRecieverType.user,
-      receiverID: bzID,
-      receiverType: NoteSenderOrRecieverType.bz,
+      parties: NoteParties(
+        senderID: senderModel.id,
+        senderImageURL: senderModel.pic,
+        senderType: NotePartyType.user,
+        receiverID: bzID,
+        receiverType: NotePartyType.bz,
+      ),
       title: _title,
       body: _body,
       metaData: NoteModel.defaultMetaData,

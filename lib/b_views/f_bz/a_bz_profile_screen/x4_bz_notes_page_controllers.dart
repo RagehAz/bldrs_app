@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -252,7 +252,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
     final UserModel _receiverModel = await UserProtocols.fetchUser(
         context: context,
-        userID: note.receiverID
+        userID: note.parties.receiverID
     );
 
     final bool _result = await CenterDialog.showCenterDialog(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -102,7 +103,9 @@ class NoteFireOps {
         ...List.generate(receiversIDs.length, (index){
 
           final NoteModel _note = noteModel.copyWith(
-            receiverID: receiversIDs[index],
+            parties: noteModel.parties.copyWith(
+              receiverID: receiversIDs[index],
+            ),
           );
 
           return createNote(
@@ -132,11 +135,11 @@ class NoteFireOps {
 
     if (noteModel != null){
 
-      if (noteModel.receiverType == NoteSenderOrRecieverType.user){
+      if (noteModel.parties.receiverType == NotePartyType.user){
 
         final UserModel _user = await UserFireOps.readUser(
             context: context,
-            userID: noteModel.receiverID,
+            userID: noteModel.parties.receiverID,
         );
 
         blog('_adjustNoteToken : userToken is : ${_user?.fcmToken?.token}');
@@ -172,16 +175,18 @@ class NoteFireOps {
     if (noteModel != null){
 
       /// ADJUST IMAGE IF SENDER IS BLDRS
-      if (noteModel.senderID == NoteModel.bldrsSenderID){
+      if (noteModel.parties.senderID == NoteParties.bldrsSenderID){
 
         final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
             context: context,
             storageDocName: 'admin',
-            fileName: NoteModel.bldrsFCMIconFireStorageFileName,
+            fileName: NoteParties.bldrsFCMIconFireStorageFileName,
         );
 
         _note = noteModel.copyWith(
-          senderImageURL: _bldrsNotificationIconURL ?? NoteModel.bldrsLogoStaticURL,
+          parties: noteModel.parties.copyWith(
+            senderImageURL: _bldrsNotificationIconURL ?? NoteParties.bldrsLogoStaticURL,
+          ),
         );
 
       }
@@ -204,7 +209,7 @@ class NoteFireOps {
   static Future<List<NoteModel>> readReceivedNotes({
     @required BuildContext context,
     @required String recieverID,
-    @required NoteSenderOrRecieverType receiverType,
+    @required NotePartyType receiverType,
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
     QueryOrderBy orderBy,
@@ -229,7 +234,7 @@ class NoteFireOps {
         FireFinder(
           field: 'receiverType',
           comparison: FireComparison.equalTo,
-          value: NoteModel.cipherNoteSenderOrRecieverType(receiverType),
+          value: NoteParties.cipherNoteSenderOrRecieverType(receiverType),
         ),
 
       ],
@@ -500,7 +505,7 @@ class NoteFireOps {
   static Future<void> deleteAllReceivedNotes({
     @required BuildContext context,
     @required String receiverID,
-    @required NoteSenderOrRecieverType receiverType,
+    @required NotePartyType receiverType,
   }) async {
 
     /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
