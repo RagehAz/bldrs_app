@@ -18,7 +18,7 @@ class NoteEvent {
   /// AUTHORSHIP
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -29,7 +29,7 @@ class NoteEvent {
     userModelToSendTo: userModelToSendTo,
   );
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorshipAcceptanceNote({
     @required BuildContext context,
     @required String bzID,
@@ -51,7 +51,7 @@ class NoteEvent {
   /// Bz Team Management
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorRoleChangeNote({
     @required BuildContext context,
     @required String bzID,
@@ -62,7 +62,7 @@ class NoteEvent {
     author: author,
   );
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorDeletionNotes({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -75,7 +75,7 @@ class NoteEvent {
     sendToUserAuthorExitNote: sendToUserAuthorExitNote,
   );
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -86,7 +86,7 @@ class NoteEvent {
     includeMyself: includeMyself,
   );
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendNoBzContactAvailableNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -99,7 +99,7 @@ class NoteEvent {
   /// Bz Flyers Management
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendFlyerUpdateNoteToItsBz({
     @required BuildContext context,
     @required BzModel bzModel,

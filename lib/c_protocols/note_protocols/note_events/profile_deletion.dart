@@ -22,6 +22,7 @@ class NoteEventsOfProfileDeletion {
   /// USER DELETION
 
   // --------------------
+  ///
   static Future<void> wipeUserReceivedNotes({
     @required BuildContext context,
     @required String userID,
@@ -43,7 +44,7 @@ class NoteEventsOfProfileDeletion {
   /// BZ DELETION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> wipeBzReceivedNotes({
     @required BuildContext context,
     @required String bzID,
@@ -61,6 +62,7 @@ class NoteEventsOfProfileDeletion {
 
   }
   // --------------------
+  ///
   static Future<void> wipeBzSentAuthorshipNotes({
     @required BuildContext context,
     @required String bzID,
@@ -103,7 +105,7 @@ class NoteEventsOfProfileDeletion {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<List<NoteModel>> _paginatePendingSentAuthorshipNotes({
     @required BuildContext context,
     @required String senderID,
@@ -141,7 +143,7 @@ class NoteEventsOfProfileDeletion {
     return _notes;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static List<FireFinder> _generatePendingSentAuthorshipNotesFireFinder({
     @required String senderID,
   }){

@@ -31,7 +31,7 @@ class NoteFireOps {
   /// CREATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<NoteModel> createNote({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -85,7 +85,7 @@ class NoteFireOps {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<List<NoteModel>> createNotes({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -160,7 +160,7 @@ class NoteFireOps {
     return _note;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<NoteModel> _adjustBldrsLogoURL({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -200,7 +200,7 @@ class NoteFireOps {
   /// ALL NOTES PAGINATION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<List<NoteModel>> readReceivedNotes({
     @required BuildContext context,
     @required String recieverID,
@@ -243,7 +243,7 @@ class NoteFireOps {
     return _notes;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<List<NoteModel>> paginateAllSentNotes({
     @required BuildContext context,
     @required String senderID,
@@ -288,7 +288,7 @@ class NoteFireOps {
     return _notes;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<List<NoteModel>> paginateAllReceivedNotes({
     @required BuildContext context,
     @required String recieverID,
@@ -335,7 +335,7 @@ class NoteFireOps {
   /// STREAMING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Stream<List<NoteModel>> getNoteModelsStream({
     @required BuildContext context,
     QueryDocumentSnapshot<Object> startAfter,
@@ -392,7 +392,7 @@ class NoteFireOps {
   /// UPDATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> updateNote({
     @required BuildContext context,
     @required NoteModel newNoteModel,
@@ -409,7 +409,7 @@ class NoteFireOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> markNoteAsSeen({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -432,7 +432,7 @@ class NoteFireOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> markNotesAsSeen({
     @required BuildContext context,
     @required List<NoteModel> notes,
@@ -457,7 +457,7 @@ class NoteFireOps {
   /// DELETE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> deleteNote({
     @required BuildContext context,
     @required String noteID,
@@ -475,7 +475,7 @@ class NoteFireOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> deleteNotes({
     @required BuildContext context,
     @required List<NoteModel> notes,
@@ -496,12 +496,14 @@ class NoteFireOps {
 
   }
   // --------------------
-  /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
+  ///
   static Future<void> deleteAllReceivedNotes({
     @required BuildContext context,
     @required String receiverID,
     @required NoteSenderOrRecieverType receiverType,
   }) async {
+
+    /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
 
     final List<NoteModel> _notesToDelete = <NoteModel>[];
 
