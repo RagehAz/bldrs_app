@@ -1,13 +1,14 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
@@ -155,26 +156,28 @@ Future<void> onShowNoteOptions({
 // --------------------
 Future<void> onNoteButtonTap({
   @required BuildContext context,
-  @required NoteResponse response,
+  @required String response,
   @required NoteModel noteModel,
 }) async {
 
-  /// AUTHORSHIP NOTES
-  if (noteModel.type == NoteType.authorship){
+  blog('onNoteButtonTap : SSSSSSSSSSSSSSS : response : $response');
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
-      context: context,
-      bzID: noteModel.senderID,
-    );
-
-    await respondToAuthorshipNote(
-      context: context,
-      response: response,
-      noteModel: noteModel,
-      bzModel: _bzModel,
-    );
-
-  }
+  // /// AUTHORSHIP NOTES
+  // if (noteModel.type == NoteType.authorship){
+  //
+  //   final BzModel _bzModel = await BzProtocols.fetchBz(
+  //     context: context,
+  //     bzID: noteModel.senderID,
+  //   );
+  //
+  //   await respondToAuthorshipNote(
+  //     context: context,
+  //     response: response,
+  //     noteModel: noteModel,
+  //     bzModel: _bzModel,
+  //   );
+  //
+  // }
 
 }
 // -----------------------------------------------------------------------------
@@ -182,10 +185,10 @@ Future<void> onNoteButtonTap({
 /// AUTHORSHIP NOTE RESPONSES
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> respondToAuthorshipNote({
   @required BuildContext context,
-  @required NoteResponse response,
+  @required String reply,
   @required NoteModel noteModel,
   @required BzModel bzModel,
 }) async {
@@ -198,7 +201,7 @@ Future<void> respondToAuthorshipNote({
   );
 
   /// ACCEPT AUTHORSHIP
-  if (response == NoteResponse.accepted){
+  if (reply == PollModel.accept){
     await _acceptAuthorshipInvitation(
       context: context,
       noteModel: noteModel,
@@ -207,7 +210,7 @@ Future<void> respondToAuthorshipNote({
   }
 
   /// DECLINE AUTHORSHIP
-  else if (response == NoteResponse.declined){
+  else if (reply == PollModel.decline){
     await _declineAuthorshipInvitation(
       context: context,
       noteModel: noteModel,
@@ -215,7 +218,7 @@ Future<void> respondToAuthorshipNote({
   }
 
   else {
-    blog('respondToAuthorshipNote : response : $response');
+    blog('respondToAuthorshipNote : response : $reply');
   }
 
 }
@@ -267,7 +270,11 @@ Future<void> _acceptAuthorshipInvitation({
     await NoteProtocols.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
-      response: NoteResponse.accepted,
+      pollModel: PollModel(
+        buttons: noteModel.poll.buttons,
+        reply: PollModel.accept,
+        replyTime: DateTime.now(),
+      ),
     );
 
     await NoteProtocols.sendAuthorshipAcceptanceNote(
@@ -345,7 +352,11 @@ Future<void> _declineAuthorshipInvitation({
     await NoteProtocols.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
-      response: NoteResponse.declined,
+      pollModel: PollModel(
+        buttons: noteModel.poll.buttons,
+        reply: PollModel.decline,
+        replyTime: DateTime.now(),
+      ),
     );
 
   }

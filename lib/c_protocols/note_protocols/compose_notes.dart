@@ -1,8 +1,9 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/x_note_gen.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
@@ -16,7 +17,7 @@ class ComposeNoteProtocols {
   const ComposeNoteProtocols();
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -25,48 +26,22 @@ class ComposeNoteProtocols {
 
     blog('ComposeNoteProtocols.sendAuthorshipInvitationNote : START');
 
-    final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
-      bz: bzModel,
-      authorID: AuthFireOps.superUserID(),
-    );
-
-    /// TASK : SHOULD SEND NOTE WITH SELECTED USER'S LANG
-
-    final NoteModel _note = NoteModel(
-      id: null, // will be defined in note create fire ops
-      senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
-      senderImageURL: _myAuthorModel.pic,
-      senderType: NoteSenderOrRecieverType.bz,
-      receiverID: userModelToSendTo.id,
-      receiverType: NoteSenderOrRecieverType.user,
-      title: '##Business Account Invitation',
-      body: "##'${_myAuthorModel.name}' sent you an invitation to become an Author for '${bzModel.name}' business page",
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: bzModel.id,
-      attachmentType: NoteAttachmentType.bz,
-      seen: false,
-      seenTime: null,
-      sendFCM: true,
-      type: NoteType.authorship,
-      response: NoteResponse.pending,
-      responseTime: null,
-      // senderImageURL:
-      buttons: NoteModel.generateAcceptDeclineButtons(),
-      token: userModelToSendTo?.fcmToken?.token,
-      topic: null,
-    );
-
-    await NoteFireOps.createNote(
+    final NoteModel _note = await NoteGen.authorshipInvitation(
       context: context,
-      noteModel: _note,
+      bzModel: bzModel,
+      userModelToSendTo: userModelToSendTo,
+    );
+
+    await NoteProtocols.compose(
+      context: context,
+      note: _note,
     );
 
     blog('ComposeNoteProtocols.sendAuthorshipInvitationNote : END');
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorshipAcceptanceNote({
     @required BuildContext context,
     @required String bzID,
@@ -79,43 +54,22 @@ class ComposeNoteProtocols {
       listen: false,
     );
 
-    final NoteModel _noteModel = NoteModel(
-      id: 'x',
-      senderID: _myUserModel.id,
-      senderImageURL: _myUserModel.pic,
-      senderType: NoteSenderOrRecieverType.user,
-      receiverID: bzID,
-      receiverType: NoteSenderOrRecieverType.bz,
-      title: '##${_myUserModel.name} accepted The invitation request',
-      body: '##${_myUserModel.name} has become a part of the team now.',
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: null,
-      attachmentType: NoteAttachmentType.non,
-      seen: false,
-      seenTime: null,
-      sendFCM: true,
-      type: NoteType.authorship,
-      response: null,
-      responseTime: null,
-      buttons: null,
-      token: null, // ????????????????????????????????????????????????????
-      topic: NoteModel.generateTopic(
-          topicType: TopicType.authorshipReply,
-          id: bzID,
-      ),
+    final NoteModel _note = await NoteGen.authorshipAcceptance(
+      context: context,
+      bzID: bzID,
+      senderModel: _myUserModel,
     );
 
-    await NoteFireOps.createNote(
-        context: context,
-        noteModel: _noteModel
+    await NoteProtocols.compose(
+      context: context,
+      note: _note,
     );
 
     blog('ComposeNoteProtocols.sendAuthorshipAcceptanceNote : END');
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorRoleChangeNote({
     @required BuildContext context,
     @required String bzID,
@@ -124,48 +78,22 @@ class ComposeNoteProtocols {
 
     blog('ComposeNoteProtocols.sendAuthorRoleChangeNote : START');
 
-    final String _authorRoleString = AuthorModel.getAuthorRolePhid(
+    final NoteModel _note = await NoteGen.authorRoleChanged(
       context: context,
-      role:  author.role,
+      author: author,
+      bzID: bzID,
     );
 
-    final NoteModel _noteModel = NoteModel(
-      id: 'x',
-      senderID: bzID,
-      senderImageURL: author.pic,
-      senderType: NoteSenderOrRecieverType.bz,
-      receiverID: bzID,
-      receiverType: NoteSenderOrRecieverType.bz,
-      title: '##Team member Role changed',
-      body: '##The team role of "${author.name}" has been set to "$_authorRoleString"',
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: null,
-      attachmentType: null,
-      seen: false,
-      seenTime: null,
-      sendFCM: true,
-      type: NoteType.notice,
-      response: null,
-      responseTime: null,
-      buttons: null,
-      token: null, // ????????????????????????????????????????????????????
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.authorRoleChanged,
-        id: bzID,
-      ),
-    );
-
-    await NoteFireOps.createNote(
+    await NoteProtocols.compose(
       context: context,
-      noteModel: _noteModel,
+      note: _note,
     );
 
     blog('ComposeNoteProtocols.sendAuthorRoleChangeNote : END');
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendAuthorDeletionNotes({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -175,73 +103,29 @@ class ComposeNoteProtocols {
     blog('ComposeNoteProtocols.sendAuthorDeletionNotes : START');
 
     /// NOTE TO BZ
-    final NoteModel _noteToBz = NoteModel(
-      id: 'x',
-      senderID: deletedAuthor.userID,
-      senderImageURL: deletedAuthor.pic,
-      senderType: NoteSenderOrRecieverType.user,
-      receiverID: bzModel.id,
-      receiverType: NoteSenderOrRecieverType.bz,
-      title: '##${deletedAuthor.name} has left the team',
-      body: '##${deletedAuthor.name} is no longer part of ${bzModel.name} team',
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: null,
-      attachmentType: NoteAttachmentType.non,
-      seen: false,
-      seenTime: null,
-      sendFCM: true,
-      type: NoteType.notice,
-      response: null,
-      responseTime: null,
-      buttons: null,
-      token: null, // ????????????????????????????????????????????????????????
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.authorDeletion,
-        id: bzModel.id,
-      ),
+    final NoteModel _noteToBz = await NoteGen.authorDeletedToBz(
+      context: context,
+      deletedAuthor: deletedAuthor,
+      bzModel: bzModel,
     );
 
-    await NoteFireOps.createNote(
+    await NoteProtocols.compose(
       context: context,
-      noteModel: _noteToBz,
+      note: _noteToBz,
     );
 
     /// NOTE TO DELETED AUTHOR
     if (sendToUserAuthorExitNote == true){
 
-      final UserModel _userModel = await UserProtocols.fetchUser(
+      final NoteModel _noteToUser = await NoteGen.authorDeletedToUser(
         context: context,
-        userID: deletedAuthor.userID,
+        bzModel: bzModel,
+        deletedAuthor: deletedAuthor,
       );
 
-      final NoteModel _noteToUser = NoteModel(
-        id: 'x',
-        senderID: bzModel.id,
-        senderImageURL: bzModel.logo,
-        senderType: NoteSenderOrRecieverType.bz,
-        receiverID: deletedAuthor.userID,
-        receiverType: NoteSenderOrRecieverType.user,
-        title: '##You have exited from ${bzModel.name} account',
-        body: '##You are no longer part of ${bzModel.name} team',
-        metaData: NoteModel.defaultMetaData,
-        sentTime: DateTime.now(),
-        attachment: null,
-        attachmentType: NoteAttachmentType.non,
-        seen: false,
-        seenTime: null,
-        sendFCM: true,
-        type: NoteType.notice,
-        response: null,
-        responseTime: null,
-        buttons: null,
-        token: _userModel?.fcmToken?.token,
-        topic: null,
-      );
-
-      await NoteFireOps.createNote(
+      await NoteProtocols.compose(
         context: context,
-        noteModel: _noteToUser,
+        note: _noteToUser,
       );
 
     }
@@ -249,7 +133,7 @@ class ComposeNoteProtocols {
     blog('ComposeNoteProtocols.sendAuthorDeletionNotes : END');
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -279,40 +163,17 @@ class ComposeNoteProtocols {
 
             final AuthorModel author = _authors[index];
 
-            final UserModel _userModel = await UserProtocols.fetchUser(
+            final NoteModel _note = await NoteGen.bzDeletionToAuthor(
+                context: context,
+                author: author,
+                creator: _creator,
+                bzModel: bzModel,
+            );
+
+            await NoteProtocols.compose(
               context: context,
-              userID: author.userID,
+              note: _note,
             );
-
-            final NoteModel _note = NoteModel(
-              id: 'x',
-              senderID: NoteModel.bldrsSenderID,
-              senderImageURL: NoteModel.bldrsLogoStaticURL,
-              senderType: NoteSenderOrRecieverType.bldrs,
-              receiverID: author.userID,
-              receiverType: NoteSenderOrRecieverType.user,
-              title: '##${_creator.name} has deleted "${bzModel.name}" business account',
-              body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
-              metaData: NoteModel.defaultMetaData,
-              sentTime: DateTime.now(),
-              attachment: bzModel.id,
-              attachmentType: NoteAttachmentType.bz,
-              seen: false,
-              seenTime: null,
-              sendFCM: true,
-              type: NoteType.bzDeletion,
-              response: null,
-              responseTime: null,
-              buttons: null,
-              token: _userModel?.fcmToken?.token,
-              topic: null,
-            );
-
-            await NoteFireOps.createNote(
-              context: context,
-              noteModel: _note,
-            );
-
 
           }),
 
@@ -325,7 +186,7 @@ class ComposeNoteProtocols {
     blog('ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors : END');
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> sendFlyerUpdateNoteToItsBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -334,43 +195,22 @@ class ComposeNoteProtocols {
 
     blog('ComposeNoteProtocols.sendFlyerUpdateNoteToItsBz : START');
 
-    final NoteModel _note = NoteModel(
-      id: 'x',
-      senderID: bzModel.id,
-      senderImageURL: bzModel.logo,
-      senderType: NoteSenderOrRecieverType.bz,
-      receiverID: bzModel.id,
-      receiverType: NoteSenderOrRecieverType.bz,
-      title: '##Flyer has been updated',
-      body: '##This Flyer has been updated',
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: <String>[flyerID],
-      attachmentType: NoteAttachmentType.flyer,
-      seen: false,
-      seenTime: null,
-      sendFCM: false,
-      type: NoteType.flyerUpdate,
-      response: null,
-      responseTime: null,
-      buttons: null,
-      token: null,
-      topic: NoteModel.generateTopic(
-          topicType: TopicType.flyerUpdate,
-          id: bzModel.id,
-      ),
+    final NoteModel _note = await NoteGen.flyerUpdatedToBz(
+      context: context,
+      bzModel: bzModel,
+      flyerID: flyerID,
     );
 
-    await NoteFireOps.createNote(
-        context: context,
-        noteModel: _note
+    await NoteProtocols.compose(
+      context: context,
+      note: _note,
     );
 
     blog('ComposeNoteProtocols.sendFlyerUpdateNoteToItsBz : END');
 
   }
   // --------------------
-  /// TESTED : ...
+  ///
   static Future<void> sendNoBzContactAvailableNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -382,31 +222,10 @@ class ComposeNoteProtocols {
       listen: false,
     );
 
-    final NoteModel _note = NoteModel(
-      id: 'x',
-      senderID: _userModel.id,
-      senderImageURL: _userModel.pic,
-      senderType: NoteSenderOrRecieverType.user,
-      receiverID: bzModel.id,
-      receiverType: NoteSenderOrRecieverType.bz,
-      title: '##${_userModel.name} has tried to contact you',
-      body: '##Please update your Business contacts info to allow customers to reach you',
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: null,
-      attachmentType: NoteAttachmentType.non,
-      seen: false,
-      seenTime: null,
-      sendFCM: true,
-      type: NoteType.notice,
-      response: null,
-      responseTime: null,
-      buttons: null,
-      token: null,
-      topic: NoteModel.generateTopic(
-          topicType: TopicType.generalBzNotes,
-          id: bzModel.id,
-      ),
+    final NoteModel _note = await NoteGen.bzContactNotAvailable(
+      context: context,
+      bzModel: bzModel,
+      userModel: _userModel,
     );
 
     await NoteFireOps.createNote(

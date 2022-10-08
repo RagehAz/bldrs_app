@@ -1,12 +1,11 @@
-import 'package:bldrs/a_models/e_notes/note_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x2_user_notes_page_controllers.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
 
 class NoteCardButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -19,6 +18,7 @@ class NoteCardButtons extends StatelessWidget {
   final double boxWidth;
   final NoteModel noteModel;
   /// --------------------------------------------------------------------------
+  /*
   Verse _getResponseTimeString(BuildContext context, NoteModel noteModel){
 
     final String _string = Timers.calculateSuperTimeDifferenceString(
@@ -31,6 +31,7 @@ class NoteCardButtons extends StatelessWidget {
       translate: false,
     );
   }
+   */
   // --------------------
   /// TASK : FINALIZE THIS SHIT
   Verse _getResponseVerse(BuildContext context, NoteModel noteModel){
@@ -42,30 +43,30 @@ class NoteCardButtons extends StatelessWidget {
 
     if (noteModel != null){
 
-      if (noteModel.response == NoteResponse.accepted){
+      if (noteModel.poll.reply == PollModel.accept){
         _output = const Verse(
           text: 'phid_accepted',
           translate: true,
         );
       }
 
-      else if (noteModel.response == NoteResponse.declined){
+      else if (noteModel.poll.reply == PollModel.decline){
         _output = const Verse(
           text: 'phid_declined',
           translate: true,
         );
       }
 
-      else if (noteModel.response == NoteResponse.cancelled){
-        _output = const Verse(
-          text: 'phid_cancelled',
-          translate: true,
-        );
-      }
+      // else if (noteModel.poll == NoteResponse.cancelled){
+      //   _output = const Verse(
+      //     text: 'phid_cancelled',
+      //     translate: true,
+      //   );
+      // }
 
       else {
         _output = Verse(
-          text: noteModel.response.toString(),
+          text: noteModel.poll.toString(),
           translate: false,
         );
       }
@@ -85,15 +86,15 @@ class NoteCardButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 
-          if (noteModel.response == NoteResponse.pending)
-          ...List<Widget>.generate(noteModel.buttons.length,
+          if (noteModel?.poll?.reply == PollModel.pending)
+          ...List<Widget>.generate(noteModel.poll.buttons.length,
                   (int index) {
 
-                final String _phid = noteModel.buttons[index];
+                final String _phid = noteModel.poll.buttons[index];
 
                 final double _width = Scale.getUniformRowItemWidth(
                   context: context,
-                  numberOfItems: noteModel.buttons.length,
+                  numberOfItems: noteModel.poll.buttons.length,
                   boxWidth: boxWidth,
                 );
 
@@ -109,7 +110,7 @@ class NoteCardButtons extends StatelessWidget {
                   splashColor: Colorz.yellow255,
                   onTap: () => onNoteButtonTap(
                     context: context,
-                    response: NoteModel.getNoteResponseByPhid(_phid),
+                    response: _phid,
                     noteModel: noteModel,
                   ),
                 );
@@ -117,43 +118,35 @@ class NoteCardButtons extends StatelessWidget {
               }
           ),
 
-          if (noteModel.response != NoteResponse.pending)
+          if (noteModel?.poll?.reply == PollModel.pending)
             SizedBox(
               width: boxWidth * 0.9,
-              child: ClockRebuilder(
-                startTime: noteModel.responseTime,
-                duration: const Duration(minutes: 1),
-                builder: (int fuck, Widget child){
+              child: Column(
+                children: <Widget>[
 
-                  return Column(
-                    children: <Widget>[
+                  SuperVerse(
+                    verse: _getResponseVerse(context, noteModel),
+                    maxLines: 3,
+                    weight: VerseWeight.black,
+                    italic: true,
+                    color: Colorz.yellow255,
+                    size: 3,
+                    margin: 5,
+                    shadow: true,
+                  ),
 
-                      SuperVerse(
-                        verse: _getResponseVerse(context, noteModel),
-                        maxLines: 3,
-                        weight: VerseWeight.black,
-                        italic: true,
-                        color: Colorz.yellow255,
-                        size: 3,
-                        margin: 5,
-                        shadow: true,
-                      ),
+                  // SuperVerse(
+                  //   verse: _getResponseTimeString(context, noteModel),
+                  //   maxLines: 3,
+                  //   weight: VerseWeight.black,
+                  //   italic: true,
+                  //   color: Colorz.yellow255,
+                  //   size: 3,
+                  //   margin: 5,
+                  //   shadow: true,
+                  // ),
 
-                      SuperVerse(
-                        verse: _getResponseTimeString(context, noteModel),
-                        maxLines: 3,
-                        weight: VerseWeight.black,
-                        italic: true,
-                        color: Colorz.yellow255,
-                        size: 3,
-                        margin: 5,
-                        shadow: true,
-                      ),
-
-                    ],
-                  );
-
-                },
+                ],
               ),
             ),
 

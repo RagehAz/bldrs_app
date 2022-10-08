@@ -19,6 +19,7 @@ class FCMToken {
   /// CYPHERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -29,6 +30,7 @@ class FCMToken {
     };
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static FCMToken decipherFCMToken({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -49,6 +51,7 @@ class FCMToken {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkTokensAreIdentical(FCMToken token1, FCMToken token2){
     bool _identical = false;
 
@@ -78,6 +81,7 @@ class FCMToken {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogToken(){
     blog('Token : platform $platform : createdAt : $createdAt : token : $token');
   }

@@ -3,9 +3,9 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class NoteBannerBox extends StatelessWidget {
+class NotePosterBox extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const NoteBannerBox({
+  const NotePosterBox({
     @required this.width,
     @required this.child,
     this.color = Colorz.white10,

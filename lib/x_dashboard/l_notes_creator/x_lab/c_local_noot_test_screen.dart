@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/a_models/e_notes/channels.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
@@ -20,7 +21,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_banner_box.dart';
+import 'package:bldrs/b_views/z_components/notes/banner/note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -45,8 +46,8 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_banner_maker.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_image_banner_maker.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_poster_maker.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   String _bannerURL;
   dynamic _attachment;
   dynamic _attachmentHelper;
-  NoteAttachmentType _attachmentType;
+  PosterType _posterType;
   File _bannerPreviewFile;
   // --------------------
   File _largeImageFile;
@@ -257,7 +258,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
     final String _fileName = Numeric.createUniqueID().toString();
 
     final FileModel _fileModel = await Imagers.resizeImage(
-        resizeToWidth: NoteBannerBox.standardSize.width,
+        resizeToWidth: NotePosterBox.standardSize.width,
         fileModel: FileModel(
           fileName: _fileName,
           file: await Filers.getFileFromUint8List(
@@ -615,7 +616,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                               onTap: (){
                                 setState(() {
                                   _bannerURL = null;
-                                  _attachmentType = null;
+                                  _posterType = null;
                                   _attachment = null;
                                   _attachmentHelper = null;
                                   _bannerPreviewFile = null;
@@ -666,13 +667,13 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                 final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
                                   context: context,
                                   cropAfterPick: true,
-                                  aspectRatio: NoteBannerBox.getAspectRatio(),
+                                  aspectRatio: NotePosterBox.getAspectRatio(),
                                 );
 
                                 if (_pickedFileModel != null){
 
                                   setState(() {
-                                    _attachmentType = NoteAttachmentType.image;
+                                    _posterType = PosterType.image;
                                     _attachment = _pickedFileModel.file;
                                     _attachmentHelper = null;
                                   });
@@ -712,7 +713,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                   blog('slides are : ${_allBzSlidesInOneFlyer?.slides?.length} slides');
 
                                   setState(() {
-                                    _attachmentType = NoteAttachmentType.bz;
+                                    _posterType = PosterType.bz;
                                     _attachment = bzModels.first;
                                     _attachmentHelper = _allBzSlidesInOneFlyer;
                                   });
@@ -750,7 +751,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                   );
 
                                   setState(() {
-                                    _attachmentType = NoteAttachmentType.flyer;
+                                    _posterType = PosterType.flyer;
                                     _attachment = _selectedFlyers.first;
                                     _attachmentHelper = _bz;
                                   });
@@ -770,11 +771,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         if (_attachment != null)
                           Screenshot(
                             controller: screenshotController,
-                            child: NoteBannerMaker(
-                              attachmentType: _attachmentType,
+                            child: PosterMaker(
+                              posterType: _posterType,
                               width: _tileChildWidth,
-                              attachment: _attachment,
-                              attachmentHelper: _attachmentHelper,
+                              model: _attachment,
+                              modelHelper: _attachmentHelper,
                             ),
                           ),
 
@@ -782,7 +783,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         const SizedBox(height: 5, width: 5,),
 
                         if (_bannerPreviewFile != null)
-                        NoteImageBannerMaker(
+                        NoteImagePosterMaker(
                             width: _tileChildWidth,
                             file: _bannerPreviewFile,
                         ),
@@ -958,9 +959,9 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
 
-                              ...List.generate(NoteModel.noteButtonsList.length, (index){
+                              ...List.generate(PollModel.acceptDeclineButtons.length, (index){
 
-                                final String _phid = NoteModel.noteButtonsList[index];
+                                final String _phid = PollModel.acceptDeclineButtons[index];
 
                                 bool _isSelected = false;
                                 if (isGlobal == true){

@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/compose_notes.dart';
 import 'package:bldrs/c_protocols/note_protocols/renovate_notes.dart';
 import 'package:bldrs/c_protocols/note_protocols/wipe_notes.dart';
@@ -17,6 +18,96 @@ class NoteProtocols {
   /// COMPOSE
 
   // --------------------
+  static Future<void> compose({
+    @required BuildContext context,
+    @required NoteModel note,
+  }) async {
+
+    // final NoteModel _finalNoteModel = note.value.copyWith(
+    //   sentTime: DateTime.now(),
+    // );
+    //
+    // final List<NoteModel> _uploadedNotes = await NoteFireOps.createNotes(
+    //   context: context,
+    //   noteModel: _finalNoteModel,
+    //   receiversIDs: receiversIDs.value,
+    // );
+    //
+    // /// TASK : SHOULD VISIT THIS onSendNoteOps thing
+    // /// MAYBE SAVE A REFERENCE OF THIS NOTE ID SOMEWHERE ON SUB DOC OF BZ
+    // /// TO BE EASY TO TRACE AND DELETE WHILE IN DELETE BZ OPS
+    //
+    // await NoteLDBOps.insertNotes(_uploadedNotes);
+
+    /// REFERENCE
+    // await NoteFireOps.createNote(
+    //     context: context,
+    //     noteModel: _noteModel
+    // );
+
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// RENOVATE
+
+  // --------------------
+  static Future<void> renovate({
+    @required BuildContext context,
+    @required NoteModel note,
+  }) async {
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// WIPE
+
+  // --------------------
+  static Future<void> wipe({
+    @required BuildContext context,
+    @required NoteModel note,
+  }) async {
+
+    // /// DELETE ATTACHMENT IF IMAGE
+    // if (noteModel.posterType == NoteAttachmentType.image){
+    //
+    //   final String _picName = await Storage.getImageNameByURL(
+    //     context: context,
+    //     url: noteModel.model,
+    //   );
+    //
+    //   await Storage.deleteStoragePic(
+    //     context: context,
+    //     storageDocName: StorageDoc.notesBanners,
+    //     fileName: _picName,
+    //   );
+    //
+    // }
+    //
+    // /// DELETE ON FIRESTORE
+    // await NoteFireOps.deleteNote(
+    //   context: context,
+    //   noteID: noteModel.id,
+    // );
+    //
+    // /// DELETE LOCALLY
+    // // final List<NoteModel> _newList = NoteModel.removeNoteFromNotes(
+    // //   notes: notes.value,
+    // //   noteModel: noteModel,
+    // // );
+    // // notes.value = _newList;
+
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CUSTOM
+
+  // --------------------
+
+
+
+
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
@@ -106,11 +197,11 @@ class NoteProtocols {
   static Future<void> modifyNoteResponse({
     @required BuildContext context,
     @required NoteModel noteModel,
-    @required NoteResponse response,
+    @required PollModel pollModel,
   }) => RenovateNoteProtocols.modifyNoteResponse(
     context: context,
     noteModel: noteModel,
-    response: response,
+    pollModel: pollModel,
   );
   // -----------------------------------------------------------------------------
 
