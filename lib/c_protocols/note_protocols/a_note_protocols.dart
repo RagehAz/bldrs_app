@@ -1,11 +1,8 @@
-import 'package:bldrs/a_models/b_bz/author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/compose_notes.dart';
-import 'package:bldrs/c_protocols/note_protocols/renovate_notes.dart';
-import 'package:bldrs/c_protocols/note_protocols/wipe_notes.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class NoteProtocols {
@@ -58,15 +55,44 @@ class NoteProtocols {
   }) async {
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> modifyNoteResponse({
+    @required BuildContext context,
+    @required NoteModel note,
+    @required PollModel pollModel,
+  }) async {
+    blog('RenovateNoteProtocols.modifyNoteResponse : START');
+
+    final NoteModel _newNoteModel = note.copyWith(
+      poll: pollModel,
+      // responseTime: DateTime.now(),
+    );
+
+    NotesProvider.proUpdateNoteEverywhereIfExists(
+      context: context,
+      noteModel: _newNoteModel,
+      notify: true,
+    );
+
+    await NoteFireOps.updateNote(
+      context: context,
+      newNoteModel: _newNoteModel,
+    );
+
+    blog('RenovateNoteProtocols.modifyNoteResponse : END');
+  }
   // -----------------------------------------------------------------------------
 
   /// WIPE
 
   // --------------------
-  static Future<void> wipe({
+  static Future<void> wipeNote({
     @required BuildContext context,
     @required NoteModel note,
   }) async {
+
+    blog('NoteProtocol.deleteNoteEverywhereProtocol : START');
 
     // /// DELETE ATTACHMENT IF IMAGE
     // if (noteModel.posterType == NoteAttachmentType.image){
@@ -83,174 +109,21 @@ class NoteProtocols {
     //   );
     //
     // }
-    //
-    // /// DELETE ON FIRESTORE
-    // await NoteFireOps.deleteNote(
-    //   context: context,
-    //   noteID: noteModel.id,
-    // );
-    //
-    // /// DELETE LOCALLY
-    // // final List<NoteModel> _newList = NoteModel.removeNoteFromNotes(
-    // //   notes: notes.value,
-    // //   noteModel: noteModel,
-    // // );
-    // // notes.value = _newList;
 
+    /// FIRE DELETE
+    await NoteFireOps.deleteNote(
+      context: context,
+      noteID: note.id,
+    );
 
+    /// PRO DELETE
+    NotesProvider.proDeleteNoteEverywhereIfExists(
+      context: context,
+      noteID: note.id,
+      notify: true,
+    );
+
+    blog('NoteProtocol.deleteNoteEverywhereProtocol : END');
   }
   // -----------------------------------------------------------------------------
-
-  /// CUSTOM
-
-  // --------------------
-
-
-
-
-  /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorshipInvitationNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required UserModel userModelToSendTo,
-  }) => ComposeNoteProtocols.sendAuthorshipInvitationNote(
-    context: context,
-    bzModel: bzModel,
-    userModelToSendTo: userModelToSendTo,
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorshipAcceptanceNote({
-    @required BuildContext context,
-    @required String bzID,
-  }) => ComposeNoteProtocols.sendAuthorshipAcceptanceNote(
-    context: context,
-    bzID: bzID,
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorRoleChangeNote({
-    @required BuildContext context,
-    @required String bzID,
-    @required AuthorModel author,
-  }) => ComposeNoteProtocols.sendAuthorRoleChangeNote(
-    context: context,
-    bzID: bzID,
-    author: author,
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorDeletionNotes({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
-    @required bool sendToUserAuthorExitNote,
-  }) => ComposeNoteProtocols.sendAuthorDeletionNotes(
-    context: context,
-    bzModel: bzModel,
-    deletedAuthor: deletedAuthor,
-    sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> sendBzDeletionNoteToAllAuthors({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required bool includeMyself,
-  }) => ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors(
-    context: context,
-    bzModel: bzModel,
-    includeMyself: includeMyself,
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> sendFlyerUpdateNoteToItsBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String flyerID,
-  }) => ComposeNoteProtocols.sendFlyerUpdateNoteToItsBz(
-    context: context,
-    bzModel: bzModel,
-    flyerID: flyerID,
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> sendNoBzContactAvailableNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-  }) => ComposeNoteProtocols.sendNoBzContactAvailableNote(
-    context: context,
-    bzModel: bzModel,
-  );
-  // -----------------------------------------------------------------------------
-
-  /// FETCH
-
-  // --------------------
-  ///
-  // -----------------------------------------------------------------------------
-
-  /// RENOVATE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> modifyNoteResponse({
-    @required BuildContext context,
-    @required NoteModel noteModel,
-    @required PollModel pollModel,
-  }) => RenovateNoteProtocols.modifyNoteResponse(
-    context: context,
-    noteModel: noteModel,
-    pollModel: pollModel,
-  );
-  // -----------------------------------------------------------------------------
-
-  /// WIPE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> cancelSentAuthorshipInvitation({
-    @required BuildContext context,
-    @required NoteModel note,
-  }) => WipeNoteProtocols.cancelSentAuthorshipInvitation(
-      context: context,
-      note: note
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> wipeNote({
-    @required BuildContext context,
-    @required NoteModel noteModel,
-  }) => WipeNoteProtocols.wipeNote(
-      context: context,
-      noteModel: noteModel
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> wipeBzReceivedNotes({
-    @required BuildContext context,
-    @required String bzID,
-  }) => WipeNoteProtocols.deleteAllBzReceivedNotes(
-    context: context,
-    bzID: bzID,
-  );
-  // --------------------
-  ///
-  static Future<void> wipeBzSentAuthorshipNotes({
-    @required BuildContext context,
-    @required String bzID,
-  }) => WipeNoteProtocols.wipeBzSentAuthorshipNotes(
-      context: context,
-      bzID: bzID
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> wipeUserReceivedNotes({
-    @required BuildContext context,
-    @required String userID,
-  }) => WipeNoteProtocols.wipeUserReceivedNotes(
-      context: context,
-      userID: userID
-  );
-  // --------------------
 }

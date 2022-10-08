@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -347,7 +347,7 @@ Future<void> _removeAuthorWhoHasFlyers({
 
 
     /// SEND AUTHOR DELETION NOTES
-    await NoteProtocols.sendAuthorDeletionNotes(
+    await NoteEvent.sendAuthorDeletionNotes(
       context: context,
       bzModel: bzModel,
       deletedAuthor: authorModel,
@@ -437,7 +437,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
   );
 
   /// SEND AUTHOR DELETION NOTES
-  await NoteProtocols.sendAuthorDeletionNotes(
+  await NoteEvent.sendAuthorDeletionNotes(
     context: context,
     bzModel: bzModel,
     deletedAuthor: authorModel,

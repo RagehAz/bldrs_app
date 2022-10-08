@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/bz_record_real_ops.dart';
@@ -277,7 +277,7 @@ Future<void> onCallTap({
       ),
     );
 
-    await NoteProtocols.sendNoBzContactAvailableNote(
+    await NoteEvent.sendNoBzContactAvailableNote(
       context: context,
       bzModel: bzModel,
     );
