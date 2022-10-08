@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_banner_box.dart';
+import 'package:bldrs/b_views/z_components/notes/banner/note_poster_box.dart';
 import 'package:flutter/material.dart';
 
-class NoteImageBannerMaker extends StatelessWidget {
+class NoteImagePosterMaker extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const NoteImageBannerMaker({
+  const NoteImagePosterMaker({
     @required this.width,
     @required this.file,
     Key key
@@ -18,13 +18,13 @@ class NoteImageBannerMaker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bannerHeight = NoteBannerBox.getBoxHeight(width);
+    final double _posterHeight = NotePosterBox.getBoxHeight(width);
 
-    return NoteBannerBox(
+    return NotePosterBox(
       width: width,
       child: SuperImage(
         width: width,
-        height: _bannerHeight,
+        height: _posterHeight,
         pic: file,
         // corners: NoteBannerBox.getCorners(
         //   context: context,

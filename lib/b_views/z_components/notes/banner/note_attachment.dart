@@ -1,11 +1,4 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/notification_flyers.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_image_banner.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:flutter/material.dart';
 
 class NoteAttachment extends StatelessWidget {
@@ -24,13 +17,15 @@ class NoteAttachment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (noteModel?.attachmentType == NoteAttachmentType.bz){
+    return const SizedBox();
+    /*
+    if (noteModel?.posterType == NoteAttachmentType.bz){
 
       return FutureBuilder<BzModel>(
         key: ValueKey<String>('noteCard_${noteModel.id}'),
         future: BzProtocols.fetchBz(
             context: context,
-          bzID: noteModel.attachment,
+          bzID: noteModel.model,
         ),
           builder: (_, AsyncSnapshot<Object> snap){
 
@@ -54,12 +49,12 @@ class NoteAttachment extends StatelessWidget {
         );
     }
 
-    else if (noteModel?.attachmentType == NoteAttachmentType.flyer){
+    else if (noteModel?.posterType == NoteAttachmentType.flyer){
 
       return FutureBuilder<List<FlyerModel>>(
           future: FlyerProtocols.fetchFlyers(
             context: context,
-            flyersIDs: noteModel.attachment,
+            flyersIDs: noteModel.model,
           ),
           builder: (_, AsyncSnapshot snap){
 
@@ -77,12 +72,12 @@ class NoteAttachment extends StatelessWidget {
 
     }
 
-    else if (noteModel?.attachmentType == NoteAttachmentType.image){
+    else if (noteModel?.posterType == NoteAttachmentType.image){
 
       return NoteImageBanner(
         width: boxWidth,
         height: 300,
-        attachment: noteModel.attachment,
+        attachment: noteModel.model,
         onDelete: null,
       );
 
@@ -97,6 +92,7 @@ class NoteAttachment extends StatelessWidget {
       return const SizedBox();
     }
 
+     */
   }
 /// --------------------------------------------------------------------------
 }

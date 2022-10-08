@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -14,7 +14,7 @@ class WipeNoteProtocols {
   /// DELETE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> cancelSentAuthorshipInvitation({
     @required BuildContext context,
     @required NoteModel note,
@@ -22,15 +22,17 @@ class WipeNoteProtocols {
 
     blog('NoteProtocol.cancelSentAuthorshipInvitation : START');
 
-    final NoteModel _updated = note.copyWith(
-      response: NoteResponse.cancelled,
-      responseTime: DateTime.now(),
-    );
+    blog('cancelSentAuthorshipInvitation : should delete note');
 
-    await NoteFireOps.updateNote(
-      context: context,
-      newNoteModel: _updated,
-    );
+    // final NoteModel _updated = note.copyWith(
+    //   poll: NoteResponse.cancelled,
+    //   responseTime: DateTime.now(),
+    // );
+    //
+    // await NoteFireOps.updateNote(
+    //   context: context,
+    //   newNoteModel: _updated,
+    // );
 
     blog('NoteProtocol.cancelSentAuthorshipInvitation : END');
 

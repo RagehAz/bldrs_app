@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/app_state_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
@@ -618,8 +618,8 @@ void main() {
 // -----------------------------------------------------------------------------
   test('notes are the same', () {
 
-    final NoteModel note1 = NoteModel.dummyNote().copyWith(seenTime: Timers.createDateTime(hour: 1,millisecond: 5, microsecond: 2));
-    final NoteModel note2 = NoteModel.dummyNote().copyWith(seenTime: Timers.createDateTime(hour: 1,millisecond: 5, microsecond: 2));
+    final NoteModel note1 = NoteModel.dummyNote();
+    final NoteModel note2 = NoteModel.dummyNote();
 
     final bool _areTheSame = NoteModel.checkNotesAreIdentical(
         note1: note1,

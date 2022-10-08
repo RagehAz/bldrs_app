@@ -2,13 +2,13 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyer_deck.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_banner_box.dart';
+import 'package:bldrs/b_views/z_components/notes/banner/note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:flutter/material.dart';
 
-class NoteBzBannerMaker extends StatelessWidget {
+class NoteBzPosterMaker extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const NoteBzBannerMaker({
+  const NoteBzPosterMaker({
     @required this.width,
     @required this.bzModel,
     @required this.bzSlidesInOneFlyer,
@@ -22,12 +22,12 @@ class NoteBzBannerMaker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bannerHeight = NoteBannerBox.getBoxHeight(width);
-    final double _bannerPaddingValue = NoteBannerBox.getPaddingValue(width);
+    final double _posterHeight = NotePosterBox.getBoxHeight(width);
+    final double _posterPaddingValue = NotePosterBox.getPaddingValue(width);
 
-    final double _clearWidth = width - (_bannerPaddingValue * 2);
+    final double _clearWidth = width - (_posterPaddingValue * 2);
 
-    return NoteBannerBox(
+    return NotePosterBox(
       width: width,
       child: Stack(
         alignment: Alignment.topCenter,
@@ -36,9 +36,9 @@ class NoteBzBannerMaker extends StatelessWidget {
           /// HEADER
           Container(
             width: _clearWidth,
-            height: _bannerHeight,
+            height: _posterHeight,
             alignment: Alignment.topCenter,
-            padding: EdgeInsets.only(top: _bannerPaddingValue),
+            padding: EdgeInsets.only(top: _posterPaddingValue),
             // color: Colorz.blue255,
             child: StaticHeader(
               flyerBoxWidth: _clearWidth,
