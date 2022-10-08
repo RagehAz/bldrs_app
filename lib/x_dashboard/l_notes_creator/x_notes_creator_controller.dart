@@ -1,42 +1,31 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
+import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_banner_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/ldb_ops/note_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
-import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/note_templates/a_template_notes_screen.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/note_templates/a_template_notes_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -67,17 +56,13 @@ NoteModel _createInitialNote(BuildContext context) {
     body: null,
     metaData: NoteModel.defaultMetaData,
     sentTime: DateTime.now(),
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    seen: false,
-    seenTime: null,
+    trigger: null,
+    poster: null,
     sendFCM: false,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
-    buttons: null,
+    poll: null,
     token: null,
     topic: null,
+    seen: false,
   );
 
 }
@@ -189,6 +174,7 @@ Future<void> onNoteCreatorCardOptionsTap({
 /// NOTE TYPE
 
 // --------------------
+/*
 /// TESTED : WORKS PERFECT
 Future<void> onChangeNoteType({
   @required BuildContext context,
@@ -201,6 +187,7 @@ Future<void> onChangeNoteType({
   );
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// NOTE RECEIVER
@@ -560,6 +547,7 @@ Future<void> _onSelectBldrsAsNoteSender({
 /// SEND FCM SWITCH
 
 // --------------------
+///
 void onSwitchSendFCM({
   @required ValueNotifier<NoteModel> note,
   @required bool value,
@@ -575,29 +563,26 @@ void onSwitchSendFCM({
 /// BUTTONS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onAddNoteButton({
   @required ValueNotifier<NoteModel> note,
   @required String button,
 }){
 
-  final List<String> _updatedButtons = Stringer.addOrRemoveStringToStrings(
-    strings: note.value?.buttons,
-    string: button,
-  );
-
-  NoteModel _note = note.value.copyWith(
-    buttons: _updatedButtons,
-    response: NoteResponse.pending,
-  );
-
-  if (_updatedButtons.isEmpty == true){
-    _note = _note.nullifyField(
-      response: true,
-    );
-  }
-
-  note.value = _note;
+  // final List<String> _updatedButtons = Stringer.addOrRemoveStringToStrings(
+  //   strings: note.value?.poll?.buttons,
+  //   string: button,
+  // );
+  //
+  // NoteModel _note = note.value.copyWith(
+  //   poll: _updatedButtons,
+  // );
+  //
+  // _note = _note.nullifyField(
+  //   poll: true,
+  // );
+  //
+  // note.value = _note;
 
 }
 // -----------------------------------------------------------------------------
@@ -606,148 +591,158 @@ void onAddNoteButton({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onSelectAttachmentType({
+Future<void> onSelectPosterType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteAttachmentType attachmentType,
+  @required PosterType posterType,
 }) async {
 
   /// NO ATTACHMENT
-  if (attachmentType == NoteAttachmentType.non){
-    _onClearAttachments(
+  if (posterType == null){
+    _onClearPoster(
       note: note,
     );
   }
 
   /// BZ ID
-  else if (attachmentType == NoteAttachmentType.bz){
-    await _onSelectBzAsAttachment(
+  else if (posterType == PosterType.bz){
+    await _onAddBzToPoster(
       context: context,
       note: note,
-      attachmentType: attachmentType,
+      posterType: posterType,
     );
   }
 
   /// FLYERS IDS
-  else if (attachmentType == NoteAttachmentType.flyer){
-    await _onSelectFlyersIDsAsAttachment(
+  else if (posterType == PosterType.flyer){
+    await _onAddFlyerToPoster(
       context: context,
       note: note,
-      attachmentType: attachmentType,
+      posterType: posterType,
     );
   }
 
   /// IMAGE
-  else if (attachmentType == NoteAttachmentType.image){
-    await _onSelectImageURLAsAttachment(
+  else if (posterType == PosterType.image){
+    await _onAddImageToPoster(
       context: context,
       note: note,
-      attachmentType: attachmentType,
+      posterType: posterType,
     );
   }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _onSelectBzAsAttachment({
-  @required BuildContext context,
-  @required ValueNotifier<NoteModel> note,
-  @required NoteAttachmentType attachmentType,
-}) async {
-
-  final List<BzModel> _bzModels = await Nav.goToNewScreen(
-    context: context,
-    screen: const SearchBzzScreen(),
-  );
-
-  final bool _newSelection = Mapper.checkCanLoopList(_bzModels);
-  if (_newSelection == true){
-
-    final BzModel _bzModel = Mapper.checkCanLoopList(_bzModels) == true ?
-    _bzModels.first
-        :
-    null;
-
-    note.value = note.value.copyWith(
-      attachmentType: attachmentType,
-      attachment: _bzModel.id,
+  else {
+    _onClearPoster(
+      note: note,
     );
-
   }
 
 }
 // --------------------
 /// TESTED :
-Future<void> _onSelectFlyersIDsAsAttachment({
+Future<void> _onAddBzToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteAttachmentType attachmentType,
+  @required PosterType posterType,
 }) async {
 
-  List<String> _ids;
-
-  final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
-    context: context,
-    screen: const SavedFlyersScreen(
-      selectionMode: true,
-    ),
-  );
-
-  if (Mapper.checkCanLoopList(_selectedFlyers) == true){
-
-    _ids = FlyerModel.getFlyersIDsFromFlyers(_selectedFlyers);
-
-    note.value = note.value.copyWith(
-      attachmentType: attachmentType,
-      attachment: _ids,
-    );
-
-  }
+  // final List<BzModel> _bzModels = await Nav.goToNewScreen(
+  //   context: context,
+  //   screen: const SearchBzzScreen(),
+  // );
+  //
+  // final bool _newSelection = Mapper.checkCanLoopList(_bzModels);
+  // if (_newSelection == true){
+  //
+  //   final BzModel _bzModel = Mapper.checkCanLoopList(_bzModels) == true ?
+  //   _bzModels.first
+  //       :
+  //   null;
+  //
+  //   note.value = note.value.copyWith(
+  //     poster: PosterModel(
+  //       type: posterType,
+  //       id: _bzModel.id,
+  //       url: null,
+  //     ),
+  //
+  //   );
+  //
+  // }
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _onSelectImageURLAsAttachment({
+/// TESTED :
+Future<void> _onAddFlyerToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteAttachmentType attachmentType,
+  @required PosterType posterType,
 }) async {
 
-  final FileModel _fileModel = await Imagers.pickAndCropSingleImage(
-    context: context,
-    cropAfterPick: true,
-    aspectRatio: NoteBannerBox.getAspectRatio(),
-    resizeToWidth: Standards.noteAttachmentWidthPixels,
-  );
-
-  // final ImageSize _picSize = await ImageSize.superImageSize(_pic);
-  // final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(
-  //   width: NoteCard.bodyWidth(context),
-  //   graphicWidth: _picSize.width,
-  //   graphicHeight: _picSize.height,
+  // final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+  //   context: context,
+  //   screen: const SavedFlyersScreen(
+  //     selectionMode: true,
+  //   ),
   // );
-
-  if (_fileModel != null){
-    note.value = note.value.copyWith(
-      attachmentType: attachmentType,
-      attachment: _fileModel.file,
-    );
-  }
+  //
+  // if (Mapper.checkCanLoopList(_selectedFlyers) == true){
+  //
+  //   note.value = note.value.copyWith(
+  //     poster: PosterModel(
+  //       type: posterType,
+  //       id: _selectedFlyers.first.id,
+  //       url: null,
+  //     ),
+  //   );
+  //
+  // }
 
 }
 // --------------------
 ///
-void _onClearAttachments({
+Future<void> _onAddImageToPoster({
+  @required BuildContext context,
+  @required ValueNotifier<NoteModel> note,
+  @required PosterType posterType,
+}) async {
+
+  // final FileModel _fileModel = await Imagers.pickAndCropSingleImage(
+  //   context: context,
+  //   cropAfterPick: true,
+  //   aspectRatio: NotePosterBox.getAspectRatio(),
+  //   resizeToWidth: Standards.noteAttachmentWidthPixels,
+  // );
+  //
+  // // final ImageSize _picSize = await ImageSize.superImageSize(_pic);
+  // // final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(
+  // //   width: NoteCard.bodyWidth(context),
+  // //   graphicWidth: _picSize.width,
+  // //   graphicHeight: _picSize.height,
+  // // );
+  //
+  // if (_fileModel != null){
+  //   note.value = note.value.copyWith(
+  //     poster: PosterModel(
+  //       type: posterType,
+  //       id: _fileModel.file.fileNameWithExtension,
+  //       url: null,
+  //     ),
+  //
+  //   );
+  // }
+
+}
+// --------------------
+///
+void _onClearPoster({
   @required ValueNotifier<NoteModel> note,
 }){
 
   final NoteModel _note = note.value.nullifyField(
-    attachment: true,
+    poster: true,
   );
 
-  note.value = _note.copyWith(
-    attachmentType: NoteAttachmentType.non,
-  );
+  note.value = _note;
 
 }
 // -----------------------------------------------------------------------------
@@ -785,26 +780,15 @@ Future<void> onSendNote({
 
       unawaited(WaitDialog.showWaitDialog(context: context));
 
-      await _modifyAttachmentIfFile(
+      await _modifyPosterIfFile(
         context: context,
         note: note,
       );
 
-      final NoteModel _finalNoteModel = note.value.copyWith(
-        sentTime: DateTime.now(),
-      );
-
-      final List<NoteModel> _uploadedNotes = await NoteFireOps.createNotes(
+      await NoteProtocols.compose(
         context: context,
-        noteModel: _finalNoteModel,
-        receiversIDs: receiversIDs.value,
+        note: note.value,
       );
-
-      /// TASK : SHOULD VISIT THIS onSendNoteOps thing
-      /// MAYBE SAVE A REFERENCE OF THIS NOTE ID SOMEWHERE ON SUB DOC OF BZ
-      /// TO BE EASY TO TRACE AND DELETE WHILE IN DELETE BZ OPS
-
-      await NoteLDBOps.insertNotes(_uploadedNotes);
 
       // _clearNote(
       //   context: context,
@@ -843,31 +827,31 @@ Future<void> onSendNote({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _modifyAttachmentIfFile({
+
+Future<void> _modifyPosterIfFile({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
 }) async {
 
-  if (note != null && ObjectCheck.objectIsFile(note.value.attachment) == true){
-
-    final String _id = '${Numeric.createUniqueID()}';
-
-    final String _url = await Storage.createStoragePicAndGetURL(
-      context: context,
-      inputFile: note.value.attachment,
-      fileName: _id,
-      docName: StorageDoc.notesBanners,
-      ownersIDs: _concludeImageOwnersIDs(note.value),
-    );
-
-    if (_url != null){
-      note.value = note.value.copyWith(
-        attachment: _url,
-      );
-    }
-
-  }
+  // if (note != null && ObjectCheck.objectIsFile(note.value.model) == true){
+  //
+  //   final String _id = '${Numeric.createUniqueID()}';
+  //
+  //   final String _url = await Storage.createStoragePicAndGetURL(
+  //     context: context,
+  //     inputFile: note.value.model,
+  //     fileName: _id,
+  //     docName: StorageDoc.notesBanners,
+  //     ownersIDs: _concludeImageOwnersIDs(note.value),
+  //   );
+  //
+  //   if (_url != null){
+  //     note.value = note.value.copyWith(
+  //       model: _url,
+  //     );
+  //   }
+  //
+  // }
 
 }
 // --------------------
@@ -932,34 +916,10 @@ Future<void> onDeleteNote({
     );
     loading.value = true;
 
-    /// DELETE ATTACHMENT IF IMAGE
-    if (noteModel.attachmentType == NoteAttachmentType.image){
-
-      final String _picName = await Storage.getImageNameByURL(
-        context: context,
-        url: noteModel.attachment,
-      );
-
-      await Storage.deleteStoragePic(
-        context: context,
-        storageDocName: StorageDoc.notesBanners,
-        fileName: _picName,
-      );
-
-    }
-
-    /// DELETE ON FIRESTORE
-    await NoteFireOps.deleteNote(
+    await NoteProtocols.wipe(
       context: context,
-      noteID: noteModel.id,
+      note: noteModel,
     );
-
-    /// DELETE LOCALLY
-    // final List<NoteModel> _newList = NoteModel.removeNoteFromNotes(
-    //   notes: notes.value,
-    //   noteModel: noteModel,
-    // );
-    // notes.value = _newList;
 
     loading.value = false;
 

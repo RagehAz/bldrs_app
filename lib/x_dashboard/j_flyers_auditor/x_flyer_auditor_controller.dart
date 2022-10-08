@@ -1,22 +1,24 @@
 import 'dart:async';
+
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/x_note_gen.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/j_flyers_auditor/components/auditor_button.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -223,42 +225,22 @@ Future<void> onAuditFlyer({
   blog('should audit flyer');
 }
 // --------------------
+
 Future<void> _sendFlyerVerificationUpdateNote({
   @required BuildContext context,
   @required String flyerID,
   @required String bzID,
 }) async {
 
-  final NoteModel _note = NoteModel(
-    id: 'x',
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: bzID,
-    receiverType: NoteSenderOrRecieverType.bz,
-    title: 'Flyer has been verified',
-    body: 'This Flyer is now public to be seen and searched by all users',
-    metaData: NoteModel.defaultMetaData,
-    sentTime: DateTime.now(),
-    attachment: <String>[flyerID],
-    attachmentType: NoteAttachmentType.flyer,
-    seen: false,
-    seenTime: null,
-    sendFCM: true,
-    type: NoteType.flyerUpdate,
-    response: null,
-    responseTime: null,
-    buttons: null,
-    token: null,
-    topic: NoteModel.generateTopic(
-      topicType: TopicType.flyerVerification,
-      id: bzID,
-    ),
+  final NoteModel _note = await NoteGen.flyerVerifiedToBz(
+    context: context,
+    flyerID: flyerID,
+    bzID: bzID,
   );
 
-  await NoteFireOps.createNote(
+  await NoteProtocols.compose(
       context: context,
-      noteModel: _note
+      note: _note
   );
 
 }

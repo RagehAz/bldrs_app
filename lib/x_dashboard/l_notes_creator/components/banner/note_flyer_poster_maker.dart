@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyer_deck.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_banner_box.dart';
+import 'package:bldrs/b_views/z_components/notes/banner/note_poster_box.dart';
 import 'package:flutter/material.dart';
 
-class NoteFlyerBannerMaker extends StatelessWidget {
+class NoteFlyerPosterMaker extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const NoteFlyerBannerMaker({
+  const NoteFlyerPosterMaker({
     @required this.width,
     @required this.flyerModel,
     @required this.flyerBzModel,
@@ -20,7 +20,7 @@ class NoteFlyerBannerMaker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return NoteBannerBox(
+    return NotePosterBox(
       width: width,
       child:
       // WidgetFader(
@@ -35,7 +35,7 @@ class NoteFlyerBannerMaker extends StatelessWidget {
             FlyerDeck(
             bzModel: flyerBzModel,
             maxPossibleWidth: width,
-            deckHeight: NoteBannerBox.getClearHeight(width),
+            deckHeight: NotePosterBox.getClearHeight(width),
             flyerModel: flyerModel,
             expansion: 0.5,
             minSlideHeightFactor: 0.85,

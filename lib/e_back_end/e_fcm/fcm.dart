@@ -5,7 +5,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/channels.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';

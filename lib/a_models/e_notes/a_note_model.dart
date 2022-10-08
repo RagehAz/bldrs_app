@@ -1,48 +1,20 @@
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-/// should be re-named and properly handled to become { triggers / function triggers }
-enum NoteType {
-  /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
-  authorship,
-  /// WHEN BLDRS.NET SENDS A USER SOME NEWS
-  notice,
-  /// WHEN FLYER UPDATES ON DB AND NEED TO ACTIVATE [ LOCAL FLYER UPDATE PROTOCOL ]
-  flyerUpdate,
-  /// WHEN A MASTER AUTHOR DELETES BZ, A NOTE IS SENT TO ALL AUTHORS
-  bzDeletion,
-}
 
-enum NoteAttachmentType {
-  non,
-  flyer,
-  bz,
-  image,
-}
 
 enum NoteSenderOrRecieverType {
   bldrs,
   user,
-  // author,
   bz,
   country,
-}
-
-// enum NoteReceiverType {
-//   user,
-//   bz,
-// }
-
-enum NoteResponse{
-  accepted, /// when receiver accepted
-  declined, /// when receiver declines invitation
-  pending, /// when receiver has not yet responded
-  cancelled, /// when sender cancels invitation
 }
 
 enum DuplicatesAlgorithm {
@@ -65,17 +37,13 @@ class NoteModel {
     @required this.body,
     @required this.metaData,
     @required this.sentTime,
-    @required this.attachment,
-    @required this.attachmentType,
-    @required this.seen,
-    @required this.seenTime,
+    @required this.poster,
+    @required this.poll,
     @required this.sendFCM,
-    @required this.type,
-    @required this.response,
-    @required this.responseTime,
-    @required this.buttons,
     @required this.token,
     @required this.topic,
+    @required this.trigger,
+    @required this.seen,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -88,18 +56,14 @@ class NoteModel {
   final String title; /// max 30 char
   final String body; /// max 80 char
   final Map<String, dynamic> metaData;
-  final DateTime sentTime; /// TASK : CREATE NEW FIREBASE QUERY INDEX
-  final dynamic attachment;
-  final NoteAttachmentType attachmentType;
-  final bool seen; /// TASK : CREATE NEW FIREBASE QUERY INDEX
-  final DateTime seenTime;
+  final DateTime sentTime;
+  final PosterModel poster;
+  final PollModel poll;
   final bool sendFCM;
-  final NoteType type;
-  final NoteResponse response;
-  final DateTime responseTime;
-  final List<String> buttons;
   final String token;
   final String topic;
+  final TriggerModel trigger;
+  final bool seen;
   final QueryDocumentSnapshot<Object> docSnapshot;
   // -----------------------------------------------------------------------------
 
@@ -122,11 +86,6 @@ class NoteModel {
     'status': fcmStatus,
     'screen': '',
   };
-  // --------------------
-  static const List<String> noteButtonsList = <String>[
-    'phid_accept',
-    'phid_decline',
-  ];
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -144,17 +103,13 @@ class NoteModel {
     String body,
     Map<String, dynamic> metaData,
     DateTime sentTime,
-    dynamic attachment,
-    NoteAttachmentType attachmentType,
-    bool seen,
-    DateTime seenTime,
+    PosterModel poster,
+    PollModel poll,
     bool sendFCM,
-    NoteType type,
-    NoteResponse response,
-    DateTime responseTime,
-    List<String> buttons,
     String token,
     String topic,
+    TriggerModel trigger,
+    bool seen,
   }){
     return NoteModel(
       id: id ?? this.id,
@@ -167,17 +122,13 @@ class NoteModel {
       body: body ?? this.body,
       metaData: metaData ?? this.metaData,
       sentTime: sentTime ?? this.sentTime,
-      attachment: attachment ?? this.attachment,
-      attachmentType: attachmentType ?? this.attachmentType,
-      seen: seen ?? this.seen,
-      seenTime: seenTime ?? this.seenTime,
+      poster: poster ?? this.poster,
       sendFCM: sendFCM ?? this.sendFCM,
-      type: type ?? this.type,
-      response: response ?? this.response,
-      responseTime: responseTime ?? this.responseTime,
-      buttons: buttons ?? this.buttons,
+      poll: poll ?? this.poll,
       token: token ?? this.token,
       topic: topic ?? this.topic,
+      trigger: trigger ?? this.trigger,
+      seen: seen ?? this.seen,
     );
   }
   // --------------------
@@ -192,18 +143,14 @@ class NoteModel {
     bool body = false,
     bool metaData = false,
     bool sentTime = false,
-    bool attachment = false,
-    bool attachmentType = false,
-    bool seen = false,
-    bool seenTime = false,
+    bool poster = false,
+    bool poll = false,
     bool sendFCM = false,
-    bool type = false,
-    bool response = false,
-    bool responseTime = false,
-    bool buttons = false,
     bool token = false,
     bool topic = false,
-}){
+    bool trigger = false,
+    bool seen = false,
+  }){
     return NoteModel(
       id: id == true ? null : this.id,
       senderID: senderID == true ? null : this.senderID,
@@ -215,17 +162,13 @@ class NoteModel {
       body: body == true ? null : this.body,
       metaData: metaData == true ? null : this.metaData,
       sentTime: sentTime == true ? null : this.sentTime,
-      attachment: attachment == true ? null : this.attachment,
-      attachmentType: attachmentType == true ? null : this.attachmentType,
-      seen: seen == true ? null : this.seen,
-      seenTime: seenTime == true ? null : this.seenTime,
+      poster: poster == true ? null : this.poster,
       sendFCM: sendFCM == true ? null : this.sendFCM,
-      type: type == true ? null : this.type,
-      response: response == true ? null : this.response,
-      responseTime: responseTime == true ? null : this.responseTime,
-      buttons: buttons == true ? null : this.buttons,
+      poll: poll == true ? null : this.poll,
       token: token == true ? null : this.token,
       topic: topic == true ? null : this.topic,
+      trigger: trigger == true ? null : this.trigger,
+      seen: seen == true ? null : this.seen,
     );
   }
   // -----------------------------------------------------------------------------
@@ -244,20 +187,15 @@ class NoteModel {
       'senderType': cipherNoteSenderOrRecieverType(senderType),
       'receiverID': receiverID,
       'receiverType' : cipherNoteSenderOrRecieverType(receiverType),
-      /// {notification: {body: Bldrs.net is super Awesome, title: Bldrs.net}, data: {}}
       'notification': _cipherNotificationField(),
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
-      'attachment': attachment,
-      'attachmentType': cipherNoteAttachmentType(attachmentType),
-      'seen': seen,
-      'seenTime': Timers.cipherTime(time: seenTime, toJSON: toJSON),
+      'poster': poster.toMap(),
+      'poll': poll.toMap(toJSON: toJSON),
       'sendFCM': sendFCM,
-      'type': cipherNoteType(type),
-      'response': cipherResponse(response),
-      'responseTime': Timers.cipherTime(time: responseTime, toJSON: toJSON),
-      'buttons': buttons,
       'token': token,
       'topic': topic,
+      'trigger': trigger?.toMap(),
+      'seen': seen,
     };
   }
   // --------------------
@@ -300,8 +238,6 @@ class NoteModel {
 
     if (map != null) {
 
-      final NoteAttachmentType _attachmentType = decipherNoteAttachmentType(map['attachmentType']);
-
       _noti = NoteModel(
         id: map['id'],
         senderID: map['senderID'],
@@ -316,31 +252,19 @@ class NoteModel {
           time: map['sentTime'],
           fromJSON: fromJSON,
         ),
-        attachment: decipherNoteAttachment(
-          attachmentType: _attachmentType,
-          attachment: map['attachment'],
-        ),
-        attachmentType: _attachmentType,
-        seen: map['seen'],
-        seenTime: Timers.decipherTime(
-          time: map['seenTime'],
-          fromJSON: fromJSON,
-        ),
+        poster: PosterModel.decipher(map['poster']),
         sendFCM: map['sendFCM'],
-        type: decipherNoteType(map['type']),
-        response: decipherResponse(map['response']),
-        responseTime: Timers.decipherTime(
-          time: map['responseTime'],
+        poll: PollModel.decipherPoll(
+          map: map['poll'],
           fromJSON: fromJSON,
         ),
-        buttons: Stringer.getStringsFromDynamics(dynamics: map['buttons']),
         token: map['token'],
         topic: map['topic'],
+        trigger: TriggerModel.decipherTrigger(map['trigger']),
+        seen: map['seen'],
         docSnapshot: map['docSnapshot'],
       );
     }
-
-    // _noti.blogNotiModel(methodName: 'decipherNotiModel');
 
     return _noti;
   }
@@ -423,6 +347,7 @@ class NoteModel {
   /// NOTE TYPE CYPHERS
 
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static String cipherNoteType(NoteType noteType){
     switch(noteType){
@@ -452,73 +377,10 @@ class NoteModel {
     NoteType.flyerUpdate,
     NoteType.bzDeletion,
   ];
+   */
   // -----------------------------------------------------------------------------
 
-  /// ATTACHMENT TYPE CYPHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static dynamic decipherNoteAttachment({
-    @required NoteAttachmentType attachmentType,
-    @required dynamic attachment,
-  }){
-
-    dynamic _output;
-
-    /// non     : data type : null
-    if (attachmentType == NoteAttachmentType.non){
-      // output is null
-    }
-    /// flyers  : data type : List<String> flyersIDs
-    else if (
-    attachmentType == NoteAttachmentType.flyer
-    ){
-      final List<String> _strings = Stringer.getStringsFromDynamics(
-        dynamics: attachment,
-      );
-      _output = _strings;
-    }
-    /// banner  : data type : String imageURL
-    /// bz      : data type : String bzID
-    else {
-      _output = attachment;
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static NoteAttachmentType decipherNoteAttachmentType(String attachmentType) {
-    switch (attachmentType) {
-      case 'non':       return NoteAttachmentType.non;        break;
-      case 'flyer':     return NoteAttachmentType.flyer;      break;
-      case 'bz':        return NoteAttachmentType.bz;       break;
-      case 'image':     return NoteAttachmentType.image;      break;
-      default:          return NoteAttachmentType.non;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String cipherNoteAttachmentType(NoteAttachmentType attachmentType) {
-    switch (attachmentType) {
-      case NoteAttachmentType.non:          return 'non';       break; /// data type : null
-      case NoteAttachmentType.flyer:        return 'flyer';     break; /// data type : List<String> flyersIDs
-      case NoteAttachmentType.image:        return 'image';     break; /// data type : String imageURL
-      case NoteAttachmentType.bz:           return 'bz';        break; /// data type : String bzID
-      default:return 'non';
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const List<NoteAttachmentType> noteAttachmentTypesList = <NoteAttachmentType>[
-    NoteAttachmentType.non,
-    NoteAttachmentType.flyer,
-    NoteAttachmentType.image,
-    NoteAttachmentType.bz,
-  ];
-  // -----------------------------------------------------------------------------
-
-  /// NOTE SENDER TYPE CYPHERS
+  /// NOTE SENDER - RECEIVER TYPE CYPHERS
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -553,91 +415,13 @@ class NoteModel {
     NoteSenderOrRecieverType.country,
     NoteSenderOrRecieverType.bldrs,
   ];
-  // -----------------------------------------------------------------------------
-
-  /// NOTE SENDER TYPE CYPHERS
-
-  // --------------------
-  /*
-  /// TESTED : WORKS PERFECT
-  static String cipherNoteReceiverType(NoteReceiverType type){
-    switch (type) {
-      case NoteReceiverType.bz:           return 'bz';      break; /// data type : String bzID
-      case NoteReceiverType.user:         return 'user';    break; /// data type : String userID
-      default: return null;
-    }
-  }
-   */
-  // --------------------
-  /*
-  /// TESTED : WORKS PERFECT
-  static NoteReceiverType decipherNoteReceiverType(String type){
-    switch (type) {
-      case 'user':    return NoteReceiverType.user;     break;
-      case 'bz':      return NoteReceiverType.bz;       break;
-      default:        return null;
-    }
-  }
-   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static const List<NoteSenderOrRecieverType> noteReceiverTypesList = <NoteSenderOrRecieverType>[
     NoteSenderOrRecieverType.bz,
     NoteSenderOrRecieverType.user,
   ];
-// -----------------------------------------------------------------------------
-
-  /// RESPONSE CYPHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String cipherResponse(NoteResponse response){
-    switch (response){
-      case NoteResponse.accepted:   return 'accepted';  break;
-      case NoteResponse.declined:   return 'declines';  break;
-      case NoteResponse.pending:    return 'pending';   break;
-      case NoteResponse.cancelled:  return 'cancelled'; break;
-      default: return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static NoteResponse decipherResponse(String response){
-    switch (response){
-      case 'accepted':    return NoteResponse.accepted;   break;
-      case 'declines':    return NoteResponse.declined;   break;
-      case 'pending':     return NoteResponse.pending;    break;
-      case 'cancelled':   return NoteResponse.cancelled;  break;
-      default: return null;
-    }
-  }
-  // --------------------
-  static NoteResponse getNoteResponseByPhid(String phid){
-    switch (phid){
-      case 'phid_accept':     return NoteResponse.accepted;   break;
-      case 'phid_decline':    return NoteResponse.declined;   break;
-      case 'phid_pending':    return NoteResponse.pending;    break;
-      case 'phid_cancel':     return NoteResponse.cancelled;  break;
-      default: return null;
-    }
-  }
-  // --------------------
-  static String getPhidByResponse(NoteResponse response){
-    switch (response){
-      case NoteResponse.accepted:   return 'phid_accept'; break;
-      case NoteResponse.declined:   return 'phid_decline'; break;
-      case NoteResponse.pending:    return 'phid_pending'; break;
-      case NoteResponse.cancelled:  return 'phid_cancel'; break;
-      default: return null;
-    }
-  }
-  // --------------------
-  static List<String> generateAcceptDeclineButtons(){
-    final String accept = getPhidByResponse(NoteResponse.accepted);
-    final String decline = getPhidByResponse(NoteResponse.declined);
-    return <String>[accept, decline];
-  }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
@@ -656,19 +440,15 @@ class NoteModel {
     blog('receiverType : $receiverType');
     blog('title : $title');
     blog('body : $body');
-    blog('metaData : $metaData');
     blog('sentTime : $sentTime');
-    blog('attachment : ${attachment?.toString()}');
-    blog('attachmentType : $attachmentType');
-    blog('seen : $seen');
-    blog('seenTime : $seenTime');
     blog('sendFCM : $sendFCM');
-    blog('type : $type');
-    blog('response : $response');
-    blog('responseTime : $responseTime');
-    blog('buttons : ${buttons?.toString()}');
     blog('token: $token');
     blog('topic: $topic');
+    blog('seen: $seen');
+    poster?.blogPoster();
+    poll?.blogPoll();
+    trigger?.blogTrigger();
+    Mapper.blogMap(metaData, invoker: 'blogNoteModel');
     blog('docSnapshot : $docSnapshot');
 
     blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
@@ -739,15 +519,121 @@ class NoteModel {
     return _output;
   }
   // --------------------
-  static int getNumberOfUnseenNotes(List<NoteModel> notes){
-    int _count;
+  static List<NoteModel> getNotesByReceiverID({
+    @required List<NoteModel> notes,
+    @required String receiverID,
+  }){
+    final List<NoteModel> _notes = <NoteModel>[];
+
     if (Mapper.checkCanLoopList(notes) == true){
-      final List<NoteModel> _unSeens = notes.where((note) => note.seen != true).toList();
-      _count = _unSeens.length;
+
+      final List<NoteModel> _found = notes.where((note){
+
+        return note.receiverID == receiverID;
+      }).toList();
+
+      if (Mapper.checkCanLoopList(_found) == true){
+        _notes.addAll(_found);
+      }
+
     }
+
+    return _notes;
+  }
+  // --------------------
+  ///
+  static List<NoteModel> getNotesContainingTrigger({
+    @required List<NoteModel> notes,
+    @required String triggerFunctionName,
+  }){
+    final List<NoteModel> _output = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+
+        if (note.trigger?.functionName == triggerFunctionName){
+          _output.add(note);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UNSEEN GETTERS
+
+  // --------------------
+  ///
+  static int getNumberOfUnseenNotes(List<NoteModel> notes){
+    int _count = 0;
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+        if (note.seen == false){
+          _count++;
+        }
+      }
+
+    }
+
     return _count;
   }
   // --------------------
+  ///
+  static List<NoteModel> getUnseenNotesByReceiverID({
+    @required List<NoteModel> notes,
+    @required String receiverID,
+  }){
+    final List<NoteModel> _notes = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+
+        if(note.receiverID == receiverID){
+          if (note.seen == false){
+            _notes.add(note);
+          }
+        }
+
+      }
+
+    }
+
+    return _notes;
+  }
+  // --------------------
+  ///
+  static List<NoteModel> getOnlyUnseenNotes({
+    @required List<NoteModel> notes,
+  }){
+    final List<NoteModel> _output = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      for (final NoteModel note in notes){
+
+        if (note.seen == false){
+          _output.add(note);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MISSING FIELDS GETTERS
+
+  // --------------------
+  ///
   static List<String> getMissingNoteFields({
     @required NoteModel note,
     /// if consider all fields is false, this will get only fields required to send a note
@@ -775,6 +661,10 @@ class NoteModel {
         _missingFields.add('receiverID');
       }
 
+      if (note.receiverType == null){
+        _missingFields.add('receiverType');
+      }
+
       if (TextCheck.isEmpty(note.title) == true){
         _missingFields.add('title');
       }
@@ -791,9 +681,10 @@ class NoteModel {
         _missingFields.add('sendFCM');
       }
 
-      if (note.type == null){
-        _missingFields.add('type');
+      if (note.seen == null){
+        _missingFields.add('seen');
       }
+
 
       /// IF NOT ONLY ESSENTIAL FIELDS REQUIRED TO SEND A NOTE ARE TO BE CONSIDERED
       if (considerAllFields == true){
@@ -806,32 +697,20 @@ class NoteModel {
           _missingFields.add('id');
         }
 
-        if (note.attachment == null){
-          _missingFields.add('attachment');
+        if (note.poster == null){
+          _missingFields.add('poster');
         }
 
-        if (note.attachmentType == null){
-          _missingFields.add('attachmentType');
+        if (note.trigger == null){
+          _missingFields.add('trigger');
         }
 
-        if (note.seen == null){
-          _missingFields.add('seen');
+        if (note.poll == null){
+          _missingFields.add('poll');
         }
 
-        if (note.seenTime == null){
-          _missingFields.add('seenTime');
-        }
-
-        if (note.response == null){
-          _missingFields.add('response');
-        }
-
-        if (note.responseTime == null){
-          _missingFields.add('responseTime');
-        }
-
-        if (note.buttons == null){
-          _missingFields.add('buttons');
+        if (note.token == null){
+          _missingFields.add('token');
         }
 
         if (note.topic == null){
@@ -844,97 +723,12 @@ class NoteModel {
 
     return _missingFields;
   }
-  // --------------------
-  static List<NoteModel> getUnseenNotesByReceiverID({
-    @required List<NoteModel> notes,
-    @required String receiverID,
-  }){
-    final List<NoteModel> _notes = <NoteModel>[];
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      final List<NoteModel> _found = notes.where((note){
-
-        return note.receiverID == receiverID && note.seen == false;
-      }).toList();
-
-      if (Mapper.checkCanLoopList(_found) == true){
-        _notes.addAll(_found);
-      }
-
-    }
-
-    return _notes;
-  }
-  // --------------------
-  static List<NoteModel> getNotesByReceiverID({
-    @required List<NoteModel> notes,
-    @required String receiverID,
-  }){
-    final List<NoteModel> _notes = <NoteModel>[];
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      final List<NoteModel> _found = notes.where((note){
-
-        return note.receiverID == receiverID;
-      }).toList();
-
-      if (Mapper.checkCanLoopList(_found) == true){
-        _notes.addAll(_found);
-      }
-
-    }
-
-    return _notes;
-  }
-  // --------------------
-  static List<NoteModel> getOnlyUnseenNotes({
-    @required List<NoteModel> notes,
-  }){
-
-    final List<NoteModel> _output = <NoteModel>[];
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      for (final NoteModel note in notes){
-        if (note.seen != true){
-          _output.add(note);
-        }
-      }
-
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<NoteModel> getNotesFromNotesByNoteType({
-    @required List<NoteModel> notes,
-    @required NoteType noteType,
-  }){
-    final List<NoteModel> _output = <NoteModel>[];
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      for (final NoteModel note in notes){
-
-        if (note.type == noteType){
-          _output.add(note);
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
   // --------------------
+  ///
   static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     bool _thereAreUnseenNotes = false;
 
@@ -942,7 +736,7 @@ class NoteModel {
 
       for (final NoteModel note in notes){
 
-        if (note.seen != true){
+        if (note.seen == false){
           _thereAreUnseenNotes = true;
           break;
         }
@@ -954,34 +748,30 @@ class NoteModel {
     return _thereAreUnseenNotes;
   }
   // --------------------
-  static bool checkIsUnSeen(NoteModel note){
-    return note?.seen == false;
-  }
-  // --------------------
+  ///
   static bool checkCanSendNote(NoteModel noteModel){
     bool _canSend = false;
 
     if (noteModel != null){
 
       if (
-      // noteModel.id != null &&
-      noteModel.senderID != null &&
+          // noteModel.id != null &&
+          noteModel.senderID != null &&
           noteModel.senderImageURL != null &&
           noteModel.senderType != null &&
           noteModel.receiverID != null &&
+          noteModel.receiverType != null &&
           noteModel.title != null &&
           noteModel.body != null &&
           noteModel.metaData != null &&
           // noteModel.sentTime != null &&
-          // noteModel.attachment != null &&
-          // noteModel.attachmentType != null &&
+          // noteModel.poster != null &&
+          // noteModel.poll != null &&
+          // noteModel.token != null &&
+          // noteModel.topic != null &&
+          // noteModel.trigger != null &&
           // noteModel.seen != null &&
-          // noteModel.seenTime != null &&
-          noteModel.sendFCM != null &&
-          noteModel.type != null
-      // && noteModel.response != null &&
-      // noteModel.responseTime != null &&
-      // noteModel.buttons != null
+          noteModel.sendFCM != null
       ){
         _canSend = true;
       }
@@ -998,7 +788,11 @@ class NoteModel {
   }){
     bool _areIdentical = false;
 
-    if (note1 != null && note2 != null){
+    if (note1 == null && note2 == null){
+      _areIdentical = true;
+    }
+
+    else if (note1 != null && note2 != null){
 
       if (
           note1.id == note2.id &&
@@ -1011,17 +805,13 @@ class NoteModel {
           note1.body == note2.body &&
           Mapper.checkMapsAreIdentical(map1: note1.metaData, map2: note2.metaData) == true &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
-          note1.attachment == note2.attachment &&
-          note1.attachmentType == note2.attachmentType &&
-          note1.seen == note2.seen &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.seenTime, time2: note2.seenTime) &&
+          PosterModel.checkPostersAreIdentical(poster1: note1.poster, poster2: note2.poster) &&
+          PollModel.checkPollsAreIdentical(poll1: note1.poll, poll2: note2.poll) &&
           note1.sendFCM == note2.sendFCM &&
-          note1.type == note2.type &&
-          note1.response == note2.response &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
-          Mapper.checkListsAreIdentical(list1: note1.buttons, list2: note2.buttons) &&
           note1.token == note2.token &&
-          note1.topic == note2.topic
+          note1.topic == note2.topic &&
+          TriggerModel.checkTriggersAreIdentical(note1.trigger, note2.trigger) &&
+          note1.seen == note2.seen
       ){
         _areIdentical = true;
       }
@@ -1153,7 +943,6 @@ class NoteModel {
     @required NoteModel note,
     @required DuplicatesAlgorithm duplicatesAlgorithm,
   }){
-
     final List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
     final bool _contains = checkNotesContainNote(
@@ -1218,6 +1007,7 @@ class NoteModel {
     return _output;
   }
   // --------------------
+  ///
   static List<NoteModel> orderNotesBySentTime(List<NoteModel> notes){
     if (Mapper.checkCanLoopList(notes) == true){
       notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
@@ -1225,6 +1015,7 @@ class NoteModel {
     return notes;
   }
   // --------------------
+  ///
   static Map<String, List<NoteModel>> updateNoteInBzzNotesMap({
     @required NoteModel note,
     @required Map<String, List<NoteModel>> bzzNotesMap,
@@ -1265,6 +1056,7 @@ class NoteModel {
     return _output ?? bzzNotesMap;
   }
   // --------------------
+  ///
   static List<NoteModel> replaceNoteInNotes({
     @required List<NoteModel> notes,
     @required NoteModel noteToReplace,
@@ -1287,6 +1079,7 @@ class NoteModel {
     return _output;
   }
   // --------------------
+  ///
   static Map<String, List<NoteModel>> removeNoteFromBzzNotesMap({
     @required String noteID,
     @required Map<String, List<NoteModel>> bzzNotesMap
@@ -1345,17 +1138,13 @@ class NoteModel {
       body: 'body',
       metaData: defaultMetaData,
       sentTime: DateTime.now(),
-      attachment: null,
-      attachmentType: NoteAttachmentType.non,
-      seen: false,
-      seenTime: null,
+      poster: null,
+      trigger: null,
       sendFCM: true,
-      type: NoteType.notice,
-      response: null,
-      responseTime: null,
-      buttons: null,
+      poll: PollModel.dummyPoll(),
       token: null,
       topic: null,
+      seen: false,
     );
   }
   // --------------------
@@ -1379,7 +1168,6 @@ class NoteModel {
       receiverID: userID,
       title: title,
       body: body,
-
       id: 'x',
       senderID: bldrsSenderID,
       senderImageURL: bldrsLogoStaticURL,
@@ -1387,17 +1175,13 @@ class NoteModel {
       receiverType: NoteSenderOrRecieverType.user,
       metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      attachment: null,
-      attachmentType: NoteAttachmentType.non,
-      seen: false,
-      seenTime: null,
+      poster: null,
       sendFCM: true,
-      type: NoteType.notice,
-      response: null,
-      responseTime: null,
-      buttons: null,
+      poll: null,
+      trigger: null,
       token: 'will be auto adjusted on NoteFireOps.create.adjustToken',
       topic: null,
+      seen: false,
     );
   }
   // -----------------------------------------------------------------------------
@@ -1428,6 +1212,7 @@ class NoteModel {
   /// VALIDATION
 
   // --------------------
+  /*
   static String receiverVsNoteTypeValidator({
     @required NoteSenderOrRecieverType receiverType,
     @required NoteType noteType,
@@ -1456,7 +1241,9 @@ class NoteModel {
     }
 
   }
+   */
   // --------------------
+  /*
   static String senderVsNoteTypeValidator({
     @required NoteSenderOrRecieverType senderType,
     @required NoteType noteType,
@@ -1512,6 +1299,7 @@ class NoteModel {
     }
 
   }
+   */
   // --------------------
   static String receiverVsSenderValidator({
     @required NoteSenderOrRecieverType senderType,
@@ -1590,22 +1378,18 @@ class NoteModel {
       body.hashCode^
       metaData.hashCode^
       sentTime.hashCode^
-      attachment.hashCode^
-      attachmentType.hashCode^
-      seen.hashCode^
-      seenTime.hashCode^
+      poster.hashCode^
+      poll.hashCode^
       sendFCM.hashCode^
-      type.hashCode^
-      response.hashCode^
-      responseTime.hashCode^
-      buttons.hashCode^
       token.hashCode^
       topic.hashCode^
+      trigger.hashCode^
+      seen.hashCode^
       docSnapshot.hashCode;
   // -----------------------------------------------------------------------------
 }
 
-///
+// -----------------------------------------------------------------------------
 enum TopicType {
   /// authors notified on their any new flyer getting verified
   flyerVerification, // 'flyerVerification/bzID/'
@@ -1625,7 +1409,7 @@ enum TopicType {
   /// authors notified on this general topic for general bz related notes
   generalBzNotes, // 'generalBzNotes/bzID/'
 }
-
+// -----------------------------------------------------------------------------
 /*
 
 WHEN DO WE HAVE NOTIFICATIONS
@@ -1649,3 +1433,18 @@ WHEN DO WE HAVE NOTIFICATIONS
     -----> my bz is deleted
 
  */
+// -----------------------------------------------------------------------------
+/*
+// /// should be re-named and properly handled to become { triggers / function triggers }
+// enum NoteType {
+//   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
+//   authorship,
+//   /// WHEN BLDRS.NET SENDS A USER SOME NEWS
+//   notice,
+//   /// WHEN FLYER UPDATES ON DB AND NEED TO ACTIVATE [ LOCAL FLYER UPDATE PROTOCOL ]
+//   flyerUpdate,
+//   /// WHEN A MASTER AUTHOR DELETES BZ, A NOTE IS SENT TO ALL AUTHORS
+//   bzDeletion,
+// }
+ */
+// -----------------------------------------------------------------------------

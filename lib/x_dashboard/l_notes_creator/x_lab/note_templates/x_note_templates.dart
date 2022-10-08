@@ -1,10 +1,11 @@
-import 'package:bldrs/a_models/e_notes/note_model.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 
 const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 28 days reminder
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -12,19 +13,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger:null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'buildSomething',
     title: 'Build Something',
     body: 'Bldrs.net',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -38,6 +34,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 35 days reminder
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -45,19 +42,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
+    poster: null,
     /// variables
     id: 'createSomethingNew',
     title: 'Create Something new',
     body: 'Bldrs.net',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
     token: null,
     topic: null,
     /// pseudo
@@ -71,6 +63,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 42 days reminder
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -78,19 +71,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'planYourFuture',
     title: 'Plan your future',
     body: 'Collect as many flyers as you can NOW, so when you start, You are ready. 👌',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -104,6 +92,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 7 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -111,19 +100,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'youDidNotSee',
     title: 'Come and See',
     body: '👁️ You did not see what lies inside Bldrs.net',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -137,6 +121,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 14 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -144,19 +129,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'rememberYourOptions',
     title: 'Consider your Options',
     body: '🔺 Bldrs.net is your RealEstate, Construction & Supplies search engine.',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -170,6 +150,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// city went public
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.country,
@@ -177,19 +158,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'cityWentPublic',
     title: '#CityName Builders went public.',
     body: '📢 Bldrs businesses have been posting for some time, and now all their work is LIVE !',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -203,6 +179,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// after user feedback
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -210,19 +187,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'feedbackAutoReply',
     title: 'Thank you',
     body: 'Thank you for taking part in building Bldrs.net, Your feedback is currently being reviewed.',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -236,6 +208,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// feedback bldrs reply
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -243,19 +216,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'bldrsFeedbackReply',
     title: 'Bldrs.net team have replied over your feedback',
     body: null,
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -269,6 +237,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// profile status reminder
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -276,19 +245,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'chooseYourCustomerStatus',
     title: 'The Easy way',
     body: 'Builders will assist find your specific needs, just assign your profile status 👌',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -302,6 +266,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// monthly statistics
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -309,19 +274,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'monthlyStatistics',
     title: 'The Community is Growing',
     body: '#numberOfNewBzz new businesses had joined and #numberOfNewFlyers new flyers were published on Bldrs.net Last month',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -335,6 +295,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// new flyer by followed non free bz account (premium - super)
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.bz,
@@ -342,19 +303,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'newFlyerByFollowedPremiumBz',
     title: 'New flyer',
     body: '#{bzModel.name} published a new #{flyer.flyerType.toString()}flyer',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -368,6 +324,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyer review reply
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.bz,
@@ -375,19 +332,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'flyerReviewReply',
     title: '#{bzModel.name} has replied on your review',
     body: null,
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -401,6 +353,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyerReview
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.user,
@@ -408,19 +361,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'flyerReviewed',
     title: '#{userModel.name} wrote a review on your flyer',
     body: null,
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -434,6 +382,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyerReview
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.user,
@@ -441,19 +390,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'flyerSaved',
     title: '#{userModel.name} saved your flyer',
     body: null,
-    attachment: null,
-    attachmentType: NoteAttachmentType.flyer,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -467,6 +411,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyer Shared
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.user,
@@ -474,19 +419,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'flyerShared',
     title: '#{userModel.name} shared your flyer',
     body: null,
-    attachment: null,
-    attachmentType: NoteAttachmentType.flyer,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -500,6 +440,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// user follow
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.user,
@@ -507,19 +448,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'userFollowed',
     title: '#{userModel.name} followed your business page',
     body: '#{userModel.name} will be updated with you activity',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -533,6 +469,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   ///  weekly bz statistics
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -540,12 +477,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger:null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'weeklyBzStatistics',
     title: 'Your weekly stats',
@@ -555,9 +489,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
         '#shares shares\n'
         '#reviews reviews\n'
         '#calls phone calls',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -571,6 +503,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// authorInvitation
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.bz,
@@ -578,19 +511,18 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.authorship,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: PollModel(
+      buttons: PollModel.acceptDeclineButtons,
+      reply: null,
+      replyTime: null,
+    ),
     /// variables
     id: 'authorInvitation',
     title: '#{authorModel.name} invites you',
     body: 'You are invited to become an author of the Bldr account : #{bzModel.name}',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: <String>['phid_accept', 'phid_decline'],
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -604,6 +536,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// author Invitation reply
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.user,
@@ -611,19 +544,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.authorship,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'authorInvitationReply',
     title: '#{userModel.name} Replied on his author invitation',
     body: 'Invitation has been #_reply.',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -637,6 +565,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// author Invitation CC
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.bz,
@@ -644,19 +573,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'authorInvitationCC',
     title: '#{sender.name} invited #{reciever.name}',
     body: 'An invitation has been sent for #{reciever.name} to join the team of #{bzModel.name}',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -670,6 +594,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// country went global
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.country,
@@ -677,19 +602,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'countryWentGlobal',
     title: '#countryName Builders are Global',
     body:'#countryName Business and their flyers are now available world wide to reach',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -703,6 +623,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// section went live
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -710,19 +631,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'sectionWentLive',
     title: 'Section #sectionName is now available',
     body: 'You can now view the businesses publishing flyers in section #sectionName',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -736,6 +652,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// monthly bz statistics
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -743,21 +660,16 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'monthlyBzStatistics',
     title: '#{bzModel.name} statistics for #monthName',
     body: 'on #monthName you have got #followers followers, #calls calls, #saves saves, '
         '#views views, #shares shares while #competitors new businesses specialized in '
         '#{bzModel.bzTypes.toString()} have joined Bldrs.net this month',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -771,6 +683,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// potential customer to bzz
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.user,
@@ -778,19 +691,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'potentialCustomerQuestion',
     title: 'Potential customer',
     body: '#{userModel.name} asked a public question about #keyword in #district, #cityName',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -804,6 +712,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// question reply
   NoteModel(
+    seen: false,
     senderID: null,
     senderImageURL: null,
     senderType: NoteSenderOrRecieverType.bz,
@@ -811,19 +720,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    trigger: null,
+    poll: null,
     /// variables
     id: 'questionReply',
     title: 'You received an answer',
     body: '#{bzModel.name} replied to your question :\n#reply',
-    attachment: null,
-    attachmentType: NoteAttachmentType.non,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo
@@ -837,6 +741,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// welcome to bldrs
   NoteModel(
+    seen: false,
     senderID: NoteModel.bldrsSenderID,
     senderImageURL: NoteModel.bldrsLogoStaticURL,
     senderType: NoteSenderOrRecieverType.bldrs,
@@ -844,19 +749,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
-    seen: false,
-    seenTime: null,
+    trigger: null,
     sendFCM: true,
-    type: NoteType.notice,
-    response: null,
-    responseTime: null,
+    poll: null,
     /// variables
     id: 'welcomeToBldrs',
     title: 'Welcome to Bldrs.net',
     body: 'Find thousands of businesses to help you find and build what you want to build',
-    attachment: Iconz.welcomeToBldrsBanner_22x18,
-    attachmentType: NoteAttachmentType.image,
-    buttons: null,
+    poster: null,
     token: null,
     topic: null,
     /// pseudo

@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
@@ -697,7 +698,7 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> _checkForBzDeletionNoteAndProceed({
   @required BuildContext context,
   @required List<NoteModel> notes,
@@ -714,9 +715,9 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
     // blog('_checkForBzDeletionNoteAndProceed : user is author');
 
-    final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesFromNotesByNoteType(
+    final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesContainingTrigger(
       notes: notes,
-      noteType: NoteType.bzDeletion,
+      triggerFunctionName: TriggerModel.bzDeletion,
     );
 
     if (Mapper.checkCanLoopList(_bzDeletionNotes) == true){
@@ -725,8 +726,8 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
       for (final NoteModel note in _bzDeletionNotes){
 
-        /// in the case of bzDeletion NoteType : attachment is bzID
-        final String _bzID = note.attachment;
+        /// in the case of bzDeletion NoteType : trigger argument is bzID
+        final String _bzID = note.trigger.argument;
 
         final bool _bzIDisInMyBzzIDs = Stringer.checkStringsContainString(
           strings: _userModel.myBzzIDs,
@@ -736,7 +737,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
         if (_bzIDisInMyBzzIDs == true){
           await AuthorProtocols.authorBzExitAfterBzDeletionProtocol(
             context: context,
-            bzID: note.attachment,
+            bzID: _bzID,
           );
         }
 
@@ -903,9 +904,9 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   @required List<NoteModel> newBzNotes,
 }) async {
 
-  final List<NoteModel> _flyerUpdatesNotes = NoteModel.getNotesFromNotesByNoteType(
+  final List<NoteModel> _flyerUpdatesNotes = NoteModel.getNotesContainingTrigger(
     notes: newBzNotes,
-    noteType: NoteType.flyerUpdate,
+    triggerFunctionName: TriggerModel.updateFlyer,
   );
 
   if (Mapper.checkCanLoopList(_flyerUpdatesNotes) == true){
@@ -914,9 +915,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
 
       final NoteModel note = _flyerUpdatesNotes[i];
 
-      final String _flyerID = Stringer.getStringsFromDynamics(
-        dynamics: note.attachment,
-      )?.first;
+      final String _flyerID = note.trigger.argument;
 
       if (_flyerID != null){
 
