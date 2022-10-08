@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -121,16 +122,16 @@ FireQueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
         value: bzID,
       ),
 
-      FireFinder(
-        field: 'noteType',
-        comparison: FireComparison.equalTo,
-        value: NoteModel.cipherNoteType(NoteType.authorship),
-      ),
+      // FireFinder(
+      //   field: 'noteType',
+      //   comparison: FireComparison.equalTo,
+      //   value: NoteModel.cipherNoteType(NoteType.authorship),
+      // ),
 
-      FireFinder(
-        field: 'response',
+      const FireFinder(
+        field: 'poll.reply',
         comparison: FireComparison.equalTo,
-        value: NoteModel.cipherResponse(NoteResponse.pending),
+        value: PollModel.pending,
       ),
 
     ],
@@ -157,24 +158,24 @@ FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
         value: bzID,
       ),
 
-      FireFinder(
-        field: 'noteType',
+      // FireFinder(
+      //   field: 'noteType',
+      //   comparison: FireComparison.equalTo,
+      //   value: NoteModel.cipherNoteType(NoteType.authorship),
+      // ),
+
+      const FireFinder(
+        field: 'poll.reply',
         comparison: FireComparison.equalTo,
-        value: NoteModel.cipherNoteType(NoteType.authorship),
+        value: PollModel.decline,
       ),
 
-      FireFinder(
-        field: 'response',
-        comparison: FireComparison.equalTo,
-        value: NoteModel.cipherResponse(NoteResponse.declined),
-      ),
-
-      /// TASK : ??? will this work ?
-      FireFinder(
-        field: 'response',
-        comparison: FireComparison.equalTo,
-        value: NoteModel.cipherResponse(NoteResponse.cancelled),
-      ),
+      // /// TASK : ??? will this work ?
+      // FireFinder(
+      //   field: 'response',
+      //   comparison: FireComparison.equalTo,
+      //   value: NoteModel.cipherResponse(NoteResponse.cancelled),
+      // ),
 
     ],
   );

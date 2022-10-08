@@ -1,7 +1,8 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
@@ -344,10 +345,10 @@ class NoteFireOps {
         comparison: FireComparison.equalTo,
         value: senderID,
       ),
-      FireFinder(
-        field: 'type',
+      const FireFinder(
+        field: 'poll.reply',
         comparison: FireComparison.equalTo,
-        value: NoteModel.cipherNoteType(NoteType.authorship),
+        value: PollModel.pending,
       ),
       const FireFinder(
         field: 'seen',
@@ -419,11 +420,11 @@ class NoteFireOps {
             comparison: FireComparison.equalTo,
             value: receiverID,
           ),
-          FireFinder(
-            field: 'type',
-            comparison: FireComparison.equalTo,
-            value: NoteModel.cipherNoteType(NoteType.authorship),
-          ),
+          // FireFinder(
+          //   field: 'type',
+          //   comparison: FireComparison.equalTo,
+          //   value: NoteModel.cipherNoteType(NoteType.authorship),
+          // ),
         ],
       );
 
@@ -528,7 +529,7 @@ class NoteFireOps {
 
       final NoteModel _updatedNote = noteModel.copyWith(
         seen: true,
-        seenTime: DateTime.now(),
+        // seenTime: DateTime.now(),
       );
 
       await updateNote(

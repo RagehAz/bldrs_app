@@ -1,12 +1,10 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:flutter/material.dart';
 
@@ -92,35 +90,35 @@ class NoteSenderBalloon extends StatelessWidget {
       /// BZ
       else if (noteModel.senderType == NoteSenderOrRecieverType.bz){
 
-        /// IN AUTHORSHIP NOTES : author pic is sender image url
-        if (noteModel.type == NoteType.authorship){
+        // /// IN AUTHORSHIP NOTES : author pic is sender image url
+        // if (noteModel.type == NoteType.authorship){
           return BzLogo(
             width: balloonWidth,
             image: noteModel.senderImageURL,
             zeroCornerIsOn: false,
           );
-        }
+        // }
 
-        /// otherwise : WE FETCH BZ LOGO
-        else {
-          return FutureBuilder<BzModel>(
-              future: BzProtocols.fetchBz(
-                context: context,
-                bzID: noteModel.senderID,
-              ),
-              builder: (_, AsyncSnapshot<Object> snap){
-
-                // final BzModel _bzModel = snap.data;
-
-                return BzLogo(
-                  width: balloonWidth,
-                  image: noteModel.senderImageURL, //_bzModel?.logo,
-                  zeroCornerIsOn: false,
-                );
-
-              }
-          );
-        }
+        // /// otherwise : WE FETCH BZ LOGO
+        // else {
+        //   return FutureBuilder<BzModel>(
+        //       future: BzProtocols.fetchBz(
+        //         context: context,
+        //         bzID: noteModel.senderID,
+        //       ),
+        //       builder: (_, AsyncSnapshot<Object> snap){
+        //
+        //         // final BzModel _bzModel = snap.data;
+        //
+        //         return BzLogo(
+        //           width: balloonWidth,
+        //           image: noteModel.senderImageURL, //_bzModel?.logo,
+        //           zeroCornerIsOn: false,
+        //         );
+        //
+        //       }
+        //   );
+        // }
 
       }
 

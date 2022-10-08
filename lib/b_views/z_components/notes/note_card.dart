@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -77,7 +77,7 @@ class NoteCard extends StatelessWidget {
       widthOverride: bubbleWidth,
     );
     const double _moreButtonSize = 35;
-    final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.buttons);
+    final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.poll?.buttons);
     // --------------------
     final double _bubbleWidth = bubbleWidth ?? getBubbleWidth(context);
     // --------------------
@@ -194,7 +194,7 @@ class NoteCard extends StatelessWidget {
           ),
 
           /// BUTTONS
-          if (Mapper.checkCanLoopList(noteModel?.buttons) == true)
+          if (Mapper.checkCanLoopList(noteModel?.poll?.buttons) == true)
             NoteCardButtons(
               boxWidth: _bodyWidth,
               noteModel: noteModel,

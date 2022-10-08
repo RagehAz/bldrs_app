@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/future_user_tile_button.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x4_bz_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';

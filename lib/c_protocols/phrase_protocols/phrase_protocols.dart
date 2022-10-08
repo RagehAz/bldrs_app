@@ -110,6 +110,33 @@ class PhraseProtocols {
     return _cleaned;
   }
    */
+  // --------------------
+  ///
+  static Future<Phrase> fetchPhid({
+    @required BuildContext context,
+    @required String lang,
+    @required String phid,
+  }) async {
+    Phrase _output;
+
+    if (lang != 'en' && phid != null){
+
+      _output = await PhraseRealOps.readPhraseByLang(
+        context: context,
+        lang: lang,
+        phid: phid,
+      );
+
+      _output ??= await PhraseRealOps.readPhraseByLang(
+        context: context,
+        lang: 'en',
+        phid: phid,
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// RENOVATE

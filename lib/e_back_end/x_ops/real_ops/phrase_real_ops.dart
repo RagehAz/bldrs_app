@@ -50,6 +50,40 @@ class PhraseRealOps {
   /// READ
 
   // --------------------
+  ///
+  static Future<Phrase> readPhraseByLang({
+    @required BuildContext context,
+    @required String lang,
+    @required String phid,
+    bool createTrigram = false,
+  }) async {
+    Phrase _output;
+
+    if (lang != null && phid != null){
+
+      final String _value = await Real.readPath(
+          context: context,
+          path: '${RealColl.phrases}/$lang/$phid',
+      );
+
+      if (_value != null){
+        _output = Phrase(
+          id: phid,
+          value: _value,
+          langCode: lang,
+        );
+
+        if (createTrigram == true){
+          _output.completeTrigram();
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readPhrasesByLang({
     @required BuildContext context,

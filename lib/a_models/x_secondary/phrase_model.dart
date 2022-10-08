@@ -49,8 +49,7 @@ class Phrase {
       id: id,
       value: value,
       langCode: langCode,
-      trigram:
-      trigram,
+      trigram: trigram,
     );
 
     if (Mapper.checkCanLoopList(trigram) == false){

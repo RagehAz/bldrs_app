@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/e_notes/note_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -227,7 +227,7 @@ class _PaginateAllNotesScreenState extends State<PaginateAllNotesScreen> {
                         ),
 
                         NoteRedDotWrapper(
-                          redDotIsOn: NoteModel.checkIsUnSeen(_noteModel),
+                          redDotIsOn: _noteModel.seen == false,
                           shrinkChild: true,
                           childWidth: BldrsAppBar.width(context),
                           child: NoteCard(
