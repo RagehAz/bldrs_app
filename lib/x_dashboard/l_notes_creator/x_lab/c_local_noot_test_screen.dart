@@ -1067,7 +1067,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
           /// REQUEST FCM PERMISSION
           WideButton(
-            verse: Verse.plain('Activate Listeners'),
+            verse: Verse.plain('requestFCMPermission'),
             onTap: () async {
 
               blog('REQUEST FCM PERMISSION : START');
@@ -1086,7 +1086,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
           /// UPDATE USER PROTOCOL
           WideButton(
-            verse: Verse.plain('Update user protocol'),
+            verse: Verse.plain('updateMyUserFCMToken'),
             onTap: () async {
 
               blog('UPDATE USER PROTOCOL : START');
