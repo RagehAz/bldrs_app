@@ -173,6 +173,7 @@ class Iconz {
   static const String female = '$_iconsPath/gi_female.svg';
   static const String crop = '$_iconsPath/gi_crop.svg';
   static const String resize = '$_iconsPath/gi_resize.svg';
+  static const String flag = '$_iconsPath/gi_flag.svg';
   // --------------------
   /// PYRAMIDS
   static const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg';
@@ -362,6 +363,8 @@ class Iconz {
       male,
       female,
       crop,
+      resize,
+      flag,
     ];
 
   }
