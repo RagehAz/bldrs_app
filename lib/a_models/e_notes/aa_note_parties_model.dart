@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 enum NotePartyType {
@@ -148,6 +149,17 @@ class NoteParties {
     NotePartyType.bz,
     NotePartyType.user,
   ];
+  // --------------------
+
+  static String getPartyIcon(NotePartyType type){
+    switch(type){
+      case NotePartyType.user:        return Iconz.normalUser;      break;
+      case NotePartyType.bz:          return Iconz.bz;              break;
+      case NotePartyType.country:     return Iconz.flag;            break;
+      case NotePartyType.bldrs:       return Iconz.bldrsNameSquare; break;
+      default:                        return null;
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
