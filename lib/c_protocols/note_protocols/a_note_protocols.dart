@@ -15,6 +15,7 @@ class NoteProtocols {
   /// COMPOSE
 
   // --------------------
+  ///
   static Future<void> compose({
     @required BuildContext context,
     @required NoteModel note,
@@ -49,6 +50,7 @@ class NoteProtocols {
   /// RENOVATE
 
   // --------------------
+
   static Future<void> renovate({
     @required BuildContext context,
     @required NoteModel note,
@@ -56,7 +58,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> modifyNoteResponse({
     @required BuildContext context,
     @required NoteModel note,
@@ -87,6 +89,7 @@ class NoteProtocols {
   /// WIPE
 
   // --------------------
+  ///
   static Future<void> wipeNote({
     @required BuildContext context,
     @required NoteModel note,
