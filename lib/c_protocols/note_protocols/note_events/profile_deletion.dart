@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
@@ -33,7 +34,7 @@ class NoteEventsOfProfileDeletion {
     await NoteFireOps.deleteAllReceivedNotes(
       context: context,
       receiverID: userID,
-      receiverType: NoteSenderOrRecieverType.user,
+      receiverType: NotePartyType.user,
     );
 
     blog('NoteProtocol.deleteAllUserReceivedNotes : END');
@@ -55,7 +56,7 @@ class NoteEventsOfProfileDeletion {
     await NoteFireOps.deleteAllReceivedNotes(
       context: context,
       receiverID: bzID,
-      receiverType: NoteSenderOrRecieverType.bz,
+      receiverType: NotePartyType.bz,
     );
 
     blog('NoteProtocol.deleteAllBzReceivedNotes : END');

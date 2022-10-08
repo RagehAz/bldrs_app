@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -26,11 +27,13 @@ class NoteEventsOfBzFlyersManagement {
 
     final NoteModel _note = NoteModel(
       id: null,
-      senderID: bzModel.id,
-      senderImageURL: bzModel.logo,
-      senderType: NoteSenderOrRecieverType.bz,
-      receiverID: bzModel.id,
-      receiverType: NoteSenderOrRecieverType.bz,
+      parties: NoteParties(
+        senderID: bzModel.id,
+        senderImageURL: bzModel.logo,
+        senderType: NotePartyType.bz,
+        receiverID: bzModel.id,
+        receiverType: NotePartyType.bz,
+      ),
       title: '##Flyer has been updated',
       body: '##This Flyer has been updated',
       metaData: NoteModel.defaultMetaData,
@@ -69,11 +72,13 @@ class NoteEventsOfBzFlyersManagement {
 
     final NoteModel _note = NoteModel(
       id: null,
-      senderID: NoteModel.bldrsSenderID,
-      senderImageURL: NoteModel.bldrsLogoStaticURL,
-      senderType: NoteSenderOrRecieverType.bldrs,
-      receiverID: bzID,
-      receiverType: NoteSenderOrRecieverType.bz,
+      parties: NoteParties(
+        senderID: NoteParties.bldrsSenderID,
+        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderType: NotePartyType.bldrs,
+        receiverID: bzID,
+        receiverType: NotePartyType.bz,
+      ),
       title: 'Flyer has been verified',
       body: 'This Flyer is now public to be seen and searched by all users',
       metaData: NoteModel.defaultMetaData,

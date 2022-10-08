@@ -1,16 +1,19 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 
 const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 28 days reminder
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger:null,
@@ -34,12 +37,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 35 days reminder
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -63,12 +68,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 42 days reminder
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -92,12 +99,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 7 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -121,12 +130,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// 14 days reminder for non SIGNED-UP aslan (only downloaded Bldrs.net)
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -150,12 +161,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// city went public
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.country,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.country,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -179,12 +192,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// after user feedback
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -208,12 +223,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// feedback bldrs reply
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -237,12 +254,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// profile status reminder
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -266,12 +285,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// monthly statistics
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -295,12 +316,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// new flyer by followed non free bz account (premium - super)
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.bz,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.bz,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -324,12 +347,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyer review reply
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.bz,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.bz,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -353,12 +378,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyerReview
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.user,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.user,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -382,12 +409,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyerReview
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.user,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.user,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -411,12 +440,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// flyer Shared
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.user,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.user,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -440,12 +471,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// user follow
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.user,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.user,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,
@@ -469,12 +502,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   ///  weekly bz statistics
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger:null,
@@ -503,12 +538,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// authorInvitation
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.bz,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.bz,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -536,12 +573,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// author Invitation reply
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.user,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.user,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -565,12 +604,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// author Invitation CC
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.bz,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.bz,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -594,12 +635,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// country went global
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.country,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.country,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -623,12 +666,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// section went live
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -652,12 +697,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// monthly bz statistics
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -683,12 +730,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// potential customer to bzz
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.user,
+      receiverID: null,
+      receiverType: NotePartyType.bz,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.user,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.bz,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -712,12 +761,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// question reply
   NoteModel(
+    parties: NoteParties(
+      senderID: null,
+      senderImageURL: null,
+      senderType: NotePartyType.bz,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: null,
-    senderImageURL: null,
-    senderType: NoteSenderOrRecieverType.bz,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     sendFCM: true,
@@ -741,12 +792,14 @@ const List<NoteModel> noteTemplates = <NoteModel>[
 
   /// welcome to bldrs
   NoteModel(
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: NotePartyType.bldrs,
+      receiverID: null,
+      receiverType: NotePartyType.user,
+    ),
     seen: false,
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: NoteSenderOrRecieverType.bldrs,
-    receiverID: null,
-    receiverType: NoteSenderOrRecieverType.user,
     metaData: NoteModel.defaultMetaData,
     sentTime: null,
     trigger: null,

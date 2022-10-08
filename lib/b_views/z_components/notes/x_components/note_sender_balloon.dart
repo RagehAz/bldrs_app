@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
@@ -35,18 +36,18 @@ class NoteSenderBalloon extends StatelessWidget {
     else {
 
       /// BLDRS
-      if (noteModel.senderType == NoteSenderOrRecieverType.bldrs){
+      if (noteModel.parties.senderType == NotePartyType.bldrs){
         return const BldrsName(
           size: balloonWidth,
         );
       }
 
       /// USER
-      else if (noteModel.senderType == NoteSenderOrRecieverType.user){
+      else if (noteModel.parties.senderType == NotePartyType.user){
         return FutureBuilder(
           future: UserProtocols.fetchUser(
               context: context,
-              userID: noteModel.senderID,
+              userID: noteModel.parties.senderID,
           ),
           builder: (_, AsyncSnapshot<Object> snap){
 
@@ -88,13 +89,13 @@ class NoteSenderBalloon extends StatelessWidget {
       // }
 
       /// BZ
-      else if (noteModel.senderType == NoteSenderOrRecieverType.bz){
+      else if (noteModel.parties.senderType == NotePartyType.bz){
 
         // /// IN AUTHORSHIP NOTES : author pic is sender image url
         // if (noteModel.type == NoteType.authorship){
           return BzLogo(
             width: balloonWidth,
-            image: noteModel.senderImageURL,
+            image: noteModel.parties.senderImageURL,
             zeroCornerIsOn: false,
           );
         // }
@@ -123,11 +124,11 @@ class NoteSenderBalloon extends StatelessWidget {
       }
 
       /// COUNTRY
-      else if (noteModel.senderType == NoteSenderOrRecieverType.country){
+      else if (noteModel.parties.senderType == NotePartyType.country){
         return DreamBox(
           width: balloonWidth,
           height: balloonWidth,
-          icon: Flag.getFlagIcon(noteModel.senderID), // countryID
+          icon: Flag.getFlagIcon(noteModel.parties.senderID), // countryID
         );
       }
 

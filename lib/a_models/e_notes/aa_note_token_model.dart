@@ -3,9 +3,9 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class FCMToken {
+class NoteTokenModel {
   /// --------------------------------------------------------------------------
-  const FCMToken({
+  const NoteTokenModel({
     @required this.token,
     @required this.createdAt,
     @required this.platform,
@@ -31,14 +31,14 @@ class FCMToken {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FCMToken decipherFCMToken({
+  static NoteTokenModel decipherFCMToken({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
   }) {
-    FCMToken _token;
+    NoteTokenModel _token;
 
     if (map != null) {
-      _token = FCMToken(
+      _token = NoteTokenModel(
         token: map['token'],
         createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         platform: map['platform'],
@@ -52,7 +52,7 @@ class FCMToken {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkTokensAreIdentical(FCMToken token1, FCMToken token2){
+  static bool checkTokensAreIdentical(NoteTokenModel token1, NoteTokenModel token2){
     bool _identical = false;
 
     if (token1 == null && token2 == null){
@@ -103,7 +103,7 @@ class FCMToken {
     }
 
     bool _areIdentical = false;
-    if (other is FCMToken){
+    if (other is NoteTokenModel){
       _areIdentical = checkTokensAreIdentical(this, other);
     }
 

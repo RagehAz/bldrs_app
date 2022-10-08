@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/e_notes/fcm_token.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_token_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -316,7 +316,7 @@ class RenovateUserProtocols {
 
         if (_myUserModel?.fcmToken?.token != _fcmToken){
 
-          final FCMToken _token = FCMToken(
+          final NoteTokenModel _token = NoteTokenModel(
             token: _fcmToken,
             createdAt: DateTime.now(),
             platform: Platform.operatingSystem,
