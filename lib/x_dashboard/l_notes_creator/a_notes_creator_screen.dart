@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/banner/note_attachment.dart';
@@ -216,17 +216,17 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     }
     
     /// NO SENDER SELECTED
-    else if (note?.senderID == null){
+    else if (note?.parties?.senderID == null){
       _message = 'Select a sender';
     }
     
     /// NO SENDER TYPE
-    else if (note?.senderType == null){
+    else if (note?.parties?.senderType == null){
       _message = 'SenderType is null';
     }
     
     /// IMAGE IN NULL
-    else if (note?.senderImageURL == null){
+    else if (note?.parties?.senderImageURL == null){
       _message = 'Sender pic is null';
     }
     
@@ -239,8 +239,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       // );
       
       _message ??= NoteModel.receiverVsSenderValidator(
-          senderType: note?.senderType,
-          receiverType: note?.receiverType
+          senderType: note?.parties?.senderType,
+          receiverType: note?.parties?.receiverType
       );
       
     }
@@ -257,12 +257,12 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     }
 
     /// NO SENDER SELECTED
-    else if (note?.receiverID == null){
+    else if (note?.parties?.receiverID == null){
       _message = 'Select a receiver';
     }
 
     /// NO SENDER TYPE
-    else if (note?.receiverType == null){
+    else if (note?.parties?.receiverType == null){
       _message = 'Receiver type is null';
     }
 
@@ -275,8 +275,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       // );
 
       _message ??= NoteModel.receiverVsSenderValidator(
-          senderType: note?.senderType,
-          receiverType: note?.receiverType
+          senderType: note?.parties?.senderType,
+          receiverType: note?.parties?.receiverType
       );
       
     }
@@ -305,8 +305,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       boxWidth: TileBubble.childWidth(context: context),
     );
     // --------------------
-    final double _bubbleWidth = PageBubble.width(context);
+    final double _bubbleWidth = Bubble.bubbleWidth(context);
     final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _halfBubbleWidth = (_bubbleWidth - 10) / 2;
+    final double _halfBubbleChildWidth = TileBubble.childWidth(
+        context: context,
+        bubbleWidthOverride: _halfBubbleWidth,
+    );
     // --------------------
     return MainLayout(
       loading: _loading,
@@ -405,247 +410,190 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       focusNode: _bodyNode,
                     ),
 
-                    /// NOTE TYPE
-                    TileBubble(
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
-                          text: 'Note Type',
-                          translate: false,
-                        ),
-                        leadingIcon: Iconz.star,
-                        leadingIconSizeFactor: 0.5,
-                        leadingIconBoxColor: Colorz.grey50,
-                      ),
-                      secondLineVerse: const Verse(
-                        text: 'Select Note Type',
-                        translate: false,
-                      ),
-                      // validator: () => _noteTypeValidator(note),
-                      // bulletPoints: _getNotTypeBulletPoints(note?.type),
-                      child: SizedBox(
-                        width: _bubbleClearWidth,
-                        child: Column(
-                          children: <Widget>[
+                    Row(
+                      children: <Widget>[
 
-                            SizedBox(
-                              width: TileBubble.childWidth(context: context),
-                              height: 50,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                // children: const <Widget>[
+                        const SizedBox(width: 10, height: 10),
 
-                                  // ...List.generate(NoteModel.noteTypesList.length, (index){
-                                  //
-                                  //   final NoteType _noteType = NoteModel.noteTypesList[index];
-                                  //   final bool _isSelected = note?.type == _noteType;
-                                  //   final String _noteTypeString = NoteModel.cipherNoteType(_noteType);
-                                  //
-                                  //   return DreamBox(
-                                  //     height: 40,
-                                  //     width: Scale.getUniformRowItemWidth(
-                                  //       context: context,
-                                  //       numberOfItems: NoteModel.noteTypesList.length,
-                                  //       boxWidth: TileBubble.childWidth(context: context),
-                                  //     ),
-                                  //     verse: Verse(
-                                  //       text: _noteTypeString,
-                                  //       translate: false,
-                                  //       casing: Casing.upperCase,
-                                  //     ),
-                                  //     verseScaleFactor: 0.5,
-                                  //     color: _isSelected == true ? Colorz.yellow255 : null,
-                                  //     verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                  //     verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                  //     onTap: () => onChangeNoteType(
-                                  //       context: context,
-                                  //       note: _noteNotifier,
-                                  //       noteType: _noteType,
-                                  //     ),
-                                  //   );
-                                  //
-                                  // }),
-
-                                // ],
-                              ),
+                        /// SENDER
+                        TileBubble(
+                          bubbleWidth: _halfBubbleWidth,
+                          bubbleHeaderVM: const BubbleHeaderVM(
+                            headlineVerse: Verse(
+                              text: 'Sender',
+                              translate: false,
                             ),
+                            leadingIcon: Iconz.normalUser,
+                            leadingIconSizeFactor: 0.5,
+                            leadingIconBoxColor: Colorz.grey50,
+                          ),
+                          secondLineVerse: const Verse(
+                            text: 'Select Note Sender',
+                            translate: false,
+                          ),
+                          validator: () => _noteSenderValidator(note),
+                          child: SizedBox(
+                            width: _halfBubbleChildWidth,
+                            child: Column(
+                              children: <Widget>[
 
-                          ],
-                        ),
-                      ),
-                    ),
+                                /// NOTE SENDER TYPES
+                                SizedBox(
+                                  width: _halfBubbleChildWidth,
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
 
-                    /// SENDER
-                    TileBubble(
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
-                          text: 'Sender',
-                          translate: false,
-                        ),
-                        leadingIcon: Iconz.normalUser,
-                        leadingIconSizeFactor: 0.5,
-                        leadingIconBoxColor: Colorz.grey50,
-                      ),
-                      secondLineVerse: const Verse(
-                        text: 'Select Note Sender',
-                        translate: false,
-                      ),
-                      validator: () => _noteSenderValidator(note),
-                      child: SizedBox(
-                        width: _bubbleClearWidth,
-                        child: Column(
-                          children: <Widget>[
+                                      ...List.generate(NoteParties.noteSenderTypesList.length, (index){
 
-                            /// NOTE SENDER TYPES
-                            SizedBox(
-                              width: TileBubble.childWidth(context: context),
-                              height: 50,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
+                                        final NotePartyType _senderType = NoteParties.noteSenderTypesList[index];
+                                        final bool _isSelected = note?.parties?.senderType == _senderType;
+                                        final String _senderTypeString = NoteParties.cipherNoteSenderOrRecieverType(_senderType);
 
-                                  ...List.generate(NoteModel.noteSenderTypesList.length, (index){
-
-                                    final NoteSenderOrRecieverType _senderType = NoteModel.noteSenderTypesList[index];
-                                    final bool _isSelected = note?.senderType == _senderType;
-                                    final String _senderTypeString = NoteModel.cipherNoteSenderOrRecieverType(_senderType);
-
-                                    return DreamBox(
-                                      height: 40,
-                                      width: Scale.getUniformRowItemWidth(
-                                        context: context,
-                                        numberOfItems: NoteModel.noteSenderTypesList.length,
-                                        boxWidth: TileBubble.childWidth(context: context),
-                                      ),
-                                      verse: Verse(
-                                        text: _senderTypeString,
-                                        translate: false,
-                                        casing: Casing.upperCase,
-                                      ),
-                                      verseScaleFactor: 0.5,
-                                      color: _isSelected == true ? Colorz.yellow255 : null,
-                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                      onTap: () => onSelectNoteSender(
-                                        context: context,
-                                        senderType: _senderType,
-                                        note: _noteNotifier,
-                                      ),
-                                    );
-
-                                  }),
-
-                                ],
-                              ),
-                            ),
-
-                            /// NOTE SENDER BUTTON
-                            NoteSenderOrRecieverDynamicButton(
-                              width: TileBubble.childWidth(context: context),
-                              type: note?.senderType,
-                              id: note?.senderID,
-                            ),
-
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    /// RECEIVER
-                    TileBubble(
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
-                          text: 'Receiver',
-                          translate: false,
-                        ),
-                        leadingIcon: Iconz.news,
-                        leadingIconSizeFactor: 0.5,
-                        leadingIconBoxColor: Colorz.grey50,
-                      ),
-                      secondLineVerse: const Verse(
-                        text: 'Select who will receive this Note',
-                        translate: false,
-                      ),
-                      validator: () => _noteRecieverValidator(note),
-                      child: SizedBox(
-                        width: _bubbleClearWidth,
-                        child: Column(
-                          children: <Widget>[
-
-                            /// RECEIVERS TYPES BUTTONS
-                            SizedBox(
-                              width: TileBubble.childWidth(context: context),
-                              height: 50,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-
-                                  ...List.generate(NoteModel.noteReceiverTypesList.length, (index){
-
-                                    final NoteSenderOrRecieverType _receiverType = NoteModel.noteReceiverTypesList[index];
-                                    final bool _isSelected = note?.receiverType == _receiverType;
-
-                                    blog('the fucking selected receiverType is ${note?.receiverType}');
-
-                                    return DreamBox(
-                                      height: 40,
-                                      width: _noteButtonButtonWidth,
-                                      verse: Verse(
-                                        text: NoteModel.cipherNoteSenderOrRecieverType(_receiverType),
-                                        translate: false,
-                                        casing: Casing.upperCase,
-                                      ),
-                                      verseScaleFactor: 0.5,
-                                      color: _isSelected == true ? Colorz.yellow255 : null,
-                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                      onTap: () async {
-                                        await onSelectReceiverType(
-                                          context: context,
-                                          selectedReceiverType: _receiverType,
-                                          noteNotifier: _noteNotifier,
-                                          receiversIDs: _receiversIDs,
+                                        return DreamBox(
+                                          height: _halfBubbleChildWidth / NoteParties.noteSenderTypesList.length,
+                                          width: _halfBubbleChildWidth / NoteParties.noteSenderTypesList.length,
+                                          verse: Verse(
+                                            text: _senderTypeString,
+                                            translate: false,
+                                            casing: Casing.upperCase,
+                                          ),
+                                          verseScaleFactor: 0.5,
+                                          color: _isSelected == true ? Colorz.yellow255 : null,
+                                          verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                          verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                          onTap: () => onSelectNoteSender(
+                                            context: context,
+                                            senderType: _senderType,
+                                            note: _noteNotifier,
+                                          ),
                                         );
-                                      },
-                                    );
 
-                                  }),
+                                      }),
 
-                                ],
-                              ),
+                                    ],
+                                  ),
+                                ),
+
+                                /// NOTE SENDER BUTTON
+                                NoteSenderOrRecieverDynamicButton(
+                                  width: TileBubble.childWidth(context: context),
+                                  type: note?.parties?.senderType,
+                                  id: note?.parties?.senderID,
+                                ),
+
+                              ],
                             ),
-
-                            /// RECEIVERS LABELS
-                            if (note?.receiverID != null)
-                              ValueListenableBuilder(
-                                valueListenable: _receiversIDs,
-                                  builder: (_, List<String> receiversIDs, Widget child){
-
-                                  /// RECEIVERS SELECTED
-                                  if (Mapper.checkCanLoopList(receiversIDs) == true){
-
-                                    return NoteSenderOrRecieverDynamicButtonsColumn(
-                                      width: TileBubble.childWidth(context: context),
-                                      type: note?.receiverType,
-                                      ids: receiversIDs,
-                                    );
-
-                                  }
-
-                                  /// NO RECEIVERS SELECTED
-                                  else {
-                                    return NoteSenderOrRecieverDynamicButton(
-                                      width: TileBubble.childWidth(context: context),
-                                      id: null,
-                                      type: null,
-                                    );
-                                  }
-                                  },
-                              ),
-
-                          ],
+                          ),
                         ),
-                      ),
+
+                        const SizedBox(width: 10, height: 10),
+
+                        /// RECEIVER
+                        TileBubble(
+                          bubbleWidth: _halfBubbleWidth,
+                          bubbleHeaderVM: const BubbleHeaderVM(
+                            headlineVerse: Verse(
+                              text: 'Receiver',
+                              translate: false,
+                            ),
+                            leadingIcon: Iconz.news,
+                            leadingIconSizeFactor: 0.5,
+                            leadingIconBoxColor: Colorz.grey50,
+                          ),
+                          secondLineVerse: const Verse(
+                            text: 'Select who will receive this Note',
+                            translate: false,
+                          ),
+                          validator: () => _noteRecieverValidator(note),
+                          child: SizedBox(
+                            width: _halfBubbleChildWidth,
+                            child: Column(
+                              children: <Widget>[
+
+                                /// RECEIVERS TYPES BUTTONS
+                                SizedBox(
+                                  width: TileBubble.childWidth(context: context),
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+
+                                      ...List.generate(NoteParties.noteReceiverTypesList.length, (index){
+
+                                        final NotePartyType _receiverType = NoteParties.noteReceiverTypesList[index];
+                                        final bool _isSelected = note?.parties?.receiverType == _receiverType;
+
+                                        blog('the fucking selected receiverType is ${note?.parties?.receiverType}');
+
+                                        return DreamBox(
+                                          height: 40,
+                                          width: _noteButtonButtonWidth,
+                                          verse: Verse(
+                                            text: NoteParties.cipherNoteSenderOrRecieverType(_receiverType),
+                                            translate: false,
+                                            casing: Casing.upperCase,
+                                          ),
+                                          verseScaleFactor: 0.5,
+                                          color: _isSelected == true ? Colorz.yellow255 : null,
+                                          verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                          verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                          onTap: () async {
+                                            await onSelectReceiverType(
+                                              context: context,
+                                              selectedReceiverType: _receiverType,
+                                              noteNotifier: _noteNotifier,
+                                              receiversIDs: _receiversIDs,
+                                            );
+                                          },
+                                        );
+
+                                      }),
+
+                                    ],
+                                  ),
+                                ),
+
+                                /// RECEIVERS LABELS
+                                if (note?.parties?.receiverID != null)
+                                  ValueListenableBuilder(
+                                    valueListenable: _receiversIDs,
+                                    builder: (_, List<String> receiversIDs, Widget child){
+
+                                      /// RECEIVERS SELECTED
+                                      if (Mapper.checkCanLoopList(receiversIDs) == true){
+
+                                        return NoteSenderOrRecieverDynamicButtonsColumn(
+                                          width: TileBubble.childWidth(context: context),
+                                          type: note?.parties?.receiverType,
+                                          ids: receiversIDs,
+                                        );
+
+                                      }
+
+                                      /// NO RECEIVERS SELECTED
+                                      else {
+                                        return NoteSenderOrRecieverDynamicButton(
+                                          width: TileBubble.childWidth(context: context),
+                                          id: null,
+                                          type: null,
+                                        );
+                                      }
+                                    },
+                                  ),
+
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(width: 10, height: 10),
+
+                      ],
                     ),
+
+
 
                     /// FCM SWITCH
                     TileBubble(
@@ -839,7 +787,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                         ),
                         decoration: BoxDecoration(
-                          color: note?.receiverID == null ? Colorz.bloodTest : Colorz.white50,
+                          color: note?.parties?.receiverID == null ? Colorz.bloodTest : Colorz.white50,
                           borderRadius: Borderers.constantCornersAll10,
                         ),
                         padding: Scale.constantMarginsAll5,
@@ -868,7 +816,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                       casing: Casing.upperCase,
                                     ),
                                     secondLine: Verse(
-                                      text: '${receiversIDs.length} ${note?.receiverType == NoteSenderOrRecieverType.bz ? 'bzz' : 'users'}',
+                                      text: '${receiversIDs.length} ${note?.parties?.receiverType == NotePartyType.bz ? 'bzz' : 'users'}',
                                       translate: false,
                                     ),
                                     color: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
@@ -879,7 +827,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                                   NoteSenderOrRecieverDynamicButtonsColumn(
                                     width: 250,
-                                    type: note?.receiverType,
+                                    type: note?.parties?.receiverType,
                                     ids: receiversIDs,
                                   ),
 

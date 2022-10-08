@@ -224,7 +224,7 @@ class _NotesBuilderPage extends StatelessWidget {
                       ),
                     ),
 
-                    if (_noteModel.receiverID != null)
+                    if (_noteModel?.parties?.receiverID != null)
                     Transform.scale(
                       scale: 0.7,
                       alignment: Alignment.bottomRight,
@@ -232,8 +232,8 @@ class _NotesBuilderPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: NoteSenderOrRecieverDynamicButton(
                           width: PageBubble.clearWidth(context) * 0.5,
-                          type: _noteModel.receiverType,
-                          id: _noteModel.receiverID,
+                          type: _noteModel?.parties?.receiverType,
+                          id: _noteModel?.parties?.receiverID,
                         ),
                       ),
                     ),
