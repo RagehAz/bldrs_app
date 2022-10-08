@@ -13,7 +13,7 @@ class NoteLDBOps {
   /// CREATE / INSERT
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> insertNotes(List<NoteModel> notes) async {
 
     await LDBOps.insertMaps(
@@ -30,7 +30,7 @@ class NoteLDBOps {
   /// READ
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<List<NoteModel>> readAllNotes(BuildContext context) async {
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
