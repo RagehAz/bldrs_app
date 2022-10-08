@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/e_notes/fcm_token.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_token_model.dart';
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -78,7 +78,7 @@ class UserModel {
   final List<String> myBzzIDs;
   final bool emailIsVerified;
   final bool isAdmin;
-  final FCMToken fcmToken;
+  final NoteTokenModel fcmToken;
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
   final AppState appState;
@@ -240,7 +240,7 @@ class UserModel {
     List<String> myBzzIDs,
     bool emailIsVerified,
     bool isAdmin,
-    FCMToken fcmToken,
+    NoteTokenModel fcmToken,
     List<String> savedFlyersIDs,
     List<String> followedBzzIDs,
     AppState appState,
@@ -411,7 +411,7 @@ class UserModel {
         ),
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
-        fcmToken: FCMToken.decipherFCMToken(
+        fcmToken: NoteTokenModel.decipherFCMToken(
           map: map['fcmToken'],
           fromJSON: fromJSON,
         ),
@@ -570,7 +570,7 @@ class UserModel {
           Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
           Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
           AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) &&
-          FCMToken.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken)
+          NoteTokenModel.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken)
       // DocumentSnapshot docSnapshot;
 
       ){

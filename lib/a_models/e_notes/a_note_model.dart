@@ -1,5 +1,6 @@
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -9,13 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 
-
-enum NoteSenderOrRecieverType {
-  bldrs,
-  user,
-  bz,
-  country,
-}
 
 enum DuplicatesAlgorithm {
   keepSecond,
@@ -28,11 +22,7 @@ class NoteModel {
   /// --------------------------------------------------------------------------
   const NoteModel({
     @required this.id,
-    @required this.senderID,
-    @required this.senderImageURL,
-    @required this.senderType,
-    @required this.receiverID,
-    @required this.receiverType,
+    @required this.parties,
     @required this.title,
     @required this.body,
     @required this.metaData,
@@ -48,11 +38,7 @@ class NoteModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final String senderID;
-  final String senderImageURL;
-  final NoteSenderOrRecieverType senderType;
-  final String receiverID;
-  final NoteSenderOrRecieverType receiverType;
+  final NoteParties parties;
   final String title; /// max 30 char
   final String body; /// max 80 char
   final Map<String, dynamic> metaData;
@@ -70,13 +56,6 @@ class NoteModel {
   /// CONSTANTS
 
   // --------------------
-  /// URL will be reassigned in NoteFireOps.create if note.sender == bldrsSenderID
-  // i bet the below link will be expired soon : today is 2 Oct 2022 => validate my claim when u see this again please
-  static const String bldrsLogoStaticURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/admin%2Fbldrs_notification_icon?alt=media&token=d4f781f3-ea1b-4974-b6e3-990da03c980b';
-  // --------------------
-  static const String bldrsSenderID = 'Bldrs.net';
-  static const String bldrsFCMIconFireStorageFileName = 'bldrs_notification_icon';
-  // --------------------
   static const String fcmSound = 'default';
   static const String fcmStatus = 'done';
   // --------------------
@@ -91,14 +70,10 @@ class NoteModel {
   /// CLONING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   NoteModel copyWith({
     String id,
-    String senderID,
-    String senderImageURL,
-    NoteSenderOrRecieverType senderType,
-    String receiverID,
-    NoteSenderOrRecieverType receiverType,
+    NoteParties parties,
     String title,
     String body,
     Map<String, dynamic> metaData,
@@ -113,11 +88,7 @@ class NoteModel {
   }){
     return NoteModel(
       id: id ?? this.id,
-      senderID: senderID ?? this.senderID,
-      senderImageURL: senderImageURL ?? this.senderImageURL,
-      senderType: senderType ?? this.senderType,
-      receiverID: receiverID ?? this.receiverID,
-      receiverType: receiverType ?? this.receiverType,
+      parties: parties ?? this.parties,
       title: title ?? this.title,
       body: body ?? this.body,
       metaData: metaData ?? this.metaData,
@@ -132,13 +103,10 @@ class NoteModel {
     );
   }
   // --------------------
+  ///
   NoteModel nullifyField({
     bool id = false,
-    bool senderID = false,
-    bool senderImageURL = false,
-    bool senderType = false,
-    bool receiverID = false,
-    bool receiverType = false,
+    bool parties = false,
     bool title = false,
     bool body = false,
     bool metaData = false,
@@ -153,11 +121,7 @@ class NoteModel {
   }){
     return NoteModel(
       id: id == true ? null : this.id,
-      senderID: senderID == true ? null : this.senderID,
-      senderImageURL: senderImageURL == true ? null : this.senderImageURL,
-      senderType: senderType == true ? null : this.senderType,
-      receiverID: receiverID == true ? null : this.receiverID,
-      receiverType: receiverType == true ? null : this.receiverType,
+      parties: parties == true ? null : this.parties,
       title: title == true ? null : this.title,
       body: body == true ? null : this.body,
       metaData: metaData == true ? null : this.metaData,
@@ -176,17 +140,13 @@ class NoteModel {
   /// CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
     return <String, dynamic>{
       'id': toJSON == true ? id : null,
-      'senderID': senderID,
-      'senderImageURL': senderImageURL,
-      'senderType': cipherNoteSenderOrRecieverType(senderType),
-      'receiverID': receiverID,
-      'receiverType' : cipherNoteSenderOrRecieverType(receiverType),
+      'parties': parties.toMap(),
       'notification': _cipherNotificationField(),
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
       'poster': poster.toMap(),
@@ -229,7 +189,7 @@ class NoteModel {
     return _maps;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static NoteModel decipherNote({
     @required dynamic map,
     @required bool fromJSON
@@ -240,11 +200,7 @@ class NoteModel {
 
       _noti = NoteModel(
         id: map['id'],
-        senderID: map['senderID'],
-        senderImageURL: map['senderImageURL'],
-        senderType: decipherNoteSenderOrReceiverType(map['senderType']),
-        receiverID: map['receiverID'],
-        receiverType: decipherNoteSenderOrReceiverType(map['receiverType']),
+        parties: NoteParties.decipherParties(map['parties']),
         title: _decipherNotificationField(map: map, titleNotBody: true),
         body: _decipherNotificationField(map: map, titleNotBody: false),
         metaData: _decipherNotificationData(map),
@@ -344,85 +300,6 @@ class NoteModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// NOTE TYPE CYPHERS
-
-  // --------------------
-  /*
-  /// TESTED : WORKS PERFECT
-  static String cipherNoteType(NoteType noteType){
-    switch(noteType){
-      case NoteType.authorship:   return 'authorship';    break;
-      case NoteType.notice:       return 'notice';        break;
-      case NoteType.flyerUpdate:  return 'flyerUpdate';   break;
-      case NoteType.bzDeletion:   return 'bzDeletion';    break;
-      default : return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static NoteType decipherNoteType(String noteType){
-    switch(noteType){
-      case 'authorship':    return NoteType.authorship;   break;
-      case 'notice':        return NoteType.notice;       break;
-      case 'flyerUpdate':   return NoteType.flyerUpdate;  break;
-      case 'bzDeletion':    return NoteType.bzDeletion;   break;
-      default: return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const List<NoteType> noteTypesList = <NoteType>[
-    NoteType.notice,
-    NoteType.authorship,
-    NoteType.flyerUpdate,
-    NoteType.bzDeletion,
-  ];
-   */
-  // -----------------------------------------------------------------------------
-
-  /// NOTE SENDER - RECEIVER TYPE CYPHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String cipherNoteSenderOrRecieverType(NoteSenderOrRecieverType type){
-    switch (type) {
-      case NoteSenderOrRecieverType.bz:           return 'bz';      break; /// data type : String bzID
-    // case NoteSenderOrRecieverType.author:       return 'author';  break; /// data type : String authorID
-      case NoteSenderOrRecieverType.user:         return 'user';    break; /// data type : String userID
-      case NoteSenderOrRecieverType.country:      return 'country'; break; /// data type : String countryID
-      case NoteSenderOrRecieverType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
-      default:return 'non';
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static NoteSenderOrRecieverType decipherNoteSenderOrReceiverType(String type){
-    switch (type) {
-      case 'bldrs':   return NoteSenderOrRecieverType.bldrs;    break;
-      case 'user':    return NoteSenderOrRecieverType.user;     break;
-    // case 'author':  return NoteSenderOrRecieverType.author;   break;
-      case 'bz':      return NoteSenderOrRecieverType.bz;       break;
-      case 'country': return NoteSenderOrRecieverType.country;  break;
-      default:        return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const List<NoteSenderOrRecieverType> noteSenderTypesList = <NoteSenderOrRecieverType>[
-    NoteSenderOrRecieverType.bz,
-    // NoteSenderOrRecieverType.author,
-    NoteSenderOrRecieverType.user,
-    NoteSenderOrRecieverType.country,
-    NoteSenderOrRecieverType.bldrs,
-  ];
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const List<NoteSenderOrRecieverType> noteReceiverTypesList = <NoteSenderOrRecieverType>[
-    NoteSenderOrRecieverType.bz,
-    NoteSenderOrRecieverType.user,
-  ];
-  // -----------------------------------------------------------------------------
-
   /// BLOGGING
 
   // --------------------
@@ -433,11 +310,6 @@ class NoteModel {
     blog('BLOGGING NoteModel : $methodName -------------------------------- START -- ');
 
     blog('id : $id');
-    blog('senderID : $senderID');
-    blog('senderImageURL : $senderImageURL');
-    blog('senderType : $senderType');
-    blog('receiverID : $receiverID');
-    blog('receiverType : $receiverType');
     blog('title : $title');
     blog('body : $body');
     blog('sentTime : $sentTime');
@@ -445,6 +317,7 @@ class NoteModel {
     blog('token: $token');
     blog('topic: $topic');
     blog('seen: $seen');
+    parties?.blogParties();
     poster?.blogPoster();
     poll?.blogPoll();
     trigger?.blogTrigger();
@@ -492,7 +365,7 @@ class NoteModel {
     if (Mapper.checkCanLoopList(notes) == true){
 
       for (final NoteModel note in notes){
-        _output.add(note.receiverID);
+        _output.add(note.parties.receiverID);
       }
 
     }
@@ -510,7 +383,7 @@ class NoteModel {
     if (Mapper.checkCanLoopList(notes) == true && receiverID != null){
 
       _output = notes.firstWhere(
-              (note) => note.receiverID == receiverID,
+              (note) => note.parties.receiverID == receiverID,
           orElse: ()=> null
       );
 
@@ -529,7 +402,7 @@ class NoteModel {
 
       final List<NoteModel> _found = notes.where((note){
 
-        return note.receiverID == receiverID;
+        return note.parties.receiverID == receiverID;
       }).toList();
 
       if (Mapper.checkCanLoopList(_found) == true){
@@ -595,7 +468,7 @@ class NoteModel {
 
       for (final NoteModel note in notes){
 
-        if(note.receiverID == receiverID){
+        if(note.parties.receiverID == receiverID){
           if (note.seen == false){
             _notes.add(note);
           }
@@ -645,23 +518,23 @@ class NoteModel {
 
       _missingFields = <String>[];
 
-      if (note.senderID == null) {
+      if (note.parties.senderID == null) {
         _missingFields.add('senderID');
       }
 
-      if (note.senderImageURL == null){
+      if (note.parties.senderImageURL == null){
         _missingFields.add('senderImageURL');
       }
 
-      if (note.senderType == null){
+      if (note.parties.senderType == null){
         _missingFields.add('senderType');
       }
 
-      if (note.receiverID == null){
+      if (note.parties.receiverID == null){
         _missingFields.add('receiverID');
       }
 
-      if (note.receiverType == null){
+      if (note.parties.receiverType == null){
         _missingFields.add('receiverType');
       }
 
@@ -756,11 +629,11 @@ class NoteModel {
 
       if (
           // noteModel.id != null &&
-          noteModel.senderID != null &&
-          noteModel.senderImageURL != null &&
-          noteModel.senderType != null &&
-          noteModel.receiverID != null &&
-          noteModel.receiverType != null &&
+          noteModel.parties.senderID != null &&
+          noteModel.parties.senderImageURL != null &&
+          noteModel.parties.senderType != null &&
+          noteModel.parties.receiverID != null &&
+          noteModel.parties.receiverType != null &&
           noteModel.title != null &&
           noteModel.body != null &&
           noteModel.metaData != null &&
@@ -781,7 +654,7 @@ class NoteModel {
     return _canSend;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static bool checkNotesAreIdentical({
     @required NoteModel note1,
     @required NoteModel note2,
@@ -796,11 +669,7 @@ class NoteModel {
 
       if (
           note1.id == note2.id &&
-          note1.senderID == note2.senderID &&
-          note1.senderImageURL == note2.senderImageURL &&
-          note1.senderType == note2.senderType &&
-          note1.receiverID == note2.receiverID &&
-          note1.receiverType == note2.receiverType &&
+          NoteParties.checkPartiesAreIdentical(parties1: note1.parties, parties2: note2.parties) &&
           note1.title == note2.title &&
           note1.body == note2.body &&
           Mapper.checkMapsAreIdentical(map1: note1.metaData, map2: note2.metaData) == true &&
@@ -1129,11 +998,13 @@ class NoteModel {
   static NoteModel dummyNote(){
     return NoteModel(
       id: 'id',
-      senderID: bldrsSenderID,
-      senderImageURL: bldrsLogoStaticURL,
-      senderType: NoteSenderOrRecieverType.bldrs,
-      receiverID: 'receiverID',
-      receiverType: NoteSenderOrRecieverType.user,
+      parties: const NoteParties(
+        senderID: NoteParties.bldrsSenderID,
+        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderType: NotePartyType.bldrs,
+        receiverID: 'receiverID',
+        receiverType: NotePartyType.user,
+      ),
       title: 'title',
       body: 'body',
       metaData: defaultMetaData,
@@ -1165,14 +1036,17 @@ class NoteModel {
     @required String body
   }){
     return NoteModel(
-      receiverID: userID,
       title: title,
       body: body,
       id: 'x',
-      senderID: bldrsSenderID,
-      senderImageURL: bldrsLogoStaticURL,
-      senderType: NoteSenderOrRecieverType.bldrs,
-      receiverType: NoteSenderOrRecieverType.user,
+      parties: NoteParties(
+        receiverID: userID,
+        senderID: NoteParties.bldrsSenderID,
+        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderType: NotePartyType.bldrs,
+        receiverType: NotePartyType.user,
+
+      ),
       metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
       poster: null,
@@ -1302,31 +1176,31 @@ class NoteModel {
    */
   // --------------------
   static String receiverVsSenderValidator({
-    @required NoteSenderOrRecieverType senderType,
-    @required NoteSenderOrRecieverType receiverType,
+    @required NotePartyType senderType,
+    @required NotePartyType receiverType,
   }){
 
     /// USER
-    if (receiverType == NoteSenderOrRecieverType.user){
+    if (receiverType == NotePartyType.user){
 
       switch(senderType){
-        case NoteSenderOrRecieverType.user     : return null; break; /// user can receive from user
-        case NoteSenderOrRecieverType.bz       : return null; break; /// user can receive from bz
-        case NoteSenderOrRecieverType.bldrs    : return null; break; /// user can receive from bldrs
-        case NoteSenderOrRecieverType.country  : return null; break; /// user can receive from country
+        case NotePartyType.user     : return null; break; /// user can receive from user
+        case NotePartyType.bz       : return null; break; /// user can receive from bz
+        case NotePartyType.bldrs    : return null; break; /// user can receive from bldrs
+        case NotePartyType.country  : return null; break; /// user can receive from country
         default: return null;
       }
 
     }
 
     /// BZ
-    else if (receiverType == NoteSenderOrRecieverType.bz){
+    else if (receiverType == NotePartyType.bz){
 
       switch(senderType){
-        case NoteSenderOrRecieverType.user     : return null; break; /// bz can receive from user
-        case NoteSenderOrRecieverType.bz       : return null; break; /// bz can receive from bz
-        case NoteSenderOrRecieverType.bldrs    : return null; break; /// bz can receive from bldrs
-        case NoteSenderOrRecieverType.country  : return null; break; /// bz can receive from country
+        case NotePartyType.user     : return null; break; /// bz can receive from user
+        case NotePartyType.bz       : return null; break; /// bz can receive from bz
+        case NotePartyType.bldrs    : return null; break; /// bz can receive from bldrs
+        case NotePartyType.country  : return null; break; /// bz can receive from country
         default: return null;
       }
 
@@ -1369,11 +1243,7 @@ class NoteModel {
   @override
   int get hashCode =>
       id.hashCode^
-      senderID.hashCode^
-      senderImageURL.hashCode^
-      senderType.hashCode^
-      receiverID.hashCode^
-      receiverType.hashCode^
+      parties.hashCode^
       title.hashCode^
       body.hashCode^
       metaData.hashCode^
@@ -1447,4 +1317,36 @@ WHEN DO WE HAVE NOTIFICATIONS
 //   bzDeletion,
 // }
  */
+// -----------------------------------------------------------------------------
+/*
+  /// TESTED : WORKS PERFECT
+  static String cipherNoteType(NoteType noteType){
+    switch(noteType){
+      case NoteType.authorship:   return 'authorship';    break;
+      case NoteType.notice:       return 'notice';        break;
+      case NoteType.flyerUpdate:  return 'flyerUpdate';   break;
+      case NoteType.bzDeletion:   return 'bzDeletion';    break;
+      default : return null;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static NoteType decipherNoteType(String noteType){
+    switch(noteType){
+      case 'authorship':    return NoteType.authorship;   break;
+      case 'notice':        return NoteType.notice;       break;
+      case 'flyerUpdate':   return NoteType.flyerUpdate;  break;
+      case 'bzDeletion':    return NoteType.bzDeletion;   break;
+      default: return null;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const List<NoteType> noteTypesList = <NoteType>[
+    NoteType.notice,
+    NoteType.authorship,
+    NoteType.flyerUpdate,
+    NoteType.bzDeletion,
+  ];
+   */
 // -----------------------------------------------------------------------------

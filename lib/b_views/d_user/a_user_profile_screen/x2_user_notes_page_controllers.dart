@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -280,7 +280,7 @@ Future<void> _acceptAuthorshipInvitation({
 
     await NoteEvent.sendAuthorshipAcceptanceNote(
       context: context,
-      bzID: noteModel.senderID,
+      bzID: noteModel.parties.senderID,
     );
 
     await WaitDialog.closeWaitDialog(context);

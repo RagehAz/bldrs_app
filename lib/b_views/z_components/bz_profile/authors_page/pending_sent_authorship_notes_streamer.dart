@@ -109,7 +109,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
 
                 return FutureUserTileButton(
                   boxWidth: Bubble.clearWidth(context),
-                  userID: _note.receiverID,
+                  userID: _note.parties.receiverID,
                   color: Colorz.white10,
                   bubble: false,
                   sideButtonVerse: const Verse(

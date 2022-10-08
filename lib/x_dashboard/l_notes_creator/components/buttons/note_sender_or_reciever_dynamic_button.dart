@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/user_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -18,7 +18,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final NoteSenderOrRecieverType type;
+  final NotePartyType type;
   final String id;
   final double width;
   /// --------------------------------------------------------------------------
@@ -26,7 +26,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// USER WIDE BUTTON
-    if (type == NoteSenderOrRecieverType.user){
+    if (type == NotePartyType.user){
 
       return FutureBuilder(
         future: UserProtocols.fetchUser(
@@ -46,7 +46,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
     }
 
     /// BZ WIDE BUTTON
-    else if (type == NoteSenderOrRecieverType.bz){
+    else if (type == NotePartyType.bz){
 
       return FutureBuilder(
           future: BzProtocols.fetchBz(
@@ -67,7 +67,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
     }
 
     /// COUNTRY WIDE BUTTON
-    else if (type == NoteSenderOrRecieverType.country){
+    else if (type == NotePartyType.country){
 
       return WideCountryButton(
         width: width,
@@ -78,7 +78,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
     }
 
     /// BLDRS IN MAP MODEL
-    else if (type == NoteSenderOrRecieverType.bldrs){
+    else if (type == NotePartyType.bldrs){
 
       // NoteModel.bldrsSenderModel
 
@@ -112,7 +112,7 @@ class NoteSenderOrRecieverDynamicButtonsColumn extends StatelessWidget {
 
   final List<String> ids;
   final double width;
-  final NoteSenderOrRecieverType type;
+  final NotePartyType type;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

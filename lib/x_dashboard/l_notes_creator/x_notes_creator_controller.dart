@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
@@ -47,11 +48,13 @@ NoteModel _createInitialNote(BuildContext context) {
 
   return NoteModel(
     id: null,
-    senderID: null, //NoteModel.bldrsSenderModel.key,
-    senderImageURL: null, //NoteModel.bldrsSenderModel.value,
-    senderType: null,
-    receiverID: null,
-    receiverType: null,
+    parties: const NoteParties(
+      senderID: null, //NoteModel.bldrsSenderModel.key,
+      senderImageURL: null, //NoteModel.bldrsSenderModel.value,
+      senderType: null,
+      receiverID: null,
+      receiverType: null,
+    ),
     title: null,
     body: null,
     metaData: NoteModel.defaultMetaData,
@@ -225,14 +228,14 @@ Future<void> onChangeNoteType({
 Future<void> onSelectReceiverType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
-  @required NoteSenderOrRecieverType selectedReceiverType,
+  @required NotePartyType selectedReceiverType,
   @required ValueNotifier<List<String>> receiversIDs,
 }) async {
 
   List<String> _receiversIDs = <String>[];
 
   /// IF USER
-  if (selectedReceiverType == NoteSenderOrRecieverType.user){
+  if (selectedReceiverType == NotePartyType.user){
     _receiversIDs = await _onSelectUserAsNoteReceiver(
       context: context,
       selectedUsersIDs: receiversIDs,
@@ -248,8 +251,10 @@ Future<void> onSelectReceiverType({
   }
 
   noteNotifier.value = noteNotifier.value.copyWith(
-    receiverType: selectedReceiverType,
-    receiverID: 'xyx',
+    parties: noteNotifier.value.parties.copyWith(
+      receiverType: selectedReceiverType,
+      receiverID: 'xyx',
+    ),
   );
 
   receiversIDs.value = _receiversIDs;
@@ -356,7 +361,7 @@ void onBodyChanged({
 /// TESTED : WORKS PERFECT
 Future<void> onSelectNoteSender({
   @required BuildContext context,
-  @required NoteSenderOrRecieverType senderType,
+  @required NotePartyType senderType,
   @required ValueNotifier<NoteModel> note,
 }) async {
 
@@ -368,7 +373,7 @@ Future<void> onSelectNoteSender({
   if (_continue == true){
 
     /// BY USER
-    if (senderType == NoteSenderOrRecieverType.user){
+    if (senderType == NotePartyType.user){
 
       await _onSelectUserAsNoteSender(
         context: context,
@@ -379,7 +384,7 @@ Future<void> onSelectNoteSender({
     }
 
     /// BY BZ
-    if (senderType == NoteSenderOrRecieverType.bz){
+    if (senderType == NotePartyType.bz){
       await _onSelectBzAsNoteSender(
         context: context,
         note: note,
@@ -388,7 +393,7 @@ Future<void> onSelectNoteSender({
     }
 
     /// BY COUNTRY
-    if (senderType == NoteSenderOrRecieverType.country){
+    if (senderType == NotePartyType.country){
       await _onSelectCountryAsNoteSender(
         context: context,
         note: note,
@@ -396,7 +401,7 @@ Future<void> onSelectNoteSender({
       );
     }
 
-    if (senderType == NoteSenderOrRecieverType.bldrs){
+    if (senderType == NotePartyType.bldrs){
       await _onSelectBldrsAsNoteSender(
         context: context,
         note: note,
@@ -411,18 +416,18 @@ Future<void> onSelectNoteSender({
 /// TESTED : WORKS PERFECT
 Future<bool> _showEthicalConfirmationDialog({
   @required BuildContext context,
-  @required NoteSenderOrRecieverType senderType,
+  @required NotePartyType senderType,
 }) async {
 
   bool _canContinue = true;
 
   if (
-  senderType == NoteSenderOrRecieverType.bz
+      senderType == NotePartyType.bz
       ||
-      senderType == NoteSenderOrRecieverType.user
+      senderType == NotePartyType.user
   ){
 
-    final String _senderTypeString = NoteModel.cipherNoteSenderOrRecieverType(senderType);
+    final String _senderTypeString = NoteParties.cipherNoteSenderOrRecieverType(senderType);
 
     _canContinue = await CenterDialog.showCenterDialog(
       context: context,
@@ -443,7 +448,7 @@ Future<bool> _showEthicalConfirmationDialog({
 Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderOrRecieverType senderType,
+  @required NotePartyType senderType,
 }) async {
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
@@ -462,9 +467,11 @@ Future<void> _onSelectUserAsNoteSender({
     null;
 
     note.value = note.value.copyWith(
-      senderID: _userModel.id,
-      senderImageURL: _userModel.pic,
-      senderType: senderType,
+      parties: note.value.parties.copyWith(
+        senderID: _userModel.id,
+        senderImageURL: _userModel.pic,
+        senderType: senderType,
+      ),
     );
 
   }
@@ -475,7 +482,7 @@ Future<void> _onSelectUserAsNoteSender({
 Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderOrRecieverType senderType,
+  @required NotePartyType senderType,
 }) async {
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -492,9 +499,11 @@ Future<void> _onSelectBzAsNoteSender({
     null;
 
     note.value = note.value.copyWith(
-      senderID: _bzModel.id,
-      senderImageURL: _bzModel.logo,
-      senderType: senderType,
+      parties: note.value.parties.copyWith(
+        senderID: _bzModel.id,
+        senderImageURL: _bzModel.logo,
+        senderType: senderType,
+      ),
     );
 
   }
@@ -505,7 +514,7 @@ Future<void> _onSelectBzAsNoteSender({
 Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderOrRecieverType senderType,
+  @required NotePartyType senderType,
 }) async {
 
   final ZoneModel _zoneModel = await controlSelectCountryOnly(context);
@@ -519,9 +528,11 @@ Future<void> _onSelectCountryAsNoteSender({
     );
 
     note.value = note.value.copyWith(
-      senderID: _countryModel.id,
-      senderImageURL: Flag.getFlagIcon(_countryModel.id),
-      senderType: senderType,
+      parties: note.value.parties.copyWith(
+        senderID: _countryModel.id,
+        senderImageURL: Flag.getFlagIcon(_countryModel.id),
+        senderType: senderType,
+      ),
     );
 
   }
@@ -532,13 +543,15 @@ Future<void> _onSelectCountryAsNoteSender({
 Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NoteSenderOrRecieverType senderType,
+  @required NotePartyType senderType,
 }) async {
 
   note.value = note.value.copyWith(
-    senderID: NoteModel.bldrsSenderID,
-    senderImageURL: NoteModel.bldrsLogoStaticURL,
-    senderType: senderType,
+    parties: note.value.parties.copyWith(
+      senderID: NoteParties.bldrsSenderID,
+      senderImageURL: NoteParties.bldrsLogoStaticURL,
+      senderType: senderType,
+    ),
   );
 
 }
@@ -767,7 +780,7 @@ Future<void> onSendNote({
 
   if (_formIsValid == true){
 
-    final String _receiverTypeString = note.value.receiverType == NoteSenderOrRecieverType.bz ? 'Bzz' : 'Users';
+    final String _receiverTypeString = note.value.parties.receiverType == NotePartyType.bz ? 'Bzz' : 'Users';
 
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
@@ -859,17 +872,17 @@ List<String> _concludeImageOwnersIDs(NoteModel noteModel){
 
   String _ownerID;
 
-  if (noteModel.senderType == NoteSenderOrRecieverType.bz){
-    _ownerID = noteModel.senderID;
+  if (noteModel.parties.senderType == NotePartyType.bz){
+    _ownerID = noteModel.parties.senderID;
   }
-  else if (noteModel.senderType == NoteSenderOrRecieverType.user){
-    _ownerID = noteModel.senderID;
+  else if (noteModel.parties.senderType == NotePartyType.user){
+    _ownerID = noteModel.parties.senderID;
   }
-  else if (noteModel.senderType == NoteSenderOrRecieverType.country){
-    _ownerID = noteModel.senderID;
+  else if (noteModel.parties.senderType == NotePartyType.country){
+    _ownerID = noteModel.parties.senderID;
   }
-  else if (noteModel.senderType == NoteSenderOrRecieverType.bldrs){
-    _ownerID = noteModel.senderID;
+  else if (noteModel.parties.senderType == NotePartyType.bldrs){
+    _ownerID = noteModel.parties.senderID;
   }
 
   return <String>[_ownerID];
@@ -957,7 +970,7 @@ Future<void> onGoToNoteTemplatesScreen({
   if (_templateNote != null){
 
     note.value = _templateNote;
-    receiversIDs.value = <String>[_templateNote.receiverID];
+    receiversIDs.value = <String>[_templateNote.parties.receiverID];
     titleController.text = _templateNote.title;
     bodyController.text = _templateNote.body;
 

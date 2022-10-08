@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -38,11 +39,13 @@ class NoteEventsOfBzTeamManagement {
 
     final NoteModel _note = NoteModel(
       id: null,
-      senderID: bzID,
-      senderImageURL: author.pic,
-      senderType: NoteSenderOrRecieverType.bz,
-      receiverID: bzID,
-      receiverType: NoteSenderOrRecieverType.bz,
+      parties: NoteParties(
+        senderID: bzID,
+        senderImageURL: author.pic,
+        senderType: NotePartyType.bz,
+        receiverID: bzID,
+        receiverType: NotePartyType.bz,
+      ),
       title: '##Team member Role changed',
       body: '##The team role of "${author.name}" has been set to "$_authorRoleString"',
       metaData: NoteModel.defaultMetaData,
@@ -80,11 +83,13 @@ class NoteEventsOfBzTeamManagement {
     /// NOTE TO BZ
     final NoteModel _noteToBz = NoteModel(
       id: null,
-      senderID: deletedAuthor.userID,
-      senderImageURL: deletedAuthor.pic,
-      senderType: NoteSenderOrRecieverType.user,
-      receiverID: bzModel.id,
-      receiverType: NoteSenderOrRecieverType.bz,
+      parties: NoteParties(
+        senderID: deletedAuthor.userID,
+        senderImageURL: deletedAuthor.pic,
+        senderType: NotePartyType.user,
+        receiverID: bzModel.id,
+        receiverType: NotePartyType.bz,
+      ),
       title: '##${deletedAuthor.name} has left the team',
       body: '##${deletedAuthor.name} is no longer part of ${bzModel.name} team',
       metaData: NoteModel.defaultMetaData,
@@ -116,11 +121,13 @@ class NoteEventsOfBzTeamManagement {
 
        final NoteModel _noteToUser = NoteModel(
          id: null,
-         senderID: bzModel.id,
-         senderImageURL: bzModel.logo,
-         senderType: NoteSenderOrRecieverType.bz,
-         receiverID: deletedAuthor.userID,
-         receiverType: NoteSenderOrRecieverType.user,
+         parties: NoteParties(
+           senderID: bzModel.id,
+           senderImageURL: bzModel.logo,
+           senderType: NotePartyType.bz,
+           receiverID: deletedAuthor.userID,
+           receiverType: NotePartyType.user,
+         ),
          title: '##You have exited from ${bzModel.name} account',
          body: '##You are no longer part of ${bzModel.name} team',
          metaData: NoteModel.defaultMetaData,
@@ -181,11 +188,13 @@ class NoteEventsOfBzTeamManagement {
 
             final NoteModel _note = NoteModel(
               id: 'x',
-              senderID: NoteModel.bldrsSenderID,
-              senderImageURL: NoteModel.bldrsLogoStaticURL,
-              senderType: NoteSenderOrRecieverType.bldrs,
-              receiverID: author.userID,
-              receiverType: NoteSenderOrRecieverType.user,
+              parties: NoteParties(
+                senderID: NoteParties.bldrsSenderID,
+                senderImageURL: NoteParties.bldrsLogoStaticURL,
+                senderType: NotePartyType.bldrs,
+                receiverID: author.userID,
+                receiverType: NotePartyType.user,
+              ),
               title: '##${_creator.name} has deleted "${bzModel.name}" business account',
               body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
               metaData: NoteModel.defaultMetaData,
@@ -231,11 +240,13 @@ class NoteEventsOfBzTeamManagement {
 
     final NoteModel _note = NoteModel(
       id: 'x',
-      senderID: userModel.id,
-      senderImageURL: userModel.pic,
-      senderType: NoteSenderOrRecieverType.user,
-      receiverID: bzModel.id,
-      receiverType: NoteSenderOrRecieverType.bz,
+      parties: NoteParties(
+        senderID: userModel.id,
+        senderImageURL: userModel.pic,
+        senderType: NotePartyType.user,
+        receiverID: bzModel.id,
+        receiverType: NotePartyType.bz,
+      ),
       title: '##${userModel.name} has tried to contact you',
       body: '##Please update your Business contacts info to allow customers to reach you',
       metaData: NoteModel.defaultMetaData,
