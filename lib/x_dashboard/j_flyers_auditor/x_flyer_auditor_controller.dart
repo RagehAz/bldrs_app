@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/x_note_gen.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
@@ -19,12 +17,12 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/j_flyers_auditor/components/auditor_button.dart';
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
 
 /// READING
 
 // --------------------
+///
 Future<void> readMoreUnVerifiedFlyers({
   @required BuildContext context,
   @required ValueNotifier<List<FlyerModel>> flyers,
@@ -81,6 +79,7 @@ Future<void> readMoreUnVerifiedFlyers({
 /// SELECTED FLYER OPTIONS
 
 // --------------------
+///
 Future<void> onFlyerOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -144,6 +143,7 @@ Future<void> onFlyerOptionsTap({
 
 }
 // --------------------
+///
 Future<void> onVerifyFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -204,6 +204,7 @@ Future<void> onVerifyFlyer({
 
 }
 // --------------------
+///
 void _removeFlyerFromFlyers({
   @required ValueNotifier<List<FlyerModel>> flyers,
   @required String flyerIDToRemove,
@@ -218,6 +219,7 @@ void _removeFlyerFromFlyers({
 
 }
 // --------------------
+///
 Future<void> onAuditFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -225,22 +227,17 @@ Future<void> onAuditFlyer({
   blog('should audit flyer');
 }
 // --------------------
-
+///
 Future<void> _sendFlyerVerificationUpdateNote({
   @required BuildContext context,
   @required String flyerID,
   @required String bzID,
 }) async {
 
-  final NoteModel _note = await NoteGen.flyerVerifiedToBz(
+   await NoteEvent.sendFlyerIsVerifiedNoteToBz(
     context: context,
     flyerID: flyerID,
     bzID: bzID,
-  );
-
-  await NoteProtocols.compose(
-      context: context,
-      note: _note
   );
 
 }

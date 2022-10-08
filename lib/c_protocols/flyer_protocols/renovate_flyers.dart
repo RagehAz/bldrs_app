@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
@@ -42,7 +42,7 @@ class RenovateFlyerProtocols {
     );
 
     if (sendFlyerUpdateNoteToItsBz == true){
-      await NoteProtocols.sendFlyerUpdateNoteToItsBz(
+      await NoteEvent.sendFlyerUpdateNoteToItsBz(
         context: context,
         bzModel: bzModel,
         flyerID: _uploadedFlyer.id,

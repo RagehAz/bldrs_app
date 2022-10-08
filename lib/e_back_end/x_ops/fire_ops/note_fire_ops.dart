@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -245,6 +243,7 @@ class NoteFireOps {
     return _notes;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<NoteModel>> paginateAllSentNotes({
     @required BuildContext context,
     @required String senderID,
@@ -289,6 +288,7 @@ class NoteFireOps {
     return _notes;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<NoteModel>> paginateAllReceivedNotes({
     @required BuildContext context,
     @required String recieverID,
@@ -331,116 +331,6 @@ class NoteFireOps {
     return _notes;
   }
   // -----------------------------------------------------------------------------
-
-  /// AUTHORSHIP NOTES PAGINATION
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<FireFinder> generatePendingSentAuthorshipNotesFireFinder({
-    @required String senderID,
-  }){
-    return <FireFinder>[
-      FireFinder(
-        field: 'senderID',
-        comparison: FireComparison.equalTo,
-        value: senderID,
-      ),
-      const FireFinder(
-        field: 'poll.reply',
-        comparison: FireComparison.equalTo,
-        value: PollModel.pending,
-      ),
-      const FireFinder(
-        field: 'seen',
-        comparison: FireComparison.equalTo,
-        value: false,
-      ),
-    ];
-  }
-  // --------------------
-  static Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
-    @required BuildContext context,
-    @required String senderID,
-    @required int limit,
-    @required QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-
-    List<NoteModel> _notes = <NoteModel>[];
-
-    if (senderID != null){
-
-      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        context: context,
-        collName: FireColl.notes,
-        limit: limit,
-        addDocSnapshotToEachMap: true,
-        addDocsIDs: true,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-        startAfter: startAfter,
-        finders: generatePendingSentAuthorshipNotesFireFinder(
-          senderID: senderID,
-        ),
-      );
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-
-        _notes = NoteModel.decipherNotes(
-          maps: _maps,
-          fromJSON: false,
-        );
-
-      }
-    }
-
-    return _notes;
-  }
-  // --------------------
-  static Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
-    @required BuildContext context,
-    @required String receiverID,
-    @required int limit,
-    @required QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-
-    List<NoteModel> _notes = <NoteModel>[];
-
-    if (receiverID != null){
-
-      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        context: context,
-        collName: FireColl.notes,
-        startAfter: startAfter,
-        limit: limit,
-        addDocSnapshotToEachMap: true,
-        addDocsIDs: true,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-        finders: <FireFinder>[
-          FireFinder(
-            field: 'receiverID',
-            comparison: FireComparison.equalTo,
-            value: receiverID,
-          ),
-          // FireFinder(
-          //   field: 'type',
-          //   comparison: FireComparison.equalTo,
-          //   value: NoteModel.cipherNoteType(NoteType.authorship),
-          // ),
-        ],
-      );
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-
-        _notes = NoteModel.decipherNotes(
-          maps: _maps,
-          fromJSON: false,
-        );
-
-      }
-    }
-
-    return _notes;
-  }
-  // --------------------
 
   /// STREAMING
 
@@ -567,48 +457,6 @@ class NoteFireOps {
   /// DELETE
 
   // --------------------
-  static Future<void> deleteAllSentAuthorshipNotes({
-    @required BuildContext context,
-    @required String senderID,
-  }) async {
-
-    if (senderID != null){
-
-      final List<NoteModel> _notesToDelete = <NoteModel>[];
-
-      /// READ ALL NOTES
-      for (int i = 0; i <= 500; i++){
-        final List<NoteModel> _notes = await paginatePendingSentAuthorshipNotes(
-          context: context,
-          limit: 10,
-          senderID: senderID,
-          startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
-        );
-
-        if (Mapper.checkCanLoopList(_notes) == true){
-          _notesToDelete.addAll(_notes);
-        }
-
-        else {
-          break;
-        }
-
-      }
-
-      /// DELETE ALL NOTES
-      if (Mapper.checkCanLoopList(_notesToDelete) == true){
-
-        await deleteNotes(
-          context: context,
-          notes: _notesToDelete,
-        );
-
-      }
-
-    }
-
-  }
-  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteNote({
     @required BuildContext context,
@@ -648,6 +496,7 @@ class NoteFireOps {
 
   }
   // --------------------
+  /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
   static Future<void> deleteAllReceivedNotes({
     @required BuildContext context,
     @required String receiverID,

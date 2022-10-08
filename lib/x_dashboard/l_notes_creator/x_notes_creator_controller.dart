@@ -820,7 +820,6 @@ Future<void> onSendNote({
       //
       //   }
 
-
     }
 
   }
@@ -916,7 +915,7 @@ Future<void> onDeleteNote({
     );
     loading.value = true;
 
-    await NoteProtocols.wipe(
+    await NoteProtocols.wipeNote(
       context: context,
       note: noteModel,
     );

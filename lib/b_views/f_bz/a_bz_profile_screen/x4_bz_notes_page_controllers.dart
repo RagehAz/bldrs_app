@@ -1,14 +1,14 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_response_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
@@ -209,7 +209,7 @@ Future<void> onSendAuthorshipInvitation({
 
   if (_result == true){
 
-    await NoteProtocols.sendAuthorshipInvitationNote(
+    await NoteEvent.sendAuthorshipInvitationNote(
       context: context,
       bzModel: bzModel,
       userModelToSendTo: selectedUser,
@@ -275,7 +275,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
     if (_result == true){
 
-      await NoteProtocols.cancelSentAuthorshipInvitation(
+      await NoteEvent.cancelSentAuthorshipInvitation(
         context: context,
         note: note,
       );
