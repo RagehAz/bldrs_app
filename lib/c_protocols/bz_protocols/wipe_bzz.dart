@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
@@ -55,13 +55,13 @@ class WipeBzProtocols {
       ),
 
       /// DELETE BZ NOTES (RECEIVED)
-      NoteProtocols.wipeBzReceivedNotes(
+      NoteEvent.wipeBzReceivedNotes(
         context: context,
         bzID: bzModel.id,
       ),
 
       /// DELETE BZ SENT AUTHORSHIPS
-      NoteProtocols.wipeBzSentAuthorshipNotes(
+      NoteEvent.wipeBzSentAuthorshipNotes(
         context: context,
         bzID: bzModel.id,
       ),
@@ -86,7 +86,7 @@ class WipeBzProtocols {
     }
 
     /// SEND DELETION NOTES TO AUTHORS
-    await NoteProtocols.sendBzDeletionNoteToAllAuthors(
+    await NoteEvent.sendBzDeletionNoteToAllAuthors(
       context: context,
       bzModel: bzModel,
       includeMyself: includeMyselfInBzDeletionNote,
