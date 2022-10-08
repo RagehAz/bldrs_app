@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
@@ -77,7 +78,7 @@ Future<void> onShowNoteOptions({
 
                 await NoteProtocols.wipeNote(
                   context: context,
-                  noteModel: noteModel,
+                  note: noteModel,
                 );
 
                 await Nav.goBack(
@@ -269,7 +270,7 @@ Future<void> _acceptAuthorshipInvitation({
     /// MODIFY NOTE RESPONSE
     await NoteProtocols.modifyNoteResponse(
       context: context,
-      noteModel: noteModel,
+      note: noteModel,
       pollModel: PollModel(
         buttons: noteModel.poll.buttons,
         reply: PollModel.accept,
@@ -277,7 +278,7 @@ Future<void> _acceptAuthorshipInvitation({
       ),
     );
 
-    await NoteProtocols.sendAuthorshipAcceptanceNote(
+    await NoteEvent.sendAuthorshipAcceptanceNote(
       context: context,
       bzID: noteModel.senderID,
     );
@@ -351,7 +352,7 @@ Future<void> _declineAuthorshipInvitation({
 
     await NoteProtocols.modifyNoteResponse(
       context: context,
-      noteModel: noteModel,
+      note: noteModel,
       pollModel: PollModel(
         buttons: noteModel.poll.buttons,
         reply: PollModel.decline,
