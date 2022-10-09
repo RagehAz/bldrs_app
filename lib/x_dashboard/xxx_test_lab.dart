@@ -384,7 +384,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 height: 40,
                 // scale: 1,
                 boxFit: BoxFit.fitWidth,
-                pic: pic ?? Iconz.dumUniverse,
+                pic: pic ?? Iconz.dvBlackHole,
                 iconColor: Colorz.blue255,
                 // loading: false,
                 // backgroundColor: Colorz.black255,

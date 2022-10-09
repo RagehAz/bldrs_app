@@ -12,10 +12,11 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/multi_button/a_multi_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/notes/banner/note_attachment.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -35,6 +36,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/send_button.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
@@ -417,6 +419,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                         iconSizeFactor: 0.5,
                                         color: _isSelected == true ? Colorz.yellow255 : null,
                                         verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                        iconColor:  _isSelected == true ? Colorz.black255 : null,
                                         verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
                                         onTap: () => onSelectNoteSender(
                                           context: context,
@@ -482,6 +485,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                         iconSizeFactor: 0.5,
                                         color: _isSelected == true ? Colorz.yellow255 : null,
                                         verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                        iconColor:  _isSelected == true ? Colorz.black255 : null,
                                         verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
                                         onTap: () async {
                                           await onSelectReceiverType(
@@ -552,8 +556,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         if (_titleController.text.length >= 30){
                           return 'max length exceeded Bitch';
                         }
-                        else if (_titleController.text.length < 5){
-                          return 'Atleast put 5 Characters man';
+                        else if (_titleController.text.isEmpty == true){
+                          return 'Atleast put 1 Character man';
                         }
                         else {
                           return null;
@@ -582,8 +586,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         if (_bodyController.text.length >= 80){
                           return 'max length exceeded Bitch';
                         }
-                        else if (_bodyController.text.length < 5){
-                          return 'Add more than 5 Characters';
+                        else if (_bodyController.text.isEmpty){
+                          return 'Add more than 1 Character';
                         }
                         else {
                           return null;
@@ -592,7 +596,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       focusNode: _bodyNode,
                     ),
 
-                    /// Poster
+                    /// POSTER
                     WidgetFader(
                       fadeType: _progress == null ? FadeType.stillAtMax : FadeType.stillAtMin,
                       min: 0.2,
@@ -1007,6 +1011,39 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       ),
                     ),
 
+
+
+
+
+                    /// MULTI BUTTON
+
+                    Container(
+                      width: Scale.superScreenWidth(context),
+                      height: 60,
+                      color: Colorz.bloodTest,
+                      alignment: Alignment.center,
+                      child: MultiButton(
+                        height: 50,
+                        width: 200,
+                        verse: Verse.plain('fuck you'),
+                        secondLine: Verse.plain('asshole'),
+                        pics: const [
+                          Iconz.power,
+                          Iconz.dvRageh,
+                          Iconz.bz,
+                          Iconz.star,
+                          Iconz.reload,
+                        ],
+                      ),
+                    ),
+
+
+
+
+
+
+
+
                     /// HORIZON
                     const Horizon(heightFactor: 2),
 
@@ -1086,33 +1123,75 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                       const Expander(),
 
+                      /// SEND - TEST - BLOG BUTTONS
                       Column(
                         children: <Widget>[
 
-                          /// TEST BUTTON
-                          ConfirmButton(
-                            confirmButtonModel: ConfirmButtonModel(
-                              firstLine: Verse.plain('  Test  '),
-                              isDeactivated: false,
-                              onTap: (){},
+                          /// SEND BUTTON
+                          SendButton(
+                            text: 'Send',
+                            height: 80,
+                            isDeactivated: !NoteModel.checkCanSendNote(note),
+                            onTap: () => onSendNote(
+                              context: context,
+                              note: _noteNotifier,
+                              formKey: _formKey,
+                              titleController: _titleController,
+                              bodyController: _bodyController,
+                              scrollController: _scrollController,
+                              receiversIDs: _receiversIDs,
                             ),
                           ),
 
-                          /// SEND BUTTON
-                          ConfirmButton(
-                            confirmButtonModel: ConfirmButtonModel(
-                              firstLine: Verse.plain('  Send  '),
-                              isDeactivated: !NoteModel.checkCanSendNote(note),
-                              onTap: () => onSendNote(
+                          const SeparatorLine(
+                            width: SendButton.width,
+                            withMargins: true,
+                          ),
+
+                          /// IMPORT BUTTON
+                          SendButton(
+                            text: 'Clear',
+                            onTap: () async {
+
+                              clearNote(
                                 context: context,
                                 note: _noteNotifier,
-                                formKey: _formKey,
                                 titleController: _titleController,
                                 bodyController: _bodyController,
-                                scrollController: _scrollController,
-                                receiversIDs: _receiversIDs,
-                              ),
-                            ),
+                              );
+
+                            },
+                          ),
+
+                          /// IMPORT BUTTON
+                          SendButton(
+                            text: 'Import',
+                            onTap: () async {
+
+                              await onGoToNoteTemplatesScreen(
+                                  context: context,
+                                  scrollController: _scrollController,
+                                  note: _noteNotifier,
+                                  bodyController: _bodyController,
+                                  titleController: _titleController,
+                                  receiversIDs: _receiversIDs,
+                              );
+
+                            },
+                          ),
+
+                          /// TEST BUTTON
+                          SendButton(
+                            text: 'Test',
+                            onTap: (){},
+                          ),
+
+                          /// BLOG BUTTON
+                          SendButton(
+                            text: 'Blog',
+                            onTap: (){
+                              _noteNotifier.value.blogNoteModel();
+                            },
                           ),
 
                         ],

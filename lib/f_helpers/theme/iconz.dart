@@ -38,23 +38,6 @@ class Iconz {
   static const String comPinterest = '$_iconsPath/com_pinterest.svg';
   static const String comGooglePlus = '$_iconsPath/com_google_plus.svg';
   // --------------------
-  /// dummies
-  static const String dumAuthorPic = 'assets/dum/dum_author_pic.jpg';
-  static const String dumBusinessLogo = 'assets/dum/dum_business_logo.jpg';
-  static const String dumSlide1 = 'assets/dum/dum_slide.jpg';
-  static const String dumSlide2 = 'assets/dum/dum_slide2.jpg';
-  static const String dumSlide3 = 'assets/dum/dum_slide3.jpg';
-  static const String dumSlide4 = 'assets/dum/dum_slide4.jpg';
-  static const String dumSlide5 = 'assets/dum/dum_slide5.jpg';
-  static const String dumSlide6 = 'assets/dum/dum_slide6.jpg';
-  static const String dumSlide7 = 'assets/dum/dum_slide7.jpg';
-  static const String dumStaticSky = 'assets/dum/dum_static_sky.jpg';
-  static const String dumUniverse = 'assets/dum/dum_universe.jpg';
-  static const String dumEarthMap = 'assets/dum/dum_earth_map.jpg';
-  static const String dumBzPNG = 'assets/dum/dum_bz.png';
-  static const String dumPinPNG = 'assets/dum/dum_pin.png';
-  static const String dumPyramidPin = 'assets/dum/dum_pyramid_pin.png';
-  // --------------------
   /// dev
   static const String dvBlankSVG = '$_iconsPath/dv_blank.svg';
   static const String dvGouran = '$_iconsPath/dv_gouran.svg';
@@ -228,21 +211,6 @@ class Iconz {
       comTikTok,
       comPinterest,
       comGooglePlus,
-      dumAuthorPic,
-      dumBusinessLogo,
-      dumSlide1,
-      dumSlide2,
-      dumSlide3,
-      dumSlide4,
-      dumSlide5,
-      dumSlide6,
-      dumSlide7,
-      dumStaticSky,
-      dumUniverse,
-      dumEarthMap,
-      dumBzPNG,
-      dumPinPNG,
-      dumPyramidPin,
       dvBlankSVG,
       dvGouran,
       dvRageh,

@@ -1,11 +1,12 @@
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/b_views/d_user/z_components/user_tile_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/bz_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/country_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/user_tile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/f_bzz_manager/bz_long_button.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +37,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
           builder: (_, AsyncSnapshot<Object> snap){
 
           return UserTileButton(
-            boxWidth: width,
+            width: width,
             userModel: snap.data,
           );
 
@@ -55,10 +56,9 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
           ),
           builder: (_, AsyncSnapshot<Object> snap){
 
-            return BzLongButton(
-              boxWidth: width,
+            return BzTileButton(
+              width: width,
               bzModel: snap.data,
-              showAuthorsPics: true,
             );
 
           }
@@ -69,7 +69,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
     /// COUNTRY WIDE BUTTON
     else if (type == NotePartyType.country){
 
-      return WideCountryButton(
+      return CountryTileButton(
         width: width,
         countryID: id,
         onTap: null,
@@ -82,7 +82,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
 
       // NoteModel.bldrsSenderModel
 
-      return WideButton(
+      return TileButton(
         width: width,
         verse: const Verse(text: 'phid_bldrsFullName', translate: true),
         icon: Iconz.bldrsNameSquare,

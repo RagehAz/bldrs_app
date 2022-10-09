@@ -648,7 +648,7 @@ class SlideModel {
   static SlideModel dummySlide() {
     return SlideModel(
       slideIndex: 0,
-      pic: Iconz.dumSlide1,
+      pic: Iconz.power,
       headline: 'Headliner',
       description: 'Descriptor',
       picFit: BoxFit.cover,
