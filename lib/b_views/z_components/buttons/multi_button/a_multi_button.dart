@@ -51,6 +51,7 @@ class MultiButton extends StatelessWidget {
             iconColor: pics.length == 1 ? null : Colorz.nothing,
             bubble: bubble,
             color: color,
+            verseMaxLines: 2,
           ),
 
           if (pics.length == 2)

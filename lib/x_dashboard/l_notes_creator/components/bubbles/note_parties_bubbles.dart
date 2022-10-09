@@ -28,6 +28,103 @@ class NotePartiesBubbles extends StatelessWidget {
   final NoteModel note;
   final ValueNotifier<NoteModel> noteNotifier;
   final ValueNotifier<List<dynamic>> receiversModels;
+  // -----------------------------------------------------------------------------
+  /*
+  List<Verse> _getNotTypeBulletPoints(NoteType noteType){
+
+    // /// NOTHING SELECTED
+    // if (noteType == null){
+    //   return <Verse>[];
+    // }
+    //
+    // /// NOTICE
+    // else if (noteType == NoteType.notice){
+    //   return <Verse>[
+    //     const Verse(
+    //       text: 'Notice note : is the default type of notes',
+    //       translate: false,
+    //     ),
+    //   ];
+    // }
+    //
+    // /// AUTHORSHIP
+    // else if (noteType == NoteType.authorship){
+    //   return <Verse>[
+    //     const Verse(
+    //       text: 'Authorship note : is when business invites user to become an author in the team',
+    //       translate: false,
+    //     ),
+    //   ];
+    // }
+    //
+    // /// FLYER UPDATE
+    // else if (noteType == NoteType.flyerUpdate){
+    //   return <Verse>[
+    //     const Verse(
+    //       text: 'FlyerUpdate note : is when an author updates a flyer, note is sent to his bz',
+    //       translate: false,
+    //     ),
+    //     const Verse(
+    //       text: 'This fires [reFetchFlyer] mesh faker esm el protocol',
+    //       translate: false,
+    //     ),
+    //   ];
+    // }
+    //
+    // /// BZ DELETION
+    // else if (noteType == NoteType.bzDeletion){
+    //   return <Verse>[
+    //     const Verse(
+    //       text: 'bzDeletion note : is when an author deletes his bz, all authors team receive this',
+    //       translate: false,
+    //     ),
+    //     const Verse(
+    //       text: 'This fires [deleteBzLocally] protocol, bardo mesh faker esm el protocol awy delwa2ty',
+    //       translate: false,
+    //     ),
+    //   ];
+    // }
+    //
+    // /// OTHERWISE
+    // else {
+    //   return null;
+    // }
+
+  }
+   */
+  // --------------------
+  /*
+  String _noteTypeValidator(NoteModel note){
+    String _message;
+
+    /// NOTE NULL
+    if (note == null){
+      _message = 'Note is null';
+    }
+
+    /// TYPE IS NULL
+    else if (note?.type == null){
+      _message = 'Select note type';
+    }
+
+    /// OTHERWISE
+    else {
+
+      _message ??= NoteModel.receiverVsNoteTypeValidator(
+          receiverType: note?.receiverType,
+          noteType: note?.type,
+      );
+
+      _message ??= NoteModel.senderVsNoteTypeValidator(
+          senderType: note?.senderType,
+        noteType: note?.type,
+      );
+
+    }
+
+    return _message;
+  }
+   */
   // --------------------
   String _noteSenderValidator(NoteModel note){
     String _message;
