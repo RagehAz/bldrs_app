@@ -40,7 +40,7 @@ class FutureUserTileButton extends StatelessWidget {
           }
 
           else {
-            return UserTileButton(
+            return UserTileButtonOld(
               boxWidth: boxWidth,
               userModel: _userModel,
               sideButtonVerse: sideButtonVerse,
