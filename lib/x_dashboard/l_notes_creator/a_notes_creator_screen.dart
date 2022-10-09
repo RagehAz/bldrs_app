@@ -13,6 +13,8 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/a_multi_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -26,8 +28,8 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_b
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -35,6 +37,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/note_parties_bubbles.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/send_button.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
@@ -69,7 +72,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   NootEvent _nootEvent;
   // --------------------
   final ValueNotifier<NoteModel> _noteNotifier = ValueNotifier<NoteModel>(null);
-  final ValueNotifier<List<String>> _receiversIDs = ValueNotifier<List<String>>(<String>[]);
+  final ValueNotifier<List<dynamic>> _receiversModels = ValueNotifier<List<dynamic>>([]);
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
@@ -124,7 +127,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _scrollController.dispose();
     _titleNode.dispose();
     _bodyNode.dispose();
-    _receiversIDs.dispose();
+    _receiversModels.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -345,6 +348,14 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
+      onBack: () async {
+
+        await Dialogs.goBackDialog(
+          context: context,
+          goBackOnConfirm: true,
+        );
+
+      },
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -377,166 +388,10 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   children:  <Widget>[
 
                     /// PARTIES
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-
-                        const SizedBox(width: 10, height: 10),
-
-                        /// SENDER
-                        TileBubble(
-                          bubbleWidth: _halfBubbleWidth,
-                          bubbleHeaderVM: BubbleHeaderVM(
-                            headlineVerse: const Verse(
-                              text: 'Sender',
-                              translate: false,
-                            ),
-                            leadingIcon: Iconz.phone,
-                            leadingIconSizeFactor: 0.5,
-                            leadingIconBoxColor: note?.parties?.senderID == null ? Colorz.grey50 : Colorz.green255,
-                          ),
-                          validator: () => _noteSenderValidator(note),
-                          child: SizedBox(
-                            width: _halfBubbleChildWidth,
-                            child: Column(
-                              children: <Widget>[
-
-                                /// NOTE SENDER TYPES
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-
-                                    ...List.generate(NoteParties.noteSenderTypesList.length, (index){
-
-                                      final NotePartyType _senderType = NoteParties.noteSenderTypesList[index];
-                                      final bool _isSelected = note?.parties?.senderType == _senderType;
-                                      final String _senderTypeIcon = NoteParties.getPartyIcon(_senderType);
-
-                                      return DreamBox(
-                                        height: _partyIconSize,
-                                        width: _partyIconSize,
-                                        icon: _senderTypeIcon,
-                                        iconSizeFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        iconColor:  _isSelected == true ? Colorz.black255 : null,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () => onSelectNoteSender(
-                                          context: context,
-                                          senderType: _senderType,
-                                          note: _noteNotifier,
-                                        ),
-                                      );
-
-                                    }),
-
-                                  ],
-                                ),
-
-                                /// NOTE SENDER BUTTON
-                                NoteSenderOrRecieverDynamicButton(
-                                  width: _halfBubbleChildWidth,
-                                  type: note?.parties?.senderType,
-                                  id: note?.parties?.senderID,
-                                ),
-
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(width: 10, height: 10),
-
-                        /// RECEIVER
-                        TileBubble(
-                          bubbleWidth: _halfBubbleWidth,
-                          bubbleHeaderVM: BubbleHeaderVM(
-                            headlineVerse: const Verse(
-                              text: 'Receiver',
-                              translate: false,
-                            ),
-                            leadingIcon: Iconz.phone,
-                            leadingIconSizeFactor: 0.5,
-                            leadingIconBoxColor: note?.parties?.receiverType == null ? Colorz.grey50 : Colorz.green255,
-                          ),
-                          validator: () => _noteRecieverValidator(note),
-                          child: SizedBox(
-                            width: _halfBubbleChildWidth,
-                            child: Column(
-                              children: <Widget>[
-
-                                /// RECEIVERS TYPES BUTTONS
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-
-                                    ...List.generate(NoteParties.noteReceiverTypesList.length, (index){
-
-                                      final NotePartyType _receiverType = NoteParties.noteReceiverTypesList[index];
-                                      final bool _isSelected = note?.parties?.receiverType == _receiverType;
-                                      final String _receiverTypeIcon = NoteParties.getPartyIcon(_receiverType);
-
-                                      blog('the fucking selected receiverType is ${note?.parties?.receiverType}');
-
-                                      return DreamBox(
-                                        height: _partyIconSize,
-                                        width: _halfBubbleChildWidth/2,
-                                        icon: _receiverTypeIcon,
-                                        iconSizeFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        iconColor:  _isSelected == true ? Colorz.black255 : null,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () async {
-                                          await onSelectReceiverType(
-                                            context: context,
-                                            selectedReceiverType: _receiverType,
-                                            noteNotifier: _noteNotifier,
-                                            receiversIDs: _receiversIDs,
-                                          );
-                                        },
-                                      );
-
-                                    }),
-
-                                  ],
-                                ),
-
-                                /// RECEIVERS LABELS
-                                  ValueListenableBuilder(
-                                    valueListenable: _receiversIDs,
-                                    builder: (_, List<String> receiversIDs, Widget child){
-
-                                      /// RECEIVERS SELECTED
-                                      if (Mapper.checkCanLoopList(receiversIDs) == true){
-
-                                        return NoteSenderOrRecieverDynamicButtonsColumn(
-                                          width: _halfBubbleChildWidth,
-                                          type: note?.parties?.receiverType,
-                                          ids: receiversIDs,
-                                        );
-
-                                      }
-
-                                      /// NO RECEIVERS SELECTED
-                                      else {
-                                        return NoteSenderOrRecieverDynamicButton(
-                                          width: _halfBubbleChildWidth,
-                                          id: null,
-                                          type: null,
-                                        );
-                                      }
-                                    },
-                                  ),
-
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        const SizedBox(width: 10, height: 10),
-
-                      ],
+                    NotePartiesBubbles(
+                      note: note,
+                      receiversModels: _receiversModels,
+                      noteNotifier: _noteNotifier,
                     ),
 
                     /// TITLE
@@ -915,7 +770,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
 
                     /// TRIGGER
-
+                    const SizedBox(),
 
                     /// FCM SWITCH
                     TileBubble(
@@ -1011,39 +866,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       ),
                     ),
 
-
-
-
-
-                    /// MULTI BUTTON
-
-                    Container(
-                      width: Scale.superScreenWidth(context),
-                      height: 60,
-                      color: Colorz.bloodTest,
-                      alignment: Alignment.center,
-                      child: MultiButton(
-                        height: 50,
-                        width: 200,
-                        verse: Verse.plain('fuck you'),
-                        secondLine: Verse.plain('asshole'),
-                        pics: const [
-                          Iconz.power,
-                          Iconz.dvRageh,
-                          Iconz.bz,
-                          Iconz.star,
-                          Iconz.reload,
-                        ],
-                      ),
-                    ),
-
-
-
-
-
-
-
-
                     /// HORIZON
                     const Horizon(heightFactor: 2),
 
@@ -1076,8 +898,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         padding: Scale.constantMarginsAll5,
                         margin: const EdgeInsets.only(top: 10),
                         child: ValueListenableBuilder(
-                            valueListenable: _receiversIDs,
-                            builder: (_, List<String> receiversIDs, Widget child){
+                            valueListenable: _receiversModels,
+                            builder: (_, List<dynamic> receiversModels, Widget child){
 
                               return ListView(
                                 // crossAxisAlignment: CrossAxisAlignment.start,
@@ -1099,7 +921,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                       casing: Casing.upperCase,
                                     ),
                                     secondLine: Verse(
-                                      text: '${receiversIDs.length} ${note?.parties?.receiverType == NotePartyType.bz ? 'bzz' : 'users'}',
+                                      text: '${receiversModels.length} ${note?.parties?.receiverType == NotePartyType.bz ? 'bzz' : 'users'}',
                                       translate: false,
                                     ),
                                     color: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
@@ -1111,7 +933,10 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                   NoteSenderOrRecieverDynamicButtonsColumn(
                                     width: 250,
                                     type: note?.parties?.receiverType,
-                                    ids: receiversIDs,
+                                    ids: NoteParties.getReceiversIDs(
+                                      receiversModels: receiversModels,
+                                      partyType: note?.parties?.receiverType,
+                                    ),
                                   ),
 
                                 ],
@@ -1139,7 +964,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                               titleController: _titleController,
                               bodyController: _bodyController,
                               scrollController: _scrollController,
-                              receiversIDs: _receiversIDs,
+                              receiversModels: _receiversModels,
                             ),
                           ),
 
@@ -1174,7 +999,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                   note: _noteNotifier,
                                   bodyController: _bodyController,
                                   titleController: _titleController,
-                                  receiversIDs: _receiversIDs,
+                                  receiversModels: _receiversModels,
                               );
 
                             },
@@ -1211,7 +1036,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     titleController: _titleController,
                     bodyController: _bodyController,
                     scrollController: _scrollController,
-                    receiversIDs: _receiversIDs,
                   ),
                 ),
 
