@@ -99,32 +99,49 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   }
   // --------------------
   static double verseWidth({
-    double width,
-    double iconMargin,
-    double verseIconSpacing,
-    double graphicWidth
+    @required double width,
+    @required double iconMargin,
+    @required double verseIconSpacing,
+    @required double graphicWidth,
+    @required bool hasIcon,
   }) {
-    final double _verseWidth = width != null ?
-    width
-        - (iconMargin * 2)
-        - graphicWidth
-        - ((verseIconSpacing * 2) + iconMargin)
-        :
-    width;
-    return _verseWidth;
+
+    if (hasIcon == true){
+
+      if (width != null ){
+        return  width
+            - (iconMargin * 2)
+            - graphicWidth
+            - ((verseIconSpacing * 2) + iconMargin);
+      }
+      else {
+        return width; // return null bitch
+      }
+
+    }
+    else {
+      return width;
+    }
+
   }
   // --------------------
   static double verseIconSpacing({
-    double height,
-    Verse verse,
-    double iconSizeFactor,
-    double verseScaleFactor
+    @required double height,
+    @required Verse verse,
+    @required double iconSizeFactor,
+    @required double verseScaleFactor,
+    @required bool hasIcon,
   }) {
 
-    final double _verseIconSpacing = verse?.text != null ?
-    height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
-
-    return _verseIconSpacing;
+    if (hasIcon == false){
+      return 0;
+    }
+    else if (verse?.text != null){
+      return height * 0.3 * iconSizeFactor * verseScaleFactor;
+    }
+    else {
+      return 0;
+    }
   }
   // --------------------
   bool _verseShadowIsOn() {
@@ -187,6 +204,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
       height: height,
       verse: verse,
       verseScaleFactor: verseScaleFactor,
+      hasIcon: icon != null,
     );
     // --------------------
     final double _verseWidth = verseWidth(
@@ -194,6 +212,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
       width: width,
       iconMargin: iconMargin,
       verseIconSpacing: _verseIconSpacing,
+      hasIcon: icon != null,
     );
     // --------------------
     final CrossAxisAlignment _versesCrossAlignment = versesCrossAlignment(
@@ -308,10 +327,14 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
                 SizedBox(
                   width: _verseWidth,
+                  height: secondLine == null ? height : null,
                   child: SuperVerse(
+                    width: _verseWidth,
+
                     verse: verse,
                     size: verseSize,
                     weight: verseWeight,
+
                     color: greyscale == true || inActiveMode == true ?
                     Colorz.white30
                         :
@@ -324,6 +347,10 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     redDot: redDot,
                     highlight: highlight,
                     highlightColor: highlightColor,
+                    margin: _verseWidth == null ?
+                    EdgeInsets.symmetric(horizontal: height * 0.2)
+                        :
+                    EdgeInsets.zero,
                   ),
                 ),
 

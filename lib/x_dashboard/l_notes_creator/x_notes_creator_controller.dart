@@ -822,10 +822,12 @@ void clearNote({
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
+  @required ValueNotifier<List<dynamic>> receiversModels,
 }){
   note.value = _createInitialNote(context);
   titleController.clear();
   bodyController.clear();
+  receiversModels.value = [];
 
 }
 // -----------------------------------------------------------------------------
