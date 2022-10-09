@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
@@ -80,19 +79,18 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
     /// BLDRS IN MAP MODEL
     else if (type == NotePartyType.bldrs){
 
-      // NoteModel.bldrsSenderModel
-
       return TileButton(
         width: width,
         verse: const Verse(text: 'phid_bldrsFullName', translate: true),
         icon: Iconz.bldrsNameSquare,
         iconSizeFactor: 0.7,
       );
+
     }
 
     /// NOTHINGNESS
     else {
-      return WideButton(
+      return TileButton(
         width: width,
       );
     }
