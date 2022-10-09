@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
-
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
@@ -12,15 +10,10 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/buttons/multi_button/a_multi_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/notes/banner/note_attachment.dart';
-import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -28,8 +21,7 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_b
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -38,8 +30,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/note_parties_bubbles.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/send_button.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/note_preview_panel.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
@@ -130,180 +121,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _receiversModels.dispose();
     super.dispose();
   }
-  // -----------------------------------------------------------------------------
-  /*
-  List<Verse> _getNotTypeBulletPoints(NoteType noteType){
-
-    // /// NOTHING SELECTED
-    // if (noteType == null){
-    //   return <Verse>[];
-    // }
-    //
-    // /// NOTICE
-    // else if (noteType == NoteType.notice){
-    //   return <Verse>[
-    //     const Verse(
-    //       text: 'Notice note : is the default type of notes',
-    //       translate: false,
-    //     ),
-    //   ];
-    // }
-    //
-    // /// AUTHORSHIP
-    // else if (noteType == NoteType.authorship){
-    //   return <Verse>[
-    //     const Verse(
-    //       text: 'Authorship note : is when business invites user to become an author in the team',
-    //       translate: false,
-    //     ),
-    //   ];
-    // }
-    //
-    // /// FLYER UPDATE
-    // else if (noteType == NoteType.flyerUpdate){
-    //   return <Verse>[
-    //     const Verse(
-    //       text: 'FlyerUpdate note : is when an author updates a flyer, note is sent to his bz',
-    //       translate: false,
-    //     ),
-    //     const Verse(
-    //       text: 'This fires [reFetchFlyer] mesh faker esm el protocol',
-    //       translate: false,
-    //     ),
-    //   ];
-    // }
-    //
-    // /// BZ DELETION
-    // else if (noteType == NoteType.bzDeletion){
-    //   return <Verse>[
-    //     const Verse(
-    //       text: 'bzDeletion note : is when an author deletes his bz, all authors team receive this',
-    //       translate: false,
-    //     ),
-    //     const Verse(
-    //       text: 'This fires [deleteBzLocally] protocol, bardo mesh faker esm el protocol awy delwa2ty',
-    //       translate: false,
-    //     ),
-    //   ];
-    // }
-    //
-    // /// OTHERWISE
-    // else {
-    //   return null;
-    // }
-
-  }
-   */
-  // --------------------
-  /*
-  String _noteTypeValidator(NoteModel note){
-    String _message;
-
-    /// NOTE NULL
-    if (note == null){
-      _message = 'Note is null';
-    }
-
-    /// TYPE IS NULL
-    else if (note?.type == null){
-      _message = 'Select note type';
-    }
-
-    /// OTHERWISE
-    else {
-      
-      _message ??= NoteModel.receiverVsNoteTypeValidator(
-          receiverType: note?.receiverType,
-          noteType: note?.type,
-      );
-      
-      _message ??= NoteModel.senderVsNoteTypeValidator(
-          senderType: note?.senderType,
-        noteType: note?.type,
-      );
-      
-    }
-
-    return _message;
-  }
-   */
-  // --------------------
-  String _noteSenderValidator(NoteModel note){
-    String _message;
-
-    /// NOTE IS NULL
-    if (note == null){
-      _message = 'Note is null';
-    }
-    
-    /// NO SENDER SELECTED
-    else if (note?.parties?.senderID == null){
-      _message = 'Select a sender';
-    }
-    
-    /// NO SENDER TYPE
-    else if (note?.parties?.senderType == null){
-      _message = 'SenderType is null';
-    }
-    
-    /// IMAGE IN NULL
-    else if (note?.parties?.senderImageURL == null){
-      _message = 'Sender pic is null';
-    }
-    
-    /// OTHERWISE
-    else {
-      
-      // _message ??= NoteModel.senderVsNoteTypeValidator(
-      //     senderType: note?.senderType,
-      //     noteType: note?.type,
-      // );
-      
-      _message ??= NoteModel.receiverVsSenderValidator(
-          senderType: note?.parties?.senderType,
-          receiverType: note?.parties?.receiverType
-      );
-      
-    }
-
-    return _message;
-  }
-  // --------------------
-  String _noteRecieverValidator(NoteModel note){
-    String _message;
-
-    /// NOTE IS NULL
-    if (note == null){
-      _message = 'Note is null';
-    }
-
-    /// NO SENDER SELECTED
-    else if (note?.parties?.receiverID == null){
-      _message = 'Select a receiver';
-    }
-
-    /// NO SENDER TYPE
-    else if (note?.parties?.receiverType == null){
-      _message = 'Receiver type is null';
-    }
-
-    /// OTHERWISE
-    else {
-      
-      // _message ??= NoteModel.receiverVsNoteTypeValidator(
-      //     receiverType: note?.receiverType,
-      //     noteType: note?.type,
-      // );
-
-      _message ??= NoteModel.receiverVsSenderValidator(
-          senderType: note?.parties?.senderType,
-          receiverType: note?.parties?.receiverType
-      );
-      
-    }
-
-    return _message;
-  }
   // --------------------
   String _noteButtonsValidator(NoteModel note){
     String _message;
@@ -332,12 +149,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       context: context,
       bubbleWidthOverride: _bubbleWidth,
     );
-    final double _halfBubbleWidth = (_bubbleWidth - 10) / 2;
-    final double _halfBubbleChildWidth = TileBubble.childWidth(
-        context: context,
-        bubbleWidthOverride: _halfBubbleWidth,
-    );
-    final double _partyIconSize = _halfBubbleChildWidth / NoteParties.noteSenderTypesList.length;
     // --------------------
     return MainLayout(
       loading: _loading,
@@ -420,6 +231,9 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       },
                       focusNode: _titleNode,
                       keyboardTextInputAction: TextInputAction.next,
+                      onSubmitted: (String text){
+                        Formers.focusOnNode(_bodyNode);
+                      },
                     ),
 
                     /// BODY
@@ -874,171 +688,14 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
               ),
 
               /// CONFIRM BUTTON
-              CornerWidgetMaximizer(
-                minWidth: 150,
-                maxWidth: _bubbleWidth * 0.9,
-                childWidth: _bubbleWidth,
-                topChild: SizedBox(
-                  width: _bubbleWidth,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-
-                      /// SENDING TO INFO
-                      Container(
-                        width: 260,
-                        constraints: const BoxConstraints(
-                          maxHeight: 300,
-
-                        ),
-                        decoration: BoxDecoration(
-                          color: note?.parties?.receiverID == null ? Colorz.bloodTest : Colorz.white50,
-                          borderRadius: Borderers.constantCornersAll10,
-                        ),
-                        padding: Scale.constantMarginsAll5,
-                        margin: const EdgeInsets.only(top: 10),
-                        child: ValueListenableBuilder(
-                            valueListenable: _receiversModels,
-                            builder: (_, List<dynamic> receiversModels, Widget child){
-
-                              return ListView(
-                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                physics: const BouncingScrollPhysics(),
-                                padding: EdgeInsets.zero,
-                                children: <Widget>[
-
-                                  DreamBox(
-                                    width: 250,
-                                    height: 40,
-                                    icon: note?.sendFCM == true ? Iconz.news : Iconz.star,
-                                    iconSizeFactor: 0.5,
-                                    verseScaleFactor: 0.9,
-                                    verseItalic: true,
-                                    // verseWeight: VerseWeight.thin,
-                                    verse: Verse(
-                                      text: '${note?.sendFCM == true ? 'with FCM' : 'without FCM'} to',
-                                      translate: false,
-                                      casing: Casing.upperCase,
-                                    ),
-                                    secondLine: Verse(
-                                      text: '${receiversModels.length} ${note?.parties?.receiverType == NotePartyType.bz ? 'bzz' : 'users'}',
-                                      translate: false,
-                                    ),
-                                    color: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
-                                    bubble: false,
-                                    verseCentered: false,
-                                    margins: const EdgeInsets.only(bottom: 10),
-                                  ),
-
-                                  NoteSenderOrRecieverDynamicButtonsColumn(
-                                    width: 250,
-                                    type: note?.parties?.receiverType,
-                                    ids: NoteParties.getReceiversIDs(
-                                      receiversModels: receiversModels,
-                                      partyType: note?.parties?.receiverType,
-                                    ),
-                                  ),
-
-                                ],
-                              );
-
-                            }
-                        ),
-                      ),
-
-                      const Expander(),
-
-                      /// SEND - TEST - BLOG BUTTONS
-                      Column(
-                        children: <Widget>[
-
-                          /// SEND BUTTON
-                          SendButton(
-                            text: 'Send',
-                            height: 80,
-                            isDeactivated: !NoteModel.checkCanSendNote(note),
-                            onTap: () => onSendNote(
-                              context: context,
-                              note: _noteNotifier,
-                              formKey: _formKey,
-                              titleController: _titleController,
-                              bodyController: _bodyController,
-                              scrollController: _scrollController,
-                              receiversModels: _receiversModels,
-                            ),
-                          ),
-
-                          const SeparatorLine(
-                            width: SendButton.width,
-                            withMargins: true,
-                          ),
-
-                          /// IMPORT BUTTON
-                          SendButton(
-                            text: 'Clear',
-                            onTap: () async {
-
-                              clearNote(
-                                context: context,
-                                note: _noteNotifier,
-                                titleController: _titleController,
-                                bodyController: _bodyController,
-                              );
-
-                            },
-                          ),
-
-                          /// IMPORT BUTTON
-                          SendButton(
-                            text: 'Import',
-                            onTap: () async {
-
-                              await onGoToNoteTemplatesScreen(
-                                  context: context,
-                                  scrollController: _scrollController,
-                                  note: _noteNotifier,
-                                  bodyController: _bodyController,
-                                  titleController: _titleController,
-                                  receiversModels: _receiversModels,
-                              );
-
-                            },
-                          ),
-
-                          /// TEST BUTTON
-                          SendButton(
-                            text: 'Test',
-                            onTap: (){},
-                          ),
-
-                          /// BLOG BUTTON
-                          SendButton(
-                            text: 'Blog',
-                            onTap: (){
-                              _noteNotifier.value.blogNoteModel();
-                            },
-                          ),
-
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ),
-                child: NoteCard(
-                  bubbleWidth: _bubbleWidth,
-                  bubbleColor: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
-                  noteModel: note,
-                  isDraftNote: false,
-                  onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
-                    context: context,
-                    note: _noteNotifier,
-                    titleController: _titleController,
-                    bodyController: _bodyController,
-                    scrollController: _scrollController,
-                  ),
-                ),
-
+              NotePreviewPanel(
+                noteNotifier: _noteNotifier,
+                receiversModels: _receiversModels,
+                note: note,
+                bodyController: _bodyController,
+                formKey: _formKey,
+                scrollController: _scrollController,
+                titleController: _titleController,
               ),
 
             ],
