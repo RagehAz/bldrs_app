@@ -226,7 +226,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                   width: 100,
                   height: FlyerDim.flyerHeightByFlyerWidth(context, 100),
                   boxFit: BoxFit.fitWidth,
-                  pic: Iconz.dumSlide1,
+                  pic: Iconz.dvRageh,
                 ),
               ),
             ),
@@ -429,7 +429,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                   decoration: BoxDecoration(
                     color: Colorz.yellow80,
                     image: const DecorationImage(
-                        image: AssetImage(Iconz.dumAuthorPic),
+                        image: AssetImage(Iconz.dvDonaldDuck),
                         fit: BoxFit.fitHeight,
                     ),
                     borderRadius: Borderers.cornerOnly(

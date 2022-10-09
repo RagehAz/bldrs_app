@@ -1461,7 +1461,7 @@ class BzModel{
 
     return BzModel(
       id: _bzID,
-      logo: Iconz.dumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
+      logo: Iconz.bz, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
       name: 'Business Name That os a bit too kinda tall and little bit extra tall aho',
       trigram: Stringer.createTrigram(input: 'Business Name'),
       bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.artisan],

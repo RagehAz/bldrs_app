@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/country_tile_button.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
 
         final String _countryID = _activeCountriesIDs[index];
 
-        return WideCountryButton(
+        return CountryTileButton(
           countryID: _countryID,
           onTap: () => onCountryTap(_countryID),
         );

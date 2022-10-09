@@ -11,7 +11,6 @@ import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -80,151 +79,33 @@ Future<void> onNoteCreatorCardOptionsTap({
   @required ValueNotifier<List<String>> receiversIDs,
 }) async {
 
-  await BottomDialog.showButtonsBottomDialog(
-      context: context,
-      draggable: true,
-      numberOfWidgets: 3,
-      titleVerse: const Verse(
-        text: 'phid_options',
-        translate: true,
-      ),
-      buttonHeight: 50,
-      builder: (_){
-
-        return <Widget>[
-
-          /// IMPORT TEMPLATE
-          BottomDialog.wideButton(
-              context: context,
-              verse: const Verse(
-                text: 'Import Template',
-                translate: false,
-                casing: Casing.upperCase,
-              ),
-              height: 50,
-              onTap: () async {
-
-                await Nav.goBack(
-                    context: context,
-                    invoker: 'onNoteCreatorCardOptionsTap : Import Template',
-                );
-
-                await onGoToNoteTemplatesScreen(
-                  context: context,
-                  scrollController: scrollController,
-                  note: note,
-                  bodyController: bodyController,
-                  titleController: titleController,
-                  receiversIDs: receiversIDs,
-                );
-
-              }
-          ),
-
-          /// BLOG
-          BottomDialog.wideButton(
-              context: context,
-              verse: const Verse(
-                text: 'Blog Note',
-                translate: false,
-                casing: Casing.upperCase,
-              ),
-              height: 50,
-              onTap: () async {
-
-                note.value.blogNoteModel();
-
-              }
-          ),
-
-
-          /// CLEAR NOTE
-          BottomDialog.wideButton(
-              context: context,
-              verse: const Verse(
-                text: 'Clear Note',
-                translate: false,
-                casing: Casing.upperCase,
-              ),
-              color: Colorz.bloodTest,
-              height: 50,
-              onTap: () async {
-
-                await Nav.goBack(
-                  context: context,
-                  invoker: 'onNoteCreatorCardOptionsTap : Import Template',
-                );
-
-                _clearNote(
-                    context: context,
-                    note: note,
-                    titleController: titleController,
-                    bodyController: bodyController,
-                );
-
-              }
-          ),
-
-        ];
-
-      }
-  );
-
+  // await BottomDialog.showButtonsBottomDialog(
+  //     context: context,
+  //     draggable: true,
+  //     numberOfWidgets: 2,
+  //     titleVerse: const Verse(
+  //       text: 'phid_options',
+  //       translate: true,
+  //     ),
+  //     buttonHeight: 50,
+  //     builder: (_){
+  //
+  //       return <Widget>[
+  //
+  //
+  //
+  //       ];
+  //
+  //     }
+  // );
 
 }
-// -----------------------------------------------------------------------------
-
-/// NOTE TYPE
-
-// --------------------
-/*
-/// TESTED : WORKS PERFECT
-Future<void> onChangeNoteType({
-  @required BuildContext context,
-  @required ValueNotifier<NoteModel> note,
-  @required NoteType noteType,
-}) async {
-
-  note.value = note.value.copyWith(
-    type: noteType,
-  );
-
-}
- */
 // -----------------------------------------------------------------------------
 
 /// NOTE RECEIVER
 
 // --------------------
-/*
-// /// TESTED : WORKS PERFECT
-// Future<void> onSelectNoteReceiverTap({
-//   @required BuildContext context,
-//   @required ValueNotifier<UserModel> receiver,
-//   @required ValueNotifier<NoteModel> note,
-// }) async {
-//
-//   Keyboarders.closeKeyboard(context);
-//
-//   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
-//       context: context,
-//       screen: const SearchUsersScreen(
-//         excludeMyself: false,
-//         // multipleSelection: false,
-//         // selectedUsers: null,
-//       ),
-//   );
-//
-//     if (Mapper.checkCanLoopList(_selectedUsers) == true){
-//       receiver.value = _selectedUsers.first;
-//       note.value = note.value.copyWith(
-//         receiverID: _selectedUsers.first.id,
-//       );
-//     }
-//
-// }
- */
-// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectReceiverType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
@@ -261,7 +142,7 @@ Future<void> onSelectReceiverType({
 
 }
 // --------------------
-
+/// TESTED : WORKS PERFECT
 Future<List<String>> _onSelectUserAsNoteReceiver({
   @required BuildContext context,
   @required ValueNotifier<List<String>> selectedUsersIDs,
@@ -287,7 +168,7 @@ Future<List<String>> _onSelectUserAsNoteReceiver({
   return _usersIDs;
 }
 // --------------------
-
+/// TESTED : WORKS PERFECT
 Future<List<String>> _onSelectBzAsNoteReceiver({
   @required BuildContext context,
   @required ValueNotifier<List<String>> selectedBzzIDs,
@@ -315,7 +196,7 @@ Future<List<String>> _onSelectBzAsNoteReceiver({
   return _bzzIDs;
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void deleteSelectedReciever({
   @required ValueNotifier<UserModel> selectedUser,
 }){
@@ -328,7 +209,7 @@ void deleteSelectedReciever({
 /// BODY AND TITLE
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onTitleChanged({
   @required String text,
   @required ValueNotifier<NoteModel> note,
@@ -341,7 +222,7 @@ void onTitleChanged({
   note.value = _updated;
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onBodyChanged({
   @required String text,
   @required ValueNotifier<NoteModel> note,
@@ -358,7 +239,7 @@ void onBodyChanged({
 /// SENDER
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TESTED :
 Future<void> onSelectNoteSender({
   @required BuildContext context,
   @required NotePartyType senderType,
@@ -413,7 +294,7 @@ Future<void> onSelectNoteSender({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TESTED :
 Future<bool> _showEthicalConfirmationDialog({
   @required BuildContext context,
   @required NotePartyType senderType,
@@ -444,7 +325,7 @@ Future<bool> _showEthicalConfirmationDialog({
   return _canContinue;
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TESTED :
 Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -478,7 +359,7 @@ Future<void> _onSelectUserAsNoteSender({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TESTED :
 Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -510,7 +391,7 @@ Future<void> _onSelectBzAsNoteSender({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TESTED :
 Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -539,7 +420,7 @@ Future<void> _onSelectCountryAsNoteSender({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TESTED :
 Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -603,7 +484,7 @@ void onAddNoteButton({
 /// ATTACHMENTS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TESTED :
 Future<void> onSelectPosterType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -763,7 +644,7 @@ void _onClearPoster({
 /// SEND
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onSendNote({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -867,7 +748,7 @@ Future<void> _modifyPosterIfFile({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 List<String> _concludeImageOwnersIDs(NoteModel noteModel){
 
   String _ownerID;
@@ -889,7 +770,7 @@ List<String> _concludeImageOwnersIDs(NoteModel noteModel){
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-void _clearNote({
+void clearNote({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
@@ -905,7 +786,7 @@ void _clearNote({
 /// DELETE NOTE (ALL NOTES PAGINATOR SCREEN)
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onDeleteNote({
   @required BuildContext context,
   @required NoteModel noteModel,
@@ -982,7 +863,7 @@ Future<void> onGoToNoteTemplatesScreen({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onSelectNoteTemplateTap({
   @required BuildContext context,
   @required NoteModel noteModel,

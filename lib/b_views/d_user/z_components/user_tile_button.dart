@@ -4,9 +4,9 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class UserTileButton extends StatelessWidget {
+class UserTileButtonOld extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const UserTileButton({
+  const UserTileButtonOld({
     @required this.boxWidth,
     @required this.userModel,
     this.sideButtonVerse,
