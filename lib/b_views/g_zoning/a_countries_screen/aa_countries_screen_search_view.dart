@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/wide_country_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -56,7 +56,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
 
                         final Phrase _countryPhrase = foundCountries[index];
 
-                        return WideCountryButton(
+                        return CountryTileButton(
                           countryID: _countryPhrase.id,
                           onTap: () => onCountryTap(_countryPhrase.id),
                         );
