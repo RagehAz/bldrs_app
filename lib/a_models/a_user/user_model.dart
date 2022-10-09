@@ -630,6 +630,19 @@ class UserModel {
 
     return _usersIDs;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getUsersPics(List<UserModel> usersModels){
+    final List<String> _pics = <String>[];
+
+    if (Mapper.checkCanLoopList(usersModels) == true){
+      for (final UserModel user in usersModels){
+        _pics.add(user.pic);
+      }
+    }
+
+    return _pics;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS

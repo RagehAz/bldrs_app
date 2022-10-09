@@ -1446,6 +1446,7 @@ class BzModel{
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static  const List<BzSection> bzSectionsList = <BzSection>[
     BzSection.realestate,
     BzSection.construction,
@@ -1456,6 +1457,7 @@ class BzModel{
   /// BZ DUMMIES
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BzModel dummyBz(String bzID) {
     final String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
 
@@ -1483,6 +1485,7 @@ class BzModel{
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzModel> dummyBzz({int length = 4}){
 
     final List<BzModel> _dummies = <BzModel>[];
@@ -1498,6 +1501,7 @@ class BzModel{
   /// BZ BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogBz({String methodName = 'blogBzModel'}) {
     final String _methodName = methodName ?? 'BZ';
 
@@ -1524,6 +1528,7 @@ class BzModel{
     blog('$_methodName : blogING BZ MODEL -------------------------------- END -- ');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogBzz({
     @required List<BzModel> bzz,
     String methodName,
@@ -1543,6 +1548,7 @@ class BzModel{
   /// BZ GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BzModel getBzFromBzzByBzID({
     @required List<BzModel> bzz,
     @required String bzID,
@@ -1554,6 +1560,7 @@ class BzModel{
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getBzzIDs(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
 
@@ -1566,6 +1573,20 @@ class BzModel{
     return _ids;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getBzzLogos(List<BzModel> bzzModels) {
+    final List<String> _pics = <String>[];
+
+    if (Mapper.checkCanLoopList(bzzModels)) {
+      for (final BzModel bz in bzzModels) {
+        _pics.add(bz.logo);
+      }
+    }
+
+    return _pics;
+  }
+  // --------------------
+  ///
   static List<BzModel> getBzzFromBzzByBzType({
     @required List<BzModel> bzz,
     @required BzType bzType,
@@ -1592,6 +1613,7 @@ class BzModel{
     return _output;
   }
   // --------------------
+  ///
   static List<String> getBzTeamIDs(BzModel bzModel) {
     final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _bzTeamIDs = <String>[];
@@ -1605,6 +1627,7 @@ class BzModel{
     return _bzTeamIDs;
   }
   // --------------------
+  ///
   static List<BzModel> getBzzByCreatorID({
     @required List<BzModel> bzzModels,
     @required String creatorID,
@@ -1628,6 +1651,7 @@ class BzModel{
     return _bzzModels;
   }
   // --------------------
+  ///
   static List<BzModel> getBzzIDidNotCreate({
     @required List<BzModel> bzzModels,
     @required String userID,
