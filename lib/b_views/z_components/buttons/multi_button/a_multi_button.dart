@@ -1,7 +1,9 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class MultiButton extends StatelessWidget {
@@ -13,6 +15,8 @@ class MultiButton extends StatelessWidget {
     this.verse,
     this.secondLine,
     this.color,
+    this.margins,
+    this.bubble,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,13 +26,16 @@ class MultiButton extends StatelessWidget {
   final Verse verse;
   final Verse secondLine;
   final Color color;
+  final dynamic margins;
+  final bool bubble;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return SizedBox(
+    return Container(
       width: width,
       height: height,
+      margin: Scale.superMargins(margins: margins),
       child: Stack(
         // alignment: Aligners.superCenterAlignment(context),
         children: <Widget>[
@@ -40,8 +47,9 @@ class MultiButton extends StatelessWidget {
             verseScaleFactor: 0.6,
             verseCentered: false,
             secondLine: secondLine,
-            icon: pics.first,
+            icon: pics.length == 1 ? pics.first : Iconz.dvBlankSVG,
             iconColor: pics.length == 1 ? null : Colorz.nothing,
+            bubble: bubble,
             color: color,
           ),
 

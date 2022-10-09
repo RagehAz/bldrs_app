@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.da
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -76,7 +77,6 @@ Future<void> onNoteCreatorCardOptionsTap({
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
   @required ScrollController scrollController,
-  @required ValueNotifier<List<String>> receiversIDs,
 }) async {
 
   // await BottomDialog.showButtonsBottomDialog(
@@ -110,44 +110,83 @@ Future<void> onSelectReceiverType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
   @required NotePartyType selectedReceiverType,
-  @required ValueNotifier<List<String>> receiversIDs,
+  @required ValueNotifier<List<dynamic>> receiversModels,
 }) async {
+  List<dynamic> _models = [];
+  bool _go = true;
 
-  List<String> _receiversIDs = <String>[];
+  final bool _typeHasChanged = noteNotifier.value.parties.receiverType != selectedReceiverType;
 
-  /// IF USER
-  if (selectedReceiverType == NotePartyType.user){
-    _receiversIDs = await _onSelectUserAsNoteReceiver(
+  /// CHECK WHEN TYPE IS CHANGED & WHEN ALREADY HAVE SELECTED MODELS
+  if (
+      _typeHasChanged == true
+      &&
+      receiversModels.value.isNotEmpty
+  ){
+
+    _go = await Dialogs.confirmProceed(
       context: context,
-      selectedUsersIDs: receiversIDs,
+      titleVerse: Verse.plain('Remove selected'),
+      bodyVerse: Verse.plain('This will clear all selected receivers'),
     );
+
   }
 
-  /// IF BZ
-  else {
-    _receiversIDs = await _onSelectBzAsNoteReceiver(
-      context: context,
-      selectedBzzIDs: receiversIDs,
-    );
+  if (_go == true){
+
+    if (_typeHasChanged == true){
+      receiversModels.value = [];
+    }
+
+    /// IF USER
+    if (selectedReceiverType == NotePartyType.user){
+      final List<UserModel> _users = [...receiversModels.value ?? []];
+      _models = await _onSelectUserAsNoteReceiver(
+        context: context,
+        selectedUsers: _users,
+      );
+    }
+    /// IF BZ
+    else {
+      final List<BzModel> _bzz = [...receiversModels.value];
+      _models = await _onSelectBzAsNoteReceiver(
+        context: context,
+        selectedBzz: _bzz,
+      );
+    }
+
+    /// WHEN NOTHING IS SELECTED
+    if (_models.isEmpty == true){
+
+      clearReceivers(
+        receiversModels: receiversModels,
+        noteNotifier: noteNotifier,
+      );
+
+    }
+    /// WHEN SELECTED MODELS
+    else {
+
+      noteNotifier.value = noteNotifier.value.copyWith(
+        parties: noteNotifier.value.parties.copyWith(
+          receiverType: selectedReceiverType,
+          receiverID: 'xxx',
+        ),
+      );
+
+      receiversModels.value = _models;
+
+    }
+
   }
-
-  noteNotifier.value = noteNotifier.value.copyWith(
-    parties: noteNotifier.value.parties.copyWith(
-      receiverType: selectedReceiverType,
-      receiverID: 'xyx',
-    ),
-  );
-
-  receiversIDs.value = _receiversIDs;
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<List<String>> _onSelectUserAsNoteReceiver({
+Future<List<UserModel>> _onSelectUserAsNoteReceiver({
   @required BuildContext context,
-  @required ValueNotifier<List<String>> selectedUsersIDs,
+  @required List<UserModel> selectedUsers,
 }) async {
-  List<String> _usersIDs = <String>[];
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
     context: context,
@@ -156,52 +195,60 @@ Future<List<String>> _onSelectUserAsNoteReceiver({
       multipleSelection: true,
       selectedUsers: await UserProtocols.fetchUsers(
           context: context,
-          usersIDs: selectedUsersIDs.value,
+          usersIDs: UserModel.getUsersIDs(selectedUsers),
       ),
     ),
   );
 
   if (Mapper.checkCanLoopList(_selectedUsers) == true) {
-    _usersIDs = UserModel.getUsersIDs(_selectedUsers);
+    return _selectedUsers;
   }
 
-  return _usersIDs;
+  else {
+    return [];
+  }
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<List<String>> _onSelectBzAsNoteReceiver({
+Future<List<BzModel>> _onSelectBzAsNoteReceiver({
   @required BuildContext context,
-  @required ValueNotifier<List<String>> selectedBzzIDs,
+  @required List<BzModel> selectedBzz,
 }) async {
 
-  List<String> _bzzIDs = <String>[];
+  List<BzModel> _bzz = <BzModel>[];
 
   final List<BzModel> _bzzModels = await Nav.goToNewScreen(
     context: context,
     screen: SearchBzzScreen(
       multipleSelection: true,
-      selectedBzz: await BzProtocols.fetchBzz(
-          context: context,
-          bzzIDs: selectedBzzIDs.value,
-      ),
+      selectedBzz: selectedBzz,
     ),
   );
 
   if (Mapper.checkCanLoopList(_bzzModels) == true){
 
-    _bzzIDs = BzModel.getBzzIDs(_bzzModels);
+    _bzz = _bzzModels;
 
   }
 
-  return _bzzIDs;
+  return _bzz;
 }
 // --------------------
-///
-void deleteSelectedReciever({
-  @required ValueNotifier<UserModel> selectedUser,
+/// TESTED : WORKS PERFECT
+void clearReceivers({
+  @required ValueNotifier<List<dynamic>> receiversModels,
+  @required ValueNotifier<NoteModel> noteNotifier,
 }){
 
-  selectedUser.value = null;
+  noteNotifier.value = noteNotifier.value.copyWith(
+    parties: noteNotifier.value.parties.nullifyField(
+      receiverType: true,
+      receiverID: true,
+    ),
+  );
+
+  receiversModels.value = [];
 
 }
 // -----------------------------------------------------------------------------
@@ -652,7 +699,7 @@ Future<void> onSendNote({
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
   @required ScrollController scrollController,
-  @required ValueNotifier<List<String>> receiversIDs,
+  @required ValueNotifier<List<dynamic>> receiversModels,
 }) async {
 
   blog('a77a? ');
@@ -666,7 +713,7 @@ Future<void> onSendNote({
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse.plain('Send ?'),
-      bodyVerse: Verse.plain('Do you want to confirm sending this notification to ${receiversIDs.value.length} $_receiverTypeString '),
+      bodyVerse: Verse.plain('Do you want to confirm sending this notification to ${receiversModels.value.length} $_receiverTypeString '),
       boolDialog: true,
     );
 
@@ -833,13 +880,14 @@ Future<void> onDeleteNote({
 /// TEMPLATE NOTES
 
 // --------------------
+
 Future<void> onGoToNoteTemplatesScreen({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required TextEditingController titleController,
   @required TextEditingController bodyController,
   @required ScrollController scrollController,
-  @required ValueNotifier<List<String>> receiversIDs,
+  @required ValueNotifier<List<dynamic>> receiversModels,
 }) async {
 
   final NoteModel _templateNote = await Nav.goToNewScreen(
@@ -850,8 +898,13 @@ Future<void> onGoToNoteTemplatesScreen({
 
   if (_templateNote != null){
 
+    receiversModels.value = await _getReceiversModelsByReceiversIDs(
+      context: context,
+      receiversIDs: <String>[_templateNote.parties.receiverID],
+      partyType: _templateNote.parties.receiverType,
+    );
+
     note.value = _templateNote;
-    receiversIDs.value = <String>[_templateNote.parties.receiverID];
     titleController.text = _templateNote.title;
     bodyController.text = _templateNote.body;
 
@@ -861,6 +914,36 @@ Future<void> onGoToNoteTemplatesScreen({
 
   }
 
+}
+// --------------------
+///
+Future<List<dynamic>> _getReceiversModelsByReceiversIDs({
+  @required BuildContext context,
+  @required List<String> receiversIDs,
+  @required NotePartyType partyType,
+}) async {
+
+  List<dynamic> _output = <dynamic>[];
+
+  if (Mapper.checkCanLoopList(receiversIDs) == true){
+
+    if (partyType == NotePartyType.user){
+      _output = await UserProtocols.fetchUsers(
+          context: context,
+          usersIDs: receiversIDs,
+      );
+    }
+
+    if (partyType == NotePartyType.bz){
+      _output = await BzProtocols.fetchBzz(
+          context: context,
+          bzzIDs: receiversIDs
+      );
+    }
+
+  }
+
+  return _output;
 }
 // --------------------
 ///
@@ -881,6 +964,7 @@ Future<void> onSelectNoteTemplateTap({
 /// NOTES TESTING SCREEN
 
 // --------------------
+///
 Future<void> onGoToNotesTestingScreen(BuildContext context) async {
 
   await Nav.goToNewScreen(

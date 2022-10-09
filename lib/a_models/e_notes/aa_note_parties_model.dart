@@ -1,3 +1,6 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +153,7 @@ class NoteParties {
     NotePartyType.user,
   ];
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static String getPartyIcon(NotePartyType type){
     switch(type){
       case NotePartyType.user:        return Iconz.normalUser;      break;
@@ -160,6 +163,78 @@ class NoteParties {
       default:                        return null;
     }
   }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+
+  static List<String> getReceiversIDs({
+    @required List<dynamic> receiversModels,
+    @required NotePartyType partyType,
+  }){
+    List<String> _ids = [];
+
+    if (Mapper.checkCanLoopList(receiversModels) == true){
+
+      if (partyType == NotePartyType.bz){
+        _ids = BzModel.getBzzIDs(receiversModels);
+      }
+
+      else if (partyType == NotePartyType.user){
+        _ids = UserModel.getUsersIDs(receiversModels);
+      }
+
+    }
+
+    return _ids;
+  }
+  // --------------------
+
+  static List<String> getReceiversPics({
+    @required List<dynamic> receiversModels,
+    @required NotePartyType partyType,
+  }){
+    List<String> _pics = [];
+
+    if (Mapper.checkCanLoopList(receiversModels) == true){
+
+      if (partyType == NotePartyType.bz){
+        _pics = BzModel.getBzzLogos(receiversModels);
+      }
+
+      else if (partyType == NotePartyType.user){
+        _pics = UserModel.getUsersPics(receiversModels);
+      }
+
+    }
+
+    return _pics;
+  }
+  // --------------------
+
+  static String getReceiversTypePhid({
+    @required List<dynamic> receiversModels,
+    @required NotePartyType partyType,
+    bool plural = true,
+  }){
+    String _phid = '';
+
+    if (Mapper.checkCanLoopList(receiversModels) == true){
+
+      if (partyType == NotePartyType.bz){
+        _phid = plural == true ? 'phid_bzz' : 'phid_bz';
+      }
+
+      else if (partyType == NotePartyType.user){
+        _phid = plural == true ? 'phid_users' : 'phid_user';
+      }
+
+    }
+
+    return _phid;
+  }
+
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
