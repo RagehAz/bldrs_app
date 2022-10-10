@@ -3,14 +3,11 @@ import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_old_note_poster.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/tile_bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/note_poster_button.dart';
 import 'package:flutter/material.dart';
 
 class PosterCreatorBubble extends StatelessWidget {
@@ -30,20 +27,50 @@ class PosterCreatorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleChildWidth = TileBubble.childWidth(context: context);
+    // --------------------
+    final bool _posterHasValue = note?.poster?.type != null;
     // --------------------
     return WidgetFader(
       fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.2,
       absorbPointer: isDeactivated == true,
       child: TileBubble(
-        bubbleHeaderVM: const BubbleHeaderVM(
-          headlineVerse: Verse(
+        bubbleHeaderVM: BubbleHeaderVM(
+          headlineVerse: const Verse(
             text: 'Poster',
             translate: false,
           ),
           leadingIcon: Iconz.phoneGallery,
           leadingIconSizeFactor: 0.5,
-          leadingIconBoxColor: Colorz.grey50,
+          leadingIconBoxColor: _posterHasValue == true ? Colorz.green255 : Colorz.grey50,
+
+          switchValue: note.poster != null,
+          hasSwitch: true,
+          onSwitchTap: (bool value){
+
+            /// WAS OFF => NOW IS TRUE
+            if (value == true){
+
+              noteNotifier.value = note.copyWith(
+                poster: const PosterModel(
+                  id: null,
+                  url: null,
+                  type: null,
+                  // file: null,
+                ),
+              );
+
+            }
+
+            /// WAS TRUE => NOW IS OFF
+            else {
+              noteNotifier.value = note.nullifyField(
+                poster: true,
+              );
+            }
+
+          }
 
         ),
         child: SizedBox(
@@ -53,52 +80,61 @@ class PosterCreatorBubble extends StatelessWidget {
 
               /// POSTER TYPES
               SizedBox(
-                width: TileBubble.childWidth(context: context),
+                width: _bubbleChildWidth,
                 height: 50,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
 
-                    ...List.generate(PosterModel.posterTypes.length, (index){
+                    /// FLYER
+                    PosterTypeButton(
+                      note: note,
+                      noteNotifier: noteNotifier,
+                      icon: Iconz.flyer,
+                      posterType: PosterType.flyer,
+                    ),
 
-                      final PosterType _posterType = PosterModel.posterTypes[index];
-                      final bool _isSelected = note?.poster?.type == _posterType;
-                      final String _attachmentTypeString = PosterModel.cipherPosterType(_posterType);
+                    /// BZ
+                    PosterTypeButton(
+                      note: note,
+                      noteNotifier: noteNotifier,
+                      icon: Iconz.bz,
+                      posterType: PosterType.bz,
+                    ),
 
-                      return DreamBox(
-                        height: 40,
-                        width: Scale.getUniformRowItemWidth(
-                          context: context,
-                          numberOfItems: PosterModel.posterTypes.length,
-                          boxWidth: TileBubble.childWidth(context: context),
-                        ),
-                        verse: Verse(
-                          text: _attachmentTypeString,
-                          translate: false,
-                          casing: Casing.upperCase,
-                        ),
-                        verseScaleFactor: 0.5,
-                        color: _isSelected == true ? Colorz.yellow255 : null,
-                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                        onTap: () => onSelectPosterType(
-                          context: context,
-                          note: noteNotifier,
-                          posterType: _posterType,
-                        ),
-                      );
+                    /// CAMERA
+                    PosterTypeButton(
+                      note: note,
+                      noteNotifier: noteNotifier,
+                      icon: Iconz.camera,
+                      posterType: PosterType.image,
+                    ),
 
-                    }),
+                    /// GALLERY
+                    PosterTypeButton(
+                      note: note,
+                      noteNotifier: noteNotifier,
+                      icon: Iconz.phoneGallery,
+                      posterType: PosterType.image,
+                    ),
+
+                    /// URL
+                    PosterTypeButton(
+                      note: note,
+                      noteNotifier: noteNotifier,
+                      icon: Iconz.comWebsite,
+                      posterType: PosterType.image,
+                    ),
 
                   ],
                 ),
               ),
 
-              /// NOTE POSTER
-              OLDNotePoster(
-                noteModel: note,
-                boxWidth: _bubbleClearWidth,
-                canOpenFlyer: false,
+              /// POSTER
+              if (note.poster != null)
+                NotePosterBuilder(
+                  width: _bubbleChildWidth,
+                  noteModel: note,
               ),
 
             ],

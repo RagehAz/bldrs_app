@@ -17,6 +17,7 @@ class FlyerDeck extends StatelessWidget {
     @required this.bzModel,
     @required this.expansion,
     @required this.minSlideHeightFactor,
+    @required this.screenName,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class FlyerDeck extends StatelessWidget {
   /// HEIGHT FACTOR OF SMALLEST SLIDE TO THE BIGGEST SLIDE HEIGHT
   final double minSlideHeightFactor;
   final double expansion;
+  final String screenName;
   // -----------------------------------------------------------------------------
   static double concludeDeckWidth({
     @required int numberOfSlides,
@@ -268,7 +270,7 @@ class FlyerDeck extends StatelessWidget {
                   // flyerShadowIsOn: true,
                   flyerModel: flyerModel,
                   flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
-                  screenName: 'poster',
+                  screenName: screenName,
                 )
 
                     :

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +16,14 @@ class PosterModel {
     @required this.id,
     @required this.type,
     @required this.url,
+    this.file,
   });
   /// --------------------------------------------------------------------------
   final String id;
   final PosterType type;
   final String url;
-
-
+  final File file;
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static const List<PosterType> posterTypes = <PosterType>[
     PosterType.flyer,
