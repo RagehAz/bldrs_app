@@ -149,10 +149,12 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 const Stratosphere(bigAppBar: true),
 
                 TextFieldBubble(
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: Verse.plain('AAA'),
+                  ),
                   appBarType: _appBarType,
                   globalKey: globalKey,
                   focusNode: _nodeA,
-                  titleVerse: Verse.plain('AAA'),
                   textController: _controllerA,
                   // isFloatingField: false,
                   bubbleColor: Colorz.bloodTest,
@@ -176,11 +178,13 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 TextFieldBubble(
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: Verse.plain('BBB'),
+                  ),
                   appBarType: _appBarType,
                   globalKey: globalKey,
                   focusNode: _nodeB,
                   textController: _controllerB,
-                  titleVerse: Verse.plain('BBB'),
                   // isFloatingField: false,
                   bubbleColor: Colorz.bloodTest,
                   keyboardTextInputAction: TextInputAction.next,
@@ -194,12 +198,13 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 TextFieldBubble(
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: Verse.plain('CCC'),
+                  ),
                   appBarType: _appBarType,
                   globalKey: globalKey,
                   focusNode: _nodeC,
                   textController: _controllerC,
-                  titleVerse: Verse.plain('CCC'),
-                  // isFloatingField: false,
                   bubbleColor: Colorz.bloodTest,
                   keyboardTextInputAction: TextInputAction.next,
                   keyboardTextInputType: Keyboard.textInputTypes[_index],
@@ -212,11 +217,13 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 TextFieldBubble(
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: Verse.plain('DDD'),
+                  ),
                   appBarType: _appBarType,
                   globalKey: globalKey,
                   focusNode: _nodeD,
                   textController: _controllerD,
-                  titleVerse: Verse.plain('DDD'),
                   // isFloatingField: false,
                   bubbleColor: Colorz.bloodTest,
                   keyboardTextInputAction: TextInputAction.next,

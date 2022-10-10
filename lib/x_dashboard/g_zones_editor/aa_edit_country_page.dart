@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/h_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -210,9 +209,11 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
               /// ENGLISH NAME
               TextFieldBubble(
+                headerViewModel: BubbleHeaderVM(
+                  headlineVerse: Verse.plain('English Name'),
+                ),
                 appBarType: widget.appBarType,
                 bubbleWidth: _clearWidth,
-                titleVerse: Verse.plain('English Name'),
                 textController: _enNameController,
                 textOnChanged: (String text){
 
@@ -228,9 +229,11 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
               /// ARABIC NAME
               TextFieldBubble(
+                headerViewModel: BubbleHeaderVM(
+                  headlineVerse: Verse.plain('Arabic Name'),
+                ),
                 appBarType: widget.appBarType,
                 bubbleWidth: _clearWidth,
-                titleVerse: Verse.plain('Arabic Name'),
                 textController: _arNameController,
                 textOnChanged: (String text){
 

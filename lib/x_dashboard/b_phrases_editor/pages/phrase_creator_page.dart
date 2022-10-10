@@ -55,14 +55,18 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ID
           TextFieldBubble(
             globalKey: globalKey,
+            headerViewModel: BubbleHeaderVM(
+              headlineVerse: const Verse(
+                text: 'Key',
+                translate: false,
+              ),
+              leadingIcon:  Iconz.xSmall,
+              onLeadingIconTap: () => TextMod.controllerClear(idController),
+            ),
             isFormField: true,
             focusNode: idNode,
 
             appBarType: appBarType,
-            titleVerse: const Verse(
-              text: 'Key',
-              translate: false,
-            ),
             hintVerse: const Verse(
               text: 'Phrase key',
               translate: false,
@@ -70,9 +74,6 @@ class PhraseCreatorPage extends StatelessWidget {
             textController: idController,
             onBubbleTap: () => TextMod.controllerCopy(context, idController.text),
             pasteFunction: () => TextMod.controllerPaste(idController),
-            onHeaderLeadinIconTap: () => TextMod.controllerClear(idController),
-            actionBtIcon: Iconz.xSmall,
-            // isError: ,
             keyboardTextInputAction: TextInputAction.next,
             onSubmitted: (String text){
               Formers.focusOnNode(enNode);
@@ -106,13 +107,18 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ENGLISH
           TextFieldBubble(
             globalKey: globalKey,
+            headerViewModel: BubbleHeaderVM(
+              headlineVerse: const Verse(
+                text: 'English',
+                translate: false,
+              ),
+              onLeadingIconTap: () => TextMod.controllerClear(enController),
+              leadingIcon: Iconz.xSmall,
+
+            ),
             isFormField: true,
             focusNode: enNode,
             appBarType: appBarType,
-            titleVerse: const Verse(
-              text: 'English',
-              translate: false,
-            ),
             hintVerse: const Verse(
               text: 'English phrase',
               translate: false,
@@ -120,8 +126,6 @@ class PhraseCreatorPage extends StatelessWidget {
             textController: enController,
             onBubbleTap: () => TextMod.controllerCopy(context, enController.text),
             pasteFunction: () => TextMod.controllerPaste(enController),
-            onHeaderLeadinIconTap: () => TextMod.controllerClear(enController),
-            actionBtIcon: Iconz.xSmall,
             keyboardTextInputAction: TextInputAction.next,
             onSubmitted: (String text){
               Formers.focusOnNode(arNode);
@@ -133,13 +137,17 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ARABIC
           TextFieldBubble(
             globalKey: globalKey,
+            headerViewModel: BubbleHeaderVM(
+              headlineVerse: const Verse(
+                text: 'عربي',
+                translate: false,
+              ),
+              leadingIcon: Iconz.xSmall,
+              onLeadingIconTap: () => TextMod.controllerClear(arController),
+            ),
             isFormField: true,
             focusNode: arNode,
             appBarType: appBarType,
-            titleVerse: const Verse(
-              text: 'عربي',
-              translate: false,
-            ),
             hintVerse: const Verse(
               text: 'مصطلح عربي',
               translate: false,
@@ -147,8 +155,6 @@ class PhraseCreatorPage extends StatelessWidget {
             textController: arController,
             onBubbleTap: () => TextMod.controllerCopy(context, arController.text),
             pasteFunction: () => TextMod.controllerPaste(arController),
-            onHeaderLeadinIconTap: () => TextMod.controllerClear(arController),
-            actionBtIcon: Iconz.xSmall,
             textDirection: TextDirection.ltr,
             keyboardTextInputAction: TextInputAction.done,
           ),

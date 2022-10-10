@@ -21,8 +21,10 @@ class NoteBodyCreatorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TextFieldBubble(
+      headerViewModel: BubbleHeaderVM(
+        headlineVerse: Verse.plain('Note Body'),
+      ),
       appBarType: AppBarType.basic,
-      titleVerse: Verse.plain('Note Body'),
       isFormField: true,
       textController: bodyController,
       textOnChanged: (String text) => onBodyChanged(

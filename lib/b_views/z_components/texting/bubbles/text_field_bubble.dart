@@ -14,13 +14,19 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+export 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TextFieldBubble({
+    @required this.headerViewModel,
     @required this.appBarType,
+    // this.titleVerse,
+    // this.fieldIsRequired = false,
+    // this.actionBtIcon,
+    // this.onHeaderLeadinIconTap,
+
     this.globalKey,
-    this.titleVerse,
     this.bubbleWidth,
     this.hintVerse,
     this.counterIsOn = false,
@@ -36,10 +42,7 @@ class TextFieldBubble extends StatelessWidget {
     this.initialText,
     this.validator,
     this.bulletPoints,
-    this.fieldIsRequired = false,
     // this.loading = false,
-    this.actionBtIcon,
-    this.onHeaderLeadinIconTap,
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
@@ -59,8 +62,16 @@ class TextFieldBubble extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+
+  final BubbleHeaderVM headerViewModel;
+
+  // final Verse titleVerse;
+  // final bool fieldIsRequired;
+  // final String actionBtIcon;
+  // final Function onHeaderLeadinIconTap;
+
+
   final double bubbleWidth;
-  final Verse titleVerse;
   final Verse hintVerse;
   final bool counterIsOn;
   final int maxLines;
@@ -76,10 +87,7 @@ class TextFieldBubble extends StatelessWidget {
   final String initialText;
   final String Function(String) validator;
   final List<Verse> bulletPoints;
-  final bool fieldIsRequired;
   // final bool loading;
-  final String actionBtIcon;
-  final Function onHeaderLeadinIconTap;
   final String leadingIcon;
   final Function pasteFunction;
   final TextDirection textDirection;
@@ -176,13 +184,16 @@ class TextFieldBubble extends StatelessWidget {
             keepEmbeddedBubbleColor: true,
           ),
         ),
-        headerViewModel: BubbleHeaderVM(
-          headerWidth: _bubbleWidth - 20,
-          headlineVerse: titleVerse,
-          redDot: fieldIsRequired,
-          leadingIcon: actionBtIcon,
-          onLeadingIconTap: onHeaderLeadinIconTap,
-        ),
+      headerViewModel: headerViewModel.copyWith(
+        headerWidth: _bubbleWidth - 20,
+      ),
+        // headerViewModel: BubbleHeaderVM(
+        //   headerWidth: _bubbleWidth - 20,
+        //   headlineVerse: titleVerse,
+        //   redDot: fieldIsRequired,
+        //   leadingIcon: actionBtIcon,
+        //   onLeadingIconTap: onHeaderLeadinIconTap,
+        // ),
         width: _bubbleWidth,
         onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
@@ -221,7 +232,7 @@ class TextFieldBubble extends StatelessWidget {
                   SuperTextField(
                     appBarType: appBarType,
                     globalKey: globalKey,
-                    titleVerse: titleVerse,
+                    titleVerse: headerViewModel.headlineVerse,
                     width: fieldWidth,
                     isFormField: isFormField,
                     textDirection: textDirection,
