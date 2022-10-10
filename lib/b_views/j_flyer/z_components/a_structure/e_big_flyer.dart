@@ -161,14 +161,12 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
         if (mounted == true){
           // ----------
-          // ----------
           /// FOLLOW IS ON
           final _followIsOn = checkFollowIsOn(
             context: context,
             bzModel: widget.bzModel,
           );
           _setFollowIsOn(_followIsOn);
-          // ----------
           // ----------
           WidgetsBinding.instance.addPostFrameCallback((_) async {
 

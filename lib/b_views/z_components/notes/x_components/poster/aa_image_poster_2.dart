@@ -1,15 +1,15 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/b_views/z_components/notes/note_card.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class NoteImageBanner extends StatelessWidget {
+class NoteImagePoster extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NoteImageBanner({
+  const NoteImagePoster({
     @required this.width,
     @required this.height,
     @required this.attachment,
@@ -29,7 +29,10 @@ class NoteImageBanner extends StatelessWidget {
       width: width,
       height: height,
       child: ClipRRect(
-        borderRadius: NoteCard.bannerCorners,
+        borderRadius: NotePosterBox.getCorners(
+          context: context,
+          boxWidth: width,
+        ),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
