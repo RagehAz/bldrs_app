@@ -23,6 +23,14 @@ class NoteDismissibleTriggerBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    bool _isOn;
+    if (note.sendFCM == true){
+      _isOn = isDismissible;
+    }
+    else {
+      _isOn = false;
+    }
+
     return WidgetFader(
       fadeType: note.sendFCM == true ? FadeType.stillAtMax : FadeType.stillAtMin,
       min: 0.2,
@@ -32,9 +40,9 @@ class NoteDismissibleTriggerBubble extends StatelessWidget {
           headlineVerse: Verse.plain('Notification is Dismissible'),
           leadingIcon: Iconz.fingerTap,
           leadingIconSizeFactor: 0.5,
-          leadingIconBoxColor: isDismissible == true ? Colorz.green255 : Colorz.grey50,
+          leadingIconBoxColor: _isOn == true ? Colorz.green255 : Colorz.grey50,
           hasSwitch: true,
-          switchValue: note.sendFCM == true ? isDismissible : false,
+          switchValue: _isOn,
           onSwitchTap: onSwitch,
         ),
       ),

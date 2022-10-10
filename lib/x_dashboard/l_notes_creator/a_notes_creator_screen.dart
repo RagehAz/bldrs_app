@@ -196,6 +196,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                     /// PROGRESS
                     NoteProgressCreatorBubble(
+                      note: note,
                       progress: _progress,
                       nootProgressIsLoading: _nootProgressIsLoading,
                       onSwitch: (bool value){

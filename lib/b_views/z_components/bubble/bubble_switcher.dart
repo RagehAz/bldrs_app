@@ -26,13 +26,13 @@ class BubbleSwitcher extends StatefulWidget {
 
 class _BubbleSwitcherState extends State<BubbleSwitcher> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _isOn;
+  final ValueNotifier<bool> _isOn = ValueNotifier<bool>(null);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
-    _isOn = ValueNotifier<bool>(widget.switchIsOn);
+    _isOn.value = widget.switchIsOn;
 
   }
   // --------------------
@@ -40,11 +40,21 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
   @override
   void dispose() {
 
-    if (widget.switchIsOn == null){
-      _isOn.dispose();
-    }
+    _isOn.dispose();
 
     super.dispose();
+  }
+  // --------------------
+  @override
+  void didUpdateWidget(covariant BubbleSwitcher oldWidget) {
+
+    if (oldWidget.switchIsOn != widget.switchIsOn){
+
+      _isOn.value = widget.switchIsOn;
+
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
   // -----------------------------------------------------------------------------
   @override

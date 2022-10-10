@@ -258,7 +258,7 @@ class NotePreviewPanel extends StatelessWidget {
       child: NoteCard(
         bubbleWidth: _clearWidth,
         bubbleColor: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
-        noteModel: note,
+        noteModel: note.copyWith(id: 'preview_panel'),
         isDraftNote: false,
         onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
           context: context,

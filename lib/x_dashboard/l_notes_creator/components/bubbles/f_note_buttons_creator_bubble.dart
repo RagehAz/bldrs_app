@@ -46,15 +46,17 @@ class NoteButtonsCreatorBubble extends StatelessWidget {
     // --------------------
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     // --------------------
+    final bool _noteHasButton = note?.poll?.buttons?.isNotEmpty;
+    // --------------------
     return TileBubble(
-      bubbleHeaderVM: const BubbleHeaderVM(
-        headlineVerse: Verse(
+      bubbleHeaderVM: BubbleHeaderVM(
+        headlineVerse: const Verse(
           text: 'Buttons',
           translate: false,
         ),
         leadingIcon: Iconz.pause,
         leadingIconSizeFactor: 0.5,
-        leadingIconBoxColor: Colorz.grey50,
+        leadingIconBoxColor: _noteHasButton == true ? Colorz.green255 : Colorz.grey50,
       ),
       // secondLineVerse: const Verse(
       //   text: 'Add buttons to the Note',

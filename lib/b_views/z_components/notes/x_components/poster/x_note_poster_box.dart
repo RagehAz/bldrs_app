@@ -7,7 +7,7 @@ class NotePosterBox extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const NotePosterBox({
     @required this.width,
-    @required this.child,
+    this.child,
     this.color = Colorz.white10,
     Key key
   }) : super(key: key);

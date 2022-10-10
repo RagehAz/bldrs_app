@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +6,12 @@ class ImagePoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const ImagePoster({
     @required this.width,
-    @required this.file,
+    @required this.pic,
     Key key
   }) : super(key: key);
   // --------------------
   final double width;
-  final File file;
+  final dynamic pic;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class ImagePoster extends StatelessWidget {
       child: SuperImage(
         width: width,
         height: _posterHeight,
-        pic: file,
+        pic: pic,
         // corners: NoteBannerBox.getCorners(
         //   context: context,
         //   boxWidth: width,
