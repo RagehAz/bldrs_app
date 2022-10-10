@@ -96,18 +96,20 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// ENTER E-MAIL
               TextFieldBubble(
+                headerViewModel: const BubbleHeaderVM(
+                  redDot: true,
+                  headlineVerse: Verse(
+                    text: 'phid_emailAddress',
+                    translate: true,
+                  ),
+                ),
                 appBarType: appBarType,
                 isFormField: true,
                 key: const ValueKey<String>('email'),
                 textController: emailController,
                 textDirection: TextDirection.ltr,
-                fieldIsRequired: true,
                 keyboardTextInputType: TextInputType.emailAddress,
                 keyboardTextInputAction: TextInputAction.next,
-                titleVerse: const Verse(
-                  text: 'phid_emailAddress',
-                  translate: true,
-                ),
                 hintVerse: const Verse(
                   text: 'rageh@bldrs.net',
                   translate: false,

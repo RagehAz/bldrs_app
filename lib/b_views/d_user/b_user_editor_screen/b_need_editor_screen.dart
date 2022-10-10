@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -246,12 +245,15 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                   TextFieldBubble(
                     key: const ValueKey<String>('need_description_button'),
                     globalKey: _formKey,
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_extra_notes',
+                        translate: true,
+
+                      ),
+                    ),
                     // focusNode: _aboutNode,
                     appBarType: AppBarType.basic,
-                    titleVerse: const Verse(
-                      text: 'phid_extra_notes',
-                      translate: true,
-                    ),
                     hintVerse: const Verse(
                       text: 'phid_tell_businesses_what_you_looking_for',
                       translate: true,
