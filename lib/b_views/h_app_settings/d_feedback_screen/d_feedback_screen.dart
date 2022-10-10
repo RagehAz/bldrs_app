@@ -174,16 +174,18 @@ class _FeedBackState extends State<FeedBack> {
 
           TextFieldBubble(
             appBarType: AppBarType.basic,
+            headerViewModel: const BubbleHeaderVM(
+              headlineVerse: Verse(
+                text: 'phid_feedback',
+                translate: true,
+              ),
+              redDot: true,
+            ),
             leadingIcon: _userModel?.pic,
             bubbleColor: Colorz.white20,
-            titleVerse: const Verse(
-              text: 'phid_feedback',
-              translate: true,
-            ),
             textController: _feedbackController,
             // loading: _loading,
             maxLines: 5,
-            fieldIsRequired: true,
             keyboardTextInputAction: TextInputAction.newline,
             keyboardTextInputType: TextInputType.multiline,
             maxLength: 1000,

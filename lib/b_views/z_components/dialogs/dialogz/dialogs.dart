@@ -508,9 +508,11 @@ class Dialogs {
 
                 TextFieldBubble(
                   globalKey: _keyboardModel.globalKey,
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: _keyboardModel.titleVerse,
+                  ),
                   appBarType: AppBarType.non,
                   isFloatingField: _keyboardModel.isFloatingField,
-                  titleVerse: _keyboardModel.titleVerse,
                   initialText: _keyboardModel.initialText,
                   maxLines: _keyboardModel.maxLines,
                   minLines: _keyboardModel.minLines,

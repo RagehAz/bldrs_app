@@ -107,15 +107,17 @@ class FlyerMakerScreenView extends StatelessWidget {
                           /// FLYER HEADLINE
                           TextFieldBubble(
                             key: const ValueKey<String>('flyer_headline_text_field'),
+                            headerViewModel: const BubbleHeaderVM(
+                              headlineVerse: Verse(
+                                text: 'phid_flyer_headline',
+                                translate: true,
+                              ),
+                              redDot: true,
+                            ),
                             globalKey: formKey,
                             focusNode: _draft.headlineNode,
                             appBarType: appBarType,
                             isFormField: true,
-                            titleVerse: const Verse(
-                              text: 'phid_flyer_headline',
-                              translate: true,
-                            ),
-                            fieldIsRequired: true,
                             counterIsOn: true,
                             maxLength: 50,
                             maxLines: 3,
@@ -135,14 +137,16 @@ class FlyerMakerScreenView extends StatelessWidget {
                           /// FLYER DESCRIPTION
                           TextFieldBubble(
                             key: const ValueKey<String>('bz_scope_bubble'),
+                            headerViewModel: const BubbleHeaderVM(
+                              headlineVerse: Verse(
+                                text: 'phid_flyer_description',
+                                translate: true,
+                              ),
+                            ),
                             globalKey: formKey,
                             focusNode: _draft.descriptionNode,
                             appBarType: appBarType,
                             isFormField: true,
-                            titleVerse: const Verse(
-                              text: 'phid_flyer_description',
-                              translate: true,
-                            ),
                             counterIsOn: true,
                             maxLength: 1000,
                             maxLines: 7,

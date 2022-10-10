@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -249,19 +248,21 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   /// NAME
                   TextFieldBubble(
                     key: const ValueKey<String>('name'),
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_author_name',
+                        translate: true,
+                      ),
+                      redDot: true,
+                    ),
                     globalKey: _formKey,
                     focusNode: _nameNode,
                     appBarType: AppBarType.basic,
                     isFormField: true,
-                    titleVerse: const Verse(
-                      text: 'phid_author_name',
-                      translate: true,
-                    ),
                     counterIsOn: true,
                     maxLength: 72,
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
-                    fieldIsRequired: true,
                     bulletPoints: const <Verse>[
                       Verse(
                         text: '##This will only change your name inside this Business account',
@@ -284,18 +285,20 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   /// TITLE
                   TextFieldBubble(
                     globalKey: _formKey,
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_job_title',
+                        translate: true,
+                      ),
+                      redDot: true,
+                    ),
                     focusNode: _titleNode,
                     appBarType: AppBarType.basic,
                     isFormField: true,
-                    titleVerse: const Verse(
-                      text: 'phid_job_title',
-                      translate: true,
-                    ),
                     counterIsOn: true,
                     maxLength: 72,
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
-                    fieldIsRequired: true,
                     textOnChanged: (String text) => onAuthorTitleChanged(
                       text: text,
                       tempAuthor: _tempAuthor,

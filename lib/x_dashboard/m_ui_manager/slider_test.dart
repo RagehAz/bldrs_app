@@ -86,54 +86,60 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             TextFieldBubble(
               appBarType: AppBarType.basic,
-              titleVerse: Verse.plain('Set Min value'),
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
-              actionBtIcon: Iconz.plus,
-              onHeaderLeadinIconTap: () {
-                blog('value is : ${_minController.text}');
+              headerViewModel: BubbleHeaderVM(
+                headlineVerse: Verse.plain('Set Min value'),
+                leadingIcon: Iconz.plus,
+                onLeadingIconTap: () {
+                  blog('value is : ${_minController.text}');
 
-                final int _value = Numeric.transformStringToInt(_minController.text);
+                  final int _value = Numeric.transformStringToInt(_minController.text);
 
-                setState(() {
-                  _minValue = _value.toDouble();
-                });
-              },
+                  setState(() {
+                    _minValue = _value.toDouble();
+                  });
+                },
+              ),
             ),
 
             TextFieldBubble(
               appBarType: AppBarType.basic,
-              titleVerse: Verse.plain('Set Max value'),
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
-              actionBtIcon: Iconz.plus,
-              onHeaderLeadinIconTap: () {
-                blog('value is : ${_maxController.text}');
+              headerViewModel: BubbleHeaderVM(
+                headlineVerse: Verse.plain('Set Max value'),
+                leadingIcon: Iconz.plus,
+                onLeadingIconTap: () {
+                  blog('value is : ${_maxController.text}');
 
-                final int _value = Numeric.transformStringToInt(_maxController.text);
+                  final int _value = Numeric.transformStringToInt(_maxController.text);
 
-                setState(() {
-                  _maxValue = _value.toDouble();
-                });
-              },
+                  setState(() {
+                    _maxValue = _value.toDouble();
+                  });
+                },
+              ),
             ),
 
             TextFieldBubble(
               appBarType: AppBarType.basic,
-              titleVerse: Verse.plain('Set divisions'),
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
-              actionBtIcon: Iconz.plus,
-              onHeaderLeadinIconTap: () {
-                blog('value is : ${_divisionsController.text}');
+              headerViewModel: BubbleHeaderVM(
+                headlineVerse: Verse.plain('Set divisions'),
+                leadingIcon: Iconz.plus,
+                onLeadingIconTap: () {
+                  blog('value is : ${_divisionsController.text}');
 
-                final int _value =
-                    Numeric.transformStringToInt(_divisionsController.text);
+                  final int _value =
+                  Numeric.transformStringToInt(_divisionsController.text);
 
-                setState(() {
-                  _divisions = _value;
-                });
-              },
+                  setState(() {
+                    _divisions = _value;
+                  });
+                },
+              ),
             ),
 
             _button('Slider value : ${_theValue.toInt()} --- أقل من 50 م²'),
