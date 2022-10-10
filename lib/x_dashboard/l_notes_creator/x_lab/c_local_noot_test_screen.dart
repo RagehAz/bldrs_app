@@ -21,7 +21,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -46,8 +46,8 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_image_banner_maker.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/banner/note_poster_maker.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -79,11 +79,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   // --------------------
   Channel _channel = Channel.bulletin;
   // --------------------
-  String _bannerURL;
-  dynamic _attachment;
-  dynamic _attachmentHelper;
+  String _posterURL;
+  dynamic _posterModel;
+  dynamic _posterHelperModel;
   PosterType _posterType;
-  File _bannerPreviewFile;
+  File _posterPreviewFile;
   // --------------------
   File _largeImageFile;
   String _largeIconURL;
@@ -187,17 +187,17 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     if (_continue == true){
 
-      if (_bannerPreviewFile != null){
+      if (_posterPreviewFile != null){
 
         final String _url = await Storage.createStoragePicAndGetURL(
           context: context,
           docName: 'testNotesBanners',
           fileName: Numeric.createUniqueID().toString(),
           ownersIDs: [AuthFireOps.superUserID()],
-          inputFile: _bannerPreviewFile,
+          inputFile: _posterPreviewFile,
         );
         setState(() {
-          _bannerURL = _url;
+          _posterURL = _url;
         });
 
       }
@@ -208,7 +208,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
           title: _titleController.text,
           body: _bodyController.text,
           largeIconURL: _largeIconURL,
-          bannerURL: _bannerURL,
+          bannerURL: _posterURL,
           buttonsTexts: _buttons.isEmpty == true ? null : xPhrases(context, _buttons),
           channel: _channel,
           progress: _progress,
@@ -244,7 +244,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
   }
   // --------------------
-  Future<void> _takeBannerScreenshot() async {
+  Future<void> _takePosterScreenshot() async {
 
     blog('_takeBannerScreenshot : START');
 
@@ -269,7 +269,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
     );
 
     setState(() {
-      _bannerPreviewFile = _fileModel.file;
+      _posterPreviewFile = _fileModel.file;
     });
 
     blog('_takeBannerScreenshot : END');
@@ -339,7 +339,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     final double _clearWidth = Bubble.clearWidth(context);
 
-    final bool _bannerIsOn = isGlobal == true && _progress == null;
+    final bool _posterIsOn = isGlobal == true && _progress == null;
     final String _notificationTypeString = isGlobal == true ? 'Global' : 'Local';
 
     final double _tileChildWidth = TileBubble.childWidth(
@@ -589,17 +589,17 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                   ),
                 ),
 
-                /// BANNER
+                /// POSTER
                 WidgetFader(
-                  fadeType: _bannerIsOn == true ? FadeType.stillAtMax : FadeType.stillAtMin,
+                  fadeType: _posterIsOn == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                   min: 0.35,
-                  absorbPointer: !_bannerIsOn,
+                  absorbPointer: !_posterIsOn,
                   child: TileBubble(
                     bubbleWidth: Bubble.clearWidth(context),
                     bubbleHeaderVM: BubbleHeaderVM(
                       headerWidth: Bubble.clearWidth(context) - 20,
                       leadingIcon: Iconz.phoneGallery,
-                      headlineVerse: Verse.plain('Banner'),
+                      headlineVerse: Verse.plain('Poster'),
                     ),
                     child: Column(
                       children: <Widget>[
@@ -615,11 +615,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                               iconSizeFactor: 0.4,
                               onTap: (){
                                 setState(() {
-                                  _bannerURL = null;
+                                  _posterURL = null;
                                   _posterType = null;
-                                  _attachment = null;
-                                  _attachmentHelper = null;
-                                  _bannerPreviewFile = null;
+                                  _posterModel = null;
+                                  _posterHelperModel = null;
+                                  _posterPreviewFile = null;
                                 });
                               },
                             ),
@@ -629,7 +629,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// URL
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_bannerIsOn,
+                              isDeactivated: !_posterIsOn,
                               icon: Iconz.comWebsite,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -658,7 +658,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// GALLERY
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_bannerIsOn,
+                              isDeactivated: !_posterIsOn,
                               icon: Iconz.phoneGallery,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -674,11 +674,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                   setState(() {
                                     _posterType = PosterType.image;
-                                    _attachment = _pickedFileModel.file;
-                                    _attachmentHelper = null;
+                                    _posterModel = _pickedFileModel.file;
+                                    _posterHelperModel = null;
                                   });
 
-                                  await _takeBannerScreenshot();
+                                  await _takePosterScreenshot();
 
                                 }
 
@@ -691,7 +691,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// BZ
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_bannerIsOn,
+                              isDeactivated: !_posterIsOn,
                               icon: Iconz.bz,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -714,11 +714,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                   setState(() {
                                     _posterType = PosterType.bz;
-                                    _attachment = bzModels.first;
-                                    _attachmentHelper = _allBzSlidesInOneFlyer;
+                                    _posterModel = bzModels.first;
+                                    _posterHelperModel = _allBzSlidesInOneFlyer;
                                   });
 
-                                  await _takeBannerScreenshot();
+                                  await _takePosterScreenshot();
 
                                 }
 
@@ -730,7 +730,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// FLYER
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_bannerIsOn,
+                              isDeactivated: !_posterIsOn,
                               icon: Iconz.addFlyer,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -752,11 +752,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                   setState(() {
                                     _posterType = PosterType.flyer;
-                                    _attachment = _selectedFlyers.first;
-                                    _attachmentHelper = _bz;
+                                    _posterModel = _selectedFlyers.first;
+                                    _posterHelperModel = _bz;
                                   });
 
-                                  await _takeBannerScreenshot();
+                                  await _takePosterScreenshot();
 
                                 }
 
@@ -768,24 +768,24 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                         const SizedBox(height: 5, width: 5,),
 
-                        if (_attachment != null)
+                        if (_posterModel != null)
                           Screenshot(
                             controller: screenshotController,
-                            child: PosterMaker(
+                            child: NotePoster(
                               posterType: _posterType,
                               width: _tileChildWidth,
-                              model: _attachment,
-                              modelHelper: _attachmentHelper,
+                              model: _posterModel,
+                              modelHelper: _posterHelperModel,
                             ),
                           ),
 
-                        if (_bannerPreviewFile != null)
+                        if (_posterPreviewFile != null)
                         const SizedBox(height: 5, width: 5,),
 
-                        if (_bannerPreviewFile != null)
-                        NoteImagePosterMaker(
+                        if (_posterPreviewFile != null)
+                        ImagePoster(
                             width: _tileChildWidth,
-                            file: _bannerPreviewFile,
+                            file: _posterPreviewFile,
                         ),
                         
                       ],
