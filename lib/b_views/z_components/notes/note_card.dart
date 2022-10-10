@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_attachment.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/note_card_buttons.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_old_note_poster.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/buttons/note_card_buttons.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -46,9 +46,6 @@ class NoteCard extends StatelessWidget {
   }) {
     return Bubble.clearWidth(context, bubbleWidthOverride: widthOverride) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
   }
-  // --------------------
-  static const double bannerCornersValue = Bubble.cornersValue - Ratioz.appBarMargin;
-  static const BorderRadius bannerCorners = BorderRadius.all(Radius.circular(bannerCornersValue));
   // --------------------
   Future<void> _onNoteOptionsTap({
     @required BuildContext context,
@@ -187,7 +184,7 @@ class NoteCard extends StatelessWidget {
           ),
 
           /// ATTACHMENT
-          NoteAttachment(
+          OLDNotePoster(
             noteModel: noteModel,
             boxWidth: _bodyWidth,
             canOpenFlyer: !isDraftNote,

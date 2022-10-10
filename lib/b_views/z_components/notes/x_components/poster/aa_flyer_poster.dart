@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyer_deck.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:flutter/material.dart';
 
-class NoteFlyerPosterMaker extends StatelessWidget {
+class FlyerPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const NoteFlyerPosterMaker({
+  const FlyerPoster({
     @required this.width,
     @required this.flyerModel,
     @required this.flyerBzModel,
@@ -32,14 +32,14 @@ class NoteFlyerPosterMaker extends StatelessWidget {
       //   builder: (double value, Widget child){
       //
       //     return
-            FlyerDeck(
-            bzModel: flyerBzModel,
-            maxPossibleWidth: width,
-            deckHeight: NotePosterBox.getClearHeight(width),
-            flyerModel: flyerModel,
-            expansion: 0.5,
-            minSlideHeightFactor: 0.85,
-          )
+                FlyerDeck(
+                  bzModel: flyerBzModel,
+                  maxPossibleWidth: width,
+                  deckHeight: NotePosterBox.getClearHeight(width),
+                  flyerModel: flyerModel,
+                  expansion: 0.5,
+                  minSlideHeightFactor: 0.85,
+                )
           // ;
       //   },
       // )

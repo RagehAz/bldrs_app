@@ -15,22 +15,24 @@ class NotePosterBox extends StatelessWidget {
   final double width;
   final Color color;
   final Widget child;
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// SIZES
+  // --------
   static const ImageSize standardSize = ImageSize(
     width: 720,
     height: 360,
   );
-  // --------------------
+  // --------
   static const ImageSize oldSize = ImageSize(
     width: 360,
     height: 240,
   );
-  // --------------------
+  // --------
   static const ImageSize iosMaxSize = ImageSize(
     width: 1038,
     height: 1038,
   );
-  // --------------------
+  // --------
   static double getBoxHeight(double boxWidth){
     return ImageSize.getHeightByAspectRatio(
         aspectRatio: standardSize.getAspectRatio(),
@@ -38,34 +40,44 @@ class NotePosterBox extends StatelessWidget {
     );
   }
   // --------------------
-  static double getPaddingValue(double boxWidth){
-    return boxWidth * 0.05;
-  }
-  // --------------------
-  static EdgeInsets getPaddings(double boxWidth){
-    return EdgeInsets.all(getPaddingValue(boxWidth));
-  }
-  // --------------------
-  static double getClearWidth(double boxWidth){
-    return boxWidth - (getPaddingValue(boxWidth) * 2);
-  }
-  // --------------------
-  static double getClearHeight(double boxWidth){
-    return getBoxHeight(boxWidth) - (getPaddingValue(boxWidth) * 2);
-  }
-  // --------------------
+  /// ASPECT RATIO
+  // --------
   static double getAspectRatio(){
     return standardSize.getAspectRatio();
   }
   // --------------------
-  static double getCornerValue(double boxWidth){
-    return boxWidth * 0.03;
+  /// PADDING
+  // --------
+  static double getPaddingValue(double boxWidth){
+    return boxWidth * 0.05;
+  }
+  // --------
+  static EdgeInsets getPaddings(double boxWidth){
+    return EdgeInsets.all(getPaddingValue(boxWidth));
   }
   // --------------------
+  /// CLEAR SPACE
+  // --------
+  static double getClearWidth(double boxWidth){
+    return boxWidth - (getPaddingValue(boxWidth) * 2);
+  }
+  // --------
+  static double getClearHeight(double boxWidth){
+    return getBoxHeight(boxWidth) - (getPaddingValue(boxWidth) * 2);
+  }
+  // --------------------
+  /// CORNERS
+  // --------
+  static double getCornerValue(double boxWidth){
+    // const double posterCornerValue = Bubble.cornersValue - Ratioz.appBarMargin;
+    return boxWidth * 0.03;
+  }
+  // --------
   static BorderRadius getCorners({
     @required BuildContext context,
     @required double boxWidth,
   }){
+    // const BorderRadius posterCorners = BorderRadius.all(Radius.circular(posterCornerValue));
     return Borderers.superCorners(
       context: context,
       corners: getCornerValue(boxWidth),
