@@ -10,12 +10,14 @@ class FlyerPoster extends StatelessWidget {
     @required this.width,
     @required this.flyerModel,
     @required this.flyerBzModel,
+    @required this.screenName,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final double width;
   final FlyerModel flyerModel;
   final BzModel flyerBzModel;
+  final String screenName;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class FlyerPoster extends StatelessWidget {
                   flyerModel: flyerModel,
                   expansion: 0.5,
                   minSlideHeightFactor: 0.85,
+                  screenName: screenName,
                 )
           // ;
       //   },

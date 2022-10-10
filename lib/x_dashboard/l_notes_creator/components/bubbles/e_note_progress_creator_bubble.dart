@@ -1,4 +1,6 @@
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -18,6 +20,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
     @required this.onTriggerLoading,
     @required this.onIncrement,
     @required this.onDecrement,
+    @required this.note,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +30,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
   final Function onTriggerLoading;
   final Function onIncrement;
   final Function onDecrement;
+  final NoteModel note;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,87 +41,94 @@ class NoteProgressCreatorBubble extends StatelessWidget {
       bubbleWidthOverride: _bubbleWidth,
     );
     // --------------------
-    return TileBubble(
-      bubbleHeaderVM: BubbleHeaderVM(
-        leadingIcon: Iconz.reload,
-        leadingIconSizeFactor: 0.5,
-        leadingIconBoxColor: progress != null ? Colorz.green255 : Colorz.grey50,
-        headlineVerse: Verse.plain(
-            progress == null ? 'Progress'
-                :
-            'Progress : ( ${((progress.current / progress.objective) * 100).toInt()} % )'
+    final bool isDeactivated = note.poster != null;
+    // --------------------
+    return WidgetFader(
+      fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
+      min: 0.2,
+      absorbPointer: isDeactivated,
+      child: TileBubble(
+        bubbleHeaderVM: BubbleHeaderVM(
+          leadingIcon: Iconz.reload,
+          leadingIconSizeFactor: 0.5,
+          leadingIconBoxColor: progress != null ? Colorz.green255 : Colorz.grey50,
+          headlineVerse: Verse.plain(
+              progress == null ? 'Progress'
+                  :
+              'Progress : ( ${((progress.current / progress.objective) * 100).toInt()} % )'
+          ),
+          hasSwitch: true,
+          switchValue: progress != null,
+          onSwitchTap: onSwitch,
         ),
-        hasSwitch: true,
-        switchValue: progress != null,
-        onSwitchTap: onSwitch,
-      ),
-      child: Column(
-        children: <Widget>[
+        child: Column(
+          children: <Widget>[
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
 
-              /// LOADING
-              DreamBox(
-                height: 35,
-                isDeactivated: progress == null,
-                icon: Iconz.reload,
-                iconColor: Colorz.white200,
-                iconSizeFactor: 0.4,
-                onTap: onTriggerLoading,
-              ),
+                /// LOADING
+                DreamBox(
+                  height: 35,
+                  isDeactivated: progress == null,
+                  icon: Iconz.reload,
+                  iconColor: Colorz.white200,
+                  iconSizeFactor: 0.4,
+                  onTap: onTriggerLoading,
+                ),
 
-              const SizedBox(
-                width: 5,
-                height: 5,
-              ),
+                const SizedBox(
+                  width: 5,
+                  height: 5,
+                ),
 
-              /// MINUS
-              DreamBox(
-                height: 35,
-                isDeactivated: nootProgressIsLoading == true || progress == null,
-                icon: Iconz.arrowLeft,
-                iconColor: Colorz.white200,
-                iconSizeFactor: 0.4,
-                onTap: onDecrement,
-              ),
+                /// MINUS
+                DreamBox(
+                  height: 35,
+                  isDeactivated: nootProgressIsLoading == true || progress == null,
+                  icon: Iconz.arrowLeft,
+                  iconColor: Colorz.white200,
+                  iconSizeFactor: 0.4,
+                  onTap: onDecrement,
+                ),
 
-              const SizedBox(
-                width: 5,
-                height: 5,
-              ),
+                const SizedBox(
+                  width: 5,
+                  height: 5,
+                ),
 
-              /// PLUS
-              DreamBox(
-                height: 35,
-                icon: Iconz.arrowRight,
-                isDeactivated: nootProgressIsLoading == true || progress == null,
-                iconColor: Colorz.white200,
-                iconSizeFactor: 0.4,
-                onTap: onIncrement,
-              ),
+                /// PLUS
+                DreamBox(
+                  height: 35,
+                  icon: Iconz.arrowRight,
+                  isDeactivated: nootProgressIsLoading == true || progress == null,
+                  iconColor: Colorz.white200,
+                  iconSizeFactor: 0.4,
+                  onTap: onIncrement,
+                ),
 
-              const SizedBox(
-                width: 20,
-                height: 20,
-              ),
+                const SizedBox(
+                  width: 20,
+                  height: 20,
+                ),
 
-            ],
-          ),
+              ],
+            ),
 
-          StaticProgressBar(
-            numberOfSlides: progress == null ? 1 : progress.objective,
-            index: progress == null ? 0 : progress.current - 1,
-            opacity: progress == null ? 0.2 : 1,
-            flyerBoxWidth: _bubbleChildWidth,
-            swipeDirection: SwipeDirection.freeze,
-            loading: nootProgressIsLoading,
-            stripThicknessFactor: 2,
-            margins: const EdgeInsets.only(top: 10),
-          ),
+            StaticProgressBar(
+              numberOfSlides: progress == null ? 1 : progress.objective,
+              index: progress == null ? 0 : progress.current - 1,
+              opacity: progress == null ? 0.2 : 1,
+              flyerBoxWidth: _bubbleChildWidth,
+              swipeDirection: SwipeDirection.freeze,
+              loading: nootProgressIsLoading,
+              stripThicknessFactor: 2,
+              margins: const EdgeInsets.only(top: 10),
+            ),
 
-        ],
+          ],
+        ),
       ),
     );
 

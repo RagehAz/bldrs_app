@@ -785,7 +785,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         if (_posterPreviewFile != null)
                         ImagePoster(
                             width: _tileChildWidth,
-                            file: _posterPreviewFile,
+                            pic: _posterPreviewFile,
                         ),
                         
                       ],
