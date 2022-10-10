@@ -2,13 +2,13 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyer_deck.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
-import 'package:bldrs/b_views/z_components/notes/banner/note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:flutter/material.dart';
 
-class NoteBzPosterMaker extends StatelessWidget {
+class BzPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const NoteBzPosterMaker({
+  const BzPoster({
     @required this.width,
     @required this.bzModel,
     @required this.bzSlidesInOneFlyer,

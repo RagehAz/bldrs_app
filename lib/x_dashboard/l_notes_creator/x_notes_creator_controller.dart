@@ -7,8 +7,11 @@ import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
+import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -23,6 +26,7 @@ import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
@@ -256,7 +260,7 @@ void clearReceivers({
 /// BODY AND TITLE
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onTitleChanged({
   @required String text,
   @required ValueNotifier<NoteModel> note,
@@ -269,7 +273,7 @@ void onTitleChanged({
   note.value = _updated;
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onBodyChanged({
   @required String text,
   @required ValueNotifier<NoteModel> note,
@@ -286,7 +290,7 @@ void onBodyChanged({
 /// SENDER
 
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> onSelectNoteSender({
   @required BuildContext context,
   @required NotePartyType senderType,
@@ -341,7 +345,7 @@ Future<void> onSelectNoteSender({
 
 }
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<bool> _showEthicalConfirmationDialog({
   @required BuildContext context,
   @required NotePartyType senderType,
@@ -372,7 +376,7 @@ Future<bool> _showEthicalConfirmationDialog({
   return _canContinue;
 }
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -406,7 +410,7 @@ Future<void> _onSelectUserAsNoteSender({
 
 }
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -438,7 +442,7 @@ Future<void> _onSelectBzAsNoteSender({
 
 }
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -467,7 +471,7 @@ Future<void> _onSelectCountryAsNoteSender({
 
 }
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -488,7 +492,7 @@ Future<void> _onSelectBldrsAsNoteSender({
 /// SEND FCM SWITCH
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onSwitchSendFCM({
   @required ValueNotifier<NoteModel> note,
   @required bool value,
@@ -504,26 +508,47 @@ void onSwitchSendFCM({
 /// BUTTONS
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onAddNoteButton({
   @required ValueNotifier<NoteModel> note,
   @required String button,
 }){
 
-  // final List<String> _updatedButtons = Stringer.addOrRemoveStringToStrings(
-  //   strings: note.value?.poll?.buttons,
-  //   string: button,
-  // );
-  //
-  // NoteModel _note = note.value.copyWith(
-  //   poll: _updatedButtons,
-  // );
-  //
-  // _note = _note.nullifyField(
-  //   poll: true,
-  // );
-  //
-  // note.value = _note;
+  /// POLL IS EMPTY
+  if (note.value.poll == null){
+    note.value = note.value.copyWith(
+      poll: PollModel(
+        buttons: [button],
+        reply: null,
+        replyTime: null,
+      ),
+    );
+  }
+
+  /// POLL HAS STUFF
+  else {
+
+    final List<String> _updatedButtons = Stringer.addOrRemoveStringToStrings(
+      strings: note.value?.poll?.buttons,
+      string: button,
+    );
+
+    if (_updatedButtons.isEmpty == true){
+      note.value = note.value.nullifyField(
+        poll: true,
+      );
+    }
+
+    else {
+      note.value = note.value.copyWith(
+        poll: note.value.poll.copyWith(
+          buttons: _updatedButtons,
+        ),
+      );
+
+    }
+
+  }
 
 }
 // -----------------------------------------------------------------------------
@@ -531,7 +556,7 @@ void onAddNoteButton({
 /// ATTACHMENTS
 
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> onSelectPosterType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -579,64 +604,58 @@ Future<void> onSelectPosterType({
 
 }
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> _onAddBzToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required PosterType posterType,
 }) async {
 
-  // final List<BzModel> _bzModels = await Nav.goToNewScreen(
-  //   context: context,
-  //   screen: const SearchBzzScreen(),
-  // );
-  //
-  // final bool _newSelection = Mapper.checkCanLoopList(_bzModels);
-  // if (_newSelection == true){
-  //
-  //   final BzModel _bzModel = Mapper.checkCanLoopList(_bzModels) == true ?
-  //   _bzModels.first
-  //       :
-  //   null;
-  //
-  //   note.value = note.value.copyWith(
-  //     poster: PosterModel(
-  //       type: posterType,
-  //       id: _bzModel.id,
-  //       url: null,
-  //     ),
-  //
-  //   );
-  //
-  // }
+  final List<BzModel> _bzModels = await Nav.goToNewScreen(
+    context: context,
+    screen: const SearchBzzScreen(),
+  );
+
+  if (Mapper.checkCanLoopList(_bzModels) == true){
+
+    note.value = note.value.copyWith(
+      poster: PosterModel(
+        type: posterType,
+        id: _bzModels.first.id,
+        url: null,
+      ),
+
+    );
+
+  }
 
 }
 // --------------------
-/// TESTED :
+/// TESTED : WORKS PERFECT
 Future<void> _onAddFlyerToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required PosterType posterType,
 }) async {
 
-  // final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
-  //   context: context,
-  //   screen: const SavedFlyersScreen(
-  //     selectionMode: true,
-  //   ),
-  // );
-  //
-  // if (Mapper.checkCanLoopList(_selectedFlyers) == true){
-  //
-  //   note.value = note.value.copyWith(
-  //     poster: PosterModel(
-  //       type: posterType,
-  //       id: _selectedFlyers.first.id,
-  //       url: null,
-  //     ),
-  //   );
-  //
-  // }
+  final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+    context: context,
+    screen: const SavedFlyersScreen(
+      selectionMode: true,
+    ),
+  );
+
+  if (Mapper.checkCanLoopList(_selectedFlyers) == true){
+
+    note.value = note.value.copyWith(
+      poster: PosterModel(
+        type: posterType,
+        id: _selectedFlyers.first.id,
+        url: null,
+      ),
+    );
+
+  }
 
 }
 // --------------------
@@ -665,7 +684,7 @@ Future<void> _onAddImageToPoster({
   //   note.value = note.value.copyWith(
   //     poster: PosterModel(
   //       type: posterType,
-  //       id: _fileModel.file.fileNameWithExtension,
+  //       id: _fileModel.file.path,
   //       url: null,
   //     ),
   //
@@ -882,7 +901,7 @@ Future<void> onDeleteNote({
 /// TEMPLATE NOTES
 
 // --------------------
-
+/// TESTED : WORKS PERFECT
 Future<void> onGoToNoteTemplatesScreen({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -918,7 +937,7 @@ Future<void> onGoToNoteTemplatesScreen({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<List<dynamic>> _getReceiversModelsByReceiversIDs({
   @required BuildContext context,
   @required List<String> receiversIDs,
@@ -948,7 +967,7 @@ Future<List<dynamic>> _getReceiversModelsByReceiversIDs({
   return _output;
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onSelectNoteTemplateTap({
   @required BuildContext context,
   @required NoteModel noteModel,

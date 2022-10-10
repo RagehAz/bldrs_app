@@ -157,6 +157,8 @@ class Iconz {
   static const String crop = '$_iconsPath/gi_crop.svg';
   static const String resize = '$_iconsPath/gi_resize.svg';
   static const String flag = '$_iconsPath/gi_flag.svg';
+  static const String spark = '$_iconsPath/gi_spark.svg';
+  static const String trigger = '$_iconsPath/gi_trigger.svg';
   // --------------------
   /// PYRAMIDS
   static const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg';

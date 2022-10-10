@@ -6,9 +6,9 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class NotificationFlyers extends StatelessWidget {
+class OldFlyersPoster extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NotificationFlyers({
+  const OldFlyersPoster({
     @required this.bodyWidth,
     @required this.flyers,
     @required this.noteID,
@@ -40,7 +40,7 @@ class NotificationFlyers extends StatelessWidget {
       const SizedBox()
           :
       flyers.length == 1 ?
-      FlyerInNoteCard(
+      FlyerInOldFlyersPoster(
         noteID: noteID,
         flyerModel: flyers[0],
         onFlyerTap: onFlyerTap,
@@ -56,7 +56,7 @@ class NotificationFlyers extends StatelessWidget {
 
             final FlyerModel _flyer = flyers[index];
 
-            return FlyerInNoteCard(
+            return FlyerInOldFlyersPoster(
               noteID: noteID,
               flyerModel: _flyer,
               onFlyerTap: onFlyerTap,
@@ -73,9 +73,9 @@ class NotificationFlyers extends StatelessWidget {
 /// --------------------------------------------------------------------------
 }
 
-class FlyerInNoteCard extends StatelessWidget {
+class FlyerInOldFlyersPoster extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerInNoteCard({
+  const FlyerInOldFlyersPoster({
     @required this.flyerModel,
     @required this.onFlyerTap,
     @required this.noteID,
@@ -126,8 +126,8 @@ class FlyerInNoteCard extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: StaticFlyerStarter(
-            flyerBoxWidth: _flyerBoxWidth,
-            flyerModel: flyerModel,
+          flyerBoxWidth: _flyerBoxWidth,
+          flyerModel: flyerModel,
         ),
       );
     }
