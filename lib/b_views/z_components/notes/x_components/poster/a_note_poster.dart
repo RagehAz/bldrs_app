@@ -27,6 +27,7 @@ class NotePoster extends StatelessWidget {
         width: width,
         flyerModel: model,
         flyerBzModel: modelHelper,
+        screenName: 'NotePoster',
       );
     }
 
@@ -35,13 +36,14 @@ class NotePoster extends StatelessWidget {
         width: width,
         bzModel: model,
         bzSlidesInOneFlyer: modelHelper,
+        screenName: 'NotePoster',
       );
     }
 
     else if (posterType == PosterType.image){
       return ImagePoster(
         width: width,
-        file: model,
+        pic: model,
       );
     }
 
