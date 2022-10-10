@@ -16,7 +16,6 @@ import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -441,9 +440,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                 /// TITLE
                 TextFieldBubble(
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: Verse.plain('Title'),
+                  ),
                   bubbleWidth: _clearWidth,
                   appBarType: AppBarType.basic,
-                  titleVerse: Verse.plain('Title'),
                   isFormField: true,
                   textController: _titleController,
                   counterIsOn: true,
@@ -467,9 +468,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                 /// BODY
                 TextFieldBubble(
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: Verse.plain('Body'),
+                  ),
                   bubbleWidth: _clearWidth,
                   appBarType: AppBarType.basic,
-                  titleVerse: Verse.plain('Body'),
                   isFormField: true,
                   textController: _bodyController,
                   counterIsOn: true,

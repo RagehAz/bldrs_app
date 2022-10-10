@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -273,17 +272,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// NAME
                 TextFieldBubble(
                   key: const ValueKey<String>('name'),
-                  globalKey: _formKey,
-                  titleVerse: const Verse(
-                    text: 'phid_name',
-                    translate: true,
+                  headerViewModel: const BubbleHeaderVM(
+                    headlineVerse: Verse(
+                      text: 'phid_name',
+                      translate: true,
+                    ),
+                    redDot: true,
                   ),
+                  globalKey: _formKey,
                   focusNode: _nameNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
                   initialText: userModel.name,
                   textOnChanged: (String text) => onUserNameChanged(
                     text: text,
@@ -299,17 +300,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// JOB TITLE
                 TextFieldBubble(
                   key: const ValueKey<String>('title'),
+                  headerViewModel: const BubbleHeaderVM(
+                    headlineVerse: Verse(
+                      text: 'phid_jobTitle',
+                      translate: true,
+                    ),
+                    redDot: true,
+                  ),
                   globalKey: _formKey,
                   focusNode: _titleNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  titleVerse: const Verse(
-                    text: 'phid_jobTitle',
-                    translate: true,
-                  ),
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
                   initialText: userModel.title,
                   textOnChanged: (String text) => onUserJobTitleChanged(
                     tempUser: _tempUser,
@@ -325,17 +328,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// COMPANY NAME
                 TextFieldBubble(
                   key: const ValueKey<String>('company'),
+                  headerViewModel: const BubbleHeaderVM(
+                    headlineVerse: Verse(
+                      text: 'phid_companyName',
+                      translate: true,
+                    ),
+                    redDot: true,
+                  ),
                   globalKey: _formKey,
                   focusNode: _companyNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  titleVerse: const Verse(
-                    text: 'phid_companyName',
-                    translate: true,
-                  ),
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
                   initialText: userModel.company,
                   // autoValidate: true,
                   textOnChanged: (String text) => onUserCompanyNameChanged(

@@ -41,6 +41,11 @@ class PasswordBubbles extends StatelessWidget {
 
         /// PASSWORD
         TextFieldBubble(
+          headerViewModel: const BubbleHeaderVM(
+            headlineVerse: Verse(text: 'phid_password', translate: true),
+            redDot: true,
+
+          ),
           focusNode: passwordNode,
           appBarType: appBarType,
           bubbleWidth: boxWidth,
@@ -48,10 +53,8 @@ class PasswordBubbles extends StatelessWidget {
           key: const ValueKey<String>('password'),
           textController: passwordController,
           textDirection: TextDirection.ltr,
-          fieldIsRequired: true,
           keyboardTextInputType: TextInputType.visiblePassword,
           keyboardTextInputAction: showPasswordOnly ? TextInputAction.go : TextInputAction.next,
-          titleVerse: const Verse(text: 'phid_password', translate: true),
           validator: passwordValidator,
           bulletPoints: const <Verse>[
             Verse(text: 'phid_min6Char', translate: true,),
@@ -74,19 +77,21 @@ class PasswordBubbles extends StatelessWidget {
         /// CONFIRM PASSWORD
         if (showPasswordOnly == false)
           TextFieldBubble(
+            headerViewModel: const BubbleHeaderVM(
+              headlineVerse: Verse(
+                text: 'phid_confirmPassword',
+                translate: true,
+              ),
+              redDot: true,
+            ),
             focusNode: confirmPasswordNode,
             appBarType: appBarType,
             isFormField: true,
             key: const ValueKey<String>('confirm'),
             textController: passwordConfirmationController,
             textDirection: TextDirection.ltr,
-            fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
-            titleVerse: const Verse(
-              text: 'phid_confirmPassword',
-              translate: true,
-            ),
             validator: passwordConfirmationValidator,
             bulletPoints: const <Verse>[
               Verse(text: 'phid_min6Char', translate: true),

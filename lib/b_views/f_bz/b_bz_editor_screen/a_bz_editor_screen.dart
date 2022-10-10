@@ -8,7 +8,6 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -440,20 +439,23 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       /// BZ NAME
                       TextFieldBubble(
                         globalKey: _formKey,
+                        headerViewModel: BubbleHeaderVM(
+                          headlineVerse: Verse(
+                            text: _companyNameBubbleTitle,
+                            translate: true,
+                          ),
+                          redDot: true,
+
+                        ),
                         focusNode: _nameNode,
                         appBarType: AppBarType.basic,
                         isFormField: true,
                         key: const ValueKey('bzName'),
-                        titleVerse: Verse(
-                          text: _companyNameBubbleTitle,
-                          translate: true,
-                        ),
                         counterIsOn: true,
                         maxLength: 72,
                         maxLines: 2,
                         keyboardTextInputType: TextInputType.name,
                         keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: true,
                         initialText: bzModel?.name,
                         textOnChanged: (String text) => onBzNameChanged(
                           text: text,
@@ -469,13 +471,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       /// BZ ABOUT
                       TextFieldBubble(
                           globalKey: _formKey,
+                          headerViewModel: const BubbleHeaderVM(
+                            headlineVerse: Verse(
+                              text: 'phid_about',
+                              translate: true,
+                            ),
+                          ),
                           focusNode: _aboutNode,
                           appBarType: AppBarType.basic,
                           key: const ValueKey<String>('bz_about_bubble'),
-                          titleVerse: const Verse(
-                            text: 'phid_about',
-                            translate: true,
-                          ),
                           counterIsOn: true,
                           maxLength: 1000,
                           maxLines: 20,

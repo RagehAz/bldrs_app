@@ -386,10 +386,12 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
               /// TEXT FIELD
               TextFieldBubble(
                 focusNode: _keyboardModel.focusNode,
+                headerViewModel: BubbleHeaderVM(
+                  headlineVerse: _keyboardModel.titleVerse
+                ),
                 globalKey: _keyboardModel.globalKey,
                 appBarType: AppBarType.basic,
                 isFloatingField: _keyboardModel.isFloatingField,
-                titleVerse: _keyboardModel.titleVerse,
                 textController: _controller,
                 maxLines: _keyboardModel.maxLines,
                 minLines: _keyboardModel.minLines,
