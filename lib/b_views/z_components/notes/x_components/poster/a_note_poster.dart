@@ -40,7 +40,13 @@ class NotePoster extends StatelessWidget {
       );
     }
 
-    else if (posterType == PosterType.image){
+    else if (
+    posterType == PosterType.url
+    ||
+    posterType == PosterType.cameraImage
+    ||
+    posterType == PosterType.galleryImage
+    ){
       return ImagePoster(
         width: width,
         pic: model,

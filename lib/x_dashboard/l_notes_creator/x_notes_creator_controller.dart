@@ -10,6 +10,8 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
@@ -18,12 +20,16 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -575,7 +581,6 @@ Future<void> onSelectPosterType({
     await _onAddBzToPoster(
       context: context,
       note: note,
-      posterType: posterType,
     );
   }
 
@@ -584,18 +589,32 @@ Future<void> onSelectPosterType({
     await _onAddFlyerToPoster(
       context: context,
       note: note,
-      posterType: posterType,
     );
   }
 
-  /// IMAGE
-  else if (posterType == PosterType.image){
-    await _onAddImageToPoster(
+  /// GALLERY IMAGE
+  else if (posterType == PosterType.galleryImage){
+    await _onAddGalleryImageToPoster(
       context: context,
       note: note,
-      posterType: posterType,
     );
   }
+
+  /// CAMERA IMAGE
+  else if (posterType == PosterType.cameraImage){
+    await _onAddCameraImageToPoster(
+      context: context,
+      note: note,
+    );
+  }
+
+  else if (posterType == PosterType.url){
+    await _onAddImageURLToPoster(
+      context: context,
+      note: note,
+    );
+  }
+
   else {
     _onClearPoster(
       note: note,
@@ -608,7 +627,6 @@ Future<void> onSelectPosterType({
 Future<void> _onAddBzToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required PosterType posterType,
 }) async {
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -620,8 +638,8 @@ Future<void> _onAddBzToPoster({
 
     note.value = note.value.copyWith(
       poster: PosterModel(
-        type: posterType,
-        id: _bzModels.first.id,
+        type: PosterType.bz,
+        modelID: _bzModels.first.id,
         url: null,
       ),
 
@@ -635,7 +653,6 @@ Future<void> _onAddBzToPoster({
 Future<void> _onAddFlyerToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required PosterType posterType,
 }) async {
 
   final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
@@ -649,8 +666,8 @@ Future<void> _onAddFlyerToPoster({
 
     note.value = note.value.copyWith(
       poster: PosterModel(
-        type: posterType,
-        id: _selectedFlyers.first.id,
+        type: PosterType.flyer,
+        modelID: _selectedFlyers.first.id,
         url: null,
       ),
     );
@@ -660,36 +677,85 @@ Future<void> _onAddFlyerToPoster({
 }
 // --------------------
 ///
-Future<void> _onAddImageToPoster({
+Future<void> _onAddGalleryImageToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required PosterType posterType,
 }) async {
 
-  // final FileModel _fileModel = await Imagers.pickAndCropSingleImage(
-  //   context: context,
-  //   cropAfterPick: true,
-  //   aspectRatio: NotePosterBox.getAspectRatio(),
-  //   resizeToWidth: Standards.noteAttachmentWidthPixels,
-  // );
-  //
-  // // final ImageSize _picSize = await ImageSize.superImageSize(_pic);
-  // // final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(
-  // //   width: NoteCard.bodyWidth(context),
-  // //   graphicWidth: _picSize.width,
-  // //   graphicHeight: _picSize.height,
-  // // );
-  //
-  // if (_fileModel != null){
-  //   note.value = note.value.copyWith(
-  //     poster: PosterModel(
-  //       type: posterType,
-  //       id: _fileModel.file.path,
-  //       url: null,
-  //     ),
-  //
-  //   );
-  // }
+  final FileModel _fileModel = await Imagers.pickAndCropSingleImage(
+    context: context,
+    cropAfterPick: true,
+    aspectRatio: NotePosterBox.getAspectRatio(),
+    resizeToWidth: NotePosterBox.standardSize.width,
+  );
+
+  if (_fileModel != null){
+    note.value = note.value.copyWith(
+      poster: PosterModel(
+        type: PosterType.galleryImage,
+        file: _fileModel.file,
+        modelID: null,
+        url: null,
+      ),
+
+    );
+  }
+
+}
+// --------------------
+///
+Future<void> _onAddCameraImageToPoster({
+  @required BuildContext context,
+  @required ValueNotifier<NoteModel> note,
+}) async {
+
+  final FileModel _fileModel = await Imagers.shootAndCropCameraImage(
+    context: context,
+    cropAfterPick: true,
+    aspectRatio: NotePosterBox.getAspectRatio(),
+    resizeToWidth: NotePosterBox.standardSize.width,
+  );
+
+  if (_fileModel != null){
+    note.value = note.value.copyWith(
+      poster: PosterModel(
+        type: PosterType.cameraImage,
+        file: _fileModel.file,
+        modelID: null,
+        url: null,
+      ),
+
+    );
+  }
+
+}
+// --------------------
+///
+Future<void> _onAddImageURLToPoster({
+  @required BuildContext context,
+  @required ValueNotifier<NoteModel> note,
+}) async {
+
+  final String _url = await KeyboardScreen.goToKeyboardScreen(
+    context: context,
+      keyboardModel: KeyboardModel.standardModel().copyWith(
+        validator: (String text) => Formers.webSiteValidator(
+            website: text
+        ),
+      ),
+  );
+
+  if (_url != null){
+    note.value = note.value.copyWith(
+      poster: PosterModel(
+        type: PosterType.url,
+        modelID: null,
+        url: _url,
+        // file: null,
+      ),
+
+    );
+  }
 
 }
 // --------------------

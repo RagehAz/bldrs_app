@@ -6,20 +6,22 @@ import 'package:flutter/material.dart';
 enum PosterType {
   flyer,
   bz,
-  image,
+  galleryImage,
+  cameraImage,
+  url,
 }
 
 @immutable
 class PosterModel {
   /// --------------------------------------------------------------------------
   const PosterModel({
-    @required this.id,
+    @required this.modelID,
     @required this.type,
     @required this.url,
     this.file,
   });
   /// --------------------------------------------------------------------------
-  final String id;
+  final String modelID;
   final PosterType type;
   final String url;
   final File file;
@@ -27,8 +29,10 @@ class PosterModel {
   /// TESTED : WORKS PERFECT
   static const List<PosterType> posterTypes = <PosterType>[
     PosterType.flyer,
-    PosterType.image,
     PosterType.bz,
+    PosterType.galleryImage,
+    PosterType.cameraImage,
+    PosterType.url,
   ];
   // -----------------------------------------------------------------------------
 
@@ -37,12 +41,12 @@ class PosterModel {
   // --------------------
   ///
   PosterModel copyWith({
-    String id,
+    String modelID,
     PosterType type,
     String url,
   }){
     return PosterModel(
-      id: id ?? this.id,
+      modelID: modelID ?? this.modelID,
       type: type ?? this.type,
       url: url ?? this.url,
     );
@@ -55,7 +59,7 @@ class PosterModel {
   ///
   Map<String, dynamic> toMap(){
     return {
-      'id': id,
+      'modelID': modelID,
       'type': cipherPosterType(type),
       'url': url,
     };
@@ -67,7 +71,7 @@ class PosterModel {
 
     if (map != null){
       _model = PosterModel(
-        id: map['id'],
+        modelID: map['modelID'],
         type: decipherPosterType(map['type']),
         url: map['url'],
       );
@@ -79,10 +83,11 @@ class PosterModel {
   ///
   static String cipherPosterType(PosterType type){
     switch(type){
-      case PosterType.image:  return 'image'; break;
-      case PosterType.bz:     return 'bz';    break;
-      case PosterType.flyer:  return 'flyer'; break;
-
+      case PosterType.bz:             return 'bz';    break;
+      case PosterType.flyer:          return 'flyer'; break;
+      case PosterType.cameraImage:    return 'cameraImage'; break;
+      case PosterType.galleryImage:   return 'galleryImage'; break;
+      case PosterType.url:            return 'url'; break;
       default: return null;
     }
   }
@@ -90,9 +95,12 @@ class PosterModel {
   ///
   static PosterType decipherPosterType(String type){
     switch(type){
-      case 'image': return PosterType.image;  break;
-      case 'bz':    return PosterType.bz;     break;
-      case 'flyer': return PosterType.flyer;  break;
+      case 'bz':            return PosterType.bz;           break;
+      case 'flyer':         return PosterType.flyer;        break;
+      case 'cameraImage':   return PosterType.cameraImage;  break;
+      case 'galleryImage':  return PosterType.galleryImage; break;
+      case 'url':           return PosterType.url;          break;
+
       default: return null;
     }
   }
@@ -103,7 +111,7 @@ class PosterModel {
   // --------------------
   ///
   void blogPoster(){
-    blog('id: $id : type : ${cipherPosterType(type)} : url : $url');
+    blog('id: $modelID : type : ${cipherPosterType(type)} : url : $url');
   }
   // -----------------------------------------------------------------------------
 
@@ -124,7 +132,7 @@ class PosterModel {
     else if (poster1 != null && poster2 != null){
 
       if (
-          poster1.id == poster2.id &&
+          poster1.modelID == poster2.modelID &&
           poster1.url == poster2.url &&
           poster1.type == poster2.type
       ){
@@ -165,7 +173,7 @@ class PosterModel {
   // --------------------
   @override
   int get hashCode =>
-      id.hashCode^
+      modelID.hashCode^
       type.hashCode^
       url.hashCode;
   // -----------------------------------------------------------------------------
