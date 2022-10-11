@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/a_models/e_notes/noot_event.dart';
@@ -14,6 +13,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/a_parties_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/b_note_title_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/c_note_body_creator_bubble.dart';
+import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/d_poster_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/e_note_progress_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/f_note_buttons_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/g_note_topic_selector_bubble.dart';
@@ -22,7 +22,6 @@ import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/i_note_dism
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/j_note_channel_selector_bubble.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/k_note_trigger_creator.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/x_note_preview_panel.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/bubbles/d_poster_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
@@ -47,11 +46,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _bodyNode = FocusNode();
   // --------------------
-  Progress _progress;
-  bool _nootProgressIsLoading = false;
   bool _isDismissible = true;
   Channel _channel = Channel.bulletin;
-
   NootEvent _nootEvent;
   // --------------------
   final ValueNotifier<NoteModel> _noteNotifier = ValueNotifier<NoteModel>(null);
@@ -191,63 +187,63 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     PosterCreatorBubble(
                       note: note,
                       noteNotifier: _noteNotifier,
-                      isDeactivated: _progress != null,
                     ),
 
                     /// PROGRESS
                     NoteProgressCreatorBubble(
                       note: note,
-                      progress: _progress,
-                      nootProgressIsLoading: _nootProgressIsLoading,
-                      onSwitch: (bool value){
-                        if (value == true){
-
-                          setState(() {
-                            _progress = const Progress(
-                              targetID: 'noot',
-                              current: 0,
-                              objective: 20,
-                            );
-                          });
-
-
-                        }
-                        else {
-
-                          setState(() {
-                            _progress = null;
-                            _nootProgressIsLoading = false;
-                          });
-
-                        }
-                      },
-                      onTriggerLoading: (){
-                        setState(() {
-                          _nootProgressIsLoading = !_nootProgressIsLoading;
-                        });
-                      },
-                      onIncrement: (){
-
-                        if (_progress.current < _progress.objective){
-                          setState(() {
-                            _progress = _progress.copyWith(
-                              current: _progress.current + 1,
-                            );
-                          });
-                        }
-
-                      },
-                      onDecrement: (){
-
-                        if (_progress.current > 0){
-                          setState(() {
-                            _progress = _progress.copyWith(
-                              current: _progress.current - 1,
-                            );
-                          });
-                        }
-
-                      },
+                      noteNotifier: _noteNotifier,
+                      // progress: _progress,
+                      // nootProgressIsLoading: _nootProgressIsLoading,
+                      // onSwitch: (bool value){
+                      //   if (value == true){
+                      //
+                      //     setState(() {
+                      //       _progress = const Progress(
+                      //         targetID: 'noot',
+                      //         current: 0,
+                      //         objective: 20,
+                      //       );
+                      //     });
+                      //
+                      //
+                      //   }
+                      //   else {
+                      //
+                      //     setState(() {
+                      //       _progress = null;
+                      //       _nootProgressIsLoading = false;
+                      //     });
+                      //
+                      //   }
+                      // },
+                      // onTriggerLoading: (){
+                      //   setState(() {
+                      //     _nootProgressIsLoading = !_nootProgressIsLoading;
+                      //   });
+                      // },
+                      // onIncrement: (){
+                      //
+                      //   if (_progress.current < _progress.objective){
+                      //     setState(() {
+                      //       _progress = _progress.copyWith(
+                      //         current: _progress.current + 1,
+                      //       );
+                      //     });
+                      //   }
+                      //
+                      // },
+                      // onDecrement: (){
+                      //
+                      //   if (_progress.current > 0){
+                      //     setState(() {
+                      //       _progress = _progress.copyWith(
+                      //         current: _progress.current - 1,
+                      //       );
+                      //     });
+                      //   }
+                      //
+                      // },
                     ),
 
                     /// BUTTONS

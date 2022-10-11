@@ -112,19 +112,13 @@ class NoteEventsOfAuthorship {
       ),
       title: _title.value,
       body: _body.value,
-      metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      poster: null,
-      trigger: null,
-      sendFCM: true,
       poll: const PollModel(
         buttons: PollModel.acceptDeclineButtons,
         reply: null,
         replyTime: null,
       ),
       token: userModelToSendTo?.fcmToken?.token,
-      topic: null, // will be defined in composeNoteProtocol
-      seen: false,
     );
 
     await NoteProtocols.compose(
@@ -164,13 +158,7 @@ class NoteEventsOfAuthorship {
       ),
       title: _title,
       body: _body,
-      metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      poster: null,
-      seen: false,
-      sendFCM: true,
-      poll: null,
-      token: null,
       topic: NoteModel.generateTopic(
         topicType: TopicType.authorshipReply,
         id: bzID,
