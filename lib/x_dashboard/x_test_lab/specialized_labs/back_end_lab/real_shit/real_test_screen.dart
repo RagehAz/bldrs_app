@@ -1,10 +1,9 @@
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/streamers/real/real_coll_paginator.dart';
-import 'package:bldrs/b_views/z_components/streamers/real/real_coll_streamer.dart';
-import 'package:bldrs/b_views/z_components/streamers/real/real_doc_streamer.dart';
+import 'package:bldrs/e_back_end/c_real/widgets/real_coll_paginator.dart';
+import 'package:bldrs/e_back_end/c_real/widgets/real_coll_streamer.dart';
+import 'package:bldrs/e_back_end/c_real/widgets/real_doc_streamer.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -44,8 +43,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      pyramidType: PyramidType.crystalYellow,
-      skyType: SkyType.non,
+      pyramidType: PyramidType.yellow,
       pyramidsAreOn: true,
       appBarType: AppBarType.scrollable,
       appBarRowWidgets: <Widget>[

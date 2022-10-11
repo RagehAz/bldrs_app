@@ -178,5 +178,40 @@ class Scrollers {
 
     return (max - current <= paginationHeight) && (isPaginating == false);
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  static void createPaginationListener({
+    @required ScrollController controller,
+    @required ValueNotifier<bool> isPaginating,
+    @required Function onPaginate,
+  }){
+
+    controller.addListener(() async {
+
+      final bool _canPaginate = Scrollers.canPaginate(
+        scrollController: controller,
+        isPaginating: isPaginating.value,
+        paginationHeight: 100,
+      );
+
+      Scrollers.blogScrolling(
+        scrollController: controller,
+        isPaginating: isPaginating.value,
+        paginationHeight: 0,
+      );
+
+      if (_canPaginate == true){
+
+        isPaginating.value = true;
+
+        await onPaginate();
+
+        isPaginating.value = false;
+
+      }
+
+    });
+
+
+  }
+// -----------------------------------------------------------------------------
 }
