@@ -1059,6 +1059,13 @@ String generateStringsList_index_hh_i_mm_i_ss({
         blog('calculateTimeDifferenceInMinutes : ${_now.minute - _dateTime.minute}');
         blog('checkDeviceTimeIsCorrect : _diff : ( $_diff ) : modulus : $_num : _differenceIsBig : $_differenceIsBig');
 
+        /*
+        case
+            [log] BLOGGING DATE TIME : 2022-10-11 13:27:29.139045
+            [log] BLOGGING DATE TIME : 2022-10-11 13:28:10.320371Z
+            [log] calculateTimeDifferenceInMinutes : -1
+         */
+
         final String _dd_month_yyy_actual = Timers.translate_dd_month_yyyy(context: context, time: _dateTime);
         final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(context: context, time: _dateTime);
 

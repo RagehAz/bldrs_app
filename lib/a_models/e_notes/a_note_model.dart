@@ -572,7 +572,6 @@ class NoteModel {
         _missingFields.add('seen');
       }
 
-
       /// IF NOT ONLY ESSENTIAL FIELDS REQUIRED TO SEND A NOTE ARE TO BE CONSIDERED
       if (considerAllFields == true){
 
@@ -638,7 +637,7 @@ class NoteModel {
     return _thereAreUnseenNotes;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkCanSendNote(NoteModel noteModel){
     bool _canSend = false;
 
@@ -661,6 +660,7 @@ class NoteModel {
           // noteModel.topic != null &&
           // noteModel.trigger != null &&
           // noteModel.seen != null &&
+          // noteModel.progress != null &&
           noteModel.sendFCM != null
       ){
         _canSend = true;
@@ -671,7 +671,7 @@ class NoteModel {
     return _canSend;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkNotesAreIdentical({
     @required NoteModel note1,
     @required NoteModel note2,
@@ -1041,6 +1041,7 @@ class NoteModel {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static NoteModel quickUserNotice({
     @required String userID,
     @required String title,
@@ -1179,6 +1180,7 @@ class NoteModel {
   }
    */
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String receiverVsSenderValidator({
     @required NotePartyType senderType,
     @required NotePartyType receiverType,
@@ -1259,6 +1261,7 @@ class NoteModel {
       topic.hashCode^
       trigger.hashCode^
       seen.hashCode^
+      progress.hashCode^
       docSnapshot.hashCode;
   // -----------------------------------------------------------------------------
 }
