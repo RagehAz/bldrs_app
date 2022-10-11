@@ -669,7 +669,7 @@ Future<void> _onAddFlyerToPoster({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _onAddGalleryImageToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -696,7 +696,7 @@ Future<void> _onAddGalleryImageToPoster({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _onAddCameraImageToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -723,7 +723,7 @@ Future<void> _onAddCameraImageToPoster({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _onAddImageURLToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -752,7 +752,7 @@ Future<void> _onAddImageURLToPoster({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void _onClearPoster({
   @required ValueNotifier<NoteModel> note,
 }){
@@ -780,8 +780,6 @@ Future<void> onSendNote({
   @required ValueNotifier<List<dynamic>> receiversModels,
 }) async {
 
-  blog('a77a? ');
-
   final bool _formIsValid = formKey.currentState.validate();
 
   if (_formIsValid == true){
@@ -797,6 +795,10 @@ Future<void> onSendNote({
 
     if (_confirmSend == true){
 
+      blog('should sent this');
+
+      note.value.blogNoteModel();
+
       unawaited(WaitDialog.showWaitDialog(context: context));
 
       await _modifyPosterIfFile(
@@ -804,17 +806,15 @@ Future<void> onSendNote({
         note: note,
       );
 
-      await NoteProtocols.compose(
+      await NoteProtocols.composeToMultiple(
         context: context,
         note: note.value,
+        receiversIDs: _getReceiversIDsFromModels(
+          receiversModels: receiversModels.value,
+          receiverType: note.value.parties.receiverType,
+        ),
       );
 
-      // _clearNote(
-      //   context: context,
-      //   note: note,
-      //   titleController: titleController,
-      //   bodyController: bodyController,
-      // );
 
       await WaitDialog.closeWaitDialog(context);
 
@@ -827,17 +827,6 @@ Future<void> onSendNote({
         firstVerse: Verse.plain('Note Sent'),
         secondVerse: Verse.plain('Alf Mabrouk ya5oya'),
       ));
-
-      /// FAILED SCENARIO
-      //   if (result == true) {
-      //
-      //     await CenterDialog.showCenterDialog(
-      //       context: context,
-      //       title: 'Done',
-      //       body: 'Notification has been sent to $_userName',
-      //     );
-      //
-      //   }
 
     }
 
@@ -1019,6 +1008,32 @@ Future<List<dynamic>> _getReceiversModelsByReceiversIDs({
           context: context,
           bzzIDs: receiversIDs
       );
+    }
+
+  }
+
+  return _output;
+}
+// --------------------
+///
+List<String> _getReceiversIDsFromModels({
+  @required List<dynamic> receiversModels,
+  @required NotePartyType receiverType,
+}){
+  final List<String> _output = <String>[];
+
+  if (Mapper.checkCanLoopList(receiversModels) == true){
+
+    if (receiverType == NotePartyType.bz){
+      final List<String> _bzzIDs = BzModel.getBzzIDs(receiversModels);
+      _output.addAll(_bzzIDs);
+    }
+    else if (receiverType == NotePartyType.user){
+      final List<String> _usersIDs = UserModel.getUsersIDs(receiversModels);
+      _output.addAll(_usersIDs);
+    }
+    else {
+      /// nothing
     }
 
   }

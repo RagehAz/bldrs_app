@@ -47,7 +47,7 @@ class NoteEventsOfBzFlyersManagement {
       ),
     );
 
-    await NoteProtocols.compose(
+    await NoteProtocols.composeToOne(
       context: context,
       note: _note,
     );
@@ -86,7 +86,7 @@ class NoteEventsOfBzFlyersManagement {
       ),
     );
 
-    await NoteProtocols.compose(
+    await NoteProtocols.composeToOne(
         context: context,
         note: _note
     );
