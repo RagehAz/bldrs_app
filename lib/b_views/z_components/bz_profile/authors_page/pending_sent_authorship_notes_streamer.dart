@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x4_bz_notes_page_controll
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

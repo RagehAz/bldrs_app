@@ -584,6 +584,9 @@ String generateStringsList_index_hh_i_mm_i_ss({
     int _output;
 
     if (to != null && from != null){
+
+      blog('calculateTimeDifferenceInMinutes : from : $from : to : $to');
+
       _output = to?.difference(from)?.inMinutes;
     }
 
@@ -1027,7 +1030,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   /// DEVICE TIME
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<bool> checkDeviceTimeIsCorrect({
     @required BuildContext context,
     @required bool showIncorrectTimeDialog,
@@ -1036,7 +1039,18 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     final Map<String, dynamic> _InternetUTCTimeMap = await getInternetUTCTime();
 
-    final DateTime _dateTime = _InternetUTCTimeMap['dateTime'];
+    final DateTime _dateTimeReceived = _InternetUTCTimeMap['dateTime'];
+    final DateTime _dateTime = Timers.createDateTime(
+      year: _dateTimeReceived.year,
+      month: _dateTimeReceived.month,
+      day: _dateTimeReceived.day,
+      hour: _dateTimeReceived.hour,
+      minute: _dateTimeReceived.minute,
+      second: _dateTimeReceived.second,
+      millisecond: 0,
+      microsecond: 0,
+    );
+
     final String _timezone = _InternetUTCTimeMap['timezone'];
 
     final DateTime _now = DateTime.now();

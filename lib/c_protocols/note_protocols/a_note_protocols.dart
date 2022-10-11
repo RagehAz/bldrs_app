@@ -9,6 +9,7 @@ import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/real_ops/note_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -46,20 +47,19 @@ class NoteProtocols {
         sentTime: DateTime.now(),
       );
 
+      final NoteModel _uploaded = await NoteRealOps.create(
+        context: context,
+        note: _finalNoteModel,
+      );
 
+      blog('composeToNote :----');
+      _uploaded.blogNoteModel(methodName: 'uploaded note ahowwan');
 
       // /// TASK : SHOULD VISIT THIS onSendNoteOps thing
       // /// MAYBE SAVE A REFERENCE OF THIS NOTE ID SOMEWHERE ON SUB DOC OF BZ
       // /// TO BE EASY TO TRACE AND DELETE WHILE IN DELETE BZ OPS
       //
       // await NoteLDBOps.insertNotes(_uploadedNotes);
-
-      /// REFERENCE
-      // await NoteFireOps.createNote(
-      //     context: context,
-      //     noteModel: _noteModel
-      // );
-
 
     }
 
