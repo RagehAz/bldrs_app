@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/ggg_mini_user_banner.dart';
-import 'package:bldrs/b_views/z_components/streamers/real/real_coll_paginator.dart';
+import 'package:bldrs/e_back_end/c_real/widgets/real_coll_paginator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';

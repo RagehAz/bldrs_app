@@ -21,7 +21,7 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';

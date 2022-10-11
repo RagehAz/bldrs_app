@@ -72,7 +72,7 @@ class NoteModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   NoteModel copyWith({
     String id,
     NoteParties parties,
@@ -107,7 +107,7 @@ class NoteModel {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   NoteModel nullifyField({
     bool id = false,
     bool parties = false,
@@ -146,17 +146,17 @@ class NoteModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
     return <String, dynamic>{
-      'id': toJSON == true ? id : null,
+      // 'id': toJSON == true ? id : null,
       'parties': parties.toMap(),
       'notification': _cipherNotificationField(),
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
-      'poster': poster.toMap(),
-      'poll': poll.toMap(toJSON: toJSON),
+      'poster': poster?.toMap(),
+      'poll': poll?.toMap(toJSON: toJSON),
       'sendFCM': sendFCM,
       'token': token,
       'topic': topic,
@@ -196,7 +196,7 @@ class NoteModel {
     return _maps;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static NoteModel decipherNote({
     @required dynamic map,
     @required bool fromJSON
@@ -207,7 +207,9 @@ class NoteModel {
 
       _noti = NoteModel(
         id: map['id'],
-        parties: NoteParties.decipherParties(map['parties']),
+        parties: NoteParties.decipherParties(Mapper.getMapFromInternalHashLinkedMapObjectObject(
+            internalHashLinkedMapObjectObject: map['parties'],
+        )),
         title: _decipherNotificationField(map: map, titleNotBody: true),
         body: _decipherNotificationField(map: map, titleNotBody: false),
         metaData: _decipherNotificationData(map),
