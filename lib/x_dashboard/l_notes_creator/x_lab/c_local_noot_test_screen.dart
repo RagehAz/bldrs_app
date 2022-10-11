@@ -676,7 +676,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                 if (_pickedFileModel != null){
 
                                   setState(() {
-                                    _posterType = PosterType.image;
+                                    _posterType = PosterType.galleryImage;
                                     _posterModel = _pickedFileModel.file;
                                     _posterHelperModel = null;
                                   });

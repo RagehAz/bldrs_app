@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -34,9 +35,8 @@ class KeyboardScreen extends StatefulWidget {
     KeyboardModel keyboardModel,
     Verse screenTitleVerse,
   }) async {
-    String _output;
 
-    await Nav.goToNewScreen(
+    final String _output = await Nav.goToNewScreen(
       context: context,
       screen: KeyboardScreen(
         keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),
@@ -117,8 +117,10 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       _keyboardModel.onChanged(text);
     }
 
+    /// VALIDATOR IS DEFINED
     if (_keyboardModel.validator != null){
 
+      /// VALIDATOR IS VALID
       if (_keyboardModel.validator(_controller.text) == null){
         setNotifier(
           notifier: _canSubmit,
@@ -127,6 +129,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           addPostFrameCallBack: false,
         );
       }
+
+      /// VALIDATOR IS NOT VALID
       else {
         setNotifier(
           notifier: _canSubmit,
@@ -138,6 +142,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
     }
 
+    /// VALIDATOR IS NOT DEFINED
     else {
       setNotifier(
         notifier: _canSubmit,
@@ -162,9 +167,14 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     await Nav.goBack(
       context: context,
       invoker: 'KeyboardScreen',
-      passedData: text,
+      passedData: _controller.text,
     );
 
+  }
+  // --------------------
+  Future<void> _onPaste() async {
+    await TextMod.controllerPaste(_controller);
+    _onTextChanged(_controller.text);
   }
   // -----------------------------------------------------------------------------
   @override
@@ -214,6 +224,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                   }
                 },
                 textOnChanged: _onTextChanged,
+                pasteFunction: () => _onPaste(),
               ),
 
               /// CONFIRM BUTTON

@@ -112,7 +112,7 @@ class Standards {
   static const double userPictureWidthPixels = 500;
   static const double authorPictureWidthPixels = 500;
   static const double slideWidthPixels = 1080;
-  static const double noteAttachmentWidthPixels = 1000;
+  // static const double notePosterWidthPixels = 1000;
   // -----------------------------------------------------------------------------
 
   /// STANDARD BLDRS LINKS

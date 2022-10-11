@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +25,9 @@ class NoteBodyCreatorBubble extends StatelessWidget {
     return TextFieldBubble(
       headerViewModel: BubbleHeaderVM(
         headlineVerse: Verse.plain('Note Body'),
+        leadingIcon: Iconz.bxDesignsOff,
+        leadingIconSizeFactor: 0.8,
+        leadingIconBoxColor: bodyController.text.isEmpty == true ? Colorz.grey50 : Colorz.green255,
       ),
       appBarType: AppBarType.basic,
       isFormField: true,
