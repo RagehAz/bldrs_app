@@ -62,7 +62,7 @@ class ChainRealOps {
 
     final Map<String, dynamic> map = await Real.readCollAsMap(
       context: context,
-      collName: RealColl.bldrsChains,
+      path: RealColl.bldrsChains,
     );
 
     final List<Chain> _chains = Chain.decipherBldrsChains(map: map);

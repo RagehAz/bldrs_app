@@ -27,7 +27,7 @@ class ReviewsBuilder extends StatelessWidget {
   final List<Map<String, dynamic>> reviewsMaps;
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final PaginatorNotifiers paginatorNotifiers;
+  final PaginationController paginatorNotifiers;
   final AppBarType appBarType;
   final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
