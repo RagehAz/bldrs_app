@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_stream.dart';
+import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
+import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -11,18 +13,25 @@ class RealCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const RealCollPaginator({
     @required this.builder,
-    @required this.nodePath,
     this.scrollController,
-    this.limit = 5,
-    this.realOrderBy,
+    this.realQueryModel,
+    this.paginatorNotifiers,
+    this.loadingWidget,
+    this.child,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Widget Function(BuildContext, List<Map<String, dynamic>> maps, bool isLoading) builder;
   final ScrollController scrollController;
-  final String nodePath;
-  final int limit;
-  final RealPaginator realOrderBy;
+  final RealQueryModel realQueryModel;
+  final PaginationController paginatorNotifiers;
+  final Widget loadingWidget;
+  final Widget child;
+  final Widget Function(
+      BuildContext,
+      List<Map<String, dynamic>> maps,
+      bool isLoading,
+      Widget child
+      ) builder;
   /// --------------------------------------------------------------------------
   @override
   _RealCollPaginatorState createState() => _RealCollPaginatorState();
@@ -31,10 +40,13 @@ class RealCollPaginator extends StatefulWidget {
 
 class _RealCollPaginatorState extends State<RealCollPaginator> {
   // -----------------------------------------------------------------------------
-  List<Map<String, dynamic>> _maps;
   ScrollController _controller;
-  Map<String, dynamic> _startAfter;
+  // --------------------
   final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
+  PaginationController _paginatorNotifiers;
+  // -----------------------------------------------------------------------------
+  // List<Map<String, dynamic>> _maps;
+  // Map<String, dynamic> _startAfter;
 
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
@@ -56,53 +68,47 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   @override
   void initState() {
     super.initState();
+    // _maps = <Map<String, dynamic>>[];
 
-    blog('init : real coll paginator');
-
-    _maps = <Map<String, dynamic>>[];
+    /// LISTEN TO SCROLL
     _controller = widget.scrollController ?? ScrollController();
-
-    _sub = RealStream.streamOnChildAddedToPath(
-      path: widget.nodePath,
-      onChildAdded: (dynamic map) async {
-
-        Mapper.blogMap(map, invoker: 'RealCollPaginator.Real.streamPath');
-
-      },
-    );
-
     Scrollers.createPaginationListener(
         controller: _controller,
         isPaginating: _isPaginating,
         onPaginate: () async {
-
           await _readMore();
-
         }
     );
 
-    // _controller.addListener(() async {
-    //
-    //   final bool _canPaginate = Scrollers.canPaginate(
-    //     scrollController: _controller,
-    //     paginationHeight: Ratioz.horizon * 3,
-    //     isPaginating: _isPaginating,
-    //   );
-    //
-    //   final double _currentScroll = _controller.position.pixels;
-    //
-    //
-    //   if (_canPaginate == true){
-    //
-    //     _isPaginating = true;
-    //
-    //     await _readMore();
-    //
-    //     _isPaginating = true;
-    //
-    //   }
-    //
-    // });
+    /// LISTEN TO PAGINATOR NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
+    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
+      addExtraMapsAtEnd: false,
+    );
+    _paginatorNotifiers?.activateListeners(
+      mounted: mounted,
+      onDataChanged: (List<Map<String, dynamic>> maps){
+
+        // Mapper.blogMaps(maps, methodName: 'RealCollPaginator._paginatorNotifiers.onDataChanged');
+
+      },
+    );
+
+
+    /// CREATE LISTENERS NEW CHILD ADDED TO PATH
+    _sub = RealStream.streamOnChildAddedToPath(
+      path: widget.realQueryModel.path,
+      onChildAdded: (dynamic map) async {
+
+        Mapper.blogMap(map, invoker: 'RealCollPaginator.Real.streamPath');
+
+        if (_isInit == false){
+          _paginatorNotifiers.addMap.value = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+            internalHashLinkedMapObjectObject: map,
+          );
+        }
+
+      },
+    );
 
   }
   // --------------------
@@ -110,8 +116,11 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
+
       _triggerLoading().then((_) async {
+
         await _readMore();
+
       });
 
       _isInit = false;
@@ -126,44 +135,85 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
 
     _sub.cancel();
 
-    if (widget.scrollController == null) {
+    if (widget.paginatorNotifiers == null){
+      _paginatorNotifiers.dispose();
+    }
+
+    if (widget.scrollController == null){
       _controller.dispose();
     }
 
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  bool _canKeepReading = true;
   Future<void> _readMore() async {
-    _loading.value = true;
 
-    blog('should read more : startAfter is $_startAfter');
-
-    final List<Map<String, dynamic>> _nextMaps = await Real.readColl(
-      context: context,
-      nodePath: widget.nodePath,
-      startAfter: _startAfter,
-      limit: widget.limit,
-      realOrderBy: widget.realOrderBy,
-      limitToFirst: false,
-      // realOrderBy:
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: true,
+      addPostFrameCallBack: false,
     );
 
-    if (Mapper.checkCanLoopList(_nextMaps) == true){
-      _maps = <Map<String, dynamic>>[..._maps, ..._nextMaps];
-      _startAfter = _maps.last;
-      // widget.queryParameters.onDataChanged(_maps);
+    /// CAN KEEP READING
+    if (_canKeepReading == true){
+
+      const bool _limitToFirst = true;
+      blog('should read more : _limitToFirst : $_limitToFirst : ${_paginatorNotifiers?.startAfter?.value}');
+
+      final List<Map<String, dynamic>> _nextMaps = await Real.readPathMaps(
+        context: context,
+        startAfter: _paginatorNotifiers.startAfter.value,
+        realQueryModel: widget.realQueryModel,
+        // addDocIDToEachMap: true,
+      );
+
+
+      if (Mapper.checkCanLoopList(_nextMaps) == true){
+
+        PaginationController.addMapsToLocalMaps(
+          mapsToAdd: _nextMaps,
+          addAtEnd: true,
+          mounted: mounted,
+          startAfter: _paginatorNotifiers.startAfter,
+          paginatorMaps: _paginatorNotifiers.paginatorMaps,
+        );
+
+      }
+
+      else {
+        _canKeepReading = false;
+      }
+
     }
 
-    _loading.value = false;
+    /// NO MORE MAPS TO READ
+    else {
+      // blog('FireCollPaginator : _readMore : _canKeepReading : $_canKeepReading : NO MORE MAPS AFTER THIS ${_startAfter.toString()}');
+    }
+
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: false,
+      addPostFrameCallBack: false,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: _loading,
-        builder: (_, bool isLoading, Widget child) {
-          return widget.builder(context, _maps, isLoading);
+        valueListenable: _paginatorNotifiers.paginatorMaps,
+        child: widget.child,
+        builder: (_, List<Map<String, dynamic>> maps, Widget child){
+
+          // Mapper.blogMaps(maps, methodName: 'FireCollPaginator : builder');
+
+          return widget.builder(context, maps, _loading.value, child);
+
         }
     );
 

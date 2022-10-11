@@ -28,7 +28,7 @@ class BzReplyBubble extends StatelessWidget {
   final double boxWidth;
   final ReviewModel reviewModel;
   final FlyerModel flyerModel;
-  final PaginatorNotifiers paginatorNotifiers;
+  final PaginationController paginatorNotifiers;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

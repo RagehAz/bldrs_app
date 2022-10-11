@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
 import 'package:bldrs/e_back_end/c_real/widgets/real_coll_paginator.dart';
 import 'package:bldrs/e_back_end/c_real/widgets/real_coll_streamer.dart';
 import 'package:bldrs/e_back_end/c_real/widgets/real_doc_streamer.dart';
@@ -217,44 +218,38 @@ class _RealTestScreenState extends State<RealTestScreen> {
             width: Scale.superScreenWidth(context) * 0.5,
             height: Scale.superScreenHeight(context),
             child: RealCollPaginator(
-              nodePath: 'colors/',
+                realQueryModel: const RealQueryModel(
+                    path: 'colors/'
+                ),
                 scrollController: _scrollController,
-                builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+                builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
                   return ListView(
                     physics: const BouncingScrollPhysics(),
                     padding: Stratosphere.stratosphereSandwich,
                     controller: _scrollController,
                     children: <Widget>[
-
                       if (maps != null)
                         ...List.generate(maps.length, (index){
-
                           return GestureDetector(
                             onTap: () async {
-
                               await Real.deleteDoc(
                                 context: context,
                                 collName: _collName,
                                 docName: maps[index]['id'],
                               );
-
-                            },
+                              },
                             child: ColorButton(
                               map: maps[index],
                               mapIsFromJSON: true,
                             ),
                           );
-
                         }),
-
                       // Loading(loading: isLoading,),
-
                     ],
                   );
 
-                }
-            ),
+                }),
           ),
 
           SizedBox(

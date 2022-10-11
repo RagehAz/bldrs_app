@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
+import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
@@ -13,19 +13,22 @@ class FireCollPaginator extends StatefulWidget {
     @required this.builder,
     this.scrollController,
     this.loadingWidget,
-    this.addExtraMapsAtEnd = true,
     this.child,
     this.paginatorNotifiers,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FireQueryModel queryModel;
-  final Widget Function(BuildContext, List<Map<String, dynamic>>, bool, Widget) builder;
   final Widget loadingWidget;
   final ScrollController scrollController;
-  final bool addExtraMapsAtEnd;
   final Widget child;
-  final PaginatorNotifiers paginatorNotifiers;
+  final PaginationController paginatorNotifiers;
+  final Widget Function(
+      BuildContext context,
+      List<Map<String, dynamic>> maps,
+      bool isLoading,
+      Widget child
+      ) builder;
   /// --------------------------------------------------------------------------
   @override
   _FireCollPaginatorState createState() => _FireCollPaginatorState();
@@ -34,8 +37,10 @@ class FireCollPaginator extends StatefulWidget {
 
 class _FireCollPaginatorState extends State<FireCollPaginator> {
   // -----------------------------------------------------------------------------
-  bool _isPaginating = false;
-  PaginatorNotifiers _paginatorNotifiers;
+  ScrollController _controller;
+  // --------------------
+  final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
+  PaginationController _paginatorNotifiers;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -48,7 +53,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       else {
         _loading.value = setTo;
       }
-      // blogLoading(loading: _loading.value, callerName: 'FireCollPaginator',);
     }
   }
   // -----------------------------------------------------------------------------
@@ -57,14 +61,21 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     super.initState();
 
     /// LISTEN TO SCROLL
-    listenToScroll();
+    _controller = widget.scrollController ?? ScrollController();
+    Scrollers.createPaginationListener(
+        controller: _controller,
+        isPaginating: _isPaginating,
+        onPaginate: () async {
+          await _readMore();
+        }
+    );
 
-    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginatorNotifiers.initialize();
-
-    /// LISTEN TO (AddMap - replaceMap - deleteMap - onDataChanged)
+    /// LISTEN TO PAGINATOR NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
+    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
+      addExtraMapsAtEnd: true,
+    );
     _paginatorNotifiers?.activateListeners(
       mounted: mounted,
-      addAtEnd: widget.addExtraMapsAtEnd,
       onDataChanged: widget.queryModel.onDataChanged,
     );
 
@@ -90,6 +101,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void dispose() {
     _loading.dispose();
+    _isPaginating.dispose();
 
     if (widget.paginatorNotifiers == null){
       _paginatorNotifiers.dispose();
@@ -102,51 +114,41 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /*
+    /// INITIALIZATION
 
-  /// INITIALIZATION
+    // --------------------
+    void listenToScroll(){
 
-  // --------------------
-  ScrollController _controller;
-  void listenToScroll(){
 
-    _controller = widget.scrollController ?? ScrollController();
 
-    // Scrollers.createPaginationListener(
-    //     controller: _controller,
-    //     isPaginating: _isPaginating,
-    //     onPaginate: () async {
-    //
-    //       await _readMore();
-    //
-    //     }
-    // );
+      _controller.addListener(() async {
 
-    _controller.addListener(() async {
+        final bool _canPaginate = Scrollers.canPaginate(
+          scrollController: _controller,
+          isPaginating: _isPaginating,
+          paginationHeight: 100,
+        );
 
-      final bool _canPaginate = Scrollers.canPaginate(
-        scrollController: _controller,
-        isPaginating: _isPaginating,
-        paginationHeight: 100,
-      );
+        Scrollers.blogScrolling(
+          scrollController: _controller,
+          isPaginating: _isPaginating,
+          paginationHeight: 0,
+        );
 
-      Scrollers.blogScrolling(
-        scrollController: _controller,
-        isPaginating: _isPaginating,
-        paginationHeight: 0,
-      );
+        if (_canPaginate == true){
 
-      if (_canPaginate == true){
+          _isPaginating = true;
 
-        _isPaginating = true;
+          await _readMore();
 
-        await _readMore();
+          _isPaginating = false;
 
-        _isPaginating = false;
+        }
 
-      }
-
-    });
-  }
+      });
+    }
+   */
   // -----------------------------------------------------------------------------
 
   /// READING
@@ -176,7 +178,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
       if (Mapper.checkCanLoopList(_nextMaps) == true){
 
-        PaginatorNotifiers.addMapsToLocalMaps(
+        PaginationController.addMapsToLocalMaps(
           mapsToAdd: _nextMaps,
           addAtEnd: true,
           mounted: mounted,
