@@ -48,14 +48,7 @@ class NoteEventsOfBzTeamManagement {
       ),
       title: '##Team member Role changed',
       body: '##The team role of "${author.name}" has been set to "$_authorRoleString"',
-      metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      poster: null,
-      trigger: null,
-      seen: false,
-      sendFCM: true,
-      poll: null,
-      token: null,
       topic: NoteModel.generateTopic(
         topicType: TopicType.authorRoleChanged,
         id: bzID,
@@ -92,18 +85,11 @@ class NoteEventsOfBzTeamManagement {
       ),
       title: '##${deletedAuthor.name} has left the team',
       body: '##${deletedAuthor.name} is no longer part of ${bzModel.name} team',
-      metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      poster: null,
-      seen: false,
-      sendFCM: true,
-      poll: null,
-      token: null,
       topic: NoteModel.generateTopic(
         topicType: TopicType.authorDeletion,
         id: bzModel.id,
       ),
-      trigger: null,
     );
 
     await NoteProtocols.compose(
@@ -130,15 +116,8 @@ class NoteEventsOfBzTeamManagement {
          ),
          title: '##You have exited from ${bzModel.name} account',
          body: '##You are no longer part of ${bzModel.name} team',
-         metaData: NoteModel.defaultMetaData,
          sentTime: DateTime.now(),
-         poster: null,
-         seen: false,
-         sendFCM: true,
-         poll: null,
          token: _userModel?.fcmToken?.token,
-         topic: null,
-         trigger: null,
        );
 
       await NoteProtocols.compose(
@@ -197,14 +176,8 @@ class NoteEventsOfBzTeamManagement {
               ),
               title: '##${_creator.name} has deleted "${bzModel.name}" business account',
               body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
-              metaData: NoteModel.defaultMetaData,
               sentTime: DateTime.now(),
-              poster: null,
-              seen: false,
-              sendFCM: true,
-              poll: null,
               token: _userModel?.fcmToken?.token,
-              topic: null,
               trigger: TriggerModel.createBzDeletionTrigger(
                 bzID: bzModel.id,
               ),
@@ -249,18 +222,11 @@ class NoteEventsOfBzTeamManagement {
       ),
       title: '##${userModel.name} has tried to contact you',
       body: '##Please update your Business contacts info to allow customers to reach you',
-      metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      poster: null,
-      seen: false,
-      sendFCM: true,
-      poll: null,
-      token: null,
       topic: NoteModel.generateTopic(
         topicType: TopicType.generalBzNotes,
         id: bzModel.id,
       ),
-      trigger: null,
     );
 
     await NoteFireOps.createNote(

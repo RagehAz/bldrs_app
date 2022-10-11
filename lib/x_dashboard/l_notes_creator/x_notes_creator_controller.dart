@@ -67,15 +67,8 @@ NoteModel _createInitialNote(BuildContext context) {
     ),
     title: null,
     body: null,
-    metaData: NoteModel.defaultMetaData,
     sentTime: DateTime.now(),
-    trigger: null,
-    poster: null,
     sendFCM: false,
-    poll: null,
-    token: null,
-    topic: null,
-    seen: false,
   );
 
 }

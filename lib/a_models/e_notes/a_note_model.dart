@@ -23,15 +23,18 @@ class NoteModel {
     @required this.parties,
     @required this.title,
     @required this.body,
-    @required this.metaData,
     @required this.sentTime,
-    @required this.poster,
-    @required this.poll,
-    @required this.sendFCM,
-    @required this.token,
-    @required this.topic,
-    @required this.trigger,
-    @required this.seen,
+
+
+    this.seen = false,
+    this.topic,
+    this.sendFCM = true,
+    this.metaData = defaultMetaData,
+    this.poster,
+    this.token,
+    this.poll,
+    this.trigger,
+    this.progress,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -48,6 +51,7 @@ class NoteModel {
   final String topic;
   final TriggerModel trigger;
   final bool seen;
+  final int progress;
   final QueryDocumentSnapshot<Object> docSnapshot;
   // -----------------------------------------------------------------------------
 
@@ -83,6 +87,7 @@ class NoteModel {
     String topic,
     TriggerModel trigger,
     bool seen,
+    int progress,
   }){
     return NoteModel(
       id: id ?? this.id,
@@ -98,6 +103,7 @@ class NoteModel {
       topic: topic ?? this.topic,
       trigger: trigger ?? this.trigger,
       seen: seen ?? this.seen,
+      progress: progress ?? this.progress,
     );
   }
   // --------------------
@@ -116,6 +122,7 @@ class NoteModel {
     bool topic = false,
     bool trigger = false,
     bool seen = false,
+    bool progress = false,
   }){
     return NoteModel(
       id: id == true ? null : this.id,
@@ -131,6 +138,7 @@ class NoteModel {
       topic: topic == true ? null : this.topic,
       trigger: trigger == true ? null : this.trigger,
       seen: seen == true ? null : this.seen,
+      progress: progress == true ? null : this.progress,
     );
   }
   // -----------------------------------------------------------------------------
@@ -154,6 +162,7 @@ class NoteModel {
       'topic': topic,
       'trigger': trigger?.toMap(),
       'seen': seen,
+      'progress': progress,
     };
   }
   // --------------------
@@ -216,6 +225,7 @@ class NoteModel {
         topic: map['topic'],
         trigger: TriggerModel.decipherTrigger(map['trigger']),
         seen: map['seen'],
+        progress: map['progress'],
         docSnapshot: map['docSnapshot'],
       );
     }
@@ -594,6 +604,9 @@ class NoteModel {
           _missingFields.add('topic');
         }
 
+        if (note.progress == null){
+          _missingFields.add('progress');
+        }
       }
 
     }
@@ -684,7 +697,8 @@ class NoteModel {
           note1.token == note2.token &&
           note1.topic == note2.topic &&
           TriggerModel.checkTriggersAreIdentical(note1.trigger, note2.trigger) &&
-          note1.seen == note2.seen
+          note1.seen == note2.seen &&
+          note1.progress == note2.progress
       ){
         _areIdentical = true;
       }
@@ -1011,15 +1025,8 @@ class NoteModel {
       ),
       title: 'title',
       body: 'body',
-      metaData: defaultMetaData,
       sentTime: DateTime.now(),
-      poster: null,
-      trigger: null,
-      sendFCM: true,
       poll: PollModel.dummyPoll(),
-      token: null,
-      topic: null,
-      seen: false,
     );
   }
   // --------------------
@@ -1051,15 +1058,8 @@ class NoteModel {
         receiverType: NotePartyType.user,
 
       ),
-      metaData: NoteModel.defaultMetaData,
       sentTime: DateTime.now(),
-      poster: null,
-      sendFCM: true,
-      poll: null,
-      trigger: null,
       token: 'will be auto adjusted on NoteFireOps.create.adjustToken',
-      topic: null,
-      seen: false,
     );
   }
   // -----------------------------------------------------------------------------
