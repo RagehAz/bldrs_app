@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controller
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/b_paginate_all_notes_screen.dart';

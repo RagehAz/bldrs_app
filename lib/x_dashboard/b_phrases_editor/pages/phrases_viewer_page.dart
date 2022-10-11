@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
