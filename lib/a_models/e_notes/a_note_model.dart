@@ -320,7 +320,7 @@ class NoteModel {
     blog('parties : sender : ${parties?.senderID} : ${NoteParties.cipherNoteSenderOrRecieverType(parties?.senderType)} : ${parties?.senderImageURL}');
     blog('parties : receiver : ${parties?.receiverID} : ${NoteParties.cipherNoteSenderOrRecieverType(parties?.receiverType)} ');
     blog('~ ~ ~ ~ ~ ~');
-    blog('poster : id : ${poster?.id} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.url}');
+    blog('poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.url}');
     blog('poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
     blog('trigger : functionName : ${trigger?.functionName} : argument : ${trigger?.argument}');
     blog('~ ~ ~ ~ ~ ~');

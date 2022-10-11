@@ -433,19 +433,9 @@ class Formers {
         contactType: ContactType.website,
       );
 
-      if (TextCheck.isEmpty(_website) == false){
-
-        if (_website != 'https://'){
-
-          final bool _isURLFormat = ObjectCheck.isURLFormat(_website) == true;
-
-          if (_isURLFormat == false){
-            _message = 'phid_url_format_is_incorrect';
-          }
-
-        }
-
-      }
+      _message = webSiteValidator(
+        website: _website,
+      );
 
       /// FOCUS ON FIELD
       if (_message != null){
@@ -1057,6 +1047,32 @@ class Formers {
         _message = Verse.transBake(context, 'phid_cant_add_empty_spaces');
       }
 
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String webSiteValidator({
+    @required String website,
+  }){
+    String _message;
+
+    /// WEBSITE HAS VALUE
+    if (TextCheck.isEmpty(website) == false){
+
+      if (website != 'https://'){
+        final bool _isURLFormat = ObjectCheck.isURLFormat(website) == true;
+        if (_isURLFormat == false){
+          _message = 'phid_url_format_is_incorrect';
+        }
+      }
+
+    }
+
+    /// WEBSITE IS EMPTY
+    else {
+      _message = 'phid_this_field_can_not_be_empty';
     }
 
     return _message;
