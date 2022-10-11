@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
+import 'package:bldrs/b_views/z_components/animators/clock_rebuilder.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_doc_streamer.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -252,7 +252,7 @@ class ColorButton extends StatelessWidget {
         return DreamBox(
           height: 100,
           width: 100,
-          verse: map['id'],
+          verse: Verse.plain(map['id']),
           verseColor: Colorz.white30,
           verseShadow: false,
           iconSizeFactor: 0.5,

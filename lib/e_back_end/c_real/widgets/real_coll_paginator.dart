@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_stream.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class RealCollPaginator extends StatefulWidget {
@@ -23,7 +26,7 @@ class RealCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _RealCollPaginatorState createState() => _RealCollPaginatorState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _RealCollPaginatorState extends State<RealCollPaginator> {
@@ -31,7 +34,9 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   List<Map<String, dynamic>> _maps;
   ScrollController _controller;
   Map<String, dynamic> _startAfter;
-  bool _canPaginate = true;
+  final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
+
+  StreamSubscription _sub;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -57,25 +62,47 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     _maps = <Map<String, dynamic>>[];
     _controller = widget.scrollController ?? ScrollController();
 
-    _controller.addListener(() async {
+    _sub = RealStream.streamOnChildAddedToPath(
+      path: widget.nodePath,
+      onChildAdded: (dynamic map) async {
 
-      final double _maxScroll = _controller.position.maxScrollExtent;
-      final double _currentScroll = _controller.position.pixels;
-      const double _paginationHeightLight = Ratioz.horizon * 3;
+        Mapper.blogMap(map, invoker: 'RealCollPaginator.Real.streamPath');
 
-      blog('inn : scroll is at : $_currentScroll');
+      },
+    );
 
-      if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
+    Scrollers.createPaginationListener(
+        controller: _controller,
+        isPaginating: _isPaginating,
+        onPaginate: () async {
 
-        _canPaginate = false;
+          await _readMore();
 
-        await _readMore();
+        }
+    );
 
-        _canPaginate = true;
-
-      }
-
-    });
+    // _controller.addListener(() async {
+    //
+    //   final bool _canPaginate = Scrollers.canPaginate(
+    //     scrollController: _controller,
+    //     paginationHeight: Ratioz.horizon * 3,
+    //     isPaginating: _isPaginating,
+    //   );
+    //
+    //   final double _currentScroll = _controller.position.pixels;
+    //
+    //
+    //   if (_canPaginate == true){
+    //
+    //     _isPaginating = true;
+    //
+    //     await _readMore();
+    //
+    //     _isPaginating = true;
+    //
+    //   }
+    //
+    // });
 
   }
   // --------------------
@@ -95,6 +122,9 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   @override
   void dispose() {
     _loading.dispose();
+    _isPaginating.dispose();
+
+    _sub.cancel();
 
     if (widget.scrollController == null) {
       _controller.dispose();

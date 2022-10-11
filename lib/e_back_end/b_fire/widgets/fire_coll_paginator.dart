@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
+import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -110,6 +110,16 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void listenToScroll(){
 
     _controller = widget.scrollController ?? ScrollController();
+
+    // Scrollers.createPaginationListener(
+    //     controller: _controller,
+    //     isPaginating: _isPaginating,
+    //     onPaginate: () async {
+    //
+    //       await _readMore();
+    //
+    //     }
+    // );
 
     _controller.addListener(() async {
 

@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
@@ -24,6 +22,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/test_widgets/is_connected_button.dart';
@@ -69,21 +68,34 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
 
 
-
-
-    final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
-      context: context,
-      onlyUseCityChains: true,
-      listen: false,
+    final DateTime _a = Timers.createDateTime(
+      year: 2022,
+      month: 10,
+      day: 11,
+      hour: 13,
+      minute: 27,
+      second: 29,
+      millisecond: 139045,
+      microsecond: 0,
     );
 
+    final DateTime _b = Timers.createDateTime(
+      year: 2022,
+      month: 10,
+      day: 11,
+      hour: 13,
+      minute: 28,
+      second: 10,
+      millisecond: 320371,
+      microsecond: 0,
+    );
 
+    final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _a, to: _b);
 
+    Timers.blogDateTime(_a);
+    Timers.blogDateTime(_b);
 
-    final List<FlyerType> _types = FlyerTyper.concludePossibleFlyerTypesByChains(_bldrsChains);
-
-
-    blog('types : $_types');
+    blog('_diff : $_diff');
 
 
 

@@ -13,22 +13,22 @@ import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
-class PaginateAllNotesScreen extends StatefulWidget {
+class FireNotesPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const PaginateAllNotesScreen({
+  const FireNotesPaginator({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<PaginateAllNotesScreen> createState() => _PaginateAllNotesScreenState();
+  State<FireNotesPaginator> createState() => _FireNotesPaginatorState();
   /// --------------------------------------------------------------------------
 }
 
-class _PaginateAllNotesScreenState extends State<PaginateAllNotesScreen> {
+class _FireNotesPaginatorState extends State<FireNotesPaginator> {
   // -----------------------------------------------------------------------------
   ///
   //   final ValueNotifier<List<NoteModel>> _notes = ValueNotifier(<NoteModel>[]);
@@ -71,11 +71,12 @@ class _PaginateAllNotesScreenState extends State<PaginateAllNotesScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        // await _paginateAllNotes();
-
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //   // await _paginateAllNotes();
+      //
+      //   _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
@@ -166,7 +167,7 @@ class _PaginateAllNotesScreenState extends State<PaginateAllNotesScreen> {
     blog('AllNotesScreen : REBUILDING SCREEN');
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('Note Creator'),
+      pageTitleVerse: Verse.plain('Fire Notes Paginator'),
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,
@@ -186,6 +187,7 @@ class _PaginateAllNotesScreenState extends State<PaginateAllNotesScreen> {
 
           },
         ),
+
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           final List<NoteModel> notesModels = NoteModel.decipherNotes(

@@ -1,14 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
+
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class RealPaginator{
   // -----------------------------------------------------------------------------
@@ -69,7 +66,7 @@ class Real {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DatabaseReference _createPathAndGetRef({
+  static DatabaseReference createPathAndGetRef({
     @required String collName,
     String docName,
     String key,
@@ -83,7 +80,7 @@ class Real {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DatabaseReference _getRefByPath({
+  static DatabaseReference getRefByPath({
     @required String path,
   }){
     assert(path != null, 'PATH SHOULD NOT BE NULL');
@@ -150,7 +147,7 @@ class Real {
         functions: () async {
 
           /// GET PATH
-          final DatabaseReference _ref = _createPathAndGetRef(
+          final DatabaseReference _ref = createPathAndGetRef(
             collName: collName,
           );
 
@@ -212,7 +209,7 @@ class Real {
         functions: () async {
 
           /// GET PATH
-          final DatabaseReference _ref = _createPathAndGetRef(
+          final DatabaseReference _ref = createPathAndGetRef(
             collName: collName,
           );
 
@@ -266,7 +263,7 @@ class Real {
 
     if (map != null){
 
-      DatabaseReference _ref = _createPathAndGetRef(
+      DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName,
       );
@@ -318,7 +315,7 @@ class Real {
           final String _path = docName == null ? pathWithoutDocName : '$pathWithoutDocName/$docName';
 
           /// GET PATH
-          DatabaseReference _ref = _getRefByPath(
+          DatabaseReference _ref = getRefByPath(
             path: _path,
           );
 
@@ -327,7 +324,7 @@ class Real {
 
             _docID = event.previousChildKey;
 
-            if (addDocIDToOutput == true){
+            if (addDocIDToOutput == true && _docID != null){
               _map = Mapper.insertPairInMap(
                 map: _map,
                 key: 'id',
@@ -394,7 +391,7 @@ class Real {
   /// READ
 
   // --------------------
-
+  ///
   static Query createQuery({
     @required DatabaseReference ref,
     @required RealPaginator realPaginator,
@@ -457,7 +454,7 @@ class Real {
     return _query;
   }
   // --------------------
-
+  ///
   static Future<List<Map<String, dynamic>>> readColl({
     @required BuildContext context,
     @required String nodePath,
@@ -474,7 +471,7 @@ class Real {
       context: context,
       functions: () async {
 
-        final DatabaseReference _ref = _getRefByPath(path: nodePath);
+        final DatabaseReference _ref = getRefByPath(path: nodePath);
 
         final Query _query = createQuery(
           ref: _ref,
@@ -540,7 +537,7 @@ class Real {
       context: context,
       functions: () async {
 
-        final DatabaseReference _ref = _createPathAndGetRef(
+        final DatabaseReference _ref = createPathAndGetRef(
           collName: collName,
         );
 
@@ -558,6 +555,31 @@ class Real {
           snapshot: _snap,
           addDocID: false,
         );
+
+      },
+    );
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<dynamic> readPath({
+    @required BuildContext context,
+    /// looks like : 'collName/docName/...'
+    @required String path,
+  }) async {
+
+    dynamic _output;
+
+    final DatabaseReference _ref = getRefByPath(path: path);
+
+    await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        final DatabaseEvent event = await _ref.once(DatabaseEventType.value);
+
+        _output = event.snapshot.value;
 
       },
     );
@@ -613,7 +635,7 @@ class Real {
     bool addDocID = true,
   }) async {
 
-    final DatabaseReference ref = _createPathAndGetRef(
+    final DatabaseReference ref = createPathAndGetRef(
       collName: collName,
       docName: docName,
     );
@@ -639,50 +661,6 @@ class Real {
     // }
 
     return _map;
-  }
-  // --------------------
-  static StreamSubscription streamDoc({
-    @required String collName,
-    @required String docName,
-    @required ValueChanged<Map<String, dynamic>> onChanged,
-  }){
-
-    final DatabaseReference _ref = _createPathAndGetRef(
-      collName: collName,
-      docName: docName,
-    );
-
-    final StreamSubscription _sub = _ref.onValue.listen((DatabaseEvent event) {
-      final Map<String, dynamic> _data = event.snapshot.value;
-      onChanged(_data);
-    });
-
-    return _sub;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<dynamic> readPath({
-    @required BuildContext context,
-    /// looks like : 'collName/docName/...'
-    @required String path,
-  }) async {
-
-    dynamic _output;
-
-    final DatabaseReference _ref = _getRefByPath(path: path);
-
-    await tryAndCatch(
-      context: context,
-      functions: () async {
-
-        final DatabaseEvent event = await _ref.once(DatabaseEventType.value);
-
-        _output = event.snapshot.value;
-
-      },
-    );
-
-    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -741,7 +719,7 @@ class Real {
 
     if (value != null && collName != null && docName != null && fieldName != null){
 
-      final DatabaseReference _ref = _createPathAndGetRef(
+      final DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName,
         key: fieldName,
@@ -803,7 +781,7 @@ class Real {
 
     if (mapOfFieldsAndNumbers != null){
 
-      final DatabaseReference _ref = _createPathAndGetRef(
+      final DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName,
       );
@@ -830,7 +808,7 @@ class Real {
     @required String docName,
   }) async {
 
-    final DatabaseReference _ref = _createPathAndGetRef(
+    final DatabaseReference _ref = createPathAndGetRef(
       collName: collName,
       docName: docName,
     );
@@ -876,7 +854,7 @@ class Real {
     @required bool applyLocally,
   }) async {
 
-    final DatabaseReference _ref = _createPathAndGetRef(
+    final DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName
     );
@@ -916,103 +894,6 @@ class Real {
     return FirebaseDatabase.instance.ref().update(updates);
   }
  */
-  // --------------------
-  /*
-    /// Listen for child events
-
-  final commentsRef = FirebaseDatabase.instance.ref("post-comments/$postId");
-  commentsRef.onChildAdded.listen((event) {
-      // A new comment has been added, so add it to the displayed list.
-  });
-  commentsRef.onChildChanged.listen((event) {
-      // A comment has changed; use the key to determine if we are displaying this
-      // comment and if so displayed the changed comment.
-  });
-  commentsRef.onChildRemoved.listen((event) {
-      // A comment has been removed; use the key to determine if we are displaying
-      // this comment and if so remove it.
-  });
- */
-  // --------------------
-  /*
-    /// Listen for value events
-
-        myTopPostsQuery.onValue.listen((event) {
-        for (final child in event.snapshot.children) {
-          // Handle the post.
-        }
-      }, onError: (error) {
-        // Error.
-      });
-
- */
-  // -----------------------------------------------------------------------------
-
-  /// CLOUD FUNCTIONS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const String _realIncrementationLink = 'https://www.bldrs.net/counters?operation=';
-  // -----------------------------------------------------------------------------
-  static Future<void> incrementDocFieldNourMethod({
-    @required BuildContext context,
-    @required String docID,
-    @required String fieldName,
-    @required String collName,
-    @required bool increment,
-  }) async {
-
-    /// TASK : SHOULD RETURN THE ENTIRE MAP
-
-    String _docID;
-
-    await tryAndCatch(
-        context: context,
-        functions: () async {
-
-          final String _action = increment == true ? 'increment' : 'decrement';
-
-          /// post map to realtime database
-          final http.Response _response = await http.post(
-            Uri.parse('$_realIncrementationLink$_action'),
-            body: {
-              'collName' : collName,
-              'id' : docID,
-              'field' : fieldName,
-            },
-            // json.encode({
-            //   'field' : fieldName,
-            //   'id' : flyerID,
-            // }),
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            // encoding:
-          );
-
-          blog('response is : ${_response.body}');
-
-          /// --- get doc ID;
-          _docID = json.decode(_response.body)['name'];
-
-          blog('_docID is : $_docID');
-
-        },
-        onError: (String error) async {
-
-          await Dialogs.errorDialog(
-            context: context,
-            bodyVerse: Verse.plain(error)
-          );
-
-        }
-
-    );
-
-    return _docID;
-
-
-  }
   // -----------------------------------------------------------------------------
 
   /// BLOG
