@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -13,9 +13,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
-class ContactFieldBubble extends StatefulWidget {
+class ContactFieldEditorBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ContactFieldBubble({
+  const ContactFieldEditorBubble({
     @required this.appBarType,
     @required this.headerViewModel,
     @required this.globalKey,
@@ -65,11 +65,11 @@ class ContactFieldBubble extends StatefulWidget {
   final bool autoValidate;
   /// --------------------------------------------------------------------------
   @override
-  _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
+  _ContactFieldEditorBubbleState createState() => _ContactFieldEditorBubbleState();
   /// --------------------------------------------------------------------------
 }
 
-class _ContactFieldBubbleState extends State<ContactFieldBubble> {
+class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // -----------------------------------------------------------------------------
   String paste = '';
   TextEditingController _textController;
@@ -99,7 +99,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   }
   // --------------------
   @override
-  void didUpdateWidget(covariant ContactFieldBubble oldWidget) {
+  void didUpdateWidget(covariant ContactFieldEditorBubble oldWidget) {
     // if (oldWidget.initialTextValue != widget.initialTextValue){
     //   setState(() {
     //     _textController = widget.textController;

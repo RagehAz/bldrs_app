@@ -8,17 +8,17 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -500,7 +500,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       const DotSeparator(),
 
                       /// PHONE
-                      ContactFieldBubble(
+                      ContactFieldEditorBubble(
                         key: const ValueKey<String>('phone'),
                         globalKey: _formKey,
                         focusNode: _phoneNode,
@@ -537,7 +537,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       ),
 
                       /// EMAIL
-                      ContactFieldBubble(
+                      ContactFieldEditorBubble(
                         key: const ValueKey<String>('email'),
                         globalKey: _formKey,
                         focusNode: _emailNode,
@@ -571,7 +571,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       ),
 
                       /// WEBSITE
-                      ContactFieldBubble(
+                      ContactFieldEditorBubble(
                         key: const ValueKey<String>('website'),
                         headerViewModel: const BubbleHeaderVM(
                           headlineVerse: Verse(
