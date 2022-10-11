@@ -61,6 +61,7 @@ class SuperTextField extends StatefulWidget {
     this.onSubmitted,
     this.onSavedForForm,
     this.onEditingComplete,
+    // this.onPaste,
     this.validator,
 
     this.isFloatingField = false,
@@ -111,6 +112,7 @@ class SuperTextField extends StatefulWidget {
   final ValueChanged<String> onSubmitted;
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
+  // final ValueChanged<String> onPaste;
   /// should return error string or null if there is no error
   final String Function(String) validator;
 
@@ -614,14 +616,32 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
     return _can;
   }
+  // --------------------
+  /*
+  Future<void> _onPaste() async {
+    await TextMod.controllerPaste(_controller);
+    widget.onPaste(_controller.text);
+  }
+   */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final double _fieldHeight = SuperTextField.getFieldHeight(
+      context: context,
+      minLines: widget.minLines,
+      scaleFactor: widget.textSizeFactor,
+      textSize: widget.textSize,
+      withCounter: widget.counterIsOn,
+      withBottomMargin: false,
+    );
+
     return SuperTextFieldBox(
       width: widget.width,
+      height: _fieldHeight,
       margins: widget.margins,
       corners: widget.corners,
+      onPaste: null, //() => _onPaste(),
       child: ValueListenableBuilder(
           key: const ValueKey<String>('The_super_text_field'),
           valueListenable: _textDirection,
@@ -633,6 +653,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               detectedDirection: textDirection,
             );
 
+            /// CAN OBSCURE
             if (widget.canObscure == true){
               return Selector<UiProvider, bool>(
                 selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
@@ -691,6 +712,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 },
               );
             }
+
+            /// CAN NOT OBSCURE
             else {
               return TextFormFieldSwitcher(
                 appBarType: widget.appBarType,

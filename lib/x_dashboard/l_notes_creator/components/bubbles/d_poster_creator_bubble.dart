@@ -54,7 +54,7 @@ class PosterCreatorBubble extends StatelessWidget {
 
               noteNotifier.value = note.copyWith(
                 poster: const PosterModel(
-                  id: null,
+                  modelID: null,
                   url: null,
                   type: null,
                   // file: null,
@@ -107,7 +107,7 @@ class PosterCreatorBubble extends StatelessWidget {
                       note: note,
                       noteNotifier: noteNotifier,
                       icon: Iconz.camera,
-                      posterType: PosterType.image,
+                      posterType: PosterType.cameraImage,
                     ),
 
                     /// GALLERY
@@ -115,7 +115,7 @@ class PosterCreatorBubble extends StatelessWidget {
                       note: note,
                       noteNotifier: noteNotifier,
                       icon: Iconz.phoneGallery,
-                      posterType: PosterType.image,
+                      posterType: PosterType.galleryImage,
                     ),
 
                     /// URL
@@ -123,7 +123,7 @@ class PosterCreatorBubble extends StatelessWidget {
                       note: note,
                       noteNotifier: noteNotifier,
                       icon: Iconz.comWebsite,
-                      posterType: PosterType.image,
+                      posterType: PosterType.url,
                     ),
 
                   ],

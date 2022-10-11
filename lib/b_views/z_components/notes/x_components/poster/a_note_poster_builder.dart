@@ -41,7 +41,7 @@ class NotePosterBuilder extends StatelessWidget {
       if (noteModel?.poster?.type == PosterType.flyer){
 
         return FutureBuilder(
-          future: FlyerProtocols.fetchFlyer(context: context, flyerID: noteModel?.poster?.id),
+          future: FlyerProtocols.fetchFlyer(context: context, flyerID: noteModel?.poster?.modelID),
             builder: (_, AsyncSnapshot<FlyerModel> flyerSnap){
 
             final FlyerModel _flyer = flyerSnap.data;
@@ -91,7 +91,7 @@ class NotePosterBuilder extends StatelessWidget {
       else if (noteModel?.poster?.type == PosterType.bz){
 
         return FutureBuilder(
-            future: BzProtocols.fetchBz(context: context, bzID: noteModel.poster.id),
+            future: BzProtocols.fetchBz(context: context, bzID: noteModel.poster.modelID),
             builder: (_, AsyncSnapshot<BzModel> bzSnap){
 
               final BzModel _bzModel = bzSnap.data;
@@ -140,7 +140,13 @@ class NotePosterBuilder extends StatelessWidget {
       }
 
       /// IMAGE POSTER
-      else if (noteModel?.poster?.type == PosterType.image){
+      else if (
+      noteModel?.poster?.type == PosterType.galleryImage
+      ||
+      noteModel?.poster?.type == PosterType.cameraImage
+      ||
+      noteModel?.poster?.type == PosterType.url
+      ){
 
         return ImagePoster(
           width: width,
