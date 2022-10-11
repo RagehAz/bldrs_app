@@ -16,9 +16,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ShelfSlide extends StatefulWidget {
+class DraftShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ShelfSlide({
+  const DraftShelfSlide({
     @required this.mutableSlide,
     @required this.number,
     @required this.onTap,
@@ -38,11 +38,11 @@ class ShelfSlide extends StatefulWidget {
   }
   // -----------------------------------------------------------------------------
   @override
-  State<ShelfSlide> createState() => _ShelfSlideState();
+  State<DraftShelfSlide> createState() => _DraftShelfSlideState();
   // -----------------------------------------------------------------------------
 }
 
-class _ShelfSlideState extends State<ShelfSlide> {
+class _DraftShelfSlideState extends State<DraftShelfSlide> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _animateSlide = ValueNotifier(true);
   void _onReAnimate(){
@@ -63,12 +63,12 @@ class _ShelfSlideState extends State<ShelfSlide> {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, ShelfSlide.flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, DraftShelfSlide.flyerBoxWidth);
     blog('ShelfSlide : BUILDING : file : ${widget.mutableSlide?.picFileModel?.file?.path}');
 
     return Container(
-      width: ShelfSlide.flyerBoxWidth,
-      height: ShelfSlide.shelfSlideZoneHeight(context),
+      width: DraftShelfSlide.flyerBoxWidth,
+      height: DraftShelfSlide.shelfSlideZoneHeight(context),
       margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding,),
       child: Column(
         children: <Widget>[
@@ -80,8 +80,8 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
           /// FLYER NUMBER
           Container(
-            width: ShelfSlide.flyerBoxWidth,
-            height: ShelfSlide.slideNumberBoxHeight,
+            width: DraftShelfSlide.flyerBoxWidth,
+            height: DraftShelfSlide.slideNumberBoxHeight,
             alignment: Aligners.superCenterAlignment(context),
             child: widget.number == null ?
             const SizedBox()
@@ -103,14 +103,14 @@ class _ShelfSlideState extends State<ShelfSlide> {
             onDoubleTap: _onReAnimate,
             child: FlyerBox(
               key: const ValueKey<String>('shelf_slide_flyer_box'),
-              flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+              flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
               boxColor: widget.mutableSlide?.midColor ?? Colorz.white10,
               stackWidgets: <Widget>[
 
                 /// BACK GROUND COVER PIC
                 if (widget.mutableSlide != null)
                   SuperFilteredImage(
-                    width: ShelfSlide.flyerBoxWidth,
+                    width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
                     imageFile: widget.mutableSlide.picFileModel.file,
                     filterModel: widget.mutableSlide.filter,
@@ -120,11 +120,11 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 if (widget.mutableSlide != null)
                   BlurLayer(
                     key: const ValueKey<String>('blur_layer'),
-                    width: ShelfSlide.flyerBoxWidth,
+                    width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
                     blurIsOn: true,
                     blur: 20,
-                    borders: FlyerDim.flyerCorners(context, ShelfSlide.flyerBoxWidth),
+                    borders: FlyerDim.flyerCorners(context, DraftShelfSlide.flyerBoxWidth),
                   ),
 
                 /// IMAGE
@@ -137,7 +137,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                         return AnimateWidgetToMatrix(
                           matrix: Trinity.renderSlideMatrix(
                               matrix: widget.mutableSlide.matrix,
-                              flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                              flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                               flyerBoxHeight: _flyerBoxHeight
                           ),
                           child: child,
@@ -149,7 +149,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
                     },
                     child: SuperFilteredImage(
-                      width: ShelfSlide.flyerBoxWidth,
+                      width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
                       imageFile: widget.mutableSlide.picFileModel.file,
                       filterModel: widget.mutableSlide.filter,
@@ -160,13 +160,13 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 /// SLIDE SHADOW
                 if (widget.mutableSlide != null)
                   const SlideShadow(
-                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                   ),
 
                 /// BOTTOM SHADOW
                 if (widget.mutableSlide != null)
                   const FooterShadow(
-                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                   ),
 
                 // /// STATIC FOOTER
@@ -178,14 +178,14 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 /// STATIC HEADER
                 if (widget.mutableSlide != null)
                   const HeaderTemplate(
-                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                     opacity: 0.5,
                   ),
 
                 /// HEADLINE
                 if (widget.mutableSlide != null)
                   SlideHeadline(
-                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                     verse: Verse(
                       text: widget.mutableSlide.headline,
                       translate: false,
