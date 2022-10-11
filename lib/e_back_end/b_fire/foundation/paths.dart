@@ -93,7 +93,7 @@ abstract class StorageDoc{
   static const String logos         = 'logos';        /// storage/logos/{bzID}
   static const String slides        = 'slides';       /// storage/slides/{flyerID__XX} => XX is two digits for slideIndex
   static const String askPics       = 'askPics';      /// not used till now
-  static const String notesBanners  = 'notesBanners'; /// storage/notesBanners/{notiID}
+  static const String posters       = 'posters';      /// storage/posters/{notiID}
   static const String authors       = 'authors';
 
   static const String flyersPDFs = 'flyersPDFs'; /// storage/flyersPDFs/{flyerID}
