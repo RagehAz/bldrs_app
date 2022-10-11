@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/buttons/note_card_buttons.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';

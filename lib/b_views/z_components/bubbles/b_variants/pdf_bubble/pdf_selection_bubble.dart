@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_title.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';

@@ -4,16 +4,16 @@ import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:flutter/material.dart';
@@ -313,7 +313,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   const DotSeparator(),
 
                   /// PHONE
-                  ContactFieldBubble(
+                  ContactFieldEditorBubble(
                     key: const ValueKey<String>('phone'),
                     globalKey: _formKey,
                     focusNode: _phoneNode,
@@ -350,7 +350,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   ),
 
                   /// EMAIL
-                  ContactFieldBubble(
+                  ContactFieldEditorBubble(
                     key: const ValueKey<String>('email'),
                     globalKey: _formKey,
                     focusNode: _emailNode,
