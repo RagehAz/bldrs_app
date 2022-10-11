@@ -15,13 +15,11 @@ class PosterCreatorBubble extends StatelessWidget {
   const PosterCreatorBubble({
     @required this.note,
     @required this.noteNotifier,
-    @required this.isDeactivated,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel note;
   final ValueNotifier<NoteModel> noteNotifier;
-  final bool isDeactivated;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -30,6 +28,8 @@ class PosterCreatorBubble extends StatelessWidget {
     final double _bubbleChildWidth = TileBubble.childWidth(context: context);
     // --------------------
     final bool _posterHasValue = note?.poster?.type != null;
+    // --------------------
+    final bool isDeactivated = note?.progress != null;
     // --------------------
     return WidgetFader(
       fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
