@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -23,12 +23,12 @@ class AddSlidesButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const double _flyerBoxWidth = ShelfSlide.flyerBoxWidth;
+    const double _flyerBoxWidth = DraftShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth);
     // --------------------
     return Container(
       width: _flyerBoxWidth,
-      height: ShelfSlide.shelfSlideZoneHeight(context),
+      height: DraftShelfSlide.shelfSlideZoneHeight(context),
       margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding,),
       child: Column(
         children: <Widget>[
@@ -41,7 +41,7 @@ class AddSlidesButton extends StatelessWidget {
           /// FLYER NUMBER FOOT PRINT
           Container(
             width: _flyerBoxWidth,
-            height: ShelfSlide.slideNumberBoxHeight,
+            height: DraftShelfSlide.slideNumberBoxHeight,
             alignment: Aligners.superCenterAlignment(context),
           ),
 
@@ -56,7 +56,7 @@ class AddSlidesButton extends StatelessWidget {
             stackWidgets: <Widget>[
 
               SizedBox(
-                width: ShelfSlide.flyerBoxWidth,
+                width: DraftShelfSlide.flyerBoxWidth,
                 height: _flyerBoxHeight,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -124,8 +124,8 @@ class NewSlideImagePickerButton extends StatelessWidget {
   }){
 
     const double _spacing = 5;
-    final double _topFlyerCorners = FlyerDim.flyerTopCornerValue(ShelfSlide.flyerBoxWidth);
-    final double _bottomFlyerCorners = FlyerDim.flyerBottomCornerValue(ShelfSlide.flyerBoxWidth);
+    final double _topFlyerCorners = FlyerDim.flyerTopCornerValue(DraftShelfSlide.flyerBoxWidth);
+    final double _bottomFlyerCorners = FlyerDim.flyerBottomCornerValue(DraftShelfSlide.flyerBoxWidth);
 
     final double _topCorners = _topFlyerCorners - _spacing;
 
@@ -151,7 +151,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const double _flyerBoxWidth = ShelfSlide.flyerBoxWidth;
+    const double _flyerBoxWidth = DraftShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth);
     const double _spacing = 10;
     const double _buttonWidth = _flyerBoxWidth - (_spacing * 3);

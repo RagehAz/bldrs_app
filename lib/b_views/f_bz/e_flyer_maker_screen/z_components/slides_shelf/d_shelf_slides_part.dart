@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/z_add_flyer_slides_button.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -42,12 +42,12 @@ class ShelfSlidesPart extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: loading,
         child: Container(
-          width: ShelfSlide.flyerBoxWidth,
-          height: ShelfSlide.shelfSlideZoneHeight(context),
+          width: DraftShelfSlide.flyerBoxWidth,
+          height: DraftShelfSlide.shelfSlideZoneHeight(context),
           alignment: Alignment.bottomCenter,
           padding: const EdgeInsets.all(Ratioz.appBarPadding),
           child: const FlyerLoading(
-              flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+              flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
             animate: false,
           ),
         ),
@@ -56,11 +56,11 @@ class ShelfSlidesPart extends StatelessWidget {
             return ListView(
               controller: scrollController,
               scrollDirection: Axis.horizontal,
-              itemExtent: ShelfSlide.flyerBoxWidth,
+              itemExtent: DraftShelfSlide.flyerBoxWidth,
               physics: const BouncingScrollPhysics(),
               padding: Scale.superInsets(
                 context: context,
-                enRight: ShelfSlide.flyerBoxWidth * 0.5,
+                enRight: DraftShelfSlide.flyerBoxWidth * 0.5,
               ),
               children: <Widget>[
 
@@ -70,7 +70,7 @@ class ShelfSlidesPart extends StatelessWidget {
 
                   final MutableSlide _mutableSlide = draft.mutableSlides[index];
 
-                  return ShelfSlide(
+                  return DraftShelfSlide(
                     mutableSlide: _mutableSlide,
                     number: index + 1,
                     onTap: () => onSlideTap(_mutableSlide),
