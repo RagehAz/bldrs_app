@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/query_parameters.dart';
+import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -35,7 +35,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   final GlobalKey globalKey = GlobalKey();
   // --------------------
   final TextEditingController _reviewTextController = TextEditingController();
-  PaginatorNotifiers _paginatorNotifiers;
+  PaginationController _paginatorNotifiers;
   ScrollController _controller;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -57,7 +57,9 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void initState() {
     super.initState();
 
-    _paginatorNotifiers = PaginatorNotifiers.initialize();
+    _paginatorNotifiers = PaginationController.initialize(
+      addExtraMapsAtEnd: false,
+    );
     _controller = ScrollController();
 
 
@@ -135,7 +137,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
         scrollController: _controller,
         queryModel: _createQueryModel(),
         paginatorNotifiers: _paginatorNotifiers,
-        addExtraMapsAtEnd: false,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           return ReviewsBuilder(

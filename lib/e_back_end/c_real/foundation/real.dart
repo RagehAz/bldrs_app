@@ -1,24 +1,14 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
 
-class RealPaginator{
-  // -----------------------------------------------------------------------------
-  const RealPaginator({
-    this.orderByField,
-    this.keyField,
-  });
-  // -----------------------------------------------------------------------------
-  final String orderByField;
-  // final value,
-  final String keyField;
-// -----------------------------------------------------------------------------
-}
+
 
 class Real {
   // -----------------------------------------------------------------------------
@@ -297,6 +287,7 @@ class Real {
     @required String pathWithoutDocName,
     @required bool addDocIDToOutput,
     @required Map<String, dynamic> map,
+    /// random id is assigned as docName if this parameter is not assigned
     String docName,
   }) async {
 
@@ -392,76 +383,10 @@ class Real {
 
   // --------------------
   ///
-  static Query createQuery({
-    @required DatabaseReference ref,
-    @required RealPaginator realPaginator,
-    int limit,
-    bool limitToFirst = false,
-    Map<String, dynamic> startAfter,
-  }){
-
-    Query _query = ref;
-
-    /// ORDER BY
-    if (realPaginator != null){
-
-      if (realPaginator.orderByField != null){
-        _query = _query.orderByChild(realPaginator.orderByField);
-      }
-      // else if (realOrderBy == RealOrderBy.child){
-      //   _query = _query.orderByChild(ref.path);
-      // }
-      // else if (realOrderBy == RealOrderBy.value){
-      //   _query = _query.orderByValue();
-      // }
-
-    }
-
-    /// LIMIT
-    if (limit != null){
-
-      if (limitToFirst == true){
-        _query = _query.limitToFirst(limit);
-      }
-      else {
-        _query = _query.limitToLast(limit);
-      }
-
-    }
-
-    /// START AFTER
-    if (startAfter != null){
-
-      if (realPaginator?.orderByField != null){
-
-        _query = _query.startAfter(
-          startAfter[realPaginator.orderByField],
-        );
-
-        // if (realPaginator?.keyField != null){
-        //
-        //   _query = _query.startAfter(
-        //     startAfter[realPaginator.orderByField],
-        //     // key: startAfter[realPaginator.keyField],
-        //   );
-        //
-        // }
-
-      }
-
-    }
-
-    return _query;
-  }
-  // --------------------
-  ///
-  static Future<List<Map<String, dynamic>>> readColl({
+  static Future<List<Map<String, dynamic>>> readPathMaps({
     @required BuildContext context,
-    @required String nodePath,
-    RealPaginator realOrderBy,
+    @required RealQueryModel realQueryModel,
     Map<String, dynamic> startAfter,
-    int limit,
-    bool limitToFirst,
     bool addDocIDToEachMap = true,
   }) async {
 
@@ -471,13 +396,8 @@ class Real {
       context: context,
       functions: () async {
 
-        final DatabaseReference _ref = getRefByPath(path: nodePath);
-
-        final Query _query = createQuery(
-          ref: _ref,
-          realPaginator: realOrderBy,
-          limit: limit,
-          limitToFirst: limitToFirst,
+        final Query _query = RealQueryModel.createQuery(
+          queryModel: realQueryModel,
           startAfter: startAfter,
         );
 
@@ -488,8 +408,6 @@ class Real {
           addDocID: false,
         );
 
-        blog(_dynamics);
-
         if (_dynamics != null){
 
           final List<String> _keys = _dynamics.keys.toList();
@@ -498,7 +416,7 @@ class Real {
 
             for (final String key in _keys){
 
-              blog('key : ${_dynamics[key]}');
+              blog('$key : ${_dynamics[key]}');
 
               Map<String, dynamic> _map = Map<String, dynamic>.from(_dynamics[key]);
 
@@ -528,7 +446,7 @@ class Real {
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readCollAsMap({
     @required BuildContext context,
-    @required String collName,
+    @required String path,
   }) async {
 
     Map<String, dynamic> _output = {};
@@ -537,19 +455,9 @@ class Real {
       context: context,
       functions: () async {
 
-        final DatabaseReference _ref = createPathAndGetRef(
-          collName: collName,
-        );
+        final DatabaseReference _ref = getRefByPath(path: path);
 
-        final Query _query = createQuery(
-          ref: _ref,
-          realPaginator: const RealPaginator(),
-          // limit: limit,
-          // limitToFirst: limitToFirst,
-          // startAfter: startAfter,
-        );
-
-        final DataSnapshot _snap = await _query.get();
+        final DataSnapshot _snap = await _ref.get();
 
         _output = Mapper.getMapFromDataSnapshot(
           snapshot: _snap,

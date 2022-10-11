@@ -43,7 +43,7 @@ class ReviewTextBalloon extends StatelessWidget {
   final double pageWidth;
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final PaginatorNotifiers paginatorNotifiers;
+  final PaginationController paginatorNotifiers;
   final GlobalKey globalKey;
   final AppBarType appBarType;
   /// --------------------------------------------------------------------------

@@ -4,8 +4,9 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/e_back_end/c_real/widgets/real_coll_paginator.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
+import 'package:bldrs/e_back_end/c_real/widgets/real_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -27,6 +28,12 @@ class RealNotePaginatorTest extends StatefulWidget {
 class _RealNotePaginatorTestState extends State<RealNotePaginatorTest> {
 
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +65,7 @@ class _RealNotePaginatorTestState extends State<RealNotePaginatorTest> {
 
             final NoteModel _note =NoteModel.quickUserNotice(
                 userID: AuthFireOps.superUserID(),
-                title: DateTime.now().second.toString(),
+                title: 'sixxx',
                 body: 'x'
             );
 
@@ -83,14 +90,23 @@ class _RealNotePaginatorTestState extends State<RealNotePaginatorTest> {
           ),
 
           RealCollPaginator(
-            nodePath: 'notes/${AuthFireOps.superUserID()}',
             scrollController: _scrollController,
-            builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+            realQueryModel: RealQueryModel(
+              path: 'notes/${AuthFireOps.superUserID()}',
+              limit: 6,
+              keyField: 'id',
+              fieldNameToOrderBy: 'sentTime',
+            ),
+            builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
               final List<NoteModel> _notes = NoteModel.decipherNotes(
                   maps: maps,
                   fromJSON: true,
               );
+
+
+
+              blog('notes areeee : ${_notes.length} notes');
 
               return SizedBox(
                 width: _screenWidth,
