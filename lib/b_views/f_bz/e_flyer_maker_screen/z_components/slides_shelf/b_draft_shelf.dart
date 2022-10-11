@@ -3,9 +3,9 @@ import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/a_draft_shelf_box.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/d_shelf_slides_part.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xx_draft_shelf_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -93,11 +93,11 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
     // --------------------
-    final double _slideZoneHeight = ShelfSlide.shelfSlideZoneHeight(context);
+    final double _slideZoneHeight = DraftShelfSlide.shelfSlideZoneHeight(context);
     // --------------------
     return Container(
       width: Scale.superScreenWidth(context),
-      height: ShelfBox.height(context),
+      height: DraftShelfBox.height(context),
       decoration: BoxDecoration(
         // color: Colorz.white10,
         borderRadius: Borderers.cornerAll(context, Bubble.clearCornersValue),
@@ -110,12 +110,12 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
           /// WHILE LOADING GIVEN EXISTING FLYER MODEL
           if (draft == null){
             return Container(
-              width: ShelfSlide.flyerBoxWidth,
-              height: ShelfSlide.shelfSlideZoneHeight(context),
+              width: DraftShelfSlide.flyerBoxWidth,
+              height: DraftShelfSlide.shelfSlideZoneHeight(context),
               alignment: Alignment.bottomCenter,
               padding: const EdgeInsets.all(Ratioz.appBarPadding),
               child: const FlyerLoading(
-                flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                 animate: false,
               ),
             );
@@ -140,7 +140,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 bzModel: widget.bzModel,
                 mounted: mounted,
                 scrollController: _scrollController,
-                flyerWidth: ShelfSlide.flyerBoxWidth,
+                flyerWidth: DraftShelfSlide.flyerBoxWidth,
                 isEditingFlyer: widget.isEditingFlyer.value,
                 imagePickerType: imagePickerType,
               ),
