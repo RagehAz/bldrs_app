@@ -23,31 +23,25 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
   // -----------------------------------------------------------------------------
   List<FlyerModel> _flyers;
   // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({Function function}) async {
-    if (function == null) {
-      setState(() {
-        _loading = !_loading;
-      });
-    } else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async {
+
+      _triggerLoading(setTo: true).then((_) async {
+
         blog('starting things');
 
         final List<dynamic> _maps = await Fire.readCollectionDocs(
@@ -67,15 +61,18 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
           _flyers = _flyersFromMaps;
         });
 
-        /// X - REBUILD
-        unawaited(_triggerLoading(function: () {
-          // oldValue: _tinyFlyers,
-          // newValue: _flyersFromMaps,
-        }));
+        unawaited(_triggerLoading(setTo: false));
+
       });
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+  // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
   }
   // -----------------------------------------------------------------------------
   /*

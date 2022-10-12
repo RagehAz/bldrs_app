@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/x_lab/b_paginate_all_notes_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/b_fire_notes_paginator_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab/c_local_noot_test_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab/d_noot_route_to_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
@@ -24,16 +24,16 @@ class _NotesLabHomeState extends State<NotesLabHome> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+  /*
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -45,19 +45,17 @@ class _NotesLabHomeState extends State<NotesLabHome> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
     super.didChangeDependencies();
   }
   // --------------------
-  /// XXXX
   @override
   void dispose() {
     _loading.dispose();

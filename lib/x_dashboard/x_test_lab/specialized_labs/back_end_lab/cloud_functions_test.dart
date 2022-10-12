@@ -26,32 +26,25 @@ class CloudFunctionsTest extends StatefulWidget {
 }
 
 class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
-
+  // -----------------------------------------------------------------------------
+  ///
   // List<int> _list = <int>[1,2,3,4,5,6,7,8];
   // int _loops = 0;
   // Color _color = Colorz.BloodTest;
   // SuperFlyer _flyer;
   // bool _thing;
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  ///
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -63,18 +56,24 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async {
+
+      _triggerLoading(setTo: true).then((_) async {
+
         /// do Futures here
 
-        unawaited(_triggerLoading(function: () {
-          /// set new values here
-        }));
+        unawaited(_triggerLoading(setTo: false));
       });
     }
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

@@ -33,24 +33,16 @@ class _FeedBackState extends State<FeedBack> {
   // -----------------------------------------------------------------------------
   TextEditingController _feedbackController;
   // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({Function function}) async {
-    if (function == null) {
-      setState(() {
-        _loading = !_loading;
-      });
-    } else {
-      setState(() {
-        _loading = !_loading;
-        function();
-      });
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -63,11 +55,13 @@ class _FeedBackState extends State<FeedBack> {
   @override
   void dispose() {
     _feedbackController.dispose();
+    _loading.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
   Future<void> _uploadFeedBack() async {
-    unawaited(_triggerLoading());
+
+    unawaited(_triggerLoading(setTo: true));
 
     /// upload text to firebase
     final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
@@ -78,7 +72,7 @@ class _FeedBackState extends State<FeedBack> {
       ),
     );
 
-    unawaited(_triggerLoading());
+    unawaited(_triggerLoading(setTo: false));
 
     if (_uploadedModel == null){
       await CenterDialog.showCenterDialog(
@@ -93,6 +87,7 @@ class _FeedBackState extends State<FeedBack> {
         ),
       );
     }
+
     else {
       await CenterDialog.showCenterDialog(
         context: context,

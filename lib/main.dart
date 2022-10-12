@@ -76,16 +76,13 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -97,7 +94,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         /// LOCALE
         await Localizer.initializeLocale(_locale);
@@ -114,7 +111,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
         await DynamicLinks.initializeDynamicLinks(context);
 
         /// END
-        await _triggerLoading();
+        await _triggerLoading(setTo: false);
 
       });
     }

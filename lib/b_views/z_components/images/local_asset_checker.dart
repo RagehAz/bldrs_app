@@ -1,5 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -51,16 +52,13 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      // blogLoading(loading: _loading.value, callerName: 'LocalAssetChecker',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _exists = ValueNotifier(false);
@@ -75,14 +73,18 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
   void didChangeDependencies() {
     if (_isInit && mounted && _exists != null) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         final bool _assetExists = await LocalAssetChecker.localAssetExists(widget.asset);
 
-        if (mounted){
-          _exists.value = _assetExists;
-          await _triggerLoading();
-        }
+        setNotifier(
+            notifier: _exists,
+            mounted: mounted,
+            value: _assetExists,
+            addPostFrameCallBack: false
+        );
+
+        await _triggerLoading(setTo: false);
 
       });
 

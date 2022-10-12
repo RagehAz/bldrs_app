@@ -55,19 +55,19 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -85,11 +85,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
@@ -99,7 +99,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   /// TAMAM
   @override
   void dispose() {
-    _loading.dispose();
+    // _loading.dispose();
     _noteNotifier.dispose();
     _titleController.dispose();
     _bodyController.dispose();
@@ -114,7 +114,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
-      loading: _loading,
+      // loading: _loading,
       pageTitleVerse: Verse.plain('Note ${Timers.generateString_on_dd_month_yyyy(
           context: context,
           time: DateTime.now()

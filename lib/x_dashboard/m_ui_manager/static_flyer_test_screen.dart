@@ -1,34 +1,33 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
-class StaticFlyerTest extends StatefulWidget {
+class StaticFlyerTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const StaticFlyerTest({
+  const StaticFlyerTestScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _StaticFlyerTestState createState() => _StaticFlyerTestState();
+  _StaticFlyerTestScreenState createState() => _StaticFlyerTestScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _StaticFlyerTestState extends State<StaticFlyerTest> {
+class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -41,7 +40,7 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         const String flyerID = 'upQofLWCS1adHGU497A7';
 
@@ -50,12 +49,9 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
           flyerID: flyerID,
         );
 
+        setState(() {});
 
-        setState(() {
-
-        });
-
-        await _triggerLoading();
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;

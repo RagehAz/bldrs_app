@@ -553,9 +553,9 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       );
 
       /// NAME WITH EXTENSION
-      final String _output = _ref.name;
+      _output = _ref.name;
 
-      blog('getImageNameByURL : _output : $_output');
+      // blog('getImageNameByURL : _output : $_output');
 
       // /// WITHOUT EXTENSION
       // if (withExtension == false){
@@ -890,6 +890,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     @required String fileName,
     @required String storageDocName,
   }) async {
+
+    assert(fileName != null && storageDocName != null,
+    'checkCanDeleteStorageFile : fileName or storageDocName can not be null');
+
     bool _canDelete = false;
 
     blog('checkCanDeleteStorageFile : START');
@@ -915,6 +919,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       }
 
     }
+
 
     blog('checkCanDeleteStorageFile : END');
     return _canDelete;

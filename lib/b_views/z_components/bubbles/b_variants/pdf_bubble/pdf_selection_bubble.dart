@@ -46,30 +46,27 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
-  ValueNotifier<FileModel> _pdf = ValueNotifier(null);
+  final ValueNotifier<FileModel> _pdf = ValueNotifier(null);
   // --------------------
-  TextEditingController _textController;
+  final TextEditingController _textController = TextEditingController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'PDFSelectionBubble',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _pdf = ValueNotifier(widget.existingPDF);
-    _textController = TextEditingController(text: widget.existingPDF?.fileName);
+    _pdf.value = widget.existingPDF;
+    _textController.text = widget.existingPDF?.fileName;
   }
   // --------------------
   bool _isInit = true;
@@ -77,12 +74,11 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   void didChangeDependencies() {
     if (_isInit) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
         _pdf.value = await FileModel.completeModel(_pdf.value);
         // -------------------------------
-        await _triggerLoading();
-
+        await _triggerLoading(setTo: false);
       });
 
     }

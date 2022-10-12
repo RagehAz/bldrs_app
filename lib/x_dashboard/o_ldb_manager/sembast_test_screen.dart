@@ -28,65 +28,55 @@ class SembastTestScreen extends StatefulWidget {
 }
 
 class _SembastTestScreenState extends State<SembastTestScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final String _docName = 'test';
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-    }
-
-    _loading == true ?
-    blog('LOADING--------------------------------------')
-        :
-    blog('LOADING COMPLETE--------------------------------------');
-
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     if (_isInit) {
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         await _deleteAll();
         await _readAllMaps();
 
+        await _triggerLoading(setTo: false);
       });
     }
     _isInit = false;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
+    _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CRUD
 
+  // --------------------
   List<Map<String, Object>> _maps;
-
-// ----------------------------------------
+  // --------------------
   Future<void> _createRandomMap() async {
 
     final Map<String, dynamic> _map = {
@@ -101,7 +91,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
     await _readAllMaps();
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _createMultipleMaps() async {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -120,7 +110,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
     await _readAllMaps();
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _readAllMaps() async {
 
     final List<Map<String, Object>> _readMaps = await Sembast.readAll(
@@ -129,11 +119,12 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
     setState(() {
       _maps = _readMaps;
-      _loading = false;
     });
 
+    _loading.value = false;
+
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _updateMap(Map<String, dynamic> map) async {
 
     final String _newID = await Dialogs.keyboardDialog(
@@ -163,7 +154,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
       invoker: 'SembastTestScreen._updateMap',
     );
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _deleteAll() async {
 
     await LDBOps.deleteAllMapsAtOnce(
@@ -172,7 +163,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
     await _readAllMaps();
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _deleteMap(Map<String, dynamic> map) async {
 
     await LDBOps.deleteMap(
@@ -183,7 +174,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     await _readAllMaps();
 
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _onRowOptionsTap(Map<String, dynamic> map) async {
 
     Mapper.blogMap(map);
@@ -214,7 +205,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
         );
 
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _search() async {
 
     final List<Map<String, dynamic>> _result = await LDBOps.searchMultipleValues(
@@ -226,8 +217,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
     Mapper.blogMaps(_result);
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -299,4 +289,5 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
       ],
     );
   }
+  // -----------------------------------------------------------------------------
 }

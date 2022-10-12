@@ -10,7 +10,7 @@ import 'package:bldrs/x_dashboard/m_ui_manager/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/keyboard_field_widget_test.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/reorder_list_test.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/sounds_test_screen.dart';
-import 'package:bldrs/x_dashboard/m_ui_manager/tiny_flyer_test_screen.dart';
+import 'package:bldrs/x_dashboard/m_ui_manager/static_flyer_test_screen.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/video_player.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/slider_test.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
@@ -212,7 +212,7 @@ class UIManager extends StatelessWidget {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: const StaticFlyerTest(),
+              screen: const StaticFlyerTestScreen(),
             );
 
           },
