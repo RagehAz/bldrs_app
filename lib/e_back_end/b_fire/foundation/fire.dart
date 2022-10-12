@@ -21,13 +21,12 @@ class Fire{
   /// PATHS GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> initializeFirestore({
-    @required BuildContext context,
     @required ValueNotifier<String> fireError,
   }) async {
 
     await tryAndCatch(
-        context: context,
         functions: () async {
 
           // final FirebaseApp _firebaseApp =
@@ -82,6 +81,7 @@ String pathOfSubDoc({
   /// REFERENCES
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static CollectionReference<Object> getSuperCollRef({
     @required String aCollName,
     String bDocName,
@@ -171,6 +171,7 @@ String pathOfSubDoc({
   /// QUERIES
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Query<Map<String, dynamic>> _superQuery({
     @required CollectionReference<Object> collRef,
     QueryOrderBy orderBy,
@@ -230,7 +231,7 @@ String pathOfSubDoc({
   /// BASICS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _setData({
     @required DocumentReference<Object> ref,
     @required Map<String, dynamic> input,
@@ -313,7 +314,6 @@ String pathOfSubDoc({
   // --------------------
   ///
   static Future<DocumentReference<Object>> createDoc({
-    @required BuildContext context,
     @required String collName,
     @required Map<String, dynamic> input,
     ValueChanged<DocumentReference> onFinish,
@@ -356,7 +356,6 @@ String pathOfSubDoc({
   // --------------------
   ///
   static Future<DocumentReference<Object>> createNamedDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required Map<String, dynamic> input,
@@ -384,9 +383,8 @@ String pathOfSubDoc({
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<DocumentReference<Object>> createSubDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -401,7 +399,6 @@ String pathOfSubDoc({
     /// and creates random name for sub doc if sub doc name is null
 
     final DocumentReference<Object> _subDocRef = await createNamedSubDoc(
-      context: context,
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -418,7 +415,6 @@ String pathOfSubDoc({
   // --------------------
   ///
   static Future<DocumentReference<Object>> createNamedSubDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -462,7 +458,6 @@ String pathOfSubDoc({
   // --------------------
   ///
   static Future<List<Map<String, dynamic>>> superCollPaginator({
-    @required BuildContext context,
     @required FireQueryModel queryModel,
     bool addDocSnapshotToEachMap = false,
     bool addDocsIDs = false,
@@ -471,9 +466,8 @@ String pathOfSubDoc({
     List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
 
     await tryAndCatch(
-        context: context,
+        methodName: 'superCollPaginator',
         functions: () async {
-
 
           final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
             collRef: queryModel.collRef,
@@ -491,15 +485,13 @@ String pathOfSubDoc({
               addDocSnapshotToEachMap: addDocSnapshotToEachMap
           );
 
-        }
-    );
+        });
 
     return _maps;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readCollectionDocs({
-    @required BuildContext context,
     @required String collName,
     QueryOrderBy orderBy,
     int limit,
@@ -512,7 +504,7 @@ String pathOfSubDoc({
     List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
 
     await tryAndCatch(
-        context: context,
+        methodName: 'readCollectionDocs',
         functions: () async {
 
           final CollectionReference<Object> _collRef = getCollectionRef(collName);
@@ -533,9 +525,7 @@ String pathOfSubDoc({
               addDocSnapshotToEachMap: addDocSnapshotToEachMap
           );
 
-        }
-    );
-
+        });
 
     return _maps;
   }
@@ -566,7 +556,6 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     bool addDocID = false,
@@ -577,7 +566,6 @@ String pathOfSubDoc({
     Map<String, dynamic> _map; //QueryDocumentSnapshot
 
     final dynamic _result = await tryCatchAndReturnBool(
-      context: context,
       methodName: 'readDoc',
       functions: () async {
 
@@ -604,7 +592,6 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readSubCollectionDocs({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -619,7 +606,6 @@ String pathOfSubDoc({
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     await tryAndCatch(
-        context: context,
         methodName: 'readSubCollectionDocs',
         functions: () async {
 
@@ -653,7 +639,6 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<dynamic> readSubDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -665,7 +650,6 @@ String pathOfSubDoc({
     dynamic _map;
 
     await tryAndCatch(
-        context: context,
         methodName: 'readSubDoc',
         functions: () async {
 
@@ -773,7 +757,6 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required Map<String, dynamic> input,
@@ -796,7 +779,6 @@ String pathOfSubDoc({
     ///
 
     await createNamedDoc(
-      context: context,
       collName: collName,
       docName: docName,
       input: input,
@@ -807,7 +789,6 @@ String pathOfSubDoc({
   // --------------------
   ///
   static Future<void> updateDocField({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String field,
@@ -833,21 +814,21 @@ String pathOfSubDoc({
   // --------------------
   ///
   static Future<void> updateSubDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String subCollName,
     @required String subDocName,
     @required Map<String, dynamic> input,
   }) async {
+
     await createNamedSubDoc(
-      context: context,
       collName: collName,
       docName: docName,
       subCollName: subCollName,
       subDocName: subDocName,
       input: input,
     );
+
   }
   // --------------------
   ///
@@ -890,13 +871,11 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
   }) async {
 
     await tryAndCatch(
-        context: context,
         methodName: 'deleteDoc',
         functions: () async {
 
@@ -913,7 +892,6 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteSubDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -921,7 +899,6 @@ String pathOfSubDoc({
   }) async {
 
     await tryAndCatch(
-        context: context,
         methodName: 'deleteSubDoc',
         functions: () async {
 
@@ -974,7 +951,6 @@ String pathOfSubDoc({
       for (int i = 0; i < 1000; i++){
 
         final List<Map<String, dynamic>> _maps = await readCollectionDocs(
-          context: context,
           collName: collName,
           limit: 5,
           addDocsIDs: true,
@@ -994,7 +970,6 @@ String pathOfSubDoc({
           blog('docs IDs : ${_docIDs.toString()}');
 
           await _deleteCollectionDocsByIDs(
-            context: context,
             collName: collName,
             docsIDs: _docIDs,
           );
@@ -1009,7 +984,6 @@ String pathOfSubDoc({
   // --------------------
   /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
   static Future<void> _deleteCollectionDocsByIDs({
-    @required BuildContext context,
     @required collName,
     @required List<String> docsIDs,
   }) async {
@@ -1019,7 +993,6 @@ String pathOfSubDoc({
       for (final String id in docsIDs){
 
         await deleteDoc(
-          context: context,
           collName: collName,
           docName: id,
         );
@@ -1067,7 +1040,6 @@ String pathOfSubDoc({
       for (int i = 0; i < 1000; i++){
 
         final List<Map<String, dynamic>> _maps = await readSubCollectionDocs(
-          context: context,
           collName: collName,
           docName: docName,
           subCollName: subCollName,
@@ -1089,7 +1061,6 @@ String pathOfSubDoc({
           blog('docs IDs : ${_docIDs.toString()}');
 
           await _deleteSubCollectionDocsBySubDocsIDs(
-            context: context,
             collName: collName,
             docName: docName,
             subCollName: subCollName,
@@ -1108,7 +1079,6 @@ String pathOfSubDoc({
   // --------------------
   /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
   static Future<void> _deleteSubCollectionDocsBySubDocsIDs({
-    @required BuildContext context,
     @required collName,
     @required docName,
     @required subCollName,
@@ -1123,7 +1093,6 @@ String pathOfSubDoc({
         await Future.wait(<Future>[
 
           deleteSubDoc(
-            context: context,
             collName: collName,
             docName: docName,
             subCollName: subCollName,
@@ -1144,7 +1113,6 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteDocField({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String field,
@@ -1171,7 +1139,6 @@ String pathOfSubDoc({
   // --------------------
   ///
   static Future<void> deleteSubDocField({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String field,

@@ -76,7 +76,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
             };
 
             final Map<String, dynamic> _maw = await Real.createDoc(
-              context: context,
               collName: _collName,
               map: _map,
               addDocIDToOutput: true,
@@ -101,7 +100,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
             };
 
             await Real.createNamedDoc(
-              context: context,
               collName: _collName,
               docName: _dummyDocName,
               map: _map,
@@ -116,7 +114,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
           onTap: () async {
 
             final Map<String, dynamic> _map = await Real.readDoc(
-              context: context,
               collName: _collName,
               docName: _dummyDocName,
             );
@@ -132,7 +129,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
           onTap: () async {
 
             final Map<String, dynamic> _map = await Real.readDocOnce(
-              context: context,
               collName: _collName,
               docName: _dummyDocName,
             );
@@ -156,7 +152,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
             };
 
             await Real.updateDoc(
-              context: context,
               collName: _collName,
               docName: _dummyDocName,
               map: _map,
@@ -171,7 +166,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
           onTap: () async {
 
             await Real.updateDocField(
-              context: context,
               collName: _collName,
               docName: _dummyDocName,
               fieldName: 'name',
@@ -187,7 +181,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
           onTap: () async {
 
             await Real.deleteField(
-              context: context,
               collName: _collName,
               docName: _dummyDocName,
               fieldName: 'name',
@@ -202,7 +195,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
           onTap: () async {
 
             await Real.deleteDoc(
-              context: context,
               collName: _collName,
               docName: _dummyDocName,
             );
@@ -233,11 +225,12 @@ class _RealTestScreenState extends State<RealTestScreen> {
                         ...List.generate(maps.length, (index){
                           return GestureDetector(
                             onTap: () async {
+
                               await Real.deleteDoc(
-                                context: context,
                                 collName: _collName,
                                 docName: maps[index]['id'],
                               );
+
                               },
                             child: ColorButton(
                               map: maps[index],
@@ -272,7 +265,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
                             onTap: () async {
 
                               await Real.deleteDoc(
-                                context: context,
                                 collName: _collName,
                                 docName: maps[index]['id'],
                               );

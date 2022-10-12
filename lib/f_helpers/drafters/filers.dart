@@ -215,7 +215,6 @@ class Filers {
 // ---------------------
   /// TAMAM : WORKS PERFECT
   static Future<File> getFileFromLocalRasterAsset({
-    @required BuildContext context,
     @required String localAsset,
     int width = 100,
   }) async {
@@ -223,7 +222,6 @@ class Filers {
     File _file;
 
     await tryAndCatch(
-        context: context,
         methodName: 'getFileFromLocalRasterAsset',
         functions: () async {
 

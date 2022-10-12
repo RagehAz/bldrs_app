@@ -110,7 +110,6 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   Future<void> _onSearch(String text) async {
 
     await onSearchUsers(
-      context: context,
       text: text,
       loading: _loading,
       foundUsers: _foundUsers,

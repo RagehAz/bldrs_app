@@ -27,7 +27,6 @@ class ExoticMethods {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
-    @required BuildContext context,
     @required String collName,
     QueryOrderBy orderBy,
     bool addDocsIDs = false,
@@ -35,7 +34,6 @@ class ExoticMethods {
   }) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-      context: context,
       collName: collName,
       limit: limit,
       orderBy: orderBy,
@@ -46,7 +44,6 @@ class ExoticMethods {
   }
   // -----------------------------------------------------------------------------
   static Future<List<Map<String, dynamic>>> readAllSubCollectionDocs({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -54,7 +51,6 @@ class ExoticMethods {
   }) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
-      context: context,
       limit: 1000,
       collName: FireColl.zones,
       docName: docName,
@@ -68,7 +64,6 @@ class ExoticMethods {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> readAllUserModels({
-    @required BuildContext context,
     @required int limit,
   }) async {
     // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
@@ -81,7 +76,6 @@ class ExoticMethods {
 
     if (_ldbUsers.length < 4) {
       final List<dynamic> _maps = await Fire.readCollectionDocs(
-        context: context,
         limit: limit ?? 100,
         collName: FireColl.users,
         orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
@@ -107,13 +101,11 @@ class ExoticMethods {
   }
   // -----------------------------------------------------------------------------
   static Future<List<NoteModel>> readAllNoteModels({
-    @required BuildContext context,
     @required String userID,
   }) async {
     // List<NotiModel> _allNotiModels = await ExoticMethods.readAllNotiModels(context: context, userID: userID);
 
     final List<dynamic> _maps = await Fire.readSubCollectionDocs(
-      context: context,
       collName: FireColl.users,
       docName: userID,
       subCollName: FireSubColl.noteReceiver_receiver_notes,
@@ -133,13 +125,11 @@ class ExoticMethods {
   }
   // -----------------------------------------------------------------------------
   static Future<List<BzModel>> readAllBzzModels({
-    @required BuildContext context,
     @required int limit,
   }) async {
     // List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: limit);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
-      context: context,
       limit: limit ?? 100,
       collName: FireColl.bzz,
       orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
@@ -174,13 +164,11 @@ class ExoticMethods {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readAllFlyers({
-    @required BuildContext context,
     @required int limit,
   }) async {
     // List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: limit);
 
     final List<dynamic> _maps = await Fire.readCollectionDocs(
-      context: context,
       limit: limit ?? 100,
       collName: FireColl.flyers,
       orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
@@ -192,9 +180,7 @@ class ExoticMethods {
     return _allModels;
   }
   // -----------------------------------------------------------------------------
-  static Future<List<CountryModel>> fetchAllCountryModels({
-    @required BuildContext context,
-  }) async {
+  static Future<List<CountryModel>> fetchAllCountryModels() async {
 
     final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
 
@@ -203,7 +189,6 @@ class ExoticMethods {
     for (final String id in _allCountriesIDs) {
 
       final CountryModel _country = await ZoneProtocols.fetchCountry(
-        context: context,
         countryID: id,
       );
 
@@ -215,10 +200,10 @@ class ExoticMethods {
     return _countries;
   }
   // -----------------------------------------------------------------------------
-  static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
+  static Future<void> createContinentsDocFromAllCountriesCollection() async {
     /// in case any (continent name) or (region name) or (countryID) has changed
 
-    final List<CountryModel> _allCountries = await fetchAllCountryModels(context: context);
+    final List<CountryModel> _allCountries = await fetchAllCountryModels();
 
     final List<Continent> _continents = <Continent>[];
 
@@ -277,7 +262,6 @@ class ExoticMethods {
     final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
 
     await Fire.createNamedDoc(
-      context: context,
       collName: FireColl.admin,
       docName: 'continents',
       input: _contMaps,
@@ -285,9 +269,9 @@ class ExoticMethods {
 
   }
   // -----------------------------------------------------------------------------
-  static Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
+  static Future<List<BigMac>> readAllBigMacs() async {
+
     final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
-      context: context,
       collName: 'admin',
       docName: 'bigMac',
       subCollName: 'bigMacs',
@@ -302,14 +286,12 @@ class ExoticMethods {
   // -----------------------------------------------------------------------------
   /// super dangerous method,, take care !!
   static Future<void> updateAFieldInAllCollDocs({
-    @required BuildContext context,
     @required String collName,
     @required String field,
     @required dynamic input
   }) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-      context: context,
       limit: 1000,
       collName: collName,
       addDocsIDs: true,
@@ -318,7 +300,6 @@ class ExoticMethods {
 
     for (final Map<String, dynamic> map in _maps) {
       await Fire.updateDocField(
-          context: context,
           collName: collName,
           docName: map['id'],
           field: field,
@@ -350,7 +331,10 @@ class ExoticMethods {
       await _takeOverBz(context: context, oldUserID: oldUserID, newUserID: newUserID, bzModel: _bz);
     }
 
-    await takeOverFlyers(context: context, newUserID: newUserID, flyersIDs: _oldUserFlyersIDs);
+    await takeOverFlyers(
+        newUserID: newUserID,
+        flyersIDs: _oldUserFlyersIDs,
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -388,7 +372,6 @@ class ExoticMethods {
         );
 
         await Fire.updateDocField(
-          context: context,
           collName: FireColl.bzz,
           docName: bzModel.id,
           field: 'authors',
@@ -403,7 +386,6 @@ class ExoticMethods {
   }
   // -----------------------------------------------------------------------------
   static Future<void> takeOverFlyers({
-    @required BuildContext context,
     @required String newUserID,
     @required List<String> flyersIDs,
   }) async {
@@ -411,7 +393,6 @@ class ExoticMethods {
     for (final String id in flyersIDs){
 
       await Fire.updateDocField(
-        context: context,
         collName: FireColl.flyers,
         docName: id,
         field: 'authorID',
@@ -425,13 +406,11 @@ class ExoticMethods {
   }
   /// ----------------------------------------------------------------------------
   static Future<void> assignBzzOwnership({
-    @required BuildContext context,
     @required String userID,
     @required List<String> bzzIDs,
   }) async {
 
     await  Fire.updateDocField(
-      context: context,
       collName: FireColl.users,
       docName: userID,
       field: 'myBzzIDs',
@@ -441,14 +420,12 @@ class ExoticMethods {
   }
   /// ----------------------------------------------------------------------------
   static Future<List<BzModel>> searchBzzByAuthorID({
-    @required BuildContext context,
     @required String authorID,
     @required QueryDocumentSnapshot<Object> startAfter,
     int limit = 10,
   }) async {
 
     final List<Map<String, dynamic>> _bzzMaps = await Fire.readCollectionDocs(
-      context: context,
       collName: FireColl.bzz,
       limit: limit,
       startAfter: startAfter,
@@ -509,12 +486,9 @@ class ExoticMethods {
   //   return _currencies;
   // }
   /// ----------------------------------------------------------------------------
-  static Future<List<CountryModel>> readAllCountries({
-    @required BuildContext context,
-  }) async {
+  static Future<List<CountryModel>> readAllCountries() async {
 
     final List<Map<String, dynamic>> allMaps = await readAllSubCollectionDocs(
-      context: context,
       collName: FireColl.zones,
       docName: FireDoc.zones_countries,
       subCollName: FireSubColl.zones_countries_countries,
@@ -529,20 +503,17 @@ class ExoticMethods {
   }
   /// ----------------------------------------------------------------------------
   static Future<void> duplicateDoc({
-    @required BuildContext context,
     @required String fromCollName,
     @required String docName,
     @required String toCollName,
   }) async {
 
     final Map<String, dynamic> _doc = await Fire.readDoc(
-      context: context,
       collName: fromCollName,
       docName: docName,
     );
 
     await Fire.createNamedDoc(
-      context: context,
       collName: toCollName,
       docName: docName,
       input: _doc,
@@ -552,7 +523,6 @@ class ExoticMethods {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> changeDocFieldName({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String oldFieldName,
@@ -560,7 +530,6 @@ class ExoticMethods {
   }) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
-        context: context,
         collName: collName,
         docName: docName
     );
@@ -568,7 +537,6 @@ class ExoticMethods {
     if (_map != null){
 
       await Fire.deleteDocField(
-        context: context,
         collName: collName,
         docName: docName,
         field: oldFieldName,
@@ -576,7 +544,6 @@ class ExoticMethods {
 
 
       await Fire.updateDocField(
-        context: context,
         collName: collName,
         docName: docName,
         field: newFieldName,

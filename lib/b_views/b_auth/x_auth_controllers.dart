@@ -100,7 +100,6 @@ Future<void> authByEmailSignIn({
 
     /// C - FIRE SIGN IN OPS
     _authModel = await AuthFireOps.signInByEmailAndPassword(
-      context: context,
       email: email,
       password: password,
     );

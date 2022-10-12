@@ -18,7 +18,6 @@ class PhraseRealOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> createPhrasesForLang({
-    @required BuildContext context,
     @required String langCode,
     @required List<Phrase> phrases,
   }) async {
@@ -34,7 +33,6 @@ class PhraseRealOps {
       if (Mapper.checkCanLoopList(_phrasesOfLang) == true){
 
         await Real.createNamedDoc(
-            context: context,
             collName: RealColl.phrases,
             docName: langCode,
             map: Phrase.cipherPhrasesToReal(_phrasesOfLang),
@@ -52,7 +50,6 @@ class PhraseRealOps {
   // --------------------
   ///
   static Future<Phrase> readPhraseByLang({
-    @required BuildContext context,
     @required String lang,
     @required String phid,
     bool createTrigram = false,
@@ -62,7 +59,6 @@ class PhraseRealOps {
     if (lang != null && phid != null){
 
       final String _value = await Real.readPath(
-          context: context,
           path: '${RealColl.phrases}/$lang/$phid',
       );
 
@@ -86,7 +82,6 @@ class PhraseRealOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readPhrasesByLang({
-    @required BuildContext context,
     @required String langCode,
     @required bool createTrigram,
     ValueChanged<List<Phrase>> onFinish,
@@ -97,7 +92,6 @@ class PhraseRealOps {
     if (langCode != null){
 
       final Map<String, dynamic> _map = await Real.readDocOnce(
-        context: context,
         collName: RealColl.phrases,
         docName: langCode,
         addDocID: false,
@@ -127,7 +121,6 @@ class PhraseRealOps {
 
   // --------------------
   static Future<void> updatePhrasesForLang({
-    @required BuildContext context,
     @required String langCode,
     @required List<Phrase> updatedPhrases,
   }) async {
@@ -135,7 +128,6 @@ class PhraseRealOps {
     if (Mapper.checkCanLoopList(updatedPhrases) == true && langCode != null){
 
       await Real.updateDoc(
-          context: context,
           collName: RealColl.phrases,
           docName: langCode,
           map: Phrase.cipherPhrasesToReal(updatedPhrases),
@@ -150,7 +142,6 @@ class PhraseRealOps {
 
   // --------------------
   static Future<void> deletePhraseInMultipleLangs({
-    @required BuildContext context,
     @required String phid, // phrase id
     List<String> langCodes = const <String>['en', 'ar'],
   }) async {
@@ -164,7 +155,6 @@ class PhraseRealOps {
           final String _langCode = langCodes[index];
 
           await Real.deleteField(
-              context: context,
               collName: RealColl.phrases,
               docName: _langCode,
               fieldName: phid,

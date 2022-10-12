@@ -10,7 +10,6 @@ import 'package:flutter/cupertino.dart';
 
 // --------------------
 Future<dynamic> subCollectionMapsByFieldValue({
-  @required BuildContext context,
   @required String collName,
   @required String docName,
   @required String subCollName,
@@ -31,7 +30,6 @@ Future<dynamic> subCollectionMapsByFieldValue({
 
   final QuerySnapshot<Object> _collectionSnapshot =
   await _searchAndGetCollectionSnapshots(
-    context: context,
     collRef: _collRef,
     valueIs: valueIs,
     field: field,
@@ -53,7 +51,6 @@ Future<dynamic> subCollectionMapsByFieldValue({
 }
 // --------------------
 Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
-  @required BuildContext context,
   @required CollectionReference<Object> collRef,
   @required FireComparison valueIs,
   @required String field,
@@ -63,7 +60,6 @@ Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
   QuerySnapshot<Object> _collectionSnapshot;
 
   await tryAndCatch(
-      context: context,
       methodName: '_getCollectionSnapshots',
       functions: () async {
         /// IF EQUAL TO
@@ -159,7 +155,6 @@ Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
 }
 // --------------------
 Future<dynamic> mapsByFieldValue({
-  @required BuildContext context,
   @required String collName,
   @required String field,
   @required dynamic compareValue,
@@ -174,7 +169,6 @@ Future<dynamic> mapsByFieldValue({
 
   final QuerySnapshot<Object> _collectionSnapshot =
   await _searchAndGetCollectionSnapshots(
-    context: context,
     collRef: _collRef,
     valueIs: valueIs,
     field: field,

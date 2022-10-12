@@ -38,7 +38,6 @@ class AuthFireOps {
 
   // --------------------
   static Future<bool> deleteFirebaseUser({
-    @required BuildContext context,
     @required String userID,
   }) async {
 
@@ -46,7 +45,6 @@ class AuthFireOps {
     // String _error;
 
     final bool _success = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'deleteFirebaseUser',
         functions: () async {
 
@@ -107,7 +105,6 @@ class AuthFireOps {
   // --------------------
   /// SIGN IN BY EMAIL AND PASSWORD
   static Future<AuthModel> signInByEmailAndPassword({
-    @required BuildContext context,
     @required String email,
     @required String password,
   }) async {
@@ -118,7 +115,6 @@ class AuthFireOps {
     // -----------------------------
     /// try sign in and check result
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'signInByEmailAndPassword',
         functions: () async {
 
@@ -148,7 +144,6 @@ class AuthFireOps {
 
       /// read user ops
       final UserModel _userModel = await UserFireOps.readUser(
-        context: context,
         userID: _authModel.uid,
       );
 
@@ -174,7 +169,6 @@ class AuthFireOps {
     // -----------------------------
     /// try register and check result
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'registerByEmailAndPassword',
         functions: () async {
 
@@ -232,7 +226,6 @@ class AuthFireOps {
     // -------------------------------------------------------
     /// xx - try catch return facebook auth
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'signInByFacebook',
         functions: () async {
 
@@ -312,7 +305,6 @@ class AuthFireOps {
     // -------------------------------------------------------
     /// xx - try catch return google auth
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'signInByGoogle',
         functions: () async {
 
@@ -437,7 +429,7 @@ class AuthFireOps {
   }
   // --------------------
   /// google sign out
-  static Future<bool> googleSignOutOps(BuildContext context) async {
+  static Future<bool> googleSignOutOps() async {
 
     bool _isSignedIn = true;
 
@@ -445,7 +437,6 @@ class AuthFireOps {
     blog('googleSignOutOps : currentUser was : ${googleSignIn.currentUser}');
 
     await tryAndCatch(
-        context: context,
         methodName: 'googleSignOutOps',
         functions: () async {
           if (!kIsWeb) {
@@ -473,7 +464,7 @@ class AuthFireOps {
   }) async {
 
     blog('Signing out');
-    await googleSignOutOps(context);
+    await googleSignOutOps();
     await emailSignOutOps(context);
     // Nav.goToRoute(context, Routez.Starting);
 
@@ -493,7 +484,6 @@ class AuthFireOps {
   // --------------------
   /// TESTED :
   static Future<bool> passwordIsCorrect({
-    @required BuildContext context,
     @required String password,
     @required String email,
   }) async {
@@ -501,7 +491,6 @@ class AuthFireOps {
     UserCredential _credential;
 
     final bool _credentialsAreGood = await tryCatchAndReturnBool(
-        context: context,
         functions: () async {
 
           final AuthCredential _authCredential = EmailAuthProvider.credential(
@@ -530,7 +519,6 @@ class AuthFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> updateUserEmail({
-    @required BuildContext context,
     @required String newEmail,
   }) async {
     blog('updateUserEmail : START');
@@ -545,7 +533,6 @@ class AuthFireOps {
     if (_oldEmail != newEmail){
 
       _success = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'updateUserEmail',
         functions: () async {
           await _auth.currentUser.updateEmail(newEmail);

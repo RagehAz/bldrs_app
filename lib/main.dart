@@ -104,7 +104,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
 
         /// FIREBASE
         await Fire.initializeFirestore(
-          context: context,
           fireError: _fireError,
         );
 

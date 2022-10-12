@@ -28,7 +28,6 @@ Future<void> readMoreUsers({
 }) async {
 
   final List<dynamic> _maps = await Fire.readCollectionDocs(
-    context: context,
     collName: FireColl.users,
     orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
     limit: 10,
@@ -195,7 +194,6 @@ Future<void> onDeleteUser({
 
         /// DELETE firebase user : auth/userID
         final bool _firebaseSuccess = await AuthFireOps.deleteFirebaseUser(
-          context: context,
           userID: userModel.id,
         );
         blog('onDeleteUser : deleted firebase user : operation success is : $_firebaseSuccess');
@@ -205,7 +203,6 @@ Future<void> onDeleteUser({
 
           /// DELETE user image : storage/usersPics/userID
           await Storage.deleteStoragePic(
-            context: context,
             storageDocName: StorageDoc.users,
             fileName: userModel.id,
           );
@@ -213,7 +210,6 @@ Future<void> onDeleteUser({
 
           /// DELETE user doc : firestore/users/userID
           await Fire.deleteDoc(
-            context: context,
             collName: FireColl.users,
             docName: userModel.id,
           );

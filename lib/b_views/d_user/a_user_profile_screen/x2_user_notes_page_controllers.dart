@@ -197,7 +197,6 @@ Future<void> respondToAuthorshipNote({
   // NOTE : USER RESPONSE TO AUTHORSHIP INVITATION
 
   await NoteFireOps.markNoteAsSeen(
-      context: context,
       noteModel: noteModel
   );
 

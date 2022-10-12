@@ -137,7 +137,6 @@ class RenovateUserProtocols {
     if (followIsOn == true){
 
       await BzRecordRealOps.followBz(
-        context: context,
         bzID: bzID,
       );
 
@@ -156,7 +155,6 @@ class RenovateUserProtocols {
     else {
 
       await BzRecordRealOps.unfollowBz(
-        context: context,
         bzID: bzID,
       );
 
@@ -193,7 +191,6 @@ class RenovateUserProtocols {
     if (flyerIsSaved == true){
 
       await FlyerRecordRealOps.saveFlyer(
-          context: context,
           flyerID: flyerID,
           bzID: bzID,
           slideIndex: slideIndex
@@ -214,7 +211,6 @@ class RenovateUserProtocols {
     else {
 
       await FlyerRecordRealOps.unSaveFlyer(
-        context: context,
         flyerID: flyerID,
         bzID: bzID,
         slideIndex: slideIndex,
@@ -273,7 +269,6 @@ class RenovateUserProtocols {
       /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
 
       final bool _continue = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'updateMyUserFCMToken',
         functions: () async {
 

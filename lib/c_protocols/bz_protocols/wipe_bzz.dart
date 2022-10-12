@@ -56,19 +56,16 @@ class WipeBzProtocols {
 
       /// DELETE BZ NOTES (RECEIVED)
       NoteEvent.wipeBzReceivedNotes(
-        context: context,
         bzID: bzModel.id,
       ),
 
       /// DELETE BZ SENT AUTHORSHIPS
       NoteEvent.wipeBzSentAuthorshipNotes(
-        context: context,
         bzID: bzModel.id,
       ),
 
       /// DELETE BZ RECORDS - COUNTERS
       BzRecordRealOps.deleteAllBzCountersAndRecords(
-        context: context,
         bzID: bzModel.id,
       ),
 
@@ -76,7 +73,6 @@ class WipeBzProtocols {
 
     /// DELETE BZ ON FIREBASE
     await BzFireOps.deleteBzOps(
-      context: context,
       bzModel: bzModel,
     );
 

@@ -62,7 +62,6 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     );
 
     await onSearchUsers(
-      context: context,
       text: text,
       loading: _loading,
       foundUsers: _foundUsers,

@@ -13,14 +13,12 @@ import 'package:flutter/material.dart';
 
 // --------------------
 Future<List<BzModel>> paginateBzzBySearchingBzName({
-  @required BuildContext context,
   @required String bzName,
   @required QueryDocumentSnapshot<Object> startAfter,
   @required int limit,
 }) async {
 
   final List<Map<String, dynamic>> _result = await Fire.readCollectionDocs(
-    context: context,
     collName: FireColl.bzz,
     addDocSnapshotToEachMap: true,
     startAfter: startAfter,

@@ -24,7 +24,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<NoteModel> createNote({
-    @required BuildContext context,
     @required NoteModel noteModel,
     ValueChanged<NoteModel> onFinished,
   }) async {
@@ -35,7 +34,6 @@ class NoteFireOps {
       noteModel.blogNoteModel(methodName: 'createNote.START');
 
       await Fire.createSubDoc(
-        context: context,
         collName: noteModel.parties.receiverType == NotePartyType.bz ? FireColl.bzz : FireColl.users,
         docName: noteModel.parties.receiverID,
         subCollName: FireSubColl.noteReceiver_receiver_notes,
@@ -59,7 +57,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<List<NoteModel>> createNotes({
-    @required BuildContext context,
     @required NoteModel noteModel,
     @required List<String> receiversIDs,
   }) async {
@@ -80,7 +77,6 @@ class NoteFireOps {
           );
 
           return createNote(
-            context: context,
             noteModel: _note,
             onFinished: (NoteModel uploaded){
               _output.add(uploaded);
@@ -104,7 +100,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<List<NoteModel>> readReceivedNotes({
-    @required BuildContext context,
     @required String recieverID,
     @required NotePartyType receiverType,
     int limit = 10,
@@ -113,7 +108,6 @@ class NoteFireOps {
   }) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-      context: context,
       collName: FireColl.notes,
       limit: limit,
       addDocsIDs: true,
@@ -147,7 +141,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<List<NoteModel>> paginateAllSentNotes({
-    @required BuildContext context,
     @required String senderID,
     @required int limit,
     @required QueryDocumentSnapshot<Object> startAfter,
@@ -158,7 +151,6 @@ class NoteFireOps {
     if (senderID != null){
 
       final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        context: context,
         collName: FireColl.notes,
         // startAfter: startAfter,
         // orderBy: 'sentTime',
@@ -192,7 +184,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<List<NoteModel>> paginateAllReceivedNotes({
-    @required BuildContext context,
     @required String recieverID,
     @required int limit,
     @required QueryDocumentSnapshot<Object> startAfter,
@@ -203,7 +194,6 @@ class NoteFireOps {
     if (recieverID != null){
 
       final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        context: context,
         collName: FireColl.notes,
         startAfter: startAfter,
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
@@ -239,7 +229,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Stream<List<NoteModel>> getNoteModelsStream({
-    @required BuildContext context,
     QueryDocumentSnapshot<Object> startAfter,
     int limit,
     QueryOrderBy orderBy,
@@ -249,7 +238,6 @@ class NoteFireOps {
     Stream<List<NoteModel>> _notiModelsStream;
 
     tryAndCatch(
-        context: context,
         methodName: 'getNoteModelsStream',
         functions: () {
 
@@ -296,13 +284,11 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> updateNote({
-    @required BuildContext context,
     @required NoteModel newNoteModel,
   }) async {
 
     if (newNoteModel != null){
       await Fire.updateDoc(
-        context: context,
         collName: FireColl.notes,
         docName: newNoteModel.id,
         input: newNoteModel.toMap(toJSON: false),
@@ -313,7 +299,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> markNoteAsSeen({
-    @required BuildContext context,
     @required NoteModel noteModel,
   }) async {
 
@@ -325,7 +310,6 @@ class NoteFireOps {
       );
 
       await updateNote(
-        context: context,
         newNoteModel: _updatedNote,
       );
 
@@ -336,7 +320,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> markNotesAsSeen({
-    @required BuildContext context,
     @required List<NoteModel> notes,
   }) async {
 
@@ -345,7 +328,6 @@ class NoteFireOps {
       /// MARK ON FIREBASE
       for (final NoteModel note in notes){
         unawaited(markNoteAsSeen(
-          context: context,
           noteModel: note,
         ));
       }
@@ -361,14 +343,12 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> deleteNote({
-    @required BuildContext context,
     @required String noteID,
   }) async {
 
     if (noteID != null){
 
       await Fire.deleteDoc(
-        context: context,
         collName: FireColl.notes,
         docName: noteID,
       );
@@ -379,7 +359,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> deleteNotes({
-    @required BuildContext context,
     @required List<NoteModel> notes,
   }) async {
 
@@ -388,7 +367,6 @@ class NoteFireOps {
       for (final NoteModel note in notes){
 
         await deleteNote(
-          context: context,
           noteID: note.id,
         );
 
@@ -400,7 +378,6 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> deleteAllReceivedNotes({
-    @required BuildContext context,
     @required String receiverID,
     @required NotePartyType receiverType,
   }) async {
@@ -412,7 +389,6 @@ class NoteFireOps {
     /// READ ALL NOTES
     for (int i = 0; i <= 500; i++){
       final List<NoteModel> _notes = await readReceivedNotes(
-        context: context,
         // limit: 10,
         receiverType: receiverType,
         recieverID: receiverID,
@@ -433,7 +409,6 @@ class NoteFireOps {
     if (Mapper.checkCanLoopList(_notesToDelete) == true){
 
       await deleteNotes(
-        context: context,
         notes: _notesToDelete,
       );
 

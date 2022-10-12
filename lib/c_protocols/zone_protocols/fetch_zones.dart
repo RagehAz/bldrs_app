@@ -24,7 +24,6 @@ class FetchZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> fetchCountry({
-    @required BuildContext context,
     @required String countryID,
   }) async {
 
@@ -37,7 +36,6 @@ class FetchZoneProtocols {
     else {
 
       _countryModel = await ZoneFireOps.readCountryOps(
-        context: context,
         countryID: countryID,
       );
 
@@ -59,7 +57,6 @@ class FetchZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CountryModel>> fetchCountries({
-    @required BuildContext context,
     @required List<String> countriesIDs,
   }) async {
 
@@ -70,7 +67,6 @@ class FetchZoneProtocols {
       for (final String id in countriesIDs){
 
         final CountryModel _country = await fetchCountry(
-          context: context,
           countryID: id,
         );
 
@@ -89,7 +85,6 @@ class FetchZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCity({
-    @required BuildContext context,
     @required String cityID,
   }) async {
 
@@ -102,7 +97,6 @@ class FetchZoneProtocols {
     else {
 
       _cityModel = await ZoneFireOps.readCityOps(
-        context: context,
         cityID: cityID,
       );
 
@@ -124,7 +118,6 @@ class FetchZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCities({
-    @required BuildContext context,
     @required List<String> citiesIDs,
     ValueChanged<CityModel> onCityLoaded,
   }) async {
@@ -136,7 +129,6 @@ class FetchZoneProtocols {
       for (final String id in citiesIDs){
 
         final CityModel _city = await fetchCity(
-          context: context,
           cityID: id,
         );
 
@@ -178,7 +170,6 @@ class FetchZoneProtocols {
         );
 
         _city = await fetchCity(
-          context: context,
           cityID: _cityID,
         );
 
@@ -198,7 +189,6 @@ class FetchZoneProtocols {
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null){
             _foundCities = await ZoneFireSearch.citiesByCityName(
-              context: context,
               cityName: cityName,
               lingoCode: langCode,
             );
@@ -207,7 +197,6 @@ class FetchZoneProtocols {
           /// C-1 - trial 3 if countryID is available
           else {
             _foundCities = await ZoneFireSearch.citiesByCityNameAndCountryID(
-              context: context,
               cityName: cityName,
               countryID: countryID,
               lingoCode: langCode,
@@ -267,9 +256,7 @@ class FetchZoneProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Continent>> fetchContinents({
-    @required BuildContext context,
-  }) async {
+  static Future<List<Continent>> fetchContinents() async {
 
     List<Continent> _continents = await ZoneLDBOps.readContinents();
 
@@ -279,9 +266,7 @@ class FetchZoneProtocols {
 
     else {
 
-      _continents = await ZoneFireOps.readContinentsOps(
-        context: context,
-      );
+      _continents = await ZoneFireOps.readContinentsOps();
 
       if (_continents != null){
         blog('fetchContinents : All Continents FOUND in FIREBASE and inserted in LDB');

@@ -46,7 +46,6 @@ Widget bzModelBuilder({
 }) {
   return FutureBuilder<Map<String, dynamic>>(
       future: Fire.readDoc(
-        context: context,
         collName: FireColl.bzz,
         docName: bzID,
       ),

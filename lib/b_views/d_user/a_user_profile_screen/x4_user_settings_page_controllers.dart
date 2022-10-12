@@ -321,7 +321,6 @@ Future<bool> _checkPassword({
     ) ?? _authModel.email;
 
     _passwordIsCorrect = await AuthFireOps.passwordIsCorrect(
-      context: context,
       password: _password,
       email: _email,
     );

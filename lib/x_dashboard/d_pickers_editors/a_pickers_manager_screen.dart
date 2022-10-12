@@ -131,7 +131,6 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
             onTap: () async {
 
               final List<PickerModel> _pickers = await PickerProtocols.fetchFlyerTypPickers(
-                context: context,
                 flyerType: _flyerType,
               );
 

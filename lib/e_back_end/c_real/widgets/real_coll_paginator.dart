@@ -189,7 +189,6 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       // }
 
       final List<Map<String, dynamic>> _nextMaps = await Real.readPathMaps(
-        context: context,
         startAfter: _paginatorNotifiers.startAfter.value,
         realQueryModel: widget.realQueryModel,
         // addDocIDToEachMap: true,

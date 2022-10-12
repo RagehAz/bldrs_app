@@ -30,7 +30,6 @@ class FetchUserProtocols {
 
       /// 2.1 read firebase UserOps
       _userModel = await UserFireOps.readUser(
-        context: context,
         userID: userID,
       );
 

@@ -256,7 +256,6 @@ class SelectedUserPage extends StatelessWidget {
               await Future.wait(<Future>[
 
                 Fire.updateDocField(
-                  context: context,
                   collName: FireColl.users,
                   docName: userModel.id,
                   field: 'isAdmin',
@@ -265,7 +264,6 @@ class SelectedUserPage extends StatelessWidget {
 
                 if (value == true)
                 NoteFireOps.createNote(
-                  context: context,
                   noteModel: NoteModel.quickUserNotice(
                     userID: userModel.id,
                     title: 'Use these sacred words to go to the way beyond',

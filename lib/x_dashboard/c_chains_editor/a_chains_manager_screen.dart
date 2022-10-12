@@ -109,7 +109,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 unawaited(WaitDialog.showWaitDialog(context: context,));
 
-                List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
+                List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
                 _bldrsChains = ChainsProvider.proGetBldrsChains(
                     context: context,
@@ -216,7 +216,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 unawaited(WaitDialog.showWaitDialog(context: context,));
 
-                final List<Chain> _bldrsChains = await ChainRealOps.readBldrsChains(context);
+                final List<Chain> _bldrsChains = await ChainRealOps.readBldrsChains();
 
 
                 // Chain.blogChains(_bldrsChains);
@@ -247,7 +247,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 unawaited(WaitDialog.showWaitDialog(context: context,));
 
-                final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
+                final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
                 Chain.blogChains(_bldrsChains);
 

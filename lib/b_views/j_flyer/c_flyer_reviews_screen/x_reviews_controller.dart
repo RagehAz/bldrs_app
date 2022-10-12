@@ -92,7 +92,6 @@ Future<void> onSubmitReview({
   if (AuthModel.userIsSignedIn() == true){
 
     final ReviewModel _uploadedReview = await ReviewProtocols.composeReview(
-      context: context,
       text: textController.text,
       flyerID: flyerModel.id,
       bzID: flyerModel.bzID,
@@ -127,7 +126,6 @@ Future<void> onSubmitReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewAgree({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required ValueNotifier<Map<String, dynamic>> replaceMap,
   @required bool isAlreadyAgreed,
@@ -136,7 +134,6 @@ Future<void> onReviewAgree({
   if (reviewModel != null && reviewModel.id != null){
 
     final ReviewModel _uploaded = await ReviewProtocols.agreeOnReview(
-      context: context,
       reviewModel: reviewModel,
       isAlreadyAgreed: isAlreadyAgreed,
     );
@@ -270,7 +267,6 @@ Future<void> _onEditReview({
     );
 
     await ReviewProtocols.renovateReview(
-      context: context,
       reviewModel: _updated,
     );
 
@@ -316,7 +312,6 @@ Future<void> _onDeleteReview({
   if (_canContinue == true){
 
     await ReviewProtocols.wipeSingleReview(
-      context: context,
       reviewModel: reviewModel,
       bzID: bzID,
     );
@@ -387,7 +382,6 @@ Future<void> onBzReply({
     );
 
     await ReviewProtocols.renovateReview(
-      context: context,
       reviewModel: _updated,
     );
 
@@ -515,7 +509,6 @@ Future<void> _onEditReply({
     );
 
     await ReviewProtocols.renovateReview(
-      context: context,
       reviewModel: _updated,
     );
 
@@ -574,7 +567,6 @@ Future<void> _onDeleteReply({
     );
 
     await ReviewProtocols.renovateReview(
-      context: context,
       reviewModel: _updated,
     );
 

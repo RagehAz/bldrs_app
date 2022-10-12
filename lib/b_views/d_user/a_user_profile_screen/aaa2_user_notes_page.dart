@@ -101,7 +101,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     /// MARK ON FIREBASE
     unawaited(NoteFireOps.markNotesAsSeen(
-        context: context,
         notes: _notesToMark
     ));
 
