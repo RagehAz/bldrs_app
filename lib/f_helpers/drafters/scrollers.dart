@@ -145,6 +145,7 @@ class Scrollers {
     @required ScrollController scrollController,
     @required double paginationHeight,
     @required bool isPaginating,
+    @required bool canKeepReading,
   }) {
 
     final double max = scrollController.position.maxScrollExtent;
@@ -154,6 +155,7 @@ class Scrollers {
       scrollController: scrollController,
       paginationHeight: paginationHeight,
       isPaginating: isPaginating,
+      canKeepReading: canKeepReading,
     );
 
     final double _max = Numeric.roundFractions(max, 1);
@@ -172,16 +174,30 @@ class Scrollers {
     @required ScrollController scrollController,
     @required double paginationHeight,
     @required bool isPaginating,
+    @required bool canKeepReading,
   }){
-    final double max = scrollController.position.maxScrollExtent;
-    final double current = scrollController.position.pixels;
 
-    return (max - current <= paginationHeight) && (isPaginating == false);
+    if (isPaginating == true){
+      return false;
+    }
+    else if (canKeepReading == false){
+      return false;
+    }
+    else {
+
+      final double max = scrollController.position.maxScrollExtent;
+      final double current = scrollController.position.pixels;
+
+      return max - current <= paginationHeight;
+
+    }
+
   }
   // --------------------
   static void createPaginationListener({
     @required ScrollController controller,
     @required ValueNotifier<bool> isPaginating,
+    @required ValueNotifier<bool> canKeepReading,
     @required Function onPaginate,
   }){
 
@@ -190,14 +206,16 @@ class Scrollers {
       final bool _canPaginate = Scrollers.canPaginate(
         scrollController: controller,
         isPaginating: isPaginating.value,
+        canKeepReading: canKeepReading.value,
         paginationHeight: 100,
       );
 
-      Scrollers.blogScrolling(
-        scrollController: controller,
-        isPaginating: isPaginating.value,
-        paginationHeight: 0,
-      );
+      // Scrollers.blogScrolling(
+      //   scrollController: controller,
+      //   isPaginating: isPaginating.value,
+      //   canKeepReading: canKeepReading.value,
+      //   paginationHeight: 0,
+      // );
 
       if (_canPaginate == true){
 

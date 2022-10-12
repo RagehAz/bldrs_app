@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_stream.dart';
 import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
 import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -43,11 +42,10 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   ScrollController _controller;
   // --------------------
   final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
+  final ValueNotifier<bool> _canKeepReading = ValueNotifier(true);
+  // --------------------
   PaginationController _paginatorNotifiers;
   // -----------------------------------------------------------------------------
-  // List<Map<String, dynamic>> _maps;
-  // Map<String, dynamic> _startAfter;
-
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -68,47 +66,17 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   @override
   void initState() {
     super.initState();
-    // _maps = <Map<String, dynamic>>[];
 
-    /// LISTEN TO SCROLL
-    _controller = widget.scrollController ?? ScrollController();
-    Scrollers.createPaginationListener(
-        controller: _controller,
-        isPaginating: _isPaginating,
-        onPaginate: () async {
-          await _readMore();
-        }
-    );
+    widget.realQueryModel.blogModel();
 
-    /// LISTEN TO PAGINATOR NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
-    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
-      addExtraMapsAtEnd: false,
-    );
-    _paginatorNotifiers?.activateListeners(
-      mounted: mounted,
-      onDataChanged: (List<Map<String, dynamic>> maps){
+    /// SCROLLING
+    _initializeScrollListeners();
 
-        // Mapper.blogMaps(maps, methodName: 'RealCollPaginator._paginatorNotifiers.onDataChanged');
+    /// PAGINATOR NOTIFIERS
+    _initializePaginatorNotifiers();
 
-      },
-    );
-
-
-    /// CREATE LISTENERS NEW CHILD ADDED TO PATH
-    _sub = RealStream.streamOnChildAddedToPath(
-      path: widget.realQueryModel.path,
-      onChildAdded: (dynamic map) async {
-
-        Mapper.blogMap(map, invoker: 'RealCollPaginator.Real.streamPath');
-
-        if (_isInit == false){
-          _paginatorNotifiers.addMap.value = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-            internalHashLinkedMapObjectObject: map,
-          );
-        }
-
-      },
-    );
+    /// ON CHILD ADDED TO PATH
+    // _initializeOnChildAddedListener();
 
   }
   // --------------------
@@ -132,8 +100,11 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   void dispose() {
     _loading.dispose();
     _isPaginating.dispose();
+    _canKeepReading.dispose();
 
-    _sub.cancel();
+    if (_sub != null){
+      _sub.cancel();
+    }
 
     if (widget.paginatorNotifiers == null){
       _paginatorNotifiers.dispose();
@@ -146,7 +117,57 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  bool _canKeepReading = true;
+  /// TESTED : WORKS PERFECT
+  void _initializeScrollListeners(){
+    _controller = widget.scrollController ?? ScrollController();
+    Scrollers.createPaginationListener(
+        controller: _controller,
+        isPaginating: _isPaginating,
+        canKeepReading: _canKeepReading,
+        onPaginate: () async {
+          await _readMore();
+        }
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _initializePaginatorNotifiers(){
+    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
+      addExtraMapsAtEnd: false,
+    );
+    _paginatorNotifiers?.activateListeners(
+      mounted: mounted,
+      onDataChanged: (List<Map<String, dynamic>> maps){
+
+        // Mapper.blogMaps(maps, methodName: 'RealCollPaginator._paginatorNotifiers.onDataChanged');
+
+      },
+    );
+  }
+  // --------------------
+  /// streams the entire path at once
+  /*
+  void _initializeOnChildAddedListener(){
+
+    _sub = RealStream.streamOnChildAddedToPath(
+      path: widget.realQueryModel.path,
+      onChildAdded: (dynamic map) async {
+
+        // Mapper.blogMap(map, invoker: 'RealCollPaginator.Real.streamPath');
+
+        if (_isInit == false){
+          _paginatorNotifiers.addMap.value = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+            internalHashLinkedMapObjectObject: map,
+          );
+        }
+
+      },
+    );
+
+  }
+   */
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _readMore() async {
 
     setNotifier(
@@ -157,10 +178,15 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     );
 
     /// CAN KEEP READING
-    if (_canKeepReading == true){
+    if (_canKeepReading.value == true){
 
-      const bool _limitToFirst = true;
-      blog('should read more : _limitToFirst : $_limitToFirst : ${_paginatorNotifiers?.startAfter?.value}');
+      // if (_paginatorNotifiers?.startAfter?.value == null){
+      //   blog('should read more : ${_paginatorNotifiers.paginatorMaps.value.length} maps');
+      // }
+      // else {
+      //   blog('x ---> should read more : ${_paginatorNotifiers.paginatorMaps.value.length} maps : '
+      //       '${_paginatorNotifiers.startAfter.value['id']} : ${_paginatorNotifiers.startAfter.value['sentTime']}');
+      // }
 
       final List<Map<String, dynamic>> _nextMaps = await Real.readPathMaps(
         context: context,
@@ -183,7 +209,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       }
 
       else {
-        _canKeepReading = false;
+        _canKeepReading.value = false;
       }
 
     }
@@ -209,8 +235,6 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
         valueListenable: _paginatorNotifiers.paginatorMaps,
         child: widget.child,
         builder: (_, List<Map<String, dynamic>> maps, Widget child){
-
-          // Mapper.blogMaps(maps, methodName: 'FireCollPaginator : builder');
 
           return widget.builder(context, maps, _loading.value, child);
 

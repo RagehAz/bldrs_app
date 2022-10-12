@@ -24,6 +24,7 @@ class PaginationController {
   /// INITIALIZATION
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static PaginationController initialize({
     @required bool addExtraMapsAtEnd,
   }){
@@ -44,6 +45,7 @@ class PaginationController {
   /// DISPOSING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void dispose(){
     paginatorMaps.dispose();
     replaceMap.dispose();
@@ -56,6 +58,7 @@ class PaginationController {
   /// LISTENING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void activateListeners({
     @required bool mounted,
     @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
@@ -81,7 +84,8 @@ class PaginationController {
   }
   // --------------------
   /// ADD MAP
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   void _listenToPaginatorMapsChanges({
     @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
   }){
@@ -97,7 +101,8 @@ class PaginationController {
   }
   // --------------------
   /// ADD MAP
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   void _listenToAddMap({
     @required bool addAtEnd,
     @required bool mounted,
@@ -113,7 +118,8 @@ class PaginationController {
       });
     }
   }
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   void _addMapToPaginatorMaps({
     @required bool addAtEnd,
     @required bool mounted,
@@ -147,7 +153,8 @@ class PaginationController {
   }
   // --------------------
   /// REPLACE MAP
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   void _listenToReplaceMap({
     @required bool mounted,
   }){
@@ -166,7 +173,8 @@ class PaginationController {
     }
 
   }
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   void _replaceExistingMap({
     @required bool mounted,
   }){
@@ -195,7 +203,8 @@ class PaginationController {
   }
   // --------------------
   /// DELETE MAP
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   void _listenToDeleteMap({
     @required bool mounted,
   }){
@@ -213,7 +222,8 @@ class PaginationController {
 
 
   }
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   void _deleteExistingMap({
     @required bool mounted,
   }){
@@ -241,7 +251,8 @@ class PaginationController {
 
 
   }
-// --------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   static void addMapsToLocalMaps({
     @required ValueNotifier<List<Map<String, dynamic>>> paginatorMaps,
     @required ValueNotifier<dynamic> startAfter,
@@ -276,12 +287,13 @@ class PaginationController {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // ---------
+  /// TESTED : WORKS PERFECT
   static void _setStartAfter({
     @required ValueNotifier<dynamic> startAfter,
     @required List<Map<String, dynamic>> paginatorMaps,
   }){
     startAfter.value = paginatorMaps.last['docSnapshot'] ?? paginatorMaps.last;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -10,23 +10,55 @@ enum RealOrderType {
   byKey,
 }
 
+enum QueryRange {
+  startAfter,
+  endAt,
+  startAt,
+  endBefore,
+  equalTo,
+}
+
 class RealQueryModel{
   // -----------------------------------------------------------------------------
   const RealQueryModel({
     @required this.path,
-    this.keyField,
+    this.keyFieldName,
     this.limit = 5,
-    this.limitToFirst = true,
+    this.readFromBeginningOfOrderedList = true,
     this.orderType,
     this.fieldNameToOrderBy,
+    this.queryRange,
   });
   // -----------------------------------------------------------------------------
   final String path;
   final int limit;
-  final String keyField;
-  final bool limitToFirst;
+  final String keyFieldName;
+  final bool readFromBeginningOfOrderedList;
   final RealOrderType orderType;
   final String fieldNameToOrderBy;
+  final QueryRange queryRange;
+  // -----------------------------------------------------------------------------
+
+  /// ASCENDING QUERY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static RealQueryModel createAscendingQueryModel({
+    @required String path,
+    @required String keyFieldName,
+    String fieldNameToOrderBy,
+    int limit = 5,
+  }){
+    return RealQueryModel(
+      path: path,
+      limit: limit,
+      keyFieldName: keyFieldName, /// should be docID : 'id'
+      fieldNameToOrderBy: 'spaceTime',
+      orderType: RealOrderType.byChild,
+      queryRange: QueryRange.startAfter,
+      // readFromBeginningOfOrderedList: true,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// QUERY CREATOR
@@ -35,9 +67,12 @@ class RealQueryModel{
 
   static Query createQuery({
     @required RealQueryModel queryModel,
-    Map<String, dynamic> startAfter,
+    Map<String, dynamic> lastMap,
+    Map<String, dynamic> endAt,
   }){
     Query _query;
+
+    blog('55555oooo');
 
     if (queryModel != null){
 
@@ -49,7 +84,8 @@ class RealQueryModel{
         /// BY CHILD
         if (queryModel.orderType == RealOrderType.byChild){
           assert(queryModel.fieldNameToOrderBy != null, 'queryModel.fieldNameToOrderBy can not be null');
-          _query = _query.orderByChild(queryModel.fieldNameToOrderBy);
+          // final String _lastNode = ChainPathConverter.getLastPathNode(queryModel.path);
+          _query = _query.orderByChild(queryModel.fieldNameToOrderBy);//queryModel.fieldNameToOrderBy);
         }
 
         /// BY KEY
@@ -69,28 +105,56 @@ class RealQueryModel{
 
       }
 
+      /// QUERY RANGE
+      if (queryModel.queryRange != null && lastMap != null){
 
-      /// LIMIT
-      if (queryModel.limit != null){
-
-        /// LIMIT TO FIRST
-        if (queryModel.limitToFirst == true){
-          _query = _query.limitToFirst(queryModel.limit);
+        /// START AFTER
+        if (queryModel.queryRange == QueryRange.startAfter){
+          _query = _query.startAfter(
+            lastMap[queryModel.fieldNameToOrderBy],
+            key: lastMap[queryModel.keyFieldName],
+          );
         }
 
-        /// LIMIT TO LAST
-        else {
-          _query = _query.limitToLast(queryModel.limit);
+        /// END AT
+        if (queryModel.queryRange == QueryRange.endAt){
+          _query = _query.endAt(
+            lastMap[queryModel.fieldNameToOrderBy],
+            key: lastMap[queryModel.keyFieldName],
+          );
+        }
+
+        /// END BEFORE
+        if (queryModel.queryRange == QueryRange.endBefore){
+          _query = _query.endBefore(
+            lastMap[queryModel.fieldNameToOrderBy],
+            key: lastMap[queryModel.keyFieldName],
+          );
+        }
+
+        /// EQUAL TO
+        if (queryModel.queryRange == QueryRange.equalTo){
+          _query = _query.equalTo(
+            lastMap[queryModel.fieldNameToOrderBy],
+            key: lastMap[queryModel.keyFieldName],
+          );
         }
 
       }
 
-      /// START AFTER
-      if (startAfter != null){
-        _query = _query.startAfter(
-          startAfter,
-          key: queryModel.fieldNameToOrderBy ?? queryModel.keyField,
-        );
+
+      /// LIMIT
+      if (queryModel.limit != null){
+
+        /// GET MAPS FROM BEGINNING OF THE ORDERED LIST
+        if (queryModel.readFromBeginningOfOrderedList == true){
+          _query = _query.limitToFirst(queryModel.limit);
+        }
+
+        /// GET MAPS FROM THE END OF THE ORDERED LIST
+        else {
+          _query = _query.limitToLast(queryModel.limit);
+        }
 
       }
 
@@ -107,11 +171,12 @@ class RealQueryModel{
   void blogModel(){
     blog('RealQueryModel ------------------------> START');
     blog('path               : $path');
-    blog('keyField           : $keyField');
-    blog('limit              : $limit');
-    blog('limitToFirst       : $limitToFirst');
-    blog('orderType          : $orderType');
+    blog('keyField           : $keyFieldName');
     blog('fieldNameToOrderBy : $fieldNameToOrderBy');
+    blog('orderType          : $orderType');
+    blog('range              : $queryRange');
+    blog('limitToFirst       : $readFromBeginningOfOrderedList');
+    blog('limit              : $limit');
     blog('RealQueryModel ------------------------> END');
   }
   // -----------------------------------------------------------------------------
