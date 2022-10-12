@@ -160,7 +160,7 @@ class RealHttpTestScreen extends StatelessWidget {
           color: Colorz.bloodTest,
           child: FireCollStreamer(
             queryModel: FireQueryModel(
-              collRef: Fire.createSuperCollRef(aCollName: FireColl.records),
+              collRef: Fire.getSuperCollRef(aCollName: FireColl.records),
               limit: 100,
               onDataChanged: (List<Map<String, dynamic>> newMaps){
                 blog('realHTTPTestScreen : FireCollStreamer : onDataChanged : $newMaps');

@@ -672,7 +672,7 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
 
   return Fire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+        collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
         limit: 100,
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
         finders: <FireFinder>[
@@ -790,7 +790,7 @@ Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
 
   final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+        collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
         limit: 100,
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
         finders: <FireFinder>[

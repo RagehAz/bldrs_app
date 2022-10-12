@@ -178,7 +178,7 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
       layoutWidget: FireCollPaginator(
         scrollController: _scrollController,
         queryModel: FireQueryModel(
-          collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+          collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
           orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
           limit: 5,
           onDataChanged: (List<Map<String, dynamic>> maps){

@@ -4,7 +4,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:sembast/utils/value_utils.dart';
 
 enum InsertionDuplicity {
   dontInsert,
@@ -20,42 +19,6 @@ class Mapper {
 
   /// STRINGS GETTERS FROM LISTS
 
-  // --------------------
-  static List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps) {
-
-    /// TASK : check getFirstValuesFromMaps if not used in production
-    /// [
-    /// {'key' : 'ID'         , 'key' : 'Value'       },
-    /// {'key' : 'firstValue' , 'key' : 'secondValue' },
-    /// ]
-
-    final List<String> _listOfFirstValues = <String>[];
-
-    for (int x = 0; x < listOfMaps.length; x++) {
-      final String _firstValue = (listOfMaps[x].values.toList())[0];
-      _listOfFirstValues.add(_firstValue);
-    }
-
-    return _listOfFirstValues;
-  }
-  // -----------------------------------------------------------------------------
-  static List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps) {
-
-    /// TASK : check getFirstValuesFromMaps if not used in production
-    /// [
-    /// {'key' : 'ID'         , 'key' : 'Value'       },
-    /// {'key' : 'firstValue' , 'key' : 'secondValue' },
-    /// ]
-
-    final List<String> _listOfValues = <String>[];
-
-    for (int x = 0; x < listOfMaps.length; x++) {
-      final String _secondValue = (listOfMaps[x].values.toList())[1];
-      _listOfValues.add(_secondValue);
-    }
-
-    return _listOfValues;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getMapsPrimaryKeysValues({
@@ -84,6 +47,7 @@ class Mapper {
   /// MAPS - QUERY SNAPSHOT - QUERY DOCUMENT SNAPSHOT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromQuerySnapshot({
     @required QuerySnapshot<Object> querySnapshot,
     @required bool addDocsIDs,
@@ -206,7 +170,8 @@ class Mapper {
 
     return _output;
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromDataSnapshot({
     @required DataSnapshot snapshot,
     // bool addDocID = true,
@@ -257,6 +222,7 @@ class Mapper {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromDataSnapshots({
     @required List<DataSnapshot> snapshots,
     bool addDocsIDs = true,
@@ -370,6 +336,7 @@ class Mapper {
     return Map.from(internalHashLinkedMapObjectObject);
   }
   // --------------------
+  ///
   static List<Map<String, dynamic>> getMapsFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
   }){
@@ -403,6 +370,7 @@ class Mapper {
   /// MAP IN MAPS INDEX CHECKERS
 
   // --------------------
+  /*
   static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map) {
     final int _indexOfTheMap =
     listOfMaps.indexWhere(
@@ -414,7 +382,9 @@ class Mapper {
     );
     return _indexOfTheMap;
   }
+   */
   // --------------------
+  /*
   static int indexOfMapByValueInListOfMaps({
     @required List<Map<String, dynamic>> listOfMaps,
     @required String key,
@@ -422,6 +392,7 @@ class Mapper {
   }) {
     return listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// MAPS MODIFIERS
@@ -459,6 +430,7 @@ class Mapper {
     return _result;
   }
   // --------------------
+  /*
   static Map<String, Object> replacePair({
     @required Map<String, Object> map,
     @required String fieldKey,
@@ -477,7 +449,9 @@ class Mapper {
 
     return _aMap;
   }
+   */
   // --------------------
+  /*
   static Map<String, Object> removePair({
     @required Map<String, Object> map,
     @required String fieldKey,
@@ -488,6 +462,7 @@ class Mapper {
 
     return _map;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cleanDuplicateMaps({
@@ -600,6 +575,36 @@ class Mapper {
       // else {
       //   blog('removeMapFromMapsByIdField : did not find this map and nothing is removed');
       // }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cleanNullPairs(Map<String, dynamic> map){
+    Map<String, dynamic> _output;
+
+    blog('cleanNullPairs -- START');
+
+    if (map != null){
+
+      _output = {};
+      final List<String> _keys = map.keys.toList();
+
+      for (final String key in _keys){
+        if (map[key] != null){
+          _output = insertPairInMap(
+              map: _output,
+              key: key,
+              value: map[key],
+          );
+        }
+      }
+
+      if (_output.keys.isEmpty == true){
+        _output = null;
+      }
 
     }
 

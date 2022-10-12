@@ -30,7 +30,7 @@ FireQueryModel userReceivedNotesPaginationQueryParameters({
 }){
 
   return FireQueryModel(
-    collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+    collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     finders: <FireFinder>[

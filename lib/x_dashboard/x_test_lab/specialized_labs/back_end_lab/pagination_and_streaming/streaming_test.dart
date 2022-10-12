@@ -52,7 +52,7 @@ class _StreamingTestState extends State<StreamingTest> {
     super.initState();
 
     _queryParameters = FireQueryModel(
-      collRef: Fire.createSuperCollRef(aCollName: 'testing'),
+      collRef: Fire.getSuperCollRef(aCollName: 'testing'),
       limit: 100,
       orderBy: const QueryOrderBy(fieldName: 'time', descending: true),
       onDataChanged: onDataChanged,
