@@ -93,7 +93,6 @@ class _EmailTestScreenState extends State<EmailTestScreen> {
               ..text = body;
 
             final bool _sent = await tryCatchAndReturnBool(
-                context: context,
                 functions: () async {
 
                   const String accessToken = null;

@@ -42,13 +42,10 @@ class BzFireOps {
     bool _result;
 
     _result = await tryCatchAndReturnBool(
-        context: context,
         methodName: 'createBz',
         functions: () async {
 
-          final String _bzID = await _createEmptyBzDocToGetBzID(
-            context: context,
-          );
+          final String _bzID = await _createEmptyBzDocToGetBzID();
 
           final String _bzLogoURL = await _uploadBzLogoAndGetURL(
             context: context,
@@ -59,14 +56,12 @@ class BzFireOps {
 
           /// update authorModel with _authorPicURL
           final AuthorModel _createAuthor = await _uploadAuthorPicAndCreateNewCreatorAuthor(
-            context: context,
             draftBz: draftBz,
             userModel: userModel,
             bzID: _bzID,
           );
 
           await _addBzIDToUserBzzIDs(
-            context: context,
             userModel: userModel,
             bzID: _bzID,
           );
@@ -79,7 +74,6 @@ class BzFireOps {
           );
 
           await _updateBzDoc(
-            context: context,
             finalBzModel: _finalBzModel,
           );
 
@@ -97,14 +91,11 @@ class BzFireOps {
     return _result == true ? _output : null;
   }
   // --------------------
-  static Future<String> _createEmptyBzDocToGetBzID({
-    @required BuildContext context,
-  }) async {
+  static Future<String> _createEmptyBzDocToGetBzID() async {
 
     blog('_createEmptyBzDocToGetBzID : START');
 
     final DocumentReference<Object> _docRef = await Fire.createDoc(
-      context: context,
       collName: FireColl.bzz,
       addDocID: true,
       input: <String, dynamic>{},
@@ -130,7 +121,6 @@ class BzFireOps {
     if (logo != null && ObjectCheck.objectIsFile(logo) == true) {
 
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
-        context: context,
         inputFile: logo,
         fileName: bzID,
         docName: StorageDoc.logos,
@@ -149,7 +139,6 @@ class BzFireOps {
 
 
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
-        context: context,
         inputFile: _fileFromURL,
         fileName: bzID,
         docName: StorageDoc.logos,
@@ -165,7 +154,6 @@ class BzFireOps {
   }
   // --------------------
   static Future<AuthorModel> _uploadAuthorPicAndCreateNewCreatorAuthor({
-    @required BuildContext context,
     @required BzModel draftBz,
     @required UserModel userModel,
     @required String bzID,
@@ -187,7 +175,6 @@ class BzFireOps {
     else {
 
       _authorPicURL = await Storage.createStoragePicAndGetURL(
-        context: context,
         inputFile: draftBz.authors[0].pic,
         docName: StorageDoc.authors,
         ownersIDs: <String>[userModel.id],
@@ -216,7 +203,6 @@ class BzFireOps {
   }
   // --------------------
   static Future<void> _addBzIDToUserBzzIDs({
-    @required BuildContext context,
     @required UserModel userModel,
     @required String bzID,
   }) async {
@@ -229,7 +215,6 @@ class BzFireOps {
     );
 
     await Fire.updateDocField(
-      context: context,
       collName: FireColl.users,
       docName: userModel.id,
       field: 'myBzzIDs',
@@ -246,12 +231,10 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> readBz({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
     final dynamic _bzMap = await Fire.readDoc(
-      context: context,
       collName: FireColl.bzz,
       docName: bzID,
     );
@@ -279,10 +262,8 @@ class BzFireOps {
     final List<BzModel> _bzzToDeactivate = <BzModel>[];
     final List<BzModel> _bzzToKeep = <BzModel>[];
     for (final String id in userModel.myBzzIDs) {
-      final BzModel _bz = await readBz(
-        context: context,
-        bzID: id,
-      );
+
+      final BzModel _bz = await readBz(bzID: id);
 
       if (_bz.authors.length == 1) {
         _bzzToDeactivate.add(_bz);
@@ -336,7 +317,6 @@ class BzFireOps {
         );
 
         await _updateBzDoc(
-          context: context,
           finalBzModel: _finalBzModel,
         );
 
@@ -425,7 +405,6 @@ class BzFireOps {
       );
 
       final String _authorPicURL = await Storage.createStoragePicAndGetURL(
-        context: context,
         inputFile: _authorWithImageFile.pic,
         docName: StorageDoc.authors,
         fileName: _picName,
@@ -460,7 +439,6 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateBzDoc({
-    @required BuildContext context,
     @required BzModel finalBzModel,
   }) async {
 
@@ -469,7 +447,6 @@ class BzFireOps {
     if (finalBzModel != null){
 
       await Fire.updateDoc(
-        context: context,
         collName: FireColl.bzz,
         docName: finalBzModel.id,
         input: finalBzModel.toMap(toJSON: false),
@@ -486,7 +463,6 @@ class BzFireOps {
 
   // --------------------
   static Future<void> deleteBzOps({
-    @required BuildContext context,
     @required BzModel bzModel,
   }) async {
 
@@ -495,12 +471,10 @@ class BzFireOps {
     /// TASK : PIC SHOULD HAVE MULTIPLE OWNERS FROM MASTER OWNERS
     /// TASK : SHOULD NOT PROCEED IF THE LOGO IS THE USER PIC OF ANY MASTER AUTHOR
     await _deleteBzStorageLogo(
-      context: context,
       bzModel: bzModel,
     );
 
     await _deleteBzDoc(
-      context: context,
       bzModel: bzModel,
     );
 
@@ -519,7 +493,6 @@ class BzFireOps {
   }
   // --------------------
   static Future<void> _deleteBzStorageLogo({
-    @required BuildContext context,
     @required BzModel bzModel,
   }) async {
 
@@ -528,7 +501,6 @@ class BzFireOps {
     if (bzModel != null){
 
       await Storage.deleteStoragePic(
-        context: context,
         fileName: bzModel.id,
         storageDocName: StorageDoc.logos,
       );
@@ -540,7 +512,6 @@ class BzFireOps {
   }
   // --------------------
   static Future<void> _deleteBzDoc({
-    @required BuildContext context,
     @required BzModel bzModel,
   }) async {
 
@@ -549,7 +520,6 @@ class BzFireOps {
     if (bzModel != null){
 
       await Fire.deleteDoc(
-        context: context,
         collName: FireColl.bzz,
         docName: bzModel.id,
       );
@@ -565,13 +535,11 @@ class BzFireOps {
 
   // --------------------
   static Future<void> deleteAuthorPic({
-    @required BuildContext context,
     @required AuthorModel authorModel,
     @required String bzID,
   }) async {
 
     await Storage.deleteStoragePic(
-      context: context,
       storageDocName: StorageDoc.authors,
       fileName: AuthorModel.generateAuthorPicID(
         authorID: authorModel.userID,
@@ -654,7 +622,6 @@ class BzFireOps {
 
 
       final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
-        context: context,
         feedback: _model,
       );
 

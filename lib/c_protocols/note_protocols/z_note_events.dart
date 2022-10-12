@@ -127,28 +127,22 @@ class NoteEvent {
   // --------------------
   ///
   static Future<void> wipeUserReceivedNotes({
-    @required BuildContext context,
     @required String userID,
   }) => NoteEventsOfProfileDeletion.wipeUserReceivedNotes(
-    context: context,
     userID: userID,
   );
   // --------------------
   ///
   static Future<void> wipeBzReceivedNotes({
-    @required BuildContext context,
     @required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzReceivedNotes(
-    context: context,
     bzID: bzID,
   );
   // --------------------
   ///
   static Future<void> wipeBzSentAuthorshipNotes({
-    @required BuildContext context,
     @required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzSentAuthorshipNotes(
-    context: context,
     bzID: bzID,
   );
   // -----------------------------------------------------------------------------

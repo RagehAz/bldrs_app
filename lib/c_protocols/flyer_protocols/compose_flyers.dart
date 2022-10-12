@@ -47,7 +47,6 @@ class ComposeFlyerProtocols {
     /// NOTE : no proFlyerOps needed, bzModel will update and stream will rebuild active bz flyers
 
     await BzRecordRealOps.incrementBzCounter(
-      context: context,
       bzID: _uploadedFlyer.bzID,
       field: 'allSlides',
       incrementThis: _uploadedFlyer.slides.length,

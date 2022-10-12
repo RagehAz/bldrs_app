@@ -88,7 +88,6 @@ class WipeUserProtocols {
 
     /// FIRE : DELETE USER OPS
     final bool _success = await UserFireOps.deleteNonAuthorUserOps(
-        context: context,
         userModel: userModel
     );
 

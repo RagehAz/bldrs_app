@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 // --------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
 Future<List<FlyerModel>> flyersByZoneAndFlyerType({
-  @required BuildContext context,
   @required ZoneModel zone,
   @required FlyerType flyerType,
   bool addDocsIDs = false,
@@ -29,7 +28,6 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
   List<FlyerModel> _flyers = <FlyerModel>[];
 
   await tryAndCatch(
-      context: context,
       methodName: 'mapsByTwoValuesEqualTo',
       functions: () async {
         final CollectionReference<Object> _flyersCollection =
@@ -59,7 +57,6 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
 }
 // --------------------
 Future<List<FlyerModel>> flyersByZoneAndKeywordID({
-  @required BuildContext context,
   @required ZoneModel zone,
   @required String keywordID,
   bool addDocsIDs = false,
@@ -69,7 +66,6 @@ Future<List<FlyerModel>> flyersByZoneAndKeywordID({
   List<FlyerModel> _flyers = <FlyerModel>[];
 
   await tryAndCatch(
-      context: context,
       methodName: 'flyersByZoneAndKeyword',
       functions: () async {
         final CollectionReference<Object> _flyersCollection =
@@ -101,7 +97,6 @@ Future<List<FlyerModel>> flyersByZoneAndKeywordID({
 }
 // --------------------
 Future<List<FlyerModel>> flyersByZoneAndTitle({
-  @required BuildContext context,
   @required ZoneModel zone,
   @required String title,
   @required QueryDocumentSnapshot<Object> startAfter,
@@ -110,7 +105,6 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
 }) async {
 
   final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-    context: context,
     collName: FireColl.flyers,
     // orderBy: 'score',
     addDocSnapshotToEachMap: true,
@@ -152,14 +146,12 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
 
 // --------------------
 Future<List<FlyerPromotion>> flyerPromotionsByCity({
-  @required BuildContext context,
   @required String cityID,
   // @required List<String> districts,
   // @required DateTime timeLimit,
 }) async {
 
   final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-    context: context,
     collName: FireColl.flyersPromotions,
     limit: 10,
     finders: <FireFinder>[

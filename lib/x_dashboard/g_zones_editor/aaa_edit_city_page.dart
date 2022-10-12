@@ -142,7 +142,6 @@ class EditCityPage extends StatelessWidget {
             if (_city?.cityID != null)
               FutureBuilder(
                   future: Real.readDocOnce(
-                    context: context,
                     collName: RealColl.chainsUsage,
                     docName: _city.cityID,
                   ),

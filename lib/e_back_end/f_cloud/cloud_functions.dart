@@ -154,7 +154,6 @@ class CloudFunction {
     String _docID;
 
     await tryAndCatch(
-        context: context,
         functions: () async {
 
           final String _action = increment == true ? 'increment' : 'decrement';

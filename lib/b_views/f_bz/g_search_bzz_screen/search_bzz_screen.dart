@@ -14,7 +14,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 Future<void> onSearchBzz({
-  @required BuildContext context,
   @required String text,
   @required ValueNotifier<List<BzModel>> foundBzz,
   @required ValueNotifier<List<BzModel>> historyBzz,
@@ -40,7 +39,6 @@ Future<void> onSearchBzz({
     final String _fixedText = TextMod.fixSearchText(text);
 
     final List<BzModel> _bzz = await BzFireSearch.paginateBzzBySearchingBzName(
-      context: context,
       bzName: _fixedText,
       limit: 10,
       startAfter: startAfter,
@@ -141,7 +139,6 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   Future<void> _onSearch(String text) async {
 
     await onSearchBzz(
-      context: context,
       text: text,
       loading: _loading,
       foundBzz: _foundBzz,

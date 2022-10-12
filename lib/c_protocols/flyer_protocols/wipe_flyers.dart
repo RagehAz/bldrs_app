@@ -59,12 +59,10 @@ class WipeFlyerProtocols {
         ),
 
         FlyerRecordRealOps.deleteAllFlyerCountersAndRecords(
-          context: context,
           flyerID: flyerModel.id,
         ),
 
         BzRecordRealOps.incrementBzCounter(
-          context: context,
           bzID: bzModel.id,
           field: 'allSlides',
           incrementThis: - flyerModel.slides.length,
@@ -143,7 +141,6 @@ class WipeFlyerProtocols {
         ),
 
         FlyerRecordRealOps.deleteMultipleFlyersCountersAndRecords(
-          context: context,
           flyersIDs: _flyersIDs,
         ),
 
@@ -165,7 +162,6 @@ class WipeFlyerProtocols {
 
       if (isDeletingBz == false){
         await BzRecordRealOps.incrementBzCounter(
-          context: context,
           bzID: _bzModel.id,
           field: 'allSlides',
           incrementThis: - FlyerModel.getNumberOfFlyersSlides(flyers),

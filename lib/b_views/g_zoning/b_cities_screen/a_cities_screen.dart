@@ -84,7 +84,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
         List<CityModel> _growingList = <CityModel>[];
         final List<CityModel> _fetchedCities = await ZoneProtocols.fetchCities(
-          context: context,
           citiesIDs: _currentZone.value.countryModel?.citiesIDs,
           onCityLoaded: (CityModel city) async {
 

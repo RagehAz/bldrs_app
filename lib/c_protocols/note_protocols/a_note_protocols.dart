@@ -104,7 +104,6 @@ class NoteProtocols {
       );
 
       _note = await NoteFireOps.createNote(
-        context: context,
         noteModel: _note,
       );
 
@@ -142,6 +141,7 @@ class NoteProtocols {
 
             /// ADD BZ CREATOR ID TO NOTE
             if (note.parties.senderType == NotePartyType.bz){
+
               final String _bzID = note.parties.senderID;
               final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: _bzID);
               final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
@@ -149,6 +149,7 @@ class NoteProtocols {
                 strings: _ownersIDs,
                 stringToAdd: _creator.userID,
               );
+
             }
 
             else {
@@ -156,7 +157,6 @@ class NoteProtocols {
             }
 
             final String _posterURL = await Storage.createStoragePicAndGetURL(
-              context: context,
               inputFile: note.poster.file,
               docName: StorageDoc.posters,
               fileName: Numeric.createUniqueID(maxDigitsCount: 12).toString(),
@@ -374,7 +374,6 @@ class NoteProtocols {
     );
 
     await NoteFireOps.updateNote(
-      context: context,
       newNoteModel: _newNoteModel,
     );
 
@@ -411,7 +410,6 @@ class NoteProtocols {
 
     /// FIRE DELETE
     await NoteFireOps.deleteNote(
-      context: context,
       noteID: note.id,
     );
 

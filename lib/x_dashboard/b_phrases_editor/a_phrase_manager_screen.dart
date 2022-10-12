@@ -116,21 +116,17 @@ class _PhraseManagerState extends State<PhraseManager> {
           onTap: () async {
 
             final List<Phrase> _enPhrases = await readMainPhrasesFromFire(
-              context: context,
               langCode: 'en',
             );
             await PhraseRealOps.createPhrasesForLang(
-                context: context,
                 langCode: 'en',
                 phrases: _enPhrases
             );
 
             final List<Phrase> _arPhrases = await readMainPhrasesFromFire(
-              context: context,
               langCode: 'ar',
             );
             await PhraseRealOps.createPhrasesForLang(
-                context: context,
                 langCode: 'ar',
                 phrases: _arPhrases
             );
@@ -153,7 +149,6 @@ class _PhraseManagerState extends State<PhraseManager> {
             // );
 
             final List<Phrase> _realPhrases = await PhraseRealOps.readPhrasesByLang(
-              context: context,
               langCode: 'en',
               createTrigram: true,
             );
@@ -177,7 +172,6 @@ class _PhraseManagerState extends State<PhraseManager> {
           onTap: () async {
 
             final List<Phrase> _realPhrases = await PhraseRealOps.readPhrasesByLang(
-              context: context,
               langCode: 'ar',
               createTrigram: true,
             );

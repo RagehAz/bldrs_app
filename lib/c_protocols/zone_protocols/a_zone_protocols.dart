@@ -101,19 +101,15 @@ class ZoneProtocols {
   // ---------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> fetchCountry({
-    @required BuildContext context,
     @required String countryID,
   }) => FetchZoneProtocols.fetchCountry(
-    context: context,
     countryID: countryID,
   );
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CountryModel>> fetchCountries({
-    @required BuildContext context,
     @required List<String> countriesIDs,
   }) => FetchZoneProtocols.fetchCountries(
-      context: context,
       countriesIDs: countriesIDs
   );
   // --------------------
@@ -121,20 +117,16 @@ class ZoneProtocols {
   // ---------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCity({
-    @required BuildContext context,
     @required String cityID,
   }) => FetchZoneProtocols.fetchCity(
-    context: context,
     cityID: cityID,
   );
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCities({
-    @required BuildContext context,
     @required List<String> citiesIDs,
     ValueChanged<CityModel> onCityLoaded,
   }) => FetchZoneProtocols.fetchCities(
-    context: context,
     citiesIDs: citiesIDs,
     onCityLoaded: onCityLoaded,
   );
@@ -155,18 +147,12 @@ class ZoneProtocols {
   /// CONTINENT
   // ---------
   /// TESTED : WORKS PERFECT
-  static Future<List<Continent>> fetchContinents({
-    @required BuildContext context,
-  }) => FetchZoneProtocols.fetchContinents(
-    context: context,
-  );
+  static Future<List<Continent>> fetchContinents() => FetchZoneProtocols.fetchContinents();
   // --------------------
   /// CURRENCY
   // ---------
   /// TESTED : WORKS PERFECT
-  static Future<List<CurrencyModel>> fetchCurrencies({
-    @required BuildContext context,
-  }) async {
+  static Future<List<CurrencyModel>> fetchCurrencies() async {
 
     List<CurrencyModel> _currencies = await ZoneLDBOps.readCurrencies();
 
@@ -176,7 +162,7 @@ class ZoneProtocols {
 
     else {
 
-      _currencies = await ZoneFireOps.readCurrencies(context);
+      _currencies = await ZoneFireOps.readCurrencies();
 
       if (Mapper.checkCanLoopList(_currencies) == true){
         // blog('fetchCurrencies : All CurrencyModels FOUND in FIREBASE and inserted in LDB');

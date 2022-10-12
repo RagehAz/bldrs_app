@@ -19,13 +19,11 @@ Future<void> onBackupCurrencies(BuildContext context) async {
     unawaited(WaitDialog.showWaitDialog(context: context));
 
     final Map<String, dynamic> _currenciesDoc = await Fire.readDoc(
-      context: context,
       collName: FireColl.zones,
       docName: FireDoc.zones_currencies,
     );
 
     await Fire.createNamedSubDoc(
-      context: context,
       collName: FireColl.admin,
       docName: FireDoc.admin_backups,
       subCollName: FireSubColl.admin_backups_currencies,

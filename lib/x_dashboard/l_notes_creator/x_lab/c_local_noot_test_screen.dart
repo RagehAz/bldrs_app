@@ -189,7 +189,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
       if (_posterPreviewFile != null){
 
         final String _url = await Storage.createStoragePicAndGetURL(
-          context: context,
           docName: 'testNotesBanners',
           fileName: Numeric.createUniqueID().toString(),
           ownersIDs: [AuthFireOps.superUserID()],

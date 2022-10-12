@@ -22,7 +22,6 @@ class ReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> composeReview({
-    @required BuildContext context,
     @required String text,
     @required String flyerID,
     @required String bzID,
@@ -33,13 +32,11 @@ class ReviewProtocols {
     /// 3. increment bzz counter field (real/countingBzz/bzID/allReviews)
 
     final ReviewModel _uploadedReview = await ReviewFireOps.createReview(
-      context: context,
       text: text,
       flyerID: flyerID,
     );
 
     await FlyerRecordRealOps.reviewCreation(
-      context: context,
       review: text,
       flyerID: flyerID,
       bzID: bzID,
@@ -54,14 +51,12 @@ class ReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateReview({
-    @required BuildContext context,
     @required ReviewModel reviewModel,
   }) async {
 
     if (reviewModel != null){
 
       await ReviewFireOps.updateReview(
-        context: context,
         reviewModel: reviewModel,
       );
 
@@ -75,7 +70,6 @@ class ReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> agreeOnReview({
-    @required BuildContext context,
     @required ReviewModel reviewModel,
     @required bool isAlreadyAgreed,
   }) async {
@@ -86,14 +80,12 @@ class ReviewProtocols {
     );
 
     await ReviewProtocols.renovateReview(
-      context: context,
       reviewModel: _updated,
     );
 
     /// remove user ID from (review agrees list)
     if (isAlreadyAgreed == true){
       await Real.deleteField(
-        context: context,
         collName: RealColl.agreesOnReviews,
         docName: reviewModel.id,
         fieldName: AuthFireOps.superUserID(),
@@ -102,7 +94,6 @@ class ReviewProtocols {
     /// add user id to (review agrees list)
     else {
       await Real.updateDocField(
-        context: context,
         collName: RealColl.agreesOnReviews,
         docName: reviewModel.id,
         fieldName: AuthFireOps.superUserID(),
@@ -115,14 +106,12 @@ class ReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> fetchIsAgreed({
-    @required BuildContext context,
     @required String reviewID,
   }) async {
 
     bool _output = false;
 
     final dynamic _result = await Real.readPath(
-      context: context,
       path: '${RealColl.agreesOnReviews}/$reviewID/${AuthFireOps.superUserID()}',
     );
 
@@ -139,7 +128,6 @@ class ReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeSingleReview({
-    @required BuildContext context,
     @required ReviewModel reviewModel,
     @required String bzID,
   }) async {
@@ -155,7 +143,6 @@ class ReviewProtocols {
 
         /// DELETE REVIEW SUB DOC
         Fire.deleteSubDoc(
-          context: context,
           collName: FireColl.flyers,
           docName: reviewModel.flyerID,
           subCollName: FireSubColl.flyers_flyer_reviews,
@@ -164,13 +151,11 @@ class ReviewProtocols {
 
         /// DELETE REVIEW AGREES
         Real.deleteDoc(
-          context: context,
           collName: RealColl.agreesOnReviews,
           docName: reviewModel.id,
         ),
 
         FlyerRecordRealOps.reviewDeletion(
-          context: context,
           flyerID: reviewModel.flyerID,
           bzID: bzID,
         ),
@@ -211,7 +196,6 @@ class ReviewProtocols {
 
             /// 2. DELETE REVIEW AGREES
             Real.deleteDoc(
-              context: context,
               collName: RealColl.agreesOnReviews,
               docName: reviewID,
             ),
@@ -230,7 +214,6 @@ class ReviewProtocols {
 
             if (isDeletingFlyer == false)
               FlyerRecordRealOps.incrementFlyerCounter(
-                context: context,
                 flyerID: flyerID,
                 field: 'reviews',
                 incrementThis: -_numberOfReviews,
@@ -238,7 +221,6 @@ class ReviewProtocols {
 
             if (isDeletingBz == false)
               BzRecordRealOps.incrementBzCounter(
-                context: context,
                 bzID: bzID,
                 field: 'allReviews',
                 incrementThis: -_numberOfReviews,

@@ -27,7 +27,6 @@ class FetchFlyerProtocols {
     else {
 
       _flyer = await FlyerFireOps.readFlyerOps(
-        context: context,
         flyerID: flyerID,
       );
 

@@ -34,7 +34,6 @@ class PickerProtocols {
     ));
 
     await PickerRealOps.createPickers(
-      context: context,
       flyerType: flyerType,
       pickers: pickers,
     );
@@ -49,7 +48,6 @@ class PickerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> fetchFlyerTypPickers({
-    @required BuildContext context,
     @required FlyerType flyerType,
     ValueChanged<List<PickerModel>> onFinish,
   }) async {
@@ -63,7 +61,6 @@ class PickerProtocols {
     if (Mapper.checkCanLoopList(_pickers) == false){
 
       _pickers = await PickerRealOps.readPickers(
-        context: context,
         flyerType: flyerType,
       );
 
@@ -100,7 +97,6 @@ class PickerProtocols {
       await Future.wait(<Future>[
 
         PickerRealOps.updatePickers(
-          context: context,
           flyerType: flyerType,
           updatedPickers: pickers,
         ),
@@ -112,7 +108,7 @@ class PickerProtocols {
           showWaitDialog: false,
         ),
 
-        AppStateFireOps.updatePickersVersion(context),
+        AppStateFireOps.updatePickersVersion(),
 
 
       ]);

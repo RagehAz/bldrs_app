@@ -123,7 +123,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createColl({
-    @required BuildContext context,
     @required String collName,
     @required Map<String, dynamic> map,
   }) async {
@@ -132,7 +131,6 @@ class Real {
     if (map != null && collName != null){
 
       await tryAndCatch(
-        context: context,
         methodName: 'createColl',
         functions: () async {
 
@@ -182,7 +180,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDoc({
-    @required BuildContext context,
     @required String collName,
     @required Map<String, dynamic> map,
     @required bool addDocIDToOutput,
@@ -194,7 +191,6 @@ class Real {
     if (map != null && collName != null){
 
       await tryAndCatch(
-        context: context,
         methodName: 'createDoc',
         functions: () async {
 
@@ -243,7 +239,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createNamedDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required Map<String, dynamic> map,
@@ -263,7 +258,6 @@ class Real {
       }
 
       await tryAndCatch(
-        context: context,
         methodName: 'createNamedDoc',
 
         functions: () async {
@@ -283,7 +277,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDocInPath({
-    @required BuildContext context,
     @required String pathWithoutDocName,
     @required bool addDocIDToOutput,
     @required Map<String, dynamic> map,
@@ -299,7 +292,6 @@ class Real {
       String _docID;
 
       await tryAndCatch(
-        context: context,
         methodName: 'createDoc',
         functions: () async {
 
@@ -384,7 +376,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readPathMaps({
-    @required BuildContext context,
     @required RealQueryModel realQueryModel,
     Map<String, dynamic> startAfter,
     bool addDocIDToEachMap = true,
@@ -393,7 +384,6 @@ class Real {
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
     await tryAndCatch(
-      context: context,
       functions: () async {
 
         final Query _query = RealQueryModel.createQuery(
@@ -422,14 +412,12 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readPathMap({
-    @required BuildContext context,
     @required String path,
   }) async {
 
     Map<String, dynamic> _output = {};
 
     await tryAndCatch(
-      context: context,
       functions: () async {
 
         final DatabaseReference _ref = getRefByPath(path: path);
@@ -449,7 +437,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<dynamic> readPath({
-    @required BuildContext context,
     /// looks like : 'collName/docName/...'
     @required String path,
   }) async {
@@ -459,7 +446,6 @@ class Real {
     final DatabaseReference _ref = getRefByPath(path: path);
 
     await tryAndCatch(
-      context: context,
       functions: () async {
 
         final DatabaseEvent event = await _ref.once(DatabaseEventType.value);
@@ -474,7 +460,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     bool addDocID = true,
@@ -490,7 +475,6 @@ class Real {
     );
 
     await tryAndCatch(
-      context: context,
       functions: () async {
 
         final DataSnapshot snapshot = await ref.child(_path).get();
@@ -514,7 +498,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDocOnce({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     bool addDocID = true,
@@ -528,7 +511,6 @@ class Real {
     Map<String, dynamic> _map;
 
     await tryAndCatch(
-      context: context,
       functions: () async {
 
         final DatabaseEvent event = await ref.once(DatabaseEventType.value);
@@ -554,14 +536,12 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateColl({
-    @required BuildContext context,
     @required String collName,
     @required Map<String, dynamic> map,
   }) async {
     if (map != null){
 
       await createColl(
-        context: context,
         collName: collName,
         map: map,
       );
@@ -571,7 +551,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required Map<String, dynamic> map,
@@ -580,7 +559,6 @@ class Real {
     if (map != null){
 
       await createNamedDoc(
-        context: context,
         collName: collName,
         docName: docName,
         map: map,
@@ -593,7 +571,6 @@ class Real {
   // --------------------
   /// TASK : ERRRROOOOOOOOOOOOR
   static Future<void> updateDocField({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String fieldName,
@@ -616,7 +593,6 @@ class Real {
       // }
 
       await tryAndCatch(
-          context: context,
           functions: () async {
 
             await _ref.set(value).then((_) {
@@ -688,7 +664,6 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
   }) async {
@@ -699,7 +674,6 @@ class Real {
     );
 
     await tryAndCatch(
-      context: context,
       functions: () async {
 
         await _ref.remove();
@@ -711,14 +685,12 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteField({
-    @required BuildContext context,
     @required String collName,
     @required String docName,
     @required String fieldName,
   }) async {
 
     await updateDocField(
-      context: context,
       collName: collName,
       docName: docName,
       fieldName: fieldName,
