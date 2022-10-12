@@ -32,7 +32,6 @@ Future<void> readMoreUnVerifiedFlyers({
   loading.value = true;
 
   final List<dynamic> _maps = await Fire.readCollectionDocs(
-    context: context,
     collName: FireColl.flyers,
     orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
     limit: 6,
@@ -162,7 +161,6 @@ Future<void> onVerifyFlyer({
   if (flyerModel.auditState != AuditState.verified) {
 
     await Fire.updateDocField(
-      context: context,
       collName: FireColl.flyers,
       docName: flyerModel.id,
       field: 'auditState',

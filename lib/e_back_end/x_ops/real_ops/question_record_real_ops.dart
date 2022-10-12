@@ -16,7 +16,6 @@ class QuestionRecordRealOps {
   // --------------------
   /// TESTED : ...
   static Future<void> createCreateQuestion({
-    @required BuildContext context,
     @required String questionID,
   }) async {
     blog('QuestionRecordOps.createCreateQuestion : START');
@@ -27,7 +26,6 @@ class QuestionRecordRealOps {
     );
 
     await RecordRealOps.createRecord(
-      context: context,
       record: _record,
     );
 
@@ -36,7 +34,6 @@ class QuestionRecordRealOps {
   // --------------------
   /// TESTED : ...
   static Future<void> createEditQuestion({
-    @required BuildContext context,
     @required String questionID,
   }) async {
     blog('QuestionRecordOps.createEditQuestion : START');
@@ -47,7 +44,6 @@ class QuestionRecordRealOps {
     );
 
     await RecordRealOps.createRecord(
-      context: context,
       record: _record,
     );
 
@@ -56,7 +52,6 @@ class QuestionRecordRealOps {
   // --------------------
   /// TESTED : ...
   static Future<void> createDeleteQuestion({
-    @required BuildContext context,
     @required String questionID,
   }) async {
     blog('QuestionRecordOps.createDeleteQuestion : START');
@@ -67,7 +62,6 @@ class QuestionRecordRealOps {
     );
 
     await RecordRealOps.createRecord(
-      context: context,
       record: _record,
     );
 
@@ -76,7 +70,6 @@ class QuestionRecordRealOps {
   // --------------------
   /// TESTED : ...
   static Future<void> createCreateAnswer({
-    @required BuildContext context,
     @required String questionID,
     @required String answerID,
   }) async {
@@ -89,7 +82,6 @@ class QuestionRecordRealOps {
     );
 
     await RecordRealOps.createRecord(
-      context: context,
       record: _record,
     );
 
@@ -98,7 +90,6 @@ class QuestionRecordRealOps {
   // --------------------
   /// TESTED : ...
   static Future<void> createEditAnswer({
-    @required BuildContext context,
     @required String questionID,
     @required String answerID,
   }) async {
@@ -111,7 +102,6 @@ class QuestionRecordRealOps {
     );
 
     await RecordRealOps.createRecord(
-      context: context,
       record: _record,
     );
 
@@ -120,7 +110,6 @@ class QuestionRecordRealOps {
   // --------------------
   /// TESTED : ...
   static Future<void> createDeleteAnswer({
-    @required BuildContext context,
     @required String questionID,
     @required String answerID,
   }) async {
@@ -134,7 +123,6 @@ class QuestionRecordRealOps {
     );
 
     await RecordRealOps.createRecord(
-      context: context,
       record: _record,
     );
 

@@ -65,14 +65,12 @@ class DeviceChecker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkConnectivity({
-    @required BuildContext context,
     ConnectivityResult streamResult,
   }) async {
 
     ConnectivityResult _result;
 
     await tryAndCatch(
-        context: context,
         functions: () async {
           _result = streamResult ?? await Connectivity().checkConnectivity();
         },

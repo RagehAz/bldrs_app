@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 
 // --------------------
 Future<void> onSearchUsers({
-  @required BuildContext context,
   @required String text,
   @required ValueNotifier<List<UserModel>> foundUsers,
   @required ValueNotifier<bool> isSearching,
@@ -35,7 +34,6 @@ Future<void> onSearchUsers({
     final String _fixedText = TextMod.fixSearchText(text);
 
     final List<UserModel> _users = await UserFireSearch.usersByUserName(
-      context: context,
       name: _fixedText,
       // startAfter: Mapper.checkCanLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
       userIDsToExclude: userIDsToExclude,

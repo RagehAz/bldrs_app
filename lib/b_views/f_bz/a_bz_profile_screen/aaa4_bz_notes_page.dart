@@ -106,7 +106,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
     /// MARK ON FIREBASE
     unawaited(NoteFireOps.markNotesAsSeen(
-        context: context,
         notes: _notesToMark
     ));
 

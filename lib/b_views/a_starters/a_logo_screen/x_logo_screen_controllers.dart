@@ -189,7 +189,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true){
 
-    final AppState _globalState = await AppStateFireOps.readGlobalAppState(context);
+    final AppState _globalState = await AppStateFireOps.readGlobalAppState();
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final AppState _userState = _usersProvider?.myUserModel?.appState;
 
@@ -266,7 +266,6 @@ Future<void> _initializeAppState(BuildContext context) async {
 
         if (_appStateNeedUpdate == true){
           await AppStateFireOps.updateUserAppState(
-            context: context,
             userID: _usersProvider.myUserModel.id,
             newAppState: _userAppState,
           );

@@ -20,7 +20,6 @@ class UserRecordRealOps {
   /// CREATION
   // ----------
   static Future<RecordModel> createUserSearchRecord({
-    @required BuildContext context,
     @required String searchText,
   }) async {
     blog('UserRecordOps.createUserSearchRecord : START');
@@ -36,7 +35,6 @@ class UserRecordRealOps {
       );
 
       _uploadedRecord = await RecordRealOps.createRecord(
-        context: context,
         record: _record,
       );
 
@@ -53,13 +51,11 @@ class UserRecordRealOps {
   /// DELETION
   // ----------
   static Future<void> deleteAllUserRecords({
-    @required BuildContext context,
     @required String userID,
   }) async {
 
     /// SHARES
     await Real.deleteDoc(
-      context: context,
       collName: RealColl.recordingSearches,
       docName: userID,
     );

@@ -17,7 +17,6 @@ class CityPhidsRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityPhidsModel> readCityPhids({
-    @required BuildContext context,
     @required String cityID,
   }) async {
     CityPhidsModel _cityChain;
@@ -25,7 +24,6 @@ class CityPhidsRealOps {
     if (cityID != null){
 
       final Map<String, dynamic> _map = await Real.readDoc(
-        context: context,
         collName: RealColl.chainsUsage,
         docName: cityID,
       );

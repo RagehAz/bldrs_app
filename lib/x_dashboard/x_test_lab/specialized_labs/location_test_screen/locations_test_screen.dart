@@ -99,7 +99,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     unawaited(_triggerLoading());
 
     await tryAndCatch(
-        context: context,
         methodName: 'get location thing',
         functions: () async {
           blog('getting location aho');
@@ -163,12 +162,10 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     if (_zoneModel != null) {
 
       final CountryModel _country = await ZoneProtocols.fetchCountry(
-          context: context,
           countryID: _zoneModel.countryID
       );
 
       final CityModel _city = await ZoneProtocols.fetchCity(
-          context: context,
           cityID: _zoneModel.cityID
       );
 
@@ -220,7 +217,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                       if (_result != null) {
 
                         final CountryModel _country = await ZoneProtocols.fetchCountry(
-                            context: context,
                             countryID: _result.countryID
                         );
 
@@ -231,12 +227,15 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                         });
 
                         _result.blogCity();
-                      } else {
+                      }
+
+                      else {
                         await TopDialog.showTopDialog(
                             context: context,
                             firstVerse: Verse.plain('No city found'),
                         );
                       }
+
                     },
                     searchIconIsOn: false),
               ),

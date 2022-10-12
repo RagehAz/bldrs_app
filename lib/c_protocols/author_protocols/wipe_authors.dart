@@ -95,7 +95,6 @@ class WipeAuthorProtocols {
       /// PROCEED IF NOT IDENTICAL -------------------
       if (_authorPicIsHisUserPic == false){
         await BzFireOps.deleteAuthorPic(
-          context: context,
           authorModel: _myAuthor,
           bzID: bzID,
         );

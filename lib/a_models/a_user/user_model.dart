@@ -1089,10 +1089,9 @@ class UserModel {
     return _users;
   }
   // --------------------
-  static Future<UserModel> futureDummyUserModel(BuildContext context) async {
+  static Future<UserModel> futureDummyUserModel() async {
 
     final UserModel _user = await UserFireOps.readUser(
-      context: context,
       userID: '60a1SPzftGdH6rt15NF96m0j9Et2',
     );
 

@@ -30,7 +30,6 @@ class RenovateZoneProtocols {
       /// BZ COUNTRY
       if (incompleteZoneModel.countryModel == null){
         final CountryModel _bzCountry = await ZoneProtocols.fetchCountry(
-          context: context,
           countryID: incompleteZoneModel.countryID,
         );
         _output = _output.copyWith(
@@ -41,7 +40,6 @@ class RenovateZoneProtocols {
       /// BZ CITY
       if (incompleteZoneModel.cityModel == null){
         final CityModel _bzCity = await ZoneProtocols.fetchCity(
-          context: context,
           cityID: incompleteZoneModel.cityID,
         );
         _output = _output.copyWith(

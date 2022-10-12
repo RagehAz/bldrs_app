@@ -43,7 +43,6 @@ class ChainsProvider extends ChangeNotifier {
     await Future.wait(<Future>[
       /// BIG CHAIN K
       _fetchSetBldrsChains(
-        context: context,
         notify: false,
       ),
       /// ALL PICKERS
@@ -288,11 +287,10 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   ///
   Future<void> _fetchSetBldrsChains({
-    @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
+    final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
     _setBldrsChains(
       chains: _bldrsChains,
@@ -673,7 +671,6 @@ class ChainsProvider extends ChangeNotifier {
         final FlyerType _flyerType = FlyerTyper.flyerTypesList[index];
 
         await PickerProtocols.fetchFlyerTypPickers(
-          context: context,
           flyerType: _flyerType,
           onFinish: (List<PickerModel> pickers){
 

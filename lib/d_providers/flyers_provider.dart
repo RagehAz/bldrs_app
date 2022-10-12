@@ -121,7 +121,6 @@ class FlyersProvider extends ChangeNotifier {
     if (_currentCity != null){
 
       final List<FlyerPromotion> _promotions = await FlyerSearch.flyerPromotionsByCity(
-        context: context,
         cityID: _currentCity.cityID,
       );
 
@@ -187,7 +186,6 @@ class FlyersProvider extends ChangeNotifier {
     null;
 
     final List<FlyerModel> _flyers = await FlyerFireOps.paginateFlyers(
-      context: context,
       countryID: _currentZone.countryID,
       cityID: _currentZone.cityID,
       // districtID: _currentZone.districtID,
@@ -239,7 +237,6 @@ class FlyersProvider extends ChangeNotifier {
 
     /// TASK : think this through.. can it be fetch instead of just search ? I don't think soooooo
     final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndKeywordID(
-      context: context,
       zone: _currentZone,
       keywordID: keywordID,
       limit: limit,

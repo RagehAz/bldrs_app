@@ -90,13 +90,11 @@ Future<void> onTriggerHeader({
 }
 // --------------------
 Future<void> readBzCounters({
-  @required BuildContext context,
   @required String bzID,
   @required ValueNotifier<BzCounterModel> bzCounters,
 }) async {
 
   final BzCounterModel _bzCounters = await BzRecordRealOps.readBzCounters(
-    context: context,
     bzID: bzID,
   );
 
@@ -311,7 +309,6 @@ Future<void> onCallTap({
 
             /// CALL RECORD PROTOCOL
             BzRecordRealOps.callBz(
-              context: context,
               bzID: bzModel.id,
               contact: contact,
             ),

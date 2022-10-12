@@ -83,7 +83,6 @@ class PhraseProvider extends ChangeNotifier {
     );
 
     await fetchSetMainPhrases(
-        context: context,
         notify: true
     );
 
@@ -143,14 +142,11 @@ class PhraseProvider extends ChangeNotifier {
   List<Phrase> get mainPhrases  => _mainPhrases;
   // --------------------
   Future<void> fetchSetMainPhrases({
-    @required BuildContext context,
     @required bool notify,
   }) async {
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
-    final List<Phrase> _phrases = await PhraseProtocols.fetchMainMixedLangPhrases(
-      context: context,
-    );
+    final List<Phrase> _phrases = await PhraseProtocols.fetchMainMixedLangPhrases();
 
     setMainPhrases(
       setTo: _phrases,

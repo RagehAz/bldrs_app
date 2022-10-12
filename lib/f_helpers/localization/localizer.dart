@@ -136,7 +136,6 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> getTranslationFromJSONByLangCode({
-    @required BuildContext context,
     @required String jsonKey,
     @required String langCode,
   }) async {
@@ -145,7 +144,6 @@ class Localizer {
     String _output;
 
     final bool _result = await tryCatchAndReturnBool(
-      context: context,
       methodName: 'getCountryNameByLingo',
       functions: () async {
 
@@ -181,7 +179,6 @@ class Localizer {
 
     if (AuthFireOps.superUserID() != null) {
       await Fire.updateDocField(
-        context: context,
         collName: FireColl.users,
         docName: AuthFireOps.superUserID(),
         field: 'language',
@@ -247,13 +244,11 @@ class Localizer {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<String> translateLangCodeName({
-    @required BuildContext context,
     @required String langCode,
   }) async {
 
     /// while app lang is english : langCode is ar : this should be : 'Arabic'
     final String _langNameByActiveAppLang = await getTranslationFromJSONByLangCode(
-      context: context,
       langCode: langCode,
       jsonKey: 'activeLanguage',
     );

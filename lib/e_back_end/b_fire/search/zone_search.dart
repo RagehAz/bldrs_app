@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 
 // --------------------
 Future<List<CountryModel>> countriesModelsByCountryName({
-  @required BuildContext context,
   @required String countryName,
   @required String lingoCode
 }) async {
@@ -27,7 +26,6 @@ Future<List<CountryModel>> countriesModelsByCountryName({
   if (countryName != null && countryName.isNotEmpty) {
 
     final List<Map<String, dynamic>> _result = await Search.subCollectionMapsByFieldValue(
-      context: context,
       collName: FireColl.zones,
       docName: FireDoc.zones_countries,
       subCollName: FireSubColl.zones_countries_countries,
@@ -44,21 +42,21 @@ Future<List<CountryModel>> countriesModelsByCountryName({
         maps: _result,
       );
     }
+
   }
 
   return _countries;
 }
 // --------------------
 Future<List<CityModel>> citiesByCityName({
-  @required BuildContext context,
   @required String cityName,
   @required String lingoCode,
 }) async {
   List<CityModel> _cities = <CityModel>[];
 
   if (cityName != null && cityName.isNotEmpty) {
+
     final List<Map<String, dynamic>> _result = await Search.subCollectionMapsByFieldValue(
-      context: context,
       collName: FireColl.zones,
       docName: FireDoc.zones_cities,
       subCollName: FireSubColl.zones_cities_cities,
@@ -83,7 +81,6 @@ Future<List<CityModel>> citiesByCityName({
 // --------------------
 /// not tested
 Future<List<CityModel>> citiesByCityNameAndCountryID({
-  @required BuildContext context,
   @required String cityName,
   @required String countryID,
   @required String lingoCode,
@@ -91,7 +88,6 @@ Future<List<CityModel>> citiesByCityNameAndCountryID({
   List<CityModel> _cities = <CityModel>[];
 
   await tryAndCatch(
-      context: context,
       methodName: 'mapsByTwoValuesEqualTo',
       functions: () async {
         final CollectionReference<Object> _collRef = Fire.getSubCollectionRef(

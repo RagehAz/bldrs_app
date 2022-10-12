@@ -248,7 +248,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               await _triggerLoading(setTo: true);
 
               final File _file = await Filers.getFileFromLocalRasterAsset(
-                context: context,
                 localAsset: _icon,
               );
 

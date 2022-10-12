@@ -27,7 +27,6 @@ class ChainRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>> createBldrsChains({
-    @required BuildContext context,
     @required List<Chain> chains,
   }) async {
     List<Chain> _uploaded;
@@ -39,7 +38,6 @@ class ChainRealOps {
       );
 
       final Map<String, dynamic> _uploadedChainSMap = await Real.createColl(
-        context: context,
         collName: RealColl.bldrsChains,
         map: _map,
       );
@@ -58,10 +56,9 @@ class ChainRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Chain>> readBldrsChains(BuildContext context) async {
+  static Future<List<Chain>> readBldrsChains() async {
 
     final Map<String, dynamic> map = await Real.readPathMap(
-      context: context,
       path: RealColl.bldrsChains,
     );
 
@@ -76,14 +73,12 @@ class ChainRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChains({
-    @required BuildContext context,
     @required List<Chain> chains,
   }) async {
 
     if (chains != null){
 
       await Real.updateColl(
-        context: context,
         collName: RealColl.bldrsChains,
         map: Chain.cipherBldrsChains(chains: chains),
       );

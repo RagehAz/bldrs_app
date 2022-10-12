@@ -65,7 +65,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
       _triggerLoading().then((_) async {
 
         final BzCounterModel _counters = await BzRecordRealOps.readBzCounters(
-          context: context,
           bzID: _bzModel.id,
         );
 

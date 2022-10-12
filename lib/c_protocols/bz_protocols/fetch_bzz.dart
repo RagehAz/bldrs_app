@@ -26,7 +26,6 @@ class FetchBzProtocols {
     else {
 
       _bz = await BzFireOps.readBz(
-        context: context,
         bzID: bzID,
       );
 

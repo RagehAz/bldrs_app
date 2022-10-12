@@ -754,12 +754,10 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
 // --------------------
 /// TASK : DELETE AFTER DELETING PHRASES FIRE COLL FROM FIREBASE
 Future<List<Phrase>> readMainPhrasesFromFire({
-  @required BuildContext context,
   @required String langCode,
 }) async {
 
   final Map<String, dynamic> _phrasesMap = await Fire.readDoc(
-    context: context,
     collName: FireColl.phrases,
     docName: langCode,
   );

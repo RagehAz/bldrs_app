@@ -38,7 +38,6 @@ Future<void> setCurrentZone({
     );
     /// SET CURRENCY
     zoneProvider.getSetCurrentCurrency(
-      context: context,
       zone: zone,
       notify: true,
     );
