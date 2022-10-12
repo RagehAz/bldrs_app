@@ -6,6 +6,7 @@ import 'package:bldrs/c_protocols/user_protocols/fetch_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/renovate_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/wipe_users.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -54,6 +55,16 @@ class UserProtocols {
     context: context,
     usersIDs: usersIDs,
   );
+  // --------------------
+  ///
+  static Future<UserModel> refetchUser({
+    @required BuildContext context,
+    @required String userID
+  }) async {
+    await UserLDBOps.deleteUserOps(userID);
+    final UserModel _user = await fetchUser(context: context, userID: userID);
+    return _user;
+  }
   // -----------------------------------------------------------------------------
 
   /// RENOVATE

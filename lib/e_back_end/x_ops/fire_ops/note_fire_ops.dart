@@ -1,27 +1,17 @@
 import 'dart:async';
+
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
-import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-/// ------------------------------------------------o
-typedef NotiModelsWidgetsBuilder = Widget Function(
-    BuildContext context,
-    List<NoteModel> notiModels,
-    );
-/// ------------------------------------------------o
 class NoteFireOps {
   // -----------------------------------------------------------------------------
 
@@ -42,40 +32,21 @@ class NoteFireOps {
 
     if (noteModel != null){
 
-      NoteModel _note = await _adjustNoteToken(
-          context: context,
-          noteModel: noteModel
-      );
+      // Mapper.blogMap( _output.toMap(toJSON: true), invoker: 'fuck the fucking map');
 
-      _note = await _adjustBldrsLogoURL(
+      await Fire.createSubDoc(
         context: context,
-        noteModel: _note,
-      );
-
-      Mapper.blogMap( _note.toMap(toJSON: true), invoker: 'fuck the fucking map');
-
-      await Fire.createDoc(
-        context: context,
-        collName: FireColl.notes,
-        input: _note.toMap(toJSON: false),
+        collName: noteModel.parties.receiverType == NotePartyType.bz ? FireColl.bzz : FireColl.users,
+        docName: noteModel.parties.receiverID,
+        subCollName: FireSubColl.noteReceiver_receiver_notes,
+        input: noteModel.toMap(toJSON: false),
         onFinish: (DocumentReference ref){
-          _output = _note.copyWith(id: ref.id,);
+          _output = noteModel.copyWith(id: ref.id,);
         },
       );
 
-      blog('createNote : _note.sendFCM : ${_output.sendFCM} : _note.token : ${_output.token}');
+      // blog('createNote : _note.sendFCM : ${_output.sendFCM} : _note.token : ${_output.token}');
 
-      /// returns true on success and false of failure
-      if (_output.sendFCM == true && _output.token != null) {
-        await CloudFunction.call(
-            context: context,
-            functionName: CloudFunction.callSendFCMToDevice,
-            mapToPass: _output.toMap(toJSON: true),
-            onFinish: (dynamic result){
-              blog('NoteFireOps.createNote : FCM SENT : $result');
-            }
-        );
-      }
 
     if (onFinished != null){
         onFinished(_output);
@@ -125,81 +96,7 @@ class NoteFireOps {
 
     return _success == true ? _output : null;
   }
-  // --------------------
-  ///
-  static Future<NoteModel> _adjustNoteToken({
-    @required BuildContext context,
-    @required NoteModel noteModel,
-  }) async {
-    NoteModel _note = noteModel;
 
-    if (noteModel != null){
-
-      if (noteModel.parties.receiverType == NotePartyType.user){
-
-        final UserModel _user = await UserFireOps.readUser(
-            context: context,
-            userID: noteModel.parties.receiverID,
-        );
-
-        blog('_adjustNoteToken : userToken is : ${_user?.fcmToken?.token}');
-
-        if (TextCheck.isEmpty(_user?.fcmToken?.token) == true){
-          _note = _note.nullifyField(
-            token: true,
-          );
-        }
-        else {
-          _note = _note.copyWith(
-            token: _user?.fcmToken?.token,
-          );
-        }
-
-
-      }
-
-    }
-
-    return _note;
-  }
-  // --------------------
-  ///
-  static Future<NoteModel> _adjustBldrsLogoURL({
-    @required BuildContext context,
-    @required NoteModel noteModel,
-  }) async {
-    NoteModel _note;
-
-    blog('_adjustBldrsLogoURL : noteModel.token : ${noteModel.token}');
-
-    if (noteModel != null){
-
-      /// ADJUST IMAGE IF SENDER IS BLDRS
-      if (noteModel.parties.senderID == NoteParties.bldrsSenderID){
-
-        final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
-            context: context,
-            storageDocName: 'admin',
-            fileName: NoteParties.bldrsFCMIconFireStorageFileName,
-        );
-
-        _note = noteModel.copyWith(
-          parties: noteModel.parties.copyWith(
-            senderImageURL: _bldrsNotificationIconURL ?? NoteParties.bldrsLogoStaticURL,
-          ),
-        );
-
-      }
-
-      /// KEEP IT AS IS
-      else {
-        _note = noteModel.copyWith();
-      }
-
-    }
-
-    return _note;
-  }
   // -----------------------------------------------------------------------------
 
   /// ALL NOTES PAGINATION
@@ -545,4 +442,3 @@ class NoteFireOps {
   }
   // --------------------
 }
-/// ------------------------------------------------o

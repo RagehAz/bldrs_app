@@ -14,9 +14,13 @@ class RealStream {
   /// STREAMING
 
   // --------------------
+  ///
   static StreamSubscription streamOnChildAddedToPath({
     @required String path,
     @required ValueChanged<dynamic> onChildAdded,
+    bool cancelOnError,
+    Function onDone,
+    Function(Object error) onError,
   }){
     final DatabaseReference _ref = Real.getRefByPath(path: path);
 
@@ -24,19 +28,21 @@ class RealStream {
       final dynamic _data = event.snapshot.value;
       onChildAdded(_data);
     },
-      // cancelOnError:,
-      // onDone: (){},
-      // onError: (Object error){
-      //
-      // }
+      cancelOnError: cancelOnError,
+      onDone: onDone,
+      onError: onError,
     );
 
     return _sub;
   }
   // --------------------
+  ///
   static StreamSubscription streamOnChildChangedInPath({
     @required String path,
     @required ValueChanged<dynamic> onChildChanged,
+    bool cancelOnError,
+    Function onDone,
+    Function(Object error) onError,
   }){
     final DatabaseReference _ref = Real.getRefByPath(path: path);
 
@@ -44,19 +50,21 @@ class RealStream {
       final dynamic _data = event.snapshot.value;
       onChildChanged(_data);
     },
-      // cancelOnError:,
-      // onDone: (){},
-      // onError: (Object error){
-      //
-      // }
+      cancelOnError: cancelOnError,
+      onDone: onDone,
+      onError: onError,
     );
 
     return _sub;
   }
   // --------------------
+  ///
   static StreamSubscription streamOnChildMovedInPath({
     @required String path,
     @required ValueChanged<dynamic> onChildMoved,
+    bool cancelOnError,
+    Function onDone,
+    Function(Object error) onError,
   }){
     final DatabaseReference _ref = Real.getRefByPath(path: path);
 
@@ -64,19 +72,21 @@ class RealStream {
       final dynamic _data = event.snapshot.value;
       onChildMoved(_data);
     },
-      // cancelOnError:,
-      // onDone: (){},
-      // onError: (Object error){
-      //
-      // }
+      cancelOnError: cancelOnError,
+      onDone: onDone,
+      onError: onError,
     );
 
     return _sub;
   }
   // --------------------
+  ///
   static StreamSubscription streamOnChildRemovedFromPath({
     @required String path,
     @required ValueChanged<dynamic> onChildRemoved,
+    bool cancelOnError,
+    Function onDone,
+    Function(Object error) onError,
   }){
     final DatabaseReference _ref = Real.getRefByPath(path: path);
 
@@ -84,19 +94,21 @@ class RealStream {
       final dynamic _data = event.snapshot.value;
       onChildRemoved(_data);
     },
-      // cancelOnError:,
-      // onDone: (){},
-      // onError: (Object error){
-      //
-      // }
+      cancelOnError: cancelOnError,
+      onDone: onDone,
+      onError: onError,
     );
 
     return _sub;
   }
   // --------------------
+  ///
   static StreamSubscription streamOnValueOfPath({
     @required String path,
     @required ValueChanged<dynamic> onValue,
+    bool cancelOnError,
+    Function onDone,
+    Function(Object error) onError,
   }){
     final DatabaseReference _ref = Real.getRefByPath(path: path);
 
@@ -104,11 +116,9 @@ class RealStream {
       final dynamic _data = event.snapshot.value;
       onValue(_data);
     },
-      // cancelOnError:,
-      // onDone: (){},
-      // onError: (Object error){
-      //
-      // }
+      cancelOnError: cancelOnError,
+      onDone: onDone,
+      onError: onError,
     );
 
     return _sub;

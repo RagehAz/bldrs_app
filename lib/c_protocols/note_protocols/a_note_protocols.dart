@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -5,14 +6,16 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
+import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/real_ops/note_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +30,45 @@ class NoteProtocols {
 
   // --------------------
   ///
+  static Future<void> composeToMultiple({
+    @required BuildContext context,
+    @required NoteModel note,
+    @required List<String> receiversIDs,
+  }) async {
+
+    if (Mapper.checkCanLoopList(receiversIDs) == true && note != null){
+
+      final NoteModel _noteWithUpdatedPoster = await _uploadNotePoster(
+        context: context,
+        note: note,
+      );
+
+      await Future.wait(<Future>[
+
+        ...List.generate(receiversIDs.length, (index){
+
+          final String _receiverID = receiversIDs[index];
+
+          final NoteModel _note = _noteWithUpdatedPoster.copyWith(
+            parties: note.parties.copyWith(
+              receiverID: _receiverID,
+            ),
+          );
+
+          return NoteProtocols.composeToOne(
+            context: context,
+            note: _note,
+          );
+
+        }),
+
+      ]);
+
+    }
+
+  }
+  // --------------------
+  ///
   static Future<void> composeToOne({
     @required BuildContext context,
     @required NoteModel note,
@@ -38,28 +80,30 @@ class NoteProtocols {
 
     if (_canSendNote == true){
 
-      NoteModel _finalNoteModel = await _uploadNotePoster(
+      /// UPLOAD POSTER
+      NoteModel _note = await _uploadNotePoster(
         context: context,
         note: note,
       );
 
-      _finalNoteModel = note.copyWith(
+      _note = await _adjustBldrsLogoURL(
+        context: context,
+        noteModel: _note,
+      );
+
+      _note = note.copyWith(
         sentTime: DateTime.now(),
       );
 
-      final NoteModel _uploaded = await NoteRealOps.create(
+      _note = await NoteFireOps.createNote(
         context: context,
-        note: _finalNoteModel,
+        noteModel: _note,
       );
 
-      blog('composeToNote :----');
-      _uploaded.blogNoteModel(methodName: 'uploaded note ahowwan');
-
-      // /// TASK : SHOULD VISIT THIS onSendNoteOps thing
-      // /// MAYBE SAVE A REFERENCE OF THIS NOTE ID SOMEWHERE ON SUB DOC OF BZ
-      // /// TO BE EASY TO TRACE AND DELETE WHILE IN DELETE BZ OPS
-      //
-      // await NoteLDBOps.insertNotes(_uploadedNotes);
+      await _sendNoteFCM(
+        context: context,
+        noteModel: _note,
+      );
 
     }
 
@@ -134,42 +178,156 @@ class NoteProtocols {
   }
   // --------------------
   ///
-  static Future<void> composeToMultiple({
+  static Future<NoteModel> _adjustBldrsLogoURL({
     @required BuildContext context,
-    @required NoteModel note,
-    @required List<String> receiversIDs,
+    @required NoteModel noteModel,
   }) async {
+    NoteModel _note;
 
-    if (Mapper.checkCanLoopList(receiversIDs) == true && note != null){
+    blog('_adjustBldrsLogoURL : noteModel.token : ${noteModel.token}');
 
-      final NoteModel _noteWithUpdatedPoster = await _uploadNotePoster(
-        context: context,
-        note: note,
-      );
+    if (noteModel != null){
 
-      await Future.wait(<Future>[
+      /// ADJUST IMAGE IF SENDER IS BLDRS
+      if (noteModel.parties.senderID == NoteParties.bldrsSenderID){
 
-        ...List.generate(receiversIDs.length, (index){
+        final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
+          context: context,
+          storageDocName: 'admin',
+          fileName: NoteParties.bldrsFCMIconFireStorageFileName,
+        );
 
-          final String _receiverID = receiversIDs[index];
+        _note = noteModel.copyWith(
+          parties: noteModel.parties.copyWith(
+            senderImageURL: _bldrsNotificationIconURL ?? NoteParties.bldrsLogoStaticURL,
+          ),
+        );
 
-          final NoteModel _note = _noteWithUpdatedPoster.copyWith(
-            parties: note.parties.copyWith(
-              receiverID: _receiverID,
-            ),
-          );
+      }
 
-          return NoteProtocols.composeToOne(
-            context: context,
-            note: _note,
-          );
-
-      }),
-
-    ]);
+      /// KEEP IT AS IS
+      else {
+        _note = noteModel.copyWith();
+      }
 
     }
 
+    return _note;
+  }
+  // --------------------
+  ///
+  static Future<void> _sendNoteFCM({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+  }) async {
+
+    if (noteModel != null){
+
+      final bool _canSendFCM = await _checkReceiverCanReceiveFCM(
+        context: context,
+        noteModel: noteModel,
+      );
+
+      if (_canSendFCM == true){
+
+        final NoteModel _note = await _adjustNoteToken(
+            context: context,
+            noteModel: noteModel
+        );
+
+        if (_note.token != null) {
+          await CloudFunction.call(
+              context: context,
+              functionName: CloudFunction.callSendFCMToDevice,
+              mapToPass: _note.toMap(toJSON: true),
+              onFinish: (dynamic result){
+                blog('NoteFireOps.createNote : FCM SENT : $result');
+              }
+          );
+        }
+
+
+      }
+
+
+
+    }
+
+  }
+  // --------------------
+  ///
+  static Future<bool> _checkReceiverCanReceiveFCM({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+  }) async {
+    bool _canReceive = false;
+
+    if (noteModel != null){
+
+      if (noteModel.sendFCM == false){
+        _canReceive = false;
+      }
+      else {
+
+        // if (noteModel.parties.receiverType == NotePartyType.user){
+          // final UserModel _userModel = await UserProtocols.fetchUser(
+          //   context: context,
+          //   userID: noteModel.parties.receiverID,
+          // );
+        // }
+        // else if (noteModel.parties.receiverType == NotePartyType.bz){
+          // final BzModel _bzModel = await BzProtocols.fetchBz(
+          //   context: context,
+          //   bzID: noteModel.parties.receiverID,
+          // );
+        // }
+
+        /// TASK : NEED TO MAKE A SETTINGS PREFERENCE MAP TO KNOW IF PROFILE
+        /// HAD OPTED TO RECEIVING THIS TYPE OF FCM OR NOT
+        _canReceive = true;
+
+      }
+
+    }
+
+    return _canReceive;
+  }
+  // --------------------
+  ///
+  static Future<NoteModel> _adjustNoteToken({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+  }) async {
+    NoteModel _note = noteModel;
+
+    if (noteModel != null){
+
+      if (noteModel.parties.receiverType == NotePartyType.user){
+
+        final UserModel _user = await UserProtocols.refetchUser(
+          context: context,
+          userID: noteModel.parties.receiverID,
+        );
+
+        blog('_adjustNoteToken : userToken is : ${_user?.fcmToken?.token}');
+
+        if (TextCheck.isEmpty(_user?.fcmToken?.token) == true){
+          _note = _note.nullifyField(
+            token: true,
+          );
+        }
+        else {
+          _note = _note.copyWith(
+            token: _user?.fcmToken?.token,
+          );
+        }
+
+
+      }
+
+    }
+
+    return _note;
   }
   // -----------------------------------------------------------------------------
 

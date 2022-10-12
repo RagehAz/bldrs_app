@@ -53,7 +53,7 @@ abstract class FireSubColl {
   static const String admin_backups_chains = 'chains';
   static const String admin_backups_currencies = 'currencies';
 
-  static const String users_user_notifications = 'notifications';
+  static const String noteReceiver_receiver_notes = 'notes';
 
   static const String questions_question_chats = 'chats';
   static const String questions_question_counters = 'counters';

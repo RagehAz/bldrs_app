@@ -169,7 +169,6 @@ class Mapper {
     Function onExists,
     Function onNull,
   }){
-
     Map<String, dynamic> _output;
 
     if (snapshot.exists) {
@@ -203,6 +202,56 @@ class Mapper {
       if (onNull != null){
         onNull();
       }
+    }
+
+    return _output;
+  }
+
+  static List<Map<String, dynamic>> getMapsFromDataSnapshot({
+    @required DataSnapshot snapshot,
+    // bool addDocID = true,
+  }) {
+    List<Map<String, dynamic>> _output;
+
+    if (snapshot.exists) {
+
+      blog('snapshot type : ${snapshot.value.runtimeType}');
+
+      // if (snapshot.value.runtimeType.toString() == 'List<Object?>'){
+
+        _output = [];
+
+        final List<dynamic> _dynamics = snapshot.children.toList();
+
+        for (final dynamic object in _dynamics){
+
+          final Map<String, dynamic> _maw = getMapFromDataSnapshot(
+            snapshot: object,
+            // addDocID: true,
+          );
+
+          _output.add(_maw);
+
+        }
+
+      // }
+
+      // if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
+      //
+      //   final Map<String, dynamic> _map = getMapFromInternalHashLinkedMapObjectObject(
+      //     internalHashLinkedMapObjectObject: snapshot.value,
+      //   );
+      //
+      //   Mapper.blogMap(_map, invoker: 'the fookin maw');
+      //
+      //   _output = [];
+      //   if (_map != null){
+      //     _output.add(_map);
+      //   }
+      //
+      // }
+
+
     }
 
     return _output;

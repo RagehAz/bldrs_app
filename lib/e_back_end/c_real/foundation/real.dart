@@ -382,7 +382,7 @@ class Real {
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readPathMaps({
     @required BuildContext context,
     @required RealQueryModel realQueryModel,
@@ -390,7 +390,7 @@ class Real {
     bool addDocIDToEachMap = true,
   }) async {
 
-    final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+    List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
     await tryAndCatch(
       context: context,
@@ -398,43 +398,20 @@ class Real {
 
         final Query _query = RealQueryModel.createQuery(
           queryModel: realQueryModel,
-          startAfter: startAfter,
+          lastMap: startAfter,
         );
 
-        final DataSnapshot _snap = await _query.get();
+        // final DataSnapshot _snap = await _query.get();
 
-        final Map<String, dynamic> _dynamics = Mapper.getMapFromDataSnapshot(
-          snapshot: _snap,
-          addDocID: false,
+        final DatabaseEvent _event = await _query.once();
+
+
+        _output = Mapper.getMapsFromDataSnapshot(
+          snapshot: _event.snapshot,
+          // addDocID: false,
         );
 
-        if (_dynamics != null){
-
-          final List<String> _keys = _dynamics.keys.toList();
-
-          if (Mapper.checkCanLoopList(_keys) == true){
-
-            for (final String key in _keys){
-
-              blog('$key : ${_dynamics[key]}');
-
-              Map<String, dynamic> _map = Map<String, dynamic>.from(_dynamics[key]);
-
-              if (addDocIDToEachMap == true){
-                _map = Mapper.insertPairInMap(
-                  map: _map,
-                  key: 'id',
-                  value: key,
-                );
-              }
-
-              _output.add(_map);
-
-            }
-
-          }
-
-        }
+        // Mapper.blogMaps(_output, methodName: 'readPathMaps');
 
 
       },
@@ -444,7 +421,7 @@ class Real {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>> readCollAsMap({
+  static Future<Map<String, dynamic>> readPathMap({
     @required BuildContext context,
     @required String path,
   }) async {
@@ -807,6 +784,7 @@ class Real {
   /// BLOG
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogDatabaseEvent({
     @required DatabaseEvent event,
     String methodName = 'blogDatabaseEvent',
@@ -836,12 +814,14 @@ class Real {
     blog('blogDatabaseEvent : $methodName ----------------------- END');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogDataSnapshot ({
     @required DataSnapshot snapshot,
     String methodName = 'blogDataSnapshot',
   }){
     blog('blogDataSnapshot : $methodName ----------------------- START');
     if (snapshot != null){
+      blog('snapshot.key : ${snapshot.key}');
       blog('snapshot.value : ${snapshot.value}');
       blog('snapshot.value.runtimeType : ${snapshot.value.runtimeType}');
       blog('snapshot.children : ${snapshot.children}');
@@ -856,5 +836,5 @@ class Real {
     }
     blog('blogDataSnapshot : $methodName ----------------------- END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
