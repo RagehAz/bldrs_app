@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -10,10 +8,10 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/g_zones_editor/aaa_edit_city_page.dart';
 import 'package:bldrs/x_dashboard/g_zones_editor/aa_edit_country_page.dart';
-import 'package:bldrs/x_dashboard/g_zones_editor/x_zones_manager_controller.dart';
+import 'package:bldrs/x_dashboard/g_zones_editor/aaa_edit_city_page.dart';
 import 'package:bldrs/x_dashboard/g_zones_editor/b_zoning_lab.dart';
+import 'package:bldrs/x_dashboard/g_zones_editor/x_zones_manager_controller.dart';
 import 'package:flutter/material.dart';
 
 class ZonesEditorScreen extends StatefulWidget {
@@ -33,20 +31,19 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
   PageController _pageController;
   ValueNotifier<ZoneModel> _zone;
   // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'ZonesEditorScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -63,13 +60,11 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
   void didChangeDependencies() {
     if (_isInit) {
 
-      _triggerLoading().then((_) async {
-        // -------------------------------
-
-        // -------------------------------
-        await _triggerLoading();
-
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
     }
     _isInit = false;
@@ -79,7 +74,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
   /// TAMAM
   @override
   void dispose() {
-    _loading.dispose();
+    // _loading.dispose();
     _zone.dispose();
     _pageController.dispose();
     _scrollController.dispose();

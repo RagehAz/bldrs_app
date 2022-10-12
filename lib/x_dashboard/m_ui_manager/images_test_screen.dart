@@ -55,11 +55,11 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // -----------
-  Future<void> _triggerLoading({bool setTo}) async {
+  Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,
-      value: setTo,
       mounted: mounted,
+      value: setTo,
       addPostFrameCallBack: false,
     );
   }
@@ -74,12 +74,11 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }

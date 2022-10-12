@@ -79,16 +79,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override

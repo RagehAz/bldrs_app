@@ -15,13 +15,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-// Google Cloud Platform
-// Bldrs
-// Google Map for Android - IOS
-// AuthorPic key 1
-// AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI
-
-// -------------------------------------------
 class GoogleMapScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const GoogleMapScreen({
@@ -39,60 +32,58 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
+  // -----------------------------------------------------------------------------
   GeoPoint _geoPoint;
+  // --------------------
   CountryModel _countryModel;
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  // --------------------
+  GoogleMapController _googleMapController;
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _geoPoint = const GeoPoint(
         30.0778, 31.2852); //widget.geoPoint ?? Atlas.dummyPosition();
   }
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _googleMapController.dispose();
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async {
-        // final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.FlyerPin);
 
-        unawaited(_triggerLoading(function: () {
-          // _mapMarker = _marker;
-        }));
+      _triggerLoading(setTo: true).then((_) async {
+
+        // final BitmapDescriptor _marker = await Imagers.getCustomMapMarkerFromSVG(context: context, assetName: Iconz.FlyerPin);
+        // _mapMarker = _marker;
+
+        unawaited(_triggerLoading(setTo: false));
       });
+
     }
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _googleMapController.dispose();
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   /*
   String _previewImage;
   void _showPreview(double lat, double lng){
@@ -103,7 +94,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     });
   }
    */
-// -----------------------------------------------------------------------------
+  // --------------------
   void _selectLocation({
     @required LatLng latLng
   }) {
@@ -118,7 +109,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     blog('_selectLocation :  $latLng');
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
   BitmapDescriptor _mapMarker;
   Set<Marker> _getMarkers(){
@@ -143,14 +134,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     return _markers;
   }
    */
-// -----------------------------------------------------------------------------
-  GoogleMapController _googleMapController;
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // Set<Marker> theMarkers = _getMarkers();
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
+
+    // Set<Marker> theMarkers = _getMarkers();
     // double mapBoxWidth = screenWidth * 0.8;
     // double mapBoxHeight = mapBoxWidth;
     // final double _boxCorners = Ratioz.rrFlyerBottomCorners *  _screenWidth;
@@ -177,6 +168,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       skyType: SkyType.black,
       layoutWidget: Stack(
         children: <Widget>[
+
           /// MAP
           GoogleMap(
             key: const PageStorageKey<String>('google_map'),
@@ -297,8 +289,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               },
             ),
           ),
+
         ],
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

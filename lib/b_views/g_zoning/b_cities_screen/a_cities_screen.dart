@@ -46,16 +46,13 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'SelectCityScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -126,6 +123,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// TAMAM
   @override
   void dispose() {
+    _loading.dispose();
     _isSearching.dispose();
     _foundCities.dispose();
     _countryCities.dispose();

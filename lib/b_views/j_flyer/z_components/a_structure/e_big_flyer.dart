@@ -75,17 +75,13 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   /// --- LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(true);
   // --------------------
-  Future<void> _triggerLoading({
-    @required setTo,
-  }) async {
-
+  Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
       value: setTo,
       addPostFrameCallBack: false,
     );
-
   }
   // -----------------------------------------------------------------------------
   @override

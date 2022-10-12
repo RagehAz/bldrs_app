@@ -19,20 +19,19 @@ class ReOrderListTest extends StatefulWidget {
 
 class _ReOrderListTestState extends State<ReOrderListTest> {
   // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'ReOrderListTest',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -44,12 +43,10 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
@@ -59,7 +56,7 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
   /// XXXX
   @override
   void dispose() {
-    _loading.dispose();
+    // _loading.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -74,9 +71,8 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
   @override
   Widget build(BuildContext context) {
 
-
     return DashBoardLayout(
-      loading: _loading,
+      // loading: _loading,
       listWidgets: <Widget>[
 
         WideButton(
@@ -124,5 +120,5 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

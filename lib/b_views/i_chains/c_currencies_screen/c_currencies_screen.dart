@@ -43,19 +43,19 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   // --------------------
   final PageController _pageController = PageController();
   // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -67,12 +67,11 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
@@ -82,7 +81,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   /// XXXX
   @override
   void dispose() {
-    _loading.dispose();
+    // _loading.dispose();
     _searchController.dispose();
     _isSearching.dispose();
     _showAllCurrencies.dispose();
@@ -144,7 +143,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       searchController: _searchController,
       onSearchChanged: _onSearch,
       onSearchSubmit: _onSearch,
-      loading: _loading,
+      // loading: _loading,
       pyramidsAreOn: true,
       skyType: SkyType.black,
       onSearchCancelled: (){
@@ -333,5 +332,5 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

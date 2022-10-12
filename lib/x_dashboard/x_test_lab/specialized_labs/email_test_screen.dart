@@ -22,50 +22,49 @@ class EmailTestScreen extends StatefulWidget {
 }
 
 class _EmailTestScreenState extends State<EmailTestScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+  // --------------------
+  /*
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      // -->
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
-  /// XXXX
+  // --------------------
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -122,5 +121,5 @@ class _EmailTestScreenState extends State<EmailTestScreen> {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }

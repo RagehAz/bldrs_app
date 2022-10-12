@@ -45,26 +45,17 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
   /// bool _thing;
 // -----------------------------------------------------------------------------
   ScrollController _scrollController;
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -76,6 +67,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _loading.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -83,12 +75,13 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      _triggerLoading().then((_) async {
-        /// do Futures here
-        unawaited(_triggerLoading(function: () {
-          /// set new values here
-        }));
-      });
+
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   unawaited(_triggerLoading(setTo: false));
+      // });
+
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -96,7 +89,8 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 // -----------------------------------------------------------------------------
   GeoPoint _point;
   Future<void> _getCurrentUserLocation() async {
-    unawaited(_triggerLoading());
+
+    unawaited(_triggerLoading(setTo: true));
 
     await tryAndCatch(
         methodName: 'get location thing',
@@ -123,11 +117,12 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
           blog('ERROR IS : $e');
         });
 
-    unawaited(_triggerLoading());
+    unawaited(_triggerLoading(setTo: false));
   }
 // -------------------------------------------------
   Future<void> _getPositionFromMap() async {
-    unawaited(_triggerLoading());
+
+    unawaited(_triggerLoading(setTo: true));
 
     final GeoPoint _pickedPoint = await Nav.goToNewScreen(
         context: context,
@@ -144,7 +139,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       await _getCountryData(geoPoint: _point);
     }
 
-    unawaited(_triggerLoading());
+    unawaited(_triggerLoading(setTo: false));
   }
 // -----------------------------------------------------------------------------
   String _countryID;

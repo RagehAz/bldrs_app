@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -317,9 +318,9 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogNoteModel({
-    String methodName,
+    String invoker,
   }) {
-    blog('BLOGGING NoteModel : $methodName -------------------------------- START -- ');
+    blog('BLOGGING NoteModel : $invoker -------------------------------- START -- ');
     blog('id : $id');
     blog('~ ~ ~ ~ ~ ~');
     blog('title : $title');
@@ -342,7 +343,7 @@ class NoteModel {
     blog('~ ~ ~ ~ ~ ~');
     blog('docSnapshot : $docSnapshot');
     blog('~ ~ ~ ~ ~ ~');
-    blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
+    blog('BLOGGING NoteModel : $invoker -------------------------------- END -- ');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -356,7 +357,7 @@ class NoteModel {
       for (final NoteModel note in notes){
 
         note.blogNoteModel(
-          methodName: methodName,
+          invoker: methodName,
         );
 
       }
@@ -1221,6 +1222,18 @@ class NoteModel {
       return 'receiver can only be a user or a bz';
     }
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FIRE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getNoteCollName(NoteModel note){
+    return note.parties.receiverType == NotePartyType.user ?
+    FireColl.users
+        :
+    FireColl.bzz;
   }
   // -----------------------------------------------------------------------------
 

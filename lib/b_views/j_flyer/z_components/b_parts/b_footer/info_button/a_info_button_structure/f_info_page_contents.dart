@@ -94,7 +94,7 @@ class InfoPageContents extends StatelessWidget {
               children: <Widget>[
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// INFO HEADLINE
-                if (flyerModel.description.isNotEmpty == true)
+                if (flyerModel.description?.isNotEmpty == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     headlineVerse: const Verse(
@@ -103,13 +103,13 @@ class InfoPageContents extends StatelessWidget {
                     ),
                   ),
                 /// INFO
-                if (flyerModel.description.isNotEmpty == true)
+                if (flyerModel.description?.isNotEmpty == true)
                   InfoPageParagraph(
                     pageWidth: _pageWidth,
                     flyerInfo: flyerModel.description,
                   ),
                 /// INFO LINE
-                if (flyerModel.description.isNotEmpty == true)
+                if (flyerModel.description?.isNotEmpty == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
@@ -140,7 +140,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// KEYWORDS HEADLINE
-                if (flyerModel.keywordsIDs.isNotEmpty == true)
+                if (flyerModel.keywordsIDs?.isNotEmpty == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     headlineVerse: const Verse(
@@ -149,19 +149,19 @@ class InfoPageContents extends StatelessWidget {
                     ),
                   ),
                 /// KEYWORDS
-                if (flyerModel.keywordsIDs.isNotEmpty == true)
+                if (flyerModel.keywordsIDs?.isNotEmpty == true)
                   PhidsViewer(
                     pageWidth: _pageWidth,
                     phids: flyerModel.keywordsIDs,
                   ),
                 /// KEYWORDS LINE
-                if (flyerModel.keywordsIDs.isNotEmpty == true)
+                if (flyerModel.keywordsIDs?.isNotEmpty == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// SPECS HEADLINE
-                if (flyerModel.specs.isNotEmpty == true)
+                if (flyerModel.specs?.isNotEmpty == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     headlineVerse: const Verse(
@@ -170,7 +170,7 @@ class InfoPageContents extends StatelessWidget {
                     ),
                   ),
                 /// SPECS
-                if (flyerModel.specs.isNotEmpty == true)
+                if (flyerModel.specs?.isNotEmpty == true)
                   SpecsBuilder(
                     pageWidth: _pageWidth,
                     specs: flyerModel.specs,
@@ -186,7 +186,7 @@ class InfoPageContents extends StatelessWidget {
                     },
                   ),
                 /// SPECS LINE
-                if (flyerModel.specs.isNotEmpty == true)
+                if (flyerModel.specs?.isNotEmpty == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),

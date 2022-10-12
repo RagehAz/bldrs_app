@@ -22,7 +22,7 @@ class NoteFireOps {
   /// CREATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> createNote({
     @required NoteModel noteModel,
     ValueChanged<NoteModel> onFinished,
@@ -31,10 +31,8 @@ class NoteFireOps {
 
     if (noteModel != null){
 
-      noteModel.blogNoteModel(methodName: 'createNote.START');
-
       await Fire.createSubDoc(
-        collName: noteModel.parties.receiverType == NotePartyType.bz ? FireColl.bzz : FireColl.users,
+        collName: NoteModel.getNoteCollName(noteModel),
         docName: noteModel.parties.receiverID,
         subCollName: FireSubColl.noteReceiver_receiver_notes,
         input: noteModel.toMap(toJSON: false),
@@ -42,9 +40,6 @@ class NoteFireOps {
           _output = noteModel.copyWith(id: ref.id,);
         },
       );
-
-      // blog('createNote : _note.sendFCM : ${_output.sendFCM} : _note.token : ${_output.token}');
-
 
     if (onFinished != null){
         onFinished(_output);
@@ -343,14 +338,16 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> deleteNote({
-    @required String noteID,
+    @required NoteModel note,
   }) async {
 
-    if (noteID != null){
+    if (note != null){
 
-      await Fire.deleteDoc(
-        collName: FireColl.notes,
-        docName: noteID,
+      await Fire.deleteSubDoc(
+        collName: NoteModel.getNoteCollName(note),
+        docName: note.parties.receiverID,
+        subCollName: FireSubColl.noteReceiver_receiver_notes,
+        subDocName: note.id,
       );
 
     }
@@ -364,13 +361,18 @@ class NoteFireOps {
 
     if (Mapper.checkCanLoopList(notes) == true){
 
-      for (final NoteModel note in notes){
+      await Future.wait(<Future>[
 
-        await deleteNote(
-          noteID: note.id,
-        );
+        ...List.generate(notes.length, (index){
 
-      }
+          return deleteNote(
+            note: notes[index],
+          );
+
+        }),
+
+      ]);
+
 
     }
 

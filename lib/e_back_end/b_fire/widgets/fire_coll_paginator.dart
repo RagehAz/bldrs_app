@@ -47,15 +47,13 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+  Future<void>  _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -75,7 +73,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         await _readMore();
 
@@ -86,7 +84,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
@@ -101,6 +98,30 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     }
 
     super.dispose();
+  }
+  // --------------------
+  @override
+  void didUpdateWidget(covariant FireCollPaginator oldWidget) {
+
+    _triggerLoading(setTo: true).then((_) async {
+
+      if (
+      FireQueryModel.checkQueriesHaveNotChanged(
+        model1: oldWidget.queryModel,
+        model2: widget.queryModel,
+      ) == false
+      ){
+
+        _paginatorNotifiers.clear();
+        _canKeepReading.value = true;
+        await _readMore();
+
+      }
+
+    });
+
+
+    super.didUpdateWidget(oldWidget);
   }
   // -----------------------------------------------------------------------------
 

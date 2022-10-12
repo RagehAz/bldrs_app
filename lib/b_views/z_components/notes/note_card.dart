@@ -7,8 +7,10 @@ import 'package:bldrs/b_views/z_components/notes/x_components/buttons/note_card_
 import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster_builder.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x2_user_notes_page_controllers.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -77,6 +79,7 @@ class NoteCard extends StatelessWidget {
     final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.poll?.buttons);
     // --------------------
     final double _bubbleWidth = bubbleWidth ?? getBubbleWidth(context);
+    final double _clearWidth = Bubble.clearWidth(context, bubbleWidthOverride: _bubbleWidth);
     // --------------------
     return NoteRedDotWrapper(
       childWidth: _bubbleWidth,
@@ -183,12 +186,22 @@ class NoteCard extends StatelessWidget {
             height: Ratioz.appBarPadding,
           ),
 
-          /// ATTACHMENT
+          /// POSTER
           if (noteModel?.poster?.type != null)
-          NotePosterBuilder(
-            width: _bodyWidth,
-            noteModel: noteModel,
+            Container(
+              width: _clearWidth,
+              alignment: Aligners.superInverseCenterAlignment(context),
+              child: ClipRRect(
+                borderRadius: NotePosterBox.getCorners(
+                    context: context,
+                    boxWidth: _bodyWidth,
+                ),
+                child: NotePosterBuilder(
+                width: _bodyWidth,
+                noteModel: noteModel,
           ),
+              ),
+            ),
 
           /// BUTTONS
           if (Mapper.checkCanLoopList(noteModel?.poll?.buttons) == true)
