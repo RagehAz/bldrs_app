@@ -15,7 +15,7 @@ class ReviewsBuilder extends StatelessWidget {
     @required this.pageHeight,
     @required this.reviewTextController,
     @required this.flyerModel,
-    @required this.paginatorNotifiers,
+    @required this.paginatorController,
     @required this.appBarType,
     @required this.globalKey,
     Key key
@@ -27,7 +27,7 @@ class ReviewsBuilder extends StatelessWidget {
   final List<Map<String, dynamic>> reviewsMaps;
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final PaginationController paginatorNotifiers;
+  final PaginationController paginatorController;
   final AppBarType appBarType;
   final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
@@ -58,7 +58,7 @@ class ReviewsBuilder extends StatelessWidget {
             pageWidth: pageWidth,
             reviewTextController: reviewTextController,
             isCreatorMode: true,
-            paginatorNotifiers: paginatorNotifiers,
+            paginatorController: paginatorController,
             globalKey: globalKey,
           );
         }
@@ -72,7 +72,7 @@ class ReviewsBuilder extends StatelessWidget {
             flyerModel: flyerModel,
             pageWidth : pageWidth,
             reviewModel: reviews[index - 1],
-            paginatorNotifiers: paginatorNotifiers,
+            paginatorController: paginatorController,
             isCreatorMode: false,
             // specialReview: true,
           );
