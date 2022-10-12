@@ -9,18 +9,20 @@ import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
-class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
+class NotePartyButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NoteSenderOrRecieverDynamicButton({
+  const NotePartyButton({
     @required this.type,
     @required this.id,
     @required this.width,
+    this.height,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NotePartyType type;
   final String id;
   final double width;
+  final double height;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
 
           return UserTileButton(
             width: width,
+            height: height,
             userModel: snap.data,
           );
 
@@ -57,6 +60,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
 
             return BzTileButton(
               width: width,
+              height: height,
               bzModel: snap.data,
             );
 
@@ -70,6 +74,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
 
       return CountryTileButton(
         width: width,
+        height: height,
         countryID: id,
         onTap: null,
       );
@@ -81,6 +86,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
 
       return TileButton(
         width: width,
+        height: height,
         verse: const Verse(text: 'phid_bldrsFullName', translate: true),
         icon: Iconz.bldrsNameSquare,
         iconSizeFactor: 0.7,
@@ -91,6 +97,7 @@ class NoteSenderOrRecieverDynamicButton extends StatelessWidget {
     /// NOTHINGNESS
     else {
       return TileButton(
+        height: height,
         width: width,
       );
     }
@@ -122,7 +129,7 @@ class NoteSenderOrRecieverDynamicButtonsColumn extends StatelessWidget {
 
           final String _id = ids[index];
 
-          return NoteSenderOrRecieverDynamicButton(
+          return NotePartyButton(
             width: width,
             id: _id,
             type: type,
