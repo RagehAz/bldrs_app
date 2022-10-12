@@ -16,6 +16,7 @@ class NotePartyButton extends StatelessWidget {
     @required this.id,
     @required this.width,
     this.height,
+    this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class NotePartyButton extends StatelessWidget {
   final String id;
   final double width;
   final double height;
+  final Function onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class NotePartyButton extends StatelessWidget {
             width: width,
             height: height,
             userModel: snap.data,
+            onTap: onTap,
           );
 
           },
@@ -62,6 +65,7 @@ class NotePartyButton extends StatelessWidget {
               width: width,
               height: height,
               bzModel: snap.data,
+              onTap: onTap,
             );
 
           }
@@ -76,7 +80,7 @@ class NotePartyButton extends StatelessWidget {
         width: width,
         height: height,
         countryID: id,
-        onTap: null,
+        onTap: onTap,
       );
 
     }
@@ -90,6 +94,7 @@ class NotePartyButton extends StatelessWidget {
         verse: const Verse(text: 'phid_bldrsFullName', translate: true),
         icon: Iconz.bldrsNameSquare,
         iconSizeFactor: 0.7,
+        onTap: onTap,
       );
 
     }
@@ -99,6 +104,7 @@ class NotePartyButton extends StatelessWidget {
       return TileButton(
         height: height,
         width: width,
+        onTap: onTap,
       );
     }
 

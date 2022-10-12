@@ -60,16 +60,13 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'SearchUsersScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -83,12 +80,12 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         final List<UserModel> _history = await UserLDBOps.readAll();
         _historyUsers.value = _history;
 
-        await _triggerLoading();
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;

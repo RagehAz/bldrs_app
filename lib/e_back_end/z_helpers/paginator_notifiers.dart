@@ -39,7 +39,23 @@ class PaginationController {
     );
 
   }
+  // --------------------
+  ///
+  void clear(){
+    paginatorMaps.value = [];
+    replaceMap.value = null;
+    addMap.value = null;
+    deleteMap.value = null;
+    startAfter.value = null;
+  }
 
+  void removeListeners(){
+    paginatorMaps.removeListener(() { });
+    replaceMap.removeListener(() { });
+    addMap.removeListener(() { });
+    deleteMap.removeListener(() { });
+    startAfter.removeListener(() { });
+  }
   // -----------------------------------------------------------------------------
 
   /// DISPOSING

@@ -87,20 +87,18 @@ class NotePosterBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Center(
-      child: Container(
-        width: width,
-        height: getBoxHeight(width),
-        decoration: BoxDecoration(
-          color: color,
-          // borderRadius: getCorners(
-          //   context: context,
-          //   boxWidth: width,
-          // ),
-        ),
-        alignment: Alignment.center,
-        child: child,
+    return Container(
+      width: width,
+      height: getBoxHeight(width),
+      decoration: BoxDecoration(
+        color: color,
+        // borderRadius: getCorners(
+        //   context: context,
+        //   boxWidth: width,
+        // ),
       ),
+      alignment: Alignment.center,
+      child: child,
     );
 
   }

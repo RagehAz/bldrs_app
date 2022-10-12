@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
@@ -28,22 +26,19 @@ class SpecPickerManager extends StatefulWidget {
 
 class _SpecPickerManagerState extends State<SpecPickerManager> {
   // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({
-    bool setTo,
-  }) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'SpecPickerManager',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -55,12 +50,11 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
@@ -70,7 +64,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
   /// TAMAM
   @override
   void dispose() {
-    _loading.dispose();
+    // _loading.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -80,8 +74,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
   // --------------------
   /*
   FlyerType _selectedFlyerType;
-// ------------------------
-// ------------------------
+  // ------------------------
   void _onTapPickerSelector(FlyerType flyerType){
 
     final bool _isSelected = _selectedFlyerType == flyerType;
@@ -312,5 +305,5 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -3,6 +3,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class FireQueryModel {
   /// --------------------------------------------------------------------------
   const FireQueryModel({
@@ -27,6 +28,7 @@ class FireQueryModel {
   /// QueryParameter CREATOR
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   FireQueryModel copyWith({
     CollectionReference<Object> collRef,
     int limit,
@@ -46,5 +48,78 @@ class FireQueryModel {
       initialMaps: initialMaps ?? this.initialMaps,
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkQueriesHaveNotChanged({
+    @required FireQueryModel model1,
+    @required FireQueryModel model2,
+  }){
+  bool _identical = false;
+
+  if (model1 == null && model2 == null){
+    _identical = true;
+  }
+
+  else if (model1 != null && model2 != null){
+
+    if (
+    model1.collRef?.path == model2.collRef?.path &&
+    model1.limit == model2.limit &&
+    model1.orderBy?.descending == model2.orderBy?.descending &&
+    model1.orderBy?.fieldName == model2.orderBy?.fieldName &&
+    FireFinder.checkFindersListsAreIdentical(model1.finders, model2.finders) == true
+    // model1.onDataChanged == model2.onDataChanged &&
+    // model1.startAfter == model2.startAfter &&
+    // model1.initialMaps == model2.initialMaps &&
+    ){
+      _identical = true;
+    }
+
+  }
+
+
+  return _identical;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+  // --------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+  // --------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is FireQueryModel){
+      _areIdentical = checkQueriesHaveNotChanged(
+        model1: this,
+        model2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      collRef.hashCode^
+      onDataChanged.hashCode^
+      limit.hashCode^
+      orderBy.hashCode^
+      finders.hashCode^
+      startAfter.hashCode^
+      initialMaps.hashCode;
+// -----------------------------------------------------------------------------
 }

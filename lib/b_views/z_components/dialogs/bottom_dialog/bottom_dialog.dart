@@ -382,7 +382,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Widget wideButton({
     @required BuildContext context,
-    @required Verse verse,
+    Verse verse,
     Function onTap,
     String icon,
     double height = wideButtonHeight,

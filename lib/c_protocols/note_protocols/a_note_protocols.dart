@@ -14,7 +14,6 @@ import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -36,32 +35,27 @@ class NoteProtocols {
     @required List<String> receiversIDs,
   }) async {
 
-    blog('composeToMultiple - START');
-
     if (Mapper.checkCanLoopList(receiversIDs) == true && note != null){
 
-      final NoteModel _noteWithUpdatedPoster = await _uploadNotePoster(
+      NoteModel _note = await _uploadNotePoster(
         context: context,
         note: note,
+        isPublic: true,
       );
-
-      blog('composeToMultiple - _noteWithUpdatedPoster : TO ${_noteWithUpdatedPoster.parties.receiverType}');
 
       await Future.wait(<Future>[
 
         ...List.generate(receiversIDs.length, (index){
 
-          final String _receiverID = receiversIDs[index];
-
-          final NoteModel _note = _noteWithUpdatedPoster.copyWith(
-            parties: note.parties.copyWith(
-              receiverID: _receiverID,
-            ),
+          _note = adjustReceiverID(
+            note: _note,
+            receiverID: receiversIDs[index],
           );
 
           return NoteProtocols.composeToOne(
             context: context,
             note: _note,
+            uploadPoster: false,
           );
 
         }),
@@ -76,37 +70,38 @@ class NoteProtocols {
   static Future<void> composeToOne({
     @required BuildContext context,
     @required NoteModel note,
+    bool uploadPoster = true,
   }) async {
 
     assert(note.parties.receiverID.length > 5, 'Something is wrong with receiverID');
+    assert(note.parties.receiverID != 'xxx', 'receiverID is xxx');
 
     final bool _canSendNote = NoteModel.checkCanSendNote(note);
 
-    blog('composeToOne - _canSendNote : $_canSendNote');
-
     if (_canSendNote == true){
 
+      NoteModel _note = note;
+
       /// UPLOAD POSTER
-      NoteModel _note = await _uploadNotePoster(
-        context: context,
-        note: note,
-      );
+      if (uploadPoster == true){
+        _note = await _uploadNotePoster(
+          context: context,
+          note: _note,
+          isPublic: false,
+        );
+      }
 
-      blog('composeToOne - _canSendNote : $_canSendNote');
-
-      _note = await _adjustBldrsLogoURL(
-        context: context,
-        noteModel: _note,
-      );
-
-      _note = note.copyWith(
+      /// UPDATE SENT TIME
+      _note = _note.copyWith(
         sentTime: DateTime.now(),
       );
 
+      /// CREATE NOTE FIRE OPS
       _note = await NoteFireOps.createNote(
         noteModel: _note,
       );
 
+      /// SEND FCM
       await _sendNoteFCM(
         context: context,
         noteModel: _note,
@@ -120,10 +115,11 @@ class NoteProtocols {
 
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> _uploadNotePoster({
     @required BuildContext context,
     @required NoteModel note,
+    @required bool isPublic,
   }) async {
 
     NoteModel _output = note;
@@ -137,24 +133,27 @@ class NoteProtocols {
 
           if (note.poster.file != null){
 
-            List<String> _ownersIDs = <String>[];
+            List<String> _ownersIDs = <String>['public'];
+            if (isPublic == false){
 
-            /// ADD BZ CREATOR ID TO NOTE
-            if (note.parties.senderType == NotePartyType.bz){
+              /// RECEIVER IS BZ
+              if (note.parties.receiverType == NotePartyType.bz){
 
-              final String _bzID = note.parties.senderID;
-              final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: _bzID);
-              final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
-              _ownersIDs = Stringer.addStringToListIfDoesNotContainIt(
-                strings: _ownersIDs,
-                stringToAdd: _creator.userID,
-              );
+                final String _bzID = note.parties.senderID;
+                final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: _bzID);
+                final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
+                _ownersIDs = [_bzID, _creator.userID];
+
+              }
+
+              /// RECEIVER IS USER
+              else {
+                _ownersIDs = <String>[note.parties.receiverID];
+              }
+
 
             }
 
-            else {
-              _ownersIDs = <String>[note.parties.senderID];
-            }
 
             final String _posterURL = await Storage.createStoragePicAndGetURL(
               inputFile: note.poster.file,
@@ -163,8 +162,8 @@ class NoteProtocols {
               ownersIDs: _ownersIDs,
             );
 
-            _output = _output.copyWith(
-              poster: _output.poster.copyWith(
+            _output = note.copyWith(
+              poster: note.poster.copyWith(
                 url: _posterURL,
               ),
             );
@@ -182,49 +181,24 @@ class NoteProtocols {
 
     }
 
+    _output.blogNoteModel(invoker: '_uploadNotePoster..END');
+
     return _output;
   }
   // --------------------
-  /// TAMAM
-  static Future<NoteModel> _adjustBldrsLogoURL({
-    @required BuildContext context,
-    @required NoteModel noteModel,
-  }) async {
-    NoteModel _note;
+  /// TESTED :
+  static NoteModel adjustReceiverID({
+    @required String receiverID,
+    @required NoteModel note,
+  }){
 
-    blog('_adjustBldrsLogoURL : noteModel.token : ${noteModel.token}');
+    return note.copyWith(
+      parties: note.parties.copyWith(
+        receiverID: receiverID,
+      ),
+    );
 
-    if (noteModel != null){
 
-      /// ADJUST IMAGE IF SENDER IS BLDRS
-      if (noteModel.parties.senderID == NoteParties.bldrsSenderID){
-
-        // final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
-        //   context: context,
-        //   storageDocName: 'admin',
-        //   fileName: NoteParties.bldrsFCMIconFireStorageFileName,
-        // );
-
-        _note = noteModel.copyWith(
-          parties: noteModel.parties.copyWith(
-            senderImageURL:
-            // _bldrsNotificationIconURL ??
-                NoteParties.bldrsLogoStaticURL,
-          ),
-        );
-
-      }
-
-      /// KEEP IT AS IS
-      else {
-        _note = noteModel.copyWith();
-      }
-
-    }
-
-    _note.blogNoteModel(methodName: '_adjustBldrsLogoURL.END');
-
-    return _note;
   }
   // --------------------
   ///
@@ -392,25 +366,16 @@ class NoteProtocols {
 
     blog('NoteProtocol.deleteNoteEverywhereProtocol : START');
 
-    // /// DELETE ATTACHMENT IF IMAGE
-    // if (noteModel.posterType == NoteAttachmentType.image){
-    //
-    //   final String _picName = await Storage.getImageNameByURL(
-    //     context: context,
-    //     url: noteModel.model,
-    //   );
-    //
-    //   await Storage.deleteStoragePic(
-    //     context: context,
-    //     storageDocName: StorageDoc.notesBanners,
-    //     fileName: _picName,
-    //   );
-    //
-    // }
+    /// DELETE POSTER IF EXISTED
+    await _wipePoster(
+      context: context,
+      note: note,
+    );
+
 
     /// FIRE DELETE
     await NoteFireOps.deleteNote(
-      noteID: note.id,
+      note: note,
     );
 
     /// PRO DELETE
@@ -421,6 +386,42 @@ class NoteProtocols {
     );
 
     blog('NoteProtocol.deleteNoteEverywhereProtocol : END');
+  }
+  // --------------------
+  ///
+  static Future<void> _wipePoster({
+    @required BuildContext context,
+    @required NoteModel note,
+  }) async {
+
+    if (note != null && note.poster != null){
+
+      if (
+          note.poster.type == PosterType.cameraImage
+          ||
+          note.poster.type == PosterType.galleryImage
+      ){
+
+        if (note.poster.url != null){
+
+          final String _picName = await Storage.getImageNameByURL(
+            context: context,
+            url: note.poster.url,
+          );
+
+          if (_picName != null){
+            await Storage.deleteStoragePic(
+              storageDocName: StorageDoc.posters,
+              fileName: _picName,
+            );
+          }
+
+        }
+
+      }
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 }

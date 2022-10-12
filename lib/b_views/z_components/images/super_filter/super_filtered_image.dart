@@ -107,28 +107,19 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'SuperFilteredImage',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _file = widget.imageFile;
-  }
-  // --------------------
-  @override
-  void dispose(){
-    _loading.dispose();
-    super.dispose();
   }
   // --------------------
   File _file;
@@ -139,14 +130,14 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 
       if (widget.filterModel != null){
 
-        _triggerLoading().then((_) async {
+        _triggerLoading(setTo: true).then((_) async {
 
           _file = await SuperFilteredImage.processImage(
             input: widget.imageFile,
             filterModel: widget.filterModel,
           );
 
-          await _triggerLoading();
+          await _triggerLoading(setTo: false);
         });
 
       }
@@ -170,6 +161,12 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
       });
     }
     super.didUpdateWidget(oldWidget);
+  }
+  // --------------------
+  @override
+  void dispose(){
+    _loading.dispose();
+    super.dispose();
   }
   // -----------------------------------------------------------------------------
   @override
@@ -246,5 +243,5 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

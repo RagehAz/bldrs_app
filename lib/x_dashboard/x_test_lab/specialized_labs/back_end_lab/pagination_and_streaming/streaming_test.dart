@@ -26,27 +26,28 @@ class StreamingTest extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _StreamingTestState createState() => _StreamingTestState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _StreamingTestState extends State<StreamingTest> {
+  // -----------------------------------------------------------------------------
   FireQueryModel _queryParameters;
-// -----------------------------------------------------------------------------
+  final ValueNotifier<List<Map<String, dynamic>>> _localMaps = ValueNotifier(<Map<String, dynamic>>[]);
+  // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'StreamingTest',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -59,33 +60,31 @@ class _StreamingTestState extends State<StreamingTest> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
-    _loading.dispose();
+    // _loading.dispose();
     _localMaps.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<List<Map<String, dynamic>>> _localMaps = ValueNotifier(<Map<String, dynamic>>[]);
-
+  // -----------------------------------------------------------------------------
   Future<void> onDataChanged(List<Map<String, dynamic>> newMaps) async {
 
     _localMaps.value = newMaps;
@@ -109,21 +108,16 @@ class _StreamingTestState extends State<StreamingTest> {
     // }
 
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-
     return DashBoardLayout(
       pageTitle: 'Streaming Test',
-        loading: _loading,
-        onBldrsTap: (){
-
-
-
-        },
+        // loading: _loading,
+        // onBldrsTap: (){
+        //
+        // },
         listWidgets: <Widget>[
 
           FireDocStreamer(
@@ -160,7 +154,6 @@ class _StreamingTestState extends State<StreamingTest> {
 
               }
           ),
-
 
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,24 +213,24 @@ class _StreamingTestState extends State<StreamingTest> {
             ],
           ),
 
-
         ],
     );
 
   }
+  // -----------------------------------------------------------------------------
 }
 
 class ColorButton extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const ColorButton({
     @required this.map,
     this.mapIsFromJSON = false,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final Map<String, dynamic> map;
   final bool mapIsFromJSON;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -277,4 +270,5 @@ class ColorButton extends StatelessWidget {
       },
     );
   }
+  /// --------------------------------------------------------------------------
 }

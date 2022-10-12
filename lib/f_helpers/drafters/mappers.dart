@@ -415,7 +415,6 @@ class Mapper {
       /// PAIR IS NULL
       if (map[key] == null){
         _result.putIfAbsent(key, () => value);
-        // _result = _result..addAll(map);
       }
 
       /// PAIR HAS VALUE
@@ -585,21 +584,38 @@ class Mapper {
   static Map<String, dynamic> cleanNullPairs(Map<String, dynamic> map){
     Map<String, dynamic> _output;
 
-    blog('cleanNullPairs -- START');
-
     if (map != null){
 
       _output = {};
       final List<String> _keys = map.keys.toList();
 
       for (final String key in _keys){
+
         if (map[key] != null){
-          _output = insertPairInMap(
+
+          if (map[key] is Map<String, dynamic>){
+            final Map<String, dynamic> _sub = cleanNullPairs(map[key]);
+            _output = insertPairInMap(
+              map: _output,
+              key: key,
+              value: _sub,
+            );
+          }
+
+          else {
+            _output = insertPairInMap(
               map: _output,
               key: key,
               value: map[key],
-          );
+            );
+          }
+
         }
+
+        // else {
+        //   blog('$key : value is null');
+        // }
+
       }
 
       if (_output.keys.isEmpty == true){
@@ -607,6 +623,10 @@ class Mapper {
       }
 
     }
+
+    // else {
+    //   blog('cleanNullPairs: map is null');
+    // }
 
     return _output;
   }

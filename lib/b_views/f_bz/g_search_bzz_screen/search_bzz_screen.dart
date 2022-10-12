@@ -90,16 +90,13 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'SearchBzzScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -113,12 +110,12 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         final List<BzModel> _history = await BzLDBOps.readAll();
         _historyBzz.value = _history;
 
-        await _triggerLoading();
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;
