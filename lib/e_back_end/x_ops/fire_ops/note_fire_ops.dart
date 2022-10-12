@@ -32,7 +32,7 @@ class NoteFireOps {
 
     if (noteModel != null){
 
-      // Mapper.blogMap( _output.toMap(toJSON: true), invoker: 'fuck the fucking map');
+      noteModel.blogNoteModel(methodName: 'createNote.START');
 
       await Fire.createSubDoc(
         context: context,
@@ -255,7 +255,7 @@ class NoteFireOps {
 
           final Stream<QuerySnapshot<Object>> _querySnapshots = Fire.streamCollection(
             queryModel: FireQueryModel(
-                collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+                collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
                 startAfter: startAfter,
                 limit: limit,
                 orderBy: orderBy,

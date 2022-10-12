@@ -21,7 +21,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -795,9 +794,7 @@ Future<void> onSendNote({
 
     if (_confirmSend == true){
 
-      blog('should sent this');
-
-      note.value.blogNoteModel();
+      // note.value.blogNoteModel();
 
       unawaited(WaitDialog.showWaitDialog(context: context));
 
@@ -895,7 +892,6 @@ void clearNote({
   titleController.clear();
   bodyController.clear();
   receiversModels.value = [];
-
 }
 // -----------------------------------------------------------------------------
 

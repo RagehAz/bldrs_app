@@ -82,7 +82,7 @@ String pathOfSubDoc({
   /// REFERENCES
 
   // --------------------
-  static CollectionReference<Object> createSuperCollRef({
+  static CollectionReference<Object> getSuperCollRef({
     @required String aCollName,
     String bDocName,
     String cSubCollName,
@@ -227,10 +227,91 @@ String pathOfSubDoc({
   }
   // -----------------------------------------------------------------------------
 
+  /// BASICS
+
+  // --------------------
+  ///
+  static Future<void> _setData({
+    @required DocumentReference<Object> ref,
+    @required Map<String, dynamic> input,
+    @required String invoker,
+    Function onSuccess,
+  }) async {
+
+      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(input);
+
+      if (_upload != null){
+
+        await tryAndCatch(
+            methodName: invoker,
+            functions: () async {
+
+              // final SetOptions options = SetOptions(
+              //   merge: true,
+              //   mergeFields: <Object>[],
+              // );
+
+              await ref.set(_upload);
+
+              if (onSuccess != null){
+                onSuccess();
+              }
+
+              blog('$invoker.setData : CREATED ${_upload.keys.length} keys in : ${ref.path}');
+
+            },
+        // onError: (){},
+        );
+
+      }
+
+    }
+  // --------------------
+  ///
+  static Future<void> _updateData({
+    @required DocumentReference<Object> ref,
+    @required Map<String, dynamic> input,
+    @required String invoker,
+    Function onSuccess,
+  }) async {
+
+      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(input);
+
+      if (_upload != null){
+
+        await tryAndCatch(
+          methodName: invoker,
+          functions: () async {
+
+            // final SetOptions options = SetOptions(
+            //   merge: true,
+            //   mergeFields: <Object>[],
+            // );
+
+            await ref.update(_upload);
+
+            if (onSuccess != null){
+              onSuccess();
+            }
+
+            blog('$invoker.updateData : UPDATED ${_upload.keys.length} keys in : ${ref.path}');
+
+          },
+          // onError: (){},
+        );
+
+
+
+
+      }
+
+    }
+  // -----------------------------------------------------------------------------
+
   /// CREATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT : creates firestore doc with auto generated ID then returns doc reference
+  ///
   static Future<DocumentReference<Object>> createDoc({
     @required BuildContext context,
     @required String collName,
@@ -239,80 +320,71 @@ String pathOfSubDoc({
     bool addDocID = false,
   }) async {
 
-    DocumentReference<Object> _docRef;
+    /// NOTE : creates firestore doc with auto generated ID then returns doc reference
 
-    await tryAndCatch(
-      context: context,
-      methodName: 'createDoc',
-      functions: () async {
+    DocumentReference<Object> _output;
 
-        final CollectionReference<Object> _bzCollectionRef = getCollectionRef(collName);
+    if (input != null){
 
-        _docRef = _bzCollectionRef.doc();
+      final CollectionReference<Object> _bzCollectionRef = getCollectionRef(collName);
+      final DocumentReference<Object> _docRef = _bzCollectionRef.doc();
 
-        if (addDocID == true) {
-          Mapper.insertPairInMap(
-            map: input,
-            key: 'id',
-            value: _docRef.id,
-          );
-        }
+      if (addDocID == true) {
+        Mapper.insertPairInMap(
+          map: input,
+          key: 'id',
+          value: _docRef.id,
+        );
+      }
 
-        await _docRef.set(input);
+      await _setData(
+          input: input,
+          ref: _docRef,
+          invoker: 'createDoc',
+          onSuccess: (){
+            _output = _docRef;
+          }
+      );
 
-
-        blog('Fire : createDoc : $collName/${_docRef.id} : ${input.keys.length} keys');
-      },
-      onError: (String error){
-
-        _docRef = null;
-
-      },
-    );
-
-    if (onFinish != null){
-      onFinish(_docRef);
     }
 
-    return _docRef;
+    if (onFinish != null){
+      onFinish(_output);
+    }
+    return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<DocumentReference<Object>> createNamedDoc({
     @required BuildContext context,
     @required String collName,
     @required String docName,
     @required Map<String, dynamic> input,
   }) async {
-    DocumentReference<Object> _ref;
+    DocumentReference<Object> _output;
 
-    // Mapper.blogMap(input, methodName: 'createNamedDoc : [ $collName/$collName ]');
+    if (input != null){
 
-    await tryAndCatch(
-        context: context,
-        methodName: 'createNamedDoc',
-        functions: () async {
+      final DocumentReference<Object> _docRef = getDocRef(
+        collName: collName,
+        docName: docName,
+      );
 
-          final DocumentReference<Object> _docRef = getDocRef(
-            collName: collName,
-            docName: docName,
-          );
+      await _setData(
+          input: input,
+          ref: _docRef,
+          invoker: 'createNamedDoc',
+          onSuccess: (){
+            _output = _docRef;
+          }
+      );
 
-          // final SetOptions options = SetOptions(
-          //   merge: true,
-          //   mergeFields: <Object>[],
-          // );
+    }
 
-          await _docRef.set(input, );
-
-          blog('createNamedDoc : ( $collName ) : ${_docRef.id}');
-          _ref = _docRef;
-        });
-
-    return _ref;
+    return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT : creates firestore sub doc with auto ID
+  ///
   static Future<DocumentReference<Object>> createSubDoc({
     @required BuildContext context,
     @required String collName,
@@ -322,6 +394,7 @@ String pathOfSubDoc({
     ValueChanged<DocumentReference> onFinish,
   }) async {
 
+    /// NOTE : creates firestore sub doc with auto ID
     /// creates a new sub doc and new sub collection if didn't exists
     /// and uses the same directory if existed to add a new doc
     /// updates the sub doc if existed
@@ -332,7 +405,7 @@ String pathOfSubDoc({
       collName: collName,
       docName: docName,
       subCollName: subCollName,
-      subDocName: null, // to make it generate auto ID
+      subDocName: null, /// to make it generate auto ID
       input: input,
     );
 
@@ -343,7 +416,7 @@ String pathOfSubDoc({
     return _subDocRef;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<DocumentReference<Object>> createNamedSubDoc({
     @required BuildContext context,
     @required String collName,
@@ -358,37 +431,36 @@ String pathOfSubDoc({
     /// updates the sub doc if existed
     /// and creates random name for sub doc if sub doc name is null
 
-    DocumentReference<Object> _subDocRef;
+    DocumentReference<Object> _output;
 
-    final bool _success = await tryCatchAndReturnBool(
-        context: context,
-        methodName: 'createNamedSubDoc',
-        functions: () async {
-          _subDocRef = getSubDocRef(
-            collName: collName,
-            docName: docName,
-            subCollName: subCollName,
-            subDocName: subDocName,
-          );
+    if (input != null){
 
-          await _subDocRef.set(input);
+      final DocumentReference<Object> _ref = getSubDocRef(
+        collName: collName,
+        docName: docName,
+        subCollName: subCollName,
+        subDocName: subDocName,
+      );
 
-          blog('createNamedSubDoc : CREATED $collName/$docName/$subCollName/$subDocName/');
-        });
+      await _setData(
+          input: input,
+          ref: _ref,
+          invoker: 'createNamedSubDoc',
+          onSuccess: (){
+            _output = _ref;
+          }
+      );
 
-    if (_success == true){
-      return _subDocRef;
-    }
-    else {
-      return null;
     }
 
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
   /// READ
 
   // --------------------
+  ///
   static Future<List<Map<String, dynamic>>> superCollPaginator({
     @required BuildContext context,
     @required FireQueryModel queryModel,
@@ -663,6 +735,7 @@ String pathOfSubDoc({
     return _query.snapshots();
   }
   // --------------------
+  ///
   static Stream<DocumentSnapshot<Object>> streamDoc({
     @required String collName,
     @required String docName,
@@ -676,6 +749,7 @@ String pathOfSubDoc({
     return _docRef.snapshots();
   }
   // --------------------
+  ///
   static Stream<DocumentSnapshot<Object>> streamSubDoc({
     @required String collName,
     @required String docName,
@@ -705,16 +779,10 @@ String pathOfSubDoc({
     @required Map<String, dynamic> input,
   }) async {
 
+    // NOTES
     /// this creates a new doc that overrides existing doc,, same as createNamedDoc method
-
-    await createNamedDoc(
-      context: context,
-      collName: collName,
-      docName: docName,
-      input: input,
-    );
-
     /// or another syntax
+    /// --------------------
     /// await tryAndCatch(
     ///     context: context,
     ///     functions: () async {
@@ -724,9 +792,20 @@ String pathOfSubDoc({
     ///
     ///     }
     /// );
+    /// --------------------
+    ///
+
+    await createNamedDoc(
+      context: context,
+      collName: collName,
+      docName: docName,
+      input: input,
+    );
+
+
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> updateDocField({
     @required BuildContext context,
     @required String collName,
@@ -735,22 +814,24 @@ String pathOfSubDoc({
     @required dynamic input,
   }) async {
 
-    final DocumentReference<Object> _doc = getDocRef(
-      collName: collName,
-      docName: docName,
-    );
+    if (input != null){
 
-    await tryAndCatch(
-        context: context,
-        methodName: 'updateDocField',
-        functions: () async {
+      final DocumentReference<Object> _ref = getDocRef(
+        collName: collName,
+        docName: docName,
+      );
 
-          await _doc.update(<String, dynamic>{field: input});
-          blog('Updated doc : $docName : field : [$field] : to : ${input.toString()}');
+      await _updateData(
+        ref: _ref,
+        invoker: 'updateDocField',
+        input: <String, dynamic>{field: input},
+      );
 
-        });
+    }
+
   }
   // --------------------
+  ///
   static Future<void> updateSubDoc({
     @required BuildContext context,
     @required String collName,
@@ -769,7 +850,7 @@ String pathOfSubDoc({
     );
   }
   // --------------------
-  /// this updates a field if exists, if absent it creates a new field and inserts the value
+  ///
   static Future<void> updateSubDocField({
     @required BuildContext context,
     @required String collName,
@@ -780,20 +861,26 @@ String pathOfSubDoc({
     @required dynamic input
   }) async {
 
-    final DocumentReference<Object> _subDoc = getSubDocRef(
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
-      subDocName: subDocName,
-    );
+    // NOTES
+    /// this updates a field if exists,
+    /// if absent it creates a new field and inserts the value
 
-    await tryAndCatch(
-        context: context,
-        methodName: 'updateSubDocField',
-        functions: () async {
-          await _subDoc.update(<String, dynamic>{field: input});
-        }
-    );
+    if (input != null){
+
+      final DocumentReference<Object> _subDoc = getSubDocRef(
+        collName: collName,
+        docName: docName,
+        subCollName: subCollName,
+        subDocName: subDocName,
+      );
+
+      await _updateData(
+        ref: _subDoc,
+        invoker: 'updateSubDocField',
+        input: <String, dynamic>{field: input},
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -1068,26 +1155,21 @@ String pathOfSubDoc({
       docName: docName,
     );
 
-    // await tryAndCatch(
-    //     context: context,
-    //     methodName: 'deleteSubDocField',
-    //     functions: () async {
-
-    // Remove field from the document
     final Map<String, Object> updates = <String, Object>{};
 
     updates.addAll(<String, dynamic>{
       field: FieldValue.delete(),
     });
 
-    await _docRef.update(updates);
+    await _updateData(
+      ref: _docRef,
+      invoker: 'deleteDocField',
+      input: updates,
+    );
 
-    blog('delete field : $collName / $docName / { $field }');
-
-    //     }
-    // );
   }
   // --------------------
+  ///
   static Future<void> deleteSubDocField({
     @required BuildContext context,
     @required String collName,
@@ -1104,19 +1186,19 @@ String pathOfSubDoc({
       subDocName: subDocName,
     );
 
-    await tryAndCatch(
-        context: context,
-        methodName: 'deleteSubDocField',
-        functions: () async {
-          // Remove field from the document
-          final Map<String, Object> updates = <String, Object>{};
+    // Remove field from the document
+    final Map<String, Object> updates = <String, Object>{};
 
-          updates.addAll(<String, dynamic>{
-            field: FieldValue.delete(),
-          });
+    updates.addAll(<String, dynamic>{
+      field: FieldValue.delete(),
+    });
 
-          await _docRef.update(updates);
-        });
+    await _updateData(
+      ref: _docRef,
+      invoker: 'deleteSubDocField',
+      input: updates,
+    );
+
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

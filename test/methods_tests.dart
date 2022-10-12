@@ -178,6 +178,7 @@ void main() {
     expect(_result, false);
   });
 // -----------------------------------------------------------------------------
+  /*
   test('index of a map in list of maps', () {
     final Map<String, dynamic> _aMapInTheList = <String, dynamic>{
       'id': 'b',
@@ -204,7 +205,9 @@ void main() {
 
     expect(_result, 1);
   });
+   */
 // -----------------------------------------------------------------------------
+  /*
   test('index of a map not in the list of maps', () {
     final Map<String, dynamic> _aMapNotInTheListByOneField = <String, dynamic>{
       'id': 'b',
@@ -231,7 +234,9 @@ void main() {
 
     expect(_result, -1);
   });
+   */
 // -----------------------------------------------------------------------------
+  /*
   test('get index of a map by key value', () {
     final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
       <String, dynamic>{
@@ -253,6 +258,7 @@ void main() {
 
     expect(_result, 1);
   });
+   */
 // -----------------------------------------------------------------------------
   test('get map from urlQuery', () {
     const String _urlQuery =
@@ -367,6 +373,7 @@ void main() {
     expect(_isDateTime, false);
   });
 // -----------------------------------------------------------------------------
+  /*
   test('replace map pair', () async {
     final Map<String, Object> map = <String, Object>{
       'one': 'wa7ed',
@@ -387,6 +394,7 @@ void main() {
 
     expect(_newMap, _expected);
   });
+   */
 // -----------------------------------------------------------------------------
   test('This is #VAR01 app text #VAR02.', () async {
     const String _string = 'This is #VAR01 app text #VAR02.';
