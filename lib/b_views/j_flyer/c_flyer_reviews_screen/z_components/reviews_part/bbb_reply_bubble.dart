@@ -21,14 +21,14 @@ class BzReplyBubble extends StatelessWidget {
     @required this.boxWidth,
     @required this.reviewModel,
     @required this.flyerModel,
-    @required this.paginatorNotifiers,
+    @required this.paginatorController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double boxWidth;
   final ReviewModel reviewModel;
   final FlyerModel flyerModel;
-  final PaginationController paginatorNotifiers;
+  final PaginationController paginatorController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class BzReplyBubble extends StatelessWidget {
                               onTap: () => onReplyOptions(
                                 context: context,
                                 reviewModel: reviewModel,
-                                replaceMapNotifier: paginatorNotifiers.replaceMap,
+                                replaceMapNotifier: paginatorController.replaceMap,
                               ),
                             ),
 

@@ -14,7 +14,7 @@ class FireCollPaginator extends StatefulWidget {
     this.scrollController,
     this.loadingWidget,
     this.child,
-    this.paginatorNotifiers,
+    this.paginatorController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,7 +22,7 @@ class FireCollPaginator extends StatefulWidget {
   final Widget loadingWidget;
   final ScrollController scrollController;
   final Widget child;
-  final PaginationController paginatorNotifiers;
+  final PaginationController paginatorController;
   final Widget Function(
       BuildContext context,
       List<Map<String, dynamic>> maps,
@@ -42,7 +42,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
   final ValueNotifier<bool> _canKeepReading = ValueNotifier(true);
   // --------------------
-  PaginationController _paginatorNotifiers;
+  PaginationController _paginatorController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -63,8 +63,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     /// LISTEN TO SCROLL
     _initializeScrollListener();
 
-    /// PAGINATOR NOTIFIERS
-    _initializePaginatorNotifiers();
+    /// PAGINATOR CONTROLLER
+    _initializePaginatorController();
 
   }
   // --------------------
@@ -89,8 +89,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     _loading.dispose();
     _isPaginating.dispose();
 
-    if (widget.paginatorNotifiers == null){
-      _paginatorNotifiers.dispose();
+    if (widget.paginatorController == null){
+      _paginatorController.dispose();
     }
 
     if (widget.scrollController == null){
@@ -112,7 +112,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       ) == false
       ){
 
-        _paginatorNotifiers.clear();
+        _paginatorController.clear();
         _canKeepReading.value = true;
         await _readMore();
 
@@ -144,13 +144,13 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _initializePaginatorNotifiers(){
+  void _initializePaginatorController(){
 
-    /// LISTEN TO PAGINATOR NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
-    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
+    /// LISTEN TO PAGINATOR CONTROLLER NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
+    _paginatorController = widget.paginatorController ?? PaginationController.initialize(
       addExtraMapsAtEnd: true,
     );
-    _paginatorNotifiers?.activateListeners(
+    _paginatorController?.activateListeners(
       mounted: mounted,
       onDataChanged: widget.queryModel.onDataChanged,
     );
@@ -176,7 +176,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
       final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
         queryModel: widget.queryModel.copyWith(
-          startAfter: _paginatorNotifiers.startAfter.value,
+          startAfter: _paginatorController.startAfter.value,
         ),
         addDocsIDs: true,
         addDocSnapshotToEachMap: true,
@@ -188,8 +188,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
           mapsToAdd: _nextMaps,
           addAtEnd: true,
           mounted: mounted,
-          startAfter: _paginatorNotifiers.startAfter,
-          paginatorMaps: _paginatorNotifiers.paginatorMaps,
+          startAfter: _paginatorController.startAfter,
+          paginatorMaps: _paginatorController.paginatorMaps,
         );
 
       }
@@ -218,7 +218,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: _paginatorNotifiers.paginatorMaps,
+        valueListenable: _paginatorController.paginatorMaps,
         child: widget.child,
         builder: (_, List<Map<String, dynamic>> maps, Widget child){
 
