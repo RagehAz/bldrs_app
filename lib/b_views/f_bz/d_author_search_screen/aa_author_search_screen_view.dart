@@ -12,7 +12,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/users_tile_buttons_list.dart';
+import 'package:bldrs/x_dashboard/notes_creator/components/buttons/users_tile_buttons_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

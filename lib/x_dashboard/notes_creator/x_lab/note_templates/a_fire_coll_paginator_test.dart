@@ -14,9 +14,9 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/note_templates/x_note_templates.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/note_templates/x_note_templates.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
 class TemplateNotesScreen extends StatefulWidget {
@@ -230,7 +230,7 @@ class _NotesBuilderPage extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: NoteSenderOrRecieverDynamicButton(
+                        child: NotePartyButton(
                           width: PageBubble.clearWidth(context) * 0.5,
                           type: _noteModel?.parties?.receiverType,
                           id: _noteModel?.parties?.receiverID,

@@ -34,8 +34,8 @@ import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/a_notes_lab_home.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/note_templates/a_fire_coll_paginator_test.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/a_notes_lab_home.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/note_templates/a_fire_coll_paginator_test.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
