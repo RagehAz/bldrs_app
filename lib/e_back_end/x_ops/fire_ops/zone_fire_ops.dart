@@ -32,11 +32,8 @@ class ZoneFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Continent>> readContinentsOps({
-    @required BuildContext context,
-  }) async {
+  static Future<List<Continent>> readContinentsOps() async {
     final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
       collName: FireColl.zones,
       docName: FireDoc.zones_continents,
     );
@@ -52,12 +49,10 @@ class ZoneFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> readCountryOps({
-    @required BuildContext context,
     @required String countryID,
   }) async {
 
     final Map<String, dynamic> _map = await Fire.readSubDoc(
-      context: context,
       collName: FireColl.zones,
       docName: 'countries',
       subCollName: 'countries',
@@ -77,12 +72,10 @@ class ZoneFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> readCityOps({
-    @required BuildContext context,
     @required String cityID,
   }) async {
 
     final Map<String, dynamic> _map = await Fire.readSubDoc(
-      context: context,
       collName: FireColl.zones,
       docName: FireDoc.zones_cities,
       subCollName: FireSubColl.zones_cities_cities,
@@ -99,12 +92,10 @@ class ZoneFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCountryCitiesOps({
-    @required BuildContext context,
     @required String countryID,
   }) async {
 
     final CountryModel _country = await readCountryOps(
-      context: context,
       countryID: countryID,
     );
 
@@ -117,7 +108,6 @@ class ZoneFireOps {
         for (final String id in _citiesIDs) {
 
           final CityModel _city = await readCityOps(
-            context: context,
             cityID: id,
           );
 
@@ -149,7 +139,6 @@ class ZoneFireOps {
     final Uri _uri = Uri.parse(_url);
 
     await tryAndCatch(
-        context: context,
         methodName: 'get Country by IP',
         functions: () async {
 
@@ -170,7 +159,6 @@ class ZoneFireOps {
                 if (_countryID != null) {
 
                   final CountryModel _country = await ZoneProtocols.fetchCountry(
-                      context: context,
                       countryID: _countryID
                   );
 
@@ -227,7 +215,6 @@ class ZoneFireOps {
     final Uri _uri = Uri.parse(_url);
 
     await tryAndCatch(
-        context: context,
         methodName: 'get Country by IP',
         functions: () async {
           final http.Response _response = await http.get(_uri);
@@ -423,10 +410,9 @@ class ZoneFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<CurrencyModel>> readCurrencies(BuildContext context) async {
+  static Future<List<CurrencyModel>> readCurrencies() async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
       collName: FireColl.zones,
       docName: FireDoc.zones_currencies,
     );

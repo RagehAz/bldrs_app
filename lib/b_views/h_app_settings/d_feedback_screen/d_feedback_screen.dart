@@ -71,7 +71,6 @@ class _FeedBackState extends State<FeedBack> {
 
     /// upload text to firebase
     final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
-      context: context,
       feedback: FeedbackModel(
         userID: AuthFireOps.superUserID(),
         timeStamp: DateTime.now(),

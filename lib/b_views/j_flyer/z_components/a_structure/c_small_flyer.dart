@@ -69,7 +69,6 @@ class SmallFlyer extends StatelessWidget {
       // flyerModel.blogFlyer(methodName: '_openFullScreenFlyer');
 
       unawaited(recordFlyerView(
-        context: context,
         index: 0,
         flyerModel: flyerModel,
       ));

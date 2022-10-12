@@ -15,7 +15,6 @@ class FeedbackRealOps {
   // --------------------
   ///
   static Future<FeedbackModel> createFeedback({
-    @required BuildContext context,
     @required FeedbackModel feedback,
   }) async {
 
@@ -24,7 +23,6 @@ class FeedbackRealOps {
     if (feedback != null){
 
       final Map<String, dynamic> _map = await Real.createDoc(
-        context: context,
         collName: RealColl.feedbacks,
         addDocIDToOutput: true,
         map: feedback.toMap(),

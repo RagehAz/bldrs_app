@@ -24,7 +24,6 @@ class BzRecordRealOps {
   // ---------
   /// TESTED : WORKS PERFECT
   static Future<void> followBz({
-    @required BuildContext context,
     @required String bzID,
   }) async {
     blog('BzRecordOps.followBz : START');
@@ -37,12 +36,10 @@ class BzRecordRealOps {
     await Future.wait(<Future>[
 
       RecordRealOps.createRecord(
-        context: context,
         record: _record,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'follows',
         increaseOne: true,
@@ -56,7 +53,6 @@ class BzRecordRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unfollowBz({
-    @required BuildContext context,
     @required String bzID,
   }) async {
     blog('BzRecordOps.unfollowBz : START');
@@ -69,12 +65,10 @@ class BzRecordRealOps {
     await Future.wait(<Future>[
 
       RecordRealOps.createRecord(
-        context: context,
         record: _record,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'follows',
         increaseOne: false,
@@ -89,7 +83,6 @@ class BzRecordRealOps {
   // ---------
   /// TESTED : WORKS PERFECT
   static Future<void> callBz({
-    @required BuildContext context,
     @required String bzID,
     @required ContactModel contact,
   }) async {
@@ -104,12 +97,10 @@ class BzRecordRealOps {
     await Future.wait(<Future>[
 
       RecordRealOps.createRecord(
-        context: context,
         record: _record,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'calls',
         increaseOne: true,
@@ -128,7 +119,6 @@ class BzRecordRealOps {
   // ---------
   /// TESTED : WORKS PERFECT
   static Future<BzCounterModel> incrementBzCounter({
-    @required BuildContext context,
     @required String bzID,
     @required String field,
     bool increaseOne, // or decrease one
@@ -151,7 +141,6 @@ class BzRecordRealOps {
     }
 
     await Real.updateDocField(
-      context: context,
       collName: RealColl.countingBzz,
       docName: bzID,
       fieldName: field,
@@ -159,7 +148,6 @@ class BzRecordRealOps {
     );
 
     Map<String, dynamic> _map = await Real.readDocOnce(
-      context: context,
       collName: RealColl.countingBzz,
       docName: bzID,
     );
@@ -180,12 +168,10 @@ class BzRecordRealOps {
   /// READING
   // ---------
   static Future<BzCounterModel> readBzCounters({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
     final Map<String, dynamic> _map = await Real.readDocOnce(
-      context: context,
       collName: RealColl.countingBzz,
       docName: bzID,
     );
@@ -198,27 +184,23 @@ class BzRecordRealOps {
   /// DELETION
   // ---------
   static Future<void> deleteAllBzCountersAndRecords({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
     /// FOLLOWS
     await Real.deleteDoc(
-      context: context,
       collName: RealColl.recordingFollows,
       docName: bzID,
     );
 
     /// CALLS
     await Real.deleteDoc(
-      context: context,
       collName: RealColl.recordingCalls,
       docName: bzID,
     );
 
     /// BZ COUNTERS
     await Real.deleteDoc(
-      context: context,
       collName: RealColl.countingBzz,
       docName: bzID,
     );

@@ -31,9 +31,7 @@ class PhraseProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> fetchMainMixedLangPhrases({
-    @required BuildContext context,
-  }) async {
+  static Future<List<Phrase>> fetchMainMixedLangPhrases() async {
 
     // NOTE : fetches all phrases
 
@@ -48,7 +46,6 @@ class PhraseProtocols {
       await Future.wait(<Future>[
 
         PhraseRealOps.readPhrasesByLang(
-            context: context,
             langCode: 'en',
             createTrigram: true,
             onFinish: (List<Phrase> _enPhrases){
@@ -57,7 +54,6 @@ class PhraseProtocols {
         ),
 
         PhraseRealOps.readPhrasesByLang(
-            context: context,
             langCode: 'ar',
             createTrigram: true,
             onFinish: (List<Phrase> _arPhrases){
@@ -113,7 +109,6 @@ class PhraseProtocols {
   // --------------------
   ///
   static Future<Phrase> fetchPhid({
-    @required BuildContext context,
     @required String lang,
     @required String phid,
   }) async {
@@ -122,13 +117,11 @@ class PhraseProtocols {
     if (lang != 'en' && phid != null){
 
       _output = await PhraseRealOps.readPhraseByLang(
-        context: context,
         lang: lang,
         phid: phid,
       );
 
       _output ??= await PhraseRealOps.readPhraseByLang(
-        context: context,
         lang: 'en',
         phid: phid,
       );
@@ -171,13 +164,11 @@ class PhraseProtocols {
       await Future.wait(<Future>[
 
         PhraseRealOps.updatePhrasesForLang(
-            context: context,
             langCode: 'en',
             updatedPhrases: _en
         ),
 
         PhraseRealOps.updatePhrasesForLang(
-            context: context,
             langCode: 'ar',
             updatedPhrases: _ar
         ),

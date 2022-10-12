@@ -46,7 +46,6 @@ class ComposeUserProtocols {
 
       /// create a new firestore document for the user with the userID
       final UserModel _uploadedUserModel = await UserFireOps.createUser(
-        context: context,
         userModel: _initialUserModel,
         authBy: authType,
       );

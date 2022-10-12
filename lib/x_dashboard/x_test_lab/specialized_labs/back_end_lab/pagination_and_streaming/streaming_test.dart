@@ -145,7 +145,6 @@ class _StreamingTestState extends State<StreamingTest> {
                   onTap: () async {
 
                     await Fire.createDoc(
-                      context: context,
                       collName: 'testing',
                       input: {
                         'time' : Timers.cipherTime(time: DateTime.now(), toJSON: false),
@@ -266,7 +265,6 @@ class ColorButton extends StatelessWidget {
             final Color _newColor = Colorizer.createRandomColor();
 
             await Fire.updateDocField(
-              context: context,
               collName: 'testing',
               docName: map['id'],
               field: 'color',

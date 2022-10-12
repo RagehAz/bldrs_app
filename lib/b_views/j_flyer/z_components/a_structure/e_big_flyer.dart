@@ -276,7 +276,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
     if (_headerIsExpanded.value == true && _tinyMode == false){
       await readBzCounters(
-        context: context,
         bzID: widget.bzModel.id,
         bzCounters: _bzCounters,
       );
@@ -305,7 +304,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     blog('OPENING SLIDE INDEX : $index');
 
     unawaited(recordFlyerView(
-      context: context,
       index: index,
       flyerModel: widget.flyerModel,
     ));

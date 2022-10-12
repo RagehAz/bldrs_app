@@ -19,10 +19,9 @@ class AppControlsFireOps{
   /// READ
 
   // --------------------
-  static Future<AppControlsModel> readAppControls(BuildContext context) async {
+  static Future<AppControlsModel> readAppControls() async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
       collName: FireColl.admin,
       docName: FireDoc.admin_appControls,
     );
@@ -37,12 +36,10 @@ class AppControlsFireOps{
 
   // --------------------
   static Future<void> updateAppControls({
-    @required BuildContext context,
     @required AppControlsModel newAppControlsModel,
   }) async {
 
     await Fire.updateDoc(
-      context: context,
       collName: FireColl.admin,
       docName: FireDoc.admin_appControls,
       input: newAppControlsModel.toMap(),

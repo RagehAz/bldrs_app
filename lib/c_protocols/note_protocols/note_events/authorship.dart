@@ -42,7 +42,6 @@ class NoteEventsOfAuthorship {
     if (receiverID != null){
 
       final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        context: context,
         collName: FireColl.notes,
         startAfter: startAfter,
         limit: limit,
@@ -90,13 +89,11 @@ class NoteEventsOfAuthorship {
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : START');
 
     final Phrase _title = await PhraseProtocols.fetchPhid(
-      context: context,
       phid: 'phid_authorship_note_title',
       lang: userModelToSendTo.language ?? 'en',
     );
 
     final Phrase _body = await PhraseProtocols.fetchPhid(
-      context: context,
       phid: 'phid_authorship_note_body',
       lang: userModelToSendTo.language ?? 'en',
     );

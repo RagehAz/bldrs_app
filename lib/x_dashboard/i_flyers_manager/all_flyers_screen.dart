@@ -51,7 +51,6 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         blog('starting things');
 
         final List<dynamic> _maps = await Fire.readCollectionDocs(
-          context: context,
           collName: FireColl.flyers,
           orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
           limit: 20,

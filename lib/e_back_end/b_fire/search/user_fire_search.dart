@@ -18,7 +18,6 @@ class UserFireSearch{
 
   // --------------------
   static Future<List<UserModel>> usersByUserName({
-    @required BuildContext context,
     @required String name,
     @required List<String> userIDsToExclude,
     QueryDocumentSnapshot<Object> startAfter,
@@ -26,7 +25,6 @@ class UserFireSearch{
   }) async {
 
     final List<Map<String, dynamic>> _result = await Fire.readCollectionDocs(
-      context: context,
       collName: FireColl.users,
       addDocSnapshotToEachMap: true,
       limit: limit,
@@ -59,7 +57,6 @@ class UserFireSearch{
   }
   // --------------------
   static Future<List<UserModel>> usersByNameAndIsAuthor({
-    @required BuildContext context,
     @required String name,
     int limit = 3,
     bool addDocsIDs = false,
@@ -68,7 +65,6 @@ class UserFireSearch{
     List<UserModel> _usersModels = <UserModel>[];
 
     await tryAndCatch(
-        context: context,
         methodName: 'usersByNameAndIsAuthor',
         functions: () async {
           final CollectionReference<Object> _usersCollection =

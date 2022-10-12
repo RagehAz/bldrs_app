@@ -46,7 +46,6 @@ class GeneralProvider extends ChangeNotifier {
     else {
 
       final Map<String, dynamic> _appStateMap = await Fire.readDoc(
-        context: context,
         collName: FireColl.admin,
         docName: FireDoc.admin_appState,
       );
@@ -92,7 +91,7 @@ class GeneralProvider extends ChangeNotifier {
     }
 
     else {
-      _model = await AppControlsFireOps.readAppControls(context);
+      _model = await AppControlsFireOps.readAppControls();
 
       if (_model != null){
         await LDBOps.insertMap(
@@ -154,16 +153,13 @@ class GeneralProvider extends ChangeNotifier {
   bool get isConnected => _isConnected;
   // --------------------
   Future<void> getSetConnectivity({
-    @required BuildContext context,
     @required bool mounted,
     @required bool notify,
   }) async {
 
     if (mounted == true){
 
-      final bool _connected = await DeviceChecker.checkConnectivity(
-        context: context,
-      );
+      final bool _connected = await DeviceChecker.checkConnectivity();
 
       setConnectivity(
         isConnected: _connected,

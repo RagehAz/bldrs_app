@@ -230,7 +230,6 @@ class NoteEventsOfBzTeamManagement {
     );
 
     await NoteFireOps.createNote(
-        context: context,
         noteModel: _note
     );
 

@@ -55,7 +55,6 @@ class RecordRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<RecordModel> createRecord({ /// TASK : CORRECT NAME REMOVE a
-    @required BuildContext context,
     @required RecordModel record,
   }) async {
 
@@ -72,7 +71,6 @@ class RecordRealOps {
       );
 
       _map = await Real.createDocInPath(
-        context: context,
         pathWithoutDocName: _path,
         addDocIDToOutput: true,
         map: record.toMap(toJSON: true), // real db is json

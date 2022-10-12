@@ -191,7 +191,6 @@ class ReviewTextBalloon extends StatelessWidget {
                       /// LIKE
                       FutureBuilder<bool>(
                           future: ReviewProtocols.fetchIsAgreed(
-                            context: context,
                             reviewID: reviewModel.id,
                           ),
                           builder: (_, AsyncSnapshot<Object> snapshot){
@@ -205,7 +204,6 @@ class ReviewTextBalloon extends StatelessWidget {
                               verse: _isAlreadyAgreed == true ? 'Agreed' : 'Agree',
                               onTap: () => onReviewAgree(
                                 isAlreadyAgreed: _isAlreadyAgreed,
-                                context: context,
                                 reviewModel: reviewModel,
                                 replaceMap: paginatorNotifiers.replaceMap,
                               ),

@@ -33,7 +33,6 @@ class Storage {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Reference getRef({
-    @required BuildContext context,
     @required String storageDocName,
     @required String fileName, // without extension
   }) {
@@ -53,7 +52,6 @@ class Storage {
     Reference _ref;
 
     await tryAndCatch(
-        context: context,
         methodName: 'getRefFromURL',
         functions: () {
           final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -86,7 +84,6 @@ class Storage {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> uploadFile({
-    @required BuildContext context,
     @required File file,
     @required String storageDocName,
     @required String fileName,
@@ -100,13 +97,11 @@ class Storage {
     String _fileURL;
 
     await tryAndCatch(
-        context: context,
         methodName: 'uploadFile',
         functions: () async {
 
           /// GET REF
           final Reference _ref = getRef(
-            context: context,
             storageDocName: storageDocName,
             fileName: fileName,
           );
@@ -233,7 +228,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> createStoragePicAndGetURL({
-    @required BuildContext context,
     @required File inputFile,
     @required String docName,
     @required String fileName,
@@ -247,7 +241,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     String _imageURL;
 
     await tryAndCatch(
-        context: context,
         methodName: 'createStoragePicAndGetURL',
         functions: () async {
 
@@ -259,7 +252,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           };
 
           _imageURL = await uploadFile(
-            context: context,
             storageDocName: docName,
             fileName: fileName,
             file: inputFile,
@@ -274,7 +266,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> createStorageSlidePicsAndGetURLs({
-    @required BuildContext context,
     @required List<SlideModel> slides,
     @required String flyerID,
     @required String bzCreatorID,
@@ -291,7 +282,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         ...List.generate(slides.length, (index) async {
 
           final String _picURL = await createStoragePicAndGetURL(
-            context: context,
             inputFile: slides[index].pic,
             docName: StorageDoc.slides,
             ownersIDs: <String>[bzCreatorID, flyerAuthorID],
@@ -318,7 +308,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> createMultipleStoragePicsAndGetURLs({
-    @required BuildContext context,
     @required List<dynamic> pics,
     @required List<String> names,
     @required List<String> ownersIDs,
@@ -336,7 +325,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
       for (int i = 0; i < pics.length; i++) {
         final String _picURL = await createStoragePicAndGetURL(
-          context: context,
           inputFile: pics[i],
           docName: StorageDoc.slides,
           fileName: names[i],
@@ -352,7 +340,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL({
-    @required BuildContext context,
     @required String asset,
     @required String fileName,
     @required String docName,
@@ -361,14 +348,12 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     String _url;
 
     final File _result = await Filers.getFileFromLocalRasterAsset(
-      context: context,
       localAsset: asset,
     );
 
     blog('uploading $fileName pic to fireStorage in folder of $docName');
 
     _url = await createStoragePicAndGetURL(
-      context: context,
       fileName: fileName,
       docName: docName,
       inputFile: _result,
@@ -412,7 +397,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           _fileFromURL = pdf.file;
 
           _url = await Storage.uploadFile(
-            context: context,
             file: pdf.file,
             storageDocName: StorageDoc.flyersPDFs,
             fileName: _pdfStorageName,
@@ -434,7 +418,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         );
 
         _url = await Storage.uploadFile(
-          context: context,
           file: _fileFromURL,
           storageDocName: StorageDoc.flyersPDFs,
           fileName: _pdfStorageName,
@@ -466,14 +449,12 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> getImageURLByPath({
-    @required BuildContext context,
     @required String storageDocName,
     /// Note : use picName without file extension
     @required String fileName,
   }) async {
 
     final Reference _ref = getRef(
-      context: context,
       storageDocName: storageDocName,
       fileName: fileName,
     );
@@ -481,7 +462,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     String _url;
 
     await tryAndCatch(
-        context: context,
         methodName: '',
         functions: () async {
           _url = await _ref.getDownloadURL();
@@ -521,7 +501,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }
   // --------------------
   static Future<File> getImageFileByPath({
-    @required BuildContext context,
     @required String storageDocName,
     @required String fileName,
   }) async {
@@ -540,7 +519,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     // }
 
     final Reference _ref = getRef(
-      context: context,
       storageDocName: storageDocName,
       fileName: fileName,
     );
@@ -604,7 +582,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
       await tryAndCatch(
-        context: context,
         methodName: 'getMetadataFromURL',
         functions: () async {
 
@@ -626,7 +603,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FullMetadata> getMetadataByFileName({
-    @required BuildContext context,
     @required String storageDocName,
     @required String fileName,
   }) async {
@@ -638,12 +614,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (storageDocName != null && fileName != null){
 
       await tryAndCatch(
-        context: context,
         methodName: 'getMetadataByFileName',
         functions: () async {
 
           final Reference _ref = Storage.getRef(
-            context: context,
             storageDocName: storageDocName,
             fileName: fileName,
           );
@@ -689,7 +663,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getOwnersIDsByFileName({
-    @required BuildContext context,
     @required String storageDocName,
     @required String fileName,
   }) async {
@@ -698,7 +671,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (fileName != null && storageDocName != null){
 
       final FullMetadata _metaData = await getMetadataByFileName(
-        context: context,
         storageDocName: storageDocName,
         fileName: fileName,
       );
@@ -791,7 +763,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     else {
 
       _outputURL = await createStoragePicAndGetURL(
-        context: context,
         inputFile: newPic,
         ownersIDs: ownersIDs,
         docName: docName,
@@ -851,7 +822,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteStoragePic({
-    @required BuildContext context,
     @required String storageDocName,
     @required String fileName,
   }) async {
@@ -859,7 +829,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     blog('deleteStoragePic : START');
 
     final bool _canDelete = await checkCanDeleteStorageFile(
-      context: context,
       fileName: fileName,
       storageDocName: storageDocName,
     );
@@ -867,12 +836,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (_canDelete == true){
 
       final dynamic _result = await tryCatchAndReturnBool(
-          context: context,
           methodName: 'deleteStoragePic',
           functions: () async {
 
             final Reference _picRef = getRef(
-              context: context,
               storageDocName: storageDocName,
               fileName: fileName,
             );
@@ -920,7 +887,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkCanDeleteStorageFile({
-    @required BuildContext context,
     @required String fileName,
     @required String storageDocName,
   }) async {
@@ -931,7 +897,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (fileName != null && storageDocName != null){
 
       final List<String> _ownersIDs = await getOwnersIDsByFileName(
-        context: context,
         storageDocName: storageDocName,
         fileName: fileName,
       );

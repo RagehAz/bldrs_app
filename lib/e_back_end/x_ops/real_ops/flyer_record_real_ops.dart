@@ -25,7 +25,6 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : WORKS PERFECT
   static Future<void> shareFlyer({
-    @required BuildContext context,
     @required String flyerID,
     @required String bzID,
   }) async {
@@ -39,19 +38,16 @@ class FlyerRecordRealOps {
     await Future.wait(<Future>[
 
       RecordRealOps.createRecord(
-        context: context,
         record: _record,
       ),
 
       incrementFlyerCounter(
-        context: context,
         flyerID: flyerID,
         field: 'shares',
         increaseOne: true,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'allShares',
         increaseOne: true,
@@ -66,7 +62,6 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : WORKS PERFECT
   static Future<void> viewFlyer({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
     @required int index,
   }) async {
@@ -125,19 +120,16 @@ class FlyerRecordRealOps {
       await Future.wait(<Future>[
 
         RecordRealOps.createRecord(
-          context: context,
           record: _record,
         ),
 
         incrementFlyerCounter(
-          context: context,
           flyerID: flyerModel.id,
           field: 'views',
           increaseOne: true,
         ),
 
         BzRecordRealOps.incrementBzCounter(
-          context: context,
           bzID: flyerModel.bzID,
           field: 'allViews',
           increaseOne: true,
@@ -154,7 +146,6 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : WORKS PERFECT
   static Future<void> saveFlyer({
-    @required BuildContext context,
     @required String flyerID,
     @required String bzID,
     @required int slideIndex,
@@ -170,19 +161,16 @@ class FlyerRecordRealOps {
     await Future.wait(<Future>[
 
       RecordRealOps.createRecord(
-        context: context,
         record: _record,
       ),
 
       incrementFlyerCounter(
-        context: context,
         flyerID: flyerID,
         field: 'saves',
         increaseOne: true,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'allSaves',
         increaseOne: true,
@@ -195,7 +183,6 @@ class FlyerRecordRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unSaveFlyer({
-    @required BuildContext context,
     @required String flyerID,
     @required String bzID,
     @required int slideIndex,
@@ -210,19 +197,16 @@ class FlyerRecordRealOps {
     await Future.wait(<Future>[
 
       RecordRealOps.createRecord(
-        context: context,
         record: _record,
       ),
 
       incrementFlyerCounter(
-        context: context,
         flyerID: flyerID,
         field: 'saves',
         increaseOne: false,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'allSaves',
         increaseOne: false,
@@ -237,7 +221,6 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : ...
   static Future<void> reviewCreation({
-    @required BuildContext context,
     @required String review,
     @required String flyerID,
     @required String bzID,
@@ -258,14 +241,12 @@ class FlyerRecordRealOps {
       // ),
 
       incrementFlyerCounter(
-        context: context,
         flyerID: flyerID,
         field: 'reviews',
         increaseOne: true,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'allReviews',
         increaseOne: true,
@@ -303,7 +284,6 @@ class FlyerRecordRealOps {
   // --------------------
   /// TESTED : ...
   static Future<void> reviewDeletion({
-    @required BuildContext context,
     @required String flyerID,
     @required String bzID,
   }) async {
@@ -322,14 +302,12 @@ class FlyerRecordRealOps {
       // ),
 
       incrementFlyerCounter(
-        context: context,
         flyerID: flyerID,
         field: 'reviews',
         increaseOne: false,
       ),
 
       BzRecordRealOps.incrementBzCounter(
-        context: context,
         bzID: bzID,
         field: 'allReviews',
         increaseOne: false,
@@ -348,7 +326,6 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : WORKS PERFECT
   static Future<FlyerCounterModel> incrementFlyerCounter({
-    @required BuildContext context,
     @required String flyerID,
     @required String field,
     bool increaseOne, // or decrease one
@@ -370,7 +347,6 @@ class FlyerRecordRealOps {
     }
 
     await Real.updateDocField(
-      context: context,
       collName: RealColl.countingFlyers,
       docName: flyerID,
       fieldName: field,
@@ -378,7 +354,6 @@ class FlyerRecordRealOps {
     );
 
     Map<String, dynamic> _map = await Real.readDocOnce(
-      context: context,
       collName: RealColl.countingFlyers,
       docName: flyerID,
     );
@@ -398,12 +373,10 @@ class FlyerRecordRealOps {
   /// COUNTER READING
   // -------
   static Future<FlyerCounterModel> readFlyerCounters({
-    @required BuildContext context,
     @required String flyerID,
   }) async {
 
     final Map<String, dynamic> _map = await Real.readDocOnce(
-      context: context,
       collName: RealColl.countingFlyers,
       docName: flyerID,
     );
@@ -417,7 +390,6 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> deleteAllFlyerCountersAndRecords({
-    @required BuildContext context,
     @required String flyerID,
   }) async {
 
@@ -425,21 +397,18 @@ class FlyerRecordRealOps {
 
       /// SHARES
       Real.deleteDoc(
-        context: context,
         collName: RealColl.recordingShares,
         docName: flyerID,
       ),
 
       /// VIEWS
       Real.deleteDoc(
-        context: context,
         collName: RealColl.recordingViews,
         docName: flyerID,
       ),
 
       /// SAVES
       Real.deleteDoc(
-        context: context,
         collName: RealColl.recordingSaves,
         docName: flyerID,
       ),
@@ -453,7 +422,6 @@ class FlyerRecordRealOps {
 
       /// FLYERS COUNTER
       Real.deleteDoc(
-        context: context,
         collName: RealColl.countingFlyers,
         docName: flyerID,
       ),
@@ -464,7 +432,6 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> deleteMultipleFlyersCountersAndRecords({
-    @required BuildContext context,
     @required List<String> flyersIDs,
   }) async {
 
@@ -473,7 +440,6 @@ class FlyerRecordRealOps {
       await Future.wait(<Future>[
 
         ...List.generate(flyersIDs.length, (index) => deleteAllFlyerCountersAndRecords(
-          context: context,
           flyerID: flyersIDs[index],
         )),
 

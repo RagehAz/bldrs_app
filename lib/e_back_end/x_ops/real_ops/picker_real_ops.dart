@@ -26,13 +26,11 @@ class PickerRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createPickers({
-    @required BuildContext context,
     @required List<PickerModel> pickers,
     @required FlyerType flyerType,
   }) async {
 
     await Real.createNamedDoc(
-      context: context,
       collName: RealColl.pickers,
       docName: _getPickerRealDocNameByFlyerType(flyerType),
       map: PickerModel.cipherPickers(pickers),
@@ -46,7 +44,6 @@ class PickerRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> readPickers({
-    @required BuildContext context,
     @required FlyerType flyerType,
   }) async {
     List<PickerModel> _output = <PickerModel>[];
@@ -55,7 +52,6 @@ class PickerRealOps {
 
 
       final Map<String, dynamic> _map = await Real.readDoc(
-        context: context,
         collName: RealColl.pickers,
         docName: _getPickerRealDocNameByFlyerType(flyerType),
         addDocID: false,
@@ -78,7 +74,6 @@ class PickerRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updatePickers({
-    @required BuildContext context,
     @required FlyerType flyerType,
     @required List<PickerModel> updatedPickers,
   }) async {
@@ -86,7 +81,6 @@ class PickerRealOps {
     if (flyerType != null && Mapper.checkCanLoopList(updatedPickers) == true){
 
       await Real.updateDoc(
-        context: context,
         collName: RealColl.pickers,
         docName: _getPickerRealDocNameByFlyerType(flyerType),
         map: PickerModel.cipherPickers(updatedPickers),

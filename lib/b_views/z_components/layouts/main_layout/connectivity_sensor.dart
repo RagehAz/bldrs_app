@@ -47,9 +47,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
     subscription = Connectivity().onConnectivityChanged
         .listen((ConnectivityResult result) async {
 
-          final bool _connected = await DeviceChecker.checkConnectivity(
-            context: context,
-          );
+          final bool _connected = await DeviceChecker.checkConnectivity();
 
           await _onConnectivityChanged(_connected);
 
@@ -68,9 +66,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
   // -----------------------------------------------------------------------------
   Future<void> initConnectivity() async {
 
-    final bool _connected = await DeviceChecker.checkConnectivity(
-      context: context,
-    );
+    final bool _connected = await DeviceChecker.checkConnectivity();
 
     if (mounted == true) {
         _isConnected = ValueNotifier(_connected);

@@ -920,7 +920,6 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
       if (_flyerID != null){
 
         final FlyerModel flyerModel = await FlyerFireOps.readFlyerOps(
-            context: context,
             flyerID: _flyerID
         );
 

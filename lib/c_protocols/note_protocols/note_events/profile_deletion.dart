@@ -25,14 +25,12 @@ class NoteEventsOfProfileDeletion {
   // --------------------
   ///
   static Future<void> wipeUserReceivedNotes({
-    @required BuildContext context,
     @required String userID,
   }) async {
 
     blog('NoteProtocol.deleteAllUserReceivedNotes : START');
 
     await NoteFireOps.deleteAllReceivedNotes(
-      context: context,
       receiverID: userID,
       receiverType: NotePartyType.user,
     );
@@ -47,14 +45,12 @@ class NoteEventsOfProfileDeletion {
   // --------------------
   ///
   static Future<void> wipeBzReceivedNotes({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
     blog('NoteProtocol.deleteAllBzReceivedNotes : START');
 
     await NoteFireOps.deleteAllReceivedNotes(
-      context: context,
       receiverID: bzID,
       receiverType: NotePartyType.bz,
     );
@@ -65,7 +61,6 @@ class NoteEventsOfProfileDeletion {
   // --------------------
   ///
   static Future<void> wipeBzSentAuthorshipNotes({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
@@ -76,7 +71,6 @@ class NoteEventsOfProfileDeletion {
       /// READ ALL NOTES
       for (int i = 0; i <= 500; i++){
         final List<NoteModel> _notes = await _paginatePendingSentAuthorshipNotes(
-          context: context,
           limit: 10,
           senderID: bzID,
           startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
@@ -96,7 +90,6 @@ class NoteEventsOfProfileDeletion {
       if (Mapper.checkCanLoopList(_notesToDelete) == true){
 
         await NoteFireOps.deleteNotes(
-          context: context,
           notes: _notesToDelete,
         );
 
@@ -108,7 +101,6 @@ class NoteEventsOfProfileDeletion {
   // --------------------
   ///
   static Future<List<NoteModel>> _paginatePendingSentAuthorshipNotes({
-    @required BuildContext context,
     @required String senderID,
     @required int limit,
     @required QueryDocumentSnapshot<Object> startAfter,
@@ -119,7 +111,6 @@ class NoteEventsOfProfileDeletion {
     if (senderID != null){
 
       final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        context: context,
         collName: FireColl.notes,
         limit: limit,
         addDocSnapshotToEachMap: true,

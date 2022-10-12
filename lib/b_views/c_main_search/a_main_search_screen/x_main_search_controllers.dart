@@ -206,7 +206,6 @@ Future<List<SearchResult>> _searchBzz({
   blog('_onSearchBzz : _searchController.text : $searchText');
 
   final List<BzModel> _bzz = await BzFireSearch.paginateBzzBySearchingBzName(
-    context: context,
     bzName: searchText,
     limit: 10,
     startAfter: startAfter,
@@ -243,7 +242,6 @@ Future<List<SearchResult>> _searchAuthors({
   final List<SearchResult> _results = <SearchResult>[];
 
   final List<UserModel> _users = await UserFireSearch.usersByNameAndIsAuthor(
-    context: context,
     name: searchText,
   );
 
@@ -297,7 +295,6 @@ Future<List<SearchResult>> _searchFlyersByTitle({
   final List<SearchResult> _results = <SearchResult>[];
 
   final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndTitle(
-    context: context,
     zone: _zoneProvider.currentZone,
     title: searchText,
     startAfter: startAfter,
@@ -367,7 +364,6 @@ Future<void> _createFireSearchRecord({
   if (searchText.isNotEmpty){
 
     final RecordModel _record = await UserRecordRealOps.createUserSearchRecord(
-        context: context,
         searchText: searchText
     );
 

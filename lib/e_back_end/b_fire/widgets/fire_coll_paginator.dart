@@ -154,7 +154,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     if (_canKeepReading.value == true){
 
       final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
-        context: context,
         queryModel: widget.queryModel.copyWith(
           startAfter: _paginatorNotifiers.startAfter.value,
         ),

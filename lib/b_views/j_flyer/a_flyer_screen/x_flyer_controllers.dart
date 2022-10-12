@@ -39,12 +39,10 @@ Future<BzModel> getFlyerBzModel({
 }
 // --------------------
 Future<CountryModel> getFlyerBzCountry({
-  @required BuildContext context,
   @required String countryID,
 }) async {
 
   final CountryModel _country = await ZoneProtocols.fetchCountry(
-      context: context,
       countryID: countryID
   );
 
@@ -52,12 +50,10 @@ Future<CountryModel> getFlyerBzCountry({
 }
 // --------------------
 Future<CityModel> getFlyerBzCity({
-  @required BuildContext context,
   @required String cityID,
 }) async {
 
   final CityModel _city = await ZoneProtocols.fetchCity(
-      context: context,
       cityID: cityID
   );
 
@@ -438,14 +434,12 @@ double flyerWidthSizeFactor({
 }
 // --------------------
 Future<void> recordFlyerView({
-  @required BuildContext context,
   @required FlyerModel flyerModel,
   @required int index,
 }) async {
 
   if (AuthModel.userIsSignedIn() == true){
     await FlyerRecordRealOps.viewFlyer(
-      context: context,
       flyerModel: flyerModel,
       index: index,
     );

@@ -51,8 +51,13 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
     if (_zone?.countryID != null && _zone?.cityID != null){
 
-      final CountryModel _country = await ZoneProtocols.fetchCountry(context: context, countryID: _zone.countryID);
-      final CityModel _city = await ZoneProtocols.fetchCity(context: context, cityID: _zone.cityID);
+      final CountryModel _country = await ZoneProtocols.fetchCountry(
+          countryID: _zone.countryID,
+      );
+
+      final CityModel _city = await ZoneProtocols.fetchCity(
+          cityID: _zone.cityID,
+      );
 
       _selectedZone.value = ZoneModel(
         countryID: _zone.countryID,
@@ -100,7 +105,6 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
       );
 
       await FlyerFireOps.promoteFlyerInCity(
-        context: context,
         flyerPromotion: _flyerPromotion,
       );
 

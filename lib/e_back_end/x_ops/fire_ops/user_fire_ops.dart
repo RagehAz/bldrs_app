@@ -33,12 +33,10 @@ class UserFireOps {
   // --------------------
   /// create or update user document
   static Future<void> _createOrUpdateUserDoc({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
     await Fire.updateDoc(
-      context: context,
       collName: FireColl.users,
       docName: userModel.id,
       input: userModel.toMap(toJSON: false),
@@ -47,7 +45,6 @@ class UserFireOps {
   }
   // --------------------
   static Future<UserModel> createUser({
-    @required BuildContext context,
     @required UserModel userModel,
     @required AuthType authBy,
   }) async {
@@ -61,7 +58,6 @@ class UserFireOps {
     String _userPicURL;
     if (ObjectCheck.objectIsFile(userModel.pic) == true) {
       _userPicURL = await Storage.createStoragePicAndGetURL(
-        context: context,
         inputFile: userModel.pic,
         fileName: userModel.id,
         docName: StorageDoc.users,
@@ -76,7 +72,6 @@ class UserFireOps {
       if (authBy == AuthType.facebook || authBy == AuthType.google) {
         final File _picFile = await Filers.getFileFromURL(userModel.pic);
         _userPicURL = await Storage.createStoragePicAndGetURL(
-          context: context,
           inputFile: _picFile,
           fileName: userModel.id,
           docName: StorageDoc.users,
@@ -94,7 +89,6 @@ class UserFireOps {
 
     /// create user doc in fireStore
     await _createOrUpdateUserDoc(
-      context: context,
       userModel: _finalUserModel,
     );
 
@@ -119,7 +113,6 @@ class UserFireOps {
 
     /// E - read user ops if existed
     final UserModel _existingUserModel = await readUser(
-      context: context,
       userID: user.uid,
     );
     // blog('lng : ${Wordz.languageCode(context)}');
@@ -139,7 +132,6 @@ class UserFireOps {
 
       /// E2 - create user ops
       final UserModel _finalUserModel = await createUser(
-        context: context,
         userModel: _initialUserModel,
         authBy: authBy,
       );
@@ -165,7 +157,6 @@ class UserFireOps {
 
   // --------------------
   static Future<UserModel> readUser({
-    @required BuildContext context,
     @required String userID,
   }) async {
 
@@ -174,7 +165,6 @@ class UserFireOps {
     blog('readUserOps : Start reading user $userID,');
 
     final Map<String, dynamic> _userMap = await Fire.readDoc(
-      context: context,
       collName: FireColl.users,
       docName: userID,
     );
@@ -263,13 +253,11 @@ class UserFireOps {
     if (_userModelsAreIdentical == false){
 
       _finalUserModel = await updateUserEmailIfChanged(
-        context: context,
         oldUserModel: oldUserModel,
         newUserModel: _finalUserModel,
       );
 
       await Fire.updateDoc(
-        context: context,
         collName: FireColl.users,
         docName: newUserModel.id,
         input: _finalUserModel.toMap(toJSON: false),
@@ -283,7 +271,6 @@ class UserFireOps {
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> updateUserEmailIfChanged({
-    @required BuildContext context,
     @required UserModel oldUserModel,
     @required UserModel newUserModel,
   }) async {
@@ -305,7 +292,6 @@ class UserFireOps {
       if (TextCheck.isEmpty(_newEmail) == false){
 
         final bool _success = await AuthFireOps.updateUserEmail(
-          context: context,
           newEmail: _newEmail,
         );
 
@@ -358,7 +344,6 @@ class UserFireOps {
     );
 
     await Fire.updateDocField(
-      context: context,
       collName: FireColl.users,
       docName: userID,
       field: 'pic',
@@ -384,7 +369,6 @@ class UserFireOps {
     _savedFlyersIDs.add(flyerID);
 
     await Fire.updateDocField(
-      context: context,
       collName: FireColl.users,
       docName: userID,
       field: 'savedFlyersIDs',
@@ -394,7 +378,6 @@ class UserFireOps {
   }
   // --------------------
   static Future<void> removeFlyerIDFromSavedFlyersIDs({
-    @required BuildContext context,
     @required String flyerID,
     @required String userID,
     @required List<String> savedFlyersIDs,
@@ -406,7 +389,6 @@ class UserFireOps {
       savedFlyersIDs.remove(flyerID);
 
       await Fire.updateDocField(
-        context: context,
         collName: FireColl.users,
         docName: userID,
         field: 'savedFlyersIDs',
@@ -436,7 +418,6 @@ class UserFireOps {
   }
   // --------------------
   static Future<void> removeBzIDFromUserBzzIDs({
-    @required BuildContext context,
     @required String bzID,
     @required UserModel oldUserModel,
   }) async {
@@ -447,7 +428,6 @@ class UserFireOps {
     );
 
     await Fire.updateDocField(
-      context: context,
       collName: FireColl.users,
       docName: oldUserModel.id,
       field: 'myBzzIDs',
@@ -688,7 +668,6 @@ static Future<dynamic> deleteUserOps({
   // --------------------
   /// TESTED :
   static Future<bool> deleteNonAuthorUserOps({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
@@ -696,20 +675,17 @@ static Future<dynamic> deleteUserOps({
 
     final bool _success = await tryCatchAndReturnBool(
         methodName: 'deleteNonAuthorUserOps',
-        context: context,
         functions: () async {
 
           /// SHOULD BE DELETED BEFORE DELETING USER DOC
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user received notes');
           await NoteEvent.wipeUserReceivedNotes(
-            context: context,
             userID: userModel.id,
           );
 
           /// DELETE user image : storage/usersPics/userID
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user pic');
           await Storage.deleteStoragePic(
-            context: context,
             storageDocName: StorageDoc.users,
             fileName: userModel.id,
           );
@@ -717,7 +693,6 @@ static Future<dynamic> deleteUserOps({
           /// DELETE user doc : firestore/users/userID
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user doc');
           await Fire.deleteDoc(
-            context: context,
             collName: FireColl.users,
             docName: userModel.id,
           );
@@ -725,7 +700,6 @@ static Future<dynamic> deleteUserOps({
           /// DELETE firebase user : auth/userID
           blog('UserFireOps : deleteNonAuthorUserOps : deleting firebase user');
           await AuthFireOps.deleteFirebaseUser(
-            context: context,
             userID: userModel.id,
           );
 

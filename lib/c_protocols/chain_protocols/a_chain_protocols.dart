@@ -35,7 +35,6 @@ class ChainProtocols {
     ));
 
     final List<Chain> _bldrsChains = await ChainRealOps.createBldrsChains(
-      context: context,
       chains: chains,
     );
 
@@ -49,7 +48,7 @@ class ChainProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Chain>> fetchBldrsChains(BuildContext context) async {
+  static Future<List<Chain>> fetchBldrsChains() async {
 
     /// 1 - search LDB
     List<Chain> _chains = await ChainLDBOps.readBldrsChains();
@@ -57,7 +56,7 @@ class ChainProtocols {
     /// 2 - BLDRS CHAINS not found in LDB
     if (_chains == null) {
 
-      _chains = await ChainRealOps.readBldrsChains(context);
+      _chains = await ChainRealOps.readBldrsChains();
 
       /// 3 - insert in LDB when found on firebase
       if (_chains != null){
@@ -85,7 +84,6 @@ class ChainProtocols {
     if (_currentZone != null){
 
       _cityPhidCounters = await CityPhidsRealOps.readCityPhids(
-        context: context,
         cityID: _currentZone.cityID,
       );
 
@@ -111,7 +109,6 @@ class ChainProtocols {
       await Future.wait(<Future>[
 
         ChainRealOps.updateBldrsChains(
-            context: context,
             chains: newChains,
         ),
 
@@ -121,7 +118,7 @@ class ChainProtocols {
           showWaitDialog: false,
         ),
 
-        AppStateFireOps.updateGlobalChainsVersion(context),
+        AppStateFireOps.updateGlobalChainsVersion(),
 
       ]);
 

@@ -453,7 +453,6 @@ Future<void> _onSelectCountryAsNoteSender({
   if (_newSelection == true){
 
     final CountryModel _countryModel = await ZoneProtocols.fetchCountry(
-      context: context,
       countryID: _zoneModel.countryID,
     );
 

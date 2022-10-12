@@ -19,12 +19,10 @@ class AppStateFireOps{
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> createGlobalAppState({
-    @required BuildContext context,
     @required AppState newAppState,
   }) async {
 
     await Fire.createNamedDoc(
-      context: context,
       collName: FireColl.admin,
       docName: FireDoc.admin_appState,
       input: newAppState.toMap(),
@@ -37,10 +35,9 @@ class AppStateFireOps{
 
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static Future<AppState> readGlobalAppState(BuildContext context) async {
+  static Future<AppState> readGlobalAppState() async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
-      context: context,
       collName: FireColl.admin,
       docName: FireDoc.admin_appState,
     );
@@ -54,13 +51,11 @@ class AppStateFireOps{
   // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateUserAppState({
-    @required BuildContext context,
     @required AppState newAppState,
     @required String userID
   }) async {
 
     await Fire.updateDocField(
-      context: context,
       collName: FireColl.users,
       docName: userID,
       field: 'appState',
@@ -75,12 +70,10 @@ class AppStateFireOps{
   // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> _updateGlobalAppState({
-    @required BuildContext context,
     @required AppState newAppState,
   }) async {
 
     await createGlobalAppState(
-        context: context,
         newAppState: newAppState
     );
 
@@ -88,27 +81,25 @@ class AppStateFireOps{
   // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateGlobalAppVersion({
-    @required BuildContext context,
     @required String newVersion,
   }) async {
 
-    final AppState _appState = await readGlobalAppState(context);
+    final AppState _appState = await readGlobalAppState();
 
     final AppState _newAppState = _appState.copyWith(
       appVersion: newVersion,
     );
 
     await _updateGlobalAppState(
-      context: context,
       newAppState: _newAppState,
     );
 
   }
   // --------------------
   /// TAMAM : WORKS PERFECTLY
-  static Future<void> updateGlobalChainsVersion(BuildContext context) async {
+  static Future<void> updateGlobalChainsVersion() async {
 
-    final AppState _appState = await readGlobalAppState(context);
+    final AppState _appState = await readGlobalAppState();
 
     final double lastVersion = _appState.chainsVersion ?? 0;
 
@@ -117,16 +108,15 @@ class AppStateFireOps{
     );
 
     await _updateGlobalAppState(
-        context: context,
         newAppState: _newAppState
     );
 
   }
   // --------------------
   /// TAMAM : WORKS PERFECTLY
-  static Future<void> updateGlobalLDBVersion(BuildContext context) async {
+  static Future<void> updateGlobalLDBVersion() async {
 
-    final AppState _appState = await readGlobalAppState(context);
+    final AppState _appState = await readGlobalAppState();
 
     final double lastVersion = _appState.ldbVersion ?? 0;
 
@@ -135,32 +125,30 @@ class AppStateFireOps{
     );
 
     await _updateGlobalAppState(
-        context: context,
         newAppState: _newAppState
     );
 
   }
   // --------------------
   /// TAMAM : WORKS PERFECTLY
-  static Future<void> updateGlobalPhrasesVersion(BuildContext context) async {
+  static Future<void> updateGlobalPhrasesVersion() async {
 
-    final AppState _appState = await readGlobalAppState(context);
+    final AppState _appState = await readGlobalAppState();
 
     final AppState _newAppState = _appState.copyWith(
       phrasesVersion: _appState.phrasesVersion + 1,
     );
 
     await _updateGlobalAppState(
-      context: context,
       newAppState: _newAppState,
     );
 
   }
   // --------------------
   /// TAMAM : WORKS PERFECTLY
-  static Future<void> updatePickersVersion(BuildContext context) async {
+  static Future<void> updatePickersVersion() async {
 
-    final AppState _appState = await readGlobalAppState(context);
+    final AppState _appState = await readGlobalAppState();
 
     final double lastVersion = _appState.pickersVersion ?? 0;
     final AppState _newAppState = _appState.copyWith(
@@ -168,7 +156,6 @@ class AppStateFireOps{
     );
 
     await _updateGlobalAppState(
-      context: context,
       newAppState: _newAppState,
     );
 

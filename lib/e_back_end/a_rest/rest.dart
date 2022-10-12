@@ -32,7 +32,6 @@ class Rest {
     http.Response _response;
 
     await tryAndCatch(
-      context: context,
       methodName: 'REST : postMap : $invoker',
       functions: () async {
 
@@ -167,7 +166,6 @@ class Rest {
     http.Response _response;
 
     await tryAndCatch(
-      context: context,
       methodName: 'Rest : patch : $invoker',
       functions: () async {
 
@@ -209,7 +207,6 @@ class Rest {
     http.Response _response;
 
     await tryAndCatch(
-      context: context,
       methodName: 'Rest : delete : $invoker',
       functions: () async {
 

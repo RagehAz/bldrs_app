@@ -73,7 +73,6 @@ class SearchHistoryView extends StatelessWidget {
                   onTap: () async {
 
                     await Fire.deleteDoc(
-                        context: context,
                         collName: FireColl.records,
                         docName: _searchRecord.recordID,
                     );
