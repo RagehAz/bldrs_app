@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

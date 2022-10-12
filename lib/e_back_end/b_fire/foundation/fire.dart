@@ -319,7 +319,9 @@ String pathOfSubDoc({
     @required String docName,
     @required String subCollName,
     @required Map<String, dynamic> input,
+    ValueChanged<DocumentReference> onFinish,
   }) async {
+
     /// creates a new sub doc and new sub collection if didn't exists
     /// and uses the same directory if existed to add a new doc
     /// updates the sub doc if existed
@@ -333,6 +335,10 @@ String pathOfSubDoc({
       subDocName: null, // to make it generate auto ID
       input: input,
     );
+
+    if (onFinish != null){
+      onFinish(_subDocRef);
+    }
 
     return _subDocRef;
   }

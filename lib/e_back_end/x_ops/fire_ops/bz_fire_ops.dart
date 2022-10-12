@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';

@@ -34,7 +34,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
