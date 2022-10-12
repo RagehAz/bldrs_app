@@ -36,12 +36,16 @@ class NoteProtocols {
     @required List<String> receiversIDs,
   }) async {
 
+    blog('composeToMultiple - START');
+
     if (Mapper.checkCanLoopList(receiversIDs) == true && note != null){
 
       final NoteModel _noteWithUpdatedPoster = await _uploadNotePoster(
         context: context,
         note: note,
       );
+
+      blog('composeToMultiple - _noteWithUpdatedPoster : TO ${_noteWithUpdatedPoster.parties.receiverType}');
 
       await Future.wait(<Future>[
 
@@ -78,6 +82,8 @@ class NoteProtocols {
 
     final bool _canSendNote = NoteModel.checkCanSendNote(note);
 
+    blog('composeToOne - _canSendNote : $_canSendNote');
+
     if (_canSendNote == true){
 
       /// UPLOAD POSTER
@@ -85,6 +91,8 @@ class NoteProtocols {
         context: context,
         note: note,
       );
+
+      blog('composeToOne - _canSendNote : $_canSendNote');
 
       _note = await _adjustBldrsLogoURL(
         context: context,
@@ -177,7 +185,7 @@ class NoteProtocols {
     return _output;
   }
   // --------------------
-  ///
+  /// TAMAM
   static Future<NoteModel> _adjustBldrsLogoURL({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -191,15 +199,17 @@ class NoteProtocols {
       /// ADJUST IMAGE IF SENDER IS BLDRS
       if (noteModel.parties.senderID == NoteParties.bldrsSenderID){
 
-        final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
-          context: context,
-          storageDocName: 'admin',
-          fileName: NoteParties.bldrsFCMIconFireStorageFileName,
-        );
+        // final String _bldrsNotificationIconURL = await Storage.getImageURLByPath(
+        //   context: context,
+        //   storageDocName: 'admin',
+        //   fileName: NoteParties.bldrsFCMIconFireStorageFileName,
+        // );
 
         _note = noteModel.copyWith(
           parties: noteModel.parties.copyWith(
-            senderImageURL: _bldrsNotificationIconURL ?? NoteParties.bldrsLogoStaticURL,
+            senderImageURL:
+            // _bldrsNotificationIconURL ??
+                NoteParties.bldrsLogoStaticURL,
           ),
         );
 
@@ -211,6 +221,8 @@ class NoteProtocols {
       }
 
     }
+
+    _note.blogNoteModel(methodName: '_adjustBldrsLogoURL.END');
 
     return _note;
   }

@@ -28,7 +28,7 @@ FireQueryModel bzReceivedNotesPaginationQueryParameters({
 }){
 
   return FireQueryModel(
-    collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+    collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     finders: <FireFinder>[
@@ -110,7 +110,7 @@ FireQueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
 }){
 
   return FireQueryModel(
-    collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+    collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
     limit: 50,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     onDataChanged: onDataChanged,
@@ -146,7 +146,7 @@ FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
 }){
 
   return FireQueryModel(
-    collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+    collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
     limit: 10,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     onDataChanged: onDataChanged,

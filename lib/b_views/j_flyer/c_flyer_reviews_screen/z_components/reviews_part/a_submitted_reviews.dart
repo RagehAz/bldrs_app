@@ -113,7 +113,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   // -----------------------------------------------------------------------------
   FireQueryModel _createQueryModel(){
     return FireQueryModel(
-      collRef: Fire.createSuperCollRef(
+      collRef: Fire.getSuperCollRef(
         aCollName: FireColl.flyers,
         bDocName: widget.flyerModel.id,
         cSubCollName: 'reviews',
