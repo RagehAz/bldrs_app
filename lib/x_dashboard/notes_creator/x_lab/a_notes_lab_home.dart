@@ -1,10 +1,9 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/b_paginate_all_notes_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/c_local_noot_test_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/d_noot_route_to_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/x_lab/note_templates/a_real_note_paginator_test.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/b_paginate_all_notes_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/c_local_noot_test_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/d_noot_route_to_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -79,16 +78,6 @@ class _NotesLabHomeState extends State<NotesLabHome> {
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const FireNotesPaginator(),
-          ),
-        ),
-
-        /// REAL NOTE PAGINATOR
-        WideButton(
-          verse: Verse.plain('Real Notes paginator'),
-          icon: Iconz.spark,
-          onTap: () => Nav.goToNewScreen(
-            context: context,
-            screen: const RealNotePaginatorTest(),
           ),
         ),
 

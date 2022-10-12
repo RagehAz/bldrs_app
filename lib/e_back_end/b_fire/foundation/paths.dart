@@ -59,7 +59,6 @@ abstract class FireSubColl {
   static const String questions_question_counters = 'counters';
 
   static const String bzz_bz_chats = 'chats';
-  static const String bzz_bz_notifications = 'notifications';
   static const String bzz_bz_credits = 'credits';
 
   static const String flyers_flyer_reviews = 'reviews';
