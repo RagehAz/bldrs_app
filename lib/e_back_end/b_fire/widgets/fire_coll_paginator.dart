@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +40,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   ScrollController _controller;
   // --------------------
   final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
+  final ValueNotifier<bool> _canKeepReading = ValueNotifier(true);
+  // --------------------
   PaginationController _paginatorNotifiers;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -61,23 +63,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     super.initState();
 
     /// LISTEN TO SCROLL
-    _controller = widget.scrollController ?? ScrollController();
-    Scrollers.createPaginationListener(
-        controller: _controller,
-        isPaginating: _isPaginating,
-        onPaginate: () async {
-          await _readMore();
-        }
-    );
+    _initializeScrollListener();
 
-    /// LISTEN TO PAGINATOR NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
-    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
-      addExtraMapsAtEnd: true,
-    );
-    _paginatorNotifiers?.activateListeners(
-      mounted: mounted,
-      onDataChanged: widget.queryModel.onDataChanged,
-    );
+    /// PAGINATOR NOTIFIERS
+    _initializePaginatorNotifiers();
 
   }
   // --------------------
@@ -114,47 +103,44 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /*
+
     /// INITIALIZATION
 
-    // --------------------
-    void listenToScroll(){
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _initializeScrollListener(){
 
-
-
-      _controller.addListener(() async {
-
-        final bool _canPaginate = Scrollers.canPaginate(
-          scrollController: _controller,
+      _controller = widget.scrollController ?? ScrollController();
+      Scrollers.createPaginationListener(
+          controller: _controller,
           isPaginating: _isPaginating,
-          paginationHeight: 100,
-        );
+          canKeepReading: _canKeepReading,
+          onPaginate: () async {
+            await _readMore();
+          }
+      );
 
-        Scrollers.blogScrolling(
-          scrollController: _controller,
-          isPaginating: _isPaginating,
-          paginationHeight: 0,
-        );
-
-        if (_canPaginate == true){
-
-          _isPaginating = true;
-
-          await _readMore();
-
-          _isPaginating = false;
-
-        }
-
-      });
     }
-   */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _initializePaginatorNotifiers(){
+
+    /// LISTEN TO PAGINATOR NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
+    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
+      addExtraMapsAtEnd: true,
+    );
+    _paginatorNotifiers?.activateListeners(
+      mounted: mounted,
+      onDataChanged: widget.queryModel.onDataChanged,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// READING
 
   // --------------------
-  bool _canKeepReading = true;
+  /// TESTED : WORKS PERFECT
   Future<void> _readMore() async {
 
     setNotifier(
@@ -165,7 +151,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     );
 
     /// CAN KEEP READING
-    if (_canKeepReading == true){
+    if (_canKeepReading.value == true){
 
       final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
         context: context,
@@ -189,7 +175,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       }
 
       else {
-        _canKeepReading = false;
+        _canKeepReading.value = false;
       }
 
     }

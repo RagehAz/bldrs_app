@@ -26,6 +26,7 @@ class NoteModel {
     @required this.sentTime,
 
 
+    this.spaceTime,
     this.seen = false,
     this.topic,
     this.sendFCM = true,
@@ -39,6 +40,7 @@ class NoteModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
+  final int spaceTime;
   final NoteParties parties;
   final String title; /// max 30 char
   final String body; /// max 80 char
@@ -151,7 +153,7 @@ class NoteModel {
     @required bool toJSON,
   }) {
     return <String, dynamic>{
-      // 'id': toJSON == true ? id : null,
+      'id': id,
       'parties': parties.toMap(),
       'notification': _cipherNotificationField(),
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),

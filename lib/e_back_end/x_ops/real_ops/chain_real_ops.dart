@@ -60,7 +60,7 @@ class ChainRealOps {
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>> readBldrsChains(BuildContext context) async {
 
-    final Map<String, dynamic> map = await Real.readCollAsMap(
+    final Map<String, dynamic> map = await Real.readPathMap(
       context: context,
       path: RealColl.bldrsChains,
     );

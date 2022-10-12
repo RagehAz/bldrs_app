@@ -35,6 +35,16 @@ class _RealNotePaginatorTestState extends State<RealNotePaginatorTest> {
     super.dispose();
   }
 
+  int _num = 1;
+  static const List<String> _alpha = [
+    'a', 'b', 'c', 'd', 'e',
+    'f', 'g', 'h', 'i', 'j',
+    'k', 'l', 'm', 'n', 'o',
+    'p', 'q', 'r', 's', 't',
+    'u', 'v', 'w', 'x', 'y',
+    'z',
+  ];
+
   @override
   Widget build(BuildContext context) {
 
@@ -63,16 +73,20 @@ class _RealNotePaginatorTestState extends State<RealNotePaginatorTest> {
           verse: Verse.plain('create a note'),
           onTap: () async {
 
-            final NoteModel _note =NoteModel.quickUserNotice(
-                userID: AuthFireOps.superUserID(),
-                title: 'sixxx',
-                body: 'x'
+            final NoteModel _note = NoteModel.quickUserNotice(
+              userID: AuthFireOps.superUserID(),
+              title: _num.toString(),
+              body: 'x',
             );
 
             await NoteProtocols.composeToOne(
                 context: context,
-                note: _note,
+                note: _note.copyWith(
+                  id: _alpha[_num-1],
+                ),
             );
+
+            _num++;
 
           },
         ),
@@ -91,11 +105,14 @@ class _RealNotePaginatorTestState extends State<RealNotePaginatorTest> {
 
           RealCollPaginator(
             scrollController: _scrollController,
-            realQueryModel: RealQueryModel(
+            realQueryModel: RealQueryModel.createAscendingQueryModel(
               path: 'notes/${AuthFireOps.superUserID()}',
-              limit: 6,
-              keyField: 'id',
-              fieldNameToOrderBy: 'sentTime',
+              // limit: 5,
+              keyFieldName: 'id', /// should be docID : 'id'
+              fieldNameToOrderBy: 'spaceTime',
+              // orderType: RealOrderType.byChild,
+              // queryRange: QueryRange.endAt,
+              // readFromBeginningOfOrderedList: false,
             ),
             builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
@@ -103,8 +120,6 @@ class _RealNotePaginatorTestState extends State<RealNotePaginatorTest> {
                   maps: maps,
                   fromJSON: true,
               );
-
-
 
               blog('notes areeee : ${_notes.length} notes');
 

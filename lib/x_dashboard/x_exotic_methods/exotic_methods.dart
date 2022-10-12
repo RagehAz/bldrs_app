@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/firestore.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
@@ -116,7 +116,7 @@ class ExoticMethods {
       context: context,
       collName: FireColl.users,
       docName: userID,
-      subCollName: FireSubColl.users_user_notifications,
+      subCollName: FireSubColl.noteReceiver_receiver_notes,
       addDocsIDs: true,
       limit: 50,
 
