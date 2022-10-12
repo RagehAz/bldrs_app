@@ -45,7 +45,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
     super.initState();
 
     _queryParameters = FireQueryModel(
-      collRef: Fire.createSuperCollRef(aCollName: 'testing'),
+      collRef: Fire.getSuperCollRef(aCollName: 'testing'),
       limit: 5,
       orderBy: const QueryOrderBy(fieldName: 'time', descending: true),
       onDataChanged: onDataChanged,
