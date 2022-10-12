@@ -132,7 +132,7 @@ class Nav {
   /// TESTED : WORKS PERFECT
   static Future<void> goBack({
     @required BuildContext context,
-    @required String invoker,
+    String invoker,
     dynamic passedData,
     bool addPostFrameCallback = false,
   }) async {

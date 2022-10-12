@@ -21,6 +21,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -104,187 +105,6 @@ Future<void> onNoteCreatorCardOptionsTap({
 }
 // -----------------------------------------------------------------------------
 
-/// NOTE RECEIVER
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onSelectReceiverType({
-  @required BuildContext context,
-  @required ValueNotifier<NoteModel> noteNotifier,
-  @required NotePartyType selectedReceiverType,
-  @required ValueNotifier<List<dynamic>> receiversModels,
-}) async {
-  List<dynamic> _models = [];
-  bool _go = true;
-
-  final bool _typeHasChanged = noteNotifier.value.parties.receiverType != selectedReceiverType;
-
-  /// CHECK WHEN TYPE IS CHANGED & WHEN ALREADY HAVE SELECTED MODELS
-  if (
-      _typeHasChanged == true
-      &&
-      receiversModels.value.isNotEmpty
-  ){
-
-    _go = await Dialogs.confirmProceed(
-      context: context,
-      titleVerse: Verse.plain('Remove selected'),
-      bodyVerse: Verse.plain('This will clear all selected receivers'),
-    );
-
-  }
-
-  if (_go == true){
-
-    if (_typeHasChanged == true){
-      receiversModels.value = [];
-    }
-
-    /// IF USER
-    if (selectedReceiverType == NotePartyType.user){
-      final List<UserModel> _users = [...receiversModels.value ?? []];
-      _models = await _onSelectUserAsNoteReceiver(
-        context: context,
-        selectedUsers: _users,
-      );
-    }
-    /// IF BZ
-    else {
-      final List<BzModel> _bzz = [...receiversModels.value];
-      _models = await _onSelectBzAsNoteReceiver(
-        context: context,
-        selectedBzz: _bzz,
-      );
-    }
-
-    /// WHEN NOTHING IS SELECTED
-    if (_models.isEmpty == true){
-
-      clearReceivers(
-        receiversModels: receiversModels,
-        noteNotifier: noteNotifier,
-      );
-
-    }
-    /// WHEN SELECTED MODELS
-    else {
-
-      noteNotifier.value = noteNotifier.value.copyWith(
-        parties: noteNotifier.value.parties.copyWith(
-          receiverType: selectedReceiverType,
-          receiverID: 'xxx',
-        ),
-      );
-
-      receiversModels.value = _models;
-
-    }
-
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<List<UserModel>> _onSelectUserAsNoteReceiver({
-  @required BuildContext context,
-  @required List<UserModel> selectedUsers,
-}) async {
-
-  final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
-    context: context,
-    screen: SearchUsersScreen(
-      userIDsToExcludeInSearch: const <String>[],
-      multipleSelection: true,
-      selectedUsers: await UserProtocols.fetchUsers(
-          context: context,
-          usersIDs: UserModel.getUsersIDs(selectedUsers),
-      ),
-    ),
-  );
-
-  if (Mapper.checkCanLoopList(_selectedUsers) == true) {
-    return _selectedUsers;
-  }
-
-  else {
-    return [];
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<List<BzModel>> _onSelectBzAsNoteReceiver({
-  @required BuildContext context,
-  @required List<BzModel> selectedBzz,
-}) async {
-
-  List<BzModel> _bzz = <BzModel>[];
-
-  final List<BzModel> _bzzModels = await Nav.goToNewScreen(
-    context: context,
-    screen: SearchBzzScreen(
-      multipleSelection: true,
-      selectedBzz: selectedBzz,
-    ),
-  );
-
-  if (Mapper.checkCanLoopList(_bzzModels) == true){
-
-    _bzz = _bzzModels;
-
-  }
-
-  return _bzz;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-void clearReceivers({
-  @required ValueNotifier<List<dynamic>> receiversModels,
-  @required ValueNotifier<NoteModel> noteNotifier,
-}){
-
-  noteNotifier.value = noteNotifier.value.copyWith(
-    parties: noteNotifier.value.parties.nullifyField(
-      receiverType: true,
-      receiverID: true,
-    ),
-  );
-
-  receiversModels.value = [];
-
-}
-// -----------------------------------------------------------------------------
-
-/// BODY AND TITLE
-
-// --------------------
-/// TESTED : WORKS PERFECT
-void onTitleChanged({
-  @required String text,
-  @required ValueNotifier<NoteModel> note,
-}){
-
-  final NoteModel _updated = note.value.copyWith(
-    title: text,
-  );
-
-  note.value = _updated;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-void onBodyChanged({
-  @required String text,
-  @required ValueNotifier<NoteModel> note,
-}){
-
-  final NoteModel _updated = note.value.copyWith(
-    body: text,
-  );
-
-  note.value = _updated;
-}
-// -----------------------------------------------------------------------------
-
 /// SENDER
 
 // --------------------
@@ -352,7 +172,7 @@ Future<bool> _showEthicalConfirmationDialog({
   bool _canContinue = true;
 
   if (
-      senderType == NotePartyType.bz
+  senderType == NotePartyType.bz
       ||
       senderType == NotePartyType.user
   ){
@@ -486,71 +306,188 @@ Future<void> _onSelectBldrsAsNoteSender({
 }
 // -----------------------------------------------------------------------------
 
-/// SEND FCM SWITCH
+/// RECEIVER
 
 // --------------------
 /// TESTED : WORKS PERFECT
-void onSwitchSendFCM({
-  @required ValueNotifier<NoteModel> note,
-  @required bool value,
-}){
+Future<void> onSelectReceiverType({
+  @required BuildContext context,
+  @required ValueNotifier<NoteModel> noteNotifier,
+  @required NotePartyType selectedReceiverType,
+  @required ValueNotifier<List<dynamic>> receiversModels,
+}) async {
+  List<dynamic> _models = [];
+  bool _go = true;
 
-  note.value = note.value.copyWith(
-    sendFCM: value,
-  );
+  final bool _typeHasChanged = noteNotifier.value.parties.receiverType != selectedReceiverType;
 
-}
-// -----------------------------------------------------------------------------
+  /// CHECK WHEN TYPE IS CHANGED & WHEN ALREADY HAVE SELECTED MODELS
+  if (
+      _typeHasChanged == true
+      &&
+      receiversModels.value.isNotEmpty
+  ){
 
-/// BUTTONS
-
-// --------------------
-/// TESTED : WORKS PERFECT
-void onAddNoteButton({
-  @required ValueNotifier<NoteModel> note,
-  @required String button,
-}){
-
-  /// POLL IS EMPTY
-  if (note.value.poll == null){
-    note.value = note.value.copyWith(
-      poll: PollModel(
-        buttons: [button],
-        reply: null,
-        replyTime: null,
-      ),
+    _go = await Dialogs.confirmProceed(
+      context: context,
+      titleVerse: Verse.plain('Remove selected'),
+      bodyVerse: Verse.plain('This will clear all selected receivers'),
     );
+
   }
 
-  /// POLL HAS STUFF
-  else {
+  if (_go == true){
 
-    final List<String> _updatedButtons = Stringer.addOrRemoveStringToStrings(
-      strings: note.value?.poll?.buttons,
-      string: button,
-    );
+    if (_typeHasChanged == true){
+      receiversModels.value = [];
+    }
 
-    if (_updatedButtons.isEmpty == true){
-      note.value = note.value.nullifyField(
-        poll: true,
+    /// IF USER
+    if (selectedReceiverType == NotePartyType.user){
+      final List<UserModel> _users = [...receiversModels.value ?? []];
+      _models = await onSelectUserAsNoteReceiver(
+        context: context,
+        selectedUsers: _users,
+      );
+    }
+    /// IF BZ
+    else {
+      final List<BzModel> _bzz = [...receiversModels.value];
+      _models = await onSelectBzAsNoteReceiver(
+        context: context,
+        selectedBzz: _bzz,
       );
     }
 
+    /// WHEN NOTHING IS SELECTED
+    if (_models.isEmpty == true){
+
+      clearReceivers(
+        receiversModels: receiversModels,
+        noteNotifier: noteNotifier,
+      );
+
+    }
+    /// WHEN SELECTED MODELS
     else {
-      note.value = note.value.copyWith(
-        poll: note.value.poll.copyWith(
-          buttons: _updatedButtons,
+
+      noteNotifier.value = noteNotifier.value.copyWith(
+        parties: noteNotifier.value.parties.copyWith(
+          receiverType: selectedReceiverType,
+          receiverID: 'xxx',
         ),
       );
 
+      receiversModels.value = _models;
+
     }
 
   }
 
 }
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<List<UserModel>> onSelectUserAsNoteReceiver({
+  @required BuildContext context,
+  @required List<UserModel> selectedUsers,
+}) async {
+
+  final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
+    context: context,
+    screen: SearchUsersScreen(
+      userIDsToExcludeInSearch: const <String>[],
+      multipleSelection: true,
+      selectedUsers: await UserProtocols.fetchUsers(
+          context: context,
+          usersIDs: UserModel.getUsersIDs(selectedUsers),
+      ),
+    ),
+  );
+
+  if (Mapper.checkCanLoopList(_selectedUsers) == true) {
+    return _selectedUsers;
+  }
+
+  else {
+    return [];
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<List<BzModel>> onSelectBzAsNoteReceiver({
+  @required BuildContext context,
+  @required List<BzModel> selectedBzz,
+}) async {
+
+  List<BzModel> _bzz = <BzModel>[];
+
+  final List<BzModel> _bzzModels = await Nav.goToNewScreen(
+    context: context,
+    screen: SearchBzzScreen(
+      multipleSelection: true,
+      selectedBzz: selectedBzz,
+    ),
+  );
+
+  if (Mapper.checkCanLoopList(_bzzModels) == true){
+
+    _bzz = _bzzModels;
+
+  }
+
+  return _bzz;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void clearReceivers({
+  @required ValueNotifier<List<dynamic>> receiversModels,
+  @required ValueNotifier<NoteModel> noteNotifier,
+}){
+
+  noteNotifier.value = noteNotifier.value.copyWith(
+    parties: noteNotifier.value.parties.nullifyField(
+      receiverType: true,
+      receiverID: true,
+    ),
+  );
+
+  receiversModels.value = [];
+
+}
 // -----------------------------------------------------------------------------
 
-/// ATTACHMENTS
+/// BODY AND TITLE
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onTitleChanged({
+  @required String text,
+  @required ValueNotifier<NoteModel> note,
+}){
+
+  final NoteModel _updated = note.value.copyWith(
+    title: text,
+  );
+
+  note.value = _updated;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onBodyChanged({
+  @required String text,
+  @required ValueNotifier<NoteModel> note,
+}){
+
+  final NoteModel _updated = note.value.copyWith(
+    body: text,
+  );
+
+  note.value = _updated;
+}
+// -----------------------------------------------------------------------------
+
+/// POSTER
 
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -729,11 +666,11 @@ Future<void> _onAddImageURLToPoster({
 
   final String _url = await KeyboardScreen.goToKeyboardScreen(
     context: context,
-      keyboardModel: KeyboardModel.standardModel().copyWith(
-        validator: (String text) => Formers.webSiteValidator(
-            website: text
-        ),
+    keyboardModel: KeyboardModel.standardModel().copyWith(
+      validator: (String text) => Formers.webSiteValidator(
+          website: text
       ),
+    ),
   );
 
   if (_url != null){
@@ -764,6 +701,70 @@ void _onClearPoster({
 }
 // -----------------------------------------------------------------------------
 
+/// BUTTONS
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onAddNoteButton({
+  @required ValueNotifier<NoteModel> note,
+  @required String button,
+}){
+
+  /// POLL IS EMPTY
+  if (note.value.poll == null){
+    note.value = note.value.copyWith(
+      poll: PollModel(
+        buttons: [button],
+        reply: null,
+        replyTime: null,
+      ),
+    );
+  }
+
+  /// POLL HAS STUFF
+  else {
+
+    final List<String> _updatedButtons = Stringer.addOrRemoveStringToStrings(
+      strings: note.value?.poll?.buttons,
+      string: button,
+    );
+
+    if (_updatedButtons.isEmpty == true){
+      note.value = note.value.nullifyField(
+        poll: true,
+      );
+    }
+
+    else {
+      note.value = note.value.copyWith(
+        poll: note.value.poll.copyWith(
+          buttons: _updatedButtons,
+        ),
+      );
+
+    }
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// SEND FCM SWITCH
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onSwitchSendFCM({
+  @required ValueNotifier<NoteModel> note,
+  @required bool value,
+}){
+
+  note.value = note.value.copyWith(
+    sendFCM: value,
+  );
+
+}
+// -----------------------------------------------------------------------------
+
 /// SEND
 
 // --------------------
@@ -780,37 +781,54 @@ Future<void> onSendNote({
 
   final bool _formIsValid = formKey.currentState.validate();
 
-  if (_formIsValid == true){
+  if (_formIsValid == true && receiversModels.value.isNotEmpty){
 
-    final String _receiverTypeString = note.value.parties.receiverType == NotePartyType.bz ? 'Bzz' : 'Users';
-
-    final bool _confirmSend = await CenterDialog.showCenterDialog(
+    final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse.plain('Send ?'),
-      bodyVerse: Verse.plain('Do you want to confirm sending this notification to ${receiversModels.value.length} $_receiverTypeString '),
+      bodyVerse: Verse.plain('Do you want to confirm sending this notification to '
+          '${receiversModels.value.length} ${NoteModel.getNoteCollName(note.value)} '),
       boolDialog: true,
     );
 
-    if (_confirmSend == true){
-
-      // note.value.blogNoteModel();
+    if (_continue == true){
 
       unawaited(WaitDialog.showWaitDialog(context: context));
 
-      await _modifyPosterIfFile(
-        context: context,
-        note: note,
-      );
+      /// IF ONE RECEIVER
+      if (receiversModels.value.length == 1){
 
-      await NoteProtocols.composeToMultiple(
-        context: context,
-        note: note.value,
-        receiversIDs: _getReceiversIDsFromModels(
-          receiversModels: receiversModels.value,
-          receiverType: note.value.parties.receiverType,
-        ),
-      );
+        final List<String> _receiversIDs = NoteParties.getReceiversIDs(
+            receiversModels: receiversModels.value,
+            partyType: note.value.parties.receiverType,
+        );
 
+        blog('878');
+
+        await NoteProtocols.composeToOne(
+            context: context,
+            note: NoteProtocols.adjustReceiverID(
+                receiverID: _receiversIDs.first,
+                note: note.value,
+            ),
+          // uploadPoster: true,
+        );
+
+      }
+
+      /// IF MANY RECEIVERS
+      else {
+
+        await NoteProtocols.composeToMultiple(
+          context: context,
+          note: note.value,
+          receiversIDs: NoteParties.getReceiversIDs(
+            receiversModels: receiversModels.value,
+            partyType: note.value.parties.receiverType,
+          ),
+        );
+
+      }
 
       await WaitDialog.closeWaitDialog(context);
 
@@ -828,55 +846,6 @@ Future<void> onSendNote({
 
   }
 
-}
-// --------------------
-
-Future<void> _modifyPosterIfFile({
-  @required BuildContext context,
-  @required ValueNotifier<NoteModel> note,
-}) async {
-
-  // if (note != null && ObjectCheck.objectIsFile(note.value.model) == true){
-  //
-  //   final String _id = '${Numeric.createUniqueID()}';
-  //
-  //   final String _url = await Storage.createStoragePicAndGetURL(
-  //     context: context,
-  //     inputFile: note.value.model,
-  //     fileName: _id,
-  //     docName: StorageDoc.notesBanners,
-  //     ownersIDs: _concludeImageOwnersIDs(note.value),
-  //   );
-  //
-  //   if (_url != null){
-  //     note.value = note.value.copyWith(
-  //       model: _url,
-  //     );
-  //   }
-  //
-  // }
-
-}
-// --------------------
-///
-List<String> _concludeImageOwnersIDs(NoteModel noteModel){
-
-  String _ownerID;
-
-  if (noteModel.parties.senderType == NotePartyType.bz){
-    _ownerID = noteModel.parties.senderID;
-  }
-  else if (noteModel.parties.senderType == NotePartyType.user){
-    _ownerID = noteModel.parties.senderID;
-  }
-  else if (noteModel.parties.senderType == NotePartyType.country){
-    _ownerID = noteModel.parties.senderID;
-  }
-  else if (noteModel.parties.senderType == NotePartyType.bldrs){
-    _ownerID = noteModel.parties.senderID;
-  }
-
-  return <String>[_ownerID];
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -1003,32 +972,6 @@ Future<List<dynamic>> _getReceiversModelsByReceiversIDs({
           context: context,
           bzzIDs: receiversIDs
       );
-    }
-
-  }
-
-  return _output;
-}
-// --------------------
-///
-List<String> _getReceiversIDsFromModels({
-  @required List<dynamic> receiversModels,
-  @required NotePartyType receiverType,
-}){
-  final List<String> _output = <String>[];
-
-  if (Mapper.checkCanLoopList(receiversModels) == true){
-
-    if (receiverType == NotePartyType.bz){
-      final List<String> _bzzIDs = BzModel.getBzzIDs(receiversModels);
-      _output.addAll(_bzzIDs);
-    }
-    else if (receiverType == NotePartyType.user){
-      final List<String> _usersIDs = UserModel.getUsersIDs(receiversModels);
-      _output.addAll(_usersIDs);
-    }
-    else {
-      /// nothing
     }
 
   }

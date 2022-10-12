@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -108,26 +110,16 @@ class LDBViewerScreen extends StatefulWidget {
 
 class _LDBViewerScreenState extends State<LDBViewerScreen> {
   // -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
-  bool _loading = false;
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({Function function}) async {
-    if (mounted) {
-      if (function == null) {
-        setState(() {
-          _loading = !_loading;
-        });
-      } else {
-        setState(() {
-          _loading = !_loading;
-          function();
-        });
-      }
-    }
-
-    _loading == true
-        ? blog('LOADING--------------------------------------')
-        : blog('LOADING COMPLETE--------------------------------------');
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -141,11 +133,17 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     super.didChangeDependencies();
 
     if (_isInit) {
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
         await _readSembast();
       });
     }
     _isInit = false;
+  }
+  // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
   }
   // -----------------------------------------------------------------------------
   List<Map<String, Object>> _maps;
@@ -156,8 +154,10 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 
     setState(() {
       _maps = _sembastMaps;
-      _loading = false;
     });
+
+    unawaited(_triggerLoading(setTo: false));
+
   }
   // --------------------
   Future<void> _onRowTap(Map<String, dynamic> map) async {

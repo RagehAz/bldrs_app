@@ -19,15 +19,15 @@ class GoBackWidgetTest extends StatefulWidget {
 }
 
 class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> backWidgetIsOn = ValueNotifier<bool>(false);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void dispose() {
     backWidgetIsOn.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -51,7 +51,6 @@ class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
 
               }
           ),
-
 
           ValueListenableBuilder(
               valueListenable: backWidgetIsOn,
@@ -77,6 +76,7 @@ class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }
 
 class GoBackWidget extends StatefulWidget {
@@ -96,16 +96,13 @@ class _GoBackWidgetState extends State<GoBackWidget> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'GoBackWidget',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -113,22 +110,27 @@ class _GoBackWidgetState extends State<GoBackWidget> {
   void didChangeDependencies() {
     if (_isInit) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
         await Nav.goBackToHomeScreen(
           context: context,
           invoker: 'GoBackWidgetTest',
         );
         // -------------------------------
-        await _triggerLoading();
-
+        await _triggerLoading(setTo: false);
       });
 
     }
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -148,4 +150,5 @@ class _GoBackWidgetState extends State<GoBackWidget> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

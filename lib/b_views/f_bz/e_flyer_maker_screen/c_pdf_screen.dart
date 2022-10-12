@@ -35,15 +35,13 @@ class _PDFScreenState extends State<PDFScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -56,13 +54,13 @@ class _PDFScreenState extends State<PDFScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         final File _pdfFile = await Filers.getFileFromURL(widget.pdf.url);
         final Uint8List _data = await Floaters.getUint8ListFromFile(_pdfFile);
         _uInt8List.value = _data;
 
-        await _triggerLoading();
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;

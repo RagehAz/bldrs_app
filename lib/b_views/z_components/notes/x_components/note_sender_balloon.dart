@@ -37,9 +37,11 @@ class NoteSenderBalloon extends StatelessWidget {
 
       /// BLDRS
       if (noteModel.parties.senderType == NotePartyType.bldrs){
+
         return const BldrsName(
           size: balloonWidth,
         );
+
       }
 
       /// USER
@@ -62,31 +64,6 @@ class NoteSenderBalloon extends StatelessWidget {
           },
         );
       }
-
-       /// AUTHOR
-      // else if (noteModel.senderType == NoteSenderOrRecieverType.author){
-      //   return FutureBuilder(
-      //       future: BzzProvider.proFetchBzModel(
-      //         context: context,
-      //         bzID: noteModel.senderID,
-      //       ),
-      //       builder: (_, AsyncSnapshot<Object> snap){
-      //
-      //         final BzModel _bzModel = snap.data;
-      //
-      //         final AuthorModel _authorModel = AuthorModel.getAuthorFromBzByAuthorID(
-      //             bz: _bzModel,
-      //             authorID: noteModel.senderID,
-      //         );
-      //
-      //         return AuthorPic(
-      //           authorPic: _authorModel?.pic,
-      //           width: balloonWidth,
-      //         );
-      //
-      //       }
-      //   );
-      // }
 
       /// BZ
       else if (noteModel.parties.senderType == NotePartyType.bz){

@@ -60,21 +60,13 @@ class _CroppingScreenState extends State<CroppingScreen> {
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------------------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-
-    if (setTo != null){
-      _loading.value = setTo;
-    }
-    else {
-      _loading.value = !_loading.value;
-    }
-
-    if (_loading.value == true) {
-      blog('GallerySlide : LOADING --------------------------------------');
-    } else {
-      blog('GallerySlide : LOADING COMPLETE -----------------------------');
-    }
-
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override

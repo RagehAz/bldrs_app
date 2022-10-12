@@ -18,28 +18,29 @@ class PaginatorTest extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _PaginatorTestState createState() => _PaginatorTestState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _PaginatorTestState extends State<PaginatorTest> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   FireQueryModel _queryParameters;
-// -----------------------------------------------------------------------------
+  // final ValueNotifier<List<Map<String, dynamic>>> _localMaps = ValueNotifier(<Map<String, dynamic>>[]);
+  final ScrollController _scrollController = ScrollController();
+  // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'PaginatorTest',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -52,33 +53,31 @@ class _PaginatorTestState extends State<PaginatorTest> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-
-        await _triggerLoading();
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
-    _loading.dispose();
+    // _loading.dispose();
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  ///
-  // final ValueNotifier<List<Map<String, dynamic>>> _localMaps = ValueNotifier(<Map<String, dynamic>>[]);
+  // -----------------------------------------------------------------------------
   Future<void> onDataChanged(List<Map<String, dynamic>> newMaps) async {
 
     blog('RECEIEVED NEW MAPS AHOOOOOOO');
@@ -102,17 +101,13 @@ class _PaginatorTestState extends State<PaginatorTest> {
     // }
 
   }
-// -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-
     return MainLayout(
+      // loading: _loading,
       pageTitleVerse: Verse.plain('pagination Test'),
-      loading: _loading,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
@@ -157,4 +152,5 @@ class _PaginatorTestState extends State<PaginatorTest> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

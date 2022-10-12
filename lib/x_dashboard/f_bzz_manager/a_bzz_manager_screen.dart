@@ -34,16 +34,13 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'BzzManagerScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -56,12 +53,13 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
         /// ---------------------------------------------------------0
 
         await _readMoreBzz();
 
         /// ---------------------------------------------------------0
+        await _triggerLoading(setTo: false);
       });
     }
     _isInit = false;

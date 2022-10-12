@@ -1,10 +1,8 @@
-import 'dart:async';
-
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/a_models/h_money/currency_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -40,7 +38,7 @@ class ProvidersViewerScreen extends StatefulWidget {
 
 class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
   UsersProvider _usersProvider;
   ZoneProvider _zoneProvider;
   FlyersProvider _flyersProvider;
@@ -50,26 +48,23 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
   PhraseProvider _phraseProvider;
   BzzProvider _bzzProvider;
   // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
-    _scrollController = ScrollController();
 
     _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -91,10 +86,11 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
   void didChangeDependencies() {
     if (_isInit) {
 
-        _triggerLoading().then((_) async {
-
-          await _triggerLoading();
-        });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
     }
     _isInit = false;
@@ -104,8 +100,8 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
   /// TAMAM
   @override
   void dispose() {
+    // _loading.dispose();
     _scrollController.dispose();
-    _loading.dispose();
     _animationController.dispose();
     super.dispose();
   }

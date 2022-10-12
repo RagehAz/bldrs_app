@@ -24,27 +24,23 @@ class FlyersAuditor extends StatefulWidget {
 class _FlyersAuditorState extends State<FlyersAuditor> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
-  ValueNotifier<List<FlyerModel>> _flyers;
+  final ValueNotifier<List<FlyerModel>> _flyers = ValueNotifier(<FlyerModel>[]);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'FlyersAuditor',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _flyers = ValueNotifier(<FlyerModel>[]);
   }
   // --------------------
   bool _isInit = true;
@@ -52,7 +48,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
 
         await readMoreUnVerifiedFlyers(
           context: context,
@@ -60,6 +56,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
           loading: _loading,
         );
 
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;

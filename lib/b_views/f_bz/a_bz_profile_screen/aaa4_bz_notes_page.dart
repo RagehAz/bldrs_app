@@ -33,30 +33,25 @@ class _BzNotesPageState extends State<BzNotesPage>{
   // bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
-  ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
   // Stream<List<NoteModel>> _receivedNotesStream;
   BzModel _bzModel;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'BzNotesPage',);
-    }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    blog('initState --------------- BZ - NOTES - PAGE ---- BIAAATCH');
-    _scrollController = ScrollController();
     _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
   }
   // --------------------
@@ -65,7 +60,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   void didChangeDependencies() {
     if (_isInit) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
         NotesProvider.proSetIsFlashing(
             context: context,
@@ -73,8 +68,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
             notify: true
         );
         // -------------------------------
-        await _triggerLoading();
-
+        await _triggerLoading(setTo: false);
       });
 
     }
@@ -292,5 +286,5 @@ class _BzNotesPageState extends State<BzNotesPage>{
     // );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
