@@ -17,7 +17,7 @@ class ReviewBubble extends StatelessWidget {
     @required this.isCreatorMode,
     @required this.pageWidth,
     @required this.flyerModel,
-    @required this.paginatorNotifiers,
+    @required this.paginatorController,
     @required this.appBarType,
     @required this.globalKey,
     this.reviewModel,
@@ -30,7 +30,7 @@ class ReviewBubble extends StatelessWidget {
   final ReviewModel reviewModel;
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final PaginationController paginatorNotifiers;
+  final PaginationController paginatorController;
   final AppBarType appBarType;
   final GlobalKey globalKey;
   // -----------------------------------------------------------------------------
@@ -98,7 +98,7 @@ class ReviewBubble extends StatelessWidget {
                   pageWidth: pageWidth,
                   reviewTextController: reviewTextController,
                   flyerModel: flyerModel,
-                  paginatorNotifiers: paginatorNotifiers,
+                  paginatorController: paginatorController,
                   globalKey: globalKey,
                 ),
 

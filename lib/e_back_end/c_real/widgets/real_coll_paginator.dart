@@ -14,7 +14,7 @@ class RealCollPaginator extends StatefulWidget {
     @required this.builder,
     this.scrollController,
     this.realQueryModel,
-    this.paginatorNotifiers,
+    this.paginatorController,
     this.loadingWidget,
     this.child,
     Key key
@@ -22,7 +22,7 @@ class RealCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final ScrollController scrollController;
   final RealQueryModel realQueryModel;
-  final PaginationController paginatorNotifiers;
+  final PaginationController paginatorController;
   final Widget loadingWidget;
   final Widget child;
   final Widget Function(
@@ -44,7 +44,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
   final ValueNotifier<bool> _canKeepReading = ValueNotifier(true);
   // --------------------
-  PaginationController _paginatorNotifiers;
+  PaginationController _paginatorController;
   // -----------------------------------------------------------------------------
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
@@ -69,8 +69,8 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     /// SCROLLING
     _initializeScrollListeners();
 
-    /// PAGINATOR NOTIFIERS
-    _initializePaginatorNotifiers();
+    /// PAGINATOR CONTROLLER
+    _initializePaginatorController();
 
     /// ON CHILD ADDED TO PATH
     // _initializeOnChildAddedListener();
@@ -104,8 +104,8 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       _sub.cancel();
     }
 
-    if (widget.paginatorNotifiers == null){
-      _paginatorNotifiers.dispose();
+    if (widget.paginatorController == null){
+      _paginatorController.dispose();
     }
 
     if (widget.scrollController == null){
@@ -129,15 +129,15 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _initializePaginatorNotifiers(){
-    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginationController.initialize(
+  void _initializePaginatorController(){
+    _paginatorController = widget.paginatorController ?? PaginationController.initialize(
       addExtraMapsAtEnd: false,
     );
-    _paginatorNotifiers?.activateListeners(
+    _paginatorController?.activateListeners(
       mounted: mounted,
       onDataChanged: (List<Map<String, dynamic>> maps){
 
-        // Mapper.blogMaps(maps, methodName: 'RealCollPaginator._paginatorNotifiers.onDataChanged');
+        // Mapper.blogMaps(maps, methodName: 'RealCollPaginator._paginatorController.onDataChanged');
 
       },
     );
@@ -154,7 +154,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
         // Mapper.blogMap(map, invoker: 'RealCollPaginator.Real.streamPath');
 
         if (_isInit == false){
-          _paginatorNotifiers.addMap.value = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+          _paginatorController.addMap.value = Mapper.getMapFromInternalHashLinkedMapObjectObject(
             internalHashLinkedMapObjectObject: map,
           );
         }
@@ -178,16 +178,16 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     /// CAN KEEP READING
     if (_canKeepReading.value == true){
 
-      // if (_paginatorNotifiers?.startAfter?.value == null){
-      //   blog('should read more : ${_paginatorNotifiers.paginatorMaps.value.length} maps');
+      // if (_paginatorController?.startAfter?.value == null){
+      //   blog('should read more : ${_paginatorController.paginatorMaps.value.length} maps');
       // }
       // else {
-      //   blog('x ---> should read more : ${_paginatorNotifiers.paginatorMaps.value.length} maps : '
-      //       '${_paginatorNotifiers.startAfter.value['id']} : ${_paginatorNotifiers.startAfter.value['sentTime']}');
+      //   blog('x ---> should read more : ${_paginatorController.paginatorMaps.value.length} maps : '
+      //       '${_paginatorController.startAfter.value['id']} : ${_paginatorController.startAfter.value['sentTime']}');
       // }
 
       final List<Map<String, dynamic>> _nextMaps = await Real.readPathMaps(
-        startAfter: _paginatorNotifiers.startAfter.value,
+        startAfter: _paginatorController.startAfter.value,
         realQueryModel: widget.realQueryModel,
         // addDocIDToEachMap: true,
       );
@@ -199,8 +199,8 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
           mapsToAdd: _nextMaps,
           addAtEnd: true,
           mounted: mounted,
-          startAfter: _paginatorNotifiers.startAfter,
-          paginatorMaps: _paginatorNotifiers.paginatorMaps,
+          startAfter: _paginatorController.startAfter,
+          paginatorMaps: _paginatorController.paginatorMaps,
         );
 
       }
@@ -229,7 +229,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: _paginatorNotifiers.paginatorMaps,
+        valueListenable: _paginatorController.paginatorMaps,
         child: widget.child,
         builder: (_, List<Map<String, dynamic>> maps, Widget child){
 

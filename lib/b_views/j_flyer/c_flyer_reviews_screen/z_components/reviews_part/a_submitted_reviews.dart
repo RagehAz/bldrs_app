@@ -35,7 +35,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   final GlobalKey globalKey = GlobalKey();
   // --------------------
   final TextEditingController _reviewTextController = TextEditingController();
-  PaginationController _paginatorNotifiers;
+  PaginationController _paginatorController;
   ScrollController _controller;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -54,7 +54,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void initState() {
     super.initState();
 
-    _paginatorNotifiers = PaginationController.initialize(
+    _paginatorController = PaginationController.initialize(
       addExtraMapsAtEnd: false,
     );
     _controller = ScrollController();
@@ -103,7 +103,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void dispose() {
     _loading.dispose();
     _reviewTextController.dispose();
-    _paginatorNotifiers.dispose();
+    _paginatorController.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -133,7 +133,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       child: FireCollPaginator(
         scrollController: _controller,
         queryModel: _createQueryModel(),
-        paginatorNotifiers: _paginatorNotifiers,
+        paginatorController: _paginatorController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           return ReviewsBuilder(
@@ -144,7 +144,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             flyerModel: widget.flyerModel,
             reviewTextController: _reviewTextController,
             reviewsMaps: maps,
-            paginatorNotifiers: _paginatorNotifiers,
+            paginatorController: _paginatorController,
             globalKey: globalKey,
           );
 
