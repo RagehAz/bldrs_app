@@ -24,7 +24,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/b_phrases_editor/b_phrase_editor_screen.dart';
-import 'package:bldrs/x_dashboard/l_notes_creator/a_notes_creator_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_notes_creator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
