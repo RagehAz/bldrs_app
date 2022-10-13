@@ -17,11 +17,11 @@ class TriggerModel {
 
   // --------------------
   TriggerModel copyWith({
-    String functionName,
+    String name,
     String argument,
   }){
     return TriggerModel(
-      name: functionName ?? this.name,
+      name: name ?? this.name,
       argument: argument ?? this.argument,
     );
   }

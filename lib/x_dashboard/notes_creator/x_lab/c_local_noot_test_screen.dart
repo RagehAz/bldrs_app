@@ -7,13 +7,11 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
-import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -75,8 +73,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   // --------------------
   bool isGlobal = true;
   bool _isNotificationAllowed = false;
-  // --------------------
-  Channel _channel = Channel.bulletin;
   // --------------------
   String _posterURL;
   dynamic _posterModel;
@@ -203,9 +199,8 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
           title: _titleController.text,
           body: _bodyController.text,
           largeIconURL: _largeIconURL,
-          bannerURL: _posterURL,
+          posterURL: _posterURL,
           buttonsTexts: _buttons.isEmpty == true ? null : xPhrases(context, _buttons),
-          channel: _channel,
           progress: _progress,
           progressBarIsLoading: _nootProgressIsLoading ?? false,
           canBeDismissedWithoutTapping: _canBeDismissedWithoutTapping,
@@ -224,7 +219,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
           body: _bodyController.text,
           largeIconFile: _largeImageFile,
           canBeDismissedWithoutTapping: _canBeDismissedWithoutTapping,
-          channel: _channel,
           progress: _progress,
           progressBarIsLoading: _nootProgressIsLoading,
 
@@ -394,45 +388,45 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 ),
 
                 /// CHANNEL
-                ExpandingTile(
-                  firstHeadline: Verse.plain('Channel'),
-                  secondHeadline: Verse.plain(_channel.name),
-                  width: Bubble.clearWidth(context),
-                  icon: Iconz.advertise,
-                  iconSizeFactor: 0.4,
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-
-                      ...List<Widget>.generate(ChannelModel.bldrsChannels.length, (int index) {
-
-                        final ChannelModel _channelModel = ChannelModel.bldrsChannels[index];
-                        final bool _isSelected = _channelModel.channel == _channel;
-
-                        return DreamBox(
-                          height: 40,
-                          margins: const EdgeInsets.only(bottom: 3, left: 10),
-                          verse: Verse.plain(_channelModel.name),
-                          secondLine: Verse.plain(_channelModel.description),
-                          verseScaleFactor: 0.6,
-                          verseCentered: false,
-                          bubble: false,
-                          color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,
-                          verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                          secondLineColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                          onTap: (){
-                            setState(() {
-                              _channel = _channelModel.channel;
-                            });
-                          },
-                        );
-
-                      }),
-
-                    ],
-                  ),
-                ),
+                // ExpandingTile(
+                //   firstHeadline: Verse.plain('Channel'),
+                //   secondHeadline: Verse.plain(_channel.name),
+                //   width: Bubble.clearWidth(context),
+                //   icon: Iconz.advertise,
+                //   iconSizeFactor: 0.4,
+                //   margin: const EdgeInsets.only(bottom: 10),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: <Widget>[
+                //
+                //       ...List<Widget>.generate(ChannelModel.bldrsChannels.length, (int index) {
+                //
+                //         final ChannelModel _channelModel = ChannelModel.bldrsChannels[index];
+                //         final bool _isSelected = _channelModel.channel == _channel;
+                //
+                //         return DreamBox(
+                //           height: 40,
+                //           margins: const EdgeInsets.only(bottom: 3, left: 10),
+                //           verse: Verse.plain(_channelModel.name),
+                //           secondLine: Verse.plain(_channelModel.description),
+                //           verseScaleFactor: 0.6,
+                //           verseCentered: false,
+                //           bubble: false,
+                //           color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,
+                //           verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                //           secondLineColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                //           onTap: (){
+                //             setState(() {
+                //               _channel = _channelModel.channel;
+                //             });
+                //           },
+                //         );
+                //
+                //       }),
+                //
+                //     ],
+                //   ),
+                // ),
 
                 /// TITLE
                 TextFieldBubble(

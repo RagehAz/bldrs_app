@@ -204,7 +204,7 @@ class Stringer {
     return _output;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static List<String> cleanListNullItems(List<String> strings){
     final List<String> _output = <String>[];
 
@@ -221,6 +221,24 @@ class Stringer {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String nullifyNullString(dynamic input){
+
+    if (input == null){
+      return null;
+    }
+    else if (input == 'null'){
+      return null;
+    }
+    else if (input == ['null']){
+      return null;
+    }
+    else {
+      return input;
+    }
+
   }
   // -----------------------------------------------------------------------------
 
