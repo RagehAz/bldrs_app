@@ -212,7 +212,7 @@ class Stringer {
 
       for (final String string in strings){
 
-        if (string != null){
+        if (string != null && string != 'null'){
           _output.add(string);
         }
 

@@ -61,6 +61,8 @@ const createFCMPayload = (noteModel) => {
       posterType: `${noteModel.posterType}`,
       posterURL: `${noteModel.posterURL}`,
       buttons: `${noteModel.buttons}`,
+      reply: `${noteModel.reply}`,
+      replyTime: `${noteModel.replyTime}`,
       sendFCM: `${noteModel.sendFCM}`,
       topic: `${noteModel.topic}`,
       triggerName: `${noteModel.triggerName}`,

@@ -28,7 +28,7 @@ class NoteProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> composeToMultiple({
     @required BuildContext context,
     @required NoteModel note,
@@ -66,7 +66,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> composeToOne({
     @required BuildContext context,
     @required NoteModel note,
@@ -186,7 +186,7 @@ class NoteProtocols {
     return _output;
   }
   // --------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static NoteModel adjustReceiverID({
     @required String receiverID,
     @required NoteModel note,
@@ -201,7 +201,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _sendNoteFCM({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -246,7 +246,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _checkReceiverCanReceiveFCM({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -284,7 +284,7 @@ class NoteProtocols {
     return _canReceive;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> _adjustNoteToken({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -331,35 +331,26 @@ class NoteProtocols {
 
   static Future<void> renovate({
     @required BuildContext context,
-    @required NoteModel note,
+    @required NoteModel newNote,
+    @required NoteModel oldNote
   }) async {
 
-  }
-  // --------------------
-  ///
-  static Future<void> modifyNoteResponse({
-    @required BuildContext context,
-    @required NoteModel note,
-    @required PollModel pollModel,
-  }) async {
-    blog('RenovateNoteProtocols.modifyNoteResponse : START');
-
-    final NoteModel _newNoteModel = note.copyWith(
-      poll: pollModel,
-      // responseTime: DateTime.now(),
+    final bool _postersAreIdentical = PosterModel.checkPostersAreIdentical(
+        poster1: newNote.poster,
+        poster2: oldNote.poster,
     );
+    assert(_postersAreIdentical == true, 'NoteProtocol.renovate : can not renovate with a new poster');
 
     NotesProvider.proUpdateNoteEverywhereIfExists(
       context: context,
-      noteModel: _newNoteModel,
+      noteModel: newNote,
       notify: true,
     );
 
     await NoteFireOps.updateNote(
-      newNoteModel: _newNoteModel,
+      note: newNote,
     );
 
-    blog('RenovateNoteProtocols.modifyNoteResponse : END');
   }
   // -----------------------------------------------------------------------------
 

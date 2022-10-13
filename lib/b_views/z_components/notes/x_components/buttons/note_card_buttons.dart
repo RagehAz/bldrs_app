@@ -43,14 +43,14 @@ class NoteCardButtons extends StatelessWidget {
 
     if (noteModel != null){
 
-      if (noteModel.poll.reply == PollModel.accept){
+      if (noteModel.poll.reply == 'phid_accept'){
         _output = const Verse(
           text: 'phid_accepted',
           translate: true,
         );
       }
 
-      else if (noteModel.poll.reply == PollModel.decline){
+      else if (noteModel.poll.reply == 'phid_decline'){
         _output = const Verse(
           text: 'phid_declined',
           translate: true,
@@ -66,7 +66,7 @@ class NoteCardButtons extends StatelessWidget {
 
       else {
         _output = Verse(
-          text: noteModel.poll.toString(),
+          text: noteModel.poll.reply,
           translate: false,
         );
       }
@@ -86,7 +86,7 @@ class NoteCardButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 
-          if (noteModel?.poll?.reply == PollModel.pending)
+          if (noteModel?.poll?.reply == null)
           ...List<Widget>.generate(noteModel.poll.buttons.length,
                   (int index) {
 
@@ -118,7 +118,7 @@ class NoteCardButtons extends StatelessWidget {
               }
           ),
 
-          if (noteModel?.poll?.reply == PollModel.pending)
+          if (noteModel?.poll?.reply != null)
             SizedBox(
               width: boxWidth * 0.9,
               child: Column(
