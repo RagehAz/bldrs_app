@@ -221,7 +221,12 @@ class NoteProtocols {
             noteModel: noteModel
         );
 
+        _note.blogNoteModel(invoker: '_sendNoteFCM.afterTokenAdjustment');
+
         if (_note.token != null) {
+
+          blog('should send aho note to ${_note.parties.receiverID}');
+
           await CloudFunction.call(
               context: context,
               functionName: CloudFunction.callSendFCMToDevice,
@@ -298,12 +303,12 @@ class NoteProtocols {
         blog('_adjustNoteToken : userToken is : ${_user?.fcmToken?.token}');
 
         if (TextCheck.isEmpty(_user?.fcmToken?.token) == true){
-          _note = _note.nullifyField(
+          _note = noteModel.nullifyField(
             token: true,
           );
         }
         else {
-          _note = _note.copyWith(
+          _note = noteModel.copyWith(
             token: _user?.fcmToken?.token,
           );
         }
@@ -311,7 +316,10 @@ class NoteProtocols {
 
       }
 
+      _note.blogNoteModel(invoker: '_adjustNoteToken.in');
+
     }
+
 
     return _note;
   }

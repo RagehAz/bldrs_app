@@ -203,6 +203,25 @@ class Stringer {
 
     return _output;
   }
+  // --------------------
+
+  static List<String> cleanListNullItems(List<String> strings){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(strings) == true){
+
+      for (final String string in strings){
+
+        if (string != null){
+          _output.add(string);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// SORTING STRINGS

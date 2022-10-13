@@ -46,7 +46,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _bodyNode = FocusNode();
   // --------------------
-  bool _isDismissible = true;
   Channel _channel = Channel.bulletin;
   NootEvent _nootEvent;
   // --------------------
@@ -272,12 +271,14 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                     /// CAN BE DISMISSED
                     NoteDismissibleTriggerBubble(
-                      isDismissible: _isDismissible,
+                      isDismissible: note.dismissible,
                       note: note,
                       onSwitch: (bool value){
-                        setState(() {
-                          _isDismissible = value;
-                        });
+
+                        _noteNotifier.value = _noteNotifier.value.copyWith(
+                          dismissible: value,
+                        );
+
                         },
                     ),
 
