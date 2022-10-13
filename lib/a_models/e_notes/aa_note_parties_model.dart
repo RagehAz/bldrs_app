@@ -87,9 +87,9 @@ class NoteParties {
     return {
       'senderID': senderID,
       'senderImageURL': senderImageURL,
-      'senderType': cipherNoteSenderOrRecieverType(senderType),
+      'senderType': cipherPartyType(senderType),
       'receiverID': receiverID,
-      'receiverType' : cipherNoteSenderOrRecieverType(receiverType),
+      'receiverType' : cipherPartyType(receiverType),
     };
   }
   // --------------------
@@ -101,9 +101,9 @@ class NoteParties {
       _parties = NoteParties(
         senderID: map['senderID'],
         senderImageURL: map['senderImageURL'],
-        senderType: decipherNoteSenderOrReceiverType(map['senderType']),
+        senderType: decipherPartyType(map['senderType']),
         receiverID: map['receiverID'],
-        receiverType: decipherNoteSenderOrReceiverType(map['receiverType']),
+        receiverType: decipherPartyType(map['receiverType']),
       );
     }
 
@@ -115,7 +115,7 @@ class NoteParties {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherNoteSenderOrRecieverType(NotePartyType type){
+  static String cipherPartyType(NotePartyType type){
     switch (type) {
       case NotePartyType.bz:           return 'bz';      break; /// data type : String bzID
     // case NoteSenderOrRecieverType.author:       return 'author';  break; /// data type : String authorID
@@ -127,7 +127,7 @@ class NoteParties {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NotePartyType decipherNoteSenderOrReceiverType(String type){
+  static NotePartyType decipherPartyType(String type){
     switch (type) {
       case 'bldrs':   return NotePartyType.bldrs;    break;
       case 'user':    return NotePartyType.user;     break;

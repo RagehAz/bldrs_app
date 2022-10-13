@@ -177,7 +177,7 @@ Future<bool> _showEthicalConfirmationDialog({
       senderType == NotePartyType.user
   ){
 
-    final String _senderTypeString = NoteParties.cipherNoteSenderOrRecieverType(senderType);
+    final String _senderTypeString = NoteParties.cipherPartyType(senderType);
 
     _canContinue = await CenterDialog.showCenterDialog(
       context: context,

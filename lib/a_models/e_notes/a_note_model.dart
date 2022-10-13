@@ -1,9 +1,11 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -25,37 +27,39 @@ class NoteModel {
     @required this.title,
     @required this.body,
     @required this.sentTime,
-
-
-    this.spaceTime,
+    this.dismissible = true,
     this.seen = false,
     this.topic,
     this.sendFCM = true,
-    this.metaData = defaultMetaData,
     this.poster,
-    this.token,
     this.poll,
     this.trigger,
     this.progress,
     this.docSnapshot,
+
+    /// TASK : SHOULD DELETE THOSE
+    this.metaData = defaultMetaData,
+    this.token,
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final int spaceTime;
   final NoteParties parties;
   final String title; /// max 30 char
   final String body; /// max 80 char
-  final Map<String, dynamic> metaData;
   final DateTime sentTime;
   final PosterModel poster;
   final PollModel poll;
   final bool sendFCM;
-  final String token;
   final String topic;
   final TriggerModel trigger;
   final bool seen;
   final int progress;
+  final bool dismissible;
+  final String token;
   final QueryDocumentSnapshot<Object> docSnapshot;
+
+  /// TASK : SHOULD DELETE THOSE
+  final Map<String, dynamic> metaData;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -91,6 +95,7 @@ class NoteModel {
     TriggerModel trigger,
     bool seen,
     int progress,
+    bool dismissible,
   }){
     return NoteModel(
       id: id ?? this.id,
@@ -107,6 +112,8 @@ class NoteModel {
       trigger: trigger ?? this.trigger,
       seen: seen ?? this.seen,
       progress: progress ?? this.progress,
+      dismissible: dismissible ?? this.dismissible,
+
     );
   }
   // --------------------
@@ -126,6 +133,7 @@ class NoteModel {
     bool trigger = false,
     bool seen = false,
     bool progress = false,
+    bool dismissible = false,
   }){
     return NoteModel(
       id: id == true ? null : this.id,
@@ -142,6 +150,7 @@ class NoteModel {
       trigger: trigger == true ? null : this.trigger,
       seen: seen == true ? null : this.seen,
       progress: progress == true ? null : this.progress,
+      dismissible: dismissible == true ? null : this.dismissible,
     );
   }
   // -----------------------------------------------------------------------------
@@ -154,29 +163,28 @@ class NoteModel {
     @required bool toJSON,
   }) {
     return <String, dynamic>{
-      'id': id,
-      'parties': parties.toMap(),
-      'notification': _cipherNotificationField(),
-      'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
-      'poster': poster?.toMap(),
-      'poll': poll?.toMap(toJSON: toJSON),
-      'sendFCM': sendFCM,
       'token': token,
+      'id' : id,
+      'senderID': parties.senderID,
+      'senderImageURL': parties.senderImageURL,
+      'senderType': NoteParties.cipherPartyType(parties.senderType),
+      'receiverID': parties.receiverID,
+      'receiverType': NoteParties.cipherPartyType(parties.receiverType),
+      'title' : title,
+      'body' : body,
+      'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
+      'posterModelID': poster?.modelID,
+      'posterType': PosterModel.cipherPosterType(poster?.type),
+      'posterURL': poster?.url,
+      'buttons': PollModel.cipherButtons(poll?.buttons),
+      'sendFCM': sendFCM,
       'topic': topic,
-      'trigger': trigger?.toMap(),
+      'triggerName': trigger?.name,
+      'triggerArgument': trigger?.argument,
       'seen': seen,
       'progress': progress,
-    };
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Map<String, dynamic> _cipherNotificationField(){
-    return <String, dynamic>{
-      'notification': <String, dynamic>{
-        'title': title,
-        'body': body,
-      },
-      'data': metaData,
+      'dismissible' : dismissible,
+      'docSnapshot' : docSnapshot,
     };
   }
   // --------------------
@@ -209,76 +217,46 @@ class NoteModel {
     if (map != null) {
 
       _noti = NoteModel(
-        id: map['id'],
-        parties: NoteParties.decipherParties(Mapper.getMapFromInternalHashLinkedMapObjectObject(
-            internalHashLinkedMapObjectObject: map['parties'],
-        )),
-        title: _decipherNotificationField(map: map, titleNotBody: true),
-        body: _decipherNotificationField(map: map, titleNotBody: false),
-        metaData: _decipherNotificationData(map),
-        sentTime: Timers.decipherTime(
-          time: map['sentTime'],
-          fromJSON: fromJSON,
-        ),
-        poster: PosterModel.decipher(map['poster']),
-        sendFCM: map['sendFCM'],
-        poll: PollModel.decipherPoll(
-          map: map['poll'],
-          fromJSON: fromJSON,
-        ),
+
         token: map['token'],
+        id: map['id'],
+        parties: NoteParties(
+          senderID: map['senderID'],
+          senderImageURL: map['senderImageURL'],
+          senderType: NoteParties.decipherPartyType(map['senderType']),
+          receiverID: map['receiverID'],
+          receiverType: NoteParties.decipherPartyType(map['receiverType']),
+        ),
+        title: map['title'],
+        body: map['body'],
+        sentTime: Timers.decipherTime(time: map['sentTime'], fromJSON: fromJSON,),
+        poster: PosterModel(
+          modelID: map['posterModelID'],
+          type: PosterModel.decipherPosterType(map['posterType']),
+          url: map['posterURL'],
+        ),
+        poll: PollModel(
+          buttons: PollModel.decipherButtons(map['buttons']),
+          replyTime: null,
+          reply: null,
+        ),
+        sendFCM: map['sendFCM'],
         topic: map['topic'],
-        trigger: TriggerModel.decipherTrigger(map['trigger']),
+        trigger: TriggerModel(
+          name: map['triggerName'],
+          argument: map['triggerArgument'],
+        ),
         seen: map['seen'],
         progress: map['progress'],
+        dismissible: map['dismissible'],
         docSnapshot: map['docSnapshot'],
+
+        metaData: null,
       );
+
     }
 
     return _noti;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String _decipherNotificationField({
-    @required dynamic map,
-    @required bool titleNotBody,
-  }){
-    String _field;
-    final String _key = titleNotBody == true ? 'title' : 'body';
-
-    if (map != null){
-
-      // title: map['notification']['notification']['title'],
-
-      final dynamic _notification1 = map['notification'];
-
-      dynamic _notification2;
-      if (_notification1 != null){
-        _notification2 = _notification1['notification'];
-      }
-
-      if (_notification2 != null){
-        _field = _notification2[_key];
-      }
-
-    }
-
-    return _field;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> _decipherNotificationData(dynamic map){
-    Map<String, dynamic> _output;
-
-    if (map != null){
-      final dynamic _notification = map['notification'];
-
-      if (_notification != null){
-        _output = map['data'];
-      }
-
-    }
-    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -302,14 +280,56 @@ class NoteModel {
 
     return _notesModels;
   }
+  // -----------------------------------------------------------------------------
+
+  /// REMOTE MSG - NOOT
+
   // --------------------
-  static List<NoteModel> getNotesModelsFromSnapshot(DocumentSnapshot<Object> doc) {
-    final Object _maps = doc.data();
-    final List<NoteModel> _notiModels = decipherNotes(
-      maps: _maps,
-      fromJSON: false,
-    );
-    return _notiModels;
+  static NoteModel decipherRemoteMessage({
+    @required Map<String, dynamic> map,
+  }) {
+    NoteModel _note;
+
+    if (map != null){
+      _note = NoteModel(
+        token: map['token'],
+        id: map['id'],
+        parties: NoteParties(
+          senderID: map['senderID'],
+          senderImageURL: map['senderImageURL'],
+          senderType: NoteParties.decipherPartyType(map['senderType']),
+          receiverID: map['receiverID'],
+          receiverType: NoteParties.decipherPartyType(map['receiverType']),
+        ),
+        title: map['title'],
+        body: map['body'],
+        sentTime: Timers.decipherTime(time: map['sentTime'], fromJSON: true),
+        poster: PosterModel(
+          modelID: map['posterModelID'],
+          type: PosterModel.decipherPosterType(map['posterType']),
+          url: map['posterURL'],
+        ),
+        poll: PollModel(
+          buttons: PollModel.decipherButtons(map['buttons']),
+          replyTime: null,
+          reply: null,
+        ),
+        sendFCM: map['sendFCM'] == 'true' ? true : false,
+        topic: map['topic'],
+        trigger: TriggerModel(
+          name: map['triggerName'],
+          argument: map['triggerArgument'],
+        ),
+        seen: map['seen'] == 'true' ? true : false,
+        progress: Numeric.transformStringToInt(map['progress']),
+        dismissible: map['dismissible'] == 'true' ? true : false,
+
+        metaData: null,
+
+      );
+    }
+
+    return _note;
   }
   // -----------------------------------------------------------------------------
 
@@ -332,12 +352,12 @@ class NoteModel {
     blog('topic: $topic');
     blog('seen: $seen');
     blog('~ ~ ~ ~ ~ ~');
-    blog('parties : sender : ${parties?.senderID} : ${NoteParties.cipherNoteSenderOrRecieverType(parties?.senderType)} : ${parties?.senderImageURL}');
-    blog('parties : receiver : ${parties?.receiverID} : ${NoteParties.cipherNoteSenderOrRecieverType(parties?.receiverType)} ');
+    blog('parties : sender : ${parties?.senderID} : ${NoteParties.cipherPartyType(parties?.senderType)} : ${parties?.senderImageURL}');
+    blog('parties : receiver : ${parties?.receiverID} : ${NoteParties.cipherPartyType(parties?.receiverType)} ');
     blog('~ ~ ~ ~ ~ ~');
     blog('poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.url}');
     blog('poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
-    blog('trigger : functionName : ${trigger?.functionName} : argument : ${trigger?.argument}');
+    blog('trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument}');
     blog('~ ~ ~ ~ ~ ~');
     Mapper.blogMap(metaData, invoker: 'metaData');
     blog('~ ~ ~ ~ ~ ~');
@@ -444,7 +464,7 @@ class NoteModel {
 
       for (final NoteModel note in notes){
 
-        if (note.trigger?.functionName == triggerFunctionName){
+        if (note.trigger?.name == triggerFunctionName){
           _output.add(note);
         }
 
@@ -1373,4 +1393,63 @@ WHEN DO WE HAVE NOTIFICATIONS
     NoteType.bzDeletion,
   ];
    */
+// -----------------------------------------------------------------------------
+/*
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Map<String, dynamic> _cipherNotificationField(){
+    return <String, dynamic>{
+      'notification': <String, dynamic>{
+        'title': title,
+        'body': body,
+      },
+      'data': metaData,
+    };
+  }
+    // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _decipherNotificationField({
+    @required dynamic map,
+    @required bool titleNotBody,
+  }){
+    String _field;
+    final String _key = titleNotBody == true ? 'title' : 'body';
+
+    if (map != null){
+
+      // title: map['notification']['notification']['title'],
+
+      final dynamic _notification1 = map['notification'];
+
+      dynamic _notification2;
+      if (_notification1 != null){
+        _notification2 = _notification1['notification'];
+      }
+
+      if (_notification2 != null){
+        _field = _notification2[_key];
+      }
+
+    }
+
+    return _field;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> _decipherNotificationData(dynamic map){
+    Map<String, dynamic> _output;
+
+    if (map != null){
+      final dynamic _notification = map['notification'];
+
+      if (_notification != null){
+        _output = map['data'];
+      }
+
+    }
+    return _output;
+  }
+
+
+ */
 // -----------------------------------------------------------------------------

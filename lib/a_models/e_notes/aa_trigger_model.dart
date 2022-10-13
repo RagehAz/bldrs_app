@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 class TriggerModel {
   /// --------------------------------------------------------------------------
   const TriggerModel({
-    @required this.functionName,
+    @required this.name,
     @required this.argument,
   });
   /// --------------------------------------------------------------------------
-  final String functionName;
+  final String name;
   final String argument;
   // -----------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ class TriggerModel {
     String argument,
   }){
     return TriggerModel(
-      functionName: functionName ?? this.functionName,
+      name: functionName ?? this.name,
       argument: argument ?? this.argument,
     );
   }
@@ -32,7 +32,7 @@ class TriggerModel {
   // --------------------
   Map<String, dynamic> toMap(){
     return {
-      'functionName': functionName,
+      'functionName': name,
       'argument': argument,
     };
   }
@@ -42,7 +42,7 @@ class TriggerModel {
 
     if (map != null){
       _trigger = TriggerModel(
-        functionName: map['functionName'],
+        name: map['functionName'],
         argument: map['argument'],
       );
     }
@@ -66,7 +66,7 @@ class TriggerModel {
 
         if (
 
-        trigger1.functionName == trigger2.functionName &&
+        trigger1.name == trigger2.name &&
         trigger2.argument == trigger2.argument
 
         ){
@@ -85,7 +85,7 @@ class TriggerModel {
 
   // --------------------
   void blogTrigger(){
-    blog('Trigger : functionName : $functionName : argument : $argument');
+    blog('Trigger : functionName : $name : argument : $argument');
   }
   // -----------------------------------------------------------------------------
 
@@ -103,7 +103,7 @@ class TriggerModel {
     @required String flyerID,
   }){
     return TriggerModel(
-      functionName: updateFlyer,
+      name: updateFlyer,
       argument: flyerID,
     );
   }
@@ -116,7 +116,7 @@ class TriggerModel {
     @required String bzID,
   }){
     return TriggerModel(
-      functionName: 'bzDeletion',
+      name: 'bzDeletion',
       argument: bzID,
     );
 }
@@ -147,7 +147,7 @@ class TriggerModel {
   // --------------------
   @override
   int get hashCode =>
-      functionName.hashCode^
+      name.hashCode^
       argument.hashCode;
   // -----------------------------------------------------------------------------
 }
