@@ -163,6 +163,19 @@ Future<void> onNoteButtonTap({
 
   blog('onNoteButtonTap : SSSSSSSSSSSSSSS : response : $response');
 
+  final NoteModel _updated = noteModel.copyWith(
+    poll: noteModel.poll.copyWith(
+      reply: response,
+      replyTime: DateTime.now(),
+    ),
+  );
+
+  await NoteProtocols.renovate(
+    context: context,
+    newNote: _updated,
+    oldNote: noteModel,
+  );
+
   // /// AUTHORSHIP NOTES
   // if (noteModel.type == NoteType.authorship){
   //
@@ -267,13 +280,14 @@ Future<void> _acceptAuthorshipInvitation({
     );
 
     /// MODIFY NOTE RESPONSE
-    await NoteProtocols.modifyNoteResponse(
+    await NoteProtocols.renovate(
       context: context,
-      note: noteModel,
-      pollModel: PollModel(
-        buttons: noteModel.poll.buttons,
-        reply: PollModel.accept,
-        replyTime: DateTime.now(),
+      oldNote: noteModel,
+      newNote: noteModel.copyWith(
+        poll: noteModel.poll.copyWith(
+          reply: PollModel.accept,
+          replyTime: DateTime.now(),
+        ),
       ),
     );
 
@@ -349,13 +363,14 @@ Future<void> _declineAuthorshipInvitation({
 
   if (_result == true){
 
-    await NoteProtocols.modifyNoteResponse(
+    await NoteProtocols.renovate(
       context: context,
-      note: noteModel,
-      pollModel: PollModel(
-        buttons: noteModel.poll.buttons,
-        reply: PollModel.decline,
-        replyTime: DateTime.now(),
+      oldNote: noteModel,
+      newNote: noteModel.copyWith(
+        poll: noteModel.poll.copyWith(
+          reply: PollModel.decline,
+          replyTime: DateTime.now(),
+        ),
       ),
     );
 

@@ -275,7 +275,9 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       note: note,
                       onSwitch: (bool value){
 
-                        _noteNotifier.value = _noteNotifier.value.copyWith(
+                        blog('dismissible was : ${_noteNotifier.value.dismissible} : ${note.dismissible} : and should be $value');
+
+                        _noteNotifier.value = note.copyWith(
                           dismissible: value,
                         );
 

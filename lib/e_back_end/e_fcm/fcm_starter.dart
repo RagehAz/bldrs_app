@@ -214,11 +214,15 @@ class FCMStarter {
           body: _note.body,
           largeIconURL: _note.parties.senderImageURL,
           bannerURL: _note.poster.url,
-          buttonsTexts: _note.poll.buttons,
           progress: Progress.generateModelFromNoteProgress(_note),
           progressBarIsLoading: _note.progress == -1,
           canBeDismissedWithoutTapping: _note.dismissible,
+
+          /// FAKES BUTTONS IN NOOT
+          // buttonsTexts: null, // _note.poll.buttons,
+
           // channel: ,
+
           // payloadMap: ,
         );
       }
