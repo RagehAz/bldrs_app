@@ -101,17 +101,23 @@ class PollModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> decipherButtons(String buttonsString){
     List<String> _buttons;
+
+    blog('1 - START : decipherButtons : buttonsString: $buttonsString');
 
     if (TextCheck.isEmpty(buttonsString) == false){
 
       final List<String> _nodes = ChainPathConverter.splitPathNodes(buttonsString);
 
+      blog('2 - decipherButtons : _nodes: $_nodes');
+
       if (Mapper.checkCanLoopList(_nodes) == true){
 
         final List<String> _cleaned = Stringer.cleanListNullItems(_nodes);
+
+        blog('3 - decipherButtons : _cleaned: $_cleaned');
 
         if (Mapper.checkCanLoopList(_cleaned) == true){
           _buttons = _cleaned;
@@ -120,6 +126,8 @@ class PollModel {
       }
 
     }
+
+    blog('4 - END : decipherButtons : _buttons: $_buttons');
 
     return _buttons;
   }

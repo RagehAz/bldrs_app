@@ -69,6 +69,7 @@ NoteModel _createInitialNote(BuildContext context) {
     body: null,
     sentTime: DateTime.now(),
     sendFCM: false,
+    // dismissible: true,
   );
 
 }

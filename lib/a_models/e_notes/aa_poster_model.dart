@@ -109,21 +109,57 @@ class PosterModel {
   /// BLOGGING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void blogPoster(){
     blog('id: $modelID : type : ${cipherPosterType(type)} : url : $url');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogPosterDifferences(PosterModel poster1, PosterModel poster2,){
+
+    blog('blogPosterDifferences : START');
+
+    if (poster1 == null){
+      blog('poster1 is null');
+    }
+
+    if (poster2 == null){
+      blog('poster2 is null');
+    }
+
+    if (poster1 != null && poster2 != null){
+
+      if (poster1.modelID != poster2.modelID){
+        blog('modelIDs are not identical');
+
+      }
+
+      if (poster1.url != poster2.url){
+        blog('urls are not identical');
+      }
+
+      if (poster1.type != poster2.type){
+        blog('types are not identical');
+      }
+
+    }
+
+    blog('blogPosterDifferences : END');
+
   }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPostersAreIdentical({
     @required PosterModel poster1,
     @required PosterModel poster2,
   }){
     bool _areIdentical = false;
+
+    blogPosterDifferences(poster1, poster2);
 
     if (poster1 == null && poster2 == null){
       _areIdentical = true;
@@ -139,6 +175,10 @@ class PosterModel {
         _areIdentical = true;
       }
 
+    }
+
+    if (_areIdentical == false){
+      blogPosterDifferences(poster1, poster2);
     }
 
     return _areIdentical;

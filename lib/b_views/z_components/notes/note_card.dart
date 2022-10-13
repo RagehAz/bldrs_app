@@ -205,9 +205,14 @@ class NoteCard extends StatelessWidget {
 
           /// BUTTONS
           if (Mapper.checkCanLoopList(noteModel?.poll?.buttons) == true)
-            NoteCardButtons(
-              boxWidth: _bodyWidth,
-              noteModel: noteModel,
+            Container(
+              width: _clearWidth,
+              alignment: Aligners.superInverseCenterAlignment(context),
+              margin: const EdgeInsets.only(top: 10),
+              child: NoteCardButtons(
+                boxWidth: _bodyWidth,
+                noteModel: noteModel,
+              ),
             ),
 
         ],
