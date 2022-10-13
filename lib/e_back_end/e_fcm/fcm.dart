@@ -157,9 +157,8 @@ class FCM {
     Progress progress,
     bool progressBarIsLoading = false,
     bool canBeDismissedWithoutTapping = true,
-    Channel channel = Channel.bulletin,
     /// special fields in awesome notification package
-    String bannerURL,
+    String posterURL,
     List<String> buttonsTexts,
   }) async {
 
@@ -173,12 +172,11 @@ class FCM {
             body: body,
             title: title,
             largeIconURL: largeIconURL,
-            bannerURL: bannerURL,
+            bannerURL: posterURL,
             progress: progress,
             payloadMap: payloadMap,
             progressBarIsLoading: progressBarIsLoading,
             canBeDismissedWithoutTapping: canBeDismissedWithoutTapping,
-            channel: channel,
           ),
           /// BUTTONS
           actionButtons: _createGlobalNootActionButtons(
@@ -202,7 +200,6 @@ class FCM {
     Progress progress,
     bool progressBarIsLoading = false,
     bool canBeDismissedWithoutTapping = true,
-    Channel channel = Channel.bulletin,
     /// special fields in flutter local notification package
     String subText,
     bool showStopWatch = false,
@@ -226,7 +223,6 @@ class FCM {
           progressBarIsLoading: progressBarIsLoading,
           showStopWatch: showStopWatch,
           showTime: showTime,
-          channel: channel,
         ),
         iOS: _createLocalNootIOSDetails(),
         // macOS: ,
@@ -256,7 +252,7 @@ class FCM {
   /// NOTIFICATION CONTENTS
 
   // --------------------
-  /// TAMAM : WORKS PERFECT : TASK : (except for notification sound)
+  /// TAMAM : WORKS PERFECT
   static NotificationContent _createGlobalNootContent({
     @required String title,
     @required String body,
@@ -266,7 +262,6 @@ class FCM {
     Map<String, String> payloadMap,
     Progress progress,
     bool progressBarIsLoading = false,
-    Channel channel = Channel.bulletin,
   }){
 
     blog('_createNotificationContent : START');
@@ -287,16 +282,14 @@ class FCM {
       _layout = NotificationLayout.BigText;
     }
 
-    final ChannelModel _channelModel = ChannelModel.getChannelModel(channel);
-
     return NotificationContent(
       /// IDENTIFICATION
       id: Numeric.createUniqueID(maxDigitsCount: 8),
 
       /// CHANNEL
-      channelKey: _channelModel.id,
-      summary: _channelModel.description,
-      groupKey: _channelModel.group,
+      channelKey: ChannelModel.bldrsChannel.id,
+      summary: ChannelModel.bldrsChannel.description,
+      groupKey: ChannelModel.bldrsChannel.group,
 
       /// ACTION
       // actionType: ActionType.Default,
@@ -404,29 +397,26 @@ class FCM {
     );
   }
   // --------------------
-  /// --- TAMAM : WORKS PERFECT : TASK : (except for notification sound)
+  /// --- TAMAM : WORKS PERFECT
   static AndroidNotificationDetails _createLocalNootAndroidDetails({
     String subText,
     AndroidBitmap<Object> largeIcon,
     Progress progress,
-    Channel channel = Channel.bulletin,
     bool showStopWatch = false,
     bool showTime = true,
     bool canBeDismissedWithoutTapping = true,
     bool progressBarIsLoading = false,
   }){
 
-    final ChannelModel _channelModel = ChannelModel.getChannelModel(channel);
-
     return AndroidNotificationDetails(
       /// CHANNEL
-      _channelModel.id, // channelId
-      _channelModel.name, // channelName
-      channelDescription: _channelModel.description,
+      ChannelModel.bldrsChannel.id, // channelId
+      ChannelModel.bldrsChannel.name, // channelName
+      channelDescription: ChannelModel.bldrsChannel.description,
       // channelAction: AndroidNotificationChannelAction.createIfNotExists, // default
 
       /// GROUP
-      groupKey: _channelModel.group, /// FAKES
+      groupKey: ChannelModel.bldrsChannel.group, /// FAKES
       setAsGroupSummary: true,
       // groupAlertBehavior: GroupAlertBehavior.all, /// FAKES
 
@@ -626,20 +616,19 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NotificationChannel> generateBldrsNootChannels(){
-    final List<NotificationChannel> _channels = <NotificationChannel>[];
 
-    for (final ChannelModel channel in ChannelModel.bldrsChannels){
+    final List<NotificationChannel> _channels = <NotificationChannel>[
 
-      _channels.add(NotificationChannel(
+      NotificationChannel(
         /// CHANNEL
-        channelKey: channel.id,
-        channelName: channel.name,
+        channelKey: ChannelModel.bldrsChannel.id,
+        channelName: ChannelModel.bldrsChannel.name,
         /// this will be visible to user in android notification settings
-        channelDescription: channel.description,
+        channelDescription: ChannelModel.bldrsChannel.description,
 
         /// GROUP
-        channelGroupKey: channel.group,
-        groupKey: channel.group,
+        channelGroupKey: ChannelModel.bldrsChannel.group,
+        groupKey: ChannelModel.bldrsChannel.group,
         groupSort: GroupSort.Asc,
 
         /// ICON
@@ -672,9 +661,10 @@ class FCM {
         // groupAlertBehavior: GroupAlertBehavior(),
         // criticalAlerts: ,
 
-      ));
+      ),
 
-    }
+    ];
+
 
     return _channels;
   }
@@ -686,20 +676,8 @@ class FCM {
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupkey: ChannelModel.generalGroup,
-        channelGroupName: ChannelModel.generalGroup,
-      ),
-
-      /// GENERAL
-      NotificationChannelGroup(
-        channelGroupkey: ChannelModel.flyersGroup,
-        channelGroupName: ChannelModel.flyersGroup,
-      ),
-
-      /// GENERAL
-      NotificationChannelGroup(
-        channelGroupkey: ChannelModel.myBzzGroup,
-        channelGroupName: ChannelModel.myBzzGroup,
+        channelGroupkey: ChannelModel.bldrsChannel.group,
+        channelGroupName: ChannelModel.bldrsChannel.group,
       ),
 
     ];

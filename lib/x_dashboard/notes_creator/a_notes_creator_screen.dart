@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/a_models/e_notes/noot_event.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -19,7 +18,6 @@ import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/f_note_button
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/g_note_topic_selector_bubble.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/h_note_fcm_trigger_bubble.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/i_note_dismissible_trigger_bubble.dart';
-import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/j_note_channel_selector_bubble.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/k_note_trigger_creator.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/x_note_preview_panel.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab/a_notes_lab_home.dart';
@@ -46,7 +44,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _bodyNode = FocusNode();
   // --------------------
-  Channel _channel = Channel.bulletin;
   NootEvent _nootEvent;
   // --------------------
   final ValueNotifier<NoteModel> _noteNotifier = ValueNotifier<NoteModel>(null);
@@ -285,15 +282,15 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     ),
 
                     /// CHANNEL
-                    NoteChannelSelectorBubble(
-                      note: note,
-                      channel: _channel,
-                      onSelectChannel: (ChannelModel channelModel){
-                        setState(() {
-                          _channel = channelModel.channel;
-                        });
-                      },
-                    ),
+                    // NoteChannelSelectorBubble(
+                    //   note: note,
+                    //   channel: _channel,
+                    //   onSelectChannel: (ChannelModel channelModel){
+                    //     setState(() {
+                    //       _channel = channelModel.channel;
+                    //     });
+                    //   },
+                    // ),
 
                     /// HORIZON
                     const Horizon(heightFactor: 2),

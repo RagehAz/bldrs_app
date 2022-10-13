@@ -202,7 +202,6 @@ class FCMStarter {
         map: remoteMessage?.data,
       );
 
-
       _note.blogNoteModel(
         invoker: '_pushGlobalNootFromRemoteMessage.$invoker',
       );
@@ -213,7 +212,7 @@ class FCMStarter {
           title: _note.title,
           body: _note.body,
           largeIconURL: _note.parties.senderImageURL,
-          bannerURL: _note.poster.url,
+          posterURL: _note.poster.url,
           progress: Progress.generateModelFromNoteProgress(_note),
           progressBarIsLoading: _note.progress == -1,
           canBeDismissedWithoutTapping: _note.dismissible,
