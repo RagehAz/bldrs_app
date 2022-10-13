@@ -277,16 +277,18 @@ class NoteFireOps {
   /// UPDATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateNote({
-    @required NoteModel newNoteModel,
+    @required NoteModel note,
   }) async {
 
-    if (newNoteModel != null){
-      await Fire.updateDoc(
-        collName: FireColl.notes,
-        docName: newNoteModel.id,
-        input: newNoteModel.toMap(toJSON: false),
+    if (note != null){
+      await Fire.updateSubDoc(
+        collName: NoteModel.getNoteCollName(note),
+        docName: note.parties.receiverID,
+        subCollName: FireSubColl.noteReceiver_receiver_notes,
+        subDocName: note.id,
+        input: note.toMap(toJSON: false),
       );
     }
 
@@ -305,7 +307,7 @@ class NoteFireOps {
       );
 
       await updateNote(
-        newNoteModel: _updatedNote,
+        note: _updatedNote,
       );
 
     }
@@ -336,7 +338,7 @@ class NoteFireOps {
   /// DELETE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteNote({
     @required NoteModel note,
   }) async {

@@ -98,21 +98,21 @@ class NoteModel {
     bool dismissible,
   }){
     return NoteModel(
-      id: id ?? this.id,
-      parties: parties ?? this.parties,
-      title: title ?? this.title,
-      body: body ?? this.body,
-      metaData: metaData ?? this.metaData,
-      sentTime: sentTime ?? this.sentTime,
-      poster: poster ?? this.poster,
-      sendFCM: sendFCM ?? this.sendFCM,
-      poll: poll ?? this.poll,
-      token: token ?? this.token,
-      topic: topic ?? this.topic,
-      trigger: trigger ?? this.trigger,
-      seen: seen ?? this.seen,
-      progress: progress ?? this.progress,
-      dismissible: dismissible ?? this.dismissible,
+      id: id ?? this.id,                              // String id,
+      parties: parties ?? this.parties,               // NoteParties parties,
+      title: title ?? this.title,                     // String title,
+      body: body ?? this.body,                        // String body,
+      metaData: metaData ?? this.metaData,            // Map<String, dynamic> metaData,
+      sentTime: sentTime ?? this.sentTime,            // DateTime sentTime,
+      sendFCM: sendFCM ?? this.sendFCM,               // bool sendFCM,
+      poster: poster ?? this.poster,                  // PosterModel poster,
+      poll: poll ?? this.poll,                        // PollModel poll,
+      token: token ?? this.token,                     // String token,
+      topic: topic ?? this.topic,                     // String topic,
+      trigger: trigger ?? this.trigger,               // TriggerModel trigger,
+      seen: seen ?? this.seen,                        // bool seen,
+      progress: progress ?? this.progress,            // int progress,
+      dismissible: dismissible ?? this.dismissible,   // bool dismissible,
 
     );
   }
@@ -177,6 +177,8 @@ class NoteModel {
       'posterType': PosterModel.cipherPosterType(poster?.type),
       'posterURL': poster?.url,
       'buttons': PollModel.cipherButtons(poll?.buttons),
+      'reply' : poll?.reply,
+      'replyTime' : poll?.replyTime,
       'sendFCM': sendFCM,
       'topic': topic,
       'triggerName': trigger?.name,
@@ -237,8 +239,8 @@ class NoteModel {
         ),
         poll: PollModel(
           buttons: PollModel.decipherButtons(map['buttons']),
-          replyTime: null,
-          reply: null,
+          reply: map['reply'],
+          replyTime: Timers.decipherTime(time: map['replyTime'], fromJSON: fromJSON,)
         ),
         sendFCM: map['sendFCM'],
         topic: map['topic'],
@@ -285,6 +287,7 @@ class NoteModel {
   /// REMOTE MSG - NOOT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static NoteModel decipherRemoteMessage({
     @required Map<String, dynamic> map,
   }) {
@@ -311,8 +314,8 @@ class NoteModel {
         ),
         poll: PollModel(
           buttons: PollModel.decipherButtons(map['buttons']),
-          replyTime: null,
-          reply: null,
+            reply: map['reply'],
+            replyTime: Timers.decipherTime(time: map['replyTime'], fromJSON: true,)
         ),
         sendFCM: map['sendFCM'] == 'true' ? true : false,
         topic: map['topic'],
@@ -351,6 +354,7 @@ class NoteModel {
     blog('token: $token');
     blog('topic: $topic');
     blog('seen: $seen');
+    blog('dismissible: $dismissible');
     blog('~ ~ ~ ~ ~ ~');
     blog('parties : sender : ${parties?.senderID} : ${NoteParties.cipherPartyType(parties?.senderType)} : ${parties?.senderImageURL}');
     blog('parties : receiver : ${parties?.receiverID} : ${NoteParties.cipherPartyType(parties?.receiverType)} ');
@@ -723,7 +727,8 @@ class NoteModel {
           note1.topic == note2.topic &&
           TriggerModel.checkTriggersAreIdentical(note1.trigger, note2.trigger) &&
           note1.seen == note2.seen &&
-          note1.progress == note2.progress
+          note1.progress == note2.progress &&
+          note1.dismissible == note2.dismissible
       ){
         _areIdentical = true;
       }

@@ -114,17 +114,25 @@ class Timers {
     @required bool fromJSON,
   }){
 
-    if (fromJSON == true){
-      return _decipherDateTimeIso8601(time);
-    }
-    else if (time?.runtimeType.toString() == 'Timestamp'){
-      return time?.toDate();
-    }
-    else if (time?.runtimeType.toString() == 'DateTime'){
-      return time;
+    blog('decipherTime : type : ${time.runtimeType} : time : $time');
+
+    if (time == null){
+      return null;
     }
     else {
-      return time;
+      if (fromJSON == true){
+        return _decipherDateTimeIso8601(time);
+      }
+      else if (time?.runtimeType.toString() == 'Timestamp'){
+        return time?.toDate();
+      }
+      else if (time?.runtimeType.toString() == 'DateTime'){
+        return time;
+      }
+      else {
+        return time;
+      }
+
     }
 
   }
@@ -185,14 +193,16 @@ class Timers {
     DateTime _time;
 
     if (cipheredDateTimeIso8601 != null){
-      _time = DateTime.parse(cipheredDateTimeIso8601);
+      _time = DateTime.tryParse(cipheredDateTimeIso8601);
     }
 
     return _time;
   }
   // --------------------
-  /// we may revise datetimes timestamps isoStrings for firebase, sembast & sql
   static Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
+
+    ///  NOTE : we may revise datetimes timestamps isoStrings for firebase, sembast & sql
+
     Timestamp _time;
 
     if (cipheredDateTimeIso8601 != null){
