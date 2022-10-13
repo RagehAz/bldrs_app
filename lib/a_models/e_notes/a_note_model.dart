@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -294,45 +295,57 @@ class NoteModel {
     NoteModel _note;
 
     if (map != null){
+
+      String get(String field){
+        return Stringer.nullifyNullString(map[field]);
+      }
+
+      bool getBool(String field){
+        return map[field] == 'true' ? true : false;
+      }
+
       _note = NoteModel(
-        token: map['token'],
-        id: map['id'],
+        token: get('token'),
+        id: get('id'),
         parties: NoteParties(
-          senderID: map['senderID'],
-          senderImageURL: map['senderImageURL'],
-          senderType: NoteParties.decipherPartyType(map['senderType']),
-          receiverID: map['receiverID'],
-          receiverType: NoteParties.decipherPartyType(map['receiverType']),
+          senderID: get('senderID'),
+          senderImageURL: get('senderImageURL'),
+          senderType: NoteParties.decipherPartyType(get('senderType')),
+          receiverID: get('receiverID'),
+          receiverType: NoteParties.decipherPartyType(get('receiverType')),
         ),
-        title: map['title'],
-        body: map['body'],
-        sentTime: Timers.decipherTime(time: map['sentTime'], fromJSON: true),
+        title:
+        get('title'),
+        body: get('body'),
+        sentTime: Timers.decipherTime(time: get('sentTime'), fromJSON: true),
         poster: PosterModel(
-          modelID: map['posterModelID'],
-          type: PosterModel.decipherPosterType(map['posterType']),
-          url: map['posterURL'],
+          modelID: get('posterModelID'),
+          type: PosterModel.decipherPosterType(get('posterType')),
+          url: get('posterURL'),
         ),
         poll: PollModel(
-          buttons: PollModel.decipherButtons(map['buttons']),
-            reply: map['reply'],
-            replyTime: Timers.decipherTime(time: map['replyTime'], fromJSON: true,)
+            buttons: PollModel.decipherButtons(get('buttons')),
+            reply: get('reply'),
+            replyTime: Timers.decipherTime(time: get('replyTime'), fromJSON: true,)
         ),
-        sendFCM: map['sendFCM'] == 'true' ? true : false,
-        topic: map['topic'],
+        sendFCM: getBool('sendFCM'),
+        topic: get('topic'),
         trigger: TriggerModel(
-          name: map['triggerName'],
-          argument: map['triggerArgument'],
+          name: get('triggerName'),
+          argument: get('triggerArgument'),
         ),
-        seen: map['seen'] == 'true' ? true : false,
-        progress: Numeric.transformStringToInt(map['progress']),
-        dismissible: map['dismissible'] == 'true' ? true : false,
+        seen: getBool('seen'),
+        progress: Numeric.transformStringToInt(get('progress')),
+        dismissible: getBool('dismissible'),
 
         metaData: null,
 
       );
+
     }
 
     return _note;
+
   }
   // -----------------------------------------------------------------------------
 
