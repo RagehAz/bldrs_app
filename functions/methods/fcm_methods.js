@@ -34,17 +34,11 @@ const callSendFCMToDevice = functions.https.onCall((noteModel, context) => {
 //  SENDING FCM
 
 // --------------------
-// TESTED : WORKS
-const sendFCMToDevice = (noteModel) => {
-  functions.logger.log(`sendFCMToDevice : 1 - START : senderID is : [${noteModel.senderID}]`);
-  const token = noteModel.token;
-  functions.logger.log(`sendFCMToDevice : 2 - token is : [${token}]`);
-  const noteTitle = noteModel.notification.notification.title;
-  functions.logger.log(`sendFCMToDevice : 3 - noteTitle is : [${noteTitle}]`);
-  const body = noteModel.notification.notification.body;
-  functions.logger.log(`sendFCMToDevice : 4 - body is : [${body}]`);
+/// TESTED :
+const createFCMPayload = (noteModel) => {
+  functions.logger.log(`createFCMPayload : 1 - START : note title : [${noteModel.title}]`);
   const map = {
-    token: token,
+    token: `${noteModel.token}`,
     // this lets FireBaseMessaging force a notification
     // but we are already handling it by AwesomeNotification package
     // notification: {
@@ -53,26 +47,27 @@ const sendFCMToDevice = (noteModel) => {
     // },
     data: {
       click_action: 'FLUTTER_NOTIFICATION_CLICK',
+      token: `${noteModel.token}`,
       id: `${noteModel.id}`,
       senderID: `${noteModel.senderID}`,
       senderImageURL: `${noteModel.senderImageURL}`,
       senderType: `${noteModel.senderType}`,
       receiverID: `${noteModel.receiverID}`,
       receiverType: `${noteModel.receiverType}`,
-      title: noteTitle,
-      body: body,
-      // sentTime: noteModel.sentTime,
-      // attachment: noteModel.attachment,
-      attachmentType: `${noteModel.attachmentType}`,
-      // seen: noteModel.seen,
-      // seenTime: noteModel.seenTime,
-      // sendFCM: noteModel.sendFCM,
-      // type: `${noteModel.type}`,
-      // response: `${noteModel.response}`,
-      // responseTime: noteModel.responseTime,
-      // buttons: noteModel.buttons,
-      token: `${noteModel.token}`,
+      title: `${noteModel.title}`,
+      body: `${noteModel.body}`,
+      sentTime: `${noteModel.sentTime}`,
+      posterModelID: `${noteModel.posterModelID}`,
+      posterType: `${noteModel.posterType}`,
+      posterURL: `${noteModel.posterURL}`,
+      buttons: `${noteModel.buttons}`,
+      sendFCM: `${noteModel.sendFCM}`,
       topic: `${noteModel.topic}`,
+      triggerName: `${noteModel.triggerName}`,
+      triggerArgument: `${noteModel.triggerArgument}`,
+      seen: `${noteModel.seen}`,
+      progress: `${noteModel.progress}`,
+      dismissible: `${noteModel.dismissible}`,
     },
     // Set Android priority to "high"
     android: {
@@ -92,11 +87,19 @@ const sendFCMToDevice = (noteModel) => {
       },
     },
   };
-  functions.logger.log('sendFCMToDevice : 5 - just before fcm is sent');
+  functions.logger.log(`createFCMPayload : 2 - END : note topic : [${noteModel.topic}]`, `token : [${noteModel.token}]`);
+  return map;
+}
+// --------------------
+// TESTED : WORKS
+const sendFCMToDevice = (noteModel) => {
+  functions.logger.log(`sendFCMToDevice : 1 - START : senderID is : [${noteModel.senderID}]`);
+  const map = createFCMPayload(noteModel);
+  functions.logger.log(`sendFCMToDevice : 2 - send fcm to userID : [${noteModel.receiverID}]`);
   const result = admin.messaging().send(map)
       .then(function(response) {
         functions.logger.log(
-            'sendFCMToDevice : 6 - END : FCM is sent SUCCESSFULLY and response is :',
+            'sendFCMToDevice : 3 - END : FCM is sent SUCCESSFULLY and response is :',
             `[${response}]`,
         );
         // return { success: true };
@@ -104,7 +107,7 @@ const sendFCMToDevice = (noteModel) => {
       }).catch(function(error) {
         if (error != null) {
           functions.logger.log(
-              'sendFCMToDevice : 6 - END : could not send FCM',
+              'sendFCMToDevice : 3 - END : could not send FCM',
               `code : [${error.errorInfo.code}]`,
               `message : [${error.errorInfo.message}]`,
               `codePrefix : [${error.codePrefix}]`,
@@ -134,7 +137,9 @@ module.exports = {
 //  'onNoteCreation': onNoteCreation,
   'callSendFCMToDevice': callSendFCMToDevice,
 };
+// -------------------------------------
 // firebase deploy --only functions:onNoteCreation
 // firebase deploy --only functions:callSendFCMToDevice
+// -------------------------------------
 // firebase deploy --only functions
 // --------------------------------------------------------------------------
