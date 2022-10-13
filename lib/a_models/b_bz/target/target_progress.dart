@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -52,6 +53,31 @@ class Progress{
     }
 
     return _areIdentical;
+  }
+  // --------------------
+
+  static Progress generateModelFromNoteProgress(NoteModel note){
+    Progress _output;
+
+    if (note != null){
+
+      if (note.progress != null){
+
+        if (note.progress != -1){
+
+          _output = Progress(
+            targetID: note.id,
+            objective: 100,
+            current: note.progress,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

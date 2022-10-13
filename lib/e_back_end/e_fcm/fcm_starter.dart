@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -172,11 +174,6 @@ class FCMStarter {
 
     if (remoteMessage != null){
 
-      FCM.blogRemoteMessage(
-        invoker: '_pushGlobalNootFromRemoteMessage.$invoker',
-        remoteMessage: remoteMessage,
-      );
-
       // final String body = remoteMessage?.notification?.body;
       // final String title = remoteMessage?.notification?.title;
       // final AndroidNotification android = remoteMessage?.notification?.android;
@@ -199,20 +196,30 @@ class FCMStarter {
       // final DateTime sentTime = remoteMessage?.sentTime;
       // final String threadId = remoteMessage?.threadId;
       // final int ttl = remoteMessage?.ttl;
-      final Map<String, dynamic> data = remoteMessage?.data;
+      // final Map<String, dynamic> data = remoteMessage?.data;
 
-      if (data != null){
+      final NoteModel _note = NoteModel.decipherRemoteMessage(
+        map: remoteMessage?.data,
+      );
+
+
+      _note.blogNoteModel(
+        invoker: '_pushGlobalNootFromRemoteMessage.$invoker',
+      );
+
+      if (_note != null){
+
         await FCM.pushGlobalNoot(
-          body: data['body'],
-          title: data['title'],
-          largeIconURL: data['senderImageURL'],
-          // bannerURL: ,
+          title: _note.title,
+          body: _note.body,
+          largeIconURL: _note.parties.senderImageURL,
+          bannerURL: _note.poster.url,
+          buttonsTexts: _note.poll.buttons,
+          progress: Progress.generateModelFromNoteProgress(_note),
+          progressBarIsLoading: _note.progress == -1,
+          canBeDismissedWithoutTapping: _note.dismissible,
           // channel: ,
-          // buttonsTexts: ,
           // payloadMap: ,
-          // progress: ,
-          // canBeDismissedWithoutTapping: ,
-          // progressBarIsLoading: ,
         );
       }
 

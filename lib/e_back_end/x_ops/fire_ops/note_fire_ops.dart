@@ -120,7 +120,7 @@ class NoteFireOps {
         FireFinder(
           field: 'receiverType',
           comparison: FireComparison.equalTo,
-          value: NoteParties.cipherNoteSenderOrRecieverType(receiverType),
+          value: NoteParties.cipherPartyType(receiverType),
         ),
 
       ],

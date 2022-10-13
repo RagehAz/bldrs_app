@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:flutter/material.dart';
 
@@ -102,7 +103,25 @@ class PollModel {
   // --------------------
   ///
   static List<String> decipherButtons(String buttonsString){
-    return ChainPathConverter.splitPathNodes(buttonsString);
+    List<String> _buttons;
+
+    if (TextCheck.isEmpty(buttonsString) == false){
+
+      final List<String> _nodes = ChainPathConverter.splitPathNodes(buttonsString);
+
+      if (Mapper.checkCanLoopList(_nodes) == true){
+
+        final List<String> _cleaned = Stringer.cleanListNullItems(_nodes);
+
+        if (Mapper.checkCanLoopList(_cleaned) == true){
+          _buttons = _cleaned;
+        }
+
+      }
+
+    }
+
+    return _buttons;
   }
   // -----------------------------------------------------------------------------
 

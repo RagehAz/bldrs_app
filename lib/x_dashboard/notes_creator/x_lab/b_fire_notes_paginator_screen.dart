@@ -12,14 +12,12 @@ import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
@@ -84,16 +82,6 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
     _scrollController.dispose();
     super.dispose();
   }
-  // -----------------------------------------------------------------------------
-  int _num = 1;
-  static const List<String> _alpha = [
-    'a', 'b', 'c', 'd', 'e',
-    'f', 'g', 'h', 'i', 'j',
-    'k', 'l', 'm', 'n', 'o',
-    'p', 'q', 'r', 's', 't',
-    'u', 'v', 'w', 'x', 'y',
-    'z',
-  ];
   // -----------------------------------------------------------------------------
   Future<void> _onNoteTap({
     @required NoteModel note,
@@ -226,29 +214,6 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
           width: 100,
           height: 40,
           onTap: _onSelectParty,
-        ),
-
-        AppBarButton(
-          icon: Iconz.share,
-          isDeactivated: _receiverID == null,
-          onTap: () async {
-
-            final NoteModel _note = NoteModel.quickUserNotice(
-              userID: AuthFireOps.superUserID(),
-              title: _num.toString(),
-              body: 'x',
-            );
-
-            await NoteProtocols.composeToOne(
-              context: context,
-              note: _note.copyWith(
-                id: _alpha[_num-1],
-              ),
-            );
-
-            _num++;
-
-          },
         ),
 
       ],
