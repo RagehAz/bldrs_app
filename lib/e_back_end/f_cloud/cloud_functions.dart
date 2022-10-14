@@ -32,6 +32,8 @@ class CloudFunction {
   // --------------------
   /// returns true on success - false on failure
   static const String callSendFCMToDevice = 'callSendFCMToDevice';
+  static const String callSendFCMToDevices = 'callSendFCMToDevices';
+  static const String callSendFCMsToDevices = 'callSendFCMsToDevices';
   static const String callSendFCMToTopic = 'callSendFCMToTopic';
   // -----------------------------------------------------------------------------
 

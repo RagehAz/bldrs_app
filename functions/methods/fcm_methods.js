@@ -39,7 +39,7 @@ const callSendFCMToTopic = functions.https.onCall((noteModel, context) => {
 //  PAYLOAD
 
 // --------------------
-//
+// TESTED : WORKS PERFECT
 const createFCMPayload = (noteModel) => {
   functions.logger.log(`createFCMPayload : 1 - START : note title : [${noteModel.title}]`);
   const map = {
@@ -102,7 +102,7 @@ const createFCMPayload = (noteModel) => {
 //  SENDING FCM
 
 // --------------------
-//
+// TESTED : WORKS PERFECT
 const sendFCMToDevice = (noteModel) => {
   functions.logger.log(`sendFCMToDevice : 1 - START : senderID is : [${noteModel.senderID}]`);
   const map = createFCMPayload(noteModel);
@@ -191,7 +191,7 @@ const sendFCMToTopic = (noteModel) => {
 //  RESPONSE
 
 // --------------------
-// 
+// TESTED : WORKS PERFECT
 const onFCMSuccess = (response) => {
   functions.logger.log(
     'onFCMSuccess : o - FCM is sent SUCCESSFULLY and response is :',
