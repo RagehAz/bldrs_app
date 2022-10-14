@@ -168,7 +168,7 @@ class BubbleHeader extends StatelessWidget {
             child: SuperVerse(
               verse: viewModel.headlineVerse,
               color: viewModel.headlineColor,
-              maxLines: 2,
+              maxLines: 3,
               centered: viewModel.centered,
               redDot: viewModel.redDot,
               margin: const EdgeInsets.only(bottom: verseBottomMargin),

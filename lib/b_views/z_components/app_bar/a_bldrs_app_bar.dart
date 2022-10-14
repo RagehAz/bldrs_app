@@ -80,6 +80,8 @@ class BldrsAppBar extends StatelessWidget {
   }
   // --------------------
   static const BorderRadius corners = BorderRadius.all(Radius.circular(Ratioz.appBarCorner));
+  // --------------------
+  static const BorderRadius clearCorners = BorderRadius.all(Radius.circular(Ratioz.appBarCorner - 5));
   // -----------------------------------------------------------------------------
   bool _backButtonIsOnCheck() {
 

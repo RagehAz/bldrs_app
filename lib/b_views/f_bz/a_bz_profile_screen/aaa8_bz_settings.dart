@@ -46,6 +46,17 @@ class BzSettingsPage extends StatelessWidget {
           ),
         ),
 
+        SettingsWideButton(
+          verse: const Verse(
+            text: 'phid_notifications_settings',
+            translate: true,
+          ),
+          icon: Iconz.notification,
+          onTap: () => onGoToBzFCMSettings(
+            context: context,
+          ),
+        ),
+
         if (_userIsCreator == true)
           const DotSeparator(),
 

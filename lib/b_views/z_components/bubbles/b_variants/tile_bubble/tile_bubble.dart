@@ -16,7 +16,7 @@ class TileBubble extends StatelessWidget {
     this.bubbleHeaderVM,
     this.bubbleWidth,
     this.verseColor = Colorz.white255,
-    this.btOnTap,
+    this.onTileTap,
     this.secondLineVerse,
     this.iconIsBubble = true,
     this.insideDialog = false,
@@ -32,7 +32,7 @@ class TileBubble extends StatelessWidget {
   final double bubbleWidth;
   final BubbleHeaderVM bubbleHeaderVM;
   final Color verseColor;
-  final Function btOnTap;
+  final Function onTileTap;
   final Verse secondLineVerse;
   final bool iconIsBubble;
   final bool insideDialog;
@@ -78,7 +78,7 @@ class TileBubble extends StatelessWidget {
     return Bubble(
       headerViewModel: const BubbleHeaderVM(),
       width: _bubbleWidth,
-      onBubbleTap: btOnTap,
+      onBubbleTap: onTileTap,
       bubbleColor: Formers.validatorBubbleColor(
         // canErrorize: true,
         defaultColor: bubbleColor,
