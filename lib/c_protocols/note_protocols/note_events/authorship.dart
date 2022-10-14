@@ -103,9 +103,9 @@ class NoteEventsOfAuthorship {
       parties: NoteParties(
         senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
         senderImageURL: bzModel.logo,
-        senderType: NotePartyType.bz,
+        senderType: PartyType.bz,
         receiverID: userModelToSendTo.id,
-        receiverType: NotePartyType.user,
+        receiverType: PartyType.user,
       ),
       title: _title.value,
       body: _body.value,
@@ -149,9 +149,9 @@ class NoteEventsOfAuthorship {
       parties: NoteParties(
         senderID: senderModel.id,
         senderImageURL: senderModel.pic,
-        senderType: NotePartyType.user,
+        senderType: PartyType.user,
         receiverID: bzID,
-        receiverType: NotePartyType.bz,
+        receiverType: PartyType.bz,
       ),
       title: _title,
       body: _body,

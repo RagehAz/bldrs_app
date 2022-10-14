@@ -245,7 +245,7 @@ class NotePartiesBubbles extends StatelessWidget {
 
                     ...List.generate(NoteParties.noteSenderTypesList.length, (index){
 
-                      final NotePartyType _senderType = NoteParties.noteSenderTypesList[index];
+                      final PartyType _senderType = NoteParties.noteSenderTypesList[index];
                       final bool _isSelected = note?.parties?.senderType == _senderType;
                       final String _senderTypeIcon = NoteParties.getPartyIcon(_senderType);
 
@@ -309,7 +309,7 @@ class NotePartiesBubbles extends StatelessWidget {
 
                     ...List.generate(NoteParties.noteReceiverTypesList.length, (index){
 
-                      final NotePartyType _receiverType = NoteParties.noteReceiverTypesList[index];
+                      final PartyType _receiverType = NoteParties.noteReceiverTypesList[index];
                       final bool _isSelected = note?.parties?.receiverType == _receiverType;
                       final String _receiverTypeIcon = NoteParties.getPartyIcon(_receiverType);
 

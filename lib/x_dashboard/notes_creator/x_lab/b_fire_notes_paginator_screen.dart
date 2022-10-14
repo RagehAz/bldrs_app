@@ -41,7 +41,7 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
   // --------------------
   String _collName = FireColl.users;
   String _receiverID = 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
-  NotePartyType _partyType = NotePartyType.user;
+  PartyType _partyType = PartyType.user;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -148,7 +148,7 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
                 setState(() {
                   _receiverID = _users.first.id;
                   _collName = FireColl.users;
-                  _partyType = NotePartyType.user;
+                  _partyType = PartyType.user;
                 });
 
               }
@@ -178,7 +178,7 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
                 setState(() {
                   _receiverID = _bzz.first.id;
                   _collName = FireColl.bzz;
-                  _partyType = NotePartyType.bz;
+                  _partyType = PartyType.bz;
                 });
 
               }

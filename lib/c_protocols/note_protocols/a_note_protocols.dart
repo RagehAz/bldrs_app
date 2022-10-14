@@ -136,7 +136,7 @@ class NoteProtocols {
             if (isPublic == false){
 
               /// RECEIVER IS BZ
-              if (note.parties.receiverType == NotePartyType.bz){
+              if (note.parties.receiverType == PartyType.bz){
 
                 final String _bzID = note.parties.senderID;
                 final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: _bzID);
@@ -292,7 +292,7 @@ class NoteProtocols {
 
     if (noteModel != null){
 
-      if (noteModel.parties.receiverType == NotePartyType.user){
+      if (noteModel.parties.receiverType == PartyType.user){
 
         final UserModel _user = await UserProtocols.refetchUser(
           context: context,

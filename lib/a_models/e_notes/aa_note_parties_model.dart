@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
-enum NotePartyType {
+enum PartyType {
   bldrs,
   user,
   bz,
@@ -25,9 +25,9 @@ class NoteParties {
   /// --------------------------------------------------------------------------
   final String senderID;
   final String senderImageURL;
-  final NotePartyType senderType;
+  final PartyType senderType;
   final String receiverID;
-  final NotePartyType receiverType;
+  final PartyType receiverType;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -48,9 +48,9 @@ class NoteParties {
   NoteParties copyWith({
     String senderID,
     String senderImageURL,
-    NotePartyType senderType,
+    PartyType senderType,
     String receiverID,
-    NotePartyType receiverType,
+    PartyType receiverType,
   }){
     return NoteParties(
       senderID: senderID ?? this.senderID,
@@ -115,51 +115,51 @@ class NoteParties {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherPartyType(NotePartyType type){
+  static String cipherPartyType(PartyType type){
     switch (type) {
-      case NotePartyType.bz:           return 'bz';      break; /// data type : String bzID
+      case PartyType.bz:           return 'bz';      break; /// data type : String bzID
     // case NoteSenderOrRecieverType.author:       return 'author';  break; /// data type : String authorID
-      case NotePartyType.user:         return 'user';    break; /// data type : String userID
-      case NotePartyType.country:      return 'country'; break; /// data type : String countryID
-      case NotePartyType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
+      case PartyType.user:         return 'user';    break; /// data type : String userID
+      case PartyType.country:      return 'country'; break; /// data type : String countryID
+      case PartyType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
       default:return 'non';
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NotePartyType decipherPartyType(String type){
+  static PartyType decipherPartyType(String type){
     switch (type) {
-      case 'bldrs':   return NotePartyType.bldrs;    break;
-      case 'user':    return NotePartyType.user;     break;
+      case 'bldrs':   return PartyType.bldrs;    break;
+      case 'user':    return PartyType.user;     break;
     // case 'author':  return NoteSenderOrRecieverType.author;   break;
-      case 'bz':      return NotePartyType.bz;       break;
-      case 'country': return NotePartyType.country;  break;
+      case 'bz':      return PartyType.bz;       break;
+      case 'country': return PartyType.country;  break;
       default:        return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const List<NotePartyType> noteSenderTypesList = <NotePartyType>[
-    NotePartyType.bz,
+  static const List<PartyType> noteSenderTypesList = <PartyType>[
+    PartyType.bz,
     // NoteSenderOrRecieverType.author,
-    NotePartyType.user,
-    NotePartyType.country,
-    NotePartyType.bldrs,
+    PartyType.user,
+    PartyType.country,
+    PartyType.bldrs,
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const List<NotePartyType> noteReceiverTypesList = <NotePartyType>[
-    NotePartyType.bz,
-    NotePartyType.user,
+  static const List<PartyType> noteReceiverTypesList = <PartyType>[
+    PartyType.bz,
+    PartyType.user,
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getPartyIcon(NotePartyType type){
+  static String getPartyIcon(PartyType type){
     switch(type){
-      case NotePartyType.user:        return Iconz.normalUser;      break;
-      case NotePartyType.bz:          return Iconz.bz;              break;
-      case NotePartyType.country:     return Iconz.flag;            break;
-      case NotePartyType.bldrs:       return Iconz.bldrsNameSquare; break;
+      case PartyType.user:        return Iconz.normalUser;      break;
+      case PartyType.bz:          return Iconz.bz;              break;
+      case PartyType.country:     return Iconz.flag;            break;
+      case PartyType.bldrs:       return Iconz.bldrsNameSquare; break;
       default:                        return null;
     }
   }
@@ -171,17 +171,17 @@ class NoteParties {
 
   static List<String> getReceiversIDs({
     @required List<dynamic> receiversModels,
-    @required NotePartyType partyType,
+    @required PartyType partyType,
   }){
     List<String> _ids = [];
 
     if (Mapper.checkCanLoopList(receiversModels) == true){
 
-      if (partyType == NotePartyType.bz){
+      if (partyType == PartyType.bz){
         _ids = BzModel.getBzzIDs(receiversModels);
       }
 
-      else if (partyType == NotePartyType.user){
+      else if (partyType == PartyType.user){
         _ids = UserModel.getUsersIDs(receiversModels);
       }
 
@@ -193,17 +193,17 @@ class NoteParties {
 
   static List<String> getReceiversPics({
     @required List<dynamic> receiversModels,
-    @required NotePartyType partyType,
+    @required PartyType partyType,
   }){
     List<String> _pics = [];
 
     if (Mapper.checkCanLoopList(receiversModels) == true){
 
-      if (partyType == NotePartyType.bz){
+      if (partyType == PartyType.bz){
         _pics = BzModel.getBzzLogos(receiversModels);
       }
 
-      else if (partyType == NotePartyType.user){
+      else if (partyType == PartyType.user){
         _pics = UserModel.getUsersPics(receiversModels);
       }
 
@@ -215,18 +215,18 @@ class NoteParties {
 
   static String getReceiversTypePhid({
     @required List<dynamic> receiversModels,
-    @required NotePartyType partyType,
+    @required PartyType partyType,
     bool plural = true,
   }){
     String _phid = '';
 
     if (Mapper.checkCanLoopList(receiversModels) == true){
 
-      if (partyType == NotePartyType.bz){
+      if (partyType == PartyType.bz){
         _phid = plural == true ? 'phid_bzz' : 'phid_bz';
       }
 
-      else if (partyType == NotePartyType.user){
+      else if (partyType == PartyType.user){
         _phid = plural == true ? 'phid_users' : 'phid_user';
       }
 

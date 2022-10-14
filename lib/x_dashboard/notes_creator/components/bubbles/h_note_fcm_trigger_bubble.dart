@@ -26,7 +26,7 @@ class NoteFCMTriggerBubble extends StatelessWidget {
           text: 'Send FCM',
           translate: false,
         ),
-        leadingIcon: Iconz.news,
+        leadingIcon: Iconz.notification,
         leadingIconSizeFactor: 0.5,
         leadingIconBoxColor: note.sendFCM == true ? Colorz.green255 : Colorz.grey50,
         switchValue: note?.sendFCM,

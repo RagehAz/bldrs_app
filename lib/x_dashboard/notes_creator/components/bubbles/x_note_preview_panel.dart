@@ -91,7 +91,7 @@ class NotePreviewPanel extends StatelessWidget {
                         DreamBox(
                           width: _receiversZoneWidth,
                           height: 50,
-                          icon: note?.sendFCM == true ? Iconz.news : Iconz.star,
+                          icon: note?.sendFCM == true ? Iconz.notification : Iconz.star,
                           iconSizeFactor: 0.5,
                           verseScaleFactor: 0.9,
                           verseItalic: true,
@@ -101,7 +101,7 @@ class NotePreviewPanel extends StatelessWidget {
                             casing: Casing.upperCase,
                           ),
                           secondLine: Verse(
-                            text: '${receiversModels.length} ${note?.parties?.receiverType == NotePartyType.bz ? 'bzz' : 'users'}',
+                            text: '${receiversModels.length} ${note?.parties?.receiverType == PartyType.bz ? 'bzz' : 'users'}',
                             translate: false,
                           ),
                           color: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
