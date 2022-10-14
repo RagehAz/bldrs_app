@@ -11,9 +11,9 @@ class ExpandingTile extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ExpandingTile({
     @required this.firstHeadline,
-    @required this.secondHeadline,
     @required this.child,
-    this.width,
+    @required this.width,
+    this.secondHeadline,
     this.collapsedHeight,
     this.maxHeight,
     this.scrollable = true,

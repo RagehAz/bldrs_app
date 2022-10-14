@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_token_model.dart';
-import 'package:bldrs/a_models/e_notes/x_note_topics.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
@@ -122,7 +122,7 @@ class UserModel {
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.initialState(),
-      fcmTopics: FCMTopics.defaultFCMTopics,
+      fcmTopics: TopicModel.getAllUserTopics(),
     );
 
   }
@@ -168,7 +168,7 @@ class UserModel {
         context: context,
         assignToUser: true,
       ),
-      fcmTopics: FCMTopics.defaultFCMTopics,
+      fcmTopics: TopicModel.getAllUserTopics(),
     );
 
     _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
@@ -1033,7 +1033,7 @@ class UserModel {
       emailIsVerified: true,
       isAdmin: true,
       fcmToken: null,
-      fcmTopics: FCMTopics.defaultFCMTopics,
+      fcmTopics: TopicModel.getAllUserTopics(),
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.dummyAppState(),
