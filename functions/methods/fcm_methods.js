@@ -8,19 +8,6 @@ const admin = require('firebase-admin');
 const userMethods = require('./user_methods');
 // --------------------------------------------------------------------------
 
-//  LISTENERS
-
-// --------------------
-// TESTED : WORKS PERFECT
-// const onNoteCreation = functions.firestore
-//    .document('notes/{note}')
-//    .onCreate((snapshot, context) => {
-//      const noteModel = snapshot.data();
-//      const result = sendFCMToDevice(noteModel);
-//      return result;
-//    });
-// --------------------------------------------------------------------------
-
 //  CALLABLES
 
 // --------------------
@@ -29,12 +16,30 @@ const callSendFCMToDevice = functions.https.onCall((noteModel, context) => {
   const result = sendFCMToDevice(noteModel);
   return result;
 });
+// --------------------
+// 
+const callSendFCMToDevices = functions.https.onCall((noteModel, context) => {
+  const result = sendFCMToDevices(noteModel);
+  return result;
+});
+// --------------------
+// 
+const callSendFCMsToDevices = functions.https.onCall((noteModel, context) => {
+  const result = sendFCMsToDevices(noteModel);
+  return result;
+});
+// --------------------
+// 
+const callSendFCMToTopic = functions.https.onCall((noteModel, context) => {
+  const result = sendFCMToTopic(noteModel);
+  return result;
+});
 // --------------------------------------------------------------------------
 
-//  SENDING FCM
+//  PAYLOAD
 
 // --------------------
-/// TESTED :
+//
 const createFCMPayload = (noteModel) => {
   functions.logger.log(`createFCMPayload : 1 - START : note title : [${noteModel.title}]`);
   const map = {
@@ -92,52 +97,157 @@ const createFCMPayload = (noteModel) => {
   functions.logger.log(`createFCMPayload : 2 - END : note topic : [${noteModel.topic}]`, `token : [${noteModel.token}]`);
   return map;
 }
+// --------------------------------------------------------------------------
+
+//  SENDING FCM
+
 // --------------------
-// TESTED : WORKS
+//
 const sendFCMToDevice = (noteModel) => {
   functions.logger.log(`sendFCMToDevice : 1 - START : senderID is : [${noteModel.senderID}]`);
   const map = createFCMPayload(noteModel);
   functions.logger.log(`sendFCMToDevice : 2 - send fcm to userID : [${noteModel.receiverID}]`);
-  const result = admin.messaging().send(map)
+  const output = admin.messaging().send(map)
       .then(function(response) {
-        functions.logger.log(
-            'sendFCMToDevice : 3 - END : FCM is sent SUCCESSFULLY and response is :',
-            `[${response}]`,
-        );
-        // return { success: true };
-        return true;
+        const result = onFCMSuccess(response);
+        return result;
       }).catch(function(error) {
-        if (error != null) {
-          functions.logger.log(
-              'sendFCMToDevice : 3 - END : could not send FCM',
-              `code : [${error.errorInfo.code}]`,
-              `message : [${error.errorInfo.message}]`,
-              `codePrefix : [${error.codePrefix}]`,
-          );
-          if (noteModel.receiverType == 'user') {
-            if (error.errorInfo.code == 'messaging/registration-token-not-registered') {
-              userMethods.deleteUserToken(noteModel.receiverID);
-            }
-          }
-          // throw new functions.https.HttpsError('invalid-argument', "some message");
-          // return { error: error.code };
-          return false;
-        }
+        const result = onFCMError(error);
+        return result;
       });
-  return result;
+  functions.logger.log(`sendFCMToDevice : 3 - END : output is : [${output}]`);
+  return output;
 };
 // --------------------
-// const sendFCMToTopic = (noteModel) => {
-// };
+//
+const sendFCMToDevices = (mapOfNoteModelAndTokens) => {
+  // max 500 tokens at once
+  functions.logger.log(`sendFCMToDevices : 1 - START : senderID is : [${noteModel.senderID}]`);
+  const map = createFCMPayload(mapOfNoteModelAndTokens.noteModel);
+  map[token] = null;
+  map[tokens] = mapOfNoteModelAndTokens.tokens;
+  // const message = {
+  //   data: {score: '850', time: '2:45'},
+  //   tokens: registrationTokens,
+  // };
+  functions.logger.log(`sendFCMToDevices : 2 - token is : [${map.token}] : tokens are : [${map.tokens}]`);
+  const output = admin.messaging().sendMulticast(map)
+    .then((response) => {
+        analyzeSuccessRate(response, mapOfNoteModelAndTokens.tokens);
+        const result = onFCMSuccess(response);
+        return result;
+      }).catch(function(error) {
+        const result = onFCMError(error);
+        return result;
+    });
+  functions.logger.log(`sendFCMToDevices : 3 - END : output is : [${output}]`);
+  return output;
+}
+// --------------------
+//
+const sendFCMsToDevices = (notesModels) => {
+  functions.logger.log(`sendFCMsToDevices : 1 - START : sending : [${notesModels.length}] notes`);
+  const maps = [];
+  const tokens = [];
+  notesModels.forEach((note, index) => {
+    const map = createFCMPayload(note);
+    maps.push(map);
+    tokens.push(map.token);
+  });
+  functions.logger.log(`sendFCMsToDevices : 2 : created : [${maps.length}] maps`);
+  const output = admin.messaging().sendAll(maps)
+    .then((response) => {
+        analyzeSuccessRate(response, tokens);
+        const result = onFCMSuccess(response);
+        return result;
+      }).catch(function(error) {
+        const result = onFCMError(error);
+        return result;
+    });
+  functions.logger.log(`sendFCMsToDevices : 3 - END : output is : [${output}]`);
+  return output;
+}
+// --------------------
+// 
+const sendFCMToTopic = (noteModel) => {
+  functions.logger.log(`sendFCMToTopic : 1 - START : senderID is : [${noteModel.senderID}]`);
+  const map = createFCMPayload(noteModel);
+  map[token] = null;
+  map[topic] = noteModel.topic;
+  functions.logger.log(`sendFCMToTopic : 2 - token : [${map.token}] : topic : [${map.topic}]`);
+  const result = admin.messaging().send(map)
+  .then(function(response) {
+    const result = onFCMSuccess(response);
+    return result;
+  }).catch(function(error) {
+    const result = onFCMError(error);
+    return result;
+  });
+  functions.logger.log(`sendFCMToTopic : 3 - END : output is : [${output}]`);
+  return result;
+};
+// --------------------------------------------------------------------------
+
+//  RESPONSE
+
+// --------------------
+// 
+const onFCMSuccess = (response) => {
+  functions.logger.log(
+    'onFCMSuccess : o - FCM is sent SUCCESSFULLY and response is :',
+    `[${response}]`,
+  );
+  // return { success: true };
+  return true;
+}
+// --------------------
+// 
+const analyzeSuccessRate = (response, tokens) => {
+  functions.logger.log(`analyzeSuccessRate : 1 - failureCount : [${response.failureCount}] : successCount : [${response.successCount}]`);
+  if (response.failureCount > 0) {
+    const failedTokens = [];
+    response.responses.forEach((res, index) => {
+     if (!res.success) {
+       failedTokens.push(tokens[index]);
+      }
+    });
+    functions.logger.log(`analyzeSuccessRate : 2 - failedTokens : [${failedTokens}]`);
+  }
+  functions.logger.log(`analyzeSuccessRate : 3 - successRate : [ ${(response.successCount/tokens.length)*100} % ]`);
+}
+// --------------------
+// 
+const onFCMError = (error) => {
+  if (error != null) {
+    functions.logger.log(
+        'onFCMError : x - could not send FCM',
+        `code : [${error.errorInfo?.code}]`,
+        `message : [${error.errorInfo?.message}]`,
+        `codePrefix : [${error.codePrefix}]`,
+    );
+    if (noteModel.receiverType == 'user') {
+      if (error.errorInfo.code == 'messaging/registration-token-not-registered') {
+        userMethods.deleteUserToken(noteModel.receiverID);
+      }
+      if (error.errorInfo.code == 'messaging/registration-token-not-registered') {
+        userMethods.deleteUserToken(noteModel.receiverID);
+      }
+    }
+    // throw new functions.https.HttpsError('invalid-argument', "some message");
+    // return { error: error.code };
+    return false;
+  }
+}
 // --------------------------------------------------------------------------
 
 //  MODULE EXPORTS
 
 // -------------------------------------
 module.exports = {
-// 'send_fcm_on_note_creation': send_fcm_on_note_creation,
-//  'onNoteCreation': onNoteCreation,
   'callSendFCMToDevice': callSendFCMToDevice,
+  'callSendFCMToDevices': callSendFCMToDevices,
+  'callSendFCMsToDevices': callSendFCMsToDevices,
+  'callSendFCMToTopic': callSendFCMToTopic,
 };
 // -------------------------------------
 // firebase deploy --only functions:onNoteCreation

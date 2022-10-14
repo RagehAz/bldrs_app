@@ -20,7 +20,7 @@ class FCMTopicsScreen extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final Verse _title =
     partyType == PartyType.user ?
     const Verse(
@@ -32,7 +32,6 @@ class FCMTopicsScreen extends StatelessWidget {
         text: 'phid_bz_notifications_settings',
         translate: true
     );
-
     // --------------------
     return MainLayout(
       skyType: SkyType.black,
@@ -66,5 +65,5 @@ class FCMTopicsScreen extends StatelessWidget {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

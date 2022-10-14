@@ -154,6 +154,7 @@ class UserProtocols {
     context: context,
   );
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateUserTopics({
     @required BuildContext context,
     @required String topicID,

@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_b
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -27,54 +26,36 @@ class TopicsExpandingTile extends StatelessWidget {
   final String groupName;
   final Function(bool value, TopicModel topic) onSwitch;
   final PartyType partyType;
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+ /// TESTED : WORKS PERFECT
   bool _checkIsTopicSelected({
     @required PartyType partyType,
     @required BuildContext context,
     @required TopicModel topicModel,
   }){
-    bool _isSelected = false;
 
-    if (partyType != null && topicModel != null){
-
-      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    String _bzID;
+    if (partyType == PartyType.bz){
+      final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: true,
       );
-      final List<String> _userTopics = _userModel.fcmTopics;
-
-      if (partyType == PartyType.bz){
-
-        final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
-          context: context,
-          listen: true,
-        );
-
-        final String _customTopicID = TopicModel.generateBzTopicID(
-          bzID: _activeBz.id,
-          topicID: topicModel.id,
-        );
-
-        _isSelected = Stringer.checkStringsContainString(
-          strings: _userTopics,
-          string: _customTopicID,
-        );
-
-
-      }
-
-      if (partyType == PartyType.user){
-
-        _isSelected = Stringer.checkStringsContainString(
-          strings: _userTopics,
-          string: topicModel.id,
-        );
-
-      }
-
+      _bzID = _activeBz?.id;
     }
 
-    return _isSelected;
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: true,
+    );
+
+    return TopicModel.checkUserIsListeningToTopic(
+      context: context,
+      topicID: topicModel.id,
+      partyType: partyType,
+      bzID: _bzID,
+      userModel: _userModel,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -139,5 +120,5 @@ class TopicsExpandingTile extends StatelessWidget {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }
