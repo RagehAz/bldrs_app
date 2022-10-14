@@ -28,7 +28,11 @@ FireQueryModel bzReceivedNotesPaginationQueryParameters({
 }){
 
   return FireQueryModel(
-    collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
+    collRef: Fire.getSuperCollRef(
+      aCollName: FireColl.bzz,
+      bDocName: bzID,
+      cSubCollName: FireSubColl.noteReceiver_receiver_notes,
+    ),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     finders: <FireFinder>[

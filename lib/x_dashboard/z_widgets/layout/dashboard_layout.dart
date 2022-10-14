@@ -53,7 +53,6 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
 
     return MainLayout(
       pyramidsAreOn: true,
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitleVerse: Verse.plain(widget.pageTitle),

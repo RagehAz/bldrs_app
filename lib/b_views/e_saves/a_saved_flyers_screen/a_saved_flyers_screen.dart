@@ -66,7 +66,6 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
         text: 'phid_savedFlyers',
         translate: true,
       ),
-      sectionButtonIsOn: false,
       onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
       layoutWidget:
 

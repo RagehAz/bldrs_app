@@ -184,7 +184,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return MainLayout(
       canGoBack: widget.canGoBack,
       skyType: SkyType.black,
-      sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
       pageTitleVerse: const Verse(text: 'phid_updateProfile', translate: true),

@@ -31,7 +31,6 @@ class SlideFullScreen extends StatelessWidget {
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
-      sectionButtonIsOn: false,
       pyramidType: PyramidType.white,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Container(

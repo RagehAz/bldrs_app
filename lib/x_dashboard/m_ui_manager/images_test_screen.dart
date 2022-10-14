@@ -174,7 +174,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
     return MainLayout(
       loading: _loading,
-      sectionButtonIsOn: false,
       appBarType: AppBarType.scrollable,
       appBarRowWidgets: <Widget>[
 

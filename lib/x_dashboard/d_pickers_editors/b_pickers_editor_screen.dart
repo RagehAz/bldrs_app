@@ -106,7 +106,6 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
     return MainLayout(
       pageTitleVerse: Verse.plain('$_flyerTypeString Pickers Editor'),
-      sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,
       onBack: () async {

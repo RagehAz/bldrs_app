@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab/a_notes_creator_home.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab/b_fire_notes_paginator_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab/c_local_noot_test_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab/d_noot_route_to_screen.dart';
@@ -98,6 +99,16 @@ class _NotesLabHomeState extends State<NotesLabHome> {
             screen: const NoteRouteToScreen(
               receivedAction: null,
             ),
+          ),
+        ),
+
+        /// NOTE ROUTE TO SCREEN
+        WideButton(
+          verse: Verse.plain('New notes creator home'),
+          icon: Iconz.notification,
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const NotesCreatorHome(),
           ),
         ),
 

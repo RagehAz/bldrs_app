@@ -26,7 +26,6 @@ class SuperRage7Screen extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
-      sectionButtonIsOn: false,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       loading: ValueNotifier(true),

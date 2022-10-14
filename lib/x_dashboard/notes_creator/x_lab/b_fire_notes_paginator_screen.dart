@@ -199,7 +199,6 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
 
     return MainLayout(
       pageTitleVerse: Verse.plain('Notes Paginator Test'),
-      sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,

@@ -159,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       return MainLayout(
         key: const ValueKey<String>('mainLayout'),
+        sectionButtonIsOn: true,
         // navBarIsOn: false,
         appBarType: AppBarType.main,
         onBack: () => Nav.onLastGoBackInHomeScreen(context,),

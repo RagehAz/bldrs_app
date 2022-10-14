@@ -170,7 +170,6 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     return MainLayout(
       key: const ValueKey<String>('ChainsEditorScreen'),
       pageTitleVerse: const Verse(text: 'Chains',translate: false),
-      sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       searchController: _searchController,
       searchHintVerse: const Verse(

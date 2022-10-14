@@ -164,7 +164,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         );
         // await null;
       },
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       layoutWidget: Stack(
         children: <Widget>[

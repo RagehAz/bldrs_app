@@ -139,7 +139,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       historyButtonIsOn: false,
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: const Verse(
         text: 'phid_edit_needs',

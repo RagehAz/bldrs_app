@@ -82,7 +82,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     // --------------------
     return MainLayout(
       skyType: SkyType.non,
-      sectionButtonIsOn: false,
       appBarType: AppBarType.non,
       layoutWidget: Column(
 

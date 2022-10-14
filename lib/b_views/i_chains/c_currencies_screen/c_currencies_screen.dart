@@ -138,7 +138,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
         text: 'phid_search_currencies',
         translate: true,
       ),
-      sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       searchController: _searchController,
       onSearchChanged: _onSearch,
