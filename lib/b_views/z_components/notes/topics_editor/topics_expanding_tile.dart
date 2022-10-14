@@ -3,13 +3,11 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class TopicsExpandingTile extends StatelessWidget {
@@ -17,18 +15,48 @@ class TopicsExpandingTile extends StatelessWidget {
   const TopicsExpandingTile({
     @required this.groupName,
     @required this.topics,
-    @required this.onSwitch,
-    @required this.partyType,
+    @required this.builder,
+    @required this.width,
     Key key
   }) : super(key: key);
+
   /// --------------------------------------------------------------------------
   final List<TopicModel> topics;
   final String groupName;
-  final Function(bool value, TopicModel topic) onSwitch;
-  final PartyType partyType;
+  final Widget Function(TopicModel topic) builder;
+  final double width;
+  // -----------------------------------------------------------------------------
+  static List<Widget> buildTopicsMapTiles({
+    @required Map<String, dynamic> map,
+    @required BuildContext context,
+    @required Widget Function(TopicModel topic) builder,
+    double width,
+  }){
+    final List<Widget> _output = <Widget>[];
+
+    final List<String> _groups = map.keys.toList();
+    if (Mapper.checkCanLoopList(_groups) == true){
+
+      for (final String group in _groups){
+
+        final List<TopicModel> _topics = map[group];
+        final Widget _widget = TopicsExpandingTile(
+          topics: _topics,
+          groupName: group,
+          builder: builder,
+          width: width,
+        );
+
+        _output.add(_widget);
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
  /// TESTED : WORKS PERFECT
-  bool _checkIsTopicSelected({
+  static bool checkIsTopicSelected({
     @required PartyType partyType,
     @required BuildContext context,
     @required TopicModel topicModel,
@@ -62,7 +90,7 @@ class TopicsExpandingTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ExpandingTile(
-      width: PageBubble.width(context),
+      width: width ?? PageBubble.width(context),
       firstHeadline: Verse(
         text: groupName,
         translate: false,
@@ -93,25 +121,7 @@ class TopicsExpandingTile extends StatelessWidget {
 
             final TopicModel _topicModel = topics[index];
 
-            final bool _isSelected = _checkIsTopicSelected(
-              context: context,
-              partyType: partyType,
-              topicModel: _topicModel,
-            );
-
-            return TileBubble(
-              bubbleWidth: PageBubble.clearWidth(context),
-              bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: Verse.plain(_topicModel.description),
-                leadingIcon: _topicModel.icon,
-                leadingIconSizeFactor: 0.6,
-                leadingIconBoxColor: _isSelected == true ? Colorz.green255 : Colorz.white10,
-                hasSwitch: true,
-                switchValue: _isSelected,
-                onSwitchTap: (bool value) => onSwitch(value, _topicModel)
-              ),
-              onTileTap: () => onSwitch(!_isSelected, _topicModel)
-            );
+            return builder(_topicModel);
 
           }),
 
