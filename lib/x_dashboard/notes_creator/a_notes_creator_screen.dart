@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -44,7 +45,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _bodyNode = FocusNode();
   // --------------------
-  TopicModel _nootEvent;
+  TopicModel _topicModel;
   // --------------------
   final ValueNotifier<NoteModel> _noteNotifier = ValueNotifier<NoteModel>(null);
   final ValueNotifier<List<dynamic>> _receiversModels = ValueNotifier<List<dynamic>>([]);
@@ -250,11 +251,24 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                     /// TOPIC
                     NoteTopicSelectorBubble(
-                        nootEvent: _nootEvent,
-                        onSelectTopic: (TopicModel event){
-                          setState(() {
-                            _nootEvent = event;
-                          });
+                        noteModel: note,
+                        onSelectTopic: (TopicModel topic){
+
+                          String _topicID;
+                          if (note.parties.receiverType == PartyType.bz){
+                            _topicID = TopicModel.generateBzTopicID(
+                              topicID: topic.id,
+                              bzID: note.parties.receiverID,
+                            );
+                          }
+                          else {
+                            _topicID = topic.id;
+                          }
+
+                          _noteNotifier.value = note.copyWith(
+                            topic: _topicID,
+                          );
+
                         }),
 
                     /// TRIGGER
