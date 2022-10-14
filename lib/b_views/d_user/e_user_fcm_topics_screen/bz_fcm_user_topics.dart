@@ -13,7 +13,8 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   const BzFCMTopicsScreenView({
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onSwitch({
     @required BuildContext context,
     @required String topicID,
@@ -36,7 +37,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     );
 
   }
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
@@ -200,7 +201,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> _sendNoteFCM({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -220,32 +221,54 @@ class NoteProtocols {
             noteModel: noteModel
         );
 
+
         _note.blogNoteModel(invoker: '_sendNoteFCM.afterTokenAdjustment');
 
-        if (_note.token != null) {
+        /// USER RECEIVER : SEND TO DEVICE
+        if (noteModel.parties.receiverType == PartyType.user){
 
-          blog('should send aho note to ${_note.parties.receiverID}');
+          if (_note.token != null) {
+
+            blog('should send TO DEVICE aho note to ${_note.parties.receiverID}');
+
+            await CloudFunction.call(
+                context: context,
+                functionName: CloudFunction.callSendFCMToDevice,
+                mapToPass: _note.toMap(toJSON: true),
+                onFinish: (dynamic result){
+                  blog('NoteFireOps.createNote : FCM SENT : $result');
+                }
+            );
+
+          }
+
+        }
+
+        /// BZ RECEIVER : SEND TO TOPIC
+        if (noteModel.parties.receiverType == PartyType.bz){
+
+          blog('should send TO DEVICE aho note to ${_note.parties.receiverID}');
 
           await CloudFunction.call(
               context: context,
-              functionName: CloudFunction.callSendFCMToDevice,
+              functionName: CloudFunction.callSendFCMToTopic,
               mapToPass: _note.toMap(toJSON: true),
               onFinish: (dynamic result){
                 blog('NoteFireOps.createNote : FCM SENT : $result');
               }
           );
+
+
         }
 
 
       }
 
-
-
     }
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<bool> _checkReceiverCanReceiveFCM({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -257,24 +280,34 @@ class NoteProtocols {
       if (noteModel.sendFCM == false){
         _canReceive = false;
       }
+
       else {
 
-        // if (noteModel.parties.receiverType == NotePartyType.user){
-          // final UserModel _userModel = await UserProtocols.fetchUser(
-          //   context: context,
-          //   userID: noteModel.parties.receiverID,
-          // );
-        // }
-        // else if (noteModel.parties.receiverType == NotePartyType.bz){
-          // final BzModel _bzModel = await BzProtocols.fetchBz(
-          //   context: context,
-          //   bzID: noteModel.parties.receiverID,
-          // );
-        // }
+        /// RECEIVER IS USER
+        if (noteModel.parties.receiverType == PartyType.user){
 
-        /// TASK : NEED TO MAKE A SETTINGS PREFERENCE MAP TO KNOW IF PROFILE
-        /// HAD OPTED TO RECEIVING THIS TYPE OF FCM OR NOT
-        _canReceive = true;
+          final UserModel _userModel = await UserProtocols.refetchUser(
+            context: context,
+            userID: noteModel.parties.receiverID,
+          );
+
+          _canReceive = TopicModel.checkUserIsListeningToTopic(
+            context: context,
+            topicID: noteModel.topic,
+            partyType: PartyType.user,
+            bzID: null,
+            userModel: _userModel,
+          );
+        }
+
+        /// RECEIVER IS BZ
+        else if (noteModel.parties.receiverType == PartyType.bz){
+
+          /// BZ AUTHORS SHOULD BE SUBSCRIBED OR NOT TO THE TOPIC
+          /// AND BZ RECEIVES THIS NOTE
+          _canReceive = true;
+        }
+
 
       }
 
@@ -283,7 +316,7 @@ class NoteProtocols {
     return _canReceive;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<NoteModel> _adjustNoteToken({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -292,9 +325,10 @@ class NoteProtocols {
 
     if (noteModel != null){
 
+      /// USER RECEIVER : INJECT USER TOKEN IN NOTE
       if (noteModel.parties.receiverType == PartyType.user){
 
-        final UserModel _user = await UserProtocols.refetchUser(
+        final UserModel _user = await UserProtocols.fetchUser(
           context: context,
           userID: noteModel.parties.receiverID,
         );
@@ -315,10 +349,16 @@ class NoteProtocols {
 
       }
 
-      _note.blogNoteModel(invoker: '_adjustNoteToken.in');
+      /// BZ RECEIVED : WILL SEND TO TOPIC NOT TO DEVICE
+      if (noteModel.parties.receiverType == PartyType.bz){
+
+        _note = noteModel.nullifyField(
+          token: true,
+        );
+
+      }
 
     }
-
 
     return _note;
   }

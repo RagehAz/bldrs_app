@@ -1,4 +1,6 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -216,5 +218,59 @@ class TopicModel {
     return '$bzID/$topicID/';
   }
 
+
+
+
   // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkUserIsListeningToTopic({
+    @required PartyType partyType,
+    @required BuildContext context,
+    @required String topicID,
+    @required UserModel userModel,
+    @required String bzID,
+  }){
+    bool _isSelected = false;
+
+    if (partyType != null && topicID != null && userModel != null){
+
+      final List<String> _userTopics = userModel.fcmTopics;
+
+      if (partyType == PartyType.bz){
+
+        if (bzID != null){
+
+          final String _customTopicID = generateBzTopicID(
+            bzID: bzID,
+            topicID: topicID,
+          );
+
+          _isSelected = Stringer.checkStringsContainString(
+            strings: _userTopics,
+            string: _customTopicID,
+          );
+
+        }
+
+      }
+
+      if (partyType == PartyType.user){
+
+        _isSelected = Stringer.checkStringsContainString(
+          strings: _userTopics,
+          string: topicID,
+        );
+
+      }
+
+    }
+
+    return _isSelected;
+  }
+
+// -----------------------------------------------------------------------------
 }
