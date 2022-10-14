@@ -426,7 +426,7 @@ Future<List<BzModel>> onSelectBzAsNoteReceiver({
   final List<BzModel> _bzzModels = await Nav.goToNewScreen(
     context: context,
     screen: SearchBzzScreen(
-      multipleSelection: true,
+      // multipleSelection: false,
       selectedBzz: selectedBzz,
     ),
   );

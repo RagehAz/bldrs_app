@@ -16,7 +16,6 @@ class TermsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      sectionButtonIsOn: false,
       historyButtonIsOn: false,
       pageTitleVerse: const Verse(
         text: 'phid_terms_and_conditions',

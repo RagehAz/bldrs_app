@@ -234,7 +234,6 @@ class _PickersScreenState extends State<PickersScreen> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.search,
-      sectionButtonIsOn: false,
       pageTitleVerse: widget.pageTitleVerse,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,

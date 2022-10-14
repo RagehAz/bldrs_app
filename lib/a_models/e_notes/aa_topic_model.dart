@@ -217,6 +217,24 @@ class TopicModel {
   }){
     return '$bzID/$topicID/';
   }
+  // --------------------
+  ///
+  static String concludeTopicID({
+    @required String topicID,
+    @required String receiverID,
+    @required PartyType partyType,
+}){
+    String _topicID = topicID;
+
+    if (partyType == PartyType.bz){
+      _topicID = generateBzTopicID(
+        topicID: topicID,
+        bzID: receiverID,
+      );
+    }
+
+    return _topicID;
+}
   // -----------------------------------------------------------------------------
 
   /// CHECKERS

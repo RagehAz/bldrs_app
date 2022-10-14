@@ -43,7 +43,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
     const String _dummyDocName = 'colorID';
 
     return MainLayout(
-      sectionButtonIsOn: false,
       pyramidType: PyramidType.yellow,
       pyramidsAreOn: true,
       appBarType: AppBarType.scrollable,

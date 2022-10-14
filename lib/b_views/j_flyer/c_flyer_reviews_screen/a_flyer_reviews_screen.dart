@@ -24,7 +24,6 @@ class FlyerReviewsScreen extends StatelessWidget {
         text: 'phid_flyer_reviews',
         translate: true,
       ),
-      sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       layoutWidget: FlyerReviewsScreenView(

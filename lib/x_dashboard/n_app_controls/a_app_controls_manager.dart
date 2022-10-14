@@ -83,7 +83,6 @@ class _AppControlsManagerState extends State<AppControlsManager> {
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitleVerse: Verse.plain('App Controls'),
-      sectionButtonIsOn: false,
       pyramidsAreOn: true,
       loading: _loading,
       appBarRowWidgets: <Widget>[

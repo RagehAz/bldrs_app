@@ -33,7 +33,6 @@ class GeneralStatistics extends StatelessWidget {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidType: PyramidType.crystalYellow,
-      sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain(Words.allahoAkbar(context)),
       appBarRowWidgets: const <Widget>[
 

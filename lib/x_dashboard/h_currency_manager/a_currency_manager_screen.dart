@@ -36,7 +36,6 @@ class CurrencyManagerScreen extends StatelessWidget {
 
     return MainLayout(
       pageTitleVerse: Verse.plain('Currencies'),
-      sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,

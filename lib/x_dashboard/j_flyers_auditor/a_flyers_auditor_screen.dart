@@ -409,7 +409,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     return MainLayout(
       pageTitleVerse: Verse.plain('Flyers Auditor'),
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       loading: _loading,
       skyType: SkyType.black,
       appBarRowWidgets: <Widget>[

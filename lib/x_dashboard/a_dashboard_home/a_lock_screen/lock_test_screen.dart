@@ -97,7 +97,6 @@ class _LockScreenState extends State<LockScreen> {
 
     return MainLayout(
       pyramidsAreOn: true,
-      sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('Lock Test'),
       appBarType: AppBarType.basic,
       layoutWidget: Container(

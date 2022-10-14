@@ -44,7 +44,7 @@ class MainLayout extends StatelessWidget {
     this.onSearchSubmit,
     this.onSearchChanged,
     this.historyButtonIsOn = true,
-    this.sectionButtonIsOn = true,
+    this.sectionButtonIsOn = false,
     this.searchHintVerse,
     this.loading,
     this.progressBarModel,
