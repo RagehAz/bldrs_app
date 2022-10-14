@@ -23,9 +23,9 @@ admin.initializeApp();
 
 // -------------------------------------
 exports.callSendFCMToDevice = fcmMethods.callSendFCMToDevice;
-exports.callSendFCMToDevice = fcmMethods.callSendFCMToDevices;
-exports.callSendFCMToDevice = fcmMethods.callSendFCMsToDevices;
-exports.callSendFCMToDevice = fcmMethods.callSendFCMToTopic;
+exports.callSendFCMToDevices = fcmMethods.callSendFCMToDevices;
+exports.callSendFCMsToDevices = fcmMethods.callSendFCMsToDevices;
+exports.callSendFCMToTopic = fcmMethods.callSendFCMToTopic;
 // --------------------------------------------------------------------------
 
 // DEPLOYMENT
