@@ -1,18 +1,17 @@
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/x_secondary/app_state.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_token_model.dart';
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_token_model.dart';
+import 'package:bldrs/a_models/e_notes/x_note_topics.dart';
+import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -55,6 +54,7 @@ class UserModel {
     @required this.emailIsVerified,
     @required this.isAdmin,
     @required this.fcmToken,
+    @required this.fcmTopics,
     @required this.savedFlyersIDs,
     @required this.followedBzzIDs,
     @required this.appState,
@@ -78,7 +78,8 @@ class UserModel {
   final List<String> myBzzIDs;
   final bool emailIsVerified;
   final bool isAdmin;
-  final NoteTokenModel fcmToken;
+  final FCMToken fcmToken;
+  final List<String> fcmTopics;
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
   final AppState appState;
@@ -121,6 +122,7 @@ class UserModel {
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.initialState(),
+      fcmTopics: FCMTopics.defaultFCMTopics,
     );
 
   }
@@ -166,6 +168,7 @@ class UserModel {
         context: context,
         assignToUser: true,
       ),
+      fcmTopics: FCMTopics.defaultFCMTopics,
     );
 
     _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
@@ -240,10 +243,11 @@ class UserModel {
     List<String> myBzzIDs,
     bool emailIsVerified,
     bool isAdmin,
-    NoteTokenModel fcmToken,
+    FCMToken fcmToken,
     List<String> savedFlyersIDs,
     List<String> followedBzzIDs,
     AppState appState,
+    List<String> fcmTopics,
   }){
     return UserModel(
       id: id ?? this.id,
@@ -267,6 +271,7 @@ class UserModel {
       savedFlyersIDs: savedFlyersIDs ?? this.savedFlyersIDs,
       followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
       appState: appState ?? this.appState,
+      fcmTopics: fcmTopics ?? this.fcmTopics,
     );
   }
   // --------------------
@@ -290,6 +295,7 @@ class UserModel {
     bool emailIsVerified = false,
     bool isAdmin = false,
     bool fcmToken = false,
+    bool fcmTopics = false,
     bool savedFlyersIDs = false,
     bool followedBzzIDs = false,
     bool appState = false,
@@ -313,6 +319,7 @@ class UserModel {
       emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
       isAdmin : isAdmin == true ? null : this.isAdmin,
       fcmToken : fcmToken == true ? null : this.fcmToken,
+      fcmTopics: fcmTopics == true ? null : this.fcmTopics,
       savedFlyersIDs : savedFlyersIDs == true ? const [] : this.savedFlyersIDs,
       followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
       appState : appState == true ? null : this.appState,
@@ -348,6 +355,7 @@ class UserModel {
       'emailIsVerified': emailIsVerified,
       'isAdmin': isAdmin,
       'fcmToken': fcmToken?.toMap(toJSON: toJSON),
+      'fcmTopics': fcmTopics,
       'savedFlyersIDs': savedFlyersIDs ?? <String>[],
       'followedBzzIDs': followedBzzIDs ?? <String>[],
       'appState' : appState.toMap(),
@@ -385,11 +393,7 @@ class UserModel {
     UserModel(
         id: map['id'],
         authBy: AuthModel.decipherAuthBy(map['authBy']),
-        createdAt:
-        Timers.decipherTime(
-            time: map['createdAt'],
-            fromJSON: fromJSON
-        ),
+        createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         need: NeedModel.decipherNeed(map: map['need'], fromJSON: fromJSON),
         // -------------------------
         name: map['name'],
@@ -400,27 +404,16 @@ class UserModel {
         gender: decipherGender(map['gender']),
         zone: ZoneModel.decipherZone(map['zone']),
         language: map['language'] ?? 'en',
-        location: Atlas.decipherGeoPoint(
-            point: map['location'],
-            fromJSON: fromJSON
-        ),
+        location: Atlas.decipherGeoPoint(point: map['location'], fromJSON: fromJSON),
         contacts: ContactModel.decipherContacts(map['contacts']),
         // -------------------------
-        myBzzIDs: Stringer.getStringsFromDynamics(
-          dynamics: map['myBzzIDs'],
-        ),
+        myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
-        fcmToken: NoteTokenModel.decipherFCMToken(
-          map: map['fcmToken'],
-          fromJSON: fromJSON,
-        ),
-        savedFlyersIDs: Stringer.getStringsFromDynamics(
-          dynamics: map['savedFlyersIDs'],
-        ),
-        followedBzzIDs: Stringer.getStringsFromDynamics(
-          dynamics: map['followedBzzIDs'],
-        ),
+        fcmToken: FCMToken.decipherFCMToken(map: map['fcmToken'], fromJSON: fromJSON,),
+        fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
+        savedFlyersIDs: Stringer.getStringsFromDynamics(dynamics: map['savedFlyersIDs'],),
+        followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
         appState: AppState.fromMap(map['appState']),
         docSnapshot: map['docSnapshot']
     );
@@ -550,7 +543,7 @@ class UserModel {
     else if (user1 != null && user2 != null){
 
       if (
-      user1.id == user2.id &&
+          user1.id == user2.id &&
           user1.authBy == user2.authBy &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
           NeedModel.checkNeedsAreIdentical(user1.need, user2.need) &&
@@ -570,8 +563,9 @@ class UserModel {
           Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
           Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
           AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) &&
-          NoteTokenModel.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken)
-      // DocumentSnapshot docSnapshot;
+          FCMToken.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken) &&
+          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics)
+    // DocumentSnapshot docSnapshot;
 
       ){
         _identical = true;
@@ -846,6 +840,7 @@ class UserModel {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogUserModel({
     String methodName = 'BLOGGING USER MODEL',
   }) {
@@ -872,14 +867,16 @@ class UserModel {
     need?.blogNeed();
     ContactModel.blogContacts(
       contacts: contacts,
-      methodName: 'blogUserModel',
+      methodName: 'user contacts',
     );
-    fcmToken?.blogToken();
+    fcmToken?.blogFCMToken();
+    Stringer.blogStrings(strings: fcmTopics, invoker: 'user fcmTopic');
     appState?.blogAppState();
 
     blog('$methodName : ---------------- END -- ');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogUsersModels({
     @required List<UserModel> usersModels,
     String methodName,
@@ -898,6 +895,7 @@ class UserModel {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogUsersDifferences({
     @required UserModel user1,
     @required UserModel user2,
@@ -993,6 +991,18 @@ class UserModel {
         blog('blogUserDifferences : [appState] are not identical');
       }
 
+      if (FCMToken.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken) == false){
+        blog('blogUserDifferences : [fcmToken] are not identical');
+      }
+
+      if (Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == false){
+        blog('blogUserDifferences : [fcmTopics] are not identical');
+      }
+
+      if (NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == false){
+        blog('blogUserDifferences : [need] are not identical');
+      }
+
     }
 
   }
@@ -1001,6 +1011,7 @@ class UserModel {
   /// DUMMIES
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static UserModel dummyUserModel(BuildContext context){
 
     final UserModel _userModel = UserModel(
@@ -1022,6 +1033,7 @@ class UserModel {
       emailIsVerified: true,
       isAdmin: true,
       fcmToken: null,
+      fcmTopics: FCMTopics.defaultFCMTopics,
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.dummyAppState(),
@@ -1030,6 +1042,7 @@ class UserModel {
     return _userModel;
   }
   // --------------------
+  /*
   static List<UserModel> dummyUsers({
     int numberOfUsers
   }) {
@@ -1088,7 +1101,9 @@ class UserModel {
 
     return _users;
   }
+   */
   // --------------------
+  /*
   static Future<UserModel> futureDummyUserModel() async {
 
     final UserModel _user = await UserFireOps.readUser(
@@ -1097,6 +1112,7 @@ class UserModel {
 
     return _user;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// USER TABS
@@ -1112,7 +1128,7 @@ class UserModel {
   static String getUserTabIcon(UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return Iconz.normalUser   ; break;
-      case UserTab.notifications  : return Iconz.news         ; break;
+      case UserTab.notifications  : return Iconz.notification         ; break;
       case UserTab.following      : return Iconz.follow       ; break;
       case UserTab.settings       : return Iconz.gears        ; break;
       default : return null;
@@ -1204,6 +1220,7 @@ class UserModel {
       emailIsVerified.hashCode^
       isAdmin.hashCode^
       fcmToken.hashCode^
+      fcmTopics.hashCode^
       savedFlyersIDs.hashCode^
       followedBzzIDs.hashCode^
       appState.hashCode^

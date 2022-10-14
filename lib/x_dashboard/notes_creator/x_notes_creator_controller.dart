@@ -112,7 +112,7 @@ Future<void> onNoteCreatorCardOptionsTap({
 /// TESTED : WORKS PERFECT
 Future<void> onSelectNoteSender({
   @required BuildContext context,
-  @required NotePartyType senderType,
+  @required PartyType senderType,
   @required ValueNotifier<NoteModel> note,
 }) async {
 
@@ -124,7 +124,7 @@ Future<void> onSelectNoteSender({
   if (_continue == true){
 
     /// BY USER
-    if (senderType == NotePartyType.user){
+    if (senderType == PartyType.user){
 
       await _onSelectUserAsNoteSender(
         context: context,
@@ -135,7 +135,7 @@ Future<void> onSelectNoteSender({
     }
 
     /// BY BZ
-    if (senderType == NotePartyType.bz){
+    if (senderType == PartyType.bz){
       await _onSelectBzAsNoteSender(
         context: context,
         note: note,
@@ -144,7 +144,7 @@ Future<void> onSelectNoteSender({
     }
 
     /// BY COUNTRY
-    if (senderType == NotePartyType.country){
+    if (senderType == PartyType.country){
       await _onSelectCountryAsNoteSender(
         context: context,
         note: note,
@@ -152,7 +152,7 @@ Future<void> onSelectNoteSender({
       );
     }
 
-    if (senderType == NotePartyType.bldrs){
+    if (senderType == PartyType.bldrs){
       await _onSelectBldrsAsNoteSender(
         context: context,
         note: note,
@@ -167,15 +167,15 @@ Future<void> onSelectNoteSender({
 /// TESTED : WORKS PERFECT
 Future<bool> _showEthicalConfirmationDialog({
   @required BuildContext context,
-  @required NotePartyType senderType,
+  @required PartyType senderType,
 }) async {
 
   bool _canContinue = true;
 
   if (
-  senderType == NotePartyType.bz
+  senderType == PartyType.bz
       ||
-      senderType == NotePartyType.user
+      senderType == PartyType.user
   ){
 
     final String _senderTypeString = NoteParties.cipherPartyType(senderType);
@@ -199,7 +199,7 @@ Future<bool> _showEthicalConfirmationDialog({
 Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NotePartyType senderType,
+  @required PartyType senderType,
 }) async {
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
@@ -233,7 +233,7 @@ Future<void> _onSelectUserAsNoteSender({
 Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NotePartyType senderType,
+  @required PartyType senderType,
 }) async {
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -265,7 +265,7 @@ Future<void> _onSelectBzAsNoteSender({
 Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NotePartyType senderType,
+  @required PartyType senderType,
 }) async {
 
   final ZoneModel _zoneModel = await controlSelectCountryOnly(context);
@@ -293,7 +293,7 @@ Future<void> _onSelectCountryAsNoteSender({
 Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
-  @required NotePartyType senderType,
+  @required PartyType senderType,
 }) async {
 
   note.value = note.value.copyWith(
@@ -314,7 +314,7 @@ Future<void> _onSelectBldrsAsNoteSender({
 Future<void> onSelectReceiverType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
-  @required NotePartyType selectedReceiverType,
+  @required PartyType selectedReceiverType,
   @required ValueNotifier<List<dynamic>> receiversModels,
 }) async {
   List<dynamic> _models = [];
@@ -344,7 +344,7 @@ Future<void> onSelectReceiverType({
     }
 
     /// IF USER
-    if (selectedReceiverType == NotePartyType.user){
+    if (selectedReceiverType == PartyType.user){
       final List<UserModel> _users = [...receiversModels.value ?? []];
       _models = await onSelectUserAsNoteReceiver(
         context: context,
@@ -954,21 +954,21 @@ Future<void> onGoToNoteTemplatesScreen({
 Future<List<dynamic>> _getReceiversModelsByReceiversIDs({
   @required BuildContext context,
   @required List<String> receiversIDs,
-  @required NotePartyType partyType,
+  @required PartyType partyType,
 }) async {
 
   List<dynamic> _output = <dynamic>[];
 
   if (Mapper.checkCanLoopList(receiversIDs) == true){
 
-    if (partyType == NotePartyType.user){
+    if (partyType == PartyType.user){
       _output = await UserProtocols.fetchUsers(
           context: context,
           usersIDs: receiversIDs,
       );
     }
 
-    if (partyType == NotePartyType.bz){
+    if (partyType == PartyType.bz){
       _output = await BzProtocols.fetchBzz(
           context: context,
           bzzIDs: receiversIDs

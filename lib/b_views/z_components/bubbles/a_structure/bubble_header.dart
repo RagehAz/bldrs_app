@@ -144,7 +144,7 @@ class BubbleHeader extends StatelessWidget {
     // --------------------
     else {
       return Row(
-        // crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
           /// --- LEADING ICON
