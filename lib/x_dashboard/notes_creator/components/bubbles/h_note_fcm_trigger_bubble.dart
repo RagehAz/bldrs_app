@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/x_notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_notes_creator_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

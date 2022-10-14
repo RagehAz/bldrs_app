@@ -6,12 +6,13 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sens
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/b_phrases_editor/x_phrase_editor_controllers.dart';
+import 'package:bldrs/x_dashboard/z_widgets/pyramids_admin_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -247,8 +248,8 @@ class MainLayout extends StatelessWidget {
 
                 ),
 
-                /// PLAN : for translation purposes and for dev mode only
-                FastTranslatorButton(
+                if (UsersProvider.proGetMyUserModel(context: context, listen: true,)?.isAdmin == true)
+                PyramidsAdminPanel(
                   isInTransScreen: isInPhrasesScreen,
                   pyramidsAreOn: pyramidsAreOn,
                 ),

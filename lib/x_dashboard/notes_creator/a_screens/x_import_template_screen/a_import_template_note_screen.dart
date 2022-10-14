@@ -15,22 +15,22 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
-import 'package:bldrs/x_dashboard/notes_creator/x_lab/note_templates/x_note_templates.dart';
-import 'package:bldrs/x_dashboard/notes_creator/x_notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_import_template_screen/x_note_templates.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
-class TemplateNotesScreen extends StatefulWidget {
+class ImportTemplateNoteScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const TemplateNotesScreen({
+  const ImportTemplateNoteScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _TemplateNotesScreenState createState() => _TemplateNotesScreenState();
+  _ImportTemplateNoteScreenState createState() => _ImportTemplateNoteScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
+class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<List<NoteModel>> _ldbRecentNotes = ValueNotifier(<NoteModel>[]);
   final PageController _pageController = PageController();
