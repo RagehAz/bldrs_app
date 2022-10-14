@@ -21,8 +21,8 @@ import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/h_note_fcm_tr
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/i_note_dismissible_trigger_bubble.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/k_note_trigger_creator.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/bubbles/x_note_preview_panel.dart';
-import 'package:bldrs/x_dashboard/notes_creator/x_lab/a_notes_lab_home.dart';
-import 'package:bldrs/x_dashboard/notes_creator/x_notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/a_notes_lab_home.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
 class NotesCreatorScreen extends StatefulWidget {
