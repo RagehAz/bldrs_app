@@ -31,7 +31,7 @@ const getUserModel = (userID) => {
 //  FCM TOKEN
 
 // -------------------------------------
-// TESTED : WORKS
+// TESTED : WORKS PERFECT
 const deleteUserToken = (userID) => {
   functions.logger.log(`deleteUserToken : 1 - START : with userID : [${userID}]`);
   const userDocRef = admin.firestore().collection('users').doc(userID);

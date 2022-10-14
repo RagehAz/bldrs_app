@@ -318,3 +318,24 @@
 // -------------------------------------
 // const device_token = admin.database().ref(`/usuarios/${user_id}/device_token`).once('value');
 // --------------------------------------------------------------------------
+// --
+// --
+// --
+// -- TAKE A MOMENT TO APPRECIATE THE EFFORT
+// --
+// --
+// --
+// --------------------------------------------------------------------------
+
+//  METHODS THAT WORK 100% TRUST ME
+
+// --------------------
+// TESTED : WORKS PERFECT
+// const onNoteCreation = functions.firestore
+//    .document('notes/{note}')
+//    .onCreate((snapshot, context) => {
+//      const noteModel = snapshot.data();
+//      const result = sendFCMToDevice(noteModel);
+//      return result;
+//    });
+// --------------------------------------------------------------------------

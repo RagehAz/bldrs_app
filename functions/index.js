@@ -13,13 +13,19 @@ const fcmMethods = require('./methods/fcm_methods');
 
 // -------------------------------------
 admin.initializeApp();
+// admin.initializeApp({
+//     credential: admin.credential.cert(require("./service-account-file.json")),
+//     databaseURL: "https://....firebaseio.com",
+//   });
 // --------------------------------------------------------------------------
 
 // EXPORTS
 
 // -------------------------------------
-// exports.onNoteCreation = fcmMethods.onNoteCreation;
 exports.callSendFCMToDevice = fcmMethods.callSendFCMToDevice;
+exports.callSendFCMToDevice = fcmMethods.callSendFCMToDevices;
+exports.callSendFCMToDevice = fcmMethods.callSendFCMsToDevices;
+exports.callSendFCMToDevice = fcmMethods.callSendFCMToTopic;
 // --------------------------------------------------------------------------
 
 // DEPLOYMENT
