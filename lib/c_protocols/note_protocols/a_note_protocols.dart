@@ -28,7 +28,7 @@ class NoteProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> composeToMultiple({
     @required BuildContext context,
     @required NoteModel note,
@@ -66,7 +66,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> composeToOne({
     @required BuildContext context,
     @required NoteModel note,
@@ -76,7 +76,7 @@ class NoteProtocols {
     assert(note.parties.receiverID.length > 5, 'Something is wrong with receiverID');
     assert(note.parties.receiverID != 'xxx', 'receiverID is xxx');
 
-    final bool _canSendNote = NoteModel.checkCanSendNote(note);
+    final bool _canSendNote = NoteModel.checkNoteIsSendable(note);
 
     if (_canSendNote == true){
 
@@ -102,7 +102,7 @@ class NoteProtocols {
       );
 
       /// SEND FCM
-      await _sendNoteFCM(
+      await _sendFCMToOneReceiver(
         context: context,
         noteModel: _note,
       );
@@ -202,27 +202,31 @@ class NoteProtocols {
   }
   // --------------------
   ///
-  static Future<void> _sendNoteFCM({
+  static Future<void> _sendFCMToOneReceiver({
     @required BuildContext context,
     @required NoteModel noteModel,
   }) async {
 
-    if (noteModel != null){
+    if (noteModel != null && noteModel.sendFCM == true){
 
-      final bool _canSendFCM = await _checkReceiverCanReceiveFCM(
+      NoteModel _note = noteModel;
+      if (noteModel.sendNote == false){
+        _note = noteModel.copyWith(
+          id: Numeric.createUniqueID().toString(),
+        );
+      }
+
+      final bool _receiverCanReceive = await _checkReceiverCanReceiveFCM(
         context: context,
-        noteModel: noteModel,
+        noteModel: _note,
       );
 
-      if (_canSendFCM == true){
+      if (_receiverCanReceive == true){
 
         final NoteModel _note = await _adjustNoteToken(
             context: context,
             noteModel: noteModel
         );
-
-
-        _note.blogNoteModel(invoker: '_sendNoteFCM.afterTokenAdjustment');
 
         /// USER RECEIVER : SEND TO DEVICE
         if (noteModel.parties.receiverType == PartyType.user){
@@ -275,40 +279,31 @@ class NoteProtocols {
   }) async {
     bool _canReceive = false;
 
-    if (noteModel != null){
+    if (noteModel != null && noteModel.sendFCM == true){
 
-      if (noteModel.sendFCM == false){
-        _canReceive = false;
+      /// RECEIVER IS USER
+      if (noteModel.parties.receiverType == PartyType.user){
+
+        final UserModel _userModel = await UserProtocols.refetchUser(
+          context: context,
+          userID: noteModel.parties.receiverID,
+        );
+
+        _canReceive = TopicModel.checkUserIsListeningToTopic(
+          context: context,
+          topicID: noteModel.topic,
+          partyType: PartyType.user,
+          bzID: null,
+          userModel: _userModel,
+        );
       }
 
-      else {
+      /// RECEIVER IS BZ
+      else if (noteModel.parties.receiverType == PartyType.bz){
 
-        /// RECEIVER IS USER
-        if (noteModel.parties.receiverType == PartyType.user){
-
-          final UserModel _userModel = await UserProtocols.refetchUser(
-            context: context,
-            userID: noteModel.parties.receiverID,
-          );
-
-          _canReceive = TopicModel.checkUserIsListeningToTopic(
-            context: context,
-            topicID: noteModel.topic,
-            partyType: PartyType.user,
-            bzID: null,
-            userModel: _userModel,
-          );
-        }
-
-        /// RECEIVER IS BZ
-        else if (noteModel.parties.receiverType == PartyType.bz){
-
-          /// BZ AUTHORS SHOULD BE SUBSCRIBED OR NOT TO THE TOPIC
-          /// AND BZ RECEIVES THIS NOTE
-          _canReceive = true;
-        }
-
-
+        /// BZ AUTHORS SHOULD BE SUBSCRIBED OR NOT TO THE TOPIC
+        /// AND BZ RECEIVES THIS NOTE
+        _canReceive = true;
       }
 
     }

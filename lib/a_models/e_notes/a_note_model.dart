@@ -32,15 +32,13 @@ class NoteModel {
     this.seen = false,
     this.topic,
     this.sendFCM = true,
+    this.sendNote = true,
     this.poster,
     this.poll,
     this.trigger,
     this.progress,
-    this.docSnapshot,
-
-    /// TASK : SHOULD DELETE THOSE
-    this.metaData = defaultMetaData,
     this.token,
+    this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -51,6 +49,7 @@ class NoteModel {
   final PosterModel poster;
   final PollModel poll;
   final bool sendFCM;
+  final bool sendNote;
   final String topic;
   final TriggerModel trigger;
   final bool seen;
@@ -58,9 +57,6 @@ class NoteModel {
   final bool dismissible;
   final String token;
   final QueryDocumentSnapshot<Object> docSnapshot;
-
-  /// TASK : SHOULD DELETE THOSE
-  final Map<String, dynamic> metaData;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -69,12 +65,14 @@ class NoteModel {
   static const String fcmSound = 'default';
   static const String fcmStatus = 'done';
   // --------------------
+  /*
   static const dynamic defaultMetaData = <String, dynamic>{
     'click_action': 'FLUTTER_NOTIFICATION_CLICK',
     'sound': fcmSound,
     'status': fcmStatus,
     'screen': '',
   };
+   */
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -91,6 +89,7 @@ class NoteModel {
     PosterModel poster,
     PollModel poll,
     bool sendFCM,
+    bool sendNote,
     String token,
     String topic,
     TriggerModel trigger,
@@ -103,9 +102,9 @@ class NoteModel {
       parties: parties ?? this.parties,               // NoteParties parties,
       title: title ?? this.title,                     // String title,
       body: body ?? this.body,                        // String body,
-      metaData: metaData ?? this.metaData,            // Map<String, dynamic> metaData,
       sentTime: sentTime ?? this.sentTime,            // DateTime sentTime,
       sendFCM: sendFCM ?? this.sendFCM,               // bool sendFCM,
+      sendNote: sendNote ?? this.sendNote,            // bool sendNote,
       poster: poster ?? this.poster,                  // PosterModel poster,
       poll: poll ?? this.poll,                        // PollModel poll,
       token: token ?? this.token,                     // String token,
@@ -129,6 +128,7 @@ class NoteModel {
     bool poster = false,
     bool poll = false,
     bool sendFCM = false,
+    bool sendNote = false,
     bool token = false,
     bool topic = false,
     bool trigger = false,
@@ -141,10 +141,10 @@ class NoteModel {
       parties: parties == true ? null : this.parties,
       title: title == true ? null : this.title,
       body: body == true ? null : this.body,
-      metaData: metaData == true ? null : this.metaData,
       sentTime: sentTime == true ? null : this.sentTime,
       poster: poster == true ? null : this.poster,
       sendFCM: sendFCM == true ? null : this.sendFCM,
+      sendNote: sendNote == true ? null : this.sendNote,
       poll: poll == true ? null : this.poll,
       token: token == true ? null : this.token,
       topic: topic == true ? null : this.topic,
@@ -181,6 +181,7 @@ class NoteModel {
       'reply' : poll?.reply,
       'replyTime' : poll?.replyTime,
       'sendFCM': sendFCM,
+      'sendNote': sendNote,
       'topic': topic,
       'triggerName': trigger?.name,
       'triggerArgument': trigger?.argument,
@@ -244,6 +245,7 @@ class NoteModel {
           replyTime: Timers.decipherTime(time: map['replyTime'], fromJSON: fromJSON,)
         ),
         sendFCM: map['sendFCM'],
+        sendNote: map['sendNote'],
         topic: map['topic'],
         trigger: TriggerModel(
           name: map['triggerName'],
@@ -253,8 +255,6 @@ class NoteModel {
         progress: map['progress'],
         dismissible: map['dismissible'],
         docSnapshot: map['docSnapshot'],
-
-        metaData: null,
       );
 
     }
@@ -329,6 +329,7 @@ class NoteModel {
             replyTime: Timers.decipherTime(time: get('replyTime'), fromJSON: true,)
         ),
         sendFCM: getBool('sendFCM'),
+        sendNote: getBool('sendNote'),
         topic: get('topic'),
         trigger: TriggerModel(
           name: get('triggerName'),
@@ -337,8 +338,6 @@ class NoteModel {
         seen: getBool('seen'),
         progress: Numeric.transformStringToInt(get('progress')),
         dismissible: getBool('dismissible'),
-
-        metaData: null,
 
       );
 
@@ -364,6 +363,7 @@ class NoteModel {
     blog('~ ~ ~ ~ ~ ~');
     blog('sentTime : $sentTime');
     blog('sendFCM : $sendFCM');
+    blog('sendNote: $sendNote');
     blog('token: $token');
     blog('topic: $topic');
     blog('seen: $seen');
@@ -376,7 +376,6 @@ class NoteModel {
     blog('poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
     blog('trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument}');
     blog('~ ~ ~ ~ ~ ~');
-    Mapper.blogMap(metaData, invoker: 'metaData');
     blog('~ ~ ~ ~ ~ ~');
     blog('docSnapshot : $docSnapshot');
     blog('~ ~ ~ ~ ~ ~');
@@ -429,6 +428,7 @@ class NoteModel {
     return _output;
   }
   // --------------------
+
   static NoteModel getFirstNoteByRecieverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -447,7 +447,9 @@ class NoteModel {
 
     return _output;
   }
+
   // --------------------
+
   static List<NoteModel> getNotesByReceiverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -469,8 +471,9 @@ class NoteModel {
 
     return _notes;
   }
+
   // --------------------
-  ///
+
   static List<NoteModel> getNotesContainingTrigger({
     @required List<NoteModel> notes,
     @required String triggerFunctionName,
@@ -491,6 +494,7 @@ class NoteModel {
 
     return _output;
   }
+
   // -----------------------------------------------------------------------------
 
   /// UNSEEN GETTERS
@@ -602,12 +606,12 @@ class NoteModel {
         _missingFields.add('body');
       }
 
-      if (note.metaData == null){
-        _missingFields.add('metaData');
-      }
-
       if (note.sendFCM == null){
         _missingFields.add('sendFCM');
+      }
+
+      if (note.sendNote == null){
+        _missingFields.add('sendNote');
       }
 
       if (note.seen == null){
@@ -680,30 +684,39 @@ class NoteModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkCanSendNote(NoteModel noteModel){
+  static bool checkNoteIsSendable(NoteModel noteModel){
     bool _canSend = false;
 
     if (noteModel != null){
 
       if (
-          // noteModel.id != null &&
-          noteModel.parties.senderID != null &&
-          noteModel.parties.senderImageURL != null &&
-          noteModel.parties.senderType != null &&
-          noteModel.parties.receiverID != null &&
-          noteModel.parties.receiverType != null &&
-          noteModel.title != null &&
-          noteModel.body != null &&
-          noteModel.metaData != null &&
-          // noteModel.sentTime != null &&
-          // noteModel.poster != null &&
-          // noteModel.poll != null &&
-          // noteModel.token != null &&
-          // noteModel.topic != null &&
-          // noteModel.trigger != null &&
-          // noteModel.seen != null &&
-          // noteModel.progress != null &&
-          noteModel.sendFCM != null
+
+      /// NECESSARY
+      noteModel.parties.receiverID != null &&
+      noteModel.parties.receiverType != null &&
+      noteModel.parties.senderID != null &&
+      noteModel.parties.senderType != null &&
+      noteModel.parties.senderImageURL != null &&
+      noteModel.title != null &&
+      noteModel.body != null &&
+      noteModel.topic != null &&
+      (noteModel.sendNote == true || noteModel.sendFCM == true)
+
+      /// WILL BE RECREATED
+      // noteModel.id != null &&
+      // noteModel.sentTime != null &&
+
+      /// ARE OPTIONAL
+      // noteModel.poster != null &&
+      // noteModel.dismissible != null &&
+      // noteModel.poll != null &&
+      // noteModel.trigger != null &&
+      // noteModel.progress != null &&
+
+     /// SHOULD BE NULL WHILE SENDING
+     //  noteModel.seen != null &&
+     //  noteModel.docSnapshot != null
+
       ){
         _canSend = true;
       }
@@ -731,11 +744,11 @@ class NoteModel {
           NoteParties.checkPartiesAreIdentical(parties1: note1.parties, parties2: note2.parties) &&
           note1.title == note2.title &&
           note1.body == note2.body &&
-          Mapper.checkMapsAreIdentical(map1: note1.metaData, map2: note2.metaData) == true &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
           PosterModel.checkPostersAreIdentical(poster1: note1.poster, poster2: note2.poster) &&
           PollModel.checkPollsAreIdentical(poll1: note1.poll, poll2: note2.poll) &&
           note1.sendFCM == note2.sendFCM &&
+          note1.sendNote == note2.sendNote &&
           note1.token == note2.token &&
           note1.topic == note2.topic &&
           TriggerModel.checkTriggersAreIdentical(note1.trigger, note2.trigger) &&
@@ -1307,11 +1320,11 @@ class NoteModel {
       parties.hashCode^
       title.hashCode^
       body.hashCode^
-      metaData.hashCode^
       sentTime.hashCode^
       poster.hashCode^
       poll.hashCode^
       sendFCM.hashCode^
+      sendNote.hashCode^
       token.hashCode^
       topic.hashCode^
       trigger.hashCode^

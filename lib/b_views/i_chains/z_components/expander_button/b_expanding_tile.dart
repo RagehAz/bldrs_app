@@ -214,6 +214,43 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
     super.dispose();
   }
+
+  @override
+  void didUpdateWidget(covariant ExpandingTile oldWidget) {
+
+    if (
+        oldWidget.width != widget.width ||
+        oldWidget.collapsedHeight != widget.collapsedHeight ||
+        oldWidget.maxHeight != widget.maxHeight ||
+        oldWidget.scrollable != widget.scrollable ||
+        oldWidget.icon != widget.icon ||
+        oldWidget.iconSizeFactor != widget.iconSizeFactor ||
+        oldWidget.initiallyExpanded != widget.initiallyExpanded ||
+        oldWidget.firstHeadline?.text != widget.firstHeadline?.text ||
+        oldWidget.secondHeadline?.text != widget.secondHeadline?.text ||
+        oldWidget.initialColor != widget.initialColor ||
+        oldWidget.expansionColor != widget.expansionColor ||
+        oldWidget.corners != widget.corners ||
+        // oldWidget.child != widget.child ||
+        oldWidget.isDisabled != widget.isDisabled ||
+        oldWidget.margin != widget.margin
+        // oldWidget.searchText != widget.searchText
+    ){
+      if (
+          oldWidget.initialColor != widget.initialColor ||
+          oldWidget.expansionColor != widget.expansionColor
+      ){
+        _tileColorTween = ColorTween(
+          begin: widget.initialColor ?? ExpandingTile.collapsedColor,
+          end: widget.expansionColor ?? ExpandingTile.expandedColor,
+        );
+      }
+
+      setState(() {});
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
   // -----------------------------------------------------------------------------
   void _toggleExpansion() {
 
