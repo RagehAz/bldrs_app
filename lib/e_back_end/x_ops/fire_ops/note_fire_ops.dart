@@ -22,7 +22,7 @@ class NoteFireOps {
   /// CREATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<NoteModel> createNote({
     @required NoteModel noteModel,
     ValueChanged<NoteModel> onFinished,
@@ -31,20 +31,25 @@ class NoteFireOps {
 
     if (noteModel != null){
 
-      await Fire.createSubDoc(
-        collName: NoteModel.getNoteCollName(noteModel),
-        docName: noteModel.parties.receiverID,
-        subCollName: FireSubColl.noteReceiver_receiver_notes,
-        input: noteModel.toMap(toJSON: false),
-        onFinish: (DocumentReference ref){
-          _output = noteModel.copyWith(id: ref.id,);
-        },
-      );
-
-    if (onFinished != null){
-        onFinished(_output);
+      if (noteModel.sendNote == true){
+        await Fire.createSubDoc(
+          collName: NoteModel.getNoteCollName(noteModel),
+          docName: noteModel.parties.receiverID,
+          subCollName: FireSubColl.noteReceiver_receiver_notes,
+          input: noteModel.toMap(toJSON: false),
+          onFinish: (DocumentReference ref){
+            _output = noteModel.copyWith(id: ref.id,);
+          },
+        );
+      }
+      else {
+        _output = noteModel;
       }
 
+    }
+
+    if (onFinished != null){
+      onFinished(_output);
     }
 
     return _output;

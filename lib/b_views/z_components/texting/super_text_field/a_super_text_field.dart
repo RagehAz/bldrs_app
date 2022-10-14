@@ -324,8 +324,8 @@ class SuperTextField extends StatefulWidget {
   }){
 
     final EdgeInsets _scrollPadding = EdgeInsets.only(
-      bottom: 50 + MediaQuery.of(context).viewInsets.bottom,
-      top: BldrsAppBar.height(context, appBarType) + BubbleHeader.getHeight() + Bubble.paddingValue(),
+      bottom: 100 + MediaQuery.of(context).viewInsets.bottom,
+      top: BldrsAppBar.height(context, appBarType) + BubbleHeader.getHeight() + Bubble.paddingValue() + 20,
     );
 
     return _scrollPadding;
