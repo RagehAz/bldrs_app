@@ -231,7 +231,7 @@ class NotePreviewPanel extends StatelessWidget {
                     height: _sendButtonSize,
                     width: _sendButtonSize,
                     verseScaleFactor: 1,
-                    isDeactivated: !NoteModel.checkCanSendNote(note),
+                    isDeactivated: !NoteModel.checkNoteIsSendable(note),
                     onTap: () => onSendNote(
                       formKey: formKey,
                       context: context,

@@ -69,6 +69,7 @@ const createFCMPayload = (noteModel) => {
       reply: `${noteModel.reply}`,
       replyTime: `${noteModel.replyTime}`,
       sendFCM: `${noteModel.sendFCM}`,
+      sendNote: `${noteModel.sendNote}`,
       topic: `${noteModel.topic}`,
       triggerName: `${noteModel.triggerName}`,
       triggerArgument: `${noteModel.triggerArgument}`,
