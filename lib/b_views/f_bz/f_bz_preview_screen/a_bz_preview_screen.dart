@@ -17,7 +17,6 @@ class BzPreviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       pyramidsAreOn: true,
       pageTitleVerse: Verse(

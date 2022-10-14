@@ -99,7 +99,6 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pageTitleVerse: Verse.plain('Template notes'),
-      sectionButtonIsOn: false,
       loading: _loading,
       appBarRowWidgets: <Widget>[
         const Expander(),

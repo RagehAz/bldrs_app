@@ -170,7 +170,6 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       loading: _loading,
-      sectionButtonIsOn: false,
       confirmButtonModel: ConfirmButtonModel(
         // isDeactivated: !_canPublish,
         firstLine: const Verse(

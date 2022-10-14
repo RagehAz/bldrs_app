@@ -129,7 +129,6 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('UI Manager'),
       appBarType: AppBarType.search,
       onSearchChanged: _onSearchChanged,

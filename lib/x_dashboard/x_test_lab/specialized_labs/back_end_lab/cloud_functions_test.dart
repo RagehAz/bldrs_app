@@ -86,7 +86,6 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: Verse.plain('Cloud Functions test'),
       appBarRowWidgets: const <Widget>[],

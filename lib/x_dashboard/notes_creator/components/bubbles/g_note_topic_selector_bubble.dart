@@ -55,17 +55,22 @@ class NoteTopicSelectorBubble extends StatelessWidget {
             width: Bubble.clearWidth(context),
             builder: (TopicModel topic){
 
-              final bool _isSelected = noteModel.topic == topic.id;
+              final String _selectedTopicID = TopicModel.concludeTopicID(
+                topicID: noteModel.topic,
+                receiverID: noteModel.parties.receiverID,
+                partyType: noteModel.parties.receiverType,
+              );
+
+              final bool _isSelected = _selectedTopicID == topic.id;
 
               return DreamBox(
-                height: 50,
+                height: 70,
                 width: Bubble.clearWidth(context) - 20,
                 margins: const EdgeInsets.only(bottom: 3, left: 10),
                 verse: Verse.plain(topic.id),
                 secondVerseMaxLines: 3,
                 secondLine: Verse.plain(topic.description),
                 verseScaleFactor: 0.6,
-                verseCentered: true,
                 secondLineScaleFactor: 1.2,
                 bubble: false,
                 color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,

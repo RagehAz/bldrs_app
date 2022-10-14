@@ -20,7 +20,6 @@ class NoteRouteToScreen extends StatelessWidget {
     return MainLayout(
       pyramidsAreOn: true,
       pageTitleVerse: Verse.plain('Note Route to Screen'),
-      sectionButtonIsOn: false,
       layoutWidget: Column(
         children: <Widget>[
 

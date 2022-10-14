@@ -259,7 +259,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.search,
       historyButtonIsOn: false,
-      sectionButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
       pageTitleVerse: const Verse(

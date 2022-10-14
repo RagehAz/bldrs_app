@@ -115,7 +115,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
           context: context,
           time: DateTime.now()
       )}'),
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       onBack: () async {

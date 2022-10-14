@@ -207,7 +207,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       historyButtonIsOn: false,
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: Verse(
         text: widget.firstTimer == true ? 'phid_createBzAccount' : 'phid_edit_bz_info',

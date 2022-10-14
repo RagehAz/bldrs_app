@@ -101,8 +101,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     return MainLayout(
       key: const ValueKey<String>('UsersManagerScreen'),
       // loading: _loading,
-      pageTitleVerse: Verse.plain('Userss Manager'),
-      sectionButtonIsOn: false,
+      pageTitleVerse: Verse.plain('Users Manager'),
       appBarType: AppBarType.search,
       skyType: SkyType.black,
       progressBarModel: _progressBarModel,

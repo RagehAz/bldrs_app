@@ -338,7 +338,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('Awesome notification test'),
       loading: _loading,
       appBarRowWidgets: <Widget>[

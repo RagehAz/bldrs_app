@@ -1,21 +1,25 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
-class TestingTemplate extends StatefulWidget {
+/// ============================================================================
+
+
+class TheStatefulScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const TestingTemplate({
+  const TheStatefulScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _TestingTemplateState createState() => _TestingTemplateState();
+  _TheStatefulScreenState createState() => _TheStatefulScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _TestingTemplateState extends State<TestingTemplate> {
+class _TheStatefulScreenState extends State<TheStatefulScreen> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -79,3 +83,43 @@ class _TestingTemplateState extends State<TestingTemplate> {
   }
   // -----------------------------------------------------------------------------
 }
+
+
+/// ============================================================================
+
+
+class TheStatelessScreen extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const TheStatelessScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    return MainLayout(
+      appBarType: AppBarType.basic,
+      pyramidsAreOn: true,
+      pageTitleVerse: const Verse(
+        text: 'Notes',
+        translate: false,
+      ),
+      skyType: SkyType.black,
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
+        AppBarButton(
+          verse: Verse.plain(''),
+        ),
+
+      ],
+      layoutWidget: Container(),
+    );
+    // --------------------
+  }
+  /// --------------------------------------------------------------------------
+}
+
+
+/// ============================================================================
