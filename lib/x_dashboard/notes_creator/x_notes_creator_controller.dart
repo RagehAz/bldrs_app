@@ -59,16 +59,16 @@ NoteModel _createInitialNote(BuildContext context) {
   return NoteModel(
     id: null,
     parties: const NoteParties(
-      senderID: null, //NoteModel.bldrsSenderModel.key,
-      senderImageURL: null, //NoteModel.bldrsSenderModel.value,
-      senderType: null,
+      senderID: NoteParties.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
+      senderImageURL: NoteParties.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
+      senderType: PartyType.bldrs,
       receiverID: null,
       receiverType: null,
     ),
     title: null,
     body: null,
     sentTime: DateTime.now(),
-    sendFCM: false,
+    // sendFCM: true,
     // dismissible: true,
   );
 
@@ -750,7 +750,7 @@ void onAddNoteButton({
 }
 // -----------------------------------------------------------------------------
 
-/// SEND FCM SWITCH
+/// SEND NOTE & SEND FCM SWITCHES
 
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -761,6 +761,18 @@ void onSwitchSendFCM({
 
   note.value = note.value.copyWith(
     sendFCM: value,
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onSwitchSendNote({
+  @required ValueNotifier<NoteModel> note,
+  @required bool value,
+}){
+
+  note.value = note.value.copyWith(
+    sendNote: value,
   );
 
 }
@@ -841,6 +853,7 @@ Future<void> onSendNote({
         context: context,
         firstVerse: Verse.plain('Note Sent'),
         secondVerse: Verse.plain('Alf Mabrouk ya5oya'),
+        milliseconds: 200,
       ));
 
     }

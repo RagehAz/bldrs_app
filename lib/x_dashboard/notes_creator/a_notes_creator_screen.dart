@@ -44,8 +44,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final FocusNode _titleNode = FocusNode();
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _bodyNode = FocusNode();
-  // --------------------
-  TopicModel _topicModel;
+
   // --------------------
   final ValueNotifier<NoteModel> _noteNotifier = ValueNotifier<NoteModel>(null);
   final ValueNotifier<List<dynamic>> _receiversModels = ValueNotifier<List<dynamic>>([]);
@@ -158,6 +157,34 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   physics: const BouncingScrollPhysics(),
                   children:  <Widget>[
 
+                    /// FCM SWITCH
+                    NoteAndFCMTriggersBubble(
+                      note: note,
+                      noteNotifier: _noteNotifier,
+                    ),
+
+                    /// TOPIC
+                    NoteTopicSelectorBubble(
+                        noteModel: note,
+                        onSelectTopic: (TopicModel topic){
+
+                          String _topicID;
+                          if (note.parties.receiverType == PartyType.bz){
+                            _topicID = TopicModel.generateBzTopicID(
+                              topicID: topic.id,
+                              bzID: note.parties.receiverID,
+                            );
+                          }
+                          else {
+                            _topicID = topic.id;
+                          }
+
+                          _noteNotifier.value = note.copyWith(
+                            topic: _topicID,
+                          );
+
+                        }),
+
                     /// PARTIES
                     NotePartiesBubbles(
                       note: note,
@@ -249,36 +276,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                       note: note,
                     ),
 
-                    /// TOPIC
-                    NoteTopicSelectorBubble(
-                        noteModel: note,
-                        onSelectTopic: (TopicModel topic){
-
-                          String _topicID;
-                          if (note.parties.receiverType == PartyType.bz){
-                            _topicID = TopicModel.generateBzTopicID(
-                              topicID: topic.id,
-                              bzID: note.parties.receiverID,
-                            );
-                          }
-                          else {
-                            _topicID = topic.id;
-                          }
-
-                          _noteNotifier.value = note.copyWith(
-                            topic: _topicID,
-                          );
-
-                        }),
-
                     /// TRIGGER
                     const NoteTriggerCreator(),
-
-                    /// FCM SWITCH
-                    NoteFCMTriggerBubble(
-                      note: note,
-                      noteNotifier: _noteNotifier,
-                    ),
 
                     /// CAN BE DISMISSED
                     NoteDismissibleTriggerBubble(
