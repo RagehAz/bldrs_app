@@ -13,8 +13,8 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -27,19 +27,19 @@ import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_
 import 'package:bldrs/x_dashboard/b_phrases_editor/a_phrase_manager_screen.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/a_chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/d_pickers_editors/a_pickers_manager_screen.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_notes_creator_screen.dart';
-import 'package:bldrs/x_dashboard/g_zones_editor/a_zones_manager_screen.dart';
-import 'package:bldrs/x_dashboard/f_bzz_manager/a_bzz_manager_screen.dart';
 import 'package:bldrs/x_dashboard/e_users_manager/a_users_manager_screen.dart';
-import 'package:bldrs/x_dashboard/j_flyers_auditor/a_flyers_auditor_screen.dart';
-import 'package:bldrs/x_dashboard/i_flyers_manager/all_flyers_screen.dart';
-import 'package:bldrs/x_dashboard/k_statistics/statistics_screen.dart';
+import 'package:bldrs/x_dashboard/f_bzz_manager/a_bzz_manager_screen.dart';
+import 'package:bldrs/x_dashboard/g_zones_editor/a_zones_manager_screen.dart';
 import 'package:bldrs/x_dashboard/h_currency_manager/a_currency_manager_screen.dart';
-import 'package:bldrs/x_dashboard/o_ldb_manager/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/i_flyers_manager/all_flyers_screen.dart';
+import 'package:bldrs/x_dashboard/j_flyers_auditor/a_flyers_auditor_screen.dart';
+import 'package:bldrs/x_dashboard/k_statistics/statistics_screen.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/a_ui_manager_screen.dart';
-import 'package:bldrs/x_dashboard/n_app_controls/a_app_controls_manager.dart';
-import 'package:bldrs/x_dashboard/p_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/m_ui_manager/golden_scrolls_screen.dart';
+import 'package:bldrs/x_dashboard/n_app_controls/a_app_controls_manager.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/a_notes_creator_home_screen/notes_creator_home.dart';
+import 'package:bldrs/x_dashboard/o_ldb_manager/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/p_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/xxx_test_lab.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -173,11 +173,11 @@ class DashBoardHomeScreen extends StatelessWidget {
         screen: GeneralStatistics(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      /// NOTIFICATIONS CREATOR
+      /// NOTES CREATOR
       DashButtonModel(
         verse:  'Notes\nCreator',
         icon: Iconz.notification,
-        screen: NotesCreatorScreen(),
+        screen: NotesCreatorHome(),
       ),
       /// EMPTY
       null,
