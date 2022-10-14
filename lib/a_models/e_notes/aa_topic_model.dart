@@ -1,157 +1,179 @@
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
-class NootEvent {
+class TopicModel {
   // -----------------------------------------------------------------------------
-  const NootEvent({
+  const TopicModel({
     @required this.id,
     @required this.description,
+    @required this.icon,
   });
   // -----------------------------------------------------------------------------
   final String id;
   final String description;
+  final String icon;
   // -----------------------------------------------------------------------------
 
     /// ALL EVENTS
 
   // --------------------
-  static const Map<String, List<NootEvent>> userEventsMap = {
+  static const Map<String, List<TopicModel>> userTopicMap = {
     // ------------------------------------------------
-    'General' : <NootEvent>[
+    'General' : <TopicModel>[
       // --------------------
       /// GENERAL USER NOTES
-      NootEvent(
+      TopicModel(
         id: 'generalUserNotes',
-        description: 'General notifications and major news',
+        description: 'On Major news & general notifications',
+        icon: Iconz.notification,
       ),
       // --------------------
       /// USER RECEIVE AUTHORSHIP =====================> SHOULD BE IN GENERAL W 5ALAS
-      NootEvent(
+      TopicModel(
         id: 'userReceiveAuthorshipRequest',
-        description: 'A user received business authorship request',
+        description: 'A Business account invites me to join their team',
+        icon: Iconz.handShake,
       ),
     ],
     // ------------------------------------------------
-    'Flyers Reviews' : <NootEvent>[
+    'Flyers Reviews' : <TopicModel>[
       // --------------------
       /// MY REVIEW RECEIVED REPLY
-      NootEvent(
+      TopicModel(
         id: 'myReviewReceivedReply',
-        description: 'My review received a reply',
+        description: 'A review I wrote on a flyer receives a reply',
+        icon: Iconz.balloonSpeaking,
       ),
       // --------------------
       /// MY REVIEW RECEIVED AGREE
-      NootEvent(
+      TopicModel(
         id: 'myReviewReceivedAgree',
-        description: 'My review received an Agree',
+        description: 'A review I wrote on a flyer gets an Agree',
+        icon: Iconz.star,
       ),
       // --------------------
       /// A SAVED FLYER RECEIVED A NEW REVIEW
-      NootEvent(
+      TopicModel(
         id: 'aSavedFlyerReceivedANewReview',
-        description: 'A saved flyer received a new review',
+        description: 'A flyer I saved get a new review by other users',
+        icon: Iconz.balloonSpeaking,
       ),
       // --------------------
     ],
     // ------------------------------------------------
-    'New flyers' : <NootEvent>[
+    'New flyers' : <TopicModel>[
       // --------------------
       /// A FOLLOWED BZ PUBLISHED FLYER
-      NootEvent(
-          id: 'aFollowedBzPublishedFlyer',
-          description: 'A Business I follow published a new flyer'
+      TopicModel(
+        id: 'aFollowedBzPublishedFlyer',
+        description: 'A Business I follow publishes a new flyer',
+        icon: Iconz.addFlyer,
       ),
       // --------------------
       /// A SAVED FLYER IS UPDATED
-      NootEvent(
-          id: 'aSavedFlyerIsUpdated',
-          description: 'A saved flyer is updated'
+      TopicModel(
+        id: 'aSavedFlyerIsUpdated',
+        description: 'A flyer I saved gets updated',
+        icon: Iconz.savedFlyers,
       ),
       // --------------------
     ],
     // ------------------------------------------------
   };
   // --------------------
-  static const Map<String, List<NootEvent>> bzEventsMap = {
+  static const Map<String, List<TopicModel>> bzTopicsMap = {
     // ------------------------------------------------
-    'General' : <NootEvent>[
+    'General' : <TopicModel>[
       // --------------------
       /// GENERAL BZ NOTES
-      NootEvent(
+      TopicModel(
         id: 'generalBzNotes',
-        description: 'General Business related notifications and major news',
+        description: 'On General Business related notifications and Major news',
+        icon: Iconz.notification,
       ),
       // --------------------
+      /*
       /// MY BZ IS DELETED === MANDATORY
-      NootEvent(
+      TopicModel(
         id: 'myBzIsDeleted',
-        description: 'My business account is deleted',
+        description: 'My business account gets deleted',
       ),
+       */
       // --------------------
     ],
     // ------------------------------------------------
-    'Flyers' : <NootEvent>[
+    'Flyers' : <TopicModel>[
       // --------------------
       /// MY BZ FLYER IS VERIFIED
-      NootEvent(
+      TopicModel(
         id: 'myBzFlyerIsVerified',
-        description: 'A flyer published by my business account is verified',
+        description: 'A flyer published by my business account gets verified',
+        icon: Iconz.verifyFlyer,
       ),
       // --------------------
       /// MY BZ FLYER IS UPDATED
-      NootEvent(
-          id: 'myBzFlyerIsUpdated',
-          description: 'A flyer published by my business account is updated'
+      TopicModel(
+        id: 'myBzFlyerIsUpdated',
+        description: 'A flyer published by my business account gets updated by one of my team members',
+        icon: Iconz.flyerScale,
       ),
       // --------------------
     ],
     // ------------------------------------------------
-    'Team' : <NootEvent>[
+    'Team' : <TopicModel>[
       // --------------------
       /// A SENT AUTHORSHIP RECEIVED REPLY
-      NootEvent(
+      TopicModel(
         id: 'aSentAuthorshipReceivedReply',
-        description: 'A sent authorship request has received a reply',
+        description: 'An invitation to join our team sent to someone receives a reply',
+        icon: Iconz.handShake,
       ),
       // --------------------
       /// A TEAM MEMBER ROLE CHANGED
-      NootEvent(
+      TopicModel(
         id: 'aTeamMemberRoleChanged',
-        description: 'A team member role has changed',
+        description: 'One of my team members gets his role changed',
+        icon: Iconz.achievement,
       ),
       // --------------------
       /// A TEAM MEMBER EXITED
-      NootEvent(
+      TopicModel(
         id: 'aTeamMemberExited',
-        description: 'A team member has exited the business account',
+        description: 'A team member exits this business account',
+        icon: Iconz.exit,
       ),
       // --------------------
     ],
     // ------------------------------------------------
-    'Users Engagement' : <NootEvent>[
+    'Users Engagement' : <TopicModel>[
       // --------------------
       /// A USER FOLLOWED MY BZ
-      NootEvent(
+      TopicModel(
         id: 'aUserFollowedMyBz',
-        description: 'A user followed my business account',
+        description: 'A user follows my business account',
+        icon: Iconz.follow,
       ),
       // --------------------
       /// A USER REVIEWED MY FLYER
-      NootEvent(
+      TopicModel(
         id: 'aUserReviewedMyFlyer',
-        description: 'A user reviewed my flyer',
+        description: 'A user writes a review over one of my flyers',
+        icon: Iconz.balloonSpeaking,
       ),
       // --------------------
       /// A USER SAVED MY FLYER
-      NootEvent(
+      TopicModel(
         id: 'aUserSavedMyFlyer',
-        description: 'A user saved my flyer',
+        description: 'A user saves one of my flyers',
+        icon: Iconz.save,
       ),
       // --------------------
       /// A USER SHARED MY FLYER
-      NootEvent(
+      TopicModel(
         id: 'aUserSharedMyFlyer',
-        description: 'A user shared my flyer',
+        description: 'A user shares one of my flyers',
+        icon: Iconz.share,
       ),
       // --------------------
     ],
@@ -162,21 +184,37 @@ class NootEvent {
   /// GETTERS
 
   // --------------------
-  static Map<String, dynamic> getEventsMapByPartyType(PartyType type){
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> getTopicsMapByPartyType(PartyType type){
 
     if (type == PartyType.user){
-      return NootEvent.userEventsMap;
+      return TopicModel.userTopicMap;
     }
     else if (type == PartyType.bz){
-      return NootEvent.bzEventsMap;
+      return TopicModel.bzTopicsMap;
     }
     else {
       return  {};
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllUserTopics(){
+    return [];
+  }
+  // -----------------------------------------------------------------------------
 
+  /// GENERATORS
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String generateBzTopicID({
+    @required String topicID,
+    @required String bzID,
+  }){
+    return '$bzID/$topicID/';
+  }
 
   // -----------------------------------------------------------------------------
 }

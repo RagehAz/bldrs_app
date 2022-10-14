@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/e_notes/noot_event.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -13,8 +13,8 @@ class NoteTopicSelectorBubble extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final NootEvent nootEvent;
-  final ValueChanged<NootEvent> onSelectTopic;
+  final TopicModel nootEvent;
+  final ValueChanged<TopicModel> onSelectTopic;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

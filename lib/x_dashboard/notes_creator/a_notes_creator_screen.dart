@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/noot_event.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -44,7 +44,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final TextEditingController _bodyController = TextEditingController();
   final FocusNode _bodyNode = FocusNode();
   // --------------------
-  NootEvent _nootEvent;
+  TopicModel _nootEvent;
   // --------------------
   final ValueNotifier<NoteModel> _noteNotifier = ValueNotifier<NoteModel>(null);
   final ValueNotifier<List<dynamic>> _receiversModels = ValueNotifier<List<dynamic>>([]);
@@ -251,7 +251,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     /// TOPIC
                     NoteTopicSelectorBubble(
                         nootEvent: _nootEvent,
-                        onSelectTopic: (NootEvent event){
+                        onSelectTopic: (TopicModel event){
                           setState(() {
                             _nootEvent = event;
                           });
