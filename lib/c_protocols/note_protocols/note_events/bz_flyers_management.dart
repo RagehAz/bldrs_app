@@ -30,9 +30,9 @@ class NoteEventsOfBzFlyersManagement {
       parties: NoteParties(
         senderID: bzModel.id,
         senderImageURL: bzModel.logo,
-        senderType: NotePartyType.bz,
+        senderType: PartyType.bz,
         receiverID: bzModel.id,
-        receiverType: NotePartyType.bz,
+        receiverType: PartyType.bz,
       ),
       title: '##Flyer has been updated',
       body: '##This Flyer has been updated',
@@ -70,9 +70,9 @@ class NoteEventsOfBzFlyersManagement {
       parties: NoteParties(
         senderID: NoteParties.bldrsSenderID,
         senderImageURL: NoteParties.bldrsLogoStaticURL,
-        senderType: NotePartyType.bldrs,
+        senderType: PartyType.bldrs,
         receiverID: bzID,
-        receiverType: NotePartyType.bz,
+        receiverType: PartyType.bz,
       ),
       title: 'Flyer has been verified',
       body: 'This Flyer is now public to be seen and searched by all users',

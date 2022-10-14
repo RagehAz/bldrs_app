@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
@@ -18,13 +17,15 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/x_exotic_methods/exotic_methods.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
@@ -55,47 +56,54 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   // -------------------------------------------------
   Future<void> _fastTest(BuildContext context) async {
 
-
-
-
-
-
-
-
-
+    /// TIME DIFF SHIT
+    // final DateTime _a = Timers.createDateTime(
+    //   year: 2022,
+    //   month: 10,
+    //   day: 11,
+    //   hour: 13,
+    //   minute: 27,
+    //   second: 29,
+    //   millisecond: 139045,
+    //   microsecond: 0,
+    // );
+    //
+    // final DateTime _b = Timers.createDateTime(
+    //   year: 2022,
+    //   month: 10,
+    //   day: 11,
+    //   hour: 13,
+    //   minute: 28,
+    //   second: 10,
+    //   millisecond: 320371,
+    //   microsecond: 0,
+    // );
+    //
+    // final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _a, to: _b);
+    //
+    // Timers.blogDateTime(_a);
+    // Timers.blogDateTime(_b);
+    //
+    // blog('_diff : $_diff');
 
     /// ---------------- >>>
 
+    const String _collName = FireColl.bzz;
 
-
-    final DateTime _a = Timers.createDateTime(
-      year: 2022,
-      month: 10,
-      day: 11,
-      hour: 13,
-      minute: 27,
-      second: 29,
-      millisecond: 139045,
-      microsecond: 0,
+    final List<Map<String, dynamic>> _users = await ExoticMethods.readAllCollectionDocs(
+        collName: _collName,
     );
 
-    final DateTime _b = Timers.createDateTime(
-      year: 2022,
-      month: 10,
-      day: 11,
-      hour: 13,
-      minute: 28,
-      second: 10,
-      millisecond: 320371,
-      microsecond: 0,
-    );
 
-    final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _a, to: _b);
+    for (final Map<String, dynamic> map in _users){
 
-    Timers.blogDateTime(_a);
-    Timers.blogDateTime(_b);
+      await Fire.createNamedDoc(
+          collName: _collName,
+          docName: map['id'],
+          input: map,
+      );
 
-    blog('_diff : $_diff');
+    }
 
 
 

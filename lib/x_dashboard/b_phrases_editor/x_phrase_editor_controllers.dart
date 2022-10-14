@@ -852,7 +852,7 @@ class FastTranslatorButton extends StatelessWidget {
                 width: 40,
                 corners: 20,
                 color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
-                icon: Iconz.news,
+                icon: Iconz.notification,
                 iconSizeFactor: 0.6,
                 onTap: () => Nav.goToNewScreen(
                   context: context,

@@ -1905,7 +1905,7 @@ class BzModel{
       case BzTab.flyers   : return Iconz.flyerGrid  ; break;
       case BzTab.about    : return Iconz.info       ; break;
       case BzTab.authors  : return Iconz.bz         ; break;
-      case BzTab.notes    : return Iconz.news       ; break;
+      case BzTab.notes    : return Iconz.notification       ; break;
       case BzTab.targets  : return Iconz.target     ; break;
       case BzTab.powers   : return Iconz.power      ; break;
       case BzTab.network  : return Iconz.follow     ; break;

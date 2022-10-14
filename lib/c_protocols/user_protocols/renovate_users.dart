@@ -311,7 +311,7 @@ class RenovateUserProtocols {
 
         if (_myUserModel?.fcmToken?.token != _fcmToken){
 
-          final NoteTokenModel _token = NoteTokenModel(
+          final FCMToken _token = FCMToken(
             token: _fcmToken,
             createdAt: DateTime.now(),
             platform: Platform.operatingSystem,
