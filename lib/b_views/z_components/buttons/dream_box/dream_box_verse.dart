@@ -347,10 +347,11 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     redDot: redDot,
                     highlight: highlight,
                     highlightColor: highlightColor,
-                    margin: _verseWidth == null ?
+                    margin:
+                    // _verseWidth == null ?
                     EdgeInsets.symmetric(horizontal: height * 0.2)
-                        :
-                    EdgeInsets.zero,
+                    //     :
+                    // EdgeInsets.zero,
                   ),
                 ),
 
@@ -372,10 +373,11 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                       scaleFactor: secondLineScaleFactor,
                       highlight: highlight,
                       highlightColor: highlightColor,
-                      margin: _verseWidth == null ?
+                      margin:
+                      // _verseWidth == null ?
                       EdgeInsets.symmetric(horizontal: height * 0.2)
-                          :
-                      EdgeInsets.zero,
+                      //     :
+                      // EdgeInsets.zero,
                     ),
                   ),
               ],

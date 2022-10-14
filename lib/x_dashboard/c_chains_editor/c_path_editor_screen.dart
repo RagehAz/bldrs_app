@@ -368,7 +368,6 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       layoutWidget: ValueListenableBuilder(
         valueListenable: _canSubmit,
         builder: (_, bool canSubmit, Widget child){

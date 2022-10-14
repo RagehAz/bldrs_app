@@ -121,7 +121,6 @@ class _FeedBackState extends State<FeedBack> {
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       historyButtonIsOn: false,
       pageTitleVerse: const Verse(
         text: 'phid_feedback',

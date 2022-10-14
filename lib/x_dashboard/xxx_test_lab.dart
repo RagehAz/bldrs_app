@@ -382,8 +382,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
-      // navBarIsOn: false,
-      sectionButtonIsOn: false,
       appBarRowWidgets: <Widget>[
 
         const IsSignedInButton(),

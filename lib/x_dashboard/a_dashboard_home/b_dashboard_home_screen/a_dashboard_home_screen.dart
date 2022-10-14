@@ -292,7 +292,6 @@ class DashBoardHomeScreen extends StatelessWidget {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       pyramidsAreOn: true,
       pyramidType: PyramidType.white,
       onBack: () async {

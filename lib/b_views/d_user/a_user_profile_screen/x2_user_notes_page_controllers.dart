@@ -25,12 +25,17 @@ import 'package:flutter/material.dart';
 /// BZ NOTE PAGINATION QUERY PARAMETERS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 FireQueryModel userReceivedNotesPaginationQueryParameters({
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
   return FireQueryModel(
-    collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
+    collRef: Fire.getSuperCollRef(
+      aCollName: FireColl.users,
+      bDocName: AuthFireOps.superUserID(),
+      cSubCollName: FireSubColl.noteReceiver_receiver_notes,
+    ),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     finders: <FireFinder>[
@@ -49,6 +54,7 @@ FireQueryModel userReceivedNotesPaginationQueryParameters({
 /// NOTE OPTIONS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onShowNoteOptions({
   @required BuildContext context,
   @required NoteModel noteModel,

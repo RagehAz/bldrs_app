@@ -180,7 +180,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   Widget build(BuildContext context) {
 
     return MainLayout(
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitleVerse: _pageTitleVerse,

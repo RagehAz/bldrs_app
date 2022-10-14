@@ -88,7 +88,6 @@ class _PDFScreenState extends State<PDFScreen> {
         translate: false,
       ),
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       progressBarModel: _progressBarModel,
       appBarRowWidgets: const <Widget>[
 

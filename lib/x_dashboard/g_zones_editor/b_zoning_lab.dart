@@ -27,7 +27,6 @@ class _ZoningLabState extends State<ZoningLab> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('Zoning work space'),
       pyramidType: PyramidType.crystalYellow,
       layoutWidget: FloatingCenteredList(

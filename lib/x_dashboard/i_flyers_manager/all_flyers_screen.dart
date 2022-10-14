@@ -131,7 +131,6 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       pyramidsAreOn: true,
       pageTitleVerse: Verse.plain('All Flyers'),
       appBarRowWidgets: const <Widget>[],

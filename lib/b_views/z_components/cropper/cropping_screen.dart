@@ -172,7 +172,6 @@ class _CroppingScreenState extends State<CroppingScreen> {
         text: 'phid_crop_images',
         translate: true,
       ),
-      sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       // pyramidsAreOn: false,
       skyType: SkyType.black,

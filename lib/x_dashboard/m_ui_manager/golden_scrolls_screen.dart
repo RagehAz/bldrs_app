@@ -16,7 +16,6 @@ class GoldenScrollsScreen extends StatelessWidget {
       skyType: SkyType.black,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
       pageTitleVerse: Verse.plain('Golden Scrolls'),
       layoutWidget: Column(
         children: const <Widget>[

@@ -172,7 +172,6 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.search,
       historyButtonIsOn: false,
-      sectionButtonIsOn: false,
       onSearchSubmit: _onSearchDistrict,
       onSearchChanged: _onSearchDistrict,
       pageTitleVerse: const Verse(

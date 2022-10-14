@@ -142,7 +142,6 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     // --------------------
     return MainLayout(
       appBarType: AppBarType.search,
-      sectionButtonIsOn: false,
       pageTitleVerse: const Verse(
         text: 'phid_search',
         translate: true,

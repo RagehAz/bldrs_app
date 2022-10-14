@@ -106,9 +106,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      // loading: _loading,
       pageTitleVerse: Verse.plain('pagination Test'),
-      sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidsAreOn: true,

@@ -183,7 +183,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       historyButtonIsOn: false,
-      sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: const Verse(
         text: 'phid_edit_author_details',

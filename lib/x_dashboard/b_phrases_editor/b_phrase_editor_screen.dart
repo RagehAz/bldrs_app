@@ -144,7 +144,6 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalBlue,
       pageTitleVerse: Verse.plain('Phrases Editor'),
-      sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       searchController: _searchController,
       progressBarModel: _progressBarModel,

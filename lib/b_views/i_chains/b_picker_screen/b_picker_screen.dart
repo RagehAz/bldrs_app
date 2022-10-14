@@ -161,7 +161,6 @@ class _PickerScreenState extends State<PickerScreen> {
       searchHintVerse: const Verse(text: 'phid_search_keywords', translate: true),
       // appBarBackButton: true,
       skyType: SkyType.black,
-      sectionButtonIsOn: false,
       pageTitleVerse: Verse(
         text: _chainID,
         translate: true,
