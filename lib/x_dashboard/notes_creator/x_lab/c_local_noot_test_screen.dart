@@ -347,7 +347,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
         /// NOTIFICATIONS ALLOWED - PERMISSION REQUEST
         AppBarButton(
-          icon: Iconz.news,
+          icon: Iconz.notification,
           verseColor: _isNotificationAllowed == true ? Colorz.white255 : Colorz.white50,
           buttonColor: _isNotificationAllowed == true ? Colorz.green255 : Colorz.white10,
           // verse: Verse.plain(_isNotificationAllowed == true ? 'Allowed' : 'Not Allowed'),

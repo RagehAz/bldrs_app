@@ -176,7 +176,7 @@ class DashBoardHomeScreen extends StatelessWidget {
       /// NOTIFICATIONS CREATOR
       DashButtonModel(
         verse:  'Notes\nCreator',
-        icon: Iconz.news,
+        icon: Iconz.notification,
         screen: NotesCreatorScreen(),
       ),
       /// EMPTY

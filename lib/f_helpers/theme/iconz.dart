@@ -77,7 +77,7 @@ class Iconz {
   static const String follow = '$_iconsPath/gi_follow.svg';
   static const String gallery = '$_iconsPath/gi_gallery.svg';
   static const String language = '$_iconsPath/gi_language.svg';
-  static const String news = '$_iconsPath/gi_news.svg';
+  static const String notification = '$_iconsPath/gi_news.svg';
   static const String password = '$_iconsPath/gi_password.svg';
   static const String save = '$_iconsPath/gi_save.svg';
   static const String saveOff = '$_iconsPath/gi_save_off.svg';
@@ -239,7 +239,7 @@ class Iconz {
       follow,
       gallery,
       language,
-      news,
+      notification,
       password,
       save,
       saveOff,

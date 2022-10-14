@@ -20,7 +20,7 @@ class NotePartyButton extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final NotePartyType type;
+  final PartyType type;
   final String id;
   final double width;
   final double height;
@@ -30,7 +30,7 @@ class NotePartyButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// USER WIDE BUTTON
-    if (type == NotePartyType.user){
+    if (type == PartyType.user){
 
       return FutureBuilder(
         future: UserProtocols.fetchUser(
@@ -52,7 +52,7 @@ class NotePartyButton extends StatelessWidget {
     }
 
     /// BZ WIDE BUTTON
-    else if (type == NotePartyType.bz){
+    else if (type == PartyType.bz){
 
       return FutureBuilder(
           future: BzProtocols.fetchBz(
@@ -74,7 +74,7 @@ class NotePartyButton extends StatelessWidget {
     }
 
     /// COUNTRY WIDE BUTTON
-    else if (type == NotePartyType.country){
+    else if (type == PartyType.country){
 
       return CountryTileButton(
         width: width,
@@ -86,7 +86,7 @@ class NotePartyButton extends StatelessWidget {
     }
 
     /// BLDRS IN MAP MODEL
-    else if (type == NotePartyType.bldrs){
+    else if (type == PartyType.bldrs){
 
       return TileButton(
         width: width,
@@ -123,7 +123,7 @@ class NoteSenderOrRecieverDynamicButtonsColumn extends StatelessWidget {
 
   final List<String> ids;
   final double width;
-  final NotePartyType type;
+  final PartyType type;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

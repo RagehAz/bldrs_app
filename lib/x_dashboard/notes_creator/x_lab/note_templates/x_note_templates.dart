@@ -9,9 +9,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -32,9 +32,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -55,9 +55,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -78,9 +78,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -101,9 +101,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -124,9 +124,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.country,
+      senderType: PartyType.country,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -147,9 +147,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -170,9 +170,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -193,9 +193,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -216,9 +216,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -239,9 +239,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.bz,
+      senderType: PartyType.bz,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -262,9 +262,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.bz,
+      senderType: PartyType.bz,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -285,9 +285,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.user,
+      senderType: PartyType.user,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -308,9 +308,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.user,
+      senderType: PartyType.user,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -331,9 +331,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.user,
+      senderType: PartyType.user,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -354,9 +354,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.user,
+      senderType: PartyType.user,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -377,9 +377,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -405,9 +405,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.bz,
+      senderType: PartyType.bz,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     poll: PollModel(
@@ -433,9 +433,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.user,
+      senderType: PartyType.user,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -456,9 +456,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.bz,
+      senderType: PartyType.bz,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -479,9 +479,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.country,
+      senderType: PartyType.country,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -502,9 +502,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -525,9 +525,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -550,9 +550,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.user,
+      senderType: PartyType.user,
       receiverID: null,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     ),
     sentTime: null,
     /// variables
@@ -573,9 +573,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: null,
       senderImageURL: null,
-      senderType: NotePartyType.bz,
+      senderType: PartyType.bz,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables
@@ -596,9 +596,9 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID,
       senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: NotePartyType.bldrs,
+      senderType: PartyType.bldrs,
       receiverID: null,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     ),
     sentTime: null,
     /// variables

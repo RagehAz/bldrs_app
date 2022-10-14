@@ -96,7 +96,7 @@ class NoteFireOps {
   ///
   static Future<List<NoteModel>> readReceivedNotes({
     @required String recieverID,
-    @required NotePartyType receiverType,
+    @required PartyType receiverType,
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
     QueryOrderBy orderBy,
@@ -383,7 +383,7 @@ class NoteFireOps {
   ///
   static Future<void> deleteAllReceivedNotes({
     @required String receiverID,
-    @required NotePartyType receiverType,
+    @required PartyType receiverType,
   }) async {
 
     /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION

@@ -1062,9 +1062,9 @@ class NoteModel {
       parties: const NoteParties(
         senderID: NoteParties.bldrsSenderID,
         senderImageURL: NoteParties.bldrsLogoStaticURL,
-        senderType: NotePartyType.bldrs,
+        senderType: PartyType.bldrs,
         receiverID: 'receiverID',
-        receiverType: NotePartyType.user,
+        receiverType: PartyType.user,
       ),
       title: 'title',
       body: 'body',
@@ -1098,8 +1098,8 @@ class NoteModel {
         receiverID: userID,
         senderID: NoteParties.bldrsSenderID,
         senderImageURL: NoteParties.bldrsLogoStaticURL,
-        senderType: NotePartyType.bldrs,
-        receiverType: NotePartyType.user,
+        senderType: PartyType.bldrs,
+        receiverType: PartyType.user,
 
       ),
       sentTime: DateTime.now(),
@@ -1225,31 +1225,31 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String receiverVsSenderValidator({
-    @required NotePartyType senderType,
-    @required NotePartyType receiverType,
+    @required PartyType senderType,
+    @required PartyType receiverType,
   }){
 
     /// USER
-    if (receiverType == NotePartyType.user){
+    if (receiverType == PartyType.user){
 
       switch(senderType){
-        case NotePartyType.user     : return null; break; /// user can receive from user
-        case NotePartyType.bz       : return null; break; /// user can receive from bz
-        case NotePartyType.bldrs    : return null; break; /// user can receive from bldrs
-        case NotePartyType.country  : return null; break; /// user can receive from country
+        case PartyType.user     : return null; break; /// user can receive from user
+        case PartyType.bz       : return null; break; /// user can receive from bz
+        case PartyType.bldrs    : return null; break; /// user can receive from bldrs
+        case PartyType.country  : return null; break; /// user can receive from country
         default: return null;
       }
 
     }
 
     /// BZ
-    else if (receiverType == NotePartyType.bz){
+    else if (receiverType == PartyType.bz){
 
       switch(senderType){
-        case NotePartyType.user     : return null; break; /// bz can receive from user
-        case NotePartyType.bz       : return null; break; /// bz can receive from bz
-        case NotePartyType.bldrs    : return null; break; /// bz can receive from bldrs
-        case NotePartyType.country  : return null; break; /// bz can receive from country
+        case PartyType.user     : return null; break; /// bz can receive from user
+        case PartyType.bz       : return null; break; /// bz can receive from bz
+        case PartyType.bldrs    : return null; break; /// bz can receive from bldrs
+        case PartyType.country  : return null; break; /// bz can receive from country
         default: return null;
       }
 
@@ -1268,7 +1268,7 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getNoteCollName(NoteModel note){
-    return note.parties.receiverType == NotePartyType.user ?
+    return note.parties.receiverType == PartyType.user ?
     FireColl.users
         :
     FireColl.bzz;

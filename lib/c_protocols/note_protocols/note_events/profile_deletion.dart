@@ -32,7 +32,7 @@ class NoteEventsOfProfileDeletion {
 
     await NoteFireOps.deleteAllReceivedNotes(
       receiverID: userID,
-      receiverType: NotePartyType.user,
+      receiverType: PartyType.user,
     );
 
     blog('NoteProtocol.deleteAllUserReceivedNotes : END');
@@ -52,7 +52,7 @@ class NoteEventsOfProfileDeletion {
 
     await NoteFireOps.deleteAllReceivedNotes(
       receiverID: bzID,
-      receiverType: NotePartyType.bz,
+      receiverType: PartyType.bz,
     );
 
     blog('NoteProtocol.deleteAllBzReceivedNotes : END');

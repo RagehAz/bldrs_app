@@ -47,6 +47,16 @@ class UserSettingsPage extends StatelessWidget {
           onTap: () => onEditProfileTap(context),
         ),
 
+        /// EDIT FCM TOPICS
+        SettingsWideButton(
+          verse: const Verse(
+            text: 'phid_notifications_settings',
+            translate: true,
+          ),
+          icon: Iconz.notification,
+          onTap: () => onGoToFCMTopicsScreen(context),
+        ),
+
         /// DELETE MY ACCOUNT
         SettingsWideButton(
           verse: const Verse(
