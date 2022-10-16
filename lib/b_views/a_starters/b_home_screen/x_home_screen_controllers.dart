@@ -1,14 +1,14 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
@@ -21,7 +21,6 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
@@ -36,6 +35,7 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/zone_fire_ops.dart';
@@ -483,12 +483,19 @@ Future<void> onNavigate({
 /// FLYERS PAGINATION
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : REFACTOR THIS SCROLLER LISTENER
 bool initializeFlyersPagination({
   @required BuildContext context,
   @required ScrollController scrollController,
   @required bool canPaginate,
 }) {
+
+  // Scrollers.createPaginationListener(
+  //     controller: controller,
+  //     isPaginating: isPaginating,
+  //     canKeepReading: canKeepReading,
+  //     onPaginate: onPaginate
+  // );
 
   bool _canPaginate = canPaginate;
 

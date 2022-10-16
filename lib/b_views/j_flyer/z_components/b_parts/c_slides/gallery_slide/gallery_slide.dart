@@ -83,6 +83,17 @@ class _GallerySlideState extends State<GallerySlide> {
   }
   // -----------------------------------------------------------------------------
   Future<void> _addScrollListener() async {
+
+
+    /// TASK : REFACTOR THIS SCROLLER LISTENER : OR MAYBE CREATE FUTURE PAGINATOR WIDGET
+    // Scrollers.createPaginationListener(
+    //     controller: controller,
+    //     isPaginating: isPaginating,
+    //     canKeepReading: canKeepReading,
+    //     onPaginate: onPaginate
+    // );
+
+
     final double _maxScroll = _scrollController.position.maxScrollExtent;
     final double _currentScroll = _scrollController.position.pixels;
     // final double _screenHeight = Scale.superScreenHeight(context);

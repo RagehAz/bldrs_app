@@ -26,7 +26,7 @@ Future<bool> _preCheckCanSendNote({
   final bool _formIsValid = draftNote.formKey.currentState.validate();
 
   if (
-  _formIsValid == true
+      _formIsValid == true
       &&
       draftNote.receiversModels.value.isNotEmpty == true
   ){
