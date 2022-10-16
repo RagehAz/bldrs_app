@@ -40,7 +40,7 @@ class NoteCreatorScreenView extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _NoteCreatorScreenViewState createState() => _NoteCreatorScreenViewState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
@@ -272,5 +272,5 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
