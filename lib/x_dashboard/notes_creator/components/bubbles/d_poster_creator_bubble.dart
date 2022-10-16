@@ -14,12 +14,14 @@ class PosterCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PosterCreatorBubble({
     @required this.note,
-    @required this.noteNotifier,
+    @required this.onSwitchPoster,
+    @required this.onSelectPosterType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel note;
-  final ValueNotifier<NoteModel> noteNotifier;
+  final ValueChanged<bool> onSwitchPoster;
+  final ValueChanged<PosterType> onSelectPosterType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -47,30 +49,7 @@ class PosterCreatorBubble extends StatelessWidget {
 
           switchValue: note.poster != null,
           hasSwitch: true,
-          onSwitchTap: (bool value){
-
-            /// WAS OFF => NOW IS TRUE
-            if (value == true){
-
-              noteNotifier.value = note.copyWith(
-                poster: const PosterModel(
-                  modelID: null,
-                  url: null,
-                  type: null,
-                  // file: null,
-                ),
-              );
-
-            }
-
-            /// WAS TRUE => NOW IS OFF
-            else {
-              noteNotifier.value = note.nullifyField(
-                poster: true,
-              );
-            }
-
-          }
+          onSwitchTap: onSwitchPoster,
 
         ),
         child: SizedBox(
@@ -89,41 +68,36 @@ class PosterCreatorBubble extends StatelessWidget {
                     /// FLYER
                     PosterTypeButton(
                       note: note,
-                      noteNotifier: noteNotifier,
-                      icon: Iconz.flyer,
                       posterType: PosterType.flyer,
+                      onTap: onSelectPosterType,
                     ),
 
                     /// BZ
                     PosterTypeButton(
                       note: note,
-                      noteNotifier: noteNotifier,
-                      icon: Iconz.bz,
                       posterType: PosterType.bz,
+                      onTap: onSelectPosterType,
                     ),
 
                     /// CAMERA
                     PosterTypeButton(
                       note: note,
-                      noteNotifier: noteNotifier,
-                      icon: Iconz.camera,
                       posterType: PosterType.cameraImage,
+                      onTap: onSelectPosterType,
                     ),
 
                     /// GALLERY
                     PosterTypeButton(
                       note: note,
-                      noteNotifier: noteNotifier,
-                      icon: Iconz.phoneGallery,
                       posterType: PosterType.galleryImage,
+                      onTap: onSelectPosterType,
                     ),
 
                     /// URL
                     PosterTypeButton(
                       note: note,
-                      noteNotifier: noteNotifier,
-                      icon: Iconz.comWebsite,
                       posterType: PosterType.url,
+                      onTap: onSelectPosterType,
                     ),
 
                   ],

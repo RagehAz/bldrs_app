@@ -399,7 +399,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                 onSubmitted: _onSubmit,
                 // autoValidate: true,
                 validator: (String text) => _keyboardModel.validator(_controller.text),
-                textOnChanged: _onTextChanged,
+                onTextChanged: _onTextChanged,
               ),
 
               const SizedBox(

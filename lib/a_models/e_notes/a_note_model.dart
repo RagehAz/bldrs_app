@@ -1066,6 +1066,23 @@ class NoteModel {
   /// DUMMIES
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static const NoteModel initialNoteForCreation = NoteModel(
+    id: null,
+    parties: NoteParties(
+      senderID: NoteParties.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
+      senderImageURL: NoteParties.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
+      senderType: PartyType.bldrs,
+      receiverID: null,
+      receiverType: null,
+    ),
+    title: null,
+    body: null,
+    sentTime: null,
+    // sendFCM: true,
+    // dismissible: true,
+  );
+  // --------------------
   static const String dummyTopic = 'dummyTopic';
   // --------------------
   /// TESTED : WORKS PERFECT

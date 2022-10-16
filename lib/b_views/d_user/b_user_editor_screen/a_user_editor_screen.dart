@@ -282,7 +282,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   initialText: userModel.name,
-                  textOnChanged: (String text) => onUserNameChanged(
+                  onTextChanged: (String text) => onUserNameChanged(
                     text: text,
                     tempUser: _tempUser,
                   ),
@@ -310,7 +310,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   initialText: userModel.title,
-                  textOnChanged: (String text) => onUserJobTitleChanged(
+                  onTextChanged: (String text) => onUserJobTitleChanged(
                     tempUser: _tempUser,
                     text: text,
                   ),
@@ -339,7 +339,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputAction: TextInputAction.next,
                   initialText: userModel.company,
                   // autoValidate: true,
-                  textOnChanged: (String text) => onUserCompanyNameChanged(
+                  onTextChanged: (String text) => onUserCompanyNameChanged(
                     text: text,
                     tempUser: _tempUser,
                   ),

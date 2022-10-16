@@ -262,7 +262,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     maxLines: 20,
                     keyboardTextInputType: TextInputType.multiline,
                     initialText: need?.notes,
-                    textOnChanged: (String text){
+                    onTextChanged: (String text){
                       _need.value = _need.value.copyWith(
                         notes: text,
                       );
