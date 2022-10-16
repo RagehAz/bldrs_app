@@ -20,6 +20,7 @@ class Scrollers {
   /// FUCK YOU
 
   // --------------------
+  /*
   static ScrollPhysics superScroller({
     @required bool trigger,
   }) {
@@ -28,6 +29,7 @@ class Scrollers {
         :
     const NeverScrollableScrollPhysics();
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -194,6 +196,7 @@ class Scrollers {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void createPaginationListener({
     @required ScrollController controller,
     @required ValueNotifier<bool> isPaginating,
