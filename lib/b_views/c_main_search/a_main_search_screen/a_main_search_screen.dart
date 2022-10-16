@@ -34,6 +34,15 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
   void initState(){
     super.initState();
 
+
+    /// TASK : REFACTOR THIS SCROLLER LISTENER : OR MAYBE CREATE FUTURE PAGINATOR WIDGET
+    // Scrollers.createPaginationListener(
+    //     controller: controller,
+    //     isPaginating: isPaginating,
+    //     canKeepReading: canKeepReading,
+    //     onPaginate: onPaginate
+    // );
+
     _scrollController.addListener(() {
 
       final double _maxScroll = _scrollController.position.maxScrollExtent;
