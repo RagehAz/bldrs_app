@@ -1,7 +1,7 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 
 class ListPusher extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -63,7 +63,7 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
   Future<void> _animate() async {
 
     if (widget.expand == true){
-      blog('should forwarrd animation');
+      blog('should forward animation');
       await _animationController.forward();
     }
     else {
