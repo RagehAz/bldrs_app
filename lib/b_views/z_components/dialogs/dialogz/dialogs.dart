@@ -535,7 +535,7 @@ class Dialogs {
                       return null;
                     }
                   },
-                  textOnChanged: (String text){
+                  onTextChanged: (String text){
 
                     setState((){
                       _text = text;

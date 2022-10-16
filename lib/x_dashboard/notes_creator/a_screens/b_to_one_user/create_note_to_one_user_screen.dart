@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/note_creator_screen_view.dart';
 import 'package:flutter/material.dart';
 
-class NotesCreatorScreen extends StatelessWidget {
+class CreateNoteToOneUser extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NotesCreatorScreen({
+  const CreateNoteToOneUser({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

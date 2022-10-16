@@ -57,7 +57,7 @@ class NoteTopicSelectorBubble extends StatelessWidget {
 
               final String _selectedTopicID = TopicModel.concludeTopicID(
                 topicID: noteModel.topic,
-                receiverID: noteModel.parties.receiverID,
+                bzID: noteModel.parties.receiverID,
                 partyType: noteModel.parties.receiverType,
               );
 

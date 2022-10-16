@@ -213,7 +213,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                 appBarType: widget.appBarType,
                 bubbleWidth: _clearWidth,
                 textController: _enNameController,
-                textOnChanged: (String text){
+                onTextChanged: (String text){
 
                   _countryModel.value = _countryModel.value.copyWith(
                     phrases: updatePhrases(
@@ -233,7 +233,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                 appBarType: widget.appBarType,
                 bubbleWidth: _clearWidth,
                 textController: _arNameController,
-                textOnChanged: (String text){
+                onTextChanged: (String text){
 
                   _countryModel.value = _countryModel.value.copyWith(
                     phrases: updatePhrases(

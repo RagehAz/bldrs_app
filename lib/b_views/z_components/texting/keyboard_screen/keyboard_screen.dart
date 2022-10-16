@@ -217,7 +217,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                     return null;
                   }
                 },
-                textOnChanged: _onTextChanged,
+                onTextChanged: _onTextChanged,
                 pasteFunction: () => _onPaste(),
               ),
 

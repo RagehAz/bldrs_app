@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
@@ -18,24 +15,22 @@ import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_sender_or_reciever_dynamic_button.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/notes_creator/b_controllers/x_notes_viewer_screen_controllers.dart';
+import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_party_button.dart';
 import 'package:flutter/material.dart';
 
-class FireNotesPaginator extends StatefulWidget {
+class NotesViewerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FireNotesPaginator({
+  const NotesViewerScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<FireNotesPaginator> createState() => _FireNotesPaginatorState();
+  State<NotesViewerScreen> createState() => _NotesViewerScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _FireNotesPaginatorState extends State<FireNotesPaginator> {
+class _NotesViewerScreenState extends State<NotesViewerScreen> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   // --------------------
@@ -83,117 +78,6 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> _onNoteTap({
-    @required NoteModel note,
-  }) async {
-
-    final List<Widget> _buttons = <Widget>[
-
-      BottomDialog.wideButton(
-        context: context,
-        verse: Verse.plain( 'Delete'),
-        onTap: () => onDeleteNote(
-          context: context,
-          noteModel: note,
-          // notes: allNotes,
-          loading: _loading,
-        ),
-      ),
-
-    ];
-
-    await BottomDialog.showButtonsBottomDialog(
-        context: context,
-        draggable: true,
-        numberOfWidgets: _buttons.length,
-        titleVerse: Verse.plain('All note screen show button dialog'),
-        builder: (_){
-          return _buttons;
-        }
-
-    );
-
-  }
-  // --------------------
-  Future<void> _onSelectParty() async {
-
-    await BottomDialog.showButtonsBottomDialog(
-      context: context,
-      draggable: true,
-      numberOfWidgets: 2,
-      buttonHeight: 50,
-      builder: (_){
-
-        return <Widget>[
-
-          /// USER
-          BottomDialog.wideButton(
-            context: context,
-            icon: Iconz.normalUser,
-              onTap: () async {
-
-              await Nav.goBack(context: context);
-
-              final List<UserModel> _users = await onSelectUserAsNoteReceiver(
-                context: context,
-                selectedUsers: [],
-              );
-
-              if (Mapper.checkCanLoopList(_users) == true) {
-
-                // setState(() {
-                //   _receiverID = null;
-                // });
-
-                setState(() {
-                  _receiverID = _users.first.id;
-                  _collName = FireColl.users;
-                  _partyType = PartyType.user;
-                });
-
-              }
-
-              }
-          ),
-
-          /// BZ
-          BottomDialog.wideButton(
-            context: context,
-            icon: Iconz.bz,
-            onTap: () async {
-
-              await Nav.goBack(context: context);
-
-              final List<BzModel> _bzz = await onSelectBzAsNoteReceiver(
-                context: context,
-                selectedBzz: [],
-              );
-
-              if (Mapper.checkCanLoopList(_bzz) == true) {
-
-                // setState(() {
-                //   _receiverID = null;
-                // });
-
-                setState(() {
-                  _receiverID = _bzz.first.id;
-                  _collName = FireColl.bzz;
-                  _partyType = PartyType.bz;
-                });
-
-              }
-
-            }
-          ),
-
-
-        ];
-
-      }
-    );
-
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -212,7 +96,18 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
           id: _receiverID,
           width: 100,
           height: 40,
-          onTap: _onSelectParty,
+          onTap: () => onShowReceiverTypes(
+            context: context,
+            onSelect: (String receiverID, PartyType partyType, String collName){
+
+              setState(() {
+                _receiverID = receiverID;
+                _partyType = partyType;
+                _collName = collName;
+              });
+
+            }
+          ),
         ),
 
       ],
@@ -288,10 +183,14 @@ class _FireNotesPaginatorState extends State<FireNotesPaginator> {
                         NoteCard(
                           noteModel: _noteModel,
                           isDraftNote: false,
-                          onNoteOptionsTap: () => _onNoteTap(
+                          onNoteOptionsTap: () => onNoteTap(
+                            context: context,
                             note: _noteModel,
+                            loading: _loading
                           ),
-                          onCardTap: () => _noteModel.blogNoteModel(invoker: 'All Notes'),
+                          onCardTap: () => _noteModel.blogNoteModel(
+                              invoker: 'Notes viewer'
+                          ),
                         ),
 
                       ],

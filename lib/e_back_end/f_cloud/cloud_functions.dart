@@ -31,10 +31,10 @@ class CloudFunction {
 
   // --------------------
   /// returns true on success - false on failure
-  static const String callSendFCMToDevice = 'callSendFCMToDevice';
-  static const String callSendFCMToDevices = 'callSendFCMToDevices';
-  static const String callSendFCMsToDevices = 'callSendFCMsToDevices';
-  static const String callSendFCMToTopic = 'callSendFCMToTopic';
+  static const String callSendFCMToDevice = 'callSendFCMToDevice';     // v1 : one note => one user
+  static const String callSendFCMToDevices = 'callSendFCMToDevices';   // v1 : one note => multiple users
+  static const String callSendFCMToTopic = 'callSendFCMToTopic';       // v1 : one note => one bz
+  static const String callSendFCMsToDevices = 'callSendFCMsToDevices'; // v2 : multiple notes => multiple devices ( due to different topics )
   // -----------------------------------------------------------------------------
 
   /// INSTANCE

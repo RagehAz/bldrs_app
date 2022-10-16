@@ -2,10 +2,9 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -14,25 +13,19 @@ import 'package:flutter/material.dart';
 class NoteProgressCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteProgressCreatorBubble({
-    // @required this.progress,
-    // @required this.nootProgressIsLoading,
-    // @required this.onSwitch,
-    // @required this.onTriggerLoading,
-    // @required this.onIncrement,
-    // @required this.onDecrement,
+    @required this.onSwitch,
+    @required this.onTriggerLoading,
+    @required this.onIncrement,
+    @required this.onDecrement,
     @required this.note,
-    @required this.noteNotifier,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  // final Progress progress;
-  // final bool nootProgressIsLoading;
-  // final ValueChanged<bool> onSwitch;
-  // final Function onTriggerLoading;
-  // final Function onIncrement;
-  // final Function onDecrement;
+  final ValueChanged<bool> onSwitch;
+  final Function onTriggerLoading;
+  final ValueChanged<int> onIncrement;
+  final ValueChanged<int> onDecrement;
   final NoteModel note;
-  final ValueNotifier<NoteModel> noteNotifier;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -61,29 +54,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
           ),
           hasSwitch: true,
           switchValue: note?.progress != null,
-          onSwitchTap: (bool value){
-
-            blog('value : $value : ${noteNotifier.value.progress}');
-
-            /// SWITCH ON
-            if (value == true){
-
-              noteNotifier.value = noteNotifier.value.copyWith(
-                progress: 0,
-              );
-
-            }
-
-            /// SWITCH OFF
-            else {
-
-              noteNotifier.value = noteNotifier.value.nullifyField(
-                progress: true,
-              );
-
-            }
-
-          },
+          onSwitchTap: onSwitch,
         ),
         child: Column(
           children: <Widget>[
@@ -99,23 +70,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                   icon: Iconz.reload,
                   iconColor: Colorz.white200,
                   iconSizeFactor: 0.4,
-                  onTap: (){
-
-                    /// IF IS LOADING
-                    if (noteNotifier.value.progress == -1){
-                      noteNotifier.value = noteNotifier.value.copyWith(
-                        progress: 0,
-                      );
-                    }
-
-                    /// IF IS NOT LOADING
-                    else {
-                      noteNotifier.value = noteNotifier.value.copyWith(
-                        progress: -1
-                      );
-                    }
-
-                  },
+                  onTap: onTriggerLoading,
                 ),
 
                 const SizedBox(
@@ -130,20 +85,8 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                   icon: Iconz.arrowLeft,
                   iconColor: Colorz.white200,
                   iconSizeFactor: 0.4,
-                  onTap: (){
-                    if (note.progress > -1){
-                      noteNotifier.value = noteNotifier.value.copyWith(
-                          progress: note.progress - 1
-                      );
-                    }
-                  },
-                  onDoubleTap: (){
-                    if (note.progress > 10){
-                      noteNotifier.value = noteNotifier.value.copyWith(
-                          progress: note.progress - 10,
-                      );
-                    }
-                  },
+                  onTap: () => onDecrement(1),
+                  onDoubleTap: () => onDecrement(10),
                 ),
 
                 const SizedBox(
@@ -158,24 +101,8 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                   isDeactivated: note.progress == -1 || note.progress == null,
                   iconColor: Colorz.white200,
                   iconSizeFactor: 0.4,
-                  onTap: (){
-
-                    if (note.progress < 100){
-                      noteNotifier.value = noteNotifier.value.copyWith(
-                          progress: note.progress + 1,
-                      );
-                    }
-
-                  },
-                  onDoubleTap: (){
-
-                    if (note.progress < 90){
-                      noteNotifier.value = noteNotifier.value.copyWith(
-                        progress: note.progress + 10,
-                      );
-                    }
-
-                  },
+                  onTap: () => onIncrement(1),
+                  onDoubleTap: () => onIncrement(10),
                 ),
 
                 const SizedBox(
