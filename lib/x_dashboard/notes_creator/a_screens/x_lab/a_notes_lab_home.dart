@@ -1,8 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/a_notes_creator_home_screen/notes_creator_home.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/b_fire_notes_paginator_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/b_notes_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/c_local_noot_test_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/d_noot_route_to_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
@@ -76,7 +75,7 @@ class _NotesLabHomeState extends State<NotesLabHome> {
           icon: Iconz.power,
           onTap: () => Nav.goToNewScreen(
             context: context,
-            screen: const FireNotesPaginator(),
+            screen: const NotesViewerScreen(),
           ),
         ),
 
@@ -102,15 +101,6 @@ class _NotesLabHomeState extends State<NotesLabHome> {
           ),
         ),
 
-        /// NOTE ROUTE TO SCREEN
-        WideButton(
-          verse: Verse.plain('New notes creator home'),
-          icon: Iconz.notification,
-          onTap: () => Nav.goToNewScreen(
-            context: context,
-            screen: const NotesCreatorHome(),
-          ),
-        ),
 
       ],
     );
