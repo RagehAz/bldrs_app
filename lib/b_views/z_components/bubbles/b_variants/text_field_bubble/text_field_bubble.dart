@@ -34,7 +34,7 @@ class TextFieldBubble extends StatelessWidget {
     this.maxLength = 100,
     this.textController,
     this.keyboardTextInputType = TextInputType.text,
-    this.textOnChanged,
+    this.onTextChanged,
     this.canObscure = false,
     this.isFormField,
     this.onSavedForForm,
@@ -78,7 +78,7 @@ class TextFieldBubble extends StatelessWidget {
   final int maxLength;
   final TextEditingController textController;
   final TextInputType keyboardTextInputType;
-  final ValueChanged<String> textOnChanged;
+  final ValueChanged<String> onTextChanged;
   final ValueChanged<String> onSubmitted;
   final bool canObscure;
   final bool isFormField;
@@ -242,7 +242,7 @@ class TextFieldBubble extends StatelessWidget {
                     maxLines: maxLines,
                     maxLength: maxLength,
                     textController: textController,
-                    onChanged: textOnChanged,
+                    onChanged: onTextChanged,
                     onSubmitted: onSubmitted,
                     onSavedForForm: onSavedForForm,
                     textInputAction: keyboardTextInputAction,

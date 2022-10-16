@@ -122,7 +122,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             maxLength: 50,
                             maxLines: 3,
                             keyboardTextInputType: TextInputType.multiline,
-                            textOnChanged: (String text) => onUpdateFlyerHeadline(
+                            onTextChanged: (String text) => onUpdateFlyerHeadline(
                               draft: draft,
                               text: text,
                             ),
@@ -156,7 +156,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                               text: _draft.description,
                               canValidate: canValidate,
                             ),
-                            textOnChanged: (String text) => onUpdateFlyerDescription(
+                            onTextChanged: (String text) => onUpdateFlyerDescription(
                               draft: draft,
                               text: text,
                             ),

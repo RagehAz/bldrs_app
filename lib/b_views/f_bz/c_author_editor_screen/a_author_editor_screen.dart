@@ -267,7 +267,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       ),
                     ],
                     initialText: authorModel.name,
-                    textOnChanged: (String text) => onAuthorNameChanged(
+                    onTextChanged: (String text) => onAuthorNameChanged(
                       tempAuthor: _tempAuthor,
                       text: text,
                     ),
@@ -296,7 +296,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     maxLength: 72,
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
-                    textOnChanged: (String text) => onAuthorTitleChanged(
+                    onTextChanged: (String text) => onAuthorTitleChanged(
                       text: text,
                       tempAuthor: _tempAuthor,
                     ),

@@ -221,20 +221,20 @@ class TopicModel {
   ///
   static String concludeTopicID({
     @required String topicID,
-    @required String receiverID,
+    @required String bzID,
     @required PartyType partyType,
-}){
+  }){
     String _topicID = topicID;
 
     if (partyType == PartyType.bz){
       _topicID = generateBzTopicID(
         topicID: topicID,
-        bzID: receiverID,
+        bzID: bzID,
       );
     }
 
     return _topicID;
-}
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -285,6 +285,5 @@ class TopicModel {
 
     return _isSelected;
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

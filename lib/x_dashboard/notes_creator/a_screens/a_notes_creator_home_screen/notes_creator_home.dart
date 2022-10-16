@@ -19,6 +19,7 @@ class NotesCreatorHome extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final double _buttonHeight = (_screenHeight - Stratosphere.smallAppBarStratosphere - 40 - Ratioz.horizon) / 4;
     // --------------------

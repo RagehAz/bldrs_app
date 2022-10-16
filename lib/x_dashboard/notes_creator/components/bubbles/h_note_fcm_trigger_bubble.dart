@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_notes_creator_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +11,14 @@ class NoteAndFCMTriggersBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteAndFCMTriggersBubble({
     @required this.note,
-    @required this.noteNotifier,
+    @required this.onTriggerSendFCM,
+    @required this.onTriggerSendNote,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel note;
-  final ValueNotifier<NoteModel> noteNotifier;
+  final ValueChanged<bool> onTriggerSendFCM;
+  final ValueChanged<bool> onTriggerSendNote;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -41,15 +42,9 @@ class NoteAndFCMTriggersBubble extends StatelessWidget {
             leadingIconBoxColor: note.sendNote == true ? Colorz.green255 : Colorz.grey50,
             switchValue: note?.sendNote,
             hasSwitch: true,
-            onSwitchTap: (bool val) => onSwitchSendNote(
-              note: noteNotifier,
-              value: val,
-            ),
+            onSwitchTap: onTriggerSendNote,
           ),
-          onTileTap: () => onSwitchSendNote(
-            note: noteNotifier,
-            value: !note.sendNote,
-          ),
+          onTileTap: () => onTriggerSendNote(!note.sendNote),
           // secondLineVerse: const Verse(
           //   text: 'This sends firebase cloud message to the receiver or '
           //       'to a group of receivers through a channel',
@@ -70,15 +65,9 @@ class NoteAndFCMTriggersBubble extends StatelessWidget {
             leadingIconBoxColor: note.sendFCM == true ? Colorz.green255 : Colorz.grey50,
             switchValue: note?.sendFCM,
             hasSwitch: true,
-            onSwitchTap: (bool val) => onSwitchSendFCM(
-              note: noteNotifier,
-              value: val,
-            ),
+            onSwitchTap: onTriggerSendFCM,
           ),
-          onTileTap: () => onSwitchSendFCM(
-            note: noteNotifier,
-            value: !note.sendFCM,
-          ),
+          onTileTap: () => onTriggerSendFCM(!note.sendFCM),
           // secondLineVerse: const Verse(
           //   text: 'This sends firebase cloud message to the receiver or '
           //       'to a group of receivers through a channel',

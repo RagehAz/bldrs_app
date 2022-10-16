@@ -9,30 +9,31 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/components/buttons/send_button.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_panel_button.dart';
 import 'package:flutter/material.dart';
 
 class NotePreviewPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NotePreviewPanel({
     @required this.note,
-    @required this.noteNotifier,
     @required this.receiversModels,
-    @required this.titleController,
-    @required this.bodyController,
-    @required this.scrollController,
-    @required this.formKey,
+    @required this.onTestNote,
+    @required this.onBlogNote,
+    @required this.onImportNote,
+    @required this.onClearNote,
+    @required this.onSendNote,
+    @required this.onNoteOptionsTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel note;
-  final ValueNotifier<NoteModel> noteNotifier;
   final ValueNotifier<List<dynamic>> receiversModels;
-  final TextEditingController titleController;
-  final TextEditingController bodyController;
-  final ScrollController scrollController;
-  final GlobalKey<FormState> formKey;
+  final Function onTestNote;
+  final Function onBlogNote;
+  final Function onImportNote;
+  final Function onClearNote;
+  final Function onSendNote;
+  final Function onNoteOptionsTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -155,40 +156,19 @@ class NotePreviewPanel extends StatelessWidget {
                         children: <Widget>[
 
                           /// CLEAR BUTTON
-                          SendButton(
+                          NotePanelButton(
                             text: 'Clear',
                             // icon: Iconz.xSmall,
-                            onTap: () async {
-
-                              clearNote(
-                                context: context,
-                                note: noteNotifier,
-                                titleController: titleController,
-                                bodyController: bodyController,
-                                receiversModels: receiversModels,
-                              );
-
-                            },
+                            onTap: onClearNote,
                           ),
 
                           const SizedBox(width: 5, height: 5,),
 
                           /// IMPORT BUTTON
-                          SendButton(
+                          NotePanelButton(
                             text: 'Import',
                             verseScaleFactor: 0.40,
-                            onTap: () async {
-
-                              await onGoToNoteTemplatesScreen(
-                                context: context,
-                                scrollController: scrollController,
-                                note: noteNotifier,
-                                bodyController: bodyController,
-                                titleController: titleController,
-                                receiversModels: receiversModels,
-                              );
-
-                            },
+                            onTap: onImportNote,
                           ),
 
                         ],
@@ -201,19 +181,17 @@ class NotePreviewPanel extends StatelessWidget {
                         children: <Widget>[
 
                           /// TEST BUTTON
-                          SendButton(
+                          NotePanelButton(
                             text: 'Test',
-                            onTap: (){},
+                            onTap: onTestNote,
                           ),
 
                           const SizedBox(width: 5, height: 5,),
 
                           /// BLOG BUTTON
-                          SendButton(
+                          NotePanelButton(
                             text: 'Blog',
-                            onTap: (){
-                              noteNotifier.value.blogNoteModel();
-                            },
+                            onTap: onBlogNote,
                           ),
 
 
@@ -226,23 +204,14 @@ class NotePreviewPanel extends StatelessWidget {
                   const SizedBox(width: 5, height: 5,),
 
                   /// SEND BUTTON
-                  SendButton(
+                  NotePanelButton(
                     text: 'Send',
                     height: _sendButtonSize,
                     width: _sendButtonSize,
                     verseScaleFactor: 1,
                     isDeactivated: !NoteModel.checkNoteIsSendable(note),
-                    onTap: () => onSendNote(
-                      formKey: formKey,
-                      context: context,
-                      note: noteNotifier,
-                      titleController: titleController,
-                      bodyController: bodyController,
-                      scrollController: scrollController,
-                      receiversModels: receiversModels,
-                    ),
+                    onTap: onSendNote,
                   ),
-
 
                 ],
               ),
@@ -260,13 +229,7 @@ class NotePreviewPanel extends StatelessWidget {
         bubbleColor: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,
         noteModel: note.copyWith(id: 'preview_panel'),
         isDraftNote: false,
-        onNoteOptionsTap: () => onNoteCreatorCardOptionsTap(
-          context: context,
-          note: noteNotifier,
-          titleController: titleController,
-          bodyController: bodyController,
-          scrollController: scrollController,
-        ),
+        onNoteOptionsTap: onNoteOptionsTap,
       ),
 
     );
