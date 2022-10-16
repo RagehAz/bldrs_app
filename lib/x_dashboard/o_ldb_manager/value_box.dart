@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -39,6 +39,7 @@ class ValueBox extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+
             SuperVerse(
               verse: Verse(
                 text: dataKey,
@@ -48,6 +49,7 @@ class ValueBox extends StatelessWidget {
               italic: true,
               size: 1,
             ),
+
             SuperVerse(
               verse: Verse(
                 text: value.toString(),
@@ -55,6 +57,7 @@ class ValueBox extends StatelessWidget {
               ),
               size: 1,
             ),
+
           ],
         ),
       ),
