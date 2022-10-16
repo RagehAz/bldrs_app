@@ -5,20 +5,20 @@ import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class SuperRage7Screen extends StatelessWidget {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const SuperRage7Screen({
     Key key
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -108,17 +108,18 @@ class SuperRage7Screen extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }
 
 class TalkingBalloon extends StatelessWidget {
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   const TalkingBalloon({
     @required this.lines,
     Key key
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   final List<String> lines;
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static TextStyle getStyle({
     @required BuildContext context,
   }){
@@ -130,7 +131,7 @@ class TalkingBalloon extends StatelessWidget {
       weight: VerseWeight.bold,
     );
   }
-// -----------------------------------------------------------------------------
+// --------------------
   static TypewriterAnimatedText generateLine({
     @required BuildContext context,
     @required String text,
@@ -144,31 +145,28 @@ class TalkingBalloon extends StatelessWidget {
       cursor: '',
     );
   }
-// -----------------------------------------------------------------------------
+// --------------------
   static List<TypewriterAnimatedText> generateLines({
     @required BuildContext context,
     @required List<String> lines,
-}){
+  }){
     final List<TypewriterAnimatedText> _lines = <TypewriterAnimatedText>[];
 
     if (Mapper.checkCanLoopList(lines) == true){
 
       for (final String line in lines){
-
         final TypewriterAnimatedText _line = generateLine(
-            context: context,
-            text: line,
+          context: context,
+          text: line,
         );
-
         _lines.add(_line);
-
       }
 
     }
 
     return _lines;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -201,4 +199,5 @@ class TalkingBalloon extends StatelessWidget {
       ],
     );
   }
+  // -----------------------------------------------------------------------------
 }

@@ -15,6 +15,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/x_notes_viewer_screen_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_party_button.dart';
 import 'package:flutter/material.dart';
