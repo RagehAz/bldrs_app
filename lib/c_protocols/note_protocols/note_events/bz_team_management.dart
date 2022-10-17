@@ -55,7 +55,7 @@ class NoteEventsOfBzTeamManagement {
       ),
     );
 
-    await NoteProtocols.composeToOne(
+    await NoteProtocols.composeToOneUser(
       context: context,
       note: _note,
     );
@@ -92,7 +92,7 @@ class NoteEventsOfBzTeamManagement {
       ),
     );
 
-    await NoteProtocols.composeToOne(
+    await NoteProtocols.composeToOneUser(
       context: context,
       note: _noteToBz,
     );
@@ -120,7 +120,7 @@ class NoteEventsOfBzTeamManagement {
          token: _userModel?.fcmToken?.token,
        );
 
-      await NoteProtocols.composeToOne(
+      await NoteProtocols.composeToOneUser(
         context: context,
         note: _noteToUser,
       );
@@ -183,7 +183,7 @@ class NoteEventsOfBzTeamManagement {
               ),
             );
 
-            await NoteProtocols.composeToOne(
+            await NoteProtocols.composeToOneUser(
               context: context,
               note: _note,
             );

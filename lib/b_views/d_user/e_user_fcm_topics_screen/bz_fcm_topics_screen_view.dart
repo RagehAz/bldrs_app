@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSwitch({
+  Future<void> _onSwitchAuthorSubscriptionToTopic({
     @required BuildContext context,
     @required String topicID,
     @required bool value,
@@ -35,10 +36,24 @@ class BzFCMTopicsScreenView extends StatelessWidget {
       bzID: _activeBz.id,
     );
 
-    await UserProtocols.updateUserTopics(
-      context: context,
-      topicID: _customTopicID,
-    );
+    await Future.wait(<Future>[
+
+      UserProtocols.updateUserTopics(
+        context: context,
+        topicID: _customTopicID,
+      ),
+
+      if (value == true)
+        FCM.subscribeToTopic(
+          topicName: _customTopicID,
+        ),
+
+      if (value == false)
+        FCM.unsubscribeFromTopic(
+          topicName: _customTopicID,
+        ),
+
+    ]);
 
   }
   // -----------------------------------------------------------------------------
@@ -76,13 +91,13 @@ class BzFCMTopicsScreenView extends StatelessWidget {
                       leadingIconBoxColor: _isSelected == true ? Colorz.green255 : Colorz.white10,
                       hasSwitch: true,
                       switchValue: _isSelected,
-                      onSwitchTap: (bool value) => _onSwitch(
+                      onSwitchTap: (bool value) => _onSwitchAuthorSubscriptionToTopic(
                         context: context,
                         value: value,
                         topicID: topic.id,
                       ),
                   ),
-                  onTileTap: () => _onSwitch(
+                  onTileTap: () => _onSwitchAuthorSubscriptionToTopic(
                     context: context,
                     value: !_isSelected,
                     topicID: topic.id,
