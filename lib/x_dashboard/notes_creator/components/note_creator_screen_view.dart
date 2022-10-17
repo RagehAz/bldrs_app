@@ -126,16 +126,6 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     ),
                   ),
 
-                  /// TOPIC
-                  NoteTopicSelectorBubble(
-                      noteModel: note,
-                      onSelectTopic: (TopicModel topic) => onSelectTopic(
-                        topic: topic,
-                        partyType: widget.receiverType,
-                        noteNotifier: _draftNote.noteNotifier,
-                      ),
-                  ),
-
                   /// PARTIES
                   NotePartiesBubbles(
                     note: note,
@@ -150,6 +140,17 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                       selectedReceiverType: receiverType,
                       noteNotifier: _draftNote.noteNotifier,
                       receiversModels: _draftNote.receiversModels,
+                    ),
+                  ),
+
+                  /// TOPIC
+                  NoteTopicSelectorBubble(
+                    noteModel: note,
+                    receiversModels: _draftNote.receiversModels,
+                    onSelectTopic: (TopicModel topic) => onSelectTopic(
+                      topic: topic,
+                      partyType: widget.receiverType,
+                      noteNotifier: _draftNote.noteNotifier,
                     ),
                   ),
 

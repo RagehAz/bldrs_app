@@ -355,31 +355,25 @@ class NoteModel {
   void blogNoteModel({
     String invoker,
   }) {
-    blog('BLOGGING NoteModel : $invoker -------------------------------- START -- ');
-    blog('id : $id');
-    blog('~ ~ ~ ~ ~ ~');
-    blog('title : $title');
-    blog('body : $body');
-    blog('~ ~ ~ ~ ~ ~');
-    blog('sentTime : $sentTime');
-    blog('sendFCM : $sendFCM');
-    blog('sendNote: $sendNote');
-    blog('token: $token');
-    blog('topic: $topic');
-    blog('seen: $seen');
-    blog('dismissible: $dismissible');
-    blog('~ ~ ~ ~ ~ ~');
-    blog('parties : sender : ${parties?.senderID} : ${NoteParties.cipherPartyType(parties?.senderType)} : ${parties?.senderImageURL}');
-    blog('parties : receiver : ${parties?.receiverID} : ${NoteParties.cipherPartyType(parties?.receiverType)} ');
-    blog('~ ~ ~ ~ ~ ~');
-    blog('poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.url}');
-    blog('poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
-    blog('trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument}');
-    blog('~ ~ ~ ~ ~ ~');
-    blog('~ ~ ~ ~ ~ ~');
-    blog('docSnapshot : $docSnapshot');
-    blog('~ ~ ~ ~ ~ ~');
-    blog('BLOGGING NoteModel : $invoker -------------------------------- END -- ');
+
+    blog('=> BLOGGING NoteModel : $invoker -------------------------------- START -- ');
+    blog('O : id : $id : seen: $seen : docSnapshotExists : ${docSnapshot != null}');
+    blog('O : topic: $topic : token: $token');
+    blog('O : ~ ~ ~ ~ ~ ~');
+    blog('O : title : $title');
+    blog('O : body : $body');
+    blog('O : ~ ~ ~ ~ ~ ~');
+    blog('O : sentTime : $sentTime : seen: $seen');
+    blog('O : sendFCM : $sendFCM : sendNote: $sendNote : dismissible: $dismissible');
+    blog('O : ~ ~ ~ ~ ~ ~');
+    blog('O : parties : senderID : ${parties?.senderID} : ${NoteParties.cipherPartyType(parties?.senderType)} : ${parties?.senderImageURL}');
+    blog('O : parties : receiverID : ${parties?.receiverID} : ${NoteParties.cipherPartyType(parties?.receiverType)} ');
+    blog('O : ~ ~ ~ ~ ~ ~');
+    blog('O : poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.url}');
+    blog('O : poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
+    blog('O : trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument}');
+    blog('O : ~ ~ ~ ~ ~ ~');
+    blog('<= BLOGGING NoteModel : $invoker -------------------------------- END -- ');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -428,7 +422,7 @@ class NoteModel {
     return _output;
   }
   // --------------------
-
+  ///
   static NoteModel getFirstNoteByRecieverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -447,9 +441,8 @@ class NoteModel {
 
     return _output;
   }
-
   // --------------------
-
+  ///
   static List<NoteModel> getNotesByReceiverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -471,9 +464,8 @@ class NoteModel {
 
     return _notes;
   }
-
   // --------------------
-
+  ///
   static List<NoteModel> getNotesContainingTrigger({
     @required List<NoteModel> notes,
     @required String triggerFunctionName,
@@ -494,7 +486,6 @@ class NoteModel {
 
     return _output;
   }
-
   // -----------------------------------------------------------------------------
 
   /// UNSEEN GETTERS

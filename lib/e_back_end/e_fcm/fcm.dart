@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -596,6 +597,7 @@ class FCM {
   }) async {
 
     if (AuthModel.userIsSignedIn() == true){
+      blog('User : ${AuthFireOps.superUserID()} subscribed to topic : $topicName');
       await FirebaseMessaging.instance.subscribeToTopic(topicName);
     }
 
@@ -606,6 +608,7 @@ class FCM {
     @required String topicName,
   }) async {
     if (AuthModel.userIsSignedIn() == true){
+      blog('User : ${AuthFireOps.superUserID()} unSubscribed from topic : $topicName');
       await FirebaseMessaging.instance.unsubscribeFromTopic(topicName);
     }
   }

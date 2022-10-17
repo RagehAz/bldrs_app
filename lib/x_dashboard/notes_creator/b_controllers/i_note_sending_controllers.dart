@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -15,7 +17,7 @@ import 'package:flutter/material.dart';
 /// SEND
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<bool> _preCheckCanSendNote({
   @required BuildContext context,
   @required DraftNote draftNote,
@@ -50,7 +52,7 @@ Future<bool> _preCheckCanSendNote({
   return _canSend;
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onSendNote({
   @required BuildContext context,
   @required DraftNote draftNote,
@@ -116,38 +118,41 @@ Future<void> onSendNote({
 
     unawaited(TopDialog.showTopDialog(
       context: context,
-      firstVerse: Verse.plain('Note Sent'),
-      secondVerse: Verse.plain('Alf Mabrouk ya5oya'),
+      firstVerse: Verse.plain('Note is Sent successfully'),
       milliseconds: 200,
     ));
 
   }
 
 }
-
 // -----------------------------------------------------------------------------
 
 /// TO USER
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _sendNoteToOneUser({
   @required BuildContext context,
   @required DraftNote draftNote,
 }) async {
 
+  /// GET RECEIVER ID FROM MODELS
   final List<String> _receiversIDs = NoteParties.getReceiversIDs(
     receiversModels: draftNote.receiversModels.value,
     partyType: draftNote.noteNotifier.value.parties.receiverType,
   );
 
-  await NoteProtocols.composeToOne(
+  /// ADJUST NOTE RECEIVER ID
+  final NoteModel _note = NoteProtocols.adjustReceiverID(
+    receiverID: _receiversIDs.first,
+    note: draftNote.noteNotifier.value,
+  );
+
+  /// COMPOSE PROTOCOLS
+  await NoteProtocols.composeToOneUser(
     context: context,
-    note: NoteProtocols.adjustReceiverID(
-      receiverID: _receiversIDs.first,
-      note: draftNote.noteNotifier.value,
-    ),
-    // uploadPoster: true,
+    note: _note,
+    // uploadPoster: true, // default
   );
 
 }
@@ -156,11 +161,43 @@ Future<void> _sendNoteToOneUser({
 /// TO BZ
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _sendNoteToOneBz({
   @required BuildContext context,
   @required DraftNote draftNote,
 }) async {
+
+  blog('should send note to one bz : topic ${draftNote.noteNotifier.value.topic} zzz');
+
+  /// GET RECEIVER ID FROM MODELS
+  final List<String> _receiversIDs = NoteParties.getReceiversIDs(
+    receiversModels: draftNote.receiversModels.value,
+    partyType: draftNote.noteNotifier.value.parties.receiverType,
+  );
+
+  /// ADJUST NOTE RECEIVER ID
+  NoteModel _note = NoteProtocols.adjustReceiverID(
+    receiverID: _receiversIDs.first,
+    note: draftNote.noteNotifier.value,
+  );
+
+  /// ADJUST TOPIC
+  final String _topic = TopicModel.concludeTopicID(
+      topicID: _note.topic,
+      bzID: _note.parties.receiverID,
+      partyType: _note.parties.receiverType,
+  );
+
+  _note = _note.copyWith(
+    topic: _topic,
+  );
+
+  // _note.blogNoteModel(invoker: 'sendNoteToOneBz');
+
+  await NoteProtocols.composeToOneBz(
+      context: context,
+      note: _note
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -174,6 +211,8 @@ Future<void> _sendNoteToMultipleUsers({
   @required DraftNote draftNote,
 }) async {
 
+  blog('should send note to MAANY USERSSS');
+
 }
 // -----------------------------------------------------------------------------
 
@@ -185,6 +224,8 @@ Future<void> _sendNoteToMultipleBzz({
   @required BuildContext context,
   @required DraftNote draftNote,
 }) async {
+
+  blog('should send note to MAAANY BZZZZZZZZZZZZZZZZZZ');
 
   // await NoteProtocols.composeToMultiple(
   //   context: context,
