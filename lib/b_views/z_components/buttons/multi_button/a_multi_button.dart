@@ -17,6 +17,7 @@ class MultiButton extends StatelessWidget {
     this.color,
     this.margins,
     this.bubble,
+    this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,45 +29,49 @@ class MultiButton extends StatelessWidget {
   final Color color;
   final dynamic margins;
   final bool bubble;
+  final Function onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      width: width,
-      height: height,
-      margin: Scale.superMargins(margins: margins),
-      child: Stack(
-        // alignment: Aligners.superCenterAlignment(context),
-        children: <Widget>[
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: width,
+        height: height,
+        margin: Scale.superMargins(margins: margins),
+        child: Stack(
+          // alignment: Aligners.superCenterAlignment(context),
+          children: <Widget>[
 
-          DreamBox(
-            width: width,
-            height: height,
-            verse: verse,
-            verseScaleFactor: 0.6,
-            verseCentered: false,
-            secondLine: secondLine,
-            icon: pics.length == 1 ? pics.first : Iconz.dvBlankSVG,
-            iconColor: pics.length == 1 ? null : Colorz.nothing,
-            bubble: bubble,
-            color: color,
-            verseMaxLines: 2,
-          ),
-
-          if (pics.length == 2)
-            DoublePicsBox(
-              size: height,
-              pics: pics,
+            DreamBox(
+              width: width,
+              height: height,
+              verse: verse,
+              verseScaleFactor: 0.6,
+              verseCentered: false,
+              secondLine: secondLine,
+              icon: pics.length == 1 ? pics.first : Iconz.dvBlankSVG,
+              iconColor: pics.length == 1 ? null : Colorz.nothing,
+              bubble: bubble,
+              color: color,
+              verseMaxLines: 2,
             ),
 
-          if (pics.length > 2)
-            ManyPicsBox(
-              size: height,
-              pics: pics,
-            ),
+            if (pics.length == 2)
+              DoublePicsBox(
+                size: height,
+                pics: pics,
+              ),
 
-        ],
+            if (pics.length > 2)
+              ManyPicsBox(
+                size: height,
+                pics: pics,
+              ),
+
+          ],
+        ),
       ),
     );
 
