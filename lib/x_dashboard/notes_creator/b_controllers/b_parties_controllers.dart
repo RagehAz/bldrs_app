@@ -256,6 +256,9 @@ Future<void> onSelectReceiverType({
 
     if (_typeHasChanged == true){
       receiversModels.value = [];
+      noteNotifier.value = noteNotifier.value.nullifyField(
+        topic: true,
+      );
     }
 
     /// IF USER

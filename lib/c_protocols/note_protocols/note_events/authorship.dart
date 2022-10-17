@@ -117,7 +117,7 @@ class NoteEventsOfAuthorship {
       token: userModelToSendTo?.fcmToken?.token,
     );
 
-    await NoteProtocols.composeToOne(
+    await NoteProtocols.composeToOneUser(
       context: context,
       note: _note,
     );
@@ -162,7 +162,7 @@ class NoteEventsOfAuthorship {
       trigger: TriggerModel.createAuthorshipAcceptanceTrigger(),
     );
 
-    await NoteProtocols.composeToOne(
+    await NoteProtocols.composeToOneUser(
       context: context,
       note: _note,
     );

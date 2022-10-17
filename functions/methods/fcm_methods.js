@@ -29,7 +29,7 @@ const callSendFCMsToDevices = functions.https.onCall((noteModel, context) => {
   return result;
 });
 // --------------------
-// 
+// TESTED : WORKS PERFECT
 const callSendFCMToTopic = functions.https.onCall((noteModel, context) => {
   const result = sendFCMToTopic(noteModel);
   return result;
@@ -110,11 +110,11 @@ const sendFCMToDevice = (noteModel) => {
   functions.logger.log(`sendFCMToDevice : 2 - send fcm to userID : [${noteModel.receiverID}]`);
   const output = admin.messaging().send(map)
       .then(function(response) {
-        const result = onFCMSuccess(response);
-        return result;
+        const success = onFCMSuccess(response);
+        return success;
       }).catch(function(error) {
-        const result = onFCMError(error);
-        return result;
+        const failure = onFCMError(error);
+        return failure;
       });
   functions.logger.log(`sendFCMToDevice : 3 - END : output is : [${output}]`);
   return output;
@@ -125,8 +125,8 @@ const sendFCMToDevices = (mapOfNoteModelAndTokens) => {
   // max 500 tokens at once
   functions.logger.log(`sendFCMToDevices : 1 - START : senderID is : [${noteModel.senderID}]`);
   const map = createFCMPayload(mapOfNoteModelAndTokens.noteModel);
-  map[token] = null;
-  map[tokens] = mapOfNoteModelAndTokens.tokens;
+  map.token = null;
+  map.tokens = mapOfNoteModelAndTokens.tokens;
   // const message = {
   //   data: {score: '850', time: '2:45'},
   //   tokens: registrationTokens,
@@ -135,11 +135,11 @@ const sendFCMToDevices = (mapOfNoteModelAndTokens) => {
   const output = admin.messaging().sendMulticast(map)
     .then((response) => {
         analyzeSuccessRate(response, mapOfNoteModelAndTokens.tokens);
-        const result = onFCMSuccess(response);
-        return result;
+        const success = onFCMSuccess(response);
+        return success;
       }).catch(function(error) {
-        const result = onFCMError(error);
-        return result;
+        const failure = onFCMError(error);
+        return failure;
     });
   functions.logger.log(`sendFCMToDevices : 3 - END : output is : [${output}]`);
   return output;
@@ -159,33 +159,33 @@ const sendFCMsToDevices = (notesModels) => {
   const output = admin.messaging().sendAll(maps)
     .then((response) => {
         analyzeSuccessRate(response, tokens);
-        const result = onFCMSuccess(response);
-        return result;
+        const success = onFCMSuccess(response);
+        return success;
       }).catch(function(error) {
-        const result = onFCMError(error);
-        return result;
+        const failure = onFCMError(error);
+        return failure;
     });
   functions.logger.log(`sendFCMsToDevices : 3 - END : output is : [${output}]`);
   return output;
 }
 // --------------------
-// 
+// TESTED : WORKS PERFECT
 const sendFCMToTopic = (noteModel) => {
   functions.logger.log(`sendFCMToTopic : 1 - START : senderID is : [${noteModel.senderID}]`);
   const map = createFCMPayload(noteModel);
-  map[token] = null;
-  map[topic] = noteModel.topic;
+  map.token = null;
+  map.topic = noteModel.topic;
   functions.logger.log(`sendFCMToTopic : 2 - token : [${map.token}] : topic : [${map.topic}]`);
-  const result = admin.messaging().send(map)
+  const output = admin.messaging().send(map)
   .then(function(response) {
-    const result = onFCMSuccess(response);
-    return result;
+    const success = onFCMSuccess(response);
+    return success;
   }).catch(function(error) {
-    const result = onFCMError(error);
-    return result;
+    const failure = onFCMError(error);
+    return failure;
   });
   functions.logger.log(`sendFCMToTopic : 3 - END : output is : [${output}]`);
-  return result;
+  return output;
 };
 // --------------------------------------------------------------------------
 

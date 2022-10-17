@@ -44,7 +44,7 @@ class NoteParties {
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   NoteParties copyWith({
     String senderID,
     String senderImageURL,
@@ -61,7 +61,7 @@ class NoteParties {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   NoteParties nullifyField({
     bool senderID = false,
     bool senderImageURL = false,
@@ -168,7 +168,7 @@ class NoteParties {
   /// GETTERS
 
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static List<String> getReceiversIDs({
     @required List<dynamic> receiversModels,
     @required PartyType partyType,
@@ -190,7 +190,7 @@ class NoteParties {
     return _ids;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static List<String> getReceiversPics({
     @required List<dynamic> receiversModels,
     @required PartyType partyType,
@@ -212,7 +212,7 @@ class NoteParties {
     return _pics;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static String getReceiversTypePhid({
     @required List<dynamic> receiversModels,
     @required PartyType partyType,
@@ -234,12 +234,12 @@ class NoteParties {
 
     return _phid;
   }
-
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkPartiesAreIdentical({
     @required NoteParties parties1,
     @required NoteParties parties2,
@@ -271,7 +271,9 @@ class NoteParties {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogParties(){
+    blog('senderID : $senderID');
     blog('senderImageURL : $senderImageURL');
     blog('senderType : $senderType');
     blog('receiverID : $receiverID');

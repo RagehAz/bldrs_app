@@ -8,20 +8,23 @@ import 'package:flutter/material.dart';
 /// TOPIC
 
 // --------------------
+/// TESTED : WORKS PERFECT
 void onSelectTopic({
   @required TopicModel topic,
   @required PartyType partyType,
   @required ValueNotifier<NoteModel> noteNotifier,
 }){
 
-  final String _topicID = TopicModel.concludeTopicID(
-    topicID: topic.id,
-    partyType: partyType,
-    bzID: null,
-  );
+  /// WHILE CREATING NOTE : TOPIC ID WILL BE RAW WITHOUT ADDING A BZ ID TO IT
+  /// SO NO NEED TO CONCLUDE THE COMPOUND TOPIC ID
+  // final String _topicID = TopicModel.concludeTopicID(
+  //   topicID: topic.id,
+  //   partyType: partyType,
+  //   bzID: null,
+  // );
 
   noteNotifier.value = noteNotifier.value.copyWith(
-    topic: _topicID,
+    topic: topic.id,
   );
 
 }

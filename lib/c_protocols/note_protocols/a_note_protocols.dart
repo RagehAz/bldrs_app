@@ -52,7 +52,7 @@ class NoteProtocols {
             receiverID: receiversIDs[index],
           );
 
-          return NoteProtocols.composeToOne(
+          return NoteProtocols.composeToOneUser(
             context: context,
             note: _note,
             uploadPoster: false,
@@ -66,8 +66,8 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
-  static Future<void> composeToOne({
+  /// TESTED : WORKS PERFECT
+  static Future<void> composeToOneUser({
     @required BuildContext context,
     @required NoteModel note,
     bool uploadPoster = true,
@@ -116,6 +116,53 @@ class NoteProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<void> composeToOneBz({
+    @required BuildContext context,
+    @required NoteModel note,
+    bool uploadPoster = true,
+  }) async {
+
+    final bool _canSendNote = NoteModel.checkNoteIsSendable(note);
+
+    if (_canSendNote == true){
+
+      NoteModel _note = note;
+
+      /// UPLOAD POSTER
+      if (uploadPoster == true){
+        _note = await _uploadNotePoster(
+          context: context,
+          note: _note,
+          isPublic: false,
+        );
+      }
+
+      /// UPDATE SENT TIME
+      _note = _note.copyWith(
+        sentTime: DateTime.now(),
+      );
+
+      /// CREATE NOTE FIRE OPS
+      _note = await NoteFireOps.createNote(
+        noteModel: _note,
+      );
+
+      /// SEND FCM
+      await _sendFCMToOneReceiver(
+        context: context,
+        noteModel: _note,
+      );
+
+    }
+
+    else {
+      blog('composeToOne : Can not send the note');
+    }
+
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> _uploadNotePoster({
     @required BuildContext context,
     @required NoteModel note,
@@ -142,7 +189,7 @@ class NoteProtocols {
                 final String _bzID = note.parties.senderID;
                 final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: _bzID);
                 final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
-                _ownersIDs = [_bzID, _creator.userID];
+                _ownersIDs = [_creator.userID];
 
               }
 
@@ -201,7 +248,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _sendFCMToOneReceiver({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -272,7 +319,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _checkReceiverCanReceiveFCM({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -289,7 +336,7 @@ class NoteProtocols {
           userID: noteModel.parties.receiverID,
         );
 
-        _canReceive = TopicModel.checkUserIsListeningToTopic(
+        _canReceive = TopicModel.checkUserIsSubscribedToAnyTopic(
           context: context,
           topicID: noteModel.topic,
           partyType: PartyType.user,
@@ -311,7 +358,7 @@ class NoteProtocols {
     return _canReceive;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> _adjustNoteToken({
     @required BuildContext context,
     @required NoteModel noteModel,

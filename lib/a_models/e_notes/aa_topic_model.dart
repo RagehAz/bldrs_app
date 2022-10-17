@@ -1,5 +1,9 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -207,6 +211,135 @@ class TopicModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// TOPIC SUBSCRIBERS GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> getTopicSubscribersPics({
+    @required BuildContext context,
+    @required String topicID,
+    @required List<dynamic> receiversModels,
+    @required PartyType receiversType,
+  }) async {
+
+    List<String> _output = <String>[];
+
+    /// RECEIVERS BZZ
+    if (receiversType == PartyType.bz){
+      _output = await _getAuthorsPicsSubscribedToTopic(
+        context: context,
+        topicID: topicID,
+        bzzModels: receiversModels,
+      );
+    }
+    /// RECEIVERS USERS
+    else {
+      _output = await _getUsersPicsSubscribedToTopic(
+        context: context,
+        topicID: topicID,
+        usersModels: receiversModels,
+      );
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> _getAuthorsPicsSubscribedToTopic({
+    @required BuildContext context,
+    @required String topicID,
+    @required List<BzModel> bzzModels,
+  }) async {
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(bzzModels) == true){
+
+      for (final BzModel bz in bzzModels){
+
+        final String _topicID = concludeTopicID(
+            topicID: topicID,
+            bzID: bz.id,
+            partyType: PartyType.bz,
+        );
+
+        for (final AuthorModel _author in bz.authors){
+
+          final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
+            context: context,
+            topicID: _topicID,
+            userID: _author.userID,
+          );
+
+          if (_isSubscribed == true){
+            _output.add(_author.pic);
+          }
+
+
+        }
+
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> _getUsersPicsSubscribedToTopic({
+    @required BuildContext context,
+    @required String topicID,
+    @required List<UserModel> usersModels,
+  }) async {
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(usersModels) == true){
+
+      for (final UserModel user in usersModels){
+
+        final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
+          context: context,
+          topicID: topicID,
+          userID: user.id,
+        );
+
+        if (_isSubscribed == true){
+          _output.add(user.pic);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> _checkUserIsSubscribedToTopic({
+    @required BuildContext context,
+    @required String userID,
+    @required String topicID,
+  }) async {
+  bool _subscribed = false;
+
+  if (userID != null && topicID != null){
+
+    final UserModel _userModel = await UserProtocols.fetchUser(
+      context: context,
+      userID: userID,
+    );
+
+    _subscribed = Stringer.checkStringsContainString(
+      strings: _userModel?.fcmTopics,
+      string: topicID,
+    );
+
+  }
+
+  return _subscribed;
+  }
+  // -----------------------------------------------------------------------------
+
   /// GENERATORS
 
   // --------------------
@@ -215,10 +348,10 @@ class TopicModel {
     @required String topicID,
     @required String bzID,
   }){
-    return '$bzID/$topicID/';
+    return '${bzID}_$topicID';
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String concludeTopicID({
     @required String topicID,
     @required String bzID,
@@ -241,7 +374,7 @@ class TopicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkUserIsListeningToTopic({
+  static bool checkUserIsSubscribedToAnyTopic({
     @required PartyType partyType,
     @required BuildContext context,
     @required String topicID,

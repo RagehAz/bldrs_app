@@ -84,7 +84,7 @@ class NotePartiesBubbles extends StatelessWidget {
                         verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                         iconColor:  _isSelected == true ? Colorz.black255 : null,
                         verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                        onTap: onSelectSenderType,
+                        onTap: () => onSelectSenderType(_senderType),
                       );
 
                     }),
@@ -144,7 +144,7 @@ class NotePartiesBubbles extends StatelessWidget {
                         verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                         iconColor:  _isSelected == true ? Colorz.black255 : null,
                         verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                        onTap: onSelectReceiverType,
+                        onTap: () => onSelectReceiverType(_receiverType),
                       );
 
                     }),

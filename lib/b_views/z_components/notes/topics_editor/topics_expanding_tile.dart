@@ -76,7 +76,7 @@ class TopicsExpandingTile extends StatelessWidget {
       listen: true,
     );
 
-    return TopicModel.checkUserIsListeningToTopic(
+    return TopicModel.checkUserIsSubscribedToAnyTopic(
       context: context,
       topicID: topicModel.id,
       partyType: partyType,
@@ -100,10 +100,10 @@ class TopicsExpandingTile extends StatelessWidget {
         text: 'phid_notifications',
         translate: true,
       ),
-      initiallyExpanded: true,
+      initiallyExpanded: false,
       margin: const EdgeInsets.only(bottom: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           const SuperVerse(
