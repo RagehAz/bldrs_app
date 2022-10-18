@@ -350,7 +350,7 @@ class Nav {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
+    final BzModel _bzModel = await BzProtocols.fetch(
       context: context,
       bzID: bzID,
     );

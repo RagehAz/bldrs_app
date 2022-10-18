@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/author/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/compose_bzz.dart';
@@ -33,10 +33,19 @@ class BzProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> fetchBz({
+  static Future<BzModel> fetch({
     @required BuildContext context,
     @required String bzID
-  }) => FetchBzProtocols.fetchBz(
+  }) => FetchBzProtocols.fetch(
+    context: context,
+    bzID: bzID,
+  );
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<BzModel> refetch({
+    @required BuildContext context,
+    @required String bzID
+  }) => FetchBzProtocols.refetch(
     context: context,
     bzID: bzID,
   );

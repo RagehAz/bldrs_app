@@ -92,16 +92,16 @@ class TriggerModel {
   /// CONSTANTS
 
   // --------------------
-  /// -> should refetch flyer
+  /// -> fires refetch flyer protocol
   static const String refetchFlyer = 'refetchFlyer';
   // --------------------
-  /// -> should delete bz locally
+  /// -> fires delete bz locally protocol
   static const String deleteBzLocally = 'deleteBzLocally';
   // --------------------
   /// -> shows note buttons + allows [ add Me To Bz Protocol ] + allows [ decline authorship protocol ]
   static const String authorshipInvitation = 'authorshipInvitation';
   // --------------------
-  /// -> should refetch bz
+  /// -> fires refetchBZ
   static const String refetchBz = 'refetchBz';
   // -----------------------------------------------------------------------------
 

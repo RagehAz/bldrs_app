@@ -738,7 +738,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                 if (Mapper.checkCanLoopList(_selectedFlyers) == true){
 
-                                  final BzModel _bz = await BzProtocols.fetchBz(
+                                  final BzModel _bz = await BzProtocols.fetch(
                                       context: context,
                                       bzID: _selectedFlyers.first.bzID,
                                   );

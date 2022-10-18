@@ -68,7 +68,7 @@ class TriggerProtocols {
 
     blog('TriggerProtocols.addMeAsNewAuthorToABzProtocol : START');
 
-    final BzModel _oldBzModel = await BzProtocols.fetchBz(
+    final BzModel _oldBzModel = await BzProtocols.fetch(
         context: context,
         bzID: bzID,
     );
