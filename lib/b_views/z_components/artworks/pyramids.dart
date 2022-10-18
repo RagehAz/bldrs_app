@@ -27,6 +27,7 @@ class Pyramids extends StatelessWidget {
     this.loading,
     this.onPyramidTap,
     this.color,
+    this.putInCorner = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,13 +35,15 @@ class Pyramids extends StatelessWidget {
   final dynamic loading;
   final Function onPyramidTap;
   final Color color;
+  final bool putInCorner;
   /// --------------------------------------------------------------------------
   static double verticalPositionFix = -0.2;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return GestureDetector(
+
+    final Widget pyramidsWidget = GestureDetector(
         onTap: onPyramidTap,
         onDoubleTap: () => onPyramidAdminDoubleTap(context),
         child:
@@ -58,7 +61,7 @@ class Pyramids extends StatelessWidget {
               child: child,
             );
 
-            },
+          },
         )
 
             :
@@ -81,6 +84,19 @@ class Pyramids extends StatelessWidget {
         )
 
     );
+
+    if (putInCorner == true){
+      return Positioned(
+        bottom: Pyramids.verticalPositionFix,
+        right: 17 * 0.7,
+        child: pyramidsWidget,
+      );
+    }
+
+    else {
+      return pyramidsWidget;
+    }
+
     // --------------------
   }
   // -----------------------------------------------------------------------------
