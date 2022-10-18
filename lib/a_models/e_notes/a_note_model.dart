@@ -1,9 +1,14 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
+import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -11,7 +16,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 enum DuplicatesAlgorithm {
   keepSecond,
@@ -812,6 +817,70 @@ class NoteModel {
     }
 
     return _contains;
+  }
+  // --------------------
+  ///
+  static bool checkIsAuthorshipNote(NoteModel noteModel){
+    bool _isAuthorship = false;
+
+    if (noteModel != null) {
+      if (
+          noteModel.topic == TopicModel.bzInvitations
+          &&
+          // noteModel.trigger?.name == TriggerModel.refetchBz
+          // &&
+          noteModel.parties?.senderType == PartyType.bz
+      ) {
+        _isAuthorship = true;
+      }
+    }
+
+    return _isAuthorship;
+  }
+
+  static Future<bool> checkCanShowAuthorshipButtons({
+    @required BuildContext context,
+    @required NoteModel noteModel,
+  }) async {
+
+    bool _can = false;
+
+    if (noteModel != null){
+
+      final bool _isAuthorshipNote = NoteModel.checkIsAuthorshipNote(noteModel);
+
+      if (_isAuthorshipNote == true){
+
+        if (noteModel.parties.senderType == PartyType.bz){
+
+          final BzModel _bzModel = await BzProtocols.fetch(
+            context: context,
+            bzID: noteModel.parties.senderID,
+          );
+
+          final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
+            bzModel: _bzModel,
+            userID: AuthFireOps.superUserID(),
+          );
+
+          if (_imPendingAuthor == true){
+
+            if (noteModel.poll.reply == null){
+
+              _can = true;
+
+            }
+
+          }
+
+        }
+
+
+      }
+
+    }
+
+    return _can;
   }
   // -----------------------------------------------------------------------------
 

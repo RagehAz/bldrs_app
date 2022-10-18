@@ -1,4 +1,5 @@
-import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
@@ -121,7 +122,7 @@ class BzModel{
   final GeoPoint position;
   final List<ContactModel> contacts;
   final List<AuthorModel> authors;
-  final List<String> pendingAuthors;
+  final List<PendingAuthor> pendingAuthors;
   final bool showsTeam;
   final bool isVerified;
   final BzState bzState;
@@ -221,7 +222,7 @@ class BzModel{
     GeoPoint position,
     List<ContactModel> contacts,
     List<AuthorModel> authors,
-    List<String> pendingAuthors,
+    List<PendingAuthor> pendingAuthors,
     bool showsTeam,
     bool isVerified,
     BzState bzState,
@@ -325,7 +326,7 @@ class BzModel{
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'contacts': ContactModel.cipherContacts(contacts),
       'authors': AuthorModel.cipherAuthors(authors),
-      'pendingAuthors': pendingAuthors,
+      'pendingAuthors': PendingAuthor.cipherPendingAuthors(pendingAuthors),
       'showsTeam': showsTeam,
       // -------------------------
       'isVerified': isVerified,
@@ -382,7 +383,7 @@ class BzModel{
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts: ContactModel.decipherContacts(map['contacts']),
         authors: AuthorModel.decipherAuthors(map['authors']),
-        pendingAuthors: Stringer.getStringsFromDynamics(dynamics: map['pendingAuthors']),
+        pendingAuthors: PendingAuthor.decipherPendingAuthors(map['pendingAuthors']),
         showsTeam: map['showsTeam'],
         // -------------------------
         isVerified: map['isVerified'],
@@ -445,7 +446,7 @@ class BzModel{
           isCreator: true,
         )
       ],
-      pendingAuthors: const <String>[],
+      pendingAuthors: const <PendingAuthor>[],
       showsTeam: true,
       // -------------------------
       isVerified: false,
@@ -1484,7 +1485,7 @@ class BzModel{
       authors: <AuthorModel>[
         AuthorModel.dummyAuthor(),
       ],
-      pendingAuthors: const <String>[],
+      pendingAuthors: const <PendingAuthor>[],
       contacts: ContactModel.dummyContacts(),
       bzForm: BzForm.company,
       accountType: BzAccountType.normal,
@@ -1615,7 +1616,7 @@ class BzModel{
       if (AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == false){
         blog('authors are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == false){
+      if (PendingAuthor.checkPendingAuthorsListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == false){
         blog('pending authors are not identical');
       }
       if (bz1.showsTeam != bz2.showsTeam){
@@ -1818,7 +1819,7 @@ class BzModel{
           bz1.position == bz2.position &&
           ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == true &&
           AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == true &&
-          Mapper.checkListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == true &&
+          PendingAuthor.checkPendingAuthorsListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == true &&
           bz1.showsTeam == bz2.showsTeam &&
           bz1.isVerified == bz2.isVerified &&
           bz1.bzState == bz2.bzState &&
@@ -1866,37 +1867,6 @@ class BzModel{
     }
 
     return _hasContacts;
-  }
-  // --------------------
-  ///
-  static bool checkCanInviteUser({
-    @required BzModel bzModel,
-    @required String userID,
-  }){
-    bool _can = false;
-
-    if (bzModel != null && userID != null){
-
-      final bool _isAuthor = AuthorModel.checkAuthorsContainUserID(
-        authors: bzModel.authors,
-        userID: userID,
-      );
-
-      final bool _isPendingAuthor = Stringer.checkStringsContainString(
-          strings: bzModel.pendingAuthors,
-          string: userID,
-      );
-
-      if (_isAuthor == true || _isPendingAuthor == true){
-        _can = false;
-      }
-      else {
-        _can = true;
-      }
-
-    }
-
-    return _can;
   }
   // -----------------------------------------------------------------------------
 

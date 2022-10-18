@@ -77,7 +77,7 @@ class NoteEventsOfAuthorship {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorshipInvitationNote({
+  static Future<NoteModel> sendAuthorshipInvitationNote({
     @required BuildContext context,
     @required BzModel bzModel,
     @required UserModel userModelToSendTo,
@@ -124,18 +124,19 @@ class NoteEventsOfAuthorship {
       // sendFCM: true,
       // sendNote: true,
       trigger: TriggerModel(
-        name: TriggerModel.authorshipInvitation,
+        name: TriggerModel.refetchBz,
         argument: bzModel.id,
       ),
     );
 
-    await NoteProtocols.composeToOneUser(
+    final NoteModel _uploaded = await NoteProtocols.composeToOneUser(
       context: context,
       note: _note,
     );
 
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : END');
 
+    return _uploaded;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
