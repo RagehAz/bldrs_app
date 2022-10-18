@@ -12,6 +12,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,46 +23,7 @@ class AuthorshipExitProtocols {
   const AuthorshipExitProtocols();
 
   // -----------------------------------------------------------------------------
-  /*
-  static Future<void> myBzGotDeletedAndIShouldDeleteAllMyBzRelatedData({
-    @required BuildContext context,
-    @required String bzID,
-  }) async {
-
-    blog('WipeAuthorProtocols.myBzGotDeletedAndIShouldDeleteAllMyBzRelatedData : START');
-
-    /// so I had this bzID in my bzIDs and I still have its old model
-    /// scattered around in pro, ldb & fire
-
-    /// DELETE LDB BZ MODEL
-
-    /// DELETE LDB BZ FLYERS
-
-    /// DELETE PRO BZ MODEL
-
-    /// DELETE PRO BZ FLYERS
-
-    /// DELETE MY AUTHOR PIC ON FIRE STORAGE
-
-    /// DELETE BZID FROM MY BZZ IDS THEN UPDATE MY USER MODEL EVERY WHERE PROTOCOL
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
-    final UserModel _updatedUserModel = UserModel.removeBzIDFromMyBzzIDs(
-      userModel: _myUserModel,
-      bzIDToRemove: bzID,
-    );
-    await UserProtocol.updateMyUserEverywhereProtocol(
-      context: context,
-      newUserModel: _updatedUserModel,
-    );
-
-    blog('WipeAuthorProtocols.myBzGotDeletedAndIShouldDeleteAllMyBzRelatedData : END');
-
-  }
-   */
-  // --------------------
+  ///
   static Future<void> deleteMyAuthorPic({
     @required BuildContext context,
     @required String bzID,
@@ -105,6 +67,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : END');
   }
   // --------------------
+  ///
   static Future<void> removeMeFromBz({
     @required BuildContext context,
     @required BzModel streamedBzModelWithoutMyID,
@@ -154,6 +117,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.removeMeFromBzProtocol : END');
   }
   // --------------------
+  ///
   static Future<void> removeFlyerlessAuthor({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -181,54 +145,65 @@ class AuthorshipExitProtocols {
 
   }
   // --------------------
-  static Future<void> removeAuthorAfterBzDeletion({
+  ///
+  static Future<void> removeBzTracesAfterDeletion({
     @required BuildContext context,
     @required String bzID,
   }) async {
 
-    blog('WipeAuthorProtocols.authorBzExitAfterBzDeletionProtocol : start');
+    /// NOTES
+    /// I RECEIVED A NOTE SAYING MY BZ HAS BEEN DELETED
+    /// SO BZ HAS ALREADY BEEN DELETED BUT I WAS AN AUTHOR AND STILL HAVE TRACES OF THAT BUSINESS
+    /// IN MY MODEL IN FIRE - LDB - PRO
 
-    await _authorBzDeletionDialog(
-      context: context,
-      bzID: bzID,
-    );
+    blog('WipeAuthorProtocols.removeBzTracesAfterDeletion : start');
 
-    // I RECEIVED A NOTE SAYING MY BZ HAS BEEN DELETED
-    // SO BZ HAS ALREADY BEEN DELETED BUT I WAS AN AUTHOR AND STILL HAVE TRACES OF THAT BUSINESS
-    // IN MY MODEL IN FIRE - LDB - PRO
-
-    /// GET OLD USER MODEL
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel _myOldUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    /// MODIFY USER MODEL
-    final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
-      bzIDToRemove: bzID,
-      userModel: _userModel,
+    final bool _bzIDisInMyBzzIDs = Stringer.checkStringsContainString(
+      strings: _myOldUserModel.myBzzIDs,
+      string: bzID,
     );
 
-    /// UPDATE USER MODEL EVERYWHERE
-    await UserProtocols.renovateMyUserModel(
-      context: context,
-      newUserModel: _newUserModel,
-    );
+    if (_bzIDisInMyBzzIDs == true){
 
-    /// DELETE MY AUTHOR PICTURE FROM STORAGE
-    await AuthorshipProtocols.deleteMyAuthorPic(
-      context: context,
-      bzID: bzID,
-    );
+      await _authorBzDeletionDialog(
+        context: context,
+        bzID: bzID,
+      );
 
-    /// DELETE BZ LOCALLY
-    await BzProtocols.deleteLocally(
-      context: context,
-      bzID: bzID,
-      invoker: 'authorBzExitAfterBzDeletionProtocol',
-    );
+      /// MODIFY USER MODEL
+      final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
+        bzIDToRemove: bzID,
+        userModel: _myOldUserModel,
+      );
 
-    blog('WipeAuthorProtocols.authorBzExitAfterBzDeletionProtocol : end');
+      /// UPDATE USER MODEL EVERYWHERE
+      await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _newUserModel,
+      );
+
+      /// DELETE MY AUTHOR PICTURE FROM STORAGE
+      await AuthorshipProtocols.deleteMyAuthorPic(
+        context: context,
+        bzID: bzID,
+      );
+
+      /// DELETE BZ LOCALLY
+      await BzProtocols.deleteLocally(
+        context: context,
+        bzID: bzID,
+        invoker: 'authorBzExitAfterBzDeletionProtocol',
+      );
+
+    }
+
+
+    blog('WipeAuthorProtocols.removeBzTracesAfterDeletion : end');
 
   }
   // --------------------

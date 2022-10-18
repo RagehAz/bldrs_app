@@ -122,6 +122,7 @@ class BzProtocols {
   /// WIPE
 
   // --------------------
+  ///
   static Future<void> wipeBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -134,6 +135,7 @@ class BzProtocols {
     includeMyselfInBzDeletionNote: includeMyselfInBzDeletionNote,
   );
   // --------------------
+  ///
   static Future<void> deleteLocally({
     @required BuildContext context,
     @required String bzID,

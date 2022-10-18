@@ -28,6 +28,9 @@ class NoteParties {
   final PartyType senderType;
   final String receiverID;
   final PartyType receiverType;
+
+
+
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS

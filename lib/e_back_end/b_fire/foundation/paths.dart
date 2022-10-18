@@ -1,6 +1,10 @@
 // ignore_for_file: constant_identifier_names
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+
 /// ----------------------------o
 abstract class FireColl{
+
+  const FireColl();
 
   static const String users = 'users';
 
@@ -21,9 +25,17 @@ abstract class FireColl{
   static const String phrases = 'phrases';
   static const String chains = 'chains';
 
-  static const String notes = 'notes';
-
   static const String authorships = 'authorships';
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getPartyCollName(PartyType partyType){
+    return partyType == PartyType.user ?
+    FireColl.users
+        :
+    FireColl.bzz;
+  }
+  // --------------------
 }
 /// ----------------------------o
 abstract class FireDoc {

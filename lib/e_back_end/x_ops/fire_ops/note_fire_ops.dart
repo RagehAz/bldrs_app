@@ -1,14 +1,9 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +28,7 @@ class NoteFireOps {
 
       if (noteModel.sendNote == true){
         await Fire.createSubDoc(
-          collName: NoteModel.getNoteCollName(noteModel),
+          collName: FireColl.getPartyCollName(noteModel.parties.receiverType),
           docName: noteModel.parties.receiverID,
           subCollName: FireSubColl.noteReceiver_receiver_notes,
           input: noteModel.toMap(toJSON: false),
@@ -127,7 +122,7 @@ class NoteFireOps {
   /// ALL NOTES PAGINATION
 
   // --------------------
-  ///
+  /*
   static Future<List<NoteModel>> readReceivedNotes({
     @required String recieverID,
     @required PartyType receiverType,
@@ -167,8 +162,10 @@ class NoteFireOps {
 
     return _notes;
   }
+   */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<List<NoteModel>> paginateAllSentNotes({
     @required String senderID,
     @required int limit,
@@ -210,8 +207,10 @@ class NoteFireOps {
 
     return _notes;
   }
+   */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<List<NoteModel>> paginateAllReceivedNotes({
     @required String recieverID,
     @required int limit,
@@ -251,12 +250,14 @@ class NoteFireOps {
 
     return _notes;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// STREAMING
 
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Stream<List<NoteModel>> getNoteModelsStream({
     QueryDocumentSnapshot<Object> startAfter,
     int limit,
@@ -306,6 +307,7 @@ class NoteFireOps {
 
     return _notiModelsStream;
   }
+   */
   // --------------------
 
   /// UPDATE
@@ -318,7 +320,7 @@ class NoteFireOps {
 
     if (note != null){
       await Fire.updateSubDoc(
-        collName: NoteModel.getNoteCollName(note),
+        collName: FireColl.getPartyCollName(note.parties.receiverType),
         docName: note.parties.receiverID,
         subCollName: FireSubColl.noteReceiver_receiver_notes,
         subDocName: note.id,
@@ -380,7 +382,7 @@ class NoteFireOps {
     if (note != null){
 
       await Fire.deleteSubDoc(
-        collName: NoteModel.getNoteCollName(note),
+        collName: FireColl.getPartyCollName(note.parties.receiverType),
         docName: note.parties.receiverID,
         subCollName: FireSubColl.noteReceiver_receiver_notes,
         subDocName: note.id,
@@ -415,43 +417,43 @@ class NoteFireOps {
   }
   // --------------------
   ///
-  static Future<void> deleteAllReceivedNotes({
-    @required String receiverID,
-    @required PartyType receiverType,
-  }) async {
-
-    /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
-
-    final List<NoteModel> _notesToDelete = <NoteModel>[];
-
-    /// READ ALL NOTES
-    for (int i = 0; i <= 500; i++){
-      final List<NoteModel> _notes = await readReceivedNotes(
-        // limit: 10,
-        receiverType: receiverType,
-        recieverID: receiverID,
-        startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
-      );
-
-      if (Mapper.checkCanLoopList(_notes) == true){
-        _notesToDelete.addAll(_notes);
-      }
-
-      else {
-        break;
-      }
-
-    }
-
-    /// DELETE ALL NOTES
-    if (Mapper.checkCanLoopList(_notesToDelete) == true){
-
-      await deleteNotes(
-        notes: _notesToDelete,
-      );
-
-    }
-
-  }
+  // static Future<void> deleteAllReceivedNotes({
+  //   @required String receiverID,
+  //   @required PartyType receiverType,
+  // }) async {
+  //
+  //   /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
+  //
+  //   final List<NoteModel> _notesToDelete = <NoteModel>[];
+  //
+  //   /// READ ALL NOTES
+  //   for (int i = 0; i <= 500; i++){
+  //     final List<NoteModel> _notes = await readReceivedNotes(
+  //       // limit: 10,
+  //       receiverType: receiverType,
+  //       recieverID: receiverID,
+  //       startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
+  //     );
+  //
+  //     if (Mapper.checkCanLoopList(_notes) == true){
+  //       _notesToDelete.addAll(_notes);
+  //     }
+  //
+  //     else {
+  //       break;
+  //     }
+  //
+  //   }
+  //
+  //   /// DELETE ALL NOTES
+  //   if (Mapper.checkCanLoopList(_notesToDelete) == true){
+  //
+  //     await deleteNotes(
+  //       notes: _notesToDelete,
+  //     );
+  //
+  //   }
+  //
+  // }
   // --------------------
 }

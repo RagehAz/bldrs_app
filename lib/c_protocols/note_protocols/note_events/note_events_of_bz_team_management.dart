@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/b_bz/author/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
@@ -178,7 +178,7 @@ class NoteEventsOfBzTeamManagement {
               body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
               sentTime: DateTime.now(),
               token: _userModel?.fcmToken?.token,
-              trigger: TriggerModel.createDeleteBzLocallyTrigger(
+              trigger: TriggerProtocols.createDeleteBzLocallyTrigger(
                 bzID: bzModel.id,
               ),
             );
