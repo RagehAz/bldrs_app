@@ -14,7 +14,12 @@ class FetchBzProtocols {
   const FetchBzProtocols();
 
   // -----------------------------------------------------------------------------
-  static Future<BzModel> fetchBz({
+
+  /// BZ
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<BzModel> fetch({
     @required BuildContext context,
     @required String bzID
   }) async {
@@ -54,6 +59,30 @@ class FetchBzProtocols {
     return _bz;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<BzModel> refetch({
+    @required BuildContext context,
+    @required String bzID
+  }) async {
+    BzModel _output;
+
+    if (bzID != null){
+
+      await BzLDBOps.deleteBzOps(
+          bzID: bzID
+      );
+
+      _output = await fetch(
+          context: context,
+          bzID: bzID
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> fetchBzByFlyerID({
     @required BuildContext context,
     @required String flyerID,
@@ -68,7 +97,7 @@ class FetchBzProtocols {
       );
 
       if (_flyerModel != null){
-        _bzModel = await fetchBz(
+        _bzModel = await fetch(
             context: context,
             bzID: _flyerModel.bzID,
         );
@@ -78,7 +107,12 @@ class FetchBzProtocols {
 
     return _bzModel;
   }
+  // -----------------------------------------------------------------------------
+
+  /// BZZ
+
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> fetchBzz({
     @required BuildContext context,
     @required List<String> bzzIDs
@@ -90,7 +124,7 @@ class FetchBzProtocols {
     if (Mapper.checkCanLoopList(bzzIDs)) {
       for (final String bzID in bzzIDs) {
 
-        final BzModel _bz = await fetchBz(
+        final BzModel _bz = await fetch(
           context: context,
           bzID: bzID,
         );

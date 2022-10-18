@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/author/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/b_authorship_sending.dart';
@@ -50,22 +50,12 @@ class AuthorshipProtocols {
   /// RESPONDING
 
   // --------------------
-  /// TASK : SHOULD ASSERT THAT BZ STILL HAVE ME IN HIS PENDING AUTHORS
-  static Future<void> acceptRequest({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required NoteModel noteModel,
-  }) => AuthorshipRespondingProtocols.acceptRequest(
-    context: context,
-    bzModel: bzModel,
-    noteModel: noteModel,
-  );
-  // --------------------
-  ///
-  static Future<void> declineRequest({
+  static Future<void> respondToInvitation({
     @required BuildContext context,
     @required NoteModel noteModel,
-}) => AuthorshipRespondingProtocols.declineRequest(
+    @required String reply,
+  }) => AuthorshipRespondingProtocols.respond(
+    reply: reply,
     context: context,
     noteModel: noteModel,
   );

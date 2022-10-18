@@ -633,7 +633,7 @@ Future<void> _updateFlyerOps({
     toLDB: false,
   );
 
-  final BzModel _bzModel = await BzProtocols.fetchBz(
+  final BzModel _bzModel = await BzProtocols.fetch(
     context: context,
     bzID: oldFlyer.bzID,
   );

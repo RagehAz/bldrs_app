@@ -41,7 +41,7 @@ class PendingAuthorsBubble extends StatelessWidget {
 
           ...List.generate(_bzModel.pendingAuthors.length, (index){
 
-            final String _userID = _bzModel.pendingAuthors[index];
+            final String _userID = _bzModel.pendingAuthors[index].userID;
 
             return FutureUserTileButton(
               boxWidth: Bubble.clearWidth(context),

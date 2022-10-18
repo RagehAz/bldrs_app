@@ -55,7 +55,7 @@ class NotePartyButton extends StatelessWidget {
     else if (type == PartyType.bz){
 
       return FutureBuilder(
-          future: BzProtocols.fetchBz(
+          future: BzProtocols.fetch(
               context: context,
               bzID: id
           ),
