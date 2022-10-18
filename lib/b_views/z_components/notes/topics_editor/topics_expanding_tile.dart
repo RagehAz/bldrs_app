@@ -100,7 +100,7 @@ class TopicsExpandingTile extends StatelessWidget {
         text: 'phid_notifications',
         translate: true,
       ),
-      initiallyExpanded: false,
+      // initiallyExpanded: false,
       margin: const EdgeInsets.only(bottom: 10),
       child: Column(
         // crossAxisAlignment: CrossAxisAlignment.center,

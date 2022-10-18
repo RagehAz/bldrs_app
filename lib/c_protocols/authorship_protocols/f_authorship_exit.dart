@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -16,10 +16,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class WipeAuthorProtocols {
+class AuthorshipExitProtocols {
   // -----------------------------------------------------------------------------
 
-  const WipeAuthorProtocols();
+  const AuthorshipExitProtocols();
 
   // -----------------------------------------------------------------------------
   /*
@@ -216,7 +216,7 @@ class WipeAuthorProtocols {
     );
 
     /// DELETE MY AUTHOR PICTURE FROM STORAGE
-    await AuthorProtocols.deleteMyAuthorPicProtocol(
+    await AuthorshipProtocols.deleteMyAuthorPicProtocol(
       context: context,
       bzID: bzID,
     );
@@ -236,7 +236,6 @@ class WipeAuthorProtocols {
     @required BuildContext context,
     @required String bzID,
   }) async {
-
 
     final BzModel _bzModel = await BzLDBOps.readBz(bzID);
 
@@ -261,6 +260,6 @@ class WipeAuthorProtocols {
     }
 
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 }

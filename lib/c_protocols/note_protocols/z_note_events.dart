@@ -18,7 +18,7 @@ class NoteEvent {
   /// AUTHORSHIP
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
     @required BzModel bzModel,

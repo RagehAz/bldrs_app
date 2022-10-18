@@ -67,10 +67,10 @@ class BzzProvider extends ChangeNotifier {
     _bzzProvider.clearMyActiveBz(notify: false);
 
     /// _pendingAuthorshipInvitationsUsersIDs
-    _bzzProvider.setPendingAuthorshipInvitations(
-      notes: <NoteModel>[],
-      notify: true,
-    );
+    // _bzzProvider.setPendingAuthorshipInvitations(
+    //   notes: <NoteModel>[],
+    //   notify: true,
+    // );
 
   }
   // -----------------------------------------------------------------------------
@@ -443,6 +443,7 @@ class BzzProvider extends ChangeNotifier {
     );
   }
   // -----------------------------------------------------------------------------
+  /*
 
   /// PENDING AUTHORSHIP INVITATIONS
 
@@ -489,5 +490,6 @@ class BzzProvider extends ChangeNotifier {
     blog('setPendingAuthorshipInvitations : end : ${_pendingAuthorshipInvitationsUsersIDs.length} ids');
 
   }
+   */
   // -----------------------------------------------------------------------------
 }

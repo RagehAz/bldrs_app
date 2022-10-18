@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -23,6 +25,11 @@ class RenovateBzProtocols {
   const RenovateBzProtocols();
 
   // -----------------------------------------------------------------------------
+
+  /// BZ RENOVATION
+
+// --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> renovateBz({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -117,7 +124,8 @@ class RenovateBzProtocols {
     blog('RenovateBzProtocol.renovateBz : END');
     return _uploadedBzModel;
   }
-  // --------------------
+// --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBzLocally({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -168,7 +176,8 @@ class RenovateBzProtocols {
 
     blog('RenovateBzProtocol.updateBzLocally : END');
   }
-  // --------------------
+// --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> completeBzZoneModel({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -195,7 +204,8 @@ class RenovateBzProtocols {
     // blog('RenovateBzProtocol.completeBzZoneModel : END');
     return _output;
   }
-  // --------------------
+// --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _failureDialog(BuildContext context) async {
 
     /// FAILURE DIALOG
@@ -212,6 +222,43 @@ class RenovateBzProtocols {
       ),
     );
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// AUTHOR RENOVATION
+
+  // --------------------
+  ///
+  static Future<BzModel> renovateAuthor({
+    @required BuildContext context,
+    @required BzModel oldBzModel,
+    @required AuthorModel newAuthorModel,
+  }) async {
+
+    blog('RenovateBzProtocols.renovateAuthor : START');
+
+    final BzModel _updatedBzModel = BzModel.replaceAuthor(
+      updatedAuthor: newAuthorModel,
+      bzModel: oldBzModel,
+    );
+
+    final BzModel _uploadedBzModel =  await BzFireOps.updateBz(
+      context: context,
+      newBzModel: _updatedBzModel,
+      oldBzModel: oldBzModel,
+      authorPicFile: ObjectCheck.objectIsFile(newAuthorModel.pic) == true ? newAuthorModel.pic : null,
+    );
+
+    /// no need to do that as stream listener does it
+    // await myActiveBzLocalUpdateProtocol(
+    //   context: context,
+    //   newBzModel: _uploadedModel,
+    //   oldBzModel: _bzModel,
+    // );
+
+    blog('RenovateBzProtocols.renovateAuthor : END');
+
+    return _uploadedBzModel;
   }
   // -----------------------------------------------------------------------------
 }

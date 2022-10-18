@@ -109,7 +109,7 @@ class NoteCardButtons extends StatelessWidget {
                   splashColor: Colorz.yellow255,
                   onTap: () => onNoteButtonTap(
                     context: context,
-                    response: _phid,
+                    reply: _phid,
                     noteModel: noteModel,
                   ),
                 );

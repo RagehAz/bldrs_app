@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x3_bz_authors_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -147,7 +147,7 @@ class WipeUserProtocols {
     if (Mapper.checkCanLoopList(_bzzIDs) == true){
 
       for (final String bzID in _bzzIDs){
-        await AuthorProtocols.deleteMyAuthorPicProtocol(
+        await AuthorshipProtocols.deleteMyAuthorPicProtocol(
           context: context,
           bzID: bzID,
         );
