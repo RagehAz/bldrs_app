@@ -19,7 +19,7 @@ class AuthorshipEntryProtocols {
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> addMeAsNewAuthorToABzProtocol({
+  static Future<void> addMeToBz({
     @required BuildContext context,
     @required BzModel oldBzModel,
   }) async {

@@ -42,7 +42,7 @@ class NoteEventsOfBzFlyersManagement {
         topicType: TopicType.flyerUpdate,
         id: bzModel.id,
       ),
-      trigger: TriggerModel.createFlyerUpdateTrigger(
+      trigger: TriggerModel.createFlyerRefetchTrigger(
           flyerID: flyerID
       ),
     );
@@ -77,7 +77,7 @@ class NoteEventsOfBzFlyersManagement {
       title: 'Flyer has been verified',
       body: 'This Flyer is now public to be seen and searched by all users',
       sentTime: DateTime.now(),
-      trigger: TriggerModel.createFlyerUpdateTrigger(
+      trigger: TriggerModel.createFlyerRefetchTrigger(
         flyerID: flyerID,
       ),
       topic: NoteModel.generateTopic(

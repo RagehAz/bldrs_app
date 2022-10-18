@@ -62,7 +62,7 @@ class AuthorshipExitProtocols {
   }
    */
   // --------------------
-  static Future<void> deleteMyAuthorPicProtocol({
+  static Future<void> deleteMyAuthorPic({
     @required BuildContext context,
     @required String bzID,
   }) async {
@@ -105,7 +105,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : END');
   }
   // --------------------
-  static Future<void> removeMeFromBzProtocol({
+  static Future<void> removeMeFromBz({
     @required BuildContext context,
     @required BzModel streamedBzModelWithoutMyID,
   }) async {
@@ -154,7 +154,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.removeMeFromBzProtocol : END');
   }
   // --------------------
-  static Future<void> removeFlyerlessAuthorProtocol({
+  static Future<void> removeFlyerlessAuthor({
     @required BuildContext context,
     @required BzModel bzModel,
     @required AuthorModel author,
@@ -181,7 +181,7 @@ class AuthorshipExitProtocols {
 
   }
   // --------------------
-  static Future<void> authorBzExitAfterBzDeletionProtocol({
+  static Future<void> removeAuthorAfterBzDeletion({
     @required BuildContext context,
     @required String bzID,
   }) async {
@@ -216,7 +216,7 @@ class AuthorshipExitProtocols {
     );
 
     /// DELETE MY AUTHOR PICTURE FROM STORAGE
-    await AuthorshipProtocols.deleteMyAuthorPicProtocol(
+    await AuthorshipProtocols.deleteMyAuthorPic(
       context: context,
       bzID: bzID,
     );

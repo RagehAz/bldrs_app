@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -9,14 +10,17 @@ import 'package:bldrs/b_views/f_bz/d_author_search_screen/a_author_search_screen
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -431,7 +435,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
 }) async {
 
   /// REMOVE AUTHOR MODEL FROM BZ MODEL
-  await AuthorshipProtocols.removeFlyerlessAuthorProtocol(
+  await AuthorshipProtocols.removeFlyerlessAuthor(
     context: context,
     bzModel: bzModel,
     author: authorModel,
@@ -564,6 +568,155 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
       translate: true,
     ),
   );
+
+}
+// -----------------------------------------------------------------------------
+
+/// SENDING AUTHORSHIP INVITATIONS
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onSendAuthorshipInvitation({
+  @required BuildContext context,
+  @required UserModel selectedUser,
+  @required BzModel bzModel,
+}) async {
+
+  final bool _canInviteUser = BzModel.checkCanInviteUser(
+    bzModel: bzModel,
+    userID: selectedUser.id,
+  );
+
+  /// USER CAN BE INVITED
+  if (_canInviteUser == true){
+
+    final bool _result = await Dialogs.userDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_send_invitation_?',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+          text: '##confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
+          translate: true,
+          variables: [selectedUser.name, bzModel.name]
+      ),
+      userModel: selectedUser,
+    );
+
+    if (_result == true){
+
+      await AuthorshipProtocols.sendRequest(
+        context: context,
+        bzModel: bzModel,
+        userModelToSendTo: selectedUser,
+      );
+
+      unawaited(TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          text: 'phid_invitation_sent',
+          translate: true,
+        ),
+        secondVerse: Verse(
+          text: '##Account authorship invitation has been sent to ${selectedUser.name} successfully',
+          translate: true,
+          variables: selectedUser.name,
+        ),
+        color: Colorz.green255,
+        textColor: Colorz.white255,
+      ));
+
+    }
+
+  }
+
+  /// USER IS ALREADY AN AUTHOR OR PENDING AUTHOR
+  else {
+
+    final bool _isAuthor = AuthorModel.checkAuthorsContainUserID(
+      authors: bzModel.authors,
+      userID: selectedUser.id,
+    );
+
+    final String _body = _isAuthor == true ? 'phid_user_is_author_already' : 'phid_user_is_pending_author';
+
+    await Dialogs.userDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_can_not_invite_user',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+        text: _body,
+        translate: true,
+      ),
+      userModel: selectedUser,
+    );
+
+  }
+
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onCancelSentAuthorshipInvitation({
+  @required BuildContext context,
+  @required BzModel bzModel,
+  @required String userID,
+}) async {
+
+  blog('onCancelSentAuthorshipInvitation : START');
+
+  if (bzModel != null && userID != null){
+
+    final UserModel _receiverModel = await UserProtocols.fetchUser(
+      context: context,
+      userID: userID,
+    );
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_cancel_invitation_?',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+        text: '##${_receiverModel.name} will be notified with cancelling this invitation',
+        translate: true,
+        variables: _receiverModel.name,
+      ),
+      boolDialog: true,
+      confirmButtonVerse: const Verse(
+        text: 'phid_yes',
+        translate: true,
+      ),
+    );
+
+    if (_result == true){
+
+      await AuthorshipProtocols.cancelRequest(
+        context: context,
+        bzModel: bzModel,
+        pendingUserID: userID,
+      );
+
+      await TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          pseudo: 'Invitation request has been cancelled',
+          text: 'phid_invitation_is_cancelled',
+          translate: true,
+        ),
+        color: Colorz.green255,
+        textColor: Colorz.white255,
+      );
+
+    }
+
+  }
+
+  blog('onCancelSentAuthorshipInvitation : END');
 
 }
 // -----------------------------------------------------------------------------

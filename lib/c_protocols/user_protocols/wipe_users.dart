@@ -147,7 +147,7 @@ class WipeUserProtocols {
     if (Mapper.checkCanLoopList(_bzzIDs) == true){
 
       for (final String bzID in _bzzIDs){
-        await AuthorshipProtocols.deleteMyAuthorPicProtocol(
+        await AuthorshipProtocols.deleteMyAuthorPic(
           context: context,
           bzID: bzID,
         );
