@@ -4,10 +4,11 @@ import 'dart:io';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
@@ -668,6 +669,7 @@ static Future<dynamic> deleteUserOps({
   // --------------------
   /// TESTED :
   static Future<bool> deleteNonAuthorUserOps({
+    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
@@ -679,8 +681,10 @@ static Future<dynamic> deleteUserOps({
 
           /// SHOULD BE DELETED BEFORE DELETING USER DOC
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user received notes');
-          await NoteEvent.wipeUserReceivedNotes(
-            userID: userModel.id,
+          await NoteProtocols.wipeAllNotes(
+            context: context,
+            partyType: PartyType.user,
+            id: userModel.id,
           );
 
           /// DELETE user image : storage/usersPics/userID

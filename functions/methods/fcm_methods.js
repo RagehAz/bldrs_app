@@ -73,6 +73,7 @@ const createFCMPayload = (noteModel) => {
       topic: `${noteModel.topic}`,
       triggerName: `${noteModel.triggerName}`,
       triggerArgument: `${noteModel.triggerArgument}`,
+      triggerDone: `${noteModel.triggerDone}`,
       seen: `${noteModel.seen}`,
       progress: `${noteModel.progress}`,
       dismissible: `${noteModel.dismissible}`,

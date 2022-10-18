@@ -1,16 +1,4 @@
-import 'dart:async';
 
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 class NoteEventsOfProfileDeletion {
   // -----------------------------------------------------------------------------
@@ -22,7 +10,8 @@ class NoteEventsOfProfileDeletion {
   /// USER DELETION
 
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<void> wipeUserReceivedNotes({
     @required String userID,
   }) async {
@@ -37,12 +26,14 @@ class NoteEventsOfProfileDeletion {
     blog('NoteProtocol.deleteAllUserReceivedNotes : END');
 
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// BZ DELETION
 
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<void> wipeBzReceivedNotes({
     @required String bzID,
   }) async {
@@ -57,8 +48,10 @@ class NoteEventsOfProfileDeletion {
     blog('NoteProtocol.deleteAllBzReceivedNotes : END');
 
   }
+   */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<void> wipeBzSentAuthorshipNotes({
     @required String bzID,
   }) async {
@@ -97,8 +90,10 @@ class NoteEventsOfProfileDeletion {
     }
 
   }
+   */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<List<NoteModel>> _paginatePendingSentAuthorshipNotes({
     @required String senderID,
     @required int limit,
@@ -133,8 +128,10 @@ class NoteEventsOfProfileDeletion {
 
     return _notes;
   }
+   */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static List<FireFinder> _generatePendingSentAuthorshipNotesFireFinder({
     @required String senderID,
   }){
@@ -156,5 +153,6 @@ class NoteEventsOfProfileDeletion {
       ),
     ];
   }
+   */
   // -----------------------------------------------------------------------------
 }

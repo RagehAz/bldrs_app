@@ -18,13 +18,20 @@ class AuthorshipEntryProtocols {
   const AuthorshipEntryProtocols();
 
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> addMeToBz({
     @required BuildContext context,
-    @required BzModel oldBzModel,
+    @required String bzID,
   }) async {
 
-    blog('ComposeAuthorProtocols.addMeAsNewAuthorToABzProtocol : START');
+    assert(bzID != null, 'AuthorshipEntryProtocols.addMeToBz : bzID is null');
+
+    blog('AuthorshipEntryProtocols.addMeToBz : START');
+
+    final BzModel _oldBzModel = await BzProtocols.fetch(
+      context: context,
+      bzID: bzID,
+    );
 
     /// GET AND MODIFY MY USER MODEL --------------------------
     // NOTE : modify user before bz to allow the user modify the bz in fire security rules
@@ -34,7 +41,7 @@ class AuthorshipEntryProtocols {
     );
     final UserModel _newUserModel = UserModel.addBzIDToUserBzz(
       userModel: _oldUserModel,
-      bzIDToAdd: oldBzModel.id,
+      bzIDToAdd: _oldBzModel.id,
     );
 
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
@@ -49,7 +56,7 @@ class AuthorshipEntryProtocols {
       url: _uploadedUser.pic,
     );
     final BzModel _bzModelWithAuthorPicFile = BzModel.addNewUserAsAuthor(
-      oldBzModel: oldBzModel,
+      oldBzModel: _oldBzModel,
       userModel: _uploadedUser.copyWith(
         pic: _file,
       ),
@@ -70,12 +77,12 @@ class AuthorshipEntryProtocols {
     final BzModel _uploadedBzModel = await BzProtocols.renovateBz(
       context: context,
       newBzModel: _newBzModel,
-      oldBzModel: oldBzModel,
+      oldBzModel: _oldBzModel,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,
     );
 
-    blog('ComposeAuthorProtocols.addMeAsNewAuthorToABzProtocol : END');
+    blog('AuthorshipEntryProtocols.addMeToBz : END');
 
     return _uploadedBzModel;
   }
