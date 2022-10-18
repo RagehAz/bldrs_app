@@ -99,10 +99,9 @@ class WaitDialog extends StatelessWidget {
               ),
             ),
 
-            Pyramids(
+            const Pyramids(
               pyramidType: PyramidType.crystalYellow,
-              loading: ValueNotifier(true),
-              onPyramidTap: null,
+              loading: true,
             ),
 
           ],

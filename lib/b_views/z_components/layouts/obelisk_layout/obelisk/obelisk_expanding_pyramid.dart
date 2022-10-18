@@ -23,6 +23,8 @@ class ObeliskExpandingPyramid extends StatelessWidget {
         padding: const EdgeInsets.only(right: 17 * 0.7),
         child: ValueListenableBuilder(
           valueListenable: isExpanded,
+
+          /// THE BLACK EXPANDING TRIANGLE
           child: const SuperImage(
             width: 143.1 * 0.7,
             height: 66.4 * 0.7,
