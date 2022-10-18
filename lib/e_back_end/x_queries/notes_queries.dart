@@ -1,8 +1,9 @@
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:flutter/material.dart';
+
 // -----------------------------------------------------------------------------
 
 /// BZ NOTES QUERY
@@ -22,15 +23,15 @@ FireQueryModel getBzNotesQueryModel({
     ),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-    finders: <FireFinder>[
-
-      FireFinder(
-        field: 'receiverID',
-        comparison: FireComparison.equalTo,
-        value: bzID,
-      ),
-
-    ],
+    // finders: <FireFinder>[
+    //
+    //   FireFinder(
+    //     field: 'receiverID',
+    //     comparison: FireComparison.equalTo,
+    //     value: bzID,
+    //   ),
+    //
+    // ],
     onDataChanged: onDataChanged,
   );
 
@@ -126,4 +127,33 @@ FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
 
 }
  */
+// -----------------------------------------------------------------------------
+
+/// USER NOTES QUERY
+
+// --------------------
+/// TESTED : WORKS PERFECT
+FireQueryModel getUserNotesQueryModel({
+  @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
+}){
+
+  return FireQueryModel(
+    collRef: Fire.getSuperCollRef(
+      aCollName: FireColl.users,
+      bDocName: AuthFireOps.superUserID(),
+      cSubCollName: FireSubColl.noteReceiver_receiver_notes,
+    ),
+    limit: 5,
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+    // finders: <FireFinder>[
+    //   FireFinder(
+    //     field: 'receiverID',
+    //     comparison: FireComparison.equalTo,
+    //     value: AuthFireOps.superUserID(),
+    //   ),
+    // ],
+    onDataChanged: onDataChanged,
+  );
+
+}
 // -----------------------------------------------------------------------------
