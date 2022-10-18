@@ -43,7 +43,52 @@ class Pyramids extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
 
-    final Widget pyramidsWidget = GestureDetector(
+    final Widget pyramidsWidget = _PyramidsWidgetTree(
+      pyramidType: pyramidType,
+      loading: loading,
+      onPyramidTap: onPyramidTap,
+      color: color,
+      putInCorner: putInCorner,
+    );
+
+    if (putInCorner == true){
+      return Positioned(
+        bottom: Pyramids.verticalPositionFix,
+        right: 17 * 0.7,
+        child: pyramidsWidget,
+      );
+    }
+
+    else {
+      return pyramidsWidget;
+    }
+
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class _PyramidsWidgetTree extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const _PyramidsWidgetTree({
+    @required this.pyramidType,
+    @required this.loading,
+    @required this.onPyramidTap,
+    @required this.color,
+    @required this.putInCorner,
+    Key key,
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final PyramidType pyramidType;
+  final dynamic loading;
+  final Function onPyramidTap;
+  final Color color;
+  final bool putInCorner;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
         onTap: onPyramidTap,
         onDoubleTap: () => onPyramidAdminDoubleTap(context),
         child:
@@ -85,22 +130,10 @@ class Pyramids extends StatelessWidget {
 
     );
 
-    if (putInCorner == true){
-      return Positioned(
-        bottom: Pyramids.verticalPositionFix,
-        right: 17 * 0.7,
-        child: pyramidsWidget,
-      );
-    }
-
-    else {
-      return pyramidsWidget;
-    }
-
-    // --------------------
   }
-  // -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
+
 
 class _PyramidGraphic extends StatelessWidget {
   // -----------------------------------------------------------------------------

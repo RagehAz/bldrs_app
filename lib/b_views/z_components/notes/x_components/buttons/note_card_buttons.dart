@@ -85,38 +85,58 @@ class NoteCardButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 
-          if (noteModel?.poll?.reply == null)
-          ...List<Widget>.generate(noteModel.poll.buttons.length,
-                  (int index) {
+          /// BUTTONS
+          FutureBuilder(
+            future: NoteModel.checkCanShowAuthorshipButtons(
+              context: context,
+              noteModel: noteModel,
+            ),
+            initialData: false,
+            builder: (_, AsyncSnapshot<bool> snap){
 
-                final String _phid = noteModel.poll.buttons[index];
+              final bool _canShow = snap.data;
 
-                final double _width = Scale.getUniformRowItemWidth(
-                  context: context,
-                  numberOfItems: noteModel.poll.buttons.length,
-                  boxWidth: boxWidth,
+              if (_canShow == true){
+                return Row(
+                  children: [
+                    ...List<Widget>.generate(noteModel.poll.buttons.length,
+                            (int index) {
+                          final String _phid = noteModel.poll.buttons[index];
+                          final double _width = Scale.getUniformRowItemWidth(
+                            context: context,
+                            numberOfItems: noteModel.poll.buttons.length,
+                            boxWidth: boxWidth,
+                          );
+                          return DreamBox(
+                            width: _width,
+                            height: 40,
+                            verse: Verse(
+                              text: _phid,
+                              translate: true,
+                            ),
+                            verseScaleFactor: 0.7,
+                            color: Colorz.blue80,
+                            splashColor: Colorz.yellow255,
+                            onTap: () => onNoteButtonTap(
+                              context: context,
+                              reply: _phid,
+                              noteModel: noteModel,
+                            ),
+                          );
+                        }
+                    )
+
+                  ],
                 );
-
-                return DreamBox(
-                  width: _width,
-                  height: 40,
-                  verse: Verse(
-                    text: _phid,
-                    translate: true,
-                  ),
-                  verseScaleFactor: 0.7,
-                  color: Colorz.blue80,
-                  splashColor: Colorz.yellow255,
-                  onTap: () => onNoteButtonTap(
-                    context: context,
-                    reply: _phid,
-                    noteModel: noteModel,
-                  ),
-                );
-
               }
+              else {
+                return const SizedBox();
+              }
+
+            },
           ),
 
+          /// RESPONSES
           if (noteModel?.poll?.reply != null)
             SizedBox(
               width: boxWidth * 0.9,

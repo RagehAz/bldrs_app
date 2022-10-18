@@ -92,7 +92,36 @@ class NoteFireOps {
 
     return _success == true ? _output : null;
   }
+  // -----------------------------------------------------------------------------
 
+  /// READ
+
+  // --------------------
+  ///
+  static Future<NoteModel> readNote({
+    @required String noteID,
+    @required String userID,
+  }) async {
+    NoteModel _output;
+
+    if (noteID != null && userID != null){
+
+      final Map<String, dynamic> map = await Fire.readSubDoc(
+          collName: FireColl.users,
+          docName: userID,
+          subCollName: FireSubColl.noteReceiver_receiver_notes,
+          subDocName: noteID,
+      );
+
+      _output = NoteModel.decipherNote(
+          map: map,
+          fromJSON: false,
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// ALL NOTES PAGINATION
@@ -282,7 +311,7 @@ class NoteFireOps {
   /// UPDATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> updateNote({
     @required NoteModel note,
   }) async {

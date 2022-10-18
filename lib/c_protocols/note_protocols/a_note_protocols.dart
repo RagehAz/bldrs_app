@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/author_model.dart';
+import 'package:bldrs/a_models/b_bz/author/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -67,11 +67,13 @@ class NoteProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> composeToOneUser({
+  static Future<NoteModel> composeToOneUser({
     @required BuildContext context,
     @required NoteModel note,
     bool uploadPoster = true,
   }) async {
+
+    NoteModel _output;
 
     assert(note.parties.receiverID.length > 5, 'Something is wrong with receiverID');
     assert(note.parties.receiverID != 'xxx', 'receiverID is xxx');
@@ -107,12 +109,14 @@ class NoteProtocols {
         noteModel: _note,
       );
 
+      _output = _note;
     }
 
     else {
       blog('composeToOne : Can not send the note');
     }
 
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -187,7 +191,7 @@ class NoteProtocols {
               if (note.parties.receiverType == PartyType.bz){
 
                 final String _bzID = note.parties.senderID;
-                final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: _bzID);
+                final BzModel _bzModel = await BzProtocols.fetch(context: context, bzID: _bzID);
                 final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
                 _ownersIDs = [_creator.userID];
 
@@ -406,10 +410,28 @@ class NoteProtocols {
   }
   // -----------------------------------------------------------------------------
 
+  /// READ ( no fetching for now ,, maybe later in life when things get happier)
+
+  // --------------------
+  ///
+  static Future<NoteModel> readNote({
+    @required String noteID,
+    @required String userID,
+  }) async {
+
+    final NoteModel _note = await NoteFireOps.readNote(
+      noteID: noteID,
+      userID: userID,
+    );
+
+    return _note;
+  }
+  // -----------------------------------------------------------------------------
+
   /// RENOVATE
 
   // --------------------
-
+  ///
   static Future<void> renovate({
     @required BuildContext context,
     @required NoteModel newNote,

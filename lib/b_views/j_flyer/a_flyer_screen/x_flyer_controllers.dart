@@ -30,7 +30,7 @@ Future<BzModel> getFlyerBzModel({
   @required FlyerModel flyerModel,
 }) async {
 
-  final BzModel _bzModel = await BzProtocols.fetchBz(
+  final BzModel _bzModel = await BzProtocols.fetch(
       context: context,
       bzID: flyerModel?.bzID
   );

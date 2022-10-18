@@ -55,7 +55,7 @@ class NotePosterBuilder extends StatelessWidget {
             else {
 
               return FutureBuilder(
-                future: BzProtocols.fetchBz(context: context, bzID: _flyer.bzID),
+                future: BzProtocols.fetch(context: context, bzID: _flyer.bzID),
                   builder: (_, AsyncSnapshot<BzModel> bzSnap){
 
                   final BzModel _bzModel = bzSnap.data;
@@ -91,7 +91,7 @@ class NotePosterBuilder extends StatelessWidget {
       else if (noteModel?.poster?.type == PosterType.bz){
 
         return FutureBuilder(
-            future: BzProtocols.fetchBz(context: context, bzID: noteModel.poster.modelID),
+            future: BzProtocols.fetch(context: context, bzID: noteModel.poster.modelID),
             builder: (_, AsyncSnapshot<BzModel> bzSnap){
 
               final BzModel _bzModel = bzSnap.data;
