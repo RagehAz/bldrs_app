@@ -67,10 +67,10 @@ class AuthorshipProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> addMeToBz({
     @required BuildContext context,
-    @required BzModel oldBzModel,
+    @required String bzID,
   }) => AuthorshipEntryProtocols.addMeToBz(
     context: context,
-    oldBzModel: oldBzModel,
+    bzID: bzID,
   );
   // -----------------------------------------------------------------------------
 
@@ -107,10 +107,10 @@ class AuthorshipProtocols {
   );
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> removeMeAfterBzDeletion({
+  static Future<void> removeBzTracesAfterDeletion({
     @required BuildContext context,
     @required String bzID,
-  }) => AuthorshipExitProtocols.removeAuthorAfterBzDeletion(
+  }) => AuthorshipExitProtocols.removeBzTracesAfterDeletion(
     context: context,
     bzID: bzID,
   );

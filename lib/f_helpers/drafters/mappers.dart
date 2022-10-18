@@ -688,7 +688,7 @@ class Mapper {
         final List<dynamic> _map2Values = map2.values.toList();
 
         if (
-        checkListsAreIdentical(list1: _map1Keys, list2: _map2Keys) == true
+            checkListsAreIdentical(list1: _map1Keys, list2: _map2Keys) == true
             &&
             checkListsAreIdentical(list1: _map1Values, list2: _map2Values) == true
         ){

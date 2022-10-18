@@ -7,10 +7,12 @@ class TriggerModel {
   const TriggerModel({
     @required this.name,
     @required this.argument,
+    @required this.done,
   });
   /// --------------------------------------------------------------------------
   final String name;
   final String argument;
+  final bool done;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -19,10 +21,12 @@ class TriggerModel {
   TriggerModel copyWith({
     String name,
     String argument,
+    bool done,
   }){
     return TriggerModel(
       name: name ?? this.name,
       argument: argument ?? this.argument,
+      done: done ?? this.done,
     );
   }
   // -----------------------------------------------------------------------------
@@ -30,13 +34,16 @@ class TriggerModel {
   /// CYPHERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'functionName': name,
       'argument': argument,
+      'done': done,
     };
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static TriggerModel decipherTrigger(Map<String, dynamic> map){
     TriggerModel _trigger;
 
@@ -44,6 +51,7 @@ class TriggerModel {
       _trigger = TriggerModel(
         name: map['functionName'],
         argument: map['argument'],
+        done: map['done'],
       );
     }
 
@@ -54,6 +62,7 @@ class TriggerModel {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkTriggersAreIdentical(TriggerModel trigger1, TriggerModel trigger2){
     bool _identical;
 
@@ -67,8 +76,8 @@ class TriggerModel {
         if (
 
         trigger1.name == trigger2.name &&
-        trigger2.argument == trigger2.argument
-
+        trigger1.argument == trigger2.argument &&
+        trigger1.done == trigger2.done
         ){
           _identical = true;
         }
@@ -84,51 +93,10 @@ class TriggerModel {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogTrigger(){
-    blog('Trigger : functionName : $name : argument : $argument');
+    blog('Trigger : functionName : $name : argument : $argument : done : $done');
   }
-  // -----------------------------------------------------------------------------
-
-  /// CONSTANTS
-
-  // --------------------
-  /// -> fires refetch flyer protocol
-  static const String refetchFlyer = 'refetchFlyer';
-  // --------------------
-  /// -> fires delete bz locally protocol
-  static const String deleteBzLocally = 'deleteBzLocally';
-  // --------------------
-  /// -> shows note buttons + allows [ add Me To Bz Protocol ] + allows [ decline authorship protocol ]
-  static const String authorshipInvitation = 'authorshipInvitation';
-  // --------------------
-  /// -> fires refetchBZ
-  static const String refetchBz = 'refetchBz';
-  // -----------------------------------------------------------------------------
-
-  /// CREATORS
-
-  // --------------------
-  static TriggerModel createFlyerRefetchTrigger({ /// re-fetch flyer
-    @required String flyerID,
-  }){
-    return TriggerModel(
-      name: refetchFlyer,
-      argument: flyerID,
-    );
-  }
-  // --------------------
-  static TriggerModel createAuthorshipAcceptanceTrigger(){
-    return null;
-  }
-  // --------------------
-  static TriggerModel createDeleteBzLocallyTrigger({
-    @required String bzID,
-  }){
-    return TriggerModel(
-      name: deleteBzLocally,
-      argument: bzID,
-    );
-}
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

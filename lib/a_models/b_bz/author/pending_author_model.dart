@@ -19,7 +19,7 @@ class PendingAuthor {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherPendingAuthors(List<PendingAuthor> pendings){
     Map<String, dynamic> _map;
 
@@ -42,7 +42,7 @@ class PendingAuthor {
     return _map;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PendingAuthor> decipherPendingAuthors(Map<String, dynamic> map){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
@@ -73,7 +73,7 @@ class PendingAuthor {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> getPendingsUsersIDs(List<PendingAuthor> pendingAuthors){
     final List<String> _usersIDs = <String>[];
 

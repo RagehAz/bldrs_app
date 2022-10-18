@@ -176,7 +176,7 @@ class AuthorshipRespondingProtocols{
 
     await AuthorshipProtocols.addMeToBz(
       context: context,
-      oldBzModel: bzModel,
+      bzID: bzModel.id,
     );
 
     final NoteModel _updatedNote = noteModel.copyWith(

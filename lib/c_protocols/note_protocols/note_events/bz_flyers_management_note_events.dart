@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class NoteEventsOfBzFlyersManagement {
         topicType: TopicType.flyerUpdate,
         id: bzModel.id,
       ),
-      trigger: TriggerModel.createFlyerRefetchTrigger(
+      trigger: TriggerProtocols.createFlyerRefetchTrigger(
           flyerID: flyerID
       ),
     );
@@ -77,7 +77,7 @@ class NoteEventsOfBzFlyersManagement {
       title: 'Flyer has been verified',
       body: 'This Flyer is now public to be seen and searched by all users',
       sentTime: DateTime.now(),
-      trigger: TriggerModel.createFlyerRefetchTrigger(
+      trigger: TriggerProtocols.createFlyerRefetchTrigger(
         flyerID: flyerID,
       ),
       topic: NoteModel.generateTopic(

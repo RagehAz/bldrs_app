@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
@@ -37,7 +38,7 @@ Future<bool> _preCheckCanSendNote({
       context: context,
       titleVerse: Verse.plain('Send ?'),
       bodyVerse: Verse.plain('Do you want to confirm sending this notification to '
-          '${draftNote.receiversModels.value.length} ${NoteModel.getNoteCollName(draftNote.noteNotifier.value)} '),
+          '${draftNote.receiversModels.value.length} ${FireColl.getPartyCollName(draftNote.noteNotifier.value.parties.receiverType)} '),
       boolDialog: true,
     );
 

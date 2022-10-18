@@ -2,10 +2,9 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/author/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/authorship_note_events.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/bz_team_management.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/profile_deletion.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
 import 'package:flutter/material.dart';
 
 class NoteEvent {
@@ -131,25 +130,31 @@ class NoteEvent {
   /// PROFILE DELETION
 
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<void> wipeUserReceivedNotes({
     @required String userID,
   }) => NoteEventsOfProfileDeletion.wipeUserReceivedNotes(
     userID: userID,
   );
+  */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<void> wipeBzReceivedNotes({
     @required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzReceivedNotes(
     bzID: bzID,
   );
+   */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<void> wipeBzSentAuthorshipNotes({
     @required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzSentAuthorshipNotes(
     bzID: bzID,
   );
+   */
   // -----------------------------------------------------------------------------
 }

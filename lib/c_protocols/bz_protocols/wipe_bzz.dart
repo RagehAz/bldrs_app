@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
@@ -54,14 +57,11 @@ class WipeBzProtocols {
         updateBz: false,
       ),
 
-      /// DELETE BZ NOTES (RECEIVED)
-      NoteEvent.wipeBzReceivedNotes(
-        bzID: bzModel.id,
-      ),
-
-      /// DELETE BZ SENT AUTHORSHIPS
-      NoteEvent.wipeBzSentAuthorshipNotes(
-        bzID: bzModel.id,
+      /// DELETE BZ NOTES
+      NoteProtocols.wipeAllNotes(
+        context: context,
+        partyType: PartyType.bz,
+        id: bzModel.id,
       ),
 
       /// DELETE BZ RECORDS - COUNTERS
@@ -144,9 +144,20 @@ class WipeBzProtocols {
     @required String invoker,
   }) async {
 
+    /// NOTE DELETES ALL BZ MODEL INSTANCES IN LDB AND BZ PRO
+
     blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
-    // NOTE DELETES ALL BZ MODEL INSTANCES IN LDB AND BZ PRO
+    final BzModel _bzModel = await BzProtocols.fetch(
+        context: context,
+        bzID: bzID
+    );
+
+    /// DELETE ALL BZ FLYERS LOCALLY
+    await FlyerProtocols.deleteFlyersLocally(
+      context: context,
+      flyersIDs: _bzModel.flyersIDs,
+    );
 
     /// DELETE BZ ON LDB
     await BzLDBOps.deleteBzOps(

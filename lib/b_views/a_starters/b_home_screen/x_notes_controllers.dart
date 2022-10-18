@@ -3,23 +3,14 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +30,7 @@ void initializeObeliskNumbers(BuildContext context){
 }
 // -----------------------------------------------------------------------------
 
-/// USER NOTES STREAM
+/// USER NOTES
 
 // --------------------
 ///
@@ -53,7 +44,7 @@ StreamSubscription initializeUserNotes(BuildContext context){
   if (_userModel != null){
 
     /// TASK : STREAM NEEDS TO BE CLOSED WHEN DELETING USER
-    final Stream<QuerySnapshot<Object>> _stream = getUserUnseenNotesStream(
+    final Stream<QuerySnapshot<Object>> _stream = userUnseenNotesStream(
         context: context
     );
 
@@ -64,9 +55,10 @@ StreamSubscription initializeUserNotes(BuildContext context){
     _sub = FireCollStreamer.onStreamDataChanged(
       stream: _stream,
       oldMaps: _oldMaps,
+      invoker: 'initializeUserNotes',
       onChange: (List<Map<String, dynamic>> allUpdatedMaps) async {
 
-        // blog('new maps are :-');
+        blog('initializeUserNote.onStreamDataChanged : new maps are ${allUpdatedMaps.length} maps');
         // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
 
         final List<NoteModel> _notes = NoteModel.decipherNotes(
@@ -92,10 +84,15 @@ StreamSubscription initializeUserNotes(BuildContext context){
           );
         }
 
-        await _checkForBzDeletionNoteAndProceed(
-          context: context,
-          notes: _notes,
+        await TriggerProtocols.fireTriggers(
+            context: context,
+            notes: _notes,
         );
+
+        // await _checkForBzDeletionNoteAndProceed(
+        //   context: context,
+        //   notes: _notes,
+        // );
 
       },
     );
@@ -121,9 +118,8 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes
 
   return _oldMaps;
 }
-
 // --------------------
-///
+/*
 Future<void> _checkForBzDeletionNoteAndProceed({
   @required BuildContext context,
   @required List<NoteModel> notes,
@@ -142,7 +138,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
     final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesContainingTrigger(
       notes: notes,
-      triggerFunctionName: TriggerModel.deleteBzLocally,
+      triggerFunctionName: TriggerProtocols.tridRemoveBzTracesAfterDeletion,
     );
 
     if (Mapper.checkCanLoopList(_bzDeletionNotes) == true){
@@ -160,7 +156,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
         );
 
         if (_bzIDisInMyBzzIDs == true){
-          await AuthorshipProtocols.removeMeAfterBzDeletion(
+          await AuthorshipProtocols.removeBzTracesAfterDeletion(
             context: context,
             bzID: _bzID,
           );
@@ -173,6 +169,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
   }
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// BZZ NOTES STREAMS
@@ -194,7 +191,7 @@ List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
 
     for (final BzModel bzModel in _myBzz){
 
-      final StreamSubscription _sub = initializeBzNotesStream(
+      final StreamSubscription _sub = _initializeBzNotesStream(
         context: context,
         bzID: bzModel.id,
       );
@@ -206,40 +203,6 @@ List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
   }
 
   return _subs;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
-  @required String bzID,
-}){
-
-  final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
-    queryModel: FireQueryModel(
-        collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
-        limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-        finders: <FireFinder>[
-
-          FireFinder(
-            field: 'receiverID',
-            comparison: FireComparison.equalTo,
-            value: bzID,
-          ),
-
-          const FireFinder(
-            field: 'seen',
-            comparison: FireComparison.equalTo,
-            value: false,
-          ),
-
-        ],
-        onDataChanged: (List<Map<String, dynamic>> maps){
-          blog('_bzUnseenReceivedNotesStream : onDataChanged : ${maps.length} maps');
-        }
-    ),
-  );
-
-  return _stream;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -263,7 +226,7 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-StreamSubscription initializeBzNotesStream({
+StreamSubscription _initializeBzNotesStream({
   @required BuildContext context,
   @required String bzID,
 }){
@@ -271,7 +234,7 @@ StreamSubscription initializeBzNotesStream({
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 
 
-  final Stream<QuerySnapshot<Object>> _stream  = _bzUnseenReceivedNotesStream(
+  final Stream<QuerySnapshot<Object>> _stream  = bzUnseenNotesStream(
     bzID: bzID,
   );
 
@@ -286,6 +249,7 @@ StreamSubscription initializeBzNotesStream({
   final StreamSubscription _streamSubscription = FireCollStreamer.onStreamDataChanged(
     stream: _stream,
     oldMaps: _oldMaps,
+    invoker: 'initializeBzNotesStream',
     onChange: (List<Map<String, dynamic>> allBzNotes) async {
 
       final List<NoteModel> _allBzNotes = NoteModel.decipherNotes(
@@ -312,10 +276,15 @@ StreamSubscription initializeBzNotesStream({
         );
       }
 
-      await _bzCheckLocalFlyerUpdatesNotesAndProceed(
+      await TriggerProtocols.fireTriggers(
         context: context,
-        newBzNotes: _allBzNotes,
+        notes: _allBzNotes,
       );
+
+      // await _bzCheckLocalFlyerUpdatesNotesAndProceed(
+      //   context: context,
+      //   newBzNotes: _allBzNotes,
+      // );
 
     },
   );
@@ -323,7 +292,7 @@ StreamSubscription initializeBzNotesStream({
   return _streamSubscription;
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/*
 Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   @required BuildContext context,
   @required List<NoteModel> newBzNotes,
@@ -331,7 +300,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
 
   final List<NoteModel> _flyerUpdatesNotes = NoteModel.getNotesContainingTrigger(
     notes: newBzNotes,
-    triggerFunctionName: TriggerModel.refetchFlyer,
+    triggerFunctionName: TriggerProtocols.tridRefetchFlyer,
   );
 
   if (Mapper.checkCanLoopList(_flyerUpdatesNotes) == true){
@@ -363,6 +332,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   }
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// NOTES CHECKERS

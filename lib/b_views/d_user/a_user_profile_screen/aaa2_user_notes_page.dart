@@ -1,3 +1,5 @@
+// ignore_for_file: invariant_booleans
+
 import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -9,6 +11,7 @@ import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +34,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
-  ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -48,7 +51,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
   }
   // --------------------
   bool _isInit = true;
@@ -73,21 +75,32 @@ class _UserNotesPageState extends State<UserNotesPage> {
     super.didChangeDependencies();
   }
   // --------------------
+
+  @override
+  void deactivate() {
+    blog('UserNotesPage deactivate START');
+
+    _markAllUserUnseenNotesAsSeen();
+    super.deactivate();
+
+    blog('UserNotesPage deactivate END');
+  }
+
   /// TAMAM
   @override
   void dispose() {
-
-    blog('DISPOSING USER NOTES PAGE AHO');
-
+    blog('UserNotesPage dispose START');
     _loading.dispose();
-    _markAllUserUnseenNotesAsSeen();
     _scrollController.dispose();
     super.dispose();
+    blog('UserNotesPage dispose END');
   }
   // -----------------------------------------------------------------------------
   List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
   void _markAllUserUnseenNotesAsSeen(){
+
+    blog('_markAllUserUnseenNotesAsSeen : START');
 
     /// COLLECT NOTES TO MARK FIRST
     final List<NoteModel> _notesToMark = NoteModel.getOnlyUnseenNotes(
@@ -104,8 +117,13 @@ class _UserNotesPageState extends State<UserNotesPage> {
     if (Mapper.checkCanLoopList(_notesToMark) == true){
       if (mounted == true){
         WidgetsBinding.instance.addPostFrameCallback((_){
+
+          final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+
+          blog('_context from navigator key is : ${_context.toString()}');
+
           NotesProvider.proSetIsFlashing(
-            context: context,
+            context: _context,
             setTo: false,
             notify: true,
           );
@@ -113,6 +131,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
       }
 
     }
+
+    blog('_markAllUserUnseenNotesAsSeen : END');
 
   }
   // --------------------

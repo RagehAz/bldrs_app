@@ -83,14 +83,10 @@ class WipeFlyerProtocols {
         bzFireUpdateOps: true,
       );
 
-      /// DELETE FLYER ON LDB
-      await FlyerLDBOps.deleteFlyers(<String>[flyerModel.id]);
-
-      /// REMOVE FLYER FROM FLYERS PROVIDER
-      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-      _flyersProvider.removeFlyerFromProFlyers(
-        flyerID: flyerModel.id,
-        notify: true,
+      /// DELETE FLYERS LOCALLY
+      await deleteFlyersLocally(
+        context: context,
+        flyersIDs: <String>[flyerModel.id],
       );
 
       if (showWaitDialog == true){
@@ -168,9 +164,6 @@ class WipeFlyerProtocols {
         );
       }
 
-      /// FLYER LDB DELETION
-      await FlyerLDBOps.deleteFlyers(_flyersIDs);
-
       /// BZ LDB UPDATE
       if (updateBzEveryWhere == true){
         await BzLDBOps.updateBzOps(
@@ -178,11 +171,10 @@ class WipeFlyerProtocols {
         );
       }
 
-      /// FLYER PRO DELETION
-      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-      _flyersProvider.removeFlyersFromProFlyers(
+      /// DELETE FLYERS LOCALLY
+      await deleteFlyersLocally(
+        context: context,
         flyersIDs: _flyersIDs,
-        notify: true,
       );
 
       /// BZ PRO UPDATE
@@ -207,6 +199,24 @@ class WipeFlyerProtocols {
 
     blog('WipeFlyerProtocols.wipeMultipleFlyers : END');
     return _bzModel;
+  }
+  // --------------------
+  ///
+  static Future<void> deleteFlyersLocally({
+    @required BuildContext context,
+    @required List<String> flyersIDs,
+  }) async {
+
+    /// FLYER LDB DELETION
+    await FlyerLDBOps.deleteFlyers(flyersIDs);
+
+    /// FLYER PRO DELETION
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _flyersProvider.removeFlyersFromProFlyers(
+      flyersIDs: flyersIDs,
+      notify: true,
+    );
+
   }
   // --------------------
 }
