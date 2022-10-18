@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
@@ -163,41 +165,45 @@ Future<void> onShowNoteOptions({
 // --------------------
 Future<void> onNoteButtonTap({
   @required BuildContext context,
-  @required String response,
+  @required String reply,
   @required NoteModel noteModel,
 }) async {
 
-  blog('onNoteButtonTap : SSSSSSSSSSSSSSS : response : $response');
-
-  final NoteModel _updated = noteModel.copyWith(
-    poll: noteModel.poll.copyWith(
-      reply: response,
-      replyTime: DateTime.now(),
-    ),
-  );
-
-  await NoteProtocols.renovate(
-    context: context,
-    newNote: _updated,
-    oldNote: noteModel,
-  );
-
-  // /// AUTHORSHIP NOTES
-  // if (noteModel.type == NoteType.authorship){
+  // blog('onNoteButtonTap : SSSSSSSSSSSSSSS : response : $response');
   //
-  //   final BzModel _bzModel = await BzProtocols.fetchBz(
-  //     context: context,
-  //     bzID: noteModel.senderID,
-  //   );
+  // final NoteModel _updated = noteModel.copyWith(
+  //   poll: noteModel.poll.copyWith(
+  //     reply: response,
+  //     replyTime: DateTime.now(),
+  //   ),
+  // );
   //
-  //   await respondToAuthorshipNote(
-  //     context: context,
-  //     response: response,
-  //     noteModel: noteModel,
-  //     bzModel: _bzModel,
-  //   );
-  //
-  // }
+  // await NoteProtocols.renovate(
+  //   context: context,
+  //   newNote: _updated,
+  //   oldNote: noteModel,
+  // );
+
+  /// AUTHORSHIP NOTES
+  if (
+  noteModel.trigger.name == TriggerModel.authorshipInvitation
+  &&
+  noteModel.parties.senderType == PartyType.bz
+  ){
+
+    final BzModel _bzModel = await BzProtocols.fetchBz(
+      context: context,
+      bzID: noteModel.parties.senderID,
+    );
+
+    await respondToAuthorshipNote(
+      context: context,
+      reply: reply,
+      noteModel: noteModel,
+      bzModel: _bzModel,
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------
@@ -280,26 +286,10 @@ Future<void> _acceptAuthorshipInvitation({
       ),
     ));
 
-    await AuthorProtocols.addMeAsNewAuthorToABzProtocol(
+    await AuthorshipProtocols.acceptRequest(
       context: context,
-      oldBzModel: bzModel,
-    );
-
-    /// MODIFY NOTE RESPONSE
-    await NoteProtocols.renovate(
-      context: context,
-      oldNote: noteModel,
-      newNote: noteModel.copyWith(
-        poll: noteModel.poll.copyWith(
-          reply: PollModel.accept,
-          replyTime: DateTime.now(),
-        ),
-      ),
-    );
-
-    await NoteEvent.sendAuthorshipAcceptanceNote(
-      context: context,
-      bzID: noteModel.parties.senderID,
+      bzModel: bzModel,
+      noteModel: noteModel,
     );
 
     await WaitDialog.closeWaitDialog(context);

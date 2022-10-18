@@ -5,6 +5,8 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
@@ -78,7 +80,7 @@ class NoteEventsOfAuthorship {
   /// SENDERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -115,6 +117,20 @@ class NoteEventsOfAuthorship {
         replyTime: null,
       ),
       token: userModelToSendTo?.fcmToken?.token,
+      topic: TopicModel.userReceiveAuthorshipRequest,
+      dismissible: false,
+      // poster: PosterModel(
+      //   type: PosterType.bz,
+      //   modelID: bzModel.id,
+      //   url: bzPosterID,
+      // ),
+      seen: false,
+      sendFCM: true,
+      sendNote: true,
+      trigger: TriggerModel(
+        name: TriggerModel.authorshipInvitation,
+        argument: bzModel.id,
+      ),
     );
 
     await NoteProtocols.composeToOneUser(

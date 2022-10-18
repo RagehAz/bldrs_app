@@ -38,19 +38,59 @@ class DreamBoxTapLayer extends StatelessWidget {
     unawaited(Sounder.playButtonClick());
     // Keyboarders.minimizeKeyboardOnTapOutSide(context);
 
+    /// DEACTIVATED
     if (deactivated == true){
-      if (onDeactivatedTap != null){
+
+      /// NO DEACTIVATED TAP
+      if (onDeactivatedTap == null){
+        // do nothing
+      }
+      /// CAN TAP DEACTIVATED
+      else {
         onDeactivatedTap();
       }
     }
 
+    /// NOT DEACTIVATED
     else {
+
+      /// CAN TAP
       if (onTap != null){
         await Future.delayed(
             const Duration(milliseconds: 200,),
                 () async { onTap(); }
         );
       }
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  bool _canTap(){
+
+    /// DEACTIVATED
+    if (deactivated == true){
+
+      /// NO DEACTIVATED TAP
+      if (onDeactivatedTap == null){
+        return false;
+      }
+      /// CAN TAP DEACTIVATED
+      else {
+        return true;
+      }
+    }
+
+    /// NOT DEACTIVATED
+    else {
+
+      if (onTap == null){
+        return false;
+      }
+      else {
+        return true;
+      }
+
     }
 
   }
@@ -75,7 +115,7 @@ class DreamBoxTapLayer extends StatelessWidget {
               (TapUpDetails details) => onTapUp(),
           child: InkWell(
             splashColor: deactivated == true ? Colorz.white20 : splashColor,
-            onTap: onTap == null && onDeactivatedTap == null ? null : () => _onTap(context),
+            onTap: _canTap() == true ? () => _onTap(context) : null,
             onTapCancel: onTapCancel,
             onLongPress: onLongTap,
             onDoubleTap: onDoubleTap,

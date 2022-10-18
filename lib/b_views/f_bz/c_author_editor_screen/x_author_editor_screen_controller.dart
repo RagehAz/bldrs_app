@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
@@ -321,7 +321,7 @@ Future<void> onConfirmAuthorUpdates({
       tempAuthor: tempAuthor.value,
     );
 
-    await AuthorProtocols.updateAuthorProtocol(
+    await BzProtocols.renovateAuthorProtocol(
       context: context,
       oldBzModel: bzModel,
       newAuthorModel: _author,
@@ -396,7 +396,7 @@ Future<void> onChangeAuthorRoleOps({
 
       await Future.wait(<Future>[
 
-        AuthorProtocols.updateAuthorProtocol(
+        BzProtocols.renovateAuthorProtocol(
           context: context,
           oldBzModel: _bzModel,
           newAuthorModel: _author,

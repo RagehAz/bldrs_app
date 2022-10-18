@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x4_bz_notes_page_controllers.dart';
@@ -34,8 +35,8 @@ class AuthorSearchScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
-    final List<String> _pendingInvitations = _bzzProvider.pendingAuthorsIDs;
+    // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
+    // final List<String> _pendingInvitations = _bzzProvider.pendingAuthorsIDs;
     // --------------------
     return ListView(
       children: <Widget>[
@@ -135,7 +136,10 @@ class AuthorSearchScreenView extends StatelessWidget {
                           text: 'phid_invite',
                           translate: true,
                         ),
-                        usersWithSideButtonsDeactivated: _pendingInvitations,
+                        deactivatedUsersIDs: <String>[
+                          ...AuthorModel.getAuthorsIDsFromAuthors(authors: bzModel.authors),
+                          ... bzModel.pendingAuthors
+                        ],
                         onSideButtonTap: (UserModel userModel) => onSendAuthorshipInvitation(
                           context: context,
                           selectedUser: userModel,
@@ -165,5 +169,5 @@ class AuthorSearchScreenView extends StatelessWidget {
     );
     // --------------------
   }
-// --------------------
+  /// --------------------------------------------------------------------------
 }

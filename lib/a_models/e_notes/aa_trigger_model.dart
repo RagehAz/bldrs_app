@@ -94,6 +94,7 @@ class TriggerModel {
   // --------------------
   static const String updateFlyer = 'updateFlyer';
   static const String bzDeletion = 'bzDeletion';
+  static const String authorshipInvitation = 'authorshipInvitation';
   // -----------------------------------------------------------------------------
 
   /// CREATORS
