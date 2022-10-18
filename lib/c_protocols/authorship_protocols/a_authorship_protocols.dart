@@ -15,7 +15,7 @@ class AuthorshipProtocols {
 
   // -----------------------------------------------------------------------------
 
-  /// SENDING
+  /// REQUESTS
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -23,10 +23,21 @@ class AuthorshipProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
     @required UserModel userModelToSendTo,
-  }) => AuthorShipSendingProtocols.sendRequest(
+  }) => AuthorshipSendingProtocols.sendRequest(
     context: context,
     bzModel: bzModel,
     userModelToSendTo: userModelToSendTo,
+  );
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> cancelRequest({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String pendingUserID,
+  }) => AuthorshipSendingProtocols.cancelRequest(
+    context: context,
+    bzModel: bzModel,
+    pendingUserID: pendingUserID,
   );
   // -----------------------------------------------------------------------------
 
@@ -39,7 +50,7 @@ class AuthorshipProtocols {
   /// RESPONDING
 
   // --------------------
-  ///
+  /// TASK : SHOULD ASSERT THAT BZ STILL HAVE ME IN HIS PENDING AUTHORS
   static Future<void> acceptRequest({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -64,10 +75,10 @@ class AuthorshipProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> addMeAsNewAuthorToABzProtocol({
+  static Future<void> addMeToBz({
     @required BuildContext context,
     @required BzModel oldBzModel,
-  }) => AuthorshipEntryProtocols.addMeAsNewAuthorToABzProtocol(
+  }) => AuthorshipEntryProtocols.addMeToBz(
     context: context,
     oldBzModel: oldBzModel,
   );
@@ -77,39 +88,39 @@ class AuthorshipProtocols {
 
   // --------------------
   ///
-  static Future<void> removeMeFromBzProtocol({
+  static Future<void> removeMeFromBz({
     @required BuildContext context,
     @required BzModel streamedBzModelWithoutMyID,
-  }) => AuthorshipExitProtocols.removeMeFromBzProtocol(
+  }) => AuthorshipExitProtocols.removeMeFromBz(
       context: context,
       streamedBzModelWithoutMyID: streamedBzModelWithoutMyID
   );
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteMyAuthorPicProtocol({
+  static Future<void> deleteMyAuthorPic({
     @required BuildContext context,
     @required String bzID,
-  }) => AuthorshipExitProtocols.deleteMyAuthorPicProtocol(
+  }) => AuthorshipExitProtocols.deleteMyAuthorPic(
       context: context,
       bzID: bzID
   );
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> removeFlyerlessAuthorProtocol({
+  static Future<void> removeFlyerlessAuthor({
     @required BuildContext context,
     @required BzModel bzModel,
     @required AuthorModel author,
-  }) => AuthorshipExitProtocols.removeFlyerlessAuthorProtocol(
+  }) => AuthorshipExitProtocols.removeFlyerlessAuthor(
     context: context,
     bzModel: bzModel,
     author: author,
   );
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> authorBzExitAfterBzDeletionProtocol({
+  static Future<void> removeMeAfterBzDeletion({
     @required BuildContext context,
     @required String bzID,
-  }) => AuthorshipExitProtocols.authorBzExitAfterBzDeletionProtocol(
+  }) => AuthorshipExitProtocols.removeAuthorAfterBzDeletion(
     context: context,
     bzID: bzID,
   );

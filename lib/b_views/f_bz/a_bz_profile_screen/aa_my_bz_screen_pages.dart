@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa1_bz_flyers_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa2_bz_about_page.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa3_bz_authors_page.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa3_bz_team_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa4_bz_notes_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa5_bz_targets_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa6_bz_powers_page.dart';
@@ -25,7 +25,7 @@ class MyBzScreenPages extends StatelessWidget {
 
     BzAboutPage(),
 
-    BzAuthorsPage(),
+    BzTeamPage(),
 
     BzNotesPage(),
 

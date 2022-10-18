@@ -724,7 +724,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
     final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesContainingTrigger(
       notes: notes,
-      triggerFunctionName: TriggerModel.bzDeletion,
+      triggerFunctionName: TriggerModel.deleteBzLocally,
     );
 
     if (Mapper.checkCanLoopList(_bzDeletionNotes) == true){
@@ -742,7 +742,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
         );
 
         if (_bzIDisInMyBzzIDs == true){
-          await AuthorshipProtocols.authorBzExitAfterBzDeletionProtocol(
+          await AuthorshipProtocols.removeMeAfterBzDeletion(
             context: context,
             bzID: _bzID,
           );
@@ -913,7 +913,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
 
   final List<NoteModel> _flyerUpdatesNotes = NoteModel.getNotesContainingTrigger(
     notes: newBzNotes,
-    triggerFunctionName: TriggerModel.updateFlyer,
+    triggerFunctionName: TriggerModel.refetchFlyer,
   );
 
   if (Mapper.checkCanLoopList(_flyerUpdatesNotes) == true){

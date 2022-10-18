@@ -150,7 +150,7 @@ Future<void> _myBzResignationProtocol({
       ),
     );
 
-    await AuthorshipProtocols.removeMeFromBzProtocol(
+    await AuthorshipProtocols.removeMeFromBz(
         context: context,
         streamedBzModelWithoutMyID: newBzFromStream
     );

@@ -5,19 +5,13 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class NoteEventsOfAuthorship {
@@ -30,7 +24,8 @@ class NoteEventsOfAuthorship {
   /// LISTENERS
 
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
     @required BuildContext context,
     @required String receiverID,
@@ -75,9 +70,10 @@ class NoteEventsOfAuthorship {
 
     return _notes;
   }
+   */
   // -----------------------------------------------------------------------------
 
-  /// SENDERS
+  /// REQUESTS
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -117,16 +113,16 @@ class NoteEventsOfAuthorship {
         replyTime: null,
       ),
       token: userModelToSendTo?.fcmToken?.token,
-      topic: TopicModel.userReceiveAuthorshipRequest,
+      topic: TopicModel.bzInvitations,
       dismissible: false,
       // poster: PosterModel(
       //   type: PosterType.bz,
       //   modelID: bzModel.id,
       //   url: bzPosterID,
       // ),
-      seen: false,
-      sendFCM: true,
-      sendNote: true,
+      // seen: false,
+      // sendFCM: true,
+      // sendNote: true,
       trigger: TriggerModel(
         name: TriggerModel.authorshipInvitation,
         argument: bzModel.id,
@@ -141,6 +137,68 @@ class NoteEventsOfAuthorship {
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : END');
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> sendAuthorshipCancellationNote({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required UserModel userModelToSendTo,
+  }) async {
+
+    blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : START');
+
+    final Phrase _title = await PhraseProtocols.fetchPhid(
+      phid: 'phid_invitation_request_has_been_cancelled',
+      lang: userModelToSendTo.language ?? 'en',
+    );
+
+    final Phrase _body = await PhraseProtocols.fetchPhid(
+      phid: 'phid_invitation_request_had_expired',
+      lang: userModelToSendTo.language ?? 'en',
+    );
+
+    final NoteModel _note = NoteModel(
+      id: null, // will be defined in composeNoteProtocol
+      parties: NoteParties(
+        senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
+        senderImageURL: bzModel.logo,
+        senderType: PartyType.bz,
+        receiverID: userModelToSendTo.id,
+        receiverType: PartyType.user,
+      ),
+      title: _title.value,
+      body: _body.value,
+      sentTime: DateTime.now(),
+      // poll: null,
+      token: userModelToSendTo?.fcmToken?.token,
+      topic: TopicModel.bzInvitations,
+      // dismissible: true,
+      // poster: PosterModel(
+      //   type: PosterType.bz,
+      //   modelID: bzModel.id,
+      //   url: bzPosterID,
+      // ),
+      // seen: false,
+      // sendFCM: true,
+      // sendNote: true,
+      trigger: TriggerModel(
+        name: TriggerModel.refetchBz,
+        argument: bzModel.id,
+      ),
+    );
+
+    await NoteProtocols.composeToOneUser(
+      context: context,
+      note: _note,
+    );
+
+    blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : END');
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// RESPONSES
+
   // --------------------
   ///
   static Future<void> sendAuthorshipAcceptanceNote({
@@ -186,32 +244,29 @@ class NoteEventsOfAuthorship {
     blog('NoteEventsOfAuthorship.sendAuthorshipAcceptanceNote : END');
 
   }
-  // -----------------------------------------------------------------------------
-
-  /// CANCELLING
-
   // --------------------
   ///
-  static Future<void> cancelSentAuthorshipInvitation({
+  static Future<void> sendAuthorshipDecliningNote({
     @required BuildContext context,
-    @required NoteModel note,
+    @required String bzID,
   }) async {
 
-    blog('NoteProtocol.cancelSentAuthorshipInvitation : START');
+    blog('sendAuthorshipDecliningNote : START');
 
-    blog('cancelSentAuthorshipInvitation : should delete note');
 
-    // final NoteModel _updated = note.copyWith(
-    //   poll: NoteResponse.cancelled,
-    //   responseTime: DateTime.now(),
-    // );
-    //
-    // await NoteFireOps.updateNote(
-    //   context: context,
-    //   newNoteModel: _updated,
-    // );
 
-    blog('NoteProtocol.cancelSentAuthorshipInvitation : END');
+
+
+
+
+    /// --->
+
+
+
+
+
+
+
 
   }
   // -----------------------------------------------------------------------------

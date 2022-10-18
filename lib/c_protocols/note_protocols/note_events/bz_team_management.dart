@@ -178,7 +178,7 @@ class NoteEventsOfBzTeamManagement {
               body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
               sentTime: DateTime.now(),
               token: _userModel?.fcmToken?.token,
-              trigger: TriggerModel.createBzDeletionTrigger(
+              trigger: TriggerModel.createDeleteBzLocallyTrigger(
                 bzID: bzModel.id,
               ),
             );
