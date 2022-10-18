@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
-import 'package:bldrs/b_views/z_components/bz_profile/authors_page/pending_sent_authorship_notes_streamer.dart';
+import 'package:bldrs/b_views/z_components/bz_profile/authors_page/pending_authors_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x3_bz_authors_page_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -14,9 +14,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class BzAuthorsPage extends StatefulWidget {
+class BzTeamPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const BzAuthorsPage({
+  const BzTeamPage({
     this.bubbleWidth,
     Key key,
   }) : super(key: key);
@@ -24,11 +24,11 @@ class BzAuthorsPage extends StatefulWidget {
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override
-  State<BzAuthorsPage> createState() => _BzAuthorsPageState();
+  State<BzTeamPage> createState() => _BzTeamPageState();
   /// --------------------------------------------------------------------------
 }
 
-class _BzAuthorsPageState extends State<BzAuthorsPage> {
+class _BzTeamPageState extends State<BzTeamPage> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -121,7 +121,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 
             /// PENDING SENT AUTHORSHIP REQUESTS
             if (_canSendAuthorships == true)
-              const PendingSentAuthorshipNotesStreamer(),
+              const PendingAuthorsBubble(),
 
             /// ADD BUTTON
             if (_canSendAuthorships == true)

@@ -25,7 +25,7 @@ class AuthorshipRespondingProtocols{
     @required NoteModel noteModel,
   }) async {
 
-    await AuthorshipProtocols.addMeAsNewAuthorToABzProtocol(
+    await AuthorshipProtocols.addMeToBz(
       context: context,
       oldBzModel: bzModel,
     );

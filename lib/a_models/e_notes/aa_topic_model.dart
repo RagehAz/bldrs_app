@@ -24,7 +24,26 @@ class TopicModel {
   /// CONSTANTS
 
   // --------------------
-  static const String userReceiveAuthorshipRequest = 'userReceiveAuthorshipRequest';
+  /// USER TOPICS IDS
+  static const String generalUserNotes = 'generalUserNotes';
+  static const String bzInvitations = 'bzInvitations';
+  static const String myReviewReceivedReply = 'myReviewReceivedReply';
+  static const String myReviewReceivedAgree = 'myReviewReceivedAgree';
+  static const String aSavedFlyerReceivedANewReview = 'aSavedFlyerReceivedANewReview';
+  static const String aFollowedBzPublishedFlyer= 'aFollowedBzPublishedFlyer';
+  static const String aSavedFlyerIsUpdated = 'aSavedFlyerIsUpdated';
+  // --------------------
+  /// BZZ TOPICS IDS
+  static const String generalBzNotes = 'generalBzNotes';
+  static const String myBzFlyerIsVerified = 'myBzFlyerIsVerified';
+  static const String myBzFlyerIsUpdated = 'myBzFlyerIsUpdated';
+  static const String aSentAuthorshipReceivedReply = 'aSentAuthorshipReceivedReply';
+  static const String aTeamMemberRoleChanged = 'aTeamMemberRoleChanged';
+  static const String aTeamMemberExited = 'aTeamMemberExited';
+  static const String aUserFollowedMyBz = 'aUserFollowedMyBz';
+  static const String aUserReviewedMyFlyer = 'aUserReviewedMyFlyer';
+  static const String aUserSavedMyFlyer = 'aUserSavedMyFlyer';
+  static const String aUserSharedMyFlyer = 'aUserSharedMyFlyer';
   // -----------------------------------------------------------------------------
 
     /// ALL EVENTS
@@ -36,15 +55,15 @@ class TopicModel {
       // --------------------
       /// GENERAL USER NOTES
       TopicModel(
-        id: 'generalUserNotes',
+        id: generalUserNotes,
         description: 'On Major news & general notifications',
         icon: Iconz.notification,
       ),
       // --------------------
       /// USER RECEIVE AUTHORSHIP =====================> SHOULD BE IN GENERAL W 5ALAS
       TopicModel(
-        id: userReceiveAuthorshipRequest,
-        description: 'A Business account invites me to join their team',
+        id: bzInvitations,
+        description: 'A Business accounts invites me to join their team',
         icon: Iconz.handShake,
       ),
     ],
@@ -53,21 +72,21 @@ class TopicModel {
       // --------------------
       /// MY REVIEW RECEIVED REPLY
       TopicModel(
-        id: 'myReviewReceivedReply',
+        id: myReviewReceivedReply,
         description: 'A review I wrote on a flyer receives a reply',
         icon: Iconz.balloonSpeaking,
       ),
       // --------------------
       /// MY REVIEW RECEIVED AGREE
       TopicModel(
-        id: 'myReviewReceivedAgree',
+        id: myReviewReceivedAgree,
         description: 'A review I wrote on a flyer gets an Agree',
         icon: Iconz.star,
       ),
       // --------------------
       /// A SAVED FLYER RECEIVED A NEW REVIEW
       TopicModel(
-        id: 'aSavedFlyerReceivedANewReview',
+        id: aSavedFlyerReceivedANewReview,
         description: 'A flyer I saved get a new review by other users',
         icon: Iconz.balloonSpeaking,
       ),
@@ -78,14 +97,14 @@ class TopicModel {
       // --------------------
       /// A FOLLOWED BZ PUBLISHED FLYER
       TopicModel(
-        id: 'aFollowedBzPublishedFlyer',
+        id: aFollowedBzPublishedFlyer,
         description: 'A Business I follow publishes a new flyer',
         icon: Iconz.addFlyer,
       ),
       // --------------------
       /// A SAVED FLYER IS UPDATED
       TopicModel(
-        id: 'aSavedFlyerIsUpdated',
+        id: aSavedFlyerIsUpdated,
         description: 'A flyer I saved gets updated',
         icon: Iconz.savedFlyers,
       ),
@@ -100,7 +119,7 @@ class TopicModel {
       // --------------------
       /// GENERAL BZ NOTES
       TopicModel(
-        id: 'generalBzNotes',
+        id: generalBzNotes,
         description: 'On General Business related notifications and Major news',
         icon: Iconz.notification,
       ),
@@ -119,14 +138,14 @@ class TopicModel {
       // --------------------
       /// MY BZ FLYER IS VERIFIED
       TopicModel(
-        id: 'myBzFlyerIsVerified',
+        id: myBzFlyerIsVerified,
         description: 'A flyer published by my business account gets verified',
         icon: Iconz.verifyFlyer,
       ),
       // --------------------
       /// MY BZ FLYER IS UPDATED
       TopicModel(
-        id: 'myBzFlyerIsUpdated',
+        id: myBzFlyerIsUpdated,
         description: 'A flyer published by my business account gets updated by one of my team members',
         icon: Iconz.flyerScale,
       ),
@@ -137,21 +156,21 @@ class TopicModel {
       // --------------------
       /// A SENT AUTHORSHIP RECEIVED REPLY
       TopicModel(
-        id: 'aSentAuthorshipReceivedReply',
+        id: aSentAuthorshipReceivedReply,
         description: 'An invitation to join our team sent to someone receives a reply',
         icon: Iconz.handShake,
       ),
       // --------------------
       /// A TEAM MEMBER ROLE CHANGED
       TopicModel(
-        id: 'aTeamMemberRoleChanged',
+        id: aTeamMemberRoleChanged,
         description: 'One of my team members gets his role changed',
         icon: Iconz.achievement,
       ),
       // --------------------
       /// A TEAM MEMBER EXITED
       TopicModel(
-        id: 'aTeamMemberExited',
+        id: aTeamMemberExited,
         description: 'A team member exits this business account',
         icon: Iconz.exit,
       ),
@@ -162,28 +181,28 @@ class TopicModel {
       // --------------------
       /// A USER FOLLOWED MY BZ
       TopicModel(
-        id: 'aUserFollowedMyBz',
+        id: aUserFollowedMyBz,
         description: 'A user follows my business account',
         icon: Iconz.follow,
       ),
       // --------------------
       /// A USER REVIEWED MY FLYER
       TopicModel(
-        id: 'aUserReviewedMyFlyer',
+        id: aUserReviewedMyFlyer,
         description: 'A user writes a review over one of my flyers',
         icon: Iconz.balloonSpeaking,
       ),
       // --------------------
       /// A USER SAVED MY FLYER
       TopicModel(
-        id: 'aUserSavedMyFlyer',
+        id: aUserSavedMyFlyer,
         description: 'A user saves one of my flyers',
         icon: Iconz.save,
       ),
       // --------------------
       /// A USER SHARED MY FLYER
       TopicModel(
-        id: 'aUserSharedMyFlyer',
+        id: aUserSharedMyFlyer,
         description: 'A user shares one of my flyers',
         icon: Iconz.share,
       ),

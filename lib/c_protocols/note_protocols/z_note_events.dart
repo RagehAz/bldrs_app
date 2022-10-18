@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/authorship.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/authorship_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/bz_team_management.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/profile_deletion.dart';
@@ -15,7 +14,7 @@ class NoteEvent {
 
   // -----------------------------------------------------------------------------
 
-  /// AUTHORSHIP
+  /// AUTHORSHIP REQUESTS
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -29,6 +28,21 @@ class NoteEvent {
     userModelToSendTo: userModelToSendTo,
   );
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> sendAuthorshipCancellationNote({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required UserModel userModelToSendTo,
+  }) => NoteEventsOfAuthorship.sendAuthorshipCancellationNote(
+      context: context,
+      bzModel: bzModel,
+      userModelToSendTo: userModelToSendTo
+  );
+  // -----------------------------------------------------------------------------
+
+  /// AUTHORSHIP RESPONSES
+
+  // --------------------
   ///
   static Future<void> sendAuthorshipAcceptanceNote({
     @required BuildContext context,
@@ -36,15 +50,6 @@ class NoteEvent {
   }) => NoteEventsOfAuthorship.sendAuthorshipAcceptanceNote(
     context: context,
     bzID: bzID,
-  );
-  // --------------------
-  ///
-  static Future<void> cancelSentAuthorshipInvitation({
-    @required BuildContext context,
-    @required NoteModel note,
-  }) => NoteEventsOfAuthorship.cancelSentAuthorshipInvitation(
-    context: context,
-    note: note,
   );
   // -----------------------------------------------------------------------------
 
