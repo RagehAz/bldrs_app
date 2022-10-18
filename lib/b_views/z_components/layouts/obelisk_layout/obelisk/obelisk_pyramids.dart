@@ -25,18 +25,16 @@ class ObeliskPyramids extends StatelessWidget {
       valueListenable: isExpanded,
       builder: (_, bool expanded, Widget child){
 
+
         return Positioned(
           bottom: Pyramids.verticalPositionFix,
-          right: 0,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 17 * 0.7),
-            child: AnimatedScale(
-              duration: const Duration(milliseconds: 500),
-              curve: expanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
-              scale: expanded == true ? 0.95 : 1,
-              alignment: Alignment.bottomRight,
-              child: child,
-            ),
+          right: 17 * 0.7,
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 500),
+            curve: expanded == true ?  Curves.easeOutQuart : Curves.easeOutQuart,
+            scale: expanded == true ? 0.95 : 1,
+            alignment: Alignment.bottomRight,
+            child: child,
           ),
         );
 
@@ -73,6 +71,7 @@ class ObeliskPyramids extends StatelessWidget {
             const Pyramids(
               pyramidType: PyramidType.white,
               color: Colorz.black255,
+              putInCorner: false,
             ),
 
             /// PYRAMIDS GRAPHIC
@@ -83,6 +82,7 @@ class ObeliskPyramids extends StatelessWidget {
                 return Pyramids(
                   pyramidType: isYellow ? PyramidType.yellow : PyramidType.white,
                   loading: isFlashing,
+                  putInCorner: false,
                 );
 
               },
