@@ -10,6 +10,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/phrase_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -107,26 +108,26 @@ class PhraseProtocols {
   }
    */
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<Phrase> fetchPhid({
     @required String lang,
     @required String phid,
   }) async {
-    Phrase _output;
 
-    if (lang != 'en' && phid != null){
+    Phrase _output = await PhraseRealOps.readPhraseByLang(
+      lang: lang,
+      phid: phid,
+    );
 
-      _output = await PhraseRealOps.readPhraseByLang(
-        lang: lang,
-        phid: phid,
-      );
+    _output ??= await PhraseRealOps.readPhraseByLang(
+      lang: 'en',
+      phid: phid,
+    );
 
-      _output ??= await PhraseRealOps.readPhraseByLang(
-        lang: 'en',
-        phid: phid,
-      );
-
-    }
+    _output ??= Phrase(
+      value: phid,
+      id: phid,
+    );
 
     return _output;
   }

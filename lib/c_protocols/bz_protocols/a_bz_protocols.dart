@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/compose_bzz.dart';
@@ -16,6 +17,7 @@ class BzProtocols {
   /// COMPOSE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> composeBz({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -30,6 +32,7 @@ class BzProtocols {
   /// FETCH
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> fetchBz({
     @required BuildContext context,
     @required String bzID
@@ -38,6 +41,7 @@ class BzProtocols {
     bzID: bzID,
   );
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> fetchBzByFlyerID({
     @required BuildContext context,
     @required String flyerID,
@@ -46,6 +50,7 @@ class BzProtocols {
     flyerID: flyerID,
   );
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> fetchBzz({
     @required BuildContext context,
     @required List<String> bzzIDs
@@ -58,6 +63,7 @@ class BzProtocols {
   /// RENOVATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> renovateBz({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -72,6 +78,7 @@ class BzProtocols {
     navigateToBzInfoPageOnEnd: navigateToBzInfoPageOnEnd,
   );
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBzLocally({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -82,12 +89,24 @@ class BzProtocols {
     oldBzModel: oldBzModel,
   );
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> completeBzZoneModel({
     @required BuildContext context,
     @required BzModel bzModel,
   }) => RenovateBzProtocols.completeBzZoneModel(
       context: context,
       bzModel: bzModel
+  );
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> renovateAuthorProtocol({
+    @required BuildContext context,
+    @required BzModel oldBzModel,
+    @required AuthorModel newAuthorModel,
+  }) => RenovateBzProtocols.renovateAuthor(
+    context: context,
+    oldBzModel: oldBzModel,
+    newAuthorModel: newAuthorModel,
   );
   // -----------------------------------------------------------------------------
 

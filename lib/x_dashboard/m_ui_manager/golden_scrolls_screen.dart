@@ -28,7 +28,7 @@ class GoldenScrollsScreen extends StatelessWidget {
           ),
           GoldenScroll(
             headline: 'To run on all emulators',
-            text: 'flutter run -d all',
+            text: 'flutter run --debug -d all', //'flutter run -d all',
           ),
           GoldenScroll(
             headline: 'Google Maps API key',

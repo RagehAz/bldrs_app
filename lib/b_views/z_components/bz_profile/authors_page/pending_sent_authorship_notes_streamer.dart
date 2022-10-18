@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x4_bz_notes_page_controll
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -32,16 +31,15 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
   // --------------------
   @override
   void deactivate() {
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _bzzProvider.setPendingAuthorshipInvitations(
-      notes: [],
-      notify: false,
-    );
+    // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    // _bzzProvider.setPendingAuthorshipInvitations(
+    //   notes: [],
+    //   notify: false,
+    // );
     super.deactivate();
   }
   // --------------------
   /*
-  /// TAMAM
   @override
   void dispose() {
     super.dispose();
@@ -61,11 +59,11 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     if (Mapper.checkCanLoopList(_notes) == true){
 
       if (mounted == true){
-        final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-        _bzzProvider.setPendingAuthorshipInvitations(
-          notes: _notes,
-          notify: true,
-        );
+        // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+        // _bzzProvider.setPendingAuthorshipInvitations(
+        //   notes: _notes,
+        //   notify: true,
+        // );
       }
 
     }
@@ -77,62 +75,105 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
-    return FireCollStreamer(
-      queryModel: bzSentPendingAuthorshipNotesStreamQueryModel(
-        bzID: _bzModel.id,
-        onDataChanged: _onStreamDataChanged,
-      ),
-      builder: (BuildContext context, List<Map<String, dynamic>> maps){
+    if (Mapper.checkCanLoopList(_bzModel.pendingAuthors) == true){
+      return Bubble(
+        headerViewModel: const BubbleHeaderVM(
+          headlineVerse: Verse(
+            text: 'phid_pending_invitation_requests',
+            translate: true,
+          ),
+        ),
+        width: BldrsAppBar.width(context),
+        // onBubbleTap: (){
+        //   NoteModel.blogNotes(notes: _notes);
+        // },
+        columnChildren: <Widget>[
 
-        final List<NoteModel> _notes = NoteModel.decipherNotes(
-            maps: maps,
-            fromJSON: false,
-        );
+          ...List.generate(_bzModel.pendingAuthors.length, (index){
 
-        if (Mapper.checkCanLoopList(_notes) == true){
-          return Bubble(
-            headerViewModel: const BubbleHeaderVM(
-              headlineVerse: Verse(
-                text: 'phid_pending_invitation_requests',
+            final String _userID = _bzModel.pendingAuthors[index];
+
+            return FutureUserTileButton(
+              boxWidth: Bubble.clearWidth(context),
+              userID: _userID,
+              color: Colorz.white10,
+              bubble: false,
+              sideButtonVerse: const Verse(
+                text: 'phid_cancel',
                 translate: true,
               ),
-            ),
-            width: BldrsAppBar.width(context),
-            onBubbleTap: (){
-              NoteModel.blogNotes(notes: _notes);
-            },
-            columnChildren: <Widget>[
+              onSideButtonTap: () => onCancelSentAuthorshipInvitation(
+                context: context,
+                // note: _note,
+              ),
+            );
+          }),
 
-              ...List.generate(_notes.length, (index){
+        ],
+      );
+    }
 
-                final NoteModel _note = _notes[index];
+    else {
+      return const SizedBox();
+    }
 
-                return FutureUserTileButton(
-                  boxWidth: Bubble.clearWidth(context),
-                  userID: _note.parties.receiverID,
-                  color: Colorz.white10,
-                  bubble: false,
-                  sideButtonVerse: const Verse(
-                    text: 'phid_cancel',
-                    translate: true,
-                  ),
-                  onSideButtonTap: () => onCancelSentAuthorshipInvitation(
-                    context: context,
-                    note: _note,
-                  ),
-                );
-              }),
 
-            ],
-          );
-        }
-
-        else {
-          return const SizedBox();
-        }
-
-      },
-    );
+    // return FireCollStreamer(
+    //   queryModel: bzSentPendingAuthorshipNotesStreamQueryModel(
+    //     bzID: _bzModel.id,
+    //     onDataChanged: _onStreamDataChanged,
+    //   ),
+    //   builder: (BuildContext context, List<Map<String, dynamic>> maps){
+    //
+    //     final List<NoteModel> _notes = NoteModel.decipherNotes(
+    //         maps: maps,
+    //         fromJSON: false,
+    //     );
+    //
+    //     if (Mapper.checkCanLoopList(_notes) == true){
+    //       return Bubble(
+    //         headerViewModel: const BubbleHeaderVM(
+    //           headlineVerse: Verse(
+    //             text: 'phid_pending_invitation_requests',
+    //             translate: true,
+    //           ),
+    //         ),
+    //         width: BldrsAppBar.width(context),
+    //         onBubbleTap: (){
+    //           NoteModel.blogNotes(notes: _notes);
+    //         },
+    //         columnChildren: <Widget>[
+    //
+    //           ...List.generate(_notes.length, (index){
+    //
+    //             final NoteModel _note = _notes[index];
+    //
+    //             return FutureUserTileButton(
+    //               boxWidth: Bubble.clearWidth(context),
+    //               userID: _note.parties.receiverID,
+    //               color: Colorz.white10,
+    //               bubble: false,
+    //               sideButtonVerse: const Verse(
+    //                 text: 'phid_cancel',
+    //                 translate: true,
+    //               ),
+    //               onSideButtonTap: () => onCancelSentAuthorshipInvitation(
+    //                 context: context,
+    //                 note: _note,
+    //               ),
+    //             );
+    //           }),
+    //
+    //         ],
+    //       );
+    //     }
+    //
+    //     else {
+    //       return const SizedBox();
+    //     }
+    //
+    //   },
+    // );
 
     // return noteStreamBuilder(
     //   context: context,
