@@ -1,10 +1,11 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/a_dashboard_home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 enum PyramidType{
   yellow,
@@ -19,47 +20,81 @@ enum PyramidType{
   non,
 }
 
-class Pyramids extends StatefulWidget {
+class Pyramids extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Pyramids({
     @required this.pyramidType,
-    @required this.loading,
-    @required this.onPyramidTap,
+    this.loading,
+    this.onPyramidTap,
+    this.color,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final PyramidType pyramidType;
-  final ValueNotifier<bool> loading;
+  final dynamic loading;
   final Function onPyramidTap;
-  /// --------------------------------------------------------------------------
-  @override
-  _PyramidsState createState() => _PyramidsState();
+  final Color color;
   /// --------------------------------------------------------------------------
   static double verticalPositionFix = -0.2;
   /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    return GestureDetector(
+        onTap: onPyramidTap,
+        onDoubleTap: () => onPyramidAdminDoubleTap(context),
+        child:
+
+        loading is ValueNotifier<bool> ?
+        ValueListenableBuilder(
+          valueListenable: loading,
+          child: _PyramidGraphic(pyramidType, color),
+          builder: (_, bool loading, Widget child){
+
+            return WidgetFader(
+              fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
+              duration: const Duration(milliseconds: 750),
+              min: 0.4,
+              child: child,
+            );
+
+            },
+        )
+
+            :
+
+        loading is bool ?
+        WidgetFader(
+          fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
+          duration: const Duration(milliseconds: 750),
+          min: 0.4,
+          child: _PyramidGraphic(pyramidType, color),
+        )
+
+            :
+
+        WidgetFader(
+          fadeType: FadeType.stillAtMax,
+          duration: const Duration(milliseconds: 400),
+          min: 0.4,
+          child: _PyramidGraphic(pyramidType, color),
+        )
+
+    );
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
 }
 
-class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
+class _PyramidGraphic extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  AnimationController _controller;
+  const _PyramidGraphic(
+      this.pyramidType, this.color,
+      {Key key}
+      ) : super(key: key);
   // -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: Ratioz.duration750ms,
-    );
-
-  }
-  // --------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  final PyramidType pyramidType;
+  final Color color;
   // -----------------------------------------------------------------------------
   String getPyramid(PyramidType type){
 
@@ -78,54 +113,56 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
+
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
       context: context,
-      listen: false,
+      listen: true,
     );
-    final String _pyramidIcon = getPyramid(widget.pyramidType); //_userModel?.isAdmin == true ? Iconz.pyramidsCrystal : getPyramid(widget.pyramidType);
-    final Color _pyramidColor = _userModel?.isAdmin == true ? null : null;
-    // --------------------
-    return Positioned(
-      bottom: Pyramids.verticalPositionFix,
-      right: 0,
-      child: SizedBox(
-        width: Ratioz.pyramidsWidth,
-        height: Ratioz.pyramidsHeight,
-        child: GestureDetector(
-          onTap: widget.onPyramidTap,
-          onDoubleTap: () => onPyramidAdminDoubleTap(context),
-          child: widget.loading == null ?
 
-          WebsafeSvg.asset(_pyramidIcon, color: _pyramidColor)
+    /// IF ADMIN
+    if (_userModel?.isAdmin == true){
 
-              :
+      final String _pyramidIcon = getPyramid(PyramidType.crystalYellow);
 
-          ValueListenableBuilder(
-            valueListenable: widget.loading,
-            child: WebsafeSvg.asset(_pyramidIcon, color: _pyramidColor),
-            builder: (_, bool loading, Widget child){
+      return Stack(
+        children: <Widget>[
 
-              if (loading == true) {
-                _controller.repeat(reverse: true);
-              }
-
-              else {
-                _controller.forward();
-              }
-
-              return FadeTransition(
-                opacity: _controller,
-                child: child,
-              );
-
-            },
+          const SuperImage(
+            width: 256 * 0.7,
+            height: 80 * 0.7,
+            iconColor: Colorz.black255,
+            pic: Iconz.pyramidsWhiteClean,
+            boxFit: BoxFit.fitWidth,
           ),
 
-        ),
-      ),
-    );
-    // --------------------
+          SuperImage(
+            width: 256 * 0.7,
+            height: 80 * 0.7,
+            pic: _pyramidIcon,
+            iconColor: Colorz.red230,
+            boxFit: BoxFit.fitWidth,
+          ),
+
+        ],
+      );
+
+    }
+
+    /// IF USER
+    else {
+
+      final String _pyramidIcon = getPyramid(pyramidType);
+
+      return SuperImage(
+        width: 256 * 0.7,
+        height: 80 * 0.7,
+        iconColor: color,
+        pic: _pyramidIcon,
+        boxFit: BoxFit.fitWidth,
+      );
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 }
