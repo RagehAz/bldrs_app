@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/b_bz/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -149,7 +150,7 @@ Future<void> _myBzResignationProtocol({
       ),
     );
 
-    await AuthorProtocols.removeMeFromBzProtocol(
+    await AuthorshipProtocols.removeMeFromBzProtocol(
         context: context,
         streamedBzModelWithoutMyID: newBzFromStream
     );

@@ -14,21 +14,21 @@ class UserTileButtonsList extends StatelessWidget {
   const UserTileButtonsList({
     @required this.usersModels,
     @required this.onUserTap,
-    this.usersWithSideButtonsDeactivated,
     this.selectedUsers,
     this.emptyListString,
     this.sideButtonVerse,
     this.onSideButtonTap,
+    this.deactivatedUsersIDs,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<UserModel>> usersModels;
   final ValueNotifier<List<UserModel>> selectedUsers;
-  final List<String> usersWithSideButtonsDeactivated;
   final ValueChanged<UserModel> onUserTap;
   final Verse emptyListString;
   final Verse sideButtonVerse;
   final ValueChanged<UserModel> onSideButtonTap;
+  final List<String> deactivatedUsersIDs;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -66,16 +66,18 @@ class UserTileButtonsList extends StatelessWidget {
                           :
                       null;
 
+                      final bool _isDeactivated = Stringer.checkStringsContainString(
+                          strings: deactivatedUsersIDs,
+                          string: _user.id,
+                      );
+
                       return UserTileButtonOld(
                         boxWidth: BldrsAppBar.width(context),
                         userModel: _user,
                         color: _buttonColor,
                         onUserTap: () => onUserTap(_user),
                         sideButtonVerse: sideButtonVerse,
-                        sideButtonDeactivated: Stringer.checkStringsContainString(
-                          strings: usersWithSideButtonsDeactivated,
-                          string: _user.id,
-                        ),
+                        sideButtonDeactivated: _isDeactivated || _isMe,
                         onSideButtonTap: () => onSideButtonTap(_user),
                       );
 

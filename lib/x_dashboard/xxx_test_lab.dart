@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -12,13 +13,12 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -26,7 +26,6 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/x_exotic_methods/exotic_methods.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
@@ -89,22 +88,15 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    const String _collName = FireColl.bzz;
-
-    final List<Map<String, dynamic>> _users = await ExoticMethods.readAllCollectionDocs(
-        collName: _collName,
+    const TriggerModel _triggerModel = TriggerModel(
+        name: 'fuck',
+        argument: 'you'
     );
 
-
-    for (final Map<String, dynamic> map in _users){
-
-      await Fire.createNamedDoc(
-          collName: _collName,
-          docName: map['id'],
-          input: map,
-      );
-
-    }
+    await TriggerProtocols.fireTrigger(
+      context: context,
+      trigger: _triggerModel,
+    );
 
 
 

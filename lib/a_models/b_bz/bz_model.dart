@@ -99,6 +99,7 @@ class BzModel{
     @required this.position,
     @required this.contacts,
     @required this.authors,
+    @required this.pendingAuthors,
     @required this.showsTeam,
     @required this.isVerified,
     @required this.bzState,
@@ -120,6 +121,7 @@ class BzModel{
   final GeoPoint position;
   final List<ContactModel> contacts;
   final List<AuthorModel> authors;
+  final List<String> pendingAuthors;
   final bool showsTeam;
   final bool isVerified;
   final BzState bzState;
@@ -189,6 +191,7 @@ class BzModel{
         countryID: tempBz.value.zone?.countryID,
       ),
       authors: oldBz.authors, /// NEVER CHANGED
+      pendingAuthors: oldBz.pendingAuthors, /// NEVER CHANGED
       showsTeam: oldBz.showsTeam, /// NEVER CHANGED
       isVerified: oldBz.isVerified, /// NEVER CHANGED
       bzState: oldBz.bzState, /// NEVER CHANGED
@@ -218,6 +221,7 @@ class BzModel{
     GeoPoint position,
     List<ContactModel> contacts,
     List<AuthorModel> authors,
+    List<String> pendingAuthors,
     bool showsTeam,
     bool isVerified,
     BzState bzState,
@@ -240,6 +244,7 @@ class BzModel{
       position : position ?? this.position,
       contacts : contacts ?? this.contacts,
       authors : authors ?? this.authors,
+      pendingAuthors: pendingAuthors ?? this.pendingAuthors,
       showsTeam : showsTeam ?? this.showsTeam,
       isVerified : isVerified ?? this.isVerified,
       bzState : bzState ?? this.bzState,
@@ -264,6 +269,7 @@ class BzModel{
     bool position = false,
     bool contacts = false,
     bool authors = false,
+    bool pendingAuthors = false,
     bool showsTeam = false,
     bool isVerified = false,
     bool bzState = false,
@@ -285,6 +291,7 @@ class BzModel{
       position : position == true ? null : this.position,
       contacts : contacts == true ? [] : this.contacts,
       authors : authors == true ? [] : this.authors,
+      pendingAuthors: pendingAuthors == true ? [] : this.pendingAuthors,
       showsTeam : showsTeam == true ? null : this.showsTeam,
       isVerified : isVerified == true ? null : this.isVerified,
       bzState : bzState == true ? null : this.bzState,
@@ -318,6 +325,7 @@ class BzModel{
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'contacts': ContactModel.cipherContacts(contacts),
       'authors': AuthorModel.cipherAuthors(authors),
+      'pendingAuthors': pendingAuthors,
       'showsTeam': showsTeam,
       // -------------------------
       'isVerified': isVerified,
@@ -374,6 +382,7 @@ class BzModel{
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts: ContactModel.decipherContacts(map['contacts']),
         authors: AuthorModel.decipherAuthors(map['authors']),
+        pendingAuthors: Stringer.getStringsFromDynamics(dynamics: map['pendingAuthors']),
         showsTeam: map['showsTeam'],
         // -------------------------
         isVerified: map['isVerified'],
@@ -436,6 +445,7 @@ class BzModel{
           isCreator: true,
         )
       ],
+      pendingAuthors: const <String>[],
       showsTeam: true,
       // -------------------------
       isVerified: false,
@@ -1001,7 +1011,7 @@ class BzModel{
       if (Mapper.checkCanLoopList(initialBzTypes) == true){
         if (bzSection == BzSection.construction){
           if (
-          initialBzTypes.contains(BzType.designer)
+              initialBzTypes.contains(BzType.designer)
               ||
               initialBzTypes.contains(BzType.contractor)
           ){
@@ -1474,6 +1484,7 @@ class BzModel{
       authors: <AuthorModel>[
         AuthorModel.dummyAuthor(),
       ],
+      pendingAuthors: const <String>[],
       contacts: ContactModel.dummyContacts(),
       bzForm: BzForm.company,
       accountType: BzAccountType.normal,
@@ -1541,6 +1552,88 @@ class BzModel{
       }
 
     }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogBzzDifferences({
+    @required BzModel bz1,
+    @required BzModel bz2,
+  }){
+
+    blog('staring blogBzzDifferences checkup ');
+
+
+    if (bz1 == null){
+      blog('blogBzzDifferences : bz1 = null');
+    }
+    if (bz2 == null){
+      blog('blogBzzDifferences : bz2 = null');
+    }
+
+    if (bz1 != null && bz2 != null){
+
+      if (bz1.id != bz2.id){
+        blog('ids are not identical');
+      }
+      if (Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
+        blog('bzTypes are not identical');
+      }
+      if (bz1.bzForm != bz2.bzForm){
+        blog('bzForms are not identical');
+      }
+      if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
+        blog('createdAts are not identical');
+      }
+      if (bz1.accountType != bz2.accountType){
+        blog('accountTypes are not identical');
+      }
+      if (bz1.name != bz2.name){
+        blog('names are not identical');
+      }
+      if (Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == false){
+        blog('trigrams are not identical');
+      }
+      if (bz1.logo != bz2.logo){
+        blog('logos are not identical');
+      }
+      if (Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == false){
+        blog('scopes are not identical');
+      }
+      if (ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz1.zone) == false){
+        blog('zones are not identical');
+      }
+      if (bz1.about != bz2.about){
+        blog('abouts are not identical');
+      }
+      if (bz1.position != bz2.position){
+        blog('positions are not identical');
+      }
+      if (ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == false){
+        blog('contacts are not identical');
+      }
+      if (AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == false){
+        blog('authors are not identical');
+      }
+      if (Mapper.checkListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == false){
+        blog('pending authors are not identical');
+      }
+      if (bz1.showsTeam != bz2.showsTeam){
+        blog('showsTeams are not identical');
+      }
+      if (bz1.isVerified != bz2.isVerified){
+        blog('isVerifieds are not identical');
+      }
+      if (bz1.bzState != bz2.bzState){
+        blog('bzStates are not identical');
+      }
+      if (Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
+        blog('flyersIDs are not identical');
+      }
+
+    }
+
+    blog('ending blogBzzDifferences checkup');
 
   }
   // -----------------------------------------------------------------------------
@@ -1679,6 +1772,7 @@ class BzModel{
   /// BZ CHECKERS
 
   // --------------------
+  /// TESTED : WORKS GOOD
   static bool checkBzzContainThisBz({
     @required List<BzModel> bzz,
     @required BzModel bzModel,
@@ -1697,7 +1791,7 @@ class BzModel{
     return _contains;
   }
   // --------------------
-  /// TESTED : WORKS GOOD ISA
+  /// TESTED : WORKS GOOD
   static bool checkBzzAreIdentical({
     @required BzModel bz1,
     @required BzModel bz2,
@@ -1724,6 +1818,7 @@ class BzModel{
           bz1.position == bz2.position &&
           ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == true &&
           AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == true &&
+          Mapper.checkListsAreIdentical(list1: bz1.pendingAuthors, list2: bz2.pendingAuthors) == true &&
           bz1.showsTeam == bz2.showsTeam &&
           bz1.isVerified == bz2.isVerified &&
           bz1.bzState == bz2.bzState &&
@@ -1744,84 +1839,7 @@ class BzModel{
     return _areIdentical;
   }
   // --------------------
-  static void blogBzzDifferences({
-    @required BzModel bz1,
-    @required BzModel bz2,
-  }){
-
-    blog('staring blogBzzDifferences checkup ');
-
-
-    if (bz1 == null){
-      blog('blogBzzDifferences : bz1 = null');
-    }
-    if (bz2 == null){
-      blog('blogBzzDifferences : bz2 = null');
-    }
-
-    if (bz1 != null && bz2 != null){
-
-      if (bz1.id != bz2.id){
-        blog('ids are not identical');
-      }
-      if (Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
-        blog('bzTypes are not identical');
-      }
-      if (bz1.bzForm != bz2.bzForm){
-        blog('bzForms are not identical');
-      }
-      if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
-        blog('createdAts are not identical');
-      }
-      if (bz1.accountType != bz2.accountType){
-        blog('accountTypes are not identical');
-      }
-      if (bz1.name != bz2.name){
-        blog('names are not identical');
-      }
-      if (Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == false){
-        blog('trigrams are not identical');
-      }
-      if (bz1.logo != bz2.logo){
-        blog('logos are not identical');
-      }
-      if (Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == false){
-        blog('scopes are not identical');
-      }
-      if (ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz1.zone) == false){
-        blog('zones are not identical');
-      }
-      if (bz1.about != bz2.about){
-        blog('abouts are not identical');
-      }
-      if (bz1.position != bz2.position){
-        blog('positions are not identical');
-      }
-      if (ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == false){
-        blog('contacts are not identical');
-      }
-      if (AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == false){
-        blog('authors are not identical');
-      }
-      if (bz1.showsTeam != bz2.showsTeam){
-        blog('showsTeams are not identical');
-      }
-      if (bz1.isVerified != bz2.isVerified){
-        blog('isVerifieds are not identical');
-      }
-      if (bz1.bzState != bz2.bzState){
-        blog('bzStates are not identical');
-      }
-      if (Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
-        blog('flyersIDs are not identical');
-      }
-
-    }
-
-    blog('ending blogBzzDifferences checkup');
-
-  }
-  // --------------------
+  /// TESTED : WORKS GOOD
   static bool checkBzHasContacts({
     @required BzModel bzModel,
   }){
@@ -1848,6 +1866,37 @@ class BzModel{
     }
 
     return _hasContacts;
+  }
+  // --------------------
+  ///
+  static bool checkCanInviteUser({
+    @required BzModel bzModel,
+    @required String userID,
+  }){
+    bool _can = false;
+
+    if (bzModel != null && userID != null){
+
+      final bool _isAuthor = AuthorModel.checkAuthorsContainUserID(
+        authors: bzModel.authors,
+        userID: userID,
+      );
+
+      final bool _isPendingAuthor = Stringer.checkStringsContainString(
+          strings: bzModel.pendingAuthors,
+          string: userID,
+      );
+
+      if (_isAuthor == true || _isPendingAuthor == true){
+        _can = false;
+      }
+      else {
+        _can = true;
+      }
+
+    }
+
+    return _can;
   }
   // -----------------------------------------------------------------------------
 
@@ -2050,24 +2099,25 @@ class BzModel{
   // --------------------
   @override
   int get hashCode =>
-      id.hashCode ^
-      bzTypes.hashCode ^
-      bzForm.hashCode ^
-      createdAt.hashCode ^
-      accountType.hashCode ^
-      name.hashCode ^
-      trigram.hashCode ^
-      logo.hashCode ^
-      scope.hashCode ^
-      zone.hashCode ^
-      about.hashCode ^
-      position.hashCode ^
-      contacts.hashCode ^
-      authors.hashCode ^
-      showsTeam.hashCode ^
-      isVerified.hashCode ^
-      bzState.hashCode ^
-      flyersIDs.hashCode ^
+      id.hashCode^
+      bzTypes.hashCode^
+      bzForm.hashCode^
+      createdAt.hashCode^
+      accountType.hashCode^
+      name.hashCode^
+      trigram.hashCode^
+      logo.hashCode^
+      scope.hashCode^
+      zone.hashCode^
+      about.hashCode^
+      position.hashCode^
+      contacts.hashCode^
+      authors.hashCode^
+      pendingAuthors.hashCode^
+      showsTeam.hashCode^
+      isVerified.hashCode^
+      bzState.hashCode^
+      flyersIDs.hashCode^
       docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }

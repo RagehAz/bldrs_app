@@ -21,6 +21,12 @@ class TopicModel {
   final String icon;
   // -----------------------------------------------------------------------------
 
+  /// CONSTANTS
+
+  // --------------------
+  static const String userReceiveAuthorshipRequest = 'userReceiveAuthorshipRequest';
+  // -----------------------------------------------------------------------------
+
     /// ALL EVENTS
 
   // --------------------
@@ -37,7 +43,7 @@ class TopicModel {
       // --------------------
       /// USER RECEIVE AUTHORSHIP =====================> SHOULD BE IN GENERAL W 5ALAS
       TopicModel(
-        id: 'userReceiveAuthorshipRequest',
+        id: userReceiveAuthorshipRequest,
         description: 'A Business account invites me to join their team',
         icon: Iconz.handShake,
       ),

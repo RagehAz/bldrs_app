@@ -22,7 +22,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -742,7 +742,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
         );
 
         if (_bzIDisInMyBzzIDs == true){
-          await AuthorProtocols.authorBzExitAfterBzDeletionProtocol(
+          await AuthorshipProtocols.authorBzExitAfterBzDeletionProtocol(
             context: context,
             bzID: _bzID,
           );

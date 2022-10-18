@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 /// SEARCH
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSearchUsers({
   @required String text,
   @required ValueNotifier<List<UserModel>> foundUsers,
@@ -52,6 +53,7 @@ Future<void> onSearchUsers({
 
 }
 // --------------------
+
 Future<void> onShowUserDialog({
   @required BuildContext context,
   @required UserModel userModel,
