@@ -1,12 +1,9 @@
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
-import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:provider/provider.dart';
 
 class ObeliskPyramids extends StatelessWidget {
@@ -72,13 +69,10 @@ class ObeliskPyramids extends StatelessWidget {
         child: Stack(
           children: <Widget>[
 
-            /// FLASHING PYRAMIDS BLACK FOOTPRINT
-            const SuperImage(
-              width: 256 * 0.7,
-              height: 80 * 0.7,
-              iconColor: Colorz.black255,
-              pic: Iconz.pyramidsWhiteClean,
-              boxFit: BoxFit.fitWidth,
+            /// BLACK FOOTPRINT
+            const Pyramids(
+              pyramidType: PyramidType.white,
+              color: Colorz.black255,
             ),
 
             /// PYRAMIDS GRAPHIC
@@ -86,20 +80,12 @@ class ObeliskPyramids extends StatelessWidget {
               selector: (_,NotesProvider notesProvider) => notesProvider.isFlashing,
               builder: (_, bool isFlashing, Widget child){
 
-                return WidgetFader(
-                  fadeType: isFlashing ? FadeType.repeatAndReverse : FadeType.stillAtMax,
-                  duration: const Duration(milliseconds: 1000),
-                  min: 0.3,
-                  child: child,
+                return Pyramids(
+                  pyramidType: isYellow ? PyramidType.yellow : PyramidType.white,
+                  loading: isFlashing,
                 );
 
               },
-              child: SuperImage(
-                width: 256 * 0.7,
-                height: 80 * 0.7,
-                pic: isYellow ? Iconz.pyramidsYellowClean : Iconz.pyramidsWhiteClean,
-                boxFit: BoxFit.fitWidth,
-              ),
             ),
 
           ],
