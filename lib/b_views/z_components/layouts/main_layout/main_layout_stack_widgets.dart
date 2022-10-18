@@ -143,15 +143,11 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
         /// --- PYRAMIDS
         if (pyramidsAreOn == true && confirmButtonModel == null)
-          Positioned(
-            bottom: Pyramids.verticalPositionFix,
-            right: 17 * 0.7,
-            child: Pyramids(
-              key: const ValueKey<String>('pyramids'),
-              pyramidType: _concludePyramidTypePerSkyType(),
-              loading: loading,
-              onPyramidTap: onPyramidTap,
-            ),
+          Pyramids(
+            key: const ValueKey<String>('pyramids'),
+            pyramidType: _concludePyramidTypePerSkyType(),
+            loading: loading,
+            onPyramidTap: onPyramidTap,
           ),
 
         if (confirmButtonModel != null)
