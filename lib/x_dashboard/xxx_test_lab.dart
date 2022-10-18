@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -13,7 +13,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -88,15 +87,15 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    const TriggerModel _triggerModel = TriggerModel(
-        name: 'fuck',
-        argument: 'you'
-    );
-
-    await TriggerProtocols.fireTrigger(
-      context: context,
-      trigger: _triggerModel,
-    );
+    // const TriggerModel _triggerModel = TriggerModel(
+    //     name: 'fuck',
+    //     argument: 'you'
+    // );
+    //
+    // await TriggerProtocols.fireTrigger(
+    //   context: context,
+    //   trigger: _triggerModel,
+    // );
 
 
 

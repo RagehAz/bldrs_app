@@ -6,9 +6,9 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -123,9 +123,8 @@ class NoteEventsOfAuthorship {
       // seen: false,
       // sendFCM: true,
       // sendNote: true,
-      trigger: TriggerModel(
-        name: TriggerModel.refetchBz,
-        argument: bzModel.id,
+      trigger: TriggerProtocols.createRefetchBzTrigger(
+          bzID: bzModel.id,
       ),
     );
 
@@ -182,9 +181,8 @@ class NoteEventsOfAuthorship {
       // seen: false,
       // sendFCM: true,
       // sendNote: true,
-      trigger: TriggerModel(
-        name: TriggerModel.refetchBz,
-        argument: bzModel.id,
+      trigger: TriggerProtocols.createRefetchBzTrigger(
+        bzID: bzModel.id,
       ),
     );
 
@@ -234,7 +232,7 @@ class NoteEventsOfAuthorship {
         topicType: TopicType.authorshipReply,
         id: bzID,
       ),
-      trigger: TriggerModel.createAuthorshipAcceptanceTrigger(),
+      // trigger: TriggerProtocols.createAuthorshipAcceptanceTrigger(),
     );
 
     await NoteProtocols.composeToOneUser(

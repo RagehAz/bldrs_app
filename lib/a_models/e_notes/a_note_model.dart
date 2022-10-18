@@ -2,12 +2,11 @@
 import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -190,6 +189,7 @@ class NoteModel {
       'topic': topic,
       'triggerName': trigger?.name,
       'triggerArgument': trigger?.argument,
+      'triggerDone': trigger?.done,
       'seen': seen,
       'progress': progress,
       'dismissible' : dismissible,
@@ -255,6 +255,7 @@ class NoteModel {
         trigger: TriggerModel(
           name: map['triggerName'],
           argument: map['triggerArgument'],
+          done: map['triggerDone'],
         ),
         seen: map['seen'],
         progress: map['progress'],
@@ -339,6 +340,7 @@ class NoteModel {
         trigger: TriggerModel(
           name: get('triggerName'),
           argument: get('triggerArgument'),
+          done: getBool('triggerDone'),
         ),
         seen: getBool('seen'),
         progress: Numeric.transformStringToInt(get('progress')),
@@ -1350,18 +1352,6 @@ class NoteModel {
       return 'receiver can only be a user or a bz';
     }
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// FIRE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getNoteCollName(NoteModel note){
-    return note.parties.receiverType == PartyType.user ?
-    FireColl.users
-        :
-    FireColl.bzz;
   }
   // -----------------------------------------------------------------------------
 

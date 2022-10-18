@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
@@ -438,21 +439,25 @@ class NoteProtocols {
     @required NoteModel oldNote
   }) async {
 
-    final bool _postersAreIdentical = PosterModel.checkPostersAreIdentical(
+    if (newNote != null && oldNote != null){
+
+      final bool _postersAreIdentical = PosterModel.checkPostersAreIdentical(
         poster1: newNote.poster,
         poster2: oldNote.poster,
-    );
-    assert(_postersAreIdentical == true, 'NoteProtocol.renovate : can not renovate with a new poster');
+      );
+      assert(_postersAreIdentical == true, 'NoteProtocol.renovate : can not renovate with a new poster');
 
-    NotesProvider.proUpdateNoteEverywhereIfExists(
-      context: context,
-      noteModel: newNote,
-      notify: true,
-    );
+      NotesProvider.proUpdateNoteEverywhereIfExists(
+        context: context,
+        noteModel: newNote,
+        notify: true,
+      );
 
-    await NoteFireOps.updateNote(
-      note: newNote,
-    );
+      await NoteFireOps.updateNote(
+        note: newNote,
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -523,6 +528,73 @@ class NoteProtocols {
       }
 
     }
+
+  }
+  // --------------------
+  /// VERY VERY EXPENSIVE : TASK : OPTIMIZE THIS IN FUTURE : DEVICE WILL EXPLODE HERE
+  static Future<void> wipeAllNotes({
+    @required BuildContext context,
+    @required PartyType partyType,
+    @required String id,
+  }) async {
+
+    /// TASK : DELETE ALL NOTES PROTO FUCKING COLE
+    blog('should wipe all notes in this shit');
+
+    if (id != null){
+
+      final List<NoteModel> _notesToDelete = <NoteModel>[];
+
+      /// READ ALL NOTES
+      for (int i = 0; i <= 1000; i++){
+        final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
+          limit: 10,
+          collName: FireColl.getPartyCollName(partyType),
+          docName: id,
+          subCollName: FireSubColl.noteReceiver_receiver_notes,
+          addDocsIDs: true,
+          addDocSnapshotToEachMap: true,
+          startAfter: _notesToDelete.isEmpty == true ? null : _notesToDelete?.last?.docSnapshot,
+        );
+
+        if (Mapper.checkCanLoopList(_maps) == true){
+
+          final List<NoteModel> _notes = NoteModel.decipherNotes(
+            maps: _maps,
+            fromJSON: false,
+          );
+
+          _notesToDelete.addAll(_notes);
+
+        }
+
+        else {
+          break;
+        }
+
+      }
+
+      /// DELETE ALL NOTES
+      if (Mapper.checkCanLoopList(_notesToDelete) == true){
+
+        await Future.wait(<Future>[
+
+          ...List.generate(_notesToDelete.length, (index){
+
+            return wipeNote(
+                context: context,
+                note: _notesToDelete[index],
+            );
+
+        }),
+
+        ]);
+
+
+      }
+
+    }
+
 
   }
   // -----------------------------------------------------------------------------

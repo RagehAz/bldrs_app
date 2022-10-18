@@ -5,6 +5,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fetch_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/renovate_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/wipe_flyers.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -119,6 +120,28 @@ class FlyerProtocols {
 
     return _flyer;
   }
+  // --------------------
+  ///
+  static Future<FlyerModel> refetch({
+    @required BuildContext context,
+    @required  String flyerID,
+  }) async {
+
+    FlyerModel _output;
+
+    if (flyerID != null){
+
+      await FlyerLDBOps.deleteFlyers(<String>[flyerID]);
+
+      _output = await fetchFlyer(
+          context: context,
+          flyerID: flyerID
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// RENOVATE
@@ -175,6 +198,7 @@ class FlyerProtocols {
     isDeletingBz: isDeletingBz,
   );
   // --------------------
+  ///
   static Future<BzModel> wipeFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -189,6 +213,15 @@ class FlyerProtocols {
     showWaitDialog: showWaitDialog,
     updateBzEveryWhere: updateBzEveryWhere,
     isDeletingBz: isDeletingBz,
+  );
+  // --------------------
+  ///
+  static Future<void> deleteFlyersLocally({
+    @required BuildContext context,
+    @required List<String> flyersIDs,
+  }) => WipeFlyerProtocols.deleteFlyersLocally(
+    context: context,
+    flyersIDs: flyersIDs,
   );
   // --------------------
 }

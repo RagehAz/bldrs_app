@@ -25,6 +25,7 @@ class FireCollStreamer extends StatefulWidget {
     @required Stream<QuerySnapshot<Object>> stream,
     @required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
     @required ValueChanged<List<Map<String, dynamic>>> onChange,
+    @required String invoker,
   }){
 
     final StreamSubscription _streamSubscription = stream.listen((QuerySnapshot<Object> snapshot) async {
@@ -52,11 +53,11 @@ class FireCollStreamer extends StatefulWidget {
       cancelOnError: false,
 
       onDone: (){
-        blog('FireCollStreamer : onStreamDataChanged done');
+        blog('FireCollStreamer ($invoker) : onStreamDataChanged done');
       },
 
       onError: (Object error){
-        blog('FireCollStreamer : onStreamDataChanged error : $error');
+        blog('FireCollStreamer ($invoker) : onStreamDataChanged error : $error');
       },
 
     );
@@ -88,6 +89,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
       oldMaps: _oldMaps,
+      invoker: 'initState of FireCollStreamer',
       onChange: widget.queryModel.onDataChanged == null ?
       null
           :
