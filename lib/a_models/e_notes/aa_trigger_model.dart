@@ -92,19 +92,27 @@ class TriggerModel {
   /// CONSTANTS
 
   // --------------------
-  static const String updateFlyer = 'updateFlyer';
-  static const String bzDeletion = 'bzDeletion';
+  /// -> should refetch flyer
+  static const String refetchFlyer = 'refetchFlyer';
+  // --------------------
+  /// -> should delete bz locally
+  static const String deleteBzLocally = 'deleteBzLocally';
+  // --------------------
+  /// -> shows note buttons + allows [ add Me To Bz Protocol ] + allows [ decline authorship protocol ]
   static const String authorshipInvitation = 'authorshipInvitation';
+  // --------------------
+  /// -> should refetch bz
+  static const String refetchBz = 'refetchBz';
   // -----------------------------------------------------------------------------
 
   /// CREATORS
 
   // --------------------
-  static TriggerModel createFlyerUpdateTrigger({ /// re-fetch flyer
+  static TriggerModel createFlyerRefetchTrigger({ /// re-fetch flyer
     @required String flyerID,
   }){
     return TriggerModel(
-      name: updateFlyer,
+      name: refetchFlyer,
       argument: flyerID,
     );
   }
@@ -113,11 +121,11 @@ class TriggerModel {
     return null;
   }
   // --------------------
-  static TriggerModel createBzDeletionTrigger({
+  static TriggerModel createDeleteBzLocallyTrigger({
     @required String bzID,
   }){
     return TriggerModel(
-      name: 'bzDeletion',
+      name: deleteBzLocally,
       argument: bzID,
     );
 }

@@ -103,7 +103,7 @@ class UserTileButtonOld extends StatelessWidget {
               width: inviteButtonWidth,
               height: buttonHeight,
               verse: sideButtonVerse,
-              verseScaleFactor: 0.7,
+              verseScaleFactor: 0.6,
               verseMaxLines: 2,
               onTap: onSideButtonTap,
               isDeactivated: sideButtonDeactivated,
