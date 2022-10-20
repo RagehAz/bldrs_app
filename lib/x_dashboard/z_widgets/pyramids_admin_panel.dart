@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -32,6 +33,11 @@ class PyramidsAdminPanel extends StatelessWidget {
     final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: true);
 
     final List<String> _phidsPendingTranslation = PhraseProvider.proGetPhidsPendingTranslation(
+      context: context,
+      listen: true,
+    );
+
+    final int _badgeNum = NotesProvider.proGetBadgeNum(
       context: context,
       listen: true,
     );
@@ -84,16 +90,23 @@ class PyramidsAdminPanel extends StatelessWidget {
 
               /// CREATE NOTES BUTTON
               if (pyramidsAreOn == true)
-                DreamBox(
-                  height: 40,
-                  width: 40,
-                  corners: 20,
-                  color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
-                  icon: Iconz.notification,
-                  iconSizeFactor: 0.6,
-                  onTap: () => Nav.goToNewScreen(
-                    context: context,
-                    screen: const NotesCreatorHome(),
+                NoteRedDotWrapper(
+                  childWidth: 40,
+                  redDotIsOn: true,
+                  count: _badgeNum,
+                  shrinkChild: true,
+                  child: DreamBox(
+                    height: 40,
+                    width: 40,
+                    corners: 20,
+                    color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
+                    icon: Iconz.notification,
+                    iconSizeFactor: 0.6,
+                    onLongTap: () => NotesProvider.proRefreshBadgeNum(context),
+                    onTap: () => Nav.goToNewScreen(
+                      context: context,
+                      screen: const NotesCreatorHome(),
+                    ),
                   ),
                 ),
 

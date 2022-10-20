@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
@@ -447,11 +446,12 @@ class NoteProtocols {
       );
       assert(_postersAreIdentical == true, 'NoteProtocol.renovate : can not renovate with a new poster');
 
-      NotesProvider.proUpdateNoteEverywhereIfExists(
-        context: context,
-        noteModel: newNote,
-        notify: true,
-      );
+      /// DEPRECATED
+      // NotesProvider.proUpdateNoteEverywhereIfExists(
+      //   context: context,
+      //   noteModel: newNote,
+      //   notify: true,
+      // );
 
       await NoteFireOps.updateNote(
         note: newNote,
@@ -485,12 +485,13 @@ class NoteProtocols {
       note: note,
     );
 
-    /// PRO DELETE
-    NotesProvider.proDeleteNoteEverywhereIfExists(
-      context: context,
-      noteID: note.id,
-      notify: true,
-    );
+    /// DEPRECATED
+    // /// PRO DELETE
+    // NotesProvider.proDeleteNoteEverywhereIfExists(
+    //   context: context,
+    //   noteID: note.id,
+    //   notify: true,
+    // );
 
     blog('NoteProtocol.deleteNoteEverywhereProtocol : END');
   }

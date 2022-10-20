@@ -48,7 +48,7 @@ class ObeliskIcon extends StatelessWidget {
                 child: Selector<NotesProvider, int>(
                   selector: (_, NotesProvider notesProvider){
 
-                    final List<MapModel> _mapModels = notesProvider.obeliskNotesNumber;
+                    final List<MapModel> _mapModels = notesProvider.obeliskBadges;
 
                     final MapModel _mapModel = MapModel.getModelByKey(
                         models: _mapModels,

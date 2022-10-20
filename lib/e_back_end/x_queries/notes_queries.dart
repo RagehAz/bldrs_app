@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 
 // --------------------
 ///
-FireQueryModel getBzNotesQueryModel({
+FireQueryModel bzNotesPaginationQueryModel({
   @required String bzID,
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
@@ -85,7 +85,7 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-FireQueryModel getUserNotesPaginationQueryModel({
+FireQueryModel userNotesPaginationQueryModel({
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
@@ -95,7 +95,7 @@ FireQueryModel getUserNotesPaginationQueryModel({
       bDocName: AuthFireOps.superUserID(),
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
     ),
-    limit: 5,
+    limit: 7,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     // finders: <FireFinder>[
     //   FireFinder(
