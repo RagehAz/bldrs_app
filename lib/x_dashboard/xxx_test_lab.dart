@@ -87,18 +87,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    // const TriggerModel _triggerModel = TriggerModel(
-    //     name: 'fuck',
-    //     argument: 'you'
-    // );
-    //
-    // await TriggerProtocols.fireTrigger(
-    //   context: context,
-    //   trigger: _triggerModel,
-    // );
-
-
-
 
   }
   // -------------------------------------------------

@@ -79,6 +79,8 @@ class ObeliskPyramids extends StatelessWidget {
               selector: (_,NotesProvider notesProvider) => notesProvider.isFlashing,
               builder: (_, bool isFlashing, Widget child){
 
+                blog('PYRAMIDS ARE FLASHING : $isFlashing');
+
                 return Pyramids(
                   pyramidType: isYellow ? PyramidType.yellow : PyramidType.white,
                   loading: isFlashing,

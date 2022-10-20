@@ -50,6 +50,7 @@ class AuthorshipProtocols {
   /// RESPONDING
 
   // --------------------
+  ///
   static Future<void> respondToInvitation({
     @required BuildContext context,
     @required NoteModel noteModel,

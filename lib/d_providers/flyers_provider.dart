@@ -329,40 +329,6 @@ class FlyersProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// PRO GETTERS
-
-  // --------------------
-  /*
-static Future<List<FlyerModel>> proFetchFlyers({
-  @required BuildContext context,
-  @required List<String> flyersIDs,
-}) async {
-
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  final List<FlyerModel> _flyers = await _flyersProvider.fetchFlyersByIDs(
-      context: context,
-      flyersIDs: flyersIDs,
-  );
-
-  return _flyers;
-}
-  // --------------------
-static Future<FlyerModel> proFetchFlyer({
-  @required BuildContext context,
-  @required String flyerID,
-}) async {
-
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  final FlyerModel _flyer = await _flyersProvider.fetchFlyerByID(
-      context: context,
-      flyerID: flyerID,
-  );
-
-  return _flyer;
-}
-   */
-  // -----------------------------------------------------------------------------
-
   /// WIPE OUT
 
   // --------------------

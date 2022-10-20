@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/b_notes_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/c_local_noot_test_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/d_noot_route_to_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_lab/e_badge_test.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -98,6 +99,16 @@ class _NotesLabHomeState extends State<NotesLabHome> {
             screen: const NoteRouteToScreen(
               receivedAction: null,
             ),
+          ),
+        ),
+
+        /// GLOBAL BADGE NUMBER
+        WideButton(
+          verse: Verse.plain('go to Global Badge Number Test'),
+          icon: Iconz.circleDot,
+          onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: const GlobalBadgeTest(),
           ),
         ),
 

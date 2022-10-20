@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/a_dashboard_home_screen.dart';
 import 'package:flutter/material.dart';
@@ -101,7 +100,7 @@ class _PyramidsWidgetTree extends StatelessWidget {
 
             return WidgetFader(
               fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
-              duration: const Duration(milliseconds: 750),
+              duration: const Duration(milliseconds: 600),
               min: 0.4,
               child: child,
             );
@@ -114,7 +113,7 @@ class _PyramidsWidgetTree extends StatelessWidget {
         loading is bool ?
         WidgetFader(
           fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
-          duration: const Duration(milliseconds: 750),
+          duration: const Duration(milliseconds: 600),
           min: 0.4,
           child: _PyramidGraphic(pyramidType, color),
         )
@@ -163,36 +162,17 @@ class _PyramidGraphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: true,
-    );
-
     /// IF ADMIN
-    if (_userModel?.isAdmin == true){
+    if (imAdmin(context) == true){
 
-      final String _pyramidIcon = getPyramid(PyramidType.crystalYellow);
+      final String _pyramidIcon = getPyramid(PyramidType.glass);
 
-      return Stack(
-        children: <Widget>[
-
-          const SuperImage(
-            width: 256 * 0.7,
-            height: 80 * 0.7,
-            iconColor: Colorz.black255,
-            pic: Iconz.pyramidsWhiteClean,
-            boxFit: BoxFit.fitWidth,
-          ),
-
-          SuperImage(
-            width: 256 * 0.7,
-            height: 80 * 0.7,
-            pic: _pyramidIcon,
-            iconColor: Colorz.red230,
-            boxFit: BoxFit.fitWidth,
-          ),
-
-        ],
+      return SuperImage(
+        width: 256 * 0.7,
+        height: 80 * 0.7,
+        iconColor: color,
+        pic: _pyramidIcon,
+        boxFit: BoxFit.fitWidth,
       );
 
     }
@@ -214,4 +194,12 @@ class _PyramidGraphic extends StatelessWidget {
 
   }
   // -----------------------------------------------------------------------------
+}
+
+bool imAdmin(BuildContext context){
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: true,
+  );
+  return _userModel?.isAdmin;
 }

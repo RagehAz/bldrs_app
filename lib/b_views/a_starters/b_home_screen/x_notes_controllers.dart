@@ -118,58 +118,6 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes
 
   return _oldMaps;
 }
-// --------------------
-/*
-Future<void> _checkForBzDeletionNoteAndProceed({
-  @required BuildContext context,
-  @required List<NoteModel> notes,
-}) async {
-
-  // blog('_checkForBzDeletionNoteAndProceed : start');
-
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
-    listen: false,
-  );
-
-  if (UserModel.checkUserIsAuthor(_userModel) == true){
-
-    // blog('_checkForBzDeletionNoteAndProceed : user is author');
-
-    final List<NoteModel> _bzDeletionNotes = NoteModel.getNotesContainingTrigger(
-      notes: notes,
-      triggerFunctionName: TriggerProtocols.tridRemoveBzTracesAfterDeletion,
-    );
-
-    if (Mapper.checkCanLoopList(_bzDeletionNotes) == true){
-
-      // blog('_checkForBzDeletionNoteAndProceed : ${_bzDeletionNotes.length} bz deletion notes');
-
-      for (final NoteModel note in _bzDeletionNotes){
-
-        /// in the case of bzDeletion NoteType : trigger argument is bzID
-        final String _bzID = note.trigger.argument;
-
-        final bool _bzIDisInMyBzzIDs = Stringer.checkStringsContainString(
-          strings: _userModel.myBzzIDs,
-          string: _bzID,
-        );
-
-        if (_bzIDisInMyBzzIDs == true){
-          await AuthorshipProtocols.removeBzTracesAfterDeletion(
-            context: context,
-            bzID: _bzID,
-          );
-        }
-
-      }
-
-    }
-
-  }
-
-}
- */
 // -----------------------------------------------------------------------------
 
 /// BZZ NOTES STREAMS
@@ -291,48 +239,6 @@ StreamSubscription _initializeBzNotesStream({
 
   return _streamSubscription;
 }
-// --------------------
-/*
-Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
-  @required BuildContext context,
-  @required List<NoteModel> newBzNotes,
-}) async {
-
-  final List<NoteModel> _flyerUpdatesNotes = NoteModel.getNotesContainingTrigger(
-    notes: newBzNotes,
-    triggerFunctionName: TriggerProtocols.tridRefetchFlyer,
-  );
-
-  if (Mapper.checkCanLoopList(_flyerUpdatesNotes) == true){
-
-    for (int i =0; i < _flyerUpdatesNotes.length; i++){
-
-      final NoteModel note = _flyerUpdatesNotes[i];
-
-      final String _flyerID = note.trigger.argument;
-
-      if (_flyerID != null){
-
-        final FlyerModel flyerModel = await FlyerFireOps.readFlyerOps(
-            flyerID: _flyerID
-        );
-
-        await FlyerProtocols.updateFlyerLocally(
-          context: context,
-          flyerModel: flyerModel,
-          notifyFlyerPro: (i + 1) == _flyerUpdatesNotes.length,
-          resetActiveBz: true,
-        );
-
-      }
-
-
-    }
-
-  }
-
-}
- */
 // -----------------------------------------------------------------------------
 
 /// NOTES CHECKERS
