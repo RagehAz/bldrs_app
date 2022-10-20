@@ -8,9 +8,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // --------------------
-///
+@pragma('vm:entry-point')
 Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
+
+  /*
+    There are a few things to keep in mind about your background message handler:
+
+    - It must not be an anonymous function.
+
+    - It must be a top-level function
+    (e.g. not a class method which requires initialization).
+
+    - It must be annotated with @pragma('vm:entry-point')
+     right above the function declaration
+     (otherwise it may be removed during tree shaking for release mode).
+
+   */
+
   await Firebase.initializeApp();
+
+  FCM.blogRemoteMessage(
+    remoteMessage: remoteMessage,
+    invoker: '_initializeNootsListeners.onMessageOpenedApp',
+  );
+
   await FCMStarter._pushGlobalNootFromRemoteMessage(
       remoteMessage: remoteMessage,
       invoker: '_onBackgroundMessageHandler'
@@ -216,7 +237,7 @@ class FCMStarter {
 
         await Future.wait(<Future>[
 
-          FCM.incrementGlobalBadge(),
+          // FCM.incrementGlobalBadge(),
 
           FCM.pushGlobalNoot(
             title: _note.title,

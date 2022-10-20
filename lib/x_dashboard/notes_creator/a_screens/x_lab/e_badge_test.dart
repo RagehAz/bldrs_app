@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -62,7 +63,12 @@ class _GlobalBadgeTestState extends State<GlobalBadgeTest> {
   int _badgeNumber = 0;
   // --------------------
   Future<void> _getSetBadgeNumber() async {
-    final int _num = await FCM.instance.awesomeNotifications.getGlobalBadgeCounter();
+
+    await NotesProvider.proRefreshBadgeNum(context);
+    final int _num = NotesProvider.proGetBadgeNum(
+      context: context,
+      listen: false,
+    );
 
     setState(() {
       _badgeNumber = _num;
@@ -99,6 +105,17 @@ class _GlobalBadgeTestState extends State<GlobalBadgeTest> {
           onTap: () async {
 
             await FCM.instance.awesomeNotifications.setGlobalBadgeCounter(99);
+            await _getSetBadgeNumber();
+
+          },
+        ),
+
+        /// SET TO zero
+        WideButton(
+          verse: Verse.plain('SET TO zero'),
+          onTap: () async {
+
+            await FCM.instance.awesomeNotifications.setGlobalBadgeCounter(0);
             await _getSetBadgeNumber();
 
           },

@@ -47,8 +47,8 @@ const createFCMPayload = (noteModel) => {
     // this lets FireBaseMessaging force a notification
     // but we are already handling it by AwesomeNotification package
     // notification: {
-    //   body: body,
-    //   title: noteTitle,
+      // body: body,
+      // title: noteTitle,
     // },
     data: {
       click_action: 'FLUTTER_NOTIFICATION_CLICK',
@@ -79,14 +79,20 @@ const createFCMPayload = (noteModel) => {
       dismissible: `${noteModel.dismissible}`,
     },
     // Set Android priority to "high"
-    // android: {
-    //   priority: 'high',
-    // },
+    android: {
+      priority: 'high',
+      // ttl: '86400s',
+      // notification: {
+        // click_action: 'OPEN_ACTIVITY_1',
+        // badge: 0,
+      //  }
+    },
     // Add APNS (Apple) config
     apns: {
       payload: {
         aps: {
           contentAvailable: true,
+          category: 'NEW_MESSAGE_CATEGORY',
         },
       },
       headers: {
@@ -114,7 +120,7 @@ const sendFCMToDevice = (noteModel) => {
         const success = onFCMSuccess(response);
         return success;
       }).catch(function(error) {
-        const failure = onFCMError(error);
+        const failure = onFCMError(error, noteModel);
         return failure;
       });
   functions.logger.log(`sendFCMToDevice : 3 - END : output is : [${output}]`);
@@ -139,7 +145,7 @@ const sendFCMToDevices = (mapOfNoteModelAndTokens) => {
         const success = onFCMSuccess(response);
         return success;
       }).catch(function(error) {
-        const failure = onFCMError(error);
+        const failure = onFCMError(error, mapOfNoteModelAndTokens.noteModel);
         return failure;
     });
   functions.logger.log(`sendFCMToDevices : 3 - END : output is : [${output}]`);
@@ -163,7 +169,8 @@ const sendFCMsToDevices = (notesModels) => {
         const success = onFCMSuccess(response);
         return success;
       }).catch(function(error) {
-        const failure = onFCMError(error);
+        // should loop and delete token for each device separatly
+        const failure = onFCMError(error, null);
         return failure;
     });
   functions.logger.log(`sendFCMsToDevices : 3 - END : output is : [${output}]`);
@@ -182,7 +189,7 @@ const sendFCMToTopic = (noteModel) => {
     const success = onFCMSuccess(response);
     return success;
   }).catch(function(error) {
-    const failure = onFCMError(error);
+    const failure = onFCMError(error, noteModel);
     return failure;
   });
   functions.logger.log(`sendFCMToTopic : 3 - END : output is : [${output}]`);
@@ -219,7 +226,7 @@ const analyzeSuccessRate = (response, tokens) => {
 }
 // --------------------
 // 
-const onFCMError = (error) => {
+const onFCMError = (error, noteModel) => {
   if (error != null) {
     functions.logger.log(
         'onFCMError : x - could not send FCM',
@@ -227,7 +234,7 @@ const onFCMError = (error) => {
         `message : [${error.errorInfo?.message}]`,
         `codePrefix : [${error.codePrefix}]`,
     );
-    if (noteModel.receiverType == 'user') {
+    if (noteModel?.receiverType == 'user') {
       if (error.errorInfo.code == 'messaging/registration-token-not-registered') {
         userMethods.deleteUserToken(noteModel.receiverID);
       }
