@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -21,6 +22,26 @@ enum DuplicatesAlgorithm {
   keepSecond,
   keepBoth,
   keepFirst,
+}
+
+enum TopicType {
+  /// authors notified on their any new flyer getting verified
+  flyerVerification, // 'flyerVerification/bzID/'
+
+  /// authors notifier on any of bz flyers got updated
+  flyerUpdate, // 'flyerUpdate/bzID/'
+
+  /// authors notified on new user joined their team
+  authorshipReply, // 'authorshipAcceptance/bzID/'
+
+  /// authors notified on any of them got his role changed
+  authorRoleChanged, // 'authorRoleChanged/bzID/'
+
+  /// authors notified on any of them got removed from the team
+  authorDeletion, // 'authorDeletion/bzID/'
+
+  /// authors notified on this general topic for general bz related notes
+  generalBzNotes, // 'generalBzNotes/bzID/'
 }
 
 @immutable
@@ -839,7 +860,8 @@ class NoteModel {
 
     return _isAuthorship;
   }
-
+  // --------------------
+  ///
   static Future<bool> checkCanShowAuthorshipButtons({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -1400,154 +1422,3 @@ class NoteModel {
       docSnapshot.hashCode;
   // -----------------------------------------------------------------------------
 }
-
-// -----------------------------------------------------------------------------
-enum TopicType {
-  /// authors notified on their any new flyer getting verified
-  flyerVerification, // 'flyerVerification/bzID/'
-
-  /// authors notifier on any of bz flyers got updated
-  flyerUpdate, // 'flyerUpdate/bzID/'
-
-  /// authors notified on new user joined their team
-  authorshipReply, // 'authorshipAcceptance/bzID/'
-
-  /// authors notified on any of them got his role changed
-  authorRoleChanged, // 'authorRoleChanged/bzID/'
-
-  /// authors notified on any of them got removed from the team
-  authorDeletion, // 'authorDeletion/bzID/'
-
-  /// authors notified on this general topic for general bz related notes
-  generalBzNotes, // 'generalBzNotes/bzID/'
-}
-// -----------------------------------------------------------------------------
-/*
-
-WHEN DO WE HAVE NOTIFICATIONS
-
--- USER RECEIVE
-    -> authorship request
-    -> my reviews [review received reply - review received agree]
-
--- USERS RECEIVE AT ONCE
-    -> followed bzz flyers [followed bz publish new flyer]
-    -> saved flyers [saved flyer updated - saved flyer received new review]
-    -> general news
-
--- AUTHORS (BZ) RECEIVE
-    -> bz flyer note : [flyer verification note - flyer update note]
-    -> bz team notes : [authorship reply - author role changes - author deletion]
-    -> new followers
-    -> user-flyer interaction [new flyer share - new flyer save - new flyer review]
-    -> general bz related news
-
-    -----> my bz is deleted
-
- */
-// -----------------------------------------------------------------------------
-/*
-// /// should be re-named and properly handled to become { triggers / function triggers }
-// enum NoteType {
-//   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
-//   authorship,
-//   /// WHEN BLDRS.NET SENDS A USER SOME NEWS
-//   notice,
-//   /// WHEN FLYER UPDATES ON DB AND NEED TO ACTIVATE [ LOCAL FLYER UPDATE PROTOCOL ]
-//   flyerUpdate,
-//   /// WHEN A MASTER AUTHOR DELETES BZ, A NOTE IS SENT TO ALL AUTHORS
-//   bzDeletion,
-// }
- */
-// -----------------------------------------------------------------------------
-/*
-  /// TESTED : WORKS PERFECT
-  static String cipherNoteType(NoteType noteType){
-    switch(noteType){
-      case NoteType.authorship:   return 'authorship';    break;
-      case NoteType.notice:       return 'notice';        break;
-      case NoteType.flyerUpdate:  return 'flyerUpdate';   break;
-      case NoteType.bzDeletion:   return 'bzDeletion';    break;
-      default : return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static NoteType decipherNoteType(String noteType){
-    switch(noteType){
-      case 'authorship':    return NoteType.authorship;   break;
-      case 'notice':        return NoteType.notice;       break;
-      case 'flyerUpdate':   return NoteType.flyerUpdate;  break;
-      case 'bzDeletion':    return NoteType.bzDeletion;   break;
-      default: return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const List<NoteType> noteTypesList = <NoteType>[
-    NoteType.notice,
-    NoteType.authorship,
-    NoteType.flyerUpdate,
-    NoteType.bzDeletion,
-  ];
-   */
-// -----------------------------------------------------------------------------
-/*
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Map<String, dynamic> _cipherNotificationField(){
-    return <String, dynamic>{
-      'notification': <String, dynamic>{
-        'title': title,
-        'body': body,
-      },
-      'data': metaData,
-    };
-  }
-    // --------------------
-  /// TESTED : WORKS PERFECT
-  static String _decipherNotificationField({
-    @required dynamic map,
-    @required bool titleNotBody,
-  }){
-    String _field;
-    final String _key = titleNotBody == true ? 'title' : 'body';
-
-    if (map != null){
-
-      // title: map['notification']['notification']['title'],
-
-      final dynamic _notification1 = map['notification'];
-
-      dynamic _notification2;
-      if (_notification1 != null){
-        _notification2 = _notification1['notification'];
-      }
-
-      if (_notification2 != null){
-        _field = _notification2[_key];
-      }
-
-    }
-
-    return _field;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> _decipherNotificationData(dynamic map){
-    Map<String, dynamic> _output;
-
-    if (map != null){
-      final dynamic _notification = map['notification'];
-
-      if (_notification != null){
-        _output = map['data'];
-      }
-
-    }
-    return _output;
-  }
-
-
- */
-// -----------------------------------------------------------------------------

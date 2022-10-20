@@ -215,19 +215,22 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
       /// PUSH LOCAL NOTIFICATION
       else {
-        await FCM.pushLocalNoot(
-          title: _titleController.text,
-          body: _bodyController.text,
-          largeIconFile: _largeImageFile,
-          canBeDismissedWithoutTapping: _canBeDismissedWithoutTapping,
-          progress: _progress,
-          progressBarIsLoading: _nootProgressIsLoading,
 
-          payloadString: 'fucking payload',
-          // subText: '...',
-          // showStopWatch: false,
-          // showTime: true,
-        );
+        blog('not local noots any more');
+
+        // await FCM.pushLocalNoot(
+        //   title: _titleController.text,
+        //   body: _bodyController.text,
+        //   largeIconFile: _largeImageFile,
+        //   canBeDismissedWithoutTapping: _canBeDismissedWithoutTapping,
+        //   progress: _progress,
+        //   progressBarIsLoading: _nootProgressIsLoading,
+        //
+        //   payloadString: 'fucking payload',
+        //   // subText: '...',
+        //   // showStopWatch: false,
+        //   // showTime: true,
+        // );
       }
 
     }
