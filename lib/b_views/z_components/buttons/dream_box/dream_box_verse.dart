@@ -320,67 +320,70 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
             width: _verseWidth,
             alignment: _verseAlignment,
             // color: Colorz.Yellow80, // for design purpose only
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: _versesCrossAlignment,
-              children: <Widget>[
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: _versesCrossAlignment,
+                children: <Widget>[
 
-                SizedBox(
-                  width: _verseWidth,
-                  height: secondLine == null ? height : null,
-                  child: SuperVerse(
-                    width: _verseWidth,
-
-                    verse: verse,
-                    size: verseSize,
-                    weight: verseWeight,
-
-                    color: greyscale == true || inActiveMode == true ?
-                    Colorz.white30
-                        :
-                    verseColor,
-                    shadow: _verseShadowIsOn(),
-                    maxLines: verseMaxLines,
-                    centered: _verseIsCentered(),
-                    scaleFactor: iconSizeFactor * verseScaleFactor,
-                    italic: verseItalic,
-                    redDot: redDot,
-                    highlight: highlight,
-                    highlightColor: highlightColor,
-                    margin:
-                    // _verseWidth == null ?
-                    EdgeInsets.symmetric(horizontal: height * 0.2)
-                    //     :
-                    // EdgeInsets.zero,
-                  ),
-                ),
-
-                if (secondLine != null)
                   SizedBox(
                     width: _verseWidth,
+                    height: secondLine == null ? height : null,
                     child: SuperVerse(
-                      verse: secondLine,
-                      weight: VerseWeight.thin,
-                      size: 1,
-                      color: greyscale == true || inActiveMode == true ?
-                      Colorz.white30
-                          :
-                      secondLineColor,
-                      maxLines: secondVerseMaxLines,
-                      italic: true,
-                      shadow: _secondLineShadowIsOn(),
-                      centered: _verseIsCentered(),
-                      scaleFactor: secondLineScaleFactor,
-                      highlight: highlight,
-                      highlightColor: highlightColor,
-                      margin:
-                      // _verseWidth == null ?
-                      EdgeInsets.symmetric(horizontal: height * 0.2)
+                        width: _verseWidth,
+
+                        verse: verse,
+                        size: verseSize,
+                        weight: verseWeight,
+
+                        color: greyscale == true || inActiveMode == true ?
+                        Colorz.white30
+                            :
+                        verseColor,
+                        shadow: _verseShadowIsOn(),
+                        maxLines: verseMaxLines,
+                        centered: _verseIsCentered(),
+                        scaleFactor: iconSizeFactor * verseScaleFactor,
+                        italic: verseItalic,
+                        redDot: redDot,
+                        highlight: highlight,
+                        highlightColor: highlightColor,
+                        margin:
+                        // _verseWidth == null ?
+                        EdgeInsets.symmetric(horizontal: height * 0.2)
                       //     :
                       // EdgeInsets.zero,
                     ),
                   ),
-              ],
+
+                  if (secondLine != null)
+                    SizedBox(
+                      width: _verseWidth,
+                      child: SuperVerse(
+                          verse: secondLine,
+                          weight: VerseWeight.thin,
+                          size: 1,
+                          color: greyscale == true || inActiveMode == true ?
+                          Colorz.white30
+                              :
+                          secondLineColor,
+                          maxLines: secondVerseMaxLines,
+                          italic: true,
+                          shadow: _secondLineShadowIsOn(),
+                          centered: _verseIsCentered(),
+                          scaleFactor: secondLineScaleFactor,
+                          highlight: highlight,
+                          highlightColor: highlightColor,
+                          margin:
+                          // _verseWidth == null ?
+                          EdgeInsets.symmetric(horizontal: height * 0.2)
+                        //     :
+                        // EdgeInsets.zero,
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
 

@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 class NotesProvider extends ChangeNotifier {
-    // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OBELISK NOTES NUMBERS
 
