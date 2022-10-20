@@ -244,11 +244,15 @@ class DashBoardHomeScreen extends StatelessWidget {
         loadingVerse: Verse.plain('Rebooting system'),
       ));
 
-      /// WIPE OUT LDB
-      await LDBOps.wipeOutEntireLDB();
+      await Future.wait(<Future>[
 
-      /// WIPE OUT PRO
-      GeneralProvider.wipeOutAllProviders(context);
+        /// WIPE OUT LDB
+        LDBOps.wipeOutEntireLDB(),
+
+        /// WIPE OUT PRO
+        GeneralProvider.wipeOutAllProviders(context),
+
+      ]);
 
       /// SIGN OUT
       await AuthFireOps.signOut(

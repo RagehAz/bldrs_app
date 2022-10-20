@@ -21,9 +21,9 @@ import 'package:provider/provider.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-void initializeObeliskNumbers(BuildContext context){
+Future<void> initializeObeliskNumbers(BuildContext context) async {
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-  _notesProvider.generateSetInitialObeliskNumbers(
+  await _notesProvider.generateSetInitialObeliskNumbers(
     context: context,
     notify: false,
   );
@@ -66,7 +66,7 @@ StreamSubscription initializeUserNotes(BuildContext context){
           fromJSON: false,
         );
 
-        _notesProvider.setUserNotesAndRebuild(
+        await _notesProvider.setUserNotesAndRebuild(
           context: context,
           notes: _notes,
           notify: true,
@@ -205,7 +205,7 @@ StreamSubscription _initializeBzNotesStream({
         fromJSON: false,
       );
 
-      _notesProvider.setBzNotesAndRebuildObelisk(
+      await _notesProvider.setBzNotesAndRebuildObelisk(
           context: context,
           bzID: bzID,
           notes: _allBzNotes,

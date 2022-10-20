@@ -60,6 +60,15 @@ class _GlobalBadgeTestState extends State<GlobalBadgeTest> {
   }
   // -----------------------------------------------------------------------------
   int _badgeNumber = 0;
+  // --------------------
+  Future<void> _getSetBadgeNumber() async {
+    final int _num = await FCM.instance.awesomeNotifications.getGlobalBadgeCounter();
+
+    setState(() {
+      _badgeNumber = _num;
+    });
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -69,6 +78,7 @@ class _GlobalBadgeTestState extends State<GlobalBadgeTest> {
       pageTitle: 'Global Badge Number',
       listWidgets: <Widget>[
 
+        /// BADGE NUMBER
         SuperVerse(
           verse: Verse.plain('Badge Number : $_badgeNumber'),
           labelColor: Colorz.blue20,
@@ -79,76 +89,119 @@ class _GlobalBadgeTestState extends State<GlobalBadgeTest> {
         WideButton(
           verse: Verse.plain('GET NUMBER AND SET'),
           onTap: () async {
-
-            final int _num = await FCM.instance.awesomeNotifications.getGlobalBadgeCounter();
-
-            setState(() {
-              _badgeNumber = _num;
-            });
-
+            await _getSetBadgeNumber();
           },
         ),
 
         /// SET TO 99
         WideButton(
-          verse: Verse.plain('refresh Badge number : $_badgeNumber}'),
+          verse: Verse.plain('SET TO 99'),
           onTap: () async {
 
             await FCM.instance.awesomeNotifications.setGlobalBadgeCounter(99);
-
-            blog('should be _num : 99');
-            // setState(() {
-            //   _badgeNumber = _num;
-            // });
+            await _getSetBadgeNumber();
 
           },
         ),
 
         /// INCREMENT
         WideButton(
-          verse: Verse.plain('refresh Badge number : $_badgeNumber}'),
+          verse: Verse.plain('INCREMENT Badge number'),
           onTap: () async {
 
-            final int _num = await FCM.instance.awesomeNotifications.incrementGlobalBadgeCounter();
-
-            blog('should be _num : $_num');
-            // setState(() {
-            //   _badgeNumber = _num;
-            // });
+            await FCM.instance.awesomeNotifications.incrementGlobalBadgeCounter();
+            await _getSetBadgeNumber();
 
           },
         ),
 
         /// DECREMENT
         WideButton(
-          verse: Verse.plain('refresh Badge number : $_badgeNumber}'),
+          verse: Verse.plain('DECREMENT Badge number'),
           onTap: () async {
 
-            final int _num = await FCM.instance.awesomeNotifications.decrementGlobalBadgeCounter();
-
-            blog('should be _num : $_num');
-            // setState(() {
-            //   _badgeNumber = _num;
-            // });
+            await FCM.instance.awesomeNotifications.decrementGlobalBadgeCounter();
+            await _getSetBadgeNumber();
 
           },
         ),
 
         /// RESET
         WideButton(
-          verse: Verse.plain('Reset}'),
+          verse: Verse.plain('Reset'),
           onTap: () async {
 
             await FCM.instance.awesomeNotifications.resetGlobalBadge();
-
-            blog('badge number has been RESET');
+            await _getSetBadgeNumber();
 
           },
         ),
+
+
+        /// REQUEST PERMISSIONS
+        WideButton(
+          verse: Verse.plain('REQUEST PERMISSIONS'),
+          onTap: () async {
+
+            await FCM.requestAwesomePermission();
+
+          },
+        ),
+
+        /// APP BADGER PLUGIN TESTS : WORKS PERFECT BUT NOT NEEDED
+        /*
+        // import 'package:flutter_app_badger/flutter_app_badger.dart';
+        bool _appBadgerSupported;
+
+        /// APP BADGER SUPPORTED
+        SuperVerse(
+          verse: Verse.plain('App Badge Supported ? $_appBadgerSupported'),
+          labelColor: Colorz.blue20,
+          size: 4,
+        ),
+
+        /// APP BADGER IS SUPPORTED
+        WideButton(
+          verse: Verse.plain('APP BADGER IS SUPPORTED ?'),
+          onTap: () async {
+
+            final bool _supported = await FlutterAppBadger.isAppBadgeSupported();
+
+            setState(() {
+              _appBadgerSupported = _supported;
+            });
+            blog('is supported = $_supported');
+
+          },
+        ),
+
+        /// APP BADGER UPDATE
+        WideButton(
+          verse: Verse.plain('APP BADGER UPDATE to 66'),
+          onTap: () async {
+
+            await FlutterAppBadger.updateBadgeCount(66);
+
+
+          },
+        ),
+
+        /// APP BADGER UPDATE
+        WideButton(
+          verse: Verse.plain('APP BADGER REMOVER'),
+          onTap: () async {
+
+            await FlutterAppBadger.removeBadge();
+
+
+          },
+        ),
+
+         */
 
       ],
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
