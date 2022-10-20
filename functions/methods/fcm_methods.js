@@ -79,9 +79,9 @@ const createFCMPayload = (noteModel) => {
       dismissible: `${noteModel.dismissible}`,
     },
     // Set Android priority to "high"
-    android: {
-      priority: 'high',
-    },
+    // android: {
+    //   priority: 'high',
+    // },
     // Add APNS (Apple) config
     apns: {
       payload: {
