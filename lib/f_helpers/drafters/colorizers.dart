@@ -195,4 +195,127 @@ class Colorizer {
     return ColorFilter.mode(imageSaturationColor, BlendMode.saturation);
   }
   // -----------------------------------------------------------------------------
+
+  /// HEX
+
+  // --------------------
+  /// NOT TESTED
+  static String convertColorToHex(Color color){
+    final String hex = color.toHex(
+      // leadingHashSign: true,
+    );
+    return hex;
+  }
+  // --------------------
+  /// NOT TESTED
+  static Color convertHexToColor1(String hex) {
+
+    String _hexString = hex;
+
+    final RegExp hexColorRegex = RegExp(r'^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$');
+
+    if (_hexString.startsWith('rgba')) {
+      final List rgbaList = _hexString.substring(5, _hexString.length - 1).split(',');
+      return Color.fromRGBO(
+          int.parse(rgbaList[0]),
+          int.parse(rgbaList[1]),
+          int.parse(rgbaList[2]),
+          double.parse(rgbaList[3]),
+      );
+    }
+
+    else if (_hexString.startsWith('rgb')) {
+      final List rgbList = _hexString.substring(4, _hexString.length - 1)
+          .split(',')
+          .map((c) => int.parse(c)).toList();
+
+      return Color.fromRGBO(
+          rgbList[0],
+          rgbList[1],
+          rgbList[2],
+          1,
+      );
+    }
+
+    else if (hexColorRegex.hasMatch(_hexString)) {
+
+      if (_hexString.length == 4) {
+        _hexString = _hexString + _hexString.substring(1, 4);
+      }
+
+      if (_hexString.length == 7) {
+        final int colorValue = int.parse(_hexString.substring(1), radix: 16);
+        return Color(colorValue).withOpacity(1);
+      }
+
+      else {
+        final int colorValue = int.parse(_hexString.substring(1, 7), radix: 16);
+        final double opacityValue = int.parse(_hexString.substring(7), radix: 16).toDouble() / 255;
+        return Color(colorValue).withOpacity(opacityValue);
+      }
+
+    }
+
+    else if (_hexString.isEmpty) {
+      throw UnsupportedError('Empty color field found.');
+    }
+
+    else if (_hexString == 'none') {
+      return Colors.transparent;
+    }
+
+    else {
+      throw UnsupportedError('Only hex, rgb, or rgba color format currently supported. String: $_hexString');
+    }
+
+  }
+  // --------------------
+  /// NOT TESTED
+  static Color convertHexToColor2(String hex){
+    final Color color = HexColor.fromHex(hex);
+    return color;
+  }
+
+// -----------------------------------------------------------------------------
+}
+
+extension HexColor on Color {
+  // -----------------------------------------------------------------------------
+  /// REFERENCE
+  // --------------------
+  /// https://stackoverflow.com/questions/50081213/how-do-i-use-hexadecimal-color-strings-in-flutter
+  // -----------------------------------------------------------------------------
+
+  /// FROM HEX
+
+  // --------------------
+  static Color fromHex(String hexString) {
+
+    /// NOTE : String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
+
+    final buffer = StringBuffer();
+
+    if (hexString.length == 6 || hexString.length == 7){
+      buffer.write('ff');
+      buffer.write(hexString.replaceFirst('#', ''));
+      return Color(int.parse(buffer.toString(), radix: 16));
+    }
+
+    else {
+      return null;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// TO HEX
+
+  // --------------------
+  /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
+  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
+      '${alpha.toRadixString(16).padLeft(2, '0')}'
+      '${red.toRadixString(16).padLeft(2, '0')}'
+      '${green.toRadixString(16).padLeft(2, '0')}'
+      '${blue.toRadixString(16).padLeft(2, '0')}';
+  // -----------------------------------------------------------------------------
 }

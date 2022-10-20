@@ -262,7 +262,7 @@ class FCM {
       /// ICON
       icon: fcmWhiteLogoFilePath,
       backgroundColor: Colorz.black255, /// is icon color bardo , bas override color
-      color: Colorz.bloodTest, /// is icon color.. is igonore when backgroundColor is assigned
+      color: Colorz.bloodTest, /// is icon color.. is ignored when backgroundColor is assigned
 
       /// LARGE ICON
       largeIcon: largeIconURL, //NoteModel.bldrsLogoStaticURL,//fcmColorLogoFilePath,
@@ -276,7 +276,7 @@ class FCM {
       wakeUpScreen: true,
 
       /// SOUND
-      customSound: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet), /// TASK NOT WORKING
+      customSound: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
 
       /// DATA
       payload: payloadMap, /// TASK : NOT WORKING
@@ -509,10 +509,10 @@ class FCM {
 
         /// BEHAVIOUR
         locked: false, //  = !canBeDismissedWithoutTapping,
-        channelShowBadge: true,
+        channelShowBadge: false, // auto increment badge
 
         /// FAKES
-        importance: NotificationImportance.High,
+        importance: NotificationImportance.High, // auto increment badge bardo ?
         defaultPrivacy: NotificationPrivacy.Public,
         onlyAlertOnce: true,
         // groupAlertBehavior: GroupAlertBehavior(),
@@ -548,12 +548,15 @@ class FCM {
   /// TESTED : WORKS PERFECT
   static Future<int> getGlobalBadgeNumber() async {
     final int _num = await getAwesomeNoots().getGlobalBadgeCounter();
+    blog('getGlobalBadgeNumber : _num : $_num');
     return _num;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementGlobalBadge() async {
-    await getAwesomeNoots().incrementGlobalBadgeCounter();
+    blog('incrementGlobalBadge : INCREMENTING 1 : ${Numeric.createUniqueID(maxDigitsCount: 4)}');
+    final int _num = await getGlobalBadgeNumber();
+    await setGlobalBadgeNumber(_num+1);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -575,7 +578,7 @@ class FCM {
   /// CHECKERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT : /// TASK : STILL NOT USED ANYWHERE
   static Future<bool> checkIsNootAllowed() async {
     bool _allowed = false;
 
