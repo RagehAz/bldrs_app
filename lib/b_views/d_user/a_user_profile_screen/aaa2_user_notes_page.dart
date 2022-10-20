@@ -1,5 +1,4 @@
 // ignore_for_file: invariant_booleans
-
 import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -34,6 +33,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
+  List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
+  // --------------------
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -75,17 +76,14 @@ class _UserNotesPageState extends State<UserNotesPage> {
     super.didChangeDependencies();
   }
   // --------------------
-
   @override
   void deactivate() {
     blog('UserNotesPage deactivate START');
-
     _markAllUserUnseenNotesAsSeen();
     super.deactivate();
-
     blog('UserNotesPage deactivate END');
   }
-
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -96,8 +94,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
     blog('UserNotesPage dispose END');
   }
   // -----------------------------------------------------------------------------
-  List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
-  // --------------------
   void _markAllUserUnseenNotesAsSeen(){
 
     blog('_markAllUserUnseenNotesAsSeen : START');
@@ -241,5 +237,5 @@ class _UserNotesPageState extends State<UserNotesPage> {
         });
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

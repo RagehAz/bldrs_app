@@ -233,32 +233,5 @@ class FCMStarter {
     }
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  /*
-  static Future<void> _pushLocalNootFromRemoteMessage(RemoteMessage remoteMessage) async {
-
-    final String _title = remoteMessage.notification.title;
-    final String _body = remoteMessage.notification.body;
-
-    /// TASK : MAKE SURE THIS FIELD NAME ('route) IS CORRECT
-    final String _payload = remoteMessage.data['route'];
-
-    await FCM.pushLocalNoot(
-      title: _title,
-      body: _body,
-      payloadString: _payload,
-      // progressBarIsLoading: ,
-      // canBeDismissedWithoutTapping: ,
-      // progress: ,
-      // channel: ,
-      // showTime: ,
-      // showStopWatch: ,
-      // subText: ,
-      // largeIconFile: ,
-    );
-
-  }
-  */
   // -----------------------------------------------------------------------------
 }
