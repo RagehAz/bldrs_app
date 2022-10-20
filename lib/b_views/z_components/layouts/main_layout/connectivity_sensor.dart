@@ -32,7 +32,7 @@ class ConnectivitySensor extends StatefulWidget {
 
 class _ConnectivitySensorState extends State<ConnectivitySensor> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _isConnected;
+  final ValueNotifier<bool> _isConnected = ValueNotifier(null);
   StreamSubscription<ConnectivityResult> subscription;
   GeneralProvider  _generalProvider;
   // -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
 
     initConnectivity();
 
-    subscription = Connectivity().onConnectivityChanged
+    subscription = DeviceChecker.getConnectivity().onConnectivityChanged
         .listen((ConnectivityResult result) async {
 
           final bool _connected = await DeviceChecker.checkConnectivity();
@@ -61,6 +61,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
   void dispose() {
     _isConnected.dispose();
     subscription.cancel();
+    // _generalProvider.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -69,7 +70,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
     final bool _connected = await DeviceChecker.checkConnectivity();
 
     if (mounted == true) {
-        _isConnected = ValueNotifier(_connected);
+      _isConnected.value = _connected;
         _generalProvider.setConnectivity(
           isConnected: _connected,
           notify: true,

@@ -379,16 +379,16 @@ class NoteProtocols {
           userID: noteModel.parties.receiverID,
         );
 
-        blog('_adjustNoteToken : userToken is : ${_user?.fcmToken?.token}');
+        blog('_adjustNoteToken : userToken is : ${_user?.device?.token}');
 
-        if (TextCheck.isEmpty(_user?.fcmToken?.token) == true){
+        if (TextCheck.isEmpty(_user?.device?.token) == true){
           _note = noteModel.nullifyField(
             token: true,
           );
         }
         else {
           _note = noteModel.copyWith(
-            token: _user?.fcmToken?.token,
+            token: _user?.device?.token,
           );
         }
 
@@ -413,7 +413,7 @@ class NoteProtocols {
   /// READ ( no fetching for now ,, maybe later in life when things get happier)
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> readNote({
     @required String noteID,
     @required String userID,
@@ -431,7 +431,7 @@ class NoteProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> renovate({
     @required BuildContext context,
     @required NoteModel newNote,
@@ -445,13 +445,6 @@ class NoteProtocols {
         poster2: oldNote.poster,
       );
       assert(_postersAreIdentical == true, 'NoteProtocol.renovate : can not renovate with a new poster');
-
-      /// DEPRECATED
-      // NotesProvider.proUpdateNoteEverywhereIfExists(
-      //   context: context,
-      //   noteModel: newNote,
-      //   notify: true,
-      // );
 
       await NoteFireOps.updateNote(
         note: newNote,

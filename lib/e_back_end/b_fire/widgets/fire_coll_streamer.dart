@@ -73,7 +73,7 @@ class FireCollStreamer extends StatefulWidget {
 class _FireCollStreamerState extends State<FireCollStreamer> {
   // -----------------------------------------------------------------------------
   Stream<QuerySnapshot<Object>> _stream;
-  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(<Map<String, dynamic>>[]);
+  // final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(<Map<String, dynamic>>[]);
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
   @override
@@ -108,7 +108,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
   @override
   void dispose() {
 
-    _oldMaps.dispose();
+    // _oldMaps.dispose();
     _sub.cancel();
 
     // WidgetsBinding.instance.addPostFrameCallback((_){

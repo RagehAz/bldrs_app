@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 /// BZ NOTES QUERY
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 FireQueryModel bzNotesPaginationQueryModel({
   @required String bzID,
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
@@ -27,20 +27,10 @@ FireQueryModel bzNotesPaginationQueryModel({
     ),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-    // finders: <FireFinder>[
-    //
-    //   FireFinder(
-    //     field: 'receiverID',
-    //     comparison: FireComparison.equalTo,
-    //     value: bzID,
-    //   ),
-    //
-    // ],
     onDataChanged: onDataChanged,
   );
 
 }
-
 // --------------------
 /// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
@@ -58,12 +48,6 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
         finders: const <FireFinder>[
 
-          // FireFinder(
-          //   field: 'receiverID',
-          //   comparison: FireComparison.equalTo,
-          //   value: bzID,
-          // ),
-
           FireFinder(
             field: 'seen',
             comparison: FireComparison.equalTo,
@@ -72,7 +56,7 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
 
         ],
         onDataChanged: (List<Map<String, dynamic>> maps){
-          blog('_bzUnseenReceivedNotesStream : onDataChanged : ${maps.length} maps');
+          blog('bzUnseenNotesStream : onDataChanged : ${maps.length} maps');
         }
     ),
   );
@@ -97,19 +81,12 @@ FireQueryModel userNotesPaginationQueryModel({
     ),
     limit: 7,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-    // finders: <FireFinder>[
-    //   FireFinder(
-    //     field: 'receiverID',
-    //     comparison: FireComparison.equalTo,
-    //     value: AuthFireOps.superUserID(),
-    //   ),
-    // ],
     onDataChanged: onDataChanged,
   );
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> userUnseenNotesStream({
   @required BuildContext context,
 }){
@@ -125,12 +102,6 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
         finders: const <FireFinder>[
 
-          // FireFinder(
-          //   field: 'receiverID',
-          //   comparison: FireComparison.equalTo,
-          //   value: _userModel.id,
-          // ),
-
           FireFinder(
             field: 'seen',
             comparison: FireComparison.equalTo,
@@ -138,9 +109,9 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
           ),
 
         ],
-        // onDataChanged: (List<Map<String, dynamic>> maps){
-        //   blog('_userUnseenReceivedNotesStream : onDataChanged : ${maps.length} maps');
-        // }
+        onDataChanged: (List<Map<String, dynamic>> maps){
+          blog('userUnseenNotesStream : onDataChanged : ${maps.length} maps');
+        }
     ),
   );
 

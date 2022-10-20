@@ -17,7 +17,7 @@ class NoteFireOps {
   /// CREATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> createNote({
     @required NoteModel noteModel,
     ValueChanged<NoteModel> onFinished,
@@ -33,10 +33,15 @@ class NoteFireOps {
           subCollName: FireSubColl.noteReceiver_receiver_notes,
           input: noteModel.toMap(toJSON: false),
           onFinish: (DocumentReference ref){
-            _output = noteModel.copyWith(id: ref.id,);
+            if (ref != null){
+              _output = noteModel.copyWith(
+                id: ref.id,
+              );
+            }
           },
         );
       }
+
       else {
         _output = noteModel;
       }
@@ -74,7 +79,9 @@ class NoteFireOps {
           return createNote(
             noteModel: _note,
             onFinished: (NoteModel uploaded){
-              _output.add(uploaded);
+              if (uploaded != null){
+                _output.add(uploaded);
+              }
             }
           );
 
@@ -92,7 +99,7 @@ class NoteFireOps {
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<NoteModel> readNote({
     @required String noteID,
     @required String userID,
@@ -117,197 +124,6 @@ class NoteFireOps {
 
     return _output;
   }
-  // -----------------------------------------------------------------------------
-
-  /// ALL NOTES PAGINATION
-
-  // --------------------
-  /*
-  static Future<List<NoteModel>> readReceivedNotes({
-    @required String recieverID,
-    @required PartyType receiverType,
-    int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
-    QueryOrderBy orderBy,
-  }) async {
-
-    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-      collName: FireColl.notes,
-      limit: limit,
-      addDocsIDs: true,
-      orderBy: orderBy,
-      startAfter: startAfter,
-      addDocSnapshotToEachMap: true,
-      finders: <FireFinder>[
-
-        FireFinder(
-          field: 'receiverID',
-          comparison: FireComparison.equalTo,
-          value: recieverID,
-        ),
-
-        FireFinder(
-          field: 'receiverType',
-          comparison: FireComparison.equalTo,
-          value: NoteParties.cipherPartyType(receiverType),
-        ),
-
-      ],
-    );
-
-    final List<NoteModel> _notes = NoteModel.decipherNotes(
-      maps: _maps,
-      fromJSON: false,
-    );
-
-    return _notes;
-  }
-   */
-  // --------------------
-  /// DEPRECATED
-  /*
-  static Future<List<NoteModel>> paginateAllSentNotes({
-    @required String senderID,
-    @required int limit,
-    @required QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-
-    List<NoteModel> _notes = <NoteModel>[];
-
-    if (senderID != null){
-
-      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        collName: FireColl.notes,
-        // startAfter: startAfter,
-        // orderBy: 'sentTime',
-        addDocsIDs: true,
-        addDocSnapshotToEachMap: true,
-        // limit: limit,
-        finders: <FireFinder>[
-          FireFinder(
-            field: 'senderID',
-            comparison: FireComparison.equalTo,
-            value: senderID,
-          ),
-        ],
-      );
-
-      Mapper.blogMaps(_maps, methodName: 'paginateAllSentNotes');
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-
-        _notes = NoteModel.decipherNotes(
-          maps: _maps,
-          fromJSON: false,
-        );
-
-      }
-
-    }
-
-    return _notes;
-  }
-   */
-  // --------------------
-  /// DEPRECATED
-  /*
-  static Future<List<NoteModel>> paginateAllReceivedNotes({
-    @required String recieverID,
-    @required int limit,
-    @required QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-
-    List<NoteModel> _notes = <NoteModel>[];
-
-    if (recieverID != null){
-
-      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        collName: FireColl.notes,
-        startAfter: startAfter,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-        addDocsIDs: true,
-        addDocSnapshotToEachMap: true,
-        limit: limit,
-        finders: <FireFinder>[
-          FireFinder(
-            field: 'recieverID',
-            comparison: FireComparison.equalTo,
-            value: recieverID,
-          ),
-        ],
-      );
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-
-        _notes = NoteModel.decipherNotes(
-          maps: _maps,
-          fromJSON: false,
-        );
-
-      }
-
-    }
-
-    return _notes;
-  }
-   */
-  // -----------------------------------------------------------------------------
-
-  /// STREAMING
-
-  // --------------------
-  /// DEPRECATED
-  /*
-  static Stream<List<NoteModel>> getNoteModelsStream({
-    QueryDocumentSnapshot<Object> startAfter,
-    int limit,
-    QueryOrderBy orderBy,
-    List<FireFinder> finders,
-  }) {
-
-    Stream<List<NoteModel>> _notiModelsStream;
-
-    tryAndCatch(
-        methodName: 'getNoteModelsStream',
-        functions: () {
-
-          final Stream<QuerySnapshot<Object>> _querySnapshots = Fire.streamCollection(
-            queryModel: FireQueryModel(
-                collRef: Fire.getSuperCollRef(aCollName: FireColl.notes),
-                startAfter: startAfter,
-                limit: limit,
-                orderBy: orderBy,
-                finders: finders,
-                onDataChanged: (List<Map<String, dynamic>> maps){
-                  blog('getNoteModelsStream : onDataChanged : ${maps.length} maps');
-                }
-            ),
-          );
-
-          blog('x getNotiModelsStream : _querySnapshots : $_querySnapshots : id : ${_querySnapshots.first}');
-
-          _notiModelsStream = _querySnapshots.map((QuerySnapshot<Object> querySnapshot){
-
-            final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
-              queryDocumentSnapshots: querySnapshot.docs,
-              addDocsIDs: true,
-              addDocSnapshotToEachMap: true,
-            );
-
-            final List<NoteModel> _notes = NoteModel.decipherNotes(
-                maps: _maps,
-                fromJSON: false
-            );
-
-            return _notes;
-          });
-
-          blog('getNotiModelsStream : _notiModelsStream : $_notiModelsStream');
-        });
-
-    return _notiModelsStream;
-  }
-   */
   // --------------------
 
   /// UPDATE
@@ -415,45 +231,5 @@ class NoteFireOps {
     }
 
   }
-  // --------------------
-  ///
-  // static Future<void> deleteAllReceivedNotes({
-  //   @required String receiverID,
-  //   @required PartyType receiverType,
-  // }) async {
-  //
-  //   /// TASK : VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
-  //
-  //   final List<NoteModel> _notesToDelete = <NoteModel>[];
-  //
-  //   /// READ ALL NOTES
-  //   for (int i = 0; i <= 500; i++){
-  //     final List<NoteModel> _notes = await readReceivedNotes(
-  //       // limit: 10,
-  //       receiverType: receiverType,
-  //       recieverID: receiverID,
-  //       startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
-  //     );
-  //
-  //     if (Mapper.checkCanLoopList(_notes) == true){
-  //       _notesToDelete.addAll(_notes);
-  //     }
-  //
-  //     else {
-  //       break;
-  //     }
-  //
-  //   }
-  //
-  //   /// DELETE ALL NOTES
-  //   if (Mapper.checkCanLoopList(_notesToDelete) == true){
-  //
-  //     await deleteNotes(
-  //       notes: _notesToDelete,
-  //     );
-  //
-  //   }
-  //
-  // }
-  // --------------------
+  // -----------------------------------------------------------------------------
 }

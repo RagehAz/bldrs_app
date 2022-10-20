@@ -90,6 +90,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     blog('BzNotesPage dispose END');
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   void _markAllBzUnseenNotesAsSeen(){
 
     /// COLLECT NOTES TO MARK FIRST
@@ -102,58 +103,9 @@ class _BzNotesPageState extends State<BzNotesPage>{
         notes: _notesToMark
     ));
 
-    /// DEPRECATED SHIT
-    /// AS STREAM LISTENER SETS BADGE NUMBERS AND CONTROLS PYRAMIDS FLASHING
-    // if (Mapper.checkCanLoopList(_notesToMark) == true){
-    //   WidgetsBinding.instance.addPostFrameCallback((_){
-    //
-    //     final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
-    //
-    //     /// TASK : SHOULD DECREMENT OBLISK NUMBER INSTEAD OF FLASHING,
-    //     /// AND LET THE FLASHING LISTENES TO OBLESIK NUMBERS
-    //
-    //     // /// DECREMENT UNSEEN BZ NOTES NUMBER IN OBELISK
-    //     // decrementBzObeliskUnseenNotesNumber(
-    //     //   notesProvider: _notesProvider,
-    //     //   markedNotesLength: _notesToMark.length,
-    //     //   bzID: _bzModel.id,
-    //     // );
-    //
-    //     // /// UN-FLASH PYRAMID
-    //     // NotesProvider.proSetIsFlashing(
-    //     //   context: _context,
-    //     //   setTo: false,
-    //     //   notify: true,
-    //     // );
-    //
-    //     // /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
-    //     // NotesProvider.proRemoveNotesFromBzzNotes(
-    //     //   context: context,
-    //     //   notes: _notesToMark,
-    //     //   bzID: _bzModel.id,
-    //     //   notify: true,
-    //     // );
-    //
-    //   });
-    // }
-
   }
   // --------------------
-  /*
-  void _onProviderDataChanged({
-    @required List<NoteModel> bzNotes,
-  }){
-
-    /// ADD THIS BZ UNSEEN PROVIDER NOTES TO LOCAL NOTES TO MARK SEEN
-    _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
-      notesToGet: _localNotesToMarkUnseen,
-      notesToInsert: bzNotes,
-      duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-    );
-
-  }
-   */
-  // --------------------
+  /// TESTED : WORKS PERFECT
   void _onPaginatorDataChanged(List<Map<String, dynamic>> newMaps){
 
     /// DECIPHER NEW MAPS TO NOTES
@@ -173,40 +125,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
       }
     }
 
-
-    /// DEPRECATED
-    // _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
-    //   notesToGet: _localNotesToMarkUnseen,
-    //   notesToInsert: _newNotes,
-    //   duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-    // );
-
   }
-  // --------------------
-  /*
-  List<NoteModel> _combinePaginatorMapsWithProviderNotes({
-    @required List<Map<String, dynamic>> paginatedMaps,
-    @required List<NoteModel> providerNotes,
-  }){
-
-    /// DECIPHER STREAM MAPS
-    final List<NoteModel> _paginatedNotes = NoteModel.decipherNotes(
-      maps: paginatedMaps,
-      fromJSON: false,
-    );
-
-    /// COMBINE NOTES FROM PAGINATOR + NOTES FROM PROVIDER
-    final List<NoteModel> _combined = NoteModel.insertNotesInNotes(
-        notesToGet: <NoteModel>[],
-        notesToInsert: <NoteModel>[...providerNotes, ..._paginatedNotes],
-        duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst
-    );
-
-    final List<NoteModel> _ordered = NoteModel.orderNotesBySentTime(_combined);
-
-    return _ordered;
-  }
-   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -248,98 +167,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
         }
     );
-
-    // return Selector<NotesProvider, List<NoteModel>>(
-    //     key: const ValueKey<String>('BzNotesPage'),
-    //     selector: (_, NotesProvider notesProvider){
-    //
-    //       final Map<String, List<NoteModel>> _map = notesProvider.myBzzNotes;
-    //
-    //       final List<NoteModel> _bzNotes = _map[_bzModel.id];
-    //
-    //       _onProviderDataChanged(
-    //         bzNotes: _bzNotes,
-    //       );
-    //
-    //       return _bzNotes;
-    //     },
-    //     shouldRebuild: (before, after) => true,
-    //     builder: (_,List<NoteModel> _providerNotes, Widget child){
-    //
-    //       return FireCollPaginator(
-    //           scrollController: _scrollController,
-    //           queryModel: bzNotesPaginationQueryModel(
-    //             bzID: _bzModel.id,
-    //             onDataChanged: _onPaginatorDataChanged,
-    //           ),
-    //           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
-    //
-    //             /// COMBINE NOTES FROM PAGINATOR + NOTES FROM PROVIDER
-    //             final List<NoteModel> _combined = _combinePaginatorMapsWithProviderNotes(
-    //               providerNotes: _providerNotes ?? [],
-    //               paginatedMaps: maps,
-    //             );
-    //
-    //             return ListView.builder(
-    //               physics: const BouncingScrollPhysics(),
-    //               controller: _scrollController,
-    //               itemCount: _combined?.length,
-    //               padding: Stratosphere.stratosphereSandwich,
-    //               itemBuilder: (BuildContext ctx, int index) {
-    //
-    //                 final NoteModel _notiModel = Mapper.checkCanLoopList(_combined) == true ?
-    //                 _combined[index]
-    //                     :
-    //                 null;
-    //
-    //                 return NoteCard(
-    //                   key: PageStorageKey<String>('bz_note_card_${_notiModel.id}'),
-    //                   noteModel: _notiModel,
-    //                   isDraftNote: false,
-    //                 );
-    //
-    //               },
-    //             );
-    //
-    //           }
-    //       );
-    //
-    //     });
-
-    // return FireCollPaginator(
-    //     queryParameters: BzModel.allReceivedBzNotesQueryParameters(
-    //       bzModel: _bzModel,
-    //       context: context,
-    //     ),
-    //     scrollController: _controller,
-    //     builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
-    //
-    //       final List<NoteModel> _notes = NoteModel.decipherNotesModels(
-    //         maps: maps,
-    //         fromJSON: false,
-    //       );
-    //
-    //       return ListView.builder(
-    //         physics: const BouncingScrollPhysics(),
-    //         controller: _controller,
-    //         itemCount: _notes.length,
-    //         padding: Stratosphere.stratosphereSandwich,
-    //         itemBuilder: (_, int index){
-    //
-    //           final NoteModel _note = _notes[index];
-    //
-    //           return NoteCard(
-    //             noteModel: _note,
-    //             isDraftNote: false,
-    //             // onNoteOptionsTap: null,
-    //             // onCardTap: null,
-    //           );
-    //
-    //         },
-    //       );
-    //
-    //     }
-    // );
 
   }
   // -----------------------------------------------------------------------------
