@@ -296,7 +296,7 @@ class NoteModel {
   }) {
     final List<NoteModel> _notesModels = <NoteModel>[];
 
-    if (Mapper.checkCanLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps) {
 
         final NoteModel _notiModel = decipherNote(

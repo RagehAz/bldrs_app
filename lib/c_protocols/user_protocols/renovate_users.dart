@@ -276,7 +276,9 @@ class RenovateUserProtocols {
           //   _fcmToken = await _fcm.getToken();
           // }
           // else {
-            _fcmToken = await _fcm.getToken();
+            _fcmToken = await _fcm.getToken(
+              // vapidKey:
+            );
           // }
 
         },

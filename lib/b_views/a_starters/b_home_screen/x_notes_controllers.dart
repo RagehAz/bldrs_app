@@ -11,10 +11,8 @@ import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// OBELISK
@@ -22,8 +20,7 @@ import 'package:provider/provider.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeObeliskNumbers(BuildContext context) async {
-  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-  await _notesProvider.generateSetInitialObeliskNumbers(
+  await NotesProvider.proInitializeObeliskBadges(
     context: context,
     notify: false,
   );
@@ -34,64 +31,56 @@ Future<void> initializeObeliskNumbers(BuildContext context) async {
 
 // --------------------
 ///
-StreamSubscription initializeUserNotes(BuildContext context){
+StreamSubscription listenToUserUnseenNotes(BuildContext context){
 
   StreamSubscription _sub;
 
-  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
   if (_userModel != null){
 
     /// TASK : STREAM NEEDS TO BE CLOSED WHEN DELETING USER
-    final Stream<QuerySnapshot<Object>> _stream = userUnseenNotesStream(
+    final Stream<QuerySnapshot<Object>> _unseenNotesStream = userUnseenNotesStream(
         context: context
     );
 
-    final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProUserUnseenReceivedNotes(
-      context: context,
-    );
+    // final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProUserUnseenReceivedNotes(
+    //   context: context,
+    // );
 
     _sub = FireCollStreamer.onStreamDataChanged(
-      stream: _stream,
-      oldMaps: _oldMaps,
-      invoker: 'initializeUserNotes',
-      onChange: (List<Map<String, dynamic>> allUpdatedMaps) async {
+      stream: _unseenNotesStream,
+      // oldMaps: _oldMaps,
+      invoker: 'listenToUserUnseenNotes',
+      onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
 
-        blog('initializeUserNote.onStreamDataChanged : new maps are ${allUpdatedMaps.length} maps');
+        // blog('initializeUserNote.onStreamDataChanged : new maps are ${allUpdatedMaps.length} maps');
         // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
 
-        final List<NoteModel> _notes = NoteModel.decipherNotes(
-          maps: allUpdatedMaps,
+        final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
+          maps: unseenNotesMaps,
           fromJSON: false,
         );
 
-        await _notesProvider.setUserNotesAndRebuild(
+        await NotesProvider.proSetUserObeliskBadge(
           context: context,
-          notes: _notes,
+          unseenNotes: _unseenNotes,
           notify: true,
         );
 
-        final bool _noteDotIsOn = _checkNoteDotIsOn(
+        concludeAndActivatePyramidsFlashing(
           context: context,
-          notes: _notes,
+          unseenNotes: _unseenNotes,
         );
-
-        if (_noteDotIsOn == true){
-          _notesProvider.setIsFlashing(
-            setTo: true,
-            notify: true,
-          );
-        }
 
         await TriggerProtocols.fireTriggers(
             context: context,
-            notes: _notes,
+            notes: _unseenNotes,
         );
 
         // await _checkForBzDeletionNoteAndProceed(
         //   context: context,
-        //   notes: _notes,
+        //   notes: _unseenNotes,
         // );
 
       },
@@ -102,6 +91,7 @@ StreamSubscription initializeUserNotes(BuildContext context){
   return _sub;
 }
 // --------------------
+/*
 /// TESTED : WORKS PERFECT
 ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes({
   @required BuildContext context,
@@ -118,13 +108,14 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes
 
   return _oldMaps;
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// BZZ NOTES STREAMS
 
 // --------------------
 /// TESTED : WORKS PERFECT
-List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
+List<StreamSubscription> listenToMyBzzUnseenNotes(BuildContext context){
 
   final List<StreamSubscription> _subs = <StreamSubscription>[];
 
@@ -139,7 +130,7 @@ List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
 
     for (final BzModel bzModel in _myBzz){
 
-      final StreamSubscription _sub = _initializeBzNotesStream(
+      final StreamSubscription _sub = _listenToMyBzUnseenNotes(
         context: context,
         bzID: bzModel.id,
       );
@@ -153,6 +144,8 @@ List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
   return _subs;
 }
 // --------------------
+/// DEPRECATED
+/*
 /// TESTED : WORKS PERFECT
 ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes ({
   @required BuildContext context,
@@ -160,78 +153,58 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
 }){
 
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-
   final List<NoteModel> _bzOldNotes = _notesProvider.myBzzNotes[bzID];
-
   final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
     notes: _bzOldNotes,
     toJSON: false,
   );
-
   final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
 
   return _oldMaps;
 }
+ */
 // --------------------
-/// TESTED : WORKS PERFECT
-StreamSubscription _initializeBzNotesStream({
+///
+StreamSubscription _listenToMyBzUnseenNotes({
   @required BuildContext context,
   @required String bzID,
 }){
 
-  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-
-
-  final Stream<QuerySnapshot<Object>> _stream  = bzUnseenNotesStream(
-    bzID: bzID,
-  );
-
-  // final _stream.listen((event) { });
-
-
-  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProBzUnseenReceivedNotes(
-    context: context,
+  final Stream<QuerySnapshot<Object>> _bzUnseenNotesStream  = bzUnseenNotesStream(
     bzID: bzID,
   );
 
   final StreamSubscription _streamSubscription = FireCollStreamer.onStreamDataChanged(
-    stream: _stream,
-    oldMaps: _oldMaps,
-    invoker: 'initializeBzNotesStream',
-    onChange: (List<Map<String, dynamic>> allBzNotes) async {
+    stream: _bzUnseenNotesStream,
+    // oldMaps: _oldMaps,
+    invoker: '_listenToMyBzUnseenNotes : bzID : $bzID',
+    onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
 
-      final List<NoteModel> _allBzNotes = NoteModel.decipherNotes(
-        maps: allBzNotes,
+      final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
+        maps: unseenNotesMaps,
         fromJSON: false,
       );
 
-      await _notesProvider.setBzNotesAndRebuildObelisk(
+      await NotesProvider.proSetBzObeliskBadge(
           context: context,
           bzID: bzID,
-          notes: _allBzNotes,
+          unseenNotes: _unseenNotes,
           notify: true
       );
 
-      final bool _noteDotIsOn = _checkNoteDotIsOn(
+      concludeAndActivatePyramidsFlashing(
         context: context,
-        notes: _allBzNotes,
+        unseenNotes: _unseenNotes,
       );
-
-      if (_noteDotIsOn == true){
-        _notesProvider.setIsFlashing(
-          setTo: true,
-          notify: true,
-        );
-      }
 
       await TriggerProtocols.fireTriggers(
         context: context,
-        notes: _allBzNotes,
+        notes: _unseenNotes,
       );
 
       // await _bzCheckLocalFlyerUpdatesNotesAndProceed(
       //   context: context,
-      //   newBzNotes: _allBzNotes,
+      //   newBzNotes: _unseenNotes,
       // );
 
     },
@@ -241,13 +214,34 @@ StreamSubscription _initializeBzNotesStream({
 }
 // -----------------------------------------------------------------------------
 
-/// NOTES CHECKERS
+/// PYRAMIDS FLASHING
 
+// --------------------
+///
+void concludeAndActivatePyramidsFlashing({
+  @required BuildContext context,
+  @required List<NoteModel> unseenNotes,
+}){
+
+  final bool _noteDotIsOn = _checkNoteDotIsOn(
+    context: context,
+    unseenNotes: unseenNotes,
+  );
+
+  if (_noteDotIsOn == true){
+    NotesProvider.proSetIsFlashing(
+      context: context,
+      setTo: true,
+      notify: true,
+    );
+  }
+  
+}
 // --------------------
 /// TESTED : WORKS PERFECT
 bool _checkNoteDotIsOn({
   @required BuildContext context,
-  @required List<NoteModel> notes,
+  @required List<NoteModel> unseenNotes,
 }){
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
@@ -262,8 +256,8 @@ bool _checkNoteDotIsOn({
   }
   else {
 
-    if (Mapper.checkCanLoopList(notes) == true){
-      _isOn = NoteModel.checkThereAreUnSeenNotes(notes);
+    if (Mapper.checkCanLoopList(unseenNotes) == true){
+      _isOn = NoteModel.checkThereAreUnSeenNotes(unseenNotes);
     }
 
   }
