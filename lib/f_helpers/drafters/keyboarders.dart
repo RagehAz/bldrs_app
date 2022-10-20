@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -60,7 +61,7 @@ class Keyboard {
   /// CONTROLLING KEYBOARD
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TESTED : WORKS PERFECT : TASK : CAN REMOVE THIS CONTEXT NOW I GUESS
   static void closeKeyboard(BuildContext context) {
     /// SOLUTION 1
     // FocusScope.of(context).requestFocus(FocusNode());
@@ -75,7 +76,8 @@ class Keyboard {
     /// SOLUTION 4
     // final bool _keyboardIsOn = KeyboardVisibilityProvider.isKeyboardVisible(context);
     /// FINAL SOLUTION ISA
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final UiProvider _uiProvider = Provider.of<UiProvider>(_context, listen: false);
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     if (_keyboardIsOn == true){
       FocusManager.instance.primaryFocus?.unfocus();

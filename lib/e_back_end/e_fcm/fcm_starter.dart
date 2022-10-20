@@ -2,9 +2,21 @@ import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+// --------------------
+///
+Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
+  await Firebase.initializeApp();
+  await FCMStarter._pushGlobalNootFromRemoteMessage(
+      remoteMessage: remoteMessage,
+      invoker: '_onBackgroundMessageHandler'
+  );
+}
+// --------------------
 
 class FCMStarter {
   // -----------------------------------------------------------------------------
@@ -63,7 +75,7 @@ class FCMStarter {
       channelGroups: FCM.getBldrsChannelGroups(),
 
       /// DEBUG
-      debug: false,
+      debug: true,
     );
 
   }
@@ -99,14 +111,6 @@ class FCMStarter {
 
   /// HANDLERS & LISTENERS
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
-    await _pushGlobalNootFromRemoteMessage(
-        remoteMessage: remoteMessage,
-        invoker: '_onBackgroundMessageHandler'
-    );
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _initializeNootsListeners(){
@@ -202,30 +206,35 @@ class FCMStarter {
         map: remoteMessage?.data,
       );
 
-      _note.blogNoteModel(
-        invoker: '_pushGlobalNootFromRemoteMessage.$invoker',
-      );
+      // _note.blogNoteModel(
+      //   invoker: '_pushGlobalNootFromRemoteMessage.$invoker',
+      // );
 
       if (_note != null){
 
-        await FCM.incrementGlobalBadge();
+        blog('should send a fucking noot title ${_note.title} : body ${_note.body}');
 
-        await FCM.pushGlobalNoot(
-          title: _note.title,
-          body: _note.body,
-          largeIconURL: _note.parties.senderImageURL,
-          posterURL: _note.poster.url,
-          progress: Progress.generateModelFromNoteProgress(_note),
-          progressBarIsLoading: _note.progress == -1,
-          canBeDismissedWithoutTapping: _note.dismissible,
+        await Future.wait(<Future>[
 
-          /// FAKES BUTTONS IN NOOT
-          // buttonsTexts: null, // _note.poll.buttons,
+          FCM.incrementGlobalBadge(),
 
-          // channel: ,
+          FCM.pushGlobalNoot(
+            title: _note.title,
+            body: _note.body,
+            largeIconURL: _note.parties.senderImageURL,
+            posterURL: _note.poster.url,
+            progress: Progress.generateModelFromNoteProgress(_note),
+            progressBarIsLoading: _note.progress == -1,
+            canBeDismissedWithoutTapping: _note.dismissible,
 
-          // payloadMap: ,
-        );
+            /// FAKES BUTTONS IN NOOT
+            // buttonsTexts: null, // _note.poll.buttons,
+
+            // payloadMap: ,
+          ),
+
+        ]);
+
       }
 
       else {
