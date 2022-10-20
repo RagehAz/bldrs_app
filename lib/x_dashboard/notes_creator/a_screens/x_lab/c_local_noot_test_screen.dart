@@ -1087,7 +1087,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
               blog('UPDATE USER PROTOCOL : START');
 
-              await UserProtocols.updateMyUserFCMToken(context: context);
+              await UserProtocols.refreshUserDeviceModel(context: context);
 
               blog('UPDATE USER PROTOCOL : END');
 

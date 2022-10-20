@@ -50,6 +50,10 @@ const createFCMPayload = (noteModel) => {
       // body: body,
       // title: noteTitle,
     // },
+    // the below data map is a <String, String> map 
+    // and does not take bools or ints or else ...
+    // so values like ('33') or ('null') or ('true') strings
+    // are deciphered to their data types on client
     data: {
       click_action: 'FLUTTER_NOTIFICATION_CLICK',
       token: `${noteModel.token}`,

@@ -148,9 +148,9 @@ class UserProtocols {
   );
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateMyUserFCMToken({
+  static Future<void> refreshUserDeviceModel({
     @required BuildContext context,
-  }) => RenovateUserProtocols.updateMyUserFCMToken(
+  }) => RenovateUserProtocols.refreshUserDeviceModel(
     context: context,
   );
   // --------------------

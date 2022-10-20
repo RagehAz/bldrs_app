@@ -108,7 +108,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
         );
 
         /// NOTIFICATIONS
-        await FCMStarter.initializeNootsInBldrsAppStarter(context);
+        await FCMStarter.initializeNootsInBldrsAppStarter();
 
         /// DYNAMIC LINKS
         await DynamicLinks.initializeDynamicLinks(context);
