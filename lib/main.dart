@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
@@ -15,11 +16,11 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,7 +44,9 @@ Future<void> main() async {
   /// insures awaiting async methods below to finish then continue
   WidgetsFlutterBinding.ensureInitialized();
   // --------------------
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    // options: DefaultFirebaseOptions.currentPlatform,
+  );
   // --------------------
   await FCMStarter.preInitializeNootsInMainFunction();
   /// --------------------

@@ -125,6 +125,21 @@ class FCM {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT : /// TASK : STILL NOT USED ANYWHERE
+  static Future<bool> checkIsAwesomeNootAllowed() async {
+    bool _allowed = false;
+
+    final AwesomeNotifications _awesomeNotification = getAwesomeNoots();
+
+    if (_awesomeNotification != null){
+      _allowed = await _awesomeNotification.isNotificationAllowed();
+    }
+
+    blog('checkIsNotificationAllowed : allowed : $_allowed');
+
+    return _allowed;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NotificationSettings> requestFCMPermission() async {
 
@@ -134,6 +149,14 @@ class FCM {
       // iosSubscription = FirebaseMessaging.instance.onIosSettingsRegistered.listen((data) {
       //   _saveDeviceTokenToUserDocInFireStore();
       // });
+
+    //   // await FirebaseMessaging.instance
+    //   //     .setForegroundNotificationPresentationOptions(
+    //   //   alert: true,
+    //   //   badge: true,
+    //   //   sound: true,
+    //   // );
+
     // }
 
     final NotificationSettings _settings = await FirebaseMessaging.instance.requestPermission(
@@ -156,6 +179,80 @@ class FCM {
     // blog('requestFCMPermission : END');
 
     return _settings;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHANNELS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<NotificationChannel> generateBldrsNootChannels(){
+
+    final List<NotificationChannel> _channels = <NotificationChannel>[
+
+      NotificationChannel(
+        /// CHANNEL
+        channelKey: ChannelModel.bldrsChannel.id,
+        channelName: ChannelModel.bldrsChannel.name,
+        /// this will be visible to user in android notification settings
+        channelDescription: ChannelModel.bldrsChannel.description,
+
+        /// GROUP
+        channelGroupKey: ChannelModel.bldrsChannel.group,
+        groupKey: ChannelModel.bldrsChannel.group,
+        groupSort: GroupSort.Asc,
+
+        /// ICON
+        icon: fcmWhiteLogoFilePath,
+        defaultColor: Colorz.black255,
+
+        /// SOUND
+        playSound: true,
+        soundSource: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
+        defaultRingtoneType: DefaultRingtoneType.Notification,
+
+        /// LIGHTS
+        enableLights: true,
+        ledColor: Colorz.yellow255,
+        // ledOnMs: 2, /// NOT IMPORTANT : NOT TESTED
+        // ledOffMs: 2, /// NOT IMPORTANT : NOT TESTED
+
+        /// VIBRATION
+        enableVibration: true,
+        vibrationPattern: createLocalNootVibration(),
+
+        /// BEHAVIOUR
+        locked: false, //  = !canBeDismissedWithoutTapping,
+        channelShowBadge: true, // auto increment badge
+
+        /// FAKES
+        importance: NotificationImportance.High, // auto increment badge bardo ?
+        defaultPrivacy: NotificationPrivacy.Public,
+        onlyAlertOnce: true,
+        // groupAlertBehavior: GroupAlertBehavior(),
+        // criticalAlerts: ,
+
+      ),
+
+    ];
+
+
+    return _channels;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<NotificationChannelGroup> getBldrsChannelGroups(){
+
+    return <NotificationChannelGroup>[
+
+      /// GENERAL
+      NotificationChannelGroup(
+        channelGroupkey: ChannelModel.bldrsChannel.group,
+        channelGroupName: ChannelModel.bldrsChannel.group,
+      ),
+
+    ];
+
   }
   // -----------------------------------------------------------------------------
 
@@ -450,6 +547,26 @@ class FCM {
     String topicName
   }) async {
 
+    /*
+
+         Messages sent to topics should not contain sensitive or private information.
+         Do not create a topic for a specific user to subscribe to.
+
+         Topic messaging supports unlimited subscriptions for each topic.
+
+         One app instance can be subscribed to no more than 2000 topics.
+
+         The frequency of new subscriptions is rate-limited per project.
+
+         If you send too many subscription requests in a short period of time,
+         FCM servers will respond with a 429 RESOURCE_EXHAUSTED ("quota exceeded")
+          response. Retry with an exponential backoff.
+
+         A server integration can send a single message to multiple topics at once.
+         This, however, is limited to 5 topics.
+
+     */
+
     if (AuthModel.userIsSignedIn() == true){
       blog('User : ${AuthFireOps.superUserID()} subscribed to topic : $topicName');
       await FirebaseMessaging.instance.subscribeToTopic(topicName);
@@ -468,80 +585,6 @@ class FCM {
   }
   // -----------------------------------------------------------------------------
 
-  /// CHANNELS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<NotificationChannel> generateBldrsNootChannels(){
-
-    final List<NotificationChannel> _channels = <NotificationChannel>[
-
-      NotificationChannel(
-        /// CHANNEL
-        channelKey: ChannelModel.bldrsChannel.id,
-        channelName: ChannelModel.bldrsChannel.name,
-        /// this will be visible to user in android notification settings
-        channelDescription: ChannelModel.bldrsChannel.description,
-
-        /// GROUP
-        channelGroupKey: ChannelModel.bldrsChannel.group,
-        groupKey: ChannelModel.bldrsChannel.group,
-        groupSort: GroupSort.Asc,
-
-        /// ICON
-        icon: fcmWhiteLogoFilePath,
-        defaultColor: Colorz.black255,
-
-        /// SOUND
-        playSound: true,
-        soundSource: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
-        defaultRingtoneType: DefaultRingtoneType.Notification,
-
-        /// LIGHTS
-        enableLights: true,
-        ledColor: Colorz.yellow255,
-        // ledOnMs: 2, /// NOT IMPORTANT : NOT TESTED
-        // ledOffMs: 2, /// NOT IMPORTANT : NOT TESTED
-
-        /// VIBRATION
-        enableVibration: true,
-        vibrationPattern: createLocalNootVibration(),
-
-        /// BEHAVIOUR
-        locked: false, //  = !canBeDismissedWithoutTapping,
-        channelShowBadge: false, // auto increment badge
-
-        /// FAKES
-        importance: NotificationImportance.High, // auto increment badge bardo ?
-        defaultPrivacy: NotificationPrivacy.Public,
-        onlyAlertOnce: true,
-        // groupAlertBehavior: GroupAlertBehavior(),
-        // criticalAlerts: ,
-
-      ),
-
-    ];
-
-
-    return _channels;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<NotificationChannelGroup> getBldrsChannelGroups(){
-
-    return <NotificationChannelGroup>[
-
-      /// GENERAL
-      NotificationChannelGroup(
-        channelGroupkey: ChannelModel.bldrsChannel.group,
-        channelGroupName: ChannelModel.bldrsChannel.group,
-      ),
-
-    ];
-
-  }
-  // -----------------------------------------------------------------------------
-
   /// GLOBAL BADGE
 
   // --------------------
@@ -549,11 +592,11 @@ class FCM {
   static Future<int> getGlobalBadgeNumber() async {
     final int _num = await getAwesomeNoots().getGlobalBadgeCounter();
     blog('getGlobalBadgeNumber : _num : $_num');
-    return _num;
+    return _num ?? 0;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> incrementGlobalBadge() async {
+  static Future<void> incrementGlobalBadgeXXX() async {
     blog('incrementGlobalBadge : INCREMENTING 1 : ${Numeric.createUniqueID(maxDigitsCount: 4)}');
     final int _num = await getGlobalBadgeNumber();
     await setGlobalBadgeNumber(_num+1);
@@ -572,25 +615,6 @@ class FCM {
   /// TESTED : WORKS PERFECT
   static Future<void> resetGlobalBadgeNumber() async {
     await getAwesomeNoots().resetGlobalBadge();
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CHECKERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT : /// TASK : STILL NOT USED ANYWHERE
-  static Future<bool> checkIsNootAllowed() async {
-    bool _allowed = false;
-
-    final AwesomeNotifications _awesomeNotification = getAwesomeNoots();
-
-    if (_awesomeNotification != null){
-      _allowed = await _awesomeNotification.isNotificationAllowed();
-    }
-
-    blog('checkIsNotificationAllowed : allowed : $_allowed');
-
-    return _allowed;
   }
   // -----------------------------------------------------------------------------
 

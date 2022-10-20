@@ -144,7 +144,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   // -----------------------------------------------------------------------------
   Future<void> _checkAndUpdateIsNotificationAllowed() async {
 
-    final bool _isAllowed = await FCM.checkIsNootAllowed();
+    final bool _isAllowed = await FCM.checkIsAwesomeNootAllowed();
 
     setState(() {
       _isNotificationAllowed = _isAllowed;

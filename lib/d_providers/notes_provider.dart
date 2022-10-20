@@ -14,20 +14,107 @@ import 'package:provider/provider.dart';
 class NotesProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
 
-  /// OBELISK NOTES NUMBERS
+  /// PYRAMID IS FLASHING
 
   // --------------------
-  /// MapModel(key: navModelID, value: numberOfNotes)
-  List<MapModel> _obeliskNotesNumbers = <MapModel>[];
-  List<MapModel> get obeliskNotesNumber => _obeliskNotesNumbers;
+  bool _isFlashing = false;
+  bool get isFlashing => _isFlashing;
   // --------------------
+  void _setIsFlashing({
+    @required bool setTo,
+    @required bool notify,
+  }){
+
+    if (_isFlashing != setTo){
+
+      _isFlashing = setTo;
+
+      blog('setIsFlashing : to : $setTo ');
+
+      if (notify == true){
+        notifyListeners();
+      }
+
+    }
+
+  }
+  // --------------------
+  static void proSetIsFlashing({
+    @required BuildContext context,
+    @required bool setTo,
+    @required bool notify,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    _notesProvider._setIsFlashing(
+      setTo: setTo,
+      notify: notify,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OBELISK NOTES BADGE NUMBERS
+
+  // -------------------------------------------------
+  /// MapModel(key: navModelID, value: numberOfNotes)
+  List<MapModel> _obeliskBadges = <MapModel>[];
+  List<MapModel> get obeliskBadges => _obeliskBadges;
+  // -------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> generateSetInitialObeliskNumbers({
+  static Future<void> proInitializeObeliskBadges({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    await _notesProvider._initializeObeliskBadges(
+        context: context,
+        notify: notify
+    );
+  }
+  // --------------------
+  ///
+  static Future<void> proSetUserObeliskBadge({
+    @required BuildContext context,
+    @required List<NoteModel> unseenNotes,
+    @required bool notify,
+  }) async {
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    await _notesProvider._setUserObeliskNumber(
+      context: context,
+      unseenNotes: unseenNotes,
+      notify: notify,
+    );
+  }
+  // --------------------
+  ///
+  static Future<void> proSetBzObeliskBadge({
+    @required BuildContext context,
+    @required String bzID,
+    @required List<NoteModel> unseenNotes,
+    @required bool notify,
+  }) async {
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    await _notesProvider._setBzObeliskNumber(
+      context: context,
+      unseenNotes: unseenNotes,
+      bzID: bzID,
+      notify: notify,
+    );
+  }
+  // -------------------------------------------------
+  /// INITIALIZATION
+  // -----
+  /// TESTED : WORKS PERFECT
+  Future<void> _initializeObeliskBadges({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: false);
+    /// NOTE: generates all navModels and creates a MapModel for each one in Obelisk
+
+    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
+        context: context,
+        listen: false,
+    );
 
     final List<String> _allNavModelsIDs = NavModel.generateAllNavModelsIDs(
       myBzzIDs: BzModel.getBzzIDs(_bzzModels),
@@ -42,31 +129,60 @@ class NotesProvider extends ChangeNotifier {
       _initialList.add(_mapModel);
     }
 
-    _obeliskNotesNumbers = _initialList;
+    _obeliskBadges = _initialList;
 
-    await rebuildObeliskNumbers(
+    await _rebuildObeliskNumbers(
         notify: notify,
     );
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  int getObeliskNumber({
-    @required String navModelID,
-  }){
+  // -------------------------------------------------
+  /// SETTING
+  // -----
+  ///
+  Future<void> _setUserObeliskNumber({
+    @required BuildContext context,
+    @required List<NoteModel> unseenNotes,
+    @required bool notify,
+  }) async {
 
-    final MapModel _mapModel = _obeliskNotesNumbers.firstWhere(
-          (m) => m.key == navModelID,
-      orElse: ()=> null,
+    await _setObeliskNumberAndRebuild(
+      context: context,
+      invoker: 'setUserObeliskNumber',
+      value: unseenNotes.length,
+      navModelID: NavModel.getUserTabNavID(UserTab.notifications),
+      rebuildAllMainNumbers: true,
+      notify: notify,
     );
 
-    return _mapModel?.value;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> setObeliskNumberAndRebuild({
+  // -----
+  ///
+  Future<void> _setBzObeliskNumber({
     @required BuildContext context,
-    @required String caller,
+    @required String bzID,
+    @required List<NoteModel> unseenNotes,
+    @required bool notify,
+  }) async {
+
+    await _setObeliskNumberAndRebuild(
+      context: context,
+      invoker: 'setBzObeliskNumber',
+      value: unseenNotes.length,
+      notify: notify,
+      rebuildAllMainNumbers: true,
+      navModelID: NavModel.getBzTabNavID(
+        bzTab: BzTab.notes,
+        bzID: bzID,
+      ),
+    );
+
+  }
+  // -----
+  /// TESTED : WORKS PERFECT
+  Future<void> _setObeliskNumberAndRebuild({
+    @required BuildContext context,
+    @required String invoker,
     @required int value,
     @required String navModelID,
     @required bool notify,
@@ -78,8 +194,8 @@ class NotesProvider extends ChangeNotifier {
       value: value,
     );
 
-    _obeliskNotesNumbers = MapModel.insertMapModel(
-      mapModels: _obeliskNotesNumbers,
+    _obeliskBadges = MapModel.insertMapModel(
+      mapModels: _obeliskBadges,
       mapModel: _mapModel,
     );
 
@@ -104,29 +220,8 @@ class NotesProvider extends ChangeNotifier {
 
     }
 
-    await rebuildObeliskNumbers(
-        notify: notify,
-    );
-
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> removeAllObeliskNoteNumbersRelatedToBzID({
-    @required String bzID,
-    @required bool notify,
-  }) async {
-
-    final List<String> _bzNavModelsIDs = NavModel.generateSuperBzNavIDs(
-      bzID: bzID,
-    );
-
-    for (final String navModelID in _bzNavModelsIDs){
-      _obeliskNotesNumbers.removeWhere((mm) => mm.key == navModelID);
-    }
-
-    await rebuildObeliskNumbers(
-        notify: notify,
+    await _rebuildObeliskNumbers(
+      notify: notify,
     );
 
 
@@ -143,7 +238,7 @@ class NotesProvider extends ChangeNotifier {
     /// internal tabs numbers
     final List<MapModel> _profileNumbers = MapModel.getModelsByKeys(
       keys: _userProfileNavIDs,
-      allModels: _obeliskNotesNumbers,
+      allModels: _obeliskBadges,
     );
 
     final List<dynamic> _values = MapModel.getValuesFromMapModels(_profileNumbers);
@@ -160,9 +255,9 @@ class NotesProvider extends ChangeNotifier {
 
     }
 
-    await setObeliskNumberAndRebuild(
+    await _setObeliskNumberAndRebuild(
       context: context,
-      caller: 'calculateAndSetUserProfileNumbers',
+      invoker: 'calculateAndSetUserProfileNumbers',
       value: _totalCount,
       navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
       notify: notify,
@@ -170,7 +265,7 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-  // --------------------
+  // -----
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetAllMainBzzProfilesNumbers({
     @required BuildContext context,
@@ -205,7 +300,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-  // --------------------
+  // -----
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetMainBzProfileNumber({
     @required BuildContext context,
@@ -221,7 +316,7 @@ class NotesProvider extends ChangeNotifier {
 
       final List<MapModel> _bzNumbers = MapModel.getModelsByKeys(
         keys: _bzProfileNavIDs,
-        allModels: _obeliskNotesNumbers,
+        allModels: _obeliskBadges,
       );
 
       final List<dynamic> _values = MapModel.getValuesFromMapModels(_bzNumbers);
@@ -237,9 +332,9 @@ class NotesProvider extends ChangeNotifier {
 
       }
 
-      await setObeliskNumberAndRebuild(
+      await _setObeliskNumberAndRebuild(
         context: context,
-        caller: 'calculateAndSetBzProfileNumbers',
+        invoker: 'calculateAndSetBzProfileNumbers',
         value: _totalCount,
         notify: notify,
         rebuildAllMainNumbers: false,
@@ -253,114 +348,127 @@ class NotesProvider extends ChangeNotifier {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> wipeObeliskNumbers({@required bool notify}) async {
-
-    _obeliskNotesNumbers = <MapModel>[];
-
-    await rebuildObeliskNumbers(
-      notify: notify,
-    );
-
-  }
-  // --------------------
   ///
-  Future<void> rebuildObeliskNumbers({@required bool notify}) async {
+  Future<void> _rebuildObeliskNumbers({
+    @required bool notify
+  }) async {
 
     if (notify == true){
-      await _setGlobalBadgeNumber();
+      await _decrementGlobalBadgeNumIfPossible();
       notifyListeners();
     }
 
   }
-  // --------------------
+  // -----
   ///
-  Future<void> _setGlobalBadgeNumber() async {
+  Future<void> _decrementGlobalBadgeNumIfPossible() async {
+    // ---
 
-    /// GLOBAL BADGE NUMBER IS THE SUM OF ALL NUMBERS IS [_obeliskNotesNumbers]
+    /// GLOBAL BADGE NUMBER IS THE SUM OF ALL NUMBERS IN [_obeliskNotesNumbers]
 
-    final List<dynamic> _values = MapModel.getValuesFromMapModels(_obeliskNotesNumbers);
-
+    // ---
+    /// GET GLOBAL NUMBER
+    final int _globalNumber = await FCM.getGlobalBadgeNumber();
+    // ---
+    /// CALCULATE OBELISK TOTAL
+    int _obeliskTotal = 0;
+    final List<dynamic> _values = MapModel.getValuesFromMapModels(_obeliskBadges);
     if (Mapper.checkCanLoopList(_values) == true){
-
-      int _total = 0;
       for (final dynamic value in _values){
-        _total = _total + value;
+        _obeliskTotal = _obeliskTotal + value;
       }
-
-      await FCM.setGlobalBadgeNumber(_total);
-
     }
-    else {
-      await FCM.resetGlobalBadgeNumber();
+    // ---
+    /// GLOBAL BADGE AUTO INCREMENTS THROUGH FCM SERVICE, BUT TO BE MANUALLY DECREMENTED HERE
+    if (_obeliskTotal < _globalNumber){
+      await FCM.setGlobalBadgeNumber(_obeliskTotal);
     }
+    // ---
+    /// ALWAYS SET LOCALLY FOR DEV MONITORING
+    _badgeNum = _globalNumber;
+    // ---
+  }
+  // -------------------------------------------------
+  /// DELETING
+  // -----
+  /// TESTED : WORKS PERFECT
+  Future<void> removeAllObeliskNoteNumbersRelatedToBzID({
+    @required String bzID,
+    @required bool notify,
+  }) async {
+
+    final List<String> _bzNavModelsIDs = NavModel.generateSuperBzNavIDs(
+      bzID: bzID,
+    );
+
+    for (final String navModelID in _bzNavModelsIDs){
+      _obeliskBadges.removeWhere((mm) => mm.key == navModelID);
+    }
+
+    await _rebuildObeliskNumbers(
+        notify: notify,
+    );
+
 
   }
-  // -----------------------------------------------------------------------------
+  // -----
+  /// TESTED : WORKS PERFECT
+  Future<void> wipeObeliskNumbers({@required bool notify}) async {
 
-  /// PYRAMID IS FLASHING
+    _obeliskBadges = <MapModel>[];
 
-  // --------------------
-  bool _isFlashing = false;
-  bool get isFlashing => _isFlashing;
-  // --------------------
-  void setIsFlashing({
-    @required bool setTo,
-    @required bool notify,
-  }){
-
-    if (_isFlashing != setTo){
-
-      _isFlashing = setTo;
-
-      blog('setIsFlashing : to : $setTo ');
-
-      if (notify == true){
-        notifyListeners();
-      }
-
-    }
-
-  }
-  // --------------------
-  static void proSetIsFlashing({
-    @required BuildContext context,
-    @required bool setTo,
-    @required bool notify,
-  }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    _notesProvider.setIsFlashing(
-      setTo: setTo,
+    await _rebuildObeliskNumbers(
       notify: notify,
     );
+
   }
+
+
+
+
+
+
+
+
+
+
+
+/*
+  // --------------------
+  /// GETTING
+  // -----
+  /// TESTED : WORKS PERFECT
+  int _getObeliskNumber({
+    @required String navModelID,
+  }){
+
+    final MapModel _mapModel = _obeliskBadges.firstWhere(
+          (m) => m.key == navModelID,
+      orElse: ()=> null,
+    );
+
+    return _mapModel?.value;
+  }
+ */
+
+
+
+
+
+
+
+
   // -----------------------------------------------------------------------------
 
   /// USER RECEIVED UNSEEN NOTES
 
   // --------------------
+  /*
   List<NoteModel> _userNotes = <NoteModel>[];
   List<NoteModel> get userNotes => _userNotes;
+   */
   // --------------------
-  Future<void> setUserNotesAndRebuild({
-    @required BuildContext context,
-    @required List<NoteModel> notes,
-    @required bool notify,
-  }) async {
-
-    _userNotes = notes;
-
-    await setObeliskNumberAndRebuild(
-      context: context,
-      caller: 'setUserUnseenNotes',
-      value: _userNotes.length,
-      navModelID: NavModel.getUserTabNavID(UserTab.notifications),
-      rebuildAllMainNumbers: true,
-      notify: notify,
-    );
-
-  }
-  // --------------------
+  /*
   static List<NoteModel> proGetUserUnseenNotes({
     @required BuildContext context,
     @required bool listen,
@@ -368,7 +476,9 @@ class NotesProvider extends ChangeNotifier {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
     return _notesProvider.userNotes;
   }
+   */
   // --------------------
+  /*
   void updateNoteInUserNotes({
     @required NoteModel note,
     @required bool notify,
@@ -384,7 +494,9 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
+  /*
   void deleteNoteInUserNotes({
     @required String noteID,
     @required bool notify,
@@ -400,7 +512,9 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
+  /*
   void wipeUserNotes({
     @required bool notify
   }){
@@ -411,38 +525,18 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+   */
   // -----------------------------------------------------------------------------
+  /*
+    /// ALL BZZ RECEIVED UNSEEN NOTES
 
-  /// ALL BZZ RECEIVED UNSEEN NOTES
-
+    // --------------------
+    /// only the received notes
+    Map<String, List<NoteModel>> _myBzzNotes = {}; // {bzID : <NoteModel>[Note, Note, Note..]}
+    Map<String, List<NoteModel>> get myBzzNotes => _myBzzNotes;
+   */
   // --------------------
-  /// only the received notes
-  Map<String, List<NoteModel>> _myBzzNotes = {}; // {bzID : <NoteModel>[Note, Note, Note..]}
-  Map<String, List<NoteModel>> get myBzzNotes => _myBzzNotes;
-  // --------------------
-  Future<void> setBzNotesAndRebuildObelisk({
-    @required BuildContext context,
-    @required String bzID,
-    @required List<NoteModel> notes,
-    @required bool notify,
-  }) async {
-
-    _myBzzNotes[bzID] = notes;
-
-    await setObeliskNumberAndRebuild(
-      context: context,
-      caller: 'setBzUnseenNotesAndRebuildObelisk',
-      value: notes.length,
-      notify: notify,
-      rebuildAllMainNumbers: true,
-      navModelID: NavModel.getBzTabNavID(
-        bzTab: BzTab.notes,
-        bzID: bzID,
-      ),
-    );
-
-  }
-  // --------------------
+  /*
   void removeNotesFromBzzNotes({
     @required List<NoteModel> notes,
     @required String bzID,
@@ -465,7 +559,9 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
+  /*
   static void proRemoveNotesFromBzzNotes({
     @required BuildContext context,
     @required List<NoteModel> notes,
@@ -479,7 +575,9 @@ class NotesProvider extends ChangeNotifier {
       notes: notes,
     );
   }
+   */
   // --------------------
+  /*
   void removeAllNotesOfThisBzFromAllBzzNotes({
     @required String bzID,
     @required bool notify,
@@ -492,7 +590,9 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
+  /*
   void updateNoteInMyBzzNotes({
     @required NoteModel note,
     @required bool notify,
@@ -508,7 +608,9 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+       */
   // --------------------
+  /*
   void deleteNoteInBzzNotes({
     @required String noteID,
     @required bool notify,
@@ -524,7 +626,9 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
+  /*
   void wipeAllBzzNotes({
     @required bool notify,
   }){
@@ -536,11 +640,13 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// PRO NOTES OPS
 
   // --------------------
+  /*
   static void proUpdateNoteEverywhereIfExists({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -560,7 +666,9 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
+   */
   // --------------------
+  /*
   static void proDeleteNoteEverywhereIfExists({
     @required BuildContext context,
     @required String noteID,
@@ -569,17 +677,18 @@ class NotesProvider extends ChangeNotifier {
 
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 
-    _notesProvider.deleteNoteInUserNotes(
-      noteID: noteID,
-      notify: false,
-    );
+    // _notesProvider.deleteNoteInUserNotes(
+    //   noteID: noteID,
+    //   notify: false,
+    // );
 
-    _notesProvider.deleteNoteInBzzNotes(
-        noteID: noteID,
-        notify: notify
-    );
+    // _notesProvider.deleteNoteInBzzNotes(
+    //     noteID: noteID,
+    //     notify: notify
+    // );
 
   }
+   */
   // --------------------
   static void proAuthorResignationNotesRemovalOps({
     @required BuildContext context,
@@ -587,10 +696,10 @@ class NotesProvider extends ChangeNotifier {
   }){
 
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    _notesProvider.removeAllNotesOfThisBzFromAllBzzNotes(
-      bzID: bzIDResigned,
-      notify: false,
-    );
+    // _notesProvider.removeAllNotesOfThisBzFromAllBzzNotes(
+    //   bzID: bzIDResigned,
+    //   notify: false,
+    // );
     _notesProvider.removeAllObeliskNoteNumbersRelatedToBzID(
         bzID: bzIDResigned,
         notify: true
@@ -613,14 +722,43 @@ class NotesProvider extends ChangeNotifier {
     await _notesProvider.wipeObeliskNumbers(notify: false);
 
     ///_isFlashing
-    _notesProvider.setIsFlashing(setTo: false, notify: false);
+    _notesProvider._setIsFlashing(setTo: false, notify: false);
 
-    ///_userNotes
-    _notesProvider.wipeUserNotes(notify: false);
+    /// DEPRECATED
+    // ///_userNotes
+    // _notesProvider.wipeUserNotes(notify: false);
 
-    ///_myBzzNotes
-    _notesProvider.wipeAllBzzNotes(notify: true);
+    /// DEPRECATED
+    // ///_myBzzNotes
+    // _notesProvider.wipeAllBzzNotes(notify: true);
 
   }
   // -----------------------------------------------------------------------------
+
+  /// ======>
+  // BADGE NUMBER MONITOR
+  /// ======>
+
+  // --------------------
+  int _badgeNum = 0;
+  int get badgeNum => _badgeNum;
+  Future<void> setBadgeNum() async {
+    _badgeNum = await FCM.getAwesomeNoots().getGlobalBadgeCounter();
+    notifyListeners();
+  }
+  // --------------------
+  static Future<void> proRefreshBadgeNum(BuildContext context) async {
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    await _notesProvider.setBadgeNum();
+  }
+  // --------------------
+  static int proGetBadgeNum({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+    return _notesProvider.badgeNum;
+  }
+  // -----------------------------------------------------------------------------
+
 }
