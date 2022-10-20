@@ -94,22 +94,35 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> requestAwesomePermission() async {
+
+    /// NOTE : THIS PUSHES NATIVE NOTIFICATIONS PERMISSIONS SCREEN
+
+    const List<NotificationPermission> _permissions = <NotificationPermission>[
+      NotificationPermission.Alert,
+      NotificationPermission.Sound,
+      NotificationPermission.Badge,
+      NotificationPermission.Light,
+      NotificationPermission.Vibration,
+      NotificationPermission.FullScreenIntent,
+      NotificationPermission.PreciseAlarms,
+      NotificationPermission.CriticalAlert,
+      NotificationPermission.OverrideDnD,
+      NotificationPermission.Provisional,
+      NotificationPermission.Car,
+    ];
+
+    // final List<NotificationPermission> _allowed = await getAwesomeNoots().checkPermissionList(
+    //   channelKey: ChannelModel.bldrsChannel.id,
+    //   permissions: _permissions,
+    // );
+    //
+    // blog('requestAwesomePermission : permissions are : $_allowed');
+
     await getAwesomeNoots().requestPermissionToSendNotifications(
-      // channelKey: ,
-      // permissions: <NotificationPermission>[
-      //   NotificationPermission.Alert,
-      //   NotificationPermission.Sound,
-      //   NotificationPermission.Badge,
-      //   NotificationPermission.Light,
-      //   NotificationPermission.Vibration,
-      //   NotificationPermission.FullScreenIntent,
-      //   NotificationPermission.PreciseAlarms,
-      //   NotificationPermission.CriticalAlert,
-      //   NotificationPermission.OverrideDnD,
-      //   NotificationPermission.Provisional,
-      //   NotificationPermission.Car,
-      // ],
+      channelKey: ChannelModel.bldrsChannel.id,
+      permissions: _permissions,
     );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -132,6 +145,8 @@ class FCM {
       carPlay: true,
       criticalAlert: true,
     );
+
+
 
     // FCM.blogNootSettings(
     //   settings: _settings,
@@ -524,6 +539,36 @@ class FCM {
 
     ];
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GLOBAL BADGE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<int> getGlobalBadgeNumber() async {
+    final int _num = await getAwesomeNoots().getGlobalBadgeCounter();
+    return _num;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> incrementGlobalBadge() async {
+    await getAwesomeNoots().incrementGlobalBadgeCounter();
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> decrementGlobalBadge() async {
+    await getAwesomeNoots().decrementGlobalBadgeCounter();
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> setGlobalBadgeNumber(int num) async {
+    await getAwesomeNoots().setGlobalBadgeCounter(num);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> resetGlobalBadgeNumber() async {
+    await getAwesomeNoots().resetGlobalBadge();
   }
   // -----------------------------------------------------------------------------
 

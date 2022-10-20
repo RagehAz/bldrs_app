@@ -227,7 +227,7 @@ class GeneralProvider extends ChangeNotifier {
   /// CONTROLLING ALL PROVIDERS
 
   // --------------------
-  static void wipeOutAllProviders(BuildContext context){
+  static Future<void> wipeOutAllProviders(BuildContext context) async {
 
     /// PhraseProvider
     PhraseProvider.wipeOut(context: context, notify: true);
@@ -238,7 +238,7 @@ class GeneralProvider extends ChangeNotifier {
     /// GeneralProvider
     GeneralProvider.wipeOut(context: context, notify: true);
     /// NotesProvider
-    NotesProvider.wipeOut(context: context, notify: true);
+    await NotesProvider.wipeOut(context: context, notify: true);
     /// UsersProvider
     UsersProvider.wipeOut(context: context, notify: true);
     /// ZoneProvider

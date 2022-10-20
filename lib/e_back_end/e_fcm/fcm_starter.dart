@@ -208,6 +208,8 @@ class FCMStarter {
 
       if (_note != null){
 
+        await FCM.incrementGlobalBadge();
+
         await FCM.pushGlobalNoot(
           title: _note.title,
           body: _note.body,
