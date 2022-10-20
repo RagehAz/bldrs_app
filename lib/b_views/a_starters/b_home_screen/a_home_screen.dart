@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
         await initializeHomeScreen(context);
 
         if (mounted){
-          initializeObeliskNumbers(context);
+          await initializeObeliskNumbers(context);
           // initializeUserNotes(context);
           _bzzNotesStreamsSubs = initializeMyBzzNotes(context);
         }
