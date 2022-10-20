@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // --------------------
+/// TESTED : WORKS PERFECT
 @pragma('vm:entry-point')
 Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
 
@@ -61,13 +62,13 @@ class FCMStarter {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> initializeNootsInBldrsAppStarter(BuildContext context) async {
+  static Future<void> initializeNootsInBldrsAppStarter() async {
 
     /// FCM PERMISSION
     await FCM.requestFCMPermission();
 
     /// INITIALIZE LOCAL NOOTS
-    await _initializeLocalNootsService(context);
+    await _initializeLocalNootsService();
 
     /// INITIALIZE LISTENERS
     _initializeNootsListeners();
@@ -102,7 +103,7 @@ class FCMStarter {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _initializeLocalNootsService(BuildContext context) async {
+  static Future<void> _initializeLocalNootsService() async {
 
     await FCM.getLocalNootsPlugin().initialize(
 
@@ -236,8 +237,6 @@ class FCMStarter {
         blog('should send a fucking noot title ${_note.title} : body ${_note.body}');
 
         await Future.wait(<Future>[
-
-          // FCM.incrementGlobalBadge(),
 
           FCM.pushGlobalNoot(
             title: _note.title,

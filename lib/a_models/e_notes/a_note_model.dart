@@ -450,7 +450,7 @@ class NoteModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static NoteModel getFirstNoteByRecieverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -470,7 +470,7 @@ class NoteModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> getNotesByReceiverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -493,7 +493,7 @@ class NoteModel {
     return _notes;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> getNotesContainingTrigger({
     @required List<NoteModel> notes,
     @required String triggerFunctionName,
@@ -519,7 +519,7 @@ class NoteModel {
   /// UNSEEN GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static int getNumberOfUnseenNotes(List<NoteModel> notes){
     int _count = 0;
 
@@ -536,7 +536,7 @@ class NoteModel {
     return _count;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> getUnseenNotesByReceiverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -560,7 +560,7 @@ class NoteModel {
     return _notes;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> getOnlyUnseenNotes({
     @required List<NoteModel> notes,
   }){
@@ -682,7 +682,7 @@ class NoteModel {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     bool _thereAreUnseenNotes = false;
 
@@ -912,59 +912,6 @@ class NoteModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<NoteModel> removeNoteFromNotes({
-    @required List<NoteModel> notes,
-    @required String noteID,
-  }){
-
-    final List<NoteModel> _output = notes == null ?
-    <NoteModel>[]
-        :
-    <NoteModel>[...notes];
-
-    // blog('removeNoteFromNotes : notes : ${_output.length}');
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      final int _index = notes.indexWhere((note) => note.id == noteID);
-
-      if (_index != -1){
-        // blog('removeNoteFromNotes : removing note _index : $_index');
-        _output.removeAt(_index);
-      }
-
-    }
-
-    // blog('removeNoteFromNotes : notes : ${_output.length}');
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<NoteModel> removeNotesFromNotes({
-    @required List<NoteModel> notesToRemove,
-    @required List<NoteModel> sourceNotes,
-  }){
-
-    List<NoteModel> _output = sourceNotes ?? <NoteModel>[];
-
-    if (Mapper.checkCanLoopList(notesToRemove) == true && Mapper.checkCanLoopList(_output) == true){
-
-      for (final NoteModel note in notesToRemove){
-
-        _output = removeNoteFromNotes(
-          notes: _output,
-          noteID: note.id,
-        );
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNoteIntoNotes({
     @required List<NoteModel> notesToGet,
     @required NoteModel note,
@@ -1009,6 +956,8 @@ class NoteModel {
     return _output;
   }
   // --------------------
+  /// UNUSED
+  /*
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNotesInNotes({
     @required List<NoteModel> notesToGet,
@@ -1033,15 +982,99 @@ class NoteModel {
 
     return _output;
   }
+   */
   // --------------------
-  ///
-  static List<NoteModel> orderNotesBySentTime(List<NoteModel> notes){
+  /// UNUSED
+  /*
+  /// TESTED : WORKS PERFECT
+  static List<NoteModel> removeNoteFromNotes({
+    @required List<NoteModel> notes,
+    @required String noteID,
+  }){
+
+    final List<NoteModel> _output = notes == null ?
+    <NoteModel>[]
+        :
+    <NoteModel>[...notes];
+
+    // blog('removeNoteFromNotes : notes : ${_output.length}');
+
     if (Mapper.checkCanLoopList(notes) == true){
-      notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
+
+      final int _index = notes.indexWhere((note) => note.id == noteID);
+
+      if (_index != -1){
+        // blog('removeNoteFromNotes : removing note _index : $_index');
+        _output.removeAt(_index);
+      }
+
     }
-    return notes;
+
+    // blog('removeNoteFromNotes : notes : ${_output.length}');
+
+    return _output;
   }
+   */
   // --------------------
+  /// UNUSED
+  /*
+  /// TESTED : WORKS PERFECT
+  static List<NoteModel> removeNotesFromNotes({
+    @required List<NoteModel> notesToRemove,
+    @required List<NoteModel> sourceNotes,
+  }){
+
+    List<NoteModel> _output = sourceNotes ?? <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notesToRemove) == true && Mapper.checkCanLoopList(_output) == true){
+
+      for (final NoteModel note in notesToRemove){
+
+        _output = removeNoteFromNotes(
+          notes: _output,
+          noteID: note.id,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+   */
+  // --------------------
+  /// UNUSED
+  /*
+  /// TESTED : WORKS PERFECT
+  static List<NoteModel> replaceNoteInNotes({
+    @required List<NoteModel> notes,
+    @required NoteModel noteToReplace,
+  }){
+    final List<NoteModel> _output = <NoteModel>[];
+
+    if (Mapper.checkCanLoopList(notes) == true){
+
+      _output.addAll(notes);
+
+      final int _index = _output.indexWhere((n) => n.id == noteToReplace.id);
+
+      if (_index != -1){
+        _output.removeAt(_index);
+        _output.insert(_index, noteToReplace);
+      }
+
+    }
+
+    return _output;
+  }
+   */
+  // -----------------------------------------------------------------------------
+
+  /// BZ NOTES MAP
+
+  // --------------------
+  /// UNUSED
+  /*
   ///
   static Map<String, List<NoteModel>> updateNoteInBzzNotesMap({
     @required NoteModel note,
@@ -1082,31 +1115,10 @@ class NoteModel {
 
     return _output ?? bzzNotesMap;
   }
+   */
   // --------------------
-  ///
-  static List<NoteModel> replaceNoteInNotes({
-    @required List<NoteModel> notes,
-    @required NoteModel noteToReplace,
-  }){
-    final List<NoteModel> _output = <NoteModel>[];
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      _output.addAll(notes);
-
-      final int _index = _output.indexWhere((n) => n.id == noteToReplace.id);
-
-      if (_index != -1){
-        _output.removeAt(_index);
-        _output.insert(_index, noteToReplace);
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  ///
+  /// UNUSED
+  /*
   static Map<String, List<NoteModel>> removeNoteFromBzzNotesMap({
     @required String noteID,
     @required Map<String, List<NoteModel>> bzzNotesMap
@@ -1145,6 +1157,22 @@ class NoteModel {
 
     return _output ?? bzzNotesMap;
   }
+   */
+  // -----------------------------------------------------------------------------
+
+  /// SORTING
+
+  // --------------------
+  /// UNUSED
+  /*
+  /// TESTED : WORKS PERFECT
+  static List<NoteModel> sortNotesBySentTime(List<NoteModel> notes){
+    if (Mapper.checkCanLoopList(notes) == true){
+      notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
+    }
+    return notes;
+  }
+   */
   // -----------------------------------------------------------------------------
 
   /// DUMMIES
@@ -1225,6 +1253,7 @@ class NoteModel {
   /// TOPICS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String generateTopic({
     @required TopicType topicType,
     @required String id,
@@ -1232,6 +1261,7 @@ class NoteModel {
     return '$topicType/$id/';
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<TopicType> getAllBzzTopics(){
     return <TopicType>[
       TopicType.flyerVerification, // 'flyerVerification/bzID/'
@@ -1240,102 +1270,12 @@ class NoteModel {
       TopicType.authorRoleChanged, // 'authorRoleChanged/bzID/'
       TopicType.authorDeletion, // 'authorDeletion/bzID/'
       TopicType.generalBzNotes, // 'generalBzNotes/bzID/'
-
     ];
   }
   // -----------------------------------------------------------------------------
 
   /// VALIDATION
 
-  // --------------------
-  /*
-  static String receiverVsNoteTypeValidator({
-    @required NoteSenderOrRecieverType receiverType,
-    @required NoteType noteType,
-  }){
-
-    if (receiverType == NoteSenderOrRecieverType.user){
-      switch (noteType){
-        case NoteType.notice        : return null; break; /// user can receive notice
-        case NoteType.authorship    : return null; break; /// only user receive authorship
-        case NoteType.bzDeletion    : return null; break; /// only user receive bzDeletion
-        case NoteType.flyerUpdate   : return 'User does not receive flyer update note'; break;
-        default: return null;
-      }
-    }
-    else if (receiverType == NoteSenderOrRecieverType.bz){
-      switch (noteType){
-        case NoteType.notice  : return null; break; /// bz can receive notice
-        case NoteType.authorship    : return 'Only User receive authorship note'; break;
-        case NoteType.bzDeletion    : return 'Only user can receive bzDeletion note'; break;
-        case NoteType.flyerUpdate   : return null; break; /// bz can receive flyerUpdate
-        default: return null;
-      }
-    }
-    else {
-      return 'Receiver can only be a user or a bz';
-    }
-
-  }
-   */
-  // --------------------
-  /*
-  static String senderVsNoteTypeValidator({
-    @required NoteSenderOrRecieverType senderType,
-    @required NoteType noteType,
-  }){
-
-    /// USER
-    if (senderType == NoteSenderOrRecieverType.user){
-      switch (noteType){
-        case NoteType.notice        : return null; break; /// user can send notice
-        case NoteType.authorship    : return 'Only Bz can send Authorship note'; break;
-        case NoteType.bzDeletion    : return 'Only Bldrs can send bzDeletion notes'; break;
-        case NoteType.flyerUpdate   : return 'User can not send flyerUpdate note'; break;
-        default: return null;
-      }
-    }
-
-    /// BZ
-    else if (senderType == NoteSenderOrRecieverType.bz){
-      switch (noteType){
-        case NoteType.notice        : return null; break; /// bz can send notice
-        case NoteType.authorship    : return null; break; /// only bz send authorship
-        case NoteType.bzDeletion    : return 'Only Bldrs can send bzDeletion notes'; break;
-        case NoteType.flyerUpdate   : return null; break; /// bz can send flyerUpdate note
-        default: return null;
-      }
-    }
-
-    /// BLDRS
-    else if (senderType == NoteSenderOrRecieverType.bldrs){
-      switch (noteType){
-        case NoteType.notice        : return null; break; /// Bldrs can send notice
-        case NoteType.authorship    : return 'Only Bz can send Authorship note'; break;
-        case NoteType.bzDeletion    : return null; break; /// only Bldrs send bzDeletion
-        case NoteType.flyerUpdate   : return null; break; /// Bldrs can send flyerUpdate note
-        default: return null;
-      }
-    }
-
-    /// COUNTRY
-    else if (senderType == NoteSenderOrRecieverType.country){
-      switch (noteType){
-        case NoteType.notice        : return null; break; /// Country can send notice
-        case NoteType.authorship    : return 'Only Bz can send Authorship note'; break;
-        case NoteType.bzDeletion    : return 'Only Bldrs can send bzDeletion notes'; break;
-        case NoteType.flyerUpdate   : return 'Country can not send FlyerUpdate note'; break;
-        default: return null;
-      }
-    }
-
-    /// OTHERWISE
-    else {
-      return 'Sender can not be null';
-    }
-
-  }
-   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static String receiverVsSenderValidator({

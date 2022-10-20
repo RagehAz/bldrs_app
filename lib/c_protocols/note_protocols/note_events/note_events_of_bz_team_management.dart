@@ -117,7 +117,7 @@ class NoteEventsOfBzTeamManagement {
          title: '##You have exited from ${bzModel.name} account',
          body: '##You are no longer part of ${bzModel.name} team',
          sentTime: DateTime.now(),
-         token: _userModel?.fcmToken?.token,
+         token: _userModel?.device?.token,
        );
 
       await NoteProtocols.composeToOneUser(
@@ -177,7 +177,7 @@ class NoteEventsOfBzTeamManagement {
               title: '##${_creator.name} has deleted "${bzModel.name}" business account',
               body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
               sentTime: DateTime.now(),
-              token: _userModel?.fcmToken?.token,
+              token: _userModel?.device?.token,
               trigger: TriggerProtocols.createDeleteBzLocallyTrigger(
                 bzID: bzModel.id,
               ),

@@ -11,6 +11,7 @@ import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Future<void> initializeObeliskNumbers(BuildContext context) async {
 /// USER NOTES
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 StreamSubscription listenToUserUnseenNotes(BuildContext context){
 
   StreamSubscription _sub;
@@ -54,7 +55,7 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
       invoker: 'listenToUserUnseenNotes',
       onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
 
-        // blog('initializeUserNote.onStreamDataChanged : new maps are ${allUpdatedMaps.length} maps');
+        blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
         // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
 
         final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
@@ -90,25 +91,6 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
 
   return _sub;
 }
-// --------------------
-/*
-/// TESTED : WORKS PERFECT
-ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes({
-  @required BuildContext context,
-}){
-
-  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-
-  final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
-    notes: _notesProvider.userNotes,
-    toJSON: false,
-  );
-
-  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
-
-  return _oldMaps;
-}
- */
 // -----------------------------------------------------------------------------
 
 /// BZZ NOTES STREAMS
@@ -144,27 +126,7 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(BuildContext context){
   return _subs;
 }
 // --------------------
-/// DEPRECATED
-/*
 /// TESTED : WORKS PERFECT
-ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes ({
-  @required BuildContext context,
-  @required String bzID,
-}){
-
-  final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-  final List<NoteModel> _bzOldNotes = _notesProvider.myBzzNotes[bzID];
-  final List<Map<String, dynamic>> _oldNotesMaps = NoteModel.cipherNotesModels(
-    notes: _bzOldNotes,
-    toJSON: false,
-  );
-  final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(_oldNotesMaps);
-
-  return _oldMaps;
-}
- */
-// --------------------
-///
 StreamSubscription _listenToMyBzUnseenNotes({
   @required BuildContext context,
   @required String bzID,
@@ -217,7 +179,7 @@ StreamSubscription _listenToMyBzUnseenNotes({
 /// PYRAMIDS FLASHING
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void concludeAndActivatePyramidsFlashing({
   @required BuildContext context,
   @required List<NoteModel> unseenNotes,
@@ -228,14 +190,12 @@ void concludeAndActivatePyramidsFlashing({
     unseenNotes: unseenNotes,
   );
 
-  if (_noteDotIsOn == true){
     NotesProvider.proSetIsFlashing(
       context: context,
-      setTo: true,
+      setTo: _noteDotIsOn,
       notify: true,
     );
-  }
-  
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -264,21 +224,4 @@ bool _checkNoteDotIsOn({
 
   return _isOn;
 }
-// --------------------
-/*
-// int _getNotesCount({
-//   @required bool thereAreMissingFields,
-//   @required List<NoteModel> notes,
-// }){
-//   int _count;
-//
-//   if (thereAreMissingFields == false){
-//     if (Mapper.checkCanLoopList(notes) == true){
-//       _count = NoteModel.getNumberOfUnseenNotes(notes);
-//     }
-//   }
-//
-//   return _count;
-// }
- */
 // -----------------------------------------------------------------------------

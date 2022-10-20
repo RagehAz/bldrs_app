@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_token_model.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
@@ -14,7 +9,6 @@ import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/bz_record_real_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 
 class RenovateUserProtocols {
@@ -232,17 +226,17 @@ class RenovateUserProtocols {
   }
   // -----------------------------------------------------------------------------
 
-  /// UPDATE FCM TOKEN
+  /// UPDATE DEVICE MODEL
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> updateMyUserFCMToken({
+  ///
+  static Future<void> refreshUserDeviceModel({
     @required BuildContext context,
   }) async {
 
     if (AuthModel.userIsSignedIn() == true){
 
-      /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
+      /// TASK : UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
       /*
          - Unsubscribe stale tokens from topics
          Managing topics subscriptions to remove stale registration
@@ -263,80 +257,74 @@ class RenovateUserProtocols {
 
      */
 
-      final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-      String _fcmToken;
+      /// THIS DEVICE MODEL
+      final DeviceModel _thisDevice = await DeviceModel.generateDeviceModel();
 
-      /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-
-      final bool _continue = await tryCatchAndReturnBool(
-        methodName: 'updateMyUserFCMToken',
-        functions: () async {
-
-          // if (Platform.isIOS) {
-          //   _fcmToken = await _fcm.getToken();
-          // }
-          // else {
-            _fcmToken = await _fcm.getToken(
-              // vapidKey:
-            );
-          // }
-
-        },
-        onError: (String error) async {
-
-          await CenterDialog.showCenterDialog(
-              context: context,
-              titleVerse: const Verse(
-                text: '##Notifications are temporarily suspended',
-                translate: true,
-              ),
-              onOk: (){
-                blog('error is : $error');
-              }
-          );
-
-          /// error codes reference
-          // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
-          // UNREGISTERED (HTTP 404)
-          // INVALID_ARGUMENT (HTTP 400)
-          // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-
-        },
-      );
-
+      /// USER DEVICE MODEL
       final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
       );
 
-      if (_continue == true && _fcmToken != null && _myUserModel != null){
+      /// TASK : ACTUALLY SHOULD REBOOT SYSTEM IF DEVICE CHANGED
+      final bool _userIsUsingSameDevice = DeviceModel.checkDevicesAreIdentical(
+        device1: _thisDevice,
+        device2: _myUserModel.device,
+      );
 
-        if (_myUserModel?.fcmToken?.token != _fcmToken){
+      if (_myUserModel.device == null || _userIsUsingSameDevice == false){
 
-          final FCMToken _token = FCMToken(
-            token: _fcmToken,
-            createdAt: DateTime.now(),
-            platform: Platform.operatingSystem,
-          );
-
-          // _token.blogToken();
-
-          final UserModel _updated = _myUserModel.copyWith(
-            fcmToken: _token,
-          );
-
-          await _fcm.setAutoInitEnabled(true);
-
-          await UserProtocols.renovateMyUserModel(
+        /// SHOULD REFETCH, and I will explain why
+        /// user using device A renovated his user model and updated firebase
+        /// closed device A and opens device B
+        /// which did not listen to firebase but has an old model in LDB
+        /// while checking this device has been changed
+        /// we should get the most updated version of his model
+        /// so we refetch model
+        /// cheers
+        UserModel _refetchedUser = await UserProtocols.refetchUser(
             context: context,
-            newUserModel: _updated,
-          );
+            userID: _myUserModel.id,
+        );
 
-        }
+        _refetchedUser = _refetchedUser.copyWith(
+          device: _thisDevice,
+        );
+
+        await Future.wait(<Future>[
+
+          _resubscribeToAllMyTopics(
+            context: context,
+          ),
+
+          UserProtocols.renovateMyUserModel(
+            context: context,
+            newUserModel: _refetchedUser,
+          ),
+
+        ]);
 
       }
 
     }
+
+  }
+  // --------------------
+  /// TASK : COMPLETE THIS
+  static Future<void> _resubscribeToAllMyTopics({
+    @required BuildContext context,
+  }) async {
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    final List<String> _topics = _myUserModel.fcmTopics;
+
+    blog('SHOULD CONCLUDE WHICH TOPICS NEED SUBSCRIPTION');
+    blog('OR FETCH SOMEHOW HOW TO GET MY SUBSCRIPTIONS AND RESUBSCRIBE');
+    blog('_userID : ${_myUserModel.id} : _topics : $_topics');
 
   }
   // -----------------------------------------------------------------------------

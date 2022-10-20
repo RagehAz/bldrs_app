@@ -27,6 +27,7 @@ import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_
 import 'package:bldrs/x_dashboard/b_phrases_editor/a_phrase_manager_screen.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/a_chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/d_pickers_editors/a_pickers_manager_screen.dart';
+import 'package:bldrs/x_dashboard/device_info_reader/device_info_screen.dart';
 import 'package:bldrs/x_dashboard/e_users_manager/a_users_manager_screen.dart';
 import 'package:bldrs/x_dashboard/f_bzz_manager/a_bzz_manager_screen.dart';
 import 'package:bldrs/x_dashboard/g_zones_editor/a_zones_manager_screen.dart';
@@ -194,8 +195,12 @@ class DashBoardHomeScreen extends StatelessWidget {
       null,
       /// EMPTY
       null,
-      /// EMPTY
-      null,
+      /// DEVICE INFO
+      DashButtonModel(
+        verse: 'Device Info',
+        icon: Iconz.mobilePhone,
+        screen: DeviceInfoScreen(),
+      ),
       /// EMPTY
       null,
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -50,7 +50,7 @@ Future<void> initializeLogoScreen({
   );
 
   /// USER APP - FCM - TOKEN
-  await _initializeMyDeviceFCMToken(context);
+  await _refreshUserDeviceModel(context);
 
   /// CHECK DEVICE CLOCK
   final bool _deviceTimeIsCorrect = await Timers.checkDeviceTimeIsCorrect(
@@ -361,38 +361,9 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
+Future<void> _refreshUserDeviceModel(BuildContext context) async {
   // blog('_initializeMyDeviceFCMToken : START');
-  await UserProtocols.updateMyUserFCMToken(context: context);
+  await UserProtocols.refreshUserDeviceModel(context: context);
   // blog('_initializeMyDeviceFCMToken : END');
 }
-// -----------------------------------------------------------------------------
-
-/// NOTES STREAM INITIALIZATION
-
-// --------------------
-/*
-void _initializeUserNotesStream(BuildContext context){
-
-  // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-  // _notesProvider.startSetUserNotesStream(
-  //   context: context,
-  //   notify: true,
-  // );
-
-}
- */
-// -----------------------------------------------------------------------------
-
-/// NAVIGATION
-
-// --------------------
-/*
-Future<void> _goToLogoScreen(BuildContext context) async {
-  await Nav.pushNamedAndRemoveAllBelow(
-      context: context,
-      goToRoute: Routez.logoScreen,
-  );
-}
- */
 // -----------------------------------------------------------------------------
