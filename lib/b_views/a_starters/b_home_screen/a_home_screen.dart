@@ -73,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _initializeKeyboard();
-    _userNotesStreamSub = listenToUserUnseenNotes(context);
   }
   // --------------------
   bool _isInit = true;
@@ -87,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if (mounted){
           await initializeObeliskNumbers(context);
-          // initializeUserNotes(context);
+          _userNotesStreamSub = listenToUserUnseenNotes(context);
           _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes(context);
         }
 

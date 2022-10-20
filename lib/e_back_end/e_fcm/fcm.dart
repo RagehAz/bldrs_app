@@ -31,36 +31,20 @@ class FCM {
   /// Singleton accessor
   static FCM get instance => _singleton;
   // -----------------------------------------------------------------------------
-  /// local instance
+  /// AWESOME NOTIFICATIONS SINGLETON
   AwesomeNotifications _awesomeNotifications;
-  // --------------------
-  /// instance getter
-  AwesomeNotifications get awesomeNotifications {
-    return _awesomeNotifications ??= AwesomeNotifications();
-  }
-  // --------------------
-  /// static instance getter
-  static AwesomeNotifications getAwesomeNoots() {
-    return FCM.instance.awesomeNotifications;
-  }
+  AwesomeNotifications get awesomeNotifications => _awesomeNotifications ??= AwesomeNotifications();
+  static AwesomeNotifications getAwesomeNoots() => FCM.instance.awesomeNotifications;
   // --------------------
   /// Static dispose
   static void disposeAwesomeNoots(){
     getAwesomeNoots().dispose();
   }
   // -----------------------------------------------------------------------------
-  /// local instance
+  /// LOCAL NOOT PLUGIN SINGLETON
   FlutterLocalNotificationsPlugin _localNootsPlugin;
-  // --------------------
-  /// instance getter
-  FlutterLocalNotificationsPlugin get localNootsPlugin {
-    return _localNootsPlugin ??= FlutterLocalNotificationsPlugin();
-  }
-  // --------------------
-  /// static instance getter
-  static FlutterLocalNotificationsPlugin getLocalNootsPlugin() {
-    return FCM.instance.localNootsPlugin;
-  }
+  FlutterLocalNotificationsPlugin get localNootsPlugin => _localNootsPlugin ??= FlutterLocalNotificationsPlugin();
+  static FlutterLocalNotificationsPlugin getLocalNootsPlugin() => FCM.instance.localNootsPlugin;
   // --------------------
   /*
   /// Static dispose
@@ -582,6 +566,55 @@ class FCM {
       blog('User : ${AuthFireOps.superUserID()} unSubscribed from topic : $topicName');
       await FirebaseMessaging.instance.unsubscribeFromTopic(topicName);
     }
+  }
+
+  // -----------------------------------------------------------------------------
+
+  /// DEVICE TOKEN
+
+  // --------------------
+  static Future<String> generateToken() async {
+
+    String _fcmToken;
+
+    await tryAndCatch(
+      methodName: 'generateToken',
+      functions: () async {
+
+        final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+        _fcmToken = await _fcm.getToken(
+          // vapidKey:
+        );
+
+        await _fcm.setAutoInitEnabled(true);
+
+      },
+      onError: (String error) async {
+
+        /// maybe show dialog
+        // await CenterDialog.showCenterDialog(
+        //     context: context,
+        //     titleVerse: const Verse(
+        //       text: '##Notifications are temporarily suspended',
+        //       translate: true,
+        //     ),
+        //     onOk: (){
+        //       blog('error is : $error');
+        //     }
+        // );
+
+        /// error codes reference
+        // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
+        // UNREGISTERED (HTTP 404)
+        // INVALID_ARGUMENT (HTTP 400)
+        // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
+        /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
+
+      },
+
+    );
+
+    return _fcmToken;
   }
   // -----------------------------------------------------------------------------
 

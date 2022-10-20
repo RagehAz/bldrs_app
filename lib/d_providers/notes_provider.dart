@@ -20,6 +20,7 @@ class NotesProvider extends ChangeNotifier {
   bool _isFlashing = false;
   bool get isFlashing => _isFlashing;
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _setIsFlashing({
     @required bool setTo,
     @required bool notify,
@@ -39,6 +40,7 @@ class NotesProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void proSetIsFlashing({
     @required BuildContext context,
     @required bool setTo,
@@ -71,7 +73,7 @@ class NotesProvider extends ChangeNotifier {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> proSetUserObeliskBadge({
     @required BuildContext context,
     @required List<NoteModel> unseenNotes,
@@ -85,7 +87,7 @@ class NotesProvider extends ChangeNotifier {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> proSetBzObeliskBadge({
     @required BuildContext context,
     @required String bzID,
@@ -139,7 +141,7 @@ class NotesProvider extends ChangeNotifier {
   // -------------------------------------------------
   /// SETTING
   // -----
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _setUserObeliskNumber({
     @required BuildContext context,
     @required List<NoteModel> unseenNotes,
@@ -157,7 +159,7 @@ class NotesProvider extends ChangeNotifier {
 
   }
   // -----
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _setBzObeliskNumber({
     @required BuildContext context,
     @required String bzID,
@@ -348,7 +350,7 @@ class NotesProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _rebuildObeliskNumbers({
     @required bool notify
   }) async {
@@ -360,7 +362,7 @@ class NotesProvider extends ChangeNotifier {
 
   }
   // -----
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _decrementGlobalBadgeNumIfPossible() async {
     // ---
 
@@ -422,273 +424,10 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-
-
-
-
-
-
-
-
-
-
-
-/*
-  // --------------------
-  /// GETTING
-  // -----
-  /// TESTED : WORKS PERFECT
-  int _getObeliskNumber({
-    @required String navModelID,
-  }){
-
-    final MapModel _mapModel = _obeliskBadges.firstWhere(
-          (m) => m.key == navModelID,
-      orElse: ()=> null,
-    );
-
-    return _mapModel?.value;
-  }
- */
-
-
-
-
-
-
-
-
-  // -----------------------------------------------------------------------------
-
-  /// USER RECEIVED UNSEEN NOTES
-
-  // --------------------
-  /*
-  List<NoteModel> _userNotes = <NoteModel>[];
-  List<NoteModel> get userNotes => _userNotes;
-   */
-  // --------------------
-  /*
-  static List<NoteModel> proGetUserUnseenNotes({
-    @required BuildContext context,
-    @required bool listen,
-  }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
-    return _notesProvider.userNotes;
-  }
-   */
-  // --------------------
-  /*
-  void updateNoteInUserNotes({
-    @required NoteModel note,
-    @required bool notify,
-  }){
-
-    _userNotes = NoteModel.replaceNoteInNotes(
-        notes: _userNotes,
-        noteToReplace: note
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-   */
-  // --------------------
-  /*
-  void deleteNoteInUserNotes({
-    @required String noteID,
-    @required bool notify,
-  }){
-
-    _userNotes = NoteModel.removeNoteFromNotes(
-      notes: _userNotes,
-      noteID: noteID,
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-   */
-  // --------------------
-  /*
-  void wipeUserNotes({
-    @required bool notify
-  }){
-    _userNotes = <NoteModel>[];
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-   */
-  // -----------------------------------------------------------------------------
-  /*
-    /// ALL BZZ RECEIVED UNSEEN NOTES
-
-    // --------------------
-    /// only the received notes
-    Map<String, List<NoteModel>> _myBzzNotes = {}; // {bzID : <NoteModel>[Note, Note, Note..]}
-    Map<String, List<NoteModel>> get myBzzNotes => _myBzzNotes;
-   */
-  // --------------------
-  /*
-  void removeNotesFromBzzNotes({
-    @required List<NoteModel> notes,
-    @required String bzID,
-    @required bool notify,
-  }){
-
-    if (Mapper.checkCanLoopList(notes) == true){
-
-      final List<NoteModel> _updatedNotes = NoteModel.removeNotesFromNotes(
-        notesToRemove: notes,
-        sourceNotes: _myBzzNotes[bzID],
-      );
-
-      _myBzzNotes[bzID] = _updatedNotes;
-
-      if (notify == true){
-        notifyListeners();
-      }
-
-    }
-
-  }
-   */
-  // --------------------
-  /*
-  static void proRemoveNotesFromBzzNotes({
-    @required BuildContext context,
-    @required List<NoteModel> notes,
-    @required String bzID,
-    @required bool notify,
-  }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-    _notesProvider.removeNotesFromBzzNotes(
-      bzID: bzID,
-      notify: notify,
-      notes: notes,
-    );
-  }
-   */
-  // --------------------
-  /*
-  void removeAllNotesOfThisBzFromAllBzzNotes({
-    @required String bzID,
-    @required bool notify,
-  }){
-
-    _myBzzNotes.remove(bzID);
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-   */
-  // --------------------
-  /*
-  void updateNoteInMyBzzNotes({
-    @required NoteModel note,
-    @required bool notify,
-  }){
-
-    _myBzzNotes = NoteModel.updateNoteInBzzNotesMap(
-      note: note,
-      bzzNotesMap: _myBzzNotes,
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-       */
-  // --------------------
-  /*
-  void deleteNoteInBzzNotes({
-    @required String noteID,
-    @required bool notify,
-  }){
-
-    _myBzzNotes = NoteModel.removeNoteFromBzzNotesMap(
-      bzzNotesMap: _myBzzNotes,
-      noteID: noteID,
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-   */
-  // --------------------
-  /*
-  void wipeAllBzzNotes({
-    @required bool notify,
-  }){
-
-    _myBzzNotes = {};
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-   */
   // -----------------------------------------------------------------------------
 
   /// PRO NOTES OPS
 
-  // --------------------
-  /*
-  static void proUpdateNoteEverywhereIfExists({
-    @required BuildContext context,
-    @required NoteModel noteModel,
-    @required bool notify,
-  }){
-
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-
-    _notesProvider.updateNoteInUserNotes(
-      note: noteModel,
-      notify: false,
-    );
-
-    _notesProvider.updateNoteInMyBzzNotes(
-        note: noteModel,
-        notify: notify
-    );
-
-  }
-   */
-  // --------------------
-  /*
-  static void proDeleteNoteEverywhereIfExists({
-    @required BuildContext context,
-    @required String noteID,
-    @required bool notify,
-  }){
-
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
-
-    // _notesProvider.deleteNoteInUserNotes(
-    //   noteID: noteID,
-    //   notify: false,
-    // );
-
-    // _notesProvider.deleteNoteInBzzNotes(
-    //     noteID: noteID,
-    //     notify: notify
-    // );
-
-  }
-   */
   // --------------------
   static void proAuthorResignationNotesRemovalOps({
     @required BuildContext context,
@@ -747,11 +486,13 @@ class NotesProvider extends ChangeNotifier {
     notifyListeners();
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> proRefreshBadgeNum(BuildContext context) async {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     await _notesProvider.setBadgeNum();
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static int proGetBadgeNum({
     @required BuildContext context,
     @required bool listen,

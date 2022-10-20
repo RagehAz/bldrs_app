@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_token_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -53,7 +53,7 @@ class UserModel {
     @required this.myBzzIDs,
     @required this.emailIsVerified,
     @required this.isAdmin,
-    @required this.fcmToken,
+    @required this.device,
     @required this.fcmTopics,
     @required this.savedFlyersIDs,
     @required this.followedBzzIDs,
@@ -78,7 +78,7 @@ class UserModel {
   final List<String> myBzzIDs;
   final bool emailIsVerified;
   final bool isAdmin;
-  final FCMToken fcmToken;
+  final DeviceModel device;
   final List<String> fcmTopics;
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
@@ -117,7 +117,7 @@ class UserModel {
       myBzzIDs: const <String>[],
       emailIsVerified: _user.emailVerified,
       isAdmin: false,
-      fcmToken: null,
+      device: null,
       company: null,
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
@@ -161,7 +161,7 @@ class UserModel {
       emailIsVerified: user.emailVerified,
       isAdmin: false,
       company: null,
-      fcmToken: null,
+      device: null,
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: await GeneralProvider.fetchGlobalAppState(
@@ -243,7 +243,7 @@ class UserModel {
     List<String> myBzzIDs,
     bool emailIsVerified,
     bool isAdmin,
-    FCMToken fcmToken,
+    DeviceModel device,
     List<String> savedFlyersIDs,
     List<String> followedBzzIDs,
     AppState appState,
@@ -267,7 +267,7 @@ class UserModel {
       myBzzIDs: myBzzIDs ?? this.myBzzIDs,
       emailIsVerified: emailIsVerified ?? this.emailIsVerified,
       isAdmin: isAdmin ?? this.isAdmin,
-      fcmToken: fcmToken ?? this.fcmToken,
+      device: device ?? this.device,
       savedFlyersIDs: savedFlyersIDs ?? this.savedFlyersIDs,
       followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
       appState: appState ?? this.appState,
@@ -294,7 +294,7 @@ class UserModel {
     bool myBzzIDs = false,
     bool emailIsVerified = false,
     bool isAdmin = false,
-    bool fcmToken = false,
+    bool device = false,
     bool fcmTopics = false,
     bool savedFlyersIDs = false,
     bool followedBzzIDs = false,
@@ -318,7 +318,7 @@ class UserModel {
       myBzzIDs : myBzzIDs == true ? const [] : this.myBzzIDs,
       emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
       isAdmin : isAdmin == true ? null : this.isAdmin,
-      fcmToken : fcmToken == true ? null : this.fcmToken,
+      device : device == true ? null : this.device,
       fcmTopics: fcmTopics == true ? null : this.fcmTopics,
       savedFlyersIDs : savedFlyersIDs == true ? const [] : this.savedFlyersIDs,
       followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
@@ -354,7 +354,7 @@ class UserModel {
       'myBzzIDs': myBzzIDs ?? <String>[],
       'emailIsVerified': emailIsVerified,
       'isAdmin': isAdmin,
-      'fcmToken': fcmToken?.toMap(toJSON: toJSON),
+      'device': device?.toMap(),
       'fcmTopics': fcmTopics,
       'savedFlyersIDs': savedFlyersIDs ?? <String>[],
       'followedBzzIDs': followedBzzIDs ?? <String>[],
@@ -410,7 +410,7 @@ class UserModel {
         myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
-        fcmToken: FCMToken.decipherFCMToken(map: map['fcmToken'], fromJSON: fromJSON,),
+        device: DeviceModel.decipherFCMToken(map['device']),
         fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
         savedFlyersIDs: Stringer.getStringsFromDynamics(dynamics: map['savedFlyersIDs'],),
         followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
@@ -563,7 +563,7 @@ class UserModel {
           Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
           Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
           AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) &&
-          FCMToken.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken) &&
+          DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) &&
           Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics)
     // DocumentSnapshot docSnapshot;
 
@@ -869,7 +869,7 @@ class UserModel {
       contacts: contacts,
       methodName: 'user contacts',
     );
-    fcmToken?.blogFCMToken();
+    device?.blogDevice();
     Stringer.blogStrings(strings: fcmTopics, invoker: 'user fcmTopic');
     appState?.blogAppState();
 
@@ -991,8 +991,8 @@ class UserModel {
         blog('blogUserDifferences : [appState] are not identical');
       }
 
-      if (FCMToken.checkTokensAreIdentical(user1.fcmToken, user2.fcmToken) == false){
-        blog('blogUserDifferences : [fcmToken] are not identical');
+      if (DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == false){
+        blog('blogUserDifferences : [device] are not identical');
       }
 
       if (Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == false){
@@ -1032,7 +1032,7 @@ class UserModel {
       myBzzIDs: const <String>[],
       emailIsVerified: true,
       isAdmin: true,
-      fcmToken: null,
+      device: null,
       fcmTopics: TopicModel.getAllUserTopics(),
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
@@ -1219,7 +1219,7 @@ class UserModel {
       myBzzIDs.hashCode^
       emailIsVerified.hashCode^
       isAdmin.hashCode^
-      fcmToken.hashCode^
+      device.hashCode^
       fcmTopics.hashCode^
       savedFlyersIDs.hashCode^
       followedBzzIDs.hashCode^

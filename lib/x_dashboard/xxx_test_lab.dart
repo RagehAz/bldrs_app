@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
@@ -18,6 +19,8 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -25,6 +28,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/x_exotic_methods/exotic_methods.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/x_test_lab/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
@@ -86,6 +90,36 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     // blog('_diff : $_diff');
 
     /// ---------------- >>>
+
+
+    final List<UserModel> _users = await ExoticMethods.readAllUserModels(limit: 500);
+
+    for (final UserModel user in _users){
+
+      // await Fire.updateDocField(
+      //   collName: FireColl.users,
+      //   docName: user.id,
+      //   field: 'device',
+      //   input: {
+      //     'token' : await FirebaseMessaging.instance.getToken(),
+      //     'platform' : Platform.operatingSystem,
+      //     'id' : await DeviceChecker.getDeviceID(),
+      //     'name' : await DeviceChecker.getDeviceName(),
+      //   },
+      // );
+
+      await Fire.deleteDocField(
+          collName: FireColl.users,
+          docName: user.id,
+          field: 'device.version',
+      );
+
+      blog('done with ${user.id} : ${user.name}');
+
+    }
+
+
+
 
 
   }

@@ -1,14 +1,159 @@
 import 'dart:io';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class DeviceChecker {
+  // --------------------
+  /// private constructor to create instances of this class only in itself
+  DeviceChecker.singleton();
+  // --------------------
+  /// Singleton instance
+  static final DeviceChecker _singleton = DeviceChecker.singleton();
+  // --------------------
+  /// Singleton accessor
+  static DeviceChecker get instance => _singleton;
   // -----------------------------------------------------------------------------
 
-  const DeviceChecker();
+  /// CONNECTIVITY
 
+  // --------------------
+  /// CONNECTIVITY SINGLETON
+  Connectivity _connectivity;
+  Connectivity get connectivity => _connectivity ??= Connectivity();
+  static Connectivity getConnectivity() => DeviceChecker.instance.connectivity;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkConnectivity({
+    ConnectivityResult streamResult,
+  }) async {
+
+    ConnectivityResult _result;
+
+    await tryAndCatch(
+        functions: () async {
+          _result = streamResult ?? await getConnectivity().checkConnectivity();
+        },
+        onError: (String error){
+          blog('DISCONNECTED : $error');
+        }
+    );
+
+
+    /// THROUGH MOBILE NETWORK
+    if (_result == ConnectivityResult.mobile) {
+      return true;
+    }
+
+    /// THROUGH WIFI
+    else if (_result == ConnectivityResult.wifi) {
+      return true;
+    }
+
+    /// THROUGH BLUETOOTH
+    else if (_result == ConnectivityResult.bluetooth){
+      return true;
+    }
+
+    /// THROUGH ETHERNET
+    else if (_result == ConnectivityResult.ethernet){
+      return true;
+    }
+
+    /// NOT CONNECTED
+    else if (_result == ConnectivityResult.none){
+      return false;
+    }
+
+    else {
+      return false;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DEVICE INFO PLUGIN
+
+  // --------------------
+  /// CONNECTIVITY SINGLETON
+  DeviceInfoPlugin _deviceInfoPlugin;
+  DeviceInfoPlugin get deviceInfoPlugin => _deviceInfoPlugin ??= DeviceInfoPlugin();
+  static DeviceInfoPlugin getDeviceInfoPlugin() => DeviceChecker.instance.deviceInfoPlugin;
+  // --------------------
+  ///
+  static Future<String> getDeviceID() async {
+
+    final DeviceInfoPlugin deviceInfo = getDeviceInfoPlugin();
+
+    /// IS IOS
+    if (deviceIsIOS() == true) {
+      final IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+    }
+
+    /// IS ANDROID
+    else if(deviceIsAndroid() == true) {
+      final AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+      return androidDeviceInfo.id; // unique ID on Android
+    }
+
+    /// NOT ANDROID + NOT IOS
+    else {
+      return null;
+    }
+
+  }
+  // --------------------
+  ///
+  static Future<String> getDeviceName() async {
+
+    final DeviceInfoPlugin deviceInfo = getDeviceInfoPlugin();
+
+    /// IS IOS
+    if (deviceIsIOS() == true) {
+      final IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo.name;
+    }
+
+    /// IS ANDROID
+    else if(deviceIsAndroid() == true) {
+      final AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+      return androidDeviceInfo.model;
+    }
+
+    /// NOT ANDROID + NOT IOS
+    else {
+      return null;
+    }
+
+  }
+  // --------------------
+  /*
+  static Future<String> getDeviceVersion() async {
+
+    final DeviceInfoPlugin deviceInfo = getDeviceInfoPlugin();
+
+    /// IS IOS
+    if (deviceIsIOS() == true) {
+      final IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
+      return iosDeviceInfo?.systemVersion;
+    }
+
+    /// IS ANDROID
+    else if(deviceIsAndroid() == true) {
+      final AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
+      return androidDeviceInfo?.version?.incremental;
+    }
+
+    /// NOT ANDROID + NOT IOS
+    else {
+      return null;
+    }
+
+  }
+   */
   // -----------------------------------------------------------------------------
 
   /// DEVICE OS
@@ -51,58 +196,6 @@ class DeviceChecker {
 
     if (_mediaQuery.orientation == Orientation.landscape){
       return true;
-    }
-
-    else {
-      return false;
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CONNECTIVITY
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> checkConnectivity({
-    ConnectivityResult streamResult,
-  }) async {
-
-    ConnectivityResult _result;
-
-    await tryAndCatch(
-        functions: () async {
-          _result = streamResult ?? await Connectivity().checkConnectivity();
-        },
-        onError: (String error){
-          blog('DISCONNECTED : $error');
-        }
-    );
-
-
-    /// THROUGH MOBILE NETWORK
-    if (_result == ConnectivityResult.mobile) {
-      return true;
-    }
-
-    /// THROUGH WIFI
-    else if (_result == ConnectivityResult.wifi) {
-      return true;
-    }
-
-    /// THROUGH BLUETOOTH
-    else if (_result == ConnectivityResult.bluetooth){
-      return true;
-    }
-
-    /// THROUGH ETHERNET
-    else if (_result == ConnectivityResult.ethernet){
-      return true;
-    }
-
-    /// NOT CONNECTED
-    else if (_result == ConnectivityResult.none){
-      return false;
     }
 
     else {

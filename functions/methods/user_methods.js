@@ -35,9 +35,9 @@ const getUserModel = (userID) => {
 const deleteUserToken = (userID) => {
   functions.logger.log(`deleteUserToken : 1 - START : with userID : [${userID}]`);
   const userDocRef = admin.firestore().collection('users').doc(userID);
-  functions.logger.log('deleteUserToken : 2 - should start deleting fcmToken field now');
+  functions.logger.log('deleteUserToken : 2 - should start deleting device field now');
   userDocRef.update({
-    fcmToken: admin.firestore.FieldValue.delete(),
+    device: admin.firestore.FieldValue.delete(),
   }).then(function(response) {
     functions.logger.log(
         'deleteUserToken : 3 - just finished deleting and',
@@ -45,7 +45,7 @@ const deleteUserToken = (userID) => {
     );
   }).catch(function(error) {
     functions.logger.log(
-        'deleteUserToken : 3 - could not delete user token',
+        'deleteUserToken : 3 - could not delete user device field',
         `error : [${error}]`,
     );
   });

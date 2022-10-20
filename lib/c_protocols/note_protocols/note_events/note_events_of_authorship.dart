@@ -112,7 +112,7 @@ class NoteEventsOfAuthorship {
         reply: null,
         replyTime: null,
       ),
-      token: userModelToSendTo?.fcmToken?.token,
+      token: userModelToSendTo?.device?.token,
       topic: TopicModel.bzInvitations,
       dismissible: false,
       // poster: PosterModel(
@@ -170,7 +170,7 @@ class NoteEventsOfAuthorship {
       body: _body.value,
       sentTime: DateTime.now(),
       // poll: null,
-      token: userModelToSendTo?.fcmToken?.token,
+      token: userModelToSendTo?.device?.token,
       topic: TopicModel.bzInvitations,
       // dismissible: true,
       // poster: PosterModel(

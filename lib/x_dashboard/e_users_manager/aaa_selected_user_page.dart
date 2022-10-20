@@ -215,14 +215,14 @@ class SelectedUserPage extends StatelessWidget {
       DataStrip(
         color: Colorz.yellow125,
         dataKey: 'FCM token',
-        dataValue: userModel.fcmToken?.token,
+        dataValue: userModel.device?.token,
       ),
 
       /// FCM Token
       DataStrip(
         color: Colorz.yellow125,
         dataKey: 'FCM platform',
-        dataValue: userModel.fcmToken?.platform,
+        dataValue: userModel.device?.platform,
       ),
 
       const DotSeparator(),
