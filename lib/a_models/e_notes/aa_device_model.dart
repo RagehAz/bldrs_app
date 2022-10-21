@@ -53,6 +53,7 @@ class DeviceModel {
   /// GENERATOR
 
   // --------------------
+  ///
   static Future<DeviceModel> generateDeviceModel() async {
 
     final String deviceID = await DeviceChecker.getDeviceID();

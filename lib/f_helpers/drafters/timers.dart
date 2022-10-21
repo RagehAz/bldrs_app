@@ -371,6 +371,7 @@ class Timers {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String generateString_hh_i_mm_ampm_day_dd_month_yyyy({
     @required BuildContext context,
     @required DateTime time,
@@ -388,7 +389,8 @@ class Timers {
       final String _ampm = DateFormat('a').format(time);
       final String _day = generateDayName(context, time);
       final String _dd = '${time.day}';
-      final String _month = getMonthPhidByInt(context, time.month);
+      final String _monthPhid = getMonthPhidByInt(context, time.month);
+      final String _month = xPhrase(context, _monthPhid);
       final String _yyyy = '${time.year}';
 
       _output = '$_hh:$_mm $_ampm, $_day $_dd $_month $_yyyy';
