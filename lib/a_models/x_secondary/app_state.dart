@@ -9,9 +9,7 @@ class AppState {
   const AppState({
     @required this.chainsVersion,
     @required this.pickersVersion,
-
     @required this.phrasesVersion,
-
     @required this.appVersion,
     @required this.ldbVersion,
     @required this.appControlsVersion,
