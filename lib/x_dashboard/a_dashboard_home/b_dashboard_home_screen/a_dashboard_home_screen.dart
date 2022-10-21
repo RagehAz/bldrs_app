@@ -24,7 +24,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
-import 'package:bldrs/x_dashboard/b_phrases_editor/a_phrase_manager_screen.dart';
+import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/a_chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/d_pickers_editors/a_pickers_manager_screen.dart';
 import 'package:bldrs/x_dashboard/device_info_reader/device_info_screen.dart';
@@ -109,9 +109,9 @@ class DashBoardHomeScreen extends StatelessWidget {
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// PHRASES EDITOR
       DashButtonModel(
-        verse:  'Phrase\nManager',
+        verse:  'Phrase\nEditor',
         icon: Iconz.language,
-        screen: PhraseManager(),
+        screen: PhraseEditorScreen(),
       ),
       /// CHAINS EDITOR
       DashButtonModel(
