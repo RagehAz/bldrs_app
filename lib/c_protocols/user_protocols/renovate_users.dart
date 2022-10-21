@@ -234,6 +234,8 @@ class RenovateUserProtocols {
     @required BuildContext context,
   }) async {
 
+    blog('refreshUserDeviceModel START');
+
     if (AuthModel.userIsSignedIn() == true){
 
       /// TASK : UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
@@ -307,6 +309,8 @@ class RenovateUserProtocols {
       }
 
     }
+
+    blog('refreshUserDeviceModel END');
 
   }
   // --------------------
