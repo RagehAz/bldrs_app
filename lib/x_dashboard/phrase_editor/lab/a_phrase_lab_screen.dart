@@ -6,27 +6,24 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/phrase_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/b_phrases_editor/b_phrase_editor_screen.dart';
-import 'package:bldrs/x_dashboard/b_phrases_editor/x_phrase_editor_controllers.dart';
+import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PhraseManager extends StatefulWidget {
+class PhrasesLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const PhraseManager({
+  const PhrasesLab({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _PhraseManagerState createState() => _PhraseManagerState();
+  _PhrasesLabState createState() => _PhrasesLabState();
   /// --------------------------------------------------------------------------
 }
 
-class _PhraseManagerState extends State<PhraseManager> {
+class _PhrasesLabState extends State<PhrasesLab> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -77,23 +74,6 @@ class _PhraseManagerState extends State<PhraseManager> {
 
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
-      appBarWidgets: <Widget>[
-
-        /// GO TO NEW EDITOR
-        AppBarButton(
-          icon: Iconz.language,
-          verse: Verse.plain('NEW Editor'),
-          onTap: () async {
-
-            await Nav.goToNewScreen(
-              context: context,
-              screen: const PhraseEditorScreen(),
-            );
-
-          },
-        ),
-
-      ],
       listWidgets: <Widget>[
 
         // ---------------------------------------
