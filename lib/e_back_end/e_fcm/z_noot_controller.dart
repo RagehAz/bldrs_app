@@ -1,8 +1,16 @@
+import 'dart:async';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
+/// for AWESOME NOTIFICATION VERSION 7.
 abstract class NootController {
   // -----------------------------------------------------------------------------
 
@@ -135,4 +143,127 @@ abstract class NootController {
     blog('blogReceivedAction : $invoker : END');
   }
 // -----------------------------------------------------------------------------
+}
+
+class NootListener {
+  // -----------------------------------------------------------------------------
+
+  const NootListener();
+
+  // -----------------------------------------------------------------------------
+
+  /// ACTION
+
+  // --------------------
+  static StreamSubscription listenToNootActionStream(){
+
+    final StreamSubscription _sub = FCM.getAwesomeNoots()
+        .actionStream
+        .listen((ReceivedNotification receivedNotification) async {
+
+      blog('listenToNootActionStream --- START');
+
+      NootController.blogReceivedNotification(
+        noot: receivedNotification,
+        invoker: 'listenToNootActionStream',
+      );
+
+      final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+
+      final NoteModel _note = NoteModel.decipherRemoteMessage(
+        map: receivedNotification?.payload,
+      );
+
+      await CenterDialog.showCenterDialog(
+        context: _context,
+        titleVerse: Verse.plain('App was on background'),
+        bodyVerse: Verse.plain('noteTitle is : ${_note.title} \n and we can navigate '
+            'starting from here using this context baby'),
+        color: Colorz.green50,
+        height: 400,
+        confirmButtonVerse: Verse.plain('Tamam'),
+      );
+
+      blog('listenToNootActionStream --- END');
+
+    });
+
+    return _sub;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CREATED
+
+  // --------------------
+  ///
+  static StreamSubscription listenToNootCreatedStream(){
+
+    final StreamSubscription _sub = FCM.getAwesomeNoots()
+        .createdStream
+        .listen((ReceivedNotification receivedNotification) {
+
+          blog('listenToNootCreatedStream --- START');
+
+          NootController.blogReceivedNotification(
+            noot: receivedNotification,
+            invoker: 'listenToNootCreatedStream',
+          );
+
+          blog('listenToNootCreatedStream --- END');
+
+        });
+
+    return _sub;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISMISSED
+
+  // --------------------
+  ///
+  static StreamSubscription listenToNootDismissedStream(){
+
+    final StreamSubscription _sub = FCM.getAwesomeNoots()
+        .dismissedStream
+        .listen((ReceivedNotification receivedNotification) {
+
+      blog('listenToNootDismissedStream --- START');
+
+      NootController.blogReceivedNotification(
+        noot: receivedNotification,
+        invoker: 'listenToNootDismissedStream',
+      );
+
+      blog('listenToNootDismissedStream --- END');
+
+    });
+
+    return _sub;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISPLAYED
+
+  // --------------------
+  ///
+  static StreamSubscription listenToNootDisplayedStream(){
+
+    final StreamSubscription _sub = FCM.getAwesomeNoots()
+        .dismissedStream
+        .listen((ReceivedNotification receivedNotification) {
+
+      blog('listenToNootDismissedStream --- START');
+
+      NootController.blogReceivedNotification(
+        noot: receivedNotification,
+        invoker: 'listenToNootDismissedStream',
+      );
+
+      blog('listenToNootDismissedStream --- END');
+
+    });
+
+    return _sub;
+  }
+  // -----------------------------------------------------------------------------
 }

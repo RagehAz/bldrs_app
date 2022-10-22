@@ -17,6 +17,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
+import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -107,8 +108,10 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
           fireError: _fireError,
         );
 
-        /// NOTIFICATIONS
+        /// INITIALIZE NOOTS
         await FCMStarter.initializeNootsInBldrsAppStarter();
+        /// NOOT LISTENERS
+        _initializeNootListeners();
 
         /// DYNAMIC LINKS
         await DynamicLinks.initializeDynamicLinks(context);
@@ -131,11 +134,39 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
 
     // Sembast.dispose(); async function,, and no need to close sembast I guess
     Sounder.dispose();
+    _closeNootListeners();
     FCM.disposeAwesomeNoots();
 
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// NOOT STREAMS
+
+  // --------------------
+  StreamSubscription _action;
+  StreamSubscription _created;
+  StreamSubscription _dismissed;
+  StreamSubscription _displayed;
+  // --------------------
+  void _initializeNootListeners(){
+    _action = NootListener.listenToNootActionStream();
+    _created = NootListener.listenToNootCreatedStream();
+    _dismissed = NootListener.listenToNootDismissedStream();
+    _displayed = NootListener.listenToNootDisplayedStream();
+  }
+  // --------------------
+  void _closeNootListeners(){
+    _action.cancel();
+    _created.cancel();
+    _dismissed.cancel();
+    _displayed.cancel();
+  }
+  // -----------------------------------------------------------------------------
+
+  /// LOCALE
+
+  // --------------------
   final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null); /// tamam disposed
   // --------------------
   void _setLocale(Locale locale) {

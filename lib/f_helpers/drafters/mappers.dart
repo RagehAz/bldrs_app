@@ -1,3 +1,5 @@
+// ignore_for_file: noop_primitive_operations
+
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -364,6 +366,54 @@ class Mapper {
     }
 
     return _maps;
+  }
+  // --------------------
+  ///
+  static Map<String, String> createStringStringMap({
+    @required Map hashMap,
+    @required bool stringifyNonStrings,
+  }){
+    Map<String, String> _output;
+
+    blog('1 - createStringStringMap : hashMap : $hashMap');
+
+    if (hashMap != null){
+
+      final List<String> _keys = hashMap.keys?.toList();
+
+      blog('1 - createStringStringMap : _keys : $_keys');
+
+      if (checkCanLoopList(_keys) == true){
+        _output = {};
+
+        for (final String key in _keys){
+
+          if (hashMap[key] is String){
+
+            _output[key] = hashMap[key];
+
+            blog('2 - createStringStringMap : added : ($key : ${_output[key]})');
+
+          }
+          else {
+
+            if (stringifyNonStrings == true){
+              _output[key] = hashMap[key].toString();
+              blog('2 - createStringStringMap : added : ($key : ${_output[key].toString()})');
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    blog('3 - createStringStringMap : _output : $_output');
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -924,7 +974,7 @@ class Mapper {
           listLength: _keys.length,
         );
 
-        blog('         $_index. ${_keys[i]} : ${_values[i]},');
+        blog('         $_index. ${_keys[i]} : <${_values[i].runtimeType}>( ${_values[i]} ), ');
       }
 
       blog('      }.........Length : ${_keys.length} keys <~~~');
