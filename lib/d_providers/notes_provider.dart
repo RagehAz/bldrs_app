@@ -381,6 +381,7 @@ class NotesProvider extends ChangeNotifier {
       }
     }
     // ---
+
     /// GLOBAL BADGE AUTO INCREMENTS THROUGH FCM SERVICE, BUT TO BE MANUALLY DECREMENTED HERE
     if (_obeliskTotal < _globalNumber){
       await FCM.setGlobalBadgeNumber(_obeliskTotal);
