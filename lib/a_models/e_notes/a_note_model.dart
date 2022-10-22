@@ -873,6 +873,8 @@ class NoteModel {
 
       final bool _isAuthorshipNote = NoteModel.checkIsAuthorshipNote(noteModel);
 
+      blog('checkCanShowAuthorshipButtons : _isAuthorshipNote : $_isAuthorshipNote');
+
       if (_isAuthorshipNote == true){
 
         if (noteModel.parties.senderType == PartyType.bz){
@@ -886,6 +888,8 @@ class NoteModel {
             bzModel: _bzModel,
             userID: AuthFireOps.superUserID(),
           );
+
+          blog('checkCanShowAuthorshipButtons : _imPendingAuthor : $_imPendingAuthor');
 
           if (_imPendingAuthor == true){
 

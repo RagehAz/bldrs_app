@@ -1022,11 +1022,11 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogAuthor({
-    String methodName = 'Blogging Author',
+    String methodName = '',
   }) {
     final String _methodName = methodName ?? 'AUTHOR';
 
-    blog('$_methodName : PRINTING BZ MODEL ---------------- START -- ');
+    blog('$_methodName : BLOGGING AUTHOR ---------------- START -- ');
 
     blog('userID : $userID');
     blog('name : $name');
@@ -1036,7 +1036,7 @@ class AuthorModel {
     blog('contacts : $contacts');
     blog('flyersID : $flyersIDs');
 
-    blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
+    blog('$_methodName : BLOGGING AUTHOR ---------------- END -- ');
   }
   // --------------------
   /// TESTED : WORKS PERFECT

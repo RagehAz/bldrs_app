@@ -167,7 +167,7 @@ class BzLongButton extends StatelessWidget {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 5),
                                   child: AuthorLabel(
-                                    flyerBoxWidth: _textZoneWidth * 1.5,
+                                    flyerBoxWidth: _textZoneWidth ,
                                     authorID: _author.userID,
                                     bzModel: bzModel,
                                     showLabel: true,

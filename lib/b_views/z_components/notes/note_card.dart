@@ -1,5 +1,10 @@
 import 'dart:async';
+
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/x2_user_notes_page_controllers.dart';
+import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -9,11 +14,12 @@ import 'package:bldrs/b_views/z_components/notes/x_components/note_sender_balloo
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/x2_user_notes_page_controllers.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -53,6 +59,8 @@ class NoteCard extends StatelessWidget {
     @required BuildContext context,
   }) async {
 
+    noteModel.blogNoteModel();
+
     if (onNoteOptionsTap != null){
       onNoteOptionsTap();
     }
@@ -63,6 +71,61 @@ class NoteCard extends StatelessWidget {
         context: context,
         noteModel: noteModel,
       );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onSenderBalloonTap({
+    @required BuildContext context,
+  }) async {
+
+    /// BZ
+    if (noteModel.parties.senderType == PartyType.bz){
+
+      final BzModel _bzModel = await BzProtocols.fetch(
+          context: context,
+          bzID: noteModel.parties.senderID,
+      );
+
+      await Nav.goToNewScreen(
+        context: context,
+        screen: BzPreviewScreen(
+          bzModel: _bzModel,
+        ),
+      );
+
+    }
+
+    /// USER
+    else if (noteModel.parties.senderType == PartyType.user){
+
+      // final UserModel _userModel = await UserProtocols.fetchUser(
+      //     context: context,
+      //     userID: noteModel.parties.senderID,
+      // );
+
+      // await Nav.goToNewScreen(
+      //   context: context,
+      //   screen: UserPreviewScreen(
+      //     userModel: _userModel,
+      //   ),
+      // );
+
+    }
+
+    /// BLDRS
+    else if (noteModel.parties.senderType == PartyType.bldrs){
+
+    }
+
+    /// COUNTRY
+    else if (noteModel.parties.senderType == PartyType.country){
+
+    }
+
+    else {
 
     }
 
@@ -106,6 +169,9 @@ class NoteCard extends StatelessWidget {
 
               NoteSenderBalloon(
                 noteModel: noteModel,
+                onTap: () => _onSenderBalloonTap(
+                  context: context,
+                ),
               ),
 
               /// SPACER

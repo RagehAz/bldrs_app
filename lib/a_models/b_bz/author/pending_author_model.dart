@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/b_bz/author/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -87,7 +88,7 @@ class PendingAuthor {
     return _usersIDs;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PendingAuthor getModelByUserID({
     @required List<PendingAuthor> pendingAuthors,
     @required String userID,
@@ -275,10 +276,33 @@ class PendingAuthor {
 
     final List<String> _usersIDs = getPendingsUsersIDs(bzModel.pendingAuthors);
 
+    blog('checkIsPendingAuthor : _usersIDs : $_usersIDs : bzModel : ${bzModel.id} : userID : $userID');
+
     return Stringer.checkStringsContainString(
       strings: _usersIDs,
       string: userID,
     );
+
+  }
+  // --------------------
+  ///
+  static void blogPendingAuthors(List<PendingAuthor> pendingAuthors){
+
+    if (Mapper.checkCanLoopList(pendingAuthors) == true){
+
+      for (int i = 0; i < pendingAuthors.length; i++){
+
+        final PendingAuthor pending = pendingAuthors[i];
+
+        blog('${i+1} : PendingAuthor : userID ${pending.userID} : noteID ${pending.noteID}');
+
+      }
+
+    }
+
+    else {
+      blog('X : PendingAuthor : No pending authors found');
+    }
 
   }
   // -----------------------------------------------------------------------------

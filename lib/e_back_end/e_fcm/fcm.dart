@@ -360,7 +360,7 @@ class FCM {
       customSound: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
 
       /// DATA
-      payload: payloadMap, /// TASK : NOT WORKING
+      payload: payloadMap,
 
       /// PROGRESS
       progress: _progress,
@@ -624,13 +624,13 @@ class FCM {
   /// TESTED : WORKS PERFECT
   static Future<int> getGlobalBadgeNumber() async {
     final int _num = await getAwesomeNoots().getGlobalBadgeCounter();
-    blog('getGlobalBadgeNumber : _num : $_num');
+    // blog('getGlobalBadgeNumber : _num : $_num');
     return _num ?? 0;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementGlobalBadgeXXX() async {
-    blog('incrementGlobalBadge : INCREMENTING 1 : ${Numeric.createUniqueID(maxDigitsCount: 4)}');
+    // blog('incrementGlobalBadge : INCREMENTING 1 : ${Numeric.createUniqueID(maxDigitsCount: 4)}');
     final int _num = await getGlobalBadgeNumber();
     await setGlobalBadgeNumber(_num+1);
   }

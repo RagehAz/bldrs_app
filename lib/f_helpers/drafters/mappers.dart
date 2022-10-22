@@ -368,20 +368,20 @@ class Mapper {
     return _maps;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, String> createStringStringMap({
     @required Map hashMap,
     @required bool stringifyNonStrings,
   }){
     Map<String, String> _output;
 
-    blog('1 - createStringStringMap : hashMap : $hashMap');
+    // blog('1 - createStringStringMap : hashMap : $hashMap');
 
     if (hashMap != null){
 
       final List<String> _keys = hashMap.keys?.toList();
 
-      blog('1 - createStringStringMap : _keys : $_keys');
+      // blog('1 - createStringStringMap : _keys : $_keys');
 
       if (checkCanLoopList(_keys) == true){
         _output = {};
@@ -392,14 +392,14 @@ class Mapper {
 
             _output[key] = hashMap[key];
 
-            blog('2 - createStringStringMap : added : ($key : ${_output[key]})');
+            // blog('2 - createStringStringMap : added : ($key : ${_output[key]})');
 
           }
           else {
 
             if (stringifyNonStrings == true){
               _output[key] = hashMap[key].toString();
-              blog('2 - createStringStringMap : added : ($key : ${_output[key].toString()})');
+              // blog('2 - createStringStringMap : added : ($key : ${_output[key].toString()})');
 
             }
 
@@ -411,7 +411,7 @@ class Mapper {
 
     }
 
-    blog('3 - createStringStringMap : _output : $_output');
+    // blog('3 - createStringStringMap : _output : $_output');
 
     return _output;
   }

@@ -1,17 +1,17 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/f_bzz_manager/bz_long_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -153,10 +153,63 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     // --------------------
+
+    return MainLayout(
+      pyramidsAreOn: true,
+      appBarType: AppBarType.search,
+      pageTitleVerse: Verse.plain('${_bzzModels.length} Bzz Manager'),
+      loading: _loading,
+      skyType: SkyType.black,
+      searchController: _searchController,
+      onSearchSubmit: (String val) => _onSearchChanged(val),
+      historyButtonIsOn: false,
+      onSearchChanged: (String val) => _onSearchChanged(val),
+      layoutWidget: PageBubble(
+        appBarType: AppBarType.search,
+        screenHeightWithoutSafeArea: _screenHeight,
+        color: Colorz.blue20,
+        progressBarIsOn: true,
+        child: FireCollPaginator(
+          queryModel: FireQueryModel(
+            collRef: Fire.getCollectionRef(FireColl.bzz),
+            limit: 10,
+            orderBy: const QueryOrderBy(fieldName: 'createdAt', descending: true),
+          ),
+          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+
+            return ListView.builder(
+              controller: ScrollController(),
+              physics: const BouncingScrollPhysics(),
+              itemCount: maps.length,
+              padding: const EdgeInsets.only(
+                  bottom: 10,
+                  top: 10,
+              ),
+              itemBuilder: (BuildContext ctx, int index) {
+
+                final BzModel _bz = BzModel.decipherBz(
+                    map: maps[index],
+                    fromJSON: false
+                );
+
+                return BzLongButton(
+                  bzModel: _bz,
+                  boxWidth: PageBubble.width(context),
+                  showAuthorsPics: true,
+                );
+              },
+            );
+
+          },
+        ),
+      ),
+    );
+
+    /*
     final List<BzModel> _bzz = _searchedBzz.isEmpty ? _bzzModels : _searchedBzz;
+    final double _screenWidth = Scale.superScreenWidth(context);
     // --------------------
     return _bzzModels == null ?
     const LoadingFullScreenLayer()
@@ -190,12 +243,16 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
             return BzLongButton(
               bzModel: _bz,
+              boxWidth: PageBubble.width(context),
+              showAuthorsPics: true,
             );
           },
         ),
       ),
     );
     // --------------------
+     */
+
   }
   // -----------------------------------------------------------------------------
 }
