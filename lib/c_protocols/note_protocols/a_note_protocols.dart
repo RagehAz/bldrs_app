@@ -464,7 +464,7 @@ class NoteProtocols {
     @required NoteModel note,
   }) async {
 
-    blog('NoteProtocol.deleteNoteEverywhereProtocol : START');
+    blog('NoteProtocol.wipeNote : noteID : ${note.id}: START');
 
     /// DELETE POSTER IF EXISTED
     await _wipePoster(
@@ -486,7 +486,7 @@ class NoteProtocols {
     //   notify: true,
     // );
 
-    blog('NoteProtocol.deleteNoteEverywhereProtocol : END');
+    blog('NoteProtocol.wipeNote : END');
   }
   // --------------------
   ///

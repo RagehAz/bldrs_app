@@ -109,10 +109,12 @@ class NoteFireOps {
     if (noteID != null && userID != null){
 
       final Map<String, dynamic> map = await Fire.readSubDoc(
-          collName: FireColl.users,
-          docName: userID,
-          subCollName: FireSubColl.noteReceiver_receiver_notes,
-          subDocName: noteID,
+        collName: FireColl.users,
+        docName: userID,
+        subCollName: FireSubColl.noteReceiver_receiver_notes,
+        subDocName: noteID,
+        addDocID: true,
+        // addDocSnapshot: true,
       );
 
       _output = NoteModel.decipherNote(

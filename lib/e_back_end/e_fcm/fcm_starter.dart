@@ -222,7 +222,7 @@ class FCMStarter {
 
       if (_note != null){
 
-        blog('should send a fucking noot title ${_note.title} : body ${_note.body}');
+        // blog('should send a fucking noot title ${_note.title} : body ${_note.body}');
 
         await Future.wait(<Future>[
 
