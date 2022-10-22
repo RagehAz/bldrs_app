@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -42,26 +43,26 @@ class NoteCardButtons extends StatelessWidget {
 
     if (noteModel != null){
 
-      if (noteModel.poll.reply == 'phid_accept'){
+      if (noteModel.poll.reply == PollModel.accept){
         _output = const Verse(
           text: 'phid_accepted',
           translate: true,
         );
       }
 
-      else if (noteModel.poll.reply == 'phid_decline'){
+      else if (noteModel.poll.reply == PollModel.decline){
         _output = const Verse(
           text: 'phid_declined',
           translate: true,
         );
       }
 
-      // else if (noteModel.poll == NoteResponse.cancelled){
-      //   _output = const Verse(
-      //     text: 'phid_cancelled',
-      //     translate: true,
-      //   );
-      // }
+      else if (noteModel.poll.reply == PollModel.cancel){
+        _output = const Verse(
+          text: 'phid_cancelled',
+          translate: true,
+        );
+      }
 
       else {
         _output = Verse(
@@ -78,6 +79,10 @@ class NoteCardButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final bool _replyIsNull = noteModel?.poll?.reply == null;
+    // final bool _replyIsCancelled = noteModel?.poll?.reply == PollModel.cancel;
+    final bool _replyIsPending = noteModel?.poll?.reply == PollModel.pending;
+
     return SizedBox(
       width: boxWidth,
       // height: 70,
@@ -85,59 +90,96 @@ class NoteCardButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
 
-          /// BUTTONS
-          FutureBuilder(
-            future: NoteModel.checkCanShowAuthorshipButtons(
-              context: context,
-              noteModel: noteModel,
+          /// BUTTONS : WHEN NOT YET REPLIED
+          if (_replyIsNull == true || _replyIsPending == true)
+            Row(
+              children: [
+                ...List<Widget>.generate(noteModel.poll.buttons.length,
+                        (int index) {
+                      final String _phid = noteModel.poll.buttons[index];
+                      final double _width = Scale.getUniformRowItemWidth(
+                        context: context,
+                        numberOfItems: noteModel.poll.buttons.length,
+                        boxWidth: boxWidth,
+                      );
+                      return DreamBox(
+                        width: _width,
+                        height: 40,
+                        verse: Verse(
+                          text: _phid,
+                          translate: true,
+                        ),
+                        verseScaleFactor: 0.7,
+                        color: Colorz.blue80,
+                        splashColor: Colorz.yellow255,
+                        onTap: () => onNoteButtonTap(
+                          context: context,
+                          reply: _phid,
+                          noteModel: noteModel,
+                        ),
+                      );
+                    }
+                )
+
+              ],
             ),
-            initialData: false,
-            builder: (_, AsyncSnapshot<bool> snap){
 
-              final bool _canShow = snap.data;
+          // /// BUTTONS
+          // FutureBuilder(
+          //   future: NoteModel.checkCanShowAuthorshipButtons(
+          //     context: context,
+          //     noteModel: noteModel,
+          //   ),
+          //   initialData: false,
+          //   builder: (_, AsyncSnapshot<bool> snap){
+          //
+          //     final bool _canShow = snap.data;
+          //
+          //     /// BUTTONS : only if reply is null
+          //     if (
+          //     _replyIsNull == true
+          //     ){
+          //       return Row(
+          //         children: [
+          //           ...List<Widget>.generate(noteModel.poll.buttons.length,
+          //                   (int index) {
+          //                 final String _phid = noteModel.poll.buttons[index];
+          //                 final double _width = Scale.getUniformRowItemWidth(
+          //                   context: context,
+          //                   numberOfItems: noteModel.poll.buttons.length,
+          //                   boxWidth: boxWidth,
+          //                 );
+          //                 return DreamBox(
+          //                   width: _width,
+          //                   height: 40,
+          //                   verse: Verse(
+          //                     text: _phid,
+          //                     translate: true,
+          //                   ),
+          //                   verseScaleFactor: 0.7,
+          //                   color: Colorz.blue80,
+          //                   splashColor: Colorz.yellow255,
+          //                   onTap: () => onNoteButtonTap(
+          //                     context: context,
+          //                     reply: _phid,
+          //                     noteModel: noteModel,
+          //                   ),
+          //                 );
+          //               }
+          //           )
+          //
+          //         ],
+          //       );
+          //     }
+          //     else {
+          //       return const SizedBox();
+          //     }
+          //
+          //   },
+          // ),
 
-              if (_canShow == true){
-                return Row(
-                  children: [
-                    ...List<Widget>.generate(noteModel.poll.buttons.length,
-                            (int index) {
-                          final String _phid = noteModel.poll.buttons[index];
-                          final double _width = Scale.getUniformRowItemWidth(
-                            context: context,
-                            numberOfItems: noteModel.poll.buttons.length,
-                            boxWidth: boxWidth,
-                          );
-                          return DreamBox(
-                            width: _width,
-                            height: 40,
-                            verse: Verse(
-                              text: _phid,
-                              translate: true,
-                            ),
-                            verseScaleFactor: 0.7,
-                            color: Colorz.blue80,
-                            splashColor: Colorz.yellow255,
-                            onTap: () => onNoteButtonTap(
-                              context: context,
-                              reply: _phid,
-                              noteModel: noteModel,
-                            ),
-                          );
-                        }
-                    )
-
-                  ],
-                );
-              }
-              else {
-                return const SizedBox();
-              }
-
-            },
-          ),
-
-          /// RESPONSES
-          if (noteModel?.poll?.reply != null)
+          /// replied
+          if (_replyIsNull == false)
             SizedBox(
               width: boxWidth * 0.9,
               child: Column(

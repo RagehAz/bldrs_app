@@ -62,18 +62,14 @@ class Bubble extends StatelessWidget {
   // --------------------
   static const double clearCornersValue = Ratioz.appBarCorner - Ratioz.appBarMargin;
   // --------------------
-  static BorderRadius borders(
-      BuildContext context,
-      ) {
+  static BorderRadius borders(BuildContext context,) {
     return Borderers.superCorners(
       context: context,
       corners: cornersValue,
     );
   }
   // --------------------
-  static BorderRadius clearBorders(
-      BuildContext context,
-      ) {
+  static BorderRadius clearBorders(BuildContext context,) {
     return Borderers.superCorners(
       context: context,
       corners: clearCornersValue,

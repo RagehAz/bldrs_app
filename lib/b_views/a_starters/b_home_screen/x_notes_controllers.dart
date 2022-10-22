@@ -40,7 +40,6 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
 
   if (_userModel != null){
 
-    /// TASK : STREAM NEEDS TO BE CLOSED WHEN DELETING USER
     final Stream<QuerySnapshot<Object>> _unseenNotesStream = userUnseenNotesStream(
         context: context
     );

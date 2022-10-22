@@ -26,7 +26,7 @@ class FetchBzProtocols {
     BzModel _bz = await BzLDBOps.readBz(bzID);
 
     if (_bz != null){
-      // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in LDB');
+      blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in LDB');
     }
     else {
 
@@ -35,7 +35,7 @@ class FetchBzProtocols {
       );
 
       if (_bz != null) {
-        // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
+        blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
         await BzLDBOps.insertBz(
           bzModel: _bz,
         );
@@ -43,9 +43,9 @@ class FetchBzProtocols {
 
     }
 
-    // if (_bz == null) {
-    //   blog('FetchBzProtocol.fetchBz : ($bzID) BzModel NOT FOUND');
-    // }
+    if (_bz == null) {
+      blog('FetchBzProtocol.fetchBz : ($bzID) BzModel NOT FOUND');
+    }
 
     if (_bz != null){
       _bz = _bz.copyWith(
@@ -77,6 +77,9 @@ class FetchBzProtocols {
           bzID: bzID
       );
 
+    }
+    else {
+      blog('BzProtocols.refetch : bz id is null');
     }
 
     return _output;

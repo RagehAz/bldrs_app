@@ -13,10 +13,12 @@ class NoteSenderBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteSenderBalloon({
     @required this.noteModel,
+    this.onTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
+  final Function onTap;
   /// --------------------------------------------------------------------------
   static const double balloonWidth = 70;
   /// --------------------------------------------------------------------------
@@ -26,9 +28,10 @@ class NoteSenderBalloon extends StatelessWidget {
     /// IF NULL
     if (noteModel == null){
 
-      return const Balloona(
+      return Balloona(
         balloonWidth: balloonWidth,
         loading: false,
+        onTap: onTap,
       );
 
     }
@@ -38,8 +41,15 @@ class NoteSenderBalloon extends StatelessWidget {
       /// BLDRS
       if (noteModel.parties.senderType == PartyType.bldrs){
 
-        return const BldrsName(
-          size: balloonWidth,
+        return GestureDetector(
+          onTap: onTap,
+          child: const SizedBox(
+            width: balloonWidth,
+            height: balloonWidth,
+            child: BldrsName(
+              size: balloonWidth,
+            ),
+          ),
         );
 
       }
@@ -59,6 +69,7 @@ class NoteSenderBalloon extends StatelessWidget {
               balloonWidth: balloonWidth,
               pic: _userModel?.pic,
               loading: false,
+              onTap: onTap,
             );
 
           },
@@ -74,6 +85,7 @@ class NoteSenderBalloon extends StatelessWidget {
             width: balloonWidth,
             image: noteModel.parties.senderImageURL,
             zeroCornerIsOn: false,
+            onTap: onTap,
           );
         // }
 
@@ -106,14 +118,16 @@ class NoteSenderBalloon extends StatelessWidget {
           width: balloonWidth,
           height: balloonWidth,
           icon: Flag.getFlagIcon(noteModel.parties.senderID), // countryID
+          onTap: onTap,
         );
       }
 
       /// OTHERWISE
       else {
-        return const DreamBox(
+        return DreamBox(
           width: balloonWidth,
           height: balloonWidth,
+          onTap: onTap,
         );
       }
 

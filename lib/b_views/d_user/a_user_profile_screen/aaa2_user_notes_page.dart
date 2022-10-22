@@ -1,14 +1,20 @@
 // ignore_for_file: invariant_booleans
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
+import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserNotesPage extends StatefulWidget {
@@ -30,6 +36,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
+  PaginationController _paginationController;
   final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
   final ScrollController _scrollController = ScrollController();
@@ -49,6 +56,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
   @override
   void initState() {
     super.initState();
+    _paginationController = PaginationController.initialize(
+        addExtraMapsAtEnd: false,
+    );
+    _streamNewNotes();
   }
   // --------------------
   bool _isInit = true;
@@ -87,6 +98,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
     blog('UserNotesPage dispose START');
     _loading.dispose();
     _scrollController.dispose();
+    _paginationController.dispose();
+    _sub.cancel();
     super.dispose();
     blog('UserNotesPage dispose END');
   }
@@ -134,6 +147,53 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
   }
   // -----------------------------------------------------------------------------
+  StreamSubscription _sub;
+  Stream<QuerySnapshot<Object>> _unseenNotesStream;
+  void _streamNewNotes(){
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    if (_userModel != null){
+
+      _unseenNotesStream = userUnseenNotesStream(
+          context: context
+      );
+
+      _sub = FireCollStreamer.onStreamDataChanged(
+        stream: _unseenNotesStream,
+        // oldMaps: _oldMaps,
+        invoker: 'streamNewNotes',
+        onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
+
+          // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
+          // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
+
+          if (Mapper.checkCanLoopList(unseenNotesMaps) == true){
+
+            final bool _noteExists = Mapper.checkMapsContainValue(
+              listOfMaps: _paginationController.paginatorMaps.value,
+              field: 'id',
+              value: unseenNotesMaps?.first['id'],
+            );
+
+            if (_noteExists == false){
+              _paginationController.addMap.value = unseenNotesMaps.first;
+            }
+
+          }
+
+
+        },
+      );
+
+    }
+
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // super.build(context);
@@ -143,6 +203,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
             onDataChanged: _onPaginatorDataChanged
         ),
         scrollController: _scrollController,
+        paginationController: _paginationController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           return ListView.builder(

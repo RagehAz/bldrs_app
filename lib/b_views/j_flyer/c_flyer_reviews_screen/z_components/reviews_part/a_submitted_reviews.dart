@@ -133,7 +133,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       child: FireCollPaginator(
         scrollController: _controller,
         queryModel: _createQueryModel(),
-        paginatorController: _paginatorController,
+        paginationController: _paginatorController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           return ReviewsBuilder(
