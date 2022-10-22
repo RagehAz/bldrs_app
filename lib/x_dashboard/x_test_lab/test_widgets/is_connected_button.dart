@@ -21,8 +21,8 @@ class IsConnectedButton extends StatelessWidget {
           return DreamBox(
               width: Ratioz.appBarButtonSize,
               height: Ratioz.appBarButtonSize,
-              icon: connected ? Iconz.check : Iconz.xSmall,
-              color: connected ? Colorz.green255 : Colorz.bloodTest,
+              icon: connected == true ? Iconz.check : Iconz.xSmall,
+              color: connected == true ? Colorz.green255 : Colorz.bloodTest,
               verseScaleFactor: 0.6,
               bubble: false,
               onTap: () async {

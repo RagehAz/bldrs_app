@@ -79,7 +79,7 @@ class PageBubble extends StatelessWidget {
     }
     /// BIG APP BAR : SEARCH
     else if (appBarType == AppBarType.search){
-      height = screenHeight -  Ratioz.appBarBigHeight - (3 * Ratioz.appBarMargin);
+      height = screenHeight -  Ratioz.appBarBigHeight - (3 * Ratioz.appBarMargin) - 5;
     }
     /// REMAINING APPBARS : BASIC - MAIN - INTRO - SCROLLABLE
     else {

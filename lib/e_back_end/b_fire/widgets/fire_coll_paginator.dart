@@ -14,7 +14,7 @@ class FireCollPaginator extends StatefulWidget {
     this.scrollController,
     this.loadingWidget,
     this.child,
-    this.paginatorController,
+    this.paginationController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,7 +22,7 @@ class FireCollPaginator extends StatefulWidget {
   final Widget loadingWidget;
   final ScrollController scrollController;
   final Widget child;
-  final PaginationController paginatorController;
+  final PaginationController paginationController;
   final Widget Function(
       BuildContext context,
       List<Map<String, dynamic>> maps,
@@ -89,7 +89,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     _loading.dispose();
     _isPaginating.dispose();
 
-    if (widget.paginatorController == null){
+    if (widget.paginationController == null){
       _paginatorController.dispose();
     }
 
@@ -147,7 +147,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void _initializePaginatorController(){
 
     /// LISTEN TO PAGINATOR CONTROLLER NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
-    _paginatorController = widget.paginatorController ?? PaginationController.initialize(
+    _paginatorController = widget.paginationController ?? PaginationController.initialize(
       addExtraMapsAtEnd: true,
     );
     _paginatorController?.activateListeners(

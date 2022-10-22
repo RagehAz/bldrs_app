@@ -1514,30 +1514,26 @@ class BzModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogBz({String methodName = 'blogBzModel'}) {
+  void blogBz({String methodName = ''}) {
     final String _methodName = methodName ?? 'BZ';
 
-    blog('$_methodName : blogING BZ MODEL -------------------------------- START -- ');
+    blog('BZZZZZZZ ===> $_methodName : BLOGGING BZ MODEL -------------------------------- START -- ');
 
-    blog('id : $id');
-    blog('bzTypes : $bzTypes');
-    blog('bzForm : $bzForm');
-    blog('createdAt : $createdAt');
-    blog('accountType : $accountType');
-    blog('mame : $name');
+    blog('name : $name'); // fakes trigram
+    blog('id : $id : accountType : $accountType : createdAt : $createdAt');
+    blog('bzForm : $bzForm : bzTypes : $bzTypes');
     blog('logo : $logo');
     blog('scope : $scope');
     blog('about : $about');
     blog('position : $position');
-    blog('contacts : $contacts');
-    blog('showsTeam : $showsTeam');
-    blog('isVerified : $isVerified');
-    blog('bzState : $bzState');
+    blog('showsTeam : $showsTeam : isVerified : $isVerified : bzState : $bzState');
     blog('flyersIDs : $flyersIDs');
+    PendingAuthor.blogPendingAuthors(pendingAuthors);
     zone?.blogZone(methodName: 'BZ MODEL ($id)');
     AuthorModel.blogAuthors(authors: authors, methodName: 'BZ MODEL ($id)');
+    ContactModel.blogContacts(contacts: contacts);
 
-    blog('$_methodName : blogING BZ MODEL -------------------------------- END -- ');
+    blog('BZZZZZZZ ===> $_methodName : BLOGGING BZ MODEL -------------------------------- END -- ');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
