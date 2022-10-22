@@ -1,44 +1,17 @@
 import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-// --------------------
-/// TESTED : WORKS PERFECT
-@pragma('vm:entry-point')
-Future<void> _onBackgroundMessageHandler(RemoteMessage remoteMessage) async {
-
-  /*
-    There are a few things to keep in mind about your background message handler:
-
-    - It must not be an anonymous function.
-
-    - It must be a top-level function
-    (e.g. not a class method which requires initialization).
-
-    - It must be annotated with @pragma('vm:entry-point')
-     right above the function declaration
-     (otherwise it may be removed during tree shaking for release mode).
-
-   */
-
-  await Firebase.initializeApp();
-
-  FCM.blogRemoteMessage(
-    remoteMessage: remoteMessage,
-    invoker: '_initializeNootsListeners.onMessageOpenedApp',
-  );
-
-  await FCMStarter._pushGlobalNootFromRemoteMessage(
-      remoteMessage: remoteMessage,
-      invoker: '_onBackgroundMessageHandler'
-  );
-}
-// --------------------
 
 class FCMStarter {
   // -----------------------------------------------------------------------------
@@ -57,7 +30,7 @@ class FCMStarter {
     await _initializeAwesomeNootsService();
 
     /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
-    FirebaseMessaging.onBackgroundMessage(_onBackgroundMessageHandler);
+    FirebaseMessaging.onBackgroundMessage(onBackgroundMessageHandler);
 
   }
   // --------------------
@@ -139,7 +112,7 @@ class FCMStarter {
 
     /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
-      await _pushGlobalNootFromRemoteMessage(
+      await pushGlobalNootFromRemoteMessage(
         remoteMessage: remoteMessage,
         invoker: 'initializeNoots.onMessage',
       );
@@ -153,6 +126,21 @@ class FCMStarter {
       FCM.blogRemoteMessage(
         remoteMessage: remoteMessage,
         invoker: '_initializeNootsListeners.onMessageOpenedApp',
+      );
+
+      final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+
+      final NoteModel _note = NoteModel.decipherRemoteMessage(
+        map: remoteMessage?.data,
+      );
+
+      await CenterDialog.showCenterDialog(
+        context: _context,
+        titleVerse: Verse.plain('App was on background'),
+        bodyVerse: Verse.plain('noteTitle is : ${_note.title}'),
+        color: Colorz.green50,
+        height: 400,
+        confirmButtonVerse: Verse.plain('Tamam'),
       );
 
       // await _pushGlobalNootFromRemoteMessage(
@@ -193,7 +181,7 @@ class FCMStarter {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _pushGlobalNootFromRemoteMessage({
+  static Future<void> pushGlobalNootFromRemoteMessage({
     @required RemoteMessage remoteMessage,
     @required String invoker,
   }) async {
@@ -250,7 +238,10 @@ class FCMStarter {
             /// FAKES BUTTONS IN NOOT
             // buttonsTexts: null, // _note.poll.buttons,
 
-            // payloadMap: ,
+            payloadMap: Mapper.createStringStringMap(
+              hashMap: remoteMessage?.data,
+              stringifyNonStrings: false,
+            ),
           ),
 
         ]);

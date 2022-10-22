@@ -82,7 +82,7 @@ class DeviceChecker {
   DeviceInfoPlugin get deviceInfoPlugin => _deviceInfoPlugin ??= DeviceInfoPlugin();
   static DeviceInfoPlugin getDeviceInfoPlugin() => DeviceChecker.instance.deviceInfoPlugin;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<String> getDeviceID() async {
 
     final DeviceInfoPlugin deviceInfo = getDeviceInfoPlugin();
@@ -106,7 +106,7 @@ class DeviceChecker {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<String> getDeviceName() async {
 
     final DeviceInfoPlugin deviceInfo = getDeviceInfoPlugin();
