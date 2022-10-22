@@ -195,6 +195,11 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       ),
       appBarRowWidgets: <Widget>[
 
+        const SizedBox(
+          width: 10,
+          height: 10,
+        ),
+
         /// GO TO LAB
         AppBarButton(
           icon: Iconz.lab,
