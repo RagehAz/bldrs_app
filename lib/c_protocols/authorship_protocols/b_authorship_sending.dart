@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
@@ -62,6 +63,70 @@ class AuthorshipSendingProtocols {
     @required String pendingUserID
   }) async {
 
+    await Future.wait(<Future>[
+
+      /// REMOVE PENDING AUTHOR & RENOVATE BZ
+      _removePendingAuthorAndRenovateBz(
+        context: context,
+        bzModel: bzModel,
+        pendingUserID: pendingUserID,
+      ),
+
+      /// RENOVATE REPLY OF SENT REQUEST
+      _renovateReplyOfSentRequest(
+        context: context,
+        bzModel: bzModel,
+        pendingUserID: pendingUserID,
+      ),
+
+      /// SEND HIM NEW NOTE OF CANCELLATION
+      _sendAuthorshipCancellationNote(
+        context: context,
+        bzModel: bzModel,
+        pendingUserID: pendingUserID,
+      ),
+
+    ]);
+
+  }
+  // --------------------
+  ///
+  static Future<void> _removePendingAuthorAndRenovateBz({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String pendingUserID
+  }) async {
+
+    /// remove this user from the pending authors list to update bz
+    final List<PendingAuthor> _updatedPendingUsers = PendingAuthor.removePendingAuthor(
+      pendingAuthors: bzModel.pendingAuthors,
+      userID: pendingUserID,
+    );
+
+    /// update bz model to renovate
+    final BzModel _updatedBzModel = bzModel.copyWith(
+      pendingAuthors: _updatedPendingUsers,
+    );
+
+    /// RENOVATE BZ
+    await BzProtocols.renovateBz(
+      context: context,
+      newBzModel: _updatedBzModel,
+      oldBzModel: bzModel,
+      showWaitDialog: false,
+      navigateToBzInfoPageOnEnd: false,
+    );
+
+
+  }
+  // --------------------
+  ///
+  static Future<void> _renovateReplyOfSentRequest({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String pendingUserID,
+  }) async {
+
     /// get pending author model
     final PendingAuthor _pendingAuthorModel = PendingAuthor.getModelByUserID(
       pendingAuthors: bzModel.pendingAuthors,
@@ -74,49 +139,39 @@ class AuthorshipSendingProtocols {
       userID: _pendingAuthorModel.userID,
     );
 
-    /// remove this user from the pending authors list to update bz
-    final List<PendingAuthor> _updatedPendingUsers = PendingAuthor.removePendingAuthor(
-        pendingAuthors: bzModel.pendingAuthors,
-        userID: pendingUserID,
+    await NoteProtocols.renovate(
+      context: context,
+      oldNote: _sentNote,
+      newNote: _sentNote.copyWith(
+        poll: _sentNote.poll.copyWith(
+          reply: PollModel.cancel,
+        ),
+      ),
     );
 
-    /// update bz model to renovate
-    final BzModel _updatedBzModel = bzModel.copyWith(
-      pendingAuthors: _updatedPendingUsers,
-    );
+  }
+  // --------------------
+  ///
+  static Future<void> _sendAuthorshipCancellationNote({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String pendingUserID
+  }) async {
 
     /// get that user to send him cancellation note
     final UserModel userModelToSendTo = await UserProtocols.fetchUser(
-        context: context,
-        userID: pendingUserID,
+      context: context,
+      userID: pendingUserID,
     );
 
-    await Future.wait(<Future>[
-
-      /// RENOVATE BZ
-      BzProtocols.renovateBz(
-        context: context,
-        newBzModel: _updatedBzModel,
-        oldBzModel: bzModel,
-        showWaitDialog: false,
-        navigateToBzInfoPageOnEnd: false,
-      ),
-
-      /// DELETE THAT AUTHORSHIP INVITATION NOTE SENT EARLIER
-      NoteProtocols.wipeNote(
-          context: context,
-          note: _sentNote,
-      ),
-
-      /// SEND HIM NEW NOTE OF CANCELLATION
-      NoteEvent.sendAuthorshipCancellationNote(
-          context: context,
-          bzModel: bzModel,
-          userModelToSendTo: userModelToSendTo,
-      ),
-
-    ]);
+    await NoteEvent.sendAuthorshipCancellationNote(
+      context: context,
+      bzModel: bzModel,
+      userModelToSendTo: userModelToSendTo,
+    );
 
   }
+  // --------------------
+  ///
   // -----------------------------------------------------------------------------
 }

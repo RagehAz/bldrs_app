@@ -32,7 +32,10 @@ class ChainPathConverter {
   static void blogPaths(List<String> paths){
 
     if (Mapper.checkCanLoopList(paths) == true){
-      Stringer.blogStrings(strings: paths);
+      Stringer.blogStrings(
+        strings: paths,
+        invoker: 'blogPaths',
+      );
     }
 
     else {

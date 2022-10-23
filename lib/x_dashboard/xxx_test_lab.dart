@@ -88,13 +88,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     /// ---------------- >>>
 
 
-    // final NoteModel _note = await NoteProtocols.readNote(
-    //     noteID: 'yajn3n4bzI5Ty3JBqURU',
-    //     userID: '4EmL8T2HptVSdYmsjQ3dRkhqp6F3'
-    // );
-    //
-    // _note.blogNoteModel();
-    //
 
 
   }

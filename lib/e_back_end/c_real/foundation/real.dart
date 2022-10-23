@@ -489,9 +489,9 @@ class Real {
       },
     );
 
-    if (_output != null){
-      blog('Real.readDoc : found map in (REAL/$collName/$docName) of ${_output.keys.length} keys');
-    }
+    // if (_output != null){
+    //   blog('Real.readDoc : found map in (REAL/$collName/$docName) of ${_output.keys.length} keys');
+    // }
 
     return _output;
   }

@@ -430,7 +430,10 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
               title: 'phraseProvider.usedXPhrases : ( ${_phraseProvider.usedXPhrases.length} phrases )',
               value: _phraseProvider.usedXPhrases,
               onTap: (){
-                Stringer.blogStrings(strings: _phraseProvider.usedXPhrases);
+                Stringer.blogStrings(
+                  strings: _phraseProvider.usedXPhrases,
+                  invoker: ' USED X PHRASES : phraseProvider.usedXPhrases,'
+                );
               },
             ),
 

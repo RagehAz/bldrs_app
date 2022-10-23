@@ -234,7 +234,7 @@ class RenovateUserProtocols {
     @required BuildContext context,
   }) async {
 
-    blog('refreshUserDeviceModel START');
+    // blog('refreshUserDeviceModel START');
 
     if (AuthModel.userIsSignedIn() == true){
 
@@ -310,7 +310,7 @@ class RenovateUserProtocols {
 
     }
 
-    blog('refreshUserDeviceModel END');
+    // blog('refreshUserDeviceModel END');
 
   }
   // --------------------

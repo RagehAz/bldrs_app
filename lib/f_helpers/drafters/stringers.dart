@@ -440,7 +440,7 @@ class Stringer {
   /// TESTED : WORKS PERFECT
   static void blogStrings({
     @required List<String> strings,
-    String invoker,
+    @required String invoker,
   }){
     blog('blogStrings : START --- : $invoker');
     if (Mapper.checkCanLoopList(strings) == true){
