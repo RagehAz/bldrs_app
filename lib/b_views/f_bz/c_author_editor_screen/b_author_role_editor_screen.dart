@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/z_components/author_role_button.dart';

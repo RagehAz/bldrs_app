@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
@@ -30,6 +30,7 @@ class BzFireOps {
   /// CREATE
 
   // --------------------
+  ///
   static Future<BzModel> createBz({
     @required BuildContext context,
     @required BzModel draftBz,
@@ -91,6 +92,7 @@ class BzFireOps {
     return _result == true ? _output : null;
   }
   // --------------------
+  ///
   static Future<String> _createEmptyBzDocToGetBzID() async {
 
     blog('_createEmptyBzDocToGetBzID : START');
@@ -106,6 +108,7 @@ class BzFireOps {
     return _docRef?.id;
   }
   // --------------------
+  ///
   static Future<String> _uploadBzLogoAndGetURL({
     @required BuildContext context,
     @required dynamic logo,
@@ -153,6 +156,7 @@ class BzFireOps {
     return _bzLogoURL;
   }
   // --------------------
+  ///
   static Future<AuthorModel> _uploadAuthorPicAndCreateNewCreatorAuthor({
     @required BzModel draftBz,
     @required UserModel userModel,
@@ -165,7 +169,7 @@ class BzFireOps {
     String _authorPicURL;
 
     if (
-    draftBz.authors[0].pic == null
+        draftBz.authors[0].pic == null
         ||
         ObjectCheck.isAbsoluteURL(draftBz.authors[0].pic) == true
     ){
@@ -202,6 +206,7 @@ class BzFireOps {
     return _creatorAuthor;
   }
   // --------------------
+  ///
   static Future<void> _addBzIDToUserBzzIDs({
     @required UserModel userModel,
     @required String bzID,
@@ -462,6 +467,7 @@ class BzFireOps {
   /// DELETE BZ
 
   // --------------------
+  ///
   static Future<void> deleteBzOps({
     @required BzModel bzModel,
   }) async {
@@ -492,6 +498,7 @@ class BzFireOps {
     blog('deleteBzOps : END');
   }
   // --------------------
+  ///
   static Future<void> _deleteBzStorageLogo({
     @required BzModel bzModel,
   }) async {
@@ -511,6 +518,7 @@ class BzFireOps {
 
   }
   // --------------------
+  ///
   static Future<void> _deleteBzDoc({
     @required BzModel bzModel,
   }) async {
@@ -534,6 +542,7 @@ class BzFireOps {
   /// DELETE AUTHOR
 
   // --------------------
+  ///
   static Future<void> deleteAuthorPic({
     @required AuthorModel authorModel,
     @required String bzID,
@@ -553,6 +562,7 @@ class BzFireOps {
   /// REPORT BZ
 
   // --------------------
+  ///
   static Future<void> reportBz({
     @required BuildContext context,
     @required BzModel bzModel,

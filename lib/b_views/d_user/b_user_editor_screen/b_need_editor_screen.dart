@@ -243,7 +243,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                   /// NEED DESCRIPTION
                   TextFieldBubble(
                     key: const ValueKey<String>('need_description_button'),
-                    globalKey: _formKey,
+                    formKey: _formKey,
                     headerViewModel: const BubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'phid_extra_notes',

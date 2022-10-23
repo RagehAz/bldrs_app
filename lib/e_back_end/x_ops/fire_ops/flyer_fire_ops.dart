@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -514,7 +514,7 @@ class FlyerFireOps {
               ),
             );
 
-            final ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
+            final Dimensions _imageSize = await Dimensions.superDimensions(slide.pic);
 
             final SlideModel _updatedSlide = slide.copyWith(
               pic: _newPicURL,

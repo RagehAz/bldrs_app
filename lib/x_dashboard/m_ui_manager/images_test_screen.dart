@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
@@ -97,7 +97,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   ui.Image uiImage;
   String _ldbBase64;
   // --------------------
-  ImageSize _imageSize;
+  Dimensions _imageSize;
   bool isLoading;
   // --------------------
   Future<void> setImage(FileModel fileModel) async {
@@ -111,7 +111,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.file);
       final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
       final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
-      final ImageSize _size = await ImageSize.superImageSize(fileModel.file);
+      final Dimensions _size = await Dimensions.superDimensions(fileModel.file);
       await LDBOps.insertMap(
         docName: 'tempPicDoc',
         input: {
@@ -480,10 +480,10 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                             /// SUPER SIZE
                             FutureBuilder(
-                                future: ImageSize.superImageSize(_file),
-                                builder: (_, AsyncSnapshot<ImageSize> snapshot){
+                                future: Dimensions.superDimensions(_file),
+                                builder: (_, AsyncSnapshot<Dimensions> snapshot){
 
-                                  final ImageSize imageSize = snapshot.data;
+                                  final Dimensions imageSize = snapshot.data;
 
                                   return DataStrip(
                                     dataKey: 'SUPER SIZE',
@@ -595,7 +595,7 @@ class ImageTile extends StatelessWidget {
 
   final dynamic pic;
   final double tileWidth;
-  final ImageSize imageSize;
+  final Dimensions imageSize;
   final String text;
 
   @override
@@ -607,7 +607,7 @@ class ImageTile extends StatelessWidget {
 
     else {
 
-      final double _picHeight = ImageSize.getHeightByAspectRatio(
+      final double _picHeight = Dimensions.getHeightByAspectRatio(
         width: tileWidth,
         aspectRatio: imageSize.getAspectRatio(),
       );

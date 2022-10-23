@@ -1,5 +1,6 @@
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
@@ -83,7 +84,7 @@ class MyBzScreen extends StatelessWidget {
                   _bzzPro.clearMyActiveBz(notify: false);
 
                 },
-                initialIndex: BzModel.getBzTabIndex(initialTab),
+                initialIndex: BzTabber.getBzTabIndex(initialTab),
 
                 appBarRowWidgets: <Widget>[
 
@@ -105,17 +106,17 @@ class MyBzScreen extends StatelessWidget {
                 ],
                 navModels: <NavModel>[
 
-                  ...List.generate(BzModel.bzTabsList.length, (index){
+                  ...List.generate(BzTabber.bzTabsList.length, (index){
 
-                    final BzTab _bzTab = BzModel.bzTabsList[index];
+                    final BzTab _bzTab = BzTabber.bzTabsList[index];
 
                     return NavModel(
                       id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
                       titleVerse: Verse(
-                        text: BzModel.getBzTabPhid(bzTab: _bzTab),
+                        text: BzTabber.getBzTabPhid(bzTab: _bzTab),
                         translate: true,
                       ),
-                      icon: BzModel.getBzTabIcon(_bzTab),
+                      icon: BzTabber.getBzTabIcon(_bzTab),
                       screen: MyBzScreenPages.pages[index],
                     );
 

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -18,23 +18,23 @@ class NotePosterBox extends StatelessWidget {
   // --------------------
   /// SIZES
   // --------
-  static const ImageSize standardSize = ImageSize(
+  static const Dimensions standardSize = Dimensions(
     width: 720,
     height: 360,
   );
   // --------
-  static const ImageSize oldSize = ImageSize(
+  static const Dimensions oldSize = Dimensions(
     width: 360,
     height: 240,
   );
   // --------
-  static const ImageSize iosMaxSize = ImageSize(
+  static const Dimensions iosMaxSize = Dimensions(
     width: 1038,
     height: 1038,
   );
   // --------
   static double getBoxHeight(double boxWidth){
-    return ImageSize.getHeightByAspectRatio(
+    return Dimensions.getHeightByAspectRatio(
         aspectRatio: standardSize.getAspectRatio(),
         width: boxWidth,
     );
