@@ -40,7 +40,7 @@ class TriggerProtocols {
   /// CREATORS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static TriggerModel createFlyerRefetchTrigger({ /// re-fetch flyer
     @required String flyerID,
   }){
@@ -58,7 +58,7 @@ class TriggerProtocols {
   }
   */
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static TriggerModel createDeleteBzLocallyTrigger({
     @required String bzID,
   }){
@@ -69,7 +69,7 @@ class TriggerProtocols {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static TriggerModel createRefetchBzTrigger({
     @required String bzID,
   }){
@@ -80,7 +80,7 @@ class TriggerProtocols {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static TriggerModel createDeletePendingAuthorTrigger({
     @required String userID,
     @required String bzID,
@@ -96,7 +96,7 @@ class TriggerProtocols {
   /// FIRE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> fireTriggers({
     @required BuildContext context,
     @required List<NoteModel> notes,
@@ -121,7 +121,7 @@ class TriggerProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _fireTrigger({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -163,7 +163,7 @@ class TriggerProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _triggerSwitcher({
     @required BuildContext context,
     @required TriggerModel trigger,
