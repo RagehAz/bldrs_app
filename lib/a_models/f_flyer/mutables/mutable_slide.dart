@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -34,7 +34,7 @@ class MutableSlide {
   final String picURL;
   final FileModel picFileModel;
   final BoxFit picFit;
-  final ImageSize imageSize;
+  final Dimensions imageSize;
   final String headline;
   final String description;
   final Color midColor;
@@ -50,7 +50,7 @@ class MutableSlide {
     BoxFit picFit,
     String headline,
     String description,
-    ImageSize imageSize,
+    Dimensions imageSize,
     Color midColor,
     double opacity,
     Matrix4 matrix,
@@ -238,8 +238,8 @@ class MutableSlide {
 
     if (file != null){
 
-      final ImageSize _imageSize = await ImageSize.superImageSize(file);
-      final BoxFit _fit = ImageSize.concludeBoxFit(
+      final Dimensions _imageSize = await Dimensions.superDimensions(file);
+      final BoxFit _fit = Dimensions.concludeBoxFit(
         picWidth: _imageSize.width,
         picHeight: _imageSize.width,
         viewWidth: FlyerDim.flyerWidthByFactor(context, 1),
@@ -356,7 +356,7 @@ class MutableSlide {
     blog('slideIndex : $slideIndex --------------------------------------- [m]');
     blog('headline : $headline');
     blog('description : $description');
-    imageSize.blogSize();
+    imageSize.blogDimensions();
     blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} : hasCustomMatrix : ${matrix != Matrix4.identity()}');
     blog('picFile : $picFileModel');
     blog('picURL : $picURL');
@@ -400,7 +400,7 @@ class MutableSlide {
     if (slide1.picFit != slide2.picFit){
       blog('MutableSlidesDifferences : picFits are not Identical');
     }
-    if (ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) == false){
+    if (Dimensions.checkDimensionsAreIdentical(dim1: slide1.imageSize, dim2: slide2.imageSize) == false){
       blog('MutableSlidesDifferences : imageSizes are not Identical');
     }
     if (slide1.headline != slide2.headline){
@@ -456,7 +456,7 @@ class MutableSlide {
           slide1.picURL == slide2.picURL &&
           FileModel.checkFileModelsAreIdentical(model1: slide1.picFileModel, model2: slide2.picFileModel) &&
           slide1.picFit == slide2.picFit &&
-          ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
+          Dimensions.checkDimensionsAreIdentical(dim1: slide1.imageSize, dim2: slide2.imageSize) &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&

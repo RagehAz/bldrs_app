@@ -73,7 +73,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
             }
             else {
               return ContactFieldEditorBubble(
-                globalKey: globalKey,
+                formKey: globalKey,
                 headerViewModel: BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: ContactModel.getContactTypePhid(

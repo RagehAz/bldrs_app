@@ -9,9 +9,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class ImageSize {
+class Dimensions {
   /// --------------------------------------------------------------------------
-  const ImageSize({
+  const Dimensions({
     @required this.width,
     @required this.height,
   });
@@ -32,14 +32,14 @@ class ImageSize {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ImageSize decipherImageSize(Map<String, dynamic> map) {
-    ImageSize _imageSize;
+  static Dimensions decipherImageSize(Map<String, dynamic> map) {
+    Dimensions _imageSize;
     if (map != null) {
 
       final dynamic _widthInInt = map['width'];
       final dynamic _heightInInt = map['height'];
 
-      _imageSize = ImageSize(
+      _imageSize = Dimensions(
         width: _widthInInt.toDouble(),
         height: _heightInInt.toDouble(),
       );
@@ -70,11 +70,11 @@ class ImageSize {
 
     if (file != null){
 
-      final ImageSize _imageSize = await superImageSize(file);
+      final Dimensions _dimensions = await superDimensions(file);
 
-      if (_imageSize != null){
+      if (_dimensions != null){
 
-        _output = _imageSize.getAspectRatio();
+        _output = _dimensions.getAspectRatio();
 
       }
 
@@ -90,24 +90,11 @@ class ImageSize {
     /// AspectRatio is width / height => so = oWidth / oHeight
     return width / aspectRatio;
   }
-  // --------------------
-  /*
-  static ImageSize getImageSizeFromAsset(Asset asset) {
-    ImageSize _imageSize;
 
-    if (asset != null) {
-      _imageSize = ImageSize(
-          width: asset.originalWidth.toDouble(),
-          height: asset.originalHeight.toDouble());
-    }
-
-    return _imageSize;
-  }
-   */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ImageSize> superImageSize(dynamic image) async {
-    ImageSize _imageSize;
+  static Future<Dimensions> superDimensions(dynamic image) async {
+    Dimensions _dimensions;
 
     if (image != null) {
       // -----------------------------------------------------------o
@@ -136,7 +123,7 @@ class ImageSize {
         final ByteData _byteData = await _asset.getByteData();
         _uInt8List = Imagers.getUint8ListFromByteData(_byteData);
         // await null;
-        _imageSize = ImageSize.getImageSizeFromAsset(image);
+        _dimensions = ImageSize.getImageSizeFromAsset(image);
       }
        */
       // --------------------------o
@@ -153,7 +140,7 @@ class ImageSize {
       }
       // -----------------------------------------------------------o
       if (_decodedImage != null) {
-        _imageSize = ImageSize(
+        _dimensions = Dimensions(
           width: _decodedImage.width
               .toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
           height: _decodedImage.height.toDouble(),
@@ -162,7 +149,7 @@ class ImageSize {
       // -----------------------------------------------------------o
     }
 
-    return _imageSize;
+    return _dimensions;
   }
   // -----------------------------------------------------------------------------
 
@@ -170,8 +157,8 @@ class ImageSize {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogSize({String methodName = 'ImageSize'}) {
-    blog('blogSize : $methodName : image size: W [ $width ] x H [ $height ]');
+  void blogDimensions({String methodName = ''}) {
+    blog('blogDimensions : $methodName : Dimensions: W [ $width ] x H [ $height ]');
   }
   // -----------------------------------------------------------------------------
 
@@ -181,29 +168,14 @@ class ImageSize {
   /// TESTED : WORKS PERFECT
   static int cipherBoxFit(BoxFit boxFit) {
     switch (boxFit) {
-      case BoxFit.fitHeight:
-        return 1;
-        break;
-      case BoxFit.fitWidth:
-        return 2;
-        break;
-      case BoxFit.cover:
-        return 3;
-        break;
-      case BoxFit.none:
-        return 4;
-        break;
-      case BoxFit.fill:
-        return 5;
-        break;
-      case BoxFit.scaleDown:
-        return 6;
-        break;
-      case BoxFit.contain:
-        return 7;
-        break;
-      default:
-        return 3;
+      case BoxFit.fitHeight:return 1;break;
+      case BoxFit.fitWidth:return 2;break;
+      case BoxFit.cover:return 3;break;
+      case BoxFit.none:return 4;break;
+      case BoxFit.fill:return 5;break;
+      case BoxFit.scaleDown:return 6;break;
+      case BoxFit.contain:return 7;break;
+      default:return 3;
     }
   }
   // --------------------
@@ -225,7 +197,7 @@ class ImageSize {
   /// CONCLUDERS
 
   // --------------------
-  static double concludeHeightByGraphicSizes({
+  static double concludeHeightByDimensions({
     @required double width,
     @required double graphicWidth,
     @required double graphicHeight,
@@ -239,19 +211,19 @@ class ImageSize {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkSizesAreIdentical({
-    @required ImageSize sizeA,
-    @required ImageSize sizeB,
+  static bool checkDimensionsAreIdentical({
+    @required Dimensions dim1,
+    @required Dimensions dim2,
   }){
 
     bool _identical = false;
 
-    if (sizeA == null && sizeB == null){
+    if (dim1 == null && dim2 == null){
       _identical = true;
     }
     else if (
-        sizeA.width == sizeB.width &&
-        sizeA.height == sizeB.height
+        dim1.width == dim2.width &&
+        dim1.height == dim2.height
     ){
       _identical = true;
     }
@@ -368,10 +340,10 @@ class ImageSize {
     }
 
     bool _areIdentical = false;
-    if (other is ImageSize){
-      _areIdentical = checkSizesAreIdentical(
-        sizeA: this,
-        sizeB: other,
+    if (other is Dimensions){
+      _areIdentical = checkDimensionsAreIdentical(
+        dim1: this,
+        dim2: other,
       );
     }
 

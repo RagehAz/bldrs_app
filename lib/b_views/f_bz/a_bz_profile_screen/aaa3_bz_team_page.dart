@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';

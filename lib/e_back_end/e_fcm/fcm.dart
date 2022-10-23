@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';

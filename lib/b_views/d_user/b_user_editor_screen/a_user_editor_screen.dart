@@ -275,7 +275,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     redDot: true,
                   ),
-                  globalKey: _formKey,
+                  formKey: _formKey,
                   focusNode: _nameNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
@@ -303,7 +303,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     redDot: true,
                   ),
-                  globalKey: _formKey,
+                  formKey: _formKey,
                   focusNode: _titleNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
@@ -331,7 +331,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     redDot: true,
                   ),
-                  globalKey: _formKey,
+                  formKey: _formKey,
                   focusNode: _companyNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
@@ -354,7 +354,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// PHONE
                 ContactFieldEditorBubble(
                   key: const ValueKey<String>('phone'),
-                  globalKey: _formKey,
+                  formKey: _formKey,
                   focusNode: _phoneNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
@@ -391,7 +391,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// EMAIL
                 ContactFieldEditorBubble(
                   key: const ValueKey<String>('email'),
-                  globalKey: _formKey,
+                  formKey: _formKey,
                   focusNode: _emailNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,

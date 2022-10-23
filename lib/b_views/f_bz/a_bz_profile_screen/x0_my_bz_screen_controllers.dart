@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_tabber.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
@@ -233,7 +234,7 @@ void onChangeMyBzScreenTabIndex({
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-  final BzTab _newBzTab = BzModel.bzTabsList[index];
+  final BzTab _newBzTab = BzTabber.bzTabsList[index];
   final BzTab _previousBzTab = _uiProvider.currentBzTab;
 
   /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS

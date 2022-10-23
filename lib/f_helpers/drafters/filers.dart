@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -590,12 +590,12 @@ class Filers {
       /// only resize if final width is smaller than original
       if (finalWidth < _imgImage.width){
 
-        final double _aspectRatio = await ImageSize.getFileAspectRatio(file);
+        final double _aspectRatio = await Dimensions.getFileAspectRatio(file);
 
         _imgImage = Floaters.resizeImgImage(
           imgImage: _imgImage,
           width: finalWidth.floor(),
-          height: ImageSize.getHeightByAspectRatio(
+          height: Dimensions.getHeightByAspectRatio(
               aspectRatio: _aspectRatio,
               width: finalWidth
           ).floor(),

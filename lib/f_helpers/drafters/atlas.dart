@@ -138,19 +138,19 @@ class Atlas {
   }){
     bool _identical = false;
 
-    if (point1 != null && point2 != null){
+    if (point1 == null && point2 == null){
+      _identical = true;
+    }
+
+    else if (point1 != null && point2 != null){
 
       if (
-      point1.latitude == point2.latitude &&
+          point1.latitude == point2.latitude &&
           point1.longitude == point2.longitude
       ){
         _identical = true;
       }
 
-    }
-
-    else if (point1 == null && point2 == null){
-      _identical = true;
     }
 
     return _identical;

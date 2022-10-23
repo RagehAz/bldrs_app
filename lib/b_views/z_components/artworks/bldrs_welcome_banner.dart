@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -18,7 +18,7 @@ class BldrsWelcomeBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _welcomeBannerHeight = ImageSize.concludeHeightByGraphicSizes(
+    final double _welcomeBannerHeight = Dimensions.concludeHeightByDimensions(
       width: width,
       graphicWidth: 22,
       graphicHeight: 18,

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -67,7 +67,7 @@ class CustomerStatus {
   }){
     return {
       'bldrPhase' : cipherBldrPhase(bldrPhase),
-      'neededBzz' : BzModel.cipherBzTypes(neededBzz),
+      'neededBzz' : BzTyper.cipherBzTypes(neededBzz),
       'lookingFor' : FlyerTyper.cipherFlyersTypes(lookingFor),
       'specs' : specs,
       'zoneModel' : zoneModel.toMap(),
@@ -85,7 +85,7 @@ class CustomerStatus {
     if (map != null){
       _status = CustomerStatus(
         bldrPhase: decipherBldrPhase(map['bldrPhase']),
-        neededBzz: BzModel.decipherBzTypes(map['neededBzz']) ,
+        neededBzz: BzTyper.decipherBzTypes(map['neededBzz']) ,
         lookingFor: FlyerTyper.decipherFlyersTypes(map['lookingFor']),
         specs: Stringer.getStringsFromDynamics(dynamics: map['specs']),
         zoneModel: ZoneModel.decipherZone(map['zoneModel']),

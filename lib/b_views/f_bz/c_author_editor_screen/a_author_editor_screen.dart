@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
@@ -253,7 +253,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       ),
                       redDot: true,
                     ),
-                    globalKey: _formKey,
+                    formKey: _formKey,
                     focusNode: _nameNode,
                     appBarType: AppBarType.basic,
                     isFormField: true,
@@ -282,7 +282,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
                   /// TITLE
                   TextFieldBubble(
-                    globalKey: _formKey,
+                    formKey: _formKey,
                     headerViewModel: const BubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'phid_job_title',
@@ -313,7 +313,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   /// PHONE
                   ContactFieldEditorBubble(
                     key: const ValueKey<String>('phone'),
-                    globalKey: _formKey,
+                    formKey: _formKey,
                     focusNode: _phoneNode,
                     appBarType: AppBarType.basic,
                     isFormField: true,
@@ -350,7 +350,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   /// EMAIL
                   ContactFieldEditorBubble(
                     key: const ValueKey<String>('email'),
-                    globalKey: _formKey,
+                    formKey: _formKey,
                     focusNode: _emailNode,
                     appBarType: AppBarType.basic,
                     isFormField: true,
