@@ -159,7 +159,7 @@ class PosterModel {
   }){
     bool _areIdentical = false;
 
-    blogPosterDifferences(poster1, poster2);
+    // blogPosterDifferences(poster1, poster2);
 
     if (poster1 == null && poster2 == null){
       _areIdentical = true;

@@ -3,7 +3,6 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -178,7 +177,7 @@ class AppStateFireOps{
   }){
     bool _needUpdate = false;
 
-    blog('appVersionNeedUpdate : globalVersion : $globalVersion : userVersion : $userVersion');
+    // blog('appVersionNeedUpdate : globalVersion : $globalVersion : userVersion : $userVersion');
 
     final List<int> _global = _getAppVersionDivisions(globalVersion);
     final List<int> _user = _getAppVersionDivisions(userVersion);

@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/h_money/currency_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -57,7 +56,10 @@ void onSearchCurrencies({
         }
       }
 
-      Stringer.blogStrings(strings: _filteredIDs);
+      // Stringer.blogStrings(
+      //   strings: _filteredIDs,
+      //   invoker: 'onSearchCurrencies',
+      // );
 
       /// GET CURRENCIES
       final List<CurrencyModel> _allCurrencies = ZoneProvider.proGetAllCurrencies(

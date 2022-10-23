@@ -3,7 +3,6 @@ import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FetchFlyerProtocols {
@@ -58,7 +57,7 @@ class FetchFlyerProtocols {
     @required BuildContext context,
     @required List<String> flyersIDs,
   }) async {
-    blog('FetchFlyerProtocol.fetchFlyersByIDs : START');
+    // blog('FetchFlyerProtocol.fetchFlyersByIDs : START');
 
     final List<FlyerModel> _flyers = <FlyerModel>[];
 
@@ -81,7 +80,7 @@ class FetchFlyerProtocols {
 
     }
 
-    blog('FetchFlyerProtocol.fetchFlyersByIDs : START');
+    // blog('FetchFlyerProtocol.fetchFlyersByIDs : END');
     return _flyers;
   }
 // -----------------------------------------------------------------------------

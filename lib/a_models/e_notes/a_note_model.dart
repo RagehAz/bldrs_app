@@ -961,7 +961,7 @@ class NoteModel {
   }
   // --------------------
   /// UNUSED
-  /*
+
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNotesInNotes({
     @required List<NoteModel> notesToGet,
@@ -986,7 +986,6 @@ class NoteModel {
 
     return _output;
   }
-   */
   // --------------------
   /// UNUSED
   /*

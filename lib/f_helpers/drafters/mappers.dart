@@ -708,54 +708,132 @@ class Mapper {
     return _hasNull;
   }
   // --------------------
-  /// TASK : TESTED : NOT WORKINGGGGGGGGGGGGGGG
+  /// TESTED : WORKS PERFECT
   static bool checkMapsAreIdentical({
-    Map<String, dynamic> map1,
-    Map<String, dynamic> map2,
+    @required Map<String, dynamic> map1,
+    @required Map<String, dynamic> map2,
   }) {
     bool _mapsAreIdentical = false;
 
+    /// BOTH ARE NULL
     if (map1 == null && map2 == null) {
       _mapsAreIdentical = true;
     }
 
+    /// BOTH AREN'T NULL BUT ATLEAST ONE OF THEM IS NULL
     else if (map1 == null || map2 == null){
       _mapsAreIdentical = false;
     }
 
+    /// NON OF THEM IS NULL
     else if (map1 != null && map2 != null){
 
-      final List<String> _map1Keys = map1.keys.toList();
-      final List<String> _map2Keys = map2.keys.toList();
-
-      if (_map1Keys.length != _map2Keys.length) {
+      if (map1.toString() == map2.toString()){
+        _mapsAreIdentical = true;
+      }
+      else {
         _mapsAreIdentical = false;
       }
 
-      else {
-
-        final List<dynamic> _map1Values = map1.values.toList();
-        final List<dynamic> _map2Values = map2.values.toList();
-
-        if (
-            checkListsAreIdentical(list1: _map1Keys, list2: _map2Keys) == true
-            &&
-            checkListsAreIdentical(list1: _map1Values, list2: _map2Values) == true
-        ){
-          _mapsAreIdentical = true;
-        }
-
-        else {
-          _mapsAreIdentical = false;
-        }
-      }
+      // final List<String> _map1Keys = map1.keys.toList();
+      // final List<String> _map2Keys = map2.keys.toList();
+      //
+      // /// KEYS LENGTH ARE DIFFERENT
+      // if (_map1Keys.length != _map2Keys.length) {
+      //   _mapsAreIdentical = false;
+      // }
+      //
+      // /// KEYS LENGTH ARE IDENTICAL
+      // else {
+      //
+      //   /// FOR EACH PAIR
+      //   for (int i = 0; i < _map1Keys.length; i++){
+      //
+      //     final String _key1 = _map1Keys[i];
+      //     final String _key2 = _map1Keys[i];
+      //
+      //     /// KEYS ARE DIFFERENT
+      //     if (_key1 != _key2){
+      //       _mapsAreIdentical = false;
+      //       break;
+      //     }
+      //
+      //     /// KEYS ARE IDENTICAL
+      //     else {
+      //
+      //       /// BOTH VALUES ARE NULL
+      //       if (map1[_key1] == null && map2[_key2] == null){
+      //         // continue looping
+      //       }
+      //
+      //       /// BOTH VALUES ARE NOT NULL BUT ONE OF THEM IS
+      //       else if (map1[_key1] == null || map2[_key2] == null){
+      //         _mapsAreIdentical = false;
+      //         break;
+      //       }
+      //
+      //       /// BOTH VALUES ARE NOT NULL
+      //       else {
+      //
+      //         /// VALUE TYPES ARE DIFFERENT
+      //         if (map1[_key1].runtimeType != map2[_key2].runtimeType){
+      //           _mapsAreIdentical = false;
+      //           break;
+      //         }
+      //
+      //         /// VALUE TYPES ARE IDENTICAL
+      //         else {
+      //
+      //           if (
+      //               map1[_key1] is String ||
+      //               map1[_key1] is int ||
+      //               map1[_key1] is double ||
+      //               map1[_key1] is bool
+      //           ){
+      //
+      //             if (map1[_key1] != map2[_key2]){
+      //               _mapsAreIdentical = false;
+      //               break;
+      //             }
+      //
+      //           }
+      //
+      //           else if (map1[_key1] is List){
+      //
+      //           }
+      //
+      //         }
+      //
+      //       }
+      //
+      //
+      //     }
+      //
+      //   }
+      //
+      //   // final List<dynamic> _map1Values = map1.values.toList();
+      //   // final List<dynamic> _map2Values = map2.values.toList();
+      //   //
+      //   // if (
+      //   //     checkListsAreIdentical(list1: _map1Keys, list2: _map2Keys) == true
+      //   //     &&
+      //   //     checkListsAreIdentical(list1: _map1Values, list2: _map2Values) == true
+      //   // ){
+      //   //   _mapsAreIdentical = true;
+      //   // }
+      //   //
+      //   // else {
+      //   //   _mapsAreIdentical = false;
+      //   // }
+      //
+      // }
 
     }
 
     return _mapsAreIdentical;
   }
   // --------------------
-  /// TASK : TESTED : NOT WORKINGGGGGGGGGGGGGGG
+  ///
   static bool checkMapsListsAreIdentical({
     @required List<Map<String, dynamic>> maps1,
     @required List<Map<String, dynamic>> maps2,
@@ -773,9 +851,6 @@ class Mapper {
     else if (checkCanLoopList(maps1) == true && checkCanLoopList(maps2) == true){
 
       if (maps1.length != maps2.length) {
-        // blog('lists do not have the same length : list1 is ${maps1.length} : list2 is ${maps2.length}');
-        // blog(' ---> lis1 is ( ${maps1.toString()} )');
-        // blog(' ---> lis2 is ( ${maps2.toString()} )');
         _listsAreIdentical = false;
       }
 
@@ -813,6 +888,7 @@ class Mapper {
 
   }
   // --------------------
+  ///
   static bool checkMapsContainValue({
     @required List<Map<String, dynamic>> listOfMaps,
     @required String field,
@@ -836,56 +912,32 @@ class Mapper {
     return _listOfMapContainsTheValue;
   }
   // --------------------
+  ///
   static bool checkMapsContainMap({
     @required List<Map<String, dynamic>> maps,
     @required Map<String, dynamic> map,
   }) {
+    bool _contain = false;
 
-    /// listOfMaps = [
-    /// {'key1' : 'value', 'key2' : 'value2'}
-    /// {'key1' : 'value', 'key2' : 'value2'}
-    /// {'key1' : 'value', 'key2' : 'value2'}
-    /// ];
-    ///
-    /// map = {'key1' : 'value', 'key2' : 'value2'};
+    if (checkCanLoopList(maps) == true && map != null){
 
-    // ---------------------------------
-    bool _inputsAreInvalid;
+      for (final Map<String, dynamic> _map in maps){
 
-    if (maps == null || maps.isEmpty || map == null) {
-      _inputsAreInvalid = true;
-    } else {
-      _inputsAreInvalid = false;
-    }
-    // ---------------------------------
-    bool _listOfMapContainsTheMap;
-
-    if (_inputsAreInvalid == true) {
-      _listOfMapContainsTheMap = false;
-    }
-
-    else {
-
-      for (final Map<String, dynamic> _map in maps) {
-
-        final bool _mapsAreIdentical = checkMapsAreIdentical(
-          map1: _map,
-          map2: map,
+        final bool _identical = checkMapsAreIdentical(
+          map1: map,
+          map2: _map,
         );
 
-        if (_mapsAreIdentical == true) {
-          _listOfMapContainsTheMap = true;
+        if (_identical == true){
+          _contain = true;
           break;
         }
 
-        else {
-          _listOfMapContainsTheMap = false;
-        }
-
       }
+
     }
 
-    return _listOfMapContainsTheMap;
+    return _contain;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -1158,12 +1210,12 @@ class Mapper {
 
     if (object != null){
 
-      blog('1 - FUCK : object ${object.runtimeType}');
+      // blog('1 - FUCK : object ${object.runtimeType}');
 
       if (object.runtimeType.toString() == 'ImmutableMap<String, Object?>'){
 
         final Map _map =  object;
-        blog('3 - FUCK : _map : ${_map.runtimeType}');
+        // blog('3 - FUCK : _map : ${_map.runtimeType}');
         final List<String> _keys = _map.keys.toList();
 
         if (checkCanLoopList(_keys) == true){
@@ -1186,13 +1238,13 @@ class Mapper {
       }
 
       else {
-        blog('getStringStringMapFromImmutableMapStringObject : starts : is NOT IMMUTABLE MAP');
+        // blog('getStringStringMapFromImmutableMapStringObject : starts : is NOT IMMUTABLE MAP');
       }
 
     }
 
-    blog('4 - getStringStringMapFromImmutableMapStringObject : _output ${_output.runtimeType}');
-    blogMap(_output);
+    // blog('4 - getStringStringMapFromImmutableMapStringObject : _output ${_output.runtimeType}');
+    // blogMap(_output);
 
     // assert(_output != null, 'DO NOT CONTINUE BITCH');
 

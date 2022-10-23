@@ -181,9 +181,9 @@ class NoteEventsOfAuthorship {
       // seen: false,
       // sendFCM: true,
       // sendNote: true,
-      trigger: TriggerProtocols.createRefetchBzTrigger(
-        bzID: bzModel.id,
-      ),
+      // trigger: TriggerProtocols.createRefetchBzTrigger( /// no need
+      //   bzID: bzModel.id,
+      // ),
     );
 
     await NoteProtocols.composeToOneUser(

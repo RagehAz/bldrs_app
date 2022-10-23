@@ -124,28 +124,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
     // blog('_markAllUserUnseenNotesAsSeen : END');
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _onPaginatorDataChanged(List<Map<String, dynamic>> newMaps){
-
-    /// DECIPHER NEW MAPS TO NOTES
-    final List<NoteModel> _newNotes = NoteModel.decipherNotes(
-      maps: newMaps,
-      fromJSON: false,
-    );
-
-    /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
-    for (final NoteModel note in _newNotes){
-      if (note.seen == false){
-        NoteModel.insertNoteIntoNotes(
-            notesToGet: _localNotesToMarkUnseen,
-            note: note,
-            duplicatesAlgorithm: DuplicatesAlgorithm.keepFirst,
-        );
-      }
-    }
-
-  }
   // -----------------------------------------------------------------------------
   StreamSubscription _sub;
   Stream<QuerySnapshot<Object>> _unseenNotesStream;
@@ -171,20 +149,15 @@ class _UserNotesPageState extends State<UserNotesPage> {
           // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
           // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
 
-          if (Mapper.checkCanLoopList(unseenNotesMaps) == true){
+          injectPaginatorWithNewNotes(
+            unseenNotesMaps: unseenNotesMaps,
+          );
 
-            final bool _noteExists = Mapper.checkMapsContainValue(
-              listOfMaps: _paginationController.paginatorMaps.value,
-              field: 'id',
-              value: unseenNotesMaps?.first['id'],
-            );
+          _collectUnseenNotesToMarkAtDispose(
+            unseenNotesMaps: unseenNotesMaps,
+          );
 
-            if (_noteExists == false){
-              _paginationController.addMap.value = unseenNotesMaps.first;
-            }
-
-          }
-
+          setState(() {});
 
         },
       );
@@ -194,14 +167,79 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
   }
   // -----------------------------------------------------------------------------
+  ///
+  void injectPaginatorWithNewNotes({
+    @required List<Map<String, dynamic>> unseenNotesMaps,
+  }){
+
+    if (Mapper.checkCanLoopList(unseenNotesMaps) == true){
+
+      final bool _noteExists = Mapper.checkMapsContainValue(
+        listOfMaps: _paginationController.paginatorMaps.value,
+        field: 'id',
+        value: unseenNotesMaps?.first['id'],
+      );
+
+      /// NOTE IS NOT IN LIST : ADD IT
+      if (_noteExists == false){
+        _paginationController.addMap.value = unseenNotesMaps.first;
+      }
+
+      /// NOTE EXISTS : UPDATE IT
+      else {
+
+        final List<NoteModel> _paginatorNotes = NoteModel.insertNotesInNotes(
+          notesToGet: NoteModel.decipherNotes(maps: _paginationController.paginatorMaps.value, fromJSON: false),
+          notesToInsert: NoteModel.decipherNotes(maps: unseenNotesMaps, fromJSON: false),
+          duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+        );
+
+        _paginationController.paginatorMaps.value = NoteModel.cipherNotesModels(
+          notes: _paginatorNotes,
+          toJSON: false,
+        );
+
+      }
+
+    }
+
+  }
+  // --------------------
+  ///
+  void _collectUnseenNotesToMarkAtDispose({
+    @required List<Map<String, dynamic>> unseenNotesMaps,
+  }){
+
+    if (Mapper.checkCanLoopList(unseenNotesMaps) == true){
+
+      /// DECIPHER NEW MAPS TO NOTES
+      final List<NoteModel> _newNotes = NoteModel.decipherNotes(
+        maps: unseenNotesMaps,
+        fromJSON: false,
+      );
+
+      /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
+      for (final NoteModel note in _newNotes){
+        if (note.seen == false){
+          NoteModel.insertNoteIntoNotes(
+            notesToGet: _localNotesToMarkUnseen,
+            note: note,
+            duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+          );
+        }
+      }
+
+
+    }
+
+    }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // super.build(context);
 
     return FireCollPaginator(
-        queryModel: userNotesPaginationQueryModel(
-            onDataChanged: _onPaginatorDataChanged
-        ),
+        queryModel: userNotesPaginationQueryModel(),
         scrollController: _scrollController,
         paginationController: _paginationController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
