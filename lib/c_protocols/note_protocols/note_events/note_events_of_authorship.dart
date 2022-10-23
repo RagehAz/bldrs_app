@@ -228,9 +228,10 @@ class NoteEventsOfAuthorship {
       title: _title,
       body: _body,
       sentTime: DateTime.now(),
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.authorshipReply,
-        id: bzID,
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.aSentAuthorshipReceivedReply,
+        bzID: bzID,
+        partyType: PartyType.bz,
       ),
       // trigger: TriggerProtocols.createAuthorshipAcceptanceTrigger(),
     );
@@ -245,27 +246,51 @@ class NoteEventsOfAuthorship {
   }
   // --------------------
   ///
-  static Future<void> sendAuthorshipDecliningNote({
+  static Future<void> sendAuthorshipDeclinationsNote({
     @required BuildContext context,
     @required String bzID,
   }) async {
 
-    blog('sendAuthorshipDecliningNote : START');
+    blog('NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote : START');
 
+    final UserModel senderModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
 
+    final String _title = '##${senderModel.name} declined The invitation request';
 
+    final String _body = '##${senderModel.name} was not added as a team member in this account';
 
+    final NoteModel _note =  NoteModel(
+      id: null,
+      parties: NoteParties(
+        senderID: senderModel.id,
+        senderImageURL: senderModel.pic,
+        senderType: PartyType.user,
+        receiverID: bzID,
+        receiverType: PartyType.bz,
+      ),
+      title: _title,
+      body: _body,
+      sentTime: DateTime.now(),
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.aSentAuthorshipReceivedReply,
+        bzID: bzID,
+        partyType: PartyType.bz,
+      ),
+      trigger: TriggerProtocols.createDeletePendingAuthorTrigger(
+        userID: senderModel.id,
+        bzID: bzID,
+      ),
+    );
 
+    await NoteProtocols.composeToOneBz(
+      context: context,
+      note: _note,
+    );
 
-
-    /// --->
-
-
-
-
-
-
-
+    blog('NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote : END');
 
   }
   // -----------------------------------------------------------------------------

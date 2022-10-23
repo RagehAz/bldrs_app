@@ -36,7 +36,7 @@ class PullToRefresh extends StatelessWidget {
         fadeOnBuild == true ?
         WidgetFader(
           fadeType: FadeType.fadeIn,
-          duration: const Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 750),
           child: child,
         )
             :

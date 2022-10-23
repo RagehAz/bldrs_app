@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -27,6 +28,7 @@ class WipeBzProtocols {
   /// WIPE OUT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -92,6 +94,7 @@ class WipeBzProtocols {
     blog('WipeBzProtocol.wipeBz : END');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteAllBzFlyersOps({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -138,6 +141,7 @@ class WipeBzProtocols {
   /// LOCAL DELETION
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteLocally({
     @required BuildContext context,
     @required String bzID,
@@ -174,6 +178,45 @@ class WipeBzProtocols {
     );
 
     blog('WipeBzProtocol.deleteLocally : $invoker : END');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PENDING AUTHOR
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipePendingAuthor({
+    @required BuildContext context,
+    @required String bzID,
+    @required String pendingUserID,
+  }) async {
+
+    final BzModel bzModel = await BzProtocols.fetch(context: context, bzID: bzID);
+
+    if (bzModel != null){
+
+      /// remove this user from the pending authors list to update bz
+      final List<PendingAuthor> _updatedPendingUsers = PendingAuthor.removePendingAuthor(
+        pendingAuthors: bzModel.pendingAuthors,
+        userID: pendingUserID,
+      );
+
+      /// update bz model to renovate
+      final BzModel _updatedBzModel = bzModel.copyWith(
+        pendingAuthors: _updatedPendingUsers,
+      );
+
+      /// RENOVATE BZ
+      await BzProtocols.renovateBz(
+        context: context,
+        newBzModel: _updatedBzModel,
+        oldBzModel: bzModel,
+        showWaitDialog: false,
+        navigateToBzInfoPageOnEnd: false,
+      );
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 }
