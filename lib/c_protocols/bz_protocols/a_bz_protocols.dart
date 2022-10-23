@@ -145,5 +145,16 @@ class BzProtocols {
     bzID: bzID,
     invoker: invoker,
   );
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipePendingAuthor({
+    @required BuildContext context,
+    @required String bzID,
+    @required String pendingUserID,
+  }) => WipeBzProtocols.wipePendingAuthor(
+    context: context,
+    bzID: bzID,
+    pendingUserID: pendingUserID,
+  );
   // -----------------------------------------------------------------------------
 }

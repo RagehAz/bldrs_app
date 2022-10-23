@@ -260,6 +260,11 @@ class AuthorshipRespondingProtocols{
       newNote: _updatedNote,
     );
 
+    await NoteEvent.sendAuthorshipDeclinationsNote(
+      context: context,
+      bzID: noteModel.parties.senderID,
+    );
+
   }
   // -----------------------------------------------------------------------------
 }

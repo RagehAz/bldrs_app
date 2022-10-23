@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -38,12 +39,13 @@ class NoteEventsOfBzFlyersManagement {
       body: '##This Flyer has been updated',
       sentTime: DateTime.now(),
       sendFCM: false,
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.flyerUpdate,
-        id: bzModel.id,
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.myBzFlyerIsUpdated,
+        bzID: bzModel.id,
+        partyType: PartyType.bz,
       ),
       trigger: TriggerProtocols.createFlyerRefetchTrigger(
-          flyerID: flyerID
+          flyerID: flyerID,
       ),
     );
 
@@ -80,9 +82,10 @@ class NoteEventsOfBzFlyersManagement {
       trigger: TriggerProtocols.createFlyerRefetchTrigger(
         flyerID: flyerID,
       ),
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.flyerVerification,
-        id: bzID,
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.myBzFlyerIsVerified,
+        bzID: bzID,
+        partyType: PartyType.bz,
       ),
     );
 
