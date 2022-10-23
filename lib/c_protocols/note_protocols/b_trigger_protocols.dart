@@ -111,7 +111,7 @@ class TriggerProtocols {
     @required NoteModel noteModel,
   }) async {
 
-    blog('TriggerProtocols._fireTrigger -- START');
+    blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- START');
 
     if (
         noteModel != null
@@ -140,12 +140,10 @@ class TriggerProtocols {
         newNote: _newNote,
       );
 
-      blog('TriggerProtocols._fireTrigger -- trigger is done successfully : END');
 
-    }{
-      blog('TriggerProtocols._fireTrigger -- trigger is null or already fired : END');
     }
 
+    blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- END');
 
   }
   // --------------------
@@ -157,62 +155,62 @@ class TriggerProtocols {
 
     if (trigger != null && trigger.done == false){
 
-      blog('_triggerSwitcher : ${trigger.name} : ${trigger.argument} : ${trigger.done}');
+      blog('1--> Switcher : ${trigger.name} : ${trigger.argument} : ${trigger.done}');
 
       switch(trigger.name){
       // ----------
       /// ADD ME AS NEW AUTHOR TO BZ
         case tridAddMeAsAuthorToBz:
-          blog('_triggerSwitcher : FIRING : ADD ME TO BZ FOR (${trigger.argument}) : START');
+          blog('2--> Switcher : FIRING : ADD ME TO BZ FOR (${trigger.argument}) : START');
           await AuthorshipProtocols.addMeToBz(
             context: context,
             bzID: trigger.argument,
           );
-          blog('TriggerProtocols._triggerSwitcher : FIRING : END');
+          blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// ADD ME AS NEW AUTHOR TO BZ
         case tridRemoveBzTracesAfterDeletion:
-          blog('_triggerSwitcher : FIRING : REMOVE BZ TRACES FOR (${trigger.argument}) : START');
+          blog('2--> Switcher : FIRING : REMOVE BZ TRACES FOR (${trigger.argument}) : START');
           await AuthorshipProtocols.removeBzTracesAfterDeletion(
             context: context,
             bzID: trigger.argument,
           );
-          blog('TriggerProtocols._triggerSwitcher : FIRING : END');
+          blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// REFETCH FLYER
         case tridRefetchFlyer:
-          blog('_triggerSwitcher : FIRING : REFETCH FLYER FOR (${trigger.argument}) : START');
+          blog('2--> Switcher : FIRING : REFETCH FLYER FOR (${trigger.argument}) : START');
           await FlyerProtocols.refetch(
             context: context,
             flyerID: trigger.argument,
           );
-          blog('_triggerSwitcher : FIRING : END');
+          blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// REFETCH BZ
         case tridRefetchBz:
-          blog('_triggerSwitcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
+          blog('2--> Switcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
           await BzProtocols.refetch(
             context: context,
             bzID: trigger.argument,
           );
-          blog('_triggerSwitcher : FIRING : END');
+          blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// DEFAULT
         default:
-          blog('_triggerSwitcher : NOTHING TO FIRE');
+          blog('2--> Switcher : : FIRING : nothing to fire');
       // ----------
       }
 
-      blog('_triggerSwitcher : DONE WITH FIRING');
+      blog('X--> Switcher : DONE WITH FIRING');
 
     }
 
     else {
-      blog('_triggerSwitcher -- trigger is null or already fired : END');
+      blog('X--> Switcher : trigger is null or already fired : END');
 
     }
 

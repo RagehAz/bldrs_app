@@ -152,7 +152,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   void _initializeNootListeners(){
     _action = NootListener.listenToNootActionStream();
     _created = NootListener.listenToNootCreatedStream();
-    _dismissed = NootListener.listenToNootDismissedStream();
+    // _dismissed = NootListener.listenToNootDismissedStream(); Unhandled Exception: Bad state: Stream has already been listened to.
     _displayed = NootListener.listenToNootDisplayedStream();
   }
   // --------------------

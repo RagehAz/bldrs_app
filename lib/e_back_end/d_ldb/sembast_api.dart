@@ -143,13 +143,14 @@ class Sembast  {
       filter: Filter.equals(_primaryKey, _objectID),
     );
 
-    final int _result = await _doc.update(
+    // final int _result =
+    await _doc.update(
       _db,
       map,
       finder: _finder,
     );
 
-    blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map has ${map?.keys?.length} keys');
+    // blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map has ${map?.keys?.length} keys');
 
   }
   // --------------------
@@ -293,7 +294,7 @@ class Sembast  {
       }).toList();
 
     }
-    blog('Sembast : readMaps : $docName : $primaryKeyName : ${_maps.length} maps');
+    // blog('Sembast : readMaps : $docName : $primaryKeyName : ${_maps.length} maps');
 
     return _maps;
   }

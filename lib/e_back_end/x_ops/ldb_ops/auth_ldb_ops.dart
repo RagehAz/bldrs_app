@@ -53,13 +53,13 @@ class AuthLDBOps {
         fromJSON: true,
       );
 
-      blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.uid}');
+      // blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.uid}');
 
     }
 
-    else {
-      blog('AuthLDBOps : readAuthModel : no AuthModel found on LDB');
-    }
+    // else {
+    //   blog('AuthLDBOps : readAuthModel : no AuthModel found on LDB');
+    // }
 
     return _authModel;
   }
@@ -78,13 +78,13 @@ class AuthLDBOps {
         input: newAuthModel.toMap(toJSON: true),
       );
 
-      blog('AuthLDBOps : updateAuthModel : updated AuthModel on LDB of uid : ${newAuthModel?.uid}');
+      // blog('AuthLDBOps : updateAuthModel : updated AuthModel on LDB of uid : ${newAuthModel?.uid}');
 
     }
 
-    else {
-      blog('AuthLDBOps : updateAuthModel : input AuthModel to update is null');
-    }
+    // else {
+      // blog('AuthLDBOps : updateAuthModel : input AuthModel to update is null');
+    // }
 
   }
   // -----------------------------------------------------------------------------

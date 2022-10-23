@@ -5,7 +5,6 @@ import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FetchBzProtocols {
@@ -26,7 +25,7 @@ class FetchBzProtocols {
     BzModel _bz = await BzLDBOps.readBz(bzID);
 
     if (_bz != null){
-      blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in LDB');
+      // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in LDB');
     }
     else {
 
@@ -35,7 +34,7 @@ class FetchBzProtocols {
       );
 
       if (_bz != null) {
-        blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
+        // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
         await BzLDBOps.insertBz(
           bzModel: _bz,
         );
@@ -44,7 +43,7 @@ class FetchBzProtocols {
     }
 
     if (_bz == null) {
-      blog('FetchBzProtocol.fetchBz : ($bzID) BzModel NOT FOUND');
+      // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel NOT FOUND');
     }
 
     if (_bz != null){
@@ -79,7 +78,7 @@ class FetchBzProtocols {
 
     }
     else {
-      blog('BzProtocols.refetch : bz id is null');
+      // blog('BzProtocols.refetch : bz id is null');
     }
 
     return _output;
@@ -120,7 +119,7 @@ class FetchBzProtocols {
     @required BuildContext context,
     @required List<String> bzzIDs
   }) async {
-    blog('FetchBzProtocol.fetchBzz : START');
+    // blog('FetchBzProtocol.fetchBzz : START');
 
     final List<BzModel> _bzz = <BzModel>[];
 
@@ -139,7 +138,7 @@ class FetchBzProtocols {
       }
     }
 
-    blog('FetchBzProtocol.fetchBzz : END');
+    // blog('FetchBzProtocol.fetchBzz : END');
     return _bzz;
   }
   // -----------------------------------------------------------------------------

@@ -209,7 +209,7 @@ class BzzProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    blog('BZZ PROVIDER : _setMyBzz : new bz has been set');
+    // blog('BZZ PROVIDER : _setMyBzz : new bz has been set');
     _myBzz = bzz;
     if (notify == true){
       notifyListeners();

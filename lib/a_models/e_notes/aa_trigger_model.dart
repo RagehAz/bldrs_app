@@ -18,6 +18,7 @@ class TriggerModel {
   /// CLONING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   TriggerModel copyWith({
     String name,
     String argument,
