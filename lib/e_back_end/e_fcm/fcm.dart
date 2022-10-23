@@ -528,7 +528,7 @@ class FCM {
   // --------------------
   /// TESTED : ...
   static Future<void> subscribeToTopic({
-    String topicName
+    String topicID
   }) async {
 
     /*
@@ -552,19 +552,19 @@ class FCM {
      */
 
     if (AuthModel.userIsSignedIn() == true){
-      blog('User : ${AuthFireOps.superUserID()} subscribed to topic : $topicName');
-      await FirebaseMessaging.instance.subscribeToTopic(topicName);
+      blog('User : ${AuthFireOps.superUserID()} subscribed to topic : $topicID');
+      await FirebaseMessaging.instance.subscribeToTopic(topicID);
     }
 
   }
   // --------------------
   /// TESTED : ...
   static Future<void> unsubscribeFromTopic({
-    @required String topicName,
+    @required String topicID,
   }) async {
     if (AuthModel.userIsSignedIn() == true){
-      blog('User : ${AuthFireOps.superUserID()} unSubscribed from topic : $topicName');
-      await FirebaseMessaging.instance.unsubscribeFromTopic(topicName);
+      blog('User : ${AuthFireOps.superUserID()} unSubscribed from topic : $topicID');
+      await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
     }
   }
 

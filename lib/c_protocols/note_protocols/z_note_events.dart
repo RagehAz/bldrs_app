@@ -52,7 +52,7 @@ class NoteEvent {
     bzID: bzID,
   );
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipDeclinationsNote({
     @required BuildContext context,
     @required String bzID,

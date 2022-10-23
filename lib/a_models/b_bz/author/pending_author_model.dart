@@ -106,7 +106,7 @@ class PendingAuthor {
   /// MODIFIERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PendingAuthor> addNewPendingAuthor({
     @required List<PendingAuthor> pendingAuthors,
     @required String userID,
@@ -129,7 +129,7 @@ class PendingAuthor {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<PendingAuthor> removePendingAuthor({
     @required List<PendingAuthor> pendingAuthors,
     @required String userID,
@@ -151,7 +151,7 @@ class PendingAuthor {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPendingsAuthorsAreIdentical({
     @required PendingAuthor pending1,
     @required PendingAuthor pending2,
@@ -176,7 +176,7 @@ class PendingAuthor {
     return _identical;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPendingAuthorsListsAreIdentical({
     @required List<PendingAuthor> list1,
     @required List<PendingAuthor> list2,
@@ -222,7 +222,7 @@ class PendingAuthor {
     return _listsAreIdentical;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPendingAuthorsIncludeUserID({
     @required List<PendingAuthor> pendingAuthors,
     @required String userID,
@@ -237,7 +237,7 @@ class PendingAuthor {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkCanInviteUser({
     @required BzModel bzModel,
     @required String userID,
@@ -268,7 +268,7 @@ class PendingAuthor {
     return _can;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkIsPendingAuthor({
     @required BzModel bzModel,
     @required String userID,
@@ -285,7 +285,7 @@ class PendingAuthor {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogPendingAuthors(List<PendingAuthor> pendingAuthors){
 
     if (Mapper.checkCanLoopList(pendingAuthors) == true){

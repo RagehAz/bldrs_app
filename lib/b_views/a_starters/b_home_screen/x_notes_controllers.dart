@@ -46,10 +46,6 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
         context: context
     );
 
-    // final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProUserUnseenReceivedNotes(
-    //   context: context,
-    // );
-
     _sub = FireCollStreamer.onStreamDataChanged(
       stream: _unseenNotesStream,
       // oldMaps: _oldMaps,

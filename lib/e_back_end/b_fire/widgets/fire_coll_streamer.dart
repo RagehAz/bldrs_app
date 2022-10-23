@@ -20,7 +20,8 @@ class FireCollStreamer extends StatefulWidget {
   final FireQueryModel queryModel;
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
   final Widget loadingWidget;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static StreamSubscription onStreamDataChanged({
     @required Stream<QuerySnapshot<Object>> stream,
     // @required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
