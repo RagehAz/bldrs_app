@@ -1097,3 +1097,85 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
 // }
 */
 // -----------------------------------------------------------------------------
+/*
+StreamSubscription _sub;
+Stream<QuerySnapshot<Object>> _unseenNotesStream;
+void _streamNewNotes(){
+  // final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  //     context: context,
+  //     listen: false,
+  // );
+  //
+  // if (_userModel != null){
+  //
+  //   _unseenNotesStream = userUnseenNotesStream(
+  //       context: context
+  //   );
+  //
+  //   _sub = FireCollStreamer.onStreamDataChanged(
+  //     stream: _unseenNotesStream,
+  //     // oldMaps: _oldMaps,
+  //     invoker: 'streamNewNotes',
+  //     onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
+  //
+  //       // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
+  //       // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
+  //
+  //       injectPaginatorWithNewNotes(
+  //         unseenNotesMaps: unseenNotesMaps,
+  //       );
+  //
+  //       _collectUnseenNotesToMarkAtDispose(
+  //         unseenNotesMaps: unseenNotesMaps,
+  //       );
+  //
+  //       setState(() {});
+  //
+  //     },
+  //   );
+  //
+  // }
+
+}
+ */
+// -----------------------------------------------------------------------------
+/*
+void _injectPaginatorWithNewNotes({
+  @required List<Map<String, dynamic>> unseenNotesMaps,
+}){
+
+  if (Mapper.checkCanLoopList(unseenNotesMaps) == true){
+
+    final bool _noteExists = Mapper.checkMapsContainValue(
+      listOfMaps: _paginationController.paginatorMaps.value,
+      field: 'id',
+      value: unseenNotesMaps?.first['id'],
+    );
+
+    /// NOTE IS NOT IN LIST : ADD IT
+    if (_noteExists == false){
+      _paginationController.addMap.value = unseenNotesMaps.first;
+    }
+
+    /// NOTE EXISTS : UPDATE IT
+    else {
+
+      final List<NoteModel> _paginatorNotes = NoteModel.insertNotesInNotes(
+        notesToGet: NoteModel.decipherNotes(maps: _paginationController.paginatorMaps.value, fromJSON: false),
+        notesToInsert: NoteModel.decipherNotes(maps: unseenNotesMaps, fromJSON: false),
+        duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+      );
+
+      _paginationController.paginatorMaps.value = NoteModel.cipherNotesModels(
+        notes: _paginatorNotes,
+        toJSON: false,
+      );
+
+    }
+
+  }
+
+}
+
+ */
+// -----------------------------------------------------------------------------
