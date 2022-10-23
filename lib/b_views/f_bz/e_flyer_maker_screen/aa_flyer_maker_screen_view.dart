@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
@@ -67,7 +68,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                 valueListenable: draft,
                 builder: (_, DraftFlyerModel _draft, Widget child){
 
-                  final List<String> _bzTypeTranslation = BzModel.getBzTypesPhids(
+                  final List<String> _bzTypeTranslation = BzTyper.getBzTypesPhids(
                       context: context,
                       bzTypes: _bzModel.bzTypes
                   );
@@ -114,7 +115,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                               ),
                               redDot: true,
                             ),
-                            globalKey: formKey,
+                            formKey: formKey,
                             focusNode: _draft.headlineNode,
                             appBarType: appBarType,
                             isFormField: true,
@@ -143,7 +144,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                                 translate: true,
                               ),
                             ),
-                            globalKey: formKey,
+                            formKey: formKey,
                             focusNode: _draft.descriptionNode,
                             appBarType: appBarType,
                             isFormField: true,

@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 class ZoneModel {
   /// --------------------------------------------------------------------------
   const ZoneModel({
-    this.countryID,
+    @required this.countryID,
     this.cityID,
     this.districtID,
     this.countryName,

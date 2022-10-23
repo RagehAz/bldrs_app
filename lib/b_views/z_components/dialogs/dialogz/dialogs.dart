@@ -507,7 +507,7 @@ class Dialogs {
               children: <Widget>[
 
                 TextFieldBubble(
-                  globalKey: _keyboardModel.globalKey,
+                  formKey: _keyboardModel.globalKey,
                   headerViewModel: BubbleHeaderVM(
                     headlineVerse: _keyboardModel.titleVerse,
                   ),

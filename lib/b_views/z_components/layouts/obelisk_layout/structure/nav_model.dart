@@ -1,8 +1,8 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_tabber.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:flutter/material.dart';
 
 enum MainNavModel {
   signIn,
@@ -109,7 +109,7 @@ class NavModel {
     @required BzTab bzTab,
     @required String bzID,
   }){
-    final String _tabID = BzModel.getBzTabPhid(bzTab: bzTab);
+    final String _tabID = BzTabber.getBzTabPhid(bzTab: bzTab);
     return 'bz_${bzID}_$_tabID';
   }
   // -----------------------------------------------------------------------------
@@ -131,7 +131,7 @@ class NavModel {
 
     final List<String> _bzTabsNavModelsIDs = <String>[];
 
-    for (final BzTab bzTab in BzModel.bzTabsList){
+    for (final BzTab bzTab in BzTabber.bzTabsList){
       final String _bzTabNavID = getBzTabNavID(
           bzTab: bzTab,
           bzID: bzID
@@ -196,7 +196,7 @@ class NavModel {
 
     if (bzID != null){
 
-      for (final BzTab bzTab in BzModel.bzTabsList){
+      for (final BzTab bzTab in BzTabber.bzTabsList){
         final String _bzNavID = getBzTabNavID(
             bzTab: bzTab,
             bzID: bzID

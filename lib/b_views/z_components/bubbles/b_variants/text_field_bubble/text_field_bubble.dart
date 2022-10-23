@@ -26,7 +26,7 @@ class TextFieldBubble extends StatelessWidget {
     // this.actionBtIcon,
     // this.onHeaderLeadinIconTap,
 
-    this.globalKey,
+    this.formKey,
     this.bubbleWidth,
     this.hintVerse,
     this.counterIsOn = false,
@@ -102,7 +102,7 @@ class TextFieldBubble extends StatelessWidget {
   final FocusNode focusNode;
   final bool isFloatingField;
   final Function onFieldTap;
-  final GlobalKey globalKey;
+  final GlobalKey formKey;
   final AppBarType appBarType;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
@@ -231,7 +231,7 @@ class TextFieldBubble extends StatelessWidget {
                   /// TEXT FIELD
                   SuperTextField(
                     appBarType: appBarType,
-                    globalKey: globalKey,
+                    globalKey: formKey,
                     titleVerse: headerViewModel.headlineVerse,
                     width: fieldWidth,
                     isFormField: isFormField,

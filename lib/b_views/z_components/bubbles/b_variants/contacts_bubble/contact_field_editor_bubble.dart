@@ -18,7 +18,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
   const ContactFieldEditorBubble({
     @required this.appBarType,
     @required this.headerViewModel,
-    @required this.globalKey,
+    @required this.formKey,
     this.hintVerse,
     // this.textController,
     this.textOnChanged,
@@ -60,7 +60,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
   final bool canPaste;
   final AppBarType appBarType;
   final BubbleHeaderVM headerViewModel;
-  final GlobalKey globalKey;
+  final GlobalKey formKey;
   final FocusNode focusNode;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
@@ -203,7 +203,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
 
                 focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
-                globalKey: widget.globalKey,
+                globalKey: widget.formKey,
                 titleVerse: widget.headerViewModel?.headlineVerse,
                 width: fieldWidth,
                 isFormField: widget.isFormField,

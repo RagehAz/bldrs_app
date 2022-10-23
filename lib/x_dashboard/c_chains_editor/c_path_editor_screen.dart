@@ -383,7 +383,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                 headerViewModel: BubbleHeaderVM(
                   headlineVerse: _keyboardModel.titleVerse
                 ),
-                globalKey: _keyboardModel.globalKey,
+                formKey: _keyboardModel.globalKey,
                 appBarType: AppBarType.basic,
                 isFloatingField: _keyboardModel.isFloatingField,
                 textController: _controller,

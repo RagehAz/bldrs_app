@@ -190,7 +190,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
               /// TEXT FIELD
               TextFieldBubble(
-                globalKey: _globalKey,
+                formKey: _globalKey,
                 headerViewModel: BubbleHeaderVM(
                   headlineVerse: _keyboardModel.titleVerse,
                 ),

@@ -1,6 +1,20 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:flutter/foundation.dart';
 
+//
+/// Bz account has limited amount of available slides, with each published slide,
+/// credit decreases,
+/// slides can be purchased or rewarded
+/// int credit; <------
+/// List<Map<String,Object>> bzProgressMaps = [
+///   {'challenge' : 'completeAccount',     'progress' : 100 , 'claimed' : true},
+///   {'challenge' : 'verifyAccount',       'progress' : 0   , 'claimed' : false},
+///   {'challenge' : 'publish 10 flyers',   'progress' : 90  , 'claimed' : false},
+///   {'challenge' : 'publish 100 flyers',  'progress' : 9   , 'claimed' : false},
+/// ];
+/// List<Map<String,Object>> progress; <------
+//
+
 @immutable
 class Progress{
   /// --------------------------------------------------------------------------

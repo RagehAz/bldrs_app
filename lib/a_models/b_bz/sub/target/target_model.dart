@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
-import 'package:bldrs/a_models/b_bz/target/target_reward.dart';
+import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
+import 'package:bldrs/a_models/b_bz/sub/target/target_reward.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
