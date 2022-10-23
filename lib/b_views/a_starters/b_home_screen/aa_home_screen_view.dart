@@ -89,6 +89,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     else {
       return PullToRefresh(
         onRefresh: () => onRefreshHomeWall(context),
+        fadeOnBuild: true,
         child: FlyersGrid(
           gridWidth: Scale.superScreenWidth(context),
           gridHeight: Scale.superScreenHeight(context),

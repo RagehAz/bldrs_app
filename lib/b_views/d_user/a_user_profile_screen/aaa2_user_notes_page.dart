@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
@@ -191,45 +190,42 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     return PullToRefresh(
       onRefresh: _onRefresh,
-      child:
-      showNotes == false ? const SizedBox() :
+      fadeOnBuild: true,
+      child: showNotes == false ? const SizedBox() :
 
-      WidgetFader(
-        fadeType: FadeType.fadeIn,
-        duration: const Duration(milliseconds: 500),
-        child: FireCollPaginator(
-            queryModel: userNotesPaginationQueryModel(
-              onDataChanged: _collectUnseenNotesToMarkAtDispose,
-            ),
-            scrollController: _scrollController,
-            paginationController: _paginationController,
+      FireCollPaginator(
+          queryModel: userNotesPaginationQueryModel(
+            onDataChanged: _collectUnseenNotesToMarkAtDispose,
+          ),
+          scrollController: _scrollController,
+          paginationController: _paginationController,
 
-            builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
-              return ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                controller: _scrollController,
-                itemCount: maps?.length,
-                padding: Stratosphere.stratosphereSandwich,
-                itemBuilder: (BuildContext ctx, int index) {
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              controller: _scrollController,
+              itemCount: maps?.length,
+              padding: Stratosphere.stratosphereSandwich,
+              itemBuilder: (BuildContext ctx, int index) {
 
-                  final NoteModel _note = NoteModel.decipherNote(
-                    map: maps[index],
-                    fromJSON: false,
-                  );
+                final NoteModel _note = NoteModel.decipherNote(
+                  map: maps[index],
+                  fromJSON: false,
+                );
 
-                  return NoteCard(
-                    key: PageStorageKey<String>('user_note_card_${_note.id}'),
-                    noteModel: _note,
-                    isDraftNote: false,
-                  );
+                return NoteCard(
+                  key: PageStorageKey<String>('user_note_card_${_note.id}'),
+                  noteModel: _note,
+                  isDraftNote: false,
+                );
 
-                },
-              );
+              },
+            );
 
-            }
-        ),
+          }
       ),
+
     );
 
   }
