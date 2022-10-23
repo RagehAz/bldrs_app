@@ -19,7 +19,7 @@ class AuthorshipSendingProtocols {
     /// SEND REQUEST
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendRequest({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -66,14 +66,14 @@ class AuthorshipSendingProtocols {
     await Future.wait(<Future>[
 
       /// REMOVE PENDING AUTHOR & RENOVATE BZ
-      _removePendingAuthorAndRenovateBz(
+      BzProtocols.wipePendingAuthor(
         context: context,
-        bzModel: bzModel,
+        bzID: bzModel.id,
         pendingUserID: pendingUserID,
       ),
 
       /// RENOVATE REPLY OF SENT REQUEST
-      _renovateReplyOfSentRequest(
+      _renovateReplyOfSentRequestToCancel(
         context: context,
         bzModel: bzModel,
         pendingUserID: pendingUserID,
@@ -90,38 +90,8 @@ class AuthorshipSendingProtocols {
 
   }
   // --------------------
-  ///
-  static Future<void> _removePendingAuthorAndRenovateBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String pendingUserID
-  }) async {
-
-    /// remove this user from the pending authors list to update bz
-    final List<PendingAuthor> _updatedPendingUsers = PendingAuthor.removePendingAuthor(
-      pendingAuthors: bzModel.pendingAuthors,
-      userID: pendingUserID,
-    );
-
-    /// update bz model to renovate
-    final BzModel _updatedBzModel = bzModel.copyWith(
-      pendingAuthors: _updatedPendingUsers,
-    );
-
-    /// RENOVATE BZ
-    await BzProtocols.renovateBz(
-      context: context,
-      newBzModel: _updatedBzModel,
-      oldBzModel: bzModel,
-      showWaitDialog: false,
-      navigateToBzInfoPageOnEnd: false,
-    );
-
-
-  }
-  // --------------------
-  ///
-  static Future<void> _renovateReplyOfSentRequest({
+  /// TESTED : WORKS PERFECT
+  static Future<void> _renovateReplyOfSentRequestToCancel({
     @required BuildContext context,
     @required BzModel bzModel,
     @required String pendingUserID,
@@ -151,7 +121,7 @@ class AuthorshipSendingProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _sendAuthorshipCancellationNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -171,7 +141,5 @@ class AuthorshipSendingProtocols {
     );
 
   }
-  // --------------------
-  ///
   // -----------------------------------------------------------------------------
 }

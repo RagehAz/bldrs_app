@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/b_bz/author/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -49,9 +50,10 @@ class NoteEventsOfBzTeamManagement {
       title: '##Team member Role changed',
       body: '##The team role of "${author.name}" has been set to "$_authorRoleString"',
       sentTime: DateTime.now(),
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.authorRoleChanged,
-        id: bzID,
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.aTeamMemberRoleChanged,
+        bzID: bzID,
+        partyType: PartyType.bz,
       ),
     );
 
@@ -86,9 +88,10 @@ class NoteEventsOfBzTeamManagement {
       title: '##${deletedAuthor.name} has left the team',
       body: '##${deletedAuthor.name} is no longer part of ${bzModel.name} team',
       sentTime: DateTime.now(),
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.authorDeletion,
-        id: bzModel.id,
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.aTeamMemberExited,
+        bzID: bzModel.id,
+        partyType: PartyType.bz,
       ),
     );
 
@@ -223,9 +226,10 @@ class NoteEventsOfBzTeamManagement {
       title: '##${userModel.name} has tried to contact you',
       body: '##Please update your Business contacts info to allow customers to reach you',
       sentTime: DateTime.now(),
-      topic: NoteModel.generateTopic(
-        topicType: TopicType.generalBzNotes,
-        id: bzModel.id,
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.generalBzNotes,
+        bzID: bzModel.id,
+        partyType: PartyType.bz,
       ),
     );
 

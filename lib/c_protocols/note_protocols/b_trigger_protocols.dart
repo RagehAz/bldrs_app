@@ -5,6 +5,7 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,9 @@ class TriggerProtocols {
   // --------------------
   /// -> fires AuthorshipProtocols.removeMeAsAuthorAfterBzDeletion
   static const String tridRemoveBzTracesAfterDeletion = 'tridRemoveBzTracesAfterDeletion';
+  // --------------------
+  /// -> fires BzProtocols.tridWipePendingAuthor
+  static const String tridWipePendingAuthor = 'tridWipePendingAuthor';
   // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -72,6 +76,18 @@ class TriggerProtocols {
     return TriggerModel(
       name: tridRefetchBz,
       argument: bzID,
+      done: false,
+    );
+  }
+  // --------------------
+  ///
+  static TriggerModel createDeletePendingAuthorTrigger({
+    @required String userID,
+    @required String bzID,
+  }){
+    return TriggerModel(
+      name: tridWipePendingAuthor,
+      argument: '${userID}_$bzID',
       done: false,
     );
   }
@@ -195,6 +211,18 @@ class TriggerProtocols {
           await BzProtocols.refetch(
             context: context,
             bzID: trigger.argument,
+          );
+          blog('3--> Switcher : FIRING : END');
+          break;
+      // ----------
+      /// REFETCH BZ
+        case tridWipePendingAuthor:
+          blog('2--> Switcher : FIRING : WIPE PENDING AUTHOR (${trigger.argument}) : START');
+          // argument: '${userID}_$bzID',
+          await BzProtocols.wipePendingAuthor(
+            context: context,
+            pendingUserID: TextMod.removeTextAfterFirstSpecialCharacter(trigger.argument, '_'),
+            bzID: TextMod.removeTextBeforeFirstSpecialCharacter(trigger.argument, '_'),
           );
           blog('3--> Switcher : FIRING : END');
           break;

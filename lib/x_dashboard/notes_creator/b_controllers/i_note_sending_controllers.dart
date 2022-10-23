@@ -183,7 +183,7 @@ Future<void> _sendNoteToOneBz({
   );
 
   /// ADJUST TOPIC
-  final String _topic = TopicModel.concludeTopicID(
+  final String _topic = TopicModel.bakeTopicID(
       topicID: _note.topic,
       bzID: _note.parties.receiverID,
       partyType: _note.parties.receiverType,

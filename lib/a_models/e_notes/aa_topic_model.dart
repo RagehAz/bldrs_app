@@ -281,7 +281,7 @@ class TopicModel {
 
       for (final BzModel bz in bzzModels){
 
-        final String _topicID = concludeTopicID(
+        final String _topicID = bakeTopicID(
             topicID: topicID,
             bzID: bz.id,
             partyType: PartyType.bz,
@@ -369,7 +369,7 @@ class TopicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String generateBzTopicID({
+  static String _generateBzTopicID({
     @required String topicID,
     @required String bzID,
   }){
@@ -377,7 +377,7 @@ class TopicModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String concludeTopicID({
+  static String bakeTopicID({
     @required String topicID,
     @required String bzID,
     @required PartyType partyType,
@@ -385,7 +385,7 @@ class TopicModel {
     String _topicID = topicID;
 
     if (partyType == PartyType.bz){
-      _topicID = generateBzTopicID(
+      _topicID = _generateBzTopicID(
         topicID: topicID,
         bzID: bzID,
       );
@@ -416,9 +416,10 @@ class TopicModel {
 
         if (bzID != null){
 
-          final String _customTopicID = generateBzTopicID(
+          final String _customTopicID = bakeTopicID(
             bzID: bzID,
             topicID: topicID,
+            partyType: PartyType.bz,
           );
 
           _isSelected = Stringer.checkStringsContainString(
@@ -445,3 +446,30 @@ class TopicModel {
   }
   // -----------------------------------------------------------------------------
 }
+
+/*
+  // -----------------------------------------------------------------------------
+
+  /// TOPICS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String generateTopic({
+    @required TopicType topicType,
+    @required String id,
+  }){
+    return '${topicType}_$id';
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<TopicType> getAllBzzTopics(){
+    return <TopicType>[
+      TopicType.flyerVerification, // 'flyerVerification/bzID/'
+      TopicType.flyerUpdate, // 'flyerUpdate/bzID/'
+      TopicType.authorshipReply, // 'authorshipAcceptance/bzID/'
+      TopicType.authorRoleChanged, // 'authorRoleChanged/bzID/'
+      TopicType.authorDeletion, // 'authorDeletion/bzID/'
+      TopicType.generalBzNotes, // 'generalBzNotes/bzID/'
+    ];
+  }
+ */
