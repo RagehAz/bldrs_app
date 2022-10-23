@@ -51,6 +51,15 @@ class NoteEvent {
     context: context,
     bzID: bzID,
   );
+  // --------------------
+  ///
+  static Future<void> sendAuthorshipDeclinationsNote({
+    @required BuildContext context,
+    @required String bzID,
+  }) => NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote(
+    context: context,
+    bzID: bzID,
+  );
   // -----------------------------------------------------------------------------
 
   /// Bz Team Management
