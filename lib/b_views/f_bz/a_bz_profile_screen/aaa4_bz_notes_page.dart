@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
@@ -193,43 +192,41 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
     return PullToRefresh(
       onRefresh: _onRefresh,
-      child: WidgetFader(
-        fadeType: FadeType.fadeIn,
-        duration: const Duration(milliseconds: 500),
-        child:
-        showNotes == false ? const SizedBox() :
-        FireCollPaginator(
-            queryModel: bzNotesPaginationQueryModel(
-              bzID: _bzModel.id,
-              onDataChanged: _collectUnseenNotesToMarkAtDispose,
-            ),
-            scrollController: _scrollController,
-            builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+      fadeOnBuild: true,
+      child: showNotes == false ? const SizedBox() :
 
-              return ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                controller: _scrollController,
-                itemCount: maps?.length,
-                padding: Stratosphere.stratosphereSandwich,
-                itemBuilder: (BuildContext ctx, int index) {
+      FireCollPaginator(
+          queryModel: bzNotesPaginationQueryModel(
+            bzID: _bzModel.id,
+            onDataChanged: _collectUnseenNotesToMarkAtDispose,
+          ),
+          scrollController: _scrollController,
+          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
-                  final NoteModel _note = NoteModel.decipherNote(
-                    map: maps[index],
-                    fromJSON: false,
-                  );
+            return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              controller: _scrollController,
+              itemCount: maps?.length,
+              padding: Stratosphere.stratosphereSandwich,
+              itemBuilder: (BuildContext ctx, int index) {
 
-                  return NoteCard(
-                    key: PageStorageKey<String>('bz_note_card_${_note.id}'),
-                    noteModel: _note,
-                    isDraftNote: false,
-                  );
+                final NoteModel _note = NoteModel.decipherNote(
+                  map: maps[index],
+                  fromJSON: false,
+                );
 
-                },
-              );
+                return NoteCard(
+                  key: PageStorageKey<String>('bz_note_card_${_note.id}'),
+                  noteModel: _note,
+                  isDraftNote: false,
+                );
 
-            }
-        ),
+              },
+            );
+
+          }
       ),
+
     );
 
   }
