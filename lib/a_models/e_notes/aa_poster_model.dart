@@ -39,7 +39,7 @@ class PosterModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   PosterModel copyWith({
     String modelID,
     PosterType type,
@@ -80,7 +80,7 @@ class PosterModel {
     return _model;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String cipherPosterType(PosterType type){
     switch(type){
       case PosterType.bz:             return 'bz';    break;
@@ -92,7 +92,7 @@ class PosterModel {
     }
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PosterType decipherPosterType(String type){
     switch(type){
       case 'bz':            return PosterType.bz;           break;

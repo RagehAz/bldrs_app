@@ -191,7 +191,10 @@ class WipeBzProtocols {
     @required String pendingUserID,
   }) async {
 
-    final BzModel bzModel = await BzProtocols.fetch(context: context, bzID: bzID);
+    final BzModel bzModel = await BzProtocols.fetch(
+        context: context,
+        bzID: bzID,
+    );
 
     if (bzModel != null){
 

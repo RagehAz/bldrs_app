@@ -38,6 +38,7 @@ Future<void> onEditBzButtonTap({
 /// GO TO BZ NOTIFICATIONS SETTINGS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onGoToBzFCMSettings({
   @required BuildContext context,
 }) async {
