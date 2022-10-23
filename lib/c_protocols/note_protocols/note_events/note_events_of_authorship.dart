@@ -21,58 +21,6 @@ class NoteEventsOfAuthorship {
 
   // -----------------------------------------------------------------------------
 
-  /// LISTENERS
-
-  // --------------------
-  /// DEPRECATED
-  /*
-  static Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
-    @required BuildContext context,
-    @required String receiverID,
-    @required int limit,
-    @required QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-
-    List<NoteModel> _notes = <NoteModel>[];
-
-    if (receiverID != null){
-
-      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-        collName: FireColl.notes,
-        startAfter: startAfter,
-        limit: limit,
-        addDocSnapshotToEachMap: true,
-        addDocsIDs: true,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-        finders: <FireFinder>[
-          FireFinder(
-            field: 'receiverID',
-            comparison: FireComparison.equalTo,
-            value: receiverID,
-          ),
-          // FireFinder(
-          //   field: 'type',
-          //   comparison: FireComparison.equalTo,
-          //   value: NoteModel.cipherNoteType(NoteType.authorship),
-          // ),
-        ],
-      );
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-
-        _notes = NoteModel.decipherNotes(
-          maps: _maps,
-          fromJSON: false,
-        );
-
-      }
-    }
-
-    return _notes;
-  }
-   */
-  // -----------------------------------------------------------------------------
-
   /// REQUESTS
 
   // --------------------
@@ -109,7 +57,7 @@ class NoteEventsOfAuthorship {
       sentTime: DateTime.now(),
       poll: const PollModel(
         buttons: PollModel.acceptDeclineButtons,
-        reply: null,
+        reply: PollModel.pending,
         replyTime: null,
       ),
       token: userModelToSendTo?.device?.token,
@@ -245,7 +193,7 @@ class NoteEventsOfAuthorship {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipDeclinationsNote({
     @required BuildContext context,
     @required String bzID,

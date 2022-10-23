@@ -46,12 +46,12 @@ class BzFCMTopicsScreenView extends StatelessWidget {
 
       if (value == true)
         FCM.subscribeToTopic(
-          topicName: _customTopicID,
+          topicID: _customTopicID,
         ),
 
       if (value == false)
         FCM.unsubscribeFromTopic(
-          topicName: _customTopicID,
+          topicID: _customTopicID,
         ),
 
     ]);

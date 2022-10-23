@@ -131,12 +131,13 @@ class NoteFireOps {
   /// UPDATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateNote({
     @required NoteModel note,
   }) async {
 
     if (note != null){
+
       await Fire.updateSubDoc(
         collName: FireColl.getPartyCollName(note.parties.receiverType),
         docName: note.parties.receiverID,
@@ -148,7 +149,7 @@ class NoteFireOps {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> markNoteAsSeen({
     @required NoteModel noteModel,
   }) async {

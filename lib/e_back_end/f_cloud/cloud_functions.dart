@@ -12,13 +12,28 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+/// http trigger -> ( callable function - end point request )
 class CloudFunction {
+  // --------------------
+  /// private constructor to create instances of this class only in itself
+  CloudFunction.singleton();
+  // --------------------
+  /// Singleton instance
+  static final CloudFunction _singleton = CloudFunction.singleton();
+  // --------------------
+  /// Singleton accessor
+  static CloudFunction get instance => _singleton;
   // -----------------------------------------------------------------------------
 
-  const CloudFunction();
-  // -----------------------------------------------------------------------------
-  /// NOTES :
-  /// http trigger -> ( callable function - end point request )
+  /// FirebaseFunctions SINGLETON
+
+  // --------------------
+  /// FirebaseFunctions SINGLETON
+  FirebaseFunctions _fireFunctions;
+  FirebaseFunctions get fireFunctions => _fireFunctions ??= FirebaseFunctions.instanceFor(
+      region: bldrsCloudFunctionsRegion,
+  );
+  static FirebaseFunctions getFireFunctionsInstance() => CloudFunction.instance.fireFunctions;
   // -----------------------------------------------------------------------------
 
   /// CLOUD FUNCTIONS REGION
@@ -41,12 +56,11 @@ class CloudFunction {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static HttpsCallable _getCallableFunctionInstance({
+  static HttpsCallable _createHttpsCallableFunction({
     @required String funcName,
-    String region = bldrsCloudFunctionsRegion,
     Duration timeout = const Duration(seconds: 60),
   }) {
-    return FirebaseFunctions.instanceFor(region: region).httpsCallable(
+    return getFireFunctionsInstance().httpsCallable(
       funcName,
       options: HttpsCallableOptions(
         timeout: timeout,
@@ -69,7 +83,7 @@ class CloudFunction {
     dynamic _output;
 
     try {
-      final HttpsCallable _function = _getCallableFunctionInstance(
+      final HttpsCallable _function = _createHttpsCallableFunction(
         funcName: functionName,
       );
 

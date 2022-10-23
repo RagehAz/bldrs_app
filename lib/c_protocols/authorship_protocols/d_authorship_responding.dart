@@ -204,7 +204,7 @@ class AuthorshipRespondingProtocols{
   /// DECLINE
 
   // -------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<void> _onDeclineInvitation({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -241,7 +241,7 @@ class AuthorshipRespondingProtocols{
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _declineRequest({
     @required BuildContext context,
     @required NoteModel noteModel,

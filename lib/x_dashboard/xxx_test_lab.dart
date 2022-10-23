@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
@@ -17,9 +18,11 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -87,8 +90,33 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
 
+    final List<String> _topics = _myUserModel.fcmTopics;
 
+    final List<String> _topicsWithSeparators = <String>[];
+    for (final String topicID in _topics){
+
+      final bool _containUnderscore = TextCheck.stringContainsSubString(
+        string: topicID,
+        subString: '_',
+      );
+
+      if (_containUnderscore == true){
+        _topicsWithSeparators.add(topicID);
+      }
+
+    }
+    blog('fuuuuuuuuuuuuuuuuuuuuuckkkkkk ------------------------------<<<<<<<<<<<<<<<<<<');
+    Stringer.blogStrings(strings: _topics, invoker: 'all');
+
+    blog('fuuuuuuuuuuuuuuuuuuuuuckkkkkk ------------------------------<<<<<<<<<<<<<<<<<<');
+
+    Stringer.blogStrings(strings: _topicsWithSeparators, invoker: 'with');
+    blog('fuuuuuuuuuuuuuuuuuuuuuckkkkkk ------------------------------<<<<<<<<<<<<<<<<<<');
 
   }
   // -------------------------------------------------
