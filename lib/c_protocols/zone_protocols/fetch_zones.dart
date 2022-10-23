@@ -261,7 +261,7 @@ class FetchZoneProtocols {
     List<Continent> _continents = await ZoneLDBOps.readContinents();
 
     if (Mapper.checkCanLoopList(_continents) == true){
-      blog('fetchContinents : All Continents FOUND in LDB');
+      // blog('fetchContinents : All Continents FOUND in LDB');
     }
 
     else {
@@ -269,7 +269,7 @@ class FetchZoneProtocols {
       _continents = await ZoneFireOps.readContinentsOps();
 
       if (_continents != null){
-        blog('fetchContinents : All Continents FOUND in FIREBASE and inserted in LDB');
+        // blog('fetchContinents : All Continents FOUND in FIREBASE and inserted in LDB');
 
         await ZoneLDBOps.insertContinents(_continents);
 
@@ -278,7 +278,7 @@ class FetchZoneProtocols {
     }
 
     if (_continents == null){
-      blog('fetchContinents : All Continents NOT FOUND');
+      // blog('fetchContinents : All Continents NOT FOUND');
     }
 
     return _continents;

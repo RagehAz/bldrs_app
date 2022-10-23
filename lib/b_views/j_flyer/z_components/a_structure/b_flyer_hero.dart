@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_small_flyer.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 enum FlightDirection{
@@ -61,7 +60,7 @@ class FlyerHero extends StatelessWidget {
     // final double _factor = isFullScreen ?  1 : minWidthFactor;
     // final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(context, _factor);
 
-    blog('FlyerHero : heroTag : $heroTag');
+    // blog('FlyerHero : heroTag : $heroTag');
 
     return Hero(
       key: const ValueKey<String>('FlyerHero'),

@@ -11,7 +11,6 @@ import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -36,7 +35,10 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
 
   StreamSubscription _sub;
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+  );
 
   if (_userModel != null){
 
@@ -54,7 +56,7 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
       invoker: 'listenToUserUnseenNotes',
       onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
 
-        blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
+        // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
         // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
 
         final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(

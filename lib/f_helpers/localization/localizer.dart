@@ -41,7 +41,8 @@ class Localizer {
   Map<String, String> _localizedValues;
   // --------------------
   static Localizer of(BuildContext context) {
-    return Localizations.of<Localizer>(context, Localizer);
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    return Localizations.of<Localizer>(_context, Localizer);
   }
   // -----------------------------------------------------------------------------
 

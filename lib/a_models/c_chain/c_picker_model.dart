@@ -154,7 +154,10 @@ class PickerModel {
 
       final List<String> _keys = bigMap.keys.toList();
 
-      Stringer.blogStrings(strings: _keys);
+      // Stringer.blogStrings(
+      //   strings: _keys,
+      //   invoker: decipherPickers,
+      // );
 
       if (Mapper.checkCanLoopList(_keys) == true){
 

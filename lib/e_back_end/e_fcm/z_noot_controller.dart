@@ -155,18 +155,19 @@ class NootListener {
   /// ACTION
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static StreamSubscription listenToNootActionStream(){
 
     final StreamSubscription _sub = FCM.getAwesomeNoots()
         .actionStream
         .listen((ReceivedNotification receivedNotification) async {
 
-      blog('listenToNootActionStream --- START');
+      // blog('listenToNootActionStream --- START');
 
-      NootController.blogReceivedNotification(
-        noot: receivedNotification,
-        invoker: 'listenToNootActionStream',
-      );
+      // NootController.blogReceivedNotification(
+      //   noot: receivedNotification,
+      //   invoker: 'listenToNootActionStream',
+      // );
 
       final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
 
@@ -184,7 +185,7 @@ class NootListener {
         confirmButtonVerse: Verse.plain('Tamam'),
       );
 
-      blog('listenToNootActionStream --- END');
+      // blog('listenToNootActionStream --- END');
 
     });
 
@@ -195,21 +196,21 @@ class NootListener {
   /// CREATED
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static StreamSubscription listenToNootCreatedStream(){
 
     final StreamSubscription _sub = FCM.getAwesomeNoots()
         .createdStream
         .listen((ReceivedNotification receivedNotification) {
 
-          blog('listenToNootCreatedStream --- START');
+          // blog('listenToNootCreatedStream --- START');
 
-          NootController.blogReceivedNotification(
-            noot: receivedNotification,
-            invoker: 'listenToNootCreatedStream',
-          );
+          // NootController.blogReceivedNotification(
+          //   noot: receivedNotification,
+          //   invoker: 'listenToNootCreatedStream',
+          // );
 
-          blog('listenToNootCreatedStream --- END');
+          // blog('listenToNootCreatedStream --- END');
 
         });
 
@@ -224,17 +225,17 @@ class NootListener {
   static StreamSubscription listenToNootDismissedStream(){
 
     final StreamSubscription _sub = FCM.getAwesomeNoots()
-        .dismissedStream
+        .dismissedStream // BUG : STREAM IS ALREADY ACTIVE AT THIS POINT I DUNNO HOW
         .listen((ReceivedNotification receivedNotification) {
 
-      blog('listenToNootDismissedStream --- START');
-
-      NootController.blogReceivedNotification(
-        noot: receivedNotification,
-        invoker: 'listenToNootDismissedStream',
-      );
-
-      blog('listenToNootDismissedStream --- END');
+      // blog('listenToNootDismissedStream --- START');
+      //
+      // NootController.blogReceivedNotification(
+      //   noot: receivedNotification,
+      //   invoker: 'listenToNootDismissedStream',
+      // );
+      //
+      // blog('listenToNootDismissedStream --- END');
 
     });
 
@@ -252,14 +253,14 @@ class NootListener {
         .dismissedStream
         .listen((ReceivedNotification receivedNotification) {
 
-      blog('listenToNootDismissedStream --- START');
-
-      NootController.blogReceivedNotification(
-        noot: receivedNotification,
-        invoker: 'listenToNootDismissedStream',
-      );
-
-      blog('listenToNootDismissedStream --- END');
+      // blog('listenToNootDismissedStream --- START');
+      //
+      // NootController.blogReceivedNotification(
+      //   noot: receivedNotification,
+      //   invoker: 'listenToNootDismissedStream',
+      // );
+      //
+      // blog('listenToNootDismissedStream --- END');
 
     });
 
