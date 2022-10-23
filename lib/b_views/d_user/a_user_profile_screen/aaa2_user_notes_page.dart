@@ -1,20 +1,20 @@
 // ignore_for_file: invariant_booleans
 import 'dart:async';
 
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserNotesPage extends StatefulWidget {
@@ -37,7 +37,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
    */
   // -----------------------------------------------------------------------------
   PaginationController _paginationController;
+  // --------------------
   final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
+  // --------------------
+  bool showNotes = true;
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
@@ -59,7 +62,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
     _paginationController = PaginationController.initialize(
         addExtraMapsAtEnd: false,
     );
-    _streamNewNotes();
   }
   // --------------------
   bool _isInit = true;
@@ -99,7 +101,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     _loading.dispose();
     _scrollController.dispose();
     _paginationController.dispose();
-    _sub.cancel();
+    // _sub.cancel();
     super.dispose();
     blog('UserNotesPage dispose END');
   }
@@ -107,114 +109,26 @@ class _UserNotesPageState extends State<UserNotesPage> {
   /// TESTED : WORKS PERFECT
   void _markAllUserUnseenNotesAsSeen(){
 
-    // blog('_markAllUserUnseenNotesAsSeen : START');
-
     /// COLLECT NOTES TO MARK FIRST
     final List<NoteModel> _notesToMark = NoteModel.getOnlyUnseenNotes(
       notes: _localNotesToMarkUnseen,
     );
-
-    // blog('_markAllUserUnseenNotesAsSeen : ${_notesToMark.length} notes should be marked');
 
     /// MARK ON FIREBASE
     unawaited(NoteFireOps.markNotesAsSeen(
         notes: _notesToMark
     ));
 
-    // blog('_markAllUserUnseenNotesAsSeen : END');
-
-  }
-  // -----------------------------------------------------------------------------
-  StreamSubscription _sub;
-  Stream<QuerySnapshot<Object>> _unseenNotesStream;
-  void _streamNewNotes(){
-
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
-    );
-
-    if (_userModel != null){
-
-      _unseenNotesStream = userUnseenNotesStream(
-          context: context
-      );
-
-      _sub = FireCollStreamer.onStreamDataChanged(
-        stream: _unseenNotesStream,
-        // oldMaps: _oldMaps,
-        invoker: 'streamNewNotes',
-        onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
-
-          // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
-          // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
-
-          injectPaginatorWithNewNotes(
-            unseenNotesMaps: unseenNotesMaps,
-          );
-
-          _collectUnseenNotesToMarkAtDispose(
-            unseenNotesMaps: unseenNotesMaps,
-          );
-
-          setState(() {});
-
-        },
-      );
-
-    }
-
-
-  }
-  // -----------------------------------------------------------------------------
-  ///
-  void injectPaginatorWithNewNotes({
-    @required List<Map<String, dynamic>> unseenNotesMaps,
-  }){
-
-    if (Mapper.checkCanLoopList(unseenNotesMaps) == true){
-
-      final bool _noteExists = Mapper.checkMapsContainValue(
-        listOfMaps: _paginationController.paginatorMaps.value,
-        field: 'id',
-        value: unseenNotesMaps?.first['id'],
-      );
-
-      /// NOTE IS NOT IN LIST : ADD IT
-      if (_noteExists == false){
-        _paginationController.addMap.value = unseenNotesMaps.first;
-      }
-
-      /// NOTE EXISTS : UPDATE IT
-      else {
-
-        final List<NoteModel> _paginatorNotes = NoteModel.insertNotesInNotes(
-          notesToGet: NoteModel.decipherNotes(maps: _paginationController.paginatorMaps.value, fromJSON: false),
-          notesToInsert: NoteModel.decipherNotes(maps: unseenNotesMaps, fromJSON: false),
-          duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-        );
-
-        _paginationController.paginatorMaps.value = NoteModel.cipherNotesModels(
-          notes: _paginatorNotes,
-          toJSON: false,
-        );
-
-      }
-
-    }
-
   }
   // --------------------
-  ///
-  void _collectUnseenNotesToMarkAtDispose({
-    @required List<Map<String, dynamic>> unseenNotesMaps,
-  }){
+  /// TESTED : WORKS PERFECT
+  void _collectUnseenNotesToMarkAtDispose(List<Map<String, dynamic>> paginatorMaps){
 
-    if (Mapper.checkCanLoopList(unseenNotesMaps) == true){
+    if (Mapper.checkCanLoopList(paginatorMaps) == true){
 
       /// DECIPHER NEW MAPS TO NOTES
       final List<NoteModel> _newNotes = NoteModel.decipherNotes(
-        maps: unseenNotesMaps,
+        maps: paginatorMaps,
         fromJSON: false,
       );
 
@@ -232,40 +146,90 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     }
 
-    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onRefresh() async {
+
+    _markAllUserUnseenNotesAsSeen();
+
+    NotesProvider.proSetIsFlashing(
+        context: context,
+        setTo: false,
+        notify: true
+    );
+
+    showWaitDialog(context,
+      verse: const Verse(
+        text: 'phid_reloading',
+        translate: true,
+      ),
+    );
+
+    setState(() {
+      showNotes = false;
+    });
+
+    await Future.delayed(const Duration(milliseconds: 200), (){
+
+      _paginationController.paginatorMaps.value = [];
+      _paginationController.startAfter.value = null;
+
+      setState(() {
+        showNotes = true;
+      });
+
+    });
+
+    closeWaitDialog(context);
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // super.build(context);
 
-    return FireCollPaginator(
-        queryModel: userNotesPaginationQueryModel(),
-        scrollController: _scrollController,
-        paginationController: _paginationController,
-        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+    return PullToRefresh(
+      onRefresh: _onRefresh,
+      child:
+      showNotes == false ? const SizedBox() :
 
-          return ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            controller: _scrollController,
-            itemCount: maps?.length,
-            padding: Stratosphere.stratosphereSandwich,
-            itemBuilder: (BuildContext ctx, int index) {
+      WidgetFader(
+        fadeType: FadeType.fadeIn,
+        duration: const Duration(milliseconds: 500),
+        child: FireCollPaginator(
+            queryModel: userNotesPaginationQueryModel(
+              onDataChanged: _collectUnseenNotesToMarkAtDispose,
+            ),
+            scrollController: _scrollController,
+            paginationController: _paginationController,
 
-              final NoteModel _note = NoteModel.decipherNote(
-                  map: maps[index],
-                  fromJSON: false,
+            builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                controller: _scrollController,
+                itemCount: maps?.length,
+                padding: Stratosphere.stratosphereSandwich,
+                itemBuilder: (BuildContext ctx, int index) {
+
+                  final NoteModel _note = NoteModel.decipherNote(
+                    map: maps[index],
+                    fromJSON: false,
+                  );
+
+                  return NoteCard(
+                    key: PageStorageKey<String>('user_note_card_${_note.id}'),
+                    noteModel: _note,
+                    isDraftNote: false,
+                  );
+
+                },
               );
 
-              return NoteCard(
-                key: PageStorageKey<String>('user_note_card_${_note.id}'),
-                noteModel: _note,
-                isDraftNote: false,
-              );
-
-            },
-          );
-
-        }
+            }
+        ),
+      ),
     );
 
   }

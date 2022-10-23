@@ -69,7 +69,9 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-FireQueryModel userNotesPaginationQueryModel(){
+FireQueryModel userNotesPaginationQueryModel({
+  @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
+}){
 
   return FireQueryModel(
     collRef: Fire.getSuperCollRef(
@@ -79,7 +81,7 @@ FireQueryModel userNotesPaginationQueryModel(){
     ),
     limit: 7,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-    // onDataChanged:
+    onDataChanged: onDataChanged,
   );
 
 }

@@ -49,7 +49,7 @@ Future<void> initializeLogoScreen({
       ]
   );
 
-  /// USER APP - FCM - TOKEN
+  /// DEVICE ID - TOKEN
   await _refreshUserDeviceModel(context);
 
   /// CHECK DEVICE CLOCK

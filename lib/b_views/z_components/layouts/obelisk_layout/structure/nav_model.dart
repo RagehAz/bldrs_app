@@ -43,6 +43,7 @@ class NavModel {
   /// GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Widget> getScreens(List<NavModel> navModels){
 
     final List<Widget> _output = <Widget>[];
@@ -54,6 +55,7 @@ class NavModel {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Verse getTitleVerseFromNavModels({
     @required List<NavModel> navModels,
     @required int index,
@@ -63,6 +65,7 @@ class NavModel {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static int getNumberOfButtons(List<NavModel> navModels){
 
     int _count = 0;
@@ -78,6 +81,7 @@ class NavModel {
     return _count;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getMainNavIDString({
     @required MainNavModel navID,
     String bzID,
@@ -94,11 +98,13 @@ class NavModel {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getUserTabNavID(UserTab userTab){
     final String _tabID = UserModel.getUserTabID(userTab);
     return 'user_$_tabID';
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzTabNavID({
     @required BzTab bzTab,
     @required String bzID,
@@ -111,6 +117,7 @@ class NavModel {
   /// GENERATOR
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> generateSuperBzNavIDs({
     @required String bzID,
   }){
@@ -136,6 +143,7 @@ class NavModel {
     return <String>[_mainNavModel, ..._bzTabsNavModelsIDs];
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> generateMainNavModelsIDs({
     @required List<String> myBzzIDs,
   }){
@@ -166,6 +174,7 @@ class NavModel {
     return _mainNavModelsIDs;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> generateUserTabsNavModelsIDs(){
 
     final List<String> _userTabsNavModelsIDs = <String>[];
@@ -178,6 +187,7 @@ class NavModel {
     return _userTabsNavModelsIDs;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> generateBzTabsNavModelsIDs({
     @required String bzID,
   }){
@@ -199,6 +209,7 @@ class NavModel {
     return _bzTabsNavModelsIDs;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> generateAllBzzTabsNavModelsIDs({
     @required List<String> myBzzIDs,
   }){
@@ -260,6 +271,7 @@ class NavModel {
   /// OBELISK NUMBERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static int updateObeliskNumber({
     @required int oldNumber,
     @required int change,
