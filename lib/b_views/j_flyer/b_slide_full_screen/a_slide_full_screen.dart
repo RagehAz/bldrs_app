@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
@@ -17,7 +17,7 @@ class SlideFullScreen extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final dynamic image;
-  final ImageSize imageSize;
+  final Dimensions imageSize;
   final Verse title;
   /// --------------------------------------------------------------------------
   @override
@@ -45,7 +45,7 @@ class SlideFullScreen extends StatelessWidget {
           autoShrink: false,
           child: SuperImage(
             pic: image,
-            boxFit: ImageSize.concludeBoxFit(
+            boxFit: Dimensions.concludeBoxFit(
               viewWidth: _screenWidth,
               viewHeight: _screenHeight,
               picWidth: imageSize.width,

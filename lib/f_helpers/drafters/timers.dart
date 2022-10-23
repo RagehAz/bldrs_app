@@ -306,7 +306,7 @@ class Timers {
     @required DateTime time,
   }){
     final String _hh = DateFormat('h').format(time);
-    final String _mm = '${time.minute}';
+    final String _mm = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
     final String _ampm = DateFormat('a').format(time);
     return '$_hh:$_mm $_ampm';
   }
@@ -364,7 +364,12 @@ class Timers {
         &&
         time.second != null
     ){
-      _output = '${time.hour}:${time.minute}:${time.second}';
+
+      final String _hours = Numeric.formatNumberWithinDigits(num: time.hour, digits: 2);
+      final String _minutes = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
+      final String _seconds = Numeric.formatNumberWithinDigits(num: time.second, digits: 2);
+
+      _output = '$_hours:$_minutes:$_seconds';
     }
 
     return _output;
@@ -385,7 +390,7 @@ class Timers {
 
     if (_timeIsEmpty == false){
       final String _hh = DateFormat('h').format(time);
-      final String _mm = '${time.minute}';
+      final String _mm = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
       final String _ampm = DateFormat('a').format(time);
       final String _day = generateDayName(context, time);
       final String _dd = '${time.day}';

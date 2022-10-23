@@ -1,86 +1,22 @@
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
-import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/x_utilities/alert_model.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
+import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/a_models/x_utilities/alert_model.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-
-//
-/// Bz account has limited amount of available slides, with each published slide,
-/// credit decreases,
-/// slides can be purchased or rewarded
-/// int credit; <------
-/// List<Map<String,Object>> bzProgressMaps = [
-///   {'challenge' : 'completeAccount',     'progress' : 100 , 'claimed' : true},
-///   {'challenge' : 'verifyAccount',       'progress' : 0   , 'claimed' : false},
-///   {'challenge' : 'publish 10 flyers',   'progress' : 90  , 'claimed' : false},
-///   {'challenge' : 'publish 100 flyers',  'progress' : 9   , 'claimed' : false},
-/// ];
-/// List<Map<String,Object>> progress; <------
-//
-
-enum BzSection {
-  realestate,
-  construction,
-  supplies,
-}
-
-enum BzType {
-  developer, // (property flyer - property source flyer)
-  broker, // (property flyer)
-
-  designer, // (design flyer)
-  contractor, // (project flyer)
-  artisan, // (trade flyer)
-
-  manufacturer, // (product flyer - product source flyer)
-  supplier, // (product flyer)
-}
-
-enum BzForm {
-  individual,
-  company,
-}
-
-enum BzAccountType {
-  normal,
-  premium,
-  sphinx,
-}
-
-enum BzState {
-  online,
-  offline,
-  deactivated,
-  deleted,
-  banned,
-}
-
-enum BzTab{
-  flyers,
-  about,
-  authors,
-  notes,
-  targets,
-  powers,
-  network,
-  settings,
-}
 
 @immutable
 class BzModel{
@@ -164,7 +100,7 @@ class BzModel{
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static BzModel backEditorVariablesToUpload({
     @required ValueNotifier<List<SpecModel>> selectedScopes,
     @required BzModel oldBz,
@@ -172,16 +108,16 @@ class BzModel{
   }){
 
     final BzModel _bzModel = BzModel(
-      id: oldBz.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
+      id: oldBz?.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
       bzTypes: tempBz.value.bzTypes,
       bzForm: tempBz.value.bzForm,
-      createdAt: oldBz.createdAt, /// WILL BE OVERRIDDEN
-      accountType: oldBz.accountType, /// NEVER CHANGED
+      createdAt: oldBz?.createdAt, /// WILL BE OVERRIDDEN
+      accountType: oldBz?.accountType, /// NEVER CHANGED
       name: tempBz.value.name,
       trigram: Stringer.createTrigram(input: tempBz.value.name),
       logo: FileModel.bakeFileForUpload(
         newFile: tempBz.value.logo,
-        existingPic: oldBz.logo,
+        existingPic: oldBz?.logo,
       ),
       scope: SpecModel.getSpecsIDs(selectedScopes.value),
       zone: tempBz.value.zone,
@@ -191,12 +127,12 @@ class BzModel{
         contacts: tempBz.value.contacts,
         countryID: tempBz.value.zone?.countryID,
       ),
-      authors: oldBz.authors, /// NEVER CHANGED
-      pendingAuthors: oldBz.pendingAuthors, /// NEVER CHANGED
-      showsTeam: oldBz.showsTeam, /// NEVER CHANGED
-      isVerified: oldBz.isVerified, /// NEVER CHANGED
-      bzState: oldBz.bzState, /// NEVER CHANGED
-      flyersIDs: oldBz.flyersIDs, /// NEVER CHANGED
+      authors: oldBz?.authors, /// NEVER CHANGED
+      pendingAuthors: oldBz?.pendingAuthors, /// NEVER CHANGED
+      showsTeam: oldBz?.showsTeam, /// NEVER CHANGED
+      isVerified: oldBz?.isVerified, /// NEVER CHANGED
+      bzState: oldBz?.bzState, /// NEVER CHANGED
+      flyersIDs: oldBz?.flyersIDs, /// NEVER CHANGED
     );
 
     return _bzModel;
@@ -312,10 +248,10 @@ class BzModel{
     return <String, dynamic>{
       'id': id,
       // -------------------------
-      'bzTypes': cipherBzTypes(bzTypes),
-      'bzForm': cipherBzForm(bzForm),
+      'bzTypes': BzTyper.cipherBzTypes(bzTypes),
+      'bzForm': BzTyper.cipherBzForm(bzForm),
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: toJSON),
-      'accountType': cipherBzAccountType(accountType),
+      'accountType': BzTyper.cipherBzAccountType(accountType),
       // -------------------------
       'name': name,
       'trigram': trigram,
@@ -330,7 +266,7 @@ class BzModel{
       'showsTeam': showsTeam,
       // -------------------------
       'isVerified': isVerified,
-      'bzState': cipherBzState(bzState),
+      'bzState': BzTyper.cipherBzState(bzState),
       // -------------------------
       'flyersIDs': flyersIDs,
     };
@@ -368,11 +304,11 @@ class BzModel{
       _bzModel = BzModel(
         id: map['id'],
         // -------------------------
-        bzTypes: decipherBzTypes(map['bzTypes']),
-        bzForm: decipherBzForm(map['bzForm']),
+        bzTypes: BzTyper.decipherBzTypes(map['bzTypes']),
+        bzForm: BzTyper.decipherBzForm(map['bzForm']),
         createdAt:
         Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
-        accountType: decipherBzAccountType(map['accountType']),
+        accountType: BzTyper.decipherBzAccountType(map['accountType']),
         // -------------------------
         name: map['name'],
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
@@ -387,7 +323,7 @@ class BzModel{
         showsTeam: map['showsTeam'],
         // -------------------------
         isVerified: map['isVerified'],
-        bzState: decipherBzState(map['bzState']),
+        bzState: BzTyper.decipherBzState(map['bzState']),
         // -------------------------
         flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
         docSnapshot: map['docSnapshot'],
@@ -641,830 +577,6 @@ class BzModel{
   }
   // -----------------------------------------------------------------------------
 
-  /// BZ TYPE CYPHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String cipherBzType(BzType x) {
-    switch (x) {
-      case BzType.developer       :  return 'developer'     ; break;
-      case BzType.broker          :  return 'broker'        ; break;
-      case BzType.designer        :  return 'designer'      ; break;
-      case BzType.contractor      :  return 'contractor'    ; break;
-      case BzType.artisan         :  return 'artisan'       ; break;
-      case BzType.manufacturer    :  return 'manufacturer'  ; break;
-      case BzType.supplier        :  return 'supplier'      ; break;
-      default:  return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> cipherBzTypes(List<BzType> bzTypes){
-    final List<String> _bzTypes = <String>[];
-
-    if (Mapper.checkCanLoopList(bzTypes) == true){
-
-      for (final BzType bzType in bzTypes){
-        final String _ciphered = cipherBzType(bzType);
-        _bzTypes.add(_ciphered);
-      }
-
-    }
-
-    return _bzTypes;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static BzType decipherBzType(String x) {
-    switch (x) {
-      case 'developer'      : return BzType.developer;      break;
-      case 'broker'         : return BzType.broker;         break;
-      case 'designer'       : return BzType.designer;       break;
-      case 'contractor'     : return BzType.contractor;     break;
-      case 'artisan'        : return BzType.artisan;        break;
-      case 'manufacturer'   : return BzType.manufacturer;   break;
-      case 'supplier'       : return BzType.supplier;       break;
-      default:  return null;
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<BzType> decipherBzTypes(List<dynamic> bzTypes){
-    final List<BzType> _bzTypes = <BzType>[];
-
-    if (Mapper.checkCanLoopList(bzTypes) == true){
-
-      final List<String> _strings = Stringer.getStringsFromDynamics(dynamics: bzTypes);
-
-      for (final String _string in _strings){
-        final BzType _bzType = decipherBzType(_string);
-        _bzTypes.add(_bzType);
-      }
-
-    }
-
-    return _bzTypes;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ TYPE GETTERS
-
-  // --------------------
-  static const List<BzType> bzTypesList = <BzType>[
-    BzType.developer,
-    BzType.broker,
-    BzType.designer,
-    BzType.contractor,
-    BzType.artisan,
-    BzType.manufacturer,
-    BzType.supplier,
-  ];
-  // --------------------
-  static List<BzType> getBzTypesListWithoutOneType(BzType removeThisType){
-    const List<BzType> _allTypes = bzTypesList;
-    final List<BzType> _output = <BzType>[];
-
-    for (final BzType bzType in _allTypes){
-      if (bzType != removeThisType){
-        _output.add(bzType);
-      }
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getBzTypeIconOff(BzType bzType) {
-
-    final String icon = bzType == BzType.developer ? Iconz.bxPropertiesOff
-        :
-    bzType == BzType.broker ? Iconz.bxPropertiesOff
-        :
-    bzType == BzType.manufacturer ? Iconz.bxProductsOff
-        :
-    bzType == BzType.supplier ? Iconz.bxProductsOff
-        :
-    bzType == BzType.designer ? Iconz.bxDesignsOff
-        :
-    bzType == BzType.contractor ? Iconz.bxProjectsOff
-        :
-    bzType == BzType.artisan ? Iconz.bxTradesOff
-        :
-    null;
-
-    return icon;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getBzTypeIconOn(BzType bzType) {
-
-    final String icon =
-    bzType == BzType.developer ? Iconz.bxPropertiesOn
-        :
-    bzType == BzType.broker ? Iconz.bxPropertiesOn
-        :
-    bzType == BzType.manufacturer ? Iconz.bxProductsOn
-        :
-    bzType == BzType.supplier ? Iconz.bxProductsOn
-        :
-    bzType == BzType.designer ? Iconz.bxDesignsOn
-        :
-    bzType == BzType.contractor ? Iconz.bxProjectsOn
-        :
-    bzType == BzType.artisan ? Iconz.bxTradesOn
-        :
-    null;
-
-    return icon;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ TYPE CHECKERS
-
-  // --------------------
-
-  static bool checkBzTypesContainThisType({
-    @required BzType bzType,
-    @required List<BzType> bzTypes,
-  }){
-    bool _contains = false;
-
-    if (Mapper.checkCanLoopList(bzTypes) == true){
-
-      if (bzTypes.contains(bzType) == true){
-        _contains = true;
-      }
-
-    }
-
-    return _contains;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkBzTypesAreIdentical(List<BzType> types1, List<BzType> types2){
-
-    final List<String> _a = cipherBzTypes(types1);
-    final List<String> _b = cipherBzTypes(types2);
-
-    return Mapper.checkListsAreIdentical(
-        list1: _a,
-        list2: _b
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ TYPE TRANSLATIONS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getBzTypePhid({
-    @required BzType bzType,
-    bool nounTranslation = true,
-    bool pluralTranslation = true,
-  }){
-
-    /// NOUN
-    if (nounTranslation == true){
-      return
-        bzType == BzType.developer ?    'phid_realEstateDevelopment' :
-        bzType == BzType.broker ?       'phid_realEstateBrokerage' :
-        bzType == BzType.designer ?     'phid_design' :
-        bzType == BzType.contractor ?   'phid_contracting' :
-        bzType == BzType.artisan ?      'phid_tradesmanship' :
-        bzType == BzType.manufacturer ? 'phid_manufacturing' :
-        bzType == BzType.supplier ?     'phid_supplying' :
-        '##Builders';
-    }
-
-    /// NOT NOUN
-    else {
-
-      /// PLURAL
-      if (pluralTranslation == true){
-        return
-          bzType == BzType.developer ?    'phid_realEstateDevelopers' :
-          bzType == BzType.broker ?       'phid_realEstateBrokers' :
-          bzType == BzType.designer ?     'phid_designers' :
-          bzType == BzType.contractor ?   'phid_contractors' :
-          bzType == BzType.artisan ?      'phid_tradesmanship' :
-          bzType == BzType.manufacturer ? 'phid_manufacturers' :
-          bzType == BzType.supplier ?     'phid_supplier' :
-          '##Builders';
-      }
-
-      /// SINGLE
-      else {
-        return
-          bzType == BzType.developer ?    'phid_realEstateDeveloper' :
-          bzType == BzType.broker ?       'phid_realEstateBroker' :
-          bzType == BzType.designer ?     'phid_designer' :
-          bzType == BzType.contractor ?   'phid_contractor' :
-          bzType == BzType.artisan ?      'phid_tradesmanship' :
-          bzType == BzType.manufacturer ? 'phid_manufacturer' :
-          bzType == BzType.supplier ?     'phid_suppliers' :
-          '##Builder';
-      }
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> getBzTypesPhids({
-    @required BuildContext context,
-    @required List<BzType> bzTypes,
-    bool pluralTranslation = true,
-  }){
-    final List<String> _strings = <String>[];
-
-    if (Mapper.checkCanLoopList(bzTypes) == true){
-
-      for (final BzType type in bzTypes){
-
-        final String _bzTypePhid = getBzTypePhid(
-          bzType: type,
-          pluralTranslation: pluralTranslation,
-        );
-
-        _strings.add(_bzTypePhid);
-
-      }
-
-    }
-
-    return _strings;
-  }
-  // --------------------
-  static String translateBzTypesIntoString({
-    @required BuildContext context,
-    @required List<BzType> bzTypes,
-    @required BzForm bzForm,
-    bool oneLine = false,
-  }){
-
-    final List<String> _bzTypesPhids = BzModel.getBzTypesPhids(
-      context: context,
-      bzTypes: bzTypes,
-      pluralTranslation: false,
-    );
-    final List<String> _typesTranslated = xPhrases(context, _bzTypesPhids);
-    final String _bzTypesOneString = Stringer.generateStringFromStrings(
-      strings: _typesTranslated,
-    );
-
-    final String _bzFormPhid = BzModel.getBzFormPhid(
-      context: context,
-      bzForm: bzForm,
-    );
-    final String _formTranslated = xPhrase(context, _bzFormPhid);
-
-
-    String _output = '$_bzTypesOneString\n$_formTranslated';
-
-    /// ENGLISH
-    if (TextDir.checkAppIsLeftToRight(context) == false){
-
-      if (oneLine == true){
-        _output = '$_formTranslated, $_bzTypesOneString';
-      }
-      else {
-        _output = '$_formTranslated\n$_bzTypesOneString';
-      }
-
-    }
-
-    /// ARABIC
-    else {
-
-      if (oneLine == true){
-        _output = '$_bzTypesOneString, $_formTranslated';
-      }
-      else {
-        _output = '$_bzTypesOneString\n$_formTranslated';
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  static String translateBzTypeAskHint(BuildContext context, BzType bzType){
-
-    final String _askHint =
-    bzType == BzType.developer ?    'phid_askHint_developer' :
-    bzType == BzType.broker ?       'phid_askHint_broker' :
-    bzType == BzType.manufacturer ? 'phid_askHint_manufacturer' :
-    bzType == BzType.supplier ?     'phid_askHint_supplier' :
-    bzType == BzType.designer ?     'phid_askHint_designer' :
-    bzType == BzType.contractor ?   'phid_askHint_contractor' :
-    bzType == BzType.artisan ?      'phid_askHint_artisan' :
-    'phid_askHint';
-
-    return _askHint;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ TYPE CONCLUDERS
-
-  // --------------------
-  static List<BzType> concludeBzTypeByBzSection(BzSection bzSection){
-
-    List<BzType> _bzTypes = <BzType>[];
-
-    /// REAL ESTATE BZ TYPES
-    if (bzSection == BzSection.realestate){
-      _bzTypes = <BzType>[BzType.developer, BzType.broker];
-    }
-
-    /// CONSTRUCTION BZ TYPES
-    else if (bzSection == BzSection.construction){
-      _bzTypes = <BzType>[BzType.designer, BzType.contractor, BzType.artisan];
-    }
-
-    /// SUPPLIES BZ TYPES
-    else {
-      _bzTypes = <BzType>[BzType.supplier, BzType.manufacturer];
-    }
-
-    return _bzTypes;
-  }
-  // --------------------
-  static List<BzType> concludeDeactivatedBzTypesBySection({
-    @required BzSection bzSection,
-    List<BzType> initialBzTypes,
-  }){
-
-    /// INITIAL LIST OF ALL BZ TYPES
-    final List<BzType> _bzTypes = <BzType>[...BzModel.bzTypesList];
-
-    if (bzSection != null){
-
-      /// BZ TYPES BY SECTION
-      final List<BzType> _bzTypesBySection = concludeBzTypeByBzSection(bzSection);
-
-      /// REMOVE SELECTED BZ TYPES FROM THE LIST
-      for (final BzType bzType in _bzTypesBySection){
-        _bzTypes.remove(bzType);
-      }
-
-      /// ADD ARTISAN IF STARTING WITH DESIGNERS OR CONTRACTORS
-      if (Mapper.checkCanLoopList(initialBzTypes) == true){
-        if (bzSection == BzSection.construction){
-          if (
-              initialBzTypes.contains(BzType.designer)
-              ||
-              initialBzTypes.contains(BzType.contractor)
-          ){
-            _bzTypes.add(BzType.artisan);
-          }
-        }
-      }
-
-    }
-
-
-    return _bzTypes;
-  }
-  // --------------------
-  static List<BzType> concludeMixableBzTypes({
-    @required BzType bzType,
-  }){
-
-    List<BzType> _mixableTypes;
-
-    /// DEVELOPER
-    if (bzType == BzType.developer){
-      _mixableTypes = <BzType>[
-        BzType.broker
-      ];
-    }
-
-    /// BROKER
-    if (bzType == BzType.broker){
-      _mixableTypes = <BzType>[
-        BzType.developer
-      ];
-    }
-
-    /// DESIGNER
-    if (bzType == BzType.designer){
-      _mixableTypes = <BzType>[
-        BzType.contractor
-      ];
-    }
-
-    /// CONTRACTOR
-    if (bzType == BzType.contractor){
-      _mixableTypes = <BzType>[
-        BzType.designer
-      ];
-    }
-
-    /// ARTISAN
-    if (bzType == BzType.artisan){
-      _mixableTypes = <BzType>[];
-    }
-
-    /// SUPPLIER
-    if (bzType == BzType.supplier){
-      _mixableTypes = <BzType>[
-        BzType.manufacturer,
-      ];
-    }
-
-    /// MANUFACTURER
-    if (bzType == BzType.manufacturer){
-      _mixableTypes = <BzType>[
-        BzType.supplier,
-      ];
-    }
-
-    return _mixableTypes;
-  }
-  // --------------------
-  static List<BzType> concludeDeactivatedBzTypesBySelectedType({
-    @required BzType selectedBzType,
-  }){
-
-    final List<BzType> _mixableTypes = concludeMixableBzTypes(
-        bzType: selectedBzType
-    );
-
-    final List<BzType> _inactiveTypes = <BzType>[...bzTypesList];
-    _inactiveTypes.remove(selectedBzType);
-
-    /// REMOVE MIXABLE TYPES FROM ALL TYPE TO GET INACTIVE TYPES
-    for (final BzType type in _mixableTypes){
-      _inactiveTypes.remove(type);
-    }
-
-    return _inactiveTypes;
-  }
-  // --------------------
-  static List<BzType> concludeDeactivatedBzTypesBasedOnSelectedBzTypes({
-    @required BzType newSelectedType,
-    @required List<BzType> selectedBzTypes,
-    @required BzSection selectedBzSection,
-  }){
-
-    List<BzType> _inactiveBzTypes;
-
-    /// INACTIVATE BZ TYPES ACCORDING TO SECTION WHEN NOTHING IS SELECTED
-    if (selectedBzTypes.isEmpty){
-      _inactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySection(
-        bzSection: selectedBzSection,
-      );
-
-    }
-
-    /// INACTIVATE BZ TYPES ACCORDING TO SELECTION
-    else {
-      _inactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySelectedType(
-        selectedBzType: newSelectedType,
-      );
-    }
-
-    return _inactiveBzTypes;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ TYPE MODIFIERS
-
-  // --------------------
-  static List<BzType> addOrRemoveBzTypeToBzzTypes({
-    @required BzType newSelectedBzType,
-    @required List<BzType> selectedBzTypes,
-  }){
-
-    final List<BzType> _outputTypes = <BzType>[...selectedBzTypes];
-
-    final bool _alreadySelected = BzModel.checkBzTypesContainThisType(
-      bzTypes: selectedBzTypes,
-      bzType: newSelectedBzType,
-    );
-
-    if (_alreadySelected == true){
-      _outputTypes.remove(newSelectedBzType);
-    }
-
-    else {
-      _outputTypes.add(newSelectedBzType);
-    }
-
-    return _outputTypes;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ ACCOUNT TYPE
-
-  // --------------------
-  static String cipherBzAccountType(BzAccountType bzAccountType) {
-    switch (bzAccountType) {
-      case BzAccountType.normal:  return 'normal';  break;
-      case BzAccountType.premium: return 'premium'; break;
-      case BzAccountType.sphinx:  return 'sphinx';  break;
-      default:  return null;
-    }
-  }
-  // --------------------
-  static BzAccountType decipherBzAccountType(String bzAccountType) {
-    switch (bzAccountType) {
-      case 'normal'   : return BzAccountType.normal   ; break; // 1
-      case 'premium'  : return BzAccountType.premium  ; break; // 2
-      case 'sphinx'   : return BzAccountType.sphinx   ; break; // 3
-      default:return null;
-    }
-  }
-  // --------------------
-  static const List<BzAccountType> bzAccountTypesList = <BzAccountType>[
-    BzAccountType.normal,
-    BzAccountType.premium,
-    BzAccountType.sphinx,
-  ];
-  // -----------------------------------------------------------------------------
-
-  /// BZ FORM
-
-  // --------------------
-  static String cipherBzForm(BzForm x) {
-    switch (x) {
-      case BzForm.individual  : return 'individual' ; break;
-      case BzForm.company     : return 'company'    ; break;
-      default:  return null;
-    }
-  }
-  // --------------------
-  static BzForm decipherBzForm(String x) {
-    switch (x) {
-      case 'individual' :  return BzForm.individual ; break; // 1
-      case 'company'    :  return BzForm.company    ; break; // 2
-      default:  return null;
-    }
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ FORM TRANSLATION
-
-  // --------------------
-  static String getBzFormPhid({
-    @required BuildContext context,
-    @required BzForm bzForm,
-  }){
-
-    if (bzForm == BzForm.company){
-      return 'phid_company';
-    }
-
-    else if (bzForm == BzForm.individual){
-      return 'phid_professional';
-    }
-
-    else {
-      return null;
-    }
-
-  }
-  // --------------------
-  static List<String> getBzFormsPhids({
-    @required BuildContext context,
-    @required List<BzForm> bzForms,
-  }){
-    final List<String> _strings = <String>[];
-
-    if (Mapper.checkCanLoopList(bzForms) == true){
-
-      for (final BzForm bzForm in bzForms){
-        final String _translation = getBzFormPhid(
-          context: context,
-          bzForm: bzForm,
-        );
-        _strings.add(_translation);
-      }
-
-    }
-
-    return _strings;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ FORM CHECKERS
-
-  // --------------------
-  static bool bzFormsContainThisForm({
-    @required List<BzForm> bzForms,
-    @required BzForm bzForm,
-  }){
-    bool _contains = false;
-
-    if (Mapper.checkCanLoopList(bzForms) == true){
-
-      if (bzForms.contains(bzForm) == true){
-        _contains = true;
-      }
-
-    }
-
-    return _contains;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ FORM CHECKERS
-
-  // --------------------
-  static List<BzForm> concludeInactiveBzFormsByBzTypes(List<BzType> selectedBzTypes){
-
-    /// INITIAL LIST OF ALL BZ FORMS
-    List<BzForm> _bzForms = <BzForm>[...BzModel.bzFormsList];
-
-    if (Mapper.checkCanLoopList(selectedBzTypes) == true){
-
-      /// MORE THAN ONE BZ TYPE
-      if (selectedBzTypes.length > 1){
-        _bzForms.remove(BzForm.company);
-      }
-
-      /// IF ONLY ONE BZ TYPE
-      else {
-
-        /// BZ FORMS BY SECTION
-        final List<BzForm> _bzFormsBySection = concludeBzFormsByBzType(selectedBzTypes[0]);
-
-        /// REMOVE SELECTED BZ FORMS FROM THE LIST
-        for (final BzForm bzForm in _bzFormsBySection){
-          _bzForms.remove(bzForm);
-        }
-
-      }
-
-    }
-
-    /// IF NO BZ TYPES SELECTED
-    else {
-      _bzForms = null;
-    }
-
-    return _bzForms;
-  }
-  // --------------------
-  static List<BzForm> concludeBzFormsByBzType(BzType selectedBzType){
-
-    List<BzForm> _bzForm = <BzForm>[];
-
-    /// DEVELOPER
-    if (selectedBzType == BzType.developer){
-      _bzForm = <BzForm>[BzForm.company];
-    }
-
-    /// BROKER
-    else if (selectedBzType == BzType.broker){
-      _bzForm = <BzForm>[BzForm.company, BzForm.individual];
-    }
-
-    /// DESIGNER
-    else if (selectedBzType == BzType.designer){
-      _bzForm = <BzForm>[BzForm.company, BzForm.individual];
-    }
-
-    /// CONTRACTOR
-    else if (selectedBzType == BzType.contractor){
-      _bzForm = <BzForm>[BzForm.company, BzForm.individual];
-    }
-
-    /// ARTISAN
-    else if (selectedBzType == BzType.artisan){
-      _bzForm = <BzForm>[BzForm.individual];
-    }
-
-    /// SUPPLIER
-    else if (selectedBzType == BzType.supplier){
-      _bzForm = <BzForm>[BzForm.company];
-    }
-
-    /// MANUFACTURER
-    else if (selectedBzType == BzType.manufacturer){
-      _bzForm = <BzForm>[BzForm.company];
-    }
-
-    else {
-      _bzForm = <BzForm>[BzForm.company, BzForm.individual];
-    }
-
-    return _bzForm;
-  }
-  // --------------------
-  static const List<BzForm> bzFormsList = <BzForm>[
-    BzForm.individual,
-    BzForm.company,
-  ];
-  // -----------------------------------------------------------------------------
-
-  /// BZ STATE
-
-  // --------------------
-  static String cipherBzState(BzState state) {
-    switch (state) {
-      case BzState.online       : return 'online'     ; break;
-      case BzState.offline      : return 'offline'    ; break;
-      case BzState.deactivated  : return 'deactivated'; break;
-      case BzState.deleted      : return 'deleted'    ; break;
-      case BzState.banned       : return 'banned'     ;  break;
-      default:  return null;
-    }
-  }
-  // --------------------
-  static BzState decipherBzState(String state) {
-    switch (state) {
-      case 'online'       : return BzState.online       ; break;
-      case 'offline'      : return BzState.offline      ; break;
-      case 'deactivated'  : return BzState.deactivated  ; break;
-      case 'deleted'      : return BzState.deleted      ; break;
-      case 'banned'       : return BzState.banned       ; break;
-      default:  return null;
-    }
-  }
-  // --------------------
-  static const List<BzState> bzStatesList = <BzState>[
-    BzState.online,
-    BzState.offline,
-    BzState.deactivated,
-    BzState.deleted,
-    BzState.banned,
-  ];
-  // -----------------------------------------------------------------------------
-
-  /// BZ SECTION
-
-  // --------------------
-  static String getBzSectionPhid({
-    @required BuildContext context,
-    @required BzSection bzSection,
-  }){
-    final String _translation =
-    bzSection == BzSection.realestate ? 'phid_realEstate'
-        :
-    bzSection == BzSection.construction ? 'phid_construction'
-        :
-    bzSection == BzSection.supplies ? 'phid_supplies'
-        :
-    'phid_bldrsFullName';
-
-    return _translation;
-  }
-  // --------------------
-  static List<String> getBzSectionsPhids({
-    @required BuildContext context,
-    @required List<BzSection> bzSections,
-  }){
-    final List<String> _strings = <String>[];
-
-    if (Mapper.checkCanLoopList(bzSections) == true){
-
-      for (final BzSection section in bzSections){
-        final String _translation = getBzSectionPhid(
-          context: context,
-          bzSection: section,
-        );
-        _strings.add(_translation);
-      }
-
-    }
-
-    return _strings;
-  }
-  // --------------------
-  static BzSection concludeBzSectionByBzTypes(List<BzType> selectedBzTypes){
-
-    BzType _bzType;
-    if (Mapper.checkCanLoopList(selectedBzTypes) == true){
-      _bzType = selectedBzTypes[0];
-    }
-
-    switch (_bzType){
-
-      case BzType.developer: return BzSection.realestate; break;
-      case BzType.broker: return BzSection.realestate; break;
-
-      case BzType.designer: return BzSection.construction; break;
-      case BzType.contractor: return BzSection.construction; break;
-      case BzType.artisan: return BzSection.construction; break;
-
-      case BzType.supplier: return BzSection.construction; break;
-      case BzType.manufacturer: return BzSection.construction; break;
-
-      default : return null;
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static  const List<BzSection> bzSectionsList = <BzSection>[
-    BzSection.realestate,
-    BzSection.construction,
-    BzSection.supplies,
-  ];
-  // -----------------------------------------------------------------------------
-
   /// BZ DUMMIES
 
   // --------------------
@@ -1560,10 +672,10 @@ class BzModel{
 
     blog('staring blogBzzDifferences checkup ');
 
-
     if (bz1 == null){
       blog('blogBzzDifferences : bz1 = null');
     }
+
     if (bz2 == null){
       blog('blogBzzDifferences : bz2 = null');
     }
@@ -1688,7 +800,7 @@ class BzModel{
       for (final BzModel bz in bzz){
 
         final List<BzType> _bzTypesOfThisBz = bz.bzTypes;
-        final bool _containsThisType = BzModel.checkBzTypesContainThisType(
+        final bool _containsThisType = BzTyper.checkBzTypesContainThisType(
           bzTypes: _bzTypesOfThisBz,
           bzType: bzType,
         );
@@ -1798,10 +910,11 @@ class BzModel{
     if (bz1 == null && bz2 == null){
       _areIdentical = true;
     }
+
     else if (bz1 != null && bz2 != null){
 
       if (
-      bz1.id == bz2.id &&
+          bz1.id == bz2.id &&
           Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == true &&
           bz1.bzForm == bz2.bzForm &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == true &&
@@ -1863,81 +976,6 @@ class BzModel{
     }
 
     return _hasContacts;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BZ TABS
-
-  // --------------------
-  static int getBzTabIndex(BzTab bzTab){
-    final int _index = bzTabsList.indexWhere((tab) => tab == bzTab);
-    return _index;
-  }
-  // --------------------
-  static const List<BzTab> bzTabsList = <BzTab>[
-    BzTab.flyers,
-    BzTab.about,
-    BzTab.authors,
-    BzTab.notes,
-    BzTab.targets,
-    BzTab.powers,
-    BzTab.network,
-    BzTab.settings,
-  ];
-  // --------------------
-  /*
-//   /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
-//   static const List<String> bzPagesTabsTitlesInEnglishOnly = <String>[
-//     'Flyers',
-//     'About',
-//     'Authors',
-//     'Notifications',
-//     'Targets',
-//     'Powers',
-//     'Network',
-//     'settings',
-//   ];
-   */
-  // --------------------
-  static String getBzTabPhid({
-    @required BzTab bzTab,
-  }){
-    switch(bzTab){
-      case BzTab.flyers   : return 'phid_flyers'  ; break;
-      case BzTab.about    : return 'phid_info'  ; break;
-      case BzTab.authors  : return 'phid_team'  ; break;
-      case BzTab.notes    : return 'phid_notifications'  ; break;
-      case BzTab.targets  : return 'phid_targets'  ; break;
-      case BzTab.powers   : return 'phid_powers'  ; break;
-      case BzTab.network  : return 'phid_network'  ; break;
-      case BzTab.settings : return 'phid_settings' ; break;
-      default : return null;
-    }
-  }
-  // --------------------
-  static String getBzTabIcon(BzTab bzTab){
-    switch(bzTab){
-      case BzTab.flyers   : return Iconz.flyerGrid  ; break;
-      case BzTab.about    : return Iconz.info       ; break;
-      case BzTab.authors  : return Iconz.bz         ; break;
-      case BzTab.notes    : return Iconz.notification       ; break;
-      case BzTab.targets  : return Iconz.target     ; break;
-      case BzTab.powers   : return Iconz.power      ; break;
-      case BzTab.network  : return Iconz.follow     ; break;
-      case BzTab.settings : return Iconz.gears      ; break;
-      default : return null;
-    }
-  }
-  // --------------------
-  static String getTabTitle({
-    @required int index,
-    @required BuildContext context,
-  }){
-    final BzTab _bzTab = BzModel.bzTabsList[index];
-    final String _bzTabPhid = BzModel.getBzTabPhid(
-      bzTab: _bzTab,
-    );
-    return _bzTabPhid;
   }
   // -----------------------------------------------------------------------------
 

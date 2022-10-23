@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -39,7 +39,7 @@ class SlideModel {
   final String description;
   final Matrix4 matrix;
   final BoxFit picFit;
-  final ImageSize imageSize;
+  final Dimensions imageSize;
   final Color midColor;
   final String flyerID;
   final String filterID;
@@ -54,7 +54,7 @@ class SlideModel {
       'picture': pic is String == true ? pic : null,
       'headline': headline,
       'description': description,
-      'boxFit': ImageSize.cipherBoxFit(picFit),
+      'boxFit': Dimensions.cipherBoxFit(picFit),
       'imageSize': imageSize.toMap(),
       'midColor': Colorizer.cipherColor(midColor),
       'matrix' : Trinity.cipherMatrix(matrix),
@@ -69,8 +69,8 @@ class SlideModel {
       pic: map['picture'],
       headline: map['headline'],
       description: map['description'],
-      picFit: ImageSize.decipherBoxFit(map['boxFit']),
-      imageSize: ImageSize.decipherImageSize(map['imageSize']),
+      picFit: Dimensions.decipherBoxFit(map['boxFit']),
+      imageSize: Dimensions.decipherImageSize(map['imageSize']),
       midColor: Colorizer.decipherColor(map['midColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
       filterID: map['filterID'],
@@ -135,7 +135,7 @@ class SlideModel {
     String description,
     Matrix4 matrix,
     BoxFit picFit,
-    ImageSize imageSize,
+    Dimensions imageSize,
     Color midColor,
     String flyerID,
     String filterID,
@@ -162,7 +162,7 @@ class SlideModel {
     blog('headline : $headline');
     blog('description : $description');
     blog('midColor : $midColor : filterID : $filterID : picFit : $picFit : hasCustomMatrix : ${matrix != Matrix4.identity()}');
-    imageSize.blogSize();
+    imageSize.blogDimensions();
     blog('pic : $pic');
   }
 // -------------------------------------
@@ -217,7 +217,7 @@ class SlideModel {
     if (slide1.picFit != slide2.picFit){
       blog('slide1.picFit != slide2.picFit');
     }
-    if (ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) == false){
+    if (Dimensions.checkDimensionsAreIdentical(dim1: slide1.imageSize, dim2: slide2.imageSize) == false){
       blog('slide1.imageSize != slide2.imageSize');
     }
     if (Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
@@ -327,7 +327,7 @@ class SlideModel {
           slide1.description == slide2.description &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
           slide1.picFit == slide2.picFit &&
-          ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
+          Dimensions.checkDimensionsAreIdentical(dim1: slide1.imageSize, dim2: slide2.imageSize) &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
           slide1.flyerID == slide2.flyerID &&
           slide1.filterID == slide2.filterID
@@ -652,7 +652,7 @@ class SlideModel {
       headline: 'Headliner',
       description: 'Descriptor',
       picFit: BoxFit.cover,
-      imageSize: const ImageSize(height: 900, width: 600),
+      imageSize: const Dimensions(height: 900, width: 600),
       midColor: Colorz.black255,
       matrix: Matrix4.identity(),
       filterID: 'phid_filter_normal',

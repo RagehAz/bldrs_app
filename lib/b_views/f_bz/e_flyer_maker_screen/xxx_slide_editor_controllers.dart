@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/x_utilities/image_size.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -60,7 +60,7 @@ Future<void> onCropSlide({
 
   if (_fileModel != null){
 
-    final ImageSize _imageSize = await ImageSize.superImageSize(_fileModel);
+    final Dimensions _imageSize = await Dimensions.superDimensions(_fileModel);
     final Color _midColor = await Colorizer.getAverageColor(_fileModel);
     final MutableSlide _updatedSlide = tempSlide.value.copyWith(
       picFileModel: _fileModel,

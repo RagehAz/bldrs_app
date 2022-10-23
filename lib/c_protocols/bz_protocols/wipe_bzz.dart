@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';

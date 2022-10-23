@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/b_bz/target/target_model.dart';
-import 'package:bldrs/a_models/b_bz/target/target_progress.dart';
+import 'package:bldrs/a_models/b_bz/sub/target/target_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/targets/target_progress_bar.dart';

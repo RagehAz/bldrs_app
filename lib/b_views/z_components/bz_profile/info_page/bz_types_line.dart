@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class BzTypesLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _bzTypesString = BzModel.translateBzTypesIntoString(
+    final String _bzTypesString = BzTyper.translateBzTypesIntoString(
       context: context,
       bzTypes: bzModel?.bzTypes,
       bzForm: bzModel?.bzForm,

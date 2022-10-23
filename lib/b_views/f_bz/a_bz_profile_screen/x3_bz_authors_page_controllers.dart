@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/author/author_model.dart';
-import 'package:bldrs/a_models/b_bz/author/pending_author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';

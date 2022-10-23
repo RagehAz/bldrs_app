@@ -294,7 +294,7 @@ class FileModel {
     else if (model1 != null && model2 != null){
 
       if (
-      model1.fileName == model2.fileName &&
+          model1.fileName == model2.fileName &&
           model1.url == model2.url &&
           model1.size == model2.size &&
           Filers.checkFilesAreIdentical(file1: model1.file, file2: model2.file) == true
