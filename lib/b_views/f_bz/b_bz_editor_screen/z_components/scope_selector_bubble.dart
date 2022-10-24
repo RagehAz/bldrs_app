@@ -89,8 +89,13 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
   // --------------------
   @override
   void didUpdateWidget(covariant ScopeSelectorBubble oldWidget) {
-    if (FlyerTyper.checkFlyerTypesAreIdentical(widget.flyerTypes, oldWidget.flyerTypes) == false) {
+    if (
+    FlyerTyper.checkFlyerTypesAreIdentical(widget.flyerTypes, oldWidget.flyerTypes) == false
+    ||
+    SpecModel.checkSpecsListsAreIdentical(widget.selectedSpecs, oldWidget.selectedSpecs) == false
+    ) {
       setState(() {
+        _phids = SpecModel.getSpecsIDs(widget.selectedSpecs);
         _initializeLocalVariables();
       });
     }

@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
 /// INITIALIZATION
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void initializeDraftBz({
   @required BuildContext context,
   @required BzModel oldBz,
@@ -63,7 +63,7 @@ void initializeDraftBz({
 /// LAST SESSION
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> loadBzEditorLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -102,7 +102,7 @@ Future<void> loadBzEditorLastSession({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> saveBzEditorSession(ValueNotifier<DraftBz> draftNotifier) async {
 
   triggerCanValidateDraftBz(draftNotifier: draftNotifier, setTo: true,);
@@ -121,7 +121,7 @@ Future<void> saveBzEditorSession(ValueNotifier<DraftBz> draftNotifier) async {
 /// CONFIRMATION
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onConfirmBzEdits({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -150,7 +150,7 @@ Future<void> onConfirmBzEdits({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<bool> _preUploadCheckups({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -179,7 +179,7 @@ Future<bool> _preUploadCheckups({
   return _canContinue;
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _uploadDraftBz({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -220,7 +220,7 @@ Future<void> _uploadDraftBz({
 /// MODIFIERS
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void triggerCanValidateDraftBz({
   @required bool setTo,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -237,7 +237,7 @@ void triggerCanValidateDraftBz({
   }
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onChangeBzSection({
   @required BuildContext context,
   @required int index,
@@ -280,7 +280,7 @@ Future<void> onChangeBzSection({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onChangeBzType({
   @required BuildContext context,
   @required int index,
@@ -333,7 +333,7 @@ Future<void> onChangeBzType({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onChangeBzForm({
   @required int index,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -345,7 +345,7 @@ void onChangeBzForm({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onChangeBzLogo({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -395,7 +395,7 @@ Future<void> onChangeBzLogo({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 void onChangeBzContact({
   @required ValueNotifier<DraftBz> draftNotifier,
   @required ContactType contactType,
@@ -416,7 +416,7 @@ void onChangeBzContact({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onChangeBzScope({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -450,7 +450,6 @@ Future<void> onChangeBzScope({
   }
 
 }
-
 // -----------------------------------------------------------------------------
 
 /// DIALOGS
