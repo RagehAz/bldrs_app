@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -57,6 +58,11 @@ class ComposeBzProtocols {
         /// UPDATE MY USER MODEL
         _addBzIdToMyUserModelAndRenovate(
           context: context,
+          bzID: _uploadedBzModel.id,
+        ),
+
+
+        NoteProtocols.subscribeToAllBzTopics(
           bzID: _uploadedBzModel.id,
         ),
 

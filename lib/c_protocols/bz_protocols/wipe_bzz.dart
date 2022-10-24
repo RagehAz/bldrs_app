@@ -66,7 +66,11 @@ class WipeBzProtocols {
         id: bzModel.id,
       ),
 
-      /// DELETE BZ RECORDS - COUNTERS
+      NoteProtocols.unsubscribeFromAllBzTopics(
+        bzID: bzModel.id,
+      ),
+
+    /// DELETE BZ RECORDS - COUNTERS
       BzRecordRealOps.deleteAllBzCountersAndRecords(
         bzID: bzModel.id,
       ),

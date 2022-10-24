@@ -76,7 +76,7 @@ class TopicsExpandingTile extends StatelessWidget {
       listen: true,
     );
 
-    return TopicModel.checkUserIsSubscribedToAnyTopic(
+    return TopicModel.checkUserIsSubscribedToThisTopic(
       context: context,
       topicID: topicModel.id,
       partyType: partyType,

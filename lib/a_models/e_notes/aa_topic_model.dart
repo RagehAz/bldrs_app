@@ -230,9 +230,81 @@ class TopicModel {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
+  static List<String> _getAllTopicsIDsByPartyType(PartyType partyType){
+
+    final List<String> _topicsIDs = <String>[];
+
+    if (partyType == PartyType.user || partyType == PartyType.bz){
+
+      final Map<String, dynamic> _topicsMap = getTopicsMapByPartyType(partyType);
+
+      final List<String> keys = _topicsMap.keys.toList();
+      for (final String key in keys){
+        final List<TopicModel> topicModels = _topicsMap[key];
+        for (final TopicModel topicModel in topicModels){
+          _topicsIDs.add(topicModel.id);
+        }
+      }
+
+    }
+
+
+    return _topicsIDs;
+  }
+  // --------------------
+  ///
   static List<String> getAllUserTopics(){
-    return [];
+    return _getAllTopicsIDsByPartyType(PartyType.user);
+  }
+  // --------------------
+  ///
+  static List<String> getAllBzTopics({
+    @required String bzID,
+  }){
+    final List<String> _output = <String>[];
+
+    if (bzID != null){
+
+      final List<String> _allBzTopics = _getAllTopicsIDsByPartyType(PartyType.bz);
+
+      for (final String rawTopic in _allBzTopics){
+
+        final String _topicID = _generateBzTopicID(
+          topicID: rawTopic,
+          bzID: bzID,
+        );
+
+        _output.add(_topicID);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<String> getAllBzzTopics({
+    @required List<String> bzzIDs,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(bzzIDs) == true){
+
+      for (final String bzID in bzzIDs){
+
+        final List<String> _bzTopics = getAllBzTopics(
+          bzID: bzID,
+        );
+
+        _output.addAll(_bzTopics);
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -339,7 +411,7 @@ class TopicModel {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<bool> _checkUserIsSubscribedToTopic({
     @required BuildContext context,
     @required String userID,
@@ -354,10 +426,12 @@ class TopicModel {
       userID: userID,
     );
 
-    _subscribed = Stringer.checkStringsContainString(
-      strings: _userModel?.fcmTopics,
+    final bool _isBlocked = Stringer.checkStringsContainString(
+      strings: _userModel?.blockedTopics,
       string: topicID,
     );
+
+    _subscribed = !_isBlocked;
 
   }
 
@@ -398,19 +472,19 @@ class TopicModel {
   /// CHECKERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkUserIsSubscribedToAnyTopic({
+  ///
+  static bool checkUserIsSubscribedToThisTopic({
     @required PartyType partyType,
     @required BuildContext context,
     @required String topicID,
     @required UserModel userModel,
     @required String bzID,
   }){
-    bool _isSelected = false;
+    bool _isSubscribed = false;
 
     if (partyType != null && topicID != null && userModel != null){
 
-      final List<String> _userTopics = userModel.fcmTopics;
+      final List<String> _userBlockedTopics = userModel.blockedTopics;
 
       if (partyType == PartyType.bz){
 
@@ -422,27 +496,30 @@ class TopicModel {
             partyType: PartyType.bz,
           );
 
-          _isSelected = Stringer.checkStringsContainString(
-            strings: _userTopics,
+          final bool _isBlocked = Stringer.checkStringsContainString(
+            strings: _userBlockedTopics,
             string: _customTopicID,
           );
 
+          _isSubscribed = !_isBlocked;
         }
 
       }
 
       if (partyType == PartyType.user){
 
-        _isSelected = Stringer.checkStringsContainString(
-          strings: _userTopics,
+        final bool _isBlocked = Stringer.checkStringsContainString(
+          strings: _userBlockedTopics,
           string: topicID,
         );
+
+        _isSubscribed = !_isBlocked;
 
       }
 
     }
 
-    return _isSelected;
+    return _isSubscribed;
   }
   // -----------------------------------------------------------------------------
 }
