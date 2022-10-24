@@ -150,7 +150,7 @@ Future<void> _sendNoteToOneUser({
   );
 
   /// COMPOSE PROTOCOLS
-  await NoteProtocols.composeToOneUser(
+  await NoteProtocols.composeToOneReceiver(
     context: context,
     note: _note,
     // uploadPoster: true, // default
@@ -195,7 +195,7 @@ Future<void> _sendNoteToOneBz({
 
   // _note.blogNoteModel(invoker: 'sendNoteToOneBz');
 
-  await NoteProtocols.composeToOneBz(
+  await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _note
   );

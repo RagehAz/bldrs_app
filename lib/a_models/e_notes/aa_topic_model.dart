@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -25,25 +26,25 @@ class TopicModel {
 
   // --------------------
   /// USER TOPICS IDS
-  static const String generalUserNotes = 'generalUserNotes';
-  static const String bzInvitations = 'bzInvitations';
-  static const String myReviewReceivedReply = 'myReviewReceivedReply';
-  static const String myReviewReceivedAgree = 'myReviewReceivedAgree';
-  static const String aSavedFlyerReceivedANewReview = 'aSavedFlyerReceivedANewReview';
-  static const String aFollowedBzPublishedFlyer= 'aFollowedBzPublishedFlyer';
-  static const String aSavedFlyerIsUpdated = 'aSavedFlyerIsUpdated';
+  static const String userGeneralNews = 'generalUserNotes';
+  static const String userAuthorshipsInvitations = 'bzInvitations';
+  static const String userReviewsReplies = 'myReviewReceivedReply';
+  static const String userReviewsAgrees = 'myReviewReceivedAgree';
+  static const String userSavedFlyersNewReviews = 'aSavedFlyerReceivedANewReview';
+  static const String userFollowedBzzNewFlyers= 'aFollowedBzPublishedFlyer';
+  static const String userSavedFlyersUpdates = 'aSavedFlyerIsUpdated';
   // --------------------
   /// BZZ TOPICS IDS
-  static const String generalBzNotes = 'generalBzNotes';
-  static const String myBzFlyerIsVerified = 'myBzFlyerIsVerified';
-  static const String myBzFlyerIsUpdated = 'myBzFlyerIsUpdated';
-  static const String aSentAuthorshipReceivedReply = 'aSentAuthorshipReceivedReply';
-  static const String aTeamMemberRoleChanged = 'aTeamMemberRoleChanged';
-  static const String aTeamMemberExited = 'aTeamMemberExited';
-  static const String aUserFollowedMyBz = 'aUserFollowedMyBz';
-  static const String aUserReviewedMyFlyer = 'aUserReviewedMyFlyer';
-  static const String aUserSavedMyFlyer = 'aUserSavedMyFlyer';
-  static const String aUserSharedMyFlyer = 'aUserSharedMyFlyer';
+  static const String bzGeneralNews = 'generalBzNotes';
+  static const String bzFlyersVerifications = 'myBzFlyerIsVerified';
+  static const String bzFlyersUpdates = 'myBzFlyerIsUpdated';
+  static const String bzAuthorshipsInvitations = 'aSentAuthorshipReceivedReply';
+  static const String bzTeamRolesUpdates = 'aTeamMemberRoleChanged';
+  static const String bzTeamMembersExit = 'aTeamMemberExited';
+  static const String bzNewFollowers = 'aUserFollowedMyBz';
+  static const String bzFlyersNewReviews = 'aUserReviewedMyFlyer';
+  static const String bzFlyersNewSaves = 'aUserSavedMyFlyer';
+  static const String bzFlyersNewShares = 'aUserSharedMyFlyer';
   // -----------------------------------------------------------------------------
 
     /// ALL EVENTS
@@ -55,14 +56,14 @@ class TopicModel {
       // --------------------
       /// GENERAL USER NOTES
       TopicModel(
-        id: generalUserNotes,
+        id: userGeneralNews,
         description: 'On Major news & general notifications',
         icon: Iconz.notification,
       ),
       // --------------------
       /// USER RECEIVE AUTHORSHIP =====================> SHOULD BE IN GENERAL W 5ALAS
       TopicModel(
-        id: bzInvitations,
+        id: userAuthorshipsInvitations,
         description: 'A Business accounts invites me to join their team',
         icon: Iconz.handShake,
       ),
@@ -72,21 +73,21 @@ class TopicModel {
       // --------------------
       /// MY REVIEW RECEIVED REPLY
       TopicModel(
-        id: myReviewReceivedReply,
+        id: userReviewsReplies,
         description: 'A review I wrote on a flyer receives a reply',
         icon: Iconz.balloonSpeaking,
       ),
       // --------------------
       /// MY REVIEW RECEIVED AGREE
       TopicModel(
-        id: myReviewReceivedAgree,
+        id: userReviewsAgrees,
         description: 'A review I wrote on a flyer gets an Agree',
         icon: Iconz.star,
       ),
       // --------------------
       /// A SAVED FLYER RECEIVED A NEW REVIEW
       TopicModel(
-        id: aSavedFlyerReceivedANewReview,
+        id: userSavedFlyersNewReviews,
         description: 'A flyer I saved get a new review by other users',
         icon: Iconz.balloonSpeaking,
       ),
@@ -97,14 +98,14 @@ class TopicModel {
       // --------------------
       /// A FOLLOWED BZ PUBLISHED FLYER
       TopicModel(
-        id: aFollowedBzPublishedFlyer,
+        id: userFollowedBzzNewFlyers,
         description: 'A Business I follow publishes a new flyer',
         icon: Iconz.addFlyer,
       ),
       // --------------------
       /// A SAVED FLYER IS UPDATED
       TopicModel(
-        id: aSavedFlyerIsUpdated,
+        id: userSavedFlyersUpdates,
         description: 'A flyer I saved gets updated',
         icon: Iconz.savedFlyers,
       ),
@@ -119,7 +120,7 @@ class TopicModel {
       // --------------------
       /// GENERAL BZ NOTES
       TopicModel(
-        id: generalBzNotes,
+        id: bzGeneralNews,
         description: 'On General Business related notifications and Major news',
         icon: Iconz.notification,
       ),
@@ -138,14 +139,14 @@ class TopicModel {
       // --------------------
       /// MY BZ FLYER IS VERIFIED
       TopicModel(
-        id: myBzFlyerIsVerified,
+        id: bzFlyersVerifications,
         description: 'A flyer published by my business account gets verified',
         icon: Iconz.verifyFlyer,
       ),
       // --------------------
       /// MY BZ FLYER IS UPDATED
       TopicModel(
-        id: myBzFlyerIsUpdated,
+        id: bzFlyersUpdates,
         description: 'A flyer published by my business account gets updated by one of my team members',
         icon: Iconz.flyerScale,
       ),
@@ -156,21 +157,21 @@ class TopicModel {
       // --------------------
       /// A SENT AUTHORSHIP RECEIVED REPLY
       TopicModel(
-        id: aSentAuthorshipReceivedReply,
+        id: bzAuthorshipsInvitations,
         description: 'An invitation to join our team sent to someone receives a reply',
         icon: Iconz.handShake,
       ),
       // --------------------
       /// A TEAM MEMBER ROLE CHANGED
       TopicModel(
-        id: aTeamMemberRoleChanged,
+        id: bzTeamRolesUpdates,
         description: 'One of my team members gets his role changed',
         icon: Iconz.achievement,
       ),
       // --------------------
       /// A TEAM MEMBER EXITED
       TopicModel(
-        id: aTeamMemberExited,
+        id: bzTeamMembersExit,
         description: 'A team member exits this business account',
         icon: Iconz.exit,
       ),
@@ -181,28 +182,28 @@ class TopicModel {
       // --------------------
       /// A USER FOLLOWED MY BZ
       TopicModel(
-        id: aUserFollowedMyBz,
+        id: bzNewFollowers,
         description: 'A user follows my business account',
         icon: Iconz.follow,
       ),
       // --------------------
       /// A USER REVIEWED MY FLYER
       TopicModel(
-        id: aUserReviewedMyFlyer,
+        id: bzFlyersNewReviews,
         description: 'A user writes a review over one of my flyers',
         icon: Iconz.balloonSpeaking,
       ),
       // --------------------
       /// A USER SAVED MY FLYER
       TopicModel(
-        id: aUserSavedMyFlyer,
+        id: bzFlyersNewSaves,
         description: 'A user saves one of my flyers',
         icon: Iconz.save,
       ),
       // --------------------
       /// A USER SHARED MY FLYER
       TopicModel(
-        id: aUserSharedMyFlyer,
+        id: bzFlyersNewShares,
         description: 'A user shares one of my flyers',
         icon: Iconz.share,
       ),
@@ -426,12 +427,10 @@ class TopicModel {
       userID: userID,
     );
 
-    final bool _isBlocked = Stringer.checkStringsContainString(
-      strings: _userModel?.blockedTopics,
+    _subscribed = Stringer.checkStringsContainString(
+      strings: _userModel?.fcmTopics,
       string: topicID,
     );
-
-    _subscribed = !_isBlocked;
 
   }
 
@@ -447,6 +446,12 @@ class TopicModel {
     @required String topicID,
     @required String bzID,
   }){
+
+    assert(
+    TextCheck.stringContainsSubString(string: topicID, subString: '_') == false,
+    'topicID already has an underscore'
+    );
+
     return '${bzID}_$topicID';
   }
   // --------------------
@@ -484,7 +489,7 @@ class TopicModel {
 
     if (partyType != null && topicID != null && userModel != null){
 
-      final List<String> _userBlockedTopics = userModel.blockedTopics;
+      final List<String> _userSubscribedTopics = userModel.fcmTopics;
 
       if (partyType == PartyType.bz){
 
@@ -496,24 +501,21 @@ class TopicModel {
             partyType: PartyType.bz,
           );
 
-          final bool _isBlocked = Stringer.checkStringsContainString(
-            strings: _userBlockedTopics,
+          _isSubscribed = Stringer.checkStringsContainString(
+            strings: _userSubscribedTopics,
             string: _customTopicID,
           );
 
-          _isSubscribed = !_isBlocked;
         }
 
       }
 
       if (partyType == PartyType.user){
 
-        final bool _isBlocked = Stringer.checkStringsContainString(
-          strings: _userBlockedTopics,
+        _isSubscribed = Stringer.checkStringsContainString(
+          strings: _userSubscribedTopics,
           string: topicID,
         );
-
-        _isSubscribed = !_isBlocked;
 
       }
 

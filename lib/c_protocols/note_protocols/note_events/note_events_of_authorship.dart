@@ -61,7 +61,7 @@ class NoteEventsOfAuthorship {
         replyTime: null,
       ),
       token: userModelToSendTo?.device?.token,
-      topic: TopicModel.bzInvitations,
+      topic: TopicModel.userAuthorshipsInvitations,
       dismissible: false,
       // poster: PosterModel(
       //   type: PosterType.bz,
@@ -76,7 +76,7 @@ class NoteEventsOfAuthorship {
       ),
     );
 
-    final NoteModel _uploaded = await NoteProtocols.composeToOneUser(
+    final NoteModel _uploaded = await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _note,
     );
@@ -119,7 +119,7 @@ class NoteEventsOfAuthorship {
       sentTime: DateTime.now(),
       // poll: null,
       token: userModelToSendTo?.device?.token,
-      topic: TopicModel.bzInvitations,
+      topic: TopicModel.userAuthorshipsInvitations,
       // dismissible: true,
       // poster: PosterModel(
       //   type: PosterType.bz,
@@ -134,7 +134,7 @@ class NoteEventsOfAuthorship {
       // ),
     );
 
-    await NoteProtocols.composeToOneUser(
+    await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _note,
     );
@@ -177,14 +177,14 @@ class NoteEventsOfAuthorship {
       body: _body,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.aSentAuthorshipReceivedReply,
+        topicID: TopicModel.bzAuthorshipsInvitations,
         bzID: bzID,
         partyType: PartyType.bz,
       ),
       // trigger: TriggerProtocols.createAuthorshipAcceptanceTrigger(),
     );
 
-    await NoteProtocols.composeToOneUser(
+    await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _note,
     );
@@ -223,7 +223,7 @@ class NoteEventsOfAuthorship {
       body: _body,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.aSentAuthorshipReceivedReply,
+        topicID: TopicModel.bzAuthorshipsInvitations,
         bzID: bzID,
         partyType: PartyType.bz,
       ),
@@ -233,7 +233,7 @@ class NoteEventsOfAuthorship {
       ),
     );
 
-    await NoteProtocols.composeToOneBz(
+    await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _note,
     );

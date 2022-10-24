@@ -11,6 +11,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/bz_record_real_ops.dart';
@@ -67,7 +68,9 @@ class WipeBzProtocols {
       ),
 
       NoteProtocols.unsubscribeFromAllBzTopics(
+        context: context,
         bzID: bzModel.id,
+        renovateUser: true,
       ),
 
     /// DELETE BZ RECORDS - COUNTERS
@@ -161,16 +164,27 @@ class WipeBzProtocols {
         bzID: bzID
     );
 
-    /// DELETE ALL BZ FLYERS LOCALLY
-    await FlyerProtocols.deleteFlyersLocally(
-      context: context,
-      flyersIDs: _bzModel.flyersIDs,
-    );
+    await Future.wait(<Future>[
 
-    /// DELETE BZ ON LDB
-    await BzLDBOps.deleteBzOps(
-      bzID: bzID,
-    );
+      /// DELETE ALL BZ FLYERS LOCALLY
+      FlyerProtocols.deleteFlyersLocally(
+        context: context,
+        flyersIDs: _bzModel.flyersIDs,
+      ),
+
+      /// DELETE BZ ON LDB
+      BzLDBOps.deleteBzOps(
+        bzID: bzID,
+      ),
+
+      /// DELETE BZ EDITOR SESSION
+      BzLDBOps.deleteBzEditorSession(bzID),
+
+      /// DELETE AUTHOR EDITOR SESSION
+      BzLDBOps.deleteAuthorEditorSession(AuthFireOps.superUserID()),
+
+    ]);
+
 
     blog('WipeBzProtocol.deleteLocally : ops should reach here ba2aaaaa');
 
