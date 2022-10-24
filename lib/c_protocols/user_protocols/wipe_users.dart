@@ -239,7 +239,9 @@ class WipeUserProtocols {
         );
 
         await NoteProtocols.unsubscribeFromAllBzTopics(
-            bzID: bzModel.id,
+          context: context,
+          bzID: bzModel.id,
+          renovateUser: true,
         );
 
       }

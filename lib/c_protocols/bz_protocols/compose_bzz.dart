@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -22,6 +23,7 @@ class ComposeBzProtocols {
   const ComposeBzProtocols();
 
   // -----------------------------------------------------------------------------
+  ///
   static Future<void> compose({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -56,15 +58,11 @@ class ComposeBzProtocols {
         ),
 
         /// UPDATE MY USER MODEL
-        _addBzIdToMyUserModelAndRenovate(
+        _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
           context: context,
           bzID: _uploadedBzModel.id,
         ),
 
-
-        NoteProtocols.subscribeToAllBzTopics(
-          bzID: _uploadedBzModel.id,
-        ),
 
       ]);
 
@@ -107,6 +105,7 @@ class ComposeBzProtocols {
     blog('ComposeBzProtocol.compose : END');
   }
   // --------------------
+  ///
   static Future<void> _addMyNewCreatedBzLocally({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -131,28 +130,45 @@ class ComposeBzProtocols {
 
   }
   // --------------------
-  static Future<void> _addBzIdToMyUserModelAndRenovate({
+  ///
+  static Future<void> _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics({
     @required BuildContext context,
     @required String bzID,
   }) async {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    UserModel _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    final UserModel _updated = UserModel.addBzIDToUserBzz(
+    _myUserModel = UserModel.addBzIDToUserBzz(
       userModel: _myUserModel,
       bzIDToAdd: bzID,
     );
 
-    await UserProtocols.renovateMyUserModel(
-      context: context,
-      newUserModel: _updated,
+    _myUserModel = UserModel.addAllBzTopicsToMyTopics(
+        userModel: _myUserModel,
+        bzID: bzID
     );
+
+    await Future.wait(<Future>[
+
+      NoteProtocols.subscribeToAllBzTopics(
+        context: context,
+        bzID: bzID,
+        renovateUser: false,
+      ),
+
+      UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _myUserModel,
+      ),
+
+    ]);
 
   }
   // --------------------
+  ///
   static Future<void> _failureDialog(BuildContext context) async {
 
     /// FAILURE DIALOG

@@ -98,20 +98,32 @@ class AuthorshipExitProtocols {
       context: context,
       listen: false,
     );
-    final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
+    UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
         bzIDToRemove: streamedBzModelWithoutMyID.id,
         userModel: _myOldUserModel
     );
 
-    /// UPDATE MY USER MODEL EVERYWHERE
-    await UserProtocols.renovateMyUserModel(
-      context: context,
-      newUserModel: _newUserModel,
-    );
-
-    await NoteProtocols.unsubscribeFromAllBzTopics(
+    _newUserModel = UserModel.removeAllBzTopicsFromMyTopics(
+        userModel: _newUserModel,
         bzID: streamedBzModelWithoutMyID.id,
     );
+
+    await Future.wait(<Future>[
+
+      /// UNSUBSCRIBE FROM FCM TOPICS
+      NoteProtocols.unsubscribeFromAllBzTopics(
+        bzID: streamedBzModelWithoutMyID.id,
+        context: context,
+        renovateUser: false,
+      ),
+
+      /// UPDATE MY USER MODEL EVERYWHERE
+      UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _newUserModel,
+      ),
+
+    ]);
 
     /// 10 - REMOVE ALL NOTES FROM ALL-MY-BZZ-NOTES AND OBELISK NOTES NUMBERS
     NotesProvider.proAuthorResignationNotesRemovalOps(
@@ -181,33 +193,45 @@ class AuthorshipExitProtocols {
       );
 
       /// MODIFY USER MODEL
-      final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
+      UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
         bzIDToRemove: bzID,
         userModel: _myOldUserModel,
       );
 
-      /// UPDATE USER MODEL EVERYWHERE
-      await UserProtocols.renovateMyUserModel(
-        context: context,
-        newUserModel: _newUserModel,
-      );
-
-      /// DELETE MY AUTHOR PICTURE FROM STORAGE
-      await AuthorshipProtocols.deleteMyAuthorPic(
-        context: context,
-        bzID: bzID,
-      );
-
-      await NoteProtocols.unsubscribeFromAllBzTopics(
+      _newUserModel = UserModel.removeAllBzTopicsFromMyTopics(
+          userModel: _newUserModel,
           bzID: bzID
       );
 
-      /// DELETE BZ LOCALLY
-      await BzProtocols.deleteLocally(
-        context: context,
-        bzID: bzID,
-        invoker: 'authorBzExitAfterBzDeletionProtocol',
-      );
+      await Future.wait(<Future>[
+
+        /// FCM UN-SUBSCRIBE FROM ALL BZ TOPICS
+        NoteProtocols.unsubscribeFromAllBzTopics(
+          bzID: bzID,
+          context: context,
+          renovateUser: false,
+        ),
+
+        /// UPDATE USER MODEL EVERYWHERE
+        UserProtocols.renovateMyUserModel(
+          context: context,
+          newUserModel: _newUserModel,
+        ),
+
+        /// DELETE MY AUTHOR PICTURE FROM STORAGE
+        AuthorshipProtocols.deleteMyAuthorPic(
+          context: context,
+          bzID: bzID,
+        ),
+
+        /// DELETE BZ LOCALLY
+        BzProtocols.deleteLocally(
+          context: context,
+          bzID: bzID,
+          invoker: 'authorBzExitAfterBzDeletionProtocol',
+        )
+
+      ]);
 
     }
 

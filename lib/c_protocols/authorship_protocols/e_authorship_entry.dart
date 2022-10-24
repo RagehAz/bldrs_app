@@ -40,9 +40,22 @@ class AuthorshipEntryProtocols {
       context: context,
       listen: false,
     );
-    final UserModel _newUserModel = UserModel.addBzIDToUserBzz(
+
+    UserModel _newUserModel = UserModel.addBzIDToUserBzz(
       userModel: _oldUserModel,
       bzIDToAdd: _oldBzModel.id,
+    );
+
+    _newUserModel = UserModel.addAllBzTopicsToMyTopics(
+        userModel: _newUserModel,
+        bzID: bzID
+    );
+
+    /// SUBSCRIBE TO BZ TOPICS
+    await NoteProtocols.subscribeToAllBzTopics(
+      context: context,
+      bzID: bzID,
+      renovateUser: false,
     );
 
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
@@ -81,11 +94,6 @@ class AuthorshipEntryProtocols {
       oldBzModel: _oldBzModel,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,
-    );
-
-    /// SUBSCRIBE TO BZ TOPICS
-    await NoteProtocols.subscribeToAllBzTopics(
-        bzID: bzID
     );
 
     blog('AuthorshipEntryProtocols.addMeToBz : END');

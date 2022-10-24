@@ -51,13 +51,13 @@ class NoteEventsOfBzTeamManagement {
       body: '##The team role of "${author.name}" has been set to "$_authorRoleString"',
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.aTeamMemberRoleChanged,
+        topicID: TopicModel.bzTeamRolesUpdates,
         bzID: bzID,
         partyType: PartyType.bz,
       ),
     );
 
-    await NoteProtocols.composeToOneUser(
+    await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _note,
     );
@@ -89,13 +89,13 @@ class NoteEventsOfBzTeamManagement {
       body: '##${deletedAuthor.name} is no longer part of ${bzModel.name} team',
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.aTeamMemberExited,
+        topicID: TopicModel.bzTeamMembersExit,
         bzID: bzModel.id,
         partyType: PartyType.bz,
       ),
     );
 
-    await NoteProtocols.composeToOneUser(
+    await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _noteToBz,
     );
@@ -121,9 +121,10 @@ class NoteEventsOfBzTeamManagement {
          body: '##You are no longer part of ${bzModel.name} team',
          sentTime: DateTime.now(),
          token: _userModel?.device?.token,
+         topic: TopicModel.userAuthorshipsInvitations,
        );
 
-      await NoteProtocols.composeToOneUser(
+      await NoteProtocols.composeToOneReceiver(
         context: context,
         note: _noteToUser,
       );
@@ -163,7 +164,7 @@ class NoteEventsOfBzTeamManagement {
 
             final AuthorModel author = _authors[index];
 
-            final UserModel _userModel = await UserProtocols.fetchUser(
+            final UserModel _userModel = await UserProtocols.refetchUser(
               context: context,
               userID: author.userID,
             );
@@ -184,9 +185,10 @@ class NoteEventsOfBzTeamManagement {
               trigger: TriggerProtocols.createDeleteBzLocallyTrigger(
                 bzID: bzModel.id,
               ),
+              topic: TopicModel.userAuthorshipsInvitations,
             );
 
-            await NoteProtocols.composeToOneUser(
+            await NoteProtocols.composeToOneReceiver(
               context: context,
               note: _note,
             );
@@ -227,7 +229,7 @@ class NoteEventsOfBzTeamManagement {
       body: '##Please update your Business contacts info to allow customers to reach you',
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.generalBzNotes,
+        topicID: TopicModel.bzGeneralNews,
         bzID: bzModel.id,
         partyType: PartyType.bz,
       ),

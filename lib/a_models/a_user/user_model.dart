@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
@@ -53,7 +54,7 @@ class UserModel {
     @required this.emailIsVerified,
     @required this.isAdmin,
     @required this.device,
-    @required this.blockedTopics,
+    @required this.fcmTopics,
     @required this.savedFlyersIDs,
     @required this.followedBzzIDs,
     @required this.appState,
@@ -78,7 +79,7 @@ class UserModel {
   final bool emailIsVerified;
   final bool isAdmin;
   final DeviceModel device;
-  final List<String> blockedTopics;
+  final List<String> fcmTopics;
   final List<String> savedFlyersIDs;
   final List<String> followedBzzIDs;
   final AppState appState;
@@ -121,7 +122,7 @@ class UserModel {
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.initialState(),
-      blockedTopics: const <String>[],
+      fcmTopics: TopicModel.getAllUserTopics(),
     );
 
   }
@@ -167,7 +168,7 @@ class UserModel {
         context: context,
         assignToUser: true,
       ),
-      blockedTopics: const <String>[],
+      fcmTopics: TopicModel.getAllUserTopics(),
     );
 
     _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
@@ -246,7 +247,7 @@ class UserModel {
     List<String> savedFlyersIDs,
     List<String> followedBzzIDs,
     AppState appState,
-    List<String> blockedTopics,
+    List<String> fcmTopics,
   }){
     return UserModel(
       id: id ?? this.id,
@@ -270,7 +271,7 @@ class UserModel {
       savedFlyersIDs: savedFlyersIDs ?? this.savedFlyersIDs,
       followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
       appState: appState ?? this.appState,
-      blockedTopics: blockedTopics ?? this.blockedTopics,
+      fcmTopics: fcmTopics ?? this.fcmTopics,
     );
   }
   // --------------------
@@ -294,10 +295,10 @@ class UserModel {
     bool emailIsVerified = false,
     bool isAdmin = false,
     bool device = false,
-    bool blockedTopics = false,
     bool savedFlyersIDs = false,
     bool followedBzzIDs = false,
     bool appState = false,
+    bool fcmTopics = false,
   }){
     return UserModel(
       id : id == true ? null : this.id,
@@ -318,10 +319,10 @@ class UserModel {
       emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
       isAdmin : isAdmin == true ? null : this.isAdmin,
       device : device == true ? null : this.device,
-      blockedTopics: blockedTopics == true ? const [] : this.blockedTopics,
       savedFlyersIDs : savedFlyersIDs == true ? const [] : this.savedFlyersIDs,
       followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
       appState : appState == true ? null : this.appState,
+      fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
     );
   }
   // -----------------------------------------------------------------------------
@@ -354,7 +355,7 @@ class UserModel {
       'emailIsVerified': emailIsVerified,
       'isAdmin': isAdmin,
       'device': device?.toMap(),
-      'blockedTopics': blockedTopics,
+      'fcmTopics': fcmTopics,
       'savedFlyersIDs': savedFlyersIDs ?? <String>[],
       'followedBzzIDs': followedBzzIDs ?? <String>[],
       'appState' : appState.toMap(),
@@ -410,7 +411,7 @@ class UserModel {
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         device: DeviceModel.decipherFCMToken(map['device']),
-        blockedTopics: Stringer.getStringsFromDynamics(dynamics: map['blockedTopics']),
+        fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
         savedFlyersIDs: Stringer.getStringsFromDynamics(dynamics: map['savedFlyersIDs'],),
         followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
         appState: AppState.fromMap(map['appState']),
@@ -563,7 +564,7 @@ class UserModel {
           Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
           AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) &&
-          Mapper.checkListsAreIdentical(list1: user1.blockedTopics, list2: user2.blockedTopics)
+          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics)
     // DocumentSnapshot docSnapshot;
 
       ){
@@ -834,6 +835,56 @@ class UserModel {
 
     return _userModel;
   }
+  // --------------------
+  ///
+  static UserModel addAllBzTopicsToMyTopics({
+    @required UserModel userModel,
+    @required String bzID,
+  }){
+    UserModel _userModel = userModel;
+
+    if (bzID != null && _userModel != null){
+
+      List<String> userTopics = <String>[..._userModel.fcmTopics];
+
+      userTopics = Stringer.addStringsToStringsIfDoNotContainThem(
+        listToTake: userTopics,
+        listToAdd: TopicModel.getAllBzTopics(bzID: bzID),
+      );
+
+      _userModel = _userModel.copyWith(
+        fcmTopics: userTopics,
+      );
+
+    }
+
+    return _userModel;
+  }
+  // --------------------
+  ///
+  static UserModel removeAllBzTopicsFromMyTopics({
+    @required UserModel userModel,
+    @required String bzID,
+  }){
+    UserModel _userModel = userModel;
+
+    if (bzID != null && _userModel != null){
+
+      List<String> userTopics = <String>[..._userModel.fcmTopics];
+
+      userTopics = Stringer.removeStringsFromStrings(
+        removeFrom: userTopics,
+        removeThis: TopicModel.getAllBzTopics(bzID: bzID),
+      );
+
+      _userModel = _userModel.copyWith(
+        fcmTopics: userTopics,
+      );
+
+    }
+
+    return _userModel;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGING
@@ -869,7 +920,7 @@ class UserModel {
       methodName: 'user contacts',
     );
     device?.blogDevice();
-    Stringer.blogStrings(strings: blockedTopics, invoker: 'user blockedTopics');
+    Stringer.blogStrings(strings: fcmTopics, invoker: 'user fcmTopics');
     appState?.blogAppState();
 
     blog('$methodName : ---------------- END -- ');
@@ -994,7 +1045,7 @@ class UserModel {
         blog('blogUserDifferences : [device] are not identical');
       }
 
-      if (Mapper.checkListsAreIdentical(list1: user1.blockedTopics, list2: user2.blockedTopics) == false){
+      if (Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == false){
         blog('blogUserDifferences : [fcmTopics] are not identical');
       }
 
@@ -1032,10 +1083,10 @@ class UserModel {
       emailIsVerified: true,
       isAdmin: true,
       device: null,
-      blockedTopics: const [],
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.dummyAppState(),
+      fcmTopics: TopicModel.getAllUserTopics(),
     );
 
     return _userModel;
@@ -1219,7 +1270,7 @@ class UserModel {
       emailIsVerified.hashCode^
       isAdmin.hashCode^
       device.hashCode^
-      blockedTopics.hashCode^
+      fcmTopics.hashCode^
       savedFlyersIDs.hashCode^
       followedBzzIDs.hashCode^
       appState.hashCode^
