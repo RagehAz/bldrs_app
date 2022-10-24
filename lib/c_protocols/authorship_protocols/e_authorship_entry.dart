@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -80,6 +81,11 @@ class AuthorshipEntryProtocols {
       oldBzModel: _oldBzModel,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,
+    );
+
+    /// SUBSCRIBE TO BZ TOPICS
+    await NoteProtocols.subscribeToAllBzTopics(
+        bzID: bzID
     );
 
     blog('AuthorshipEntryProtocols.addMeToBz : END');

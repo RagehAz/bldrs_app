@@ -10,6 +10,7 @@ import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -340,7 +341,7 @@ class NoteProtocols {
           userID: noteModel.parties.receiverID,
         );
 
-        _canReceive = TopicModel.checkUserIsSubscribedToAnyTopic(
+        _canReceive = TopicModel.checkUserIsSubscribedToThisTopic(
           context: context,
           topicID: noteModel.topic,
           partyType: PartyType.user,
@@ -592,4 +593,64 @@ class NoteProtocols {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// TOPIC SUBSCRIPTION
+
+  // --------------------
+  ///
+  static Future<void> subscribeToAllBzTopics({
+    @required String bzID,
+  }) async {
+
+    if (bzID != null){
+
+      final List<String> bzTopics = TopicModel.getAllBzTopics(
+        bzID: bzID,
+      );
+
+      await Future.wait(<Future>[
+
+        ...List.generate(bzTopics.length, (index){
+
+          return FCM.subscribeToTopic(
+            topicID: bzTopics[index],
+          );
+
+      }),
+
+      ]);
+
+    }
+
+
+  }
+  // --------------------
+  ///
+  static Future<void> unsubscribeFromAllBzTopics({
+    @required String bzID,
+  }) async {
+
+    if (bzID != null){
+
+      final List<String> bzTopics = TopicModel.getAllBzTopics(
+        bzID: bzID,
+      );
+
+      await Future.wait(<Future>[
+
+        ...List.generate(bzTopics.length, (index){
+
+          return FCM.unsubscribeFromTopic(
+            topicID: bzTopics[index],
+          );
+
+        }),
+
+      ]);
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
 }
