@@ -154,7 +154,7 @@ class UserProtocols {
     context: context,
   );
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> updateUserTopics({
     @required BuildContext context,
     @required String topicID,
@@ -164,11 +164,11 @@ class UserProtocols {
       context: context,
       listen: false,
     );
-    final List<String> _userTopics = _userModel.fcmTopics;
+    final List<String> _userBlockedTopics = _userModel.blockedTopics;
 
     final UserModel updated = _userModel.copyWith(
-      fcmTopics: Stringer.addOrRemoveStringToStrings(
-        strings: _userTopics,
+      blockedTopics: Stringer.addOrRemoveStringToStrings(
+        strings: _userBlockedTopics,
         string: topicID,
       ),
     );

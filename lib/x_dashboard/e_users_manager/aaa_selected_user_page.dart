@@ -400,18 +400,18 @@ class SelectedUserPage extends StatelessWidget {
 
       headline('FCM TOPICS'),
 
-      /// FCM Topics
+      /// BLOCKED FCM Topics
       DataStrip(
         color: Colorz.black255,
-        dataKey: 'FCM Topics count',
-        dataValue: userModel.fcmTopics.length,
+        dataKey: 'FCM Blocked Topics count',
+        dataValue: userModel.blockedTopics.length,
       ),
 
-      /// FCM Topics
+      /// FCM Blocked Topics
       DataStrip(
         color: Colorz.black255,
-        dataKey: 'FCM Topics',
-        dataValue: userModel.fcmTopics,
+        dataKey: 'FCM Blocked Topics',
+        dataValue: userModel.blockedTopics,
       ),
 
       // -----------------------------------
