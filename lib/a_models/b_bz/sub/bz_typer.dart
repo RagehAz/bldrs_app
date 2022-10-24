@@ -128,7 +128,7 @@ class BzTyper {
     BzType.supplier,
   ];
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<BzType> getBzTypesListWithoutOneType(BzType removeThisType){
     const List<BzType> _allTypes = bzTypesList;
     final List<BzType> _output = <BzType>[];
@@ -191,7 +191,7 @@ class BzTyper {
   /// BZ TYPE CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkBzTypesContainThisType({
     @required BzType bzType,
     @required List<BzType> bzTypes,
@@ -305,6 +305,7 @@ class BzTyper {
     return _strings;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String translateBzTypesIntoString({
     @required BuildContext context,
     @required List<BzType> bzTypes,
@@ -358,6 +359,7 @@ class BzTyper {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String translateBzTypeAskHint(BuildContext context, BzType bzType){
 
     final String _askHint =
@@ -546,6 +548,7 @@ class BzTyper {
   /// BZ TYPE MODIFIERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzType> addOrRemoveBzTypeToBzzTypes({
     @required BzType newSelectedBzType,
     @required List<BzType> selectedBzTypes,
@@ -573,6 +576,7 @@ class BzTyper {
   /// BZ ACCOUNT TYPE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherBzAccountType(BzAccountType bzAccountType) {
     switch (bzAccountType) {
       case BzAccountType.normal:  return 'normal';  break;
@@ -582,6 +586,7 @@ class BzTyper {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BzAccountType decipherBzAccountType(String bzAccountType) {
     switch (bzAccountType) {
       case 'normal'   : return BzAccountType.normal   ; break; // 1
@@ -601,6 +606,7 @@ class BzTyper {
   /// BZ FORM
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherBzForm(BzForm x) {
     switch (x) {
       case BzForm.individual  : return 'individual' ; break;
@@ -609,6 +615,7 @@ class BzTyper {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BzForm decipherBzForm(String x) {
     switch (x) {
       case 'individual' :  return BzForm.individual ; break; // 1
@@ -621,6 +628,7 @@ class BzTyper {
   /// BZ FORM TRANSLATION
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzFormPhid({
     @required BuildContext context,
     @required BzForm bzForm,
@@ -640,6 +648,7 @@ class BzTyper {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getBzFormsPhids({
     @required BuildContext context,
     @required List<BzForm> bzForms,
@@ -665,6 +674,7 @@ class BzTyper {
   /// BZ FORM CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool bzFormsContainThisForm({
     @required List<BzForm> bzForms,
     @required BzForm bzForm,
@@ -686,6 +696,7 @@ class BzTyper {
   /// BZ FORM CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzForm> concludeInactiveBzFormsByBzTypes(List<BzType> selectedBzTypes){
 
     /// INITIAL LIST OF ALL BZ FORMS
@@ -721,6 +732,7 @@ class BzTyper {
     return _bzForms;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzForm> concludeBzFormsByBzType(BzType selectedBzType){
 
     List<BzForm> _bzForm = <BzForm>[];
@@ -776,6 +788,7 @@ class BzTyper {
   /// BZ STATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherBzState(BzState state) {
     switch (state) {
       case BzState.online       : return 'online'     ; break;
@@ -787,6 +800,7 @@ class BzTyper {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BzState decipherBzState(String state) {
     switch (state) {
       case 'online'       : return BzState.online       ; break;
@@ -810,6 +824,7 @@ class BzTyper {
   /// BZ SECTION
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzSectionPhid({
     @required BuildContext context,
     @required BzSection bzSection,
@@ -826,6 +841,7 @@ class BzTyper {
     return _translation;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getBzSectionsPhids({
     @required BuildContext context,
     @required List<BzSection> bzSections,
@@ -847,6 +863,7 @@ class BzTyper {
     return _strings;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BzSection concludeBzSectionByBzTypes(List<BzType> selectedBzTypes){
 
     BzType _bzType;
@@ -877,7 +894,5 @@ class BzTyper {
     BzSection.construction,
     BzSection.supplies,
   ];
-
   // -----------------------------------------------------------------------------
-  void fucj(){}
 }

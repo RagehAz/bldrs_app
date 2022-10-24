@@ -210,7 +210,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
             bzForms: draft.inactiveBzForms,
           );
 
-
           return Form(
             key: draft.formKey,
             child: ListView(
@@ -560,5 +559,5 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
