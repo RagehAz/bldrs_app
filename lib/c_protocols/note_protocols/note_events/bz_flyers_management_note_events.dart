@@ -40,7 +40,7 @@ class NoteEventsOfBzFlyersManagement {
       sentTime: DateTime.now(),
       sendFCM: false,
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.myBzFlyerIsUpdated,
+        topicID: TopicModel.bzFlyersUpdates,
         bzID: bzModel.id,
         partyType: PartyType.bz,
       ),
@@ -49,7 +49,7 @@ class NoteEventsOfBzFlyersManagement {
       ),
     );
 
-    await NoteProtocols.composeToOneUser(
+    await NoteProtocols.composeToOneReceiver(
       context: context,
       note: _note,
     );
@@ -83,13 +83,13 @@ class NoteEventsOfBzFlyersManagement {
         flyerID: flyerID,
       ),
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.myBzFlyerIsVerified,
+        topicID: TopicModel.bzFlyersVerifications,
         bzID: bzID,
         partyType: PartyType.bz,
       ),
     );
 
-    await NoteProtocols.composeToOneUser(
+    await NoteProtocols.composeToOneReceiver(
         context: context,
         note: _note
     );

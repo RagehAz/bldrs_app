@@ -53,9 +53,9 @@ class NoteModel {
     @required this.title,
     @required this.body,
     @required this.sentTime,
+    @required this.topic,
     this.dismissible = true,
     this.seen = false,
-    this.topic,
     this.sendFCM = true,
     this.sendNote = true,
     this.poster,
@@ -848,7 +848,7 @@ class NoteModel {
 
     if (noteModel != null) {
       if (
-          noteModel.topic == TopicModel.bzInvitations
+          noteModel.topic == TopicModel.userAuthorshipsInvitations
           &&
           // noteModel.trigger?.name == TriggerModel.refetchBz
           // &&
@@ -1182,18 +1182,19 @@ class NoteModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const NoteModel initialNoteForCreation = NoteModel(
+  static NoteModel initialNoteForCreation = NoteModel(
     id: null,
     parties: NoteParties(
       senderID: NoteParties.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
       senderImageURL: NoteParties.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
       senderType: PartyType.bldrs,
-      receiverID: null,
-      receiverType: null,
+      receiverID: AuthFireOps.superUserID(),
+      receiverType: PartyType.user,
     ),
     title: null,
     body: null,
     sentTime: null,
+    topic: TopicModel.userGeneralNews,
     // sendFCM: true,
     // dismissible: true,
   );
@@ -1204,17 +1205,18 @@ class NoteModel {
   static NoteModel dummyNote(){
     return NoteModel(
       id: 'id',
-      parties: const NoteParties(
+      parties: NoteParties(
         senderID: NoteParties.bldrsSenderID,
         senderImageURL: NoteParties.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
-        receiverID: 'receiverID',
+        receiverID: AuthFireOps.superUserID(),
         receiverType: PartyType.user,
       ),
       title: 'title',
       body: 'body',
       sentTime: DateTime.now(),
       poll: PollModel.dummyPoll(),
+      topic: TopicModel.userGeneralNews,
     );
   }
   // --------------------
@@ -1245,10 +1247,11 @@ class NoteModel {
         senderImageURL: NoteParties.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
         receiverType: PartyType.user,
-
       ),
       sentTime: DateTime.now(),
       token: 'will be auto adjusted on NoteFireOps.create.adjustToken',
+      topic: TopicModel.userGeneralNews,
+
     );
   }
   // -----------------------------------------------------------------------------
