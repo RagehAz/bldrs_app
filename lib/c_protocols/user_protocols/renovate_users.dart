@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -11,7 +10,7 @@ import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/bz_record_real_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -330,16 +329,21 @@ class RenovateUserProtocols {
 
     if (_myUserModel != null){
 
-      final List<String> _blockedTopics = _myUserModel.blockedTopics;
+      final List<String> _userTopics = _myUserModel.fcmTopics;
 
-      final List<String> _allPossibleBzTopics = TopicModel.getAllBzzTopics(
-        bzzIDs: _myUserModel.myBzzIDs,
-      );
+      final List<String> _topicsIShouldSubscribeTo = <String>[];
+      for (final String topicID in _userTopics){
 
-      final List<String> _topicsIShouldSubscribeTo = Stringer.removeStringsFromStrings(
-        removeFrom: _allPossibleBzTopics,
-        removeThis: _blockedTopics,
-      );
+        final bool _containUnderscore = TextCheck.stringContainsSubString(
+          string: topicID,
+          subString: '_',
+        );
+
+        if (_containUnderscore == true){
+          _topicsIShouldSubscribeTo.add(topicID);
+        }
+
+      }
 
       if (Mapper.checkCanLoopList(_topicsIShouldSubscribeTo) == true){
 

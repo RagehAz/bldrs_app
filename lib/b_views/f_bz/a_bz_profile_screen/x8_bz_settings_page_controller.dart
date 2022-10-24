@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -90,8 +91,9 @@ Future<void> onDeleteBzButtonTap({
     // }
 
     /// DELETE BZ LOCALLY
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
     await BzProtocols.deleteLocally(
-      context: context,
+      context: _context,
       bzID: bzModel.id,
       invoker: 'onDeleteBzButtonTap',
     );

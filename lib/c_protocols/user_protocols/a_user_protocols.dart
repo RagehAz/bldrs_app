@@ -164,11 +164,11 @@ class UserProtocols {
       context: context,
       listen: false,
     );
-    final List<String> _userBlockedTopics = _userModel.blockedTopics;
+    final List<String> _userSubscribedTopics = _userModel.fcmTopics;
 
     final UserModel updated = _userModel.copyWith(
-      blockedTopics: Stringer.addOrRemoveStringToStrings(
-        strings: _userBlockedTopics,
+      fcmTopics: Stringer.addOrRemoveStringToStrings(
+        strings: _userSubscribedTopics,
         string: topicID,
       ),
     );
