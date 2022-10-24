@@ -19,7 +19,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
+  ///
   Future<void> _onSwitchAuthorSubscriptionToTopic({
     @required BuildContext context,
     @required String topicID,

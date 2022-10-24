@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x3_bz_authors_page_contro
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
@@ -235,6 +236,10 @@ class WipeUserProtocols {
           showWaitingDialog: false,
           showConfirmationDialog: false,
           sendToUserAuthorExitNote: false,
+        );
+
+        await NoteProtocols.unsubscribeFromAllBzTopics(
+            bzID: bzModel.id,
         );
 
       }

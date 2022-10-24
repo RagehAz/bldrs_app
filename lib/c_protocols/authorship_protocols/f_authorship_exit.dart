@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
@@ -108,6 +109,10 @@ class AuthorshipExitProtocols {
       newUserModel: _newUserModel,
     );
 
+    await NoteProtocols.unsubscribeFromAllBzTopics(
+        bzID: streamedBzModelWithoutMyID.id,
+    );
+
     /// 10 - REMOVE ALL NOTES FROM ALL-MY-BZZ-NOTES AND OBELISK NOTES NUMBERS
     NotesProvider.proAuthorResignationNotesRemovalOps(
       context: context,
@@ -191,6 +196,10 @@ class AuthorshipExitProtocols {
       await AuthorshipProtocols.deleteMyAuthorPic(
         context: context,
         bzID: bzID,
+      );
+
+      await NoteProtocols.unsubscribeFromAllBzTopics(
+          bzID: bzID
       );
 
       /// DELETE BZ LOCALLY
