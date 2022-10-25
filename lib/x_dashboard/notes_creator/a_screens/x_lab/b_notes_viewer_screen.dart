@@ -125,6 +125,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
               bDocName: _receiverID,
               cSubCollName: FireSubColl.noteReceiver_receiver_notes
           ),
+          idFieldName: 'id',
           orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
           limit: 5,
           onDataChanged: (List<Map<String, dynamic>> maps){
