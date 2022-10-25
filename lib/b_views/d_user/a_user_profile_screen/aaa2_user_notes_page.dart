@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
@@ -38,7 +37,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // -----------------------------------------------------------------------------
   PaginationController _paginationController;
   // --------------------
-  List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
+  final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
   bool showNotes = true;
   // --------------------
