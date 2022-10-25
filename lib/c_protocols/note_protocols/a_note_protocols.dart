@@ -654,7 +654,7 @@ class NoteProtocols {
   /// TOPIC SUBSCRIPTION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> subscribeToAllBzTopics({
     @required BuildContext context,
     @required String bzID,
@@ -663,7 +663,7 @@ class NoteProtocols {
 
     if (bzID != null){
 
-      final List<String> bzTopics = TopicModel.getAllBzTopics(
+      final List<String> bzTopics = TopicModel.getAllPossibleBzTopicsIDs(
         bzID: bzID,
       );
 
@@ -694,7 +694,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _addAllBzTopicsToMyTopicsAndRenovate({
     @required BuildContext context,
     @required String bzID,
@@ -721,7 +721,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromAllBzTopics({
     @required BuildContext context,
     @required String bzID,
@@ -730,7 +730,7 @@ class NoteProtocols {
 
     if (bzID != null){
 
-      final List<String> bzTopics = TopicModel.getAllBzTopics(
+      final List<String> bzTopics = TopicModel.getAllPossibleBzTopicsIDs(
         bzID: bzID,
       );
 
@@ -756,7 +756,7 @@ class NoteProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _removeAllBzTopicsFromMyTopicsAndRenovate({
     @required BuildContext context,
     @required String bzID,

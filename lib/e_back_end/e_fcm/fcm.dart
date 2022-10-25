@@ -1,20 +1,26 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_back_end/a_rest/rest.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart';
 
 class FCM {
   // -----------------------------------------------------------------------------
@@ -526,7 +532,7 @@ class FCM {
   /// TOPICS
 
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> subscribeToTopic({
     String topicID
   }) async {
@@ -558,7 +564,7 @@ class FCM {
 
   }
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromTopic({
     @required String topicID,
   }) async {
@@ -567,12 +573,53 @@ class FCM {
       await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
     }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT : TASK : SHOULD BE DONE ON SERVER SIDE TO CONCEAL FCM SERVER KEY
+  static Future<List<String>> readMySubscribedTopics(BuildContext context) async {
 
+    List<String> _topics;
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    const String fcmServerKey = Standards.fcmServerKey;
+
+    final String token = _myUserModel.device.token;
+
+    final Response _result = await Rest.get(
+      context: context,
+      rawLink: 'https://iid.googleapis.com/iid/info/$token?details=true',
+      headers: {
+        'Authorization': 'Bearer $fcmServerKey',
+        // 'Content-Type': 'application/json',
+        // 'Authorization': 'key=$fcmServerKey',
+      },
+      showErrorDialog: true,
+      invoker: 'readMySubscribedTopics',
+    );
+
+    if (_result?.body != null){
+
+      final Map<String, dynamic> _map = json.decode(_result.body);
+
+      final Map<String, dynamic> _topicsMap = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+          internalHashLinkedMapObjectObject: _map['rel']['topics'],
+      );
+
+      _topics = _topicsMap.keys.toList();
+
+    }
+
+    return _topics;
+  }
   // -----------------------------------------------------------------------------
 
   /// DEVICE TOKEN
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<String> generateToken() async {
 
     String _fcmToken;
