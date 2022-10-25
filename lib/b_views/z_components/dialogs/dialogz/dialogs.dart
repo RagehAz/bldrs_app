@@ -125,6 +125,7 @@ class Dialogs {
     @required BuildContext context,
     Verse titleVerse,
     Verse bodyVerse,
+    bool invertButtons = false,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -135,6 +136,7 @@ class Dialogs {
       ),
       bodyVerse: bodyVerse,
       boolDialog: true,
+      invertButtons: invertButtons,
     );
 
     return _result;

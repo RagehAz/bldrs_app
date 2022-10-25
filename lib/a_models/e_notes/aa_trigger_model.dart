@@ -1,3 +1,8 @@
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +17,7 @@ class TriggerModel {
   /// --------------------------------------------------------------------------
   final String name;
   final String argument;
-  final bool done;
+  final List<String> done;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -22,7 +27,7 @@ class TriggerModel {
   TriggerModel copyWith({
     String name,
     String argument,
-    bool done,
+    List<String> done,
   }){
     return TriggerModel(
       name: name ?? this.name,
@@ -40,7 +45,7 @@ class TriggerModel {
     return {
       'functionName': name,
       'argument': argument,
-      'done': done,
+      'done': ChainPathConverter.combinePathNodes(done),
     };
   }
   // --------------------
@@ -52,11 +57,38 @@ class TriggerModel {
       _trigger = TriggerModel(
         name: map['functionName'],
         argument: map['argument'],
-        done: map['done'],
+        done: ChainPathConverter.splitPathNodes(map['done']),
       );
     }
 
     return _trigger;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static NoteModel addMeToTriggerDones({
+    @required NoteModel noteModel,
+  }){
+
+    assert(noteModel != null, 'noteModel can not be null');
+    assert(AuthFireOps.superUserID() != null, 'User is not authenticated');
+
+    final List<String> _updatedDone = Stringer.addStringToListIfDoesNotContainIt(
+      strings: noteModel.trigger.done,
+      stringToAdd: AuthFireOps.superUserID(),
+    );
+
+    final TriggerModel _updatedTrigger = noteModel.trigger.copyWith(
+      done: _updatedDone,
+    );
+
+    return noteModel.copyWith(
+      trigger: _updatedTrigger,
+    );
+
   }
   // -----------------------------------------------------------------------------
 
@@ -65,20 +97,20 @@ class TriggerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkTriggersAreIdentical(TriggerModel trigger1, TriggerModel trigger2){
-    bool _identical;
+    bool _identical = false;
 
     if (trigger1 == null && trigger2 == null){
       _identical = true;
     }
+
     else {
 
       if (trigger1 != null && trigger2 != null){
 
         if (
-
-        trigger1.name == trigger2.name &&
-        trigger1.argument == trigger2.argument &&
-        trigger1.done == trigger2.done
+          trigger1.name == trigger2.name &&
+          trigger1.argument == trigger2.argument &&
+          Mapper.checkListsAreIdentical(list1: trigger1.done, list2: trigger2.done)
         ){
           _identical = true;
         }
@@ -88,6 +120,25 @@ class TriggerModel {
     }
 
     return _identical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIFiredThisTrigger(TriggerModel trigger){
+
+    assert(AuthFireOps.superUserID() != null, 'User is not authenticated');
+
+    bool _fired = false;
+
+    if (trigger != null){
+
+      _fired = Stringer.checkStringsContainString(
+          strings: trigger.done,
+          string: AuthFireOps.superUserID(),
+      );
+
+    }
+
+    return _fired;
   }
   // -----------------------------------------------------------------------------
 

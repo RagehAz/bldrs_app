@@ -2,6 +2,7 @@
 
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
@@ -210,7 +211,7 @@ class NoteModel {
       'topic': topic,
       'triggerName': trigger?.name,
       'triggerArgument': trigger?.argument,
-      'triggerDone': trigger?.done,
+      'triggerDone': ChainPathConverter.combinePathNodes(trigger?.done),
       'seen': seen,
       'progress': progress,
       'dismissible' : dismissible,
@@ -276,7 +277,7 @@ class NoteModel {
         trigger: TriggerModel(
           name: map['triggerName'],
           argument: map['triggerArgument'],
-          done: map['triggerDone'],
+          done: ChainPathConverter.splitPathNodes(map['triggerDone']),
         ),
         seen: map['seen'],
         progress: map['progress'],
@@ -361,7 +362,7 @@ class NoteModel {
         trigger: TriggerModel(
           name: get('triggerName'),
           argument: get('triggerArgument'),
-          done: getBool('triggerDone'),
+          done: ChainPathConverter.splitPathNodes(get('triggerDone')),
         ),
         seen: getBool('seen'),
         progress: Numeric.transformStringToInt(get('progress')),
@@ -399,7 +400,7 @@ class NoteModel {
     blog('O : ~ ~ ~ ~ ~ ~');
     blog('O : poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.url}');
     blog('O : poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
-    blog('O : trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument}');
+    blog('O : trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument} : done : ${trigger?.done}');
     blog('O : ~ ~ ~ ~ ~ ~');
     blog('<= BLOGGING NoteModel : $invoker -------------------------------- END -- ');
   }
@@ -760,17 +761,17 @@ class NoteModel {
 
       if (
           note1.id == note2.id &&
-          NoteParties.checkPartiesAreIdentical(parties1: note1.parties, parties2: note2.parties) &&
+          NoteParties.checkPartiesAreIdentical(parties1: note1.parties, parties2: note2.parties) == true &&
           note1.title == note2.title &&
           note1.body == note2.body &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
-          PosterModel.checkPostersAreIdentical(poster1: note1.poster, poster2: note2.poster) &&
-          PollModel.checkPollsAreIdentical(poll1: note1.poll, poll2: note2.poll) &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) == true &&
+          PosterModel.checkPostersAreIdentical(poster1: note1.poster, poster2: note2.poster) == true &&
+          PollModel.checkPollsAreIdentical(poll1: note1.poll, poll2: note2.poll) == true &&
           note1.sendFCM == note2.sendFCM &&
           note1.sendNote == note2.sendNote &&
           note1.token == note2.token &&
           note1.topic == note2.topic &&
-          TriggerModel.checkTriggersAreIdentical(note1.trigger, note2.trigger) &&
+          TriggerModel.checkTriggersAreIdentical(note1.trigger, note2.trigger) == true &&
           note1.seen == note2.seen &&
           note1.progress == note2.progress &&
           note1.dismissible == note2.dismissible

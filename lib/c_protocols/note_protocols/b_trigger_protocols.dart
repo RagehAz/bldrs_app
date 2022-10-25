@@ -4,6 +4,7 @@ import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.da
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -35,6 +36,14 @@ class TriggerProtocols {
   // --------------------
   /// -> fires BzProtocols.tridWipePendingAuthor
   static const String tridWipePendingAuthor = 'tridWipePendingAuthor';
+  // --------------------
+  static const List<String> triggersList = [
+    tridRefetchFlyer,
+    tridRefetchBz,
+    tridAddMeAsAuthorToBz,
+    tridRemoveBzTracesAfterDeletion,
+    tridWipePendingAuthor,
+  ];
   // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -47,7 +56,7 @@ class TriggerProtocols {
     return TriggerModel(
       name: tridRefetchFlyer,
       argument: flyerID,
-      done: false,
+      done: const <String>[],
     );
   }
   // --------------------
@@ -65,7 +74,7 @@ class TriggerProtocols {
     return TriggerModel(
       name: tridRemoveBzTracesAfterDeletion,
       argument: bzID,
-      done: false,
+      done: const <String>[],
     );
   }
   // --------------------
@@ -76,7 +85,7 @@ class TriggerProtocols {
     return TriggerModel(
       name: tridRefetchBz,
       argument: bzID,
-      done: false,
+      done: const <String>[],
     );
   }
   // --------------------
@@ -88,7 +97,7 @@ class TriggerProtocols {
     return TriggerModel(
       name: tridWipePendingAuthor,
       argument: '${userID}_$bzID',
-      done: false,
+      done: const <String>[],
     );
   }
   // -----------------------------------------------------------------------------
@@ -134,7 +143,7 @@ class TriggerProtocols {
         &&
         noteModel.trigger != null
         &&
-        noteModel?.trigger?.done == false
+        TriggerModel.checkIFiredThisTrigger(noteModel.trigger) == false
     ){
 
       await _triggerSwitcher(
@@ -142,12 +151,8 @@ class TriggerProtocols {
         trigger: noteModel.trigger,
       );
 
-      final TriggerModel _updatedTrigger = noteModel.trigger.copyWith(
-        done: true,
-      );
-
-      final NoteModel _newNote = noteModel.copyWith(
-        trigger: _updatedTrigger,
+      final NoteModel _newNote = TriggerModel.addMeToTriggerDones(
+        noteModel: noteModel,
       );
 
       await NoteProtocols.renovate(
@@ -155,7 +160,6 @@ class TriggerProtocols {
         oldNote: noteModel,
         newNote: _newNote,
       );
-
 
     }
 
@@ -169,7 +173,12 @@ class TriggerProtocols {
     @required TriggerModel trigger,
   }) async {
 
-    if (trigger != null && trigger.done == false){
+    assert(
+    TriggerModel.checkIFiredThisTrigger(trigger) == false,
+    'This user ${AuthFireOps.superUserID()} already fired this trigger ${trigger.name}',
+    );
+
+    if (trigger != null && TriggerModel.checkIFiredThisTrigger(trigger) == false){
 
       blog('1--> Switcher : ${trigger.name} : ${trigger.argument} : ${trigger.done}');
 

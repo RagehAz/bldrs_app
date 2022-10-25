@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -35,34 +36,43 @@ class ZoneLine extends StatelessWidget {
 
     return Container(
       width: _width - 20,
-      height: 35,
+      // height: 35,
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
-        children: <Widget>[
+      alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: const NeverScrollableScrollPhysics(),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
+          children: <Widget>[
 
-          FlagBox(
-            size: 20,
-            countryID: zoneModel?.countryID,
-          ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 7.5),
+              child: FlagBox(
+                size: 20,
+                countryID: zoneModel?.countryID,
+              ),
+            ),
 
-          const SizedBox(
-            width: 5,
-            height: 5,
-          ),
+            const SizedBox(
+              width: 5,
+              height: 5,
+            ),
 
-          SuperVerse(
-            width: _width - 20 - 25 - 10,
-            verse: _zoneVerse,
-            weight: VerseWeight.thin,
-            italic: true,
-            color: Colorz.grey255,
-            margin: 5,
-            maxLines: 3,
-            centered: centered,
-          ),
+            SuperVerse(
+              width: _zoneVerse.text.length > 20 ? _width - 20 - 20 - 5 : null,
+              verse: _zoneVerse,
+              weight: VerseWeight.thin,
+              italic: true,
+              color: Colorz.grey255,
+              margin: 5,
+              maxLines: 3,
+              centered: false,
+            ),
 
-        ],
+          ],
+        ),
       ),
     );
     // --------------------
