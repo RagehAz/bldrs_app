@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -34,46 +35,58 @@ class MultiButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
+    if (Mapper.checkCanLoopList(pics) == false){
+      return DreamBox(
         width: width,
         height: height,
-        margin: Scale.superMargins(margins: margins),
-        child: Stack(
-          // alignment: Aligners.superCenterAlignment(context),
-          children: <Widget>[
+        margins: Scale.superMargins(margins: margins),
+        color: color,
+      );
+    }
 
-            DreamBox(
-              width: width,
-              height: height,
-              verse: verse,
-              verseScaleFactor: 0.6,
-              verseCentered: false,
-              secondLine: secondLine,
-              icon: pics.length == 1 ? pics.first : Iconz.dvBlankSVG,
-              iconColor: pics.length == 1 ? null : Colorz.nothing,
-              bubble: bubble,
-              color: color,
-              verseMaxLines: 2,
-            ),
+    else {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: width,
+          height: height,
+          margin: Scale.superMargins(margins: margins),
+          child: Stack(
+            // alignment: Aligners.superCenterAlignment(context),
+            children: <Widget>[
 
-            if (pics.length == 2)
-              DoublePicsBox(
-                size: height,
-                pics: pics,
+              DreamBox(
+                width: width,
+                height: height,
+                verse: verse,
+                verseScaleFactor: 0.6,
+                verseCentered: false,
+                secondLine: secondLine,
+                icon: pics?.length == 1 ? pics.first : Iconz.dvBlankSVG,
+                iconColor: pics?.length == 1 ? null : Colorz.nothing,
+                bubble: bubble,
+                color: color,
+                verseMaxLines: 2,
               ),
 
-            if (pics.length > 2)
-              ManyPicsBox(
-                size: height,
-                pics: pics,
-              ),
+              if (pics.length == 2)
+                DoublePicsBox(
+                  size: height,
+                  pics: pics,
+                ),
 
-          ],
+              if (pics.length > 2)
+                ManyPicsBox(
+                  size: height,
+                  pics: pics,
+                ),
+
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
+
 
   }
 

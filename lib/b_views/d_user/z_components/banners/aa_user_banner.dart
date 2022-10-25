@@ -152,6 +152,7 @@ class UserBanner extends StatelessWidget {
         /// USER LOCALE
         ZoneLine(
           zoneModel: userModel?.zone,
+          // centered: true,
         ),
 
         /// JOINED AT
