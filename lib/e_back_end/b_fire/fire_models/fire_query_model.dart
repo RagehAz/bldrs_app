@@ -8,6 +8,7 @@ class FireQueryModel {
   /// --------------------------------------------------------------------------
   const FireQueryModel({
     @required this.collRef,
+    @required this.idFieldName,
     this.onDataChanged,
     this.limit,
     this.orderBy,
@@ -23,6 +24,7 @@ class FireQueryModel {
   final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
   final QueryDocumentSnapshot startAfter;
   final List<Map<String, dynamic>> initialMaps;
+  final String idFieldName;
   // -----------------------------------------------------------------------------
 
   /// QueryParameter CREATOR
@@ -37,6 +39,7 @@ class FireQueryModel {
     ValueChanged<List<Map<String, dynamic>>> onDataChanged,
     QueryDocumentSnapshot startAfter,
     List<Map<String, dynamic>> initialMaps,
+    String idFieldName,
   }){
     return FireQueryModel(
       collRef: collRef ?? this.collRef,
@@ -46,6 +49,7 @@ class FireQueryModel {
       onDataChanged: onDataChanged ?? this.onDataChanged,
       startAfter: startAfter ?? this.startAfter,
       initialMaps: initialMaps ?? this.initialMaps,
+      idFieldName: idFieldName ?? this.idFieldName,
     );
   }
   // -----------------------------------------------------------------------------
@@ -71,7 +75,8 @@ class FireQueryModel {
     model1.limit == model2.limit &&
     model1.orderBy?.descending == model2.orderBy?.descending &&
     model1.orderBy?.fieldName == model2.orderBy?.fieldName &&
-    FireFinder.checkFindersListsAreIdentical(model1.finders, model2.finders) == true
+    FireFinder.checkFindersListsAreIdentical(model1.finders, model2.finders) == true &&
+    model1.idFieldName == model2.idFieldName
     // model1.onDataChanged == model2.onDataChanged &&
     // model1.startAfter == model2.startAfter &&
     // model1.initialMaps == model2.initialMaps &&
@@ -120,6 +125,7 @@ class FireQueryModel {
       orderBy.hashCode^
       finders.hashCode^
       startAfter.hashCode^
+      idFieldName.hashCode^
       initialMaps.hashCode;
 // -----------------------------------------------------------------------------
 }

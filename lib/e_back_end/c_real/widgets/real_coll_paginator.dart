@@ -122,6 +122,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
         controller: _controller,
         isPaginating: _isPaginating,
         canKeepReading: _canKeepReading,
+        mounted: mounted,
         onPaginate: () async {
           await _readMore();
         }

@@ -149,7 +149,8 @@ class Storage {
           final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
             blog('uploadFile : 6 - upload file completed');
           });
-          blog('uploadFile : 7 - task state : ${_snapshot.state}');
+
+          blog('uploadFile : 7 - task state : ${_snapshot?.state}');
 
           _fileURL = await _ref.getDownloadURL();
           blog('uploadFile : 8 - got url : $_fileURL');
