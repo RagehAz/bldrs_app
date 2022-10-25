@@ -7,8 +7,8 @@ import 'package:bldrs/e_back_end/x_ops/ldb_ops/phrase_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
-import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
-import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

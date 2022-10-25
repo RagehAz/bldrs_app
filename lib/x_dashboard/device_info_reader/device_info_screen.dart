@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:package_info_plus/package_info_plus.dart';
