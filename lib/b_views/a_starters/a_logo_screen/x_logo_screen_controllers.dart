@@ -21,6 +21,7 @@ import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,19 +50,32 @@ Future<void> initializeLogoScreen({
       ]
   );
 
-  /// DEVICE ID - TOKEN
-  await _refreshUserDeviceModel(context);
+  if (_phrasesAreLoaded(context) == false){
 
-  /// CHECK DEVICE CLOCK
-  final bool _deviceTimeIsCorrect = await Timers.checkDeviceTimeIsCorrect(
-    context: context,
-    showIncorrectTimeDialog: true,
-  );
-
-  if (_deviceTimeIsCorrect == false){
-    await _onRestartAppInTimeCorrectionDialog(
-      context: context,
+    await Nav.pushNamedAndRemoveAllBelow(
+        context: context,
+        goToRoute: Routing.staticLogoScreen,
     );
+
+  }
+
+  else {
+
+    /// DEVICE ID - TOKEN
+    await _refreshUserDeviceModel(context);
+
+    /// CHECK DEVICE CLOCK
+    final bool _deviceTimeIsCorrect = await Timers.checkDeviceTimeIsCorrect(
+      context: context,
+      showIncorrectTimeDialog: true,
+    );
+
+    if (_deviceTimeIsCorrect == false){
+      await _onRestartAppInTimeCorrectionDialog(
+        context: context,
+      );
+    }
+
   }
 
 }
@@ -354,6 +368,19 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
   );
 
   // blog('_initializeAppLanguage : END');
+}
+// --------------------
+bool _phrasesAreLoaded(BuildContext context) {
+
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
+  if (_phraseProvider.mainPhrases.isEmpty == true){
+    return false;
+  }
+  else {
+    return true;
+  }
+
 }
 // -----------------------------------------------------------------------------
 

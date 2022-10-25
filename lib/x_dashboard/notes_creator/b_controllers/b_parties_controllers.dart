@@ -248,6 +248,7 @@ Future<void> onSelectReceiverType({
       context: context,
       titleVerse: Verse.plain('Remove selected'),
       bodyVerse: Verse.plain('This will clear all selected receivers'),
+      invertButtons: true,
     );
 
   }

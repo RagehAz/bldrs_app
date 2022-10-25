@@ -692,6 +692,7 @@ Future<void> onCancelSentAuthorshipInvitation({
         text: 'phid_yes',
         translate: true,
       ),
+      invertButtons: true,
     );
 
     if (_result == true){

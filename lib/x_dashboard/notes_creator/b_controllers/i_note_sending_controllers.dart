@@ -206,13 +206,41 @@ Future<void> _sendNoteToOneBz({
 /// TO USERS
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT : TASK : NEEDS OPTIMIZATION
 Future<void> _sendNoteToMultipleUsers({
   @required BuildContext context,
   @required DraftNote draftNote,
 }) async {
 
-  blog('should send note to MAANY USERSSS');
+  /// GET RECEIVER ID FROM MODELS
+  final List<String> _receiversIDs = NoteParties.getReceiversIDs(
+    receiversModels: draftNote.receiversModels.value,
+    partyType: draftNote.noteNotifier.value.parties.receiverType,
+  );
+
+  await Future.wait(<Future>[
+
+    ...List.generate(_receiversIDs.length, (index){
+
+      final String _userID = _receiversIDs[index];
+
+      /// ADJUST NOTE RECEIVER ID
+      final NoteModel _note = NoteProtocols.adjustReceiverID(
+        receiverID: _userID,
+        note: draftNote.noteNotifier.value,
+      );
+
+      /// COMPOSE PROTOCOLS
+      return NoteProtocols.composeToOneReceiver(
+        context: context,
+        note: _note,
+        // uploadPoster: true, // default
+      );
+
+
+    }),
+
+  ]);
 
 }
 // -----------------------------------------------------------------------------
@@ -226,16 +254,47 @@ Future<void> _sendNoteToMultipleBzz({
   @required DraftNote draftNote,
 }) async {
 
-  blog('should send note to MAAANY BZZZZZZZZZZZZZZZZZZ');
+  /// GET RECEIVER ID FROM MODELS
+  final List<String> _receiversIDs = NoteParties.getReceiversIDs(
+    receiversModels: draftNote.receiversModels.value,
+    partyType: draftNote.noteNotifier.value.parties.receiverType,
+  );
 
-  // await NoteProtocols.composeToMultiple(
-  //   context: context,
-  //   note: draftNote.noteNotifier.value,
-  //   receiversIDs: NoteParties.getReceiversIDs(
-  //     receiversModels: draftNote.receiversModels.value,
-  //     partyType: draftNote.noteNotifier.value.parties.receiverType,
-  //   ),
-  // );
+  await Future.wait(<Future>[
+
+    ...List.generate(_receiversIDs.length, (index){
+
+      final String _userID = _receiversIDs[index];
+
+      /// ADJUST NOTE RECEIVER ID
+      NoteModel _note = NoteProtocols.adjustReceiverID(
+        receiverID: _userID,
+        note: draftNote.noteNotifier.value,
+      );
+
+      /// ADJUST TOPIC
+      final String _topic = TopicModel.bakeTopicID(
+        topicID: _note.topic,
+        bzID: _note.parties.receiverID,
+        partyType: _note.parties.receiverType,
+      );
+
+      _note = _note.copyWith(
+        topic: _topic,
+      );
+
+      // _note.blogNoteModel(invoker: 'sendNoteToOneBz');
+
+      return NoteProtocols.composeToOneReceiver(
+        context: context,
+        note: _note,
+      );
+
+    }),
+
+  ]);
+
+
 
 }
 // -----------------------------------------------------------------------------
