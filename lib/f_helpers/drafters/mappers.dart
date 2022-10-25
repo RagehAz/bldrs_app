@@ -567,6 +567,7 @@ class Mapper {
   static List<Map<String, dynamic>> replaceMapInMapsWithSameIDField({
     @required List<Map<String, dynamic>> baseMaps,
     @required Map<String, dynamic> mapToReplace,
+    String idFieldName = 'id',
   }){
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
@@ -578,25 +579,26 @@ class Mapper {
       _output = <Map<String,dynamic>>[...baseMaps];
 
       final int _index = _output.indexWhere((map){
-        final bool _condition = map['id'] == mapToReplace['id'];
+        final bool _condition = map[idFieldName] == mapToReplace[idFieldName];
         return _condition;
       });
 
       /// IF FOUND
       if (_index != -1){
-        // blog('replaceMapInMapsWithSameIDField : found map to replace at index $_index');
+        blog('replaceMapInMapsWithSameIDField : found map to replace at index $_index');
         _output.removeAt(_index);
         _output.insert(_index, mapToReplace);
       }
-      // else {
-      //   blog('replaceMapInMapsWithSameIDField : did not find this map');
-      // }
+      else {
+        blog('replaceMapInMapsWithSameIDField : did not find this map');
+      }
 
 
     }
 
     return _output;
   }
+
   // --------------------
   ///
   static List<Map<String, dynamic>> removeMapFromMapsByIdField({
@@ -1004,6 +1006,36 @@ class Mapper {
     }
 
     return _isAtLast;
+  }
+  // --------------------
+  ///
+  static bool checkMapsContainMapWithID({
+    @required List<Map<String, dynamic>> maps,
+    @required Map<String, dynamic> map,
+    String idFieldName = 'id',
+  }){
+    bool _include = false;
+
+
+    /// Note : if baseMaps is empty, there will be nothing to replace ya zaki
+    if (checkCanLoopList(maps) == true && map != null){
+
+      final int _index = maps.indexWhere((maw){
+        final bool _condition = maw[idFieldName] == map[idFieldName];
+        return _condition;
+      });
+
+      /// IF FOUND
+      if (_index != -1){
+        _include = true;
+      }
+      // else {
+      //   blog('replaceMapInMapsWithSameIDField : did not find this map');
+      // }
+
+    }
+
+    return _include;
   }
   // -----------------------------------------------------------------------------
 

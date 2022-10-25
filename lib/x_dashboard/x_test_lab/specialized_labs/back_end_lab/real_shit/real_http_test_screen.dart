@@ -161,7 +161,8 @@ class RealHttpTestScreen extends StatelessWidget {
           child: FireCollStreamer(
             queryModel: FireQueryModel(
               collRef: Fire.getSuperCollRef(aCollName: FireColl.records),
-              limit: 100,
+                idFieldName: 'id',
+                limit: 100,
               onDataChanged: (List<Map<String, dynamic>> newMaps){
                 blog('realHTTPTestScreen : FireCollStreamer : onDataChanged : $newMaps');
               }

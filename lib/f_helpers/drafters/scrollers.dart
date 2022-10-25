@@ -202,6 +202,7 @@ class Scrollers {
     @required ValueNotifier<bool> isPaginating,
     @required ValueNotifier<bool> canKeepReading,
     @required Function onPaginate,
+    @required bool mounted,
   }){
 
     controller.addListener(() async {
@@ -222,11 +223,21 @@ class Scrollers {
 
       if (_canPaginate == true){
 
-        isPaginating.value = true;
+        setNotifier(
+            notifier: isPaginating,
+            mounted: mounted,
+            value: true,
+            addPostFrameCallBack: false,
+        );
 
         await onPaginate();
 
-        isPaginating.value = false;
+        setNotifier(
+          notifier: isPaginating,
+          mounted: mounted,
+          value: false,
+          addPostFrameCallBack: false,
+        );
 
       }
 

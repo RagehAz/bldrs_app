@@ -174,6 +174,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         child: FireCollPaginator(
           queryModel: FireQueryModel(
             collRef: Fire.getCollectionRef(FireColl.bzz),
+            idFieldName: 'id',
             limit: 10,
             orderBy: const QueryOrderBy(fieldName: 'createdAt', descending: true),
           ),
