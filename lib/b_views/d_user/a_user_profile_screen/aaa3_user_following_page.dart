@@ -10,7 +10,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/f_bzz_manager/bz_long_button.dart';
+import 'package:bldrs/x_dashboard/bzz_manager/bz_long_button.dart';
 import 'package:flutter/material.dart';
 
 class UserFollowingPage extends StatelessWidget {
