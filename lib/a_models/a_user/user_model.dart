@@ -122,7 +122,7 @@ class UserModel {
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.initialState(),
-      fcmTopics: TopicModel.getAllUserTopics(),
+      fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
   }
@@ -168,7 +168,7 @@ class UserModel {
         context: context,
         assignToUser: true,
       ),
-      fcmTopics: TopicModel.getAllUserTopics(),
+      fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
     _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
@@ -849,7 +849,7 @@ class UserModel {
 
       userTopics = Stringer.addStringsToStringsIfDoNotContainThem(
         listToTake: userTopics,
-        listToAdd: TopicModel.getAllBzTopics(bzID: bzID),
+        listToAdd: TopicModel.getAllPossibleBzTopicsIDs(bzID: bzID),
       );
 
       _userModel = _userModel.copyWith(
@@ -874,7 +874,7 @@ class UserModel {
 
       userTopics = Stringer.removeStringsFromStrings(
         removeFrom: userTopics,
-        removeThis: TopicModel.getAllBzTopics(bzID: bzID),
+        removeThis: TopicModel.getAllPossibleBzTopicsIDs(bzID: bzID),
       );
 
       _userModel = _userModel.copyWith(
@@ -1086,7 +1086,7 @@ class UserModel {
       savedFlyersIDs: const <String>[],
       followedBzzIDs: const <String>[],
       appState: AppState.dummyAppState(),
-      fcmTopics: TopicModel.getAllUserTopics(),
+      fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
     return _userModel;
