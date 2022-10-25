@@ -46,7 +46,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
-import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
