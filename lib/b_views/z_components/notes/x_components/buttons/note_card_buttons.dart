@@ -179,7 +179,7 @@ class NoteCardButtons extends StatelessWidget {
           // ),
 
           /// replied
-          if (_replyIsNull == false)
+          if (_replyIsNull == false && _replyIsPending == false)
             SizedBox(
               width: boxWidth * 0.9,
               child: Column(

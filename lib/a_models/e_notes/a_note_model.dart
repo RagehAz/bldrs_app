@@ -987,8 +987,6 @@ class NoteModel {
     return _output;
   }
   // --------------------
-  /// UNUSED
-  /*
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNoteFromNotes({
     @required List<NoteModel> notes,
@@ -1017,10 +1015,8 @@ class NoteModel {
 
     return _output;
   }
-   */
+
   // --------------------
-  /// UNUSED
-  /*
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNotesFromNotes({
     @required List<NoteModel> notesToRemove,
@@ -1044,10 +1040,7 @@ class NoteModel {
 
     return _output;
   }
-   */
   // --------------------
-  /// UNUSED
-  /*
   /// TESTED : WORKS PERFECT
   static List<NoteModel> replaceNoteInNotes({
     @required List<NoteModel> notes,
@@ -1070,7 +1063,6 @@ class NoteModel {
 
     return _output;
   }
-   */
   // -----------------------------------------------------------------------------
 
   /// BZ NOTES MAP

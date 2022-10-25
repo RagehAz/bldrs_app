@@ -115,6 +115,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
         bDocName: widget.flyerModel.id,
         cSubCollName: 'reviews',
       ),
+      idFieldName: 'id',
       limit: 5,
       orderBy: const QueryOrderBy(
         fieldName: 'time',

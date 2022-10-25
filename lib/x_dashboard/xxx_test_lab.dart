@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -19,12 +17,9 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -92,27 +87,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    final List<String> _topicsListOnCloud = await FCM.readMySubscribedTopics(context);
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
-
-    final List<String> _myBzTopics = TopicModel.getBzTopicsIDsFromTopics(
-      topics: _myUserModel.fcmTopics,
-    );
-
-    final bool _identical = Mapper.checkListsAreIdentical(
-        list1: Stringer.sortAlphabetically2(_topicsListOnCloud),
-        list2: Stringer.sortAlphabetically2(_myBzTopics),
-    );
-
-    blog('identical : $_identical');
-
-    Stringer.blogStringsListsDifferences(strings1: _topicsListOnCloud, strings2: _myBzTopics);
-
-    // Stringer.blogStrings(strings: _topicsListOnCloud, invoker: 'koko');
 
   }
   // -------------------------------------------------
