@@ -26,25 +26,25 @@ class TopicModel {
 
   // --------------------
   /// USER TOPICS IDS
-  static const String userGeneralNews = 'generalUserNotes';
-  static const String userAuthorshipsInvitations = 'bzInvitations';
-  static const String userReviewsReplies = 'myReviewReceivedReply';
-  static const String userReviewsAgrees = 'myReviewReceivedAgree';
-  static const String userSavedFlyersNewReviews = 'aSavedFlyerReceivedANewReview';
-  static const String userFollowedBzzNewFlyers= 'aFollowedBzPublishedFlyer';
-  static const String userSavedFlyersUpdates = 'aSavedFlyerIsUpdated';
+  static const String userGeneralNews = 'userGeneralNews';
+  static const String userAuthorshipsInvitations = 'userAuthorshipsInvitations';
+  static const String userReviewsReplies = 'userReviewsReplies';
+  static const String userReviewsAgrees = 'userReviewsAgrees';
+  static const String userSavedFlyersNewReviews = 'userSavedFlyersNewReviews';
+  static const String userFollowedBzzNewFlyers= 'userFollowedBzzNewFlyers';
+  static const String userSavedFlyersUpdates = 'userSavedFlyersUpdates';
   // --------------------
   /// BZZ TOPICS IDS
-  static const String bzGeneralNews = 'generalBzNotes';
-  static const String bzFlyersVerifications = 'myBzFlyerIsVerified';
-  static const String bzFlyersUpdates = 'myBzFlyerIsUpdated';
-  static const String bzAuthorshipsInvitations = 'aSentAuthorshipReceivedReply';
-  static const String bzTeamRolesUpdates = 'aTeamMemberRoleChanged';
-  static const String bzTeamMembersExit = 'aTeamMemberExited';
-  static const String bzNewFollowers = 'aUserFollowedMyBz';
-  static const String bzFlyersNewReviews = 'aUserReviewedMyFlyer';
-  static const String bzFlyersNewSaves = 'aUserSavedMyFlyer';
-  static const String bzFlyersNewShares = 'aUserSharedMyFlyer';
+  static const String bzGeneralNews = 'bzGeneralNews';
+  static const String bzFlyersVerifications = 'bzFlyersVerifications';
+  static const String bzFlyersUpdates = 'bzFlyersUpdates';
+  static const String bzAuthorshipsInvitations = 'bzAuthorshipsInvitations';
+  static const String bzTeamRolesUpdates = 'bzTeamRolesUpdates';
+  static const String bzTeamMembersExit = 'bzTeamMembersExit';
+  static const String bzNewFollowers = 'bzNewFollowers';
+  static const String bzFlyersNewReviews = 'bzFlyersNewReviews';
+  static const String bzFlyersNewSaves = 'bzFlyersNewSaves';
+  static const String bzFlyersNewShares = 'bzFlyersNewShares';
   // -----------------------------------------------------------------------------
 
     /// ALL EVENTS
@@ -231,8 +231,8 @@ class TopicModel {
 
   }
   // --------------------
-  ///
-  static List<String> _getAllTopicsIDsByPartyType(PartyType partyType){
+  /// TESTED : WORKS PERFECT
+  static List<String> _getAllPossibleTopicsIDsByPartyType(PartyType partyType){
 
     final List<String> _topicsIDs = <String>[];
 
@@ -254,20 +254,20 @@ class TopicModel {
     return _topicsIDs;
   }
   // --------------------
-  ///
-  static List<String> getAllUserTopics(){
-    return _getAllTopicsIDsByPartyType(PartyType.user);
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllPossibleUserTopicsIDs(){
+    return _getAllPossibleTopicsIDsByPartyType(PartyType.user);
   }
   // --------------------
-  ///
-  static List<String> getAllBzTopics({
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllPossibleBzTopicsIDs({
     @required String bzID,
   }){
     final List<String> _output = <String>[];
 
     if (bzID != null){
 
-      final List<String> _allBzTopics = _getAllTopicsIDsByPartyType(PartyType.bz);
+      final List<String> _allBzTopics = _getAllPossibleTopicsIDsByPartyType(PartyType.bz);
 
       for (final String rawTopic in _allBzTopics){
 
@@ -285,8 +285,8 @@ class TopicModel {
     return _output;
   }
   // --------------------
-  ///
-  static List<String> getAllBzzTopics({
+  /// TESTED : WORKS PERFECT
+  static List<String> getAllPossibleBzzTopicsIDs({
     @required List<String> bzzIDs,
   }){
     final List<String> _output = <String>[];
@@ -295,7 +295,7 @@ class TopicModel {
 
       for (final String bzID in bzzIDs){
 
-        final List<String> _bzTopics = getAllBzTopics(
+        final List<String> _bzTopics = getAllPossibleBzTopicsIDs(
           bzID: bzID,
         );
 
@@ -477,7 +477,7 @@ class TopicModel {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkUserIsSubscribedToThisTopic({
     @required PartyType partyType,
     @required BuildContext context,
@@ -522,6 +522,91 @@ class TopicModel {
     }
 
     return _isSubscribed;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkTopicIDIsBzTopic(String topicID){
+    return TextCheck.stringContainsSubString(string: topicID, subString: '_');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getBzTopicsIDsFromTopics({
+    @required List<String> topics,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(topics) == true){
+
+      for (final String topic in topics){
+
+        if (checkTopicIDIsBzTopic(topic) == true){
+          _output.add(topic);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getTopicsIncludingBzIDFromTopics({
+    @required List<String> topics,
+    @required String bzID,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(topics) == true && bzID != null){
+
+      for (final String topic in topics){
+
+        final bool _contains = TextCheck.stringContainsSubString(
+            string: topic,
+            subString: bzID
+        );
+
+        if (_contains == true){
+          _output.add(topic);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getUserTopicsFromTopics({
+    @required List<String> topics,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(topics) == true){
+
+      final List<String> _userPossibleTopics = getAllPossibleUserTopicsIDs();
+
+      for (final String topic in topics){
+
+        final bool _contains = Stringer.checkStringsContainString(
+            strings: _userPossibleTopics,
+            string: topic,
+        );
+
+        if (_contains == true){
+          _output.add(topic);
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 }
