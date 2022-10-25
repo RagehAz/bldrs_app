@@ -151,6 +151,7 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
+      invertButtons: true,
       titleVerse: titleVerse ?? const Verse(
         text: 'phid_go_back_?',
         translate: true,
