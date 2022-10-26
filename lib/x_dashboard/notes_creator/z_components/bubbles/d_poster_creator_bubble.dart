@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_post
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_poster_button.dart';
+import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_poster_button.dart';
 import 'package:flutter/material.dart';
 
 class PosterCreatorBubble extends StatelessWidget {

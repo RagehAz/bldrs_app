@@ -8,7 +8,7 @@ import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/x_dashboard/notes_creator/components/buttons/users_tile_buttons_list.dart';
+import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/users_tile_buttons_list.dart';
 import 'package:flutter/material.dart';
 
 class SearchUsersScreen extends StatefulWidget {
