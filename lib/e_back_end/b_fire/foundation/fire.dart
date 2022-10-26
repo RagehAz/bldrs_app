@@ -413,7 +413,7 @@ String pathOfSubDoc({
     return _subDocRef;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<DocumentReference<Object>> createNamedSubDoc({
     @required String collName,
     @required String docName,
@@ -456,9 +456,10 @@ String pathOfSubDoc({
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> superCollPaginator({
     @required FireQueryModel queryModel,
+    @required QueryDocumentSnapshot<Object> startAfter,
     bool addDocSnapshotToEachMap = false,
     bool addDocsIDs = false,
   }) async {
@@ -473,7 +474,7 @@ String pathOfSubDoc({
             collRef: queryModel.collRef,
             orderBy: queryModel.orderBy,
             limit: queryModel.limit,
-            startAfter: queryModel.startAfter,
+            startAfter: startAfter,
             finders: queryModel.finders,
           );
 
@@ -678,12 +679,13 @@ String pathOfSubDoc({
   /// TESTED : WORKS PERFECT
   static Stream<QuerySnapshot<Object>> streamCollection({
     @required FireQueryModel queryModel,
+    QueryDocumentSnapshot<Object> startAfter,
   }) {
 
     final Query<Map<String, dynamic>> _query = _superQuery(
       collRef: queryModel.collRef,
       orderBy: queryModel.orderBy,
-      startAfter: queryModel.startAfter,
+      startAfter: startAfter,
       limit: queryModel.limit,
       finders: queryModel.finders,
     );

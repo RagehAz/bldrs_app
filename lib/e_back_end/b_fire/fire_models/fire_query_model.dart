@@ -9,11 +9,9 @@ class FireQueryModel {
   const FireQueryModel({
     @required this.collRef,
     @required this.idFieldName,
-    this.onDataChanged,
     this.limit,
     this.orderBy,
     this.finders,
-    this.startAfter,
     this.initialMaps,
   });
   /// --------------------------------------------------------------------------
@@ -21,8 +19,6 @@ class FireQueryModel {
   final int limit;
   final QueryOrderBy orderBy;
   final List<FireFinder> finders;
-  final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
-  final QueryDocumentSnapshot startAfter;
   final List<Map<String, dynamic>> initialMaps;
   final String idFieldName;
   // -----------------------------------------------------------------------------
@@ -33,23 +29,19 @@ class FireQueryModel {
   /// TESTED : WORKS PERFECT
   FireQueryModel copyWith({
     CollectionReference<Object> collRef,
+    String idFieldName,
     int limit,
     QueryOrderBy orderBy,
     List<FireFinder> finders,
-    ValueChanged<List<Map<String, dynamic>>> onDataChanged,
-    QueryDocumentSnapshot startAfter,
     List<Map<String, dynamic>> initialMaps,
-    String idFieldName,
   }){
     return FireQueryModel(
       collRef: collRef ?? this.collRef,
+      idFieldName: idFieldName ?? this.idFieldName,
       limit: limit ?? this.limit,
       orderBy: orderBy ?? this.orderBy,
       finders: finders ?? this.finders,
-      onDataChanged: onDataChanged ?? this.onDataChanged,
-      startAfter: startAfter ?? this.startAfter,
       initialMaps: initialMaps ?? this.initialMaps,
-      idFieldName: idFieldName ?? this.idFieldName,
     );
   }
   // -----------------------------------------------------------------------------
@@ -72,13 +64,11 @@ class FireQueryModel {
 
     if (
     model1.collRef?.path == model2.collRef?.path &&
+    model1.idFieldName == model2.idFieldName &&
     model1.limit == model2.limit &&
     model1.orderBy?.descending == model2.orderBy?.descending &&
     model1.orderBy?.fieldName == model2.orderBy?.fieldName &&
-    FireFinder.checkFindersListsAreIdentical(model1.finders, model2.finders) == true &&
-    model1.idFieldName == model2.idFieldName
-    // model1.onDataChanged == model2.onDataChanged &&
-    // model1.startAfter == model2.startAfter &&
+    FireFinder.checkFindersListsAreIdentical(model1.finders, model2.finders) == true
     // model1.initialMaps == model2.initialMaps &&
     ){
       _identical = true;
@@ -120,12 +110,12 @@ class FireQueryModel {
   @override
   int get hashCode =>
       collRef.hashCode^
-      onDataChanged.hashCode^
+      idFieldName.hashCode^
       limit.hashCode^
       orderBy.hashCode^
       finders.hashCode^
-      startAfter.hashCode^
-      idFieldName.hashCode^
+      // onDataChanged.hashCode^
+      // startAfter.hashCode^
       initialMaps.hashCode;
 // -----------------------------------------------------------------------------
 }

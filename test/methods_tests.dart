@@ -40,7 +40,7 @@ void main() {
       'name': 'meshmesh',
     };
 
-    final bool _result = Mapper.checkMapsContainMap(
+    final bool _result = Mapper.checkMapsContainIdenticalMap(
       maps: _listOfMaps,
       map: _aMapInTheList,
     );
@@ -65,7 +65,7 @@ void main() {
       },
     ];
 
-    final bool _result = Mapper.checkMapsContainMap(
+    final bool _result = Mapper.checkMapsContainIdenticalMap(
       maps: _listOfMaps,
       map: _aMapNotInTheListByOneField,
     );
@@ -90,7 +90,7 @@ void main() {
       },
     ];
 
-    final bool _result = Mapper.checkMapsContainMap(
+    final bool _result = Mapper.checkMapsContainIdenticalMap(
       maps: _listOfMaps,
       map: _aMapNotInTheListByTwoFields,
     );

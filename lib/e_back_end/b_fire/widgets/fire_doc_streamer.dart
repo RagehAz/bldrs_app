@@ -29,7 +29,7 @@ class FireDocStreamer extends StatefulWidget {
     @required Stream<DocumentSnapshot<Object>> stream,
     @required Map<String, dynamic> oldMap,
     @required bool mounted,
-    @required Function(Map<String, dynamic>, Map<String, dynamic>) onChange,
+    @required Function(Map<String, dynamic> oldMap, Map<String, dynamic> newMap) onChange,
   }) async {
 
     stream.listen((DocumentSnapshot<Object> snapshot) async {

@@ -119,7 +119,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
       FireCollPaginator(
         scrollController: _scrollController,
 
-        queryModel: FireQueryModel(
+        paginationQuery: FireQueryModel(
           collRef: Fire.getSuperCollRef(
               aCollName: _collName,
               bDocName: _receiverID,
@@ -128,17 +128,16 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
           idFieldName: 'id',
           orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
           limit: 5,
-          onDataChanged: (List<Map<String, dynamic>> maps){
-
-            if (mounted){
-              setState(() {
-                blog('AllNotesScreen : setting state');
-              });
-            }
-
-          },
         ),
+        onDataChanged: (List<Map<String, dynamic>> maps){
 
+          if (mounted){
+            setState(() {
+              blog('AllNotesScreen : setting state');
+            });
+          }
+
+        },
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           final List<NoteModel> notesModels = NoteModel.decipherNotes(

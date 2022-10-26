@@ -1,4 +1,3 @@
-// ignore_for_file: invariant_booleans
 import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -11,7 +10,7 @@ import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
-import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -58,10 +57,12 @@ class _UserNotesPageState extends State<UserNotesPage> {
   @override
   void initState() {
     super.initState();
+
     _paginationController = PaginationController.initialize(
-        addExtraMapsAtEnd: false,
+      addExtraMapsAtEnd: false,
+      onDataChanged: _collectUnseenNotesToMarkAtDispose,
     );
-    // _streamNotesWithPendingReplies(context);
+
   }
   // --------------------
   bool _isInit = true;
@@ -124,9 +125,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
   /// TESTED : WORKS PERFECT
   void _collectUnseenNotesToMarkAtDispose(List<Map<String, dynamic>> paginatorMaps){
 
-
-    blog('hooooooooooooooooooooooooo hohoho ');
-
     if (Mapper.checkCanLoopList(paginatorMaps) == true){
 
       /// DECIPHER NEW MAPS TO NOTES
@@ -137,15 +135,14 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
       /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
       for (final NoteModel note in _newNotes){
-        // if (note.seen == false){
+
           NoteModel.insertNoteIntoNotes(
             notesToGet: _localNotesToMarkUnseen,
             note: note,
             duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
           );
-        // }
-      }
 
+      }
 
     }
 
@@ -175,8 +172,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     await Future.delayed(const Duration(milliseconds: 200), (){
 
-      _paginationController.paginatorMaps.value = [];
-      _paginationController.startAfter.value = null;
+      _paginationController.clear();
 
       setState(() {
         showNotes = true;
@@ -187,96 +183,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
     closeWaitDialog(context);
 
   }
-  // --------------------
-  /*
-  ///
-  void _streamNotesWithPendingReplies(BuildContext context){
-
-    FireCollStreamer.onStreamDataChanged(
-        stream: userNotesWithPendingRepliesQueryModel(),
-        invoker: '_streamNotesWithPendingReplies',
-        onChange: (List<Map<String, dynamic>> maps){
-
-          final List<NoteModel> _notes = NoteModel.decipherNotes(
-              maps: maps,
-              fromJSON: false,
-          );
-
-          _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
-              notesToGet: _localNotesToMarkUnseen,
-              notesToInsert: _notes,
-              duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-          );
-
-          final List<NoteModel> _paginatorNotes = NoteModel.decipherNotes(
-              maps: _paginationController.paginatorMaps.value,
-              fromJSON: false,
-          );
-
-          NoteModel.blogNotes(notes: _paginatorNotes);
-
-          for (final NoteModel note in _notes){
-
-            final bool _exists = NoteModel.checkNotesContainNote(
-                notes: _paginatorNotes,
-                noteID: note.id,
-            );
-
-            blog('checkNotesContainNote : note.id : ${note.id} : _exists : $_exists');
-
-            /// REPLACE IF EXISTS
-            if (_exists == true){
-
-              final List<NoteModel> _updatedNotes = NoteModel.replaceNoteInNotes(
-                notes: _paginatorNotes,
-                noteToReplace: note,
-              );
-
-              _paginationController.paginatorMaps.value = NoteModel.cipherNotesModels(
-                  notes: _updatedNotes,
-                  toJSON: false,
-              );
-
-            }
-
-            /// INSERT IF DOES NOT EXIST
-            else {
-
-              final List<NoteModel> _updatedNotes = NoteModel.insertNoteIntoNotes(
-                notesToGet: _paginatorNotes,
-                note: note,
-                duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-              );
-
-
-              _paginationController.paginatorMaps.value = NoteModel.cipherNotesModels(
-                notes: _updatedNotes,
-                toJSON: false,
-              );
-
-
-            }
-
-          }
-
-          // final List<NoteModel> _updatedNotes = NoteModel.insertNotesInNotes(
-          //     notesToGet: NoteModel.decipherNotes(maps: _paginationController.paginatorMaps.value, fromJSON: false),
-          //     notesToInsert: _notes,
-          //   duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-          // );
-          //
-          // final List<Map<String, dynamic>> _updatedPaginatorMaps = NoteModel.cipherNotesModels(
-          //     notes: _updatedNotes,
-          //     toJSON: false,
-          // );
-          //
-          // _paginationController.paginatorMaps.value = _updatedPaginatorMaps;
-
-        },
-    );
-
-  }
-   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -288,13 +194,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
       child: showNotes == false ? const SizedBox() :
 
       FireCollPaginator(
-          queryModel: userNotesPaginationQueryModel(
-            onDataChanged: _collectUnseenNotesToMarkAtDispose,
-          ),
-          streamQueryModel: userNotesWithPendingRepliesQueryModel(),
+          paginationQuery: userNotesPaginationQueryModel(),
+          streamQuery: userNotesWithPendingRepliesQueryModel(),
           scrollController: _scrollController,
           paginationController: _paginationController,
-
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
             return ListView.builder(

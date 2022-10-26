@@ -57,7 +57,6 @@ class _StreamingTestState extends State<StreamingTest> {
       idFieldName: 'id',
       limit: 100,
       orderBy: const QueryOrderBy(fieldName: 'time', descending: true),
-      onDataChanged: onDataChanged,
     );
 
   }
@@ -86,9 +85,14 @@ class _StreamingTestState extends State<StreamingTest> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> onDataChanged(List<Map<String, dynamic>> newMaps) async {
+  Future<void> onDataChanged(BuildContext ctx, Map<String, dynamic> oldMap, Map<String, dynamic> newMaw) async {
 
-    _localMaps.value = newMaps;
+    blog('streamed map old :-');
+    Mapper.blogMap(oldMap);
+    blog('streamed map new :-');
+    Mapper.blogMap(newMaw);
+
+    // _localMaps.value = newMaps;
 
     // final bool _result = await CenterDialog.showCenterDialog(
     //   context: context,
@@ -124,14 +128,7 @@ class _StreamingTestState extends State<StreamingTest> {
           FireDocStreamer(
               collName: 'testing',
               docName: 'NGavNzHByT4vDm925mYd',
-              onDataChanged: (BuildContext ctx, Map<String, dynamic> oldMap, Map<String, dynamic> newMaw){
-
-                blog('streamed map old :-');
-                Mapper.blogMap(oldMap);
-                blog('streamed map new :-');
-                Mapper.blogMap(newMaw);
-
-              },
+              onDataChanged: onDataChanged,
               builder: (_, Map<String, dynamic> map){
 
                 return WideButton(

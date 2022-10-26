@@ -12,7 +12,7 @@ import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
-import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -196,10 +196,10 @@ class _BzNotesPageState extends State<BzNotesPage>{
       child: showNotes == false ? const SizedBox() :
 
       FireCollPaginator(
-          queryModel: bzNotesPaginationQueryModel(
+          paginationQuery: bzNotesPaginationQueryModel(
             bzID: _bzModel.id,
-            onDataChanged: _collectUnseenNotesToMarkAtDispose,
           ),
+          onDataChanged: _collectUnseenNotesToMarkAtDispose,
           scrollController: _scrollController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
