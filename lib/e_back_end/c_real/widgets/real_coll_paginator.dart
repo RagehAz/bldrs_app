@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
-import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -136,11 +136,6 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     );
     _paginatorController?.activateListeners(
       mounted: mounted,
-      onDataChanged: (List<Map<String, dynamic>> maps){
-
-        // Mapper.blogMaps(maps, methodName: 'RealCollPaginator._paginatorController.onDataChanged');
-
-      },
     );
   }
   // --------------------
@@ -166,7 +161,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   }
    */
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   Future<void> _readMore() async {
 
     setNotifier(
@@ -196,12 +191,10 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
 
       if (Mapper.checkCanLoopList(_nextMaps) == true){
 
-        PaginationController.addMapsToLocalMaps(
+        PaginationController.insertMapsToPaginator(
           mapsToAdd: _nextMaps,
-          addAtEnd: true,
+          controller: _paginatorController,
           mounted: mounted,
-          startAfter: _paginatorController.startAfter,
-          paginatorMaps: _paginatorController.paginatorMaps,
         );
 
       }

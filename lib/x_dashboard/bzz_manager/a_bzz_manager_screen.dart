@@ -172,7 +172,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         color: Colorz.blue20,
         progressBarIsOn: true,
         child: FireCollPaginator(
-          queryModel: FireQueryModel(
+          paginationQuery: FireQueryModel(
             collRef: Fire.getCollectionRef(FireColl.bzz),
             idFieldName: 'id',
             limit: 10,
