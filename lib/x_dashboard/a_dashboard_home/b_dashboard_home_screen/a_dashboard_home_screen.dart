@@ -38,7 +38,7 @@ import 'package:bldrs/x_dashboard/app_statistics/statistics_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/a_ui_manager_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/app_controls/a_app_controls_manager.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/a_notes_creator_home_screen/notes_creator_home.dart';
+import 'package:bldrs/x_dashboard/notes_creator/notes_creator_home.dart';
 import 'package:bldrs/x_dashboard/ldb_manager/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/xxx_test_lab.dart';
@@ -178,7 +178,7 @@ class DashBoardHomeScreen extends StatelessWidget {
       DashButtonModel(
         verse:  'Notes\nCreator',
         icon: Iconz.notification,
-        screen: NotesCreatorHome(),
+        screen: NotesCreatorScreen(),
       ),
       /// EMPTY
       null,
