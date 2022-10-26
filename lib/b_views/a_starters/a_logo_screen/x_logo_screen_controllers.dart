@@ -28,6 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> initializeLogoScreen({
   @required BuildContext context,
   @required bool mounted,
@@ -87,7 +88,8 @@ Future<void> initializeLogoScreen({
   }
 
 }
-// -----------------------------------------------------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onRestartAppInTimeCorrectionDialog({
   @required BuildContext context,
 }) async {
@@ -105,6 +107,7 @@ Future<void> _onRestartAppInTimeCorrectionDialog({
 /// USER & AUTH MODELS INITIALIZATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeUserModel(BuildContext context) async {
 
   // blog('_initializeUserModel : START');
@@ -131,6 +134,7 @@ Future<void> _initializeUserModel(BuildContext context) async {
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<UserModel> completeUserZoneModel({
   @required BuildContext context,
   @required UserModel userModel,
@@ -160,6 +164,7 @@ Future<UserModel> completeUserZoneModel({
   return _output;
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -205,6 +210,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 /// APP STATE INITIALIZATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeAppState(BuildContext context) async {
 
   // blog('_initializeAppState : START');
@@ -305,6 +311,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
@@ -340,6 +347,7 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 /// APP CONTROLS INITIALIZATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeAppControls(BuildContext context) async {
   // blog('_initializeAppControls : START');
 
@@ -356,6 +364,7 @@ Future<void> _initializeAppControls(BuildContext context) async {
 /// LOCAL ASSETS PATHS INITIALIZATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
   // blog('_initializeLocalAssetsPaths : START');
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -367,6 +376,7 @@ Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
 /// APP LANGUAGE INITIALIZATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeAppLanguage(BuildContext context) async {
   // blog('_initializeAppLanguage : START');
 
@@ -378,6 +388,7 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
   // blog('_initializeAppLanguage : END');
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 bool _phrasesAreLoaded(BuildContext context) {
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);

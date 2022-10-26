@@ -23,7 +23,7 @@ class AuthorshipRespondingProtocols{
   const AuthorshipRespondingProtocols();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> respond({
     @required BuildContext context,
     @required String reply,
@@ -105,7 +105,7 @@ class AuthorshipRespondingProtocols{
   /// ACCEPT
 
   // -------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<void> _onAcceptInvitation({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -187,8 +187,15 @@ class AuthorshipRespondingProtocols{
     @required NoteModel noteModel,
   }) async {
 
-    /// TASK : SHOULD ASSERT THAT BZ STILL HAVE ME IN HIS PENDING AUTHORS
+    final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
+        bzModel: bzModel,
+        userID: AuthFireOps.superUserID(),
+    );
 
+    assert(
+    _imPendingAuthor == true,
+    'i am not a pending author and can not add myself to bz ${bzModel.id}'
+    );
 
     await AuthorshipProtocols.addMeToBz(
       context: context,
