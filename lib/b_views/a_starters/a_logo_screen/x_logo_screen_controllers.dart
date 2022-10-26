@@ -20,6 +20,7 @@ import 'package:bldrs/e_back_end/x_ops/ldb_ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -74,6 +75,13 @@ Future<void> initializeLogoScreen({
       await _onRestartAppInTimeCorrectionDialog(
         context: context,
       );
+    }
+
+    else {
+
+      /// DAILY LDB REFRESH
+      await _dailyRefreshLDB(context);
+
     }
 
   }
@@ -390,7 +398,84 @@ bool _phrasesAreLoaded(BuildContext context) {
 /// TESTED : WORKS PERFECT
 Future<void> _refreshUserDeviceModel(BuildContext context) async {
   // blog('_initializeMyDeviceFCMToken : START');
-  await UserProtocols.refreshUserDeviceModel(context: context);
+
+  await Future.wait(<Future>[
+
+    UserProtocols.refreshUserDeviceModel(context: context),
+
+    LDBOps.wipeOutEntireLDB(
+      // flyers: true,
+      // bzz: true,
+      // users: true,
+      bldrsChains: false,
+      pickers: false,
+      countries: false,
+      cities: false,
+      continents: false,
+      currencies: false,
+      // notes: true,
+      mainPhrases: false,
+      countriesPhrases: false,
+      appState: false,
+      appControls: false,
+      authModel: false,
+      userEditor: false,
+      bzEditor: false,
+      authorEditor: false,
+      flyerMaker: false,
+      reviewEditor: false,
+      theLastWipe: false,
+    ),
+
+  ]);
+
   // blog('_initializeMyDeviceFCMToken : END');
+}
+// -----------------------------------------------------------------------------
+
+/// Daily LDB REFRESH
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> _dailyRefreshLDB(BuildContext context) async {
+
+  final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(context);
+
+  if (_shouldRefresh == true){
+
+    blog('_dailyRefreshLDB : IT HAS BEEN A DAY : and will refresh wipe the LDB');
+
+    await LDBOps.wipeOutEntireLDB(
+      // flyers: true,
+      // bzz: true,
+      // users: true,
+      bldrsChains: false,
+      pickers: false,
+      countries: false,
+      cities: false,
+      continents: false,
+      currencies: false,
+      // notes: true,
+      mainPhrases: false,
+      countriesPhrases: false,
+      appState: false,
+      appControls: false,
+      authModel: false,
+      userEditor: false,
+      bzEditor: false,
+      authorEditor: false,
+      flyerMaker: false,
+      reviewEditor: false,
+      theLastWipe: false,
+    );
+
+  }
+
+  else {
+
+    blog('_dailyRefreshLDB : IT HAS NOT BEEN A DAY YET : will leave the ldb as is');
+
+  }
+
 }
 // -----------------------------------------------------------------------------

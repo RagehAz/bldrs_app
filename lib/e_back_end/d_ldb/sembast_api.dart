@@ -553,17 +553,22 @@ class Sembast  {
 
       final String _primaryKey = LDBDoc.getPrimaryKey(docName);
 
-      for (final Map<String, Object> map in _allMaps) {
+      await Future.wait(<Future>[
 
-        final String _id = map[_primaryKey];
+        ...List.generate(_allMaps.length, (index){
 
-        await deleteMap(
-          objectID: _id,
-          docName: docName,
-        );
+          final String _id = _allMaps[index][_primaryKey];
 
-        blog('Sembast : deleteAll : $docName : _id : $_id');
-      }
+          blog('Sembast : deleteAll : $docName : _id : $_id');
+
+          return deleteMap(
+            objectID: _id,
+            docName: docName,
+          );
+
+        }),
+
+      ]);
 
     }
 

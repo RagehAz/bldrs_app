@@ -106,6 +106,13 @@ class Standards {
   // --------------------
   static const double maxFileSizeLimit = 3; // in Mb
   // -----------------------------------------------------------------------------
+
+
+
+  static const int dailyLDBWipeIntervalInHours = 24;
+
+
+
   // -----------------------------------------------------------------------------
 
   /// IMAGES WIDTHS
