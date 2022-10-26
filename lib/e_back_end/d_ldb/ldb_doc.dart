@@ -12,14 +12,6 @@ class LDBDoc {
   /// TESTED : WORKS PERFECT
   static String getPrimaryKey(String docName) {
     switch (docName) {
-      case LDBDoc.follows: return 'recordID';
-      case LDBDoc.calls: return 'recordID';
-      case LDBDoc.shares: return 'recordID';
-      case LDBDoc.views: return 'recordID';
-      case LDBDoc.saves: return 'recordID';
-      case LDBDoc.reviews: return 'reviewID';
-      case LDBDoc.questions: return 'questionID';
-      case LDBDoc.answers: return 'answerID';
       case LDBDoc.flyers: return 'id';
       case LDBDoc.bzz: return 'id';
       case LDBDoc.users: return 'id';
@@ -42,6 +34,7 @@ class LDBDoc {
       case LDBDoc.flyerMaker: return 'id';
       case LDBDoc.reviewEditor: return 'id';
 
+      case LDBDoc.theLastWipe: return 'id';
       case 'test': return 'id';
       default: return 'id';
     }
@@ -51,15 +44,6 @@ class LDBDoc {
   /// DOCS
 
   // --------------------
-  static const String follows = 'follows';
-  static const String calls = 'calls';
-  static const String shares = 'shares';
-  static const String views = 'views';
-  static const String saves = 'saves';
-  static const String reviews = 'reviews';
-  static const String questions = 'questions';
-  static const String answers = 'answers';
-  static const String searches = 'searches';
   static const String flyers = 'flyers';
   static const String bzz = 'bzz';
   static const String users = 'users';
@@ -86,21 +70,14 @@ class LDBDoc {
   static const String authorEditor = 'authorEditor';
   static const String flyerMaker = 'flyerMaker';
   static const String reviewEditor = 'reviewEditor';
+
+  static const String theLastWipe = 'theLastWipe';
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST
 
   // --------------------
   static const List<String> allDocs = <String>[
-    follows,
-    calls,
-    shares,
-    views,
-    saves,
-    reviews,
-    questions,
-    answers,
-    searches,
     flyers,
     bzz,
     users,
@@ -122,6 +99,8 @@ class LDBDoc {
     authorEditor,
     flyerMaker,
     reviewEditor,
+
+    theLastWipe,
   ];
 // -----------------------------------------------------------------------------
 }
