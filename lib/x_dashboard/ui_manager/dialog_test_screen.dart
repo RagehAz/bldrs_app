@@ -1,4 +1,6 @@
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -35,8 +37,36 @@ class DialogsTestScreen extends StatelessWidget {
       layoutWidget: FloatingCenteredList(
         columnChildren: [
 
+          /// TOP DIALOG
           WideButton(
-            verse: Verse.plain('Center'),
+            verse: Verse.plain('Top Dialog'),
+            onTap: () async {
+
+              await TopDialog.showTopDialog(
+                context: context,
+                firstVerse: Verse.plain('fuck you\nBitch\n hhoho'),
+                secondVerse: Verse.plain('shit bitch fuc'),
+                milliseconds: 50000,
+              );
+
+            },
+          ),
+
+          /// CLOSE TOP DIALOG
+          WideButton(
+            verse: Verse.plain('close Top Dialog'),
+            onTap: () async {
+
+              TopDialog.closeTopDialog(context);
+
+            },
+          ),
+
+          const DotSeparator(),
+
+          /// CENTER DIALOG
+          WideButton(
+            verse: Verse.plain('Center Dialog'),
             onTap: () async {
 
               await CenterDialog.showCenterDialog(

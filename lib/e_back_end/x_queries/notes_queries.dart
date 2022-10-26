@@ -26,7 +26,7 @@ FireQueryModel bzNotesPaginationQueryModel({
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
     ),
     limit: 5,
-    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
     idFieldName: 'id',
   );
 
@@ -46,7 +46,7 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
         ),
         idFieldName: 'id',
         limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
         finders: const <FireFinder>[
 
           FireFinder(
@@ -77,7 +77,7 @@ FireQueryModel userNotesPaginationQueryModel(){
     ),
     idFieldName: 'id',
     limit: 7,
-    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
   );
 
 }
@@ -96,7 +96,7 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
         ),
         idFieldName: 'id',
         limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
         finders: const <FireFinder>[
 
           FireFinder(
@@ -125,7 +125,7 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
         ),
         idFieldName: 'id',
         limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
         finders: const <FireFinder>[
 
           FireFinder(
@@ -150,7 +150,7 @@ FireQueryModel userNotesWithPendingRepliesQueryModel(){
       ),
       idFieldName: 'id',
       limit: 10,
-      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
       finders: const <FireFinder>[
 
         FireFinder(
