@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
-import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -13,22 +13,24 @@ import 'package:flutter/material.dart';
 class FireCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FireCollPaginator({
-    @required this.queryModel,
+    @required this.paginationQuery,
     @required this.builder,
-    this.streamQueryModel,
+    this.streamQuery,
     this.scrollController,
     this.loadingWidget,
     this.child,
     this.paginationController,
+    this.onDataChanged,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FireQueryModel queryModel;
-  final FireQueryModel streamQueryModel;
+  final FireQueryModel paginationQuery;
+  final FireQueryModel streamQuery;
   final Widget loadingWidget;
   final ScrollController scrollController;
   final Widget child;
   final PaginationController paginationController;
+  final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
   final Widget Function(
       BuildContext context,
       List<Map<String, dynamic>> maps,
@@ -49,6 +51,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   final ValueNotifier<bool> _canKeepReading = ValueNotifier(true);
   // --------------------
   PaginationController _paginatorController;
+  StreamSubscription _streamSub;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -72,8 +75,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     /// PAGINATOR CONTROLLER
     _initializePaginatorController();
 
-    /// LISTEN TO STREAM CHANGES
-    _initializeStreamListener();
 
   }
   // --------------------
@@ -84,7 +85,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
       _triggerLoading(setTo: true).then((_) async {
 
+        /// INITIAL PAGINATION READ
         await _readMore();
+
+        /// LISTEN TO STREAM CHANGES
+        _initializeStreamListener();
 
       });
 
@@ -97,6 +102,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void dispose() {
     _loading.dispose();
     _isPaginating.dispose();
+    _canKeepReading.dispose();
 
     if (widget.paginationController == null){
       _paginatorController.dispose();
@@ -118,21 +124,27 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     _triggerLoading(setTo: true).then((_) async {
 
-      if (
-      FireQueryModel.checkQueriesHaveNotChanged(
-        model1: oldWidget.queryModel,
-        model2: widget.queryModel,
-      ) == false
-      ){
+      final bool _paginationQueryChanged = FireQueryModel.checkQueriesHaveNotChanged(
+        model1: oldWidget.paginationQuery,
+        model2: widget.paginationQuery,
+      ) == false;
 
+      final bool _streamQueryChanged = FireQueryModel.checkQueriesHaveNotChanged(
+        model1: oldWidget.streamQuery,
+        model2: widget.streamQuery,
+      ) == false;
+
+      if (
+          _paginationQueryChanged == true
+          ||
+          _streamQueryChanged == true
+      ){
         _paginatorController.clear();
         _canKeepReading.value = true;
         await _readMore();
-
       }
 
     });
-
 
     super.didUpdateWidget(oldWidget);
   }
@@ -163,65 +175,37 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     /// LISTEN TO PAGINATOR CONTROLLER NOTIFIERS (AddMap - replaceMap - deleteMap - onDataChanged)
     _paginatorController = widget.paginationController ?? PaginationController.initialize(
       addExtraMapsAtEnd: true,
+      idFieldName: widget.paginationQuery.idFieldName,
+      onDataChanged: widget.onDataChanged,
     );
     _paginatorController?.activateListeners(
       mounted: mounted,
-      onDataChanged: widget.queryModel.onDataChanged,
     );
 
   }
   // --------------------
-  ///
-  StreamSubscription _streamSub;
+  /// TESTED : WORKS PERFECT
   void _initializeStreamListener(){
 
-    if (widget.streamQueryModel != null){
+    if (widget.streamQuery != null){
 
       final Stream<QuerySnapshot<Object>> _stream = Fire.streamCollection(
-        queryModel: widget.streamQueryModel,
+        queryModel: widget.streamQuery,
       );
 
       _streamSub = FireCollStreamer.onStreamDataChanged(
         stream: _stream,
         invoker: '_initializeStreamListener',
-        onChange: (List<Map<String, dynamic>> maps){
+        onChange: (List<Map<String, dynamic>> streamMaps){
 
-          List<Map<String, dynamic>> _updatedMaps = [..._paginatorController.paginatorMaps.value];
+          // final List<Map<String, dynamic>> _allMaps = [..._paginatorController.paginatorMaps.value];
+          // blog(' === > streamMaps : ${streamMaps.length} maps');
 
-          blog('xx=> _updatedMaps : ${_updatedMaps.length} maps : stream maps : ${maps.length} maps');
-
-          for (final Map<String, dynamic> map in maps){
-
-            blog('doing map : id : ${map[widget.streamQueryModel.idFieldName]}');
-
-            final bool _contains = Mapper.checkMapsContainMapWithID(
-              maps: _updatedMaps,
-              map: map,
-              // idFieldName: 'id',
-            );
-
-            if (_contains == true){
-              _updatedMaps = Mapper.replaceMapInMapsWithSameIDField(
-                baseMaps: _updatedMaps,
-                mapToReplace: map,
-                idFieldName: widget.streamQueryModel.idFieldName,
-              );
-            }
-            else {
-
-              if (_paginatorController.addExtraMapsAtEnd == true){
-                _updatedMaps = [..._updatedMaps, map];
-              }
-              else {
-                _updatedMaps = [ map, ..._updatedMaps,];
-              }
-
-            }
-
-
-          }
-
-          _paginatorController.paginatorMaps.value = _updatedMaps;
+          PaginationController.insertMapsToPaginator(
+            mapsToAdd: streamMaps,
+            controller: _paginatorController,
+            mounted: mounted,
+          );
 
         },
       );
@@ -248,21 +232,18 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     if (_canKeepReading.value == true){
 
       final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
-        queryModel: widget.queryModel.copyWith(
-          startAfter: _paginatorController.startAfter.value,
-        ),
+        queryModel: widget.paginationQuery,
+        startAfter: _paginatorController.startAfter.value,
         addDocsIDs: true,
         addDocSnapshotToEachMap: true,
       );
 
       if (Mapper.checkCanLoopList(_nextMaps) == true){
 
-        PaginationController.addMapsToLocalMaps(
+        PaginationController.insertMapsToPaginator(
           mapsToAdd: _nextMaps,
-          addAtEnd: true,
+          controller: _paginatorController,
           mounted: mounted,
-          startAfter: _paginatorController.startAfter,
-          paginatorMaps: _paginatorController.paginatorMaps,
         );
 
       }
@@ -303,5 +284,5 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

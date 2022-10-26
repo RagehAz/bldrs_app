@@ -7,7 +7,6 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -18,7 +17,6 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 FireQueryModel bzNotesPaginationQueryModel({
   @required String bzID,
-  @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
 
   return FireQueryModel(
@@ -30,7 +28,6 @@ FireQueryModel bzNotesPaginationQueryModel({
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     idFieldName: 'id',
-    onDataChanged: onDataChanged,
   );
 
 }
@@ -59,9 +56,6 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
           ),
 
         ],
-        onDataChanged: (List<Map<String, dynamic>> maps){
-          blog('bzUnseenNotesStream : onDataChanged : ${maps.length} maps');
-        }
     ),
   );
 
@@ -73,9 +67,7 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-FireQueryModel userNotesPaginationQueryModel({
-  @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
-}){
+FireQueryModel userNotesPaginationQueryModel(){
 
   return FireQueryModel(
     collRef: Fire.getSuperCollRef(
@@ -86,7 +78,6 @@ FireQueryModel userNotesPaginationQueryModel({
     idFieldName: 'id',
     limit: 7,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-    onDataChanged: onDataChanged,
   );
 
 }
@@ -115,9 +106,6 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
           ),
 
         ],
-        onDataChanged: (List<Map<String, dynamic>> maps){
-          blog('userUnseenNotesStream : onDataChanged : ${maps.length} maps');
-        }
     ),
   );
 
@@ -147,14 +135,12 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
           ),
 
         ],
-        onDataChanged: (List<Map<String, dynamic>> maps){
-          blog('userUnseenNotesStream : onDataChanged : ${maps.length} maps');
-        }
     ),
   );
 
 }
-
+// --------------------
+///
 FireQueryModel userNotesWithPendingRepliesQueryModel(){
   return FireQueryModel(
       collRef: Fire.getSuperCollRef(
@@ -174,10 +160,6 @@ FireQueryModel userNotesWithPendingRepliesQueryModel(){
         ),
 
       ],
-      onDataChanged: (List<Map<String, dynamic>> maps){
-        blog('userUnseenNotesStream : onDataChanged : ${maps.length} maps');
-      }
   );
 }
-
 // -----------------------------------------------------------------------------

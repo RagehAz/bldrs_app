@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controlle
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/aa_submitted_reviews_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
-import 'package:bldrs/e_back_end/z_helpers/paginator_notifiers.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
@@ -34,9 +34,10 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
+  final ScrollController _controller = ScrollController();
+  // --------------------
   final TextEditingController _reviewTextController = TextEditingController();
   PaginationController _paginatorController;
-  ScrollController _controller;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -57,8 +58,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     _paginatorController = PaginationController.initialize(
       addExtraMapsAtEnd: false,
     );
-    _controller = ScrollController();
-
 
   }
   // --------------------
@@ -87,17 +86,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     super.didChangeDependencies();
   }
   // --------------------
-  void _createStateListeners(){
-    _reviewTextController.addListener(() async {
-
-      await saveReviewEditorSession(
-        flyerID: widget.flyerModel.id,
-        reviewController: _reviewTextController,
-      );
-
-    });
-  }
-  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -108,6 +96,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED
   FireQueryModel _createQueryModel(){
     return FireQueryModel(
       collRef: Fire.getSuperCollRef(
@@ -123,6 +112,18 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       ),
     );
   }
+  // --------------------
+  /// TESTED
+  void _createStateListeners(){
+    _reviewTextController.addListener(() async {
+
+      await saveReviewEditorSession(
+        flyerID: widget.flyerModel.id,
+        reviewController: _reviewTextController,
+      );
+
+    });
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -133,7 +134,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       height: widget.pageHeight,
       child: FireCollPaginator(
         scrollController: _controller,
-        queryModel: _createQueryModel(),
+        paginationQuery: _createQueryModel(),
         paginationController: _paginatorController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
