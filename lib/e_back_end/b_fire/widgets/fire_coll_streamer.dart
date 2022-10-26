@@ -13,6 +13,7 @@ class FireCollStreamer extends StatefulWidget {
   const FireCollStreamer({
     @required this.queryModel,
     @required this.builder,
+    this.onDataChange,
     this.loadingWidget,
     Key key
   }) : super(key: key);
@@ -20,11 +21,11 @@ class FireCollStreamer extends StatefulWidget {
   final FireQueryModel queryModel;
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
   final Widget loadingWidget;
+  final ValueChanged<List<Map<String, dynamic>>> onDataChange;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static StreamSubscription onStreamDataChanged({
     @required Stream<QuerySnapshot<Object>> stream,
-    // @required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
     @required ValueChanged<List<Map<String, dynamic>>> onChange,
     @required String invoker,
   }){
@@ -37,17 +38,7 @@ class FireCollStreamer extends StatefulWidget {
         addDocSnapshotToEachMap: true,
       );
 
-      // final bool _mapsAreTheSame = Mapper.checkMapsListsAreIdentical(
-      //   maps1: _newMaps,
-      //   maps2: oldMaps.value,
-      // );
-
-      // if (_mapsAreTheSame == false){
-      //   oldMaps.value = _newMaps;
-      //   if (_newMaps != null){
-            onChange(_newMaps);
-      //   }
-      // }
+      onChange(_newMaps);
 
     },
 
@@ -74,7 +65,6 @@ class FireCollStreamer extends StatefulWidget {
 class _FireCollStreamerState extends State<FireCollStreamer> {
   // -----------------------------------------------------------------------------
   Stream<QuerySnapshot<Object>> _stream;
-  // final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(<Map<String, dynamic>>[]);
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
   @override
@@ -89,18 +79,8 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
-      // oldMaps: _oldMaps,
       invoker: 'initState of FireCollStreamer',
-      onChange: widget.queryModel.onDataChanged == null ?
-      null
-          :
-          (List<Map<String, dynamic>> newMaps){
-
-        if (mounted == true){
-          widget.queryModel.onDataChanged(newMaps);
-        }
-
-          },
+      onChange: _onDataChanged,
     );
 
   }
@@ -108,19 +88,19 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
   /// TAMAM
   @override
   void dispose() {
-
-    // _oldMaps.dispose();
     _sub.cancel();
-
-    // WidgetsBinding.instance.addPostFrameCallback((_){
-    //
-    //   /// do whatever the fuck you like to set state
-    //   /// notifyListeners
-    //   /// elly enta nefsak fih yaba
-    //
-    // });
-
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  /// TESTED :
+  void _onDataChanged(List<Map<String, dynamic>> newMaps){
+
+    if (widget.onDataChange != null){
+      if (mounted == true){
+        widget.onDataChange(newMaps);
+      }
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override

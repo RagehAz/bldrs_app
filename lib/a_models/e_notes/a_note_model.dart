@@ -247,6 +247,8 @@ class NoteModel {
 
     if (map != null) {
 
+      // blog('======>>>>>> map[triggerDone] : ${map['triggerDone'].runtimeType} : ${map['triggerDone']}');
+
       _noti = NoteModel(
 
         token: map['token'],

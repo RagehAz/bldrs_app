@@ -11,6 +11,8 @@ class PaginationController {
     @required this.deleteMap,
     @required this.startAfter,
     @required this.addExtraMapsAtEnd,
+    @required this.idFieldName,
+    @required this.onDataChanged,
   });
   /// -----------------------------------------------------------------------------
   final ValueNotifier<List<Map<String, dynamic>>> paginatorMaps;
@@ -19,6 +21,8 @@ class PaginationController {
   final ValueNotifier<Map<String, dynamic>> deleteMap;
   final ValueNotifier<dynamic> startAfter;
   final bool addExtraMapsAtEnd;
+  final String idFieldName;
+  final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -27,6 +31,8 @@ class PaginationController {
   /// TESTED : WORKS PERFECT
   static PaginationController initialize({
     @required bool addExtraMapsAtEnd,
+    ValueChanged<List<Map<String, dynamic>>> onDataChanged,
+    String idFieldName = 'id',
   }){
 
     return PaginationController(
@@ -36,11 +42,13 @@ class PaginationController {
       deleteMap: ValueNotifier<Map<String, dynamic>>(null),
       startAfter: ValueNotifier<dynamic>(null),
       addExtraMapsAtEnd: addExtraMapsAtEnd,
+      idFieldName: idFieldName,
+      onDataChanged: onDataChanged,
     );
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void clear(){
     paginatorMaps.value = [];
     replaceMap.value = null;
@@ -48,7 +56,8 @@ class PaginationController {
     deleteMap.value = null;
     startAfter.value = null;
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void removeListeners(){
     paginatorMaps.removeListener(() { });
     replaceMap.removeListener(() { });
@@ -77,12 +86,10 @@ class PaginationController {
   /// TESTED : WORKS PERFECT
   void activateListeners({
     @required bool mounted,
-    @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
+    // @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
   }){
 
-    _listenToPaginatorMapsChanges(
-      onDataChanged: onDataChanged,
-    );
+    _listenToPaginatorMapsChanges();
 
     _listenToAddMap(
       mounted: mounted,
@@ -99,12 +106,12 @@ class PaginationController {
 
   }
   // --------------------
-  /// ADD MAP
+
+  /// MAP CHANGES LISTENER
+
   // ---------
   /// TESTED : WORKS PERFECT
-  void _listenToPaginatorMapsChanges({
-    @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
-  }){
+  void _listenToPaginatorMapsChanges(){
 
     if (onDataChanged != null){
 
@@ -115,8 +122,10 @@ class PaginationController {
     }
 
   }
-  // --------------------
-  /// ADD MAP
+  // --------------------------------
+
+  /// ADD MAP LISTENER
+
   // ---------
   /// TESTED : WORKS PERFECT
   void _listenToAddMap({
@@ -167,8 +176,10 @@ class PaginationController {
     }
 
   }
-  // --------------------
+  // --------------------------------
+
   /// REPLACE MAP
+
   // ---------
   /// TESTED : WORKS PERFECT
   void _listenToReplaceMap({
@@ -183,6 +194,7 @@ class PaginationController {
 
         _replaceExistingMap(
           mounted: mounted,
+          controller: this,
         );
 
       });
@@ -191,34 +203,38 @@ class PaginationController {
   }
   // ---------
   /// TESTED : WORKS PERFECT
-  void _replaceExistingMap({
+  static void _replaceExistingMap({
     @required bool mounted,
+    @required PaginationController controller,
   }){
 
-    if (replaceMap.value != null){
+    if (controller.replaceMap.value != null){
 
       final List<Map<String, dynamic>> _updatedMaps = Mapper.replaceMapInMapsWithSameIDField(
-        baseMaps: paginatorMaps.value,
-        mapToReplace: replaceMap.value,
+        baseMaps: controller.paginatorMaps.value,
+        mapToReplace: controller.replaceMap.value,
+        idFieldName: controller.idFieldName,
       );
 
       setNotifier(
-        notifier: paginatorMaps,
+        notifier: controller.paginatorMaps,
         mounted: mounted,
         value: _updatedMaps,
         addPostFrameCallBack: false,
       );
 
       _setStartAfter(
-        startAfter: startAfter,
-        paginatorMaps: paginatorMaps.value,
+        startAfter: controller.startAfter,
+        paginatorMaps: controller.paginatorMaps.value,
       );
 
     }
 
   }
-  // --------------------
+  // --------------------------------
+
   /// DELETE MAP
+
   // ---------
   /// TESTED : WORKS PERFECT
   void _listenToDeleteMap({
@@ -249,6 +265,7 @@ class PaginationController {
       final List<Map<String, dynamic>> _updatedMaps = Mapper.removeMapFromMapsByIdField(
         baseMaps: paginatorMaps.value,
         mapToRemove: deleteMap.value,
+        idFieldName: idFieldName,
       );
 
       setNotifier(
@@ -267,49 +284,101 @@ class PaginationController {
 
 
   }
-  // ---------
-  /// TESTED : WORKS PERFECT
-  static void addMapsToLocalMaps({
-    @required ValueNotifier<List<Map<String, dynamic>>> paginatorMaps,
-    @required ValueNotifier<dynamic> startAfter,
-    @required List<Map<String, dynamic>> mapsToAdd,
-    @required bool addAtEnd,
-    @required bool mounted,
-  }){
+  // --------------------------------
 
-    List<Map<String, dynamic>> _combinedMaps = [...paginatorMaps.value];
+  /// START AFTER
 
-    if (mapsToAdd!= null){
-
-      if (addAtEnd == true){
-        _combinedMaps = [...paginatorMaps.value, ...mapsToAdd];
-      }
-      else {
-        _combinedMaps = [ ...mapsToAdd, ...paginatorMaps.value,];
-      }
-
-      setNotifier(
-        notifier: paginatorMaps,
-        mounted: mounted,
-        value: _combinedMaps,
-        addPostFrameCallBack: false,
-      );
-
-      _setStartAfter(
-        startAfter: startAfter,
-        paginatorMaps: _combinedMaps,
-      );
-
-    }
-
-  }
   // ---------
   /// TESTED : WORKS PERFECT
   static void _setStartAfter({
     @required ValueNotifier<dynamic> startAfter,
     @required List<Map<String, dynamic>> paginatorMaps,
   }){
-    startAfter.value = paginatorMaps.last['docSnapshot'] ?? paginatorMaps.last;
+
+    if (Mapper.checkCanLoopList(paginatorMaps) == true){
+      startAfter.value = paginatorMaps?.last['docSnapshot'] ?? paginatorMaps.last;
+    }
+
+    else {
+      startAfter.value = null;
+    }
+
+  }
+  // --------------------------------
+
+  /// INSERTION
+
+  // ---------
+  /// TESTED : WORKS PERFECT
+  static void insertMapsToPaginator({
+    @required PaginationController controller,
+    @required List<Map<String, dynamic>> mapsToAdd,
+    @required bool mounted,
+  }){
+
+    List<Map<String, dynamic>> _combinedMaps = [...controller.paginatorMaps.value];
+
+    for (final Map<String, dynamic> mapToInsert in mapsToAdd){
+
+      final bool _contains = Mapper.checkMapsContainMapWithID(
+        maps: _combinedMaps,
+        map: mapToInsert,
+        idFieldName: controller.idFieldName,
+      );
+
+      /// SHOULD REPLACE EXISTING MAP
+      if (_contains == true){
+
+        _combinedMaps = Mapper.replaceMapInMapsWithSameIDField(
+          baseMaps: _combinedMaps,
+          mapToReplace: mapToInsert,
+          idFieldName: controller.idFieldName,
+        );
+
+      }
+
+      /// SHOULD ADD NEW MAP
+      else {
+
+        if (controller.addExtraMapsAtEnd == true){
+          _combinedMaps = [..._combinedMaps, mapToInsert];
+        }
+
+        else {
+          _combinedMaps = [mapToInsert, ..._combinedMaps];
+        }
+
+      }
+
+    }
+
+    _setPaginatorMaps(
+      controller: controller,
+      mounted: mounted,
+      maps: _combinedMaps,
+    );
+
+  }
+  // ---------
+  /// TESTED : WORKS PERFECT
+  static void _setPaginatorMaps({
+    @required PaginationController controller,
+    @required List<Map<String, dynamic>> maps,
+    @required bool mounted,
+  }){
+
+    setNotifier(
+      notifier: controller.paginatorMaps,
+      mounted: mounted,
+      value: maps,
+      addPostFrameCallBack: false,
+    );
+
+    _setStartAfter(
+      startAfter: controller.startAfter,
+      paginatorMaps: maps,
+    );
+
   }
   // -----------------------------------------------------------------------------
 }

@@ -50,7 +50,6 @@ class _PaginatorTestState extends State<PaginatorTest> {
       idFieldName: 'id',
       limit: 5,
       orderBy: const QueryOrderBy(fieldName: 'time', descending: true),
-      onDataChanged: onDataChanged,
     );
 
   }
@@ -122,8 +121,9 @@ class _PaginatorTestState extends State<PaginatorTest> {
           SizedBox(
             // width: superScreenWidth(context),
             child: FireCollPaginator(
-              queryModel: _queryParameters,
+              paginationQuery: _queryParameters,
               scrollController: _scrollController,
+              onDataChanged: onDataChanged,
               builder: (_, List<Map<String, dynamic>> _maps, bool isLoading, Widget child){
 
                 return Column(

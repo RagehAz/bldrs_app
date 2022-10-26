@@ -161,6 +161,11 @@ class TriggerProtocols {
         newNote: _newNote,
       );
 
+      blog('trigger is done successfully');
+    }
+
+    else {
+      blog('trigger already fired');
     }
 
     blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- END');
