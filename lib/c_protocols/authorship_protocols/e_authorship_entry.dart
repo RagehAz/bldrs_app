@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -69,29 +70,34 @@ class AuthorshipEntryProtocols {
       context: context,
       url: _uploadedUser.pic,
     );
-    final BzModel _bzModelWithAuthorPicFile = BzModel.addNewUserAsAuthor(
+    BzModel _bzModel = BzModel.addNewUserAsAuthor(
       oldBzModel: _oldBzModel,
       userModel: _uploadedUser.copyWith(
         pic: _file,
       ),
     );
-    final BzModel _newBzModel = await BzFireOps.updateAuthorPicIfChangedAndReturnNewBzModel(
+    _bzModel = await BzFireOps.updateAuthorPicIfChangedAndReturnNewBzModel(
       context: context,
-      bzModel: _bzModelWithAuthorPicFile,
+      bzModel: _bzModel,
+    );
+
+    _bzModel = PendingAuthor.removePendingAuthorFromBz(
+        bzModel: _bzModel,
+        userID: _newUserModel.id,
     );
 
     /// ADD BZ MODEL TO MY BZZ --------------------------
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _bzzProvider.addBzToMyBzz(
-      bzModel: _newBzModel,
+      bzModel: _bzModel,
       notify: false, // uploaded model will update it and notify listeners
     );
 
     /// UPDATE BZ EVERYWHERE PROTOCOL --------------------------
     final BzModel _uploadedBzModel = await BzProtocols.renovateBz(
       context: context,
-      newBzModel: _newBzModel,
       oldBzModel: _oldBzModel,
+      newBzModel: _bzModel,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,
     );

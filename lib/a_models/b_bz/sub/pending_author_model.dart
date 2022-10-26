@@ -146,6 +146,29 @@ class PendingAuthor {
 
     return _output;
   }
+  // --------------------
+  ///
+  static BzModel removePendingAuthorFromBz({
+    @required BzModel bzModel,
+    @required String userID,
+  }){
+    BzModel _bzModel = bzModel;
+
+    if (bzModel != null){
+
+      final List<PendingAuthor> _updatedPendingAuthors = removePendingAuthor(
+        pendingAuthors: bzModel.pendingAuthors,
+        userID: userID,
+      );
+
+      _bzModel = _bzModel.copyWith(
+        pendingAuthors: _updatedPendingAuthors,
+      );
+
+    }
+
+    return _bzModel;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
