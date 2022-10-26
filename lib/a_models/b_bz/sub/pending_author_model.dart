@@ -147,7 +147,7 @@ class PendingAuthor {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static BzModel removePendingAuthorFromBz({
     @required BzModel bzModel,
     @required String userID,

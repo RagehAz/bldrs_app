@@ -20,7 +20,7 @@ class AuthorshipEntryProtocols {
   const AuthorshipEntryProtocols();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> addMeToBz({
     @required BuildContext context,
     @required String bzID,
