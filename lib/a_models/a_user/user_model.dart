@@ -836,7 +836,7 @@ class UserModel {
     return _userModel;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static UserModel addAllBzTopicsToMyTopics({
     @required UserModel userModel,
     @required String bzID,
