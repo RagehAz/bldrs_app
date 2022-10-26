@@ -139,7 +139,7 @@ class AuthorModel {
     );
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static AuthorModel createAuthorFromUserModel({
     @required UserModel userModel,
     @required bool isCreator,
@@ -156,7 +156,7 @@ class AuthorModel {
     return _author;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz) {
     final List<AuthorModel> _allAuthors = <AuthorModel>[];
 
@@ -258,7 +258,7 @@ class AuthorModel {
   /// GETTERS
 
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorWhosePicIsFile({
     @required List<AuthorModel> authors,
   }){
@@ -276,6 +276,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getAuthorPicOwnersIDs({
     @required BzModel bzModel,
     @required AuthorModel authorModel,
@@ -413,6 +414,7 @@ class AuthorModel {
     return _masterAuthor;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getAuthorsNames({
     @required List<AuthorModel> authors
   }){
@@ -429,6 +431,7 @@ class AuthorModel {
     return _names;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static AuthorModel getFlyerAuthor({
     @required List<AuthorModel> authors,
     @required String flyerID,
@@ -501,7 +504,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static List<String> replaceAuthorIDInAuthorsIDsList({
     @required List<AuthorModel> originalAuthors,
     @required AuthorModel oldAuthor,
@@ -529,6 +532,7 @@ class AuthorModel {
     return _modifiedAuthorsIDsList;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> addNewUserToAuthors({
     @required List<AuthorModel> authors,
     @required UserModel newUserModel,
@@ -876,6 +880,7 @@ class AuthorModel {
     return _imCreator;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkImAuthorInBzOfThisFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -892,6 +897,7 @@ class AuthorModel {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkUserImageIsAuthorImage({
     @required  BuildContext context,
     @required AuthorModel authorModel,
