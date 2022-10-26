@@ -6,7 +6,7 @@ import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/x_import_template_screen/a_import_template_note_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_import_template_screen/a_import_template_note_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
