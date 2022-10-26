@@ -1,9 +1,14 @@
+// ignore_for_file: always_put_control_body_on_new_line
+
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/foundation.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:flutter/material.dart';
 
 class LDBOps {
   // -----------------------------------------------------------------------------
@@ -242,17 +247,61 @@ class LDBOps {
 
   }
   // --------------------
-  static Future<void> wipeOutEntireLDB() async {
+  static Future<void> wipeOutEntireLDB({
+    bool flyers = true,
+    bool bzz = true,
+    bool users = true,
+    bool bldrsChains = true,
+    bool pickers = true,
+    bool countries = true,
+    bool cities = true,
+    bool continents = true,
+    bool currencies = true,
+    bool notes = true,
+    bool mainPhrases = true,
+    bool countriesPhrases = true,
+    bool appState = true,
+    bool appControls = true,
+    bool authModel = true,
+    bool userEditor = true,
+    bool bzEditor = true,
+    bool authorEditor = true,
+    bool flyerMaker = true,
+    bool reviewEditor = true,
+    bool theLastWipe = true,
+  }) async {
 
-    const List<String> _docs = LDBDoc.allDocs;
+    final List<String> _docs = <String>[];
 
-    for (final String docName in _docs){
+    if (flyers == true) {_docs.add(LDBDoc.flyers);}
+    if (bzz == true) {_docs.add(LDBDoc.bzz);}
+    if (users == true) {_docs.add(LDBDoc.users);}
+    if (bldrsChains == true) {_docs.add(LDBDoc.bldrsChains);}
+    if (pickers == true) {_docs.add(LDBDoc.pickers);}
+    if (countries == true) {_docs.add(LDBDoc.countries);}
+    if (cities == true) {_docs.add(LDBDoc.cities);}
+    if (continents == true) {_docs.add(LDBDoc.continents);}
+    if (currencies == true) {_docs.add(LDBDoc.currencies);}
+    if (notes == true) {_docs.add(LDBDoc.notes);}
+    if (mainPhrases == true) {_docs.add(LDBDoc.mainPhrases);}
+    if (countriesPhrases == true) {_docs.add(LDBDoc.countriesPhrases);}
+    if (appState == true) {_docs.add(LDBDoc.appState);}
+    if (appControls == true) {_docs.add(LDBDoc.appControls);}
+    if (authModel == true) {_docs.add(LDBDoc.authModel);}
+    if (userEditor == true) {_docs.add(LDBDoc.userEditor);}
+    if (bzEditor == true) {_docs.add(LDBDoc.bzEditor);}
+    if (authorEditor == true) {_docs.add(LDBDoc.authorEditor);}
+    if (flyerMaker == true) {_docs.add(LDBDoc.flyerMaker);}
+    if (reviewEditor == true) {_docs.add(LDBDoc.reviewEditor);}
+    if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
 
-      await deleteAllMapsAtOnce(
-          docName: docName
-      );
-
-    }
+    await Future.wait(<Future>[
+      ...List.generate(_docs.length, (index){
+        return deleteAllMapsAtOnce(
+            docName: _docs[index],
+        );
+      }),
+    ]);
 
   }
   // -----------------------------------------------------------------------------
@@ -409,5 +458,54 @@ class LDBOps {
 //   }
 //   // -----------------------------------------------------------------------------
  */
+  // -----------------------------------------------------------------------------
+
+  /// LDB REFRESH - DAILY WIPE
+
+  // --------------------
+  static Future<bool> checkShouldRefreshLDB(BuildContext context) async {
+    bool _shouldRefresh = true;
+
+    /// NOTE : if did not find last wipe dateTime => will wipe
+    /// if found and its more than {24 hours} => will wipe
+    /// if found and its less than {24 hours} => will not wipe
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        ids: ['theLastWipeMap'],
+        docName: LDBDoc.theLastWipe,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      final DateTime _lastWipe = Timers.decipherTime(
+          time: _maps.first['time'],
+          fromJSON: true,
+      );
+
+      double _diff = Timers.calculateTimeDifferenceInHours(
+          from: _lastWipe,
+          to: DateTime.now(),
+      )?.toDouble();
+
+      _diff = Numeric.modulus(_diff);
+
+      /// ONLY WHEN NOT EXCEEDED THE TIME SHOULD NOT REFRESH
+      if (_diff != null && _diff < Standards.dailyLDBWipeIntervalInHours){
+        _shouldRefresh = false;
+      }
+
+    }
+
+    await LDBOps.insertMap(
+        // allowDuplicateIDs: false,
+        docName: LDBDoc.theLastWipe,
+        input: {
+          'id': 'theLastWipeMap',
+          'time': Timers.cipherTime(time: DateTime.now(), toJSON: true),
+        },
+    );
+
+    return _shouldRefresh;
+  }
   // -----------------------------------------------------------------------------
 }
