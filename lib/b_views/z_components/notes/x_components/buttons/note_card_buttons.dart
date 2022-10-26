@@ -83,6 +83,11 @@ class NoteCardButtons extends StatelessWidget {
     // final bool _replyIsCancelled = noteModel?.poll?.reply == PollModel.cancel;
     final bool _replyIsPending = noteModel?.poll?.reply == PollModel.pending;
 
+    // final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
+    //   bzModel: _bzModel,
+    //   userID: AuthFireOps.superUserID(),
+    // );
+
     return SizedBox(
       width: boxWidth,
       // height: 70,

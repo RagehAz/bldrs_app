@@ -366,6 +366,22 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
+  /// --- TOP DIALOG KEY
+
+  // --------------------
+  final GlobalKey _topDialogKey = GlobalKey();
+  GlobalKey get topDialogKey => _topDialogKey;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static GlobalKey proGetTopDialogKey({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    return _uiProvider.topDialogKey;
+  }
+  // -----------------------------------------------------------------------------
+
   /// WIPE OUT
 
   // --------------------
