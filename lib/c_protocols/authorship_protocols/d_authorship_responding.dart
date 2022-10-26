@@ -47,13 +47,29 @@ class AuthorshipRespondingProtocols{
     /// INVITATION HAS BEEN CANCELLED
     if (_imPendingAuthor == false){
 
-      await CenterDialog.showCenterDialog(
-        context: context,
-        titleVerse: const Verse(
-          text: 'phid_invitation_request_had_expired',
-          translate: true,
+      await Future.wait(<Future>[
+
+      /// SOME HACK BUT THIS SHOULD NEVER BE
+        NoteProtocols.renovate(
+          context: context,
+          oldNote: noteModel,
+          newNote: noteModel.copyWith(
+            poll: noteModel.poll.copyWith(
+              reply: PollModel.expired,
+              replyTime: DateTime.now(),
+            ),
+          ),
         ),
-      );
+
+        CenterDialog.showCenterDialog(
+          context: context,
+          titleVerse: const Verse(
+            text: 'phid_invitation_request_had_expired',
+            translate: true,
+          ),
+        ),
+
+      ]);
 
     }
 
