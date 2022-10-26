@@ -235,7 +235,7 @@ class UIManager extends StatelessWidget {
 
         /// DIALOG TEST
         WideButton(
-          verse: Verse.plain('Slider Test Screen'),
+          verse: Verse.plain('Dialogs test Screen'),
           icon: Iconz.achievement,
           onTap: () async {
 

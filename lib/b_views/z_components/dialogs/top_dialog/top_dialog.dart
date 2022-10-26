@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -25,7 +26,19 @@ class TopDialog extends StatelessWidget {
   final String verse;
   final Function onTap;
   // final int duration;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void closeTopDialog(BuildContext context){
+
+    final GlobalKey _key = UiProvider.proGetTopDialogKey(
+      context: context,
+      listen: false,
+    );
+
+    (_key?.currentWidget as Flushbar)?.dismiss();
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> showTopDialog({
     @required BuildContext context,
     @required Verse firstVerse,
@@ -37,8 +50,11 @@ class TopDialog extends StatelessWidget {
   }) async {
 
     final double _screenWidth = Scale.superScreenWidth(context);
+    final double _bubbleWidth = BldrsAppBar.width(context);
 
     await Flushbar(
+      key: UiProvider.proGetTopDialogKey(context: context, listen: false),
+
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       // dismissDirection: FlushbarDismissDirection.VERTICAL,
       flushbarPosition: FlushbarPosition.TOP,
@@ -65,10 +81,10 @@ class TopDialog extends StatelessWidget {
       // borderWidth: 1,
 
       /// ANIMATION ----------------------------------------------
-      forwardAnimationCurve: Curves.easeInOut,
+      forwardAnimationCurve: Curves.easeOutBack,
       duration: Duration(milliseconds: milliseconds ?? 1000),
-      animationDuration: const Duration(milliseconds: 400),
-      reverseAnimationCurve: Curves.easeInOut,
+      animationDuration: const Duration(milliseconds: 150),
+      reverseAnimationCurve: Curves.elasticOut,
 
       ///   LEFT BAR INDICATOR ----------------------------------------------
       // leftBarIndicatorColor: null,
@@ -78,7 +94,7 @@ class TopDialog extends StatelessWidget {
 
       /// TITLE ----------------------------------------------
       titleText: Container(
-        width: BldrsAppBar.width(context),
+        width: _bubbleWidth,
         constraints: BoxConstraints(
           minHeight: BldrsAppBar.height(context, AppBarType.basic) - 5,
         ),
@@ -92,15 +108,17 @@ class TopDialog extends StatelessWidget {
 
             /// FIRST LINE
             SuperVerse(
+              width: _bubbleWidth,
               verse: firstVerse,
               color: textColor,
-              maxLines: 2,
+              maxLines: 3,
               margin: 5,
             ),
 
             /// SECOND LINE
             if (secondVerse != null)
               SuperVerse(
+                width: _bubbleWidth,
                 verse: secondVerse,
                 size: 1,
                 color: textColor,
@@ -145,7 +163,30 @@ class TopDialog extends StatelessWidget {
       },
 
       onStatusChanged: (FlushbarStatus status) {
-        // blog('status is : $status');
+
+        // switch (status) {
+        //   case FlushbarStatus.SHOWING:
+        //     {
+        //       doSomething();
+        //       break;
+        //     }
+        //   case FlushbarStatus.IS_APPEARING:
+        //     {
+        //       doSomethingElse();
+        //       break;
+        //     }
+        //   case FlushbarStatus.IS_HIDING:
+        //     {
+        //       doSomethingElse();
+        //       break;
+        //     }
+        //   case FlushbarStatus.DISMISSED:
+        //     {
+        //       doSomethingElse();
+        //       break;
+        //     }
+        // }
+
       },
 
       /// UNKNOWN ----------------------------------------------
@@ -153,11 +194,12 @@ class TopDialog extends StatelessWidget {
       title: 'wtf',
       endOffset: Offset.zero,
       shouldIconPulse: false,
-      positionOffset: 50,
+      // positionOffset: 0,
       // userInputForm: ,
     ).show(context);
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void showUnawaitedTopDialog({
     @required BuildContext context,
     @required Verse firstVerse,
@@ -250,5 +292,5 @@ class TopDialog extends StatelessWidget {
     )..show(context);
 
   }
-// --------------------
+  // --------------------
 }

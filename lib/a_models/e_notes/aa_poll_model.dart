@@ -27,6 +27,7 @@ class PollModel {
   static const String decline = 'phid_decline';
   static const String pending = 'phid_pending';
   static const String cancel = 'phid_cancel';
+  static const String expired = 'phid_expired';
   static const List<String> acceptDeclineButtons = <String>[accept, decline];
   // -----------------------------------------------------------------------------
 
