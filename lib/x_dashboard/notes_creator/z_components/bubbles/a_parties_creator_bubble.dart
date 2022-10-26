@@ -11,7 +11,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/b_parties_controllers.dart';
-import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_party_button.dart';
+import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_party_button.dart';
 import 'package:flutter/material.dart';
 
 class NotePartiesBubbles extends StatelessWidget {

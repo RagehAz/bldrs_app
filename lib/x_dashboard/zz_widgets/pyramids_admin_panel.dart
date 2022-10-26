@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/notes_creator/a_screens/a_notes_creator_home_screen/notes_creator_home.dart';
+import 'package:bldrs/x_dashboard/notes_creator/notes_creator_home.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +105,7 @@ class PyramidsAdminPanel extends StatelessWidget {
                     onLongTap: () => NotesProvider.proRefreshBadgeNum(context),
                     onTap: () => Nav.goToNewScreen(
                       context: context,
-                      screen: const NotesCreatorHome(),
+                      screen: const NotesCreatorScreen(),
                     ),
                   ),
                 ),

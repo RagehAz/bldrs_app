@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/x_dashboard/notes_creator/components/buttons/note_party_button.dart';
+import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_party_button.dart';
 import 'package:flutter/material.dart';
 
 class NotePartyButtonsBuilder extends StatelessWidget {
