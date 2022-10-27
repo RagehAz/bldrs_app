@@ -61,6 +61,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     super.initState();
     _paginationController = PaginationController.initialize(
       addExtraMapsAtEnd: false,
+      onDataChanged: _collectUnseenNotesToMarkAtDispose,
     );
   }
   // --------------------
@@ -98,6 +99,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     blog('BzNotesPage dispose START');
     _scrollController.dispose();
     _loading.dispose();
+    _paginationController.dispose();
     super.dispose();
     blog('BzNotesPage dispose END');
   }
@@ -130,13 +132,11 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
       /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
       for (final NoteModel note in _newNotes){
-        if (note.seen == false){
-          NoteModel.insertNoteIntoNotes(
-            notesToGet: _localNotesToMarkUnseen,
-            note: note,
-            duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-          );
-        }
+        NoteModel.insertNoteIntoNotes(
+          notesToGet: _localNotesToMarkUnseen,
+          note: note,
+          duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+        );
       }
 
 
@@ -199,8 +199,8 @@ class _BzNotesPageState extends State<BzNotesPage>{
           paginationQuery: bzNotesPaginationQueryModel(
             bzID: _bzModel.id,
           ),
-          onDataChanged: _collectUnseenNotesToMarkAtDispose,
           scrollController: _scrollController,
+          paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
             return ListView.builder(

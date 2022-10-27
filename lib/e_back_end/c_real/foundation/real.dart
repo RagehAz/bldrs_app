@@ -8,8 +8,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
 
-
-
 class Real {
   // -----------------------------------------------------------------------------
 

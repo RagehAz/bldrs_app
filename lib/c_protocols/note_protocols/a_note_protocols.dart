@@ -454,7 +454,7 @@ class NoteProtocols {
         final String _bakedTopicID = TopicModel.bakeTopicID(
           topicID: note.topic,
           bzID: note.parties.receiverID,
-          partyType: PartyType.bz,
+          receiverPartyType: PartyType.bz,
         );
 
         return note.copyWith(

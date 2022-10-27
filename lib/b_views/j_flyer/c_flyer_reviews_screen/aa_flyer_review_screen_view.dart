@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class FlyerReviewsScreenView extends StatelessWidget {
@@ -27,8 +26,13 @@ class FlyerReviewsScreenView extends StatelessWidget {
     // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _slidesShelfHeight = 120;
-    const double _separatorHeight = SeparatorLine.getTotalHeight;
-    final double _reviewsBoxHeight = screenHeight - Ratioz.stratosphere - _separatorHeight - _slidesShelfHeight;
+    const double _separatorHeight = SeparatorLine.standardThickness + 4.5;
+    // --------------------
+    final double _reviewsBoxHeight =
+              screenHeight
+            - Stratosphere.getStratosphereValue(context: context, appBarType: appBarType)
+            - _separatorHeight
+            - _slidesShelfHeight;
     // --------------------
     return Column(
       children: <Widget>[
@@ -39,7 +43,6 @@ class FlyerReviewsScreenView extends StatelessWidget {
         FlyerSlidesShelf(
           flyerModel: flyerModel,
         ),
-
 
         /// SEPARATOR
         Padding(

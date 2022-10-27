@@ -40,6 +40,7 @@ class DraftFlyerModel{
     @required this.priceTagIsOn,
     @required this.score,
     @required this.pdf,
+    @required this.bzModel,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -62,11 +63,13 @@ class DraftFlyerModel{
   final bool priceTagIsOn;
   final int score;
   final FileModel pdf;
+  final BzModel bzModel;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
   // --------------------
+  ///
   static DraftFlyerModel initializeDraftForEditing({
     @required FlyerModel oldFlyer,
     @required BzModel bzModel,
@@ -88,6 +91,7 @@ class DraftFlyerModel{
       null;
 
       _draft = DraftFlyerModel(
+        bzModel: bzModel,
         id: 'newFlyer',
         headline: '',
         headlineNode: FocusNode(),
@@ -119,6 +123,7 @@ class DraftFlyerModel{
     else {
 
       _draft = DraftFlyerModel(
+        bzModel: bzModel,
         id: oldFlyer.id,
         headline: oldFlyer.headline,
         headlineNode: FocusNode(),
@@ -146,13 +151,12 @@ class DraftFlyerModel{
     return _draft;
   }
   // --------------------
+  ///
   static Future<FlyerModel> bakeDraftToUpload({
     @required DraftFlyerModel draft,
     @required bool toLDB,
     PublishState overridePublishState,
   }) async {
-
-
 
     return FlyerModel(
       id: draft.id,
@@ -161,7 +165,7 @@ class DraftFlyerModel{
       description: draft.description,
       flyerType: draft.flyerType,
       publishState: overridePublishState ?? draft.publishState,
-      auditState: draft.auditState,
+      auditState: draft.bzModel.isVerified == true ? AuditState.verified : AuditState.pending,
       keywordsIDs: draft.keywordsIDs,
       showsAuthor: draft.showsAuthor,
       zone: draft.zone,
@@ -206,7 +210,9 @@ class DraftFlyerModel{
     bool priceTagIsOn,
     int score,
     FileModel pdf,
+    BzModel bzModel,
   }) => DraftFlyerModel(
+    bzModel: bzModel ?? this.bzModel,
     id: id ?? this.id,
     headline: headline ?? this.headline,
     headlineNode: headlineNode ?? this.headlineNode,
@@ -327,9 +333,11 @@ class DraftFlyerModel{
     return _draft;
   }
   // --------------------
-
+  ///
   static DraftFlyerModel removePDF(DraftFlyerModel draft){
+
     return DraftFlyerModel(
+      bzModel: draft.bzModel,
       id: draft.id,
       headline: draft.headline,
       description: draft.description,
@@ -392,6 +400,7 @@ class DraftFlyerModel{
     PublishTime.blogTimes(times);
     SpecModel.blogSpecs(specs);
     MutableSlide.blogSlides(mutableSlides);
+    bzModel.blogBz(methodName: 'BLOGGING DRAFT');
 
     blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
   }
@@ -467,6 +476,9 @@ class DraftFlyerModel{
       if (FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == false){
         blog('pdfs are not identical');
       }
+      if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
+        blog('bzzModels are not identical');
+      }
 
 
       // FocusNode headlineNode,
@@ -492,7 +504,7 @@ class DraftFlyerModel{
     if (draft != null){
 
       if (
-      draft.mutableSlides.isNotEmpty == true
+          draft.mutableSlides.isNotEmpty == true
           &&
           headlineController.text.length >= Standards.flyerHeadlineMinLength
       ){
@@ -536,8 +548,8 @@ class DraftFlyerModel{
           PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
           draft1.priceTagIsOn == draft2.priceTagIsOn &&
           draft1.score == draft2.score &&
-          FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == true
-
+          FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == true &&
+          BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true
       ){
         _areIdentical = true;
       }

@@ -9,10 +9,8 @@ import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
+import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -35,7 +33,6 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   // --------------------
-  String _collName = FireColl.users;
   String _receiverID = 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
   PartyType _partyType = PartyType.user;
   // -----------------------------------------------------------------------------
@@ -104,7 +101,6 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
               setState(() {
                 _receiverID = receiverID;
                 _partyType = partyType;
-                _collName = collName;
               });
 
             }
@@ -118,17 +114,10 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
           :
       FireCollPaginator(
         scrollController: _scrollController,
-
-        paginationQuery: FireQueryModel(
-          collRef: Fire.getSuperCollRef(
-              aCollName: _collName,
-              bDocName: _receiverID,
-              cSubCollName: FireSubColl.noteReceiver_receiver_notes
+          paginationQuery: allNotesPaginationQueryModel(
+            receiverPartyType: _partyType,
+            receiverID: _receiverID,
           ),
-          idFieldName: 'id',
-          orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-          limit: 5,
-        ),
         onDataChanged: (List<Map<String, dynamic>> maps){
 
           if (mounted){
@@ -204,8 +193,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
           }
 
         },
-      )
-      ,
+      ),
     );
 
   }

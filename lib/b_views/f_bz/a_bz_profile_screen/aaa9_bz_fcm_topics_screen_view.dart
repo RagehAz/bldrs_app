@@ -38,7 +38,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     final String _customTopicID = TopicModel.bakeTopicID(
       topicID: topicID,
       bzID: _activeBz.id,
-      partyType: PartyType.bz,
+      receiverPartyType: PartyType.bz,
     );
 
     await Future.wait(<Future>[

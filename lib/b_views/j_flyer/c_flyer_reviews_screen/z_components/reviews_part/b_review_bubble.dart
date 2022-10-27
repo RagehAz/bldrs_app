@@ -98,7 +98,7 @@ class ReviewBubble extends StatelessWidget {
                   pageWidth: pageWidth,
                   reviewTextController: reviewTextController,
                   flyerModel: flyerModel,
-                  paginatorController: paginatorController,
+                  paginationController: paginatorController,
                   globalKey: globalKey,
                 ),
 

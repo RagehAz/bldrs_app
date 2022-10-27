@@ -8,7 +8,7 @@ class FireQueryModel {
   /// --------------------------------------------------------------------------
   const FireQueryModel({
     @required this.collRef,
-    @required this.idFieldName,
+    this.idFieldName ='id',
     this.limit,
     this.orderBy,
     this.finders,
