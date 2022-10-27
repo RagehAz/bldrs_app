@@ -24,14 +24,14 @@ class NoteEventsOfBzTeamManagement {
   /// SENDERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorRoleChangeNote({
     @required BuildContext context,
     @required String bzID,
     @required AuthorModel author,
   }) async {
 
-    blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : START');
+    // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : START');
 
     final String _authorRoleString = AuthorModel.getAuthorRolePhid(
       context: context,
@@ -53,7 +53,7 @@ class NoteEventsOfBzTeamManagement {
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzTeamRolesUpdates,
         bzID: bzID,
-        partyType: PartyType.bz,
+        receiverPartyType: PartyType.bz,
       ),
     );
 
@@ -62,7 +62,7 @@ class NoteEventsOfBzTeamManagement {
       note: _note,
     );
 
-    blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : END');
+    // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : END');
 
   }
   // --------------------
@@ -91,7 +91,7 @@ class NoteEventsOfBzTeamManagement {
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzTeamMembersExit,
         bzID: bzModel.id,
-        partyType: PartyType.bz,
+        receiverPartyType: PartyType.bz,
       ),
     );
 
@@ -138,7 +138,8 @@ class NoteEventsOfBzTeamManagement {
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
-    @required bool includeMyself, // send bz deletion note to myself
+    /// send bz deletion note to myself
+    @required bool includeMyself,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors : START');
 
@@ -231,7 +232,7 @@ class NoteEventsOfBzTeamManagement {
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzGeneralNews,
         bzID: bzModel.id,
-        partyType: PartyType.bz,
+        receiverPartyType: PartyType.bz,
       ),
     );
 

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/b_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -52,15 +53,20 @@ class ReviewsBuilder extends StatelessWidget {
 
         /// REVIEW CREATOR
         if (index == 0){
-          return ReviewBubble(
-            appBarType: appBarType,
-            flyerModel: flyerModel,
-            pageWidth: pageWidth,
-            reviewTextController: reviewTextController,
-            isCreatorMode: true,
-            paginatorController: paginatorController,
-            globalKey: globalKey,
-          );
+          if (AuthFireOps.superUserID() == null){
+            return const SizedBox();
+          }
+          else {
+            return ReviewBubble(
+              appBarType: appBarType,
+              flyerModel: flyerModel,
+              pageWidth: pageWidth,
+              reviewTextController: reviewTextController,
+              isCreatorMode: true,
+              paginatorController: paginatorController,
+              globalKey: globalKey,
+            );
+          }
         }
 
         /// SUBMITTED REVIEWS

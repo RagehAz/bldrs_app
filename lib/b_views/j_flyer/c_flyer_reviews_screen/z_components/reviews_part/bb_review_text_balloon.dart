@@ -32,7 +32,7 @@ class ReviewTextBalloon extends StatelessWidget {
     @required this.pageWidth,
     @required this.flyerModel,
     @required this.reviewTextController,
-    @required this.paginatorController,
+    @required this.paginationController,
     @required this.globalKey,
     @required this.appBarType,
     Key key
@@ -44,7 +44,7 @@ class ReviewTextBalloon extends StatelessWidget {
   final double pageWidth;
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final PaginationController paginatorController;
+  final PaginationController paginationController;
   final GlobalKey globalKey;
   final AppBarType appBarType;
   /// --------------------------------------------------------------------------
@@ -128,7 +128,7 @@ class ReviewTextBalloon extends StatelessWidget {
                         context: context,
                         textController: reviewTextController,
                         flyerModel: flyerModel,
-                        addMap: paginatorController.addMap,
+                        paginationController: paginationController,
                       ),
                     ),
 
@@ -161,8 +161,7 @@ class ReviewTextBalloon extends StatelessWidget {
                           onTap: () => onReviewOptions(
                             context: context,
                             reviewModel: reviewModel,
-                            deleteMapNotifier: paginatorController.deleteMap,
-                            replaceMapNotifier: paginatorController.replaceMap,
+                            paginationController: paginationController,
                             bzID: flyerModel.bzID,
                           ),
                         ),
@@ -181,7 +180,8 @@ class ReviewTextBalloon extends StatelessWidget {
                           onTap: () => onBzReply(
                             context: context,
                             reviewModel: reviewModel,
-                            replaceMapNotifier: paginatorController.replaceMap,
+                            paginationController: paginationController,
+                            bzID: flyerModel.bzID,
                           ),
                         ),
 
@@ -206,7 +206,7 @@ class ReviewTextBalloon extends StatelessWidget {
                               onTap: () => onReviewAgree(
                                 isAlreadyAgreed: _isAlreadyAgreed,
                                 reviewModel: reviewModel,
-                                replaceMap: paginatorController.replaceMap,
+                                paginationController: paginationController,
                               ),
                             );
 
@@ -232,7 +232,7 @@ class ReviewTextBalloon extends StatelessWidget {
           BzReplyBubble(
             boxWidth: _textBubbleWidth,
             reviewModel: reviewModel,
-            paginatorController: paginatorController,
+            paginatorController: paginationController,
             flyerModel: flyerModel,
           ),
 

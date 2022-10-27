@@ -27,6 +27,7 @@ enum PublishState{
 enum AuditState{
   verified,
   suspended,
+  pending,
 }
 
 @immutable
@@ -346,34 +347,42 @@ class FlyerModel {
   /// AUDIT STATE CYPHERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherAuditState(AuditState auditState){
     switch(auditState){
       case AuditState.verified:     return 'verified';    break;
       case AuditState.suspended:    return 'suspended';   break;
+      case AuditState.pending:      return 'pending';   break;
       default: return null;
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static AuditState decipherAuditState(String state){
     switch(state){
       case 'verified':  return AuditState.verified;   break;
       case 'suspended': return AuditState.suspended;  break;
+      case 'pending':   return AuditState.pending;  break;
       default: return null;
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static const List<AuditState> auditStates = <AuditState>[
     AuditState.verified,
     AuditState.suspended,
+    AuditState.pending,
   ];
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String translateAuditState({
     @required BuildContext context,
     @required AuditState state,
   }){
     switch (state){
-      case AuditState.verified      :     return  'phid_verified_flyer'     ;  break;
-      case AuditState.suspended     :     return  'phid_suspended_flyer'    ;  break;
+      case AuditState.verified  : return 'phid_verified_flyer'  ; break;
+      case AuditState.suspended : return 'phid_suspended_flyer' ; break;
+      case AuditState.pending   : return 'phid_pending_flyer'   ; break;
       default : return null;
     }
   }
@@ -384,7 +393,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogFlyer({
-    @required String methodName,
+    String methodName,
   }){
 
     if (methodName != null){
@@ -434,6 +443,7 @@ class FlyerModel {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogFlyersDifferences({
     @required FlyerModel flyer1,
     @required FlyerModel flyer2,
@@ -840,6 +850,7 @@ class FlyerModel {
     return _canShow;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkFlyersAreIdentical({
     @required FlyerModel flyer1,
     @required FlyerModel flyer2,
@@ -896,7 +907,10 @@ class FlyerModel {
   /// GETTERS
 
   // --------------------
-  String getShortHeadline({int numberOfCharacters = 10}){
+  /// TESTED : WORKS PERFECT
+  String getShortHeadline({
+    int numberOfCharacters = 10
+  }){
     final String _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: headline,
         numberOfChars: numberOfCharacters
@@ -987,13 +1001,3 @@ class FlyerModel {
       docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }
-
-/*
-
-    _canShowGallery = canShowGalleryPage(
-      bzModel: widget.bzModel,
-      heroTag: widget.heroTag,
-    );
-
-
- */

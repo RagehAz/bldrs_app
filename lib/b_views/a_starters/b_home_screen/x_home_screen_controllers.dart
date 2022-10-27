@@ -34,7 +34,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -465,57 +464,8 @@ Future<void> onNavigate({
 }
 // -----------------------------------------------------------------------------
 
-/// FLYERS PAGINATION
+/// REFRESH WALL
 
-// --------------------
-/// TASK : REFACTOR THIS SCROLLER LISTENER
-bool initializeFlyersPagination({
-  @required BuildContext context,
-  @required ScrollController scrollController,
-  @required bool canPaginate,
-}) {
-
-  // Scrollers.createPaginationListener(
-  //     controller: controller,
-  //     isPaginating: isPaginating,
-  //     canKeepReading: canKeepReading,
-  //     onPaginate: onPaginate
-  // );
-
-  bool _canPaginate = canPaginate;
-
-  scrollController.addListener(() async {
-
-    final double _maxScroll = scrollController.position.maxScrollExtent;
-    final double _currentScroll = scrollController.position.pixels;
-    // final double _screenHeight = Scale.superScreenHeight(context);
-    const double _paginationHeightLight = Ratioz.horizon * 3;
-
-    if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
-
-      // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
-
-      _canPaginate = false;
-
-      await readMoreFlyers(context);
-
-      _canPaginate = true;
-
-    }
-
-  });
-
-  return _canPaginate;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> readMoreFlyers(BuildContext context) async {
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  await _flyersProvider.paginateWallFlyers(
-    context: context,
-    listenToZoneChange: false,
-  );
-}
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onRefreshHomeWall(BuildContext context) async {

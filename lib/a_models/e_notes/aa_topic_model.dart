@@ -357,7 +357,7 @@ class TopicModel {
         final String _topicID = bakeTopicID(
             topicID: topicID,
             bzID: bz.id,
-            partyType: PartyType.bz,
+            receiverPartyType: PartyType.bz,
         );
 
         for (final AuthorModel _author in bz.authors){
@@ -459,11 +459,11 @@ class TopicModel {
   static String bakeTopicID({
     @required String topicID,
     @required String bzID,
-    @required PartyType partyType,
+    @required PartyType receiverPartyType,
   }){
     String _topicID = topicID;
 
-    if (partyType == PartyType.bz){
+    if (receiverPartyType == PartyType.bz){
       _topicID = _generateBzTopicID(
         topicID: topicID,
         bzID: bzID,
@@ -498,7 +498,7 @@ class TopicModel {
           final String _customTopicID = bakeTopicID(
             bzID: bzID,
             topicID: topicID,
-            partyType: PartyType.bz,
+            receiverPartyType: PartyType.bz,
           );
 
           _isSubscribed = Stringer.checkStringsContainString(

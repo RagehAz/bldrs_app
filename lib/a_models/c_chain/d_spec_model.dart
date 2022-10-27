@@ -99,34 +99,38 @@ class SpecModel {
   static List<SpecModel> decipherSpecs(Map<String, dynamic> map) {
     final List<SpecModel> _specs = <SpecModel>[];
 
-    final List<String> _keys = map.keys.toList();
+    if (map != null){
 
-    if (Mapper.checkCanLoopList(_keys)) {
-      for (final String key in _keys) {
+      final List<String> _keys = map.keys.toList();
 
-        final dynamic _value = map[key];
+      if (Mapper.checkCanLoopList(_keys)) {
+        for (final String key in _keys) {
 
-        if (_value is List<dynamic>){
+          final dynamic _value = map[key];
 
-          for (final dynamic val in _value){
+          if (_value is List<dynamic>){
+
+            for (final dynamic val in _value){
+              final SpecModel _spec = SpecModel(
+                pickerChainID: key,
+                value: val,
+              );
+              _specs.add(_spec);
+            }
+
+          }
+
+          else {
             final SpecModel _spec = SpecModel(
               pickerChainID: key,
-              value: val,
+              value: _value,
             );
             _specs.add(_spec);
           }
 
         }
-
-        else {
-          final SpecModel _spec = SpecModel(
-            pickerChainID: key,
-            value: _value,
-          );
-          _specs.add(_spec);
-        }
-
       }
+
     }
 
     return _specs;

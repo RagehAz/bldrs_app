@@ -167,6 +167,7 @@ class BzRecordRealOps {
   // --------------------
   /// READING
   // ---------
+  /// TESTED : WORKS PERFECT
   static Future<BzCounterModel> readBzCounters({
     @required String bzID,
   }) async {
@@ -183,6 +184,7 @@ class BzRecordRealOps {
   // --------------------
   /// DELETION
   // ---------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAllBzCountersAndRecords({
     @required String bzID,
   }) async {

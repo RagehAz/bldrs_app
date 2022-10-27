@@ -57,12 +57,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
   @override
   void initState() {
     super.initState();
-
     _paginationController = PaginationController.initialize(
       addExtraMapsAtEnd: false,
       onDataChanged: _collectUnseenNotesToMarkAtDispose,
     );
-
   }
   // --------------------
   bool _isInit = true;
@@ -102,7 +100,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
     _loading.dispose();
     _scrollController.dispose();
     _paginationController.dispose();
-    // _sub.cancel();
     super.dispose();
     blog('UserNotesPage dispose END');
   }
@@ -135,13 +132,11 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
       /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
       for (final NoteModel note in _newNotes){
-
           NoteModel.insertNoteIntoNotes(
             notesToGet: _localNotesToMarkUnseen,
             note: note,
             duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
           );
-
       }
 
     }
