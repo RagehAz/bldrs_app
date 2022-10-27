@@ -186,7 +186,7 @@ Future<void> _sendNoteToOneBz({
   final String _topic = TopicModel.bakeTopicID(
       topicID: _note.topic,
       bzID: _note.parties.receiverID,
-      partyType: _note.parties.receiverType,
+      receiverPartyType: _note.parties.receiverType,
   );
 
   _note = _note.copyWith(
@@ -276,7 +276,7 @@ Future<void> _sendNoteToMultipleBzz({
       final String _topic = TopicModel.bakeTopicID(
         topicID: _note.topic,
         bzID: _note.parties.receiverID,
-        partyType: _note.parties.receiverType,
+        receiverPartyType: _note.parties.receiverType,
       );
 
       _note = _note.copyWith(

@@ -32,11 +32,11 @@ class ReviewModel {
   final DateTime replyTime;
   final int agrees;
   final DocumentSnapshot<Object> docSnapshot;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// --------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   ReviewModel copyWith({
     String id,
@@ -63,11 +63,11 @@ class ReviewModel {
       docSnapshot: docSnapshot ?? this.docSnapshot,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     bool toJSON = false,
@@ -104,7 +104,7 @@ class ReviewModel {
 
     return _map;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel decipherReview({
     @required dynamic map,
@@ -130,7 +130,7 @@ class ReviewModel {
 
     return _review;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ReviewModel> decipherReviews({
     @required List<Map<String, dynamic>> maps,
@@ -149,11 +149,11 @@ class ReviewModel {
     }
     return _reviews;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DECIPHERS OF INTERNAL HASH LINKED MAP OBJECT OBJECT
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel decipherFromDataSnapshot(DataSnapshot snapshot){
 
@@ -175,11 +175,12 @@ class ReviewModel {
 
     return _review;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATOR
 
-// --------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static ReviewModel createNewReview({
     @required String text,
     @required String flyerID,
@@ -197,11 +198,11 @@ class ReviewModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel incrementAgrees({
     @required ReviewModel reviewModel,
@@ -217,31 +218,33 @@ class ReviewModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SORTING
 
-// --------------------------------------
+  // --------------------
+  /*
   static List<ReviewModel> sortReviews({
-  @required List<ReviewModel> reviews,
-}){
+    @required List<ReviewModel> reviews,
+  }){
 
-    List<ReviewModel> _output = <ReviewModel>[];
+      List<ReviewModel> _output = <ReviewModel>[];
 
-    if (Mapper.checkCanLoopList(reviews) == true){
+      if (Mapper.checkCanLoopList(reviews) == true){
 
-      _output = <ReviewModel>[... reviews];
-      _output.sort((ReviewModel a, ReviewModel b) => b.time.compareTo(a.time));
+        _output = <ReviewModel>[... reviews];
+        _output.sort((ReviewModel a, ReviewModel b) => b.time.compareTo(a.time));
 
+      }
+
+      return _output;
     }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel dummyReview({
     @required String flyerID,
@@ -259,35 +262,36 @@ class ReviewModel {
       agrees: 454545,
     );
   }
-// ---------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static String createTempReviewID({
     @required String flyerID,
     @required String userID,
   }){
     return '${flyerID}_$userID';
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 /// BLOGGING
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogReview({
-  String methodName = '',
-}){
-    blog('blogReview : $methodName ------ START');
-    blog('reviewID : $id');
-    blog('text : $text');
-    blog('userID : $userID');
-    blog('time : $time');
-    blog('flyerID : $flyerID');
-    blog('replyAuthorID : $replyAuthorID');
-    blog('reply : $reply');
-    blog('replyTime : $replyTime');
-    blog('agrees : $agrees');
-    blog('blogReview : $methodName  ------ END');
-  }
-// ---------------------------------------
+    String methodName = '',
+  }){
+      blog('blogReview : $methodName ------ START');
+      blog('reviewID : $id');
+      blog('text : $text');
+      blog('userID : $userID');
+      blog('time : $time');
+      blog('flyerID : $flyerID');
+      blog('replyAuthorID : $replyAuthorID');
+      blog('reply : $reply');
+      blog('replyTime : $replyTime');
+      blog('agrees : $agrees');
+      blog('blogReview : $methodName  ------ END');
+    }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogReviews({
     @required List<ReviewModel> reviews,
@@ -305,11 +309,11 @@ class ReviewModel {
 
     blog('blogReviews : $methodName -------------------------------------- END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// --------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkReviewsAreIdentical({
     @required ReviewModel review1,
@@ -337,16 +341,16 @@ class ReviewModel {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -364,7 +368,7 @@ class ReviewModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
   id.hashCode^
@@ -377,5 +381,5 @@ class ReviewModel {
   replyTime.hashCode^
   agrees.hashCode^
   docSnapshot.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

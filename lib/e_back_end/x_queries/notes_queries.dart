@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
@@ -27,7 +28,6 @@ FireQueryModel bzNotesPaginationQueryModel({
     ),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
-    idFieldName: 'id',
   );
 
 }
@@ -44,7 +44,6 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
           bDocName: bzID,
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
         ),
-        idFieldName: 'id',
         limit: 100,
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
         finders: const <FireFinder>[
@@ -75,7 +74,6 @@ FireQueryModel userNotesPaginationQueryModel(){
       bDocName: AuthFireOps.superUserID(),
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
     ),
-    idFieldName: 'id',
     limit: 7,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
   );
@@ -94,7 +92,6 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
           bDocName: AuthFireOps.superUserID(),
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
         ),
-        idFieldName: 'id',
         limit: 100,
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
         finders: const <FireFinder>[
@@ -123,7 +120,6 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
           bDocName: AuthFireOps.superUserID(),
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
         ),
-        idFieldName: 'id',
         limit: 100,
         orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
         finders: const <FireFinder>[
@@ -148,7 +144,6 @@ FireQueryModel userNotesWithPendingRepliesQueryModel(){
         bDocName: AuthFireOps.superUserID(),
         cSubCollName: FireSubColl.noteReceiver_receiver_notes,
       ),
-      idFieldName: 'id',
       limit: 10,
       orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
       finders: const <FireFinder>[
@@ -161,5 +156,26 @@ FireQueryModel userNotesWithPendingRepliesQueryModel(){
 
       ],
   );
+}
+// -----------------------------------------------------------------------------
+
+/// ALL NOTES QUERY
+
+// --------------------
+FireQueryModel allNotesPaginationQueryModel({
+  @required PartyType receiverPartyType,
+  @required String receiverID,
+}){
+
+ return FireQueryModel(
+   collRef: Fire.getSuperCollRef(
+       aCollName: FireColl.getPartyCollName(receiverPartyType),
+       bDocName: receiverID,
+       cSubCollName: FireSubColl.noteReceiver_receiver_notes
+   ),
+   orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+   limit: 5,
+ );
+
 }
 // -----------------------------------------------------------------------------

@@ -101,7 +101,7 @@ class BzReplyBubble extends StatelessWidget {
                               onTap: () => onReplyOptions(
                                 context: context,
                                 reviewModel: reviewModel,
-                                replaceMapNotifier: paginatorController.replaceMap,
+                                paginationController: paginatorController,
                               ),
                             ),
 

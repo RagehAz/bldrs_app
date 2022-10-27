@@ -201,7 +201,7 @@ class WipeFlyerProtocols {
     return _bzModel;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyersLocally({
     @required BuildContext context,
     @required List<String> flyersIDs,

@@ -42,7 +42,7 @@ class NoteEventsOfBzFlyersManagement {
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzFlyersUpdates,
         bzID: bzModel.id,
-        partyType: PartyType.bz,
+        receiverPartyType: PartyType.bz,
       ),
       trigger: TriggerProtocols.createFlyerRefetchTrigger(
           flyerID: flyerID,
@@ -58,14 +58,14 @@ class NoteEventsOfBzFlyersManagement {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerIsVerifiedNoteToBz({
     @required BuildContext context,
     @required String flyerID,
     @required String bzID,
   }) async {
 
-    blog('NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz : START');
+    // blog('NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz : START');
 
     final NoteModel _note = NoteModel(
       id: null,
@@ -85,7 +85,7 @@ class NoteEventsOfBzFlyersManagement {
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzFlyersVerifications,
         bzID: bzID,
-        partyType: PartyType.bz,
+        receiverPartyType: PartyType.bz,
       ),
     );
 
@@ -94,7 +94,7 @@ class NoteEventsOfBzFlyersManagement {
         note: _note
     );
 
-    blog('NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz : END');
+    // blog('NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz : END');
 
   }
   // -----------------------------------------------------------------------------

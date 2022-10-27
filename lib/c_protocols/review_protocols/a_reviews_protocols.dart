@@ -1,4 +1,10 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
@@ -22,6 +28,7 @@ class ReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> composeReview({
+    @required BuildContext context,
     @required String text,
     @required String flyerID,
     @required String bzID,
@@ -31,18 +38,87 @@ class ReviewProtocols {
     /// 2. increment flyer counter field (real/countingFlyers/flyerID/reviews)
     /// 3. increment bzz counter field (real/countingBzz/bzID/allReviews)
 
-    final ReviewModel _uploadedReview = await ReviewFireOps.createReview(
-      text: text,
-      flyerID: flyerID,
-    );
+    ReviewModel _uploadedReview;
 
-    await FlyerRecordRealOps.reviewCreation(
-      review: text,
-      flyerID: flyerID,
-      bzID: bzID,
-    );
+    await Future.wait(<Future>[
+
+      ReviewFireOps.createReview(
+        text: text,
+        flyerID: flyerID,
+      ).then((ReviewModel uploadedReview){
+        _uploadedReview = uploadedReview;
+    }),
+
+      FlyerRecordRealOps.reviewCreation(
+        review: text,
+        flyerID: flyerID,
+        bzID: bzID,
+      ),
+
+      NoteEvent.sendFlyerReceivedNewReviewByMe(
+        context: context,
+        text: text,
+        flyerID: flyerID,
+        bzID: bzID,
+      ),
+
+    ]);
+
 
     return _uploadedReview;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ReviewModel> composeReviewReply({
+    @required BuildContext context,
+    @required String reply,
+    @required String bzID,
+    @required ReviewModel reviewModel,
+  }) async {
+
+    ReviewModel _updated = reviewModel.copyWith();
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(
+      bzID: bzID,
+      userModel: _myUserModel,
+    );
+
+    if (_imAuthorOfThisBz == true){
+
+      _updated = reviewModel.copyWith(
+        reply: reply,
+        replyAuthorID: AuthFireOps.superUserID(),
+        replyTime: DateTime.now(),
+      );
+
+      final BzModel _bzModel = await BzProtocols.fetch(
+        context: context,
+        bzID: bzID,
+      );
+
+      await Future.wait(<Future>[
+
+        ReviewProtocols.renovateReview(
+          reviewModel: _updated,
+        ),
+
+        NoteEvent.sendFlyerReviewReceivedBzReply(
+          context: context,
+          reply: reply,
+          bzModel: _bzModel,
+          reviewCreatorID: reviewModel.userID,
+        ),
+
+      ]);
+
+    }
+
+    return _updated;
   }
   // -----------------------------------------------------------------------------
 
@@ -68,7 +144,7 @@ class ReviewProtocols {
   /// REVIEW AGREE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<ReviewModel> agreeOnReview({
     @required ReviewModel reviewModel,
     @required bool isAlreadyAgreed,
@@ -166,7 +242,7 @@ class ReviewProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeAllFlyerReviews({
     @required BuildContext context,
     @required String flyerID,
@@ -175,10 +251,14 @@ class ReviewProtocols {
     @required bool isDeletingBz,
   }) async {
 
+    // ---
+    /// TASK : NEED CLOUD FUNCTION
+    // ---
     /// 1. delete sub collection (fire/flyers/flyerID/reviews)
     /// 2. delete reviewAgrees node (real/agreesOnReviews/reviewID)
     /// 3. decrement flyer counter field (real/countingFlyers/flyerID/reviews) if not deleting flyer
     /// 4. decrement bzz counter field (real/countingBzz/bzID/allReviews) if not deleting bz
+    // ---
 
     int _numberOfReviews = 0;
 

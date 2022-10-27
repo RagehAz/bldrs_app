@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -14,7 +13,6 @@ import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
@@ -39,7 +37,7 @@ class FlyerFireOps {
   /// CREATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createFlyerOps({
     @required BuildContext context,
     @required FlyerModel draftFlyer,
@@ -92,10 +90,12 @@ class FlyerFireOps {
     };
   }
   // --------------------
-  /// TESTED : : returns Flyer ID
+  /// TESTED : WORKS PERFECT
   static Future<String> _createFlyerDoc({
     @required FlyerModel draftFlyer,
   }) async {
+
+    /// NOTE returns Flyer ID
 
     blog('_createFlyerDoc : START');
 
@@ -195,6 +195,7 @@ class FlyerFireOps {
     return _finalFlyer;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -254,6 +255,7 @@ class FlyerFireOps {
     return _flyer;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readBzFlyers({
     @required BzModel bzModel
   }) async {
@@ -274,7 +276,7 @@ class FlyerFireOps {
     return _flyers;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readBzzFlyers({
     @required List<BzModel> bzzModels,
   }) async {
@@ -296,6 +298,7 @@ class FlyerFireOps {
     return _allFlyers;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<ReviewModel>> readAllReviews({
     @required BuildContext context,
     @required String flyerID,
@@ -317,118 +320,6 @@ class FlyerFireOps {
     // return _reviews;
 
     return null;
-  }
-  // --------------------
-  static Future<List<FlyerModel>> paginateFlyers({
-    @required String countryID,
-    @required String cityID,
-    String districtID,
-    int limit,
-    FlyerType flyerType,
-    PublishState publishState,
-    AuditState auditState,
-    String authorID,
-    String bzID,
-    bool priceTagIsOn,
-    DocumentSnapshot<Object> startAfter,
-    List<String> specs,
-  }) async {
-
-    final String _chainID = FlyerTyper.concludeChainIDByFlyerType(flyerType: flyerType);
-
-    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-      collName: FireColl.flyers,
-      orderBy: const QueryOrderBy(fieldName: 'score', descending: true),
-      startAfter: startAfter,
-      limit: limit,
-      addDocSnapshotToEachMap: true,
-      finders: <FireFinder>[
-
-        // FireFinder(
-        //   field: 'score',
-        //   comparison: FireComparison.greaterOrEqualThan,
-        //   value: 0,
-        // ),
-
-        if (flyerType != null)
-          FireFinder(
-            field: 'flyerType',
-            comparison: FireComparison.equalTo,
-            value: FlyerTyper.cipherFlyerType(flyerType),
-          ),
-
-        if (publishState != null)
-          FireFinder(
-            field: 'publishState',
-            comparison: FireComparison.equalTo,
-            value: FlyerModel.cipherPublishState(publishState),
-          ),
-
-        if (auditState != null)
-          FireFinder(
-            field: 'auditState',
-            comparison: FireComparison.equalTo,
-            value: FlyerModel.cipherAuditState(auditState),
-          ),
-
-        if (countryID != null)
-          FireFinder(
-            field: 'zone.countryID',
-            comparison: FireComparison.equalTo,
-            value: countryID,
-          ),
-
-        if (cityID != null)
-          FireFinder(
-            field: 'zone.cityID',
-            comparison: FireComparison.equalTo,
-            value: cityID,
-          ),
-
-        if (districtID != null)
-          FireFinder(
-            field: 'zone.districtID',
-            comparison: FireComparison.equalTo,
-            value: districtID,
-          ),
-
-        if (authorID != null)
-          FireFinder(
-            field: 'authorID',
-            comparison: FireComparison.equalTo,
-            value: authorID,
-          ),
-
-        if (bzID != null)
-          FireFinder(
-            field: 'bzID',
-            comparison: FireComparison.equalTo,
-            value: bzID,
-          ),
-
-        if (priceTagIsOn != null)
-
-          const FireFinder(
-            field: 'priceTagIsOn',
-            comparison: FireComparison.equalTo,
-            value: true,
-          ),
-
-        if (Mapper.checkCanLoopList(specs) == true && Mapper.checkListHasNullValue(specs) == false)
-          FireFinder(
-            field: 'specs.$_chainID',
-            comparison: FireComparison.arrayContainsAny,
-            value: specs,
-          ),
-      ],
-    );
-
-    final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
-      maps: _maps,
-      fromJSON: false,
-    );
-
-    return _flyers;
   }
   // -----------------------------------------------------------------------------
 
@@ -471,6 +362,7 @@ class FlyerFireOps {
     return _finalFlyer;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _updateSlides({
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
@@ -547,6 +439,7 @@ class FlyerFireOps {
     return _finalFlyer;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteUnusedSlides({
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
@@ -783,6 +676,7 @@ class FlyerFireOps {
     return _uploadedBzModel;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteFlyerStorageImagesAndPDF({
     @required FlyerModel flyerModel,
   }) async {
@@ -831,6 +725,7 @@ class FlyerFireOps {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteFlyerDoc({
     @required String flyerID,
   }) async {
@@ -883,15 +778,19 @@ class FlyerFireOps {
 
           if (_canDelete == true){
 
+            await Future.wait(<Future>[
+
             /// DELETE FLYER STORAGE IMAGES
-            await _deleteFlyerStorageImagesAndPDF(
-              flyerModel: flyerModel,
-            );
+              _deleteFlyerStorageImagesAndPDF(
+                flyerModel: flyerModel,
+              ),
 
             /// I - delete firestore/flyers/flyerID
-            await _deleteFlyerDoc(
-              flyerID: flyerModel.id,
-            );
+              _deleteFlyerDoc(
+                flyerID: flyerModel.id,
+              )
+
+            ]);
 
             _bzFlyersIDs = Stringer.removeStringsFromStrings(
               removeFrom: _bzFlyersIDs,
@@ -935,6 +834,7 @@ class FlyerFireOps {
   /// FLYER PROMOTIONS
 
   // --------------------
+  ///
   static Future<void> promoteFlyerInCity({
     @required FlyerPromotion flyerPromotion,
   }) async {
@@ -992,6 +892,7 @@ class FlyerFireOps {
 // }
  */
   // -----------------------------------------------------------------------------
+  ///
   static Future<void> onReportFlyer({
     @required BuildContext context,
     @required FlyerModel flyer,

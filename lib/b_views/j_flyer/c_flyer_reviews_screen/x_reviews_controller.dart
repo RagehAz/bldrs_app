@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
@@ -9,9 +11,13 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -86,34 +92,57 @@ Future<void> onSubmitReview({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required TextEditingController textController,
-  @required ValueNotifier<Map<String, dynamic>> addMap,
+  @required PaginationController paginationController,
 }) async {
 
-  if (AuthModel.userIsSignedIn() == true){
+  if (AuthModel.userIsSignedIn() == true && TextCheck.isEmpty(textController.text.trim()) == false){
 
-    final ReviewModel _uploadedReview = await ReviewProtocols.composeReview(
-      text: textController.text,
-      flyerID: flyerModel.id,
-      bzID: flyerModel.bzID,
-    );
-
-    await FlyerLDBOps.deleteReviewSession(
-      reviewID: ReviewModel.createTempReviewID(
-        flyerID: _uploadedReview.flyerID,
-        userID: _uploadedReview.userID,
-      ),
-    );
-
-    textController.text = '';
     Keyboard.closeKeyboard(context);
 
-    addMap.value = _uploadedReview.toMap(includeID: true, includeDocSnapshot: true);
+    await Future.wait(<Future>[
+
+      FlyerLDBOps.deleteReviewSession(
+        reviewID: ReviewModel.createTempReviewID(
+          flyerID: flyerModel.id,
+          userID: AuthFireOps.superUserID(),
+        ),
+      ),
+
+      ReviewProtocols.composeReview(
+        context: context,
+        text: textController.text,
+        flyerID: flyerModel.id,
+        bzID: flyerModel.bzID,
+      ).then((ReviewModel _uploadedReview){
+
+        paginationController.addMap.value = _uploadedReview.toMap(
+            includeID: true,
+            includeDocSnapshot: true,
+        );
+
+        textController.text = '';
+
+      }),
+
+    ]);
 
   }
 
-  else {
+  else if (TextCheck.isEmpty(textController.text.trim()) == true){
+    await Dialogs.centerNotice(
+      context: context,
+      verse: const Verse(
+        text: 'phid_add_review_to_submit',
+        translate: true,
+      ),
+    );
+  }
 
+  else if (AuthModel.userIsSignedIn() == false){
     await Dialogs.youNeedToBeSignedInDialog(context);
+  }
+
+  else {
 
   }
 
@@ -124,10 +153,10 @@ Future<void> onSubmitReview({
 /// AGREE
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onReviewAgree({
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> replaceMap,
+  @required PaginationController paginationController,
   @required bool isAlreadyAgreed,
 }) async {
 
@@ -138,7 +167,7 @@ Future<void> onReviewAgree({
       isAlreadyAgreed: isAlreadyAgreed,
     );
 
-    replaceMap.value = _uploaded.toMap(
+    paginationController.replaceMap.value = _uploaded.toMap(
       includeID: true,
       includeDocSnapshot: true,
     );
@@ -155,8 +184,7 @@ Future<void> onReviewAgree({
 Future<void> onReviewOptions({
   @required BuildContext context,
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
-  @required ValueNotifier<Map<String, dynamic>> deleteMapNotifier,
+  @required PaginationController paginationController,
   @required String bzID,
 }) async {
 
@@ -187,7 +215,7 @@ Future<void> onReviewOptions({
                 await _onEditReview(
                   context: context,
                   reviewModel: reviewModel,
-                  replaceMapNotifier: replaceMapNotifier,
+                  paginationController: paginationController,
                 );
 
               }
@@ -212,7 +240,7 @@ Future<void> onReviewOptions({
                 await _onDeleteReview(
                   context: context,
                   reviewModel: reviewModel,
-                  deleteMap: deleteMapNotifier,
+                  paginationController: paginationController,
                   bzID: bzID,
                 );
 
@@ -230,7 +258,7 @@ Future<void> onReviewOptions({
 Future<void> _onEditReview({
   @required BuildContext context,
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+  @required PaginationController paginationController,
 }) async {
 
   bool _isConfirmed = false;
@@ -270,7 +298,7 @@ Future<void> _onEditReview({
       reviewModel: _updated,
     );
 
-    replaceMapNotifier.value = _updated.toMap(
+    paginationController.replaceMap.value = _updated.toMap(
       includeID: true,
       includeDocSnapshot: true,
     );
@@ -291,7 +319,7 @@ Future<void> _onEditReview({
 Future<void> _onDeleteReview({
   @required BuildContext context,
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> deleteMap,
+  @required PaginationController paginationController,
   @required String bzID,
 }) async {
 
@@ -316,7 +344,7 @@ Future<void> _onDeleteReview({
       bzID: bzID,
     );
 
-    deleteMap.value = reviewModel.toMap(
+    paginationController.deleteMap.value = reviewModel.toMap(
       includeID: true,
       includeDocSnapshot: true,
     );
@@ -338,66 +366,80 @@ Future<void> _onDeleteReview({
 /// BZ REPLY
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onBzReply({
   @required BuildContext context,
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+  @required PaginationController paginationController,
+  @required String bzID,
 }) async {
 
-  bool _isConfirmed = false;
-
-  final String _shit = await Dialogs.keyboardDialog(
-    context: context,
-    keyboardModel: KeyboardModel(
-      titleVerse: const Verse(
-        text: 'phid_reply_to_flyer',
-        translate: true,
-      ),
-      hintVerse: const Verse(
-        pseudo: 'Reply ...',
-        text: 'phid_reply_dots',
-        translate: true,
-      ),
-      initialText: reviewModel.reply,
-      maxLines: 5,
-      textInputAction: TextInputAction.newline,
-      focusNode: FocusNode(),
-      isFloatingField: false,
-      onSubmitted: (String text){
-
-        _isConfirmed = true;
-
-      },
-    ),
-
+  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
   );
 
-  if (_shit != reviewModel.text && _isConfirmed == true){
+  final bool _imAuthorInThisBz = AuthorModel.checkUserIsAuthorInThisBz(
+      bzID: bzID,
+      userModel: _myUserModel
+  );
 
-    final ReviewModel _updated = reviewModel.copyWith(
-      reply: _shit,
-      replyAuthorID: AuthFireOps.superUserID(),
-      replyTime: DateTime.now(),
-    );
+  if (_imAuthorInThisBz == true){
 
-    await ReviewProtocols.renovateReview(
-      reviewModel: _updated,
-    );
+    bool _isConfirmed = false;
 
-    replaceMapNotifier.value = _updated.toMap(
-      includeID: true,
-      includeDocSnapshot: true,
-    );
-
-    unawaited(TopDialog.showTopDialog(
+    final String _reply = await Dialogs.keyboardDialog(
       context: context,
-      firstVerse: const Verse(
-        pseudo: 'Your reply has been posted',
-        text: 'phid_your_reply_has_been_posted',
-        translate: true,
+      keyboardModel: KeyboardModel(
+        titleVerse: const Verse(
+          text: 'phid_reply_to_flyer',
+          translate: true,
+        ),
+        hintVerse: const Verse(
+          pseudo: 'Reply ...',
+          text: 'phid_reply_dots',
+          translate: true,
+        ),
+        initialText: reviewModel.reply,
+        maxLines: 5,
+        textInputAction: TextInputAction.newline,
+        focusNode: FocusNode(),
+        isFloatingField: false,
+        onSubmitted: (String text){
+
+          _isConfirmed = true;
+
+        },
       ),
-    ));
+
+    );
+
+    blog('reply : $_reply : _isconfirmed : $_isConfirmed');
+
+    if (TextCheck.isEmpty(_reply) == false && _isConfirmed == true){
+
+      final ReviewModel _updated = await ReviewProtocols.composeReviewReply(
+          context: context,
+          reviewModel: reviewModel,
+          reply: _reply,
+          bzID: bzID,
+      );
+
+      paginationController.replaceMap.value = _updated.toMap(
+        includeID: true,
+        includeDocSnapshot: true,
+      );
+
+      unawaited(TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          pseudo: 'Your reply has been posted',
+          text: 'phid_your_reply_has_been_posted',
+          translate: true,
+        ),
+      ));
+
+    }
 
   }
 
@@ -407,7 +449,7 @@ Future<void> onBzReply({
 Future<void> onReplyOptions({
   @required BuildContext context,
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+  @required PaginationController paginationController,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -433,7 +475,7 @@ Future<void> onReplyOptions({
                 await _onEditReply(
                   context: context,
                   reviewModel: reviewModel,
-                  replaceMapNotifier: replaceMapNotifier,
+                  paginationController: paginationController,
                 );
 
               }
@@ -454,7 +496,7 @@ Future<void> onReplyOptions({
                 await _onDeleteReply(
                   context: context,
                   reviewModel: reviewModel,
-                  replaceMapNotifier: replaceMapNotifier,
+                  paginationController: paginationController,
                 );
 
               }
@@ -471,7 +513,7 @@ Future<void> onReplyOptions({
 Future<void> _onEditReply({
   @required BuildContext context,
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+  @required PaginationController paginationController,
 }) async {
 
   bool _isConfirmed = false;
@@ -512,7 +554,7 @@ Future<void> _onEditReply({
       reviewModel: _updated,
     );
 
-    replaceMapNotifier.value = _updated.toMap(
+    paginationController.replaceMap.value = _updated.toMap(
       includeID: true,
       includeDocSnapshot: true,
     );
@@ -534,7 +576,7 @@ Future<void> _onEditReply({
 Future<void> _onDeleteReply({
   @required BuildContext context,
   @required ReviewModel reviewModel,
-  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+  @required PaginationController paginationController,
 }) async {
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
@@ -570,7 +612,7 @@ Future<void> _onDeleteReply({
       reviewModel: _updated,
     );
 
-    replaceMapNotifier.value = _updated.toMap(
+    paginationController.replaceMap.value = _updated.toMap(
       includeID: true,
       includeDocSnapshot: true,
     );

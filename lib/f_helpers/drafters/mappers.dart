@@ -254,6 +254,7 @@ class Mapper {
   /// MAP GETTERS FROM (URL - DYNAMIC - STRING STRING IMMUTABLE MAP STRING OBJECT)
 
   // --------------------
+  ///
   static List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -420,19 +421,49 @@ class Mapper {
   /// MAP IN MAPS INDEX CHECKERS
 
   // --------------------
-  /*
-  static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map) {
-    final int _indexOfTheMap =
-    listOfMaps.indexWhere(
-            (Map<String, dynamic> m) =>
-            checkMapsAreIdentical(
-                map1: m,
-                map2: map
-            )
-    );
-    return _indexOfTheMap;
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> getMapFromMapsByID({
+    @required List<Map<String, dynamic>> maps,
+    @required String id,
+    String idFieldName = 'id',
+  }){
+    Map<String, dynamic> _output;
+
+    if (checkCanLoopList(maps) == true && id != null){
+
+      final int _index = getMapIndexByID(
+        maps: maps,
+        id: id,
+        idFieldName: idFieldName,
+      );
+
+      /// NOT FOUND
+      if (_index == -1){
+        // output is null
+      }
+      /// FOUND
+      else {
+        _output = maps[_index];
+      }
+
+    }
+
+    return _output;
   }
-   */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static int getMapIndexByID({
+    @required List<Map<String, dynamic>> maps,
+    @required String id,
+    String idFieldName,
+  }) {
+    if (checkCanLoopList(maps) == true){
+      return maps.indexWhere((Map<String, dynamic> m) => m[idFieldName] == id);
+    }
+    else {
+      return -1;
+    }
+  }
   // --------------------
   /*
   static int indexOfMapByValueInListOfMaps({
@@ -993,7 +1024,7 @@ class Mapper {
     return _include;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkMapsContainIdenticalMap({
     @required List<Map<String, dynamic>> maps,
     @required Map<String, dynamic> map,
@@ -1021,7 +1052,7 @@ class Mapper {
     return _contain;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkMapsContainValue({
     @required List<Map<String, dynamic>> listOfMaps,
     @required String field,

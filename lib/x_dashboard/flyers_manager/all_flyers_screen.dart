@@ -1,11 +1,17 @@
 import 'dart:async';
+
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
+import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class AllFlyersScreen extends StatefulWidget {
@@ -21,11 +27,10 @@ class AllFlyersScreen extends StatefulWidget {
 
 class _AllFlyersScreenState extends State<AllFlyersScreen> {
   // -----------------------------------------------------------------------------
-  List<FlyerModel> _flyers;
-  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
+  /*
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,
@@ -34,36 +39,20 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       addPostFrameCallBack: false,
     );
   }
+   */
   // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
 
-      _triggerLoading(setTo: true).then((_) async {
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   unawaited(_triggerLoading(setTo: false));
+      //
+      // });
 
-        blog('starting things');
-
-        final List<dynamic> _maps = await Fire.readCollectionDocs(
-          collName: FireColl.flyers,
-          orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-          limit: 20,
-        );
-
-        blog('we got ${_maps.length} maps');
-        final List<FlyerModel> _flyersFromMaps = FlyerModel.decipherFlyers(
-          maps: _maps,
-          fromJSON: false,
-        );
-        blog('we got ${_flyersFromMaps.length} flyers');
-
-        setState(() {
-          _flyers = _flyersFromMaps;
-        });
-
-        unawaited(_triggerLoading(setTo: false));
-
-      });
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -75,56 +64,62 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /*
-//   Future<void> _onTapFlyer(FlyerModel flyer) async {
-//
-//     await BottomDialog.showButtonsBottomDialog(
-//         context: context,
-//         draggable: true,
-//         buttonHeight: 80,
-//         buttons: <Widget>[
-//
-//           DreamBox(
-//             height: 80,
-//             width: BottomDialog.clearWidth(context),
-//             verse:  'Flyer by ${flyer.bzID}',
-//             bubble: false,
-//             verseWeight: VerseWeight.thin,
-//             verseItalic: true,
-//           ),
-//
-//           BottomDialog.wideButton(
-//               context: context,
-//               verse:  'Open flyer',
-//               icon: Iconz.viewsIcon,
-//               onTap: () async {
-//
-//                 await goToNewScreen(context,
-//                     FlyerScreen(
-//                       flyerModel: flyer,
-//                       flyerID: flyer.id,
-//                       initialSlideIndex: 0,
-//                     )
-//                 );
-//               }
-//           ),
-//
-//           BottomDialog.wideButton(
-//             context: context,
-//             verse:  'Promote Flyer',
-//             icon: Iconz.star,
-//             onTap: () async {
-//               await goToNewScreen(context, FlyerPromotionScreen(
-//                 flyer: flyer,
-//               ));
-//             }
-//           ),
-//
-//         ],
-//     );
-//
-//   }
-   */
+  Future<void> _onFlyerOptionsTap(FlyerModel flyer) async {
+
+    await BottomDialog.showButtonsBottomDialog(
+        context: context,
+        draggable: true,
+        buttonHeight: 80,
+        numberOfWidgets: 2,
+        builder: (_){
+
+          return <Widget>[
+
+            /// DELETE FLYER
+            BottomDialog.wideButton(
+                context: context,
+                verse:  Verse.plain('Delete'),
+                icon: Iconz.xLarge,
+                onTap: () async {
+
+                  final BzModel bzModel = await BzProtocols.fetch(
+                      context: context,
+                      bzID: flyer.bzID,
+                  );
+
+                  await FlyerProtocols.wipeTheFlyer(
+                    context: context,
+                    flyerModel: flyer,
+                    bzModel: bzModel,
+                    showWaitDialog: true,
+                    isDeletingBz: false,
+                  );
+
+                  await Dialogs.showSuccessDialog(
+                      context: context
+                  );
+
+                }
+            ),
+
+            /// PROMOTE FLYER
+            // BottomDialog.wideButton(
+            //     context: context,
+            //     verse:  'Promote Flyer',
+            //     icon: Iconz.star,
+            //     onTap: () async {
+            //       await goToNewScreen(context, FlyerPromotionScreen(
+            //         flyer: flyer,
+            //       ));
+            //     }
+            // ),
+
+          ];
+
+        },
+    );
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -135,16 +130,26 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       pageTitleVerse: Verse.plain('All Flyers'),
       appBarRowWidgets: const <Widget>[],
       // loading: _loading,
-      layoutWidget: _flyers == null ?
-      Container()
-          :
-      FlyersGrid(
-        gridWidth: Scale.superScreenWidth(context),
-        gridHeight: Scale.superScreenHeight(context),
-        // numberOfColumns: 2,
-        flyers: _flyers,
-        scrollController: ScrollController(),
-        heroPath: 'allFlyersScreenGrid',
+      layoutWidget: FireCollPaginator(
+        paginationQuery: allFlyersPaginationQuery(),
+        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+
+          final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
+              maps: maps,
+              fromJSON: false,
+          );
+
+          return FlyersGrid(
+            gridWidth: Scale.superScreenWidth(context),
+            gridHeight: Scale.superScreenHeight(context),
+            // numberOfColumns: 2,
+            flyers: _flyers,
+            scrollController: ScrollController(),
+            heroPath: 'allFlyersScreenGrid',
+            onFlyerOptionsTap: _onFlyerOptionsTap,
+          );
+
+        },
       ),
 
     );
