@@ -1,13 +1,13 @@
-import 'dart:async';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
+import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/flyers_auditor/x_flyer_auditor_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +24,14 @@ class FlyersAuditor extends StatefulWidget {
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
   // -----------------------------------------------------------------------------
+  PaginationController _paginatorController;
+  // --------------------
   final ScrollController _scrollController = ScrollController();
-  final ValueNotifier<List<FlyerModel>> _flyers = ValueNotifier(<FlyerModel>[]);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
+  /*
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,
@@ -38,10 +40,16 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       addPostFrameCallBack: false,
     );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+
+    _paginatorController = PaginationController.initialize(
+      addExtraMapsAtEnd: false,
+    );
+
   }
   // --------------------
   bool _isInit = true;
@@ -49,16 +57,12 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading(setTo: true).then((_) async {
-
-        await readMoreUnVerifiedFlyers(
-          context: context,
-          flyers: _flyers,
-          loading: _loading,
-        );
-
-        await _triggerLoading(setTo: false);
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
@@ -69,7 +73,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   void dispose() {
     _scrollController.dispose();
     _loading.dispose();
-    _flyers.dispose();
+    _paginatorController.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -412,63 +416,113 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       appBarType: AppBarType.basic,
       loading: _loading,
       skyType: SkyType.black,
-      appBarRowWidgets: <Widget>[
+      // appBarRowWidgets: <Widget>[
 
-        const Expander(),
+        // const Expander(),
+        //
+        // AppBarButton(
+        //   verse: Verse.plain('load more'),
+        //   onTap: () => readMoreUnVerifiedFlyers(
+        //     context: context,
+        //     flyers: _flyers,
+        //     loading: _loading,
+        //   ),
+        // ),
 
-        AppBarButton(
-          verse: Verse.plain('load more'),
-          onTap: () => readMoreUnVerifiedFlyers(
-            context: context,
-            flyers: _flyers,
-            loading: _loading,
-          ),
-        ),
+      // ],
+      // layoutWidget: Stack(
+      //   children: <Widget>[
+      //
+      //     /// FLYERS
+      //     ValueListenableBuilder(
+      //         valueListenable: _flyers,
+      //         builder: (_, List<FlyerModel> flyers, Widget child){
+      //
+      //           if (Mapper.checkCanLoopList(flyers) == true){
+      //             return FlyersGrid(
+      //               flyers: flyers,
+      //               gridWidth: _screenWidth,
+      //               gridHeight: _screenHeight,
+      //               scrollController: _scrollController,
+      //               // numberOfColumns: 2,
+      //               onFlyerOptionsTap: (FlyerModel flyer) => onFlyerOptionsTap(
+      //                 context: context,
+      //                 flyerModel: flyer,
+      //                 flyers: _flyers,
+      //               ),
+      //               heroPath: 'flyerAuditorScreenGrid',
+      //             );
+      //           }
+      //
+      //           else {
+      //             return const Center(
+      //               child: SuperVerse(
+      //                 verse: Verse(
+      //                   text: 'No Flyers Left',
+      //                   translate: false,
+      //                 ),
+      //                 weight: VerseWeight.black,
+      //                 italic: true,
+      //                 size: 4,
+      //               ),
+      //             );
+      //           }
 
-      ],
-      layoutWidget: Stack(
-        children: <Widget>[
+      //         }
+      //     ),
+      //
+      //   ],
+      // ),
+      layoutWidget: FireCollPaginator(
+        paginationQuery: flyerAuditingPaginationQuery(),
+        scrollController: _scrollController,
+        paginationController: _paginatorController,
+        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
-          /// FLYERS
-          ValueListenableBuilder(
-              valueListenable: _flyers,
-              builder: (_, List<FlyerModel> flyers, Widget child){
+          final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
+              maps: maps,
+              fromJSON: false,
+          );
 
-                if (Mapper.checkCanLoopList(flyers) == true){
-                  return FlyersGrid(
-                    flyers: flyers,
-                    gridWidth: _screenWidth,
-                    gridHeight: _screenHeight,
-                    scrollController: _scrollController,
-                    // numberOfColumns: 2,
-                    onFlyerOptionsTap: (FlyerModel flyer) => onFlyerOptionsTap(
-                      context: context,
-                      flyerModel: flyer,
-                      flyers: _flyers,
-                    ),
-                    heroPath: 'flyerAuditorScreenGrid',
-                  );
-                }
+          if (Mapper.checkCanLoopList(_flyers) == true){
 
-                else {
-                  return const Center(
-                    child: SuperVerse(
-                      verse: Verse(
-                        text: 'No Flyers Left',
-                        translate: false,
-                      ),
-                      weight: VerseWeight.black,
-                      italic: true,
-                      size: 4,
-                    ),
-                  );
-                }
+            return FlyersGrid(
+              flyers: _flyers,
+              gridWidth: _screenWidth,
+              gridHeight: _screenHeight,
+              scrollController: _scrollController,
+              // numberOfColumns: 2,
+              heroPath: 'flyerAuditorScreenGrid',
+              isLoadingGrid: isLoading,
+              numberOfColumnsOrRows: 3,
+              onFlyerOptionsTap: (FlyerModel flyer) => onFlyerOptionsTap(
+                context: context,
+                flyerModel: flyer,
+                controller: _paginatorController,
+              ),
+            );
 
-              }
-          ),
+          }
 
-        ],
+          else {
+
+            return const Center(
+              child: SuperVerse(
+                verse: Verse(
+                  text: 'No Flyers Left',
+                  translate: false,
+                ),
+                weight: VerseWeight.black,
+                italic: true,
+                size: 4,
+              ),
+            );
+
+          }
+
+        },
       ),
+
     );
 
   }

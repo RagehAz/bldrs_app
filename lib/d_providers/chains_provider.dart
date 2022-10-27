@@ -8,7 +8,6 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -469,14 +468,20 @@ class ChainsProvider extends ChangeNotifier {
   String get wallPhid => _wallPhid;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerType proGetHomeWallFlyerType(BuildContext context){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  static FlyerType proGetHomeWallFlyerType({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.wallFlyerType;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String proGetHomeWallPhid(BuildContext context){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  static String proGetHomeWallPhid({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.wallPhid;
   }
   // --------------------
@@ -489,12 +494,12 @@ class ChainsProvider extends ChangeNotifier {
   }) async {
     blog('Changing section to $flyerType');
 
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-
-    await _flyersProvider.paginateWallFlyers(
-      context: context,
-      listenToZoneChange: false,
-    );
+    // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    //
+    // await _flyersProvider.paginateWallFlyers(
+    //   context: context,
+    //   listenToZoneChange: false,
+    // );
 
     _setWallFlyerAndPhid(
       flyerType: flyerType,

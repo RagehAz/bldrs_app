@@ -121,7 +121,7 @@ class FlyerProtocols {
     return _flyer;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> refetch({
     @required BuildContext context,
     @required  String flyerID,
@@ -215,7 +215,7 @@ class FlyerProtocols {
     isDeletingBz: isDeletingBz,
   );
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyersLocally({
     @required BuildContext context,
     @required List<String> flyersIDs,

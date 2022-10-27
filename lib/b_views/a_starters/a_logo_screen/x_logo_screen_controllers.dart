@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
@@ -34,8 +35,12 @@ Future<void> initializeLogoScreen({
   @required bool mounted,
 }) async {
 
+  blog('1 - initializeLogoScreen : START');
+
   /// USER MODEL
   await _initializeUserModel(context);
+
+  blog('2 - initializeLogoScreen : ${AuthFireOps.superUserID()}');
 
   await Future.wait(
       <Future<void>>[
@@ -52,7 +57,17 @@ Future<void> initializeLogoScreen({
       ]
   );
 
+  blog('3 - initializeLogoScreen : appControls + assetPaths + lang + appState should have ended');
+
   if (_phrasesAreLoaded(context) == false){
+
+    blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
+
+    await Dialogs.confirmProceed(
+      context: context,
+      titleVerse: Verse.plain('Bldrs.net is currently under construction'),
+      bodyVerse: Verse.plain('Sorry for inconvenience'),
+    );
 
     await Nav.pushNamedAndRemoveAllBelow(
         context: context,
@@ -63,8 +78,12 @@ Future<void> initializeLogoScreen({
 
   else {
 
+    blog('4 - initializeLogoScreen : phrases found and will check user device');
+
     /// DEVICE ID - TOKEN
     await _refreshUserDeviceModel(context);
+
+    blog('5 - initializeLogoScreen : device is refreshed');
 
     /// CHECK DEVICE CLOCK
     final bool _deviceTimeIsCorrect = await Timers.checkDeviceTimeIsCorrect(
@@ -72,18 +91,29 @@ Future<void> initializeLogoScreen({
       showIncorrectTimeDialog: true,
     );
 
+    blog('6 - initializeLogoScreen : _deviceTimeIsCorrect : $_deviceTimeIsCorrect');
+
     if (_deviceTimeIsCorrect == false){
+
+      blog('7 - initializeLogoScreen : will restart app now');
+
       await _onRestartAppInTimeCorrectionDialog(
         context: context,
       );
+
     }
 
     else {
 
+
       /// DAILY LDB REFRESH
       await _dailyRefreshLDB(context);
 
+      blog('7 - initializeLogoScreen : daily refresh is done');
+
     }
+
+    blog('8 - initializeLogoScreen : END');
 
   }
 
@@ -393,9 +423,13 @@ bool _phrasesAreLoaded(BuildContext context) {
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
+  // blog('_phrasesAreLoaded : _phraseProvider.mainPhrases.length : ${_phraseProvider.mainPhrases.length}');
+
+  /// empty phrases mean its not loaded
   if (_phraseProvider.mainPhrases.isEmpty == true){
     return false;
   }
+
   else {
     return true;
   }
@@ -454,7 +488,7 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
 
   if (_shouldRefresh == true){
 
-    blog('_dailyRefreshLDB : IT HAS BEEN A DAY : and will refresh wipe the LDB');
+    // blog('_dailyRefreshLDB : IT HAS BEEN A DAY : and will refresh wipe the LDB');
 
     await LDBOps.wipeOutEntireLDB(
       // flyers: true,
@@ -482,11 +516,11 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
 
   }
 
-  else {
-
-    blog('_dailyRefreshLDB : IT HAS NOT BEEN A DAY YET : will leave the ldb as is');
-
-  }
+  // else {
+  //
+  //   blog('_dailyRefreshLDB : IT HAS NOT BEEN A DAY YET : will leave the ldb as is');
+  //
+  // }
 
 }
 // -----------------------------------------------------------------------------

@@ -113,7 +113,6 @@ Future<void> onSignOut(BuildContext context) async {
   /// CLEAR FLYERS
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   _flyersProvider.clearPromotedFlyers(notify: false);
-  _flyersProvider.clearWallFlyers(notify: true);
 
   /// CLEAR SEARCHES
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);

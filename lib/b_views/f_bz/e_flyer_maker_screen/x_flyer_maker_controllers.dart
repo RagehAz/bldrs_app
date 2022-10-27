@@ -158,7 +158,6 @@ Future<void> saveFlyerMakerSession({
     final FlyerModel flyerFromDraft = await DraftFlyerModel.bakeDraftToUpload(
       draft: draft.value,
       toLDB: true,
-
     );
 
     await FlyerLDBOps.saveFlyerMakerSession(
@@ -238,6 +237,8 @@ Future<void> onSelectFlyerType({
 }) async {
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
+
+  blog('_selectedFlyerType : $_selectedFlyerType');
 
   if (draft.value.flyerType != _selectedFlyerType){
 

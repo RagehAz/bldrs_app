@@ -2,10 +2,10 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
+import 'package:bldrs/e_back_end/x_queries/bzz_queries.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -172,12 +172,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         color: Colorz.blue20,
         progressBarIsOn: true,
         child: FireCollPaginator(
-          paginationQuery: FireQueryModel(
-            collRef: Fire.getCollectionRef(FireColl.bzz),
-            idFieldName: 'id',
-            limit: 10,
-            orderBy: const QueryOrderBy(fieldName: 'createdAt', descending: true),
-          ),
+          paginationQuery: allBzzPaginationQuery(),
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
             return ListView.builder(

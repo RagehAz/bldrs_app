@@ -38,6 +38,7 @@ class Dialogs {
   /// CLOSE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> closDialog(BuildContext context) async {
     await Nav.goBack(context: context, invoker: 'closeDialog');
   }
@@ -46,6 +47,7 @@ class Dialogs {
   /// SUCCESS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> showSuccessDialog({
     @required BuildContext context,
     Verse firstLine,
@@ -71,6 +73,7 @@ class Dialogs {
   /// NOTICE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> topNotice({
     @required BuildContext context,
     @required Verse verse,
@@ -84,6 +87,21 @@ class Dialogs {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> centerNotice({
+    @required BuildContext context,
+    @required Verse verse,
+  }) async {
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: verse,
+      // boolDialog: false,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> weWillLookIntoItNotice(BuildContext context) async {
     await CenterDialog.showCenterDialog(
       context: context,
@@ -104,6 +122,7 @@ class Dialogs {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> youNeedToBeSignedInDialog(BuildContext context) async {
 
     await CenterDialog.showCenterDialog(
@@ -586,7 +605,7 @@ class Dialogs {
       ),
     );
 
-    return null;
+    return _text;
   }
   // -----------------------------------------------------------------------------
 

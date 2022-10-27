@@ -10,6 +10,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/phrase_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,8 @@ class PhraseProtocols {
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> fetchMainMixedLangPhrases() async {
 
+    blog('fetchMainMixedLangPhrases : START');
+
     // NOTE : fetches all phrases
 
     /// 1- get phrases from LDB
@@ -40,7 +43,7 @@ class PhraseProtocols {
 
     /// 2 - if not found in LDB , read from firebase
     if (Mapper.checkCanLoopList(_allPhrases) == false){
-      // blog('fetchPhrasesByLangCode : phrases NOT found in local db');
+      blog('fetchPhrasesByLangCode : phrases NOT found in local db');
 
       /// 2.1 read from firebase
       await Future.wait(<Future>[
@@ -66,7 +69,7 @@ class PhraseProtocols {
 
       /// 2.2 if found on firebase, store in LDB
       if (Mapper.checkCanLoopList(_allPhrases) == true){
-        // blog('fetchPhrasesByLangCode : phrases found in Firestore');
+        blog('fetchPhrasesByLangCode : phrases found in Firestore');
 
         await PhraseLDBOps.insertMainPhrases(
           mixedLangsPhrases: _allPhrases,
@@ -75,6 +78,8 @@ class PhraseProtocols {
       }
 
     }
+
+    blog('fetchMainMixedLangPhrases : END');
 
     return _allPhrases;
 

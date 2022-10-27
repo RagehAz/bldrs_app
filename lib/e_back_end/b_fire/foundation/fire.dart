@@ -814,7 +814,7 @@ String pathOfSubDoc({
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateSubDoc({
     @required String collName,
     @required String docName,

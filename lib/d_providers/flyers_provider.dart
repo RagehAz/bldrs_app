@@ -1,12 +1,9 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/d_zone/city_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/d_zone/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +26,7 @@ class FlyersProvider extends ChangeNotifier {
       flyers: _promotedFlyers,
       flyerIDToRemove: flyerID,
     );
-    _wallFlyers = FlyerModel.removeFlyerFromFlyersByID(
-      flyers: _wallFlyers,
-      flyerIDToRemove: flyerID,
-    );
+
     _selectedFlyers = FlyerModel.removeFlyerFromFlyersByID(
       flyers: _selectedFlyers,
       flyerIDToRemove: flyerID,
@@ -44,6 +38,7 @@ class FlyersProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void removeFlyersFromProFlyers({
     @required List<String> flyersIDs,
     @required bool notify,
@@ -71,6 +66,7 @@ class FlyersProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void updateFlyerInAllProFlyers({
     @required FlyerModel flyerModel,
     @required bool notify,
@@ -78,12 +74,6 @@ class FlyersProvider extends ChangeNotifier {
 
     _promotedFlyers = FlyerModel.replaceFlyerInFlyers(
       flyers: _promotedFlyers,
-      flyerToReplace: flyerModel,
-      insertIfAbsent: false,
-    );
-
-    _wallFlyers = FlyerModel.replaceFlyerInFlyers(
-      flyers: _wallFlyers,
       flyerToReplace: flyerModel,
       insertIfAbsent: false,
     );
@@ -161,72 +151,10 @@ class FlyersProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// WALL FLYERS
-
-  // --------------------
-  List<FlyerModel> _wallFlyers = <FlyerModel>[];
-  // --------------------
-  List<FlyerModel> get wallFlyers {
-    return <FlyerModel>[..._wallFlyers];
-  }
-  // --------------------
-  Future<void> paginateWallFlyers({
-    @required BuildContext context,
-    @required bool listenToZoneChange,
-  }) async {
-
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZoneIDs(
-      context: context,
-      listen: listenToZoneChange,
-    );
-
-    final FlyerModel _lastWallFlyer = Mapper.checkCanLoopList(_wallFlyers) == true ?
-    _wallFlyers.last
-        :
-    null;
-
-    final List<FlyerModel> _flyers = await FlyerFireOps.paginateFlyers(
-      countryID: _currentZone.countryID,
-      cityID: _currentZone.cityID,
-      // districtID: _currentZone.districtID,
-      auditState: AuditState.verified,
-      publishState: PublishState.published,
-      specs: <String>[ChainsProvider.proGetHomeWallPhid(context)],
-      flyerType: ChainsProvider.proGetHomeWallFlyerType(context),
-      limit: 6,
-      startAfter: _lastWallFlyer?.docSnapshot,
-    );
-
-    _addToWallFlyers(
-      flyers: _flyers,
-      notify: true,
-    );
-
-  }
-  // --------------------
-  void _addToWallFlyers({
-    @required List<FlyerModel> flyers,
-    @required bool notify,
-  }) {
-    _wallFlyers.addAll(flyers);
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // --------------------
-  void clearWallFlyers({
-    @required bool notify,
-  }){
-    _wallFlyers = <FlyerModel>[];
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // -----------------------------------------------------------------------------
-
   /// SEARCHERS
 
   // --------------------
+  /*
   Future<List<FlyerModel>> fetchFlyersByCurrentZoneAndKeyword({
     @required BuildContext context,
     @required String keywordID,
@@ -244,7 +172,9 @@ class FlyersProvider extends ChangeNotifier {
 
     return _flyers;
   }
+   */
   // --------------------
+  ///
   Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
     @required BuildContext context,
     @required BzModel bz,
@@ -278,6 +208,7 @@ class FlyersProvider extends ChangeNotifier {
 
     return _bzFlyers;
   }
+
   // -----------------------------------------------------------------------------
 
   /// SELECTED FLYERS
@@ -289,6 +220,7 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._selectedFlyers];
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void addFlyerToSelectedFlyers(FlyerModel flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
@@ -302,7 +234,8 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void removeFlyerFromSelectedFlyers(FlyerModel flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
@@ -316,7 +249,8 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void clearSelectedFlyers({
     @required bool notify,
   }){
@@ -332,6 +266,7 @@ class FlyersProvider extends ChangeNotifier {
   /// WIPE OUT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -343,7 +278,7 @@ class FlyersProvider extends ChangeNotifier {
     _flyersProvider.clearPromotedFlyers(notify: false);
 
     /// _wallFlyers
-    _flyersProvider.clearWallFlyers(notify: false);
+    // _flyersProvider.clearWallFlyers(notify: false);
 
     /// _selectedFlyers
     _flyersProvider.clearSelectedFlyers(

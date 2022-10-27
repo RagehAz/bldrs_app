@@ -147,7 +147,7 @@ class NoteEventsOfAuthorship {
   /// RESPONSES
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipAcceptanceNote({
     @required BuildContext context,
     @required String bzID,
@@ -179,7 +179,7 @@ class NoteEventsOfAuthorship {
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzAuthorshipsInvitations,
         bzID: bzID,
-        partyType: PartyType.bz,
+        receiverPartyType: PartyType.bz,
       ),
       // trigger: TriggerProtocols.createAuthorshipAcceptanceTrigger(),
     );
@@ -225,7 +225,7 @@ class NoteEventsOfAuthorship {
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzAuthorshipsInvitations,
         bzID: bzID,
-        partyType: PartyType.bz,
+        receiverPartyType: PartyType.bz,
       ),
       trigger: TriggerProtocols.createDeletePendingAuthorTrigger(
         userID: senderModel.id,

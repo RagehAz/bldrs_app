@@ -236,6 +236,7 @@ class AuthorModel {
     return _authors;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherAuthorRole(AuthorRole role){
     switch (role){
       case AuthorRole.creator: return 'creator'; break;
@@ -245,6 +246,7 @@ class AuthorModel {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static AuthorRole decipherAuthorRole(String role){
     switch (role){
       case 'creator'     : return AuthorRole.creator   ; break;
@@ -948,6 +950,25 @@ class AuthorModel {
     }
 
     return _canDelete;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkUserIsAuthorInThisBz({
+    @required String bzID,
+    @required UserModel userModel,
+  }){
+    bool _isAuthor = false;
+
+    if (bzID != null && userModel != null){
+
+      _isAuthor = Stringer.checkStringsContainString(
+          strings: userModel.myBzzIDs,
+          string: bzID,
+      );
+
+    }
+
+    return _isAuthor;
   }
   // -----------------------------------------------------------------------------
 

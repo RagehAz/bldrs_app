@@ -24,6 +24,7 @@ class ReviewFireOps {
   /// CREATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<ReviewModel> createReview({
     @required String text,
     @required String flyerID,
@@ -33,17 +34,6 @@ class ReviewFireOps {
       text: text,
       flyerID: flyerID,
     );
-
-    // final Map<String, dynamic> _uploadedMap = await Real.createDocInPath(
-    //     context: context,
-    //     pathWithoutDocName: createRealPath(flyerID),
-    //     addDocIDToOutput: true,
-    //     // addDocIDToInput: true,
-    //     map: _review.toMap(
-    //         toJSON: true,
-    //         // includeID: false,
-    //     ),
-    // );
 
     final DocumentReference<Object> _ref = await Fire.createSubDoc(
       collName: FireColl.flyers,
@@ -59,6 +49,7 @@ class ReviewFireOps {
   /// UPDATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateReview({
     @required ReviewModel reviewModel,
   }) async {
