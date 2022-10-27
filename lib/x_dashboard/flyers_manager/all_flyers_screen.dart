@@ -10,7 +10,9 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +29,8 @@ class AllFlyersScreen extends StatefulWidget {
 
 class _AllFlyersScreenState extends State<AllFlyersScreen> {
   // -----------------------------------------------------------------------------
+  PaginationController _paginationController;
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
@@ -41,6 +45,16 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
   }
    */
   // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+
+    _paginationController = PaginationController.initialize(
+      addExtraMapsAtEnd: false,
+    );
+
+  }
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -82,6 +96,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
                 icon: Iconz.xLarge,
                 onTap: () async {
 
+                  await Nav.goBack(context: context);
+
                   final BzModel bzModel = await BzProtocols.fetch(
                       context: context,
                       bzID: flyer.bzID,
@@ -95,9 +111,13 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
                     isDeletingBz: false,
                   );
 
-                  await Dialogs.showSuccessDialog(
-                      context: context
+                  _paginationController.deleteMapByID(
+                    id: flyer.id,
                   );
+
+                  unawaited(Dialogs.showSuccessDialog(
+                      context: context
+                  ));
 
                 }
             ),
@@ -132,6 +152,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       // loading: _loading,
       layoutWidget: FireCollPaginator(
         paginationQuery: allFlyersPaginationQuery(),
+        paginationController: _paginationController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(

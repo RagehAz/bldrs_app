@@ -714,6 +714,7 @@ class Dialogs {
     @required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
+    bool invertButtons = false,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -723,6 +724,7 @@ class Dialogs {
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
       height: Scale.superScreenHeight(context) * 0.85,
+      invertButtons: invertButtons,
       child: BzBanner(
         boxWidth: CenterDialog.clearWidth(context),
         boxHeight: CenterDialog.clearWidth(context),

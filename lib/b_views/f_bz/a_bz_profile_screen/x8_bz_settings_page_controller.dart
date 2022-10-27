@@ -179,6 +179,7 @@ Future<bool> _preDeleteBzAccountChecks({
   return _canContinue;
 }
 // -----
+/// TESTED : WORKS PERFECT
 Future<bool> _showConfirmDeleteBzDialog({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -187,8 +188,9 @@ Future<bool> _showConfirmDeleteBzDialog({
   final bool _result = await Dialogs.bzBannerDialog(
     context: context,
     bzModel: bzModel,
+    invertButtons: true,
     titleVerse: Verse(
-      text: 'Delete ${bzModel.name} Business Account ?',
+      text: 'phid_delete_bz_account_?',
       translate: true,
       variables: bzModel.name,
     ),
@@ -206,6 +208,7 @@ Future<bool> _showConfirmDeleteBzDialog({
   return _result;
 }
 // -----
+/// TESTED : WORKS PERFECT
 Future<void> _showOnlyCreatorCanDeleteBzDialog({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -236,18 +239,16 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
 
   final bool _result = await Dialogs.flyersDialog(
     context: context,
-    titleVerse: Verse(
-      text: '##${bzModel.flyersIDs.length} flyers will be permanently deleted',
+    titleVerse: const Verse(
+      text: 'phid_all_bz_flyers_will_be_wiped',
       translate: true,
-      variables: bzModel.flyersIDs.length,
     ),
     bodyVerse: const Verse(
-      pseudo: 'Once flyers are deleted, they can not be retrieved',
       text: 'phid_flyers_deletion_warning',
       translate: true,
     ),
     confirmButtonVerse: Verse(
-      text: '##Delete All Flyers And Remove ${bzModel.name}',
+      text: 'phid_delete_all_flyers',
       translate: true,
       variables: bzModel.name,
     ),

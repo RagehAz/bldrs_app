@@ -284,6 +284,24 @@ class PaginationController {
 
 
   }
+  // ---------
+  /// TESTED : WORKS PERFECT
+  void deleteMapByID({
+    @required String id,
+    String idFieldName = 'id',
+  }){
+
+    if (id != null){
+
+      deleteMap.value = Mapper.getMapFromMapsByID(
+        maps: paginatorMaps.value,
+        id: id,
+        idFieldName: idFieldName,
+      );
+
+    }
+
+  }
   // --------------------------------
 
   /// START AFTER

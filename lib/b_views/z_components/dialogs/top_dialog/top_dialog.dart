@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -154,11 +153,9 @@ class TopDialog extends StatelessWidget {
 
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar) {
-        blog('on tap : flushbar : ${flushbar.onTap}');
 
-        // if (context != null){
-        //   Nav.goBack(context);
-        // }
+        closeTopDialog(context);
+        // blog('on tap : flushbar : ${flushbar.onTap}');
 
       },
 
