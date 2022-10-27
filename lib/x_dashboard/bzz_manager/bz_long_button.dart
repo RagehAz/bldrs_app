@@ -161,8 +161,7 @@ class BzLongButton extends StatelessWidget {
                               if (Mapper.checkCanLoopList(bzModel?.authors) == true)
                               ...List.generate( bzModel?.authors?.length, (index){
 
-                                // final AuthorModel _author = bzModel.authors[index];
-                                final AuthorModel _author = bzModel.authors[0];
+                                final AuthorModel _author = bzModel.authors[index];
 
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 5),

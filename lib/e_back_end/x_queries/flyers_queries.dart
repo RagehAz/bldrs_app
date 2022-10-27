@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 /// ALL FLYERS PAGINATION
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 FireQueryModel allFlyersPaginationQuery(){
   return FireQueryModel(
     collRef: Fire.getCollectionRef(FireColl.flyers),
@@ -78,6 +78,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 /// FLYER AUDITING PAGINATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 FireQueryModel flyerAuditingPaginationQuery(){
 
   return FireQueryModel(
