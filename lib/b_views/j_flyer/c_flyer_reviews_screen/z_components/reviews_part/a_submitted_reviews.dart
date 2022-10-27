@@ -35,7 +35,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   final ScrollController _scrollController = ScrollController();
   // --------------------
   final TextEditingController _reviewTextController = TextEditingController();
-  PaginationController _paginatorController;
+  PaginationController _paginationController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -53,7 +53,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void initState() {
     super.initState();
 
-    _paginatorController = PaginationController.initialize(
+    _paginationController = PaginationController.initialize(
       addExtraMapsAtEnd: false,
     );
 
@@ -88,7 +88,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void dispose() {
     _loading.dispose();
     _reviewTextController.dispose();
-    _paginatorController.dispose();
+    _paginationController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -121,7 +121,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
           context: context,
           flyerID: widget.flyerModel.id,
         ),
-        paginationController: _paginatorController,
+        paginationController: _paginationController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           return ReviewsBuilder(
@@ -132,7 +132,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             flyerModel: widget.flyerModel,
             reviewTextController: _reviewTextController,
             reviewsMaps: maps,
-            paginatorController: _paginatorController,
+            paginatorController: _paginationController,
             globalKey: globalKey,
           );
 

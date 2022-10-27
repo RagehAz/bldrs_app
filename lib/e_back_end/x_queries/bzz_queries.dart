@@ -6,7 +6,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 /// ALL BZZ PAGINATION
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 FireQueryModel allBzzPaginationQuery(){
 
   return FireQueryModel(
