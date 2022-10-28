@@ -29,7 +29,7 @@ class SavedFlyersGrid extends StatelessWidget {
         scrollController: scrollController,
         onSelectFlyer: onSelectFlyer,
         selectedFlyers: selectedFlyers,
-        paginationFlyersIDs: flyersIDs,
+        flyersIDs: flyersIDs,
         removeFlyerIDFromMySavedFlyersIDIfNoFound: true,
         numberOfColumnsOrRows: 3,
       );

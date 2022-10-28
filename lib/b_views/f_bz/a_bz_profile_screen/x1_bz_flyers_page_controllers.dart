@@ -49,11 +49,6 @@ Future<void> onFlyerBzOptionsTap({
       draggable: true,
       buttonHeight: 40,
       numberOfWidgets: 2,
-      titleVerse: Verse(
-        text: '##published $_age',
-        translate: true,
-        variables: _age,
-      ),
       builder: (_){
 
         return <Widget>[
