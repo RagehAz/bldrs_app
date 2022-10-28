@@ -267,6 +267,7 @@ class Mapper {
     return _maps;
   }
   // --------------------
+  ///
   static Map<String, dynamic> getMapFromURLQuery({
     @required String urlQuery,
   }) {

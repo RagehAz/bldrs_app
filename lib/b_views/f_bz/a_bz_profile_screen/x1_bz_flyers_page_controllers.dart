@@ -14,7 +14,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -145,13 +144,13 @@ Future<void> _onCanNotDeleteFlyerDialog({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _onDeleteFlyerButtonTap({
   @required BuildContext context,
   @required FlyerModel flyer,
 }) async {
 
-  blog('_onDeleteFlyer : starting deleting flyer ${flyer.id}');
+  // blog('_onDeleteFlyer : permanently starting deleting flyer ${flyer.id}');
 
   final bool _result = await _preFlyerDeleteCheckups(
     context: context,
@@ -159,6 +158,11 @@ Future<void> _onDeleteFlyerButtonTap({
   );
 
   if (_result == true){
+
+    await Nav.goBack(
+      context: context,
+      invoker: '_onDeleteFlyerButtonTap',
+    );
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
@@ -174,17 +178,12 @@ Future<void> _onDeleteFlyerButtonTap({
       isDeletingBz: false,
     );
 
-    // /// NOTE : might not really need this as bz stream would do the job
+    /// NOTE : live bz stream will auto-update active bz locally
     // await BzProtocols.updateBzLocally(
     //     context: context,
     //     newBzModel: _updatedBzModel,
     //     oldBzModel: _bzModel
     // );
-
-    await Nav.goBack(
-      context: context,
-      invoker: '_onDeleteFlyerButtonTap',
-    );
 
     await TopDialog.showTopDialog(
       context: context,
@@ -252,7 +251,7 @@ Future<bool> _preFlyerDeleteCheckups({
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_yes_delete_flyer',
+        text: 'phid_yes_delete',
         translate: true,
       ),
       flyer: flyer,
