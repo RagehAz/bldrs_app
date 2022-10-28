@@ -224,4 +224,13 @@ class FlyerProtocols {
     flyersIDs: flyersIDs,
   );
   // --------------------
+  ///
+  static Future<void> deleteAllBzFlyersLocally({
+    @required BuildContext context,
+    @required String bzID
+  }) => WipeFlyerProtocols.deleteAllBzFlyersLocally(
+    context: context,
+    bzID: bzID,
+  );
+  // --------------------
 }

@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -216,6 +217,32 @@ class WipeFlyerProtocols {
       flyersIDs: flyersIDs,
       notify: true,
     );
+
+  }
+  // --------------------
+  ///
+  static Future<void> deleteAllBzFlyersLocally({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+
+    if (bzID != null){
+
+      final BzModel _bzModel = await BzProtocols.fetch(
+          context: context,
+          bzID: bzID,
+      );
+
+      if (_bzModel != null){
+
+       await deleteFlyersLocally(
+           context: context,
+           flyersIDs: _bzModel.flyersIDs,
+       );
+
+      }
+
+    }
 
   }
   // --------------------

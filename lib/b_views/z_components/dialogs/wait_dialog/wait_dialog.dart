@@ -30,6 +30,21 @@ class WaitDialog extends StatelessWidget {
   final bool canManuallyGoBack;
   final Verse loadingVerse;
   // -----------------------------------------------------------------------------
+  ///
+  static void showUnawaitedWaitDialog({
+    @required BuildContext context,
+    bool canManuallyGoBack = false,
+    Verse loadingVerse,
+  }) {
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingVerse: loadingVerse,
+      canManuallyGoBack: canManuallyGoBack,
+    ));
+
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showWaitDialog({
     @required BuildContext context,
