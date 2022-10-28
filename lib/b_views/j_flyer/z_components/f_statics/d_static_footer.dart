@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_but
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,13 @@ class StaticFooter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final EdgeInsets _saveButtonPadding = FlyerDim.footerButtonEnRightMargin(
+      buttonNumber: 1,
+      context: context,
+      flightTweenValue: flightTweenValue,
+      flyerBoxWidth: flyerBoxWidth,
+    );
 
     return Align(
       key: const ValueKey<String>('StaticFooter'),
@@ -123,23 +131,34 @@ class StaticFooter extends StatelessWidget {
             ),
 
             /// SAVE BUTTON
+            if (onMoreTap == null)
             Padding(
-              padding: FlyerDim.footerButtonEnRightMargin(
-                buttonNumber: 1,
-                context: context,
-                flightTweenValue: flightTweenValue,
-                flyerBoxWidth: flyerBoxWidth,
-              ),
+              padding: _saveButtonPadding,
               child: FooterButton(
                 flyerBoxWidth: flyerBoxWidth,
-                icon: onMoreTap != null ? Iconz.more : isSaved == true ? Iconz.save : null,
-                phid:  '', // superPhrase(context, 'phid_save'),
+                icon: Iconz.save,
+                phid: 'phid_save',
                 isOn: isSaved,
-                canTap: onMoreTap != null,
                 onTap: onMoreTap,
                 count: null,
+                canTap: onMoreTap == null,
               ),
             ),
+
+            /// MORE FLYER OPTIONS BUTTON
+            if (onMoreTap != null)
+              Padding(
+                padding: _saveButtonPadding,
+                child: FooterButton(
+                  flyerBoxWidth: flyerBoxWidth,
+                  icon: Iconz.more,
+                  phid:  '',
+                  isOn: isSaved,
+                  canTap: onMoreTap != null,
+                  onTap: onMoreTap,
+                  count: null,
+                ),
+              ),
 
           ],
         ),

@@ -57,7 +57,7 @@ class PosterTypeButton extends StatelessWidget {
       color: _isSelected == true ? Colorz.yellow255 : null,
       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
       verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-      onTap: onTap,
+      onTap: () => onTap(posterType),
     );
 
   }

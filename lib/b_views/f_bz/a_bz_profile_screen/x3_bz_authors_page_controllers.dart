@@ -408,7 +408,7 @@ Future<bool> _showDeleteAllAuthorFlyers({
       alignment: Alignment.center,
       child: FlyersGrid(
         scrollController: ScrollController(),
-        paginationFlyersIDs: authorModel.flyersIDs,
+        flyersIDs: authorModel.flyersIDs,
         scrollDirection: Axis.horizontal,
         gridWidth: CenterDialog.getWidth(context) - 10,
         gridHeight: 200,
