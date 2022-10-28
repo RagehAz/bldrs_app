@@ -46,6 +46,36 @@ class ReviewFireOps {
   }
   // -----------------------------------------------------------------------------
 
+  /// READ
+
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECT
+  static Future<List<ReviewModel>> readAllFlyerReviews({
+    @required BuildContext context,
+    @required String flyerID,
+  }) async {
+
+    // final List<dynamic> _maps = await Fire.readSubCollectionDocs(
+    //   context: context,
+    //   collName: FireColl.flyers,
+    //   docName: flyerID,
+    //   subCollName: FireSubColl.flyers_flyer_reviews,
+    //   addDocsIDs: true,
+    //   orderBy: 'reviewID',
+    //   limit: 10,
+    //
+    //   /// task : paginate in flyer reviews
+    // );
+    //
+    // final List<ReviewModel> _reviews = ReviewModel.decipherReviews(maps: _maps, fromJSON: false);
+    // return _reviews;
+
+    return null;
+  }
+   */
+  // -----------------------------------------------------------------------------
+
   /// UPDATE
 
   // --------------------

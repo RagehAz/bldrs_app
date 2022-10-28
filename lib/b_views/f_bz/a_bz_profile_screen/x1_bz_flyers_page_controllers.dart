@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
@@ -24,13 +23,13 @@ import 'package:flutter/material.dart';
 /// FLYER OPTIONS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onFlyerBzOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyer,
 }) async {
 
-  blog('SHOULD DELETE THIS FLYER');
-  blog('if flyer is only 48 hours old');
+  flyer.blogFlyer(methodName: 'onFlyerBzOptionsTap');
 
   final String _age = Timers.calculateSuperTimeDifferenceString(
     from: PublishTime.getPublishTimeFromTimes(
@@ -72,16 +71,24 @@ Future<void> onFlyerBzOptionsTap({
 
           BottomDialog.wideButton(
             context: context,
-            verse: const Verse(text: 'phid_delete_flyer', translate: true),
             verseCentered: true,
             isDeactivated: !_canDeleteFlyer,
             onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(
               context: context,
             ),
+            /// --->
+            verse: const Verse(text: 'phid_delete_flyer', translate: true),
             onTap: () => _onDeleteFlyerButtonTap(
               context: context,
               flyer: flyer,
             ),
+            /// --->
+            // for dev
+            // verse: Verse.plain('refetch'),
+            // onTap: () async {
+            //   await FlyerProtocols.refetch(context: context, flyerID: flyer.id);
+            // },
+            /// --->
           ),
 
 
@@ -96,6 +103,7 @@ Future<void> onFlyerBzOptionsTap({
 /// FLYER EDITING
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onEditFlyerButtonTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -121,6 +129,7 @@ Future<void> _onEditFlyerButtonTap({
 /// FLYER DELETION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onCanNotDeleteFlyerDialog({
   @required BuildContext context,
 }) async {
@@ -136,6 +145,7 @@ Future<void> _onCanNotDeleteFlyerDialog({
 
 }
 // --------------------
+///
 Future<void> _onDeleteFlyerButtonTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -155,7 +165,8 @@ Future<void> _onDeleteFlyerButtonTap({
       listen: false,
     );
 
-    final BzModel _updatedBzModel = await FlyerProtocols.wipeTheFlyer(
+    // final BzModel _updatedBzModel =
+    await FlyerProtocols.wipeTheFlyer(
       context: context,
       flyerModel: flyer,
       bzModel: _bzModel,
@@ -163,12 +174,12 @@ Future<void> _onDeleteFlyerButtonTap({
       isDeletingBz: false,
     );
 
-    /// NOTE : might not really need this as bz stream would do the job
-    await BzProtocols.updateBzLocally(
-        context: context,
-        newBzModel: _updatedBzModel,
-        oldBzModel: _bzModel
-    );
+    // /// NOTE : might not really need this as bz stream would do the job
+    // await BzProtocols.updateBzLocally(
+    //     context: context,
+    //     newBzModel: _updatedBzModel,
+    //     oldBzModel: _bzModel
+    // );
 
     await Nav.goBack(
       context: context,
@@ -189,6 +200,7 @@ Future<void> _onDeleteFlyerButtonTap({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _preFlyerDeleteCheckups({
   @required BuildContext context,
   @required FlyerModel flyer,

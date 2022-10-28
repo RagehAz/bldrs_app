@@ -89,7 +89,7 @@ FireQueryModel flyerAuditingPaginationQuery(){
       fieldName: 'id',
       descending: false,
     ),
-    limit: 9,
+    limit: 4,
     finders: <FireFinder>[
 
       FireFinder(

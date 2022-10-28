@@ -77,7 +77,7 @@ class FlyersGrid extends StatelessWidget {
       // --------------------
       assert((){
         final bool _canBuild =
-            flyers != null
+                flyers != null
                 ||
                 paginationFlyersIDs != null
                 || isLoadingGrid == true;
@@ -87,7 +87,7 @@ class FlyersGrid extends StatelessWidget {
         }
 
         return _canBuild;
-      }(), 'fuck you');
+      }(), 'can not build flyer');
       // --------------------
       final bool _showLoadingGrid = showLoadingGridInstead(
         flyers : flyers,
@@ -138,12 +138,10 @@ class FlyersGrid extends StatelessWidget {
 
               /// WHEN IS JUST A LOADING GRID
               if (_showLoadingGrid == true){
-
                 return FlyerLoading(
                   flyerBoxWidth: _gridSlotWidth,
                   animate: false,
                 );
-
               }
 
               /// ACTUAL FLYERS
