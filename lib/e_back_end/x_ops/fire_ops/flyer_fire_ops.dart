@@ -298,7 +298,7 @@ class FlyerFireOps {
     return _allFlyers;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readFlyersByQuery({
     @required FireQueryModel queryModel,
     FlyerModel startAfterFlyer,

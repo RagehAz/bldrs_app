@@ -610,30 +610,3 @@ class TopicModel {
   }
   // -----------------------------------------------------------------------------
 }
-
-/*
-  // -----------------------------------------------------------------------------
-
-  /// TOPICS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String generateTopic({
-    @required TopicType topicType,
-    @required String id,
-  }){
-    return '${topicType}_$id';
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<TopicType> getAllBzzTopics(){
-    return <TopicType>[
-      TopicType.flyerVerification, // 'flyerVerification/bzID/'
-      TopicType.flyerUpdate, // 'flyerUpdate/bzID/'
-      TopicType.authorshipReply, // 'authorshipAcceptance/bzID/'
-      TopicType.authorRoleChanged, // 'authorRoleChanged/bzID/'
-      TopicType.authorDeletion, // 'authorDeletion/bzID/'
-      TopicType.generalBzNotes, // 'generalBzNotes/bzID/'
-    ];
-  }
- */

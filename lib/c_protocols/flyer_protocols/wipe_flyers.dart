@@ -220,7 +220,7 @@ class WipeFlyerProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAllBzFlyersLocally({
     @required BuildContext context,
     @required String bzID,

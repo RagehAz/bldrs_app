@@ -73,7 +73,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final Color backgroundColor;
   final ValueNotifier<dynamic> highlight;
   final Color highlightColor;
-  /// ----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static CrossAxisAlignment versesCrossAlignment({
     dynamic icon,
     TextDirection textDirection,
@@ -98,6 +99,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     return _versesCrossAlignment;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double verseWidth({
     @required double width,
     @required double iconMargin,
@@ -106,25 +108,28 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required bool hasIcon,
   }) {
 
-    if (hasIcon == true){
+    double _output;
 
-      if (width != null ){
+    if (width != null){
+
+      if (hasIcon == true){
         return  width
             - (iconMargin * 2)
             - graphicWidth
-            - ((verseIconSpacing * 2) + iconMargin);
+            // - ((verseIconSpacing * 2) + iconMargin);
+            - 10;
       }
+
       else {
-        return width; // return null bitch
+        return width - 10;
       }
 
     }
-    else {
-      return width;
-    }
 
+    return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double verseIconSpacing({
     @required double height,
     @required Verse verse,
@@ -144,6 +149,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   bool _verseShadowIsOn() {
     bool _isOn;
 
@@ -158,6 +164,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     return _isOn;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   bool _verseIsCentered() {
     bool _centered;
 
@@ -173,6 +180,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     return _centered;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   bool _secondLineShadowIsOn() {
     bool _isOn;
 
@@ -306,10 +314,12 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
         /// --- SPACING
         if (verse != null)
           SizedBox(
-            width: iconSizeFactor != 1 && icon != null ?
-            _verseIconSpacing * 0.25
-                :
-            _verseIconSpacing,
+            // color: Colorz.bloodTest,
+            width: 5,
+            // width: iconSizeFactor != 1 && icon != null ?
+            // _verseIconSpacing * 0.25
+            //     :
+            // _verseIconSpacing,
             height: height,
           ),
 
@@ -319,7 +329,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
             height: height,
             width: _verseWidth,
             alignment: _verseAlignment,
-            // color: Colorz.Yellow80, // for design purpose only
+            // color: Colorz.yellow50, // for design purpose only
             child: SingleChildScrollView(
               physics: const NeverScrollableScrollPhysics(),
               child: Column(
@@ -349,9 +359,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                         redDot: redDot,
                         highlight: highlight,
                         highlightColor: highlightColor,
-                        margin:
+                        // margin:
                         // _verseWidth == null ?
-                        EdgeInsets.symmetric(horizontal: height * 0.2)
+                        // EdgeInsets.symmetric(horizontal: height * 0.2)
                       //     :
                       // EdgeInsets.zero,
                     ),
@@ -390,7 +400,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
         /// --- SPACING
         if (verse != null)
           SizedBox(
-            width: _verseIconSpacing + iconMargin,
+            // color: Colorz.bloodTest,
+            width: 5,
+            // width: _verseIconSpacing + iconMargin,
             height: height,
           ),
 
