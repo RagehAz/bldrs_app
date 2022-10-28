@@ -634,7 +634,7 @@ class Mapper {
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> removeMapFromMapsByIdField({
     @required List<Map<String, dynamic>> baseMaps,
-    @required Map<String, dynamic> mapToRemove,
+    @required String mapIDToRemove,
     String idFieldName = 'id',
   }){
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
@@ -642,12 +642,12 @@ class Mapper {
     // Mapper.blogMap(mapToReplace, methodName: 'replaceMapInMapsWithSameIDField');
 
     /// NOTE : if maps is empty, nothing to remove ya zaki bardo
-    if (checkCanLoopList(baseMaps) == true && mapToRemove != null){
+    if (checkCanLoopList(baseMaps) == true && mapIDToRemove != null){
 
       _output = <Map<String,dynamic>>[...baseMaps];
 
       final int _index = _output.indexWhere((map){
-        final bool _condition = map[idFieldName] == mapToRemove[idFieldName];
+        final bool _condition = map[idFieldName] == mapIDToRemove;
         return _condition;
       });
 

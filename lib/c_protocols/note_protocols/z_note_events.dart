@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
@@ -249,6 +250,48 @@ class NoteEvent {
         topicID: TopicModel.userReviewsReplies,
         bzID: bzModel.id,
         receiverPartyType: PartyType.user,
+      ),
+    );
+
+    await NoteProtocols.composeToOneReceiver(
+        context: context,
+        note: _note
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FLYER INTERACTIONS
+
+  // --------------------
+  ///
+  static Future<void> sendBzIsVerifiedNote({
+    @required BuildContext context,
+    @required BzModel bzModel,
+  }) async {
+
+    assert(bzModel != null, 'bzModel is null');
+
+    final NoteModel _note = NoteModel(
+      id: null,
+      parties: NoteParties(
+        senderID: NoteParties.bldrsSenderID,
+        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderType: PartyType.bldrs,
+        receiverID: bzModel.id,
+        receiverType: PartyType.bz,
+      ),
+      title: 'Your business account has been verified',
+      body: 'You can now publish flyers directly without waiting its verification process, '
+          'Any flyer you or your team publish will be automatically verified',
+      sentTime: DateTime.now(),
+      trigger: TriggerProtocols.createDeleteAllBzzFlyersLocally(
+        bzID: bzModel.id,
+      ),
+      topic: TopicModel.bakeTopicID(
+        topicID: TopicModel.bzVerifications,
+        bzID: bzModel.id,
+        receiverPartyType: PartyType.bz,
       ),
     );
 

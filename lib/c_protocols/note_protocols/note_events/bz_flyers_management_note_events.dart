@@ -83,7 +83,7 @@ class NoteEventsOfBzFlyersManagement {
         flyerID: flyerID,
       ),
       topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.bzFlyersVerifications,
+        topicID: TopicModel.bzVerifications,
         bzID: bzID,
         receiverPartyType: PartyType.bz,
       ),

@@ -79,6 +79,7 @@ Future<void> prepareMutableSlidesForEditing({
 /// LAST SESSION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> loadFlyerMakerLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -137,6 +138,7 @@ Future<void> loadFlyerMakerLastSession({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> saveFlyerMakerSession({
   @required ValueNotifier<DraftFlyerModel> draft,
   @required ValueNotifier<DraftFlyerModel> lastDraft,
@@ -220,6 +222,8 @@ void onUpdateFlyerHeadline({
   );
 
 }
+// --------------------
+/// TESTED : WORKS PERFECT
 void onUpdateFlyerDescription({
   @required ValueNotifier<DraftFlyerModel> draft,
   @required String text,
@@ -238,7 +242,9 @@ Future<void> onSelectFlyerType({
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
 
-  blog('_selectedFlyerType : $_selectedFlyerType');
+  blog('_selectedFlyerType : $_selectedFlyerType : Mapper.checkCanLoopList(draft.value.specs) : ${draft.value.specs}' );
+
+  draft.value.blogDraft();
 
   if (draft.value.flyerType != _selectedFlyerType){
 

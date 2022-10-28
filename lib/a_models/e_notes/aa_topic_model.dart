@@ -36,7 +36,7 @@ class TopicModel {
   // --------------------
   /// BZZ TOPICS IDS
   static const String bzGeneralNews = 'bzGeneralNews';
-  static const String bzFlyersVerifications = 'bzFlyersVerifications';
+  static const String bzVerifications = 'bzVerifications';
   static const String bzFlyersUpdates = 'bzFlyersUpdates';
   static const String bzAuthorshipsInvitations = 'bzAuthorshipsInvitations';
   static const String bzTeamRolesUpdates = 'bzTeamRolesUpdates';
@@ -139,7 +139,7 @@ class TopicModel {
       // --------------------
       /// MY BZ FLYER IS VERIFIED
       TopicModel(
-        id: bzFlyersVerifications,
+        id: bzVerifications,
         description: 'A flyer published by my business account gets verified',
         icon: Iconz.verifyFlyer,
       ),

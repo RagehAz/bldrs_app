@@ -264,7 +264,7 @@ class PaginationController {
 
       final List<Map<String, dynamic>> _updatedMaps = Mapper.removeMapFromMapsByIdField(
         baseMaps: paginatorMaps.value,
-        mapToRemove: deleteMap.value,
+        mapIDToRemove: deleteMap.value[idFieldName],
         idFieldName: idFieldName,
       );
 
@@ -298,6 +298,34 @@ class PaginationController {
         id: id,
         idFieldName: idFieldName,
       );
+
+    }
+
+  }
+  // ---------
+  ///
+  void removeMapsByIDs({
+    @required List<String> ids,
+    String idFieldName = 'id',
+  }){
+
+    if (Mapper.checkCanLoopList(ids) == true){
+
+      if (paginatorMaps.value.isNotEmpty == true){
+
+        List<Map<String, dynamic>> _maps = [];
+        _maps = <Map<String, dynamic>>[...paginatorMaps.value];
+
+       for (final String id in ids){
+         _maps = Mapper.removeMapFromMapsByIdField(
+           baseMaps: _maps,
+           mapIDToRemove: id,
+         );
+       }
+
+        paginatorMaps.value = _maps;
+
+      }
 
     }
 

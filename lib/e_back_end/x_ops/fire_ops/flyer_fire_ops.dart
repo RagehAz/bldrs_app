@@ -1,18 +1,18 @@
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_secondary/record_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/storage.dart';
@@ -298,28 +298,24 @@ class FlyerFireOps {
     return _allFlyers;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<ReviewModel>> readAllReviews({
-    @required BuildContext context,
-    @required String flyerID,
+  ///
+  static Future<List<FlyerModel>> readFlyersByQuery({
+    @required FireQueryModel queryModel,
+    FlyerModel startAfterFlyer,
   }) async {
 
-    // final List<dynamic> _maps = await Fire.readSubCollectionDocs(
-    //   context: context,
-    //   collName: FireColl.flyers,
-    //   docName: flyerID,
-    //   subCollName: FireSubColl.flyers_flyer_reviews,
-    //   addDocsIDs: true,
-    //   orderBy: 'reviewID',
-    //   limit: 10,
-    //
-    //   /// task : paginate in flyer reviews
-    // );
-    //
-    // final List<ReviewModel> _reviews = ReviewModel.decipherReviews(maps: _maps, fromJSON: false);
-    // return _reviews;
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: queryModel,
+      startAfter: startAfterFlyer?.docSnapshot,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
 
-    return null;
+    return FlyerModel.decipherFlyers(
+        maps: _maps,
+        fromJSON: false,
+    );
+
   }
   // -----------------------------------------------------------------------------
 

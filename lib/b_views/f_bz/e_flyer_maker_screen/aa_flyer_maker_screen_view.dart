@@ -196,12 +196,11 @@ class FlyerMakerScreenView extends StatelessWidget {
                               ),
                               translate: false,
                             ),
-                            selectedButtonsPhids: <String>[
-                              FlyerTyper.getFlyerTypePhid(
-                                flyerType: _draft.flyerType,
-                                pluralTranslation: false,
-                              ),
-                            ],
+                            selectedButtonsPhids: FlyerTyper.translateFlyerTypes(
+                              context: context,
+                              flyerTypes: <FlyerType>[_draft.flyerType],
+                              pluralTranslation: false,
+                            ),
                             onButtonTap: (int index) => onSelectFlyerType(
                               context: context,
                               index: index,
