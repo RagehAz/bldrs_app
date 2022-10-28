@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_bool_literals_in_conditional_expressions
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
@@ -48,6 +50,7 @@ class BzLogoBox extends StatelessWidget {
     );
     // --------------------
     final dynamic _bzLogo = bzModel == null ? logoColor : bzModel.logo;
+    final bool _bzIsVerified = bzModel == null ? false : bzModel.isVerified;
     final String _bzName = bzModel == null ? '...' : bzModel.name;
     // --------------------
     return SizedBox(
@@ -61,6 +64,7 @@ class BzLogoBox extends StatelessWidget {
           BzLogo(
             width: width,
             image: _bzLogo,
+            isVerified: _bzIsVerified,
             zeroCornerIsOn: zeroCornerIsOn,
             onTap: onTap,
           ),

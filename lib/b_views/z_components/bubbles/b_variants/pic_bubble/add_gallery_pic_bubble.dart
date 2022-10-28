@@ -235,6 +235,7 @@ class _FilePicSplitter extends StatelessWidget {
       return BzLogo(
         width: picWidth,
         image: pic,
+        isVerified: false,
         // margins: const EdgeInsets.all(10),
         corners: _picBorders,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree

@@ -159,6 +159,7 @@ class Iconz {
   static const String flag = '$_iconsPath/gi_flag.svg';
   static const String spark = '$_iconsPath/gi_spark.svg';
   static const String trigger = '$_iconsPath/gi_trigger.svg';
+  static const String bzBagdeWhite = '$_iconsPath/gi_white_bz_badge.svg';
   // --------------------
   /// PYRAMIDS
   static const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg';
