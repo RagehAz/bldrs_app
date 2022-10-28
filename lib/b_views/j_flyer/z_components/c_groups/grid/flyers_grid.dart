@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid_by_ids_builder_dart.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
@@ -19,7 +20,7 @@ class FlyersGrid extends StatelessWidget {
     this.gridHeight,
     this.scrollController,
     this.flyers,
-    this.paginationFlyersIDs,
+    this.flyersIDs,
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumnsOrRows = 2,
     this.authorMode = false,
@@ -33,7 +34,7 @@ class FlyersGrid extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<FlyerModel> flyers;
-  final List<String> paginationFlyersIDs;
+  final List<String> flyersIDs;
   final double gridWidth;
   final double gridHeight;
   final ScrollController scrollController;
@@ -69,7 +70,7 @@ class FlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (flyers == null && paginationFlyersIDs == null){
+    if (flyers == null && flyersIDs == null){
       return const SizedBox();
     }
 
@@ -79,7 +80,7 @@ class FlyersGrid extends StatelessWidget {
         final bool _canBuild =
                 flyers != null
                 ||
-                paginationFlyersIDs != null
+                flyersIDs != null
                 || isLoadingGrid == true;
 
         if (_canBuild == false){
@@ -91,7 +92,7 @@ class FlyersGrid extends StatelessWidget {
       // --------------------
       final bool _showLoadingGrid = showLoadingGridInstead(
         flyers : flyers,
-        paginationFlyersIDs: paginationFlyersIDs,
+        paginationFlyersIDs: flyersIDs,
         isLoadingGrid: isLoadingGrid,
       );
       // --------------------
@@ -128,7 +129,7 @@ class FlyersGrid extends StatelessWidget {
               scrollDirection: scrollDirection,
             ),
             itemCount: FlyerDim.flyerGridNumberOfSlots(
-              flyersCount: paginationFlyersIDs?.length ?? flyers?.length ?? 0,
+              flyersCount: flyersIDs?.length ?? flyers?.length ?? 0,
               addFlyerButtonIsOn: authorMode,
               isLoadingGrid: isLoadingGrid,
               numberOfColumnsOrRows: numberOfColumnsOrRows,
@@ -159,74 +160,33 @@ class FlyersGrid extends StatelessWidget {
 
                   final int _flyerIndex = authorMode == true ? index-1 : index;
 
-                  /// FLYERS PAGINATION IDS IS DEFINED
-                  if (paginationFlyersIDs != null){
+                  /// FLYER BY ID
+                  if (flyersIDs != null){
 
-                    final String _flyerID = paginationFlyersIDs[_flyerIndex];
+                    final String _flyerID = flyersIDs[_flyerIndex];
 
-                    return FutureBuilder(
-                        future: FlyerProtocols.fetchFlyer(
-                          context: context,
-                          flyerID: _flyerID,
-                        ),
-                        builder: (_, AsyncSnapshot<Object> snap){
-
-                          final FlyerModel _flyerModel = snap?.data;
-                          final bool _isSelected = FlyerModel.flyersContainThisID(
-                            flyers: selectedFlyers,
-                            flyerID: _flyerModel?.id,
-                          );
-
-                          if (Streamer.connectionIsLoading(snap) == true){
-
-                            return FlyerLoading(
-                              flyerBoxWidth: _gridSlotWidth,
-                              animate: false,
-                            );
-
-                          }
-
-                          else {
-
-                            if (_flyerModel == null){
-
-                              if (removeFlyerIDFromMySavedFlyersIDIfNoFound == true){
-                                unawaited(autoRemoveSavedFlyerThatIsNotFound(
-                                  context: context,
-                                  flyerID: _flyerID,
-                                ));
-                              }
-
-                              return const SizedBox();
-                            }
-
-                            {
-                              return FlyerSelectionStack(
-                                flyerModel: _flyerModel,
-                                flyerBoxWidth: _gridSlotWidth,
-                                heroPath: heroPath,
-                                onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyerModel),
-                                onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyerModel),
-                                isSelected: _isSelected,
-                              );
-                            }
-
-                          }
-
-                        }
+                    return FutureFlyer(
+                      flyerID: _flyerID,
+                      heroPath: heroPath,
+                      flyerBoxWidth: _gridSlotWidth,
+                      isSelected: FlyerModel.flyersContainThisID(
+                        flyers: selectedFlyers,
+                        flyerID: _flyerID,
+                      ),
+                      onSelectFlyer: onSelectFlyer,
+                      onFlyerOptionsTap: onFlyerOptionsTap,
+                      onFlyerNotFound: () => autoRemoveSavedFlyerThatIsNotFound(
+                        context: context,
+                        flyerID: _flyerID,
+                      ),
                     );
 
                   }
 
-                  /// SHOULD HAVE FLYERS MODELS GIVEN
+                  /// FLYER BY MODEL
                   else {
 
                     final FlyerModel _flyer =  flyers[_flyerIndex];
-
-                    final bool _isSelected = FlyerModel.flyersContainThisID(
-                      flyers: selectedFlyers,
-                      flyerID: _flyer.id,
-                    );
 
                     return FlyerSelectionStack(
                       flyerModel: _flyer,
@@ -234,7 +194,10 @@ class FlyersGrid extends StatelessWidget {
                       heroPath: heroPath,
                       onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
                       onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
-                      isSelected: _isSelected,
+                      isSelected: FlyerModel.flyersContainThisID(
+                        flyers: selectedFlyers,
+                        flyerID: _flyer.id,
+                      ),
                     );
 
                   }

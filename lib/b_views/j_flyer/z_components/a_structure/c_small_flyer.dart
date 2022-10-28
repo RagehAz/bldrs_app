@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
@@ -13,8 +14,10 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
@@ -122,6 +125,11 @@ class SmallFlyer extends StatelessWidget {
       final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
       final Duration _duration = _getFadeDuration(flyerIsBigNow: _flyerIsBigNow);
 
+      final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+          context: context,
+          listen: true,
+      );
+
       return FlyerBox(
         key: const ValueKey<String>('StaticFlyer'),
         flyerBoxWidth: flyerBoxWidth,
@@ -167,7 +175,10 @@ class SmallFlyer extends StatelessWidget {
             duration: _duration,
             child: StaticFooter(
               flyerBoxWidth: flyerBoxWidth,
-              isSaved: true,
+              isSaved: UserModel.checkFlyerIsSaved(
+                userModel: _myUserModel,
+                flyerID: flyerModel.id,
+              ),
               onMoreTap: onMoreTap,
               flightTweenValue: _tweenValue,
             ),
