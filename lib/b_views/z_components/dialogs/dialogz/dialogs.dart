@@ -866,7 +866,7 @@ class Dialogs {
         alignment: Alignment.center,
         child: FlyersGrid(
           scrollController: ScrollController(),
-          paginationFlyersIDs: flyersIDs,
+          flyersIDs: flyersIDs,
           scrollDirection: Axis.horizontal,
           gridWidth: CenterDialog.getWidth(context) - 10,
           gridHeight: _gridHeight,

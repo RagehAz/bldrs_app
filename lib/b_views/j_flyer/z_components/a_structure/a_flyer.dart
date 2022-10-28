@@ -120,11 +120,11 @@ class _FlyerState extends State<Flyer> {
         child: Stack(
           children: <Widget>[
 
-            /// FLYER MATTRESS
-            FlyerLoading(
-              flyerBoxWidth: widget.flyerBoxWidth,
-              animate: false,
-            ),
+            // /// FLYER MATTRESS
+            // FlyerLoading(
+            //   flyerBoxWidth: widget.flyerBoxWidth,
+            //   animate: false,
+            // ),
 
             WidgetFader(
               fadeType: FadeType.fadeIn,
