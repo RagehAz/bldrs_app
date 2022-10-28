@@ -73,6 +73,7 @@ class HeaderTemplate extends StatelessWidget {
             BzLogo(
               width: FlyerDim.logoWidth(flyerBoxWidth),
               image: logo,
+              isVerified: false,
               corners: FlyerDim.logoCornersByFlyerBoxWidth(
                 context: context,
                 flyerBoxWidth: flyerBoxWidth,

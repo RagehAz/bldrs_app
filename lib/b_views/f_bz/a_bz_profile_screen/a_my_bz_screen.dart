@@ -99,6 +99,7 @@ class MyBzScreen extends StatelessWidget {
                   BzLogo(
                     width: 40,
                     image: _bzModel.logo,
+                    isVerified: _bzModel.isVerified,
                     margins: const EdgeInsets.symmetric(horizontal: 5),
                     corners: BldrsAppBar.corners, // was corners - 5
                   ),
