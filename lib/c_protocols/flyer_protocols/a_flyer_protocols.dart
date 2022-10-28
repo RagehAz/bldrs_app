@@ -198,7 +198,7 @@ class FlyerProtocols {
     isDeletingBz: isDeletingBz,
   );
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> wipeFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -224,7 +224,7 @@ class FlyerProtocols {
     flyersIDs: flyersIDs,
   );
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAllBzFlyersLocally({
     @required BuildContext context,
     @required String bzID

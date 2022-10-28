@@ -49,14 +49,14 @@ Future<void> onFlyerOptionsTap({
   // ---------
   final BzModel _bzModel = await BzProtocols.fetch(
       context: context,
-      bzID: flyerModel.id,
+      bzID: flyerModel.bzID,
   );
   // ---------
   await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: _dialogHeight,
-      titleVerse: Verse.plain('$_shortTitle by ${_bzModel.name}'),
+      titleVerse: Verse.plain('$_shortTitle by ${_bzModel?.name}'),
       child: Container(
         width: BottomDialog.clearWidth(context),
         height: _clearHeight,
@@ -87,6 +87,7 @@ Future<void> onFlyerOptionsTap({
                   height: _buttonHeight,
                   verse:  'Verify Flyer',
                   color: Colorz.green255,
+                  verseColor: Colorz.black255,
                   icon: Iconz.verifyFlyer,
                   onTap: () => _verifyFlyer(
                     context: context,
@@ -121,7 +122,10 @@ Future<void> onFlyerOptionsTap({
                   height: _buttonHeight,
                   verse:  'Verify bz',
                   color: Colorz.yellow255,
-                  icon: _bzModel.logo,
+                  verseColor: Colorz.black255,
+                  icon: _bzModel?.logo,
+                  iconSizeFactor: 1,
+                  verseScaleFactor: 0.6,
                   onTap: () => _verifyBz(
                     context: context,
                     bzID: flyerModel.bzID,
@@ -184,7 +188,7 @@ Future<void> _verifyFlyer({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _verifyBz({
   @required BuildContext context,
   @required String bzID,

@@ -13,6 +13,9 @@ class AuditorButton extends StatelessWidget {
     @required this.color,
     @required this.icon,
     @required this.height,
+    this.iconSizeFactor = 0.5,
+    this.verseScaleFactor = 1.3,
+    this.verseColor = Colorz.white255,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -21,11 +24,15 @@ class AuditorButton extends StatelessWidget {
   final String icon;
   final Function onTap;
   final double height;
+  final double iconSizeFactor;
+  final double verseScaleFactor;
+  final Color verseColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     const int _numberOfItems = 2;
+
     final double _buttonWidth = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: _numberOfItems,
@@ -36,12 +43,15 @@ class AuditorButton extends StatelessWidget {
       height: height,
       width: _buttonWidth,
       verse: Verse.plain(verse),
-      verseScaleFactor: 1.3,
+      verseScaleFactor: verseScaleFactor,
       icon: icon,
       iconColor: Colorz.white230,
-      iconSizeFactor: 0.5,
+      iconSizeFactor: iconSizeFactor,
       onTap: onTap,
       color: color,
+      verseCentered: false,
+      verseColor: verseColor,
+      margins: const EdgeInsets.only(bottom: 10),
     );
 
   }
