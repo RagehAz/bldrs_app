@@ -432,7 +432,7 @@ class NoteProtocols {
     return _note;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static NoteModel _rebakeTopic(NoteModel note){
 
     if (note.parties.receiverType == PartyType.user){

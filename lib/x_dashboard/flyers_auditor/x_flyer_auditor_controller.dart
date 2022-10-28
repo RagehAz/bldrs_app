@@ -8,11 +8,8 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/fkyer_verification_protocols.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -30,24 +27,36 @@ Future<void> onFlyerOptionsTap({
   @required FlyerModel flyerModel,
   @required PaginationController controller,
 }) async {
-
+  // ---------
   flyerModel.blogFlyer();
-
-  const double _dialogHeight = 300;
+  // ---------
+  const double _buttonHeight = 60;
+  // ---------
+  final double _dialogHeight = BottomDialog.calculateDialogHeight(
+      draggable: true,
+      titleIsOn: true,
+      childHeight: _buttonHeight * 3,
+  );
+  // ---------
   final double _clearHeight = BottomDialog.clearHeight(
     context: context,
     draggable: true,
     overridingDialogHeight: _dialogHeight,
     titleIsOn: true,
   );
-  const double _buttonHeight = 40;
+  // ---------
   final String _shortTitle = flyerModel.getShortHeadline();
-
+  // ---------
+  final BzModel _bzModel = await BzProtocols.fetch(
+      context: context,
+      bzID: flyerModel.id,
+  );
+  // ---------
   await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
       height: _dialogHeight,
-      titleVerse: Verse.plain('Audit Flyer : $_shortTitle'),
+      titleVerse: Verse.plain('$_shortTitle by ${_bzModel.name}'),
       child: Container(
         width: BottomDialog.clearWidth(context),
         height: _clearHeight,
@@ -56,99 +65,66 @@ Future<void> onFlyerOptionsTap({
         child: Column(
           children: <Widget>[
 
-            /// VERIFY BZ
-            BottomDialog.wideButton(
-                context: context,
-                verse: Verse.plain('Verify Bz'),
-                onTap: () async {
-
-                  final bool _canDelete = await Dialogs.confirmProceed(
-                    context: context,
-                    titleVerse: Verse.plain('Verify Bz and all its Flyers'),
-                  );
-
-                  if (_canDelete == true){
-
-                    /// TASK : CREATE VERIFY BZ AND FLYERS PROTOCOLS
-
-                    /// VERIFY ALL BZ FLYERS PROTOCOL
-
-                    /// VERIFY BZ
-
-                    /// SEND BZ VERIFICATION NOTE
-
-                  }
-
-
-                }
-            ),
-
-            /// DELETE FLYER
-            BottomDialog.wideButton(
-              context: context,
-              verse: Verse.plain('Delete'),
-              onTap: () async {
-
-                final bool _canDelete = await Dialogs.confirmProceed(
-                  context: context,
-                  titleVerse: Verse.plain('Delete Flyer ?'),
-                  invertButtons: true,
-                );
-
-                if (_canDelete == true){
-
-                  final BzModel bzModel = await BzProtocols.fetch(
-                    context: context,
-                    bzID: flyerModel.bzID,
-                  );
-
-                  await FlyerProtocols.wipeTheFlyer(
-                    context: context,
-                    flyerModel: flyerModel,
-                    bzModel: bzModel,
-                    showWaitDialog: true,
-                    isDeletingBz: false,
-                  );
-
-                  _removeFlyerFromPaginatorFlyers(
-                      controller: controller,
-                      flyerIDToRemove: flyerModel.id,
-                  );
-
-                  await Nav.goBack(context: context);
-
-                }
-
-
-              }
-            ),
-
+            /// AUDIT - VERIFY FLYER
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              // crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
 
-                /// AUDIT
+                /// AUDIT FLYER
                 AuditorButton(
                   height: _buttonHeight,
-                  verse:  'Audit',
-                  color: Colorz.red255,
-                  icon: Iconz.xSmall,
-                  onTap: () => onAuditFlyer(
+                  verse:  'Audit Flyer',
+                  color: Colorz.darkBlue,
+                  icon: Iconz.dvGouran,
+                  onTap: () => auditFlyer(
                     context: context,
                     flyerModel: flyerModel,
                   ),
                 ),
 
-                /// VERIFY
+                /// VERIFY FLYER
                 AuditorButton(
                   height: _buttonHeight,
-                  verse:  'Verify',
+                  verse:  'Verify Flyer',
                   color: Colorz.green255,
-                  icon: Iconz.check,
-                  onTap: () => onVerifyFlyer(
+                  icon: Iconz.verifyFlyer,
+                  onTap: () => _verifyFlyer(
                     context: context,
                     flyerModel: flyerModel,
+                    controller: controller,
+                  ),
+                ),
+
+              ],
+            ),
+
+            /// DELETE FLYER - VERIFY BZ
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+
+                /// DELETE FLYER
+                AuditorButton(
+                  height: _buttonHeight,
+                  verse:  'Delete Flyer',
+                  color: Colorz.red255,
+                  icon: Iconz.xSmall,
+                  onTap: () => _deleteFlyer(
+                    context: context,
+                    flyerModel: flyerModel,
+                    controller: controller,
+                  ),
+                ),
+
+                /// VERIFY BZ
+                AuditorButton(
+                  height: _buttonHeight,
+                  verse:  'Verify bz',
+                  color: Colorz.yellow255,
+                  icon: _bzModel.logo,
+                  onTap: () => _verifyBz(
+                    context: context,
+                    bzID: flyerModel.bzID,
                     controller: controller,
                   ),
                 ),
@@ -164,11 +140,11 @@ Future<void> onFlyerOptionsTap({
 }
 // -----------------------------------------------------------------------------
 
-/// VERIFICATION
+/// VERIFY
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onVerifyFlyer({
+Future<void> _verifyFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required PaginationController controller,
@@ -186,32 +162,13 @@ Future<void> onVerifyFlyer({
   if (flyerModel.auditState != AuditState.verified) {
 
     /// UPDATE FIELD
-    await Fire.updateDocField(
-      collName: FireColl.flyers,
-      docName: flyerModel.id,
-      field: 'auditState',
-      input: FlyerModel.cipherAuditState(AuditState.verified),
+    await FlyerVerificationProtocols.verifyFlyer(
+      context: context,
+      flyerModel: flyerModel,
     );
 
     /// REMOVE FROM LOCAL PAGINATOR FLYERS
-    _removeFlyerFromPaginatorFlyers(
-      controller: controller,
-      flyerIDToRemove: flyerModel.id,
-    );
-
-    /// SEND VERIFICATION NOTE
-    await _sendFlyerVerificationUpdateNote(
-      context: context,
-      bzID: flyerModel.bzID,
-      flyerID: flyerModel.id,
-    );
-
-    /// SHOW SUCCESS DIALOG
-    await Dialogs.showSuccessDialog(
-      context: context,
-      firstLine: Verse.plain('Done'),
-      secondLine: Verse.plain('flyer ${flyerModel.getShortHeadline()}... got verified'),
-    );
+    controller.deleteMapByID(id: flyerModel.id);
 
   }
 
@@ -227,27 +184,40 @@ Future<void> onVerifyFlyer({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _sendFlyerVerificationUpdateNote({
+///
+Future<void> _verifyBz({
   @required BuildContext context,
-  @required String flyerID,
   @required String bzID,
+  @required PaginationController controller,
 }) async {
 
-  await NoteEvent.sendFlyerIsVerifiedNoteToBz(
+  final bool _canDelete = await Dialogs.confirmProceed(
     context: context,
-    flyerID: flyerID,
-    bzID: bzID,
+    titleVerse: Verse.plain('Verify Bz and 1000 of its Flyers'),
   );
+
+  if (_canDelete == true){
+
+    /// UPDATE FIELD
+    final List<FlyerModel> _verifiedFlyers = await FlyerVerificationProtocols.verifyBz(
+      context: context,
+      bzID: bzID,
+    );
+
+    controller.removeMapsByIDs(
+      ids: FlyerModel.getFlyersIDsFromFlyers(_verifiedFlyers),
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------
 
-/// VERIFICATION
+/// AUDIT
 
 // --------------------
 ///
-Future<void> onAuditFlyer({
+Future<void> auditFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
 }) async {
@@ -257,22 +227,46 @@ Future<void> onAuditFlyer({
 }
 // -----------------------------------------------------------------------------
 
-/// LOCAL PAGINATION LISTENERS
+/// DELETE
 
 // --------------------
 /// TESTED : WORKS PERFECT
-void _removeFlyerFromPaginatorFlyers({
+Future<void> _deleteFlyer({
+  @required BuildContext context,
+  @required FlyerModel flyerModel,
   @required PaginationController controller,
-  @required String flyerIDToRemove,
-}){
+}) async {
 
-  final Map<String, dynamic> _flyerMap = Mapper.getMapFromMapsByID(
-    maps: controller.paginatorMaps.value,
-    id: flyerIDToRemove,
-    // idFieldName: 'id',
+  final bool _canDelete = await Dialogs.confirmProceed(
+    context: context,
+    titleVerse: Verse.plain('Delete Flyer ?'),
+    invertButtons: true,
   );
 
-  controller.deleteMap.value = _flyerMap;
+  if (_canDelete == true){
+
+    /// CLOSE BOTTOM DIALOG
+    await Nav.goBack(context: context);
+
+    /// GET BZ
+    final BzModel bzModel = await BzProtocols.fetch(
+      context: context,
+      bzID: flyerModel.bzID,
+    );
+
+    /// WIPE FLYER
+    await FlyerProtocols.wipeTheFlyer(
+      context: context,
+      flyerModel: flyerModel,
+      bzModel: bzModel,
+      showWaitDialog: true,
+      isDeletingBz: false,
+    );
+
+    /// UPDATE PAGINATOR
+    controller.deleteMapByID(id: flyerModel.id);
+
+  }
 
 }
 // -----------------------------------------------------------------------------

@@ -37,6 +37,7 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
         StaticHeader(
           flyerBoxWidth: Bubble.clearWidth(context),
           bzModel: bzModel,
+          showHeaderLabels: true,
           authorID: draft.authorID,
           flyerShowsAuthor: draft.showsAuthor,
         ),

@@ -34,8 +34,11 @@ class TriggerProtocols {
   /// -> fires AuthorshipProtocols.removeMeAsAuthorAfterBzDeletion
   static const String tridRemoveBzTracesAfterDeletion = 'tridRemoveBzTracesAfterDeletion';
   // --------------------
-  /// -> fires BzProtocols.tridWipePendingAuthor
+  /// -> fires BzProtocols.wipePendingAuthor
   static const String tridWipePendingAuthor = 'tridWipePendingAuthor';
+  // --------------------
+  /// -> fires FlyerProtocols.deleteAllBzFlyersLocally
+  static const String tridDeleteAllBzFlyersLocally = 'tridDeleteAllBzFlyersLocally';
   // --------------------
   static const List<String> triggersList = [
     tridRefetchFlyer,
@@ -43,6 +46,7 @@ class TriggerProtocols {
     tridAddMeAsAuthorToBz,
     tridRemoveBzTracesAfterDeletion,
     tridWipePendingAuthor,
+    tridDeleteAllBzFlyersLocally,
   ];
   // -----------------------------------------------------------------------------
 
@@ -97,6 +101,17 @@ class TriggerProtocols {
     return TriggerModel(
       name: tridWipePendingAuthor,
       argument: '${userID}_$bzID',
+      done: const <String>[],
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static TriggerModel createDeleteAllBzzFlyersLocally({
+    @required String bzID,
+  }){
+    return TriggerModel(
+      name: tridDeleteAllBzFlyersLocally,
+      argument: bzID,
       done: const <String>[],
     );
   }
@@ -237,6 +252,17 @@ class TriggerProtocols {
             context: context,
             pendingUserID: TextMod.removeTextAfterFirstSpecialCharacter(trigger.argument, '_'),
             bzID: TextMod.removeTextBeforeFirstSpecialCharacter(trigger.argument, '_'),
+          );
+          blog('3--> Switcher : FIRING : END');
+          break;
+      // ----------
+      /// REFETCH BZ
+        case tridDeleteAllBzFlyersLocally:
+          blog('2--> Switcher : FIRING : DELETE ALL BZ FLYERS LOCALLY (${trigger.argument}) : START');
+          // argument: '${userID}_$bzID',
+          await FlyerProtocols.deleteAllBzFlyersLocally(
+            context: context,
+            bzID: trigger.argument,
           );
           blog('3--> Switcher : FIRING : END');
           break;
