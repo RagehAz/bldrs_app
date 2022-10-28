@@ -25,7 +25,7 @@ class FlyerVerificationProtocols {
   /// VERIFY FLYER
 
   // --------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<void> verifyFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -90,7 +90,7 @@ class FlyerVerificationProtocols {
   /// VERIFY BZ AND ALL HIS FLYERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> verifyBz({
     @required BuildContext context,
     @required String bzID,
@@ -144,7 +144,7 @@ class FlyerVerificationProtocols {
     return  _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> _verifyAllBzFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -192,7 +192,7 @@ class FlyerVerificationProtocols {
     return _nonVerifiedFlyers;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _verifyBzDoc({
     @required BuildContext context,
     @required BzModel bzModel,

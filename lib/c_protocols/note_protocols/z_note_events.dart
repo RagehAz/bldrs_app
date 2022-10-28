@@ -264,7 +264,7 @@ class NoteEvent {
   /// FLYER INTERACTIONS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> sendBzIsVerifiedNote({
     @required BuildContext context,
     @required BzModel bzModel,

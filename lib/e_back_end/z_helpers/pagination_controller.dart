@@ -303,7 +303,7 @@ class PaginationController {
 
   }
   // ---------
-  ///
+  /// TESTED : WORKS PERFECT
   void removeMapsByIDs({
     @required List<String> ids,
     String idFieldName = 'id',
