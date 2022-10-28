@@ -79,6 +79,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
           width: logoMinWidth * logoSizeRatioTween.value,
           image: bzModel?.logo,
+          isVerified: bzModel?.isVerified,
           corners: logoCorners,
           zeroCornerIsOn: flyerModel.showsAuthor,
         ),

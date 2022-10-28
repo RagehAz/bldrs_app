@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa9_bz_fcm_topics_screen_view.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa5_user_fcm_topics_screen_view.dart';
@@ -33,6 +34,11 @@ class FCMTopicsScreen extends StatelessWidget {
         translate: true
     );
     // --------------------
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: true,
+    );
+    // --------------------
     return MainLayout(
       skyType: SkyType.black,
       historyButtonIsOn: false,
@@ -47,7 +53,8 @@ class FCMTopicsScreen extends StatelessWidget {
         if (partyType == PartyType.bz)
         BzLogo(
           width: 40,
-          image: BzzProvider.proGetActiveBzModel(context: context, listen: true).logo,
+          image: _bzModel.logo,
+          isVerified: _bzModel.isVerified,
           zeroCornerIsOn: false,
           margins: const EdgeInsets.symmetric(horizontal: 5),
           corners: BldrsAppBar.clearCorners,

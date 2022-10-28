@@ -58,6 +58,7 @@ class BzReplyBubble extends StatelessWidget {
               BzLogo(
                 width: _logoWidth,
                 image: _bzModel?.logo,
+                isVerified: _bzModel?.isVerified,
                 zeroCornerIsOn: true,
               ),
 

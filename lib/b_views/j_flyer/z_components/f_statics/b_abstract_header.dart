@@ -40,6 +40,7 @@ class AbstractHeader extends StatelessWidget {
         child: BzLogo(
           width: _logoSize,
           image: bzModel.logo,
+          isVerified: bzModel.isVerified,
           corners: FlyerDim.logoCornersByFlyerBoxWidth(
             context: context,
             flyerBoxWidth: flyerBoxWidth,

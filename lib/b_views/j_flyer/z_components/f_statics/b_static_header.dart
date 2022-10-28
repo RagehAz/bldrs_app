@@ -58,6 +58,7 @@ class StaticHeader extends StatelessWidget {
           BzLogo(
             width: FlyerDim.logoWidth(flyerBoxWidth),
             image: bzModel?.logo,
+            isVerified: bzModel.isVerified,
             corners: FlyerDim.logoCornersByFlyerBoxWidth(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
