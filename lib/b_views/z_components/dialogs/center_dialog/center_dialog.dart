@@ -344,15 +344,17 @@ class CenterDialog extends StatelessWidget {
                                           color: invertButtons == true ? defaultButtonColor : activeButtonColor,
                                           onTap:
                                           boolDialog == true ? () => Nav.goBack(
-                                              context: xxx,
-                                              invoker: 'CenterDialog.yes',
-                                              passedData: true
+                                            context: xxx,
+                                            invoker: 'CenterDialog.yes',
+                                            passedData: true,
+                                            addPostFrameCallback: true,
                                           )
                                               :
                                           onOk ?? () => Nav.goBack(
-                                                context: xxx,
-                                                invoker: 'CenterDialog.ok',
-                                              ),
+                                            context: xxx,
+                                            invoker: 'CenterDialog.ok',
+                                            addPostFrameCallback: true,
+                                          ),
                                         ),
 
                                         /// NO BUTTON
@@ -366,9 +368,10 @@ class CenterDialog extends StatelessWidget {
                                             verseColor: Colorz.black230,
                                             color: activeButtonColor,
                                             onTap: () => Nav.goBack(
-                                                  context: xxx,
-                                                  invoker: 'CenterDialog.No',
-                                                  passedData: false,
+                                              context: xxx,
+                                              invoker: 'CenterDialog.No',
+                                              passedData: false,
+                                              addPostFrameCallback: true,
                                                 ),
                                           ),
 

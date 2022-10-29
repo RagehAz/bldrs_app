@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x2_user_notes_page_controllers.dart';
-import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -14,7 +12,6 @@ import 'package:bldrs/b_views/z_components/notes/x_components/note_sender_balloo
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -43,11 +40,13 @@ class NoteCard extends StatelessWidget {
   final Function onCardTap;
   final double bubbleWidth;
   final Color bubbleColor;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static double getBubbleWidth(BuildContext context) {
     return Bubble.bubbleWidth(context);
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double bodyWidth({
     @required BuildContext context,
     @required double widthOverride
@@ -55,6 +54,7 @@ class NoteCard extends StatelessWidget {
     return Bubble.clearWidth(context, bubbleWidthOverride: widthOverride) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onNoteOptionsTap({
     @required BuildContext context,
   }) async {
@@ -84,16 +84,9 @@ class NoteCard extends StatelessWidget {
     /// BZ
     if (noteModel.parties.senderType == PartyType.bz){
 
-      final BzModel _bzModel = await BzProtocols.fetch(
-          context: context,
-          bzID: noteModel.parties.senderID,
-      );
-
-      await Nav.goToNewScreen(
+      await Nav.jumpToBzPreviewScreen(
         context: context,
-        screen: BzPreviewScreen(
-          bzModel: _bzModel,
-        ),
+        bzID: noteModel.parties.senderID,
       );
 
     }
@@ -101,32 +94,28 @@ class NoteCard extends StatelessWidget {
     /// USER
     else if (noteModel.parties.senderType == PartyType.user){
 
-      // final UserModel _userModel = await UserProtocols.fetchUser(
-      //     context: context,
-      //     userID: noteModel.parties.senderID,
-      // );
-
-      // await Nav.goToNewScreen(
-      //   context: context,
-      //   screen: UserPreviewScreen(
-      //     userModel: _userModel,
-      //   ),
-      // );
+      await Nav.jumpToUserPreviewScreen(
+        context: context,
+        userID: noteModel.parties.senderID,
+      );
 
     }
 
     /// BLDRS
     else if (noteModel.parties.senderType == PartyType.bldrs){
 
+      await Nav.jumpToBldrsPreviewScreen(
+          context: context,
+      );
+
     }
 
     /// COUNTRY
     else if (noteModel.parties.senderType == PartyType.country){
-
-    }
-
-    else {
-
+      await Nav.jumpToCountryPreviewScreen(
+          context: context,
+          countryID: noteModel.parties.senderID,
+      );
     }
 
   }
@@ -286,5 +275,5 @@ class NoteCard extends StatelessWidget {
     );
     // --------------------
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

@@ -5,16 +5,17 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/bz_authors_bubble/bz_authors_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -27,12 +28,14 @@ class BzAboutPage extends StatelessWidget {
     this.bzModel,
     this.showGallery = false,
     this.showContacts = true,
+    this.showAuthors = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final bool showGallery;
   final bool showContacts;
+  final bool showAuthors;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -60,6 +63,7 @@ class BzAboutPage extends StatelessWidget {
           bzModel: _bzModel,
           showContacts: showContacts,
           showGallery: showGallery,
+          showAuthors: showAuthors,
         ),
       );
     }
@@ -69,6 +73,7 @@ class BzAboutPage extends StatelessWidget {
         bzModel: _bzModel,
         showContacts: showContacts,
         showGallery: showGallery,
+        showAuthors: showAuthors,
       );
     }
 
@@ -82,12 +87,14 @@ class AboutBzBubbles extends StatelessWidget {
     @required this.bzModel,
     @required this.showGallery,
     @required this.showContacts,
+    @required this.showAuthors,
     Key key
   }) : super(key: key);
 
   final BzModel bzModel;
   final bool showGallery;
   final bool showContacts;
+  final bool showAuthors;
 
   @override
   Widget build(BuildContext context) {
@@ -122,15 +129,6 @@ class AboutBzBubbles extends StatelessWidget {
             ),
           ),
 
-        /// BZ CONTACT
-        if (showContacts == true && Mapper.checkCanLoopList(bzModel?.contacts) == true)
-          ContactsBubble(
-            contacts: bzModel?.contacts,
-            location: bzModel?.position,
-            canLaunchOnTap: true,
-          ),
-
-
         /// SCOPE
         if (Mapper.checkCanLoopList(bzModel?.scope) == true)
           Bubble(
@@ -150,6 +148,20 @@ class AboutBzBubbles extends StatelessWidget {
             ],
           ),
 
+        /// AUTHORS
+        if (showAuthors == true)
+        BzAuthorsBubble(
+          bzModel: bzModel,
+        ),
+
+        /// BZ CONTACT
+        if (showContacts == true && Mapper.checkCanLoopList(bzModel?.contacts) == true)
+          ContactsBubble(
+            contacts: bzModel?.contacts,
+            location: bzModel?.position,
+            canLaunchOnTap: true,
+          ),
+
         /// SEPARATOR
         if (Mapper.checkCanLoopList(bzModel?.scope) == true)
           const DotSeparator(),
@@ -163,9 +175,8 @@ class AboutBzBubbles extends StatelessWidget {
         if (showGallery == true)
           SuperVerse(
             verse: Verse(
-              text: '##Flyers By ${bzModel?.name}',
+              text: '${xPhrase(context, 'phid_published_flyers_by')} ${bzModel?.name}',
               translate: false,
-              variables: bzModel?.name,
             ),
             centered: false,
             maxLines: 2,
@@ -183,10 +194,11 @@ class AboutBzBubbles extends StatelessWidget {
             heroPath: 'BzAboutPageFlyersGrid',
           ),
 
-        const Horizon(),
+        // const Horizon(),
 
       ],
     );
 
   }
+
 }

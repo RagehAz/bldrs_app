@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
@@ -363,11 +364,11 @@ Future<void> _onDeleteReview({
       translate: true,
     ),
     bodyVerse: const Verse(
-      pseudo: 'Your review on this flyer will be permanently deleted',
       text: 'phid_review_will_be_deleted',
       translate: true,
     ),
     boolDialog: true,
+    invertButtons: true,
   );
 
   if (_canContinue == true){
@@ -396,18 +397,32 @@ Future<void> _onDeleteReview({
 }
 // -----------------------------------------------------------------------------
 
-/// REVIEW OPTIONS
+/// GO TO REVIEWER - REPLIER PROFILES
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onReviewUserBalloonTap({
   @required BuildContext context,
   @required UserModel userModel,
 }) async {
 
-  blog('should visit user preview screen for this user :-');
-  userModel?.blogUserModel(methodName: 'go to his page');
+  await Nav.jumpToUserPreviewScreen(
+    context: context,
+    userID: userModel.id,
+  );
 
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onReplyBzBalloonTap({
+  @required BuildContext context,
+  @required BzModel bzModel,
+}) async {
+
+  await Nav.jumpToBzPreviewScreen(
+    context: context,
+    bzID: bzModel.id,
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -415,7 +430,7 @@ Future<void> onReviewUserBalloonTap({
 /// BZ REPLY
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onBzReply({
   @required BuildContext context,
   @required ReviewModel reviewModel,
@@ -640,11 +655,11 @@ Future<void> _onDeleteReply({
       translate: true,
     ),
     bodyVerse: const Verse(
-      pseudo: 'Your reply on this review will be permanently deleted',
       text: 'phid_delete_reply_description',
       translate: true,
     ),
     boolDialog: true,
+    invertButtons: true,
   );
 
   if (_canContinue == true){

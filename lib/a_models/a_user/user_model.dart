@@ -50,6 +50,7 @@ class UserModel {
     @required this.language,
     @required this.location,
     @required this.contacts,
+    @required this.contactsArePublic,
     @required this.myBzzIDs,
     @required this.emailIsVerified,
     @required this.isAdmin,
@@ -75,6 +76,7 @@ class UserModel {
   final String language;
   final GeoPoint location;
   final List<ContactModel> contacts;
+  final bool contactsArePublic;
   final List<String> myBzzIDs;
   final bool emailIsVerified;
   final bool isAdmin;
@@ -113,6 +115,7 @@ class UserModel {
       language: 'en',
       location: const GeoPoint(0, 0),
       contacts: const <ContactModel>[],
+      contactsArePublic: true,
       // -------------------------
       myBzzIDs: const <String>[],
       emailIsVerified: _user.emailVerified,
@@ -156,6 +159,7 @@ class UserModel {
       language: '', //Wordz.languageCode(context),
       location: null,
       contacts: ContactModel.generateContactsFromFirebaseUser(user),
+      contactsArePublic: true,
       // -------------------------
       myBzzIDs: const <String>[],
       emailIsVerified: user.emailVerified,
@@ -240,6 +244,7 @@ class UserModel {
     String language,
     GeoPoint location,
     List<ContactModel> contacts,
+    bool contactsArePublic,
     List<String> myBzzIDs,
     bool emailIsVerified,
     bool isAdmin,
@@ -264,6 +269,7 @@ class UserModel {
       language: language ?? this.language,
       location: location ?? this.location,
       contacts: contacts ?? this.contacts,
+      contactsArePublic: contactsArePublic ?? this.contactsArePublic,
       myBzzIDs: myBzzIDs ?? this.myBzzIDs,
       emailIsVerified: emailIsVerified ?? this.emailIsVerified,
       isAdmin: isAdmin ?? this.isAdmin,
@@ -291,6 +297,7 @@ class UserModel {
     bool language = false,
     bool location = false,
     bool contacts = false,
+    bool contactsArePublic = false,
     bool myBzzIDs = false,
     bool emailIsVerified = false,
     bool isAdmin = false,
@@ -315,6 +322,7 @@ class UserModel {
       language : language == true ? null : this.language,
       location : location == true ? null : this.location,
       contacts : contacts == true ? const [] : this.contacts,
+      contactsArePublic : contactsArePublic == true ? null : this.contactsArePublic,
       myBzzIDs : myBzzIDs == true ? const [] : this.myBzzIDs,
       emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
       isAdmin : isAdmin == true ? null : this.isAdmin,
@@ -350,6 +358,7 @@ class UserModel {
       'language': language,
       'location': Atlas.cipherGeoPoint(point: location, toJSON: toJSON),
       'contacts': ContactModel.cipherContacts(contacts),
+      'contactsArePublic': contactsArePublic,
 // -------------------------
       'myBzzIDs': myBzzIDs ?? <String>[],
       'emailIsVerified': emailIsVerified,
@@ -406,6 +415,7 @@ class UserModel {
         language: map['language'] ?? 'en',
         location: Atlas.decipherGeoPoint(point: map['location'], fromJSON: fromJSON),
         contacts: ContactModel.decipherContacts(map['contacts']),
+        contactsArePublic: map['contactsArePublic'],
         // -------------------------
         myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
         emailIsVerified: map['emailIsVerified'],
@@ -557,6 +567,7 @@ class UserModel {
           user1.language == user2.language &&
           Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) &&
           ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) &&
+          user1.contactsArePublic == user2.contactsArePublic &&
           Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) &&
           user1.emailIsVerified == user2.emailIsVerified &&
           user1.isAdmin == user2.isAdmin &&
@@ -915,6 +926,7 @@ class UserModel {
     blog('docSnapshot : $docSnapshot');
     zone?.blogZone();
     need?.blogNeed();
+    blog('contactsArePublic : $contactsArePublic');
     ContactModel.blogContacts(
       contacts: contacts,
       methodName: 'user contacts',
@@ -1017,6 +1029,10 @@ class UserModel {
         blog('blogUserDifferences : [contacts] are not identical');
       }
 
+      if (user1.contactsArePublic != user2.contactsArePublic){
+        blog('blogUserDifferences : [contactsArePublic] are not identical');
+      }
+
       if (Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
         blog('blogUserDifferences : [myBzzIDs] are not identical');
       }
@@ -1079,6 +1095,7 @@ class UserModel {
       language: 'en',
       location: Atlas.dummyLocation(),
       contacts: ContactModel.dummyContacts(),
+      contactsArePublic: true,
       myBzzIDs: const <String>[],
       emailIsVerified: true,
       isAdmin: true,
@@ -1266,6 +1283,7 @@ class UserModel {
       language.hashCode^
       location.hashCode^
       contacts.hashCode^
+      contactsArePublic.hashCode^
       myBzzIDs.hashCode^
       emailIsVerified.hashCode^
       isAdmin.hashCode^
