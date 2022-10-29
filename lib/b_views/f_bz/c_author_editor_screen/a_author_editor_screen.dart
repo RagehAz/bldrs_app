@@ -73,7 +73,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

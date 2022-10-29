@@ -104,7 +104,7 @@ void setNotifier({
   @required ValueNotifier<dynamic> notifier,
   @required bool mounted,
   @required dynamic value,
-  @required bool addPostFrameCallBack,
+  bool addPostFrameCallBack = false,
   Function onFinish,
   bool shouldHaveListeners = false,
 }){

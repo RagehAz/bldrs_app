@@ -50,7 +50,6 @@ class _CountriesScreenState extends State<CountriesScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

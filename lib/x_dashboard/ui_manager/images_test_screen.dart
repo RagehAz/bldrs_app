@@ -60,7 +60,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

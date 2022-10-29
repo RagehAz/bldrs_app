@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/a_slides_part/flyer_slides_shelf.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/a_submitted_reviews.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/aaa_flyer_slides_shelf.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/aaa_submitted_reviews.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -13,13 +13,11 @@ class FlyerReviewsScreenView extends StatelessWidget {
   const FlyerReviewsScreenView({
     @required this.flyerModel,
     @required this.screenHeight,
-    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final double screenHeight;
-  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -30,7 +28,7 @@ class FlyerReviewsScreenView extends StatelessWidget {
     // --------------------
     final double _reviewsBoxHeight =
               screenHeight
-            - Stratosphere.getStratosphereValue(context: context, appBarType: appBarType)
+            - Stratosphere.getStratosphereValue(context: context, appBarType: AppBarType.basic)
             - _separatorHeight
             - _slidesShelfHeight;
     // --------------------
@@ -54,7 +52,6 @@ class FlyerReviewsScreenView extends StatelessWidget {
 
         /// REVIEWS
         SubmittedReviews(
-          appBarType: appBarType,
           flyerModel: flyerModel,
           pageWidth: _screenWidth,
           pageHeight: _reviewsBoxHeight,

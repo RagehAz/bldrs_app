@@ -39,7 +39,6 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

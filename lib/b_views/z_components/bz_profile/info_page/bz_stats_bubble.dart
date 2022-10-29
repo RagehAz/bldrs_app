@@ -38,7 +38,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
@@ -68,7 +67,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
             notifier: _bzCounter,
             mounted: mounted,
             value: _counters,
-            addPostFrameCallBack: false
         );
 
         await _triggerLoading(setTo: false);

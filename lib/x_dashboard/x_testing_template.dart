@@ -30,7 +30,6 @@ class _TheStatefulScreenState extends State<TheStatefulScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

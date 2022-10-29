@@ -39,7 +39,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

@@ -95,7 +95,6 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

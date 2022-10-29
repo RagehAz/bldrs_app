@@ -44,7 +44,7 @@ class Standards {
   /// EDITORS STANDARDS
 
   // --------------------
-  static const int minUserNameLength = 6;
+  static const int minUserNameLength = 5;
   static const int minJobTitleLength = 2;
   static const int minCompanyNameLength = 2;
   // -----------------------------------------------------------------------------

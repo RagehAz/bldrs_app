@@ -41,7 +41,6 @@ class _FeedBackState extends State<FeedBack> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

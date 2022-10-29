@@ -45,7 +45,6 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

@@ -41,7 +41,6 @@ class _GallerySlideState extends State<GallerySlide> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

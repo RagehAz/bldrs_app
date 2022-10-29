@@ -40,7 +40,6 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

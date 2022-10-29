@@ -47,7 +47,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */
@@ -286,11 +285,11 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                         zone: zone,
                       );
                     },
-                    selectCountryAndCityOnly: false,
+                    // selectCountryAndCityOnly: true,
                     // selectCountryIDOnly: false,
                     validator: () => Formers.zoneValidator(
                       zoneModel: need.zone,
-                      selectCountryAndCityOnly: false,
+                      selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,
                       canValidate: true,
                     ),

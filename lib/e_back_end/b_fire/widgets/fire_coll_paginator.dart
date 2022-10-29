@@ -61,7 +61,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
@@ -225,7 +224,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       notifier: _loading,
       mounted: mounted,
       value: true,
-      addPostFrameCallBack: false,
     );
 
     /// CAN KEEP READING
@@ -263,7 +261,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       notifier: _loading,
       mounted: mounted,
       value: false,
-      addPostFrameCallBack: false,
     );
 
   }

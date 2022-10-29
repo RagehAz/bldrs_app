@@ -118,7 +118,6 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

@@ -55,7 +55,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
@@ -81,7 +80,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
             notifier: _flyerCounter,
             mounted: mounted,
             value: _counter,
-            addPostFrameCallBack: false,
           );
           // ----------
         }

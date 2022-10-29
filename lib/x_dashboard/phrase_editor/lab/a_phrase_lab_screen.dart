@@ -34,7 +34,6 @@ class _PhrasesLabState extends State<PhrasesLab> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

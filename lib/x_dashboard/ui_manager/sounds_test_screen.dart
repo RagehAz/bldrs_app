@@ -30,7 +30,6 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
 

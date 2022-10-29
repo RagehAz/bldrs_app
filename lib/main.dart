@@ -85,7 +85,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

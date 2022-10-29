@@ -227,7 +227,6 @@ class Scrollers {
             notifier: isPaginating,
             mounted: mounted,
             value: true,
-            addPostFrameCallBack: false,
         );
 
         await onPaginate();
@@ -236,7 +235,6 @@ class Scrollers {
           notifier: isPaginating,
           mounted: mounted,
           value: false,
-          addPostFrameCallBack: false,
         );
 
       }
