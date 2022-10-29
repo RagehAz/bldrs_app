@@ -193,6 +193,7 @@ class NoteCard extends StatelessWidget {
                     SuperVerse(
                       verse: Verse(
                         text: Timers.calculateSuperTimeDifferenceString(
+                          context: context,
                           from: noteModel?.sentTime,
                           to: DateTime.now(),
                         ),
