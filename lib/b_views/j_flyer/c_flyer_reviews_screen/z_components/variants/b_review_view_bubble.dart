@@ -92,6 +92,7 @@ class ReviewViewBubble extends StatelessWidget {
                     SuperVerse(
                       verse: Verse(
                         text: Timers.calculateSuperTimeDifferenceString(
+                          context: context,
                           from: reviewModel.time,
                           to: DateTime.now(),
                         ),

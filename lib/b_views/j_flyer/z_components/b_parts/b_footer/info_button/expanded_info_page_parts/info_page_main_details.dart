@@ -1,8 +1,12 @@
+import 'package:bldrs/a_models/d_zone/country_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +21,34 @@ class InfoPageMainDetails extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final FlyerModel flyerModel;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  String _getZoneLine({
+    @required BuildContext context,
+    @required ZoneModel zone,
+  }){
+    String _output;
+
+    if (zone != null){
+
+      String _city = '${zone.cityName},';
+      if (zone.cityName == null){
+        _city = '';
+      }
+
+      String _country = zone.countryName;
+      _country ??= CountryModel.translateCountryName(
+          context: context,
+          countryID: zone.countryID,
+      );
+
+      _output = '${xPhrase(context, 'phid_targeting')} : $_city $_country';
+
+    }
+
+    return _output;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -32,10 +63,14 @@ class InfoPageMainDetails extends StatelessWidget {
     )?.time;
     // --------------------
     final String _timeDifferance = Timers.calculateSuperTimeDifferenceString(
-        from: _from,
+      context: context,
+      from: _from,
         to: DateTime.now(),
     );
     // --------------------
+
+    flyerModel.zone.blogZone(methodName: 'eh da fi eh');
+
     return Column(
       key: const ValueKey<String>('InfoPageMainDetails'),
       children: <Widget>[
@@ -44,9 +79,8 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth,
           verse: Verse(
-            text: '##Flyer Type : $_flyerTypePhid',
-            translate: true,
-            variables: _flyerTypePhid,
+            text: '${xPhrase(context, 'phid_flyer_type')} : ${xPhrase(context, _flyerTypePhid)}',
+            translate: false,
           ),
           icon: FlyerTyper.flyerTypeIconOff(flyerModel.flyerType),
           iconSizeFactor: 1,
@@ -57,22 +91,34 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth,
           verse: Verse(
-            text: '##Published $_timeDifferance',
-            translate: true,
-            variables: _timeDifferance,
+            text: '${xPhrase(context, 'phid_since')} $_timeDifferance',
+            translate: false,
           ),
           icon: Iconz.calendar,
         ),
 
         /// ZONE
-        StatsLine(
-          verse: Verse(
-            text: '##Targeting : ${flyerModel.zone?.cityName} , ${flyerModel.zone?.countryName}',
-            translate: true,
-            variables: [flyerModel.zone?.cityName, flyerModel.zone?.countryName]
+        if (flyerModel?.zone != null)
+        FutureBuilder(
+          future: ZoneProtocols.completeZoneModel(
+              context: context,
+              incompleteZoneModel: flyerModel.zone,
           ),
-          icon: flyerModel.zone?.flag,
-          bubbleWidth: pageWidth,
+          initialData: flyerModel.zone,
+          builder: (_, AsyncSnapshot snap){
+
+            final ZoneModel _zone = snap.data;
+
+            return StatsLine(
+              verse: Verse.plain(_getZoneLine(
+                context: context,
+                zone: _zone,
+              )),
+              icon: _zone?.flag ?? Iconz.target,
+              bubbleWidth: pageWidth,
+            );
+
+          },
         ),
 
       ],
