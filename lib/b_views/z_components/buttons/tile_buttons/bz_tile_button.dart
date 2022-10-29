@@ -1,7 +1,10 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class BzTileButton extends StatelessWidget {
@@ -26,14 +29,38 @@ class BzTileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return TileButton(
-      width: width,
-      height: height,
-      color: color,
-      onTap: onTap,
-      icon: bzModel?.logo,
-      verse: Verse.plain(bzModel?.name),
-      secondLine: secondLine,
+    final double _height = height ?? TileButton.defaultHeight;
+
+    return Stack(
+      alignment: Aligners.superCenterAlignment(context),
+      children: <Widget>[
+
+        TileButton(
+          width: width,
+          height: _height,
+          color: color,
+          onTap: onTap,
+          icon: Iconz.dvBlankSVG,
+          verse: Verse.plain(bzModel?.name),
+          secondLine: secondLine,
+          margins: EdgeInsets.zero,
+        ),
+
+        SizedBox(
+          width: _height,
+          height: _height,
+          child: BzLogo(
+            width: _height,
+            isVerified: bzModel?.isVerified,
+            onTap: onTap,
+            zeroCornerIsOn: false,
+            shadowIsOn: true,
+            image: bzModel?.logo,
+          ),
+        ),
+
+      ],
+
     );
 
   }
