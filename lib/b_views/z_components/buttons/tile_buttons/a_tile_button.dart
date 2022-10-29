@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class TileButton extends StatelessWidget {
     this.verse,
     this.secondLine,
     this.iconSizeFactor = 1,
+    this.margins,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -24,6 +26,7 @@ class TileButton extends StatelessWidget {
   final Function onTap;
   final String icon;
   final double iconSizeFactor;
+  final dynamic margins;
   // -----------------------------------------------------------------------------
   static const double defaultHeight = 40;
   // -----------------------------------------------------------------------------
@@ -43,7 +46,9 @@ class TileButton extends StatelessWidget {
       bubble: false,
       color: color,
       onTap: onTap,
-      margins: const EdgeInsets.symmetric(vertical: 5),
+      margins: Scale.superMargins(
+          margins: margins ?? const EdgeInsets.symmetric(vertical: 5),
+      ),
       iconSizeFactor: iconSizeFactor,
     );
 

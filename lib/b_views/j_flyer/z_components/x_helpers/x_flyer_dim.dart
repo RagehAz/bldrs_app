@@ -214,7 +214,12 @@ class FlyerDim {
   }
   // ---------
   static double logoCornerValueByLogoWidth(double logoWidth) {
-    return logoWidth * rBzLogoCorner;
+    if (logoWidth == null){
+      return 0;
+    }
+    else {
+      return logoWidth * rBzLogoCorner;
+    }
   }
   // ---------
   static BorderRadius logoCornersByLogoWidth({
