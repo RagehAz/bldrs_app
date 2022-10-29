@@ -28,7 +28,6 @@ class _GlobalBadgeTestState extends State<GlobalBadgeTest> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

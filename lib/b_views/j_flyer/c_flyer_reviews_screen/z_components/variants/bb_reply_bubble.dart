@@ -1,16 +1,15 @@
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/b_review_bubble.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/bba_review_bubble_balloon.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/c_review_text_column.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/d_review_bubble_button.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/buttons/review_bubble_button.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/a_review_box.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/review_bubble_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
-import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -21,26 +20,28 @@ class BzReplyBubble extends StatelessWidget {
     @required this.boxWidth,
     @required this.reviewModel,
     @required this.flyerModel,
-    @required this.paginatorController,
+    @required this.onReplyOptionsTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double boxWidth;
   final ReviewModel reviewModel;
   final FlyerModel flyerModel;
-  final PaginationController paginatorController;
+  final Function onReplyOptionsTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const double _logoWidth = ReviewBubble.userBalloonSize;
+    const double _logoWidth = ReviewBox.userBalloonSize;
     // --------------------
     final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
       context: context,
       flyerModel: flyerModel,
     );
     // --------------------
-    final double _balloonWidth = boxWidth - _logoWidth - ReviewBubble.spacer * 0.5;
+    final double _balloonWidth = boxWidth - _logoWidth - ReviewBox.spacer * 0.5;
+    // --------------------
+    final bool _isSpecialReview = reviewModel.text == 'Super cool';
     // --------------------
     return SizedBox(
       width: boxWidth,
@@ -63,7 +64,7 @@ class BzReplyBubble extends StatelessWidget {
               ),
 
               /// SPACER
-              const SizedBox(width: ReviewBubble.spacer * 0.5),
+              const SizedBox(width: ReviewBox.spacer * 0.5),
 
               /// REPLY TEXT BOX
               ReviewBubbleBox(
@@ -72,12 +73,45 @@ class BzReplyBubble extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    ReviewTextsColumn(
-                      name: _bzModel?.name ?? '',
-                      timeStamp: reviewModel?.replyTime,
-                      text: reviewModel?.reply,
-                      isCreatorMode: false,
+                    /// USER NAME
+                    SuperVerse(
+                      verse: Verse(
+                        text: _bzModel?.name,
+                        translate: false,
+                      ),
                     ),
+
+                    /// TIME
+                    SuperVerse(
+                      verse: Verse(
+                        text: Timers.calculateSuperTimeDifferenceString(
+                          from: reviewModel.time,
+                          to: DateTime.now(),
+                        ),
+                        translate: false,
+                      ),
+                      weight: VerseWeight.thin,
+                      italic: true,
+                      color: Colorz.white200,
+                      scaleFactor: 0.9,
+                    ),
+
+                    /// TEXT
+                    SuperVerse(
+                      verse: Verse.plain(reviewModel.text),
+                      maxLines: 100,
+                      centered: false,
+                      weight: _isSpecialReview ? VerseWeight.bold : VerseWeight.thin,
+                      scaleFactor: 1.1,
+                      italic: _isSpecialReview,
+                      color: _isSpecialReview ? Colorz.yellow255 : Colorz.white255,
+                    ),
+
+                    /// SPACER
+                    if (_imAuthorInFlyerBz == true)
+                      const SizedBox(
+                        height: 10,
+                      ),
 
                     /// SEPARATOR LINE
                     if (_imAuthorInFlyerBz == true)
@@ -86,7 +120,13 @@ class BzReplyBubble extends StatelessWidget {
                         color: Colorz.white50,
                       ),
 
-                    /// ( REPLY - AGREE ) BUTTONS
+                    /// REPLY OPTIONS BUTTONS
+                    if (_imAuthorInFlyerBz == true)
+                      const SizedBox(
+                        height: 10,
+                      ),
+
+                    /// REPLY OPTIONS BUTTONS
                     if (_imAuthorInFlyerBz == true)
                       SizedBox(
                         width: _balloonWidth,
@@ -97,19 +137,14 @@ class BzReplyBubble extends StatelessWidget {
                             ReviewBubbleButton(
                               count: null,
                               isOn: false,
-                              verse: null,
+                              phid: null,
                               icon: Iconz.more,
-                              onTap: () => onReplyOptions(
-                                context: context,
-                                reviewModel: reviewModel,
-                                paginationController: paginatorController,
-                              ),
+                              onTap: onReplyOptionsTap,
                             ),
 
                           ],
                         ),
                       ),
-
 
                   ],
                 ),

@@ -66,7 +66,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */
@@ -121,7 +120,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           notifier: _canSubmit,
           mounted: mounted,
           value: true,
-          addPostFrameCallBack: false,
         );
       }
 
@@ -131,7 +129,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           notifier: _canSubmit,
           mounted: mounted,
           value: false,
-          addPostFrameCallBack: false,
         );
       }
 
@@ -143,7 +140,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
         notifier: _canSubmit,
         mounted: mounted,
         value: true,
-        addPostFrameCallBack: false,
       );
     }
 

@@ -36,7 +36,6 @@ class _PaginatorTestState extends State<PaginatorTest> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

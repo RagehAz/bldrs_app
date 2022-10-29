@@ -213,7 +213,7 @@ class ReviewModel {
     _value = isIncrementing == true ? _value + 1 : _value - 1;
 
     final ReviewModel _output = reviewModel.copyWith(
-      agrees: _value,
+      agrees: _value < 0 ? 0 : _value,
     );
 
     return _output;

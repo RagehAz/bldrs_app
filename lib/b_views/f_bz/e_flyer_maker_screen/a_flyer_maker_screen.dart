@@ -60,7 +60,6 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

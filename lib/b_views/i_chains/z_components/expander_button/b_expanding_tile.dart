@@ -275,7 +275,6 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       notifier: _isExpanded,
       mounted: mounted,
       value: isExpanded,
-      addPostFrameCallBack: false,
       onFinish: () async {
 
         /// SAVE STATE

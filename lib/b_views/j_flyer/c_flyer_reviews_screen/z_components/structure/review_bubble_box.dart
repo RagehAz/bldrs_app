@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/b_review_bubble.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/a_review_box.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -17,22 +17,22 @@ class ReviewBubbleBox extends StatelessWidget {
   static double clearWidth({
     @required double balloonWidth,
   }){
-    return balloonWidth - (ReviewBubble.spacer * 2);
+    return balloonWidth - (ReviewBox.spacer * 2);
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    const double _spacing = ReviewBubble.spacer;
+    const double _spacing = ReviewBox.spacer;
 
     return Container(
       width: width,
       constraints: const BoxConstraints(
-        minHeight: ReviewBubble.userBalloonSize,
+        minHeight: ReviewBox.userBalloonSize,
       ),
       decoration: const BoxDecoration(
         color: Colorz.white20,
-        borderRadius: ReviewBubble.textBubbleCorners,
+        borderRadius: ReviewBox.textBubbleCorners,
       ),
       padding: const EdgeInsets.all(_spacing),
       alignment: Aligners.superTopAlignment(context),

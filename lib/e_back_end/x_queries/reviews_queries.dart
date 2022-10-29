@@ -44,44 +44,52 @@ FireQueryModel reviewsStreamQuery({
     context: context,
     listen: false,
   );
-  //
-  // final bool _imAuthorInThisBz = AuthorModel.checkUserIsAuthorInThisBz(
-  //     bzID: widget.flyerModel.bzID,
-  //     userModel: _myUserModel
-  // );
-  //
-  // if (_imAuthorInThisBz == true){
-  //   return null;
-  // }
-  // else {
-  return FireQueryModel(
-    collRef: Fire.getSuperCollRef(
-      aCollName: FireColl.flyers,
-      bDocName: flyerID,
-      cSubCollName: FireSubColl.flyers_flyer_reviews,
-    ),
-    limit: 10,
-    orderBy: const QueryOrderBy(
-      fieldName: 'time',
-      descending: false,
-    ),
-    finders: <FireFinder>[
 
-      const FireFinder(
-        field: 'reply',
-        comparison: FireComparison.nullValue,
-        value: true,
+  if (_myUserModel == null){
+    return null;
+  }
+  else {
+
+    //
+    // final bool _imAuthorInThisBz = AuthorModel.checkUserIsAuthorInThisBz(
+    //     bzID: widget.flyerModel.bzID,
+    //     userModel: _myUserModel
+    // );
+    //
+    // if (_imAuthorInThisBz == true){
+    //   return null;
+    // }
+    // else {
+    return FireQueryModel(
+      collRef: Fire.getSuperCollRef(
+        aCollName: FireColl.flyers,
+        bDocName: flyerID,
+        cSubCollName: FireSubColl.flyers_flyer_reviews,
       ),
-
-      FireFinder(
-        field: 'userID',
-        comparison: FireComparison.equalTo,
-        value: _myUserModel.id,
+      limit: 10,
+      orderBy: const QueryOrderBy(
+        fieldName: 'time',
+        descending: false,
       ),
+      finders: <FireFinder>[
 
-    ],
-  );
-  // }
+        const FireFinder(
+          field: 'reply',
+          comparison: FireComparison.nullValue,
+          value: true,
+        ),
+
+        FireFinder(
+          field: 'userID',
+          comparison: FireComparison.equalTo,
+          value: _myUserModel.id,
+        ),
+
+      ],
+    );
+    // }
+
+  }
 
 }
 // -----------------------------------------------------------------------------

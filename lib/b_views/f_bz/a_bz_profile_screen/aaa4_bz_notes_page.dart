@@ -52,7 +52,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

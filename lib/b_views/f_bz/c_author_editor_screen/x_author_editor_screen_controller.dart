@@ -61,7 +61,6 @@ Future<void> prepareAuthorPicForEditing({
     notifier: tempAuthor,
     mounted: mounted,
     value: _tempAuthor,
-    addPostFrameCallBack: false,
   );
 
 }

@@ -47,7 +47,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

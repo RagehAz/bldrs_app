@@ -32,7 +32,6 @@ class _EmailTestScreenState extends State<EmailTestScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

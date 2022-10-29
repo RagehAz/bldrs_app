@@ -26,7 +26,6 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

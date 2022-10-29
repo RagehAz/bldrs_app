@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/local_asset_checker.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -64,16 +63,16 @@ class SuperImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: Colorz.red255, // Colorz.white10,
-      child: const SuperVerse(
-        verse: Verse(
-          text: 'phid_error',
-          translate: true,
-          casing: Casing.lowerCase,
-        ),
-        size: 0,
-        maxLines: 2,
-      ),
+      color: Colorz.white10,
+      // child: const SuperVerse(
+      //   verse: Verse(
+      //     text: 'phid_error',
+      //     translate: true,
+      //     casing: Casing.lowerCase,
+      //   ),
+      //   size: 0,
+      //   maxLines: 2,
+      // ),
     );
   }
   // --------------------

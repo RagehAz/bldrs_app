@@ -28,7 +28,6 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

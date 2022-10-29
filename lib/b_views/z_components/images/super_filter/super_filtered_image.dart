@@ -112,7 +112,6 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

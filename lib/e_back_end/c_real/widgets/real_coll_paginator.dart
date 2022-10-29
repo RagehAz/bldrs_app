@@ -56,7 +56,6 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
@@ -168,7 +167,6 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       notifier: _loading,
       mounted: mounted,
       value: true,
-      addPostFrameCallBack: false,
     );
 
     /// CAN KEEP READING
@@ -214,7 +212,6 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       notifier: _loading,
       mounted: mounted,
       value: false,
-      addPostFrameCallBack: false,
     );
 
   }

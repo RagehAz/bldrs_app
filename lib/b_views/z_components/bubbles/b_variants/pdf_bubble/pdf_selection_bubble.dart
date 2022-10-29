@@ -58,7 +58,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

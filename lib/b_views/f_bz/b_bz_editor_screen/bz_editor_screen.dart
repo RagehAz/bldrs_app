@@ -56,7 +56,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

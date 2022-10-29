@@ -57,7 +57,6 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

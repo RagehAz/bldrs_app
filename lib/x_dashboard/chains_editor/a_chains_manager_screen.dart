@@ -43,7 +43,6 @@ class _ChainsManagerState extends State<ChainsManager> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

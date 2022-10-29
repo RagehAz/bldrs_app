@@ -247,6 +247,7 @@ Future<bool> _preFlyerDeleteCheckups({
         text: 'phid_yes_delete',
         translate: true,
       ),
+      invertButtons: true,
       flyer: flyer,
     );
 

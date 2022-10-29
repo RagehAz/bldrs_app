@@ -142,7 +142,6 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

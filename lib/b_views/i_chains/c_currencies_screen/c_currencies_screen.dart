@@ -52,7 +52,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

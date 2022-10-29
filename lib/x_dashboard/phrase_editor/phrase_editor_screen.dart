@@ -62,7 +62,6 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

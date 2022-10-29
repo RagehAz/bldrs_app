@@ -46,7 +46,6 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

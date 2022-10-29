@@ -65,7 +65,6 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

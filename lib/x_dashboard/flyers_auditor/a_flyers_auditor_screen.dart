@@ -37,7 +37,6 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

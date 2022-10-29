@@ -48,7 +48,6 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

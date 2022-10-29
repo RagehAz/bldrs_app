@@ -60,7 +60,6 @@ Future<void> prepareUserForEditing({
     notifier: tempUser,
     mounted: mounted,
     value: _userModel,
-    addPostFrameCallBack: false,
   );
 
 }

@@ -39,7 +39,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
