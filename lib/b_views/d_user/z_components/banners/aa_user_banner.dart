@@ -12,6 +12,7 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -196,7 +197,7 @@ class UserBanner extends StatelessWidget {
         /// MY BZZ
         if (_userIsAuthor == true)
         FutureBuilder(
-          future: BzProtocols.fetchBzz(context: context, bzzIDs: userModel.myBzzIDs),
+          future: BzProtocols.fetchBzz(context: context, bzzIDs: userModel?.myBzzIDs),
           builder: (_, AsyncSnapshot snap){
 
             final List<BzModel> _bzzModels = snap.data;
@@ -207,6 +208,7 @@ class UserBanner extends StatelessWidget {
               spacing: 5,
               children: <Widget>[
 
+                if (Mapper.checkCanLoopList(_bzzModels) == true)
                 ...List.generate(_bzzModels.length, (index){
 
                   final BzModel _bzModel = _bzzModels[index];

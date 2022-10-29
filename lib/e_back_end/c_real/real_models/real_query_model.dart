@@ -72,7 +72,7 @@ class RealQueryModel{
   }){
     Query _query;
 
-    blog('55555oooo');
+    // blog('55555oooo');
 
     if (queryModel != null){
 
