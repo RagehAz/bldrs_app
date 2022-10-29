@@ -304,6 +304,8 @@ class AuthorModel {
     return _ownersIDs;
   }
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED : WORKS PERFECT
   static int getAuthorGalleryCountFromBzModel({
     @required BzModel bzModel,
@@ -326,6 +328,8 @@ class AuthorModel {
 
     return _authorGalleryCount;
   }
+
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorFromBzByAuthorID({

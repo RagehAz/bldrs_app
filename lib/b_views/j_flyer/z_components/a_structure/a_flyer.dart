@@ -54,16 +54,20 @@ class _FlyerState extends State<Flyer> {
 
         if (widget.flyerModel != null){
 
-          final BzModel _bz = await BzProtocols.fetch(
-            context: context,
-            bzID: widget.flyerModel.bzID,
-          );
+          if (mounted == true){
 
-          setNotifier(
-            notifier: _bzModel,
-            mounted: mounted,
-            value: _bz,
-          );
+            final BzModel _bz = await BzProtocols.fetch(
+              context: context,
+              bzID: widget.flyerModel.bzID,
+            );
+
+            setNotifier(
+              notifier: _bzModel,
+              mounted: mounted,
+              value: _bz,
+            );
+
+          }
 
         }
 

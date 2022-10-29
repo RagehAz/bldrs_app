@@ -14,8 +14,7 @@ class AuthorLabel extends StatelessWidget {
     @required this.authorID,
     @required this.bzModel,
     @required this.showLabel,
-    @required this.authorGalleryCount,
-    @required this.onTap,
+    this.onLabelTap,
     this.labelIsOn = false,
     Key key,
   }) : super(key: key);
@@ -24,11 +23,10 @@ class AuthorLabel extends StatelessWidget {
   final String authorID;
   /// why not pass authorModel => because I need to know bzGalleryCount from bzModel
   final BzModel bzModel;
-  final int authorGalleryCount;
   /// TASK : OPTIMIZE THIS : whats the difference between this and [labelIsOn]
   final bool showLabel;
   final bool labelIsOn;
-  final ValueChanged<String> onTap;
+  final Function onLabelTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,7 +44,7 @@ class AuthorLabel extends StatelessWidget {
     final double _authorLabelVersesWidth = FlyerDim.authorLabelVersesWidth(flyerBoxWidth);
     // --------------------
     return GestureDetector(
-      onTap: showLabel == true ? () => onTap(authorID) : null,
+      onTap: showLabel == true ? onLabelTap : null,
       child: Container(
         height: FlyerDim.authorLabelBoxHeight(
           flyerBoxWidth: flyerBoxWidth,
@@ -122,7 +120,7 @@ class AuthorLabel extends StatelessWidget {
                         verse: FlyerVerses.followersCounters(
                           context: context,
                           followersCount: 0,
-                          authorGalleryCount: authorGalleryCount,
+                          authorGalleryCount: _author?.flyersIDs?.length,
                           bzGalleryCount: bzModel?.flyersIDs?.length ?? 0,
                           showLabel: showLabel,
                         ),

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
@@ -28,11 +29,11 @@ class ReviewViewBubble extends StatelessWidget {
     @required this.onBzReplyOverReview,
     @required this.onReviewAgreeTap,
     @required this.onReplyOptionsTap,
+    @required this.onReplyBzBalloonTap,
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
   final double pageWidth;
-  final ValueChanged<UserModel> onReviewUserBalloonTap;
   final ReviewModel reviewModel;
   final FlyerModel flyerModel;
   final bool isAgreed;
@@ -40,6 +41,8 @@ class ReviewViewBubble extends StatelessWidget {
   final Function onBzReplyOverReview;
   final Function onReviewAgreeTap;
   final Function onReplyOptionsTap;
+  final ValueChanged<UserModel> onReviewUserBalloonTap;
+  final ValueChanged<BzModel> onReplyBzBalloonTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -183,6 +186,7 @@ class ReviewViewBubble extends StatelessWidget {
                 reviewModel: reviewModel,
                 flyerModel: flyerModel,
                 onReplyOptionsTap: onReplyOptionsTap,
+                onReplyBzBalloonTap: onReplyBzBalloonTap,
               ),
 
           ],

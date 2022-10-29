@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -151,8 +153,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _phoneNode.dispose();
     _emailNode.dispose();
 
-    _loading.dispose();
-
     _tempAuthor.dispose();
     _lastTempAuthor.dispose();
 
@@ -163,14 +163,20 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // -----------------------------------------------------------------------------
   Future<void> _onConfirmTap() async {
 
-    _switchOnValidation();
+    Keyboard.closeKeyboard(context);
 
-    await onConfirmAuthorUpdates(
-      context: context,
-      tempAuthor: _tempAuthor,
-      bzModel: widget.bzModel,
-      oldAuthor: widget.author,
-    );
+    await Future.delayed(const Duration(milliseconds: 100), () async {
+
+      _switchOnValidation();
+
+      await onConfirmAuthorUpdates(
+        context: context,
+        tempAuthor: _tempAuthor,
+        bzModel: widget.bzModel,
+        oldAuthor: widget.author,
+      );
+
+    });
 
   }
   // -----------------------------------------------------------------------------
@@ -262,7 +268,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     keyboardTextInputAction: TextInputAction.next,
                     bulletPoints: const <Verse>[
                       Verse(
-                        text: '##This will only change your name inside this Business account',
+                        text: 'phid_author_name_changing_note',
                         translate: true,
                       ),
                     ],

@@ -27,7 +27,7 @@ class ReviewProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<ReviewModel> composeReview({
     @required BuildContext context,
     @required ReviewModel reviewModel,
@@ -132,7 +132,7 @@ class ReviewProtocols {
   /// REVIEW AGREE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<ReviewModel> agreeOnReview({
     @required ReviewModel reviewModel,
     @required bool isAgreed,
@@ -161,7 +161,7 @@ class ReviewProtocols {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<ReviewModel> _addAgree({
   @required ReviewModel reviewModel,
 }) async {
@@ -193,7 +193,7 @@ class ReviewProtocols {
     return _updated;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<ReviewModel> _removeAgree({
     @required ReviewModel reviewModel,
   }) async {

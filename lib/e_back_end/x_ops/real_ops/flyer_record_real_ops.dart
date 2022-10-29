@@ -220,7 +220,7 @@ class FlyerRecordRealOps {
   // --------------------
   /// REVIEWS CREATION
   // -------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> reviewCreation({
     @required ReviewModel reviewModel,
     @required String bzID,
