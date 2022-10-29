@@ -312,6 +312,7 @@ class RecordModel {
   /// MODIFIERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<RecordModel> insertRecordToRecords({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -329,6 +330,7 @@ class RecordModel {
     return records;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<RecordModel> insertRecordsToRecords({
     @required List<RecordModel> originalRecords,
     @required List<RecordModel> addRecords,
@@ -339,7 +341,42 @@ class RecordModel {
     if (Mapper.checkCanLoopList(addRecords)){
 
       for (final RecordModel record in addRecords){
-        _output = insertRecordToRecords(records: originalRecords, record: record);
+        _output = insertRecordToRecords(
+            records: originalRecords,
+            record: record,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<RecordModel> cleanDuplicateUsers({
+    @required List<RecordModel> records,
+  }){
+    List<RecordModel> _output = <RecordModel>[];
+
+    if (Mapper.checkCanLoopList(records) == true){
+
+      for (final RecordModel rec in records){
+
+        final bool _contains = recordsContainUserID(
+            records: _output,
+            userID: rec.userID,
+        );
+
+        if (_contains == true){
+          // do nothing
+        }
+        else {
+          _output = insertRecordToRecords(
+              records: _output,
+              record: rec,
+          );
+        }
+
       }
 
     }
@@ -351,6 +388,7 @@ class RecordModel {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool recordsContainRecord({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -372,6 +410,29 @@ class RecordModel {
     }
 
     return _contains;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool recordsContainUserID({
+    @required List<RecordModel> records,
+    @required String userID,
+  }){
+    bool _includes = false;
+
+    if (Mapper.checkCanLoopList(records) == true){
+
+      final int _index = records.indexWhere((element) => element.userID == userID);
+
+      if (_index == -1){
+        _includes = false;
+      }
+      else {
+        _includes = true;
+      }
+
+    }
+
+    return _includes;
   }
   // -----------------------------------------------------------------------------
 

@@ -52,9 +52,13 @@ class FlyerRecordsBox extends StatelessWidget {
             scrollController: ScrollController(),
             builder: (_, List<Map<String, dynamic>> maps, bool loading, Widget child){
 
-              final List<RecordModel> _records = RecordModel.decipherRecords(
+              List<RecordModel> _records = RecordModel.decipherRecords(
                 maps: maps,
                 fromJSON: true,
+              );
+
+              _records = RecordModel.cleanDuplicateUsers(
+                records: _records,
               );
 
               return Container(

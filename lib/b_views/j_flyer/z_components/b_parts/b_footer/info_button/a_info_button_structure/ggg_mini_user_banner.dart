@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 class MiniUserBanner extends StatelessWidget {
@@ -26,7 +27,10 @@ class MiniUserBanner extends StatelessWidget {
           width: size,
           icon: userModel?.pic,
           margins: Scale.constantHorizontal5,
-          onTap: (){},
+          onTap: () => Nav.jumpToUserPreviewScreen(
+              context: context,
+              userID: userModel.id,
+          ),
         ),
 
         SizedBox(

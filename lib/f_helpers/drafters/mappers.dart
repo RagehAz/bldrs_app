@@ -182,7 +182,7 @@ class Mapper {
 
     if (snapshot.exists) {
 
-      blog('snapshot type : ${snapshot.value.runtimeType}');
+      // blog('snapshot type : ${snapshot.value.runtimeType}');
 
       // if (snapshot.value.runtimeType.toString() == 'List<Object?>'){
 
