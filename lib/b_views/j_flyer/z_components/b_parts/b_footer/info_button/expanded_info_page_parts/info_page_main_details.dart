@@ -69,8 +69,6 @@ class InfoPageMainDetails extends StatelessWidget {
     );
     // --------------------
 
-    flyerModel.zone.blogZone(methodName: 'eh da fi eh');
-
     return Column(
       key: const ValueKey<String>('InfoPageMainDetails'),
       children: <Widget>[
