@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
@@ -40,7 +41,11 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> closDialog(BuildContext context) async {
-    await Nav.goBack(context: context, invoker: 'closeDialog');
+    await Nav.goBack(
+      context: context,
+      invoker: 'closeDialog',
+      addPostFrameCallback: true,
+    );
   }
   // -----------------------------------------------------------------------------
 
@@ -478,6 +483,7 @@ class Dialogs {
     return _password.text;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<String> keyboardDialog({
     @required BuildContext context,
     KeyboardModel keyboardModel,

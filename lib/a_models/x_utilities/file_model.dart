@@ -95,15 +95,17 @@ class FileModel {
 
       final File _file = await Filers.getFileFromURL(url);
 
-      _model = FileModel(
-        url: url,
-        file: _file,
-        size: Filers.getFileSizeInMb(_file),
-        fileName: fileName ?? Filers.getFileNameFromFile(
+      // if (_file != null){
+        _model = FileModel(
+          url: url,
           file: _file,
-          withExtension: true,
-        ),
-      );
+          size: Filers.getFileSizeInMb(_file),
+          fileName: fileName ?? Filers.getFileNameFromFile(
+            file: _file,
+            withExtension: true,
+          ),
+        );
+      // }
 
     }
 

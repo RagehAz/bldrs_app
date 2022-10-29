@@ -340,19 +340,17 @@ class Filers {
     File _file;
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
-      // blog('getFileFromURL : START');
 
       /// call http.get method and pass imageUrl into it to get response.
       final http.Response _response = await Rest.get(
         context: null,
         rawLink: url,
-        showErrorDialog: true,
+        showErrorDialog: false,
         // timeout: 60,
         invoker: 'getFileFromURL',
       );
-      // blog('getFileFromURL : _response : $_response');
 
-      if (_response != null){
+      if (_response != null && _response.statusCode == 200){
 
         /// generate random number.
         final Random _rng = Random();
@@ -379,7 +377,6 @@ class Filers {
         /// temporary directory and image bytes from response is written to // that file.
 
       }
-
 
     }
 

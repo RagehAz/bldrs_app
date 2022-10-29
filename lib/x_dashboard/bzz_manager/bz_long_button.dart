@@ -171,8 +171,6 @@ class BzLongButton extends StatelessWidget {
                                     bzModel: bzModel,
                                     showLabel: true,
                                     labelIsOn: true,
-                                    authorGalleryCount: _author.flyersIDs.length,
-                                    onTap: null,
                                   ),
                                 );
 

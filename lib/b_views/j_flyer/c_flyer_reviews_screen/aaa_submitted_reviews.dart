@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
@@ -197,10 +198,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                         pageWidth : widget.pageWidth,
                         reviewModel: _reviewModel,
                         isAgreed: _isAlreadyAgreed,
-                        onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
-                          context: context,
-                          userModel: userModel,
-                        ),
+
                         onReviewOptionsTap: () => onReviewOptions(
                           context: context,
                           reviewModel: _reviewModel,
@@ -223,6 +221,14 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                           isAgreed: _isAlreadyAgreed,
                           reviewModel: _reviewModel,
                           paginationController: _paginationController,
+                        ),
+                        onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
+                          context: context,
+                          userModel: userModel,
+                        ),
+                        onReplyBzBalloonTap: (BzModel bzModel) => onReplyBzBalloonTap(
+                          context: context,
+                          bzModel: bzModel,
                         ),
                       );
 

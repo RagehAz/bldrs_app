@@ -288,14 +288,13 @@ Future<void> onConfirmAuthorUpdates({
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_confirm_edits',
+      text: 'phid_confirm_edits_?',
       translate: true,
     ),
-    bodyVerse: Verse(
-      text: '##This will only edit your details as author in ${bzModel.name} '
-          'business account, and will not impact your personal profile',
+    bodyVerse: const Verse(
+      text: 'phid_confirm_author_edits_note',
+      pseudo: 'This will only update your details in this business account, and will not impact your personal profile',
       translate: true,
-      variables: bzModel.name,
     ),
     boolDialog: true,
     confirmButtonVerse: const Verse(
