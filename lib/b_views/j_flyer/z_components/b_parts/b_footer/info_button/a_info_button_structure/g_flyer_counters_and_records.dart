@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/gg_flyer_record_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,8 @@ class FlyerCountersAndRecords extends StatelessWidget {
         valueListenable: flyerCounter,
         builder: (_, FlyerCounterModel counter, Widget child){
 
+          counter.blogCounter();
+
           if (counter == null){
             return const SizedBox();
           }
@@ -45,39 +48,27 @@ class FlyerCountersAndRecords extends StatelessWidget {
                 if (counter != null && _saves > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
-                    headlineVerse: Verse(
-                      text: '##$_saves Total flyer saves',
-                      translate: true,
-                      variables: _saves,
-                    ),
+                    headlineVerse: Verse.plain('$_saves ${xPhrase(context, 'phid_totalSaves')}'),
                     icon: Iconz.saveOn,
-                    realNodePath: 'saves/${flyerModel.id}/',
+                    realNodePath: '${RealColl.recordingSaves}/${flyerModel.id}/',
                   ),
 
                 /// SHARES
                 if (counter != null && _shares > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
-                    headlineVerse: Verse(
-                      text: '##$_shares Total shares',
-                      translate: true,
-                      variables: _shares,
-                    ),
+                    headlineVerse: Verse.plain('$_shares ${xPhrase(context, 'phid_totalShares')}'),
                     icon: Iconz.share,
-                    realNodePath: 'shares/${flyerModel.id}/',
+                    realNodePath: '${RealColl.recordingShares}/${flyerModel.id}/',
                   ),
 
                 /// VIEWS
                 if (counter != null && _views > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
-                    headlineVerse: Verse(
-                      text: '$_views ${xPhrase(context, 'phid_totalViews')}',
-                      translate: false,
-                      variables: _views,
-                    ),
+                    headlineVerse: Verse.plain('$_views ${xPhrase(context, 'phid_totalViews')}'),
                     icon: Iconz.viewsIcon,
-                    realNodePath: 'views/${flyerModel.id}/',
+                    realNodePath: '${RealColl.recordingViews}/${flyerModel.id}/',
                   ),
 
               ],
