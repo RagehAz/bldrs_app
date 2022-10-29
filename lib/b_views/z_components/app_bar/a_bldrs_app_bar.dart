@@ -27,6 +27,7 @@ class BldrsAppBar extends StatelessWidget {
     this.sectionButtonIsOn,
     this.searchController,
     this.onSearchSubmit,
+    this.onPaste,
     this.onSearchChanged,
     this.historyButtonIsOn,
     this.searchHintVerse,
@@ -45,6 +46,7 @@ class BldrsAppBar extends StatelessWidget {
   final bool sectionButtonIsOn;
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
+  final ValueChanged<String> onPaste;
   final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
   final Verse searchHintVerse;
@@ -320,6 +322,7 @@ class BldrsAppBar extends StatelessWidget {
                   SearchBar(
                     searchController: searchController,
                     onSearchSubmit: onSearchSubmit,
+                    onPaste: onPaste,
                     searchIconIsOn: historyButtonIsOn,
                     onSearchChanged: onSearchChanged,
                     hintVerse: searchHintVerse,

@@ -26,6 +26,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.appBarScrollController,
     @required this.searchController,
     @required this.onSearchSubmit,
+    @required this.onPaste,
     @required this.onSearchChanged,
     @required this.sectionButtonIsOn,
     @required this.historyButtonIsOn,
@@ -51,6 +52,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final ScrollController appBarScrollController;
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
+  final ValueChanged<String> onPaste;
   final ValueChanged<String> onSearchChanged;
   final bool pyramidsAreOn;
   final bool historyButtonIsOn;
@@ -134,6 +136,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             sectionButtonIsOn: sectionButtonIsOn,
             searchController: searchController,
             onSearchSubmit: onSearchSubmit,
+            onPaste: onPaste,
             onSearchChanged: onSearchChanged,
             historyButtonIsOn: historyButtonIsOn,
             searchHintVerse: searchHintVerse,
