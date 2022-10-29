@@ -32,7 +32,6 @@ linter:
     always_require_non_null_named_parameters: true
     cancel_subscriptions: true
     annotate_overrides: true
-    avoid_bool_literals_in_conditional_expressions: true
     avoid_catches_without_on_clauses: true
     avoid_catching_errors: true
     avoid_classes_with_only_static_members: true
@@ -177,6 +176,7 @@ linter:
     diagnostic_describe_all_properties: false
 
     # ----- FALSE RULES : defiantly false rules
+    avoid_bool_literals_in_conditional_expressions: false # no i will not create long methods to define bool values
     prefer_relative_imports: false
     avoid_types_on_closure_parameters: false # incompatible with always_specify_types
     omit_local_variable_types: false # incompatible with always_specify_types

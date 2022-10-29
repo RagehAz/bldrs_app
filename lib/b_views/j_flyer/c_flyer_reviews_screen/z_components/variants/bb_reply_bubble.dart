@@ -21,6 +21,7 @@ class BzReplyBubble extends StatelessWidget {
     @required this.reviewModel,
     @required this.flyerModel,
     @required this.onReplyOptionsTap,
+    @required this.onReplyBzBalloonTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class BzReplyBubble extends StatelessWidget {
   final ReviewModel reviewModel;
   final FlyerModel flyerModel;
   final Function onReplyOptionsTap;
+  final ValueChanged<BzModel> onReplyBzBalloonTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,10 @@ class BzReplyBubble extends StatelessWidget {
     return SizedBox(
       width: boxWidth,
       child: FutureBuilder(
-        future: BzProtocols.fetchBzByFlyerID(context: context, flyerID: reviewModel?.flyerID),
+        future: BzProtocols.fetchBzByFlyerID(
+            context: context,
+            flyerID: reviewModel?.flyerID,
+        ),
         builder: (_, AsyncSnapshot<Object> snapshot){
 
           final BzModel _bzModel = snapshot.data;
@@ -61,6 +66,7 @@ class BzReplyBubble extends StatelessWidget {
                 image: _bzModel?.logo,
                 isVerified: _bzModel?.isVerified,
                 zeroCornerIsOn: true,
+                onTap: () => onReplyBzBalloonTap(_bzModel),
               ),
 
               /// SPACER
@@ -73,7 +79,7 @@ class BzReplyBubble extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    /// USER NAME
+                    /// BZ NAME
                     SuperVerse(
                       verse: Verse(
                         text: _bzModel?.name,
@@ -85,7 +91,7 @@ class BzReplyBubble extends StatelessWidget {
                     SuperVerse(
                       verse: Verse(
                         text: Timers.calculateSuperTimeDifferenceString(
-                          from: reviewModel.time,
+                          from: reviewModel.replyTime,
                           to: DateTime.now(),
                         ),
                         translate: false,
@@ -98,7 +104,7 @@ class BzReplyBubble extends StatelessWidget {
 
                     /// TEXT
                     SuperVerse(
-                      verse: Verse.plain(reviewModel.text),
+                      verse: Verse.plain(reviewModel.reply),
                       maxLines: 100,
                       centered: false,
                       weight: _isSpecialReview ? VerseWeight.bold : VerseWeight.thin,

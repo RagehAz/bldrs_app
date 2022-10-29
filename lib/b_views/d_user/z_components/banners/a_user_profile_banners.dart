@@ -54,6 +54,8 @@ class UserProfileBanners extends StatelessWidget {
       listen: true,
     );
 
+    final bool _editorMode = userModel == null;
+
     return Column(
       children: <Widget>[
 
@@ -63,7 +65,10 @@ class UserProfileBanners extends StatelessWidget {
         ),
 
         /// USER NEEDS BANNER
-        const UserNeedsBanner(),
+        UserNeedsBanner(
+          userModel: _userModel,
+          editorMode: _editorMode,
+        ),
 
         /// CONTACTS
         if (showContacts == true)

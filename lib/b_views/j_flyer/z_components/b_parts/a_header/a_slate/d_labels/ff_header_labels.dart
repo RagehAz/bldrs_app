@@ -49,9 +49,7 @@ class HeaderLabels extends StatelessWidget {
                 authorID: authorID,
                 bzModel: bzModel,
                 showLabel: headerIsExpanded,
-                authorGalleryCount: 0, // is not needed here
                 labelIsOn: true,
-                onTap: null,
               ),
 
           ],

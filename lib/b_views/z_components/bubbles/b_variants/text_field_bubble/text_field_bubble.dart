@@ -14,7 +14,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-export 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
