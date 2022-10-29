@@ -76,7 +76,7 @@ class AuthorModel {
     return _tempAuthor;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static AuthorModel bakeEditorVariablesToUpload({
     @required AuthorModel tempAuthor,
     @required AuthorModel oldAuthor,
