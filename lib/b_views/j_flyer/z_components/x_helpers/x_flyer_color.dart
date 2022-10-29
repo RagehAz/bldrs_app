@@ -58,6 +58,7 @@ class FlyerColors {
   // --------------------
   static List<BoxShadow> logoShadows(double logoWidth){
     return <BoxShadow>[
+      if (logoWidth != null)
       CustomBoxShadow(
           color: Colorz.black200,
           blurRadius: logoWidth * 0.15,

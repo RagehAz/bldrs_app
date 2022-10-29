@@ -1,16 +1,21 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x4_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/buttons/tile_buttons/bz_tile_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -100,6 +105,8 @@ class UserBanner extends StatelessWidget {
     null : () => onEditProfileTap(context);
     // --------------------
     final bool _itIsMe = userModel?.id == AuthFireOps.superUserID();
+
+    final bool _userIsAuthor = UserModel.checkUserIsAuthor(userModel);
     // --------------------
     return Bubble(
       headerViewModel: const BubbleHeaderVM(),
@@ -166,18 +173,60 @@ class UserBanner extends StatelessWidget {
           color: Colorz.grey255,
         ),
 
-        /// AUTHORSHIP LINE
-        if (UserModel.checkUserIsAuthor(userModel) == true)
-          SuperVerse(
+        /// SEPARATOR
+        if (_userIsAuthor == true)
+        SeparatorLine(
+          width: Bubble.clearWidth(context) * 0.5,
+          withMargins: true,
+        ),
+
+        /// AUTHOR IN STRING
+        if (_userIsAuthor == true)
+          const SuperVerse(
             verse: Verse(
-              text: '##Author in ${getBzzString(userModel: userModel)}',
+              text: 'phid_author_in',
               translate: true,
-              variables: getBzzString(userModel: userModel),
             ),
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.grey255,
+            margin: EdgeInsets.only(bottom: 10),
           ),
+
+        /// MY BZZ
+        if (_userIsAuthor == true)
+        FutureBuilder(
+          future: BzProtocols.fetchBzz(context: context, bzzIDs: userModel.myBzzIDs),
+          builder: (_, AsyncSnapshot snap){
+
+            final List<BzModel> _bzzModels = snap.data;
+
+            return Wrap(
+              alignment: WrapAlignment.center,
+              runSpacing: 5,
+              spacing: 5,
+              children: <Widget>[
+
+                ...List.generate(_bzzModels.length, (index){
+
+                  final BzModel _bzModel = _bzzModels[index];
+
+                  return BzTileButton(
+                    bzModel: _bzModel,
+                    height: 50,
+                    onTap: () => Nav.jumpToBzPreviewScreen(
+                        context: context,
+                        bzID: _bzModel.id,
+                    ),
+                  );
+
+                }),
+
+              ],
+            );
+
+            },
+        ),
 
         /// PADDING
         const SizedBox(

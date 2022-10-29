@@ -163,7 +163,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required double iconMargin,
   }){
 
-    return verseHorizontalMargin + iconMargin;
+    return verseHorizontalMargin + iconMargin
+    // + 5 // bugs the shit out of all buttons without icon
+    ;
 
   }
   // --------------------
@@ -333,7 +335,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
             ),
           ),
 
-        /// --- SPACING
+        /// --- VERSE LEFT SPACING
         if (verse != null)
           SizedBox(
             // color: Colorz.bloodTest,
@@ -419,7 +421,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
             ),
           ),
 
-        /// --- SPACING
+        /// --- VERSE RIGHT SPACING
         if (verse != null)
           SizedBox(
             // color: Colorz.bloodTest,
