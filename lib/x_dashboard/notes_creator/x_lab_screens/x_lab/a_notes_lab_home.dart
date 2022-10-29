@@ -31,7 +31,6 @@ class _NotesLabHomeState extends State<NotesLabHome> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

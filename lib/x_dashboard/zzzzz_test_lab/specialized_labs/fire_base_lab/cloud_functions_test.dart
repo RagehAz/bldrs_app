@@ -43,7 +43,6 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
 // -----------------------------------------------------------------------------

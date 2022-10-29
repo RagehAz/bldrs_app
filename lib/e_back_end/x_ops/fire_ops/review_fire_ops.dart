@@ -26,23 +26,20 @@ class ReviewFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> createReview({
-    @required String text,
-    @required String flyerID,
+    @required ReviewModel reviewModel,
   }) async {
 
-    final ReviewModel _review = ReviewModel.createNewReview(
-      text: text,
-      flyerID: flyerID,
-    );
+    assert(reviewModel != null,'review model is null');
+    assert(reviewModel.flyerID != null, 'review flyerID is null');
 
     final DocumentReference<Object> _ref = await Fire.createSubDoc(
       collName: FireColl.flyers,
-      docName: flyerID,
+      docName: reviewModel.flyerID,
       subCollName: FireSubColl.flyers_flyer_reviews,
-      input: _review.toMap(),
+      input: reviewModel.toMap(),
     );
 
-    return _review.copyWith(id: _ref?.id);
+    return reviewModel.copyWith(id: _ref?.id);
   }
   // -----------------------------------------------------------------------------
 

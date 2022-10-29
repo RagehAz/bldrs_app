@@ -56,7 +56,6 @@ class _PickerScreenState extends State<PickerScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

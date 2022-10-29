@@ -36,7 +36,6 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

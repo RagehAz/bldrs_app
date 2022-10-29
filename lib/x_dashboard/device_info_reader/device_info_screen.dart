@@ -38,7 +38,6 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

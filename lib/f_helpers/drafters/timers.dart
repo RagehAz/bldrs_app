@@ -272,10 +272,11 @@ class Timers {
   }){
     final String _day = '${time.day}';
     final String _monthPhid = getMonthPhidByInt(context, time.month);
+    final String _month = xPhrase(context, _monthPhid);
     final String _year = '${time.year}';
     final String _on = xPhrase(context, 'phid_on_4date');
 
-    return '$_on $_day ${xPhrase(context, _monthPhid)} $_year';
+    return '$_on $_day $_month $_year';
   }
   // --------------------
   /// GENERATES => [ 'dd month yyyy' ]
@@ -285,8 +286,9 @@ class Timers {
   }){
     final String _day = '${time.day}';
     final String _monthPhid = getMonthPhidByInt(context, time.month);
+    final String _month = xPhrase(context, _monthPhid);
     final String _year = '${time.year}';
-    return '$_day ${xPhrase(context, _monthPhid)} $_year';
+    return '$_day $_month $_year';
   }
   // --------------------
   /// GENERATES => [ 'dd / MM / yyyy' ]
@@ -319,7 +321,7 @@ class Timers {
       _output = '${xPhrase( context, 'phid_inn')} '
                 '${Words.bldrsShortName(context)} '
                 '${xPhrase( context, 'phid_since')} : '
-                '${getMonthPhidByInt(context, time.month)} '
+                '${xPhrase(context, getMonthPhidByInt(context, time.month))} '
                 '${time.year}';
     }
 
@@ -343,7 +345,7 @@ class Timers {
                 '${xPhrase( context, 'phid_phid_bldrsShortName')} '
                 '${xPhrase( context, 'phid_since')} : '
                 '${time.day} '
-                '${getMonthPhidByInt(context, time.month)} '
+                '${xPhrase(context, getMonthPhidByInt(context, time.month))} '
                 '${time.year}';
     }
 

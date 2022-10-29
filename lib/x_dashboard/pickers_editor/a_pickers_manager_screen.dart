@@ -35,7 +35,6 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

@@ -101,7 +101,6 @@ class _GoBackWidgetState extends State<GoBackWidget> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
 // -----------------------------------------------------------------------------

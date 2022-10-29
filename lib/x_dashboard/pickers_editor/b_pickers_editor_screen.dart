@@ -51,7 +51,6 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

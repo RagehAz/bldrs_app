@@ -87,7 +87,6 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

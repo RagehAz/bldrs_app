@@ -50,7 +50,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

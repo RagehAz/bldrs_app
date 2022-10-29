@@ -165,7 +165,6 @@ class PaginationController {
         notifier: paginatorMaps,
         mounted: mounted,
         value: _combinedMaps,
-        addPostFrameCallBack: false,
       );
 
       _setStartAfter(
@@ -220,7 +219,6 @@ class PaginationController {
         notifier: controller.paginatorMaps,
         mounted: mounted,
         value: _updatedMaps,
-        addPostFrameCallBack: false,
       );
 
       _setStartAfter(
@@ -229,6 +227,15 @@ class PaginationController {
       );
 
     }
+
+  }
+  // ---------
+  /// TESTED : WORKS PERFECT
+  void replaceMapByID({
+    @required Map<String, dynamic> map,
+  }){
+
+    replaceMap.value = map;
 
   }
   // --------------------------------
@@ -272,7 +279,6 @@ class PaginationController {
         notifier: paginatorMaps,
         mounted: mounted,
         value: _updatedMaps,
-        addPostFrameCallBack: false,
       );
 
       _setStartAfter(
@@ -417,7 +423,6 @@ class PaginationController {
       notifier: controller.paginatorMaps,
       mounted: mounted,
       value: maps,
-      addPostFrameCallBack: false,
     );
 
     _setStartAfter(

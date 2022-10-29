@@ -43,7 +43,6 @@ class _StreamingTestState extends State<StreamingTest> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

@@ -62,7 +62,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

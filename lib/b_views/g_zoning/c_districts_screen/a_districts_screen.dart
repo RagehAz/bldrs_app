@@ -47,7 +47,6 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

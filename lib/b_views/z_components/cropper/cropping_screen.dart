@@ -65,7 +65,6 @@ class _CroppingScreenState extends State<CroppingScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

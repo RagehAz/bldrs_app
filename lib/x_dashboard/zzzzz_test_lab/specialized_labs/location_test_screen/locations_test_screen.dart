@@ -54,7 +54,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
 // -----------------------------------------------------------------------------

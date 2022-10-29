@@ -100,7 +100,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

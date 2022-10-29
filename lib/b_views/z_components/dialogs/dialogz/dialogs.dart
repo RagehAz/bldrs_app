@@ -891,6 +891,7 @@ class Dialogs {
     @required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
+    bool invertButtons = false,
   }) async {
 
     final double _screenHeight = Scale.superScreenHeight(context);
@@ -904,6 +905,7 @@ class Dialogs {
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
       height: _dialogHeight,
+      invertButtons: invertButtons,
       child: SizedBox(
         height: _flyerBoxHeight,
         child: AbsorbPointer(

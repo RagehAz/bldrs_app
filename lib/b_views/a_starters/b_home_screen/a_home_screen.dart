@@ -43,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

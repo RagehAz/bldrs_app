@@ -79,7 +79,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
@@ -109,7 +108,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
           heroPath: widget.heroPath,
         ),
       ),
-      addPostFrameCallBack: false,
     );
 
     blog('progModel : '
@@ -151,7 +149,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
           notifier: _bzCounters,
           mounted: mounted,
           value: BzCounterModel.createInitialModel(widget.bzModel.id),
-          addPostFrameCallBack: false,
         );
 
         if (mounted == true){
@@ -252,7 +249,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       notifier: _followIsOn,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // --------------------

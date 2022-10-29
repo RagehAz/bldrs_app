@@ -14,6 +14,7 @@ import 'package:bldrs/e_back_end/x_ops/real_ops/bz_record_real_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/flyer_record_real_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/review_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class ReviewProtocols {
@@ -26,11 +27,10 @@ class ReviewProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<ReviewModel> composeReview({
     @required BuildContext context,
-    @required String text,
-    @required String flyerID,
+    @required ReviewModel reviewModel,
     @required String bzID,
   }) async {
 
@@ -43,22 +43,20 @@ class ReviewProtocols {
     await Future.wait(<Future>[
 
       ReviewFireOps.createReview(
-        text: text,
-        flyerID: flyerID,
-      ).then((ReviewModel uploadedReview){
-        _uploadedReview = uploadedReview;
-    }),
+        reviewModel: reviewModel,
+      ).then((ReviewModel reviewModel){
+        _uploadedReview = reviewModel;
+      }),
 
       FlyerRecordRealOps.reviewCreation(
-        review: text,
-        flyerID: flyerID,
+        reviewModel: reviewModel,
         bzID: bzID,
       ),
 
       NoteEvent.sendFlyerReceivedNewReviewByMe(
         context: context,
-        text: text,
-        flyerID: flyerID,
+        text: reviewModel.text,
+        flyerID: reviewModel.flyerID,
         bzID: bzID,
       ),
 
@@ -69,14 +67,11 @@ class ReviewProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ReviewModel> composeReviewReply({
+  static Future<void> composeReviewReply({
     @required BuildContext context,
-    @required String reply,
     @required String bzID,
-    @required ReviewModel reviewModel,
+    @required ReviewModel updatedReview,
   }) async {
-
-    ReviewModel _updated = reviewModel.copyWith();
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
@@ -90,12 +85,6 @@ class ReviewProtocols {
 
     if (_imAuthorOfThisBz == true){
 
-      _updated = reviewModel.copyWith(
-        reply: reply,
-        replyAuthorID: AuthFireOps.superUserID(),
-        replyTime: DateTime.now(),
-      );
-
       final BzModel _bzModel = await BzProtocols.fetch(
         context: context,
         bzID: bzID,
@@ -104,21 +93,20 @@ class ReviewProtocols {
       await Future.wait(<Future>[
 
         ReviewProtocols.renovateReview(
-          reviewModel: _updated,
+          reviewModel: updatedReview,
         ),
 
         NoteEvent.sendFlyerReviewReceivedBzReply(
           context: context,
-          reply: reply,
+          reply: updatedReview.reply,
           bzModel: _bzModel,
-          reviewCreatorID: reviewModel.userID,
+          reviewCreatorID: updatedReview.userID,
         ),
 
       ]);
 
     }
 
-    return _updated;
   }
   // -----------------------------------------------------------------------------
 
@@ -147,41 +135,101 @@ class ReviewProtocols {
   ///
   static Future<ReviewModel> agreeOnReview({
     @required ReviewModel reviewModel,
-    @required bool isAlreadyAgreed,
+    @required bool isAgreed,
   }) async {
 
+    ReviewModel _output = reviewModel;
+
+    if (reviewModel != null && isAgreed != null){
+
+      /// AGREE : was false and to be true
+      if (isAgreed == false){
+        _output = await _addAgree(
+            reviewModel: reviewModel,
+        );
+      }
+
+      /// REMOVE AGREE : was true and to be false
+      else {
+        _output = await _removeAgree(
+          reviewModel: reviewModel,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static Future<ReviewModel> _addAgree({
+  @required ReviewModel reviewModel,
+}) async {
+
+    /// UPDATE MODEL
     final ReviewModel _updated = ReviewModel.incrementAgrees(
       reviewModel: reviewModel,
-      isIncrementing: !isAlreadyAgreed,
+      isIncrementing: true,
     );
 
-    await ReviewProtocols.renovateReview(
-      reviewModel: _updated,
-    );
+    /// FIRE AND REAL UPDATES
+    await Future.wait(<Future>[
 
-    /// remove user ID from (review agrees list)
-    if (isAlreadyAgreed == true){
-      await Real.deleteField(
-        collName: RealColl.agreesOnReviews,
-        docName: reviewModel.id,
-        fieldName: AuthFireOps.superUserID(),
-      );
-    }
-    /// add user id to (review agrees list)
-    else {
-      await Real.updateDocField(
+      /// RENOVATE FIRE DOC
+      ReviewProtocols.renovateReview(
+        reviewModel: _updated,
+      ),
+
+      /// ADD MY ID IN REVIEW AGREES LIST
+      Real.updateDocField(
         collName: RealColl.agreesOnReviews,
         docName: reviewModel.id,
         fieldName: AuthFireOps.superUserID(),
         value: true,
-      );
-    }
+      ),
+
+    ]);
+
+    return _updated;
+  }
+  // --------------------
+  ///
+  static Future<ReviewModel> _removeAgree({
+    @required ReviewModel reviewModel,
+  }) async {
+
+    blog('_removeAgree : START');
+
+    /// UPDATE MODEL
+    final ReviewModel _updated = ReviewModel.incrementAgrees(
+      reviewModel: reviewModel,
+      isIncrementing: false,
+    );
+
+    /// FIRE AND REAL UPDATES
+    await Future.wait(<Future>[
+
+      /// RENOVATE FIRE DOC
+      ReviewProtocols.renovateReview(
+        reviewModel: _updated,
+      ),
+
+      /// REMOVE ID IN REVIEW AGREES LIST
+      Real.deleteField(
+        collName: RealColl.agreesOnReviews,
+        docName: reviewModel.id,
+        fieldName: AuthFireOps.superUserID(),
+      ),
+
+    ]);
+
+    blog('_removeAgree : end');
 
     return _updated;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> fetchIsAgreed({
+  static Future<bool> readIsAgreed({
     @required String reviewID,
   }) async {
 

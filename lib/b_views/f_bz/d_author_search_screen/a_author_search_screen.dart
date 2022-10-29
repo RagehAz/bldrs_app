@@ -33,7 +33,6 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   */
