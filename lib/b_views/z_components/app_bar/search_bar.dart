@@ -20,6 +20,7 @@ class SearchBar extends StatefulWidget {
     @required this.globalKey,
     this.searchController,
     this.onSearchChanged,
+    this.onPaste,
     // this.boxWidth,
     this.hintVerse,
     this.height,
@@ -29,6 +30,7 @@ class SearchBar extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
+  final ValueChanged<String> onPaste;
   final ValueChanged<String> onSearchChanged;
   final bool searchIconIsOn;
   // final double boxWidth;
@@ -189,7 +191,7 @@ class _SearchBarState extends State<SearchBar> {
           /// MIDDLE SPACER
           // if (widget.searchIconIsOn == true)
 
-          /// SEARCH SUBMIT
+          /// PASTE BUTTON
           if (widget.searchIconIsOn == true)
             ValueListenableBuilder(
                 valueListenable: _searchTextController,
@@ -218,6 +220,9 @@ class _SearchBarState extends State<SearchBar> {
                           }
                           else {
                             await TextMod.controllerPaste(_searchTextController);
+                            if (widget.onPaste != null){
+                              widget.onPaste(_searchTextController.text);
+                            }
                           }
 
                         },
@@ -227,7 +232,6 @@ class _SearchBarState extends State<SearchBar> {
                   );
                 }
             ),
-
 
           /// END SPACER
           const SizedBox(

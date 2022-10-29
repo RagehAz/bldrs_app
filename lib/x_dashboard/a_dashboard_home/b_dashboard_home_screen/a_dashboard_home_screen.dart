@@ -236,6 +236,7 @@ class DashBoardHomeScreen extends StatelessWidget {
         translate: false,
       ),
       boolDialog: true,
+      invertButtons: true,
       confirmButtonVerse: const Verse(
         text: 'Fuck it !',
         translate: false,

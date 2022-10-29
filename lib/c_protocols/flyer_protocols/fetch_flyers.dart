@@ -63,20 +63,22 @@ class FetchFlyerProtocols {
 
     if (Mapper.checkCanLoopList(flyersIDs)){
 
-      for (final String flyerID in flyersIDs){
+      await Future.wait(<Future>[
 
-        final FlyerModel _flyer = await fetchFlyer(
-          context: context,
-          flyerID: flyerID,
-        );
+        ...List.generate(flyersIDs.length, (index){
 
-        if (_flyer != null){
+          return fetchFlyer(
+            context: context,
+            flyerID: flyersIDs[index],
+          ).then((FlyerModel flyer){
 
-          _flyers.add(_flyer);
+            _flyers.add(flyer);
 
-        }
+          });
 
-      }
+      }),
+
+      ]);
 
     }
 

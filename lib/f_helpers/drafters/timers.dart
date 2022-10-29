@@ -21,7 +21,7 @@ import 'package:intl/intl.dart';
 
 /// FORMATTING
 
-  // --------------------
+// --------------------
 /*
 DAY                          d
  ABBR_WEEKDAY                 E
@@ -74,11 +74,11 @@ Examples Using the US Locale:
  new DateFormat.yMd().add_jm()    -> 7/10/1996 5:08 PM
  new DateFormat.Hm()              -> 17:08 // force 24 hour time
  */
-
-
+// -----------------------------------------------------------------------------
 enum TimeAccuracy{
   year,
   month,
+  week,
   day,
   hour,
   minute,
@@ -279,18 +279,6 @@ class Timers {
     return '$_on $_day $_month $_year';
   }
   // --------------------
-  /// GENERATES => [ 'dd month yyyy' ]
-  static String translate_dd_month_yyyy({
-    @required BuildContext context,
-    @required DateTime time
-  }){
-    final String _day = '${time.day}';
-    final String _monthPhid = getMonthPhidByInt(context, time.month);
-    final String _month = xPhrase(context, _monthPhid);
-    final String _year = '${time.year}';
-    return '$_day $_month $_year';
-  }
-  // --------------------
   /// GENERATES => [ 'dd / MM / yyyy' ]
   static String generateString_dd_I_MM_I_yyyy({
     @required BuildContext context,
@@ -406,7 +394,7 @@ class Timers {
     return _output;
   }
   // --------------------
-/*
+  /*
 String generateStringsList_hh_i_mm_i_ss(List<DateTime> times){
   String _output = '';
 
@@ -448,6 +436,43 @@ String generateStringsList_index_hh_i_mm_i_ss({
   return _output;
 }
  */
+  // -----------------------------------------------------------------------------
+
+  /// TRANSLATIONS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String translateTimeUnit(BuildContext context, TimeAccuracy accuracy){
+
+    String _phid;
+
+    switch(accuracy){
+      case TimeAccuracy.year        : _phid = 'phid_time_unit_year'; break;
+      case TimeAccuracy.month       : _phid = 'phid_time_unit_month'; break;
+      case TimeAccuracy.week        : _phid = 'phid_time_unit_week'; break;
+      case TimeAccuracy.day         : _phid = 'phid_time_unit_day'; break;
+      case TimeAccuracy.hour        : _phid = 'phid_time_unit_hour'; break;
+      case TimeAccuracy.minute      : _phid = 'phid_time_unit_minute'; break;
+      case TimeAccuracy.second      : _phid = 'phid_time_unit_second'; break;
+      case TimeAccuracy.millisecond : _phid = 'phid_time_unit_millisecond'; break;
+      // case TimeAccuracy.microSecond : _phid = 'phid_time_unit_microSecond'; break;
+      default: _phid = null;
+    }
+
+    return xPhrase(context, _phid);
+  }
+  // --------------------
+  /// GENERATES => [ 'dd month yyyy' ]
+  static String translate_dd_month_yyyy({
+    @required BuildContext context,
+    @required DateTime time
+  }){
+    final String _day = '${time.day}';
+    final String _monthPhid = getMonthPhidByInt(context, time.month);
+    final String _month = xPhrase(context, _monthPhid);
+    final String _year = '${time.year}';
+    return '$_day $_month $_year';
+  }
   // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -669,6 +694,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   // --------------------
   /// TESTED : WORKS PERFECT
   static String calculateSuperTimeDifferenceString({
+    @required BuildContext context,
     @required DateTime from,
     @required DateTime to,
   }) {
@@ -678,50 +704,58 @@ String generateStringsList_index_hh_i_mm_i_ss({
       final int _seconds = calculateTimeDifferenceInSeconds(from: from, to: to);
 
       if (_seconds < 60){
-        _string = '${_seconds}s'; //seconds ago';
+        final String _s = translateTimeUnit(context, TimeAccuracy.second);
+        _string = '$_seconds $_s';
       }
 
       /// MINUTE = 60 s
       else if (_seconds >= 60 && _seconds < 3600){
+        final String _m = translateTimeUnit(context, TimeAccuracy.minute);
         final int _minutes = calculateTimeDifferenceInMinutes(from: from, to: to);
-        _string = '${_minutes}m'; //inutes ago';
+        _string = '$_minutes $_m';
       }
 
       /// HOUR = 3'600 s
       else if (_seconds >= 3600 && _seconds < 86400){
+        final String _h = translateTimeUnit(context, TimeAccuracy.hour);
         final int _hours = calculateTimeDifferenceInHours(from: from, to: to);
-        _string = '${_hours}h'; //ours ago';
+        _string = '$_hours $_h';
       }
 
       /// DAY = 86'400 s
       else if (_seconds >= 86400 && _seconds < 604800){
+        final String _d = translateTimeUnit(context, TimeAccuracy.day);
         final int _days = calculateTimeDifferenceInDays(from: from, to: to);
-        _string = '${_days}d'; //ays ago';
+        _string = '$_days $_d';
       }
 
       /// WEEK = 604'800 s
       else if (_seconds >= 604800 && _seconds < 2592000){
+        final String _w = translateTimeUnit(context, TimeAccuracy.week);
         final int _weeks = calculateTimeDifferenceInWeeks(from: from, to: to);
-        _string = '${_weeks}w'; //eeks ago';
+        _string = '$_weeks $_w';
       }
 
       /// MONTH = 2'592'000 s
       else if (_seconds >= 2592000 && _seconds < 31536000){
+        final String _m = translateTimeUnit(context, TimeAccuracy.month);
         final int _months = calculateTimeDifferenceInMonths(from: from, to: to);
-        _string = '${_months}Months';// ago';
+        _string = '$_months $_m';
       }
 
       /// YEAR = 31'536'000 s
       else {
+        final String _y = translateTimeUnit(context, TimeAccuracy.year);
         final int _years = calculateTimeDifferenceInYears(from: from, to: to);
-        _string = '${_years}Years'; // ago';
+        _string = '$_years $_y';
       }
 
     }
 
     return _string;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  ///
   static String calculateRemainingHoursAndMinutes({
     @required int secondsUntilNow,
   }){

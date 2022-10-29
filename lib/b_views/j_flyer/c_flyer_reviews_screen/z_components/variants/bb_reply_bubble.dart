@@ -91,6 +91,7 @@ class BzReplyBubble extends StatelessWidget {
                     SuperVerse(
                       verse: Verse(
                         text: Timers.calculateSuperTimeDifferenceString(
+                          context: context,
                           from: reviewModel.replyTime,
                           to: DateTime.now(),
                         ),

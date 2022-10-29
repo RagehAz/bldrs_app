@@ -33,6 +33,8 @@ class PhraseEditorScreen extends StatefulWidget {
 
 class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
   // -----------------------------------------------------------------------------
+  int _phrasesCount = 0;
+  // --------------------
   final ValueNotifier<List<Phrase>> _initialMixedPhrases = ValueNotifier(<Phrase>[]);
   final ValueNotifier<List<Phrase>> _tempMixedPhrases = ValueNotifier(<Phrase>[]);
   final ValueNotifier<List<Phrase>> _mixedSearchedPhrases = ValueNotifier(<Phrase>[]);
@@ -102,6 +104,9 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
           enNode: _enNode,
         );
 
+        setState(() {
+          _phrasesCount = _mixedPhrases.length~/2;
+        });
         await _triggerLoading(setTo: false);
       });
 
@@ -145,7 +150,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       isInPhrasesScreen: true,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalBlue,
-      pageTitleVerse: Verse.plain('Phrases Editor'),
+      pageTitleVerse: Verse.plain('$_phrasesCount Phrases'),
       appBarType: AppBarType.search,
       searchController: _searchController,
       progressBarModel: _progressBarModel,
@@ -185,6 +190,14 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         context: context,
       ),
       onSearchSubmit: (String text) => onPhrasesSearchSubmit(
+        isSearching: _isSearching,
+        allMixedPhrases: _tempMixedPhrases.value,
+        mixedSearchResult: _mixedSearchedPhrases,
+        searchController: _searchController,
+        pageController: _pageController,
+        context: context,
+      ),
+      onPaste: (String text) => onPhrasesSearchSubmit(
         isSearching: _isSearching,
         allMixedPhrases: _tempMixedPhrases.value,
         mixedSearchResult: _mixedSearchedPhrases,
