@@ -87,11 +87,19 @@ class SuperRage7Screen extends StatelessWidget {
                     child: TalkingBalloon(
                       lines: <String>[
 
-                        'Buenas noches',
-                        'Esto no es solo yo',
-                        'Esta es una extensión de mí mismo.',
-                        'Hablaré todos los idiomas',
-                        'Y llegaré a todos',
+                        'We reached testing phase',
+                        'and will come out on stores soon',
+                        'if you see this message',
+                        'that means that',
+                        'you are super special to my heart',
+                        'and your opinion matters to me',
+                        'so',
+                        'I will be posting here',
+                        'asking specific questions',
+                        'and your feedback will change the world',
+                        'but for now',
+                        'This is a Heads up',
+                        'on WHAT IS GOING ON ?',
 
                       ],
                     ),

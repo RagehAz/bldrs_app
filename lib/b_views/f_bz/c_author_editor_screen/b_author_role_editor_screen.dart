@@ -42,7 +42,6 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

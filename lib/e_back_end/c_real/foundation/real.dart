@@ -567,7 +567,7 @@ class Real {
 
   }
   // --------------------
-  /// TASK : ERRRROOOOOOOOOOOOR
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required String collName,
     @required String docName,
@@ -577,7 +577,9 @@ class Real {
 
     blog('updateDocField : START');
 
-    if (value != null && collName != null && docName != null && fieldName != null){
+    /// NOTE : if value is null the pair will be deleted on real db map
+
+    if (collName != null && docName != null && fieldName != null){
 
       final DatabaseReference _ref = createPathAndGetRef(
         collName: collName,

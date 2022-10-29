@@ -58,7 +58,6 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

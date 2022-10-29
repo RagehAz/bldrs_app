@@ -93,59 +93,80 @@ Future<void> onSubmitReview({
   @required FlyerModel flyerModel,
   @required TextEditingController textController,
   @required PaginationController paginationController,
+  @required ValueNotifier<bool> isUploading,
+  @required bool mounted,
 }) async {
 
-  if (AuthModel.userIsSignedIn() == true && TextCheck.isEmpty(textController.text.trim()) == false){
-
-    Keyboard.closeKeyboard(context);
-
-    await Future.wait(<Future>[
-
-      FlyerLDBOps.deleteReviewSession(
-        reviewID: ReviewModel.createTempReviewID(
-          flyerID: flyerModel.id,
-          userID: AuthFireOps.superUserID(),
-        ),
-      ),
-
-      ReviewProtocols.composeReview(
-        context: context,
-        text: textController.text,
-        flyerID: flyerModel.id,
-        bzID: flyerModel.bzID,
-      ).then((ReviewModel _uploadedReview){
-
-        paginationController.addMap.value = _uploadedReview.toMap(
-            includeID: true,
-            includeDocSnapshot: true,
-        );
-
-        textController.text = '';
-
-      }),
-
-    ]);
-
-  }
-
-  else if (TextCheck.isEmpty(textController.text.trim()) == true){
-    await Dialogs.centerNotice(
-      context: context,
-      verse: const Verse(
-        text: 'phid_add_review_to_submit',
-        translate: true,
-      ),
-    );
-  }
-
-  else if (AuthModel.userIsSignedIn() == false){
+  /// USER IS NOT SIGNED IN
+  if (AuthModel.userIsSignedIn() == false){
     await Dialogs.youNeedToBeSignedInDialog(context);
   }
 
+  /// USER IS SIGNED IN
   else {
 
-  }
+    /// TEXT FIELD IS EMPTY
+    if (TextCheck.isEmpty(textController.text.trim()) == true){
+      await Dialogs.centerNotice(
+        context: context,
+        verse: const Verse(
+          text: 'phid_add_review_to_submit',
+          translate: true,
+        ),
+      );
+    }
 
+    /// CAN POST REVIEW
+    else {
+
+      Keyboard.closeKeyboard(context);
+
+      final ReviewModel _reviewModel = ReviewModel.createNewReview(
+        text: textController.text,
+        flyerID: flyerModel.id,
+      );
+
+      setNotifier(
+        notifier: isUploading,
+        mounted: mounted,
+        value: true,
+      );
+
+      await Future.wait(<Future>[
+
+        FlyerLDBOps.deleteReviewSession(
+          reviewID: ReviewModel.createTempReviewID(
+            flyerID: flyerModel.id,
+            userID: AuthFireOps.superUserID(),
+          ),
+        ),
+
+        ReviewProtocols.composeReview(
+          context: context,
+          reviewModel: _reviewModel,
+          bzID: flyerModel.bzID,
+        ).then((ReviewModel uploadedReview){
+
+          paginationController.addMap.value = uploadedReview.toMap(
+            includeID: true,
+            includeDocSnapshot: true,
+          );
+
+          textController.text = '';
+
+        }),
+
+      ]);
+
+      setNotifier(
+        notifier: isUploading,
+        mounted: mounted,
+        value: false,
+      );
+
+    }
+
+  }
 
 }
 // -----------------------------------------------------------------------------
@@ -153,26 +174,38 @@ Future<void> onSubmitReview({
 /// AGREE
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onReviewAgree({
+  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
-  @required bool isAlreadyAgreed,
+  @required bool isAgreed,
 }) async {
 
-  if (reviewModel != null && reviewModel.id != null){
-
-    final ReviewModel _uploaded = await ReviewProtocols.agreeOnReview(
-      reviewModel: reviewModel,
-      isAlreadyAgreed: isAlreadyAgreed,
-    );
-
-    paginationController.replaceMap.value = _uploaded.toMap(
-      includeID: true,
-      includeDocSnapshot: true,
-    );
-
+  /// USER IS NOT SIGNED IN
+  if (AuthFireOps.superUserID() == null){
+    await Dialogs.youNeedToBeSignedInDialog(context);
   }
+
+  /// USER IS SIGNED IN
+  else {
+    if (reviewModel != null && reviewModel.id != null){
+
+      final ReviewModel _uploaded = await ReviewProtocols.agreeOnReview(
+        reviewModel: reviewModel,
+        isAgreed: isAgreed,
+      );
+
+      paginationController.replaceMapByID(
+        map: _uploaded.toMap(
+          includeID: true,
+          includeDocSnapshot: true,
+        ),
+      );
+
+    }
+  }
+
 
 }
 // -----------------------------------------------------------------------------
@@ -363,6 +396,22 @@ Future<void> _onDeleteReview({
 }
 // -----------------------------------------------------------------------------
 
+/// REVIEW OPTIONS
+
+// --------------------
+///
+Future<void> onReviewUserBalloonTap({
+  @required BuildContext context,
+  @required UserModel userModel,
+}) async {
+
+  blog('should visit user preview screen for this user :-');
+  userModel?.blogUserModel(methodName: 'go to his page');
+
+
+}
+// -----------------------------------------------------------------------------
+
 /// BZ REPLY
 
 // --------------------
@@ -414,20 +463,25 @@ Future<void> onBzReply({
 
     );
 
-    blog('reply : $_reply : _isconfirmed : $_isConfirmed');
+    blog('reply : $_reply : _isConfirmed : $_isConfirmed');
 
     if (TextCheck.isEmpty(_reply) == false && _isConfirmed == true){
 
-      final ReviewModel _updated = await ReviewProtocols.composeReviewReply(
-          context: context,
-          reviewModel: reviewModel,
-          reply: _reply,
-          bzID: bzID,
+      final ReviewModel _updated = reviewModel.copyWith(
+        reply: _reply,
+        replyAuthorID: AuthFireOps.superUserID(),
+        replyTime: DateTime.now(),
       );
 
       paginationController.replaceMap.value = _updated.toMap(
         includeID: true,
         includeDocSnapshot: true,
+      );
+
+      await ReviewProtocols.composeReviewReply(
+          context: context,
+          updatedReview: _updated,
+          bzID: bzID,
       );
 
       unawaited(TopDialog.showTopDialog(

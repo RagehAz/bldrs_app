@@ -24,7 +24,6 @@ class _AuthScreenState extends State<AuthScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

@@ -99,11 +99,12 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     return _versesCrossAlignment;
   }
   // --------------------
+  static double verseHorizontalMargin = 5;
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double verseWidth({
     @required double width,
     @required double iconMargin,
-    @required double verseIconSpacing,
     @required double graphicWidth,
     @required bool hasIcon,
   }) {
@@ -117,7 +118,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
             - (iconMargin * 2)
             - graphicWidth
             // - ((verseIconSpacing * 2) + iconMargin);
-            - 10;
+            - getVerseLeftSpacing(iconMargin: iconMargin)
+            - getVerseRightSpacing(iconMargin: iconMargin);
       }
 
       else {
@@ -129,24 +131,40 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     return _output;
   }
   // --------------------
+  // /// TESTED : WORKS PERFECT
+  // static double verseIconSpacing({
+  //   @required double height,
+  //   @required Verse verse,
+  //   @required double iconSizeFactor,
+  //   @required double verseScaleFactor,
+  //   @required bool hasIcon,
+  // }) {
+  //
+  //   if (hasIcon == false){
+  //     return 0;
+  //   }
+  //   else if (verse?.text != null){
+  //     return height * 0.3 * iconSizeFactor * verseScaleFactor;
+  //   }
+  //   else {
+  //     return 0;
+  //   }
+  // }
+  // --------------------
   /// TESTED : WORKS PERFECT
-  static double verseIconSpacing({
-    @required double height,
-    @required Verse verse,
-    @required double iconSizeFactor,
-    @required double verseScaleFactor,
-    @required bool hasIcon,
-  }) {
+  static double getVerseLeftSpacing({
+    @required double iconMargin,
+  }){
+    return verseHorizontalMargin - iconMargin < 0 ? 0 : verseHorizontalMargin - iconMargin;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getVerseRightSpacing({
+    @required double iconMargin,
+  }){
 
-    if (hasIcon == false){
-      return 0;
-    }
-    else if (verse?.text != null){
-      return height * 0.3 * iconSizeFactor * verseScaleFactor;
-    }
-    else {
-      return 0;
-    }
+    return verseHorizontalMargin + iconMargin;
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -171,9 +189,12 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     if (verseCentered == true){
       _centered = true;
     }
+
     else if (icon == null && verseCentered == null) {
       _centered = true;
-    } else {
+    }
+
+    else {
       _centered = false;
     }
 
@@ -186,7 +207,9 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     if (greyscale == true || inActiveMode == true || verseShadow == false) {
       _isOn = false;
-    } else {
+    }
+
+    else {
       _isOn = true;
     }
 
@@ -207,19 +230,10 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
       iconSizeFactor: iconSizeFactor,
     );
     // --------------------
-    final double _verseIconSpacing = verseIconSpacing(
-      iconSizeFactor: iconSizeFactor,
-      height: height,
-      verse: verse,
-      verseScaleFactor: verseScaleFactor,
-      hasIcon: icon != null,
-    );
-    // --------------------
     final double _verseWidth = verseWidth(
       graphicWidth: _graphicWidth,
       width: width,
       iconMargin: iconMargin,
-      verseIconSpacing: _verseIconSpacing,
       hasIcon: icon != null,
     );
     // --------------------
@@ -239,6 +253,14 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     Alignment.center
         :
     Aligners.superCenterAlignment(context);
+
+    final double _verseLeftSpacing = getVerseLeftSpacing(
+      iconMargin: iconMargin,
+    );
+
+    final double _verseRightSpacing = getVerseRightSpacing(
+      iconMargin: iconMargin,
+    );
     // --------------------
     return Row(
       mainAxisAlignment: _mainAxisAlignment,
@@ -315,7 +337,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
         if (verse != null)
           SizedBox(
             // color: Colorz.bloodTest,
-            width: 5,
+            width: _verseLeftSpacing,
             // width: iconSizeFactor != 1 && icon != null ?
             // _verseIconSpacing * 0.25
             //     :
@@ -401,7 +423,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
         if (verse != null)
           SizedBox(
             // color: Colorz.bloodTest,
-            width: 5,
+            width: _verseRightSpacing,
             // width: _verseIconSpacing + iconMargin,
             height: height,
           ),

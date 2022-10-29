@@ -52,7 +52,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

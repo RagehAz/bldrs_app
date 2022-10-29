@@ -53,7 +53,6 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

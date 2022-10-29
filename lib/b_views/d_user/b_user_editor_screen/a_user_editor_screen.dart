@@ -78,7 +78,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

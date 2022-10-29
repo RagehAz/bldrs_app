@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
@@ -296,18 +298,15 @@ class RenovateUserProtocols {
           device: _thisDevice,
         );
 
-        await Future.wait(<Future>[
+        /// TAKES TOO LONG AND NOTHING DEPENDS ON IT
+        unawaited(_resubscribeToAllMyTopics(
+          context: context,
+        ));
 
-          _resubscribeToAllMyTopics(
-            context: context,
-          ),
-
-          UserProtocols.renovateMyUserModel(
-            context: context,
-            newUserModel: _refetchedUser,
-          ),
-
-        ]);
+        await UserProtocols.renovateMyUserModel(
+          context: context,
+          newUserModel: _refetchedUser,
+        );
 
       }
 

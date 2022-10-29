@@ -57,7 +57,6 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
@@ -81,7 +80,6 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
             notifier: _exists,
             mounted: mounted,
             value: _assetExists,
-            addPostFrameCallBack: false
         );
 
         await _triggerLoading(setTo: false);

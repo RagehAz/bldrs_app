@@ -40,7 +40,6 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

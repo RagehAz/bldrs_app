@@ -37,7 +37,6 @@ class _FlyerState extends State<Flyer> {
        notifier: _loading,
        mounted: mounted,
        value: setTo,
-       addPostFrameCallBack: false,
      );
    }
   // -----------------------------------------------------------------------------
@@ -64,7 +63,6 @@ class _FlyerState extends State<Flyer> {
             notifier: _bzModel,
             mounted: mounted,
             value: _bz,
-            addPostFrameCallBack: false,
           );
 
         }

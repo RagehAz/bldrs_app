@@ -38,7 +38,6 @@ class _AppControlsManagerState extends State<AppControlsManager> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
    */

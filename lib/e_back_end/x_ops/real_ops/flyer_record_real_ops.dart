@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/record_model.dart';
@@ -221,10 +222,13 @@ class FlyerRecordRealOps {
   // -------
   /// TESTED : ...
   static Future<void> reviewCreation({
-    @required String review,
-    @required String flyerID,
+    @required ReviewModel reviewModel,
     @required String bzID,
   }) async {
+
+    assert(reviewModel != null, 'review is null');
+    assert(reviewModel.flyerID != null, 'review.flyerID is null');
+
     blog('FlyerRecordOps.createCreateReview : START');
 
     // final RecordModel _record = RecordModel.createCreateReviewRecord(
@@ -241,7 +245,7 @@ class FlyerRecordRealOps {
       // ),
 
       incrementFlyerCounter(
-        flyerID: flyerID,
+        flyerID: reviewModel.flyerID,
         field: 'reviews',
         increaseOne: true,
       ),

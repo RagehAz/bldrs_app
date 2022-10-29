@@ -41,7 +41,6 @@ class _PDFScreenState extends State<PDFScreen> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------

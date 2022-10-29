@@ -41,7 +41,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      addPostFrameCallBack: false,
     );
   }
   // -----------------------------------------------------------------------------
