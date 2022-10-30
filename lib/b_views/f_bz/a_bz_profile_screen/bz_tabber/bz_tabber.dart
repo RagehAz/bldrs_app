@@ -22,12 +22,13 @@ class BzTabber {
   /// BZ TABS
 
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static int getBzTabIndex(BzTab bzTab){
     final int _index = bzTabsList.indexWhere((tab) => tab == bzTab);
     return _index;
   }
   // --------------------
+  /// TESTED: WORKS PERFECT
   static const List<BzTab> bzTabsList = <BzTab>[
     BzTab.flyers,
     BzTab.about,
@@ -53,7 +54,7 @@ class BzTabber {
 //   ];
    */
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static String getBzTabPhid({
     @required BzTab bzTab,
   }){
@@ -70,7 +71,7 @@ class BzTabber {
     }
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static String getBzTabIcon(BzTab bzTab){
     switch(bzTab){
       case BzTab.flyers   : return Iconz.flyerGrid  ; break;
@@ -85,7 +86,7 @@ class BzTabber {
     }
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static String getTabTitle({
     @required int index,
     @required BuildContext context,
@@ -97,5 +98,4 @@ class BzTabber {
     return _bzTabPhid;
   }
   // -----------------------------------------------------------------------------
-  void fuck(){}
 }

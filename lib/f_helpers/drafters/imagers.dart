@@ -10,6 +10,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
@@ -322,24 +323,41 @@ class Imagers {
       context,
       pickerConfig: const CameraPickerConfig(
 
-        // cameraQuarterTurns: 0,
-        // enableAudio: true,
-        // enableExposureControlOnPoint: true,
-        // enablePinchToZoom: true,
-        // enablePullToZoomInRecord: true,
-        // enableScaledPreview: true,
-        // enableSetExposure: true,
-        // enableRecording: false,
-        // enableTapRecording: false,
-        // shouldAutoPreviewVideo: false,
-        // onlyEnableRecording: false,
-        // shouldDeletePreviewFile: false,
-        // imageFormatGroup: ImageFormatGroup.unknown,
-        // lockCaptureOrientation: DeviceOrientation.portraitUp,
-        // maximumRecordingDuration: const Duration(seconds: 15),
-        // preferredLensDirection: CameraLensDirection.back,
-        // resolutionPreset: ResolutionPreset.max,
-        // textDelegate: CameraPickerTextDelegate(),
+        /// TURNS - ORIENTATION
+        // cameraQuarterTurns: 0, // DEFAULT
+        // lockCaptureOrientation: DeviceOrientation.portraitUp, // DEFAULT
+
+        /// AUDIO
+        // enableAudio: true, // DEFAULT
+
+        /// EXPOSURE
+        // enableExposureControlOnPoint: true, // DEFAULT
+        // enableSetExposure: true, // DEFAULT
+
+        /// ZOOMING
+        // enablePinchToZoom: true, // DEFAULT
+        // enablePullToZoomInRecord: true, // DEFAULT
+
+        /// PREVIEW
+        // enableScaledPreview: true, // DEFAULT
+        // shouldAutoPreviewVideo: false, // DEFAULT
+        // shouldDeletePreviewFile: false, // DEFAULT
+
+        /// VIDEO
+        // enableRecording: false, // DEFAULT
+        // enableTapRecording: false, // DEFAULT
+        // onlyEnableRecording: false, // DEFAULT
+        // maximumRecordingDuration: const Duration(seconds: 15), // DEFAULT
+
+        /// FORMAT
+        // imageFormatGroup: ImageFormatGroup.unknown, // DEFAULT
+        // resolutionPreset: ResolutionPreset.max, // DEFAULT
+
+        /// CAMERA
+        // preferredLensDirection: CameraLensDirection.back, // DEFAULT
+
+        /// THEME - TEXTS
+        textDelegate: EnglishCameraPickerTextDelegate(), /// TASK : DO ARABIC CAMERA PICKER TEXT DELEGATE
         // theme: ThemeData.dark(),
 
         // onError: (Object object, StackTrace trace){
@@ -458,6 +476,7 @@ class Imagers {
     return _fileModels;
   }
   // --------------------
+  ///
   static Future<FileModel> resizeImage({
     @required FileModel fileModel,
     @required double resizeToWidth,
@@ -612,6 +631,7 @@ class Imagers {
   /// CIPHER
 
   // --------------------
+  ///
   static String cipherPic({
     @required dynamic pic,
     @required bool toJSON,
@@ -662,6 +682,7 @@ class Imagers {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogPictureInfo(PictureInfo info){
     blog('blogPictureInfo : START');
 

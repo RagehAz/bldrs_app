@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/super_tool_tip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -18,6 +19,7 @@ class DataStrip extends StatelessWidget {
     this.withHeadline = false,
     this.isPercent = false,
     this.highlightText,
+    this.tooTipVerse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +32,7 @@ class DataStrip extends StatelessWidget {
   final bool withHeadline;
   final bool isPercent;
   final ValueNotifier<dynamic> highlightText;
+  final Verse tooTipVerse;
   /// --------------------------------------------------------------------------
   static const double verticalMargin = 2.5;
   static const double height = 50;
@@ -86,22 +89,25 @@ class DataStrip extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
 
-              DreamBox(
-                height: height,
-                width: _rowWidth * 0.2,
-                verse: Verse(
-                  text: dataKey,
-                  translate: false,
-                ),
-                verseShadow: false,
-                verseMaxLines: 2,
-                verseScaleFactor: 0.6,
-                bubble: false,
-                color: color,
-                verseWeight: VerseWeight.thin,
-                onTap: onKeyTap ?? () => onStripTap(
-                  context: context,
-                  dataValue: dataValue,
+              SuperToolTip(
+                verse: tooTipVerse,
+                child: DreamBox(
+                  height: height,
+                  width: _rowWidth * 0.2,
+                  verse: Verse(
+                    text: dataKey,
+                    translate: false,
+                  ),
+                  verseShadow: false,
+                  verseMaxLines: 2,
+                  verseScaleFactor: 0.6,
+                  bubble: false,
+                  color: color,
+                  verseWeight: VerseWeight.thin,
+                  onTap: onKeyTap ?? () => onStripTap(
+                    context: context,
+                    dataValue: dataValue,
+                  ),
                 ),
               ),
 

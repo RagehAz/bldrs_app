@@ -87,7 +87,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
         final List<String> _names = await Filers.getFilesNamesFromFiles(
           files: _files,
-          withExtension: true,
+          withExtension: false,
         );
 
         /// GENERATE CROPPED FILES
