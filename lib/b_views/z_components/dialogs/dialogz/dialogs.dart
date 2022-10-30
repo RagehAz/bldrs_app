@@ -351,7 +351,7 @@ class Dialogs {
       /// NETWORK ERRORS
       <String, dynamic>{
         'error': '[cloud_firestore/unavailable]', // The service is currently unavailable. This is a most likely a transient condition and may be corrected by retrying with a backoff.
-        'reply': '##Network is unresponsive, please try again',
+        'reply': 'phid_network_is_unresponsive',
       },
 
       /// SHARED ERRORS
@@ -397,7 +397,7 @@ class Dialogs {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_a_could_not_continue_title',
+        text: 'phid_could_not_continue_title',
         translate: true,
       ),
       bodyVerse: _errorReplyVerse,
