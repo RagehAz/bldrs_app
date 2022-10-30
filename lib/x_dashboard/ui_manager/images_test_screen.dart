@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -381,6 +382,29 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           },
         ),
 
+        /// SEPARATOR
+        const DotSeparator(boxWidth: 20,),
+
+        /// CLEAR CACHE
+        AppBarButton(
+          icon: Iconz.power,
+          onTap: () async {
+
+            // await  _triggerLoading(setTo: true);
+
+            imageCache.clear();
+            blog('imageCache.clear() : DONE');
+            imageCache.clearLiveImages();
+            blog('imageCache.clearLiveImages() : DONE');
+            PaintingBinding.instance.imageCache.clear();
+            blog('iPaintingBinding.instance.imageCache.clear() : DONE');
+
+            setState(() {});
+            // await  _triggerLoading(setTo: false);
+
+          },
+        ),
+
       ],
       layoutWidget: ValueListenableBuilder(
         valueListenable: _loading,
@@ -395,117 +419,155 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               children: <Widget>[
 
                 SizedBox(
-                  child: ListView(
+                  child: SingleChildScrollView(
                     padding: Stratosphere.stratosphereSandwich,
                     physics: const BouncingScrollPhysics(),
-                    children: <Widget>[
+                    child:Column(
+                        children: <Widget>[
 
-                      Column(
-                          children: <Widget>[
+                          /// META DATA
+                          // WideButton(
+                          //   verse:  'get Meta data',
+                          //   onTap: () async {
+                          //
+                          //     /// TO CHANGE META DATA OF SPECIFIC FILE
+                          //     // // bSHZNhydCNqQFvEVK8Rc
+                          //     //
+                          //     // final FullMetadata _meta = await Storage.getMetadataByFileName(
+                          //     //     context: context,
+                          //     //     storageDocName: StorageDoc.logos,
+                          //     //     fileName: 'bSHZNhydCNqQFvEVK8Rc',
+                          //     // );
+                          //     //
+                          //     // Map<String, String> _maw = _meta.customMetadata;
+                          //     // _maw['extension'] = 'png';
+                          //     //
+                          //     // final SettableMetadata metaData = SettableMetadata(
+                          //     //   customMetadata: _maw,
+                          //     // );
+                          //     //
+                          //     // final Reference _ref = Storage.getRef(
+                          //     //   context: context,
+                          //     //   storageDocName: StorageDoc.logos,
+                          //     //   fileName: 'bSHZNhydCNqQFvEVK8Rc',
+                          //     // );
+                          //     //
+                          //     // await _ref.updateMetadata(metaData);
+                          //
+                          //   },
+                          // ),
 
-                            /// META DATA
-                            // WideButton(
-                            //   verse:  'get Meta data',
-                            //   onTap: () async {
-                            //
-                            //     /// TO CHANGE META DATA OF SPECIFIC FILE
-                            //     // // bSHZNhydCNqQFvEVK8Rc
-                            //     //
-                            //     // final FullMetadata _meta = await Storage.getMetadataByFileName(
-                            //     //     context: context,
-                            //     //     storageDocName: StorageDoc.logos,
-                            //     //     fileName: 'bSHZNhydCNqQFvEVK8Rc',
-                            //     // );
-                            //     //
-                            //     // Map<String, String> _maw = _meta.customMetadata;
-                            //     // _maw['extension'] = 'png';
-                            //     //
-                            //     // final SettableMetadata metaData = SettableMetadata(
-                            //     //   customMetadata: _maw,
-                            //     // );
-                            //     //
-                            //     // final Reference _ref = Storage.getRef(
-                            //     //   context: context,
-                            //     //   storageDocName: StorageDoc.logos,
-                            //     //   fileName: 'bSHZNhydCNqQFvEVK8Rc',
-                            //     // );
-                            //     //
-                            //     // await _ref.updateMetadata(metaData);
-                            //
-                            //   },
-                            // ),
+                          /// FILE NAME
+                          DataStrip(
+                            dataKey: 'Name',
+                            dataValue: Filers.getFileNameFromFile(
+                              file: _file,
+                              withExtension: true,
+                            ),
+                            tooTipVerse: Verse.plain(
+                                'this splits ( file.path ) property of ( File ) '
+                                'variable and gets the last part after last ( / ) '
+                                'in path string'
+                            ),
+                          ),
 
-                            /// FILE NAME
-                            DataStrip(
-                              dataKey: 'Name',
-                              dataValue: Filers.getFileNameFromFile(
-                                file: _file,
-                                withExtension: true,
-                              ),
+                          /// EXTENSION
+                          DataStrip(
+                            dataKey: 'Ext.',
+                            dataValue: _file?.path == null ? '' : TextMod.removeTextBeforeLastSpecialCharacter(extension(_file?.path), '.'),
+                            tooTipVerse: Verse.plain(
+                                'this splits ( file.path ) property of ( File ) '
+                                'and get the last part after the last ( . )'
+                            ),
+                          ),
+
+                          /// FILE PATH
+                          DataStrip(
+                            dataKey: 'Path',
+                            dataValue: _file?.path,
+                            tooTipVerse: Verse.plain(
+                                'This is the ( file.path ) of ( File ) variable'
+                            ),
+                          ),
+
+                          /// FILE SIZE (Byte)
+                          DataStrip(
+                            dataKey: 'Size (b)',
+                            dataValue: '${Numeric.formatNumToSeparatedKilos(number: _file?.lengthSync())} Bytes',
+                            color: Colorz.blue80,
+                            tooTipVerse: Verse.plain(
+                                'This is : ( file.lengthSync() )'
+                            ),
+                          ),
+
+
+
+                          /// FILE SIZE (KB)
+                          DataStrip(
+                            dataKey: 'Size (Kb)',
+                            dataValue: '${Filers.getFileSizeWithUnit(
+                              file: _file,
+                              unit: FileSizeUnit.kiloByte,
+                            )} KiloByte',
+                            color: Colorz.blue80,
+                            tooTipVerse: Verse.plain(
+                                'This is : ( file.lengthSync() / 1024 )'
+                            ),
+                          ),
+
+                          /// FILE SIZE (MB)
+                          DataStrip(
+                            dataKey: 'Size (Mb)',
+                            dataValue: '${Filers.getFileSizeInMb(_file)} MegaBytes',
+                            color: Colorz.blue80,
+                            tooTipVerse: Verse.plain(
+                                'This is : [ file.lengthSync() / (1024 * 1024) ]'
+                            ),
+                          ),
+
+                          /// FILE SIZE
+                          DataStrip(
+                            dataKey: 'Width x Height',
+                            dataValue: '[ w ${uiImage?.width} px ] . [ h ${uiImage?.height} px ]',
+                            color: Colorz.black150,
+                            tooTipVerse: Verse.plain(
+                                'This is : ( uiImage.width * uiImage.height )'
                             ),
 
-                            /// FILE PATH
-                            DataStrip(
-                              dataKey: 'Path',
-                              dataValue: _file?.path,
+                          ),
+
+                          /// SUPER SIZE
+                          FutureBuilder(
+                              future: Dimensions.superDimensions(_file),
+                              builder: (_, AsyncSnapshot<Dimensions> snapshot){
+
+                                final Dimensions imageSize = snapshot.data;
+
+                                return DataStrip(
+                                  dataKey: 'SUPER SIZE',
+                                  dataValue: '[ w ${imageSize?.width} px ] . [ h ${imageSize?.height} px ]',
+                                  color: Colorz.black150,
+                                  tooTipVerse: Verse.plain(
+                                      'This is : ( Dimensions.superDimensions( dynamic ) .'
+                                  ),
+
+                                );
+
+                              }
+                          ),
+
+                          /// ASPECT RATIO
+                          DataStrip(
+                            dataKey: 'Aspect Ratio',
+                            dataValue: '${_imageSize?.getAspectRatio()}',
+                            color: Colorz.black150,
+                            tooTipVerse: Verse.plain(
+                                'This is : ( width / height ) .'
                             ),
+                          ),
 
-                            /// FILE SIZE (Byte)
-                            DataStrip(
-                              dataKey: 'Size (b)',
-                              dataValue: '${Numeric.formatNumToSeparatedKilos(number: _file?.lengthSync())} Bytes',
-                            ),
-
-                            /// FILE SIZE (MB)
-                            DataStrip(
-                              dataKey: 'Size (Kb)',
-                              dataValue: '${Filers.getFileSizeWithUnit(
-                                file: _file,
-                                unit: FileSizeUnit.kiloByte,
-                              )} KiloByte',
-                            ),
-
-                            /// FILE SIZE (MB)
-                            DataStrip(
-                              dataKey: 'Size (Mb)',
-                              dataValue: '${Filers.getFileSizeInMb(_file)} MegaBytes',
-                            ),
-
-                            /// FILE SIZE
-                            DataStrip(
-                              dataKey: 'Width x Height',
-                              dataValue: '[ w ${uiImage?.width} px ] . [ h ${uiImage?.height} px ]',
-                            ),
-
-                            /// SUPER SIZE
-                            FutureBuilder(
-                                future: Dimensions.superDimensions(_file),
-                                builder: (_, AsyncSnapshot<Dimensions> snapshot){
-
-                                  final Dimensions imageSize = snapshot.data;
-
-                                  return DataStrip(
-                                    dataKey: 'SUPER SIZE',
-                                    dataValue: '[ w ${imageSize?.width} px ] . [ h ${imageSize?.height} px ]',
-                                  );
-
-                                }
-                            ),
-
-                            /// ASPECT RATIO
-                            DataStrip(
-                              dataKey: 'Aspect Ratio',
-                              dataValue: '${_imageSize?.getAspectRatio()}',
-                            ),
-
-                            /// EXTENSION
-                            DataStrip(
-                              dataKey: 'Ext.',
-                              dataValue: _file?.path == null ? '' : TextMod.removeTextBeforeLastSpecialCharacter(extension(_file?.path), '.'),
-                            ),
-
-                            /// IMAGES GRID
-                            if (_file != null)
+                          /// IMAGES GRID
+                          if (_file != null)
                             GridView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -532,12 +594,47 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                               },
                             ),
 
-                            const Horizon(),
+                          /// SEPARATOR
+                          const SeparatorLine(),
 
-                          ]
-                      ),
+                          SuperVerse(
+                              verse: Verse.plain('Cache'),
+                          ),
 
-                    ],
+                          /// CURRENT SIZE
+                          DataStrip(
+                            dataKey: 'current Size',
+                            dataValue: '${imageCache.currentSize} ',
+                            color: Colorz.yellow20,
+                          ),
+
+                          /// CURRENT SIZE BYTES
+                          DataStrip(
+                            dataKey: 'current Size Bytes',
+                            dataValue: '${imageCache.currentSizeBytes} Bytes',
+                            color: Colorz.yellow20,
+                          ),
+
+                          /// LIVE IMAGE COUNT
+                          DataStrip(
+                            dataKey: 'liveImageCount',
+                            dataValue: '${imageCache.liveImageCount} ',
+                            color: Colorz.yellow20,
+                          ),
+
+                          /// PENDING IMAGE COUNT
+                          DataStrip(
+                            dataKey: 'pendingImageCount',
+                            dataValue: '${imageCache.pendingImageCount} ',
+                            color: Colorz.yellow20,
+                          ),
+
+                          const Horizon(),
+
+                        ]
+                    ),
+
+
                   ),
                 ),
 

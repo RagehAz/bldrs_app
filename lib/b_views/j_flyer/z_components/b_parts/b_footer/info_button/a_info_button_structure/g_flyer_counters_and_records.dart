@@ -29,13 +29,14 @@ class FlyerCountersAndRecords extends StatelessWidget {
         valueListenable: flyerCounter,
         builder: (_, FlyerCounterModel counter, Widget child){
 
-          counter.blogCounter();
 
           if (counter == null){
             return const SizedBox();
           }
 
           else {
+
+            counter?.blogCounter();
 
             final int _saves = counter.saves ?? 0;
             final int _shares = counter.shares ?? 0;
