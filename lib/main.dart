@@ -1,3 +1,24 @@
+
+
+/*0
+
+1 - zeet argan
+2 - zeet looz 7elw
+3 - zeet gooz el hend
+
+tomaya mahroosa
+nos lamoona
+2erfa mat7oona
+
+
+- for tarteeb
+ma3la2et zeet zatoon
+zeet 5ardal
+
+
+ */
+
+
 import 'dart:async';
 
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
