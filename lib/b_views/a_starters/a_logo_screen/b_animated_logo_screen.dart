@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -72,17 +73,17 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
 
     _linesMap = <Map<String, dynamic>>[
-      _beat(start: 1900, duration: 200,   verse: 'phid_search'),  // 1
-      _beat(start: 2800, duration: 200,   verse: 'phid_connect'), // 5
-      _beat(start: 2700, duration: 200,   verse: 'phid_ask'), // 4
-      _beat(start: 2350, duration: 450,   verse: 'phid_answer'), // 3
-      _beat(start: 2000, duration: 450,   verse: 'phid_grow'), // 2
+      _beat(start: 1900, duration: 200,   verse: xPhrase(context, 'phid_search'), color: Colorz.white200),  // 1
+      _beat(start: 2800, duration: 200,   verse: xPhrase(context, 'phid_connect'), color: Colorz.white200), // 5
+      _beat(start: 2700, duration: 200,   verse: xPhrase(context, 'phid_ask'), color: Colorz.white200), // 4
+      _beat(start: 2350, duration: 450,   verse: xPhrase(context, 'phid_answer'), color: Colorz.white200), // 3
+      _beat(start: 2000, duration: 450,   verse: xPhrase(context, 'phid_grow'), color: Colorz.white200), // 2
 
-      _beat(start: 4700,  duration: 300,  verse: 'phid_on'), // 6
-      _beat(start: 5550,  duration: 1000, verse: 'phid_bldrsFullName', color: Colorz.yellow255), // 10
-      _beat(start: 4800,  duration: 300,  verse: '## - Designers'), // 7
-      _beat(start: 5150,  duration: 300,  verse: '## - Contractors'), // 8
-      _beat(start: 5450,  duration: 300,  verse: '## - Artisans'), // 9
+      _beat(start: 4700,  duration: 300,  verse: xPhrase(context, 'phid_on'), color: Colorz.white200), // 6
+      _beat(start: 5550,  duration: 1000, verse: xPhrase(context, 'phid_bldrsFullName'), color: Colorz.yellow255), // 10
+      _beat(start: 4800,  duration: 300,  verse: '- ${xPhrase(context, 'phid_designers')}'), // 7
+      _beat(start: 5150,  duration: 300,  verse: '- ${xPhrase(context, 'phid_contractors')}'), // 8
+      _beat(start: 5450,  duration: 300,  verse: '- ${xPhrase(context, 'phid_artisans')}'), // 9
     ];
 
     _initializeAnimationControllers();
@@ -237,14 +238,15 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       pyramidType: PyramidType.yellow,
       appBarType: AppBarType.non,
       // loading: ValueNotifier(true),
-      onBack: () async {
-
-        await Nav.replaceScreen(
-            context: context,
-            screen: const AnimatedLogoScreen(),
-        );
-
-      },
+      // onBack: () async {
+      //
+      //   await Nav.replaceScreen(
+      //       context: context,
+      //       screen: const AnimatedLogoScreen(),
+      //   );
+      //
+      // },
+      canGoBack: false,
       layoutWidget: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -490,7 +492,7 @@ class AnimatedLine extends StatelessWidget {
           verse: Verse(
             text: verse,
             casing: Casing.upperCase,
-            translate: true,
+            translate: false,
           ),
           size: 3,
           weight: VerseWeight.black,

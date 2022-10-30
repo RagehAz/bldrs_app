@@ -189,7 +189,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
       FireCollPaginator(
           paginationQuery: userNotesPaginationQueryModel(),
-          // streamQuery: userNotesWithPendingRepliesQueryModel(),
+          streamQuery: userNotesWithPendingRepliesQueryModel(),
           scrollController: _scrollController,
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
