@@ -6,9 +6,9 @@ enum BzTab{
   about,
   authors,
   notes,
-  targets,
-  powers,
-  network,
+  // targets,
+  // powers,
+  // network,
   settings,
 }
 
@@ -33,9 +33,9 @@ class BzTabber {
     BzTab.about,
     BzTab.authors,
     BzTab.notes,
-    BzTab.targets,
-    BzTab.powers,
-    BzTab.network,
+    // BzTab.targets,
+    // BzTab.powers,
+    // BzTab.network,
     BzTab.settings,
   ];
   // --------------------
@@ -62,9 +62,9 @@ class BzTabber {
       case BzTab.about    : return 'phid_info'  ; break;
       case BzTab.authors  : return 'phid_team'  ; break;
       case BzTab.notes    : return 'phid_notifications'  ; break;
-      case BzTab.targets  : return 'phid_targets'  ; break;
-      case BzTab.powers   : return 'phid_powers'  ; break;
-      case BzTab.network  : return 'phid_network'  ; break;
+      // case BzTab.targets  : return 'phid_targets'  ; break;
+      // case BzTab.powers   : return 'phid_powers'  ; break;
+      // case BzTab.network  : return 'phid_network'  ; break;
       case BzTab.settings : return 'phid_settings' ; break;
       default : return null;
     }
@@ -77,9 +77,9 @@ class BzTabber {
       case BzTab.about    : return Iconz.info       ; break;
       case BzTab.authors  : return Iconz.bz         ; break;
       case BzTab.notes    : return Iconz.notification       ; break;
-      case BzTab.targets  : return Iconz.target     ; break;
-      case BzTab.powers   : return Iconz.power      ; break;
-      case BzTab.network  : return Iconz.follow     ; break;
+      // case BzTab.targets  : return Iconz.target     ; break;
+      // case BzTab.powers   : return Iconz.power      ; break;
+      // case BzTab.network  : return Iconz.follow     ; break;
       case BzTab.settings : return Iconz.gears      ; break;
       default : return null;
     }
