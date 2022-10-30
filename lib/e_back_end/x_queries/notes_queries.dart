@@ -27,7 +27,7 @@ FireQueryModel bzNotesPaginationQueryModel({
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
     ),
     limit: 5,
-    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
   );
 
 }
@@ -74,8 +74,8 @@ FireQueryModel userNotesPaginationQueryModel(){
       bDocName: AuthFireOps.superUserID(),
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
     ),
-    limit: 7,
-    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
+    limit: 6,
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
   );
 
 }
