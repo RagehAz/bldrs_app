@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/b_bz/sub/bz_tabber.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_tabber/bz_tabber.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_tabber/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
