@@ -59,7 +59,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   void initState() {
     super.initState();
     _paginationController = PaginationController.initialize(
-      addExtraMapsAtEnd: false,
+      addExtraMapsAtEnd: true,
       onDataChanged: _collectUnseenNotesToMarkAtDispose,
     );
   }
