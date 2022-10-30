@@ -75,6 +75,7 @@ class Floaters {
     return _decodedImage;
   }
   // --------------------
+  ///
   static Future<ui.Image> getUiImageFromInts(List<int> ints) async {
     final Completer<ui.Image> completer = Completer<ui.Image>();
 
@@ -303,6 +304,7 @@ static img.Image decodeToImgImage({
     return uInt;
   }
   // --------------------
+  ///
   static Future<Uint8List> getUint8ListFromImgImageAsync(img.Image imgImage) async{
     Uint8List uInt;
     if (imgImage != null){
@@ -311,6 +313,7 @@ static img.Image decodeToImgImage({
     return uInt;
   }
   // --------------------
+  ///
   static Future<Uint8List> getUint8ListFromURL(String url) async {
     Uint8List _uints;
 
@@ -339,11 +342,11 @@ static img.Image decodeToImgImage({
 
     if (_isFile == true) {
       _file = image;
-    } else {
-      _file = await Filers.getFileFromURL(image);
     }
 
-    final List<int> imageBytes = _file.readAsBytesSync();
+    else {
+      _file = await Filers.getFileFromURL(image);
+    }
 
     /*
 
@@ -357,13 +360,23 @@ static img.Image decodeToImgImage({
 
      */
 
-    return base64Encode(imageBytes);
-  }
+
+    if (_file == null){
+      return null;
+    }
+
+    else {
+      final List<int> imageBytes = _file.readAsBytesSync();
+      return base64Encode(imageBytes);
+    }
+
+    }
   // -----------------------------------------------------------------------------
 
   /// BitmapDescriptor
 
   // --------------------
+  ///
   static Future<BitmapDescriptor> getBitmapFromSVG({
     @required BuildContext context,
     @required String assetName,
@@ -393,6 +406,7 @@ static img.Image decodeToImgImage({
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
   // --------------------
+  ///
   static Future<BitmapDescriptor> getBitmapFromPNG({
     String pngPic = Iconz.flyerPinPNG,
   }) async {
@@ -405,6 +419,7 @@ static img.Image decodeToImgImage({
   /// INTs : List<int>
 
   // --------------------
+  ///
   static List<int> getIntsFromUint8List(Uint8List uInt){
     List<int> _ints;
 
@@ -414,7 +429,8 @@ static img.Image decodeToImgImage({
 
     return _ints;
   }
-
+  // --------------------
+  ///
   static List<int> getIntsFromDynamics(List<dynamic> ints){
     final List<int> _ints = <int>[];
 
@@ -432,6 +448,7 @@ static img.Image decodeToImgImage({
     return _ints;
   }
   // -----------------------------------------------------------------------------
+
   /// DOUBLEs : List<double>
 
   // --------------------
