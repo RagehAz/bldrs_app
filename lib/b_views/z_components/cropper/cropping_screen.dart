@@ -56,10 +56,10 @@ class _CroppingScreenState extends State<CroppingScreen> {
   ValueNotifier<List<CropStatus>> _statuses;
   bool _canGoBack = false;
   List<File> _files = <File>[];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------------------------------
+  // -----------------------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,

@@ -24,6 +24,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
+import 'package:bldrs/x_dashboard/backend_lab/backend_lab_home.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
 import 'package:bldrs/x_dashboard/chains_editor/a_chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/a_pickers_manager_screen.dart';
@@ -39,7 +40,7 @@ import 'package:bldrs/x_dashboard/ui_manager/a_ui_manager_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/app_controls/a_app_controls_manager.dart';
 import 'package:bldrs/x_dashboard/notes_creator/notes_creator_home.dart';
-import 'package:bldrs/x_dashboard/ldb_manager/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/xxx_test_lab.dart';
 import 'package:flutter/material.dart';
@@ -85,20 +86,16 @@ class DashBoardHomeScreen extends StatelessWidget {
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// TEST LAB
       DashButtonModel(
-        verse:  'Test Lab',
+        verse: 'Test Lab',
         icon: Iconz.lab,
         screen: TestLab(),
       ),
+      null,
+      /// BACK END LAB
       DashButtonModel(
-        verse:  'Provider viewer',
-        icon: Iconz.check,
-        screen: ProvidersViewerScreen(),
-      ),
-      /// LDB VIEWER
-      DashButtonModel(
-        verse:  'Local db viewers',
+        verse: 'Backend Lab',
         icon: Iconz.form,
-        screen: LDBViewersScreen(),
+        screen: BackendLabHome(),
       ),
       /// UI MANAGER
       DashButtonModel(

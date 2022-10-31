@@ -12,7 +12,7 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/zzzzz_test_lab/specialized_labs/fire_base_lab/streaming_test.dart';
+import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
 import 'package:flutter/material.dart';
 
 class RealTestScreen extends StatefulWidget {
