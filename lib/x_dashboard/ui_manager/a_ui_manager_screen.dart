@@ -36,8 +36,6 @@ class UIManager extends StatelessWidget {
       pageTitle: 'UI Manager',
       listWidgets: <Widget>[
 
-        const Stratosphere(),
-
         /// BLDRS ICONS
         WideButton(
           verse: Verse.plain('Bldrs icons'),

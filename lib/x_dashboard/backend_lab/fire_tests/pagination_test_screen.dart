@@ -7,7 +7,7 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
-import 'package:bldrs/x_dashboard/zzzzz_test_lab/specialized_labs/fire_base_lab/streaming_test.dart';
+import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
 import 'package:flutter/material.dart';
 
 class PaginatorTest extends StatefulWidget {
