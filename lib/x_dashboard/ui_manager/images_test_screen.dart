@@ -9,6 +9,8 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
+import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
@@ -51,11 +53,13 @@ class ImagesTestScreen extends StatefulWidget {
 
 class _ImagesTestScreenState extends State<ImagesTestScreen> {
   // -----------------------------------------------------------------------------
+  final StopWatchController stopWatchController = StopWatchController();
+  // --------------------
   final double _aspectRatio = 1;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-  // -----------
+  // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,
@@ -88,6 +92,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   @override
   void dispose() {
     _loading.dispose();
+    stopWatchController.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -102,11 +107,13 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   // --------------------
   Future<void> setImage(FileModel fileModel) async {
 
-    blog('a7aaaaaaaaaaaa');
+    stopWatchController.stop();
 
     if (fileModel != null){
 
       _loading.value = true;
+      stopWatchController.start();
+
 
       final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.file);
       final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
@@ -140,6 +147,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       });
 
       _loading.value = false;
+      stopWatchController.pause();
 
     }
 
@@ -425,6 +433,22 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                     child:Column(
                         children: <Widget>[
 
+                          StopWatchCounterBuilder(
+                            controller: stopWatchController,
+                            builder: (String displayTime){
+
+                              return DataStrip(
+                                dataKey: 'Loading duration',
+                                dataValue: displayTime,
+                                tooTipVerse: Verse.plain(
+                                    'this includes all functions transforming to'
+                                        ' (file, uInt, imgImage, uiImage, ldbBase64)'
+                                ),
+                              );
+
+                            },
+                          ),
+
                           /// META DATA
                           // WideButton(
                           //   verse:  'get Meta data',
@@ -499,8 +523,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                                 'This is : ( file.lengthSync() )'
                             ),
                           ),
-
-
 
                           /// FILE SIZE (KB)
                           DataStrip(
@@ -597,6 +619,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                           /// SEPARATOR
                           const SeparatorLine(),
 
+                          /// CACHE
                           SuperVerse(
                               verse: Verse.plain('Cache'),
                           ),

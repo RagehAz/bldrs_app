@@ -26,6 +26,16 @@ class Storage {
 
   /// FIREBASE STORAGE METHODS
 
+  static Future<void> ba3basa() async {
+
+    final ListResult _list = await FirebaseStorage.instance.ref('').listAll();
+
+    final List<Reference> _refs = _list.items;
+
+    
+
+  }
+
   // -----------------------------------------------------------------------------
 
   /// REFERENCES
