@@ -6,6 +6,7 @@ import 'package:bldrs/x_dashboard/ui_manager/animations_lab.dart';
 import 'package:bldrs/x_dashboard/ui_manager/balloon_types_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/dialog_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_rage7.dart';
 import 'package:bldrs/x_dashboard/ui_manager/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/keyboard_field_widget_test.dart';
@@ -247,6 +248,19 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        /// STOP WATCH TEST
+        WideButton(
+          verse: Verse.plain('StopWatch test'),
+          icon: Iconz.clock,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const StopWatchTest(),
+            );
+
+          },
+        ),
 
         const Horizon(),
 
