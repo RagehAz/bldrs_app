@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/animators/clock_rebuilder.dart';
+import 'package:bldrs/b_views/z_components/clocking/clock_rebuilder.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_doc_streamer.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
