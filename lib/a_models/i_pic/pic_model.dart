@@ -27,7 +27,7 @@ class PicModel {
   /// LDB CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherToLDB(PicModel picModel){
     Map<String, dynamic> _map;
 
@@ -42,7 +42,7 @@ class PicModel {
     return _map;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PicModel decipherFromLDB(Map<String, dynamic> map){
     PicModel _picModel;
 

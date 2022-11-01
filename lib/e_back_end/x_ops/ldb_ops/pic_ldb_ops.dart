@@ -3,7 +3,6 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:flutter/material.dart';
 
 class PicLDBOps {
   // -----------------------------------------------------------------------------
@@ -15,10 +14,8 @@ class PicLDBOps {
   /// CREATE - UPDATE
 
   // --------------------
-  ///
-  static Future<void> insertPic({
-    @required PicModel picModel,
-  }) async {
+  /// TESTED : WORKS PERFECT
+  static Future<void> insertPic(PicModel picModel) async {
 
     if (picModel != null){
 
@@ -35,7 +32,7 @@ class PicLDBOps {
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<PicModel> readPic(String path) async {
     PicModel _picModel;
 
