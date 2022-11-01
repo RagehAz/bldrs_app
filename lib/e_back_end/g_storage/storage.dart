@@ -13,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,189 @@ class Storage {
 
   const Storage();
 
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// REFERENCES
+
+  // --------------------
+  static Reference getRefByPath(String path){
+    return FirebaseStorage.instance.ref(path);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+  // --------------------
+  /// TAMAM
+  static Future<Reference> uploadBytes({
+    @required Uint8List bytes,
+    @required String path,
+    @required List<String> ownersIDs,
+    Dimensions dimensions,
+    Map<String, String> extraMap,
+  }) async {
+
+    assert(Mapper.checkCanLoopList(bytes) == true, 'uInt7List is empty or null');
+    assert(Mapper.checkCanLoopList(ownersIDs) == true, 'owners are null or empty');
+    assert(TextCheck.isEmpty(path) == false, 'path is empty or null');
+
+    Reference _output;
+
+    await tryAndCatch(
+        methodName: 'createDocByUint8List',
+        functions: () async {
+
+          final Reference _ref = getRefByPath(path);
+
+          blog('createDocByUint8List : 1 - got ref : $_ref');
+
+          final SettableMetadata metaData = _createMetaData(
+            ownersIDs: ownersIDs,
+            extraMap: extraMap,
+          );
+
+          blog('createDocByUint8List : 2 - assigned meta data');
+
+
+          final UploadTask _uploadTask = _ref.putData(
+            bytes,
+            metaData,
+          );
+
+          blog('createDocByUint8List : 3 - uploaded uInt8List to path : $path');
+
+
+          await Future.wait(<Future>[
+            _uploadTask.whenComplete((){
+              blog('createDocByUint8List : 4 - uploaded successfully');
+              _output = _ref;
+            }),
+
+            _uploadTask.onError((error, stackTrace){
+              blog('createDocByUint8List : 4 - failed to upload');
+              blog('error : ${error.runtimeType} : $error');
+              blog('stackTrace : ${stackTrace.runtimeType} : $stackTrace');
+              return error;
+            }),
+
+          ]);
+
+
+        });
+
+    blog('createDocByUint8List : 5 - END');
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ
+
+  // --------------------
+  /// TAMAM
+  static Future<Uint8List> readBytes({
+    @required String path,
+  }) async {
+    Uint8List _output;
+
+    if (TextCheck.isEmpty(path) == false){
+
+
+
+    }
+
+    return _output;
+  }
+
+
+
+  // -----------------------------------------------------------------------------
+
+  /// META-DATA
+
+  // --------------------
+  /// CREATE
+  // ---------
+  /// TAMAM
+  static SettableMetadata _createMetaData({
+    @required List<String> ownersIDs,
+    Dimensions dimensions,
+    Map<String, String> extraMap,
+  }){
+
+    blog('1 - _createMetaData : START');
+
+    /// ASSIGN FILE OWNERS
+    Map<String, String> _metaDataMap = <String, String>{};
+    for (final String ownerID in ownersIDs) {
+      _metaDataMap[ownerID] = 'cool';
+    }
+
+    blog('2 - _createMetaData : added owners : $ownersIDs');
+
+    /// ADD DIMENSIONS
+    if (dimensions != null) {
+      _metaDataMap = Mapper.mergeMaps(
+        baseMap: _metaDataMap,
+        replaceDuplicateKeys: true,
+        insert: <String, String>{
+          'width': '${dimensions.width}',
+          'height': '${dimensions.height}',
+        },
+      );
+      blog('3 - _createMetaData : added dimensions : ${dimensions.toString()}');
+    }
+
+    /// ADD EXTRA DATA MAP
+    if (extraMap != null) {
+      _metaDataMap = Mapper.mergeMaps(
+        baseMap: _metaDataMap,
+        replaceDuplicateKeys: true,
+        insert: extraMap,
+      );
+      blog('3 - _createMetaData : added extraMap : $extraMap');
+    }
+
+    blog('4 - _createMetaData : END');
+
+    return SettableMetadata(
+      customMetadata: _metaDataMap,
+    );
+
+  }
+  // --------------------
+  /// READ
+  // ---------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /// FIREBASE STORAGE METHODS
 
@@ -118,35 +301,41 @@ class Storage {
 
           blog('uploadFile : 1 - got ref : $_ref');
 
-          /// ASSIGN FILE OWNERS
-          Map<String, String> _metaDataMap = <String, String>{};
-          for (final String ownerID in ownersIDs) {
-            _metaDataMap[ownerID] = 'cool';
-          }
-          /// ADD EXTENSION
-          final String _extension = Filers.getFileExtensionFromFile(file);
-          _metaDataMap['extension'] = _extension;
-
-
-          blog('uploadFile : 2 - assigned owners : _metaDataMap : $_metaDataMap');
-
-          /// ADD EXTRA METADATA MAP PAIRS
-          if (metaDataAddOn != null) {
-            _metaDataMap = Mapper.mergeMaps(
-              baseMap: _metaDataMap,
-              insert: metaDataAddOn,
-              replaceDuplicateKeys: true,
-            );
-          }
-
-          blog('uploadFile : 3 - added extra meta data : _metaDataMap : $_metaDataMap');
-
-          /// FORM METADATA
-          final SettableMetadata metaData = SettableMetadata(
-            customMetadata: _metaDataMap,
+          final SettableMetadata metaData = _createMetaData(
+            ownersIDs: ownersIDs,
+            // fileExtension: Filers.getFileExtensionFromFile(file),
+            extraMap: metaDataAddOn,
           );
 
-          blog('uploadFile : 4 - assigned meta data');
+          // / ASSIGN FILE OWNERS
+          // Map<String, String> _metaDataMap = <String, String>{};
+          // for (final String ownerID in ownersIDs) {
+          //   _metaDataMap[ownerID] = 'cool';
+          // }
+          // /// ADD EXTENSION
+          // final String _extension = Filers.getFileExtensionFromFile(file);
+          // _metaDataMap['extension'] = _extension;
+
+
+          // blog('uploadFile : 2 - assigned owners : _metaDataMap : $_metaDataMap');
+
+          // /// ADD EXTRA METADATA MAP PAIRS
+          // if (metaDataAddOn != null) {
+          //   _metaDataMap = Mapper.mergeMaps(
+          //     baseMap: _metaDataMap,
+          //     insert: metaDataAddOn,
+          //     replaceDuplicateKeys: true,
+          //   );
+          // }
+
+          // blog('uploadFile : 3 - added extra meta data : _metaDataMap : $_metaDataMap');
+
+          // /// FORM METADATA
+          // final SettableMetadata metaData = SettableMetadata(
+          //   customMetadata: _metaDataMap,
+          // );
+
+          blog('uploadFile : 2 - assigned meta data');
 
 
           final UploadTask _uploadTask = _ref.putFile(
@@ -154,16 +343,16 @@ class Storage {
             metaData,
           );
 
-          blog('uploadFile : 5 - uploaded file : fileName : $fileName : file.fileNameWithExtension : ${file.fileNameWithExtension}');
+          blog('uploadFile : 3 - uploaded file : fileName : $fileName : file.fileNameWithExtension : ${file.fileNameWithExtension}');
 
           final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
-            blog('uploadFile : 6 - upload file completed');
+            blog('uploadFile : 4 - upload file completed');
           });
 
-          blog('uploadFile : 7 - task state : ${_snapshot?.state}');
+          blog('uploadFile : 5 - task state : ${_snapshot?.state}');
 
           _fileURL = await _ref.getDownloadURL();
-          blog('uploadFile : 8 - got url : $_fileURL');
+          blog('uploadFile : 6 - got url : $_fileURL');
 
         });
 
@@ -963,35 +1152,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
   /// BLOGGING
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogFullMetaData(FullMetadata metaData){
-
-    blog('BLOGGING STORAGE FILE META DATA ------------------------------- START');
-    if (metaData == null){
-      blog('Meta data is null');
-    }
-    else {
-      blog('name : ${metaData.name}');
-      blog('bucket : ${metaData.bucket}');
-      blog('cacheControl : ${metaData.cacheControl}');
-      blog('contentDisposition : ${metaData.contentDisposition}');
-      blog('contentEncoding : ${metaData.contentEncoding}');
-      blog('contentLanguage : ${metaData.contentLanguage}');
-      blog('contentType : ${metaData.contentType}');
-      blog('customMetadata : ${metaData.customMetadata}'); // map
-      blog('fullPath : ${metaData.fullPath}');
-      blog('generation : ${metaData.generation}');
-      blog('md5Hash : ${metaData.md5Hash}');
-      blog('metadataGeneration : ${metaData.metadataGeneration}');
-      blog('metageneration : ${metaData.metageneration}');
-      blog('size : ${metaData.size}');
-      blog('timeCreated : ${metaData.timeCreated}'); // date time
-      blog('updated : ${metaData.updated}'); // date time
-    }
-    blog('BLOGGING STORAGE IMAGE META DATA ------------------------------- END');
-
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogReference(Reference ref){

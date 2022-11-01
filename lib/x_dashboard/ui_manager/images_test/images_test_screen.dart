@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -36,6 +37,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
@@ -101,6 +103,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   img.Image imgImage;
   ui.Image uiImage;
   String _ldbBase64;
+  Uint8List _ldbInts;
   // --------------------
   Dimensions _imageSize;
   bool isLoading;
@@ -116,32 +119,20 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
 
       final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.file);
-      final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
-      final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
+      // final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
+      // final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
       final Dimensions _size = await Dimensions.superDimensions(fileModel.file);
-      await LDBOps.insertMap(
-        docName: 'tempPicDoc',
-        input: {
-          'id': 'ldbBase64',
-          'data' : await Floaters.getBase64FromFileOrURL(fileModel.file),
-        },
-      );
 
-      String _base64FromLDB;
-      final List<Map<String, dynamic>> _mapBase64 = await LDBOps.readMaps(
-          ids: ['ldbBase64'],
-          docName: 'tempPicDoc',
-      );
-      if (Mapper.checkCanLoopList(_mapBase64) == true){
-        _base64FromLDB = _mapBase64.first['data'];
-      }
+      // final String _base64FromLDB = await _addBase64ToLDBAndRead(fileModel: fileModel);
+      // final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: _uInt);
 
       setState(() {
         _file = fileModel.file;
         uInt = _uInt;
-        uiImage = _uiImage;
-        imgImage = _imgImage;
-        _ldbBase64 = _base64FromLDB;
+        // uiImage = _uiImage;
+        // imgImage = _imgImage;
+        // _ldbBase64 = _base64FromLDB;
+        // _ldbInts = _ldbIntsFromLDB;
 
         _imageSize = _size;
       });
@@ -166,6 +157,59 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       isLoading = false;
     });
   }
+  // --------------------
+  Future<String> _addBase64ToLDBAndRead({
+    @required FileModel fileModel,
+  }) async {
+
+    await LDBOps.insertMap(
+      docName: 'tempPicDoc',
+      input: {
+        'id': 'ldbBase64',
+        'data' : await Floaters.getBase64FromFileOrURL(fileModel.file),
+      },
+    );
+
+    String _base64FromLDB;
+    final List<Map<String, dynamic>> _mapBase64 = await LDBOps.readMaps(
+      docName: 'tempPicDoc',
+      ids: ['ldbBase64'],
+    );
+    if (Mapper.checkCanLoopList(_mapBase64) == true){
+      _base64FromLDB = _mapBase64.first['data'];
+    }
+
+    return _base64FromLDB;
+  }
+  // --------------------
+  Future<Uint8List> _addUintsToLDBAndRead({
+    @required Uint8List int8List,
+  }) async {
+    Uint8List _int8List;
+
+    final List<int> _ints = Floaters.getIntsFromUint8List(int8List);
+
+    await LDBOps.insertMap(
+      docName: 'tempPicDoc',
+      input: {
+        'id': 'uInt8List',
+        'data' : _ints,
+      },
+    );
+
+    final List<Map<String, dynamic>> _intsMaps = await LDBOps.readMaps(
+      docName: 'tempPicDoc',
+      ids: ['uInt8List'],
+    );
+
+    if (Mapper.checkCanLoopList(_intsMaps) == true){
+      final dynamic _data = _intsMaps.first['data'];
+      final List<int> _intsFromLDB = Uint8List.fromList(_data.cast<int>());
+      _int8List = _intsFromLDB;
+    }
+
+    return _int8List;
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -173,11 +217,12 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
     // final double _buttonWidth = PageBubble.clearWidth(context);
 
     final List<Map<String, dynamic>> _maps = [
-      {'pic' : _file,       'text' : 'FILE : $_file'},
-      {'pic' : uInt,        'text' : 'uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums'},
-      {'pic' : imgImage,    'text' : 'imgImage : ${imgImage?.toString()}'},
-      {'pic' : uiImage,     'text' : 'uiImage : ${uiImage?.toString()}'},
-      {'pic' : _ldbBase64,  'text' : 'ldbBase64 : $_ldbBase64'},
+      {'pic' : _file,       'text' : 'FILE\n${Filers.getFileSizeInMb(_file)} MB'},
+      {'pic' : uInt,        'text' : 'uInt8List\n${Numeric.roundFractions(uInt?.length?.toDouble() ?? 0.0 / (1024 * 1024), 2)}'},
+      // {'pic' : imgImage,    'text' : 'imgImage\n${Numeric.roundFractions(imgImage?.getBytes()?.length?.toDouble() ?? 0 / (1024 * 1024), 2)} MB'},
+      // {'pic' : uiImage,     'text' : 'uiImage\n${uiImage?.toString()}'},
+      // {'pic' : _ldbBase64,  'text' : 'LDB-Base64\n ${Numeric.formatNumToSeparatedKilos(number: _ldbBase64?.codeUnits?.length)} units'},
+      // {'pic' : _ldbInts,    'text' : 'LDB-ints\n${Numeric.roundFractions(_ldbInts?.length?.toDouble()??0/ (1024 * 1024), 2)} MB'},
     ];
 
     return MainLayout(
@@ -634,7 +679,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                           /// CURRENT SIZE BYTES
                           DataStrip(
                             dataKey: 'current Size Bytes',
-                            dataValue: '${imageCache.currentSizeBytes} Bytes',
+                            dataValue: '${Filers.calculateSize(imageCache.currentSizeBytes, FileSizeUnit.megaByte)} Mb',
                             color: Colorz.yellow20,
                           ),
 
@@ -702,64 +747,3 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   // -----------------------------------------------------------------------------
 }
 
-class ImageTile extends StatelessWidget {
-
-  const ImageTile({
-    @required this.pic,
-    @required this.tileWidth,
-    @required this.imageSize,
-    @required this.text,
-    Key key
-  }) : super(key: key);
-
-  final dynamic pic;
-  final double tileWidth;
-  final Dimensions imageSize;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-
-    if (pic == null){
-      return const SizedBox();
-    }
-
-    else {
-
-      final double _picHeight = Dimensions.getHeightByAspectRatio(
-        width: tileWidth,
-        aspectRatio: imageSize.getAspectRatio(),
-      );
-
-      return GestureDetector(
-        onTap: () => Nav.goToNewScreen(context: context, screen: SlideFullScreen(image: pic, imageSize: imageSize)),
-        child: SizedBox(
-          width: tileWidth,
-          height: _picHeight,
-          child: Stack(
-            children: <Widget>[
-
-              SuperImage(
-                width: tileWidth,
-                height: _picHeight,
-                pic: pic,
-              ),
-
-              SuperVerse(
-                width: tileWidth - 10,
-                verse: Verse.plain(text),
-                margin: 5,
-                labelColor: Colorz.black200,
-                maxLines: 3,
-                size: 1,
-              ),
-
-            ],
-          ),
-        ),
-      );
-
-    }
-  }
-
-}
