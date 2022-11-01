@@ -123,8 +123,8 @@ class BzFireOps {
 
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         inputFile: logo,
-        fileName: bzID,
-        docName: StorageDoc.logos,
+        docName: bzID,
+        collName: StorageDoc.logos,
         ownersIDs: <String>[bzCreatorID],
       );
 
@@ -140,8 +140,8 @@ class BzFireOps {
 
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         inputFile: _fileFromURL,
-        fileName: bzID,
-        docName: StorageDoc.logos,
+        docName: bzID,
+        collName: StorageDoc.logos,
         ownersIDs: <String>[bzCreatorID],
       );
 
@@ -177,9 +177,9 @@ class BzFireOps {
 
       _authorPicURL = await Storage.createStoragePicAndGetURL(
         inputFile: draftBz.authors[0].pic,
-        docName: StorageDoc.authors,
+        collName: StorageDoc.authors,
         ownersIDs: <String>[userModel.id],
-        fileName: AuthorModel.generateAuthorPicID(
+        docName: AuthorModel.generateAuthorPicID(
           authorID: userModel.id,
           bzID: bzID,
         ),
@@ -405,8 +405,8 @@ class BzFireOps {
 
       final String _authorPicURL = await Storage.createStoragePicAndGetURL(
         inputFile: _authorWithImageFile.pic,
-        docName: StorageDoc.authors,
-        fileName: _picName,
+        collName: StorageDoc.authors,
+        docName: _picName,
         ownersIDs: _picOwnersIDs,
       );
 

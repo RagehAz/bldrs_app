@@ -387,13 +387,13 @@ class FlyerFireOps {
 
             /// upload File to fireStorage/slidesPics/slideID and get URL
             final String _newPicURL = await Storage.createStoragePicAndGetURL(
-              docName: StorageDoc.slides,
+              collName: StorageDoc.slides,
               inputFile: slide.pic,
               ownersIDs: <String>[
                 AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
                 oldFlyer.authorID,
               ],
-              fileName: SlideModel.generateSlideID(
+              docName: SlideModel.generateSlideID(
                 flyerID: newFlyer.id,
                 slideIndex: slide.slideIndex,
               ),
