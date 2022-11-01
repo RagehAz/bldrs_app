@@ -1,6 +1,8 @@
 
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -11,7 +13,9 @@ import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
@@ -125,12 +129,14 @@ class _FireStorageTestState extends State<FireStorageTest> {
 
             blog('result is : ${result?.runtimeType} : $result');
 
+            await Dialogs.showSuccessDialog(context: context);
+
           },
         ),
 
         const DotSeparator(),
 
-        ///
+        /// GET URL BY PATH
         WideButton(
           verse: Verse.plain('get URL by path'),
           onTap: () async {
@@ -143,6 +149,57 @@ class _FireStorageTestState extends State<FireStorageTest> {
             final String _url = await _ref.getDownloadURL();
 
             blog('url is : $_url');
+            await Dialogs.showSuccessDialog(context: context);
+
+          },
+        ),
+
+        /// put uInt In Path
+        WideButton(
+          verse: Verse.plain('upload uInt8List with / in name'),
+          onTap: () async {
+
+            final String icon = await BldrsIconsScreen.selectIcon(context);
+
+            final File _file = await Filers.getFileFromLocalRasterAsset(
+                localAsset: icon,
+            );
+
+            final Uint8List _int = await Floaters.getUint8ListFromFile(_file);
+            final Dimensions dim = await Dimensions.superDimensions(_int);
+
+            final Reference _ref = Storage.getRef(
+              storageDocName: 'test',
+              fileName: 'fuck/you_bitch',
+            );
+            /// ASSIGN FILE OWNERS
+            Map<String, String> _metaDataMap = <String, String>{};
+              _metaDataMap[AuthFireOps.superUserID()] = 'cool';
+
+              _metaDataMap = Mapper.mergeMaps(
+                baseMap: _metaDataMap,
+                insert: <String, String>{
+                  'width': '${dim.width}',
+                  'height': '${dim.height}',
+                },
+                replaceDuplicateKeys: true,
+              );
+
+            /// FORM METADATA
+            final SettableMetadata metaData = SettableMetadata(
+              customMetadata: _metaDataMap,
+            );
+
+            final TaskSnapshot _taskSnapshot = await _ref.putData(
+              _int,
+              metaData,
+            );
+
+            final String _url = await _ref.getDownloadURL();
+
+            blog('url is : $_url');
+            blog('_taskSnapshot : ${_taskSnapshot.totalBytes} : ${_taskSnapshot.state}');
+            await Dialogs.showSuccessDialog(context: context);
 
           },
         ),
