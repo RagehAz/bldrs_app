@@ -32,7 +32,7 @@ class Dimensions {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Dimensions decipherImageSize(Map<String, dynamic> map) {
+  static Dimensions decipherDimensions(Map<String, dynamic> map) {
     Dimensions _imageSize;
     if (map != null) {
 
