@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class StorageRef {
   /// --------------------------------------------------------------------------
 
   const StorageRef();
+
   // -----------------------------------------------------------------------------
 
   /// BY PATH
@@ -25,14 +27,14 @@ class StorageRef {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Reference byNodes({
-    @required String storageDocName,
-    @required String fileName, // without extension
+    @required String collName,
+    @required String docName, // without extension
   }) {
 
     return FirebaseStorage.instance
         .ref()
-        .child(storageDocName)
-        .child(fileName);
+        .child(collName)
+        .child(docName);
 
   }
   // -----------------------------------------------------------------------------
@@ -72,6 +74,30 @@ class StorageRef {
     );
 
     return _url;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogRef(Reference ref){
+    blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- START');
+
+    if (ref == null){
+      blog('Reference is null');
+    }
+    else {
+      blog('name : ${ref.name}');
+      blog('fullPath : ${ref.fullPath}');
+      blog('bucket : ${ref.bucket}');
+      blog('hashCode : ${ref.hashCode}');
+      blog('parent : ${ref.parent}');
+      blog('root : ${ref.root}');
+      blog('storage : ${ref.storage}');
+    }
+
+    blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- END');
   }
   // -----------------------------------------------------------------------------
 }

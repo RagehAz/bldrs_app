@@ -60,8 +60,8 @@ class UserFireOps {
     if (ObjectCheck.objectIsFile(userModel.pic) == true) {
       _userPicURL = await Storage.createStoragePicAndGetURL(
         inputFile: userModel.pic,
-        fileName: userModel.id,
-        docName: StorageDoc.users,
+        docName: userModel.id,
+        collName: StorageDoc.users,
         ownersIDs: <String>[userModel.id],
       );
     }
@@ -74,8 +74,8 @@ class UserFireOps {
         final File _picFile = await Filers.getFileFromURL(userModel.pic);
         _userPicURL = await Storage.createStoragePicAndGetURL(
           inputFile: _picFile,
-          fileName: userModel.id,
-          docName: StorageDoc.users,
+          docName: userModel.id,
+          collName: StorageDoc.users,
           ownersIDs: <String>[userModel.id],
         );
       }
@@ -232,9 +232,9 @@ class UserFireOps {
       _userPicURL = await Storage.createOrUpdatePic(
         oldURL: _oldFile?.url,
         newPic: newUserModel.pic,
-        picName: newUserModel.id,
+        docName: newUserModel.id,
         ownersIDs: <String>[newUserModel.id],
-        docName: StorageDoc.users,
+        collName: StorageDoc.users,
       );
 
     }

@@ -41,8 +41,8 @@ class StorageFileOps {
 
           /// GET REF
           final Reference _ref = StorageRef.byNodes(
-            storageDocName: storageCollName,
-            fileName: docName,
+            collName: storageCollName,
+            docName: docName,
           );
 
           blog('uploadFile : 1 - got ref : $_ref');
@@ -224,8 +224,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     // }
 
     final Reference _ref = StorageRef.byNodes(
-      storageDocName: storageCollName,
-      fileName: docName,
+      collName: storageCollName,
+      docName: docName,
     );
 
 
