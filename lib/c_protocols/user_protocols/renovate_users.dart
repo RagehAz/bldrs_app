@@ -50,7 +50,6 @@ class RenovateUserProtocols {
 
       /// UPDATE USER IN FIRE STORE
       _uploadedModel = await UserFireOps.updateUser(
-        context: context,
         newUserModel: newUserModel,
         oldUserModel: _oldUserModel,
       );

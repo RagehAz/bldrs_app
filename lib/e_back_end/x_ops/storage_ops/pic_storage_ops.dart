@@ -3,7 +3,8 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -26,11 +27,10 @@ class PicStorageOps {
 
     PicModel.assertIsUploadable(picModel);
 
-    final Reference _ref = await Storage.uploadBytes(
+    final Reference _ref = await StorageByteOps.uploadBytes(
       bytes: picModel.bytes,
       path: picModel.path,
-      ownersIDs: picModel.meta.ownersIDs,
-      dimensions: picModel.meta.dimensions,
+      metaData: picModel.meta.toSettableMetadata(),
     );
 
     if (_ref == null){
@@ -53,10 +53,9 @@ class PicStorageOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final Reference _ref = Storage.getRefByPath(path);
+      final Reference _ref = StorageRef.byPath(path);
       Uint8List _bytes;
       FullMetadata _meta;
-      List<String> _owners;
 
       await tryAndCatch(
           functions: () async {

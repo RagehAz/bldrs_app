@@ -1,431 +1,32 @@
-import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class Storage {
-  /// --------------------------------------------------------------------------
-
   const Storage();
-
-  // -----------------------------------------------------------------------------
-
-  /// REFERENCES
-
-  // --------------------
-  static Reference getRefByPath(String path){
-    return FirebaseStorage.instance.ref(path);
-  }
   // -----------------------------------------------------------------------------
 
   /// CREATE
 
   // --------------------
-  /// TAMAM
-  static Future<Reference> uploadBytes({
-    @required Uint8List bytes,
-    @required String path,
-    @required List<String> ownersIDs,
-    Dimensions dimensions,
-    Map<String, String> extraMap,
-  }) async {
-
-    assert(Mapper.checkCanLoopList(bytes) == true, 'uInt7List is empty or null');
-    assert(Mapper.checkCanLoopList(ownersIDs) == true, 'owners are null or empty');
-    assert(TextCheck.isEmpty(path) == false, 'path is empty or null');
-
-    Reference _output;
-
-    await tryAndCatch(
-        methodName: 'createDocByUint8List',
-        functions: () async {
-
-          final Reference _ref = getRefByPath(path);
-
-          blog('createDocByUint8List : 1 - got ref : $_ref');
-
-          final SettableMetadata metaData = _createMetaData(
-            ownersIDs: ownersIDs,
-            extraMap: extraMap,
-          );
-
-          blog('createDocByUint8List : 2 - assigned meta data');
-
-
-          final UploadTask _uploadTask = _ref.putData(
-            bytes,
-            metaData,
-          );
-
-          blog('createDocByUint8List : 3 - uploaded uInt8List to path : $path');
-
-
-          await Future.wait(<Future>[
-            _uploadTask.whenComplete((){
-              blog('createDocByUint8List : 4 - uploaded successfully');
-              _output = _ref;
-            }),
-
-            _uploadTask.onError((error, stackTrace){
-              blog('createDocByUint8List : 4 - failed to upload');
-              blog('error : ${error.runtimeType} : $error');
-              blog('stackTrace : ${stackTrace.runtimeType} : $stackTrace');
-              return error;
-            }),
-
-          ]);
-
-
-        });
-
-    blog('createDocByUint8List : 5 - END');
-
-    return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// READ
 
   // --------------------
-  /// TAMAM
-  static Future<Uint8List> readBytes({
-    @required String path,
-  }) async {
-    Uint8List _output;
-
-    if (TextCheck.isEmpty(path) == false){
-
-
-
-    }
-
-    return _output;
-  }
-
-
-
-  // -----------------------------------------------------------------------------
-
-  /// META-DATA
-
-  // --------------------
-  /// CREATE
-  // ---------
-  /// TAMAM
-  static SettableMetadata _createMetaData({
-    @required List<String> ownersIDs,
-    Dimensions dimensions,
-    Map<String, String> extraMap,
-  }){
-
-    blog('1 - _createMetaData : START');
-
-    /// ASSIGN FILE OWNERS
-    Map<String, String> _metaDataMap = <String, String>{};
-    for (final String ownerID in ownersIDs) {
-      _metaDataMap[ownerID] = 'cool';
-    }
-
-    blog('2 - _createMetaData : added owners : $ownersIDs');
-
-    /// ADD DIMENSIONS
-    if (dimensions != null) {
-      _metaDataMap = Mapper.mergeMaps(
-        baseMap: _metaDataMap,
-        replaceDuplicateKeys: true,
-        insert: <String, String>{
-          'width': '${dimensions.width}',
-          'height': '${dimensions.height}',
-        },
-      );
-      blog('3 - _createMetaData : added dimensions : ${dimensions.toString()}');
-    }
-
-    /// ADD EXTRA DATA MAP
-    if (extraMap != null) {
-      _metaDataMap = Mapper.mergeMaps(
-        baseMap: _metaDataMap,
-        replaceDuplicateKeys: true,
-        insert: extraMap,
-      );
-      blog('3 - _createMetaData : added extraMap : $extraMap');
-    }
-
-    blog('4 - _createMetaData : END');
-
-    return SettableMetadata(
-      customMetadata: _metaDataMap,
-    );
-
-  }
-  // --------------------
-  /// READ
-  // ---------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /// FIREBASE STORAGE METHODS
-
-  static Future<void> ba3basa() async {
-
-    final ListResult _list = await FirebaseStorage.instance.ref('').listAll();
-
-    final List<Reference> _refs = _list.items;
-
-
-
-  }
-
-  // -----------------------------------------------------------------------------
-
-  /// REFERENCES
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Reference getRef({
-    @required String storageDocName,
-    @required String fileName, // without extension
-  }) {
-
-    return FirebaseStorage.instance
-        .ref()
-        .child(storageDocName)
-        .child(fileName);
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Reference> getRefFromURL({
-    @required String url,
-    @required BuildContext context,
-  }) async {
-    Reference _ref;
-
-    await tryAndCatch(
-        methodName: 'getRefFromURL',
-        functions: () {
-          final FirebaseStorage _storage = FirebaseStorage.instance;
-          _ref = _storage.refFromURL(url);
-          // await null;
-        },
-        onError: (String error) async {
-          log(error);
-
-          /// TASK : this is temp ,, or see how it goes
-          await CenterDialog.showCenterDialog(
-            context: context,
-            titleVerse: const Verse(
-              text: 'phid_somethingIsWrong',
-              translate: true,
-            ),
-            bodyVerse: const Verse(
-              text: 'phid_could_not_get_this_image',
-              translate: true,
-            ),
-          );
-        });
-
-    return _ref;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CREATE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<String> uploadFile({
-    @required File file,
-    @required String storageDocName,
-    @required String fileName,
-    @required List<String> ownersIDs,
-    Map<String, String> metaDataAddOn,
-  }) async {
-
-    blog('uploadFile : START');
-
-    /// NOTE : RETURNS URL
-    String _fileURL;
-
-    await tryAndCatch(
-        methodName: 'uploadFile',
-        functions: () async {
-
-          /// GET REF
-          final Reference _ref = getRef(
-            storageDocName: storageDocName,
-            fileName: fileName,
-          );
-
-          blog('uploadFile : 1 - got ref : $_ref');
-
-          final SettableMetadata metaData = _createMetaData(
-            ownersIDs: ownersIDs,
-            // fileExtension: Filers.getFileExtensionFromFile(file),
-            extraMap: metaDataAddOn,
-          );
-
-          // / ASSIGN FILE OWNERS
-          // Map<String, String> _metaDataMap = <String, String>{};
-          // for (final String ownerID in ownersIDs) {
-          //   _metaDataMap[ownerID] = 'cool';
-          // }
-          // /// ADD EXTENSION
-          // final String _extension = Filers.getFileExtensionFromFile(file);
-          // _metaDataMap['extension'] = _extension;
-
-
-          // blog('uploadFile : 2 - assigned owners : _metaDataMap : $_metaDataMap');
-
-          // /// ADD EXTRA METADATA MAP PAIRS
-          // if (metaDataAddOn != null) {
-          //   _metaDataMap = Mapper.mergeMaps(
-          //     baseMap: _metaDataMap,
-          //     insert: metaDataAddOn,
-          //     replaceDuplicateKeys: true,
-          //   );
-          // }
-
-          // blog('uploadFile : 3 - added extra meta data : _metaDataMap : $_metaDataMap');
-
-          // /// FORM METADATA
-          // final SettableMetadata metaData = SettableMetadata(
-          //   customMetadata: _metaDataMap,
-          // );
-
-          blog('uploadFile : 2 - assigned meta data');
-
-
-          final UploadTask _uploadTask = _ref.putFile(
-            file,
-            metaData,
-          );
-
-          blog('uploadFile : 3 - uploaded file : fileName : $fileName : file.fileNameWithExtension : ${file.fileNameWithExtension}');
-
-          final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
-            blog('uploadFile : 4 - upload file completed');
-          });
-
-          blog('uploadFile : 5 - task state : ${_snapshot?.state}');
-
-          _fileURL = await _ref.getDownloadURL();
-          blog('uploadFile : 6 - got url : $_fileURL');
-
-        });
-
-    /*
-
-    StreamBuilder<StorageTaskEvent>(
-    stream: _uploadTask.events,
-    builder: (context, snapshot) {
-        if(!snapshot.hasData){
-            return Text('No data');
-        }
-       StorageTaskSnapshot taskSnapshot = snapshot.data.snapshot;
-       switch (snapshot.data.type) {
-          case StorageTaskEventType.failure:
-              return Text('Failure');
-              break;
-          case StorageTaskEventType.progress:
-              return CircularProgressIndicator(
-                     value : taskSnapshot.bytesTransferred
-                             /taskSnapshot.totalByteCount);
-              break;
-          case StorageTaskEventType.pause:
-              return Text('Pause');
-              break;
-          case StorageTaskEventType.success:
-              return Text('Success');
-              break;
-          case StorageTaskEventType.resume:
-              return Text('Resume');
-              break;
-          default:
-              return Text('Default');
-       }
-    },
-)
-
-// -----------------------------------------------------
-
-ButtonBar(
-   alignment: MainAxisAlignment.center,
-   children: <Widget>[
-       IconButton(
-          icon: Icon(Icons.play_arrow),
-          onPressed: (){
-               // to resume the upload
-               _uploadTask.resume();
-          },
-       ),
-       IconButton(
-          icon: Icon(Icons.cancel),
-          onPressed: (){
-               // to cancel the upload
-               _uploadTask.cancel();
-          },
-       ),
-       IconButton(
-          icon: Icon(Icons.pause),
-          onPressed: (){
-              // to pause the upload
-              _uploadTask.pause();
-          },
-       ),
-   ],
-)
-
-https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c4314
-
-     */
-
-    blog('uploadFile : END');
-    return _fileURL;
-  }
-  // --------------------
+  /// protocol
   /// TESTED : WORKS PERFECT
   static Future<String> createStoragePicAndGetURL({
     @required File inputFile,
@@ -451,9 +52,9 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
             'height': '${imageSize.height}',
           };
 
-          _imageURL = await uploadFile(
-            storageDocName: docName,
-            fileName: fileName,
+          _imageURL = await StorageFileOps.uploadFileAndGetURL(
+            storageCollName: docName,
+            docName: fileName,
             file: inputFile,
             ownersIDs: ownersIDs,
             metaDataAddOn: _metaDataMap,
@@ -464,6 +65,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _imageURL;
   }
   // --------------------
+  /// flyerStorageOps
   /// TESTED : WORKS PERFECT
   static Future<List<String>> createStorageSlidePicsAndGetURLs({
     @required List<SlideModel> slides,
@@ -506,7 +108,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _picturesURLs;
   }
   // --------------------
-  ///
+  /// protocol
   static Future<List<String>> createMultipleStoragePicsAndGetURLs({
     @required List<File> files,
     @required List<String> names,
@@ -549,6 +151,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _picsURLs;
   }
   // --------------------
+  /// protocol
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL({
     @required String asset,
@@ -576,9 +179,9 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _url;
   }
   // --------------------
+  /// pdf storage ops
   /// TESTED : WORKS PERFECT
   static Future<FileModel> uploadFlyerPDFAndGetFlyerPDF({
-    @required BuildContext context,
     @required FileModel pdf,
     @required String flyerID,
     @required List<String> ownersIDs,
@@ -607,10 +210,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
           _fileFromURL = pdf.file;
 
-          _url = await Storage.uploadFile(
+          _url = await StorageFileOps.uploadFileAndGetURL(
             file: pdf.file,
-            storageDocName: StorageDoc.flyersPDFs,
-            fileName: _pdfStorageName,
+            storageCollName: StorageDoc.flyersPDFs,
+            docName: _pdfStorageName,
             ownersIDs: ownersIDs,
             // metaDataAddOn: ,
           );
@@ -623,15 +226,14 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       else if (_shouldReUploadExistingURL == true){
 
         _fileFromURL = await Filers.getFileFromURL(pdf.url);
-        final FullMetadata _meta = await getMetadataFromURL(
-          context: context,
+        final FullMetadata _meta = await StorageMetaOps.getMetaByURL(
           url: pdf.url,
         );
 
-        _url = await Storage.uploadFile(
+        _url = await StorageFileOps.uploadFileAndGetURL(
           file: _fileFromURL,
-          storageDocName: StorageDoc.flyersPDFs,
-          fileName: _pdfStorageName,
+          storageCollName: StorageDoc.flyersPDFs,
+          docName: _pdfStorageName,
           ownersIDs: ownersIDs,
           metaDataAddOn: _meta.customMetadata,
         );
@@ -658,98 +260,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// READ (GETTERS)
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<String> getImageURLByPath({
-    @required String storageDocName,
-    /// Note : use picName without file extension
-    @required String fileName,
-  }) async {
-
-    final Reference _ref = getRef(
-      storageDocName: storageDocName,
-      fileName: fileName,
-    );
-
-    String _url;
-
-    await tryAndCatch(
-        methodName: '',
-        functions: () async {
-          _url = await _ref.getDownloadURL();
-        }
-    );
-
-    return _url;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<File> getImageFileByURL({
-    @required BuildContext context,
-    @required String url,
-  }) async {
-    File _file;
-
-    if (url != null) {
-
-      final Reference _ref = await getRefFromURL(
-        url: url,
-        context: context,
-      );
-
-      if (_ref != null) {
-
-        final Uint8List _uInts = await _ref.getData();
-
-        _file = await Filers.getFileFromUint8List(
-          uInt8List: _uInts,
-          fileName: _ref.name,
-        );
-
-      }
-    }
-
-    return _file;
-  }
-  // --------------------
-  static Future<File> getImageFileByPath({
-    @required String storageDocName,
-    @required String fileName,
-  }) async {
-    File _file;
-
-    // final String _url = await readStoragePicURL(
-    //     context: context,
-    //     docName: docName,
-    //     picName: picName
-    // );
-    // if (_url != null){
-    //   _file = await getFileFromPicURL(context: context, url: _url);
-    //
-    //
-    //
-    // }
-
-    final Reference _ref = getRef(
-      storageDocName: storageDocName,
-      fileName: fileName,
-    );
 
 
-    if (_ref != null) {
-      final Uint8List _uInts = await _ref.getData();
-
-      _file = await Filers.getFileFromUint8List(
-          uInt8List: _uInts,
-          fileName: _ref.name
-      );
-    }
-
-    return _file;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> getImageNameByURL({
-    @required BuildContext context,
     @required String url,
     // @required bool withExtension,
   }) async {
@@ -758,8 +273,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
-      final Reference _ref = await getRefFromURL(
-        context: context,
+      final Reference _ref = await StorageRef.byURL(
         url: url,
       );
 
@@ -782,79 +296,17 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<FullMetadata> getMetadataFromURL({
-    @required BuildContext context,
-    @required String url,
-  }) async {
-
-    FullMetadata _meta;
-
-    if (ObjectCheck.isAbsoluteURL(url) == true){
-
-      await tryAndCatch(
-        methodName: 'getMetadataFromURL',
-        functions: () async {
-
-          final Reference _ref = await Storage.getRefFromURL(
-              url: url,
-              context: context
-          );
-
-          _meta = await _ref.getMetadata();
-
-
-        },
-      );
-
-    }
-
-    return _meta;
-  }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<FullMetadata> getMetadataByFileName({
-    @required String storageDocName,
-    @required String fileName,
-  }) async {
-
-    FullMetadata _meta;
-
-    blog('getMetadataByFileName : $storageDocName/$fileName');
-
-    if (storageDocName != null && fileName != null){
-
-      await tryAndCatch(
-        methodName: 'getMetadataByFileName',
-        functions: () async {
-
-          final Reference _ref = Storage.getRef(
-            storageDocName: storageDocName,
-            fileName: fileName,
-          );
-
-          _meta = await _ref?.getMetadata();
-
-        },
-      );
-
-
-    }
-
-    return _meta;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getOwnersIDsByURL({
-    @required BuildContext context,
     @required String url,
   }) async {
     final List<String> _ids = [];
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
-      final FullMetadata _metaData = await getMetadataFromURL(
-        context: context,
+      final FullMetadata _metaData = await StorageMetaOps.getMetaByURL(
         url: url,
       );
 
@@ -874,16 +326,16 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getOwnersIDsByFileName({
-    @required String storageDocName,
-    @required String fileName,
+    @required String storageCollName,
+    @required String docName,
   }) async {
     final List<String> _ids = [];
 
-    if (fileName != null && storageDocName != null){
+    if (docName != null && storageCollName != null){
 
-      final FullMetadata _metaData = await getMetadataByFileName(
-        storageDocName: storageDocName,
-        fileName: fileName,
+      final FullMetadata _metaData = await StorageMetaOps.getMetaByNodes(
+        storageCollName: storageCollName,
+        docName: docName,
       );
 
       final Map<String, String> _map = _metaData?.customMetadata;
@@ -906,7 +358,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> updateExistingPic({
-    @required BuildContext context,
     @required String oldURL,
     @required File newPic,
   }) async {
@@ -918,9 +369,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         methodName: 'updateExistingPic',
         functions: () async {
 
-          final Reference _ref = await getRefFromURL(
+          final Reference _ref = await StorageRef.byURL(
             url: oldURL,
-            context: context,
           );
 
           final FullMetadata _fullMeta = await _ref?.getMetadata();
@@ -946,7 +396,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> createOrUpdatePic({
-    @required BuildContext context,
     @required String oldURL,
     @required File newPic,
     @required String docName,
@@ -963,7 +412,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (_oldURLIsValid == true){
 
       _outputURL = await updateExistingPic(
-        context: context,
         oldURL: oldURL,
         newPic: newPic,
       );
@@ -987,7 +435,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updatePicMetadata({
-    @required BuildContext context,
     @required String picURL,
     Map<String, String> metaDataMap,
   }) async {
@@ -1006,9 +453,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (ObjectCheck.isAbsoluteURL(picURL) == true && metaDataMap != null){
 
-      final Reference _ref = await Storage.getRefFromURL(
+      final Reference _ref = await StorageRef.byURL(
           url: picURL,
-          context: context
       );
 
       // final FullMetadata _meta = await _ref.getMetadata();
@@ -1033,15 +479,15 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteStoragePic({
-    @required String storageDocName,
-    @required String fileName,
+    @required String collName,
+    @required String docName,
   }) async {
 
     blog('deleteStoragePic : START');
 
     final bool _canDelete = await checkCanDeleteStorageFile(
-      fileName: fileName,
-      storageDocName: storageDocName,
+      docName: docName,
+      collName: collName,
     );
 
     if (_canDelete == true){
@@ -1050,9 +496,9 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           methodName: 'deleteStoragePic',
           functions: () async {
 
-            final Reference _picRef = getRef(
-              storageDocName: storageDocName,
-              fileName: fileName,
+            final Reference _picRef = StorageRef.byNodes(
+              storageDocName: collName,
+              fileName: docName,
             );
 
             // blog('pic ref : $_picRef');
@@ -1066,11 +512,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
             const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
             if (error == _noImageError){
 
-              blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $storageDocName : picName : $fileName');
+              blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $collName : picName : $docName');
 
             }
             else {
-              blog('deleteStoragePic : $storageDocName/$fileName : error : $error');
+              blog('deleteStoragePic : $collName/$docName : error : $error');
             }
 
           }
@@ -1078,7 +524,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
       /// if result is true
       if (_result == true) {
-        blog('deleteStoragePic : IMAGE HAS BEEN DELETED :docName $storageDocName : picName : $fileName');
+        blog('deleteStoragePic : IMAGE HAS BEEN DELETED :docName $collName : picName : $docName');
       }
 
       // else {
@@ -1098,22 +544,22 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkCanDeleteStorageFile({
-    @required String fileName,
-    @required String storageDocName,
+    @required String collName,
+    @required String docName,
   }) async {
 
-    assert(fileName != null && storageDocName != null,
+    assert(docName != null && collName != null,
     'checkCanDeleteStorageFile : fileName or storageDocName can not be null');
 
     bool _canDelete = false;
 
     blog('checkCanDeleteStorageFile : START');
 
-    if (fileName != null && storageDocName != null){
+    if (docName != null && collName != null){
 
       final List<String> _ownersIDs = await getOwnersIDsByFileName(
-        storageDocName: storageDocName,
-        fileName: fileName,
+        storageCollName: collName,
+        docName: docName,
       );
 
       blog('checkCanDeleteStorageFile : _ownersIDs : $_ownersIDs');

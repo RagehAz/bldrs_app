@@ -207,7 +207,6 @@ class UserFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> updateUser({
-    @required BuildContext context,
     @required UserModel oldUserModel,
     @required UserModel newUserModel,
   }) async {
@@ -231,7 +230,6 @@ class UserFireOps {
 
       /// A1 - update pic to fireStorage/usersPics/userID and get new URL
       _userPicURL = await Storage.createOrUpdatePic(
-        context: context,
         oldURL: _oldFile?.url,
         newPic: newUserModel.pic,
         picName: newUserModel.id,
@@ -332,14 +330,12 @@ class UserFireOps {
   // --------------------
   /// returns new pic url
   static Future<String> updateUserPic({
-    @required BuildContext context,
     @required String oldURL,
     @required File newPic,
     @required String userID,
   }) async {
 
     final String _newURL = await Storage.updateExistingPic(
-      context: context,
       oldURL: oldURL,
       newPic: newPic,
     );
@@ -399,7 +395,6 @@ class UserFireOps {
   }
   // --------------------
   static Future<UserModel> addBzIDToUserBzzIDs({
-    @required BuildContext context,
     @required String bzID,
     @required UserModel oldUserModel,
   }) async {
@@ -410,7 +405,6 @@ class UserFireOps {
     );
 
     final UserModel _uploadedModel = await updateUser(
-      context: context,
       oldUserModel: oldUserModel,
       newUserModel: _updatedUserModel,
     );
@@ -669,7 +663,6 @@ static Future<dynamic> deleteUserOps({
   // --------------------
   /// TESTED :
   static Future<bool> deleteNonAuthorUserOps({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
@@ -682,7 +675,6 @@ static Future<dynamic> deleteUserOps({
           /// SHOULD BE DELETED BEFORE DELETING USER DOC
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user received notes');
           await NoteProtocols.wipeAllNotes(
-            context: context,
             partyType: PartyType.user,
             id: userModel.id,
           );
@@ -690,8 +682,8 @@ static Future<dynamic> deleteUserOps({
           /// DELETE user image : storage/usersPics/userID
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user pic');
           await Storage.deleteStoragePic(
-            storageDocName: StorageDoc.users,
-            fileName: userModel.id,
+            collName: StorageDoc.users,
+            docName: userModel.id,
           );
 
           /// DELETE user doc : firestore/users/userID
