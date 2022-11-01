@@ -32,7 +32,7 @@ class Storage {
 
     final List<Reference> _refs = _list.items;
 
-    
+
 
   }
 
@@ -317,33 +317,44 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _picturesURLs;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<List<String>> createMultipleStoragePicsAndGetURLs({
-    @required List<dynamic> pics,
+    @required List<File> files,
     @required List<String> names,
     @required List<String> ownersIDs,
+    @required String docName,
   }) async {
 
     final List<String> _picsURLs = <String>[];
 
     if (
-        Mapper.checkCanLoopList(pics)
+        Mapper.checkCanLoopList(files)
         &&
         Mapper.checkCanLoopList(names)
         &&
-        pics.length == names.length
+        files.length == names.length
     ) {
 
-      for (int i = 0; i < pics.length; i++) {
-        final String _picURL = await createStoragePicAndGetURL(
-          inputFile: pics[i],
-          docName: StorageDoc.slides,
-          fileName: names[i],
-          ownersIDs: ownersIDs,
-        );
+      await Future.wait(<Future>[
 
-        _picsURLs.add(_picURL);
-      }
+        ...List.generate(files.length, (index){
+
+          final File _file = files[index];
+          final String _name = names[index];
+
+          return createStoragePicAndGetURL(
+            inputFile: _file,
+            docName: docName,
+            fileName: _name,
+            ownersIDs: ownersIDs,
+          ).then((String url){
+            _picsURLs.add(url);
+          });
+
+      }),
+
+      ]);
+
     }
 
     return _picsURLs;
