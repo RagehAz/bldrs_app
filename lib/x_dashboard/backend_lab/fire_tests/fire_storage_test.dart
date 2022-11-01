@@ -102,9 +102,9 @@ class _FireStorageTestState extends State<FireStorageTest> {
 
             await Storage.createMultipleStoragePicsAndGetURLs(
               files: _files,
-              names: _names,
+              docsNames: _names,
               ownersIDs: [AuthFireOps.superUserID()],
-              docName: 'test/',
+              collName: 'test/',
             );
 
             await Dialogs.showSuccessDialog(context: context);
@@ -140,8 +140,8 @@ class _FireStorageTestState extends State<FireStorageTest> {
           onTap: () async {
 
             final Reference _ref = StorageRef.byNodes(
-              storageDocName: StorageDoc.users,
-              fileName: AuthFireOps.superUserID(),
+              collName: StorageDoc.users,
+              docName: AuthFireOps.superUserID(),
             );
 
             final String _url = await _ref.getDownloadURL();
@@ -167,8 +167,8 @@ class _FireStorageTestState extends State<FireStorageTest> {
             final Dimensions dim = await Dimensions.superDimensions(_int);
 
             final Reference _ref = StorageRef.byNodes(
-              storageDocName: 'test',
-              fileName: 'fuck/you_bitch',
+              collName: 'test',
+              docName: 'fuck/you_bitch',
             );
             /// ASSIGN FILE OWNERS
             Map<String, String> _metaDataMap = <String, String>{};

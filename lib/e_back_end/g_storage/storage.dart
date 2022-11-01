@@ -24,14 +24,12 @@ class Storage {
   /// CREATE
 
   // --------------------
-
-  // --------------------
   /// protocol
   /// TESTED : WORKS PERFECT
   static Future<String> createStoragePicAndGetURL({
     @required File inputFile,
+    @required String collName,
     @required String docName,
-    @required String fileName,
     @required List<String> ownersIDs,
   }) async {
 
@@ -53,8 +51,8 @@ class Storage {
           };
 
           _imageURL = await StorageFileOps.uploadFileAndGetURL(
-            storageCollName: docName,
-            docName: fileName,
+            storageCollName: collName,
+            docName: docName,
             file: inputFile,
             ownersIDs: ownersIDs,
             metaDataAddOn: _metaDataMap,
@@ -85,9 +83,9 @@ class Storage {
 
           final String _picURL = await createStoragePicAndGetURL(
             inputFile: slides[index].pic,
-            docName: StorageDoc.slides,
+            collName: StorageDoc.slides,
             ownersIDs: <String>[bzCreatorID, flyerAuthorID],
-            fileName: SlideModel.generateSlideID(
+            docName: SlideModel.generateSlideID(
               flyerID: flyerID,
               slideIndex: slides[index].slideIndex,
             ),
@@ -111,9 +109,9 @@ class Storage {
   /// protocol
   static Future<List<String>> createMultipleStoragePicsAndGetURLs({
     @required List<File> files,
-    @required List<String> names,
+    @required List<String> docsNames,
     @required List<String> ownersIDs,
-    @required String docName,
+    @required String collName,
   }) async {
 
     final List<String> _picsURLs = <String>[];
@@ -121,9 +119,9 @@ class Storage {
     if (
         Mapper.checkCanLoopList(files)
         &&
-        Mapper.checkCanLoopList(names)
+        Mapper.checkCanLoopList(docsNames)
         &&
-        files.length == names.length
+        files.length == docsNames.length
     ) {
 
       await Future.wait(<Future>[
@@ -131,12 +129,12 @@ class Storage {
         ...List.generate(files.length, (index){
 
           final File _file = files[index];
-          final String _name = names[index];
+          final String _name = docsNames[index];
 
           return createStoragePicAndGetURL(
             inputFile: _file,
-            docName: docName,
-            fileName: _name,
+            collName: collName,
+            docName: _name,
             ownersIDs: ownersIDs,
           ).then((String url){
             _picsURLs.add(url);
@@ -155,8 +153,8 @@ class Storage {
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL({
     @required String asset,
-    @required String fileName,
     @required String docName,
+    @required String collName,
     @required List<String> ownersIDs,
   }) async {
     String _url;
@@ -165,11 +163,11 @@ class Storage {
       localAsset: asset,
     );
 
-    blog('uploading $fileName pic to fireStorage in folder of $docName');
+    blog('uploading $docName pic to fireStorage in folder of $collName');
 
     _url = await createStoragePicAndGetURL(
-      fileName: fileName,
       docName: docName,
+      collName: collName,
       inputFile: _result,
       ownersIDs: ownersIDs,
     );
@@ -255,102 +253,7 @@ class Storage {
 
     return _pdf;
   }
-  // -----------------------------------------------------------------------------
 
-  /// READ (GETTERS)
-
-  // --------------------
-
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<String> getImageNameByURL({
-    @required String url,
-    // @required bool withExtension,
-  }) async {
-    blog('getImageNameByURL : START');
-    String _output;
-
-    if (ObjectCheck.isAbsoluteURL(url) == true){
-
-      final Reference _ref = await StorageRef.byURL(
-        url: url,
-      );
-
-      /// NAME WITH EXTENSION
-      _output = _ref.name;
-
-      // blog('getImageNameByURL : _output : $_output');
-
-      // /// WITHOUT EXTENSION
-      // if (withExtension == false){
-      //   _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '.');
-      // }
-
-      blog('getImageNameByURL :  _output : $_output');
-
-    }
-
-
-    blog('getImageNameByURL : END');
-    return _output;
-  }
-  // --------------------
-  // --------------------
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<String>> getOwnersIDsByURL({
-    @required String url,
-  }) async {
-    final List<String> _ids = [];
-
-    if (ObjectCheck.isAbsoluteURL(url) == true){
-
-      final FullMetadata _metaData = await StorageMetaOps.getMetaByURL(
-        url: url,
-      );
-
-      final Map<String, String> _map = _metaData?.customMetadata;
-
-      final List<String> _ownersIDs = Mapper.getKeysHavingThisValue(
-        map: _map,
-        value: 'cool',
-      );
-
-      _ids.addAll(_ownersIDs);
-
-    }
-
-    return _ids;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<String>> getOwnersIDsByFileName({
-    @required String storageCollName,
-    @required String docName,
-  }) async {
-    final List<String> _ids = [];
-
-    if (docName != null && storageCollName != null){
-
-      final FullMetadata _metaData = await StorageMetaOps.getMetaByNodes(
-        storageCollName: storageCollName,
-        docName: docName,
-      );
-
-      final Map<String, String> _map = _metaData?.customMetadata;
-
-      final List<String> _ownersIDs = Mapper.getKeysHavingThisValue(
-        map: _map,
-        value: 'cool',
-      );
-
-      _ids.addAll(_ownersIDs);
-
-    }
-
-    return _ids;
-  }
   // -----------------------------------------------------------------------------
 
   /// UPDATE
@@ -398,8 +301,8 @@ class Storage {
   static Future<String> createOrUpdatePic({
     @required String oldURL,
     @required File newPic,
+    @required String collName,
     @required String docName,
-    @required String picName,
     @required List<String> ownersIDs,
   }) async {
     /// returns updated pic new URL
@@ -424,53 +327,13 @@ class Storage {
       _outputURL = await createStoragePicAndGetURL(
         inputFile: newPic,
         ownersIDs: ownersIDs,
+        collName: collName,
         docName: docName,
-        fileName: picName,
       );
 
     }
 
     return _outputURL;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> updatePicMetadata({
-    @required String picURL,
-    Map<String, String> metaDataMap,
-  }) async {
-
-    /// Map<String, String> _dummyMap = <String, String>{
-    ///   'width': _meta.customMetadata['width'],
-    ///   'height': _meta.customMetadata['height'],
-    ///   '$ownerID': 'cool,
-    ///   '$ownerID': 'cool,
-    ///   '$ownerID': 'cool,
-    ///   ...
-    ///   'owner': null, /// ASSIGNING NULL TO KEY DELETES PAIR AUTOMATICALLY.
-    /// };
-
-    blog('updatePicMetaData : START');
-
-    if (ObjectCheck.isAbsoluteURL(picURL) == true && metaDataMap != null){
-
-      final Reference _ref = await StorageRef.byURL(
-          url: picURL,
-      );
-
-      // final FullMetadata _meta = await _ref.getMetadata();
-
-      final SettableMetadata metaData = SettableMetadata(
-        customMetadata: metaDataMap,
-      );
-
-      await _ref.updateMetadata(metaData);
-
-      // Storage.blogFullMetaData(_meta);
-
-    }
-
-    blog('updatePicMetaData : END');
-
   }
   // -----------------------------------------------------------------------------
 
@@ -497,8 +360,8 @@ class Storage {
           functions: () async {
 
             final Reference _picRef = StorageRef.byNodes(
-              storageDocName: collName,
-              fileName: docName,
+              collName: collName,
+              docName: docName,
             );
 
             // blog('pic ref : $_picRef');
@@ -557,8 +420,8 @@ class Storage {
 
     if (docName != null && collName != null){
 
-      final List<String> _ownersIDs = await getOwnersIDsByFileName(
-        storageCollName: collName,
+      final List<String> _ownersIDs = await StorageMetaOps.getOwnersIDsByNodes(
+        collName: collName,
         docName: docName,
       );
 
@@ -594,29 +457,5 @@ class Storage {
     /// END OF STORY
   }
  */
-  // -----------------------------------------------------------------------------
-
-  /// BLOGGING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogReference(Reference ref){
-    blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- START');
-
-    if (ref == null){
-      blog('Reference is null');
-    }
-    else {
-      blog('name : ${ref.name}');
-      blog('fullPath : ${ref.fullPath}');
-      blog('bucket : ${ref.bucket}');
-      blog('hashCode : ${ref.hashCode}');
-      blog('parent : ${ref.parent}');
-      blog('root : ${ref.root}');
-      blog('storage : ${ref.storage}');
-    }
-
-    blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- END');
-  }
   // -----------------------------------------------------------------------------
 }
