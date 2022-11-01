@@ -235,6 +235,7 @@ class SuperImage extends StatelessWidget {
                 height: height,
                 gaplessPlayback: _gaplessPlayback,
                 errorBuilder: _errorBuilder,
+
               )
 
                   :
