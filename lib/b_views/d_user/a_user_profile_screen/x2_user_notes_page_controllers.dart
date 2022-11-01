@@ -42,7 +42,6 @@ Future<void> onShowNoteOptions({
               onTap: () async {
 
                 await NoteProtocols.wipeNote(
-                  context: context,
                   note: noteModel,
                 );
 

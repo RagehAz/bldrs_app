@@ -150,7 +150,6 @@ Future<void> onDeleteNote({
     loading.value = true;
 
     await NoteProtocols.wipeNote(
-      context: context,
       note: noteModel,
     );
 

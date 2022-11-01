@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/app_feedback_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -32,7 +33,6 @@ class BzFireOps {
   // --------------------
   ///
   static Future<BzModel> createBz({
-    @required BuildContext context,
     @required BzModel draftBz,
     @required UserModel userModel,
   }) async {
@@ -49,7 +49,6 @@ class BzFireOps {
           final String _bzID = await _createEmptyBzDocToGetBzID();
 
           final String _bzLogoURL = await _uploadBzLogoAndGetURL(
-            context: context,
             logo: draftBz.logo,
             bzID: _bzID,
             bzCreatorID: userModel.id,
@@ -110,7 +109,6 @@ class BzFireOps {
   // --------------------
   ///
   static Future<String> _uploadBzLogoAndGetURL({
-    @required BuildContext context,
     @required dynamic logo,
     @required String bzID,
     @required String bzCreatorID,
@@ -135,8 +133,7 @@ class BzFireOps {
     /// IF ITS A URL : CREATE FILE TO COPY IMAGE THEN UPLOAD
     else if (ObjectCheck.isAbsoluteURL(logo) == true){
 
-      final File _fileFromURL = await Storage.getImageFileByURL(
-        context: context,
+      final File _fileFromURL = await StorageFileOps.downloadFileByURL(
         url: logo,
       );
 
@@ -311,7 +308,6 @@ class BzFireOps {
       if (_areTheSame == false){
 
         final BzModel _updatedBzModel = await _updateBzLogoIfChangedAndReturnNewBzModel(
-          context: context,
           newBzModel: newBzModel,
           oldBzModel: oldBzModel,
         );
@@ -338,7 +334,6 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> _updateBzLogoIfChangedAndReturnNewBzModel({
-    @required BuildContext context,
     @required BzModel newBzModel,
     @required BzModel oldBzModel,
   }) async {
@@ -364,7 +359,6 @@ class BzFireOps {
       else if (ObjectCheck.objectIsFile(newBzModel?.logo) == true){
 
         _bzLogoURL = await Storage.updateExistingPic(
-          context: context,
           newPic: newBzModel?.logo,
           oldURL: oldBzModel.logo,
         );
@@ -508,8 +502,8 @@ class BzFireOps {
     if (bzModel != null){
 
       await Storage.deleteStoragePic(
-        fileName: bzModel.id,
-        storageDocName: StorageDoc.logos,
+        docName: bzModel.id,
+        collName: StorageDoc.logos,
       );
 
     }
@@ -549,8 +543,8 @@ class BzFireOps {
   }) async {
 
     await Storage.deleteStoragePic(
-      storageDocName: StorageDoc.authors,
-      fileName: AuthorModel.generateAuthorPicID(
+      collName: StorageDoc.authors,
+      docName: AuthorModel.generateAuthorPicID(
         authorID: authorModel.userID,
         bzID: bzID,
       ),

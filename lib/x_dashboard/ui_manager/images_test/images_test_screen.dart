@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -8,7 +7,6 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
-import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
@@ -119,20 +117,20 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
 
       final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.file);
-      // final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
-      // final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
+      final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
+      final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
       final Dimensions _size = await Dimensions.superDimensions(fileModel.file);
 
-      // final String _base64FromLDB = await _addBase64ToLDBAndRead(fileModel: fileModel);
-      // final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: _uInt);
+      final String _base64FromLDB = await _addBase64ToLDBAndRead(fileModel: fileModel);
+      final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: _uInt);
 
       setState(() {
         _file = fileModel.file;
         uInt = _uInt;
-        // uiImage = _uiImage;
-        // imgImage = _imgImage;
-        // _ldbBase64 = _base64FromLDB;
-        // _ldbInts = _ldbIntsFromLDB;
+        uiImage = _uiImage;
+        imgImage = _imgImage;
+        _ldbBase64 = _base64FromLDB;
+        _ldbInts = _ldbIntsFromLDB;
 
         _imageSize = _size;
       });
@@ -219,10 +217,10 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
     final List<Map<String, dynamic>> _maps = [
       {'pic' : _file,       'text' : 'FILE\n${Filers.getFileSizeInMb(_file)} MB'},
       {'pic' : uInt,        'text' : 'uInt8List\n${Numeric.roundFractions(uInt?.length?.toDouble() ?? 0.0 / (1024 * 1024), 2)}'},
-      // {'pic' : imgImage,    'text' : 'imgImage\n${Numeric.roundFractions(imgImage?.getBytes()?.length?.toDouble() ?? 0 / (1024 * 1024), 2)} MB'},
-      // {'pic' : uiImage,     'text' : 'uiImage\n${uiImage?.toString()}'},
-      // {'pic' : _ldbBase64,  'text' : 'LDB-Base64\n ${Numeric.formatNumToSeparatedKilos(number: _ldbBase64?.codeUnits?.length)} units'},
-      // {'pic' : _ldbInts,    'text' : 'LDB-ints\n${Numeric.roundFractions(_ldbInts?.length?.toDouble()??0/ (1024 * 1024), 2)} MB'},
+      {'pic' : imgImage,    'text' : 'imgImage\n${Numeric.roundFractions(imgImage?.getBytes()?.length?.toDouble() ?? 0 / (1024 * 1024), 2)} MB'},
+      {'pic' : uiImage,     'text' : 'uiImage\n${uiImage?.toString()}'},
+      {'pic' : _ldbBase64,  'text' : 'LDB-Base64\n ${Numeric.formatNumToSeparatedKilos(number: _ldbBase64?.codeUnits?.length)} units'},
+      {'pic' : _ldbInts,    'text' : 'LDB-ints\n${Numeric.roundFractions(_ldbInts?.length?.toDouble()??0/ (1024 * 1024), 2)} MB'},
     ];
 
     return MainLayout(
@@ -746,4 +744,3 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   }
   // -----------------------------------------------------------------------------
 }
-

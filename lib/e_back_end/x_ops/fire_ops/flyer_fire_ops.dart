@@ -66,7 +66,6 @@ class FlyerFireOps {
         final String _flyerAuthorID = AuthFireOps.superUserID();
 
         _finalFlyer = await _uploadImagesAndPDFsAndUpdateFlyer(
-          context: context,
           flyerID: _flyerID,
           draftFlyer: draftFlyer,
           creatorAuthorID: _bzCreatorID,
@@ -119,7 +118,6 @@ class FlyerFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _uploadImagesAndPDFsAndUpdateFlyer({
-    @required BuildContext context,
     @required FlyerModel draftFlyer,
     @required String flyerID,
     @required String creatorAuthorID,
@@ -147,7 +145,6 @@ class FlyerFireOps {
             }),
 
         Storage.uploadFlyerPDFAndGetFlyerPDF(
-            context: context,
             flyerID: flyerID,
             pdf: draftFlyer.pdf,
             ownersIDs: <String>[creatorAuthorID, flyerAuthorID],
@@ -461,8 +458,8 @@ class FlyerFireOps {
       /// delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
       for (final String slideID in _slidesIDsToBeDeleted) {
         await Storage.deleteStoragePic(
-          storageDocName: StorageDoc.slides,
-          fileName: slideID,
+          collName: StorageDoc.slides,
+          docName: slideID,
         );
       }
 
@@ -516,7 +513,6 @@ class FlyerFireOps {
         blog('_updateFlyerPDF : _ownersIDs : $_flyerOwners');
 
         final FileModel _newPDF = await Storage.uploadFlyerPDFAndGetFlyerPDF(
-          context: context,
           pdf: newFlyer.pdf,
           flyerID: oldFlyer.id,
           ownersIDs: _flyerOwners,
@@ -539,8 +535,8 @@ class FlyerFireOps {
 
         /// DELETE OLD PDF FILE
         await Storage.deleteStoragePic(
-          storageDocName: StorageDoc.flyersPDFs,
-          fileName: FileModel.generateFlyerPDFStorageName(
+          collName: StorageDoc.flyersPDFs,
+          docName: FileModel.generateFlyerPDFStorageName(
             pdfFileName: oldFlyer.pdf.fileName,
             flyerID: oldFlyer.id,
           ),
@@ -695,8 +691,8 @@ class FlyerFireOps {
           ...List.generate(_slidesIDs.length, (index) async {
 
             return Storage.deleteStoragePic(
-              fileName: _slidesIDs[index],
-              storageDocName: StorageDoc.slides,
+              docName: _slidesIDs[index],
+              collName: StorageDoc.slides,
             );
 
           }),
@@ -704,8 +700,8 @@ class FlyerFireOps {
           /// DELETE PDF
           if (flyerModel.pdf != null)
             Storage.deleteStoragePic(
-              storageDocName: StorageDoc.flyersPDFs,
-              fileName: FileModel.generateFlyerPDFStorageName(
+              collName: StorageDoc.flyersPDFs,
+              docName: FileModel.generateFlyerPDFStorageName(
                 pdfFileName: flyerModel.pdf.fileName,
                 flyerID: flyerModel.id,
               ),

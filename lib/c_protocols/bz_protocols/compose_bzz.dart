@@ -41,7 +41,6 @@ class ComposeBzProtocols {
 
     /// FIREBASE CREATE BZ OPS
     final BzModel _uploadedBzModel = await BzFireOps.createBz(
-      context: context,
       draftBz: newBzModel,
       userModel: userModel,
     );

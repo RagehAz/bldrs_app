@@ -436,7 +436,6 @@ Future<UserModel> _updateUserModel({
 
   /// start create user ops
   final UserModel _uploadedUserModel = await UserFireOps.updateUser(
-    context: context,
     oldUserModel: oldUserModel,
     newUserModel: newUserModel,
   );
