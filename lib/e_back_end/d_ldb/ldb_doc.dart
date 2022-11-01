@@ -35,6 +35,7 @@ class LDBDoc {
       case LDBDoc.reviewEditor: return 'id';
 
       case LDBDoc.theLastWipe: return 'id';
+      case LDBDoc.pics: return 'path';
       case 'test': return 'id';
       default: return 'id';
     }
@@ -72,6 +73,7 @@ class LDBDoc {
   static const String reviewEditor = 'reviewEditor';
 
   static const String theLastWipe = 'theLastWipe';
+  static const String pics = 'pics';
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST
@@ -101,6 +103,8 @@ class LDBDoc {
     reviewEditor,
 
     theLastWipe,
+
+    pics,
   ];
 // -----------------------------------------------------------------------------
 }

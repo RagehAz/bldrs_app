@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -23,47 +24,38 @@ class PicModel {
   final PicMetaModel meta;
   // -----------------------------------------------------------------------------
 
-  /// FIRE CYPHERS
-
-  // --------------------
-  ///
-  static String cipherToFire(PicModel picModel){
-    return picModel?.path;
-  }
-  // --------------------
-  ///
-  static PicModel decipherFromFire(String path){
-    return PicModel(
-      path: path,
-      bytes: null,
-      meta: const PicMetaModel(
-        dimensions: null,
-        ownersIDs: [],
-      ),
-    );
-  }
-  // -----------------------------------------------------------------------------
-
-  /// STORAGE CYPHERS
-
-  // --------------------
-  ///
-  static Uint8List cipherToStorage(PicModel picModel){
-    return picModel?.bytes;
-  }
-  // --------------------
-  ///
-  static PicModel decipherFromStorage(){}
-  // -----------------------------------------------------------------------------
-
   /// LDB CYPHERS
 
   // --------------------
   ///
-  static Map<String, dynamic> cipherToLDB(){}
+  static Map<String, dynamic> cipherToLDB(PicModel picModel){
+    Map<String, dynamic> _map;
+
+    if (picModel != null){
+      _map = {
+        'bytes': Floaters.getIntsFromUint8List(picModel.bytes),
+        'path': picModel.path,
+        'meta': picModel.meta.cipherToLDB()
+      };
+    }
+
+    return _map;
+  }
   // --------------------
   ///
-  static PicModel decipherFromLDB(){}
+  static PicModel decipherFromLDB(Map<String, dynamic> map){
+    PicModel _picModel;
+
+    if (map != null){
+      _picModel = PicModel(
+        bytes: Uint8List.fromList(map['bytes'].cast<int>()),
+        path: map['path'],
+        meta: PicMetaModel.decipherFromLDB(map['meta']),
+      );
+    }
+
+    return _picModel;
+  }
   // -----------------------------------------------------------------------------
 
   /// ASSERTIONS
