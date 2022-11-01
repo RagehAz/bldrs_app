@@ -203,8 +203,8 @@ Future<void> onDeleteUser({
 
           /// DELETE user image : storage/usersPics/userID
           await Storage.deleteStoragePic(
-            storageDocName: StorageDoc.users,
-            fileName: userModel.id,
+            collName: StorageDoc.users,
+            docName: userModel.id,
           );
           blog('onDeleteUser : deleted user pic : [storage/usersPics/${userModel.id}]');
 

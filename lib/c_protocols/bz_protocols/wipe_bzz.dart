@@ -62,7 +62,6 @@ class WipeBzProtocols {
 
       /// DELETE BZ NOTES
       NoteProtocols.wipeAllNotes(
-        context: context,
         partyType: PartyType.bz,
         id: bzModel.id,
       ),

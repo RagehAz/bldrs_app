@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -309,7 +308,7 @@ class IconsGridBuilder extends StatelessWidget {
                     onTap: () => onTap(icons[index]),
                   ),
 
-                  Container(
+                  SizedBox(
                     width: _iconBoxSize,
                     height: _iconBoxSize * 0.25,
                     // color: Colorz.white20,

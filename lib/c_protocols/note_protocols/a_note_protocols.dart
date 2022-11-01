@@ -518,7 +518,6 @@ class NoteProtocols {
   // --------------------
   ///
   static Future<void> wipeNote({
-    @required BuildContext context,
     @required NoteModel note,
   }) async {
 
@@ -526,7 +525,6 @@ class NoteProtocols {
 
     /// DELETE POSTER IF EXISTED
     await _wipePoster(
-      context: context,
       note: note,
     );
 
@@ -549,7 +547,6 @@ class NoteProtocols {
   // --------------------
   ///
   static Future<void> _wipePoster({
-    @required BuildContext context,
     @required NoteModel note,
   }) async {
 
@@ -564,14 +561,13 @@ class NoteProtocols {
         if (note.poster.url != null){
 
           final String _picName = await Storage.getImageNameByURL(
-            context: context,
             url: note.poster.url,
           );
 
           if (_picName != null){
             await Storage.deleteStoragePic(
-              storageDocName: StorageDoc.posters,
-              fileName: _picName,
+              collName: StorageDoc.posters,
+              docName: _picName,
             );
           }
 
@@ -585,7 +581,6 @@ class NoteProtocols {
   // --------------------
   /// VERY VERY EXPENSIVE : TASK : OPTIMIZE THIS IN FUTURE : DEVICE WILL EXPLODE HERE
   static Future<void> wipeAllNotes({
-    @required BuildContext context,
     @required PartyType partyType,
     @required String id,
   }) async {
@@ -634,7 +629,6 @@ class NoteProtocols {
           ...List.generate(_notesToDelete.length, (index){
 
             return wipeNote(
-                context: context,
                 note: _notesToDelete[index],
             );
 
