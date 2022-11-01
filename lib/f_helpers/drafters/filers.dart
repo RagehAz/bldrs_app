@@ -212,7 +212,7 @@ class Filers {
 
   // --------------------
   /// LOCAL RASTER ASSET
-// ---------------------
+  // ---------------------
   /// TAMAM : WORKS PERFECT
   static Future<File> getFileFromLocalRasterAsset({
     @required String localAsset,
@@ -252,9 +252,40 @@ class Filers {
 
     return _file;
   }
+  // ---------------------
+  ///
+  static Future<List<File>> getFilesFromLocalRasterImages({
+    @required List<String> localAssets,
+    int width = 100,
+  }) async {
+    final List<File> _outputs = <File>[];
+
+    if (Mapper.checkCanLoopList(localAssets) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(localAssets.length, (index){
+
+          return getFileFromLocalRasterAsset(
+            localAsset: localAssets[index],
+            width: width,
+          ).then((File output){
+
+            _outputs.add(output);
+
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    return _outputs;
+  }
   // --------------------
   /// Uint8List
-// ---------------------
+  // ---------------------
   /// TESTED : WORKS PERFECT
   static Future<File> getFileFromUint8List({
     @required Uint8List uInt8List,
