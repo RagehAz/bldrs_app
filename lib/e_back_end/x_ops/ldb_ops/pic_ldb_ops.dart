@@ -1,6 +1,9 @@
-
-
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:flutter/material.dart';
 
 class PicLDBOps {
   // -----------------------------------------------------------------------------
@@ -9,34 +12,88 @@ class PicLDBOps {
 
   // -----------------------------------------------------------------------------
 
-  /// CREATE
+  /// CREATE - UPDATE
 
   // --------------------
   ///
-  static Future<PicModel> insertPic() async {}
+  static Future<void> insertPic({
+    @required PicModel picModel,
+  }) async {
+
+    if (picModel != null){
+
+      await LDBOps.insertMap(
+        docName: LDBDoc.pics,
+        input: PicModel.cipherToLDB(picModel),
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// READ
 
   // --------------------
   ///
-  static Future<PicModel> readPic() async {}
-  // -----------------------------------------------------------------------------
+  static Future<PicModel> readPic(String path) async {
+    PicModel _picModel;
 
-  /// UPDATE
+    if (TextCheck.isEmpty(path) == false){
 
-  // --------------------
-  ///
-  static Future<PicModel> updatePic() async {}
+      final List<Map<String, dynamic>> maps = await LDBOps.readMaps(
+        docName: LDBDoc.pics,
+        ids: [path],
+      );
+
+      if (Mapper.checkCanLoopList(maps) == true){
+
+        _picModel = PicModel.decipherFromLDB(maps.first);
+
+      }
+
+    }
+
+    return _picModel;
+  }
   // -----------------------------------------------------------------------------
 
   /// DELETE
 
   // --------------------
   ///
-  static Future<PicModel> deletePic() async {}
+  static Future<void> deletePic(String path) async {
+
+    if (TextCheck.isEmpty(path) == false){
+      await LDBOps.deleteMap(
+          docName: LDBDoc.pics,
+          objectID: path,
+      );
+    }
+
+  }
   // --------------------
   ///
-  static Future<void> deletePics() async {}
+  static Future<void> deletePics(List<String> paths) async {
+
+    if (Mapper.checkCanLoopList(paths) == true){
+
+      await LDBOps.deleteMaps(
+          docName: LDBDoc.pics,
+          ids: paths,
+      );
+
+    }
+
+  }
   // --------------------
+  ///
+  static Future<void> deleteAll() async {
+
+    await LDBOps.deleteAllMapsAtOnce(
+      docName: LDBDoc.pics,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }

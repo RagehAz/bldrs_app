@@ -621,5 +621,35 @@ class Sembast  {
 
     return _map != null;
   }
+  // --------------------
+  /// NEED TEST
+  static Future<bool> checkIfExists({
+    @required String docName,
+    @required String id,
+  }) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+    final Database _db = await _getDB();
+    final String _primaryKey = LDBDoc.getPrimaryKey(docName);
+
+    final Finder _finder = Finder(
+      filter: Filter.equals(_primaryKey, id, anyInList: false),
+    );
+
+    final int _val = await _doc.findKey(_db,
+        finder: _finder,
+    );
+
+    /// NOT FOUND
+    if (_val == null){
+      return false;
+    }
+
+    /// FOUND
+    else {
+      return true;
+    }
+
+  }
   // -----------------------------------------------------------------------------
 }

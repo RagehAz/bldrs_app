@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,22 @@ class PicMetaModel {
 
   /// CYPHERS
 
+  // --------------------
+  ///
+  Map<String, dynamic> cipherToLDB(){
+    return <String, dynamic>{
+      'ownersIDs': ownersIDs,
+      'dimensions': dimensions.toMap(),
+    };
+  }
+  // --------------------
+  ///
+  static PicMetaModel decipherFromLDB(Map<String, dynamic> map){
+    return PicMetaModel(
+        ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
+        dimensions: Dimensions.decipherDimensions(map['dimensions']),
+    );
+  }
   // --------------------
   /// TAMAM
   SettableMetadata toSettableMetadata({

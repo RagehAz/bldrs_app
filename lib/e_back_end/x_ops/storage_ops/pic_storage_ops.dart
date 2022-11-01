@@ -119,9 +119,7 @@ class PicStorageOps {
 
   // --------------------
   ///
-  static Future<void> deletePic({
-    @required String path,
-  }) async {
+  static Future<void> deletePic(String path) async {
 
     blog('deletePic : START');
 
@@ -173,7 +171,21 @@ class PicStorageOps {
   }
   // --------------------
   ///
-  static Future<void> deletePics() async {}
+  static Future<void> deletePics(List<String> paths) async {
+
+    if (Mapper.checkCanLoopList(paths) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(paths.length, (index){
+          return deletePic(paths[index]);
+      }),
+
+      ]);
+
+    }
+
+  }
   // --------------------
   ///
   static Future<bool> checkCanDeleteStorageFile({

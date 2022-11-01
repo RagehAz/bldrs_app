@@ -70,7 +70,7 @@ class SlideModel {
       headline: map['headline'],
       description: map['description'],
       picFit: Dimensions.decipherBoxFit(map['boxFit']),
-      imageSize: Dimensions.decipherImageSize(map['imageSize']),
+      imageSize: Dimensions.decipherDimensions(map['imageSize']),
       midColor: Colorizer.decipherColor(map['midColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
       filterID: map['filterID'],
