@@ -90,7 +90,7 @@ class BackendLabHome extends StatelessWidget {
           onTap: () async {
             await Nav.goToNewScreen(
               context: context,
-              screen: const FireStorageTest(),
+              screen: const PicProtocolsTest(),
             );
           },
         ),

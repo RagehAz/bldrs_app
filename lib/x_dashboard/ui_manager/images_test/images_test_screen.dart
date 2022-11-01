@@ -450,7 +450,13 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             PaintingBinding.instance.imageCache.clear();
             blog('iPaintingBinding.instance.imageCache.clear() : DONE');
 
-            setState(() {});
+
+            setState(() {
+              imageCache.clear();
+              imageCache.clearLiveImages();
+              PaintingBinding.instance.imageCache.clear();
+            });
+
             // await  _triggerLoading(setTo: false);
 
           },
