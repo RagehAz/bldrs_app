@@ -25,9 +25,7 @@ class PicStorageOps {
 
   // --------------------
   /// TAMAM
-  static Future<PicModel> createPic({
-    @required PicModel picModel,
-  }) async {
+  static Future<PicModel> createPic(PicModel picModel,) async {
 
     PicModel.assertIsUploadable(picModel);
 
@@ -107,9 +105,7 @@ class PicStorageOps {
     @required PicModel picModel,
   }) async {
 
-    final PicModel _uploaded = await createPic(
-        picModel: picModel
-    );
+    final PicModel _uploaded = await createPic(picModel);
 
     return _uploaded;
   }

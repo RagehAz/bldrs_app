@@ -21,13 +21,9 @@ class PicProtocols {
 
       await Future.wait(<Future>[
 
-        PicStorageOps.createPic(
-            picModel: picModel,
-        ),
+        PicStorageOps.createPic(picModel,),
 
-        PicLDBOps.insertPic(
-            picModel: picModel,
-        ),
+        PicLDBOps.insertPic(picModel),
 
       ]);
 
@@ -44,7 +40,16 @@ class PicProtocols {
 
     PicModel _picModel = await PicLDBOps.readPic(path);
 
-    return _picModel ??= await PicStorageOps.readPic(path: path);
+
+    if (_picModel == null){
+
+      _picModel = await PicStorageOps.readPic(path: path);
+
+      await PicLDBOps.insertPic(_picModel);
+
+    }
+
+    return _picModel;
 
   }
   // -----------------------------------------------------------------------------

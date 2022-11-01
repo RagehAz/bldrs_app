@@ -59,8 +59,6 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
       loading: widget.loading,
       appBarRowWidgets: <Widget>[
 
-        if (widget.appBarWidgets != null)
-          ...widget.appBarWidgets,
 
         const Expander(),
 
@@ -68,6 +66,9 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
         BldrsNameButton(
           onTap: widget.onBldrsTap,
         ),
+
+        if (widget.appBarWidgets != null)
+          ...widget.appBarWidgets,
 
       ],
 
