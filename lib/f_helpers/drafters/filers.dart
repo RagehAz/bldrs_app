@@ -189,22 +189,25 @@ class Filers {
 
         final int _bytes = file.lengthSync();
 
-        _output = _bytes.toDouble();
-
-        switch (unit){
-          case FileSizeUnit.byte:       _output = _bytes.toDouble(); break;
-          case FileSizeUnit.kiloByte:   _output = _bytes / 1024; break;
-          case FileSizeUnit.megaByte:   _output = _bytes/ (1024 * 1024); break;
-          case FileSizeUnit.gigaByte:   _output = _bytes/ (1024 * 1024 * 1024); break;
-          case FileSizeUnit.teraByte:   _output = _bytes/ (1024 * 1024 * 1024 * 1024); break;
-          default:                      _output = _bytes.toDouble(); break;
-        }
+        _output = calculateSize(_bytes, unit);
 
         _output = Numeric.roundFractions(_output, fractionDigits);
 
       }
 
       return _output;
+    }
+
+    static double calculateSize(int bytes, FileSizeUnit unit){
+      switch (unit){
+        case FileSizeUnit.byte:      return bytes.toDouble(); break;
+        case FileSizeUnit.kiloByte:  return bytes / 1024; break;
+        case FileSizeUnit.megaByte:  return bytes/ (1024 * 1024); break;
+        case FileSizeUnit.gigaByte:  return bytes/ (1024 * 1024 * 1024); break;
+        case FileSizeUnit.teraByte:  return bytes/ (1024 * 1024 * 1024 * 1024); break;
+        default:                     return bytes.toDouble(); break;
+      }
+
     }
   // -----------------------------------------------------------------------------
 

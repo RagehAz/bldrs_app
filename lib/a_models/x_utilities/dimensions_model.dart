@@ -327,10 +327,8 @@ class Dimensions {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'Dimensions(width: $width, height: $height)';
   // --------------------
   @override
   bool operator == (Object other){

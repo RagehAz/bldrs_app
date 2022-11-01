@@ -158,7 +158,9 @@ class _CroppingScreenState extends State<CroppingScreen> {
       controller.crop();
 
     }
+/*
 
+ */
   }
   // -----------------------------------------------------------------------------
   @override
