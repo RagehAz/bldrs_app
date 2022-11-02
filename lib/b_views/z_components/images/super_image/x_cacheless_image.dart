@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:bldrs/b_views/z_components/images/super_image/x_infinity_loading_box.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -14,6 +14,7 @@ class CachelessImage extends StatefulWidget {
     @required this.bytes,
     @required this.width,
     @required this.height,
+    this.boxFit = BoxFit.cover,
     this.scale = 1,
     this.opacity,
     this.color,
@@ -28,6 +29,7 @@ class CachelessImage extends StatefulWidget {
   final Animation<double> opacity;
   final Color color;
   final BlendMode blendMode;
+  final BoxFit boxFit;
   // -----------------------------------------------------------------------------
   @override
   _CachelessImageState createState() => _CachelessImageState();
@@ -88,7 +90,8 @@ class _CachelessImageState extends State<CachelessImage> {
         widget.scale != oldWidget.scale ||
         widget.opacity != oldWidget.opacity ||
         widget.color != oldWidget.color ||
-        widget.blendMode != oldWidget.blendMode
+        widget.blendMode != oldWidget.blendMode ||
+        widget.boxFit != oldWidget.boxFit
     ){
 
       _triggerLoading(setTo: true).then((_) async {
@@ -130,7 +133,7 @@ class _CachelessImageState extends State<CachelessImage> {
       return Container(
         width: widget.width,
         height: widget.height,
-        color: Colorz.yellow20,
+        color: widget.color,
       );
     }
 
@@ -142,10 +145,10 @@ class _CachelessImageState extends State<CachelessImage> {
         builder: (_, bool loading, Widget child){
 
           if (loading == true){
-            return Container(
+            return InfiniteLoadingBox(
               width: widget.width,
               height: widget.height,
-              color: Colorz.bloodTest,
+              color: widget.color,
             );
           }
 
@@ -169,7 +172,7 @@ class _CachelessImageState extends State<CachelessImage> {
           scale: widget.scale,
 
           /// COLORS
-          color: widget.color,
+          // color: widget.color,
           opacity: widget.opacity,
           colorBlendMode: widget.blendMode,
           // filterQuality: FilterQuality.low, // DEFAULT
@@ -177,7 +180,7 @@ class _CachelessImageState extends State<CachelessImage> {
 
           /// POSITIONING
           // alignment: Alignment.center, // DEFAULT
-          fit: BoxFit.cover,
+          fit: widget.boxFit,
 
           /// DUNNO
           // centerSlice: ,
