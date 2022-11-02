@@ -22,6 +22,8 @@ class Chain {
   final String id;
   final dynamic sons;
   // -----------------------------------------------------------------------------
+  static const bldrsChainsMapID = 'bldrsChains';
+  // -----------------------------------------------------------------------------
 
   /// TESTED : WORKS PERFECT
   void addPathSon({
@@ -70,7 +72,9 @@ class Chain {
   static Map<String, dynamic> cipherBldrsChains({
     @required List<Chain> chains,
   }){
-    Map<String, dynamic> _map = {};
+    Map<String, dynamic> _map = {
+      'id': bldrsChainsMapID,
+    };
 
     if (Mapper.checkCanLoopList(chains) == true){
 

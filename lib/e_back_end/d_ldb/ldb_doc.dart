@@ -18,12 +18,12 @@ class LDBDoc {
       case LDBDoc.bldrsChains: return 'id';
       case LDBDoc.countries: return 'id';
       case LDBDoc.cities: return 'cityID';
-      case LDBDoc.continents: return 'name';
+      case LDBDoc.continents: return 'id';
       case LDBDoc.currencies: return 'id';
       case LDBDoc.mainPhrases: return 'id';
       case LDBDoc.countriesPhrases: return 'id';
       case LDBDoc.appState: return 'id';
-      case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
+      case LDBDoc.appControls: return 'id';
       case LDBDoc.authModel: return 'uid';
       case LDBDoc.notes: return 'id';
       case LDBDoc.pickers: return 'id';

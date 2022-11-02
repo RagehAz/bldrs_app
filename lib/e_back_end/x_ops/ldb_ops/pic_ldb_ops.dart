@@ -93,4 +93,21 @@ class PicLDBOps {
 
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkExists(String path) async {
+
+    bool _exists = false;
+
+    if (TextCheck.isEmpty(path) == false){
+
+      _exists = await LDBOps.checkMapExists(
+          id: path,
+          docName: LDBDoc.pics,
+      );
+
+    }
+
+    return _exists;
+    }
+  // -----------------------------------------------------------------------------
 }
