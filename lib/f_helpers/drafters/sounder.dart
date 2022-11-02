@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
+import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -43,8 +44,13 @@ class Sounder  {
   /// TESTED : WORKS PERFECT
   static Future<void> playAssetSound(String asset) async {
     final AudioPlayer _audioPlayer = _getPlayer();
-    await _audioPlayer.setAsset(asset);
-    await _audioPlayer.play();
+    await tryAndCatch(
+      methodName: 'playAssetSound',
+      functions: () async {
+        await _audioPlayer.setAsset(asset);
+        await _audioPlayer.play();
+      },
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT

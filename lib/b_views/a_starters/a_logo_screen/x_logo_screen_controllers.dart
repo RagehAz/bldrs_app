@@ -230,7 +230,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
   /// INSERT AUTH AND USER MODEL IN LDB
   await AuthLDBOps.updateAuthModel(authModel);
-  await UserLDBOps.updateUserModel(authModel.userModel);
+  await UserLDBOps.updateUserModel(authModel?.userModel);
 
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : END');
 
