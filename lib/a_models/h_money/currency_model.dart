@@ -23,6 +23,8 @@ class CurrencyModel {
   /// STANDARDS
 
   // --------------------
+  static const String currenciesMapID = 'currencies';
+
   static const String usaCurrencyID = 'currency_USD';
   static const String usaCountryID = 'usa';
   static const String euroCurrencyID = 'currency_EUR';
@@ -89,6 +91,13 @@ class CurrencyModel {
           value: currency.toMap(),
         );
       }
+
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: 'id',
+        value: currenciesMapID,
+      );
+
     }
 
     return _map;
@@ -103,8 +112,12 @@ class CurrencyModel {
 
       if (Mapper.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
-          final CurrencyModel _currency = decipherCurrency(map[key]);
-          _currencies.add(_currency);
+
+          if (map[key] != currenciesMapID){
+            final CurrencyModel _currency = decipherCurrency(map[key]);
+            _currencies.add(_currency);
+          }
+
         }
       }
     }
