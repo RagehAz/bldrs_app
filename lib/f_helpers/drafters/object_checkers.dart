@@ -291,5 +291,15 @@ class ObjectCheck {
     return _objectsListIsSpecs;
   }
   // -----------------------------------------------------------------------------
+  static bool objectIsPicPath(dynamic object){
+    bool _isPicPath = false;
+
+    if (object != null && object is String){
+      _isPicPath = true;
+    }
+
+    return _isPicPath;
+  }
+  // -----------------------------------------------------------------------------
 
 }
