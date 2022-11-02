@@ -10,6 +10,7 @@ import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
+import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -102,14 +103,17 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
           },
         ),
 
-        /// LDB
+        /// DELETE + CLEAR CACHE
         AppBarButton(
           icon: Iconz.xSmall,
           onTap: () async {
 
+            await CacheOps.clearCacheByManager();
+
             setState(() {
               _picModel = null;
             });
+
 
           },
         ),

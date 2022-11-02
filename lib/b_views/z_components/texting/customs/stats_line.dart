@@ -34,6 +34,7 @@ class StatsLine extends StatelessWidget {
       alignment: Aligners.superCenterAlignment(context),
       child: DreamBox(
         height: _height,
+        width: bubbleWidth,
         icon: icon,
         verse: verse,
         verseWeight: VerseWeight.thin,
@@ -43,6 +44,8 @@ class StatsLine extends StatelessWidget {
         corners: _height * 0.15,
         bubble: false,
         color: onTap == null ? null : Colorz.white20,
+        verseMaxLines: 1,
+        verseCentered: false,
         onTap: onTap,
       ),
 
