@@ -13,6 +13,7 @@ class StatsLine extends StatelessWidget {
     this.verseScaleFactor = 0.85,
     this.onTap,
     this.bubbleWidth,
+    this.color,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class StatsLine extends StatelessWidget {
   final Verse verse;
   final Function onTap;
   final double bubbleWidth;
+  final Color color;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,7 @@ class StatsLine extends StatelessWidget {
         verseScaleFactor: verseScaleFactor,
         corners: _height * 0.15,
         bubble: false,
-        color: onTap == null ? null : Colorz.white20,
-        verseMaxLines: 1,
+        color: onTap == null ? color : Colorz.white20,
         verseCentered: false,
         onTap: onTap,
       ),

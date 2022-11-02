@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
-import 'package:bldrs/b_views/z_components/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

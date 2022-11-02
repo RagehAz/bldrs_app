@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
