@@ -55,7 +55,7 @@ class Numeric {
           number: _numAsInt.toDouble(),
         );
 
-        final int _number = _numAsInt.floor();
+        final int _number = _numAsInt; //.floor();
         final String _digits = _number.abs().toString();
         final StringBuffer _separatedNumberWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
         final int _maxDigitIndex = _digits.length - 1;
