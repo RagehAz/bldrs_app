@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/light_image/cacheless_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
@@ -119,15 +119,18 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
               _picModel = null;
             });
 
-
           },
         ),
 
-        /// PREVIEW
-        SuperImage(
+        CachelessImage(
+          bytes: _picModel?.bytes,
           width: 40,
           height: 40,
-          pic: _picModel?.bytes ?? _theURL ?? Iconz.dvBlankSVG,
+        ),
+
+        const SizedBox(
+          width: 5,
+          height: 5,
         ),
 
       ],
@@ -146,6 +149,18 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
               _picModel = _pic;
               _thePath = _pic.path;
             });
+
+          },
+        ),
+
+        /// DOWNLOAD PIC
+        WideButton(
+          verse: Verse.plain('Download pic'),
+          onTap: () async {
+
+            final String _path = '${StorageDoc.users}/${AuthFireOps.superUserID()}';
+
+            await PicProtocols.downloadPic(_path);
 
           },
         ),
@@ -192,7 +207,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
         /// CURRENT SIZE BYTES
         DataStrip(
           dataKey: 'current Size Bytes',
-          dataValue: '${Filers.calculateSize(imageCache.currentSizeBytes, FileSizeUnit.megaByte)} Mb',
+          dataValue: '${Filers.calculateSize(imageCache.currentSizeBytes, FileSizeUnit.kiloByte)} Kb',
           color: Colorz.yellow20,
         ),
 
