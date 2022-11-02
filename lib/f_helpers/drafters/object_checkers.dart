@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -144,6 +145,8 @@ class ObjectCheck {
 
     if (object != null) {
       if (
+          object is Uint8List
+          ||
           object.runtimeType.toString() == '_Uint8ArrayView'
           ||
           object.runtimeType.toString() == 'Uint8List'
