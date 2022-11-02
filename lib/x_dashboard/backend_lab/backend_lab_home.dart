@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/x_dashboard/backend_lab/cache_viewer/cache_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/email_test_screen.dart';
@@ -172,6 +173,21 @@ class BackendLabHome extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const RealHttpTestScreen(),
+            );
+          },
+        ),
+
+        const DotSeparator(),
+        // ---------------------------------------------------
+
+        /// CACHE VIEWER
+        WideButton(
+          verse: Verse.plain('Cache viewer screen'),
+          icon: Iconz.dvGouran,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const CacheViewerScreen(),
             );
           },
         ),
