@@ -1,5 +1,6 @@
 import 'dart:typed_data';
-import 'package:bldrs/b_views/z_components/images/super_image/c_infinity_loading_box.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/x_cacheless_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/x_infinity_loading_box.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:flutter/material.dart';
 
@@ -34,12 +35,12 @@ class FutureImage extends StatelessWidget {
     /// UI.IMAGE
     else {
 
-      return Image.memory(
-        snapshot.data,
-        fit: boxFit,
+      return CachelessImage(
+        bytes: snapshot.data,
+        boxFit: boxFit,
         width: width,
         height: height,
-        errorBuilder: errorBuilder,
+        // errorBuilder: errorBuilder,
         // scale: 1,
       );
     }
