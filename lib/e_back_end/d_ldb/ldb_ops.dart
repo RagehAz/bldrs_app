@@ -1,5 +1,4 @@
 // ignore_for_file: always_put_control_body_on_new_line
-
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/sembast_api.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -247,6 +246,7 @@ class LDBOps {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeOutEntireLDB({
     bool flyers = true,
     bool bzz = true,
@@ -303,6 +303,29 @@ class LDBOps {
       }),
     ]);
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkMapExists({
+    @required String id,
+    @required String docName,
+  }) async {
+    bool _exists = false;
+
+    if (id != null && docName != null){
+
+      _exists = await Sembast.checkMapExists(
+          docName: docName,
+          id: id,
+      );
+
+    }
+
+    return _exists;
   }
   // -----------------------------------------------------------------------------
 
@@ -508,4 +531,5 @@ class LDBOps {
     return _shouldRefresh;
   }
   // -----------------------------------------------------------------------------
+
 }

@@ -20,6 +20,8 @@ class Continent {
   final List<String> activatedCountriesIDs;
   final List<String> globalCountriesIDs;
   // -----------------------------------------------------------------------------
+  static const continentsMapID = 'continents';
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
@@ -53,6 +55,13 @@ class Continent {
           value: continent.toMap(),
         );
       }
+
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: 'id',
+        value: continentsMapID,
+      );
+
     }
 
     return _map;
@@ -66,9 +75,12 @@ class Continent {
 
       if (Mapper.checkCanLoopList(_keys)) {
         for (final String key in _keys) {
-          final Continent _continent = decipherContinent(map[key]);
 
-          _continents.add(_continent);
+          if (map[key] != continentsMapID){
+            final Continent _continent = decipherContinent(map[key]);
+            _continents.add(_continent);
+          }
+
         }
       }
     }

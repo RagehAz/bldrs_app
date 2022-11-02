@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -173,9 +172,11 @@ class Sembast  {
 
     else {
 
+      final String _primaryKey = LDBDoc.getPrimaryKey(docName);
+
       final bool _exists = await checkMapExists(
         docName: docName,
-        map: map,
+        id: map[_primaryKey],
       );
 
       /// ADD IF NOT FOUND
@@ -597,36 +598,11 @@ class Sembast  {
   /// TESTED : WORKS PERFECT
   static Future<bool> checkMapExists({
     @required String docName,
-    @required Map<String, dynamic> map,
-  }) async {
-
-    Map<String, dynamic> _map;
-
-    await tryAndCatch(
-        functions: () async {
-
-          final String _primaryKey = LDBDoc.getPrimaryKey(docName);
-          final String _objectID = map[_primaryKey];
-
-          _map = await findFirst(
-            fieldToSortBy: _primaryKey,
-            searchField: _primaryKey,
-            searchValue: _objectID,
-            docName: docName,
-          );
-
-        }
-    );
-
-
-    return _map != null;
-  }
-  // --------------------
-  /// NEED TEST
-  static Future<bool> checkIfExists({
-    @required String docName,
     @required String id,
   }) async {
+
+    assert(docName != null, 'docName is null');
+    assert(id != null, 'id is null');
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -651,5 +627,36 @@ class Sembast  {
     }
 
   }
+  // --------------------
+  /// DEPRECATED
+  /*
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkMapExists({
+    @required String docName,
+    @required Map<String, dynamic> map,
+  }) async {
+
+    Map<String, dynamic> _map;
+
+    await tryAndCatch(
+        functions: () async {
+
+          final String _primaryKey = LDBDoc.getPrimaryKey(docName);
+          final String _objectID = map[_primaryKey];
+
+          _map = await findFirst(
+            fieldToSortBy: _primaryKey,
+            searchField: _primaryKey,
+            searchValue: _objectID,
+            docName: docName,
+          );
+
+        }
+    );
+
+
+    return _map != null;
+  }
+   */
   // -----------------------------------------------------------------------------
 }
