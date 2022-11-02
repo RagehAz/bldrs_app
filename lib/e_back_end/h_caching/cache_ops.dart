@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
@@ -80,9 +81,11 @@ class CacheOps {
   /// TESTED : WORKS PERFECT
   static Future<void> wipeCaches() async {
 
+    blog('wipeCaches : CLEANING ALL CACHES');
+
     await Future.wait(<Future>[
-      CacheOps.clearTempDirectoryCache(),
-      CacheOps.clearAppDocsDirectory(),
+      // CacheOps.clearTempDirectoryCache(),
+      // CacheOps.clearAppDocsDirectory(),
       CacheOps.clearCacheByManager(),
     ]);
 

@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -7,6 +8,7 @@ import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
@@ -76,12 +78,15 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
   }
   // -----------------------------------------------------------------------------
   PicModel _picModel;
+  String _thePath;
+  String _theURL;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
 
-    blog('fuck');
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
+    final String _url = _userModel.pic;
 
     return DashBoardLayout(
       loading: _loading,
@@ -111,12 +116,8 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
             await CacheOps.wipeCaches();
 
             setState(() {
-
+              _picModel = null;
             });
-
-            // setState(() {
-            //   _picModel = null;
-            // });
 
 
           },
@@ -126,7 +127,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
         SuperImage(
           width: 40,
           height: 40,
-          pic: _picModel?.bytes ?? Iconz.dvBlankSVG,
+          pic: _picModel?.bytes ?? _theURL ?? Iconz.dvBlankSVG,
         ),
 
       ],
@@ -143,6 +144,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
 
             setState(() {
               _picModel = _pic;
+              _thePath = _pic.path;
             });
 
           },
@@ -161,111 +163,16 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
             final String _url = await _ref.getDownloadURL();
 
             blog('url is : $_url');
+            setState(() {
+              _picModel = null;
+              _theURL = _url;
+            });
             await Dialogs.showSuccessDialog(context: context);
 
           },
         ),
 
         const DotSeparator(),
-
-        // /// PICK ICONS AND UPLOAD
-        // WideButton(
-        //   verse: Verse.plain('Upload pic to Storage'),
-        //   onTap: () async {
-        //
-        //     final List<String> _icons = await BldrsIconsScreen.selectIcons(context);
-        //
-        //     final List<File> _files = await Filers.getFilesFromLocalRasterImages(
-        //       localAssets: _icons,
-        //     );
-        //
-        //     final List<String> _names = await Filers.getFilesNamesFromFiles(
-        //         files: _files,
-        //         withExtension: false,
-        //     );
-        //
-        //
-        //     await Storage.createMultipleStoragePicsAndGetURLs(
-        //       files: _files,
-        //       docsNames: _names,
-        //       ownersIDs: [AuthFireOps.superUserID()],
-        //       collName: 'test/',
-        //     );
-        //
-        //     await Dialogs.showSuccessDialog(context: context);
-        //
-        //   },
-        // ),
-        //
-        // /// DELETE ICONS STORAGE DIRECTORY
-        // WideButton(
-        //   verse: Verse.plain('Delete icons storage directory'),
-        //   onTap: () async {
-        //
-        //     final dynamic result = await CloudFunction.call(
-        //       context: context,
-        //       functionName: CloudFunction.callDeleteStorageDirectory,
-        //       mapToPass: {
-        //         'path': 'test/',
-        //       },
-        //     );
-        //
-        //     blog('result is : ${result?.runtimeType} : $result');
-        //
-        //     await Dialogs.showSuccessDialog(context: context);
-        //
-        //   },
-        // ),
-
-        // /// put uInt In Path
-        // WideButton(
-        //   verse: Verse.plain('upload uInt8List with / in name'),
-        //   onTap: () async {
-        //
-        //     final String icon = await BldrsIconsScreen.selectIcon(context);
-        //
-        //     final File _file = await Filers.getFileFromLocalRasterAsset(
-        //         localAsset: icon,
-        //     );
-        //
-        //     final Uint8List _int = await Floaters.getUint8ListFromFile(_file);
-        //     final Dimensions dim = await Dimensions.superDimensions(_int);
-        //
-        //     final Reference _ref = StorageRef.byNodes(
-        //       collName: 'test',
-        //       docName: 'fuck/you_bitch',
-        //     );
-        //     /// ASSIGN FILE OWNERS
-        //     Map<String, String> _metaDataMap = <String, String>{};
-        //       _metaDataMap[AuthFireOps.superUserID()] = 'cool';
-        //
-        //       _metaDataMap = Mapper.mergeMaps(
-        //         baseMap: _metaDataMap,
-        //         insert: <String, String>{
-        //           'width': '${dim.width}',
-        //           'height': '${dim.height}',
-        //         },
-        //         replaceDuplicateKeys: true,
-        //       );
-        //
-        //     /// FORM METADATA
-        //     final SettableMetadata metaData = SettableMetadata(
-        //       customMetadata: _metaDataMap,
-        //     );
-        //
-        //     final TaskSnapshot _taskSnapshot = await _ref.putData(
-        //       _int,
-        //       metaData,
-        //     );
-        //
-        //     final String _url = await _ref.getDownloadURL();
-        //
-        //     blog('url is : $_url');
-        //     blog('_taskSnapshot : ${_taskSnapshot.totalBytes} : ${_taskSnapshot.state}');
-        //     await Dialogs.showSuccessDialog(context: context);
-        //
-        //   },
-        // ),
 
         /// SEPARATOR
         const SeparatorLine(),
@@ -303,6 +210,17 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
           color: Colorz.yellow20,
         ),
 
+        DataStrip(
+          dataKey: 'contains my url ?',
+          dataValue: imageCache.containsKey(_url),
+          color: Colorz.yellow20,
+        ),
+
+        DataStrip(
+          dataKey: 'contains path ?',
+          dataValue: imageCache.containsKey(_thePath),
+          color: Colorz.yellow20,
+        ),
       ],
     );
     // --------------------
