@@ -24,24 +24,38 @@ class Numeric {
     String separator = "'",
   }) {
 
+    assert(number is int || number is double, 'number is neither int nor double');
+
     /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
     String _result = '0';
+    final String _fractions = Numeric.getFractionStringWithoutZero(
+      number: number,
+      fractionDigits: fractions,
+    );
 
     if (number != null) {
 
+      int _numAsInt;
+      if (number is double){
+        _numAsInt = number.toInt();
+      }
+      else {
+        _numAsInt = number;
+      }
+
       /// -999 < x < 999
-      if (number > -1000 && number < 1000) {
-        _result = number.toString();
+      if (_numAsInt > -1000 && _numAsInt < 1000) {
+        _result = _numAsInt.toString();
       }
 
       /// 1000 < x
       else {
 
         final double _fractions = getFractions(
-          number: number.toDouble(),
+          number: _numAsInt.toDouble(),
         );
 
-        final int _number = number.floor();
+        final int _number = _numAsInt.floor();
         final String _digits = _number.abs().toString();
         final StringBuffer _separatedNumberWithoutFractions = StringBuffer(_number < 0 ? '-' : '');
         final int _maxDigitIndex = _digits.length - 1;
@@ -58,7 +72,7 @@ class Numeric {
         if (_fractions > 0) {
 
           final String _fractionWithoutZero = getFractionStringWithoutZero(
-            fraction: _fractions,
+            number: _fractions,
           );
 
           _result = '$_separatedNumberWithoutFractions.$_fractionWithoutZero';
@@ -74,8 +88,8 @@ class Numeric {
       // if (number == null) return '0';
       // if (number > -1000 && number < 1000) return number.toString();
 
-      final String _digits = number.abs().toString();
-      final StringBuffer _resultStringBuffer = StringBuffer(number < 0 ? '-' : '');
+      final String _digits = _numAsInt.abs().toString();
+      final StringBuffer _resultStringBuffer = StringBuffer(_numAsInt < 0 ? '-' : '');
       final int maxDigitIndex = _digits.length - 1;
 
       for (int i = 0; i <= maxDigitIndex; i += 1) {
@@ -91,7 +105,13 @@ class Numeric {
 
     }
 
-    return _result;
+    if (TextCheck.isEmpty(_fractions) == false){
+      return '$_result.$_fractions';
+    }
+    else {
+      return _result;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -400,7 +420,7 @@ class Numeric {
     fractionDigits == null ? number.toString()
         :
     getFractionStringWithoutZero(
-        fraction: number,
+        number: number,
         fractionDigits: fractionDigits
     );
 
@@ -425,11 +445,11 @@ class Numeric {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getFractionStringWithoutZero({
-    @required double fraction,
+    @required double number,
     int fractionDigits
   }) {
-    final String _fractionAsString = fraction.toString();
-    String _fractionAsStringWithoutZero = TextMod.removeTextBeforeLastSpecialCharacter(_fractionAsString, '.');
+    final String _numberAsString = number.toString();
+    String _fractionAsStringWithoutZero = TextMod.removeTextBeforeLastSpecialCharacter(_numberAsString, '.');
 
     if (fractionDigits != null) {
       final int _fractionStringLength = _fractionAsStringWithoutZero.length;

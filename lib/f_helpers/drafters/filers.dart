@@ -197,17 +197,22 @@ class Filers {
 
       return _output;
     }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
     static double calculateSize(int bytes, FileSizeUnit unit){
+
+    double _size;
+
       switch (unit){
-        case FileSizeUnit.byte:      return bytes.toDouble(); break;
-        case FileSizeUnit.kiloByte:  return bytes / 1024; break;
-        case FileSizeUnit.megaByte:  return bytes/ (1024 * 1024); break;
-        case FileSizeUnit.gigaByte:  return bytes/ (1024 * 1024 * 1024); break;
-        case FileSizeUnit.teraByte:  return bytes/ (1024 * 1024 * 1024 * 1024); break;
-        default:                     return bytes.toDouble(); break;
+        case FileSizeUnit.byte:      _size = bytes.toDouble(); break;
+        case FileSizeUnit.kiloByte:  _size = bytes / 1024; break;
+        case FileSizeUnit.megaByte:  _size = bytes/ (1024 * 1024); break;
+        case FileSizeUnit.gigaByte:  _size = bytes/ (1024 * 1024 * 1024); break;
+        case FileSizeUnit.teraByte:  _size = bytes/ (1024 * 1024 * 1024 * 1024); break;
+        default:                     _size = bytes.toDouble(); break;
       }
 
+      return Numeric.roundFractions(_size, 2);
     }
   // -----------------------------------------------------------------------------
 

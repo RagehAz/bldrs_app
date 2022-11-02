@@ -34,6 +34,7 @@ dependencies:
   exif: ^3.0.1
   file_picker: ^5.2.0+1
   firebase_auth: ^3.4.2
+  flutter_cache_manager: ^3.3.0
   firebase_core: ^1.24.0
   firebase_database: ^9.1.7
   firebase_dynamic_links: ^4.3.10
