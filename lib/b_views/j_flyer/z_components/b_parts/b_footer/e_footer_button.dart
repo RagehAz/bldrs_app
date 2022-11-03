@@ -2,10 +2,10 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart'
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 class FooterButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -71,13 +71,16 @@ class FooterButton extends StatelessWidget {
               subChild: SizedBox(
                 width: _buttonSize * 0.8,
                 height: _buttonSize * 0.9,
-                // color: Colorz.BloodTest,
-                child: SuperImage(
-                  width: _buttonSize * 0.8,
-                  height: _buttonSize * 0.9,
-                  pic: icon,
-                  iconColor: _iconAndVerseColor,
+                child: Transform.scale(
                   scale: 0.5,
+                  child: WebsafeSvg.asset(
+                    icon,
+                      color: _iconAndVerseColor,
+                      // fit: BoxFit.fitWidth,
+                      // width: _buttonSize * 0.8,
+                      // height: _buttonSize * 0.9 ,
+                    // alignment: Alignment.center,
+                    ),
                 ),
               ),
             ),

@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_slide_tap_area.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/b_views/z_components/images/cc_zoomable_pic.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:flutter/material.dart';
 
 class SlideImagePart extends StatelessWidget {
@@ -40,7 +39,9 @@ class SlideImagePart extends StatelessWidget {
   //         ));
   //   }
   // }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  ///DEPRECATED
+  /*
   /// Function(BuildContext, Widget, ImageChunkEvent
   Widget _imageLoadingBuilder(BuildContext context, Widget image, ImageChunkEvent chunkEvent){
 
@@ -59,9 +60,12 @@ class SlideImagePart extends StatelessWidget {
 
     return _isLoading ? _widget : image;
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    // blog('SlideImagePart : slideModel.pic : ${slideModel.pic}');
 
     return ZoomablePicture(
       isOn: !tinyMode,
@@ -70,12 +74,14 @@ class SlideImagePart extends StatelessWidget {
         children: <Widget>[
 
           /// IMAGE
-          Image.network(
-            slideModel.pic,
+          SuperImage(
+            pic: slideModel.pic,
             fit: slideModel.picFit,
             width: flyerBoxWidth,
             height: flyerBoxHeight,
-            loadingBuilder: _imageLoadingBuilder,
+            // loadingBuilder: _imageLoadingBuilder,
+            backgroundColor: slideModel.midColor,
+            // loading: ,
           ),
 
           /// TAP AREAS

@@ -54,33 +54,6 @@ class FlyerBox extends StatelessWidget {
       ),
     );
     // --------------------
-    /// OLD : was working before optimization
-    /*
-        return SizedBox( /// to prevent forced center alignment
-      width: flyerBoxWidth,
-      height: _flyerZoneHeight,
-      child: Center( /// to prevent flyer stretching out
-        child: Container(
-          key: const ValueKey<String>('flyer_box'),
-          width: flyerBoxWidth,
-          height: _flyerZoneHeight,
-          alignment: Alignment.topCenter,
-          decoration: BoxDecoration(
-            color: boxColor,
-            borderRadius: _flyerBorders,
-            // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
-          ),
-          child: ClipRRect( /// because I will not pass borders to all children
-            borderRadius: _flyerBorders,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: stackWidgets ?? <Widget>[],
-            ),
-          ),
-        ),
-      ),
-    );
-     */
   }
   // -----------------------------------------------------------------------------
 }

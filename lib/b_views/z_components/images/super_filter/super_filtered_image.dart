@@ -176,7 +176,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
         width: widget.width,
         height: widget.height,
         pic: widget.imageFile,
-        boxFit: widget.boxFit,
+        fit: widget.boxFit,
       );
     }
 
@@ -199,7 +199,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                   width: widget.width,
                   height: widget.height,
                   pic: _file,
-                  boxFit: widget.boxFit,
+                  fit: widget.boxFit,
                 ),
               );
 
@@ -231,7 +231,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                   width: widget.width,
                   height: widget.height,
                   pic: _file,
-                  boxFit: widget.boxFit,
+                  fit: widget.boxFit,
                   scale: widget.scale,
                 ),
               );

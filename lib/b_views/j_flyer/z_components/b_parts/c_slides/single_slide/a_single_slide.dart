@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/b_slide_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/c_slide_image_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/b_slide_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:flutter/material.dart';
 
 class SingleSlide extends StatelessWidget {
@@ -62,8 +61,8 @@ class SingleSlide extends StatelessWidget {
       shadowIsOn: slideShadowIsOn,
       stackChildren: <Widget>[
 
-        /// --- IMAGE NETWORK
-        if (ObjectCheck.isAbsoluteURL(slideModel.pic))
+        /// IMAGE NETWORK
+        // if (ObjectCheck.isAbsoluteURL(slideModel.pic))
           SlideImagePart(
             key: const ValueKey<String>('SingleSlideImagePart'),
             flyerBoxWidth: flyerBoxWidth,
@@ -75,7 +74,7 @@ class SingleSlide extends StatelessWidget {
             onDoubleTap: onDoubleTap,
           ),
 
-        /// --- SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
+        /// SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
         SlideShadow(
           key: const ValueKey<String>('SingleSlideShadow'),
           flyerBoxWidth: flyerBoxWidth,

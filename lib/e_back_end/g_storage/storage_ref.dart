@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -98,6 +99,26 @@ class StorageRef {
     }
 
     blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- END');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> getPathByURL(String url) async {
+    String _path;
+
+    if (ObjectCheck.isAbsoluteURL(url) == true){
+
+      final Reference _ref = await byURL(url: url);
+      _path = _ref.fullPath;
+
+    }
+
+    // blog('getPathByURL : _path : $_path');
+
+    return _path;
   }
   // -----------------------------------------------------------------------------
 }

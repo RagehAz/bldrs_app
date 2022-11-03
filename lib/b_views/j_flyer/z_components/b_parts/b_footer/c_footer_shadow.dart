@@ -1,7 +1,8 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/b_super_image_box.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 class FooterShadow extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -23,12 +24,15 @@ class FooterShadow extends StatelessWidget {
     // --------------------
     return Positioned(
       bottom: -0.4,
-      child: SuperImage(
+      child: SuperImageBox(
         width: flyerBoxWidth,
         height: _height,
-        pic: Iconz.footerShadow,
         corners: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: flyerBoxWidth),
         boxFit: BoxFit.fitWidth,
+        child: WebsafeSvg.asset(
+          Iconz.footerShadow,
+          fit: BoxFit.fitWidth,
+        ),
       ),
     );
     // --------------------

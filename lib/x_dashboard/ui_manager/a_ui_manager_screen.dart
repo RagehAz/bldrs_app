@@ -136,7 +136,7 @@ class UIManager extends StatelessWidget {
         /// SOUNDS TEST
         WideButton(
           verse: Verse.plain('Sounds'),
-          icon: Iconz.play,
+          icon: Iconz.advertise,
           onTap: () async {
 
             await Nav.goToNewScreen(
@@ -206,7 +206,7 @@ class UIManager extends StatelessWidget {
         /// STATIC FLYER TEST
         WideButton(
           verse: Verse.plain('Static Flyer test'),
-          icon: Iconz.statistics,
+          icon: Iconz.flyer,
           onTap: () async {
 
             await Nav.goToNewScreen(
