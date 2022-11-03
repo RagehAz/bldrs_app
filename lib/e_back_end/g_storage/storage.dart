@@ -4,15 +4,17 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
 import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +85,7 @@ class Storage {
 
           final String _picURL = await createStoragePicAndGetURL(
             inputFile: slides[index].pic,
-            collName: StorageDoc.slides,
+            collName: StorageColl.slides,
             ownersIDs: <String>[bzCreatorID, flyerAuthorID],
             docName: SlideModel.generateSlideID(
               flyerID: flyerID,
@@ -210,7 +212,7 @@ class Storage {
 
           _url = await StorageFileOps.uploadFileAndGetURL(
             file: pdf.file,
-            storageCollName: StorageDoc.flyersPDFs,
+            storageCollName: StorageColl.flyersPDFs,
             docName: _pdfStorageName,
             ownersIDs: ownersIDs,
             // metaDataAddOn: ,
@@ -230,7 +232,7 @@ class Storage {
 
         _url = await StorageFileOps.uploadFileAndGetURL(
           file: _fileFromURL,
-          storageCollName: StorageDoc.flyersPDFs,
+          storageCollName: StorageColl.flyersPDFs,
           docName: _pdfStorageName,
           ownersIDs: ownersIDs,
           metaDataAddOn: _meta.customMetadata,
@@ -457,5 +459,42 @@ class Storage {
     /// END OF STORY
   }
  */
+  // -----------------------------------------------------------------------------
+
+  /// EXCEPTIONS
+
+  // --------------------
+  /// JUST A REFERENCE
+  static const Map<String, dynamic> storageErrorsMap = {
+    '[storage/unknown]'                 :	'An unknown error occurred.',
+    '[storage/object-not-found]'        :	'No object exists at the desired reference.',
+    '[storage/bucket-not-found]'        :	'No bucket is configured for Cloud Storage',
+    '[storage/project-not-found]'       :	'No project is configured for Cloud Storage',
+    '[storage/quota-exceeded]'          :	"Quota on your Cloud Storage bucket has been exceeded. If you're on the no-cost tier, upgrade to a paid plan. If you're on a paid plan, reach out to Firebase support.",
+    '[storage/unauthenticated]'         :	'User is unauthenticated, please authenticate and try again.',
+    '[storage/unauthorized]'            :	'User is not authorized to perform the desired action, check your security rules to ensure they are correct.',
+    '[storage/retry-limit-exceeded]'    :	'The maximum time limit on an operation (upload, download, delete, etc.) has been exceeded. Try uploading again.',
+    '[storage/invalid-checksum]'        :	'File on the client does not match the checksum of the file received by the server. Try uploading again.',
+    '[storage/canceled]'                :	'User canceled the operation.',
+    '[storage/invalid-event-name]'      :	'Invalid event name provided. Must be one of [`running`, `progress`, `pause`]',
+    '[storage/invalid-url]'             :	'Invalid URL provided to refFromURL(). Must be of the form: gs://bucket/object or https://firebasestorage.googleapis.com/v0/b/bucket/o/object?token=<TOKEN>',
+    '[storage/invalid-argument]'        :	'The argument passed to put() must be `File`, `Blob`, or `UInt8` Array. The argument passed to putString() must be a raw, `Base64`, or `Base64URL` string.',
+    '[storage/no-default-bucket]'       :	"No bucket has been set in your config's storageBucket property.",
+    '[storage/cannot-slice-blob]'       :	"Commonly occurs when the local file has changed (deleted, saved again, etc.). Try uploading again after verifying that the file hasn't changed.",
+    '[storage/server-file-wrong-size]'  :	'File on the client does not match the size of the file received by the server. Try uploading again.',
+  };
+  // --------------------
+  /// NOT TESTED NOR USED
+  static void onStorageExceptions(String error){
+
+    if (TextCheck.isEmpty(error) == false){
+
+      final String _code = TextMod.removeTextAfterFirstSpecialCharacter(error, ' ');
+
+      blog('onStorageExceptions : code : $_code : message : ${storageErrorsMap[_code]}');
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 }

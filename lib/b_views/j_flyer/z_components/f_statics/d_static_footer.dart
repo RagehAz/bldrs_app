@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_but
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,7 @@ class StaticFooter extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    blog('building StaticFooter : flightTweenValue : $flightTweenValue');
+    // blog('building StaticFooter : flightTweenValue : $flightTweenValue');
 
     return Align(
       key: const ValueKey<String>('StaticFooter'),

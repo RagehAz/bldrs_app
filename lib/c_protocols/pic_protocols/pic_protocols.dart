@@ -47,7 +47,9 @@ class PicProtocols {
 
       _picModel = await PicStorageOps.readPic(path: path);
 
-      await PicLDBOps.insertPic(_picModel);
+      if (_picModel != null){
+        await PicLDBOps.insertPic(_picModel);
+      }
 
     }
 

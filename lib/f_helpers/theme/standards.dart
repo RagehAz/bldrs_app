@@ -16,6 +16,7 @@ class Standards {
   // --------------------
   static const String androidPackageName = 'com.bldrs.net';
   static const String iosBundleID = 'com.bldrs.net';
+  static const String iosTeamID = '6ADZTHNZN9';
   static const String databaseURL = 'https://bldrsnet.firebaseio.com';
   static const String storageBucket = 'bldrsnet.appspot.com';
   static const String projectID = 'bldrsnet';
@@ -25,6 +26,14 @@ class Standards {
   // --------------------
   /// const String fcmSenderID = '439018969330';
   static const String fcmServerKey = 'AAAAZjeR2PI:APA91bFKc1fNq9zROuwRGnbTXWj-1REB9XDW9nIvWjAeM2dGtAORsJ-GrIMmppkUVWRgcGIAccZxMqABTQb6_ECkBKZeaWH81TBAXvvC74DiTJAuSmgIkbhkM224etLFLCnYiMzMTlcz';
+  // --------------------
+  /// APP CHECK
+  // -------
+  static const String androidSha256CertificateFingerprint = '87:94:db:51:e4:e1:05:ab:e1:c2:fd:9f:14:84:eb:da:a3:d1:88:94:1d:bc:46:b4:f7:9e:c3:a6:db:e0:ec:7c';
+  static const String recaptchaSiteKey = '6Lel0dUiAAAAAEsveTwOOHn5vy6YQgIupaSQyRhb';
+  static const String recaptchaSecretKey = '6Lel0dUiAAAAAGr34tOOmo823XhChFZVds2wgY8K';
+
+
   // --------------------
   static String getBldrsAppUpdateLink(BuildContext context){
 
