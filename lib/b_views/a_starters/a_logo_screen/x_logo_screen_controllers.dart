@@ -251,7 +251,7 @@ Future<void> _initializeAppState(BuildContext context) async {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final AppState _userState = _usersProvider?.myUserModel?.appState;
 
-    if (_userState != null){
+    if (_userState != null && _globalState != null){
 
       final String _detectedAppVersion = await AppStateFireOps.getAppVersion();
       final bool _userAppNeedUpdate = AppStateFireOps.appVersionNeedUpdate(

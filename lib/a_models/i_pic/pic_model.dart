@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -22,6 +23,23 @@ class PicModel {
   /// collectionName/subCollectionName/fileName
   final String path;
   final PicMetaModel meta;
+  // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  PicModel copyWith({
+    Uint8List bytes,
+    String path,
+    PicMetaModel meta,
+  }){
+    return PicModel(
+      bytes: bytes ?? this.bytes,
+      path: path ?? this.path,
+      meta: meta ?? this.meta,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// LDB CYPHERS
@@ -61,7 +79,7 @@ class PicModel {
   /// ASSERTIONS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void assertIsUploadable(PicModel picModel){
     assert(picModel != null, 'picModel is null');
     assert(picModel.bytes != null, 'bytes is null');
@@ -90,7 +108,13 @@ class PicModel {
 
 
 
+  void blogPic(){
 
+    blog('path : $path : ${bytes.length} Bytes : '
+        '[ (${meta?.dimensions?.width})w x (${meta?.dimensions?.height})h ] : '
+        'owners : ${meta.ownersIDs}');
+
+  }
 
 
 

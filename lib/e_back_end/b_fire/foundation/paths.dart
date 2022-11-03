@@ -1,7 +1,49 @@
 // ignore_for_file: constant_identifier_names
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 
-/// ----------------------------o
+/// ------------------------------------o
+
+// FIRE DATA TREE
+
+/*
+
+  | => FIRE DATA TREE -------------------------|
+  |
+  | - [admin]
+  |     | - stuff
+  |     | - ...
+  |
+  | --------------------------|
+  |
+  | - [users]
+  |     | - {userID}
+  |     |     | - [notes]
+  |     |     | - ...
+  |     |
+  |     | - ...
+  |
+  | --------------------------|
+  |
+  | - [bzz]
+  |     | - {bzID}
+  |     |     | - [notes]
+  |     |     | - ...
+  |     |
+  |     | - ...
+  |
+  | --------------------------|
+  |
+  | - [flyers]
+  |     | - {flyerID}
+  |     |     | - [reviews]
+  |     |     | - ...
+  |     |
+  |     | - ...
+  |
+  | -------------------------------------------|
+
+ */
+
 abstract class FireColl{
 
   const FireColl();
@@ -37,7 +79,7 @@ abstract class FireColl{
   }
   // --------------------
 }
-/// ----------------------------o
+/// -----------------------
 abstract class FireDoc {
 
   static const String admin_statistics = 'statistics';
@@ -58,7 +100,7 @@ abstract class FireDoc {
   static const String chains_keywords = 'keywords';
 
 }
-/// ----------------------------o
+/// -----------------------
 abstract class FireSubColl {
 
   static const String admin_backups_phrases = 'phrases';
@@ -79,7 +121,7 @@ abstract class FireSubColl {
   static const String zones_countries_countries = 'countries';
 
 }
-/// ----------------------------o
+/// -----------------------
 abstract class FireSubDoc{
 
   static const String flyers_flyer_counters_counters = 'counters';
@@ -97,17 +139,4 @@ abstract class FireSubDoc{
 
   static const String admin_backups_currencies_currencies = 'currencies';
 }
-/// ----------------------------o
-abstract class StorageDoc{
-
-  static const String users         = 'users';        /// storage/users/{userID}
-  static const String logos         = 'logos';        /// storage/logos/{bzID}
-  static const String slides        = 'slides';       /// storage/slides/{flyerID__XX} => XX is two digits for slideIndex
-  static const String askPics       = 'askPics';      /// not used till now
-  static const String posters       = 'posters';      /// storage/posters/{notiID}
-  static const String authors       = 'authors';
-
-  static const String flyersPDFs = 'flyersPDFs'; /// storage/flyersPDFs/{flyerID}
-
-}
-/// ----------------------------o
+/// ------------------------------------o
