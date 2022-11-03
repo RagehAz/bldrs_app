@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
@@ -13,11 +14,13 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -25,9 +28,10 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
+import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_signed_in_button.dart';
-import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,37 +59,68 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   // -------------------------------------------------
   Future<void> _fastTest(BuildContext context) async {
 
-    /// TIME DIFF SHIT
-    // final DateTime _a = Timers.createDateTime(
-    //   year: 2022,
-    //   month: 10,
-    //   day: 11,
-    //   hour: 13,
-    //   minute: 27,
-    //   second: 29,
-    //   millisecond: 139045,
-    //   microsecond: 0,
-    // );
-    //
-    // final DateTime _b = Timers.createDateTime(
-    //   year: 2022,
-    //   month: 10,
-    //   day: 11,
-    //   hour: 13,
-    //   minute: 28,
-    //   second: 10,
-    //   millisecond: 320371,
-    //   microsecond: 0,
-    // );
-    //
-    // final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _a, to: _b);
-    //
-    // Timers.blogDateTime(_a);
-    // Timers.blogDateTime(_b);
-    //
-    blog('_diff : ');
-
     /// ---------------- >>>
+
+    blog('GOT start');
+
+    final List<UserModel> _users = await ExoticMethods.readAllUserModels(limit: 200);
+
+    for (final UserModel userModel in _users){
+
+      // blog('getting user : ${userModel.id}  ------------------------ START');
+      //
+      // PicModel _picModel = await PicStorageOps.readPic(
+      //     path: 'users/${userModel.id}',
+      // );
+      //
+      // if (_picModel == null){
+      //   blog('picModel is null');
+      // }
+      // else {
+      //   _picModel = _picModel.copyWith(
+      //     path: StorageColl.getUserPicPath(userModel.id),
+      //   );
+      //
+      //   _picModel.blogPic();
+      //
+      //   await PicProtocols.composePic(_picModel);
+      //   await Storage.deleteStoragePic(
+      //       collName: 'users',
+      //       docName: userModel.id,
+      //   );
+
+        final UserModel _user = userModel.copyWith(
+          pic: StorageColl.getUserPicPath(userModel.id),
+        );
+
+        await UserProtocols.renovateUser(
+            context: context,
+            newUserModel: _user
+        );
+
+      }
+
+      //
+
+
+      // blog('GOT user : ${userModel.id} ------------------------ END');
+
+    // }
+    
+
+    // blog('TAMAM');
+    //
+    //
+    // final PicModel _picModel = await PicProtocols.fetchPic('fuck/this/anything');
+
+    // _picModel?.blogPic();
+
+
+
+
+
+
+
 
 
 

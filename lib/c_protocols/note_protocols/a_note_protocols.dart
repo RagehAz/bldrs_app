@@ -14,6 +14,7 @@ import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -232,7 +233,7 @@ class NoteProtocols {
 
             final String _posterURL = await Storage.createStoragePicAndGetURL(
               inputFile: note.poster.file,
-              collName: StorageDoc.posters,
+              collName: StorageColl.posters,
               docName: Numeric.createUniqueID(maxDigitsCount: 12).toString(),
               ownersIDs: _ownersIDs,
             );
@@ -567,7 +568,7 @@ class NoteProtocols {
 
           if (_picName != null){
             await Storage.deleteStoragePic(
-              collName: StorageDoc.posters,
+              collName: StorageColl.posters,
               docName: _picName,
             );
           }

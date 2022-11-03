@@ -13,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class PicStorageOps {
   // -----------------------------------------------------------------------------
@@ -59,25 +60,28 @@ class PicStorageOps {
       Uint8List _bytes;
       FullMetadata _meta;
 
-      await tryAndCatch(
-          functions: () async {
+      try {
 
-            await Future.wait(<Future>[
+        blog('getting meta data for path : $path');
 
-              /// 10'485'760 default max size
-              _ref.getData().then((Uint8List ints){
-                _bytes = ints;
-              }),
+        _meta = await _ref.getMetadata();
 
-              _ref.getMetadata().then((FullMetadata metadata){
-                _meta = metadata;
+        if (_meta != null){
 
-              }),
+          /// 10'485'760 default max size
+          _bytes = await _ref.getData();
 
-            ]);
+        }
 
-          },
-      );
+
+      }
+
+      on firebase_core.FirebaseException catch (error){
+
+        blog('the storage error : ${error}');
+
+      }
+
 
       if (Mapper.checkCanLoopList(_bytes) == true){
 

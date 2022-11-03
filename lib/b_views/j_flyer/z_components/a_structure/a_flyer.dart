@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_small_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/d_flight_flyer.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -88,28 +87,7 @@ class _FlyerState extends State<Flyer> {
     _bzModel.dispose();
     super.dispose();
   }
-   // --------------------------------------------------------------------------
-   ///
-   Widget buildFlight(
-       BuildContext flightContext,
-       Animation<double> animation,
-       HeroFlightDirection flightDirection,
-       BuildContext fromHeroContext,
-       BuildContext toHeroContext,
-       ){
-
-     return FlightFlyer(
-       flyerModel: widget.flyerModel,
-       bzModel: _bzModel.value,
-       flyerBoxWidth: widget.flyerBoxWidth,
-       heroTag: _heroTag,
-       animation: animation,
-       flightContext: flightContext,
-       flightDirection: flightDirection,
-     );
-
-   }
-   // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -158,18 +136,12 @@ class _FlyerState extends State<Flyer> {
                 valueListenable: _bzModel,
                 builder: (_, BzModel bzModel, Widget child){
 
-                  return Hero(
-                    key: const ValueKey<String>('FlyerHero'),
-                    tag: _heroTag,
-                    flightShuttleBuilder: buildFlight,
-                    child: SmallFlyer(
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      bzModel: bzModel,
-                      flyerModel: widget.flyerModel,
-                      heroTag: _heroTag,
-                      // flightTweenValue: 0,
-                      // flightDirection: FlightDirection.non,
-                    ),
+                  return FlyerHero(
+                    flyerModel: widget.flyerModel,
+                    bzModel: bzModel,
+                    isFullScreen: false,
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    heroTag: _heroTag,
                   );
 
                 },

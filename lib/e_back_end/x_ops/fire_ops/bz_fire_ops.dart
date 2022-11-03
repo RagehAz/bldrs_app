@@ -12,6 +12,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/app_feedback_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -124,7 +125,7 @@ class BzFireOps {
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         inputFile: logo,
         docName: bzID,
-        collName: StorageDoc.logos,
+        collName: StorageColl.logos,
         ownersIDs: <String>[bzCreatorID],
       );
 
@@ -141,7 +142,7 @@ class BzFireOps {
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         inputFile: _fileFromURL,
         docName: bzID,
-        collName: StorageDoc.logos,
+        collName: StorageColl.logos,
         ownersIDs: <String>[bzCreatorID],
       );
 
@@ -177,7 +178,7 @@ class BzFireOps {
 
       _authorPicURL = await Storage.createStoragePicAndGetURL(
         inputFile: draftBz.authors[0].pic,
-        collName: StorageDoc.authors,
+        collName: StorageColl.authors,
         ownersIDs: <String>[userModel.id],
         docName: AuthorModel.generateAuthorPicID(
           authorID: userModel.id,
@@ -405,7 +406,7 @@ class BzFireOps {
 
       final String _authorPicURL = await Storage.createStoragePicAndGetURL(
         inputFile: _authorWithImageFile.pic,
-        collName: StorageDoc.authors,
+        collName: StorageColl.authors,
         docName: _picName,
         ownersIDs: _picOwnersIDs,
       );
@@ -503,7 +504,7 @@ class BzFireOps {
 
       await Storage.deleteStoragePic(
         docName: bzModel.id,
-        collName: StorageDoc.logos,
+        collName: StorageColl.logos,
       );
 
     }
@@ -543,7 +544,7 @@ class BzFireOps {
   }) async {
 
     await Storage.deleteStoragePic(
-      collName: StorageDoc.authors,
+      collName: StorageColl.authors,
       docName: AuthorModel.generateAuthorPicID(
         authorID: authorModel.userID,
         bzID: bzID,
