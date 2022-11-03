@@ -8,7 +8,7 @@ class SuperImage extends StatelessWidget {
     @required this.width,
     @required this.height,
     @required this.pic,
-    this.boxFit = BoxFit.cover,
+    this.fit = BoxFit.cover,
     this.scale = 1,
     this.iconColor,
     this.loading = false,
@@ -21,7 +21,7 @@ class SuperImage extends StatelessWidget {
   final dynamic pic;
   final double width;
   final double height;
-  final BoxFit boxFit;
+  final BoxFit fit;
   final double scale;
   final Color iconColor;
   final bool loading;
@@ -51,7 +51,7 @@ class SuperImage extends StatelessWidget {
     return SuperImageBox(
       width: width,
       height: height,
-      boxFit: boxFit,
+      boxFit: fit,
       scale: scale,
       backgroundColor: backgroundColor,
       corners: corners,
@@ -60,13 +60,11 @@ class SuperImage extends StatelessWidget {
         width: width,
         height: height,
         pic: pic,
-        boxFit: boxFit,
+        boxFit: fit,
         scale: scale,
         iconColor: iconColor,
         loading: loading,
         backgroundColor: backgroundColor,
-        corners: corners,
-        greyscale: greyscale,
       ),
     );
 

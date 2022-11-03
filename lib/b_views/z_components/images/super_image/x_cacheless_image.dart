@@ -119,9 +119,11 @@ class _CachelessImageState extends State<CachelessImage> {
 
     final ui.Image _theImage = await Floaters.getUiImageFromUint8List(widget.bytes);
 
-    setState(() {
-      _image = _theImage;
-    });
+    if (mounted == true){
+      setState(() {
+        _image = _theImage;
+      });
+    }
 
   }
   // -----------------------------------------------------------------------------
