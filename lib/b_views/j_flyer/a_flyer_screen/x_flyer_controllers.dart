@@ -204,6 +204,7 @@ bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
 }
 
 // --------------------
+/// DEPRECATED
 Widget flyerFlightShuttle({
   @required BuildContext flightContext,
   @required Animation<double> animation, // 0 to 1
@@ -277,7 +278,7 @@ Widget flyerFlightShuttle({
   );
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// DEPRECATED
 FlightDirection getFlightDirection(String direction){
 
   switch(direction){

@@ -5,9 +5,13 @@ import 'package:bldrs/c_protocols/flyer_protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fetch_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/renovate_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/wipe_flyers.dart';
+import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:ui' as ui;
 
 class FlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -232,5 +236,86 @@ class FlyerProtocols {
     context: context,
     bzID: bzID,
   );
+  // -----------------------------------------------------------------------------
+
+  /// IMAGIFICATION
+
   // --------------------
+  ///
+  static Future<FlyerModel> imagifyFirstSlide(FlyerModel flyerModel) async {
+    FlyerModel _output;
+
+    if (flyerModel != null){
+
+      _output = flyerModel;
+
+      if (Mapper.checkCanLoopList(flyerModel.slides) == true){
+
+        SlideModel _firstSlide = flyerModel.slides[0];
+
+        if (ObjectCheck.objectIsUiImage(_firstSlide.pic) == false){
+          final ui.Image _image = await PicProtocols.fetchPicUiImage(_firstSlide.pic); // is path
+          _firstSlide = _firstSlide.copyWith(
+            pic: _image,
+          );
+        }
+
+        final List<SlideModel> _slides = <SlideModel>[...flyerModel.slides];
+        _slides[0] = _firstSlide; /// NOT SURE ABOUT YOU FUCKER
+
+        _output = flyerModel.copyWith(
+          slides: _slides,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static Future<FlyerModel> imagifySlides(FlyerModel flyerModel) async {
+    FlyerModel _output;
+
+    if (flyerModel != null){
+
+      _output = flyerModel;
+
+      if (Mapper.checkCanLoopList(flyerModel.slides) == true){
+
+        final List<SlideModel> _flyerSlides = <SlideModel>[];
+
+        for (int i = 0; i < flyerModel.slides.length; i++){
+
+          final SlideModel _slide = flyerModel.slides[i];
+
+          /// ALREADY UI IMAGE
+          if (ObjectCheck.objectIsUiImage(_slide.pic) == true){
+            _flyerSlides.add(_slide);
+          }
+
+          /// IS PATH ( SHOULD BE )
+          else {
+            final ui.Image _image = await PicProtocols.fetchPicUiImage(_slide.pic); // is path
+            final SlideModel _updatedSlide = _slide.copyWith(
+              pic: _image,
+            );
+            _flyerSlides.add(_updatedSlide);
+          }
+
+        }
+
+
+        _output = flyerModel.copyWith(
+          slides: _flyerSlides,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
 }

@@ -3,13 +3,12 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/app_state_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -317,7 +316,7 @@ void main() {
 
     final dynamic _pic = _flyerModel.slides[0].pic;
 
-    final String _base64 = await Floaters.getBase64FromFileOrURL(_pic);
+    // final String _base64 = await Floaters.getBase64FromFileOrURL(_pic);
 
     // final bool _isURL = ObjectChecker.objectIsString(_pic);
 
@@ -327,8 +326,8 @@ void main() {
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 
-    blog('pic is : $_pic');
-    blog('_base64 : $_base64');
+    // blog('pic is : $_pic');
+    // blog('_base64 : $_base64');
 
     expect(_base64IsBase64, false);
   });

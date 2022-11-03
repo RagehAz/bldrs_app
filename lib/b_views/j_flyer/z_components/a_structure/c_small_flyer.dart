@@ -27,7 +27,7 @@ class SmallFlyer extends StatelessWidget {
     @required this.flyerModel,
     @required this.flyerBoxWidth,
     @required this.heroTag,
-    this.onFlyerTap,
+    // this.onFlyerTap,
     this.onMoreTap,
     this.flightTweenValue = 0,
     this.flightDirection = FlightDirection.non,
@@ -37,7 +37,7 @@ class SmallFlyer extends StatelessWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final Function onFlyerTap;
+  // final Function onFlyerTap;
   final Function onMoreTap;
   final double flightTweenValue;
   final FlightDirection flightDirection;
@@ -104,6 +104,8 @@ class SmallFlyer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    // blog('aho');
+
     if (flyerModel == null){
 
       return FlyerLoading(
@@ -142,16 +144,16 @@ class SmallFlyer extends StatelessWidget {
           WidgetFader(
             fadeType: _fadeType,
             duration: _duration,
-              child: SingleSlide(
-                flyerBoxWidth: flyerBoxWidth,
-                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
-                slideModel: flyerModel.slides[0],
-                tinyMode: false,
-                onSlideNextTap: null,
-                onSlideBackTap: null,
-                onDoubleTap: null,
-              ),
+            child: SingleSlide(
+              flyerBoxWidth: flyerBoxWidth,
+              flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+              slideModel: flyerModel.slides[0],
+              tinyMode: false,
+              onSlideNextTap: null,
+              onSlideBackTap: null,
+              onDoubleTap: null,
             ),
+          ),
 
           /// STATIC HEADER
           WidgetFader(
@@ -169,19 +171,19 @@ class SmallFlyer extends StatelessWidget {
           ),
 
           /// STATIC FOOTER
-          WidgetFader(
-            fadeType: _fadeType,
-            duration: _duration,
-            child: StaticFooter(
-              flyerBoxWidth: flyerBoxWidth,
-              isSaved: UserModel.checkFlyerIsSaved(
-                userModel: _myUserModel,
-                flyerID: flyerModel.id,
+            WidgetFader(
+              fadeType: _fadeType,
+              duration: _duration,
+              child: StaticFooter(
+                flyerBoxWidth: flyerBoxWidth,
+                isSaved: UserModel.checkFlyerIsSaved(
+                  userModel: _myUserModel,
+                  flyerID: flyerModel.id,
+                ),
+                onMoreTap: onMoreTap,
+                flightTweenValue: _tweenValue,
               ),
-              onMoreTap: onMoreTap,
-              flightTweenValue: _tweenValue,
             ),
-          ),
 
           if (_flyerIsBigNow == true)
             WidgetFader(

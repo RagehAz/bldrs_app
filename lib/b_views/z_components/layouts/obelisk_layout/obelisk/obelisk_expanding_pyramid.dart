@@ -29,7 +29,7 @@ class ObeliskExpandingPyramid extends StatelessWidget {
             width: 143.1 * 0.7,
             height: 66.4 * 0.7,
             pic: Iconz.pyramid,
-            boxFit: BoxFit.fitWidth,
+            fit: BoxFit.fitWidth,
             iconColor: Colorz.black230,
             // scale: 1,
           ),

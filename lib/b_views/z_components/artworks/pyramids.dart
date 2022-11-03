@@ -172,7 +172,7 @@ class _PyramidGraphic extends StatelessWidget {
         height: 80 * 0.7,
         iconColor: color,
         pic: _pyramidIcon,
-        boxFit: BoxFit.fitWidth,
+        fit: BoxFit.fitWidth,
       );
 
     }
@@ -187,7 +187,7 @@ class _PyramidGraphic extends StatelessWidget {
         height: 80 * 0.7,
         iconColor: color,
         pic: _pyramidIcon,
-        boxFit: BoxFit.fitWidth,
+        fit: BoxFit.fitWidth,
       );
 
     }

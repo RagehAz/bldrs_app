@@ -71,7 +71,7 @@ class FlyerHero extends StatelessWidget {
         bzModel: bzModel,
         flyerModel: flyerModel,
         heroTag: heroTag,
-
+        // flightTweenValue: 0, // DEFAULT
       ),
     );
 
