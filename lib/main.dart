@@ -71,6 +71,8 @@ Future<void> main() async {
   );
   // --------------------
   await FCMStarter.preInitializeNootsInMainFunction();
+  // --------------------
+  // await AppCheck.preInitialize();
   /// --------------------
   runApp(const BldrsAppStarter());
   /// -----------------------------------------------------------------------------

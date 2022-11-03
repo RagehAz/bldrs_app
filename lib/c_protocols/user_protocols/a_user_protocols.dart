@@ -58,7 +58,7 @@ class UserProtocols {
     usersIDs: usersIDs,
   );
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> refetchUser({
     @required BuildContext context,
     @required String userID
@@ -77,6 +77,15 @@ class UserProtocols {
     @required BuildContext context,
     @required UserModel newUserModel,
   }) => RenovateUserProtocols.renovateMyUserModel(
+    context: context,
+    newUserModel: newUserModel,
+  );
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<UserModel> renovateUser({
+    @required BuildContext context,
+    @required UserModel newUserModel,
+  }) => RenovateUserProtocols.renovateUser(
     context: context,
     newUserModel: newUserModel,
   );
@@ -106,12 +115,12 @@ class UserProtocols {
 
       final ZoneModel _completeNeedZoneModel = await ZoneProtocols.completeZoneModel(
         context: context,
-        incompleteZoneModel: userModel.need.zone,
+        incompleteZoneModel: userModel.need?.zone,
       );
 
       _output = userModel.copyWith(
         zone: _completeZoneModel,
-        need: userModel.need.copyWith(
+        need: userModel.need?.copyWith(
           zone: _completeNeedZoneModel,
         ),
       );

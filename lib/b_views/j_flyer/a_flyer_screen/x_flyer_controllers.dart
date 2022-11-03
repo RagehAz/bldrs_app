@@ -6,8 +6,6 @@ import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/d_zone/district_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_small_flyer.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
@@ -16,8 +14,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -204,6 +200,7 @@ bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
 }
 
 // --------------------
+/*
 /// DEPRECATED
 Widget flyerFlightShuttle({
   @required BuildContext flightContext,
@@ -277,7 +274,9 @@ Widget flyerFlightShuttle({
       }
   );
 }
+ */
 // --------------------
+/*
 /// DEPRECATED
 FlightDirection getFlightDirection(String direction){
 
@@ -288,6 +287,7 @@ FlightDirection getFlightDirection(String direction){
   }
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// GALLERY

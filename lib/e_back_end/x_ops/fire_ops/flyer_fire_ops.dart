@@ -16,6 +16,7 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/app_feedback_real_ops.dart';
@@ -387,7 +388,7 @@ class FlyerFireOps {
 
             /// upload File to fireStorage/slidesPics/slideID and get URL
             final String _newPicURL = await Storage.createStoragePicAndGetURL(
-              collName: StorageDoc.slides,
+              collName: StorageColl.slides,
               inputFile: slide.pic,
               ownersIDs: <String>[
                 AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
@@ -458,7 +459,7 @@ class FlyerFireOps {
       /// delete pictures from fireStorage/slidesPics/slideID : slide ID is "flyerID_index"
       for (final String slideID in _slidesIDsToBeDeleted) {
         await Storage.deleteStoragePic(
-          collName: StorageDoc.slides,
+          collName: StorageColl.slides,
           docName: slideID,
         );
       }
@@ -535,7 +536,7 @@ class FlyerFireOps {
 
         /// DELETE OLD PDF FILE
         await Storage.deleteStoragePic(
-          collName: StorageDoc.flyersPDFs,
+          collName: StorageColl.flyersPDFs,
           docName: FileModel.generateFlyerPDFStorageName(
             pdfFileName: oldFlyer.pdf.fileName,
             flyerID: oldFlyer.id,
@@ -692,7 +693,7 @@ class FlyerFireOps {
 
             return Storage.deleteStoragePic(
               docName: _slidesIDs[index],
-              collName: StorageDoc.slides,
+              collName: StorageColl.slides,
             );
 
           }),
@@ -700,7 +701,7 @@ class FlyerFireOps {
           /// DELETE PDF
           if (flyerModel.pdf != null)
             Storage.deleteStoragePic(
-              collName: StorageDoc.flyersPDFs,
+              collName: StorageColl.flyersPDFs,
               docName: FileModel.generateFlyerPDFStorageName(
                 pdfFileName: flyerModel.pdf.fileName,
                 flyerID: flyerModel.id,

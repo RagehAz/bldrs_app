@@ -12,6 +12,7 @@ import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -61,7 +62,7 @@ class UserFireOps {
       _userPicURL = await Storage.createStoragePicAndGetURL(
         inputFile: userModel.pic,
         docName: userModel.id,
-        collName: StorageDoc.users,
+        collName: StorageColl.users,
         ownersIDs: <String>[userModel.id],
       );
     }
@@ -75,7 +76,7 @@ class UserFireOps {
         _userPicURL = await Storage.createStoragePicAndGetURL(
           inputFile: _picFile,
           docName: userModel.id,
-          collName: StorageDoc.users,
+          collName: StorageColl.users,
           ownersIDs: <String>[userModel.id],
         );
       }
@@ -205,7 +206,7 @@ class UserFireOps {
   /// UPDATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : FIX BA2A THIS
   static Future<UserModel> updateUser({
     @required UserModel oldUserModel,
     @required UserModel newUserModel,
@@ -234,14 +235,14 @@ class UserFireOps {
         newPic: newUserModel.pic,
         docName: newUserModel.id,
         ownersIDs: <String>[newUserModel.id],
-        collName: StorageDoc.users,
+        collName: StorageColl.users,
       );
 
     }
 
     /// B - create final UserModel
     UserModel _finalUserModel = newUserModel.copyWith(
-      pic: _userPicURL ?? oldUserModel.pic,
+      pic: _userPicURL ?? newUserModel.pic,
     );
 
     final bool _userModelsAreIdentical = UserModel.checkUsersAreIdentical(
@@ -682,7 +683,7 @@ static Future<dynamic> deleteUserOps({
           /// DELETE user image : storage/usersPics/userID
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user pic');
           await Storage.deleteStoragePic(
-            collName: StorageDoc.users,
+            collName: StorageColl.users,
             docName: userModel.id,
           );
 

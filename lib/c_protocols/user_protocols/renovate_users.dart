@@ -66,6 +66,48 @@ class RenovateUserProtocols {
     return _uploadedModel ?? newUserModel;
   }
   // --------------------
+  ///
+  static Future<UserModel> renovateUser({
+    @required BuildContext context,
+    @required UserModel newUserModel,
+  }) async {
+
+    UserModel _uploadedModel;
+
+    if (newUserModel != null){
+
+      final UserModel _oldUserModel = await UserProtocols.refetchUser(
+          context: context,
+          userID: newUserModel.id,
+      );
+
+      final bool _modelsAreIdentical = UserModel.checkUsersAreIdentical(
+          user1: newUserModel,
+          user2: _oldUserModel
+      );
+
+      if (_modelsAreIdentical == false){
+
+        _uploadedModel = await UserFireOps.updateUser(
+          newUserModel: newUserModel,
+          oldUserModel: _oldUserModel,
+        );
+
+        _uploadedModel = await UserProtocols.completeUserZoneModels(
+            userModel: _uploadedModel,
+            context: context
+        );
+        /// UPDATE USER MODEL IN LDB
+        await UserLDBOps.updateUserModel(_uploadedModel);
+
+      }
+
+
+    }
+
+    return _uploadedModel;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
     @required UserModel newUserModel,

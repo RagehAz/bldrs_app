@@ -93,8 +93,7 @@ class ExoticMethods {
         );
       }
     } else {
-      _allUserModels =
-          UserModel.decipherUsers(maps: _ldbUsers, fromJSON: true);
+      _allUserModels = UserModel.decipherUsers(maps: _ldbUsers, fromJSON: true);
     }
 
     return _allUserModels;

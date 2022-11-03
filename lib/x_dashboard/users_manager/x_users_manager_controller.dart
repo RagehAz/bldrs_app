@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
@@ -203,7 +204,7 @@ Future<void> onDeleteUser({
 
           /// DELETE user image : storage/usersPics/userID
           await Storage.deleteStoragePic(
-            collName: StorageDoc.users,
+            collName: StorageColl.users,
             docName: userModel.id,
           );
           blog('onDeleteUser : deleted user pic : [storage/usersPics/${userModel.id}]');
