@@ -225,7 +225,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                 child: SuperImage(
                   width: 100,
                   height: FlyerDim.flyerHeightByFlyerWidth(context, 100),
-                  boxFit: BoxFit.fitWidth,
+                  fit: BoxFit.fitWidth,
                   pic: Iconz.dvRageh,
                 ),
               ),

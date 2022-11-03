@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/pic_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/storage_ops/pic_storage_ops.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'dart:ui' as ui;
 
 class PicProtocols {
   // -----------------------------------------------------------------------------
@@ -36,7 +38,7 @@ class PicProtocols {
   /// FETCH
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<PicModel> fetchPic(String path) async {
 
     PicModel _picModel = await PicLDBOps.readPic(path);
@@ -52,6 +54,15 @@ class PicProtocols {
     return _picModel;
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ui.Image> fetchPicUiImage(String path) async {
+    final PicModel _picModel = await PicProtocols.fetchPic(path);
+    final ui.Image _theImage = await Floaters.getUiImageFromUint8List(_picModel.bytes);
+    return _theImage;
+  }
+
+
   // -----------------------------------------------------------------------------
 
   /// DOWNLOAD

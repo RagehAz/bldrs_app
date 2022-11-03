@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/x_cacheless_image.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/x_local_asset_checker.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/x_future_bytes_image.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/x_infinity_loading_box.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/x_local_asset_checker.dart';
 import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -26,8 +24,6 @@ class ImageSwitcher extends StatelessWidget {
     @required this.iconColor,
     @required this.loading,
     @required this.backgroundColor,
-    @required this.corners,
-    @required this.greyscale,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -39,11 +35,10 @@ class ImageSwitcher extends StatelessWidget {
   final Color iconColor;
   final bool loading;
   final Color backgroundColor;
-  final dynamic corners;
-  final bool greyscale;
   // -----------------------------------------------------------------------------
   static const bool _gaplessPlayback = true;
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Widget _errorBuilder (BuildContext ctx, Object error, StackTrace stackTrace) {
     blog('SUPER IMAGE ERROR : ${pic.runtimeType} : error : $error');
     return Container(
@@ -62,6 +57,7 @@ class ImageSwitcher extends StatelessWidget {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Widget _loadingBuilder(BuildContext context , Widget child, ImageChunkEvent imageChunkEvent){
 
     // blog('SUPER IMAGE LOADING BUILDER : imageChunkEvent.cumulativeBytesLoaded : ${imageChunkEvent?.cumulativeBytesLoaded} / ${imageChunkEvent?.expectedTotalBytes}');
@@ -90,6 +86,8 @@ class ImageSwitcher extends StatelessWidget {
 
   }
   // --------------------
+  ///DEPRECATED
+  /*
   Widget _futureBytesBuilder (BuildContext ctx, AsyncSnapshot<Uint8List> snapshot){
 
     return FutureImage(
@@ -101,9 +99,12 @@ class ImageSwitcher extends StatelessWidget {
     );
 
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    // blog('pic is : ${pic.runtimeType} : $pic');
 
     /// NULL
     if (pic == null){
@@ -239,10 +240,35 @@ class ImageSwitcher extends StatelessWidget {
 
     /// UI.IMAGE
     else if (ObjectCheck.objectIsUiImage(pic) == true){
-      return FutureBuilder(
-        key: const ValueKey<String>('SuperImage_uiImage'),
-        future: Floaters.getUint8ListFromUiImage(pic),
-        builder: _futureBytesBuilder,
+      return RawImage(
+        /// MAIN
+        key: const ValueKey<String>('SuperImage_UIIMAGE'),
+        // debugImageLabel: ,
+
+        /// IMAGE
+        image: pic,
+        // repeat: ImageRepeat.noRepeat, // DEFAULT
+
+        /// SIZES
+        width: width,
+        height: height,
+        scale: scale,
+
+        /// COLORS
+        // color: widget.color,
+        // opacity: opacity,
+        // colorBlendMode: blendMode,
+        // filterQuality: FilterQuality.low, // DEFAULT
+        // invertColors: false, // DEFAULT
+
+        /// POSITIONING
+        // alignment: Alignment.center, // DEFAULT
+        fit: boxFit,
+
+        /// DUNNO
+        // centerSlice: ,
+        // isAntiAlias: ,
+        // matchTextDirection: false, // DEFAULT : flips image horizontally
       );
     }
 

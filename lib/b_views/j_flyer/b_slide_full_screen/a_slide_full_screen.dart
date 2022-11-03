@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_zoomable_pic.dart';
+import 'package:bldrs/b_views/z_components/images/cc_zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -45,7 +45,7 @@ class SlideFullScreen extends StatelessWidget {
           autoShrink: false,
           child: SuperImage(
             pic: image,
-            boxFit: Dimensions.concludeBoxFit(
+            fit: Dimensions.concludeBoxFit(
               viewWidth: _screenWidth,
               viewHeight: _screenHeight,
               picWidth: imageSize.width,

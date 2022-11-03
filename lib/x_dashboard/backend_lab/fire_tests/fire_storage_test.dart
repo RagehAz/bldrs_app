@@ -78,8 +78,8 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
   }
   // -----------------------------------------------------------------------------
   PicModel _picModel;
-  String _thePath;
   String _theURL;
+  String _thePath;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -87,6 +87,8 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
     final String _url = _userModel.pic;
+
+    blog('_theURL : $_theURL');
 
     return DashBoardLayout(
       loading: _loading,
