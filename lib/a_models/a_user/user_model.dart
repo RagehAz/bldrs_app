@@ -1,18 +1,24 @@
+import 'dart:typed_data';
+
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -68,7 +74,7 @@ class UserModel {
   final NeedModel need;
   final String name;
   final List<String> trigram;
-  final dynamic pic;
+  final String pic; // path only
   final String title;
   final String company;
   final Gender gender;
@@ -91,46 +97,7 @@ class UserModel {
   /// INITIALIZATION
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
-  static UserModel initializeUserModelStreamFromUser() {
-
-    /// NOTE : create user object based on firebase user
-    final User _user = AuthFireOps.superFirebaseUser();
-
-    return _user == null ?
-    null
-        :
-    UserModel(
-      id: _user.uid,
-      authBy: null,
-      createdAt: DateTime.now(),
-      need: null,
-      // -------------------------
-      name: _user.displayName,
-      trigram: Stringer.createTrigram(input: _user.displayName),
-      pic: _user.photoURL,
-      title: '',
-      gender: Gender.male,
-      zone: null,
-      language: 'en',
-      location: const GeoPoint(0, 0),
-      contacts: const <ContactModel>[],
-      contactsArePublic: true,
-      // -------------------------
-      myBzzIDs: const <String>[],
-      emailIsVerified: _user.emailVerified,
-      isAdmin: false,
-      device: null,
-      company: null,
-      savedFlyersIDs: const <String>[],
-      followedBzzIDs: const <String>[],
-      appState: AppState.initialState(),
-      fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
-    );
-
-  }
-  // --------------------
-  /// TAMAM : WORKS PERFECT
+  ///
   static Future<UserModel> createInitialUserModelFromUser({
     @required BuildContext context,
     @required User user,
@@ -144,6 +111,11 @@ class UserModel {
     assert(await user.getIdToken() != null, 'user token must not be null');
     blog('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
 
+    await _composeUserImageFromUserPicURL(
+      picURL: user.photoURL,
+      userID: user.uid,
+    );
+
     final UserModel _userModel = UserModel(
       id: user.uid,
       authBy: authBy,
@@ -152,7 +124,7 @@ class UserModel {
       // -------------------------
       name: user.displayName,
       trigram: Stringer.createTrigram(input: user.displayName),
-      pic: user.photoURL,
+      pic: StorageColl.getUserPicPath(user.uid),
       title: '',
       gender: Gender.male,
       zone: zone,
@@ -180,47 +152,27 @@ class UserModel {
     return _userModel;
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
-  static Future<UserModel> prepareUserForEditing({
-    @required BuildContext context,
-    @required UserModel oldUser,
+  ///
+  static Future<void> _composeUserImageFromUserPicURL({
+    @required String picURL,
+    @required String userID,
   }) async {
 
-    return oldUser.copyWith(
-        pic: await FileModel.preparePicForEditing(
-            pic: oldUser.pic,
-            fileName: oldUser.id,
-        ),
-        zone: await ZoneModel.prepareZoneForEditing(
-          context: context,
-          zoneModel: oldUser.zone,
-        ),
-        contacts: ContactModel.prepareContactsForEditing(
-          contacts: oldUser.contacts,
-          countryID: oldUser.zone.countryID,
-        )
-    );
+    if (TextCheck.isEmpty(picURL) == false){
 
-  }
-  // --------------------
-  /// TAMAM : WORKS PERFECT
-  static UserModel bakeEditorVariablesToUpload({
-    @required BuildContext context,
-    @required UserModel oldUser,
-    @required UserModel tempUser,
-  }){
+      final Uint8List _bytes = await StorageByteOps.readBytesByURL(picURL);
+      final Dimensions _dims = await PicModel.getDimensions(_bytes);
+      
+      await PicProtocols.composePic(PicModel(
+        bytes: _bytes,
+        path: StorageColl.getUserPicPath(userID),
+        meta: PicMetaModel(
+          ownersIDs: [userID],
+          dimensions: _dims,
+        ),
+      ));
 
-    return tempUser.copyWith(
-      trigram: Stringer.createTrigram(input: tempUser.name),
-      pic: FileModel.bakeFileForUpload(
-        newFile: tempUser.pic,
-        existingPic: oldUser.pic,
-      ),
-      contacts: ContactModel.bakeContactsAfterEditing(
-        contacts: tempUser.contacts,
-        countryID: tempUser.zone.countryID,
-      ),
-    );
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -236,7 +188,7 @@ class UserModel {
     NeedModel need,
     String name,
     List<String> trigram,
-    dynamic pic,
+    String pic,
     String title,
     String company,
     Gender gender,
@@ -555,27 +507,27 @@ class UserModel {
       if (
           user1.id == user2.id &&
           user1.authBy == user2.authBy &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
-          NeedModel.checkNeedsAreIdentical(user1.need, user2.need) &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == true &&
+          NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == true &&
           user1.name == user2.name &&
-          Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) &&
-          Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) &&
+          Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == true &&
+          user1.pic == user2.pic &&
           user1.title == user2.title &&
           user1.company == user2.company &&
           user1.gender == user2.gender &&
-          ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) &&
+          ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) == true &&
           user1.language == user2.language &&
-          Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) &&
-          ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) &&
+          Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == true &&
+          ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == true &&
           user1.contactsArePublic == user2.contactsArePublic &&
-          Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) &&
+          Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == true &&
           user1.emailIsVerified == user2.emailIsVerified &&
           user1.isAdmin == user2.isAdmin &&
-          Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
-          Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
-          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) &&
-          DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) &&
-          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics)
+          Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == true &&
+          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == true &&
+          DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
+          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
     // DocumentSnapshot docSnapshot;
 
       ){
@@ -997,7 +949,7 @@ class UserModel {
         blog('blogUserDifferences : [trigram] are not identical');
       }
 
-      if (Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) == false){
+      if (user1.pic != user2.pic){
         blog('blogUserDifferences : [pic] are not identical');
       }
 

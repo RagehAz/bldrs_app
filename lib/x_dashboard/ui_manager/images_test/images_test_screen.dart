@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -24,7 +23,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -233,7 +232,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.phoneGallery,
           onTap: () async {
 
-            final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
+            final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
                 context: context,
                 cropAfterPick: false,
                 aspectRatio: _aspectRatio,
@@ -249,7 +248,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.camera,
           onTap: () async {
 
-            final FileModel _pickedFileModel = await Imagers.shootAndCropCameraImage(
+            final FileModel _pickedFileModel = await PicMaker.shootAndCropCameraPic(
               context: context,
               cropAfterPick: false,
               aspectRatio: _aspectRatio,
@@ -320,9 +319,9 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.crop,
           onTap: () async {
 
-            final FileModel _pickedFileModel = await Imagers.cropImage(
+            final FileModel _pickedFileModel = await PicMaker.cropPic(
               context: context,
-              pickedFile: FileModel.createModelByNewFile(_file),
+              bytes: FileModel.createModelByNewFile(_file),
               aspectRatio: _aspectRatio,
               // resizeToWidth: null,
             );
@@ -362,7 +361,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
               final double _value = Numeric.transformStringToDouble(_result);
 
-              final File _pickedFile = await Filers.resizeImage(
+              final File _pickedFile = await Filers.resizePic(
                   file: _file,
                   finalWidth: _value,
               );

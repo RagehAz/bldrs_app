@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/draft_user.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
@@ -16,8 +17,9 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_s
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
+import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -62,8 +64,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
-  final ValueNotifier<UserModel> _tempUser = ValueNotifier(null);
-  final ValueNotifier<UserModel> _lastTempUser = ValueNotifier(null);
+  final ValueNotifier<DraftUser> _draftUser = ValueNotifier(null);
   // --------------------
   final FocusNode _nameNode = FocusNode();
   final FocusNode _titleNode = FocusNode();
@@ -86,11 +87,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
 
-    initializeUserEditorLocalVariables(
-      context: context,
-      oldUser: widget.userModel,
-      tempUser: _tempUser,
-    );
+    _draftUser.value = DraftUser.initializeForEditing(widget.userModel);
 
   }
   // --------------------
@@ -101,17 +98,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-        await prepareUserForEditing(
-          context: context,
-          tempUser: _tempUser,
-          oldUser: widget.userModel,
-          mounted: mounted,
+        /// PREPARE (PIC - ZONE - CONTACTS)
+        setNotifier(
+            notifier: _draftUser,
+            mounted: mounted,
+            value: await DraftUser.prepareForEditing(
+              context: context,
+              userModel: widget.userModel,
+            ),
         );
         // -----------------------------
         if (widget.checkLastSession == true){
           await loadUserEditorLastSession(
             context: context,
-            oldUser: widget.userModel,
+            userID: widget.userModel.id,
             onFinish: widget.onFinish,
             canGoBack: widget.canGoBack,
             reAuthBeforeConfirm: widget.reAuthBeforeConfirm,
@@ -124,15 +124,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         }
         // -----------------------------
         if (mounted == true){
-          _tempUser.addListener((){
+          _draftUser.addListener(() async {
             // _switchOnValidation();
-            saveUserEditorSession(
-              context: context,
-              mounted: mounted,
-              oldUserModel: widget.userModel,
-              tempUser: _tempUser,
-              lastTempUser: _lastTempUser,
+            await UserLDBOps.saveEditorSession(
+              draft: _draftUser.value,
             );
+
           });
         }
         // -----------------------------
@@ -156,8 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _emailNode.dispose();
     _phoneNode.dispose();
 
-    _tempUser.dispose();
-    _lastTempUser.dispose();
+    _draftUser.dispose();
 
     super.dispose();
   }
@@ -169,7 +165,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     await confirmEdits(
       context: context,
       formKey: _formKey,
-      tempUser: _tempUser,
+      draft: _draftUser,
       oldUserModel: widget.userModel,
       onFinish: widget.onFinish,
       loading: _loading,
@@ -200,8 +196,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         AppBarButton(
           verse: Verse.plain('pi5'),
           onTap: (){
-            _tempUser.value = _tempUser.value.copyWith(
-              zone: _tempUser.value.zone.nullifyField(
+            _draftUser.value = _draftUser.value.copyWith(
+              zone: _draftUser.value.zone.nullifyField(
                 cityID: true,
               ),
             );
@@ -222,8 +218,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       layoutWidget: Form(
         key: _formKey,
         child: ValueListenableBuilder(
-          valueListenable: _tempUser,
-          builder: (_, UserModel userModel, Widget child){
+          valueListenable: _draftUser,
+          builder: (_, DraftUser draft, Widget child){
 
             return ListView(
               physics: const BouncingScrollPhysics(),
@@ -240,16 +236,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     translate: true,
                   ),
                   redDot: true,
-                  fileModel: userModel.pic,
+                  picModel: draft.pic,
                   bubbleType: BubbleType.userPic,
-                  onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
+                  onAddPicture: (PicMakerType imagePickerType) => takeUserPicture(
                     context: context,
                     canPickImage: _canPickImage,
-                    userNotifier: _tempUser,
-                    imagePickerType: imagePickerType,
+                    draft: _draftUser,
+                    picMakerType: imagePickerType,
                   ),
                   validator: () => Formers.picValidator(
-                    pic: userModel.pic,
+                    pic: draft.pic,
                     canValidate: _canValidate,
                   ),
                   formKey: _formKey,
@@ -257,11 +253,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 /// GENDER
                 GenderBubble(
-                  userModel: userModel,
+                  draftUser: draft,
                   canValidate: _canValidate,
                   onTap: (Gender gender) => onChangeGender(
                     selectedGender: gender,
-                    tempUser: _tempUser,
+                    draft: _draftUser,
                   ),
                 ),
 
@@ -281,14 +277,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: userModel.name,
+                  initialText: draft.name,
                   onTextChanged: (String text) => onUserNameChanged(
                     text: text,
-                    tempUser: _tempUser,
+                    draft: _draftUser,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.personNameValidator(
-                    name: userModel.name,
+                    name: draft.name,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -309,14 +305,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: userModel.title,
+                  initialText: draft.title,
                   onTextChanged: (String text) => onUserJobTitleChanged(
-                    tempUser: _tempUser,
+                    draft: _draftUser,
                     text: text,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.jobTitleValidator(
-                    jobTitle: userModel.title,
+                    jobTitle: draft.title,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -337,14 +333,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: userModel.company,
+                  initialText: draft.company,
                   // autoValidate: true,
                   onTextChanged: (String text) => onUserCompanyNameChanged(
                     text: text,
-                    tempUser: _tempUser,
+                    draft: _draftUser,
                   ),
                   validator: (String text) => Formers.companyNameValidator(
-                    companyName: userModel.company,
+                    companyName: draft.company,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -369,19 +365,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputAction: TextInputAction.next,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.phone,
-                    countryID: userModel?.zone?.countryID,
-                    existingContacts: userModel.contacts,
+                    countryID: draft?.zone?.countryID,
+                    existingContacts: draft.contacts,
                   ),
                   textOnChanged: (String text) => onUserContactChanged(
                     contactType: ContactType.phone,
                     value: text,
-                    tempUser: _tempUser,
+                    draft: _draftUser,
                   ),
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsPhoneValidator(
-                    contacts: userModel.contacts,
-                    zoneModel: userModel?.zone,
+                    contacts: draft.contacts,
+                    zoneModel: draft?.zone,
                     canValidate: _canValidate,
                     context: context,
                     isRequired: false,
@@ -406,18 +402,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputAction: TextInputAction.done,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.email,
-                    countryID: userModel?.zone?.countryID,
-                    existingContacts: userModel.contacts,
+                    countryID: draft?.zone?.countryID,
+                    existingContacts: draft.contacts,
                   ),
                   textOnChanged: (String text) => onUserContactChanged(
                     contactType: ContactType.email,
                     value: text,
-                    tempUser: _tempUser,
+                    draft: _draftUser,
                   ),
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsEmailValidator(
-                    contacts: userModel.contacts,
+                    contacts: draft.contacts,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -426,15 +422,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 /// ZONE
                 ZoneSelectionBubble(
-                  currentZone: userModel.zone,
+                  currentZone: draft.zone,
                   onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
                     selectedZone: zoneModel,
-                    tempUser: _tempUser,
+                    draft: _draftUser,
                   ),
                   // selectCountryAndCityOnly: true,
                   // selectCountryIDOnly: false,
                   validator: () => Formers.zoneValidator(
-                    zoneModel: userModel.zone,
+                    zoneModel: draft.zone,
                     selectCountryAndCityOnly: true,
                     selectCountryIDOnly: false,
                     canValidate: _canValidate,

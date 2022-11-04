@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -202,7 +201,7 @@ class SlideModel {
     if (slide1.slideIndex != slide2.slideIndex){
       blog('slide1.slideIndex != slide2.slideIndex');
     }
-    if (Imagers.checkPicsAreIdentical(pic1: slide1.pic, pic2: slide2.pic) == false){
+    if (PicMaker.checkPicsAreIdentical(pic1: slide1.pic, pic2: slide2.pic) == false){
       blog('slide1.pic != slide2.pic');
     }
     if (slide1.headline != slide2.headline){
@@ -322,7 +321,7 @@ class SlideModel {
 
       if (
           slide1.slideIndex == slide2.slideIndex &&
-          Imagers.checkPicsAreIdentical(pic1: slide1.pic, pic2: slide2.pic) &&
+          PicMaker.checkPicsAreIdentical(pic1: slide1.pic, pic2: slide2.pic) &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&

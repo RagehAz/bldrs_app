@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/a_user/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
@@ -128,27 +129,27 @@ class UserLDBOps {
   /// EDITOR SESSION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> saveEditorSession({
-    @required UserModel userModel,
+    @required DraftUser draft,
   }) async {
 
-    if (userModel != null){
+    if (draft != null){
 
       await LDBOps.insertMap(
         docName: LDBDoc.userEditor,
-        input: userModel.toMap(toJSON: true),
+        input: draft.toLDB(),
       );
 
     }
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<UserModel> loadEditorSession({
+  ///
+  static Future<DraftUser> loadEditorSession({
     @required String userID,
   }) async {
-    UserModel _user;
+    DraftUser _draft;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[userID],
@@ -157,14 +158,11 @@ class UserLDBOps {
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _user = UserModel.decipherUser(
-        map: _maps.first,
-        fromJSON: true,
-      );
+      _draft = DraftUser.fromLDB(_maps.first);
 
     }
 
-    return _user;
+    return _draft;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

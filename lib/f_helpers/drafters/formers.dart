@@ -7,13 +7,12 @@ import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/h_money/currency_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -147,8 +146,8 @@ class Formers {
     String _message;
 
     if (canValidate == true){
-      if (Imagers.checkPicIsEmpty(pic) == true){
-        _message = '##Add an Image';
+      if (PicMaker.checkPicIsEmpty(pic) == true){
+        _message = 'phid_add_an_image';
       }
     }
 
@@ -661,13 +660,13 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String genderValidator({
-    @required UserModel userModel,
+    @required Gender gender,
     @required bool canValidate,
   }){
     String _message;
 
     if (canValidate == true){
-      if (userModel?.gender == null){
+      if (gender == null){
         _message = '## Select a gender';
       }
     }

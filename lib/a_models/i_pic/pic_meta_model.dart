@@ -24,6 +24,7 @@ class PicMetaModel {
   PicMetaModel copyWith({
     List<String> ownersIDs,
     Dimensions dimensions,
+    double size,
   }){
     return PicMetaModel(
         ownersIDs: ownersIDs ?? this.ownersIDs,

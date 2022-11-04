@@ -1,12 +1,15 @@
 import 'dart:typed_data';
 
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/e_back_end/a_rest/rest.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class StorageByteOps {
   // -----------------------------------------------------------------------------
@@ -76,7 +79,7 @@ class StorageByteOps {
 
   // --------------------
   ///
-  static Future<Uint8List> readBytes({
+  static Future<Uint8List> readBytesByPath({
     @required String path,
   }) async {
     Uint8List _output;
@@ -88,6 +91,32 @@ class StorageByteOps {
     }
 
     return _output;
+  }
+  // --------------------
+  ///
+  static Future<Uint8List> readBytesByURL(String url) async {
+    Uint8List _bytes;
+
+    if (ObjectCheck.isAbsoluteURL(url) == true){
+
+      /// call http.get method and pass imageUrl into it to get response.
+      final http.Response _response = await Rest.get(
+        context: null,
+        rawLink: url,
+        showErrorDialog: false,
+        // timeout: 60,
+        invoker: 'readBytesByURL',
+      );
+
+      if (_response != null && _response.statusCode == 200){
+
+        _bytes = _response.bodyBytes;
+
+      }
+
+    }
+
+    return _bytes;
   }
   // -----------------------------------------------------------------------------
 

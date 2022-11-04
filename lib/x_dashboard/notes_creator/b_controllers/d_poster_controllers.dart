@@ -4,15 +4,14 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -169,7 +168,7 @@ Future<void> _onAddGalleryImageToPoster({
   @required ValueNotifier<NoteModel> noteNotifier,
 }) async {
 
-  final FileModel _fileModel = await Imagers.pickAndCropSingleImage(
+  final FileModel _fileModel = await PicMaker.pickAndCropSinglePic(
     context: context,
     cropAfterPick: true,
     aspectRatio: NotePosterBox.getAspectRatio(),
@@ -196,7 +195,7 @@ Future<void> _onAddCameraImageToPoster({
   @required ValueNotifier<NoteModel> noteNotifier,
 }) async {
 
-  final FileModel _fileModel = await Imagers.shootAndCropCameraImage(
+  final FileModel _fileModel = await PicMaker.shootAndCropCameraPic(
     context: context,
     cropAfterPick: true,
     aspectRatio: NotePosterBox.getAspectRatio(),

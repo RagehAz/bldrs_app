@@ -2,12 +2,10 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/alert_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -51,7 +49,7 @@ class BzModel{
   final BzAccountType accountType;
   final String name;
   final List<String> trigram;
-  final dynamic logo;
+  final String logo;
   final List<String> scope;
   final ZoneModel zone;
   final String about;
@@ -66,79 +64,6 @@ class BzModel{
   final DocumentSnapshot<Object> docSnapshot;
   // -----------------------------------------------------------------------------
 
-  /// INITIALIZATION
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future <BzModel> initializeModelForEditing({
-    @required BuildContext context,
-    @required BzModel oldBz,
-    @required bool firstTimer,
-    @required UserModel userModel,
-  }) async {
-
-    final BzModel _initialBzModel = firstTimer == true ?
-    BzModel.convertFireUserDataIntoInitialBzModel(userModel)
-        :
-    oldBz;
-
-    return _initialBzModel.copyWith(
-      logo: await FileModel.preparePicForEditing(
-          pic: _initialBzModel.logo,
-          fileName: oldBz?.id
-      ),//FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
-
-      zone: await ZoneModel.prepareZoneForEditing(
-        context: context,
-        zoneModel: _initialBzModel.zone,
-      ),
-      contacts: ContactModel.prepareContactsForEditing(
-        contacts: oldBz?.contacts,
-        countryID: oldBz?.zone?.countryID,
-      ),
-    );
-
-  }
-  // --------------------
-  ///
-  static BzModel backEditorVariablesToUpload({
-    @required ValueNotifier<List<SpecModel>> selectedScopes,
-    @required BzModel oldBz,
-    @required ValueNotifier<BzModel> tempBz,
-  }){
-
-    final BzModel _bzModel = BzModel(
-      id: oldBz?.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
-      bzTypes: tempBz.value.bzTypes,
-      bzForm: tempBz.value.bzForm,
-      createdAt: oldBz?.createdAt, /// WILL BE OVERRIDDEN
-      accountType: oldBz?.accountType, /// NEVER CHANGED
-      name: tempBz.value.name,
-      trigram: Stringer.createTrigram(input: tempBz.value.name),
-      logo: FileModel.bakeFileForUpload(
-        newFile: tempBz.value.logo,
-        existingPic: oldBz?.logo,
-      ),
-      scope: SpecModel.getSpecsIDs(selectedScopes.value),
-      zone: tempBz.value.zone,
-      about: tempBz.value.about,
-      position: tempBz.value.position,
-      contacts: ContactModel.bakeContactsAfterEditing(
-        contacts: tempBz.value.contacts,
-        countryID: tempBz.value.zone?.countryID,
-      ),
-      authors: oldBz?.authors, /// NEVER CHANGED
-      pendingAuthors: oldBz?.pendingAuthors, /// NEVER CHANGED
-      showsTeam: oldBz?.showsTeam, /// NEVER CHANGED
-      isVerified: oldBz?.isVerified, /// NEVER CHANGED
-      bzState: oldBz?.bzState, /// NEVER CHANGED
-      flyersIDs: oldBz?.flyersIDs, /// NEVER CHANGED
-    );
-
-    return _bzModel;
-  }
-  // -----------------------------------------------------------------------------
-
   /// CLONING
 
   // --------------------
@@ -151,7 +76,7 @@ class BzModel{
     BzAccountType accountType,
     String name,
     List<String> trigram,
-    dynamic logo,
+    String logo,
     List<String> scope,
     ZoneModel zone,
     String about,
@@ -356,7 +281,7 @@ class BzModel{
   // --------------------
   static BzModel convertFireUserDataIntoInitialBzModel(UserModel userModel) {
     return BzModel(
-      id: 'newBz',
+      id: null,
       name: userModel?.company,
       trigram: Stringer.createTrigram(input: userModel?.company),
       zone: userModel?.zone,
@@ -379,6 +304,7 @@ class BzModel{
       authors: <AuthorModel>[
         AuthorModel.createAuthorFromUserModel(
           userModel: userModel,
+          bzID: null,
           isCreator: true,
         )
       ],
@@ -566,6 +492,7 @@ class BzModel{
 
     final List<AuthorModel> _newAuthors = AuthorModel.addNewUserToAuthors(
       authors: oldBzModel.authors,
+      bzID: oldBzModel.id,
       newUserModel: userModel,
     );
 
@@ -840,7 +767,7 @@ class BzModel{
 
       for (final BzModel bzModel in bzzModels){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
+        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
         if (_creator.userID == creatorID){
           _bzzModels.add(bzModel);
@@ -864,7 +791,7 @@ class BzModel{
 
       for (final BzModel bzModel in bzzModels){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
+        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
         if (_creator.userID != userID){
           _bzzModels.add(bzModel);

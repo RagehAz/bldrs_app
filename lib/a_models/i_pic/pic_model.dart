@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -103,11 +104,43 @@ class PicModel {
   }){
     return Filers.calculateSize(bytes.length, fileSizeUnit);
   }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
   // --------------------
   ///
+  static bool checkPicsAreIdentical({
+    @required PicModel pic1,
+    @required PicModel pic2,
+  }){
+    bool _identical = false;
 
+    if (pic1 == null && pic2 == null){
+      _identical = true;
+    }
+    else if (pic1 != null && pic2 != null){
 
+      if (
+          pic1.bytes.length == pic2.bytes.length &&
+          Mapper.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) &&
+          pic1.path == pic2.path &&
+          Mapper.checkListsAreIdentical(list1: pic1.meta.ownersIDs, list2: pic2.meta.ownersIDs) &&
+          pic1.meta.dimensions.width == pic2.meta.dimensions.width &&
+          pic1.meta.dimensions.height == pic2.meta.dimensions.height
+      ){
+        _identical = true;
+      }
 
+    }
+
+    return _identical;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOG
+
+  // --------------------
   void blogPic(){
 
     blog('path : $path : ${bytes.length} Bytes : '
@@ -115,30 +148,38 @@ class PicModel {
         'owners : ${meta.ownersIDs}');
 
   }
+  // -----------------------------------------------------------------------------
 
+  /// OVERRIDES
 
+  // --------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+  // --------------------
+  @override
+  bool operator == (Object other){
 
+    if (identical(this, other)) {
+      return true;
+    }
 
+    bool _areIdentical = false;
+    if (other is PicModel){
+      _areIdentical = checkPicsAreIdentical(
+        pic1: this,
+        pic2: other,
+      );
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  void fuck(){}
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      meta.hashCode^
+      bytes.hashCode^
+      path.hashCode;
+  // -----------------------------------------------------------------------------
 }

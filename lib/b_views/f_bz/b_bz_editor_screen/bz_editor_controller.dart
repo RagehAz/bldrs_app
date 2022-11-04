@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -6,8 +7,10 @@ import 'package:bldrs/a_models/b_bz/mutables/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -15,7 +18,7 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -26,7 +29,7 @@ import 'package:flutter/material.dart';
 /// INITIALIZATION
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void initializeDraftBz({
   @required BuildContext context,
   @required BzModel oldBz,
@@ -41,7 +44,7 @@ void initializeDraftBz({
         listen: false,
     );
 
-    draftNotifier.value = DraftBz.createNewDraftBz(
+    draftNotifier.value = DraftBz.initializeNewBzForEditing(
         creatorUser: creatorUser
     );
 
@@ -50,7 +53,7 @@ void initializeDraftBz({
   /// EDITING BZ
   else {
 
-    draftNotifier.value = DraftBz.createDraftFromBz(
+    draftNotifier.value = DraftBz.initializeExistingBzForEditing(
         context: context,
         bzModel: oldBz,
     );
@@ -63,17 +66,18 @@ void initializeDraftBz({
 /// LAST SESSION
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> loadBzEditorLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
 }) async {
 
-  final BzModel _lastSessionBz = await BzLDBOps.loadBzEditorSession(
+  final DraftBz _lastSessionDraft = await BzLDBOps.loadBzEditorSession(
+    context: context,
     bzID: draftNotifier.value.id,
   );
 
-  if (_lastSessionBz != null){
+  if (_lastSessionDraft != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
@@ -90,10 +94,9 @@ Future<void> loadBzEditorLastSession({
 
     if (_continue == true){
 
-      initializeDraftBz(
-        context: context,
-        oldBz: _lastSessionBz,
-        draftNotifier: draftNotifier,
+      draftNotifier.value = DraftBz.reAttachNodes(
+        draftFromLDB: _lastSessionDraft,
+        draftWithNodes: draftNotifier.value,
       );
 
     }
@@ -102,17 +105,13 @@ Future<void> loadBzEditorLastSession({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> saveBzEditorSession(ValueNotifier<DraftBz> draftNotifier) async {
 
   triggerCanValidateDraftBz(draftNotifier: draftNotifier, setTo: true,);
 
-  final BzModel _bzModel = DraftBz.bakeDraftForLDB(
-      draft: draftNotifier.value,
-  );
-
   await BzLDBOps.saveBzEditorSession(
-      bzModel: _bzModel,
+      draft: draftNotifier.value,
   );
 
 }
@@ -186,7 +185,7 @@ Future<void> _uploadDraftBz({
   @required BzModel oldBz,
 }) async {
 
-  final BzModel _newBzModel = DraftBz.bakeDraftForFirestore(
+  final BzModel _newBzModel = DraftBz.toBzModel(
       draft: draftNotifier.value,
   );
 
@@ -345,21 +344,21 @@ void onChangeBzForm({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onChangeBzLogo({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
-  @required ImagePickerType imagePickerType,
+  @required PicMakerType imagePickerType,
 }) async {
 
   if (draftNotifier.value.canPickImage == true) {
 
     draftNotifier.value = draftNotifier.value.copyWith(canPickImage: false,);
 
-    FileModel _imageFileModel;
+    Uint8List _bytes;
 
-    if(imagePickerType == ImagePickerType.galleryImage){
-      _imageFileModel = await Imagers.pickAndCropSingleImage(
+    if(imagePickerType == PicMakerType.galleryImage){
+      _bytes = await PicMaker.pickAndCropSinglePic(
         context: context,
         cropAfterPick: true,
         aspectRatio: 1,
@@ -367,8 +366,8 @@ Future<void> onChangeBzLogo({
       );
     }
 
-    else if (imagePickerType == ImagePickerType.cameraImage){
-      _imageFileModel = await Imagers.shootAndCropCameraImage(
+    else if (imagePickerType == PicMakerType.cameraImage){
+      _bytes = await PicMaker.shootAndCropCameraPic(
         context: context,
         cropAfterPick: true,
         aspectRatio: 1,
@@ -377,16 +376,25 @@ Future<void> onChangeBzLogo({
     }
 
     /// IF DID NOT PIC ANY IMAGE
-    if (_imageFileModel == null) {
+    if (_bytes == null) {
       draftNotifier.value = draftNotifier.value.copyWith(canPickImage: true,);
     }
 
     /// IF PICKED AN IMAGE
     else {
 
+      final String _path = draftNotifier.value.getLogoPath();
+
       draftNotifier.value = draftNotifier.value.copyWith(
-        newLogoFile: _imageFileModel,
         canPickImage: true,
+        logo: PicModel(
+            bytes: _bytes,
+            path: _path,
+            meta: PicMetaModel(
+              dimensions: await Dimensions.superDimensions(_bytes),
+              ownersIDs: draftNotifier.value.getLogoOwners()
+            )
+        ),
       );
 
     }

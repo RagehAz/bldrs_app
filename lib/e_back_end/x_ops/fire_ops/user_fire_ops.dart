@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
@@ -189,6 +188,8 @@ class UserFireOps {
     return _user;
   }
   // -----------------------------------------------------------------------------
+  /// DEPRECATED
+  /*
   /// auth change user stream
   Stream<UserModel> streamInitialUser() {
 
@@ -201,16 +202,20 @@ class UserFireOps {
     //     .map(
     //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet
   }
+
+   */
   // -----------------------------------------------------------------------------
 
   /// UPDATE
 
   // --------------------
-  /// TASK : FIX BA2A THIS
+  ///
   static Future<UserModel> updateUser({
     @required UserModel oldUserModel,
     @required UserModel newUserModel,
   }) async {
+
+    UserModel _output;
 
     // ----------
     /// UPDATE USER OPS
@@ -220,41 +225,41 @@ class UserFireOps {
     /// C - update firestore/users/userID
     // ----------
 
-    /// A - if user pic changed
-    String _userPicURL;
-    if (ObjectCheck.objectIsFile(newUserModel.pic) == true) {
-
-      final FileModel _oldFile = FileModel.initializePicForEditing(
-          pic: oldUserModel.pic,
-          fileName: oldUserModel.id,
-      );
-
-      /// A1 - update pic to fireStorage/usersPics/userID and get new URL
-      _userPicURL = await Storage.createOrUpdatePic(
-        oldURL: _oldFile?.url,
-        newPic: newUserModel.pic,
-        docName: newUserModel.id,
-        ownersIDs: <String>[newUserModel.id],
-        collName: StorageColl.users,
-      );
-
-    }
-
-    /// B - create final UserModel
-    UserModel _finalUserModel = newUserModel.copyWith(
-      pic: _userPicURL ?? newUserModel.pic,
-    );
+    // /// A - if user pic changed
+    // String _userPicURL;
+    // // if (ObjectCheck.objectIsFile(newUserModel.pic) == true) {
+    // //
+    // //   final FileModel _oldFile = FileModel.initializePicForEditing(
+    // //       pic: oldUserModel.pic,
+    // //       fileName: oldUserModel.id,
+    // //   );
+    // //
+    // //   /// A1 - update pic to fireStorage/usersPics/userID and get new URL
+    // //   _userPicURL = await Storage.createOrUpdatePic(
+    // //     oldURL: _oldFile?.url,
+    // //     newPic: newUserModel.pic,
+    // //     docName: newUserModel.id,
+    // //     ownersIDs: <String>[newUserModel.id],
+    // //     collName: StorageColl.users,
+    // //   );
+    // //
+    // // }
+    //
+    // /// B - create final UserModel
+    // UserModel _finalUserModel = newUserModel.copyWith(
+    //   pic: _userPicURL ?? newUserModel.pic,
+    // );
 
     final bool _userModelsAreIdentical = UserModel.checkUsersAreIdentical(
       user1: oldUserModel,
-      user2: _finalUserModel,
+      user2: newUserModel,
     );
 
     if (_userModelsAreIdentical == false){
 
-      _finalUserModel = await updateUserEmailIfChanged(
+      final UserModel _finalUserModel = await updateUserEmailIfChanged(
         oldUserModel: oldUserModel,
-        newUserModel: _finalUserModel,
+        newUserModel: newUserModel,
       );
 
       await Fire.updateDoc(
@@ -263,10 +268,11 @@ class UserFireOps {
         input: _finalUserModel.toMap(toJSON: false),
       );
 
+      _output = _finalUserModel;
 
     }
 
-    return _finalUserModel;
+    return _output;
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
