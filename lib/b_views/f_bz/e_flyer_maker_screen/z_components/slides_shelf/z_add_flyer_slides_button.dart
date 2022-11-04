@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -18,7 +18,7 @@ class AddSlidesButton extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueChanged<ImagePickerType> onTap;
+  final ValueChanged<PicMakerType> onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class AddSlidesButton extends StatelessWidget {
                       ),
                       icon: Iconz.camera,
                       isTopBox: true,
-                      onTap: () => onTap(ImagePickerType.cameraImage),
+                      onTap: () => onTap(PicMakerType.cameraImage),
                     ),
 
                     /// GALLERY
@@ -81,7 +81,7 @@ class AddSlidesButton extends StatelessWidget {
                       ),
                       icon: Iconz.phoneGallery,
                       isTopBox: false,
-                      onTap: () => onTap(ImagePickerType.galleryImage),
+                      onTap: () => onTap(PicMakerType.galleryImage),
                     ),
 
                   ],

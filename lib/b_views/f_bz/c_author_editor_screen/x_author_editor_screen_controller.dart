@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -11,8 +14,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -22,31 +26,10 @@ import 'package:flutter/material.dart';
 /// AUTHOR EDITOR INITIALIZATION
 
 // --------------------
-/// TESTED : WORKS PERFECT
-void initializeAuthorEditorLocalVariables({
-  @required AuthorModel oldAuthor,
-  @required ValueNotifier<AuthorModel> tempAuthor,
-  @required BzModel bzModel,
-}){
-
-  final AuthorModel _initialAuthor = oldAuthor.copyWith(
-      pic: FileModel.initializePicForEditing(
-        pic: oldAuthor.pic,
-        fileName: AuthorModel.generateAuthorPicID(
-          authorID: oldAuthor.userID,
-          bzID: bzModel.id,
-        ),
-      )
-  );
-
-  tempAuthor.value = _initialAuthor;
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> prepareAuthorPicForEditing({
   @required BuildContext context,
-  @required ValueNotifier<AuthorModel> tempAuthor,
+  @required ValueNotifier<AuthorModel> draftAuthor,
   @required AuthorModel oldAuthor,
   @required BzModel bzModel,
   @required bool mounted,
@@ -58,7 +41,7 @@ Future<void> prepareAuthorPicForEditing({
   );
 
   setNotifier(
-    notifier: tempAuthor,
+    notifier: draftAuthor,
     mounted: mounted,
     value: _tempAuthor,
   );
@@ -69,10 +52,11 @@ Future<void> prepareAuthorPicForEditing({
 /// LAST SESSION
 
 // --------------------
+///
 Future<void> loadAuthorEditorSession({
   @required BuildContext context,
   @required bool mounted,
-  @required ValueNotifier<AuthorModel> tempAuthor,
+  @required ValueNotifier<AuthorModel> draftAuthor,
   @required AuthorModel oldAuthor,
   @required BzModel bzModel,
 }) async {
@@ -119,35 +103,33 @@ Future<void> loadAuthorEditorSession({
 
 }
 // --------------------
+///
 Future<void> saveAuthorEditorSession({
   @required BuildContext context,
   @required AuthorModel oldAuthor,
   @required BzModel bzModel,
-  @required ValueNotifier<AuthorModel> tempAuthor,
-  @required ValueNotifier<AuthorModel> lastTempAuthor,
+  @required ValueNotifier<AuthorModel> draftAuthor,
   @required bool mounted,
 }) async {
 
-  AuthorModel newAuthor = AuthorModel.bakeEditorVariablesToUpload(
+  final AuthorModel newAuthor = AuthorModel.bakeEditorVariablesToUpload(
     bzModel: bzModel,
     oldAuthor: oldAuthor,
-    tempAuthor: tempAuthor.value,
+    draftAuthor: draftAuthor.value,
   );
 
-  newAuthor = newAuthor.copyWith(
-    pic: FileModel.bakeFileForLDB(newAuthor.pic),
+  await BzLDBOps.saveAuthorEditorSession(
+    authorModel: newAuthor,
   );
 
-  final bool authorHasChanged = AuthorModel.checkAuthorsAreIdentical(
-    author1: newAuthor,
-    author2: lastTempAuthor.value,
-  ) == false;
 
-  if (authorHasChanged == true){
+  // final bool authorHasChanged = AuthorModel.checkAuthorsAreIdentical(
+  //   author1: newAuthor,
+  //   author2: lastTempAuthor.value,
+  // ) == false;
+  //
+  // if (authorHasChanged == true){
 
-    await BzLDBOps.saveAuthorEditorSession(
-      authorModel: newAuthor,
-    );
 
     // setNotifier(
     //   notifier: lastTempAuthor,
@@ -155,7 +137,7 @@ Future<void> saveAuthorEditorSession({
     //   value: newAuthor,
     // );
 
-  }
+  // }
 
 }
 // -----------------------------------------------------------------------------
@@ -163,11 +145,12 @@ Future<void> saveAuthorEditorSession({
 /// AUTHOR PROFILE EDITOR
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> takeAuthorImage({
   @required BuildContext context,
   @required ValueNotifier<AuthorModel> author,
-  @required ImagePickerType imagePickerType,
+  @required BzModel bzModel,
+  @required PicMakerType imagePickerType,
   @required ValueNotifier<bool> canPickImage,
 }) async {
 
@@ -175,18 +158,18 @@ Future<void> takeAuthorImage({
 
     canPickImage.value = false;
 
-    FileModel _imageFileModel;
+    Uint8List _bytes;
 
-    if(imagePickerType == ImagePickerType.galleryImage){
-      _imageFileModel = await Imagers.pickAndCropSingleImage(
+    if(imagePickerType == PicMakerType.galleryImage){
+      _bytes = await PicMaker.pickAndCropSinglePic(
         context: context,
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,
       );
     }
-    else if (imagePickerType == ImagePickerType.cameraImage){
-      _imageFileModel = await Imagers.shootAndCropCameraImage(
+    else if (imagePickerType == PicMakerType.cameraImage){
+      _bytes = await PicMaker.shootAndCropCameraPic(
         context: context,
         cropAfterPick: true,
         aspectRatio: 1,
@@ -195,14 +178,24 @@ Future<void> takeAuthorImage({
     }
 
     /// IF DID NOT PIC ANY IMAGE
-    if (_imageFileModel == null) {
+    if (_bytes == null) {
       canPickImage.value = true;
     }
 
     /// IF PICKED AN IMAGE
     else {
       author.value = author.value.copyWith(
-        pic: _imageFileModel,
+        picModel: PicModel(
+            bytes: _bytes,
+            path: StorageColl.getAuthorPicPath(bzID: bzModel.id, authorID: author.value.userID),
+            meta: PicMetaModel(
+              ownersIDs: AuthorModel.getAuthorPicOwnersIDs(
+                  bzModel: bzModel,
+                  authorModel: author.value,
+              ),
+              dimensions: await Dimensions.superDimensions(_bytes),
+            ),
+        ),
       );
 
       canPickImage.value = true;
@@ -316,7 +309,7 @@ Future<void> onConfirmAuthorUpdates({
     final AuthorModel _author = AuthorModel.bakeEditorVariablesToUpload(
       bzModel: bzModel,
       oldAuthor: oldAuthor,
-      tempAuthor: tempAuthor.value,
+      draftAuthor: tempAuthor.value,
     );
 
     await BzProtocols.renovateAuthorProtocol(

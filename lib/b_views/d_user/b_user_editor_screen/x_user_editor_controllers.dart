@@ -1,21 +1,23 @@
 import 'dart:async';
+import 'dart:typed_data';
 
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x4_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -25,24 +27,22 @@ import 'package:flutter/material.dart';
 /// INITIALIZATION
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// DEPRECATED
+/*
+///
 void initializeUserEditorLocalVariables({
   @required BuildContext context,
   @required UserModel oldUser,
   @required ValueNotifier<UserModel> tempUser,
 }){
-
-  final UserModel _initialModel = oldUser.copyWith(
-    pic: FileModel.initializePicForEditing(
-      pic: oldUser.pic,
-      fileName: oldUser.id,
-    ),
-  );
-
-  tempUser.value = _initialModel;
+  
+  tempUser.value = oldUser;
 
 }
+ */
 // --------------------
+/// DEPRECATED
+/*
 /// TESTED : WORKS PERFECT
 Future<void> prepareUserForEditing({
   @required BuildContext context,
@@ -63,25 +63,26 @@ Future<void> prepareUserForEditing({
   );
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// LAST SESSION
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> loadUserEditorLastSession({
   @required BuildContext context,
-  @required UserModel oldUser,
+  @required String userID,
   @required bool reAuthBeforeConfirm,
   @required bool canGoBack,
   @required Function onFinish,
 }) async {
 
-  final UserModel _lastSessionUser = await UserLDBOps.loadEditorSession(
-    userID: oldUser.id,
+  final DraftUser _lastSessionDraft = await UserLDBOps.loadEditorSession(
+    userID: userID,
   );
 
-  if (_lastSessionUser != null){
+  if (_lastSessionDraft != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
@@ -98,65 +99,21 @@ Future<void> loadUserEditorLastSession({
 
     if (_continue == true){
 
-      final UserModel _user = await UserModel.prepareUserForEditing(
-        context: context,
-        oldUser: _lastSessionUser,
-      );
-
       await Nav.replaceScreen(
         context: context,
         screen: EditProfileScreen(
           reAuthBeforeConfirm: reAuthBeforeConfirm,
-          userModel: _user,
           canGoBack: canGoBack,
           onFinish: onFinish,
           checkLastSession: false,
           validateOnStartup: true,
+          userModel: DraftUser.toUserModel(
+            draft: _lastSessionDraft,
+          ),
         ),
       );
 
     }
-
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> saveUserEditorSession({
-  @required BuildContext context,
-  @required UserModel oldUserModel,
-  @required ValueNotifier<UserModel> tempUser,
-  @required ValueNotifier<UserModel> lastTempUser,
-  @required bool mounted,
-}) async {
-
-  UserModel newUserModel = UserModel.bakeEditorVariablesToUpload(
-    context: context,
-    oldUser: oldUserModel,
-    tempUser: tempUser.value,
-  );
-
-  /// USER PICTURE
-  newUserModel = newUserModel.copyWith(
-    pic: FileModel.bakeFileForLDB(newUserModel.pic),
-  );
-
-  final bool _userHasChanged = UserModel.checkUsersAreIdentical(
-    user1: newUserModel,
-    user2: lastTempUser.value,
-  ) == false;
-
-  if (_userHasChanged == true){
-
-    await UserLDBOps.saveEditorSession(
-        userModel: newUserModel
-    );
-
-    // setNotifier(
-    //     notifier: lastTempUser,
-    //     mounted: mounted,
-    //     value: newUserModel,
-    // );
 
   }
 
@@ -166,30 +123,30 @@ Future<void> saveUserEditorSession({
 /// EDITORS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> takeUserPicture({
   @required BuildContext context,
   @required ValueNotifier<bool> canPickImage,
-  @required ValueNotifier<UserModel> userNotifier,
-  @required ImagePickerType imagePickerType,
+  @required ValueNotifier<DraftUser> draft,
+  @required PicMakerType picMakerType,
 }) async {
 
   if (canPickImage.value == true) {
 
     canPickImage.value = false;
 
-    FileModel _imageFileModel;
+    Uint8List _bytes;
 
-    if(imagePickerType == ImagePickerType.galleryImage){
-      _imageFileModel = await Imagers.pickAndCropSingleImage(
+    if(picMakerType == PicMakerType.galleryImage){
+      _bytes = await PicMaker.pickAndCropSinglePic(
         context: context,
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,
       );
     }
-    else if (imagePickerType == ImagePickerType.cameraImage){
-      _imageFileModel = await Imagers.shootAndCropCameraImage(
+    else if (picMakerType == PicMakerType.cameraImage){
+      _bytes = await PicMaker.shootAndCropCameraPic(
         context: context,
         cropAfterPick: true,
         aspectRatio: 1,
@@ -198,7 +155,7 @@ Future<void> takeUserPicture({
     }
 
     /// IF DID NOT PIC ANY IMAGE
-    if (_imageFileModel == null) {
+    if (_bytes == null) {
       blog('takeUserPicture : did not take user picture');
       // picture.value = null;
       canPickImage.value = true;
@@ -206,9 +163,13 @@ Future<void> takeUserPicture({
 
     /// IF PICKED AN IMAGE
     else {
-      blog('takeUserPicture : we got the pic in : ${_imageFileModel?.file}');
-      userNotifier.value = userNotifier.value.copyWith(
-        pic: _imageFileModel,
+      blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
+
+      draft.value = draft.value.copyWith(
+        pic: draft.value.pic.copyWith(
+          bytes: _bytes,
+        ),
+        hasNewPic: true,
       );
 
       canPickImage.value = true;
@@ -218,81 +179,81 @@ Future<void> takeUserPicture({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onChangeGender({
   @required Gender selectedGender,
-  @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<DraftUser> draft,
 }){
-  tempUser.value = tempUser.value.copyWith(
+  draft.value = draft.value.copyWith(
     gender: selectedGender,
   );
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onUserNameChanged({
-  @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<DraftUser> draft,
   @required String text,
 }){
 
-  tempUser.value = tempUser.value.copyWith(
+  draft.value = draft.value.copyWith(
     name: text,
   );
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onUserJobTitleChanged({
-  @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<DraftUser> draft,
   @required String text,
 }){
 
-  tempUser.value = tempUser.value.copyWith(
+  draft.value = draft.value.copyWith(
     title: text,
   );
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onUserCompanyNameChanged({
-  @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<DraftUser> draft,
   @required String text,
 }){
-  tempUser.value = tempUser.value.copyWith(
+  draft.value = draft.value.copyWith(
     company: text,
   );
 }
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onUserZoneChanged({
   @required ZoneModel selectedZone,
-  @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<DraftUser> draft,
 }) {
 
-  final UserModel _updated = tempUser.value.copyWith(
+  final DraftUser _updated = draft.value.copyWith(
     zone: selectedZone,
   );
 
-  tempUser.value = _updated;
+  draft.value = _updated;
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onUserContactChanged({
-  @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<DraftUser> draft,
   @required ContactType contactType,
   @required String value,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-    contacts: tempUser.value.contacts,
+    contacts: draft.value.contacts,
     contactToReplace: ContactModel(
       value: value,
       type: contactType,
     ),
   );
 
-  tempUser.value = tempUser.value.copyWith(
+  draft.value = draft.value.copyWith(
     contacts: _contacts,
   );
 
@@ -309,41 +270,41 @@ void onUserContactChanged({
 /// CONFIRMATION OPS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> confirmEdits({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
   @required UserModel oldUserModel,
-  @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<DraftUser> draft,
   @required Function onFinish,
   @required ValueNotifier<bool> loading,
   @required bool forceReAuthentication,
 }) async {
 
-  final UserModel newUserModel = UserModel.bakeEditorVariablesToUpload(
-    context: context,
-    oldUser: oldUserModel,
-    tempUser: tempUser.value,
+
+
+  bool _canContinue = Formers.validateForm(formKey);
+
+  final UserModel newUserModel = DraftUser.toUserModel(
+    draft: draft.value,
   );
 
-  final bool _canContinue = Formers.validateForm(formKey);
+  // /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
+  // if (_canContinue == false){
+  //   await Formers.showUserMissingFieldsDialog(
+  //       context: context,
+  //       userModel: newUserModel
+  //   );
+  //
+  // }
+  //
+  // /// A - IF ALL REQUIRED FIELDS ARE VALID
+  if (_canContinue == true){
 
-  /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
-  if (_canContinue == false){
-    await Formers.showUserMissingFieldsDialog(
-        context: context,
-        userModel: newUserModel
-    );
-
-  }
-
-  /// A - IF ALL REQUIRED FIELDS ARE VALID
-  else {
-
-    bool _continueOps = true;
+    // bool _continueOps = true;
 
     final bool _shouldReAuthenticate =
-        forceReAuthentication == true
+            forceReAuthentication == true
             &&
             ContactModel.checkEmailChanged(
               oldContacts: oldUserModel.contacts,
@@ -351,7 +312,7 @@ Future<void> confirmEdits({
             ) == true;
 
     if (_shouldReAuthenticate == true){
-      _continueOps = await reAuthenticateUser(
+      _canContinue = await reAuthenticateUser(
         context: context,
         dialogTitleVerse: const Verse(
           text: 'phid_enter_your_password',
@@ -368,8 +329,9 @@ Future<void> confirmEdits({
         ),
       );
     }
+
     else {
-      _continueOps = await CenterDialog.showCenterDialog(
+      _canContinue = await CenterDialog.showCenterDialog(
         context: context,
         bodyVerse: const Verse(
           text: 'phid_you_want_to_continue',
@@ -380,11 +342,11 @@ Future<void> confirmEdits({
       );
     }
 
-    if (_continueOps == true){
+    if (_canContinue == true){
 
       final UserModel _uploadedUserModel = await _updateUserModel(
         context: context,
-        newUserModel: newUserModel,
+        draft: draft,
         loading: loading,
         oldUserModel: oldUserModel,
       );
@@ -417,13 +379,15 @@ Future<void> confirmEdits({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// SHOULD BE RENOVATE PROTOCOL
 Future<UserModel> _updateUserModel({
   @required BuildContext context,
   @required UserModel oldUserModel,
-  @required UserModel newUserModel,
+  @required ValueNotifier<DraftUser> draft,
   @required ValueNotifier<bool> loading,
 }) async {
+
+  UserModel _output;
 
   loading.value = true;
   unawaited(WaitDialog.showWaitDialog(
@@ -434,11 +398,24 @@ Future<UserModel> _updateUserModel({
     ),
   ));
 
-  /// start create user ops
-  final UserModel _uploadedUserModel = await UserFireOps.updateUser(
-    oldUserModel: oldUserModel,
-    newUserModel: newUserModel,
-  );
+  await Future.wait(<Future>[
+
+    /// UPDATE USER
+    UserFireOps.updateUser(
+      oldUserModel: oldUserModel,
+      newUserModel: DraftUser.toUserModel(
+        draft: draft.value,
+      ),
+    ).then((value){
+      _output = value;
+    }),
+
+    /// UPDATE PIC
+    if (draft.value.hasNewPic == true)
+    PicProtocols.composePic(draft.value.pic),
+
+  ]);
+
 
   loading.value = false;
   await WaitDialog.closeWaitDialog(context);
@@ -456,6 +433,6 @@ Future<UserModel> _updateUserModel({
     ),
   );
 
-  return _uploadedUserModel;
+  return _output;
 }
 // -----------------------------------------------------------------------------

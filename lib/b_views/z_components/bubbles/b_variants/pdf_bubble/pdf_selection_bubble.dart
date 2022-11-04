@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';

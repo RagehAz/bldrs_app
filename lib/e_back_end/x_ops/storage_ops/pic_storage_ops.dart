@@ -78,7 +78,7 @@ class PicStorageOps {
 
       on firebase_core.FirebaseException catch (error){
 
-        blog('the storage error : ${error}');
+        blog('the storage error : $error');
 
       }
 

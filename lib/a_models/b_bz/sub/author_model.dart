@@ -1,12 +1,13 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -39,34 +40,30 @@ class AuthorModel {
     @required this.role,
     @required this.contacts,
     @required this.flyersIDs,
+    this.picModel,
   });
   /// --------------------------------------------------------------------------
   final String userID;
   final String name;
-  final dynamic pic;
+  final String pic;
   final String title;
   final AuthorRole role;
   final List<ContactModel> contacts;
   final List<String> flyersIDs;
+  final PicModel picModel;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<AuthorModel> prepareAuthorForEditing({
     @required AuthorModel oldAuthor,
     @required BzModel bzModel,
   }) async {
 
     final AuthorModel _tempAuthor = oldAuthor.copyWith(
-      pic: await FileModel.preparePicForEditing(
-        pic: oldAuthor.pic,
-        fileName:  AuthorModel.generateAuthorPicID(
-          authorID: oldAuthor.userID,
-          bzID: bzModel.id,
-        ),
-      ),
+      picModel: await PicProtocols.fetchPic(oldAuthor.pic),
       contacts: ContactModel.prepareContactsForEditing(
         contacts: oldAuthor.contacts,
         countryID: bzModel.zone.countryID,
@@ -76,20 +73,16 @@ class AuthorModel {
     return _tempAuthor;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static AuthorModel bakeEditorVariablesToUpload({
-    @required AuthorModel tempAuthor,
+    @required AuthorModel draftAuthor,
     @required AuthorModel oldAuthor,
     @required BzModel bzModel,
   }){
 
-    return tempAuthor.copyWith(
-      pic: FileModel.bakeFileForUpload(
-        newFile: tempAuthor.pic,
-        existingPic: oldAuthor.pic,
-      ),
+    return draftAuthor.copyWith(
       contacts: ContactModel.bakeContactsAfterEditing(
-        contacts: tempAuthor.contacts,
+        contacts: draftAuthor.contacts,
         countryID: bzModel.zone.countryID,
       ),
     );
@@ -122,11 +115,12 @@ class AuthorModel {
   AuthorModel copyWith({
     String userID,
     String name,
-    dynamic pic,
+    String pic,
     String title,
     AuthorRole role,
     List<ContactModel> contacts,
     List<String> flyersIDs,
+    PicModel picModel,
   }){
     return AuthorModel(
       userID: userID ?? this.userID,
@@ -136,22 +130,25 @@ class AuthorModel {
       role: role ?? this.role,
       contacts: contacts ?? this.contacts,
       flyersIDs: flyersIDs ?? this.flyersIDs,
+      picModel: picModel ?? this.picModel,
     );
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static AuthorModel createAuthorFromUserModel({
     @required UserModel userModel,
+    @required String bzID,
     @required bool isCreator,
   }) {
     final AuthorModel _author = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
-      pic: userModel.pic,
+      pic: StorageColl.getAuthorPicPath(bzID: bzID, authorID: userModel.id),
       title: userModel.title,
       role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
       contacts: userModel.contacts,
       flyersIDs: const <String>[],
+      // picModel: null, /// TASK : REVISE THIS
     );
     return _author;
   }
@@ -173,9 +170,12 @@ class AuthorModel {
   /// CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
+  ///
+  Map<String, dynamic> toMap({
+  bool includePicModel = false,
+}) {
+
+    Map<String, dynamic> _map =  <String, dynamic>{
       'userID': userID,
       'name': name,
       'pic': pic,
@@ -184,9 +184,21 @@ class AuthorModel {
       'contacts': ContactModel.cipherContacts(contacts),
       'flyersIDs': flyersIDs,
     };
+
+    if (includePicModel == true){
+
+      _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'picModel',
+          value: PicModel.cipherToLDB(picModel),
+      );
+
+    }
+
+    return _map;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static AuthorModel decipherAuthor(Map<String, dynamic> map) {
     return AuthorModel(
       userID: map['userID'],
@@ -196,6 +208,7 @@ class AuthorModel {
       role: decipherAuthorRole(map['role']),
       contacts: ContactModel.decipherContacts(map['contacts']),
       flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
+      picModel: PicModel.decipherFromLDB(map['picModel']),
     );
   }
   // --------------------
@@ -260,6 +273,8 @@ class AuthorModel {
   /// GETTERS
 
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorWhosePicIsFile({
     @required List<AuthorModel> authors,
@@ -277,8 +292,9 @@ class AuthorModel {
 
     return _output;
   }
+   */
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static List<String> getAuthorPicOwnersIDs({
     @required BzModel bzModel,
     @required AuthorModel authorModel,
@@ -290,7 +306,7 @@ class AuthorModel {
 
     if (bzModel != null && authorModel != null){
 
-      final AuthorModel _creatorAuthor = getCreatorAuthorFromBz(bzModel);
+      final AuthorModel _creatorAuthor = getCreatorAuthorFromAuthors(bzModel.authors);
 
       _ownersIDs.add(_creatorAuthor.userID);
 
@@ -409,15 +425,22 @@ class AuthorModel {
     return _bzAuthors;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static AuthorModel getCreatorAuthorFromBz(BzModel bzModel) {
+  ///
+  static AuthorModel getCreatorAuthorFromAuthors(List<AuthorModel> authors) {
 
-    final AuthorModel _masterAuthor = bzModel.authors.firstWhere(
-            (AuthorModel author) => author.role == AuthorRole.creator,
-        orElse: () => null
-    );
+    if (Mapper.checkCanLoopList(authors) == true){
 
-    return _masterAuthor;
+      final AuthorModel _masterAuthor = authors.firstWhere(
+              (AuthorModel author) => author.role == AuthorRole.creator,
+          orElse: () => null
+      );
+
+      return _masterAuthor;
+    }
+    else {
+      return null;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -538,10 +561,11 @@ class AuthorModel {
     return _modifiedAuthorsIDsList;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static List<AuthorModel> addNewUserToAuthors({
     @required List<AuthorModel> authors,
     @required UserModel newUserModel,
+    @required String bzID,
   }){
 
     final List<AuthorModel> _output = <AuthorModel>[...authors];
@@ -550,6 +574,7 @@ class AuthorModel {
 
       final AuthorModel _newAuthor = AuthorModel.createAuthorFromUserModel(
         userModel: newUserModel,
+        bzID: bzID,
         isCreator: false,
       );
 
@@ -647,7 +672,7 @@ class AuthorModel {
     List<AuthorModel> _output = authors;
 
     if (
-    Mapper.checkCanLoopList(authors) == true
+        Mapper.checkCanLoopList(authors) == true
         &&
         flyerID != null
         &&
@@ -803,7 +828,7 @@ class AuthorModel {
 
       if (
 
-      author1.userID == author2.userID &&
+          author1.userID == author2.userID &&
           author1.name == author2.name &&
           author1.pic == author2.pic &&
           author1.title == author2.title &&
@@ -815,6 +840,10 @@ class AuthorModel {
           ContactModel.checkContactsListsAreIdentical(
             contacts1: author1.contacts,
             contacts2: author2.contacts,
+          ) == true &&
+          PicModel.checkPicsAreIdentical(
+              pic1: author1.picModel,
+              pic2: author2.picModel
           ) == true
 
       ){
@@ -979,7 +1008,7 @@ class AuthorModel {
   /// GENERATORS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
   static String generateAuthorPicID({
     @required String authorID,
     @required String bzID

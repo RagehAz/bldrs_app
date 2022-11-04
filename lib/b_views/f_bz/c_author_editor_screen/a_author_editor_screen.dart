@@ -16,7 +16,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<AuthorModel> _tempAuthor = ValueNotifier(null);
-  final ValueNotifier<AuthorModel> _lastTempAuthor = ValueNotifier(null);
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // --------------------
@@ -82,11 +81,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void initState() {
     super.initState();
 
-    initializeAuthorEditorLocalVariables(
-      tempAuthor: _tempAuthor,
-      oldAuthor: widget.author,
-      bzModel: widget.bzModel,
-    );
+    _tempAuthor.value = widget.author;
 
   }
   // --------------------
@@ -100,7 +95,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         await prepareAuthorPicForEditing(
           mounted: mounted,
           context: context,
-          tempAuthor: _tempAuthor,
+          draftAuthor: _tempAuthor,
           oldAuthor: widget.author,
           bzModel: widget.bzModel,
         );
@@ -111,7 +106,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             context: context,
             oldAuthor: widget.author,
             bzModel: widget.bzModel,
-            tempAuthor: _tempAuthor,
+            draftAuthor: _tempAuthor,
           );
         }
         // -----------------------------
@@ -125,8 +120,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             _switchOnValidation();
             saveAuthorEditorSession(
               context: context,
-              tempAuthor: _tempAuthor,
-              lastTempAuthor: _lastTempAuthor,
+              draftAuthor: _tempAuthor,
               bzModel: widget.bzModel,
               oldAuthor: widget.author,
               mounted: mounted,
@@ -154,7 +148,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _emailNode.dispose();
 
     _tempAuthor.dispose();
-    _lastTempAuthor.dispose();
 
     // _fuckingNode.dispose();
     _scrollController.dispose();
@@ -232,16 +225,17 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   Center(
                     child: AddImagePicBubble(
                       // width: BldrsAppBar.width(context),
-                      fileModel: authorModel.pic,
+                      picModel: authorModel.picModel,
                       titleVerse: const Verse(
                         text: 'phid_author_picture',
                         translate: true,
                       ),
                       redDot: true,
                       bubbleType: BubbleType.authorPic,
-                      onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
+                      onAddPicture: (PicMakerType imagePickerType) => takeAuthorImage(
                         context: context,
                         author: _tempAuthor,
+                        bzModel: widget.bzModel,
                         imagePickerType: imagePickerType,
                         canPickImage: _canPickImage,
                       ),

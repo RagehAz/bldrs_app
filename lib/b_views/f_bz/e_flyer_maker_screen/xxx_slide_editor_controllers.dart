@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -52,9 +51,9 @@ Future<void> onCropSlide({
   @required ValueNotifier<Matrix4> matrix,
 }) async {
 
-  final FileModel _fileModel = await Imagers.cropImage(
+  final FileModel _fileModel = await PicMaker.cropPic(
     context: context,
-    pickedFile: tempSlide.value.picFileModel,
+    bytes: tempSlide.value.picFileModel,
     aspectRatio: FlyerDim.flyerAspectRatio,
   );
 

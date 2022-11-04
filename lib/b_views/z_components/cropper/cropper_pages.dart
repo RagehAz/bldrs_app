@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bldrs/b_views/z_components/cropper/cropper_corner.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/b_views/z_components/layouts/keep_alive_page.dart';
@@ -14,10 +12,9 @@ class CropperPages extends StatelessWidget {
   /// -----------------------------------------------------------------------------
   const CropperPages({
     @required this.pageController,
-    @required this.files,
     @required this.screenHeight,
     @required this.currentImageIndex,
-    @required this.imagesData,
+    @required this.originalBytezz,
     @required this.aspectRatio,
     @required this.statuses,
     @required this.croppedImages,
@@ -26,10 +23,9 @@ class CropperPages extends StatelessWidget {
   }) : super(key: key);
   /// -----------------------------------------------------------------------------
   final PageController pageController;
-  final List<File> files;
   final double screenHeight;
   final ValueNotifier<int> currentImageIndex;
-  final List<Uint8List> imagesData;
+  final List<Uint8List> originalBytezz;
   final double aspectRatio;
   final ValueNotifier<List<CropStatus>> statuses;
   final ValueNotifier<List<Uint8List>> croppedImages;
@@ -60,13 +56,13 @@ class CropperPages extends StatelessWidget {
       child: PageView.builder(
           physics: const NeverScrollableScrollPhysics(),
           controller: pageController,
-          itemCount: files.length,
+          itemCount: originalBytezz.length,
           onPageChanged: (int index){
             currentImageIndex.value = index;
           },
           itemBuilder: (_, int index){
 
-            if (imagesData == null || imagesData.isEmpty == true){
+            if (originalBytezz == null || originalBytezz.isEmpty == true){
               return Container(
                 width: _screenWidth,
                 height: _imageSpaceHeight,
@@ -90,7 +86,7 @@ class CropperPages extends StatelessWidget {
                   height: _imageSpaceHeight,
                   color: Colorz.black255,
                   child: Crop(
-                    image: imagesData[index],
+                    image: originalBytezz[index],
                     controller: controllers[index],
                     onCropped: (Uint8List image) async {
                       croppedImages.value[index] = image;

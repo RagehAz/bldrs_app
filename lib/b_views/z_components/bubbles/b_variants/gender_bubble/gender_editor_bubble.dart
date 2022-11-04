@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/a_user/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -11,13 +12,13 @@ class GenderBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GenderBubble({
     @required this.onTap,
-    @required this.userModel,
+    @required this.draftUser,
     @required this.canValidate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<Gender> onTap;
-  final UserModel userModel;
+  final DraftUser draftUser;
   final bool canValidate;
   /// --------------------------------------------------------------------------
   static double buttonWidth(BuildContext context){
@@ -45,7 +46,7 @@ class GenderBubble extends StatelessWidget {
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
         validator: () => Formers.genderValidator(
-          userModel: userModel,
+          gender: draftUser.gender,
           canValidate: canValidate,
         ),
       ),
@@ -68,7 +69,7 @@ class GenderBubble extends StatelessWidget {
                   final String _genderPhid = UserModel.getGenderPhid(_gender);
                   final String _genderIcon = UserModel.genderIcon(_gender);
 
-                  final bool _isSelected = _gender == userModel.gender;
+                  final bool _isSelected = _gender == draftUser.gender;
 
                   final Color _buttonColor = _isSelected ?
                   Colorz.yellow255
@@ -107,7 +108,7 @@ class GenderBubble extends StatelessWidget {
         SuperValidator(
           width: Bubble.clearWidth(context),
           validator: () => Formers.genderValidator(
-            userModel: userModel,
+            gender: draftUser.gender,
             canValidate: canValidate,
           ),
           // autoValidate: true,
