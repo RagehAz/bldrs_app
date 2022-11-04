@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
@@ -934,7 +933,7 @@ class FlyerModel {
 
       if (_bzModel != null){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
+        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel);
 
         _owners.add(_creator.userID);
 

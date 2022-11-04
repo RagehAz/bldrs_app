@@ -489,7 +489,7 @@ String getSectionIcon({
   static const String tradesChainID = 'phid_k_flyer_type_trades';
   static const String productChainID = 'phid_k_flyer_type_product';
   static const String equipmentChainID = 'phid_k_flyer_type_equipment';
-  static const String PROJECTSCHAINID = null;
+  static const String PROJECTSCHAINID = null; // UNDER-TAKING
   // --------------------
   static List<String> chainKSonsIDs = <String>[
     propertyChainID,

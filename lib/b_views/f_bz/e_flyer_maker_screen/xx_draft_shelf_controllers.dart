@@ -4,13 +4,12 @@ import 'dart:io';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
@@ -91,7 +90,7 @@ void onDeleteSlide({
 /// TESTED : WORKS PERFECT
 Future<void> onAddNewSlides({
   @required BuildContext context,
-  @required ImagePickerType imagePickerType,
+  @required PicMakerType imagePickerType,
   @required ValueNotifier<bool> isLoading,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
   @required BzModel bzModel,
@@ -153,16 +152,16 @@ Future<void> _addImagesForNewFlyer({
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
   @required ScrollController scrollController,
   @required double flyerWidth,
-  @required ImagePickerType imagePickerType,
+  @required PicMakerType imagePickerType,
 }) async {
 
   List<File> _pickedFiles = <File>[];
 
   if(mounted){
 
-    if (imagePickerType == ImagePickerType.galleryImage){
+    if (imagePickerType == PicMakerType.galleryImage){
 
-      final List<FileModel> _fileModels = await Imagers.pickAndCropMultipleImages(
+      final List<FileModel> _fileModels = await PicMaker.pickAndCropMultiplePics(
         context: context,
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio,
@@ -176,9 +175,9 @@ Future<void> _addImagesForNewFlyer({
 
     }
 
-    else if (imagePickerType == ImagePickerType.cameraImage){
+    else if (imagePickerType == PicMakerType.cameraImage){
 
-      final FileModel _fileModel = await Imagers.shootAndCropCameraImage(
+      final FileModel _fileModel = await PicMaker.shootAndCropCameraPic(
         context: context,
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio,

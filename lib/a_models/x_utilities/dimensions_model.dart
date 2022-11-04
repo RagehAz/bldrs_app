@@ -64,13 +64,13 @@ class Dimensions {
     return width / height;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<double> getFileAspectRatio(File file) async {
+  ///
+  static Future<double> getPicAspectRatio(Uint8List bytes) async {
     double _output;
 
-    if (file != null){
+    if (bytes != null){
 
-      final Dimensions _dimensions = await superDimensions(file);
+      final Dimensions _dimensions = await superDimensions(bytes);
 
       if (_dimensions != null){
 

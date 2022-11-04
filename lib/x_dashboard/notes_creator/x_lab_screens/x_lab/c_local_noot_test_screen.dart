@@ -5,48 +5,47 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -250,9 +249,9 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     final String _fileName = Numeric.createUniqueID().toString();
 
-    final FileModel _fileModel = await Imagers.resizeImage(
+    final FileModel _fileModel = await PicMaker.resizePic(
         resizeToWidth: NotePosterBox.standardSize.width,
-        fileModel: FileModel(
+        picModel: FileModel(
           fileName: _fileName,
           file: await Filers.getFileFromUint8List(
             uInt8List: uint8List,
@@ -565,7 +564,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         verse: Verse.plain('FILE'),
                         onTap: () async {
 
-                          final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
+                          final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
                             context: context,
                             cropAfterPick: true,
                             aspectRatio: 1,
@@ -660,7 +659,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                               // verse: Verse.plain('URL'),
                               onTap: () async {
 
-                                final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
+                                final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
                                   context: context,
                                   cropAfterPick: true,
                                   aspectRatio: NotePosterBox.getAspectRatio(),

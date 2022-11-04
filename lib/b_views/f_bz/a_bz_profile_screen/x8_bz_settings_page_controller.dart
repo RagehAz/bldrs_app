@@ -214,7 +214,7 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
   @required BzModel bzModel,
 }) async {
 
-  final String _creatorAuthorsString = AuthorModel.getCreatorAuthorFromBz(bzModel)?.name;
+  final String _creatorAuthorsString = AuthorModel.getCreatorAuthorFromAuthors(bzModel?.authors)?.name;
 
   await CenterDialog.showCenterDialog(
     context: context,

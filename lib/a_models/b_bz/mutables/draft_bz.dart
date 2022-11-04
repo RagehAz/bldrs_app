@@ -5,8 +5,10 @@ import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -33,20 +35,16 @@ class DraftBz {
     @required this.isVerified,
     @required this.bzState,
     @required this.flyersIDs,
-
     @required this.bzSection,
     @required this.bzTypes,
     @required this.inactiveBzTypes,
     @required this.bzForm,
     @required this.inactiveBzForms,
-
     @required this.scope,
     @required this.scopeSpecs,
-
-    @required this.oldLogoURL,
-    @required this.newLogoFile,
+    @required this.logo,
+    @required this.hasNewLogo,
     @required this.canPickImage,
-
     @required this.canValidate,
     @required this.nameNode,
     @required this.aboutNode,
@@ -76,17 +74,13 @@ class DraftBz {
   final BzSection bzSection;
   final List<BzType> bzTypes;
   final List<BzType> inactiveBzTypes;
-
   final BzForm bzForm;
   final List<BzForm> inactiveBzForms;
-
   final List<String> scope;
   final List<SpecModel> scopeSpecs;
-
-  final String oldLogoURL;
-  final FileModel newLogoFile;
+  final PicModel logo;
+  final bool hasNewLogo;
   final bool canPickImage;
-
   final FocusNode nameNode;
   final FocusNode aboutNode;
   final FocusNode emailNode;
@@ -97,159 +91,11 @@ class DraftBz {
   final bool firstTimer;
   // -----------------------------------------------------------------------------
 
-  /// CLONING
-
-  // -------------------
-  DraftBz copyWith({
-    String id,
-    DateTime createdAt,
-    BzAccountType accountType,
-    String name,
-    List<String> trigram,
-    ZoneModel zone,
-    String about,
-    GeoPoint position,
-    List<ContactModel> contacts,
-    List<AuthorModel> authors,
-    List<PendingAuthor> pendingAuthors,
-    bool showsTeam,
-    bool isVerified,
-    BzState bzState,
-    List<String> flyersIDs,
-    BzSection bzSection,
-    List<BzType> bzTypes,
-    List<BzType> inactiveBzTypes,
-    BzForm bzForm,
-    List<BzForm> inactiveBzForms,
-    List<String> scope,
-    List<SpecModel> scopeSpecs,
-    String oldLogoURL,
-    FileModel newLogoFile,
-    bool canPickImage,
-    bool canValidate,
-    FocusNode nameNode,
-    FocusNode aboutNode,
-    FocusNode emailNode,
-    FocusNode websiteNode,
-    FocusNode phoneNode,
-    GlobalKey<FormState> formKey,
-    bool firstTimer,
-  }){
-    return DraftBz(
-      id: id ?? this.id,
-      createdAt: createdAt ?? this.createdAt,
-      accountType: accountType ?? this.accountType,
-      name: name ?? this.name,
-      trigram: trigram ?? this.trigram,
-      zone: zone ?? this.zone,
-      about: about ?? this.about,
-      position: position ?? this.position,
-      contacts: contacts ?? this.contacts,
-      authors: authors ?? this.authors,
-      pendingAuthors: pendingAuthors ?? this.pendingAuthors,
-      showsTeam: showsTeam ?? this.showsTeam,
-      isVerified: isVerified ?? this.isVerified,
-      bzState: bzState ?? this.bzState,
-      flyersIDs: flyersIDs ?? this.flyersIDs,
-      bzSection: bzSection ?? this.bzSection,
-      bzTypes: bzTypes ?? this.bzTypes,
-      inactiveBzTypes: inactiveBzTypes ?? this.inactiveBzTypes,
-      bzForm: bzForm ?? this.bzForm,
-      inactiveBzForms: inactiveBzForms ?? this.inactiveBzForms,
-      scope: scope ?? this.scope,
-      scopeSpecs: scopeSpecs ?? this.scopeSpecs,
-      oldLogoURL: oldLogoURL ?? this.oldLogoURL,
-      newLogoFile: newLogoFile ?? this.newLogoFile,
-      canPickImage: canPickImage ?? this.canPickImage,
-      canValidate: canValidate ?? this.canValidate,
-      nameNode: nameNode ?? this.nameNode,
-      aboutNode: aboutNode ?? this.aboutNode,
-      emailNode: emailNode ?? this.emailNode,
-      websiteNode: websiteNode ?? this.websiteNode,
-      phoneNode: phoneNode ?? this.phoneNode,
-      formKey: formKey ?? this.formKey,
-      firstTimer: firstTimer ?? this.firstTimer,
-    );
-  }
-  // -------------------
-  DraftBz nullifyField({
-    bool id = false,
-    bool createdAt = false,
-    bool accountType = false,
-    bool name = false,
-    bool trigram = false,
-    bool zone = false,
-    bool about = false,
-    bool position = false,
-    bool contacts = false,
-    bool authors = false,
-    bool pendingAuthors = false,
-    bool showsTeam = false,
-    bool isVerified = false,
-    bool bzState = false,
-    bool flyersIDs = false,
-    bool bzSection = false,
-    bool bzTypes = false,
-    bool inactiveBzTypes = false,
-    bool bzForm = false,
-    bool inactiveBzForms = false,
-    bool scope = false,
-    bool scopeSpecs = false,
-    bool oldLogoURL = false,
-    bool newLogoFile = false,
-    bool canPickImage = false,
-    bool canValidate = false,
-    bool nameNode = false,
-    bool aboutNode = false,
-    bool emailNode = false,
-    bool websiteNode = false,
-    bool phoneNode = false,
-    bool formKey = false,
-    bool firstTimer = false,
-  }){
-    return DraftBz(
-      id: id == true ? null : this.id,
-      createdAt: createdAt == true ? null : this.createdAt,
-      accountType: accountType == true ? null : this.accountType,
-      name: name == true ? null : this.name,
-      trigram: trigram == true ? [] : this.trigram,
-      zone: zone == true ? null : this.zone,
-      about: about == true ? null : this.about,
-      position: position == true ? null : this.position,
-      contacts: contacts == true ? [] : this.contacts,
-      authors: authors == true ? [] : this.authors,
-      pendingAuthors: pendingAuthors == true ? [] : this.pendingAuthors,
-      showsTeam: showsTeam == true ? null : this.showsTeam,
-      isVerified: isVerified == true ? null : this.isVerified,
-      bzState: bzState == true ? null : this.bzState,
-      flyersIDs: flyersIDs == true ? [] : this.flyersIDs,
-      bzSection: bzSection == true ? null : this.bzSection,
-      bzTypes: bzTypes == true ? [] : this.bzTypes,
-      inactiveBzTypes: inactiveBzTypes == true ? [] : this.inactiveBzTypes,
-      bzForm: bzForm == true ? null : this.bzForm,
-      inactiveBzForms: inactiveBzForms == true ? [] : this.inactiveBzForms,
-      scope: scope == true ? [] : this.scope,
-      scopeSpecs: scopeSpecs == true ? [] : this.scopeSpecs,
-      oldLogoURL: oldLogoURL == true ? null : this.oldLogoURL,
-      newLogoFile: newLogoFile == true ? null : this.newLogoFile,
-      canPickImage: canPickImage == true ? null : this.canPickImage,
-      canValidate: canValidate == true ? null : this.canValidate,
-      nameNode: nameNode == true ? null : this.nameNode,
-      aboutNode: aboutNode == true ? null : this.aboutNode,
-      emailNode: emailNode == true ? null : this.emailNode,
-      websiteNode: websiteNode == true ? null : this.websiteNode,
-      phoneNode: phoneNode == true ? null : this.phoneNode,
-      formKey: formKey == true ? null : this.formKey,
-      firstTimer: firstTimer == true ? null : this.firstTimer,
-    );
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CREATION
+  /// INITIALIZATION
 
   // -------------------
   ///
-  static DraftBz createNewDraftBz({
+  static DraftBz initializeNewBzForEditing({
     @required UserModel creatorUser,
   }){
 
@@ -276,7 +122,7 @@ class DraftBz {
     );
 
     return DraftBz(
-      id: 'draftBzOfUser_${creatorUser.id}',
+      id: null,
       createdAt: null,
       accountType: BzAccountType.normal,
       name: '',
@@ -289,6 +135,7 @@ class DraftBz {
         AuthorModel.createAuthorFromUserModel(
           userModel: creatorUser,
           isCreator: true,
+          bzID: null,
         )
       ],
       pendingAuthors: const [],
@@ -306,8 +153,8 @@ class DraftBz {
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes([]),
       scope: const [],
       scopeSpecs: const [],
-      oldLogoURL: null,
-      newLogoFile: null,
+      logo: null,
+      hasNewLogo: false,
       canPickImage: true,
       canValidate: false,
       nameNode: FocusNode(),
@@ -321,7 +168,7 @@ class DraftBz {
   }
   // -------------------
   ///
-  static DraftBz createDraftFromBz({
+  static DraftBz initializeExistingBzForEditing({
     @required BuildContext context,
     @required BzModel bzModel,
   }){
@@ -362,8 +209,8 @@ class DraftBz {
         context: context,
         phids: bzModel.scope,
       ),
-      oldLogoURL: bzModel.logo,
-      newLogoFile: null,
+      logo: null,
+      hasNewLogo: false,
       canPickImage: true,
       canValidate: false,
       nameNode: FocusNode(),
@@ -376,28 +223,192 @@ class DraftBz {
     );
 
   }
+  // -------------------
+  ///
+  static Future<DraftBz> prepareForEditing({
+    @required BuildContext context,
+    @required DraftBz draft,
+  }) async {
+    DraftBz _output;
+
+    if (draft != null){
+
+      final PicModel _logo = draft.firstTimer == true ? null
+          :
+      await PicProtocols.fetchPic(StorageColl.getBzLogoPath(draft.id));
+
+      _output = draft.copyWith(
+
+        logo: _logo,
+        zone: await ZoneModel.prepareZoneForEditing(
+          context: context,
+          zoneModel: draft.zone,
+        ),
+        contacts: ContactModel.prepareContactsForEditing(
+          contacts: draft?.contacts,
+          countryID: draft?.zone?.countryID,
+        ),
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
-  /// BAKING
+  /// CLONING
 
   // -------------------
-  ///
-  static BzModel bakeDraftForLDB({
-    @required DraftBz draft,
+  DraftBz copyWith({
+    String id,
+    DateTime createdAt,
+    BzAccountType accountType,
+    String name,
+    List<String> trigram,
+    ZoneModel zone,
+    String about,
+    GeoPoint position,
+    List<ContactModel> contacts,
+    List<AuthorModel> authors,
+    List<PendingAuthor> pendingAuthors,
+    bool showsTeam,
+    bool isVerified,
+    BzState bzState,
+    List<String> flyersIDs,
+    BzSection bzSection,
+    List<BzType> bzTypes,
+    List<BzType> inactiveBzTypes,
+    BzForm bzForm,
+    List<BzForm> inactiveBzForms,
+    List<String> scope,
+    List<SpecModel> scopeSpecs,
+    PicModel logo,
+    bool hasNewLogo,
+    bool canPickImage,
+    bool canValidate,
+    FocusNode nameNode,
+    FocusNode aboutNode,
+    FocusNode emailNode,
+    FocusNode websiteNode,
+    FocusNode phoneNode,
+    GlobalKey<FormState> formKey,
+    bool firstTimer,
   }){
-
-    final BzModel _bzModel = bakeDraftForFirestore(
-        draft: draft,
+    return DraftBz(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      accountType: accountType ?? this.accountType,
+      name: name ?? this.name,
+      trigram: trigram ?? this.trigram,
+      zone: zone ?? this.zone,
+      about: about ?? this.about,
+      position: position ?? this.position,
+      contacts: contacts ?? this.contacts,
+      authors: authors ?? this.authors,
+      pendingAuthors: pendingAuthors ?? this.pendingAuthors,
+      showsTeam: showsTeam ?? this.showsTeam,
+      isVerified: isVerified ?? this.isVerified,
+      bzState: bzState ?? this.bzState,
+      flyersIDs: flyersIDs ?? this.flyersIDs,
+      bzSection: bzSection ?? this.bzSection,
+      bzTypes: bzTypes ?? this.bzTypes,
+      inactiveBzTypes: inactiveBzTypes ?? this.inactiveBzTypes,
+      bzForm: bzForm ?? this.bzForm,
+      inactiveBzForms: inactiveBzForms ?? this.inactiveBzForms,
+      scope: scope ?? this.scope,
+      scopeSpecs: scopeSpecs ?? this.scopeSpecs,
+      logo: logo ?? this.logo,
+      hasNewLogo: hasNewLogo ?? this.hasNewLogo,
+      canPickImage: canPickImage ?? this.canPickImage,
+      canValidate: canValidate ?? this.canValidate,
+      nameNode: nameNode ?? this.nameNode,
+      aboutNode: aboutNode ?? this.aboutNode,
+      emailNode: emailNode ?? this.emailNode,
+      websiteNode: websiteNode ?? this.websiteNode,
+      phoneNode: phoneNode ?? this.phoneNode,
+      formKey: formKey ?? this.formKey,
+      firstTimer: firstTimer ?? this.firstTimer,
     );
-
-    return _bzModel.copyWith(
-      logo: FileModel.bakeFileForLDB(draft.newLogoFile ?? draft.oldLogoURL),
-    );
-
   }
   // -------------------
+  DraftBz nullifyField({
+    bool id = false,
+    bool createdAt = false,
+    bool accountType = false,
+    bool name = false,
+    bool trigram = false,
+    bool zone = false,
+    bool about = false,
+    bool position = false,
+    bool contacts = false,
+    bool authors = false,
+    bool pendingAuthors = false,
+    bool showsTeam = false,
+    bool isVerified = false,
+    bool bzState = false,
+    bool flyersIDs = false,
+    bool bzSection = false,
+    bool bzTypes = false,
+    bool inactiveBzTypes = false,
+    bool bzForm = false,
+    bool inactiveBzForms = false,
+    bool scope = false,
+    bool scopeSpecs = false,
+    bool logo = false,
+    bool hasNewLogo = false,
+    bool canPickImage = false,
+    bool canValidate = false,
+    bool nameNode = false,
+    bool aboutNode = false,
+    bool emailNode = false,
+    bool websiteNode = false,
+    bool phoneNode = false,
+    bool formKey = false,
+    bool firstTimer = false,
+  }){
+    return DraftBz(
+      id: id == true ? null : this.id,
+      createdAt: createdAt == true ? null : this.createdAt,
+      accountType: accountType == true ? null : this.accountType,
+      name: name == true ? null : this.name,
+      trigram: trigram == true ? [] : this.trigram,
+      zone: zone == true ? null : this.zone,
+      about: about == true ? null : this.about,
+      position: position == true ? null : this.position,
+      contacts: contacts == true ? [] : this.contacts,
+      authors: authors == true ? [] : this.authors,
+      pendingAuthors: pendingAuthors == true ? [] : this.pendingAuthors,
+      showsTeam: showsTeam == true ? null : this.showsTeam,
+      isVerified: isVerified == true ? null : this.isVerified,
+      bzState: bzState == true ? null : this.bzState,
+      flyersIDs: flyersIDs == true ? [] : this.flyersIDs,
+      bzSection: bzSection == true ? null : this.bzSection,
+      bzTypes: bzTypes == true ? [] : this.bzTypes,
+      inactiveBzTypes: inactiveBzTypes == true ? [] : this.inactiveBzTypes,
+      bzForm: bzForm == true ? null : this.bzForm,
+      inactiveBzForms: inactiveBzForms == true ? [] : this.inactiveBzForms,
+      scope: scope == true ? [] : this.scope,
+      scopeSpecs: scopeSpecs == true ? [] : this.scopeSpecs,
+      logo: logo == true ? null : this.logo,
+      hasNewLogo: hasNewLogo == true ? null : this.hasNewLogo,
+      canPickImage: canPickImage == true ? null : this.canPickImage,
+      canValidate: canValidate == true ? null : this.canValidate,
+      nameNode: nameNode == true ? null : this.nameNode,
+      aboutNode: aboutNode == true ? null : this.aboutNode,
+      emailNode: emailNode == true ? null : this.emailNode,
+      websiteNode: websiteNode == true ? null : this.websiteNode,
+      phoneNode: phoneNode == true ? null : this.phoneNode,
+      formKey: formKey == true ? null : this.formKey,
+      firstTimer: firstTimer == true ? null : this.firstTimer,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CYPHERS
   ///
-  static BzModel bakeDraftForFirestore({
+  // -------------------
+  ///
+  static BzModel toBzModel({
     @required DraftBz draft,
   }){
 
@@ -413,10 +424,7 @@ class DraftBz {
       bzForm: draft.bzForm,
       name: draft.name,
       trigram: Stringer.createTrigram(input: draft.name),
-      logo: FileModel.bakeFileForUpload(
-        newFile: draft.newLogoFile,
-        existingPic: draft.oldLogoURL,
-      ),
+      logo: draft.logo.path,
       scope: SpecModel.getSpecsIDs(draft.scopeSpecs),
       zone: draft.zone,
       about: draft.about,
@@ -437,12 +445,122 @@ class DraftBz {
     );
 
   }
+  // --------------------
+
+  Map<String, dynamic> toLDB(){
+
+    return {
+      'id': id,
+      'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
+      'accountType': BzTyper.cipherBzAccountType(accountType),
+      'name': name,
+      'trigram': trigram,
+      'zone': zone?.toMap(),
+      'about': about,
+      'position': Atlas.cipherGeoPoint(point: position, toJSON: true),
+      'contacts': ContactModel.cipherContacts(contacts),
+      'authors': AuthorModel.cipherAuthors(authors),
+      'pendingAuthors': PendingAuthor.cipherPendingAuthors(pendingAuthors),
+      'showsTeam': showsTeam,
+      'isVerified': isVerified,
+      'bzState': BzTyper.cipherBzState(bzState),
+      'flyersIDs': flyersIDs,
+      'bzSection': bzSection,
+      'bzTypes': BzTyper.cipherBzTypes(bzTypes),
+      'inactiveBzTypes': inactiveBzTypes,
+      'bzForm': BzTyper.cipherBzForm(bzForm),
+      'inactiveBzForms': inactiveBzForms,
+      'scope': scope,
+      'scopeSpecs': scopeSpecs,
+      'logo': PicModel.cipherToLDB(logo),
+      'hasNewLogo': hasNewLogo,
+      'canPickImage': canPickImage,
+      'canValidate': canValidate,
+      // 'nameNode': nameNode,
+      // 'aboutNode': aboutNode,
+      // 'emailNode': emailNode,
+      // 'websiteNode': websiteNode,
+      // 'phoneNode': phoneNode,
+      // 'formKey': formKey,
+      'firstTimer': firstTimer,
+    };
+
+  }
+  // --------------------
+
+  static DraftBz fromLDB({
+    @required BuildContext context,
+    @required Map<String, dynamic> map,
+  }){
+
+    final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
+    final BzSection _bzSection = BzTyper.concludeBzSectionByBzTypes(_bzTypes);
+    final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
+
+    return DraftBz(
+    id: map['id'],
+    createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
+    accountType: BzTyper.decipherBzAccountType(map['accountType']),
+    name: map['name'],
+    trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+    zone: ZoneModel.decipherZone(map['zone']),
+    about: map['about'],
+    position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
+    contacts: ContactModel.decipherContacts(map['contacts']),
+    authors: AuthorModel.decipherAuthors(map['authors']),
+    pendingAuthors: PendingAuthor.decipherPendingAuthors(map['pendingAuthors']),
+    showsTeam: map['showsTeam'],
+    isVerified: map['isVerified'],
+    bzState: BzTyper.decipherBzState(map['bzState']),
+    flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
+    bzSection: _bzSection,
+    bzTypes: _bzTypes,
+    inactiveBzTypes: BzTyper.concludeDeactivatedBzTypesBySection(
+      bzSection: _bzSection,
+      initialBzTypes: _bzTypes,
+    ),
+    bzForm: BzTyper.decipherBzForm(map['bzForm']),
+    inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(_bzTypes),
+    scope: _scope,
+    scopeSpecs: SpecModel.generateSpecsByPhids(
+      context: context,
+      phids: _scope,
+    ),
+    logo: PicModel.decipherFromLDB(map['logo']),
+    hasNewLogo: map['hasNewLogo'],
+    canPickImage: true,
+    canValidate: false,
+    nameNode: null,
+    aboutNode: null,
+    emailNode: null,
+    websiteNode: null,
+    phoneNode: null,
+    formKey: null,
+    firstTimer: map['firstTimer'],
+    );
+
+  }
+  // --------------------
+
+  static DraftBz reAttachNodes({
+    @required DraftBz draftFromLDB,
+    @required DraftBz draftWithNodes,
+  }){
+    return draftFromLDB.copyWith(
+      nameNode: draftWithNodes.nameNode,
+      aboutNode: draftWithNodes.aboutNode,
+      emailNode: draftWithNodes.emailNode,
+      websiteNode: draftWithNodes.websiteNode,
+      phoneNode: draftWithNodes.phoneNode,
+      formKey: draftWithNodes.formKey,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
 
   // -------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void disposeDraftBzFocusNodes(){
     nameNode.dispose();
     aboutNode.dispose();
@@ -491,8 +609,8 @@ class DraftBz {
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.scope, list2: draft2.scope) == true &&
           SpecModel.checkSpecsListsAreIdentical(draft1.scopeSpecs, draft2.scopeSpecs) == true &&
-          draft1.oldLogoURL == draft2.oldLogoURL &&
-          FileModel.checkFileModelsAreIdentical(model1: draft1.newLogoFile, model2: draft2.newLogoFile) == true &&
+          PicModel.checkPicsAreIdentical(pic1: draft1.logo, pic2: draft2.logo) == true &&
+          draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&
           draft1.canValidate == draft2.canValidate &&
           draft1.firstTimer == draft2.firstTimer
@@ -509,6 +627,28 @@ class DraftBz {
     }
 
     return _areIdentical;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // -------------------
+  ///
+  String getLogoPath(){
+
+    if (firstTimer == true){
+      return null;
+    }
+    else {
+      return StorageColl.getBzLogoPath(id);
+    }
+
+  }
+  // -------------------
+  ///
+  List<String> getLogoOwners(){
+    final AuthorModel _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
+    return <String>[_author?.userID];
   }
   // -----------------------------------------------------------------------------
 
@@ -562,8 +702,8 @@ class DraftBz {
       inactiveBzForms.hashCode^
       scope.hashCode^
       scopeSpecs.hashCode^
-      oldLogoURL.hashCode^
-      newLogoFile.hashCode^
+      logo.hashCode^
+      hasNewLogo.hashCode^
       canPickImage.hashCode^
       canValidate.hashCode^
       nameNode.hashCode^

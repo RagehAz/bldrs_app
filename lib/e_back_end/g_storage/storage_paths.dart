@@ -1,5 +1,3 @@
-
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:flutter/material.dart';
 
 /// ------------------------------------o
@@ -68,6 +66,7 @@ abstract class StorageColl{
   /// PATH GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getUserPicPath(String userID){
 
     if (userID == null){
@@ -79,6 +78,7 @@ abstract class StorageColl{
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzLogoPath(String bzID){
 
     if (bzID == null){
@@ -90,6 +90,7 @@ abstract class StorageColl{
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getAuthorPicPath({
     @required String bzID,
     @required String authorID,
@@ -104,6 +105,7 @@ abstract class StorageColl{
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzPosterPath(String bzID){
 
     if (bzID == null){
@@ -124,11 +126,11 @@ abstract class StorageColl{
       return null;
     }
     else {
-      final String slideID = SlideModel.generateSlideID(
-          flyerID: flyerID,
-          slideIndex: slideIndex
-      );
-      return '$flyers/$flyerID/$slideID';
+      // final String slideID = SlideModel.generateSlideID(
+      //     flyerID: flyerID,
+      //     slideIndex: slideIndex
+      // );
+      return '$flyers/$flyerID/$slideIndex';
     }
 
   }

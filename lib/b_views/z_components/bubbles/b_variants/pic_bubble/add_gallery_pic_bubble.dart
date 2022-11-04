@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
@@ -11,8 +11,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ enum BubbleType {
 class AddImagePicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AddImagePicBubble({
-    @required this.fileModel,
+    @required this.picModel,
     @required this.onAddPicture,
     @required this.titleVerse,
     @required this.redDot,
@@ -40,7 +41,7 @@ class AddImagePicBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onAddPicture;
-  final FileModel fileModel;
+  final PicModel picModel;
   final Verse titleVerse;
   final BubbleType bubbleType;
   final bool redDot;
@@ -115,14 +116,14 @@ class AddImagePicBubble extends StatelessWidget {
 
                   /// PICTURE LAYER
                   _FilePicSplitter(
-                      fileModel: fileModel,
+                      picModel: picModel,
                       bubbleType: bubbleType,
                       picWidth: picWidth
                   ),
 
                   /// PLUS ICON LAYER
                   _PlusIconLayer(
-                    fileModel: fileModel,
+                    picModel: picModel,
                     bubbleType: bubbleType,
                     onAddPic: onAddPicture,
                     picWidth: picWidth,
@@ -145,7 +146,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.phoneGallery,
                       iconSizeFactor: 0.6,
-                      onTap: () => onAddPicture(ImagePickerType.galleryImage),
+                      onTap: () => onAddPicture(PicMakerType.galleryImage),
                     ),
 
                     /// DELETE pic
@@ -154,7 +155,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.camera,
                       iconSizeFactor: 0.5,
-                      onTap: () => onAddPicture(ImagePickerType.cameraImage),
+                      onTap: () => onAddPicture(PicMakerType.cameraImage),
                     ),
 
                   ],
@@ -181,13 +182,13 @@ class AddImagePicBubble extends StatelessWidget {
 class _FilePicSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _FilePicSplitter({
-    @required this.fileModel,
+    @required this.picModel,
     @required this.bubbleType,
     @required this.picWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FileModel fileModel;
+  final PicModel picModel;
   final BubbleType bubbleType;
   final double picWidth;
   /// --------------------------------------------------------------------------
@@ -229,12 +230,10 @@ class _FilePicSplitter extends StatelessWidget {
       picWidth: picWidth,
     );
 
-    final dynamic pic = fileModel?.file ?? fileModel?.url;
-
     if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ){
       return BzLogo(
         width: picWidth,
-        image: pic,
+        image: picModel,
         isVerified: false,
         // margins: const EdgeInsets.all(10),
         corners: _picBorders,
@@ -247,7 +246,7 @@ class _FilePicSplitter extends StatelessWidget {
       return Balloona(
         balloonWidth: picWidth,
         loading: false,
-        pic: pic,
+        pic: picModel,
         balloonType: BalloonType.thinking,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
       );
@@ -258,7 +257,7 @@ class _FilePicSplitter extends StatelessWidget {
       return DreamBox(
         width: picWidth,
         height: picWidth,
-        icon: pic,
+        icon: picModel,
         bubble: false,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
       );
@@ -271,15 +270,15 @@ class _FilePicSplitter extends StatelessWidget {
 class _PlusIconLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _PlusIconLayer({
-    @required this.fileModel,
+    @required this.picModel,
     @required this.onAddPic,
     @required this.bubbleType,
     @required this.picWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FileModel fileModel;
-  final ValueChanged<ImagePickerType> onAddPic;
+  final PicModel picModel;
+  final ValueChanged<PicMakerType> onAddPic;
   final BubbleType bubbleType;
   final double picWidth;
   /// --------------------------------------------------------------------------
@@ -293,7 +292,7 @@ class _PlusIconLayer extends StatelessWidget {
     );
 
     /// PLUS ICON
-    if (fileModel == null){
+    if (picModel == null){
       return DreamBox(
         height: AddImagePicBubble.picWidth,
         width: AddImagePicBubble.picWidth,
@@ -303,7 +302,7 @@ class _PlusIconLayer extends StatelessWidget {
         bubble: false,
         opacity: 0.9,
         iconColor: Colorz.white255,
-        onTap: () => onAddPic(ImagePickerType.galleryImage),
+        onTap: () => onAddPic(PicMakerType.galleryImage),
       );
     }
 
@@ -311,7 +310,7 @@ class _PlusIconLayer extends StatelessWidget {
     else {
 
       /// SIZE IS NULL
-      if (fileModel.size == null || fileModel.size < (3 * 1024 * 1024)){
+      if (picModel?.bytes == null || picModel.bytes.length < (3 * 1024 * 1024)){
         return const SizedBox();
       }
 
@@ -322,7 +321,7 @@ class _PlusIconLayer extends StatelessWidget {
           height: AddImagePicBubble.picWidth,
           alignment: Aligners.superInverseBottomAlignment(context),
           child: SuperVerse(
-            verse: Verse.plain('${fileModel.size} ${xPhrase( context, 'phid_mega_byte')}'),
+            verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} ${xPhrase( context, 'phid_mega_byte')}'),
             size: 1,
             centered: false,
             shadow: true,

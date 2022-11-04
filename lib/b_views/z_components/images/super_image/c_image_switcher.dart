@@ -206,7 +206,7 @@ class ImageSwitcher extends StatelessWidget {
     else if (pic is PicModel){
       return CachelessImage(
         key: const ValueKey<String>('SuperImage_pic_model'),
-        bytes: pic.bytes,
+        bytes: pic.picModel,
         width: width,
         height: height,
         color: backgroundColor,

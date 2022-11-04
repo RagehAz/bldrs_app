@@ -8,7 +8,6 @@ import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
 import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -63,7 +62,7 @@ class FlyerFireOps {
 
       if (_flyerID != null){
 
-        final String _bzCreatorID = AuthorModel.getCreatorAuthorFromBz(bzModel).userID;
+        final String _bzCreatorID = AuthorModel.getCreatorAuthorFromAuthors(bzModel).userID;
         final String _flyerAuthorID = AuthFireOps.superUserID();
 
         _finalFlyer = await _uploadImagesAndPDFsAndUpdateFlyer(
@@ -391,7 +390,7 @@ class FlyerFireOps {
               collName: StorageColl.slides,
               inputFile: slide.pic,
               ownersIDs: <String>[
-                AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
+                AuthorModel.getCreatorAuthorFromAuthors(bzModel).userID,
                 oldFlyer.authorID,
               ],
               docName: SlideModel.generateSlideID(

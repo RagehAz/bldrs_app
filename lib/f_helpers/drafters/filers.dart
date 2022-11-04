@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -423,7 +422,7 @@ class Filers {
   }
   // --------------------
   /// BASE 64
-// ---------------------
+  // ---------------------
   static Future<File> getFileFromBase64(String base64) async {
 
     final Uint8List _fileAgainAsInt = base64Decode(base64);
@@ -438,7 +437,7 @@ class Filers {
   }
   // --------------------
   /// DYNAMICS
-// ---------------------
+  // ---------------------
   static Future<File> getFileFromDynamics(dynamic pic) async {
     File _file;
 
@@ -601,87 +600,6 @@ class Filers {
       }
 
     }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// IMAGE FILE RESIZE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<File> resizeImage({
-    @required File file,
-    /// image width will be resized to this final width
-    @required double finalWidth,
-  }) async {
-
-    blog('resizeImage : START');
-
-    File _output = file;
-
-    if (file != null){
-
-      img.Image _imgImage = await Floaters.getImgImageFromFile(file);
-
-      /// only resize if final width is smaller than original
-      if (finalWidth < _imgImage.width){
-
-        final double _aspectRatio = await Dimensions.getFileAspectRatio(file);
-
-        _imgImage = Floaters.resizeImgImage(
-          imgImage: _imgImage,
-          width: finalWidth.floor(),
-          height: Dimensions.getHeightByAspectRatio(
-              aspectRatio: _aspectRatio,
-              width: finalWidth
-          ).floor(),
-        );
-
-        final File _refile = await Filers.getFileFromImgImage(
-          imgImage: _imgImage,
-          fileName: Filers.getFileNameFromFile(
-            file: file,
-            withExtension: true,
-          ),
-        );
-
-        _output = _refile;
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<File>> resizeImages({
-    @required List<File> files,
-    @required double finalWidth,
-  }) async {
-    final List<File> _files = <File>[];
-
-    if (Mapper.checkCanLoopList(files) == true){
-
-      await Future.wait(<Future>[
-
-        ...List.generate(files.length, (index) async {
-
-          final File _file = await resizeImage(
-            file: files[index],
-            finalWidth: finalWidth ?? 500,
-          );
-
-          if (_file != null){
-            _files.add(_file);
-          }
-
-        }),
-
-      ]);
-
-    }
-
-    return _files;
 
   }
   // -----------------------------------------------------------------------------
