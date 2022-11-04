@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
+
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -11,10 +13,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image/image.dart' as img;
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
-enum ImagePickerType {
+enum PicMakerType {
   cameraImage,
   galleryImage,
 }
@@ -30,18 +33,18 @@ enum PicType {
   notiBanner,
 }
 
-class Imagers {
+class PicMaker {
   // -----------------------------------------------------------------------------
 
-  const Imagers();
+  const PicMaker();
 
   // -----------------------------------------------------------------------------
 
   /// PICK IMAGE FROM GALLERY
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<FileModel> pickAndCropSingleImage({
+  ///
+  static Future<Uint8List> pickAndCropSinglePic({
     @required BuildContext context,
     @required bool cropAfterPick,
     @required double aspectRatio,
@@ -49,14 +52,14 @@ class Imagers {
     AssetEntity selectedAsset,
   }) async {
 
-    FileModel _fileModel;
+    Uint8List _bytes;
 
     final List<AssetEntity> _assets = selectedAsset == null ?
     <AssetEntity>[]
         :
     <AssetEntity>[selectedAsset];
 
-    final List<FileModel> _fileModels = await pickAndCropMultipleImages(
+    final List<Uint8List> _bytezz = await pickAndCropMultiplePics(
       context: context,
       maxAssets: 1,
       selectedAssets: _assets,
@@ -65,15 +68,15 @@ class Imagers {
       resizeToWidth: resizeToWidth,
     );
 
-    if (Mapper.checkCanLoopList(_fileModels) == true){
-      _fileModel = _fileModels.first;
+    if (Mapper.checkCanLoopList(_bytezz) == true){
+      _bytes = _bytezz.first;
     }
 
-    return _fileModel;
+    return _bytes;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<FileModel>> pickAndCropMultipleImages({
+  ///
+  static Future<List<Uint8List>> pickAndCropMultiplePics({
     @required BuildContext context,
     @required double aspectRatio,
     @required bool cropAfterPick,
@@ -83,36 +86,36 @@ class Imagers {
   }) async {
 
     /// PICK
-    List<FileModel> _fileModels = await _pickMultipleImages(
+    List<Uint8List> _bytezz = await _pickMultiplePics(
       context: context,
       maxAssets: maxAssets,
       selectedAssets: selectedAssets,
     );
 
     /// CROP
-    if (cropAfterPick == true && Mapper.checkCanLoopList(_fileModels) == true){
-      _fileModels = await cropImages(
+    if (cropAfterPick == true && Mapper.checkCanLoopList(_bytezz) == true){
+      _bytezz = await cropPics(
         context: context,
-        pickedFileModels: _fileModels,
+        bytezz: _bytezz,
         aspectRatio: aspectRatio,
 
       );
     }
 
     /// RESIZE
-    if (resizeToWidth != null && Mapper.checkCanLoopList(_fileModels) == true){
-      _fileModels = await resizeImages(
-        inputFileModels: _fileModels,
+    if (resizeToWidth != null && Mapper.checkCanLoopList(_bytezz) == true){
+      _bytezz = await resizePics(
+        bytezz: _bytezz,
         resizeToWidth: resizeToWidth,
         // isFlyerRatio: isFlyerRatio,
       );
     }
 
-    return _fileModels;
+    return _bytezz;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<FileModel>> _pickMultipleImages({
+  ///
+  static Future<List<Uint8List>> _pickMultiplePics({
     @required BuildContext context,
     @required int maxAssets,
     List<AssetEntity> selectedAssets,
@@ -239,22 +242,15 @@ class Imagers {
       ),
     );
 
-    final List<FileModel> _output = <FileModel>[];
+    final List<Uint8List> _output = <Uint8List>[];
 
     if (Mapper.checkCanLoopList(pickedAssets) == true){
 
       for (final AssetEntity asset in pickedAssets){
 
-        final File _file = await asset.file;
+        final Uint8List _bytes = await Floaters.getUint8ListFromFile(await asset.file);
 
-        final FileModel _fileModel = FileModel(
-          size: Filers.getFileSizeInMb(_file),
-          fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
-          file: _file,
-          // url: null,
-        );
-
-        _output.add(_fileModel);
+        _output.add(_bytes);
       }
 
     }
@@ -266,46 +262,46 @@ class Imagers {
   /// TAKE IMAGE FROM CAMERA
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<FileModel> shootAndCropCameraImage({
+  ///
+  static Future<Uint8List> shootAndCropCameraPic({
     @required BuildContext context,
     @required bool cropAfterPick,
     @required double aspectRatio,
     double resizeToWidth,
   }) async {
 
-    FileModel _output;
+    Uint8List _output;
 
     /// SHOOT
-    final FileModel _fileModel = await _shootCameraImage(
+    final Uint8List _bytes = await _shootCameraPic(
       context: context,
     );
 
     /// CROP - RESIZE
-    if (_fileModel != null){
+    if (_bytes != null){
 
-      List<FileModel> _outputFiles = <FileModel>[_fileModel];
+      List<Uint8List> _bytezz = <Uint8List>[_bytes];
 
       /// CROP
       if (cropAfterPick == true){
-        _outputFiles = await cropImages(
+        _bytezz = await cropPics(
           context: context,
-          pickedFileModels: _outputFiles,
+          bytezz: _bytezz,
           aspectRatio: aspectRatio,
         );
       }
 
       /// RESIZE
       if (resizeToWidth != null){
-        _outputFiles = await resizeImages(
-          inputFileModels: _outputFiles,
+        _bytezz = await resizePics(
+          bytezz: _bytezz,
           resizeToWidth: resizeToWidth,
         );
       }
 
       /// ASSIGN THE FILE
-      if (Mapper.checkCanLoopList(_outputFiles) == true){
-        _output = _outputFiles.first;
+      if (Mapper.checkCanLoopList(_bytezz) == true){
+        _output = _bytezz.first;
       }
 
     }
@@ -313,8 +309,8 @@ class Imagers {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<FileModel> _shootCameraImage({
+  ///
+  static Future<Uint8List> _shootCameraPic({
     @required BuildContext context,
   }) async {
 
@@ -385,121 +381,139 @@ class Imagers {
       ),
     );
 
-    final File _file = await entity?.file;
+    if (entity == null){
+      return null;
+    }
+    else {
+      final File _file = await entity?.file;
+      final Uint8List _bytes = await Floaters.getUint8ListFromFile(_file);
+      return _bytes;
+    }
 
-    return FileModel(
-      size: Filers.getFileSizeInMb(_file),
-      fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
-      file: _file,
-      // url: null,
-    );
   }
   // -----------------------------------------------------------------------------
 
   /// CROP IMAGE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<FileModel> cropImage({
+  ///
+  static Future<Uint8List> cropPic({
     @required BuildContext context,
-    @required FileModel pickedFile,
+    @required Uint8List bytes,
     @required double aspectRatio,
   }) async {
+    Uint8List _bytes;
 
-    FileModel _fileModel;
-
-    final List<FileModel> _fileModels = await cropImages(
+    final List<Uint8List> _bytezz = await cropPics(
       context: context,
-      pickedFileModels: <FileModel>[pickedFile],
+      bytezz: <Uint8List>[bytes],
       aspectRatio: aspectRatio,
     );
 
-    if (Mapper.checkCanLoopList(_fileModels) == true){
-      _fileModel = _fileModels.first;
+    if (Mapper.checkCanLoopList(_bytezz) == true){
+      _bytes = _bytezz.first;
     }
 
-    return _fileModel;
+    return _bytes;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<FileModel>> cropImages({
+  ///
+  static Future<List<Uint8List>> cropPics({
     @required BuildContext context,
-    @required List<FileModel> pickedFileModels,
+    @required List<Uint8List> bytezz,
     @required double aspectRatio,
   }) async {
 
-    List<FileModel> _fileModels = <FileModel>[];
+    List<Uint8List> _bytezz = <Uint8List>[];
 
-    if (Mapper.checkCanLoopList(pickedFileModels) == true){
+    if (Mapper.checkCanLoopList(bytezz) == true){
 
-      _fileModels = await Nav.goToNewScreen(
+      _bytezz = await Nav.goToNewScreen(
         context: context,
         screen: CroppingScreen(
-          fileModels: pickedFileModels,
+          bytezz: bytezz,
           aspectRatio: aspectRatio,
         ),
       );
 
     }
 
-    return _fileModels;
+    return _bytezz;
   }
   // -----------------------------------------------------------------------------
 
-  /// RESIZE IMAGE
+  /// RESIZE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<FileModel>> resizeImages({
-    @required List<FileModel> inputFileModels,
-    @required double resizeToWidth,
-    // @required bool isFlyerRatio,
+  ///
+  static Future<Uint8List> resizePic({
+    @required Uint8List bytes,
+    /// image width will be resized to this final width
+    @required double finalWidth,
   }) async {
 
-    List<FileModel> _fileModels = <FileModel>[];
+    blog('resizeImage : START');
 
-    if (Mapper.checkCanLoopList(inputFileModels) == true){
+    Uint8List _output = bytes;
 
-      final List<File> _files = await Filers.resizeImages(
-        files: FileModel.getFilesFromModels(inputFileModels),
-        // aspectRatio: isFlyerRatio == true ? FlyerDim.flyerAspectRatio : 1,
-        finalWidth: resizeToWidth,
-      );
+    if (bytes != null){
 
-      if (Mapper.checkCanLoopList(_files) == true){
-        _fileModels = FileModel.createModelsByNewFiles(_files);
+      img.Image _imgImage = await Floaters.getImgImageFromUint8List(bytes);
+
+      /// only resize if final width is smaller than original
+      if (finalWidth < _imgImage.width){
+
+        final double _aspectRatio = await Dimensions.getPicAspectRatio(bytes);
+
+        _imgImage = Floaters.resizeImgImage(
+          imgImage: _imgImage,
+          width: finalWidth.floor(),
+          height: Dimensions.getHeightByAspectRatio(
+              aspectRatio: _aspectRatio,
+              width: finalWidth
+          ).floor(),
+        );
+
+        _output = Floaters.getUint8ListFromImgImage(_imgImage);
       }
 
     }
 
-    return _fileModels;
+    return _output;
   }
   // --------------------
   ///
-  static Future<FileModel> resizeImage({
-    @required FileModel fileModel,
+  static Future<List<Uint8List>> resizePics({
+    @required List<Uint8List> bytezz,
     @required double resizeToWidth,
   }) async {
-    FileModel _output;
+    final List<Uint8List> _output = <Uint8List>[];
 
-    if (fileModel != null){
+    if (Mapper.checkCanLoopList(bytezz) == true){
 
-      final List<FileModel> _resized = await resizeImages(
-          inputFileModels: <FileModel>[fileModel],
-          resizeToWidth: resizeToWidth
-      );
+      for (final Uint8List bytes in bytezz){
 
-      _output = _resized.first;
+        final Uint8List _resized = await resizePic(
+          bytes: bytes,
+          finalWidth: resizeToWidth,
+        );
+
+        _output.add(_resized);
+
+      }
 
     }
 
     return _output;
+
   }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED : WORKS PERFECT
   static bool checkPicsAreIdentical({
     @required dynamic pic1,
@@ -530,6 +544,7 @@ class Imagers {
 
     return _identical;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool picturesURLsAreIdentical({
@@ -572,20 +587,26 @@ class Imagers {
         _isEmpty = TextCheck.isEmpty(pic);
       }
 
+      /// FILE
       else if (pic is File){
         final File _file = pic;
         _isEmpty = TextCheck.isEmpty(_file.path);
       }
 
-      else if (pic is FileModel){
-        _isEmpty = FileModel.checkModelIsEmpty(pic);
-      }
+      /// STRING
       else if (pic is String){
         _isEmpty = TextCheck.isEmpty(pic);
       }
+
+      /// BYTES
       else if (ObjectCheck.objectIsUint8List(pic) == true){
         final Uint8List _uInts = pic;
         _isEmpty = _uInts.isEmpty;
+      }
+
+      else if (pic is PicModel){
+        final PicModel picModel = pic;
+        _isEmpty = Mapper.checkCanLoopList(picModel.bytes) == false;
       }
 
     }
@@ -623,57 +644,6 @@ class Imagers {
       case PicType.askPic:return 150;break;
       default:return 200;
     }
-  }
-   */
-  // -----------------------------------------------------------------------------
-
-  /// CIPHER
-
-  // --------------------
-  ///
-  static String cipherPic({
-    @required dynamic pic,
-    @required bool toJSON,
-  }){
-    String _output;
-
-    if (pic != null){
-
-      /// TO JSON
-      if (toJSON == true){
-
-        /// PIC IS URL
-        if (ObjectCheck.isAbsoluteURL(pic) == true){
-          _output = pic;
-        }
-        /// PIC IS FILE MODEL
-        else if (pic is FileModel){
-          final FileModel fileModel = pic;
-          _output = fileModel?.file?.path ?? fileModel?.url;
-        }
-        else if (ObjectCheck.objectIsFile(pic) == true){
-          final File _file = pic;
-          _output = _file.path;
-        }
-
-      }
-
-      /// TO FIRE STORE
-      else {
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /*
-  static dynamic decipherPic({
-    @required String pic,
-    @required bool fromJSON,
-  }){
-
   }
    */
   // -----------------------------------------------------------------------------

@@ -1,25 +1,22 @@
 import 'dart:io';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
 import 'package:bldrs/a_models/x_secondary/record_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_ops/real_ops/app_feedback_real_ops.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class BzFireOps {
@@ -32,66 +29,68 @@ class BzFireOps {
   /// CREATE
 
   // --------------------
-  ///
+  /// TASK : RE-WRITE THIS
   static Future<BzModel> createBz({
     @required BzModel draftBz,
     @required UserModel userModel,
   }) async {
 
-    blog('createBz : START');
-
-    BzModel _output;
-    bool _result;
-
-    _result = await tryCatchAndReturnBool(
-        methodName: 'createBz',
-        functions: () async {
-
-          final String _bzID = await _createEmptyBzDocToGetBzID();
-
-          final String _bzLogoURL = await _uploadBzLogoAndGetURL(
-            logo: draftBz.logo,
-            bzID: _bzID,
-            bzCreatorID: userModel.id,
-          );
-
-          /// update authorModel with _authorPicURL
-          final AuthorModel _createAuthor = await _uploadAuthorPicAndCreateNewCreatorAuthor(
-            draftBz: draftBz,
-            userModel: userModel,
-            bzID: _bzID,
-          );
-
-          await _addBzIDToUserBzzIDs(
-            userModel: userModel,
-            bzID: _bzID,
-          );
-
-          final BzModel _finalBzModel = draftBz.copyWith(
-            id: _bzID,
-            createdAt: DateTime.now(),
-            logo: _bzLogoURL,
-            authors: <AuthorModel>[_createAuthor],
-          );
-
-          await _updateBzDoc(
-            finalBzModel: _finalBzModel,
-          );
-
-          _output = _finalBzModel;
-
-        },
-        onError: (String error){
-          blog('the create bz error is : $error');
-          _result = false;
-        }
-    );
-
-    blog('createBz : END');
-
-    return _result == true ? _output : null;
+    // blog('createBz : START');
+    //
+    // BzModel _output;
+    // bool _result;
+    //
+    // _result = await tryCatchAndReturnBool(
+    //     methodName: 'createBz',
+    //     functions: () async {
+    //
+    //       final String _bzID = await _createEmptyBzDocToGetBzID();
+    //
+    //       // final String _bzLogoURL = await _uploadBzLogoAndGetURL(
+    //       //   logo: draftBz.logo,
+    //       //   bzID: _bzID,
+    //       //   bzCreatorID: userModel.id,
+    //       // );
+    //
+    //       /// update authorModel with _authorPicURL
+    //       final AuthorModel _createAuthor = await _uploadAuthorPicAndCreateNewCreatorAuthor(
+    //         draftBz: draftBz,
+    //         userModel: userModel,
+    //         bzID: _bzID,
+    //       );
+    //
+    //       await _addBzIDToUserBzzIDs(
+    //         userModel: userModel,
+    //         bzID: _bzID,
+    //       );
+    //
+    //       final BzModel _finalBzModel = draftBz.copyWith(
+    //         id: _bzID,
+    //         createdAt: DateTime.now(),
+    //         logo: _bzLogoURL,
+    //         authors: <AuthorModel>[_createAuthor],
+    //       );
+    //
+    //       await _updateBzDoc(
+    //         finalBzModel: _finalBzModel,
+    //       );
+    //
+    //       _output = _finalBzModel;
+    //
+    //     },
+    //     onError: (String error){
+    //       blog('the create bz error is : $error');
+    //       _result = false;
+    //     }
+    // );
+    //
+    // blog('createBz : END');
+    //
+    // return _result == true ? _output : null;
   }
   // --------------------
+  /// TASK : RE-CONSIDER THIS
+  /*
   ///
   static Future<String> _createEmptyBzDocToGetBzID() async {
 
@@ -107,7 +106,10 @@ class BzFireOps {
 
     return _docRef?.id;
   }
+   */
   // --------------------
+  /// DEPRECATED
+  /*
   ///
   static Future<String> _uploadBzLogoAndGetURL({
     @required dynamic logo,
@@ -153,8 +155,10 @@ class BzFireOps {
 
     return _bzLogoURL;
   }
+   */
   // --------------------
-  ///
+  /// DEPRECATED
+  /*
   static Future<AuthorModel> _uploadAuthorPicAndCreateNewCreatorAuthor({
     @required BzModel draftBz,
     @required UserModel userModel,
@@ -203,6 +207,7 @@ class BzFireOps {
 
     return _creatorAuthor;
   }
+   */
   // --------------------
   ///
   static Future<void> _addBzIDToUserBzzIDs({
@@ -287,7 +292,7 @@ class BzFireOps {
   /// UPDATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<BzModel> updateBz({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -308,21 +313,21 @@ class BzFireOps {
 
       if (_areTheSame == false){
 
-        final BzModel _updatedBzModel = await _updateBzLogoIfChangedAndReturnNewBzModel(
-          newBzModel: newBzModel,
-          oldBzModel: oldBzModel,
-        );
-
-        final BzModel _finalBzModel = await updateAuthorPicIfChangedAndReturnNewBzModel(
-          context: context,
-          bzModel: _updatedBzModel,
-        );
+        // final BzModel _updatedBzModel = await _updateBzLogoIfChangedAndReturnNewBzModel(
+        //   newBzModel: newBzModel,
+        //   oldBzModel: oldBzModel,
+        // );
+        //
+        // final BzModel _finalBzModel = await updateAuthorPicIfChangedAndReturnNewBzModel(
+        //   context: context,
+        //   bzModel: _updatedBzModel,
+        // );
 
         await _updateBzDoc(
-          finalBzModel: _finalBzModel,
+          finalBzModel: newBzModel,
         );
 
-        _output = _finalBzModel;
+        _output = newBzModel;
 
       }
 
@@ -333,13 +338,14 @@ class BzFireOps {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /*
+  ///
   static Future<BzModel> _updateBzLogoIfChangedAndReturnNewBzModel({
     @required BzModel newBzModel,
     @required BzModel oldBzModel,
   }) async {
 
-    String _bzLogoURL = oldBzModel.logo;
+    String _bzLogoURL = newBzModel.logo;
 
     blog('_updateBzLogoIfChangedAndUpdatedBzModel : START');
 
@@ -377,8 +383,10 @@ class BzFireOps {
 
     return _updatedBzModel;
   }
+   */
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /*
+  ///
   static Future<BzModel> updateAuthorPicIfChangedAndReturnNewBzModel({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -436,6 +444,7 @@ class BzFireOps {
 
     return _finalBz;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateBzDoc({

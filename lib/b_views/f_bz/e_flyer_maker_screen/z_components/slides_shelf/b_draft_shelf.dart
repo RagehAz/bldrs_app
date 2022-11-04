@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xx_draft_shelf_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +129,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 slide: slide,
                 draftFlyer: widget.draft,
               ),
-              onAddSlides: (ImagePickerType imagePickerType) => onAddNewSlides(
+              onAddSlides: (PicMakerType imagePickerType) => onAddNewSlides(
                 context: context,
                 isLoading: _loading,
                 draftFlyer: widget.draft,

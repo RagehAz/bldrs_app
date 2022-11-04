@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
@@ -8,8 +6,6 @@ import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,19 +62,14 @@ class AuthorshipEntryProtocols {
     );
 
     /// MODIFY BZ MODEL --------------------------
-    final File _file = await StorageFileOps.downloadFileByURL(
-      url: _uploadedUser.pic,
-    );
     BzModel _bzModel = BzModel.addNewUserAsAuthor(
       oldBzModel: _oldBzModel,
-      userModel: _uploadedUser.copyWith(
-        pic: _file,
-      ),
+      userModel: _uploadedUser,
     );
-    _bzModel = await BzFireOps.updateAuthorPicIfChangedAndReturnNewBzModel(
-      context: context,
-      bzModel: _bzModel,
-    );
+    // _bzModel = await BzFireOps.updateAuthorPicIfChangedAndReturnNewBzModel(
+    //   context: context,
+    //   bzModel: _bzModel,
+    // );
 
     _bzModel = PendingAuthor.removePendingAuthorFromBz(
         bzModel: _bzModel,

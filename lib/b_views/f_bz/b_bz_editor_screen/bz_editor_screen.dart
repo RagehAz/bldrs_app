@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/file_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_controller.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -23,7 +22,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -79,6 +78,16 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
+        /// PREPARE (PIC - ZONE - CONTACTS)
+        setNotifier(
+          notifier: draftNotifier,
+          mounted: mounted,
+          value: await DraftBz.prepareForEditing(
+            context: context,
+            draft: draftNotifier.value,
+          ),
+        );
+        // -----------------------------
         if (widget.checkLastSession == true) {
           await loadBzEditorLastSession(
             context: context,
@@ -149,7 +158,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           verse: Verse.plain('BOM'),
           onTap: (){
 
-            final BzModel _bzModel = DraftBz.bakeDraftForFirestore(
+            final BzModel _bzModel = DraftBz.toBzModel(
                 draft: draftNotifier.value,
             );
 
@@ -296,7 +305,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// ADD LOGO
                 AddImagePicBubble(
                   key: const ValueKey<String>('add_logo_bubble'),
-                  fileModel: draft.newLogoFile ?? FileModel(url: draft.oldLogoURL,),
+                  picModel: draft.logo,
                   titleVerse: const Verse(
                     text: 'phid_businessLogo',
                     translate: true,
@@ -306,10 +315,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                   // autoValidate: true,
                   validator: () => Formers.picValidator(
-                    pic: draft.newLogoFile ?? draft.oldLogoURL,
+                    pic: draft.logo,
                     canValidate: draft.canValidate,
                   ),
-                  onAddPicture: (ImagePickerType imagePickerType) => onChangeBzLogo(
+                  onAddPicture: (PicMakerType imagePickerType) => onChangeBzLogo(
                     context: context,
                     draftNotifier: draftNotifier,
                     imagePickerType: imagePickerType,

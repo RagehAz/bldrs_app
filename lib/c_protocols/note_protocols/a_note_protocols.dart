@@ -217,7 +217,7 @@ class NoteProtocols {
 
                 final String _bzID = note.parties.senderID;
                 final BzModel _bzModel = await BzProtocols.fetch(context: context, bzID: _bzID);
-                final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
+                final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel);
                 _ownersIDs = [_creator.userID];
 
               }

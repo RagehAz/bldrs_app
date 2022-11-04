@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/b_bz/mutables/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
@@ -127,27 +128,28 @@ class BzLDBOps {
   /// BZ EDITOR SESSION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> saveBzEditorSession({
-    @required BzModel bzModel,
+    @required DraftBz draft,
   }) async {
 
-    if (bzModel != null){
+    if (draft != null){
 
       await LDBOps.insertMap(
         docName: LDBDoc.bzEditor,
-        input: bzModel.toMap(toJSON: true),
+        input: draft.toLDB(),
       );
 
     }
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<BzModel> loadBzEditorSession({
+  ///
+  static Future<DraftBz> loadBzEditorSession({
+    @required BuildContext context,
     @required String bzID,
   }) async {
-    BzModel _bz;
+    DraftBz _draft;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[bzID],
@@ -156,14 +158,14 @@ class BzLDBOps {
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _bz = BzModel.decipherBz(
+      _draft = DraftBz.fromLDB(
         map: _maps.first,
-        fromJSON: true,
+        context: context,
       );
 
     }
 
-    return _bz;
+    return _draft;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -180,7 +182,7 @@ class BzLDBOps {
   /// AUTHOR EDITOR SESSION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> saveAuthorEditorSession({
     @required AuthorModel authorModel,
   }) async {
@@ -189,14 +191,14 @@ class BzLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.authorEditor,
-        input: authorModel.toMap(),
+        input: authorModel.toMap(includePicModel: true),
       );
 
     }
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<AuthorModel> loadAuthorEditorSession({
     @required String authorID,
   }) async {

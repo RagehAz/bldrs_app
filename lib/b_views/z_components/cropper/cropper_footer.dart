@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
@@ -13,7 +13,7 @@ class CropperFooter extends StatelessWidget {
   const CropperFooter({
     @required this.currentImageIndex,
     @required this.onCropImages,
-    @required this.files,
+    @required this.bytezz,
     @required this.onImageTap,
     @required this.aspectRatio,
     @required this.screenHeight,
@@ -22,7 +22,7 @@ class CropperFooter extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final ValueNotifier<int> currentImageIndex;
   final Function onCropImages;
-  final List<File> files;
+  final List<Uint8List> bytezz;
   final ValueChanged<int> onImageTap;
   final double aspectRatio;
   final double screenHeight;
@@ -71,7 +71,7 @@ class CropperFooter extends StatelessWidget {
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: files.length,
+                  itemCount: bytezz.length,
                   padding: Scale.superInsets(context: context, enRight: _screenWidth * 0.5),
                   itemBuilder: (_, int index){
 
@@ -92,7 +92,7 @@ class CropperFooter extends StatelessWidget {
                           child: SuperImage(
                             width: _miniImageWidth,
                             height: _miniImageWidth,
-                            pic: files[index],
+                            pic: bytezz[index],
                           ),
                         ),
                       ),
