@@ -1,11 +1,8 @@
 import 'dart:io';
 
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -14,6 +11,7 @@ import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 @immutable
 class SlideModel {
@@ -30,6 +28,7 @@ class SlideModel {
     this.picPath,
     this.headline,
     this.flyerID,
+    this.uiImage,
   });
   /// --------------------------------------------------------------------------
   final int slideIndex;
@@ -42,6 +41,7 @@ class SlideModel {
   final Color midColor;
   final String flyerID;
   final String filterID;
+  final ui.Image uiImage;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -143,6 +143,7 @@ class SlideModel {
     Color midColor,
     String flyerID,
     String filterID,
+    ui.Image uiImage,
   }) {
     return SlideModel(
       slideIndex: slideIndex ?? this.slideIndex,
@@ -154,6 +155,7 @@ class SlideModel {
       midColor: midColor ?? this.midColor,
       matrix: matrix ?? this.matrix,
       filterID: filterID ?? this.filterID,
+      uiImage: uiImage ?? this.uiImage,
     );
   }
   // -----------------------------------------------------------------------------

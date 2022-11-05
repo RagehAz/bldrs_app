@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/search_result.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';

@@ -4,8 +4,6 @@ import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
@@ -96,7 +94,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   }
   // -----------------------------------------------------------------------------
   File _file;
-  Uint8List uInt;
+  Uint8List _uInts;
   img.Image imgImage;
   ui.Image uiImage;
   String _ldbBase64;
@@ -105,27 +103,26 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   Dimensions _imageSize;
   bool isLoading;
   // --------------------
-  Future<void> setImage(FileModel fileModel) async {
+  Future<void> setImage(Uint8List bytes) async {
 
     stopWatchController.stop();
 
-    if (fileModel != null){
+    if (bytes != null){
 
       _loading.value = true;
       stopWatchController.start();
 
 
-      final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.bytes);
-      final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
-      final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
-      final Dimensions _size = await Dimensions.superDimensions(fileModel.bytes);
+      final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(bytes);
+      final img.Image _imgImage = await Floaters.getImgImageFromUint8List(bytes);
+      final Dimensions _size = await Dimensions.superDimensions(bytes);
 
-      final String _base64FromLDB = await _addBase64ToLDBAndRead(fileModel: fileModel);
-      final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: _uInt);
+      final String _base64FromLDB = await _addBase64ToLDBAndRead(bytes: bytes);
+      final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: bytes);
 
       setState(() {
-        _file = fileModel.bytes;
-        uInt = _uInt;
+        _file = null;
+        _uInts = bytes;
         uiImage = _uiImage;
         imgImage = _imgImage;
         _ldbBase64 = _base64FromLDB;
@@ -145,7 +142,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   void _clearImage(){
     setState(() {
       _file = null;
-      uInt = null;
+      _uInts = null;
       uiImage = null;
       imgImage = null;
       _ldbBase64 = null;
@@ -156,14 +153,14 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   }
   // --------------------
   Future<String> _addBase64ToLDBAndRead({
-    @required FileModel fileModel,
+    @required Uint8List bytes,
   }) async {
 
     await LDBOps.insertMap(
       docName: 'tempPicDoc',
       input: {
         'id': 'ldbBase64',
-        'data' : await Floaters.getBase64FromFileOrURL(fileModel.bytes),
+        'data' : Floaters.getBase64FromUint8List(bytes),
       },
     );
 
@@ -215,7 +212,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
     final List<Map<String, dynamic>> _maps = [
       {'pic' : _file,       'text' : 'FILE\n${Filers.getFileSizeInMb(_file)} MB'},
-      {'pic' : uInt,        'text' : 'uInt8List\n${Numeric.roundFractions(uInt?.length?.toDouble() ?? 0.0 / (1024 * 1024), 2)}'},
+      {'pic' : _uInts,        'text' : 'uInt8List\n${Numeric.roundFractions(_uInts?.length?.toDouble() ?? 0.0 / (1024 * 1024), 2)}'},
       {'pic' : imgImage,    'text' : 'imgImage\n${Numeric.roundFractions(imgImage?.getBytes()?.length?.toDouble() ?? 0 / (1024 * 1024), 2)} MB'},
       {'pic' : uiImage,     'text' : 'uiImage\n${uiImage?.toString()}'},
       {'pic' : _ldbBase64,  'text' : 'LDB-Base64\n ${Numeric.formatNumToSeparatedKilos(number: _ldbBase64?.codeUnits?.length)} units'},
@@ -232,13 +229,13 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.phoneGallery,
           onTap: () async {
 
-            final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
+            final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
                 context: context,
                 cropAfterPick: false,
                 aspectRatio: _aspectRatio,
             );
 
-            await setImage(_pickedFileModel);
+            await setImage(_bytes);
 
           },
         ),
@@ -248,13 +245,13 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.camera,
           onTap: () async {
 
-            final FileModel _pickedFileModel = await PicMaker.shootAndCropCameraPic(
+            final Uint8List _bytes = await PicMaker.shootAndCropCameraPic(
               context: context,
               cropAfterPick: false,
               aspectRatio: _aspectRatio,
             );
 
-            await setImage(_pickedFileModel);
+            await setImage(_bytes);
 
           },
         ),
@@ -264,20 +261,20 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.comWebsite,
           onTap: () async {
 
-            final UserModel _user = await SearchUsersScreen.selectUser(context);
-
-            if (_user != null){
-
-              await _triggerLoading(setTo: true);
-
-              final FileModel _pickedFileModel = await FileModel.createModelByUrl(
-                url: _user.picPath,
-                fileName: _user.id,
-              );
-
-              await setImage(_pickedFileModel);
-
-            }
+            // final UserModel _user = await SearchUsersScreen.selectUser(context);
+            //
+            // if (_user != null){
+            //
+            //   await _triggerLoading(setTo: true);
+            //
+            //   final Uint8List _bytes = await StorageByteOps.readBytesByURL(
+            //     url: _user.picPath,
+            //     fileName: _user.id,
+            //   );
+            //
+            //   await setImage(_bytes);
+            //
+            // }
 
           },
         ),
@@ -295,14 +292,12 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
               await _triggerLoading(setTo: true);
 
-              final File _file = await Filers.getFileFromLocalRasterAsset(
+              final Uint8List _bytes = await Filers.getFileFromLocalRasterAsset(
                 localAsset: _icon,
               );
 
-              if (_file != null){
-                final FileModel _pickedFileModel = FileModel.createModelByNewFile(_file);
-                await setImage(_pickedFileModel);
-              }
+              await setImage(_bytes);
+
 
               await _triggerLoading(setTo: false);
 
@@ -319,14 +314,14 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.crop,
           onTap: () async {
 
-            final FileModel _pickedFileModel = await PicMaker.cropPic(
+            final Uint8List _bytes = await PicMaker.cropPic(
               context: context,
-              bytes: FileModel.createModelByNewFile(_file),
+              bytes: _uInts,
               aspectRatio: _aspectRatio,
               // resizeToWidth: null,
             );
 
-            await setImage(_pickedFileModel);
+            await setImage(_bytes);
 
           },
         ),
@@ -361,12 +356,12 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
               final double _value = Numeric.transformStringToDouble(_result);
 
-              final File _pickedFile = await Filers.resizePic(
-                  bytes: _file,
+              final Uint8List _bytes = await PicMaker.resizePic(
+                  bytes: _uInts,
                   finalWidth: _value,
               );
 
-              await setImage(FileModel.createModelByNewFile(_pickedFile));
+              await setImage(_bytes);
 
             }
 

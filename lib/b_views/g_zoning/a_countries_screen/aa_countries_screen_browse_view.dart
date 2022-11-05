@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/country_tile_button.dart';
-import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 

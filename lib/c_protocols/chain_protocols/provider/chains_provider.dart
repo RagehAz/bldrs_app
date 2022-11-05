@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/protocols/picker_protocols.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
