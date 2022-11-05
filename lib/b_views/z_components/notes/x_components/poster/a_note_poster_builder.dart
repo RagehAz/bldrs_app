@@ -150,7 +150,7 @@ class NotePosterBuilder extends StatelessWidget {
 
         return ImagePoster(
           width: width,
-          pic: noteModel.poster.file ?? noteModel.poster.url,
+          pic: noteModel.poster.picModel ?? noteModel.poster.path,
         );
 
       }

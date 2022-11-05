@@ -589,14 +589,14 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String slidesValidator({
     @required BuildContext context,
-    @required DraftFlyerModel draftFlyer,
+    @required DraftFlyer draftFlyer,
     @required bool canValidate,
   }){
     String _message;
 
     if (canValidate == true){
 
-      final bool _hasSlides = Mapper.checkCanLoopList(draftFlyer?.mutableSlides);
+      final bool _hasSlides = Mapper.checkCanLoopList(draftFlyer?.draftSlides);
 
       if (_hasSlides == false){
         _message = Verse.transBake(context, 'phid_flyer_should_have_atleast_one_slide');
@@ -610,7 +610,7 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String flyerTypeValidator({
     @required BuildContext context,
-    @required DraftFlyerModel draft,
+    @required DraftFlyer draft,
     @required bool canValidate,
   }){
     String _message;

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
@@ -23,13 +23,13 @@ class SlideTransformer extends StatelessWidget {
   final ValueNotifier<ImageFilterModel> filterModel;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-  final MutableSlide slide;
+  final DraftSlide slide;
   final ValueNotifier<bool> isTransforming;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    blog('SlideTransformer : BUILDING : slide : ${slide.picFileModel.bytes.path}');
+    blog('SlideTransformer : BUILDING : slide : ${slide.picModel.bytes.length} bytes');
 
     return MatrixGestureDetector(
       key: const ValueKey<String>('SlideTransformer'),
@@ -90,7 +90,7 @@ class SlideTransformer extends StatelessWidget {
             return SuperFilteredImage(
               width: flyerBoxWidth,
               height: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
-              imageFile: slide.picFileModel.bytes,
+              bytes: slide.picModel.bytes,
               filterModel: _filterModel,
               boxFit: slide.picFit,
             );

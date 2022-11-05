@@ -230,7 +230,7 @@ class FCMStarter {
             title: _note.title,
             body: _note.body,
             largeIconURL: _note.parties.senderImageURL,
-            posterURL: _note.poster.url,
+            posterURL: _note.poster.path,
             progress: Progress.generateModelFromNoteProgress(_note),
             progressBarIsLoading: _note.progress == -1,
             canBeDismissedWithoutTapping: _note.dismissible,

@@ -561,4 +561,77 @@ static img.Image decodeToImgImage({
     return _result;
   }
   // -----------------------------------------------------------------------------
+
+
+  // ---------------------
+  ///
+  static Future<List<Uint8List>> getBytezzFromLocalRasterImages({
+    @required List<String> localAssets,
+    int width = 100,
+  }) async {
+    final List<Uint8List> _outputs = <Uint8List>[];
+
+    if (Mapper.checkCanLoopList(localAssets) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(localAssets.length, (index){
+
+          return getBytesFromLocalRasterAsset(
+            localAsset: localAssets[index],
+            width: width,
+          ).then((Uint8List output){
+
+            _outputs.add(output);
+
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    return _outputs;
+  }
+
+  ///
+  static Future<Uint8List> getBytesFromLocalRasterAsset({
+    @required String localAsset,
+    int width = 100,
+  }) async {
+
+    Uint8List _bytes;
+
+    await tryAndCatch(
+        methodName: 'getBytesFromLocalRasterAsset',
+        functions: () async {
+
+          /// IF SVG
+          if (ObjectCheck.objectIsSVG(localAsset) == true){
+            _bytes = await Floaters.getUint8ListFromLocalSVGAsset(localAsset);
+          }
+
+          /// ANYTHING ELSE
+          else {
+            _bytes = await Floaters.getUint8ListFromLocalRasterAsset(
+              asset: localAsset,
+              width: width,
+            );
+          }
+
+          // /// ASSIGN UINT TO FILE
+          // if (Mapper.checkCanLoopList(_uInt) == true){
+          //   _bytes = await getFileFromUint8List(
+          //     uInt8List: _uInt,
+          //     fileName: Floaters.getLocalAssetName(localAsset),
+          //   );
+          // }
+
+        });
+
+    return _bytes;
+  }
+
+
 }

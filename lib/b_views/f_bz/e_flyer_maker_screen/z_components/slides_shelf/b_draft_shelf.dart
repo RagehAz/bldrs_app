@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/a_draft_shelf_box.dart';
@@ -25,7 +25,7 @@ class SlidesShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
-  final ValueNotifier<DraftFlyerModel> draftNotifier;
+  final ValueNotifier<DraftFlyer> draftNotifier;
   /// --------------------------------------------------------------------------
   @override
   _SlidesShelfState createState() => _SlidesShelfState();
@@ -99,7 +99,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
       alignment: Aligners.superCenterAlignment(context),
       child: ValueListenableBuilder(
         valueListenable: widget.draftNotifier,
-        builder: (_, DraftFlyerModel draft, Widget child){
+        builder: (_, DraftFlyer draft, Widget child){
 
           /// WHILE LOADING GIVEN EXISTING FLYER MODEL
           if (draft == null){
@@ -121,7 +121,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
               slideZoneHeight: _slideZoneHeight,
               scrollController: _scrollController,
               draft: draft,
-              onSlideTap: (MutableSlide slide) => onSlideTap(
+              onSlideTap: (DraftSlide slide) => onSlideTap(
                 context: context,
                 slide: slide,
                 draftFlyer: widget.draftNotifier,

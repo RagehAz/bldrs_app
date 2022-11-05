@@ -17,7 +17,7 @@ class SlidesShelfBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
-  final ValueNotifier<DraftFlyerModel> draftNotifier;
+  final ValueNotifier<DraftFlyer> draftNotifier;
   final bool canValidate;
   /// --------------------------------------------------------------------------
   @override

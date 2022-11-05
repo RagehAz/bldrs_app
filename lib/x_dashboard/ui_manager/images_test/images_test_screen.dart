@@ -292,7 +292,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
               await _triggerLoading(setTo: true);
 
-              final Uint8List _bytes = await Filers.getFileFromLocalRasterAsset(
+              final Uint8List _bytes = await Floaters.getBytesFromLocalRasterAsset(
                 localAsset: _icon,
               );
 

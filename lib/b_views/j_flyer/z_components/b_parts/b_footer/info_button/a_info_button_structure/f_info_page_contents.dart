@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/x_secondary/record_model.dart';
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/g_flyer_counters_and_records.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
+import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -116,20 +118,31 @@ class InfoPageContents extends StatelessWidget {
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// PDF BUTTON
                 if (flyerModel.pdfPath != null)
-                  DreamBox(
-                    height: 30,
-                    width: _pageWidth - 20,
-                    color: Colorz.blue80,
-                    verse: Verse.plain('${flyerModel.pdfPath.fileName}.pdf'),
-                    verseScaleFactor: 0.6,
-                    onTap: () async {
+                  FutureBuilder(
+                  future: PDFProtocols.fetch(flyerModel.pdfPath),
+                    builder: (_, AsyncSnapshot<PDFModel> snap){
 
-                      await Nav.goToNewScreen(
-                        context: context,
-                        screen: PDFScreen(
-                          pdf: flyerModel.pdfPath,
-                        ),
-                      );
+                    final PDFModel _pdfModel = snap.data;
+                    final String _name = _pdfModel == null ? '' : '${_pdfModel.name}.pdf';
+
+                    return DreamBox(
+                      height: 30,
+                      width: _pageWidth - 20,
+                      color: Colorz.blue80,
+                      verse: Verse.plain(_name),
+                      verseScaleFactor: 0.6,
+                      isDeactivated: _pdfModel == null,
+                      onTap: () async {
+
+                        await Nav.goToNewScreen(
+                          context: context,
+                          screen: PDFScreen(
+                            pdf: _pdfModel,
+                          ),
+                        );
+
+                      },
+                    );
 
                     },
                   ),

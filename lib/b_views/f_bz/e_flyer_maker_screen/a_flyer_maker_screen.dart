@@ -44,7 +44,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   @override
   bool get wantKeepAlive => true;
   // -----------------------------------------------------------------------------
-  final ValueNotifier<DraftFlyerModel> _draftNotifier = ValueNotifier(null);
+  final ValueNotifier<DraftFlyer> _draftNotifier = ValueNotifier(null);
   // --------------------
   bool _canValidate = false;
   void _switchOnValidation(){
@@ -83,7 +83,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         setNotifier(
             notifier: _draftNotifier,
             mounted: mounted,
-            value: await DraftFlyerModel.createDraft(
+            value: await DraftFlyer.createDraft(
               context: context,
               oldFlyer: widget.flyerToEdit,
             ),
@@ -165,7 +165,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       // onBack: () => onCancelFlyerCreation(context),
       layoutWidget: ValueListenableBuilder(
           valueListenable: _draftNotifier,
-          builder: (_, DraftFlyerModel _draft, Widget child){
+          builder: (_, DraftFlyer _draft, Widget child){
 
             final List<String> _bzTypeTranslation = BzTyper.getBzTypesPhids(
                 context: context,
@@ -333,6 +333,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
                   /// PDF SELECTOR
                   PDFSelectionBubble(
+                    flyerID: _draft.id,
+                    bzID: _draft.bzID,
                     appBarType: AppBarType.non,
                     formKey: _draft.formKey,
                     existingPDF: _draft.pdfModel,

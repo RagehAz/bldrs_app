@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/z_add_flyer_slides_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
@@ -24,8 +24,8 @@ class ShelfSlidesPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double slideZoneHeight;
   final ScrollController scrollController;
-  final DraftFlyerModel draft;
-  final ValueChanged<MutableSlide> onSlideTap;
+  final DraftFlyer draft;
+  final ValueChanged<DraftSlide> onSlideTap;
   final ValueChanged<PicMakerType> onAddSlides;
   final ValueNotifier<bool> loading;
   /// --------------------------------------------------------------------------
@@ -63,13 +63,13 @@ class ShelfSlidesPart extends StatelessWidget {
               children: <Widget>[
 
                 /// SLIDES
-                if (Mapper.checkCanLoopList(draft.mutableSlides) == true)
-                ...List.generate(draft.mutableSlides.length, (index){
+                if (Mapper.checkCanLoopList(draft.draftSlides) == true)
+                ...List.generate(draft.draftSlides.length, (index){
 
-                  final MutableSlide _mutableSlide = draft.mutableSlides[index];
+                  final DraftSlide _mutableSlide = draft.draftSlides[index];
 
                   return DraftShelfSlide(
-                    mutableSlide: _mutableSlide,
+                    draftSlide: _mutableSlide,
                     number: index + 1,
                     onTap: () => onSlideTap(_mutableSlide),
                   );

@@ -1,21 +1,10 @@
-import 'dart:io';
-
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class Storage {
@@ -28,6 +17,7 @@ class Storage {
   /// CREATE
 
   // --------------------
+  /*
   /// protocol
   /// TESTED : WORKS PERFECT
   static Future<String> createStoragePicAndGetURL({
@@ -66,7 +56,9 @@ class Storage {
 
     return _imageURL;
   }
+   */
   // --------------------
+  /*
   /// flyerStorageOps
   /// TESTED : WORKS PERFECT
   static Future<List<String>> createStorageSlidePicsAndGetURLs({
@@ -109,7 +101,9 @@ class Storage {
 
     return _picturesURLs;
   }
+   */
   // --------------------
+  /*
   /// protocol
   static Future<List<String>> createMultipleStoragePicsAndGetURLs({
     @required List<File> files,
@@ -152,7 +146,9 @@ class Storage {
 
     return _picsURLs;
   }
+   */
   // --------------------
+  /*
   /// protocol
   /// TASK : createStoragePicFromAssetAndGetURL not tested properly
   static Future<String> createStoragePicFromLocalAssetAndGetURL({
@@ -180,11 +176,13 @@ class Storage {
 
     return _url;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// UPDATE
 
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<String> updateExistingPic({
     @required String oldURL,
@@ -222,7 +220,9 @@ class Storage {
 
     return _output;
   }
+   */
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<String> createOrUpdatePic({
     @required String oldURL,
@@ -261,11 +261,13 @@ class Storage {
 
     return _outputURL;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// DELETE
 
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<void> deleteStoragePic({
     @required String collName,
@@ -330,6 +332,7 @@ class Storage {
     blog('deleteStoragePic : END');
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkCanDeleteStorageFile({
