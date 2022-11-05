@@ -39,7 +39,7 @@ class DashboardUserButton extends StatelessWidget {
     return DreamBox(
       height: height,
       width: width,
-      icon: userModel.pic,
+      icon: userModel.picPath,
       color: Colorz.white20,
       verse: Verse.plain(userModel.name),
       secondLine: Verse.plain('$index : ${userModel.id}'),

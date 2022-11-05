@@ -28,13 +28,13 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -253,7 +253,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
         resizeToWidth: NotePosterBox.standardSize.width,
         picModel: FileModel(
           fileName: _fileName,
-          file: await Filers.getFileFromUint8List(
+          bytes: await Filers.getFileFromUint8List(
             uInt8List: uint8List,
             fileName: _fileName,
           )
@@ -261,7 +261,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
     );
 
     setState(() {
-      _posterPreviewFile = _fileModel.file;
+      _posterPreviewFile = _fileModel.bytes;
     });
 
     blog('_takeBannerScreenshot : END');
@@ -530,7 +530,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                           if (_user != null){
 
-                            final File _file = await Filers.getFileFromURL(_user.pic);
+                            final File _file = await Filers.getFileFromURL(_user.picPath);
 
                             if (_file == null){
                               await Dialogs.errorDialog(
@@ -541,7 +541,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             }
                             else {
                               setState(() {
-                                _largeIconURL = _user.pic;
+                                _largeIconURL = _user.picPath;
                               });
                             }
 
@@ -572,7 +572,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                           if (_pickedFileModel != null){
                             setState(() {
-                              _largeImageFile = _pickedFileModel.file;
+                              _largeImageFile = _pickedFileModel.bytes;
                             });
                           }
 
@@ -669,7 +669,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                   setState(() {
                                     _posterType = PosterType.galleryImage;
-                                    _posterModel = _pickedFileModel.file;
+                                    _posterModel = _pickedFileModel.bytes;
                                     _posterHelperModel = null;
                                   });
 

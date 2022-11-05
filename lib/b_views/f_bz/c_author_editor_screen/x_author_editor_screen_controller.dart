@@ -11,11 +11,11 @@ import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/z_note_events.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
+import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -211,7 +211,7 @@ void onDeleteAuthorImage({
 }){
 
   author.value = AuthorModel(
-    pic: null,
+    picPath: null,
     title: author.value.title,
     role: author.value.role,
     contacts: author.value.contacts,

@@ -6,9 +6,9 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/real_ops/chain_real_ops.dart';
+import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/chain_protocols/real/chain_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

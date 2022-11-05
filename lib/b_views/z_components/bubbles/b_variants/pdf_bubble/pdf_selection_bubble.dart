@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -26,15 +27,17 @@ class PDFSelectionBubble extends StatefulWidget {
     @required this.formKey,
     @required this.appBarType,
     @required this.canValidate,
+    @required this.flyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueChanged<FileModel> onChangePDF;
+  final ValueChanged<PDFModel> onChangePDF;
   final Function onDeletePDF;
-  final FileModel existingPDF;
+  final PDFModel existingPDF;
   final GlobalKey<FormState> formKey;
   final AppBarType appBarType;
   final bool canValidate;
+  final String flyerID;
   /// --------------------------------------------------------------------------
   @override
   _PDFSelectionBubbleState createState() => _PDFSelectionBubbleState();
@@ -45,7 +48,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
-  final ValueNotifier<FileModel> _pdf = ValueNotifier(null);
+  final ValueNotifier<PDFModel> _pdfNotifier = ValueNotifier(null);
   // --------------------
   final TextEditingController _textController = TextEditingController();
   // -----------------------------------------------------------------------------
@@ -63,8 +66,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   @override
   void initState() {
     super.initState();
-    _pdf.value = widget.existingPDF;
-    _textController.text = widget.existingPDF?.fileName;
+    _pdfNotifier.value = widget.existingPDF;
+    _textController.text = widget.existingPDF?.name;
   }
   // --------------------
   bool _isInit = true;
@@ -73,9 +76,9 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
     if (_isInit) {
 
       _triggerLoading(setTo: true).then((_) async {
-        // -------------------------------
-        _pdf.value = await FileModel.completeModel(_pdf.value);
-        // -------------------------------
+
+        // _pdfNotifier.value = await FileModel.completeModel(_pdfNotifier.value);
+
         await _triggerLoading(setTo: false);
       });
 
@@ -87,7 +90,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   /// TAMAM
   @override
   void dispose() {
-    _pdf.dispose();
+    _pdfNotifier.dispose();
     _textController.dispose();
     _loading.dispose();
     super.dispose();
@@ -97,18 +100,18 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: _pdf,
-        builder: (_, FileModel pdf, Widget child){
+        valueListenable: _pdfNotifier,
+        builder: (_, PDFModel pdfModel, Widget child){
 
-          final bool _fileExists = pdf?.file != null;
-          final bool _urlExists = pdf?.url != null;
-          final bool _sizeLimitReached = pdf?.checkSizeLimitReached() == true;
+          final bool _bytesExist = pdfModel?.bytes != null;
+          final bool _pathExists = pdfModel?.path != null;
+          final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
           // final String _fileName = pdf?.fileName;
 
           return Bubble(
             bubbleColor: Formers.validatorBubbleColor(
               validator: () => Formers.pdfValidator(
-                fileModel: pdf,
+                pdfModel: pdfModel,
                 canValidate: widget.canValidate,
               ),
             ),
@@ -142,7 +145,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 ],
               ),
 
-              if (_fileExists == true || _urlExists == true)
+              if (_bytesExist == true || _pathExists == true)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -156,10 +159,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     ),
 
 
-                    if (pdf.size != null)
+                    if (pdfModel.sizeMB != null)
                     SuperVerse(
                       verse: Verse(
-                        text: '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb',
+                        text: '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdfModel.sizeMB} Mb / 3 Mb',
                         translate: true,
                       ),
                       italic: true,
@@ -168,7 +171,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       scaleFactor: 0.9,
                     ),
 
-                    if (pdf.size == null)
+                    if (pdfModel.sizeMB == null)
                       Loading(
                         loading: true,
                         size: SuperVerse.superVerseRealHeight(
@@ -183,7 +186,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 ),
 
 
-                if (_fileExists == true || _urlExists == true)
+                if (_bytesExist == true || _pathExists == true)
               SuperTextField(
                 appBarType: widget.appBarType,
                 globalKey: globalKey,
@@ -196,11 +199,11 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 textController: _textController,
                 onChanged: (String text){
 
-                  _pdf.value = _pdf.value.copyWith(
-                    fileName: _textController.text,
+                  _pdfNotifier.value = _pdfNotifier.value.copyWith(
+                    name: _textController.text,
                   );
 
-                  widget.onChangePDF(_pdf.value);
+                  widget.onChangePDF(_pdfNotifier.value);
 
                 },
                 isFormField: true,
@@ -279,7 +282,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
               SuperValidator(
                 width: Bubble.clearWidth(context),
                 validator: () => Formers.pdfValidator(
-                  fileModel: pdf,
+                  pdfModel: pdfModel,
                   canValidate: widget.canValidate,
                 ),
                 // autoValidate: true,
@@ -292,7 +295,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 children: <Widget>[
 
                   /// DELETE PDF
-                  if (_fileExists == true || _urlExists == true)
+                  if (_bytesExist == true || _pathExists == true)
                     DreamBox(
                       height: 50,
                       verse: const Verse(
@@ -304,7 +307,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       verseItalic: true,
                       margins: const EdgeInsets.only(top: 10, left: 10, right: 10),
                       onTap: () async {
-                        _pdf.value = null;
+                        _pdfNotifier.value = null;
                         widget.onDeletePDF();
                       },
                     ),
@@ -313,7 +316,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   DreamBox(
                     height: 50,
                     verse: Verse(
-                      text: _fileExists == true || pdf?.url != null ? 'phid_replace_pdf' : 'phid_select_a_pdf',
+                      text: _bytesExist == true || pdfModel?.path != null ? 'phid_replace_pdf' : 'phid_select_a_pdf',
                       translate: true,
                     ),
                     verseScaleFactor: 0.6,
@@ -322,24 +325,17 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     margins: const EdgeInsets.only(top: 10),
                     onTap: () async {
 
-                      final File _file = await Filers.pickPDF();
+                      final PDFModel _pdfModel = await Filers.pickPDF(
+                        context: context,
+                        flyerID: widget.flyerID,
+                      );
 
-                      if (_file != null){
+                      if (_pdfModel != null){
 
-                        final String _fileName = Filers.getFileNameFromFile(
-                          file: _file,
-                          withExtension: false,
-                        );
-                        _textController.text = _fileName;
+                        _textController.text = _pdfModel.name;
+                        _pdfNotifier.value = _pdfModel;
 
-                        _pdf.value = FileModel(
-                          file: _file,
-                          fileName: _fileName,
-                          size: Filers.getFileSizeInMb(_file),
-                          // url: null,
-                        );
-
-                        widget.onChangePDF(_pdf.value);
+                        widget.onChangePDF(_pdfNotifier.value);
 
                       }
 

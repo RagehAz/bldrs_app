@@ -19,15 +19,13 @@ class SlidesShelf extends StatefulWidget {
   const SlidesShelf({
     @required this.shelfNumber,
     @required this.bzModel,
-    @required this.draft,
-    @required this.isEditingFlyer,
+    @required this.draftNotifier,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
-  final ValueNotifier<DraftFlyerModel> draft;
-  final ValueNotifier<bool> isEditingFlyer;
+  final ValueNotifier<DraftFlyerModel> draftNotifier;
   /// --------------------------------------------------------------------------
   @override
   _SlidesShelfState createState() => _SlidesShelfState();
@@ -100,7 +98,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
       ),
       alignment: Aligners.superCenterAlignment(context),
       child: ValueListenableBuilder(
-        valueListenable: widget.draft,
+        valueListenable: widget.draftNotifier,
         builder: (_, DraftFlyerModel draft, Widget child){
 
           /// WHILE LOADING GIVEN EXISTING FLYER MODEL
@@ -123,21 +121,19 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
               slideZoneHeight: _slideZoneHeight,
               scrollController: _scrollController,
               draft: draft,
-              isEditingFlyer: widget.isEditingFlyer,
               onSlideTap: (MutableSlide slide) => onSlideTap(
                 context: context,
                 slide: slide,
-                draftFlyer: widget.draft,
+                draftFlyer: widget.draftNotifier,
               ),
               onAddSlides: (PicMakerType imagePickerType) => onAddNewSlides(
                 context: context,
                 isLoading: _loading,
-                draftFlyer: widget.draft,
+                draftFlyer: widget.draftNotifier,
                 bzModel: widget.bzModel,
                 mounted: mounted,
                 scrollController: _scrollController,
                 flyerWidth: DraftShelfSlide.flyerBoxWidth,
-                isEditingFlyer: widget.isEditingFlyer.value,
                 imagePickerType: imagePickerType,
               ),
             );

@@ -4,12 +4,12 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class NoteEventsOfBzTeamManagement {
       id: null,
       parties: NoteParties(
         senderID: bzID,
-        senderImageURL: author.pic,
+        senderImageURL: author.picPath,
         senderType: PartyType.bz,
         receiverID: bzID,
         receiverType: PartyType.bz,
@@ -80,7 +80,7 @@ class NoteEventsOfBzTeamManagement {
       id: null,
       parties: NoteParties(
         senderID: deletedAuthor.userID,
-        senderImageURL: deletedAuthor.pic,
+        senderImageURL: deletedAuthor.picPath,
         senderType: PartyType.user,
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
@@ -112,7 +112,7 @@ class NoteEventsOfBzTeamManagement {
          id: null,
          parties: NoteParties(
            senderID: bzModel.id,
-           senderImageURL: bzModel.logo,
+           senderImageURL: bzModel.logoPath,
            senderType: PartyType.bz,
            receiverID: deletedAuthor.userID,
            receiverType: PartyType.user,
@@ -221,7 +221,7 @@ class NoteEventsOfBzTeamManagement {
       id: 'x',
       parties: NoteParties(
         senderID: userModel.id,
-        senderImageURL: userModel.pic,
+        senderImageURL: userModel.picPath,
         senderType: PartyType.user,
         receiverID: bzModel.id,
         receiverType: PartyType.bz,

@@ -27,7 +27,7 @@ class BzModel{
     @required this.accountType,
     @required this.name,
     @required this.trigram,
-    @required this.logo,
+    @required this.logoPath,
     @required this.scope,
     @required this.zone,
     @required this.about,
@@ -49,7 +49,7 @@ class BzModel{
   final BzAccountType accountType;
   final String name;
   final List<String> trigram;
-  final String logo;
+  final String logoPath;
   final List<String> scope;
   final ZoneModel zone;
   final String about;
@@ -76,7 +76,7 @@ class BzModel{
     BzAccountType accountType,
     String name,
     List<String> trigram,
-    String logo,
+    String logoPath,
     List<String> scope,
     ZoneModel zone,
     String about,
@@ -99,7 +99,7 @@ class BzModel{
       accountType : accountType ?? this.accountType,
       name : name ?? this.name,
       trigram : trigram ?? this.trigram,
-      logo : logo ?? this.logo,
+      logoPath : logoPath ?? this.logoPath,
       scope : scope ?? this.scope,
       zone : zone ?? this.zone,
       about : about ?? this.about,
@@ -124,7 +124,7 @@ class BzModel{
     bool accountType = false,
     bool name = false,
     bool trigram = false,
-    bool logo = false,
+    bool logoPath = false,
     bool scope = false,
     bool zone = false,
     bool about = false,
@@ -146,7 +146,7 @@ class BzModel{
       accountType : accountType == true ? null : this.accountType,
       name : name == true ? null : this.name,
       trigram : trigram == true ? [] : this.trigram,
-      logo : logo == true ? null : this.logo,
+      logoPath : logoPath == true ? null : this.logoPath,
       scope : scope == true ? [] : this.scope,
       zone : zone == true ? null : this.zone,
       about : about == true ? null : this.about,
@@ -166,7 +166,7 @@ class BzModel{
   /// CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -180,7 +180,7 @@ class BzModel{
       // -------------------------
       'name': name,
       'trigram': trigram,
-      'logo': logo,
+      'logoPath': logoPath,
       'scope': scope,
       'zone': zone?.toMap(),
       'about': about,
@@ -237,7 +237,7 @@ class BzModel{
         // -------------------------
         name: map['name'],
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
-        logo: map['logo'],
+        logoPath: map['logoPath'],
         scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
         zone: ZoneModel.decipherZone(map['zone']),
         about: map['about'],
@@ -319,7 +319,7 @@ class BzModel{
       accountType: BzAccountType.normal,
       about: '',
       bzForm: BzForm.individual,
-      logo: userModel.pic,
+      logoPath: userModel.picPath,
       position: null,
       scope: null,
       bzTypes: null,
@@ -513,7 +513,7 @@ class BzModel{
 
     return BzModel(
       id: _bzID,
-      logo: Iconz.bz, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
+      logoPath: Iconz.bz, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
       name: 'Business Name That os a bit too kinda tall and little bit extra tall aho',
       trigram: Stringer.createTrigram(input: 'Business Name'),
       bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.artisan],
@@ -561,7 +561,7 @@ class BzModel{
     blog('name : $name'); // fakes trigram
     blog('id : $id : accountType : $accountType : createdAt : $createdAt');
     blog('bzForm : $bzForm : bzTypes : $bzTypes');
-    blog('logo : $logo');
+    blog('logoPath : $logoPath');
     blog('scope : $scope');
     blog('about : $about');
     blog('position : $position');
@@ -630,7 +630,7 @@ class BzModel{
       if (Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == false){
         blog('trigrams are not identical');
       }
-      if (bz1.logo != bz2.logo){
+      if (bz1.logoPath != bz2.logoPath){
         blog('logos are not identical');
       }
       if (Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == false){
@@ -708,7 +708,7 @@ class BzModel{
 
     if (Mapper.checkCanLoopList(bzzModels)) {
       for (final BzModel bz in bzzModels) {
-        _pics.add(bz.logo);
+        _pics.add(bz.logoPath);
       }
     }
 
@@ -848,7 +848,7 @@ class BzModel{
           bz1.accountType == bz2.accountType &&
           bz1.name == bz2.name &&
           Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == true &&
-          bz1.logo == bz2.logo &&
+          bz1.logoPath == bz2.logoPath &&
           Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == true &&
           ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz2.zone) == true &&
           bz1.about == bz2.about &&
@@ -948,7 +948,7 @@ class BzModel{
       );
     }
 
-    if (bzModel?.logo == null){
+    if (bzModel?.logoPath == null){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzLogo',
@@ -1037,7 +1037,7 @@ class BzModel{
       accountType.hashCode^
       name.hashCode^
       trigram.hashCode^
-      logo.hashCode^
+      logoPath.hashCode^
       scope.hashCode^
       zone.hashCode^
       about.hashCode^

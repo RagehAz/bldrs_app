@@ -67,7 +67,7 @@ class PicModel {
 
     if (map != null){
       _picModel = PicModel(
-        bytes: Uint8List.fromList(map['bytes'].cast<int>()),
+        bytes: Floaters.getUint8ListFromInts(map['bytes']),
         path: map['path'],
         meta: PicMetaModel.decipherFromLDB(map['meta']),
       );

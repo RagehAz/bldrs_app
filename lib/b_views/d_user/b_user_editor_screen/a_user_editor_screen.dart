@@ -17,7 +17,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_s
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -49,8 +49,6 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   // -----------------------------------------------------------------------------
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // --------------------
   bool _canValidate = false;
   void _switchOnValidation(){
     if (mounted == true){
@@ -62,15 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
   // --------------------
-  final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
-  // --------------------
   final ValueNotifier<DraftUser> _draftUser = ValueNotifier(null);
-  // --------------------
-  final FocusNode _nameNode = FocusNode();
-  final FocusNode _titleNode = FocusNode();
-  final FocusNode _companyNode = FocusNode();
-  final FocusNode _emailNode = FocusNode();
-  final FocusNode _phoneNode = FocusNode();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -87,8 +77,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
 
-    _draftUser.value = DraftUser.initializeForEditing(widget.userModel);
-
   }
   // --------------------
   bool _isInit = true;
@@ -102,7 +90,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         setNotifier(
             notifier: _draftUser,
             mounted: mounted,
-            value: await DraftUser.prepareForEditing(
+            value: await DraftUser.createDraftUser(
               context: context,
               userModel: widget.userModel,
             ),
@@ -120,7 +108,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         // -----------------------------
         if (widget.validateOnStartup == true){
           _switchOnValidation();
-          Formers.validateForm(_formKey);
+          Formers.validateForm(_draftUser.value.formKey);
         }
         // -----------------------------
         if (mounted == true){
@@ -144,15 +132,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   /// tamam
   @override
   void dispose() {
+
     _loading.dispose();
-    _canPickImage.dispose();
-
-    _nameNode.dispose();
-    _titleNode.dispose();
-    _companyNode.dispose();
-    _emailNode.dispose();
-    _phoneNode.dispose();
-
+    _draftUser.value.dispose();
     _draftUser.dispose();
 
     super.dispose();
@@ -164,7 +146,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     await confirmEdits(
       context: context,
-      formKey: _formKey,
       draft: _draftUser,
       oldUserModel: widget.userModel,
       onFinish: widget.onFinish,
@@ -184,44 +165,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarType: AppBarType.basic,
       pageTitleVerse: const Verse(text: 'phid_updateProfile', translate: true),
       loading: _loading,
-      appBarRowWidgets: <Widget>[
-
-        AppBarButton(
-          verse: Verse.plain('validate'),
-          onTap: (){
-            Formers.validateForm(_formKey);
-          },
-        ),
-
-        AppBarButton(
-          verse: Verse.plain('pi5'),
-          onTap: (){
-            _draftUser.value = _draftUser.value.copyWith(
-              zone: _draftUser.value.zone.nullifyField(
-                cityID: true,
-              ),
-            );
-          },
-        ),
-
-      ],
       confirmButtonModel: ConfirmButtonModel(
         firstLine: const Verse(text: 'phid_updateProfile', translate: true),
-        onSkipTap: (){
-
-          blog('skip');
-
-        },
         onTap: () => _onConfirmTap(),
-
       ),
-      layoutWidget: Form(
-        key: _formKey,
-        child: ValueListenableBuilder(
-          valueListenable: _draftUser,
-          builder: (_, DraftUser draft, Widget child){
+      layoutWidget: ValueListenableBuilder(
+        valueListenable: _draftUser,
+        builder: (_, DraftUser draft, Widget child){
 
-            return ListView(
+          return Form(
+            key: draft?.formKey,
+            child: ListView(
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.zero,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -231,24 +185,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 /// PICTURE
                 AddImagePicBubble(
+                  formKey: draft?.formKey,
                   titleVerse: const Verse(
                     text: 'phid_picture',
                     translate: true,
                   ),
                   redDot: true,
-                  picModel: draft.pic,
+                  picModel: draft?.picModel,
                   bubbleType: BubbleType.userPic,
                   onAddPicture: (PicMakerType imagePickerType) => takeUserPicture(
                     context: context,
-                    canPickImage: _canPickImage,
                     draft: _draftUser,
                     picMakerType: imagePickerType,
+                    mounted: mounted,
                   ),
                   validator: () => Formers.picValidator(
-                    pic: draft.pic,
+                    pic: draft?.picModel,
                     canValidate: _canValidate,
                   ),
-                  formKey: _formKey,
                 ),
 
                 /// GENDER
@@ -271,20 +225,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     redDot: true,
                   ),
-                  formKey: _formKey,
-                  focusNode: _nameNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.nameNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft.name,
+                  initialText: draft?.name,
                   onTextChanged: (String text) => onUserNameChanged(
                     text: text,
                     draft: _draftUser,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.personNameValidator(
-                    name: draft.name,
+                    name: draft?.name,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -299,20 +253,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     redDot: true,
                   ),
-                  formKey: _formKey,
-                  focusNode: _titleNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.titleNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft.title,
+                  initialText: draft?.title,
                   onTextChanged: (String text) => onUserJobTitleChanged(
                     draft: _draftUser,
                     text: text,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.jobTitleValidator(
-                    jobTitle: draft.title,
+                    jobTitle: draft?.title,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -327,20 +281,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     redDot: true,
                   ),
-                  formKey: _formKey,
-                  focusNode: _companyNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.companyNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft.company,
+                  initialText: draft?.company,
                   // autoValidate: true,
                   onTextChanged: (String text) => onUserCompanyNameChanged(
                     text: text,
                     draft: _draftUser,
                   ),
                   validator: (String text) => Formers.companyNameValidator(
-                    companyName: draft.company,
+                    companyName: draft?.company,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -350,8 +304,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// PHONE
                 ContactFieldEditorBubble(
                   key: const ValueKey<String>('phone'),
-                  formKey: _formKey,
-                  focusNode: _phoneNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.phoneNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   headerViewModel: const BubbleHeaderVM(
@@ -366,7 +320,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.phone,
                     countryID: draft?.zone?.countryID,
-                    existingContacts: draft.contacts,
+                    existingContacts: draft?.contacts,
                   ),
                   textOnChanged: (String text) => onUserContactChanged(
                     contactType: ContactType.phone,
@@ -376,7 +330,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsPhoneValidator(
-                    contacts: draft.contacts,
+                    contacts: draft?.contacts,
                     zoneModel: draft?.zone,
                     canValidate: _canValidate,
                     context: context,
@@ -387,8 +341,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// EMAIL
                 ContactFieldEditorBubble(
                   key: const ValueKey<String>('email'),
-                  formKey: _formKey,
-                  focusNode: _emailNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.emailNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   headerViewModel: const BubbleHeaderVM(
@@ -403,7 +357,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.email,
                     countryID: draft?.zone?.countryID,
-                    existingContacts: draft.contacts,
+                    existingContacts: draft?.contacts,
                   ),
                   textOnChanged: (String text) => onUserContactChanged(
                     contactType: ContactType.email,
@@ -413,7 +367,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsEmailValidator(
-                    contacts: draft.contacts,
+                    contacts: draft?.contacts,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -422,7 +376,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 /// ZONE
                 ZoneSelectionBubble(
-                  currentZone: draft.zone,
+                  currentZone: draft?.zone,
                   onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
                     selectedZone: zoneModel,
                     draft: _draftUser,
@@ -430,7 +384,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // selectCountryAndCityOnly: true,
                   // selectCountryIDOnly: false,
                   validator: () => Formers.zoneValidator(
-                    zoneModel: draft.zone,
+                    zoneModel: draft?.zone,
                     selectCountryAndCityOnly: true,
                     selectCountryIDOnly: false,
                     canValidate: _canValidate,
@@ -448,10 +402,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 const Horizon(),
 
               ],
-            );
+            ),
+          );
 
-          },
-        ),
+        },
       ),
 
     );

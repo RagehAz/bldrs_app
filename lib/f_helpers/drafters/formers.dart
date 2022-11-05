@@ -7,10 +7,11 @@ import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/h_money/currency_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -588,14 +589,14 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String slidesValidator({
     @required BuildContext context,
-    @required DraftFlyerModel draft,
+    @required DraftFlyerModel draftFlyer,
     @required bool canValidate,
   }){
     String _message;
 
     if (canValidate == true){
 
-      final bool _hasSlides = Mapper.checkCanLoopList(draft?.mutableSlides);
+      final bool _hasSlides = Mapper.checkCanLoopList(draftFlyer?.mutableSlides);
 
       if (_hasSlides == false){
         _message = Verse.transBake(context, 'phid_flyer_should_have_atleast_one_slide');
@@ -626,19 +627,19 @@ class Formers {
     return _message;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static String pdfValidator({
-    @required FileModel fileModel,
+    @required PDFModel pdfModel,
     @required bool canValidate,
   }){
     String _message;
 
     if (canValidate == true){
 
-      if (fileModel != null){
+      if (pdfModel != null){
 
-        final bool _sizeLimitReached = fileModel?.checkSizeLimitReached() == true;
-        final bool _nameHasBadWord = TextCheck.containsBadWords(text: fileModel.fileName);
+        final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
+        final bool _nameHasBadWord = TextCheck.containsBadWords(text: pdfModel.name);
 
         if (_sizeLimitReached == true){
           _message = '## PDF file size should be less than ${Standards.maxFileSizeLimit} Mb';
@@ -745,11 +746,11 @@ class Formers {
     ---------------------------------->
     */
 
-    if (Formers.picValidator(pic: userModel?.pic, canValidate: true) != null) {
+    if (Formers.picValidator(pic: userModel?.picPath, canValidate: true) != null) {
       _missingFields.add('Picture');
     }
 
-    if (Formers.genderValidator(userModel: userModel, canValidate: true) != null) {
+    if (Formers.genderValidator(gender: userModel?.gender, canValidate: true) != null) {
       _missingFields.add('Gender');
     }
 

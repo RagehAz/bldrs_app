@@ -7,10 +7,10 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +47,7 @@ class NoteEventsOfAuthorship {
       id: null, // will be defined in composeNoteProtocol
       parties: NoteParties(
         senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
-        senderImageURL: bzModel.logo,
+        senderImageURL: bzModel.logoPath,
         senderType: PartyType.bz,
         receiverID: userModelToSendTo.id,
         receiverType: PartyType.user,
@@ -109,7 +109,7 @@ class NoteEventsOfAuthorship {
       id: null, // will be defined in composeNoteProtocol
       parties: NoteParties(
         senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
-        senderImageURL: bzModel.logo,
+        senderImageURL: bzModel.logoPath,
         senderType: PartyType.bz,
         receiverID: userModelToSendTo.id,
         receiverType: PartyType.user,
@@ -168,7 +168,7 @@ class NoteEventsOfAuthorship {
       id: null,
       parties: NoteParties(
         senderID: senderModel.id,
-        senderImageURL: senderModel.pic,
+        senderImageURL: senderModel.picPath,
         senderType: PartyType.user,
         receiverID: bzID,
         receiverType: PartyType.bz,
@@ -214,7 +214,7 @@ class NoteEventsOfAuthorship {
       id: null,
       parties: NoteParties(
         senderID: senderModel.id,
-        senderImageURL: senderModel.pic,
+        senderImageURL: senderModel.picPath,
         senderType: PartyType.user,
         receiverID: bzID,
         receiverType: PartyType.bz,

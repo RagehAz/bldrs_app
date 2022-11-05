@@ -179,7 +179,7 @@ Future<void> _onAddGalleryImageToPoster({
     noteNotifier.value = noteNotifier.value.copyWith(
       poster: PosterModel(
         type: PosterType.galleryImage,
-        file: _fileModel.file,
+        file: _fileModel.bytes,
         modelID: null,
         url: null,
       ),
@@ -206,7 +206,7 @@ Future<void> _onAddCameraImageToPoster({
     noteNotifier.value = noteNotifier.value.copyWith(
       poster: PosterModel(
         type: PosterType.cameraImage,
-        file: _fileModel.file,
+        file: _fileModel.bytes,
         modelID: null,
         url: null,
       ),

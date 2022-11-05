@@ -49,7 +49,7 @@ class BzLogoBox extends StatelessWidget {
       showName: showName,
     );
     // --------------------
-    final dynamic _bzLogo = bzModel == null ? logoColor : bzModel.logo;
+    final dynamic _bzLogo = bzModel == null ? logoColor : bzModel.logoPath;
     final bool _bzIsVerified = bzModel == null ? false : bzModel.isVerified;
     final String _bzName = bzModel == null ? '...' : bzModel.name;
     // --------------------

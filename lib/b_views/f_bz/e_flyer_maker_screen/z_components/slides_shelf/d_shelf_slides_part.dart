@@ -19,7 +19,6 @@ class ShelfSlidesPart extends StatelessWidget {
     @required this.onSlideTap,
     @required this.onAddSlides,
     @required this.loading,
-    @required this.isEditingFlyer,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,7 +28,6 @@ class ShelfSlidesPart extends StatelessWidget {
   final ValueChanged<MutableSlide> onSlideTap;
   final ValueChanged<PicMakerType> onAddSlides;
   final ValueNotifier<bool> loading;
-  final ValueNotifier<bool> isEditingFlyer;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -78,23 +76,11 @@ class ShelfSlidesPart extends StatelessWidget {
 
                 }),
 
-                /// ADD SLIDE BUTTON
-                ValueListenableBuilder(
-                  valueListenable: isEditingFlyer,
-                  builder: (_, bool isEditing, Widget child){
-
-                    if (isLoading == false && isEditing == false){
-                      return AddSlidesButton(
-                        onTap: onAddSlides,
-                      );
-                    }
-
-                    else {
-                      return const SizedBox();
-                    }
-
-                  },
-                ),
+                /// ADD NEW SLIDE
+                if (isLoading == false && draft.firstTimer == true)
+                  AddSlidesButton(
+                    onTap: onAddSlides,
+                  ),
 
                 /// LOADING WIDGET
                 if (isLoading == true)

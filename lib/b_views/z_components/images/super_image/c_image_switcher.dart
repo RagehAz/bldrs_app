@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/x_cacheless_image.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/x_infinity_loading_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/x_local_asset_checker.dart';
-import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
