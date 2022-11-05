@@ -9,9 +9,9 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_doc_streamer.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -98,7 +98,7 @@ class MyBzScreen extends StatelessWidget {
 
                   BzLogo(
                     width: 40,
-                    image: _bzModel.logo,
+                    image: _bzModel.logoPath,
                     isVerified: _bzModel.isVerified,
                     margins: const EdgeInsets.symmetric(horizontal: 5),
                     corners: BldrsAppBar.corners, // was corners - 5

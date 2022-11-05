@@ -7,7 +7,7 @@ import 'package:bldrs/e_back_end/g_storage/storage_file_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -19,7 +19,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class Storage {
+  // -----------------------------------------------------------------------------
+
   const Storage();
+
   // -----------------------------------------------------------------------------
 
   /// CREATE
@@ -83,7 +86,7 @@ class Storage {
         ...List.generate(slides.length, (index) async {
 
           final String _picURL = await createStoragePicAndGetURL(
-            inputFile: slides[index].pic,
+            inputFile: slides[index].picPath,
             collName: StorageColl.slides,
             ownersIDs: <String>[bzCreatorID, flyerAuthorID],
             docName: SlideModel.generateSlideID(

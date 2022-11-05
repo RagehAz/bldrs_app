@@ -7,8 +7,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:flutter/material.dart';
 
 class NoteSenderBalloon extends StatelessWidget {
@@ -69,7 +69,7 @@ class NoteSenderBalloon extends StatelessWidget {
 
             return Balloona(
               balloonWidth: balloonWidth,
-              pic: _userModel?.pic,
+              pic: _userModel?.picPath,
               loading: false,
               onTap: onTap,
             );
@@ -98,7 +98,7 @@ class NoteSenderBalloon extends StatelessWidget {
 
                 return BzLogo(
                   width: balloonWidth,
-                  image: noteModel.parties.senderImageURL ?? _bzModel?.logo,
+                  image: noteModel.parties.senderImageURL ?? _bzModel?.logoPath,
                   isVerified: _bzModel?.isVerified,
                   zeroCornerIsOn: false,
                 );

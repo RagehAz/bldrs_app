@@ -115,16 +115,16 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       stopWatchController.start();
 
 
-      final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.file);
+      final Uint8List _uInt = await Floaters.getUint8ListFromFile(fileModel.bytes);
       final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
       final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
-      final Dimensions _size = await Dimensions.superDimensions(fileModel.file);
+      final Dimensions _size = await Dimensions.superDimensions(fileModel.bytes);
 
       final String _base64FromLDB = await _addBase64ToLDBAndRead(fileModel: fileModel);
       final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: _uInt);
 
       setState(() {
-        _file = fileModel.file;
+        _file = fileModel.bytes;
         uInt = _uInt;
         uiImage = _uiImage;
         imgImage = _imgImage;
@@ -163,7 +163,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       docName: 'tempPicDoc',
       input: {
         'id': 'ldbBase64',
-        'data' : await Floaters.getBase64FromFileOrURL(fileModel.file),
+        'data' : await Floaters.getBase64FromFileOrURL(fileModel.bytes),
       },
     );
 
@@ -271,7 +271,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               await _triggerLoading(setTo: true);
 
               final FileModel _pickedFileModel = await FileModel.createModelByUrl(
-                url: _user.pic,
+                url: _user.picPath,
                 fileName: _user.id,
               );
 
@@ -362,7 +362,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               final double _value = Numeric.transformStringToDouble(_result);
 
               final File _pickedFile = await Filers.resizePic(
-                  file: _file,
+                  bytes: _file,
                   finalWidth: _value,
               );
 

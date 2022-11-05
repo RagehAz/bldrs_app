@@ -87,7 +87,7 @@ class BzLongButton extends StatelessWidget {
               /// LOGO
               DreamBox(
                 height: height,
-                icon: bzModel?.logo,
+                icon: bzModel?.logoPath,
               ),
 
               /// INFO

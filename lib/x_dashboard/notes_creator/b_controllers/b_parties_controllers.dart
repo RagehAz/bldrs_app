@@ -13,8 +13,8 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +135,7 @@ Future<void> _onSelectUserAsNoteSender({
     note.value = note.value.copyWith(
       parties: note.value.parties.copyWith(
         senderID: _userModel.id,
-        senderImageURL: _userModel.pic,
+        senderImageURL: _userModel.picPath,
         senderType: senderType,
       ),
     );
@@ -167,7 +167,7 @@ Future<void> _onSelectBzAsNoteSender({
     note.value = note.value.copyWith(
       parties: note.value.parties.copyWith(
         senderID: _bzModel.id,
-        senderImageURL: _bzModel.logo,
+        senderImageURL: _bzModel.logoPath,
         senderType: senderType,
       ),
     );

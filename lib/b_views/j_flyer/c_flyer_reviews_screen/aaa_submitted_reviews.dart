@@ -6,9 +6,9 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controlle
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/a_review_box.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/variants/a_review_creator_bubble.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/variants/b_review_view_bubble.dart';
-import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
+import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

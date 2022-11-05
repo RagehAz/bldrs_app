@@ -6,15 +6,15 @@ import 'package:bldrs/a_models/x_secondary/search_result.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/search/bz_search.dart' as BzFireSearch;
-import 'package:bldrs/e_back_end/b_fire/search/flyer_search.dart' as FlyerSearch;
-import 'package:bldrs/e_back_end/b_fire/search/user_fire_search.dart';
-import 'package:bldrs/e_back_end/x_ops/real_ops/user_record_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart' as BzFireSearch;
+import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart' as FlyerSearch;
+import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
+import 'package:bldrs/c_protocols/user_protocols/real/user_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -222,7 +222,7 @@ Future<List<SearchResult>> _searchBzz({
       if (Mapper.checkCanLoopList(_bzFlyers)) {
         _results.add(SearchResult(
           title: 'Flyers by ${bz.name}',
-          icon: bz.logo,
+          icon: bz.logoPath,
           flyers: _bzFlyers,
         ));
       }
@@ -263,7 +263,7 @@ Future<List<SearchResult>> _searchAuthors({
           if (Mapper.checkCanLoopList(_bzFlyers)) {
             _results.add(SearchResult(
               title: 'Flyers from ${bz.name} published by ${user.name}',
-              icon: user.pic,
+              icon: user.picPath,
               flyers: _bzFlyers,
             ));
           }

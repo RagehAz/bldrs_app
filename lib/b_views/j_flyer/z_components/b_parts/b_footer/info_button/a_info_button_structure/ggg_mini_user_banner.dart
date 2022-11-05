@@ -25,7 +25,7 @@ class MiniUserBanner extends StatelessWidget {
         DreamBox(
           height: size,
           width: size,
-          icon: userModel?.pic,
+          icon: userModel?.picPath,
           margins: Scale.constantHorizontal5,
           onTap: () => Nav.jumpToUserPreviewScreen(
               context: context,

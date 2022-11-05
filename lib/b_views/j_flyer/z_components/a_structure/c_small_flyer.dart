@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:dismissible_page/dismissible_page.dart';

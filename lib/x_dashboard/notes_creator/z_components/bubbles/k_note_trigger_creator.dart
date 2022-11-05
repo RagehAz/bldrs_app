@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/c_protocols/note_protocols/b_trigger_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';

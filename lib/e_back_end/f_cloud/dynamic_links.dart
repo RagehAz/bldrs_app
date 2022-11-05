@@ -348,7 +348,7 @@ class DynamicLinks {
           pluralTranslation: false,
         ),
         description: flyerModel.slides[slideIndex].headline,
-        imageUrl: Uri.parse(flyerModel.slides[slideIndex].pic),
+        imageUrl: Uri.parse(flyerModel.slides[slideIndex].picPath),
       ),
     );
 

@@ -11,7 +11,7 @@ import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
@@ -48,7 +48,7 @@ class UserModel {
     @required this.need,
     @required this.name,
     @required this.trigram,
-    @required this.pic,
+    @required this.picPath,
     @required this.title,
     @required this.company,
     @required this.gender,
@@ -74,7 +74,7 @@ class UserModel {
   final NeedModel need;
   final String name;
   final List<String> trigram;
-  final String pic; // path only
+  final String picPath; // path only
   final String title;
   final String company;
   final Gender gender;
@@ -124,7 +124,7 @@ class UserModel {
       // -------------------------
       name: user.displayName,
       trigram: Stringer.createTrigram(input: user.displayName),
-      pic: StorageColl.getUserPicPath(user.uid),
+      picPath: StorageColl.getUserPicPath(user.uid),
       title: '',
       gender: Gender.male,
       zone: zone,
@@ -188,7 +188,7 @@ class UserModel {
     NeedModel need,
     String name,
     List<String> trigram,
-    String pic,
+    String picPath,
     String title,
     String company,
     Gender gender,
@@ -213,7 +213,7 @@ class UserModel {
       need: need ?? this.need,
       name: name ?? this.name,
       trigram: trigram ?? this.trigram,
-      pic: pic ?? this.pic,
+      picPath: picPath ?? this.picPath,
       title: title ?? this.title,
       company: company ?? this.company,
       gender: gender ?? this.gender,
@@ -241,7 +241,7 @@ class UserModel {
     bool need = false,
     bool name = false,
     bool trigram = false,
-    bool pic = false,
+    bool picPath = false,
     bool title = false,
     bool company = false,
     bool gender = false,
@@ -266,7 +266,7 @@ class UserModel {
       need : need == true ? null : this.need,
       name : name == true ? null : this.name,
       trigram : trigram == true ? const [] : this.trigram,
-      pic : pic == true ? null : this.pic,
+      picPath : picPath == true ? null : this.picPath,
       title : title == true ? null : this.title,
       company : company == true ? null : this.company,
       gender : gender == true ? null : this.gender,
@@ -302,7 +302,7 @@ class UserModel {
 // -------------------------
       'name': name,
       'trigram': trigram,
-      'pic': pic,
+      'picPath': picPath,
       'title': title,
       'company': company,
       'gender': cipherGender(gender),
@@ -359,7 +359,7 @@ class UserModel {
         // -------------------------
         name: map['name'],
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
-        pic: map['pic'],
+        picPath: map['picPath'],
         title: map['title'],
         company: map['company'],
         gender: decipherGender(map['gender']),
@@ -511,7 +511,7 @@ class UserModel {
           NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == true &&
           user1.name == user2.name &&
           Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == true &&
-          user1.pic == user2.pic &&
+          user1.picPath == user2.picPath &&
           user1.title == user2.title &&
           user1.company == user2.company &&
           user1.gender == user2.gender &&
@@ -594,7 +594,7 @@ class UserModel {
 
     if (Mapper.checkCanLoopList(usersModels) == true){
       for (final UserModel user in usersModels){
-        _pics.add(user.pic);
+        _pics.add(user.picPath);
       }
     }
 
@@ -864,7 +864,7 @@ class UserModel {
     blog('createdAt : $createdAt');
     blog('name : $name');
     blog('trigram : $trigram');
-    blog('pic : $pic');
+    blog('pic : $picPath');
     blog('title : $title');
     blog('company : $company');
     blog('gender : $gender');
@@ -949,7 +949,7 @@ class UserModel {
         blog('blogUserDifferences : [trigram] are not identical');
       }
 
-      if (user1.pic != user2.pic){
+      if (user1.picPath != user2.picPath){
         blog('blogUserDifferences : [pic] are not identical');
       }
 
@@ -1039,7 +1039,7 @@ class UserModel {
       need: NeedModel.dummyNeed(context),
       name: 'Donald duck',
       trigram: const <String>[],
-      pic: Iconz.dvRageh,
+      picPath: Iconz.dvRageh,
       title: 'CEO',
       company: 'Bldrs.LLC',
       gender: Gender.male,
@@ -1227,7 +1227,7 @@ class UserModel {
       need.hashCode^
       name.hashCode^
       trigram.hashCode^
-      pic.hashCode^
+      picPath.hashCode^
       title.hashCode^
       company.hashCode^
       gender.hashCode^

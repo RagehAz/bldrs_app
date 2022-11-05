@@ -30,7 +30,7 @@ class UserTileButton extends StatelessWidget {
       height: height,
       color: color,
       onTap: onTap,
-      icon: userModel?.pic,
+      icon: userModel?.picPath,
       verse: Verse.plain(userModel?.name),
       secondLine: secondLine,
     );
