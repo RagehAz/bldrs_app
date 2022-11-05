@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/x_secondary/search_result.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf/flyers_shelf.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/d_providers/search_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

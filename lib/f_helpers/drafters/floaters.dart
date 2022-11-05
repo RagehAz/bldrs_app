@@ -371,6 +371,15 @@ static img.Image decodeToImgImage({
     }
 
     }
+  // --------------------
+  ///
+  static String getBase64FromUint8List(Uint8List bytes){
+    String _output;
+    if (Mapper.checkCanLoopList(bytes) == true){
+      _output = base64Encode(bytes);
+    }
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// BitmapDescriptor
