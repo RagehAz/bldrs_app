@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
@@ -19,13 +19,13 @@ import 'package:flutter/material.dart';
 class DraftShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const DraftShelfSlide({
-    @required this.mutableSlide,
+    @required this.draftSlide,
     @required this.number,
     @required this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final MutableSlide mutableSlide;
+  final DraftSlide draftSlide;
   final int number;
   final Function onTap;
   /// --------------------------------------------------------------------------
@@ -64,7 +64,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
   Widget build(BuildContext context) {
 
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, DraftShelfSlide.flyerBoxWidth);
-    blog('ShelfSlide : BUILDING : file : ${widget.mutableSlide?.picFileModel?.bytes?.path}');
+    blog('ShelfSlide : BUILDING : picSize : ${widget.draftSlide?.picModel?.bytes?.length} bytes');
 
     return Container(
       width: DraftShelfSlide.flyerBoxWidth,
@@ -90,7 +90,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
               verse: Verse.plain('${widget.number}'),
               size: 1,
               // color: Colorz.white255,
-              labelColor: widget.mutableSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
+              labelColor: widget.draftSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
             ),
           ),
 
@@ -104,20 +104,20 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
             child: FlyerBox(
               key: const ValueKey<String>('shelf_slide_flyer_box'),
               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
-              boxColor: widget.mutableSlide?.midColor ?? Colorz.white10,
+              boxColor: widget.draftSlide?.midColor ?? Colorz.white10,
               stackWidgets: <Widget>[
 
                 /// BACK GROUND COVER PIC
-                if (widget.mutableSlide != null)
+                if (widget.draftSlide != null)
                   SuperFilteredImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
-                    imageFile: widget.mutableSlide.picFileModel.bytes,
-                    filterModel: widget.mutableSlide.filter,
+                    bytes: widget.draftSlide.picModel.bytes,
+                    filterModel: widget.draftSlide.filter,
                   ),
 
                 /// BLUR LAYER
-                if (widget.mutableSlide != null)
+                if (widget.draftSlide != null)
                   BlurLayer(
                     key: const ValueKey<String>('blur_layer'),
                     width: DraftShelfSlide.flyerBoxWidth,
@@ -128,7 +128,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                   ),
 
                 /// IMAGE
-                if (widget.mutableSlide != null)
+                if (widget.draftSlide != null)
                   ValueListenableBuilder(
                     valueListenable: _animateSlide,
                     builder: (_, bool _animate, Widget child){
@@ -136,7 +136,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       if (_animate == true){
                         return AnimateWidgetToMatrix(
                           matrix: Trinity.renderSlideMatrix(
-                              matrix: widget.mutableSlide.matrix,
+                              matrix: widget.draftSlide.matrix,
                               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                               flyerBoxHeight: _flyerBoxHeight
                           ),
@@ -151,20 +151,20 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     child: SuperFilteredImage(
                       width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
-                      imageFile: widget.mutableSlide.picFileModel.bytes,
-                      filterModel: widget.mutableSlide.filter,
-                      boxFit: widget.mutableSlide.picFit,
+                      bytes: widget.draftSlide.picModel.bytes,
+                      filterModel: widget.draftSlide.filter,
+                      boxFit: widget.draftSlide.picFit,
                     ),
                   ),
 
                 /// SLIDE SHADOW
-                if (widget.mutableSlide != null)
+                if (widget.draftSlide != null)
                   const SlideShadow(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                   ),
 
                 /// BOTTOM SHADOW
-                if (widget.mutableSlide != null)
+                if (widget.draftSlide != null)
                   const FooterShadow(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                   ),
@@ -176,18 +176,18 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                 // ),
 
                 /// STATIC HEADER
-                if (widget.mutableSlide != null)
+                if (widget.draftSlide != null)
                   const HeaderTemplate(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                     opacity: 0.5,
                   ),
 
                 /// HEADLINE
-                if (widget.mutableSlide != null)
+                if (widget.draftSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                     verse: Verse(
-                      text: widget.mutableSlide.headline,
+                      text: widget.draftSlide.headline,
                       translate: false,
                     ),
                   ),

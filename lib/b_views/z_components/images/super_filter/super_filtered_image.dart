@@ -1,11 +1,8 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +12,7 @@ class SuperFilteredImage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperFilteredImage({
     @required this.filterModel,
-    @required this.imageFile,
+    @required this.bytes,
     @required this.width,
     @required this.height,
     this.opacity,
@@ -25,21 +22,20 @@ class SuperFilteredImage extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ImageFilterModel filterModel;
-  final File imageFile;
+  final Uint8List bytes;
   final double width;
   final double height;
   final BoxFit boxFit;
   final ValueNotifier<double> opacity;
   final double scale;
   // -----------------------------------------------------------------------------
-  static Future<File> processImage({
-    @required File input,
+  ///
+  static Future<Uint8List> processImage({
+    @required Uint8List input,
     @required ImageFilterModel filterModel,
   }) async {
 
     if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
-
-      Uint8List _uint8List = await Floaters.getUint8ListFromFile(input);
 
       final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
 
@@ -55,23 +51,14 @@ class SuperFilteredImage extends StatefulWidget {
           )
       );
 
-      _uint8List = await image_editor.ImageEditor.editImage(
-        image: _uint8List,
+      final Uint8List _bytesUpdated = await image_editor.ImageEditor.editImage(
+        image: input,
         imageEditorOption: option,
       );
 
-      blog('processImage : uint7list is : $_uint8List');
+      blog('processImage : uint7list is : ${input.length} bytes');
 
-      final File _output = await Filers.getFileFromUint8List(
-        uInt8List: _uint8List,
-        fileName: Filers.getFileNameFromFile(
-          file: input,
-          withExtension: true,
-        ),
-      );
-
-
-      return _output;
+      return _bytesUpdated;
     }
 
     else {
@@ -79,6 +66,7 @@ class SuperFilteredImage extends StatefulWidget {
     }
   }
   // -----------------------------------------------------------------------------
+  ///
   static Widget _createTree({
     @required Widget child,
     @required List<List<double>> matrixes,
@@ -104,6 +92,8 @@ class SuperFilteredImage extends StatefulWidget {
 
 class _SuperFilteredImageState extends State<SuperFilteredImage> {
   // -----------------------------------------------------------------------------
+  Uint8List _bytes;
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
@@ -118,10 +108,9 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   @override
   void initState() {
     super.initState();
-    _file = widget.imageFile;
+    _bytes = widget.bytes;
   }
   // --------------------
-  File _file;
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -131,8 +120,8 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 
         _triggerLoading(setTo: true).then((_) async {
 
-          _file = await SuperFilteredImage.processImage(
-            input: widget.imageFile,
+          _bytes = await SuperFilteredImage.processImage(
+            input: widget.bytes,
             filterModel: widget.filterModel,
           );
 
@@ -149,16 +138,25 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   @override
   void didUpdateWidget(covariant SuperFilteredImage oldWidget) {
 
-    final bool _filesAreIdentical = Filers.checkFilesAreIdentical(
-      file1: widget.imageFile,
-      file2: oldWidget.imageFile,
+    final bool _bytesAreIdentical = Mapper.checkListsAreIdentical(
+        list1: widget.bytes,
+        list2: oldWidget.bytes,
     );
 
-    if (_filesAreIdentical == false) {
+    if (
+    widget.width != oldWidget.width ||
+    widget.height != oldWidget.height ||
+    _bytesAreIdentical == false ||
+    widget.opacity != oldWidget.opacity ||
+    widget.scale != oldWidget.scale ||
+    widget.boxFit != oldWidget.boxFit ||
+    ImageFilterModel.checkFiltersAreIdentical(filter1: widget.filterModel, filter2: oldWidget.filterModel) == false
+    ) {
       setState(() {
-        _file = widget.imageFile;
+        _bytes = widget.bytes;
       });
     }
+
     super.didUpdateWidget(oldWidget);
   }
   // --------------------
@@ -175,7 +173,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
       return SuperImage(
         width: widget.width,
         height: widget.height,
-        pic: widget.imageFile,
+        pic: widget.bytes,
         fit: widget.boxFit,
       );
     }
@@ -198,7 +196,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                 child: SuperImage(
                   width: widget.width,
                   height: widget.height,
-                  pic: _file,
+                  pic: _bytes,
                   fit: widget.boxFit,
                 ),
               );
@@ -230,7 +228,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
                 child: SuperImage(
                   width: widget.width,
                   height: widget.height,
-                  pic: _file,
+                  pic: _bytes,
                   fit: widget.boxFit,
                   scale: widget.scale,
                 ),

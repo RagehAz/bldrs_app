@@ -1,17 +1,17 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -69,18 +69,18 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 void onDeleteSlide({
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
   @required int index,
 }){
 
-  final List<MutableSlide> _slides = draftFlyer.value.mutableSlides;
+  final List<DraftSlide> _slides = draftFlyer.value.draftSlides;
 
   if (Mapper.checkCanLoopList(_slides) == true){
 
     _slides.removeAt(index);
 
     draftFlyer.value = draftFlyer.value.copyWith(
-      mutableSlides: _slides,
+      draftSlides: _slides,
     );
 
   }
@@ -92,7 +92,7 @@ Future<void> onAddNewSlides({
   @required BuildContext context,
   @required PicMakerType imagePickerType,
   @required ValueNotifier<bool> isLoading,
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
   @required BzModel bzModel,
   @required bool mounted,
   @required ScrollController scrollController,
@@ -107,7 +107,7 @@ Future<void> onAddNewSlides({
   );
 
   /// A - if max images reached
-  if(_maxLength <= draftFlyer.value.mutableSlides.length ){
+  if(_maxLength <= draftFlyer.value.draftSlides.length ){
     await _showMaxSlidesReachedDialog(context, _maxLength);
   }
 
@@ -148,19 +148,19 @@ Future<void> _addImagesForNewFlyer({
   @required BuildContext context,
   @required BzModel bzModel,
   @required bool mounted,
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
   @required ScrollController scrollController,
   @required double flyerWidth,
   @required PicMakerType imagePickerType,
 }) async {
 
-  List<File> _pickedFiles = <File>[];
+  List<Uint8List> _picked = <Uint8List>[];
 
   if(mounted){
 
     if (imagePickerType == PicMakerType.galleryImage){
 
-      final List<FileModel> _fileModels = await PicMaker.pickAndCropMultiplePics(
+      final List<Uint8List> _bytezz = await PicMaker.pickAndCropMultiplePics(
         context: context,
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio,
@@ -168,15 +168,15 @@ Future<void> _addImagesForNewFlyer({
         resizeToWidth: Standards.slideWidthPixels,
       );
 
-      if (Mapper.checkCanLoopList(_fileModels) == true){
-        _pickedFiles = FileModel.getFilesFromModels(_fileModels);
+      if (Mapper.checkCanLoopList(_bytezz) == true){
+        _picked = _bytezz;
       }
 
     }
 
     else if (imagePickerType == PicMakerType.cameraImage){
 
-      final FileModel _fileModel = await PicMaker.shootAndCropCameraPic(
+      final Uint8List _bytes = await PicMaker.shootAndCropCameraPic(
         context: context,
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio,
@@ -184,34 +184,36 @@ Future<void> _addImagesForNewFlyer({
         resizeToWidth: Standards.slideWidthPixels,
       );
 
-      if (_fileModel != null){
-        _pickedFiles = <File>[_fileModel.bytes];
+      if (_bytes != null){
+        _picked = <Uint8List>[_bytes];
       }
 
     }
 
 
     /// B - if didn't pick more images
-    if(_pickedFiles.isEmpty){
+    if(_picked.isEmpty){
       // will do nothing
     }
 
     /// B - if made new picks
     else {
 
-      blog('the thing is : $_pickedFiles');
+      blog('the thing is : $_picked');
 
-      final List<MutableSlide> _newMutableSlides = await MutableSlide.createMutableSlidesByFiles(
+      final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
         context: context,
-        files: _pickedFiles,
-        existingSlides: draftFlyer.value.mutableSlides,
+        bytezz: _picked,
+        existingDrafts: draftFlyer.value.draftSlides,
         headline: draftFlyer.value.headline,
+        bzID: draftFlyer.value.bzID,
+        flyerID: draftFlyer.value.id,
       );
 
-      final List<MutableSlide> _combinedSlides = <MutableSlide>[...draftFlyer.value.mutableSlides, ... _newMutableSlides];
+      final List<DraftSlide> _combinedSlides = <DraftSlide>[...draftFlyer.value.draftSlides, ... _newMutableSlides];
 
-      final DraftFlyerModel _newDraft = draftFlyer.value.copyWith(
-        mutableSlides: _combinedSlides,
+      final DraftFlyer _newDraft = draftFlyer.value.copyWith(
+        draftSlides: _combinedSlides,
       );
 
       draftFlyer.value = _newDraft;
@@ -224,7 +226,7 @@ Future<void> _addImagesForNewFlyer({
       });
 
 
-      // for (int i = 0; i < _pickedFiles.length; i++){
+      // for (int i = 0; i < _picked.length; i++){
       //   /// for first headline
       //   if(i == 0){
       //     /// keep controller as is
@@ -245,7 +247,7 @@ Future<void> _addImagesForExistingFlyer({
   @required BuildContext context,
   @required BzModel bzModel,
   @required bool mounted,
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
   @required ScrollController scrollController,
   @required double flyerWidth,
 }) async {
@@ -280,28 +282,29 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
 /// TESTED : WORKS PERFECT
 Future<void> onSlideTap({
   @required BuildContext context,
-  @required MutableSlide slide,
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required DraftSlide slide,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
 }) async {
 
   Keyboard.closeKeyboard(context);
 
-  final MutableSlide _result = await Nav.goToNewScreen(
+  final DraftSlide _result = await Nav.goToNewScreen(
       context: context,
       screen: SlideEditorScreen(
         slide: slide,
+        bzID: draftFlyer.value.bzID,
       )
   );
 
   if (_result != null){
 
-    final List<MutableSlide> _updatedSlides = MutableSlide.replaceSlide(
-      slides: draftFlyer.value.mutableSlides,
+    final List<DraftSlide> _updatedSlides = DraftSlide.replaceSlide(
+      slides: draftFlyer.value.draftSlides,
       slide: _result,
     );
 
     draftFlyer.value = draftFlyer.value.copyWith(
-      mutableSlides: _updatedSlides,
+      draftSlides: _updatedSlides,
     );
 
   }
@@ -398,13 +401,13 @@ Future<void> onMoreTap({
 void onFlyerHeadlineChanged({
   @required String text,
   @required GlobalKey<FormState> formKey,
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
 }){
 
   /// DO YOU NEED THIS ?
   formKey.currentState.validate();
 
-  draftFlyer.value = DraftFlyerModel.updateHeadline(
+  draftFlyer.value = DraftFlyer.updateHeadline(
       draft: draftFlyer.value,
       newHeadline: text
   );

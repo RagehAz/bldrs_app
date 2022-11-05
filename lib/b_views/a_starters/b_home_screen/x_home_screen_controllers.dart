@@ -19,6 +19,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
@@ -26,7 +27,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart'
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/zone_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';

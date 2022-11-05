@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -26,6 +26,7 @@ class PDFSelectionBubble extends StatefulWidget {
     @required this.appBarType,
     @required this.canValidate,
     @required this.flyerID,
+    @required this.bzID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +37,7 @@ class PDFSelectionBubble extends StatefulWidget {
   final AppBarType appBarType;
   final bool canValidate;
   final String flyerID;
+  final String bzID;
   /// --------------------------------------------------------------------------
   @override
   _PDFSelectionBubbleState createState() => _PDFSelectionBubbleState();
@@ -323,9 +325,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     margins: const EdgeInsets.only(top: 10),
                     onTap: () async {
 
-                      final PDFModel _pdfModel = await Filers.pickPDF(
+                      final PDFModel _pdfModel = await PDFProtocols.pickPDF(
                         context: context,
                         flyerID: widget.flyerID,
+                        bzID: widget.bzID,
                       );
 
                       if (_pdfModel != null){

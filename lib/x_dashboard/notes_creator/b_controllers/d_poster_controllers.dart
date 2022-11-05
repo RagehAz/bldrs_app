@@ -7,11 +7,10 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/keyboard_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -31,7 +30,7 @@ void onSwitchPoster({
     noteNotifier.value = noteNotifier.value.copyWith(
       poster: const PosterModel(
         modelID: null,
-        url: null,
+        path: null,
         type: null,
         // file: null,
       ),
@@ -126,7 +125,7 @@ Future<void> _onAddBzToPoster({
       poster: PosterModel(
         type: PosterType.bz,
         modelID: _bzModels.first.id,
-        url: null,
+        path: null,
       ),
 
     );
@@ -154,7 +153,7 @@ Future<void> _onAddFlyerToPoster({
       poster: PosterModel(
         type: PosterType.flyer,
         modelID: _selectedFlyers.first.id,
-        url: null,
+        path: null,
       ),
     );
 
@@ -162,57 +161,63 @@ Future<void> _onAddFlyerToPoster({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> _onAddGalleryImageToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
 }) async {
 
-  final FileModel _fileModel = await PicMaker.pickAndCropSinglePic(
-    context: context,
-    cropAfterPick: true,
-    aspectRatio: NotePosterBox.getAspectRatio(),
-    resizeToWidth: NotePosterBox.standardSize.width,
-  );
+  blog('should _onAddGalleryImageToPoster');
 
-  if (_fileModel != null){
-    noteNotifier.value = noteNotifier.value.copyWith(
-      poster: PosterModel(
-        type: PosterType.galleryImage,
-        file: _fileModel.bytes,
-        modelID: null,
-        url: null,
-      ),
-
-    );
-  }
+  // final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
+  //   context: context,
+  //   cropAfterPick: true,
+  //   aspectRatio: NotePosterBox.getAspectRatio(),
+  //   resizeToWidth: NotePosterBox.standardSize.width,
+  // );
+  //
+  // if (_bytes != null){
+  //   noteNotifier.value = noteNotifier.value.copyWith(
+  //     poster: PosterModel(
+  //       type: PosterType.galleryImage,
+  //       modelID: null,
+  //       path: null,
+  //       picModel: PicModel(
+  //
+  //       ),
+  //     ),
+  //
+  //   );
+  // }
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> _onAddCameraImageToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
 }) async {
 
-  final FileModel _fileModel = await PicMaker.shootAndCropCameraPic(
-    context: context,
-    cropAfterPick: true,
-    aspectRatio: NotePosterBox.getAspectRatio(),
-    resizeToWidth: NotePosterBox.standardSize.width,
-  );
+  blog('should _onAddCameraImageToPoster');
 
-  if (_fileModel != null){
-    noteNotifier.value = noteNotifier.value.copyWith(
-      poster: PosterModel(
-        type: PosterType.cameraImage,
-        file: _fileModel.bytes,
-        modelID: null,
-        url: null,
-      ),
-
-    );
-  }
+  // final FileModel _fileModel = await PicMaker.shootAndCropCameraPic(
+  //   context: context,
+  //   cropAfterPick: true,
+  //   aspectRatio: NotePosterBox.getAspectRatio(),
+  //   resizeToWidth: NotePosterBox.standardSize.width,
+  // );
+  //
+  // if (_fileModel != null){
+  //   noteNotifier.value = noteNotifier.value.copyWith(
+  //     poster: PosterModel(
+  //       type: PosterType.cameraImage,
+  //       picModel: _fileModel._bytes,
+  //       modelID: null,
+  //       path: null,
+  //     ),
+  //
+  //   );
+  // }
 
 }
 // --------------------
@@ -236,7 +241,7 @@ Future<void> _onAddImageURLToPoster({
       poster: PosterModel(
         type: PosterType.url,
         modelID: null,
-        url: _url,
+        path: _url,
         // file: null,
       ),
 

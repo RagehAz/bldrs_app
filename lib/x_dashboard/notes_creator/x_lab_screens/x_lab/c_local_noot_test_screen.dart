@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -22,7 +21,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -30,16 +28,12 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_b
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -181,15 +175,16 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
       if (_posterPreviewFile != null){
 
-        final String _url = await Storage.createStoragePicAndGetURL(
-          collName: 'testNotesBanners',
-          docName: Numeric.createUniqueID().toString(),
-          ownersIDs: [AuthFireOps.superUserID()],
-          inputFile: _posterPreviewFile,
-        );
-        setState(() {
-          _posterURL = _url;
-        });
+        /// TASK : FIX US
+        // final String _url = await Storage.createStoragePicAndGetURL(
+        //   collName: 'testNotesBanners',
+        //   docName: Numeric.createUniqueID().toString(),
+        //   ownersIDs: [AuthFireOps.superUserID()],
+        //   inputFile: _posterPreviewFile,
+        // );
+        // setState(() {
+        //   _posterURL = _url;
+        // });
 
       }
 
@@ -239,30 +234,32 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   Future<void> _takePosterScreenshot() async {
 
     blog('_takeBannerScreenshot : START');
+    /// TASK : FIX US
 
-    final double pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    // final double pixelRatio = MediaQuery.of(context).devicePixelRatio;
 
-    final Uint8List uint8List = await screenshotController.capture(
-      pixelRatio: pixelRatio,
-      delay: const Duration(milliseconds: 200),
-    );
+    // final Uint8List uint8List = await screenshotController.capture(
+    //   pixelRatio: pixelRatio,
+    //   delay: const Duration(milliseconds: 200),
+    // );
+    //
+    // final String _fileName = Numeric.createUniqueID().toString();
 
-    final String _fileName = Numeric.createUniqueID().toString();
-
-    final FileModel _fileModel = await PicMaker.resizePic(
-        resizeToWidth: NotePosterBox.standardSize.width,
-        picModel: FileModel(
-          fileName: _fileName,
-          bytes: await Filers.getFileFromUint8List(
-            uInt8List: uint8List,
-            fileName: _fileName,
-          )
-        ),
-    );
-
-    setState(() {
-      _posterPreviewFile = _fileModel.bytes;
-    });
+    /// TASK : FIX US
+    // final FileModel _fileModel = await PicMaker.resizePic(
+    //     resizeToWidth: NotePosterBox.standardSize.width,
+    //     picModel: FileModel(
+    //       fileName: _fileName,
+    //       _bytes: await Filers.getFileFromUint8List(
+    //         uInt8List: uint8List,
+    //         fileName: _fileName,
+    //       )
+    //     ),
+    // );
+    //
+    // setState(() {
+    //   _posterPreviewFile = _fileModel._bytes;
+    // });
 
     blog('_takeBannerScreenshot : END');
 
@@ -561,20 +558,22 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         isDeactivated: isGlobal,
                         icon: isGlobal == true ? (_largeImageFile ?? Iconz.phoneGallery) : Iconz.phoneGallery,
                         iconSizeFactor: 0.5,
-                        verse: Verse.plain('FILE'),
+                        verse: Verse.plain('FILE <-----------'),
                         onTap: () async {
 
-                          final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
-                            context: context,
-                            cropAfterPick: true,
-                            aspectRatio: 1,
-                          );
+                          /// TASK : FIX US
 
-                          if (_pickedFileModel != null){
-                            setState(() {
-                              _largeImageFile = _pickedFileModel.bytes;
-                            });
-                          }
+                          // final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
+                          //   context: context,
+                          //   cropAfterPick: true,
+                          //   aspectRatio: 1,
+                          // );
+                          //
+                          // if (_pickedFileModel != null){
+                          //   setState(() {
+                          //     _largeImageFile = _pickedFileModel._bytes;
+                          //   });
+                          // }
 
                         },
                       ),
@@ -659,23 +658,25 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                               // verse: Verse.plain('URL'),
                               onTap: () async {
 
-                                final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
-                                  context: context,
-                                  cropAfterPick: true,
-                                  aspectRatio: NotePosterBox.getAspectRatio(),
-                                );
+                                /// TASK : FIX US
 
-                                if (_pickedFileModel != null){
-
-                                  setState(() {
-                                    _posterType = PosterType.galleryImage;
-                                    _posterModel = _pickedFileModel.bytes;
-                                    _posterHelperModel = null;
-                                  });
-
-                                  await _takePosterScreenshot();
-
-                                }
+                                // final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
+                                //   context: context,
+                                //   cropAfterPick: true,
+                                //   aspectRatio: NotePosterBox.getAspectRatio(),
+                                // );
+                                //
+                                // if (_pickedFileModel != null){
+                                //
+                                //   setState(() {
+                                //     _posterType = PosterType.galleryImage;
+                                //     _posterModel = _pickedFileModel._bytes;
+                                //     _posterHelperModel = null;
+                                //   });
+                                //
+                                //   await _takePosterScreenshot();
+                                //
+                                // }
 
 
                               },

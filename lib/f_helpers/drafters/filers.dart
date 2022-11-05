@@ -2,11 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
-import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -14,12 +11,11 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Filers {
   // -----------------------------------------------------------------------------
@@ -223,74 +219,7 @@ class Filers {
   // --------------------
   /// LOCAL RASTER ASSET
   // ---------------------
-  ///
-  static Future<Uint8List> getFileFromLocalRasterAsset({
-    @required String localAsset,
-    int width = 100,
-  }) async {
 
-    Uint8List _bytes;
-
-    await tryAndCatch(
-        methodName: 'getFileFromLocalRasterAsset',
-        functions: () async {
-
-          /// IF SVG
-          if (ObjectCheck.objectIsSVG(localAsset) == true){
-            _bytes = await Floaters.getUint8ListFromLocalSVGAsset(localAsset);
-          }
-
-          /// ANYTHING ELSE
-          else {
-            _bytes = await Floaters.getUint8ListFromLocalRasterAsset(
-              asset: localAsset,
-              width: width,
-            );
-          }
-
-          // /// ASSIGN UINT TO FILE
-          // if (Mapper.checkCanLoopList(_uInt) == true){
-          //   _bytes = await getFileFromUint8List(
-          //     uInt8List: _uInt,
-          //     fileName: Floaters.getLocalAssetName(localAsset),
-          //   );
-          // }
-
-        });
-
-    return _bytes;
-  }
-  // ---------------------
-  ///
-  static Future<List<File>> getFilesFromLocalRasterImages({
-    @required List<String> localAssets,
-    int width = 100,
-  }) async {
-    final List<File> _outputs = <File>[];
-
-    if (Mapper.checkCanLoopList(localAssets) == true){
-
-      await Future.wait(<Future>[
-
-        ...List.generate(localAssets.length, (index){
-
-          return getFileFromLocalRasterAsset(
-            localAsset: localAssets[index],
-            width: width,
-          ).then((File output){
-
-            _outputs.add(output);
-
-          });
-
-        }),
-
-      ]);
-
-    }
-
-    return _outputs;
-  }
   // --------------------
   /// Uint8List
   // ---------------------
@@ -607,44 +536,6 @@ class Filers {
 
   /// PICK PDF
 
-  // --------------------
-  ///
-  static Future<PDFModel> pickPDF({
-    @required BuildContext context,
-    @required String flyerID,
-  }) async {
-
-    PDFModel _output;
-
-    final FilePickerResult result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowCompression: true,
-      allowMultiple: false,
-      dialogTitle: Verse.transBake(context, 'phid_pick_pdf_file'),
-      lockParentWindow: false,
-      onFileLoading: (FilePickerStatus status){
-        blog('status : ${status.name}');
-      },
-      /// ??
-      allowedExtensions: <String>['pdf'],
-      // initialDirectory:
-      /// ??
-      // withData:
-      // withReadStream:
-    );
-
-    if (result != null){
-      final PlatformFile _platformFile = result.files.first;
-      _output = PDFModel(
-        bytes: _platformFile.bytes,
-        path: StorageColl.getFlyerPDFPath(flyerID),
-        name: _platformFile.name,
-        sizeMB: Filers.calculateSize(_platformFile.bytes.length, FileSizeUnit.megaByte),
-      );
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 }
 

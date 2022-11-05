@@ -25,8 +25,8 @@ class SpecsSelectorBubble extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final DraftFlyerModel draft;
-  final ValueNotifier<DraftFlyerModel> draftNotifier;
+  final DraftFlyer draft;
+  final ValueNotifier<DraftFlyer> draftNotifier;
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
   @override
