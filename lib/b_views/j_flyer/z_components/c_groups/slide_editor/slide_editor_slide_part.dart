@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xxx_slide_editor_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
@@ -35,7 +35,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<MutableSlide> tempSlide;
+  final ValueNotifier<DraftSlide> tempSlide;
   final double height;
   final Function onSlideTap;
   final ValueNotifier<bool> isTransforming;
@@ -73,9 +73,9 @@ class SlideEditorSlidePart extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: tempSlide,
           child: Container(),
-          builder: (_, MutableSlide _slide, Widget child){
+          builder: (_, DraftSlide _slide, Widget child){
 
-            blog('BUILDING SLIDE AHOOOO : ${_slide.picFileModel.bytes.path} : color : ${_slide.midColor}');
+            blog('BUILDING SLIDE AHOOOO : ${_slide.picModel.bytes.length} bytes : color : ${_slide.midColor}');
 
             return FlyerBox(
               key: const ValueKey<String>('flyer_box_slide_editor'),

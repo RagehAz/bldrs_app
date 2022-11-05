@@ -1,8 +1,8 @@
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'dart:typed_data';
+
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 
 // --------------------
 Matrix4 initializeMatrix({
-  @required MutableSlide slide,
+  @required DraftSlide slide,
 }){
   Matrix4 _output;
   if (slide.matrix == null){
@@ -31,8 +31,8 @@ Matrix4 initializeMatrix({
 
 // --------------------
 Future<void> onReset({
-  @required MutableSlide originalSlide,
-  @required ValueNotifier<MutableSlide> tempSlide,
+  @required DraftSlide originalSlide,
+  @required ValueNotifier<DraftSlide> tempSlide,
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,
 }) async {
@@ -44,39 +44,38 @@ Future<void> onReset({
   matrix.value = Matrix4.identity();
 }
 // --------------------
+///
 Future<void> onCropSlide({
   @required BuildContext context,
-  @required ValueNotifier<MutableSlide> tempSlide,
-  @required ValueNotifier<ImageFilterModel> filter,
-  @required ValueNotifier<Matrix4> matrix,
+  @required ValueNotifier<DraftSlide> draftNotifier,
+  @required ValueNotifier<ImageFilterModel> filterNotifier,
+  @required ValueNotifier<Matrix4> matrixNotifier,
+  @required String bzID,
 }) async {
 
-  final FileModel _fileModel = await PicMaker.cropPic(
+  final Uint8List _bytes = await PicMaker.cropPic(
     context: context,
-    bytes: tempSlide.value.picFileModel,
+    bytes: draftNotifier.value.picModel.bytes,
     aspectRatio: FlyerDim.flyerAspectRatio,
   );
 
-  if (_fileModel != null){
+  if (_bytes != null){
 
-    final Dimensions _imageSize = await Dimensions.superDimensions(_fileModel);
-    final Color _midColor = await Colorizer.getAverageColor(_fileModel);
-    final MutableSlide _updatedSlide = tempSlide.value.copyWith(
-      picFileModel: _fileModel,
-      imageSize: _imageSize,
-      midColor: _midColor,
-      matrix: matrix.value,
-      filter: filter.value,
+    draftNotifier.value = await DraftSlide.createDraft(
+      flyerID: draftNotifier.value.flyerID,
+      bzID: bzID,
+      bytes: _bytes,
+      context: context,
+      headline: draftNotifier.value.headline,
+      index: draftNotifier.value.slideIndex,
     );
-
-    tempSlide.value = _updatedSlide;
 
   }
 
 }
 // --------------------
 void onToggleFilter({
-  @required ValueNotifier<MutableSlide> tempSlide,
+  @required ValueNotifier<DraftSlide> tempSlide,
   @required ValueNotifier<ImageFilterModel> currentFilter,
 }){
 
@@ -118,7 +117,7 @@ void onToggleFilter({
 }
 // --------------------
 void onSlideHeadlineChanged({
-  @required ValueNotifier<MutableSlide> tempSlide,
+  @required ValueNotifier<DraftSlide> tempSlide,
   @required String text,
 }){
 
@@ -143,13 +142,13 @@ Future<void> onCancelSlideEdits({
 // --------------------
 Future<void> onConfirmSlideEdits({
   @required BuildContext context,
-  @required MutableSlide originalSlide,
-  @required ValueNotifier<MutableSlide> tempSlide,
+  @required DraftSlide originalSlide,
+  @required ValueNotifier<DraftSlide> tempSlide,
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,
 }) async {
 
-  final MutableSlide _slide = tempSlide.value.copyWith(
+  final DraftSlide _slide = tempSlide.value.copyWith(
     matrix: matrix.value,
     filter: filter.value,
   );

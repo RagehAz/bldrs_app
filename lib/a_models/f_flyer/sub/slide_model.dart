@@ -51,11 +51,11 @@ class SlideModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'slideIndex': slideIndex,
-      'picture': picPath is String == true ? picPath : null,
+      'picPath': picPath is String == true ? picPath : null,
       'headline': headline,
       'description': description,
-      'boxFit': Dimensions.cipherBoxFit(picFit),
-      'imageSize': dimensions.toMap(),
+      'picFit': Dimensions.cipherBoxFit(picFit),
+      'dimensions': dimensions.toMap(),
       'midColor': Colorizer.cipherColor(midColor),
       'matrix' : Trinity.cipherMatrix(matrix),
       'filterID' : filterID,
@@ -67,11 +67,11 @@ class SlideModel {
 
     return SlideModel(
       slideIndex: map['slideIndex'],
-      picPath: map['picture'],
+      picPath: map['picPath'],
       headline: map['headline'],
       description: map['description'],
-      picFit: Dimensions.decipherBoxFit(map['boxFit']),
-      dimensions: Dimensions.decipherDimensions(map['imageSize']),
+      picFit: Dimensions.decipherBoxFit(map['picFit']),
+      dimensions: Dimensions.decipherDimensions(map['dimensions']),
       midColor: Colorizer.decipherColor(map['midColor']),
       matrix: Trinity.decipherMatrix(map['matrix']),
       filterID: map['filterID'],
@@ -227,7 +227,7 @@ class SlideModel {
       blog('slide1.picFit != slide2.picFit');
     }
     if (Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == false){
-      blog('slide1.imageSize != slide2.imageSize');
+      blog('slide1.dimensions != slide2.dimensions');
     }
     if (Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
       blog('slide1.midColor !=  slideB.midColor');
@@ -612,6 +612,25 @@ class SlideModel {
       matrix: Matrix4.identity(),
       filterID: 'phid_filter_normal',
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SORTING
+
+  // --------------------
+  ///
+  static List<SlideModel> sortSlidesByIndexes(List<SlideModel> slides){
+
+    if (Mapper.checkCanLoopList(slides) == true){
+      final List<SlideModel> _slides = [...slides];
+      _slides.sort((a, b) => a.slideIndex.compareTo(b.slideIndex));
+      return _slides;
+    }
+
+    else {
+      return <SlideModel>[];
+    }
+
   }
   // -----------------------------------------------------------------------------
 

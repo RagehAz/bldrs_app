@@ -1,21 +1,15 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -191,75 +185,74 @@ class NoteProtocols {
 
    */
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<NoteModel> _uploadNotePoster({
     @required BuildContext context,
     @required NoteModel note,
     @required bool isPublic,
   }) async {
 
-    NoteModel _output = note;
-
-    if (note != null && note.poster != null){
-
-      if (note.poster.type != PosterType.url){
-
-        /// URL IS NOT DEFINED
-        if (note.poster.url == null){
-
-          if (note.poster.file != null){
-
-            List<String> _ownersIDs = <String>['public'];
-            if (isPublic == false){
-
-              /// RECEIVER IS BZ
-              if (note.parties.receiverType == PartyType.bz){
-
-                final String _bzID = note.parties.senderID;
-                final BzModel _bzModel = await BzProtocols.fetch(context: context, bzID: _bzID);
-                final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel);
-                _ownersIDs = [_creator.userID];
-
-              }
-
-              /// RECEIVER IS USER
-              else {
-                _ownersIDs = <String>[note.parties.receiverID];
-              }
-
-
-            }
-
-
-            final String _posterURL = await Storage.createStoragePicAndGetURL(
-              inputFile: note.poster.file,
-              collName: StorageColl.posters,
-              docName: Numeric.createUniqueID(maxDigitsCount: 12).toString(),
-              ownersIDs: _ownersIDs,
-            );
-
-            _output = note.copyWith(
-              poster: note.poster.copyWith(
-                url: _posterURL,
-              ),
-            );
-
-          }
-
-        }
-
-        /// URL IS DEFINED
-        else {
-          // DO NOTHING - keep as is
-        }
-
-      }
-
-    }
-
-    _output.blogNoteModel(invoker: '_uploadNotePoster..END');
-
-    return _output;
+    // NoteModel _output = note;
+    //
+    // if (note != null && note.poster != null){
+    //
+    //   if (note.poster.type != PosterType.url){
+    //
+    //     /// URL IS NOT DEFINED
+    //     if (note.poster.url == null){
+    //
+    //       if (note.poster.file != null){
+    //
+    //         List<String> _ownersIDs = <String>['public'];
+    //         if (isPublic == false){
+    //
+    //           /// RECEIVER IS BZ
+    //           if (note.parties.receiverType == PartyType.bz){
+    //
+    //             final String _bzID = note.parties.senderID;
+    //             final BzModel _bzModel = await BzProtocols.fetch(context: context, bzID: _bzID);
+    //             final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel.authors);
+    //             _ownersIDs = [_creator.userID];
+    //
+    //           }
+    //
+    //           /// RECEIVER IS USER
+    //           else {
+    //             _ownersIDs = <String>[note.parties.receiverID];
+    //           }
+    //
+    //         }
+    //
+    //
+    //         final String _posterURL = await Storage.createStoragePicAndGetURL(
+    //           inputFile: note.poster.file,
+    //           collName: StorageColl.posters,
+    //           docName: Numeric.createUniqueID(maxDigitsCount: 12).toString(),
+    //           ownersIDs: _ownersIDs,
+    //         );
+    //
+    //         _output = note.copyWith(
+    //           poster: note.poster.copyWith(
+    //             url: _posterURL,
+    //           ),
+    //         );
+    //
+    //       }
+    //
+    //     }
+    //
+    //     /// URL IS DEFINED
+    //     else {
+    //       // DO NOTHING - keep as is
+    //     }
+    //
+    //   }
+    //
+    // }
+    //
+    // _output.blogNoteModel(invoker: '_uploadNotePoster..END');
+    //
+    // return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -547,37 +540,37 @@ class NoteProtocols {
     blog('NoteProtocol.wipeNote : END');
   }
   // --------------------
-  ///
+  /// TASK : DO THIS POSTER THING
   static Future<void> _wipePoster({
     @required NoteModel note,
   }) async {
 
-    if (note != null && note.poster != null){
-
-      if (
-          note.poster.type == PosterType.cameraImage
-          ||
-          note.poster.type == PosterType.galleryImage
-      ){
-
-        if (note.poster.url != null){
-
-          final String _picName = await StorageMetaOps.getImageNameByURL(
-            url: note.poster.url,
-          );
-
-          if (_picName != null){
-            await Storage.deleteStoragePic(
-              collName: StorageColl.posters,
-              docName: _picName,
-            );
-          }
-
-        }
-
-      }
-
-    }
+    // if (note != null && note.poster != null){
+    //
+    //   if (
+    //       note.poster.type == PosterType.cameraImage
+    //       ||
+    //       note.poster.type == PosterType.galleryImage
+    //   ){
+    //
+    //     if (note.poster.url != null){
+    //
+    //       final String _picName = await StorageMetaOps.getImageNameByURL(
+    //         url: note.poster.url,
+    //       );
+    //
+    //       if (_picName != null){
+    //         await Storage.deleteStoragePic(
+    //           collName: StorageColl.posters,
+    //           docName: _picName,
+    //         );
+    //       }
+    //
+    //     }
+    //
+    //   }
+    //
+    // }
 
   }
   // --------------------

@@ -14,7 +14,7 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final DraftFlyerModel draft;
+  final DraftFlyer draft;
   final ValueChanged<bool> onSwitch;
   final BzModel bzModel;
   /// --------------------------------------------------------------------------

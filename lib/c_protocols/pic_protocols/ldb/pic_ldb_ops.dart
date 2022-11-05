@@ -93,6 +93,10 @@ class PicLDBOps {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// CHECKER
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkExists(String path) async {
 

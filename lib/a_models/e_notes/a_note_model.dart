@@ -202,7 +202,7 @@ class NoteModel {
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
       'posterModelID': poster?.modelID,
       'posterType': PosterModel.cipherPosterType(poster?.type),
-      'posterURL': poster?.url,
+      'posterURL': poster?.path,
       'buttons': PollModel.cipherButtons(poll?.buttons),
       'reply' : poll?.reply,
       'replyTime' : poll?.replyTime,
@@ -266,7 +266,7 @@ class NoteModel {
         poster: PosterModel(
           modelID: map['posterModelID'],
           type: PosterModel.decipherPosterType(map['posterType']),
-          url: map['posterURL'],
+          path: map['posterURL'],
         ),
         poll: PollModel(
           buttons: PollModel.decipherButtons(map['buttons']),
@@ -351,7 +351,7 @@ class NoteModel {
         poster: PosterModel(
           modelID: get('posterModelID'),
           type: PosterModel.decipherPosterType(get('posterType')),
-          url: get('posterURL'),
+          path: get('posterURL'),
         ),
         poll: PollModel(
             buttons: PollModel.decipherButtons(get('buttons')),
@@ -400,7 +400,7 @@ class NoteModel {
     blog('O : parties : senderID : ${parties?.senderID} : ${NoteParties.cipherPartyType(parties?.senderType)} : ${parties?.senderImageURL}');
     blog('O : parties : receiverID : ${parties?.receiverID} : ${NoteParties.cipherPartyType(parties?.receiverType)} ');
     blog('O : ~ ~ ~ ~ ~ ~');
-    blog('O : poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.url}');
+    blog('O : poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.path}');
     blog('O : poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
     blog('O : trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument} : done : ${trigger?.done}');
     blog('O : ~ ~ ~ ~ ~ ~');

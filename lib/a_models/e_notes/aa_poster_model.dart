@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -17,14 +16,14 @@ class PosterModel {
   const PosterModel({
     @required this.modelID,
     @required this.type,
-    @required this.url,
-    this.file,
+    @required this.path,
+    this.picModel,
   });
   /// --------------------------------------------------------------------------
   final String modelID;
   final PosterType type;
-  final String url;
-  final File file;
+  final String path;
+  final PicModel picModel;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static const List<PosterType> posterTypes = <PosterType>[
@@ -39,16 +38,16 @@ class PosterModel {
   /// CLONING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   PosterModel copyWith({
     String modelID,
     PosterType type,
-    String url,
+    String path,
   }){
     return PosterModel(
       modelID: modelID ?? this.modelID,
       type: type ?? this.type,
-      url: url ?? this.url,
+      path: path ?? this.path,
     );
   }
   // -----------------------------------------------------------------------------
@@ -61,7 +60,7 @@ class PosterModel {
     return {
       'modelID': modelID,
       'type': cipherPosterType(type),
-      'url': url,
+      'path': path,
     };
   }
   // --------------------
@@ -73,7 +72,7 @@ class PosterModel {
       _model = PosterModel(
         modelID: map['modelID'],
         type: decipherPosterType(map['type']),
-        url: map['url'],
+        path: map['path'],
       );
     }
 
@@ -111,7 +110,7 @@ class PosterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogPoster(){
-    blog('id: $modelID : type : ${cipherPosterType(type)} : url : $url');
+    blog('id: $modelID : type : ${cipherPosterType(type)} : url : $path');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -134,8 +133,8 @@ class PosterModel {
 
       }
 
-      if (poster1.url != poster2.url){
-        blog('urls are not identical');
+      if (poster1.path != poster2.path){
+        blog('paths are not identical');
       }
 
       if (poster1.type != poster2.type){
@@ -169,7 +168,7 @@ class PosterModel {
 
       if (
           poster1.modelID == poster2.modelID &&
-          poster1.url == poster2.url &&
+          poster1.path == poster2.path &&
           poster1.type == poster2.type
       ){
         _areIdentical = true;
@@ -215,6 +214,6 @@ class PosterModel {
   int get hashCode =>
       modelID.hashCode^
       type.hashCode^
-      url.hashCode;
+      path.hashCode;
   // -----------------------------------------------------------------------------
 }

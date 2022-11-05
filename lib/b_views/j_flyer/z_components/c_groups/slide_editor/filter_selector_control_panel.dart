@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
@@ -29,7 +29,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
   final double height;
   final ValueChanged<ImageFilterModel> onSelectFilter;
   final Function onBack;
-  final ValueNotifier<MutableSlide> slide;
+  final ValueNotifier<DraftSlide> slide;
   final ValueNotifier<double> opacity;
   final Function onOpacityChanged;
   // -----------------------------------------------------------------------------
@@ -110,13 +110,13 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                         if (isBackButton == false)
                           ValueListenableBuilder(
                               valueListenable: slide,
-                              builder: (_, MutableSlide _slide, Widget child){
+                              builder: (_, DraftSlide _slide, Widget child){
 
                                 return SuperFilteredImage(
                                   filterModel: _filter,
                                   width: _boxWidth,
                                   height: _boxHeight,
-                                  imageFile: _slide.picFileModel.bytes,
+                                  bytes: _slide.picModel.bytes,
                                   // boxFit: BoxFit.cover,
                                 );
 

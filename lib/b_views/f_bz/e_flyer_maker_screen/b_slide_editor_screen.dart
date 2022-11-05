@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
@@ -12,10 +12,12 @@ class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorScreen({
     @required this.slide,
+    @required this.bzID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final MutableSlide slide;
+  final DraftSlide slide;
+  final String bzID;
   /// --------------------------------------------------------------------------
   @override
   State<SlideEditorScreen> createState() => _SlideEditorScreenState();
@@ -28,7 +30,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // --------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // --------------------
-  ValueNotifier<MutableSlide> _tempSlide;
+  ValueNotifier<DraftSlide> _tempSlide;
   ValueNotifier<Matrix4> _matrix;
   ValueNotifier<ImageFilterModel> _filterModel;
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
@@ -43,13 +45,13 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   void initializeTempSlide(){
 
     /// INITIALIZE TEMP SLIDE
-    final MutableSlide _initialSlide = widget.slide.copyWith(
+    final DraftSlide _initialSlide = widget.slide.copyWith(
       filter: widget.slide?.filter ?? _allFilters[0],
       matrix: initializeMatrix(
         slide: widget.slide,
       ),
     );
-    _tempSlide = ValueNotifier<MutableSlide>(_initialSlide);
+    _tempSlide = ValueNotifier<DraftSlide>(_initialSlide);
     _matrix = ValueNotifier(_initialSlide.matrix);
     _filterModel = ValueNotifier(_initialSlide.filter ?? _allFilters[0]);
 
@@ -116,9 +118,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             ),
             onCrop: () => onCropSlide(
               context: context,
-              tempSlide: _tempSlide,
-              filter: _filterModel,
-              matrix: _matrix,
+              draftNotifier: _tempSlide,
+              filterNotifier: _filterModel,
+              matrixNotifier: _matrix,
+              bzID: widget.bzID,
             ),
             onConfirm: () => onConfirmSlideEdits(
               context: context,
