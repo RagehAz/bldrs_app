@@ -66,7 +66,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
             final ui.Image _theImage = await PicProtocols.fetchPicUiImage(_path);
             blog('the fucking shit is : ${_theImage.runtimeType}');
             _slide = _slide.copyWith(
-              picPath: _theImage,
+              uiImage: _theImage,
             );
 
             _slidesWithPaths.add(_slide);

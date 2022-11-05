@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -16,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 enum PublishState{
   draft,
@@ -55,7 +53,6 @@ class FlyerModel {
     @required this.score,
     @required this.pdfPath,
     this.docSnapshot,
-    this.uiImage,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -78,7 +75,6 @@ class FlyerModel {
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
   final String pdfPath;
-  final ui.Image uiImage;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -107,7 +103,6 @@ class FlyerModel {
     DocumentSnapshot docSnapshot,
     int score,
     String pdfPath,
-    ui.Image uiImage,
   }){
 
     return FlyerModel(
@@ -131,7 +126,6 @@ class FlyerModel {
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
       pdfPath: pdfPath ?? this.pdfPath,
-      uiImage: uiImage ?? this.uiImage,
     );
 
   }
@@ -518,9 +512,6 @@ class FlyerModel {
       }
       if (flyer1.pdfPath != flyer2.pdfPath){
         blog('flyers pdfPath are not identical');
-      }
-      if (flyer1.uiImage != flyer2.uiImage){
-        blog('flyers uiImages are not identical');
       }
 
     }

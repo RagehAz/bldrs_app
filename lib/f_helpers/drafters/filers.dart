@@ -223,44 +223,42 @@ class Filers {
   // --------------------
   /// LOCAL RASTER ASSET
   // ---------------------
-  /// TAMAM : WORKS PERFECT
-  static Future<File> getFileFromLocalRasterAsset({
+  ///
+  static Future<Uint8List> getFileFromLocalRasterAsset({
     @required String localAsset,
     int width = 100,
   }) async {
 
-    File _file;
+    Uint8List _bytes;
 
     await tryAndCatch(
         methodName: 'getFileFromLocalRasterAsset',
         functions: () async {
 
-          Uint8List _uInt;
-
           /// IF SVG
           if (ObjectCheck.objectIsSVG(localAsset) == true){
-            _uInt = await Floaters.getUint8ListFromLocalSVGAsset(localAsset);
+            _bytes = await Floaters.getUint8ListFromLocalSVGAsset(localAsset);
           }
 
           /// ANYTHING ELSE
           else {
-            _uInt = await Floaters.getUint8ListFromLocalRasterAsset(
+            _bytes = await Floaters.getUint8ListFromLocalRasterAsset(
               asset: localAsset,
               width: width,
             );
           }
 
-          /// ASSIGN UINT TO FILE
-          if (Mapper.checkCanLoopList(_uInt) == true){
-            _file = await getFileFromUint8List(
-              uInt8List: _uInt,
-              fileName: Floaters.getLocalAssetName(localAsset),
-            );
-          }
+          // /// ASSIGN UINT TO FILE
+          // if (Mapper.checkCanLoopList(_uInt) == true){
+          //   _bytes = await getFileFromUint8List(
+          //     uInt8List: _uInt,
+          //     fileName: Floaters.getLocalAssetName(localAsset),
+          //   );
+          // }
 
         });
 
-    return _file;
+    return _bytes;
   }
   // ---------------------
   ///
