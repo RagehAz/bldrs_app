@@ -7,90 +7,41 @@ import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/ldb_ops/flyer_ldb_ops.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
-
-/// INITIALIZATION
-
-// --------------------
-/// TESTED : WORKS PERFECT
-void initializeFlyerMakerLocalVariables({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
-  @required FlyerModel oldFlyer,
-  @required bool mounted,
-}){
-
-  final BzModel _activeBZ = BzzProvider.proGetActiveBzModel(
-    context: context,
-    listen: false,
-  );
-
-  final DraftFlyerModel _draft = DraftFlyerModel.initializeDraftForEditing(
-    oldFlyer: oldFlyer,
-    bzModel: _activeBZ,
-    currentAuthorID: AuthFireOps.superUserID(),
-  );
-
-  draftFlyer.value = _draft;
-
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> prepareMutableSlidesForEditing({
-  @required FlyerModel flyerToEdit,
-  @required ValueNotifier<DraftFlyerModel> draft,
-}) async {
-
-  /// ON CREATING A NEW DRAFT
-  if (flyerToEdit != null){
-    draft.value = draft.value.copyWith(
-      mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
-        slides: flyerToEdit.slides,
-        flyerID: flyerToEdit.id,
-      ),
-      pdf: await FileModel.preparePicForEditing(
-        pic: flyerToEdit.pdf,
-        fileName: flyerToEdit.pdf?.fileName,
-      ),
-    );
-  }
-
-}
 // -----------------------------------------------------------------------------
 
 /// LAST SESSION
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> loadFlyerMakerLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
-  @required FlyerModel oldFlyer,
-  @required ValueNotifier<bool> isEditingFlyer,
 }) async {
 
-  final FlyerModel _lastSessionFlyer = await FlyerLDBOps.loadFlyerMakerSession(
-    flyerID: draft?.value?.id ?? 'newFlyer',
+  final DraftFlyerModel _lastSessionDraft = await FlyerLDBOps.loadFlyerMakerSession(
+    flyerID: draft?.value?.id ?? DraftFlyerModel.newDraftID,
   );
 
-  if (_lastSessionFlyer != null){
+  if (_lastSessionDraft != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
@@ -106,29 +57,12 @@ Future<void> loadFlyerMakerLastSession({
     );
 
     if (_continue == true){
-      // -------------------------
-      final BzModel _activeBZ = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: false,
-      );
-      // -------------------------
-      final DraftFlyerModel _draft = DraftFlyerModel.initializeDraftForEditing(
-        oldFlyer: _lastSessionFlyer,
-        bzModel: _activeBZ,
-        currentAuthorID: AuthFireOps.superUserID(),
-      );
 
-      draft.value = _draft.copyWith(
-        mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
-          slides: _lastSessionFlyer.slides,
-          flyerID: _lastSessionFlyer.id,
-        ),
-        pdf: await FileModel.preparePicForEditing(
-          pic: _lastSessionFlyer.pdf,
-          fileName: _lastSessionFlyer.pdf?.fileName,
-        ),
+      draft.value = _lastSessionDraft.copyWith(
+        headlineNode: draft.value.headlineNode,
+        descriptionNode: draft.value.descriptionNode,
+        formKey: draft.value.formKey,
       );
-      isEditingFlyer.value = true;
 
     }
 
@@ -137,38 +71,14 @@ Future<void> loadFlyerMakerLastSession({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> saveFlyerMakerSession({
   @required ValueNotifier<DraftFlyerModel> draft,
-  @required ValueNotifier<DraftFlyerModel> lastDraft,
-  @required bool mounted,
 }) async {
 
-
-  final bool _draftHasChanged = DraftFlyerModel.checkDraftsAreIdentical(
-    draft1: draft.value,
-    draft2: lastDraft.value,
-  ) == false;
-
-  /// => SHOULD BAKE ALL FILES IN MUTABLE SLIDES FOR LDB
-
-  blog('saveFlyerMakerSession : _draftHasChanged : $_draftHasChanged');
-
-  if (_draftHasChanged == true){
-
-    final FlyerModel flyerFromDraft = await DraftFlyerModel.bakeDraftToUpload(
-      draft: draft.value,
-      toLDB: true,
-    );
-
-    await FlyerLDBOps.saveFlyerMakerSession(
-      flyerModel: flyerFromDraft,
-    );
-
-    lastDraft.value = draft.value;
-
-  }
-
+  await FlyerLDBOps.saveFlyerMakerSession(
+    draftFlyer: draft.value,
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -211,12 +121,12 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerHeadline({
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyerModel> draftNotifier,
   @required String text,
 }){
 
-  draft.value = DraftFlyerModel.updateHeadline(
-    draft: draft.value,
+  draftNotifier.value = DraftFlyerModel.updateHeadline(
+    draft: draftNotifier.value,
     newHeadline: text,
   );
 
@@ -224,10 +134,10 @@ void onUpdateFlyerHeadline({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerDescription({
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyerModel> draftNotifier,
   @required String text,
 }) {
-  draft.value = draft.value.copyWith(
+  draftNotifier.value = draftNotifier.value.copyWith(
     description: text,
   );
 }
@@ -236,21 +146,21 @@ void onUpdateFlyerDescription({
 Future<void> onSelectFlyerType({
   @required BuildContext context,
   @required int index,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyerModel> draftNotifier,
 }) async {
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
 
-  blog('_selectedFlyerType : $_selectedFlyerType : Mapper.checkCanLoopList(draft.value.specs) : ${draft.value.specs}' );
+  blog('_selectedFlyerType : $_selectedFlyerType : Mapper.checkCanLoopList(draft.value.specs) : ${draftNotifier.value.specs}' );
 
-  draft.value.blogDraft();
+  draftNotifier.value.blogDraft();
 
-  if (draft.value.flyerType != _selectedFlyerType){
+  if (draftNotifier.value.flyerType != _selectedFlyerType){
 
     bool _canUpdate = true;
 
     /// SOME SPECS ARE SELECTED
-    if (Mapper.checkCanLoopList(draft.value.specs) == true){
+    if (Mapper.checkCanLoopList(draftNotifier.value.specs) == true){
 
       _canUpdate = await CenterDialog.showCenterDialog(
         context: context,
@@ -270,7 +180,7 @@ Future<void> onSelectFlyerType({
     }
 
     if (_canUpdate == true){
-      draft.value = draft.value.copyWith(
+      draftNotifier.value = draftNotifier.value.copyWith(
         flyerType: _selectedFlyerType,
         specs: <SpecModel>[],
       );
@@ -319,42 +229,44 @@ Future<void> onAddSpecsToDraftTap({
 /// TESTED : WORKS PERFECT
 Future<void> onZoneChanged({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyerModel> draftNotifier,
   @required ZoneModel zone,
 }) async {
 
-  draft.value = draft.value.copyWith(
+  draftNotifier.value = draftNotifier.value.copyWith(
     zone: zone,
   );
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onChangeFlyerPDF({
-  @required FileModel pdf,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required PDFModel pdfModel,
+  @required ValueNotifier<DraftFlyerModel> draftNotifier,
 }){
 
-  draft.value = draft.value.copyWith(
-    pdf: pdf,
+  draftNotifier.value = draftNotifier.value.copyWith(
+    pdfModel: pdfModel,
   );
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 void onRemoveFlyerPDF({
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyerModel> draftNotifier,
 }){
-  draft.value = DraftFlyerModel.removePDF(draft.value);
+  draftNotifier.value = draftNotifier.value.nullifyField(
+    pdfModel: true,
+  );
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSwitchFlyerShowsAuthor({
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyerModel> draftNotifier,
   @required bool value,
 }){
 
-  draft.value = draft.value.copyWith(
+  draftNotifier.value = draftNotifier.value.copyWith(
     showsAuthor: value,
   );
 
@@ -369,23 +281,20 @@ Future<void> onConfirmPublishFlyerButtonTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
   @required FlyerModel oldFlyer,
-  @required GlobalKey<FormState> formKey,
 }) async {
 
-  if (oldFlyer != null){
-    await _onPublishFlyerUpdatesTap(
+  if (draft.value.firstTimer == true){
+    await _onPublishNewFlyerTap(
       context: context,
       draft: draft,
-      formKey: formKey,
       originalFlyer: oldFlyer,
     );
   }
 
   else {
-    await _onPublishNewFlyerTap(
+    await _onPublishFlyerUpdatesTap(
       context: context,
       draft: draft,
-      formKey: formKey,
       originalFlyer: oldFlyer,
     );
   }
@@ -396,7 +305,6 @@ Future<void> onConfirmPublishFlyerButtonTap({
 Future<void> _onPublishNewFlyerTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
-  @required GlobalKey<FormState> formKey,
   @required FlyerModel originalFlyer,
 }) async {
 
@@ -404,7 +312,6 @@ Future<void> _onPublishNewFlyerTap({
     context: context,
     draft: draft,
     originalFlyer: originalFlyer,
-    formKey: formKey,
   );
 
   if (_canContinue == true){
@@ -439,7 +346,6 @@ Future<void> _onPublishNewFlyerTap({
 Future<void> _onPublishFlyerUpdatesTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
-  @required GlobalKey<FormState> formKey,
   @required FlyerModel originalFlyer,
 }) async {
 
@@ -447,7 +353,6 @@ Future<void> _onPublishFlyerUpdatesTap({
     context: context,
     draft: draft,
     originalFlyer: originalFlyer,
-    formKey: formKey,
   );
 
   if (_canContinue == true){
@@ -488,7 +393,6 @@ Future<bool> _preFlyerUpdateCheck({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
   @required FlyerModel originalFlyer,
-  @required GlobalKey<FormState> formKey,
 }) async {
 
   final FlyerModel flyerFromDraft = await DraftFlyerModel.bakeDraftToUpload(
@@ -539,16 +443,16 @@ Future<bool> _preFlyerUpdateCheck({
 
     else {
 
-      final bool _isValid = formKey.currentState.validate();
+      final bool _isValid = Formers.validateForm(draft.value.formKey);
       blog('_publishFlyerOps : fields are valid : $_isValid');
 
       if (_isValid == false){
 
-        if (draft.value.headline.length < 10){
+        if (draft.value.headline.length < Standards.flyerHeadlineMinLength){
           TopDialog.showUnawaitedTopDialog(
             context: context,
             firstVerse: const Verse(
-              pseudo: 'Flyer headline can not be less than 10 characters long',
+              pseudo: 'Flyer headline can not be less than ${Standards.flyerHeadlineMinLength} characters long',
               text: 'phid_flyer_headline_length_notice',
               translate: true,
             ),

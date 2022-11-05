@@ -70,7 +70,7 @@ class AuthorLabel extends StatelessWidget {
             /// AUTHOR IMAGE
             AuthorPic(
               size: FlyerDim.authorPicSizeBFlyerBoxWidth(flyerBoxWidth),
-              authorPic: _author?.pic,
+              authorPic: _author?.picPath,
               // tinyBz:
             ),
 

@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
-import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';

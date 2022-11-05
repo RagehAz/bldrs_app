@@ -7,7 +7,8 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -42,7 +43,7 @@ class DraftBz {
     @required this.inactiveBzForms,
     @required this.scope,
     @required this.scopeSpecs,
-    @required this.logo,
+    @required this.logoPicModel,
     @required this.hasNewLogo,
     @required this.canPickImage,
     @required this.canValidate,
@@ -78,7 +79,7 @@ class DraftBz {
   final List<BzForm> inactiveBzForms;
   final List<String> scope;
   final List<SpecModel> scopeSpecs;
-  final PicModel logo;
+  final PicModel logoPicModel;
   final bool hasNewLogo;
   final bool canPickImage;
   final FocusNode nameNode;
@@ -95,9 +96,40 @@ class DraftBz {
 
   // -------------------
   ///
-  static DraftBz initializeNewBzForEditing({
-    @required UserModel creatorUser,
-  }){
+  static Future<DraftBz> createDraftBz({
+    @required BuildContext context,
+    @required BzModel oldBz,
+  }) async {
+
+    DraftBz _output;
+
+    /// FIRST TIMER
+    if (oldBz == null){
+
+      _output = _createNewDraftBz(context);
+
+    }
+
+    else {
+
+      _output = await _createDraftBzFromBzModel(
+        context: context,
+        bzModel: oldBz,
+      );
+
+    }
+
+
+    return _output;
+  }
+  // -------------------
+  ///
+  static DraftBz _createNewDraftBz(BuildContext context){
+
+    final UserModel creatorUser = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
 
     assert(creatorUser != null, 'Creator user can not be null');
 
@@ -153,7 +185,7 @@ class DraftBz {
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes([]),
       scope: const [],
       scopeSpecs: const [],
-      logo: null,
+      logoPicModel: null,
       hasNewLogo: false,
       canPickImage: true,
       canValidate: false,
@@ -165,13 +197,14 @@ class DraftBz {
       formKey: GlobalKey<FormState>(),
       firstTimer: true,
     );
+
   }
   // -------------------
   ///
-  static DraftBz initializeExistingBzForEditing({
+  static Future<DraftBz> _createDraftBzFromBzModel({
     @required BuildContext context,
     @required BzModel bzModel,
-  }){
+  }) async {
 
     assert(bzModel != null, 'BzModel can not be null here');
 
@@ -183,7 +216,10 @@ class DraftBz {
       accountType: bzModel.accountType,
       name: bzModel.name,
       trigram: bzModel.trigram,
-      zone: bzModel.zone,
+      zone: await ZoneModel.prepareZoneForEditing(
+        context: context,
+        zoneModel: bzModel.zone,
+      ),
       about: bzModel.about,
       position: bzModel.position,
       contacts: ContactModel.prepareContactsForEditing(
@@ -209,7 +245,7 @@ class DraftBz {
         context: context,
         phids: bzModel.scope,
       ),
-      logo: null,
+      logoPicModel: await PicProtocols.fetchPic(StorageColl.getBzLogoPath(bzModel.id)),
       hasNewLogo: false,
       canPickImage: true,
       canValidate: false,
@@ -223,37 +259,7 @@ class DraftBz {
     );
 
   }
-  // -------------------
-  ///
-  static Future<DraftBz> prepareForEditing({
-    @required BuildContext context,
-    @required DraftBz draft,
-  }) async {
-    DraftBz _output;
 
-    if (draft != null){
-
-      final PicModel _logo = draft.firstTimer == true ? null
-          :
-      await PicProtocols.fetchPic(StorageColl.getBzLogoPath(draft.id));
-
-      _output = draft.copyWith(
-
-        logo: _logo,
-        zone: await ZoneModel.prepareZoneForEditing(
-          context: context,
-          zoneModel: draft.zone,
-        ),
-        contacts: ContactModel.prepareContactsForEditing(
-          contacts: draft?.contacts,
-          countryID: draft?.zone?.countryID,
-        ),
-      );
-
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -282,7 +288,7 @@ class DraftBz {
     List<BzForm> inactiveBzForms,
     List<String> scope,
     List<SpecModel> scopeSpecs,
-    PicModel logo,
+    PicModel logoPicModel,
     bool hasNewLogo,
     bool canPickImage,
     bool canValidate,
@@ -317,7 +323,7 @@ class DraftBz {
       inactiveBzForms: inactiveBzForms ?? this.inactiveBzForms,
       scope: scope ?? this.scope,
       scopeSpecs: scopeSpecs ?? this.scopeSpecs,
-      logo: logo ?? this.logo,
+      logoPicModel: logoPicModel ?? this.logoPicModel,
       hasNewLogo: hasNewLogo ?? this.hasNewLogo,
       canPickImage: canPickImage ?? this.canPickImage,
       canValidate: canValidate ?? this.canValidate,
@@ -354,7 +360,7 @@ class DraftBz {
     bool inactiveBzForms = false,
     bool scope = false,
     bool scopeSpecs = false,
-    bool logo = false,
+    bool logoPicModel = false,
     bool hasNewLogo = false,
     bool canPickImage = false,
     bool canValidate = false,
@@ -389,7 +395,7 @@ class DraftBz {
       inactiveBzForms: inactiveBzForms == true ? [] : this.inactiveBzForms,
       scope: scope == true ? [] : this.scope,
       scopeSpecs: scopeSpecs == true ? [] : this.scopeSpecs,
-      logo: logo == true ? null : this.logo,
+      logoPicModel: logoPicModel == true ? null : this.logoPicModel,
       hasNewLogo: hasNewLogo == true ? null : this.hasNewLogo,
       canPickImage: canPickImage == true ? null : this.canPickImage,
       canValidate: canValidate == true ? null : this.canValidate,
@@ -424,7 +430,7 @@ class DraftBz {
       bzForm: draft.bzForm,
       name: draft.name,
       trigram: Stringer.createTrigram(input: draft.name),
-      logo: draft.logo.path,
+      logoPath: draft.logoPicModel.path,
       scope: SpecModel.getSpecsIDs(draft.scopeSpecs),
       zone: draft.zone,
       about: draft.about,
@@ -472,7 +478,7 @@ class DraftBz {
       'inactiveBzForms': inactiveBzForms,
       'scope': scope,
       'scopeSpecs': scopeSpecs,
-      'logo': PicModel.cipherToLDB(logo),
+      'logoPicModel': PicModel.cipherToLDB(logoPicModel),
       'hasNewLogo': hasNewLogo,
       'canPickImage': canPickImage,
       'canValidate': canValidate,
@@ -526,7 +532,7 @@ class DraftBz {
       context: context,
       phids: _scope,
     ),
-    logo: PicModel.decipherFromLDB(map['logo']),
+    logoPicModel: PicModel.decipherFromLDB(map['logoPicModel']),
     hasNewLogo: map['hasNewLogo'],
     canPickImage: true,
     canValidate: false,
@@ -609,7 +615,7 @@ class DraftBz {
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.scope, list2: draft2.scope) == true &&
           SpecModel.checkSpecsListsAreIdentical(draft1.scopeSpecs, draft2.scopeSpecs) == true &&
-          PicModel.checkPicsAreIdentical(pic1: draft1.logo, pic2: draft2.logo) == true &&
+          PicModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&
           draft1.canValidate == draft2.canValidate &&
@@ -702,7 +708,7 @@ class DraftBz {
       inactiveBzForms.hashCode^
       scope.hashCode^
       scopeSpecs.hashCode^
-      logo.hashCode^
+      logoPicModel.hashCode^
       hasNewLogo.hashCode^
       canPickImage.hashCode^
       canValidate.hashCode^

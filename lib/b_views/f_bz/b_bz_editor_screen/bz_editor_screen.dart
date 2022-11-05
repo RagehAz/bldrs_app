@@ -63,12 +63,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void initState() {
     super.initState();
 
-    initializeDraftBz(
-      context: context,
-      draftNotifier: draftNotifier,
-      oldBz: widget.bzModel,
-    );
-
   }
   // --------------------
   bool _isInit = true;
@@ -82,9 +76,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
-          value: await DraftBz.prepareForEditing(
+          value: await DraftBz.createDraftBz(
             context: context,
-            draft: draftNotifier.value,
+            oldBz: widget.bzModel,
           ),
         );
         // -----------------------------
@@ -150,24 +144,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         text: widget.bzModel == null ? 'phid_createBzAccount' : 'phid_edit_bz_info',
         translate: true,
       ),
-      appBarRowWidgets: [
-
-        const Expander(),
-
-        AppBarButton(
-          verse: Verse.plain('BOM'),
-          onTap: (){
-
-            final BzModel _bzModel = DraftBz.toBzModel(
-                draft: draftNotifier.value,
-            );
-
-            _bzModel.blogBz();
-
-          },
-        ),
-
-      ],
       confirmButtonModel: ConfirmButtonModel(
         firstLine: const Verse(
           text: 'phid_confirm',
@@ -194,33 +170,33 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
           final String _selectedBzSectionPhid = BzTyper.getBzSectionPhid(
             context: context,
-            bzSection: draft.bzSection,
+            bzSection: draft?.bzSection,
           );
 
           final List<String> _inactiveBzTypesPhids = BzTyper.getBzTypesPhids(
             context: context,
-            bzTypes: draft.inactiveBzTypes,
+            bzTypes: draft?.inactiveBzTypes,
             pluralTranslation: false,
           );
 
           final List<String> _selectedBzTypesPhids = BzTyper.getBzTypesPhids(
             context: context,
-            bzTypes: draft.bzTypes,
+            bzTypes: draft?.bzTypes,
             pluralTranslation: false,
           );
 
           final String _selectedBzFormPhid = BzTyper.getBzFormPhid(
             context: context,
-            bzForm: draft.bzForm,
+            bzForm: draft?.bzForm,
           );
 
           final List<String> _inactiveBzFormsPhids = BzTyper.getBzFormsPhids(
             context: context,
-            bzForms: draft.inactiveBzForms,
+            bzForms: draft?.inactiveBzForms,
           );
 
           return Form(
-            key: draft.formKey,
+            key: draft?.formKey,
             child: ListView(
               physics: const BouncingScrollPhysics(),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -241,8 +217,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     Verse(text: 'phid_bz_section_selection_info', translate: true,),
                   ],
                   validator: () => Formers.bzSectionValidator(
-                      selectedSection: draft.bzSection,
-                      canValidate: draft.canValidate
+                      selectedSection: draft?.bzSection,
+                      canValidate: draft?.canValidate
                   ),
                   onButtonTap: (int index) => onChangeBzSection(
                     context: context,
@@ -265,8 +241,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     Verse(text: 'phid_select_bz_type', translate: true,),
                   ],
                   validator: () => Formers.bzTypeValidator(
-                      selectedTypes: draft.bzTypes,
-                      canValidate: draft.canValidate,
+                      selectedTypes: draft?.bzTypes,
+                      canValidate: draft?.canValidate,
                   ),
                   onButtonTap: (int index) => onChangeBzType(
                     context: context,
@@ -290,8 +266,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     Verse(text: 'phid_bz_form_company_description', translate: true,),
                   ],
                   validator: () => Formers.bzFormValidator(
-                    bzForm: draft.bzForm,
-                    canValidate: draft.canValidate,
+                    bzForm: draft?.bzForm,
+                    canValidate: draft?.canValidate,
                   ),
                   onButtonTap: (int index) => onChangeBzForm(
                     index: index,
@@ -305,7 +281,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// ADD LOGO
                 AddImagePicBubble(
                   key: const ValueKey<String>('add_logo_bubble'),
-                  picModel: draft.logo,
+                  picModel: draft?.logoPicModel,
                   titleVerse: const Verse(
                     text: 'phid_businessLogo',
                     translate: true,
@@ -315,8 +291,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                   // autoValidate: true,
                   validator: () => Formers.picValidator(
-                    pic: draft.logo,
-                    canValidate: draft.canValidate,
+                    pic: draft?.logoPicModel,
+                    canValidate: draft?.canValidate,
                   ),
                   onAddPicture: (PicMakerType imagePickerType) => onChangeBzLogo(
                     context: context,
@@ -327,7 +303,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                 /// BZ NAME
                 TextFieldBubble(
-                  formKey: draft.formKey,
+                  formKey: draft?.formKey,
                   headerViewModel: BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: _companyNameBubbleTitle,
@@ -336,7 +312,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     redDot: true,
 
                   ),
-                  focusNode: draft.nameNode,
+                  focusNode: draft?.nameNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   key: const ValueKey('bzName'),
@@ -345,43 +321,43 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   maxLines: 2,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft.name,
+                  initialText: draft?.name,
 
                   // autoValidate: true,
                   validator: (String text) => Formers.companyNameValidator(
-                    companyName: draft.name,
-                    canValidate: draft.canValidate,
+                    companyName: draft?.name,
+                    canValidate: draft?.canValidate,
                   ),
                   onTextChanged: (String text){
-                    draftNotifier.value = draft.copyWith(name: text,);
+                    draftNotifier.value = draft?.copyWith(name: text,);
                   },
                 ),
 
                 /// BZ ABOUT
                 TextFieldBubble(
-                  formKey: draft.formKey,
+                  formKey: draft?.formKey,
                   headerViewModel: const BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: 'phid_about',
                       translate: true,
                     ),
                   ),
-                  focusNode: draft.aboutNode,
+                  focusNode: draft?.aboutNode,
                   appBarType: AppBarType.basic,
                   key: const ValueKey<String>('bz_about_bubble'),
                   counterIsOn: true,
                   maxLength: 1000,
                   maxLines: 20,
                   keyboardTextInputType: TextInputType.multiline,
-                  initialText: draft.about,
+                  initialText: draft?.about,
 
                   // autoValidate: true,
                   validator: (String text) => Formers.bzAboutValidator(
-                    bzAbout: draft.about,
-                    canValidate: draft.canValidate,
+                    bzAbout: draft?.about,
+                    canValidate: draft?.canValidate,
                   ),
                   onTextChanged: (String text){
-                    draftNotifier.value = draft.copyWith(
+                    draftNotifier.value = draft?.copyWith(
                       about: text,
                     );
                   },
@@ -393,8 +369,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// PHONE
                 ContactFieldEditorBubble(
                   key: const ValueKey<String>('phone'),
-                  formKey: draft.formKey,
-                  focusNode: draft.phoneNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.phoneNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   headerViewModel: const BubbleHeaderVM(
@@ -408,15 +384,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   keyboardTextInputAction: TextInputAction.next,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.phone,
-                    countryID: draft.zone?.countryID,
-                    existingContacts: draft.contacts,
+                    countryID: draft?.zone?.countryID,
+                    existingContacts: draft?.contacts,
                   ),
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsPhoneValidator(
-                    contacts: draft.contacts,
+                    contacts: draft?.contacts,
                     zoneModel: draft?.zone,
-                    canValidate: draft.canValidate,
+                    canValidate: draft?.canValidate,
                     isRequired: true,
                     context: context,
                   ),
@@ -430,8 +406,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// EMAIL
                 ContactFieldEditorBubble(
                   key: const ValueKey<String>('email'),
-                  formKey: draft.formKey,
-                  focusNode: draft.emailNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.emailNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   headerViewModel: const BubbleHeaderVM(
@@ -445,15 +421,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   keyboardTextInputAction: TextInputAction.next,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.email,
-                    countryID: draft.zone?.countryID,
-                    existingContacts: draft.contacts,
+                    countryID: draft?.zone?.countryID,
+                    existingContacts: draft?.contacts,
                   ),
 
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsEmailValidator(
-                    contacts: draft.contacts,
-                    canValidate: draft.canValidate,
+                    contacts: draft?.contacts,
+                    canValidate: draft?.canValidate,
                   ),
                   textOnChanged: (String text) => onChangeBzContact(
                     contactType: ContactType.email,
@@ -471,22 +447,22 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       translate: true,
                     ),
                   ),
-                  formKey: draft.formKey,
-                  focusNode: draft.websiteNode,
+                  formKey: draft?.formKey,
+                  focusNode: draft?.websiteNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   // keyboardTextInputType: TextInputType.url,
                   keyboardTextInputAction: TextInputAction.done,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.website,
-                    countryID: draft.zone?.countryID,
-                    existingContacts: draft.contacts,
+                    countryID: draft?.zone?.countryID,
+                    existingContacts: draft?.contacts,
                   ),
                   // canPaste: true,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsWebsiteValidator(
-                    contacts: draft.contacts,
-                    canValidate: draft.canValidate,
+                    contacts: draft?.contacts,
+                    canValidate: draft?.canValidate,
                   ),
                   textOnChanged: (String text) => onChangeBzContact(
                     contactType: ContactType.website,
@@ -504,9 +480,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     translate: true,
                   ),
                   flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(
-                      bzTypes: draft.bzTypes
+                      bzTypes: draft?.bzTypes
                   ),
-                  selectedSpecs: draft.scopeSpecs,
+                  selectedSpecs: draft?.scopeSpecs,
                   bulletPoints: const <Verse>[
                     Verse(
                       pseudo: 'Select at least 1 keyword to help search engines show your content in its dedicated place',
@@ -529,17 +505,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     text: 'phid_hqCity',
                     translate: true,
                   ),
-                  currentZone: draft.zone,
+                  currentZone: draft?.zone,
                   // selectCountryAndCityOnly: true,
                   // selectCountryIDOnly: false,
                   validator: () => Formers.zoneValidator(
-                    zoneModel: draft.zone,
+                    zoneModel: draft?.zone,
                     selectCountryAndCityOnly: true,
                     selectCountryIDOnly: false,
-                    canValidate: draft.canValidate,
+                    canValidate: draft?.canValidate,
                   ),
                   onZoneChanged: (ZoneModel zone){
-                    draftNotifier.value = draft.copyWith(zone: zone,);
+                    draftNotifier.value = draft?.copyWith(zone: zone,);
                   }
                 ),
 

@@ -12,10 +12,10 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/user_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/ldb_ops/auth_ldb_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/ldb_ops/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -126,14 +126,14 @@ Future<void> loadUserEditorLastSession({
 ///
 Future<void> takeUserPicture({
   @required BuildContext context,
-  @required ValueNotifier<bool> canPickImage,
   @required ValueNotifier<DraftUser> draft,
   @required PicMakerType picMakerType,
+  @required bool mounted,
 }) async {
 
-  if (canPickImage.value == true) {
+  if (draft.value.canPickImage == true) {
 
-    canPickImage.value = false;
+    DraftUser.triggerCanPickImage(draftUser: draft, mounted: mounted, setTo: false,);
 
     Uint8List _bytes;
 
@@ -158,7 +158,7 @@ Future<void> takeUserPicture({
     if (_bytes == null) {
       blog('takeUserPicture : did not take user picture');
       // picture.value = null;
-      canPickImage.value = true;
+      DraftUser.triggerCanPickImage(draftUser: draft, mounted: mounted, setTo: true,);
     }
 
     /// IF PICKED AN IMAGE
@@ -166,13 +166,13 @@ Future<void> takeUserPicture({
       blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
 
       draft.value = draft.value.copyWith(
-        pic: draft.value.pic.copyWith(
+        picModel: draft.value.picModel.copyWith(
           bytes: _bytes,
         ),
         hasNewPic: true,
       );
 
-      canPickImage.value = true;
+      DraftUser.triggerCanPickImage(draftUser: draft, mounted: mounted, setTo: true,);
     }
 
   }
@@ -273,7 +273,6 @@ void onUserContactChanged({
 ///
 Future<void> confirmEdits({
   @required BuildContext context,
-  @required GlobalKey<FormState> formKey,
   @required UserModel oldUserModel,
   @required ValueNotifier<DraftUser> draft,
   @required Function onFinish,
@@ -283,7 +282,7 @@ Future<void> confirmEdits({
 
 
 
-  bool _canContinue = Formers.validateForm(formKey);
+  bool _canContinue = Formers.validateForm(draft.value.formKey);
 
   final UserModel newUserModel = DraftUser.toUserModel(
     draft: draft.value,
@@ -412,7 +411,7 @@ Future<UserModel> _updateUserModel({
 
     /// UPDATE PIC
     if (draft.value.hasNewPic == true)
-    PicProtocols.composePic(draft.value.pic),
+    PicProtocols.composePic(draft.value.picModel),
 
   ]);
 

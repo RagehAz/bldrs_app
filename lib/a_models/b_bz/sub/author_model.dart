@@ -3,10 +3,10 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -35,7 +35,7 @@ class AuthorModel {
   const AuthorModel({
     @required this.userID,
     @required this.name,
-    @required this.pic,
+    @required this.picPath,
     @required this.title,
     @required this.role,
     @required this.contacts,
@@ -45,7 +45,7 @@ class AuthorModel {
   /// --------------------------------------------------------------------------
   final String userID;
   final String name;
-  final String pic;
+  final String picPath;
   final String title;
   final AuthorRole role;
   final List<ContactModel> contacts;
@@ -63,7 +63,7 @@ class AuthorModel {
   }) async {
 
     final AuthorModel _tempAuthor = oldAuthor.copyWith(
-      picModel: await PicProtocols.fetchPic(oldAuthor.pic),
+      picModel: await PicProtocols.fetchPic(oldAuthor.picPath),
       contacts: ContactModel.prepareContactsForEditing(
         contacts: oldAuthor.contacts,
         countryID: bzModel.zone.countryID,
@@ -115,7 +115,7 @@ class AuthorModel {
   AuthorModel copyWith({
     String userID,
     String name,
-    String pic,
+    String picPath,
     String title,
     AuthorRole role,
     List<ContactModel> contacts,
@@ -125,7 +125,7 @@ class AuthorModel {
     return AuthorModel(
       userID: userID ?? this.userID,
       name: name ?? this.name,
-      pic: pic ?? this.pic,
+      picPath: picPath ?? this.picPath,
       title: title ?? this.title,
       role: role ?? this.role,
       contacts: contacts ?? this.contacts,
@@ -143,7 +143,7 @@ class AuthorModel {
     final AuthorModel _author = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
-      pic: StorageColl.getAuthorPicPath(bzID: bzID, authorID: userModel.id),
+      picPath: StorageColl.getAuthorPicPath(bzID: bzID, authorID: userModel.id),
       title: userModel.title,
       role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
       contacts: userModel.contacts,
@@ -178,7 +178,7 @@ class AuthorModel {
     Map<String, dynamic> _map =  <String, dynamic>{
       'userID': userID,
       'name': name,
-      'pic': pic,
+      'picPath': picPath,
       'title': title,
       'role': cipherAuthorRole(role),
       'contacts': ContactModel.cipherContacts(contacts),
@@ -203,7 +203,7 @@ class AuthorModel {
     return AuthorModel(
       userID: map['userID'],
       name: map['name'],
-      pic: map['pic'],
+      picPath: map['picPath'],
       title: map['title'],
       role: decipherAuthorRole(map['role']),
       contacts: ContactModel.decipherContacts(map['contacts']),
@@ -830,7 +830,7 @@ class AuthorModel {
 
           author1.userID == author2.userID &&
           author1.name == author2.name &&
-          author1.pic == author2.pic &&
+          author1.picPath == author2.picPath &&
           author1.title == author2.title &&
           author1.role == author2.role &&
           Mapper.checkListsAreIdentical(
@@ -943,7 +943,7 @@ class AuthorModel {
     if (authorModel != null && userModel != null){
 
       if (authorModel.userID == userModel.id){
-        _areIdentical = authorModel.pic == userModel.pic;
+        _areIdentical = authorModel.picPath == userModel.picPath;
       }
 
     }
@@ -1057,7 +1057,7 @@ class AuthorModel {
   static AuthorModel dummyAuthor() {
     return AuthorModel(
       userID: 'author_dummy_id',
-      pic: Iconz.dvRageh,
+      picPath: Iconz.dvRageh,
       role: AuthorRole.creator,
       name: 'Rageh Author',
       contacts: ContactModel.dummyContacts(),
@@ -1090,7 +1090,7 @@ class AuthorModel {
 
     blog('userID : $userID');
     blog('name : $name');
-    blog('pic : $pic');
+    blog('pic : $picPath');
     blog('title : $title');
     blog('role : $role');
     blog('contacts : $contacts');
@@ -1281,7 +1281,7 @@ class AuthorModel {
   int get hashCode =>
       userID.hashCode^
       name.hashCode^
-      pic.hashCode^
+      picPath.hashCode^
       title.hashCode^
       role.hashCode^
       contacts.hashCode^

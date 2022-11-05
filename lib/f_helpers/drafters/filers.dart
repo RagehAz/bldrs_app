@@ -3,7 +3,10 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -607,16 +610,19 @@ class Filers {
   /// PICK PDF
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<File> pickPDF() async {
+  ///
+  static Future<PDFModel> pickPDF({
+    @required BuildContext context,
+    @required String flyerID,
+  }) async {
 
-    File _file;
+    PDFModel _output;
 
     final FilePickerResult result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowCompression: true,
       allowMultiple: false,
-      dialogTitle: 'Pick PDF File',
+      dialogTitle: Verse.transBake(context, 'phid_pick_pdf_file'),
       lockParentWindow: false,
       onFileLoading: (FilePickerStatus status){
         blog('status : ${status.name}');
@@ -631,10 +637,15 @@ class Filers {
 
     if (result != null){
       final PlatformFile _platformFile = result.files.first;
-      _file = File(_platformFile.path);
+      _output = PDFModel(
+        bytes: _platformFile.bytes,
+        path: StorageColl.getFlyerPDFPath(flyerID),
+        name: _platformFile.name,
+        sizeMB: Filers.calculateSize(_platformFile.bytes.length, FileSizeUnit.megaByte),
+      );
     }
 
-    return _file;
+    return _output;
   }
   // -----------------------------------------------------------------------------
 }

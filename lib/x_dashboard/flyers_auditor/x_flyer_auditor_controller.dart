@@ -6,9 +6,9 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/fkyer_verification_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/flyer_verification_protocols.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -123,7 +123,7 @@ Future<void> onFlyerOptionsTap({
                   verse:  'Verify bz',
                   color: Colorz.yellow255,
                   verseColor: Colorz.black255,
-                  icon: _bzModel?.logo,
+                  icon: _bzModel?.logoPath,
                   iconSizeFactor: 1,
                   verseScaleFactor: 0.6,
                   onTap: () => _verifyBz(

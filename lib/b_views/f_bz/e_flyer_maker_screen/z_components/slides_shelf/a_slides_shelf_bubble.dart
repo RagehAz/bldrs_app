@@ -11,26 +11,26 @@ class SlidesShelfBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlidesShelfBubble({
     @required this.bzModel,
-    @required this.draft,
-    @required this.isEditingFlyer,
+    @required this.draftNotifier,
     @required this.canValidate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
-  final ValueNotifier<DraftFlyerModel> draft;
-  final ValueNotifier<bool> isEditingFlyer;
+  final ValueNotifier<DraftFlyerModel> draftNotifier;
   final bool canValidate;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    /// TASK : SHOULD BE ABLE TO DELETE A SLIDE FROM THE SHELF WHILE EDITING WITHOUT GOING INTO THE FUCKING GALLERY BITCH
 
     return Bubble(
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
         validator: () => Formers.slidesValidator(
           context: context,
-          draft: draft.value,
+          draftFlyer: draftNotifier.value,
           canValidate: canValidate,
         ),
       ),
@@ -48,15 +48,14 @@ class SlidesShelfBubble extends StatelessWidget {
           /// PLAN : ADD FLYER LOCATION SLIDE
           bzModel: bzModel,
           shelfNumber: 1,
-          draft: draft,
-          isEditingFlyer: isEditingFlyer,
+          draftNotifier: draftNotifier,
         ),
 
         SuperValidator(
           width: Bubble.clearWidth(context),
           validator: () => Formers.slidesValidator(
             context: context,
-            draft: draft.value,
+            draftFlyer: draftNotifier.value,
             canValidate: canValidate,
           ),
         ),

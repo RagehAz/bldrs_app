@@ -75,7 +75,7 @@ class SlideImagePart extends StatelessWidget {
 
           /// IMAGE
           SuperImage(
-            pic: slideModel.pic,
+            pic: slideModel.picPath,
             fit: slideModel.picFit,
             width: flyerBoxWidth,
             height: flyerBoxHeight,

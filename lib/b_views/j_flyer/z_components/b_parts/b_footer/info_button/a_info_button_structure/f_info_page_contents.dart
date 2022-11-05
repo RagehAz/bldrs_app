@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/flyer_fire_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -115,26 +115,26 @@ class InfoPageContents extends StatelessWidget {
                   ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// PDF BUTTON
-                if (flyerModel.pdf != null)
+                if (flyerModel.pdfPath != null)
                   DreamBox(
                     height: 30,
                     width: _pageWidth - 20,
                     color: Colorz.blue80,
-                    verse: Verse.plain('${flyerModel.pdf.fileName}.pdf'),
+                    verse: Verse.plain('${flyerModel.pdfPath.fileName}.pdf'),
                     verseScaleFactor: 0.6,
                     onTap: () async {
 
                       await Nav.goToNewScreen(
                         context: context,
                         screen: PDFScreen(
-                          pdf: flyerModel.pdf,
+                          pdf: flyerModel.pdfPath,
                         ),
                       );
 
                     },
                   ),
                 /// PDF LINE
-                if (flyerModel.pdf != null)
+                if (flyerModel.pdfPath != null)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),

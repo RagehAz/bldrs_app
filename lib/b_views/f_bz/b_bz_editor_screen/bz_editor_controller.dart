@@ -14,9 +14,9 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/ldb_ops/bz_ldb_ops.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -24,43 +24,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
-
-/// INITIALIZATION
-
-// --------------------
-///
-void initializeDraftBz({
-  @required BuildContext context,
-  @required BzModel oldBz,
-  @required ValueNotifier<DraftBz> draftNotifier,
-}){
-
-  /// FIRST TIMER
-  if (oldBz == null){
-
-    final UserModel creatorUser = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
-    );
-
-    draftNotifier.value = DraftBz.initializeNewBzForEditing(
-        creatorUser: creatorUser
-    );
-
-  }
-
-  /// EDITING BZ
-  else {
-
-    draftNotifier.value = DraftBz.initializeExistingBzForEditing(
-        context: context,
-        bzModel: oldBz,
-    );
-
-  }
-
-}
 // -----------------------------------------------------------------------------
 
 /// LAST SESSION
@@ -387,7 +350,7 @@ Future<void> onChangeBzLogo({
 
       draftNotifier.value = draftNotifier.value.copyWith(
         canPickImage: true,
-        logo: PicModel(
+        logoPicModel: PicModel(
             bytes: _bytes,
             path: _path,
             meta: PicMetaModel(

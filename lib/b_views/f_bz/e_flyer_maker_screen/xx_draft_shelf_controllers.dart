@@ -87,7 +87,7 @@ void onDeleteSlide({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onAddNewSlides({
   @required BuildContext context,
   @required PicMakerType imagePickerType,
@@ -97,7 +97,6 @@ Future<void> onAddNewSlides({
   @required bool mounted,
   @required ScrollController scrollController,
   @required double flyerWidth,
-  @required bool isEditingFlyer,
 }) async {
 
   isLoading.value = true;
@@ -115,18 +114,7 @@ Future<void> onAddNewSlides({
   /// A - if can pick more images
   else {
 
-    if (isEditingFlyer == true){
-      await _addImagesForExistingFlyer(
-        context: context,
-        mounted: mounted,
-        bzModel: bzModel,
-        scrollController: scrollController,
-        draftFlyer: draftFlyer,
-        flyerWidth: flyerWidth,
-      );
-    }
-
-    else {
+    if (draftFlyer.value.firstTimer == true){
       await _addImagesForNewFlyer(
         context: context,
         mounted: mounted,
@@ -135,6 +123,17 @@ Future<void> onAddNewSlides({
         draftFlyer: draftFlyer,
         flyerWidth: flyerWidth,
         imagePickerType: imagePickerType,
+      );
+    }
+
+    else {
+      await _addImagesForExistingFlyer(
+        context: context,
+        mounted: mounted,
+        bzModel: bzModel,
+        scrollController: scrollController,
+        draftFlyer: draftFlyer,
+        flyerWidth: flyerWidth,
       );
     }
 
@@ -186,7 +185,7 @@ Future<void> _addImagesForNewFlyer({
       );
 
       if (_fileModel != null){
-        _pickedFiles = <File>[_fileModel.file];
+        _pickedFiles = <File>[_fileModel.bytes];
       }
 
     }

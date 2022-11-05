@@ -75,7 +75,7 @@ class SlideEditorSlidePart extends StatelessWidget {
           child: Container(),
           builder: (_, MutableSlide _slide, Widget child){
 
-            blog('BUILDING SLIDE AHOOOO : ${_slide.picFileModel.file.path} : color : ${_slide.midColor}');
+            blog('BUILDING SLIDE AHOOOO : ${_slide.picFileModel.bytes.path} : color : ${_slide.midColor}');
 
             return FlyerBox(
               key: const ValueKey<String>('flyer_box_slide_editor'),
