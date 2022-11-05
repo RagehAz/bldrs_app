@@ -145,7 +145,7 @@ class NoteEventsOfBzTeamManagement {
 
     if (bzModel != null && Mapper.checkCanLoopList(bzModel.authors) == true){
 
-      final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel);
+      final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
       /// ADJUST AUTHORS LIST IF DOES NOT INCLUDE MYSELF
       List<AuthorModel> _authors = <AuthorModel>[...bzModel.authors];

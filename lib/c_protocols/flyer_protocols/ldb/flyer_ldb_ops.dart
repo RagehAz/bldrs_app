@@ -125,14 +125,14 @@ class FlyerLDBOps {
   // --------------------
   ///
   static Future<void> saveFlyerMakerSession({
-    @required DraftFlyerModel draftFlyer,
+    @required DraftFlyer draftFlyer,
   }) async {
 
     if (draftFlyer != null){
 
       await LDBOps.insertMap(
         docName: LDBDoc.flyerMaker,
-        input: draftFlyer.toLDB(),
+        input: DraftFlyer.draftToLDB(draftFlyer),
       );
 
     }
@@ -140,10 +140,10 @@ class FlyerLDBOps {
   }
   // --------------------
   ///
-  static Future<DraftFlyerModel> loadFlyerMakerSession({
+  static Future<DraftFlyer> loadFlyerMakerSession({
     @required String flyerID,
   }) async {
-    DraftFlyerModel _draft;
+    DraftFlyer _draft;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[flyerID],
@@ -151,7 +151,7 @@ class FlyerLDBOps {
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
-      _draft = DraftFlyerModel.fromLDB(_maps.first);
+      _draft = DraftFlyer.draftFromLDB(_maps.first);
     }
 
     return _draft;

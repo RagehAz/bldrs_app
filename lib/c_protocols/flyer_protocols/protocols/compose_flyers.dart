@@ -32,6 +32,8 @@ class ComposeFlyerProtocols {
   }) async {
     blog('ComposeFlyerProtocol.compose : START');
 
+    /// TASK : FIX FLYER ID ISSUE BEFORE UPLOAD AND UPDATE ALL SLIDES PATHS
+
     /// FIRE BASE --------------------------------------
     final Map<String, dynamic> _uploadedFlyerAndBz = await FlyerFireOps.createFlyerOps(
         context: context,

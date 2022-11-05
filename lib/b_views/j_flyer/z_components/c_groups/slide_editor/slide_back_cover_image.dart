@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class SlideBackCoverImage extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<ImageFilterModel> filterModel;
-  final MutableSlide slide;
+  final DraftSlide slide;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   /// --------------------------------------------------------------------------
@@ -29,7 +29,7 @@ class SlideBackCoverImage extends StatelessWidget {
           return SuperFilteredImage(
             width: flyerBoxWidth,
             height: flyerBoxHeight,
-            imageFile: slide.picFileModel.bytes,
+            bytes: slide.picModel.bytes,
             filterModel: _filterModel,
           );
         }

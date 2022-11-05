@@ -36,6 +36,7 @@ class LDBDoc {
 
       case LDBDoc.theLastWipe: return 'id';
       case LDBDoc.pics: return 'path';
+      case LDBDoc.pdfs: return 'path';
       case 'test': return 'id';
       default: return 'id';
     }
@@ -74,6 +75,7 @@ class LDBDoc {
 
   static const String theLastWipe = 'theLastWipe';
   static const String pics = 'pics';
+  static const String pdfs = 'pdfs';
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST
@@ -105,6 +107,7 @@ class LDBDoc {
     theLastWipe,
 
     pics,
+    pdfs,
   ];
 // -----------------------------------------------------------------------------
 }

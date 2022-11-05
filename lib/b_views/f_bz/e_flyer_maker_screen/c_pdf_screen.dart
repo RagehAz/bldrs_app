@@ -1,12 +1,11 @@
-import 'dart:io';
 import 'dart:typed_data';
+
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class PDFScreen extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FileModel pdf;
+  final PDFModel pdf;
   /// --------------------------------------------------------------------------
   @override
   _PDFScreenState createState() => _PDFScreenState();
@@ -35,6 +34,7 @@ class _PDFScreenState extends State<PDFScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
+  /*
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,
@@ -42,9 +42,11 @@ class _PDFScreenState extends State<PDFScreen> {
       value: setTo,
     );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _uInt8List.value = widget.pdf.bytes;
     super.initState();
   }
   // --------------------
@@ -53,14 +55,11 @@ class _PDFScreenState extends State<PDFScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading(setTo: true).then((_) async {
-
-        final File _pdfFile = await Filers.getFileFromURL(widget.pdf.url);
-        final Uint8List _data = await Floaters.getUint8ListFromFile(_pdfFile);
-        _uInt8List.value = _data;
-
-        await _triggerLoading(setTo: false);
-      });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
       _isInit = false;
     }
@@ -83,7 +82,7 @@ class _PDFScreenState extends State<PDFScreen> {
     return MainLayout(
       loading: _loading,
       pageTitleVerse: Verse(
-        text: '${widget.pdf.fileName}.pdf',
+        text: '${widget.pdf.name}.pdf',
         translate: false,
       ),
       appBarType: AppBarType.basic,

@@ -1,16 +1,16 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -21,9 +21,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class DraftFlyerModel{
+class DraftFlyer{
   /// --------------------------------------------------------------------------
-  const DraftFlyerModel({
+  const DraftFlyer({
     @required this.id,
     @required this.headline,
     @required this.trigram,
@@ -39,7 +39,7 @@ class DraftFlyerModel{
     @required this.authorID,
     @required this.bzID,
     @required this.position,
-    @required this.mutableSlides,
+    @required this.draftSlides,
     @required this.specs,
     @required this.times,
     @required this.priceTagIsOn,
@@ -66,7 +66,7 @@ class DraftFlyerModel{
   final String authorID;
   final String bzID;
   final GeoPoint position;
-  final List<MutableSlide> mutableSlides;
+  final List<DraftSlide> draftSlides;
   final List<SpecModel> specs;
   final List<PublishTime> times;
   final bool priceTagIsOn;
@@ -80,15 +80,15 @@ class DraftFlyerModel{
   static const String newDraftID = 'newDraft';
   // -----------------------------------------------------------------------------
 
-  /// INITIALIZATION
+  /// CREATION
 
   // --------------------
   ///
-  static Future<DraftFlyerModel> createDraft({
+  static Future<DraftFlyer> createDraft({
     @required BuildContext context,
     @required FlyerModel oldFlyer,
   }) async {
-    DraftFlyerModel _draft;
+    DraftFlyer _draft;
 
     if (oldFlyer == null){
       _draft = await _createNewDraft(
@@ -97,9 +97,9 @@ class DraftFlyerModel{
     }
 
     else {
-      _draft = await _createDraftFromFlyerModel(
+      _draft = await draftFromFlyer(
         context: context,
-        oldFlyer: oldFlyer,
+        flyer: oldFlyer,
       );
     }
 
@@ -107,7 +107,7 @@ class DraftFlyerModel{
   }
   // --------------------
   ///
-  static Future<DraftFlyerModel> _createNewDraft({
+  static Future<DraftFlyer> _createNewDraft({
     @required BuildContext context,
   }) async {
 
@@ -125,7 +125,7 @@ class DraftFlyerModel{
         :
     null;
 
-    return DraftFlyerModel(
+    return DraftFlyer(
       bzModel: bzModel,
       id: newDraftID,
       headline: '',
@@ -145,7 +145,7 @@ class DraftFlyerModel{
       authorID: AuthFireOps.superUserID(),
       bzID: bzModel.id,
       position: null,
-      mutableSlides: const <MutableSlide>[],
+      draftSlides: const <DraftSlide>[],
       specs: const <SpecModel>[],
       times: const <PublishTime>[],
       priceTagIsOn: false,
@@ -157,39 +157,40 @@ class DraftFlyerModel{
     );
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// CYPHERS - FLYER MODEL
+
   // --------------------
   ///
-  static Future<DraftFlyerModel> _createDraftFromFlyerModel({
+  static Future<DraftFlyer> draftFromFlyer({
     @required BuildContext context,
-    @required FlyerModel oldFlyer,
+    @required FlyerModel flyer,
   }) async {
 
-    return DraftFlyerModel(
-      bzModel: await BzProtocols.fetch(context: context, bzID: oldFlyer.bzID),
-      id: oldFlyer.id,
-      headline: oldFlyer.headline,
-      trigram: oldFlyer.trigram,
+    return DraftFlyer(
+      bzModel: await BzProtocols.fetch(context: context, bzID: flyer.bzID),
+      id: flyer.id,
+      headline: flyer.headline,
+      trigram: flyer.trigram,
       headlineNode: FocusNode(),
-      description: oldFlyer.description,
+      description: flyer.description,
       descriptionNode: FocusNode(),
-      flyerType: oldFlyer.flyerType,
-      publishState: oldFlyer.publishState,
-      auditState: oldFlyer.auditState,
-      keywordsIDs: oldFlyer.keywordsIDs,
-      showsAuthor: oldFlyer.showsAuthor,
-      zone: oldFlyer.zone,
-      authorID: oldFlyer.authorID,
-      bzID: oldFlyer.bzID,
-      position: oldFlyer.position,
-      mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
-        slides: oldFlyer.slides,
-        flyerID: oldFlyer.id,
-      ),
-      specs: oldFlyer.specs,
-      times: oldFlyer.times,
-      priceTagIsOn: oldFlyer.priceTagIsOn,
-      score: oldFlyer.score,
-      pdfModel: await PDFProtocols.fetch(oldFlyer.pdfPath),
+      flyerType: flyer.flyerType,
+      publishState: flyer.publishState,
+      auditState: flyer.auditState,
+      keywordsIDs: flyer.keywordsIDs,
+      showsAuthor: flyer.showsAuthor,
+      zone: flyer.zone,
+      authorID: flyer.authorID,
+      bzID: flyer.bzID,
+      position: flyer.position,
+      draftSlides: await DraftSlide.draftsFromSlides(flyer.slides),
+      specs: flyer.specs,
+      times: flyer.times,
+      priceTagIsOn: flyer.priceTagIsOn,
+      score: flyer.score,
+      pdfModel: await PDFProtocols.fetch(flyer.pdfPath),
       firstTimer: false,
       formKey: GlobalKey<FormState>(),
       canPickImage: true,
@@ -198,8 +199,8 @@ class DraftFlyerModel{
   }
   // --------------------
   ///
-  static Future<FlyerModel> bakeDraftToUpload({
-    @required DraftFlyerModel draft,
+  static Future<FlyerModel> draftToFlyer({
+    @required DraftFlyer draft,
     @required bool toLDB,
     PublishState overridePublishState,
   }) async {
@@ -218,10 +219,7 @@ class DraftFlyerModel{
       authorID: draft.authorID,
       bzID: draft.bzID,
       position: draft.position,
-      slides: SlideModel.getSlidesFromMutableSlides(
-        mSlides: draft.mutableSlides,
-        forLDB: toLDB,
-      ),
+      slides: await DraftSlide.draftsToSlides(draft.draftSlides),
       specs: draft.specs,
       times: draft.times,
       priceTagIsOn: draft.priceTagIsOn,
@@ -230,11 +228,83 @@ class DraftFlyerModel{
 
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// CYPHERS - LDB
+
   // --------------------
   ///
-  void dispose(){
-    headlineNode.dispose();
-    descriptionNode.dispose();
+  static Map<String, dynamic> draftToLDB(DraftFlyer draft){
+    Map<String, dynamic> _map;
+
+    if (draft != null){
+      _map = {
+        'id' : draft.id,
+        'headline' : draft.headline,
+        'trigram' : Stringer.createTrigram(input: draft.headline),
+        'description' : draft.description,
+        'flyerType' : FlyerTyper.cipherFlyerType(draft.flyerType),
+        'publishState' : FlyerModel.cipherPublishState(draft.publishState),
+        'auditState' : FlyerModel.cipherAuditState(draft.auditState),
+        'keywordsIDs' : draft.keywordsIDs,
+        'showsAuthor' : draft.showsAuthor,
+        'zone' : draft.zone?.toMap(),
+        'authorID' : draft.authorID,
+        'bzID' : draft.bzID,
+        'position' : Atlas.cipherGeoPoint(point: draft.position, toJSON: true),
+        'draftSlides': DraftSlide.draftsToLDB(draft.draftSlides),
+        'specs' : SpecModel.cipherSpecs(draft.specs),
+        'times' : PublishTime.cipherPublishTimesToMap(times: draft.times, toJSON: true),
+        'priceTagIsOn' : draft.priceTagIsOn,
+        'score' : draft.score,
+        'pdfModel': draft.pdfModel.toMap(includeBytes: true),
+        'bzModel': draft.bzModel.toMap(toJSON: true),
+        'canPickImage': draft.canPickImage,
+        'firstTimer': draft.firstTimer,
+        'headlineNode': null,
+        'descriptionNode': null,
+        'formKey': null,
+      };
+    }
+
+    return _map;
+  }
+  // --------------------
+  ///
+  static DraftFlyer draftFromLDB(Map<String, dynamic> map){
+    DraftFlyer _draft;
+
+    if (map != null){
+      _draft = DraftFlyer(
+        id: map['id'],
+        headline: map['headline'],
+        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+        description: map['description'],
+        flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
+        publishState: FlyerModel.decipherFlyerState(map['publishState']),
+        auditState: FlyerModel.decipherAuditState(map['auditState']),
+        keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
+        showsAuthor: map['showsAuthor'],
+        zone: ZoneModel.decipherZone(map['zone']),
+        authorID: map['authorID'],
+        bzID: map['bzID'],
+        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
+        draftSlides: DraftSlide.draftsFromLDB(map['draftSlides']),
+        specs: SpecModel.decipherSpecs(map['specs']),
+        times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: true),
+        priceTagIsOn: map['priceTagIsOn'],
+        score: map['score'],
+        pdfModel: PDFModel.decipherFromMap(map['pdfModel']),
+        bzModel: BzModel.decipherBz(map: map['bzModel'], fromJSON: true),
+        canPickImage: map['canPickImage'],
+        firstTimer: map['firstTimer'],
+        headlineNode: null,
+        descriptionNode: null,
+        formKey: null,
+      );
+    }
+
+    return _draft;
   }
   // -----------------------------------------------------------------------------
 
@@ -242,7 +312,7 @@ class DraftFlyerModel{
 
   // --------------------
   ///
-  DraftFlyerModel copyWith({
+  DraftFlyer copyWith({
     String id,
     String headline,
     List<String> trigram,
@@ -258,7 +328,7 @@ class DraftFlyerModel{
     String authorID,
     String bzID,
     GeoPoint position,
-    List<MutableSlide> mutableSlides,
+    List<DraftSlide> draftSlides,
     List<SpecModel> specs,
     List<PublishTime> times,
     bool priceTagIsOn,
@@ -269,7 +339,7 @@ class DraftFlyerModel{
     GlobalKey<FormState> formKey,
     bool firstTimer,
   }){
-    return DraftFlyerModel(
+    return DraftFlyer(
       bzModel: bzModel ?? this.bzModel,
       id: id ?? this.id,
       headline: headline ?? this.headline,
@@ -286,7 +356,7 @@ class DraftFlyerModel{
       authorID: authorID ?? this.authorID,
       bzID: bzID ?? this.bzID,
       position: position ?? this.position,
-      mutableSlides: mutableSlides ?? this.mutableSlides,
+      draftSlides: draftSlides ?? this.draftSlides,
       specs: specs ?? this.specs,
       times: times ?? this.times,
       priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
@@ -299,7 +369,7 @@ class DraftFlyerModel{
   }
   // --------------------
   ///
-  DraftFlyerModel nullifyField({
+  DraftFlyer nullifyField({
     bool id = false,
     bool headline = false,
     bool trigram = false,
@@ -315,7 +385,7 @@ class DraftFlyerModel{
     bool authorID = false,
     bool bzID = false,
     bool position = false,
-    bool mutableSlides = false,
+    bool draftSlides = false,
     bool specs = false,
     bool times = false,
     bool priceTagIsOn = false,
@@ -326,7 +396,7 @@ class DraftFlyerModel{
     bool canPickImage = false,
     bool firstTimer = false,
   }){
-    return DraftFlyerModel(
+    return DraftFlyer(
       id: id == true ? null : this.id,
       headline: headline == true ? null : this.headline,
       trigram: trigram == true ? null : this.trigram,
@@ -342,7 +412,7 @@ class DraftFlyerModel{
       authorID: authorID == true ? null : this.authorID,
       bzID: bzID == true ? null : this.bzID,
       position: position == true ? null : this.position,
-      mutableSlides: mutableSlides == true ? [] : this.mutableSlides,
+      draftSlides: draftSlides == true ? [] : this.draftSlides,
       specs: specs == true ? [] : this.specs,
       times: times == true ? [] : this.times,
       priceTagIsOn: priceTagIsOn == true ? null : this.priceTagIsOn,
@@ -356,79 +426,13 @@ class DraftFlyerModel{
 }
   // -----------------------------------------------------------------------------
 
-  /// CYPHERS
+  /// DISPOSING
 
   // --------------------
   ///
-  Map<String, dynamic> toLDB(){
-    return {
-      'id' : id,
-      'headline' : headline,
-      'trigram' : Stringer.createTrigram(input: headline),
-      'description' : description,
-      'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
-      'publishState' : FlyerModel.cipherPublishState(publishState),
-      'auditState' : FlyerModel.cipherAuditState(auditState),
-      'keywordsIDs' : keywordsIDs,
-      'showsAuthor' : showsAuthor,
-      'zone' : zone?.toMap(),
-      'authorID' : authorID,
-      'bzID' : bzID,
-      'position' : Atlas.cipherGeoPoint(point: position, toJSON: true),
-      'mutableSlides': MutableSlide.cipherSlidesToLDB(mutableSlides),
-      'specs' : SpecModel.cipherSpecs(specs),
-      'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: true),
-      'priceTagIsOn' : priceTagIsOn,
-      'score' : score,
-      'pdfModel': pdfModel.toMap(includeBytes: true),
-      'bzModel': bzModel.toMap(toJSON: true),
-      'canPickImage': canPickImage,
-      'firstTimer': firstTimer,
-      'headlineNode': null,
-      'descriptionNode': null,
-      'formKey': null,
-    };
-  }
-  // --------------------
-  ///
-  static DraftFlyerModel fromLDB(Map<String, dynamic> map){
-    DraftFlyerModel _draft;
-
-    if (map != null){
-      _draft = DraftFlyerModel(
-
-        pdfPath: map['pdfPath'],
-
-
-        id: map['id'],
-        headline: map['headline'],
-        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
-        description: map['description'],
-        flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
-        publishState: FlyerModel.decipherFlyerState(map['publishState']),
-        auditState: FlyerModel.decipherAuditState(map['auditState']),
-        keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
-        showsAuthor: map['showsAuthor'],
-        zone: ZoneModel.decipherZone(map['zone']),
-        authorID: map['authorID'],
-        bzID: map['bzID'],
-        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
-        mutableSlides: MutableSlide.decipherSlidesFromLDB(map['mutableSlides']),
-        specs: SpecModel.decipherSpecs(map['specs']),
-        times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: true),
-        priceTagIsOn: map['priceTagIsOn'],
-        score: map['score'],
-        pdfModel: PDFModel.decipherFromMap(map['pdfModel']),
-        bzModel: BzModel.decipherBz(map: map['bzModel'], fromJSON: true),
-        canPickImage: map['canPickImage'],
-        firstTimer: map['firstTimer'],
-        headlineNode: null,
-        descriptionNode: null,
-        formKey: null,
-      );
-    }
-
-    return _draft;
+  void dispose(){
+    headlineNode.dispose();
+    descriptionNode.dispose();
   }
   // -----------------------------------------------------------------------------
 
@@ -481,28 +485,27 @@ class DraftFlyerModel{
 
   /// MODIFIERS
 
-
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DraftFlyerModel updateHeadline({
+  static DraftFlyer updateHeadline({
     @required String newHeadline,
-    @required DraftFlyerModel draft,
+    @required DraftFlyer draft,
   }){
 
-    DraftFlyerModel _draft = draft;
+    DraftFlyer _draft = draft;
 
     if (draft != null){
 
-      if (Mapper.checkCanLoopList(draft.mutableSlides) == true){
-        final MutableSlide _newSlide = draft.mutableSlides.first.copyWith(
+      if (Mapper.checkCanLoopList(draft.draftSlides) == true){
+        final DraftSlide _newSlide = draft.draftSlides.first.copyWith(
           headline: newHeadline,
         );
-        final List<MutableSlide> _newSlides = MutableSlide.replaceSlide(
-          slides: draft.mutableSlides,
+        final List<DraftSlide> _newSlides = DraftSlide.replaceSlide(
+          slides: draft.draftSlides,
           slide: _newSlide,
         );
         _draft = draft.copyWith(
-          mutableSlides: _newSlides,
+          draftSlides: _newSlides,
         );
       }
 
@@ -519,9 +522,10 @@ class DraftFlyerModel{
   /// GETTERS
 
   // --------------------
-  static String getFirstSlideHeadline(DraftFlyerModel draft){
-    return Mapper.checkCanLoopList(draft?.mutableSlides) == true ?
-    draft.mutableSlides[0].headline
+  ///
+  static String getFirstSlideHeadline(DraftFlyer draft){
+    return Mapper.checkCanLoopList(draft?.draftSlides) == true ?
+    draft.draftSlides[0].headline
         :
     null;
   }
@@ -547,12 +551,12 @@ class DraftFlyerModel{
     blog('authorID : $authorID');
     blog('bzID : $bzID');
     blog('position : $position');
-    blog('mutableSlides : ${mutableSlides.length} slides');
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
     PublishTime.blogTimes(times);
     SpecModel.blogSpecs(specs);
-    MutableSlide.blogSlides(mutableSlides);
+    blog('draftSlides : ${draftSlides.length} slides');
+    DraftSlide.blogSlides(draftSlides);
     pdfModel.blogPDFModel(invoker: 'BLOGGING DRAFT');
     bzModel.blogBz(methodName: 'BLOGGING DRAFT');
 
@@ -560,8 +564,8 @@ class DraftFlyerModel{
   }
   // --------------------
   static void _blogDraftsDifferences({
-    @required DraftFlyerModel draft1,
-    @required DraftFlyerModel draft2,
+    @required DraftFlyer draft1,
+    @required DraftFlyer draft2,
   }){
 
     blog('_blogDraftsDifferences : ------------------------ START');
@@ -612,11 +616,11 @@ class DraftFlyerModel{
       if (Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) == false){
         blog('positions are not identical');
       }
-      if (MutableSlide.checkSlidesListsAreIdentical(slides1: draft1.mutableSlides, slides2: draft2.mutableSlides) == false){
-        blog('mutableSlides are not identical');
+      if (DraftSlide.checkSlidesListsAreIdentical(slides1: draft1.draftSlides, slides2: draft2.draftSlides) == false){
+        blog('draftSlides are not identical');
       }
       if (SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == false){
-        blog('specss are not identical');
+        blog('specs are not identical');
       }
       if (PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == false){
         blog('times are not identical');
@@ -650,7 +654,7 @@ class DraftFlyerModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCanPublishDraft({
-    @required DraftFlyerModel draft,
+    @required DraftFlyer draft,
     @required TextEditingController headlineController,
   }){
     bool _canPublish = false;
@@ -658,7 +662,7 @@ class DraftFlyerModel{
     if (draft != null){
 
       if (
-          draft.mutableSlides.isNotEmpty == true
+          draft.draftSlides.isNotEmpty == true
           &&
           headlineController.text.length >= Standards.flyerHeadlineMinLength
       ){
@@ -673,8 +677,8 @@ class DraftFlyerModel{
   // --------------------
   ///
   static bool checkDraftsAreIdentical({
-    @required DraftFlyerModel draft1,
-    @required DraftFlyerModel draft2,
+    @required DraftFlyer draft1,
+    @required DraftFlyer draft2,
   }){
     bool _areIdentical = false;
 
@@ -698,7 +702,7 @@ class DraftFlyerModel{
           draft1.authorID == draft2.authorID &&
           draft1.bzID == draft2.bzID &&
           Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) == true &&
-          MutableSlide.checkSlidesListsAreIdentical(slides1: draft1.mutableSlides, slides2: draft2.mutableSlides) == true &&
+          DraftSlide.checkSlidesListsAreIdentical(slides1: draft1.draftSlides, slides2: draft2.draftSlides) == true &&
           SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
           draft1.priceTagIsOn == draft2.priceTagIsOn &&
@@ -738,7 +742,7 @@ class DraftFlyerModel{
     }
 
     bool _areIdentical = false;
-    if (other is DraftFlyerModel){
+    if (other is DraftFlyer){
       _areIdentical = checkDraftsAreIdentical(
         draft1: this,
         draft2: other,
@@ -764,7 +768,7 @@ class DraftFlyerModel{
       authorID.hashCode^
       bzID.hashCode^
       position.hashCode^
-      mutableSlides.hashCode^
+      draftSlides.hashCode^
       specs.hashCode^
       times.hashCode^
       priceTagIsOn.hashCode^

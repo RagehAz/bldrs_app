@@ -32,11 +32,11 @@ import 'package:flutter/material.dart';
 ///
 Future<void> loadFlyerMakerLastSession({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
 }) async {
 
-  final DraftFlyerModel _lastSessionDraft = await FlyerLDBOps.loadFlyerMakerSession(
-    flyerID: draft?.value?.id ?? DraftFlyerModel.newDraftID,
+  final DraftFlyer _lastSessionDraft = await FlyerLDBOps.loadFlyerMakerSession(
+    flyerID: draft?.value?.id ?? DraftFlyer.newDraftID,
   );
 
   if (_lastSessionDraft != null){
@@ -71,7 +71,7 @@ Future<void> loadFlyerMakerLastSession({
 // --------------------
 ///
 Future<void> saveFlyerMakerSession({
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
 }) async {
 
   await FlyerLDBOps.saveFlyerMakerSession(
@@ -119,11 +119,11 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerHeadline({
-  @required ValueNotifier<DraftFlyerModel> draftNotifier,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
   @required String text,
 }){
 
-  draftNotifier.value = DraftFlyerModel.updateHeadline(
+  draftNotifier.value = DraftFlyer.updateHeadline(
     draft: draftNotifier.value,
     newHeadline: text,
   );
@@ -132,7 +132,7 @@ void onUpdateFlyerHeadline({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerDescription({
-  @required ValueNotifier<DraftFlyerModel> draftNotifier,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
   @required String text,
 }) {
   draftNotifier.value = draftNotifier.value.copyWith(
@@ -144,7 +144,7 @@ void onUpdateFlyerDescription({
 Future<void> onSelectFlyerType({
   @required BuildContext context,
   @required int index,
-  @required ValueNotifier<DraftFlyerModel> draftNotifier,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
 }) async {
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
@@ -192,7 +192,7 @@ Future<void> onSelectFlyerType({
 /// TESTED : WORKS PERFECT
 Future<void> onAddSpecsToDraftTap({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(
@@ -227,7 +227,7 @@ Future<void> onAddSpecsToDraftTap({
 /// TESTED : WORKS PERFECT
 Future<void> onZoneChanged({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draftNotifier,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
   @required ZoneModel zone,
 }) async {
 
@@ -240,7 +240,7 @@ Future<void> onZoneChanged({
 ///
 void onChangeFlyerPDF({
   @required PDFModel pdfModel,
-  @required ValueNotifier<DraftFlyerModel> draftNotifier,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
 }){
 
   draftNotifier.value = draftNotifier.value.copyWith(
@@ -251,7 +251,7 @@ void onChangeFlyerPDF({
 // --------------------
 ///
 void onRemoveFlyerPDF({
-  @required ValueNotifier<DraftFlyerModel> draftNotifier,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
 }){
   draftNotifier.value = draftNotifier.value.nullifyField(
     pdfModel: true,
@@ -260,7 +260,7 @@ void onRemoveFlyerPDF({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSwitchFlyerShowsAuthor({
-  @required ValueNotifier<DraftFlyerModel> draftNotifier,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
   @required bool value,
 }){
 
@@ -277,7 +277,7 @@ void onSwitchFlyerShowsAuthor({
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmPublishFlyerButtonTap({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
   @required FlyerModel oldFlyer,
 }) async {
 
@@ -302,7 +302,7 @@ Future<void> onConfirmPublishFlyerButtonTap({
 /// TESTED : WORKS PERFECT
 Future<void> _onPublishNewFlyerTap({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
   @required FlyerModel originalFlyer,
 }) async {
 
@@ -343,7 +343,7 @@ Future<void> _onPublishNewFlyerTap({
 /// TESTED : WORKS PERFECT
 Future<void> _onPublishFlyerUpdatesTap({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
   @required FlyerModel originalFlyer,
 }) async {
 
@@ -389,11 +389,11 @@ Future<void> _onPublishFlyerUpdatesTap({
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerUpdateCheck({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
   @required FlyerModel originalFlyer,
 }) async {
 
-  final FlyerModel flyerFromDraft = await DraftFlyerModel.bakeDraftToUpload(
+  final FlyerModel flyerFromDraft = await DraftFlyer.draftToFlyer(
     draft: draft.value,
     toLDB: false,
 
@@ -422,7 +422,7 @@ Future<bool> _preFlyerUpdateCheck({
   }
 
   else {
-    if (draft.value.mutableSlides.isEmpty){
+    if (draft.value.draftSlides.isEmpty){
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -489,7 +489,7 @@ Future<bool> _preFlyerUpdateCheck({
 /// TESTED : WORKS PERFECT
 Future<void> _publishFlyerOps({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
 }) async {
 
   unawaited(WaitDialog.showWaitDialog(
@@ -500,7 +500,7 @@ Future<void> _publishFlyerOps({
     ),
   ));
 
-  final FlyerModel _flyerToPublish = await DraftFlyerModel.bakeDraftToUpload(
+  final FlyerModel _flyerToPublish = await DraftFlyer.draftToFlyer(
     draft: draft.value,
     overridePublishState: PublishState.published,
     toLDB: false,
@@ -524,7 +524,7 @@ Future<void> _publishFlyerOps({
 /// TESTED : WORKS PERFECT
 Future<void> _updateFlyerOps({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyer> draft,
   @required FlyerModel oldFlyer,
 }) async {
 
@@ -536,7 +536,7 @@ Future<void> _updateFlyerOps({
     ),
   ));
 
-  final FlyerModel _flyerToUpdate = await DraftFlyerModel.bakeDraftToUpload(
+  final FlyerModel _flyerToUpdate = await DraftFlyer.draftToFlyer(
     draft: draft.value,
     toLDB: false,
   );
