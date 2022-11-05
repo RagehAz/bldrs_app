@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_d
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x3_bz_authors_page_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -116,7 +116,7 @@ class AuthorCard extends StatelessWidget {
             /// PICTURE
             AuthorPic(
               size: authorPicSize,
-              authorPic: author.pic,
+              authorPic: author.picPath,
               cornerOverride: 15,
             ),
 

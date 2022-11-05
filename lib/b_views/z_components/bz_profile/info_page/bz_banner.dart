@@ -61,7 +61,7 @@ class BzBanner extends StatelessWidget {
               /// LOGO
               BzLogo(
                 width: logoSize,
-                image: bzModel?.logo,
+                image: bzModel?.logoPath,
                 isVerified: bzModel?.isVerified,
               ),
 

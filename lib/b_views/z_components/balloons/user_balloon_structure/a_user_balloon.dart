@@ -49,7 +49,7 @@ class UserBalloon extends StatelessWidget {
               balloonWidth: size,
               onTap: onTap,
               balloonType: balloonTypeOverride ?? Balloon.concludeBalloonByNeedType(userModel?.need?.needType),
-              pic: userModel?.pic,
+              pic: userModel?.picPath,
               shadowIsOn: shadowIsOn,
               loading: loading,
               balloonColor: balloonColor,

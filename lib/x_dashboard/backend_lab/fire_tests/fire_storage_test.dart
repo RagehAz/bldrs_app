@@ -7,13 +7,13 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -86,7 +86,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
     // --------------------
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
-    final String _url = _userModel.pic;
+    final String _url = _userModel.picPath;
 
     blog('_theURL : $_theURL');
 

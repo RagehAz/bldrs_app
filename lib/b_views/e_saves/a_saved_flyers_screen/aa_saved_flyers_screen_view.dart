@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/saved_flyers_grid.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

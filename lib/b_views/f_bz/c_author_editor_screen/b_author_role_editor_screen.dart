@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.d
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -116,7 +116,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             Center(
               child: AuthorPic(
                 size: 100,
-                authorPic: widget.authorModel.pic,
+                authorPic: widget.authorModel.picPath,
               ),
             ),
 

@@ -419,7 +419,7 @@ static img.Image decodeToImgImage({
   /// INTs : List<int>
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<int> getIntsFromUint8List(Uint8List uInt){
     List<int> _ints;
 
@@ -428,6 +428,17 @@ static img.Image decodeToImgImage({
     }
 
     return _ints;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Uint8List getUint8ListFromInts(List<int> ints){
+    Uint8List _bytes;
+
+    if (Mapper.checkCanLoopList(ints) == true){
+      _bytes = Uint8List.fromList(ints.cast<int>());
+    }
+
+    return _bytes;
   }
   // --------------------
   ///

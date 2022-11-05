@@ -5,8 +5,9 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 enum PublishState{
   draft,
@@ -51,8 +53,9 @@ class FlyerModel {
     @required this.priceTagIsOn,
     @required this.showsAuthor,
     @required this.score,
-    @required this.pdf,
+    @required this.pdfPath,
     this.docSnapshot,
+    this.uiImage,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -74,7 +77,8 @@ class FlyerModel {
   final bool priceTagIsOn;
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
-  final FileModel pdf;
+  final String pdfPath;
+  final ui.Image uiImage;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -102,7 +106,8 @@ class FlyerModel {
     bool priceTagIsOn,
     DocumentSnapshot docSnapshot,
     int score,
-    FileModel pdf,
+    String pdfPath,
+    ui.Image uiImage,
   }){
 
     return FlyerModel(
@@ -125,7 +130,8 @@ class FlyerModel {
       priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
-      pdf: pdf ?? this.pdf,
+      pdfPath: pdfPath ?? this.pdfPath,
+      uiImage: uiImage ?? this.uiImage,
     );
 
   }
@@ -134,7 +140,7 @@ class FlyerModel {
   /// FLYER CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -149,7 +155,7 @@ class FlyerModel {
       'auditState' : cipherAuditState(auditState),
       'keywordsIDs' : keywordsIDs,
       'showsAuthor' : showsAuthor,
-      'zone' : zone.toMap(),
+      'zone' : zone?.toMap(),
       // -------------------------
       'authorID' : authorID,
       'bzID' : bzID,
@@ -162,7 +168,7 @@ class FlyerModel {
       'priceTagIsOn' : priceTagIsOn,
       'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
       'score' : score,
-      'pdf' : pdf?.toMap(),
+      'pdfPath' : pdfPath,
     };
   }
   // --------------------
@@ -188,7 +194,7 @@ class FlyerModel {
     return _maps;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static FlyerModel decipherFlyer({
     @required dynamic map,
     @required bool fromJSON,
@@ -219,7 +225,7 @@ class FlyerModel {
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
-        pdf: FileModel.decipher(map['pdf']),
+        pdfPath: map['pdfPath'],
         docSnapshot: map['docSnapshot'],
       );
 
@@ -418,7 +424,7 @@ class FlyerModel {
     PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
-    FileModel.blogFlyerPDF(pdf);
+    blog('pdfPath : $pdfPath');
     SlideModel.blogSlides(slides);
 
     blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------END');
@@ -510,8 +516,11 @@ class FlyerModel {
       if (flyer1.score != flyer2.score){
         blog('flyers scores are not identical');
       }
-      if (FileModel.checkFileModelsAreIdentical(model1: flyer1.pdf, model2: flyer2.pdf) == false){
-        blog('flyers pdfs are not identical');
+      if (flyer1.pdfPath != flyer2.pdfPath){
+        blog('flyers pdfPath are not identical');
+      }
+      if (flyer1.uiImage != flyer2.uiImage){
+        blog('flyers uiImages are not identical');
       }
 
     }
@@ -547,7 +556,7 @@ class FlyerModel {
       priceTagIsOn : true,
       zone: ZoneModel.dummyZone(),
       score: 0,
-      pdf: null,
+      pdfPath: null,
     );
   }
   // --------------------
@@ -863,7 +872,7 @@ class FlyerModel {
     else if (flyer1 != null && flyer2 != null){
 
       if (
-      flyer1.id == flyer2.id &&
+          flyer1.id == flyer2.id &&
           flyer1.headline == flyer2.headline &&
           Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
           flyer1.description == flyer2.description &&
@@ -877,11 +886,12 @@ class FlyerModel {
           flyer1.bzID == flyer2.bzID &&
           Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == true &&
           SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
-          // SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
+          SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
-          flyer1.pdf == flyer2.pdf
-      // && flyer1.score == flyer2.score
+          flyer1.pdfPath == flyer2.pdfPath
+          // flyer1.uiImage == flyer2.uiImage
+          // && flyer1.score == flyer2.score
       ){
         _areIdentical = true;
       }
@@ -933,7 +943,7 @@ class FlyerModel {
 
       if (_bzModel != null){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel);
+        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel.authors);
 
         _owners.add(_creator.userID);
 
@@ -996,7 +1006,7 @@ class FlyerModel {
       priceTagIsOn.hashCode^
       showsAuthor.hashCode^
       score.hashCode^
-      pdf.hashCode^
+      pdfPath.hashCode^
       docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }

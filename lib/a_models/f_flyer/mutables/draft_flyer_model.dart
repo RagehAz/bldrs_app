@@ -6,6 +6,11 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -21,6 +26,7 @@ class DraftFlyerModel{
   const DraftFlyerModel({
     @required this.id,
     @required this.headline,
+    @required this.trigram,
     @required this.headlineNode,
     @required this.description,
     @required this.descriptionNode,
@@ -38,12 +44,16 @@ class DraftFlyerModel{
     @required this.times,
     @required this.priceTagIsOn,
     @required this.score,
-    @required this.pdf,
+    @required this.pdfModel,
     @required this.bzModel,
+    @required this.formKey,
+    @required this.canPickImage,
+    @required this.firstTimer,
   });
   /// --------------------------------------------------------------------------
   final String id;
   final String headline;
+  final List<String> trigram;
   final FocusNode headlineNode;
   final String description;
   final FocusNode descriptionNode;
@@ -61,93 +71,130 @@ class DraftFlyerModel{
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final int score;
-  final FileModel pdf;
+  final PDFModel pdfModel;
   final BzModel bzModel;
+  final GlobalKey<FormState> formKey;
+  final bool canPickImage;
+  final bool firstTimer;
+  // -----------------------------------------------------------------------------
+  static const String newDraftID = 'newDraft';
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
   // --------------------
   ///
-  static DraftFlyerModel initializeDraftForEditing({
+  static Future<DraftFlyerModel> createDraft({
+    @required BuildContext context,
     @required FlyerModel oldFlyer,
-    @required BzModel bzModel,
-    @required String currentAuthorID,
-  }){
-
+  }) async {
     DraftFlyerModel _draft;
 
-    /// IS CREATING NEW FLYER
     if (oldFlyer == null){
-
-      final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
-        bzTypes: bzModel.bzTypes,
+      _draft = await _createNewDraft(
+        context: context,
       );
-
-      final FlyerType _flyerType = _possibleFlyerType.length == 1 ?
-      _possibleFlyerType.first
-          :
-      null;
-
-      _draft = DraftFlyerModel(
-        bzModel: bzModel,
-        id: 'newFlyer',
-        headline: '',
-        headlineNode: FocusNode(),
-        description: '',
-        descriptionNode: FocusNode(),
-        flyerType: _flyerType,
-        publishState: PublishState.draft,
-        auditState: null,
-        keywordsIDs: const <String>[],
-        showsAuthor: FlyerModel.canShowFlyerAuthor(
-          bzModel: bzModel,
-          flyerModel: null,
-        ),
-        zone: bzModel.zone,
-        authorID: currentAuthorID,
-        bzID: bzModel.id,
-        position: null,
-        mutableSlides: const <MutableSlide>[],
-        specs: const <SpecModel>[],
-        times: const <PublishTime>[],
-        priceTagIsOn: false,
-        score: 0,
-        pdf: null,
-      );
-
     }
 
-    /// IS EDITING EXISTING FLYER
     else {
-
-      _draft = DraftFlyerModel(
-        bzModel: bzModel,
-        id: oldFlyer.id,
-        headline: oldFlyer.headline,
-        headlineNode: FocusNode(),
-        description: oldFlyer.description,
-        descriptionNode: FocusNode(),
-        flyerType: oldFlyer.flyerType,
-        publishState: oldFlyer.publishState,
-        auditState: oldFlyer.auditState,
-        keywordsIDs: oldFlyer.keywordsIDs,
-        showsAuthor: oldFlyer.showsAuthor,
-        zone: oldFlyer.zone,
-        authorID: oldFlyer.authorID,
-        bzID: oldFlyer.bzID,
-        position: oldFlyer.position,
-        mutableSlides: const [],
-        specs: oldFlyer.specs,
-        times: oldFlyer.times,
-        priceTagIsOn: oldFlyer.priceTagIsOn,
-        score: oldFlyer.score,
-        pdf: oldFlyer.pdf,
+      _draft = await _createDraftFromFlyerModel(
+        context: context,
+        oldFlyer: oldFlyer,
       );
-
     }
 
     return _draft;
+  }
+  // --------------------
+  ///
+  static Future<DraftFlyerModel> _createNewDraft({
+    @required BuildContext context,
+  }) async {
+
+    final BzModel bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
+    );
+
+    final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
+      bzTypes: bzModel.bzTypes,
+    );
+
+    final FlyerType _flyerType = _possibleFlyerType.length == 1 ?
+    _possibleFlyerType.first
+        :
+    null;
+
+    return DraftFlyerModel(
+      bzModel: bzModel,
+      id: newDraftID,
+      headline: '',
+      trigram: const [],
+      headlineNode: FocusNode(),
+      description: '',
+      descriptionNode: FocusNode(),
+      flyerType: _flyerType,
+      publishState: PublishState.draft,
+      auditState: null,
+      keywordsIDs: const <String>[],
+      showsAuthor: FlyerModel.canShowFlyerAuthor(
+        bzModel: bzModel,
+        flyerModel: null,
+      ),
+      zone: bzModel.zone,
+      authorID: AuthFireOps.superUserID(),
+      bzID: bzModel.id,
+      position: null,
+      mutableSlides: const <MutableSlide>[],
+      specs: const <SpecModel>[],
+      times: const <PublishTime>[],
+      priceTagIsOn: false,
+      score: 0,
+      pdfModel: null,
+      canPickImage: true,
+      formKey: GlobalKey<FormState>(),
+      firstTimer: true,
+    );
+
+  }
+  // --------------------
+  ///
+  static Future<DraftFlyerModel> _createDraftFromFlyerModel({
+    @required BuildContext context,
+    @required FlyerModel oldFlyer,
+  }) async {
+
+    return DraftFlyerModel(
+      bzModel: await BzProtocols.fetch(context: context, bzID: oldFlyer.bzID),
+      id: oldFlyer.id,
+      headline: oldFlyer.headline,
+      trigram: oldFlyer.trigram,
+      headlineNode: FocusNode(),
+      description: oldFlyer.description,
+      descriptionNode: FocusNode(),
+      flyerType: oldFlyer.flyerType,
+      publishState: oldFlyer.publishState,
+      auditState: oldFlyer.auditState,
+      keywordsIDs: oldFlyer.keywordsIDs,
+      showsAuthor: oldFlyer.showsAuthor,
+      zone: oldFlyer.zone,
+      authorID: oldFlyer.authorID,
+      bzID: oldFlyer.bzID,
+      position: oldFlyer.position,
+      mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
+        slides: oldFlyer.slides,
+        flyerID: oldFlyer.id,
+      ),
+      specs: oldFlyer.specs,
+      times: oldFlyer.times,
+      priceTagIsOn: oldFlyer.priceTagIsOn,
+      score: oldFlyer.score,
+      pdfModel: await PDFProtocols.fetch(oldFlyer.pdfPath),
+      firstTimer: false,
+      formKey: GlobalKey<FormState>(),
+      canPickImage: true,
+    );
+
   }
   // --------------------
   ///
@@ -179,18 +226,26 @@ class DraftFlyerModel{
       times: draft.times,
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
-      pdf: toLDB == true ? FileModel.bakeFileForLDB(draft.pdf) : draft.pdf,
+      pdfPath: draft.pdfModel == null ? null : StorageColl.getFlyerPDFPath(draft.id),
 
     );
   }
+  // --------------------
+  ///
+  void dispose(){
+    headlineNode.dispose();
+    descriptionNode.dispose();
+  }
   // -----------------------------------------------------------------------------
 
-  /// CREATORS
+  /// CLONING
 
   // --------------------
+  ///
   DraftFlyerModel copyWith({
     String id,
     String headline,
+    List<String> trigram,
     FocusNode headlineNode,
     String description,
     FocusNode descriptionNode,
@@ -208,51 +263,179 @@ class DraftFlyerModel{
     List<PublishTime> times,
     bool priceTagIsOn,
     int score,
-    FileModel pdf,
+    PDFModel pdfModel,
     BzModel bzModel,
-  }) => DraftFlyerModel(
-    bzModel: bzModel ?? this.bzModel,
-    id: id ?? this.id,
-    headline: headline ?? this.headline,
-    headlineNode: headlineNode ?? this.headlineNode,
-    description: description ?? this.description,
-    descriptionNode: descriptionNode ?? this.descriptionNode,
-    flyerType: flyerType ?? this.flyerType,
-    publishState: publishState ?? this.publishState,
-    auditState: auditState ?? this.auditState,
-    keywordsIDs: keywordsIDs ?? this.keywordsIDs,
-    showsAuthor: showsAuthor ?? this.showsAuthor,
-    zone: zone ?? this.zone,
-    authorID: authorID ?? this.authorID,
-    bzID: bzID ?? this.bzID,
-    position: position ?? this.position,
-    mutableSlides: mutableSlides ?? this.mutableSlides,
-    specs: specs ?? this.specs,
-    times: times ?? this.times,
-    priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
-    score: score ?? this.score,
-    pdf: pdf ?? this.pdf,
-  );
+    bool canPickImage,
+    GlobalKey<FormState> formKey,
+    bool firstTimer,
+  }){
+    return DraftFlyerModel(
+      bzModel: bzModel ?? this.bzModel,
+      id: id ?? this.id,
+      headline: headline ?? this.headline,
+      trigram: trigram ?? this.trigram,
+      headlineNode: headlineNode ?? this.headlineNode,
+      description: description ?? this.description,
+      descriptionNode: descriptionNode ?? this.descriptionNode,
+      flyerType: flyerType ?? this.flyerType,
+      publishState: publishState ?? this.publishState,
+      auditState: auditState ?? this.auditState,
+      keywordsIDs: keywordsIDs ?? this.keywordsIDs,
+      showsAuthor: showsAuthor ?? this.showsAuthor,
+      zone: zone ?? this.zone,
+      authorID: authorID ?? this.authorID,
+      bzID: bzID ?? this.bzID,
+      position: position ?? this.position,
+      mutableSlides: mutableSlides ?? this.mutableSlides,
+      specs: specs ?? this.specs,
+      times: times ?? this.times,
+      priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
+      score: score ?? this.score,
+      pdfModel: pdfModel ?? this.pdfModel,
+      canPickImage: canPickImage ?? this.canPickImage,
+      formKey: formKey ?? this.formKey,
+      firstTimer: firstTimer ?? this.firstTimer,
+    );
+  }
+  // --------------------
+  ///
+  DraftFlyerModel nullifyField({
+    bool id = false,
+    bool headline = false,
+    bool trigram = false,
+    bool headlineNode = false,
+    bool description = false,
+    bool descriptionNode = false,
+    bool flyerType = false,
+    bool publishState = false,
+    bool auditState = false,
+    bool keywordsIDs = false,
+    bool showsAuthor = false,
+    bool zone = false,
+    bool authorID = false,
+    bool bzID = false,
+    bool position = false,
+    bool mutableSlides = false,
+    bool specs = false,
+    bool times = false,
+    bool priceTagIsOn = false,
+    bool score = false,
+    bool pdfModel = false,
+    bool bzModel = false,
+    bool formKey = false,
+    bool canPickImage = false,
+    bool firstTimer = false,
+  }){
+    return DraftFlyerModel(
+      id: id == true ? null : this.id,
+      headline: headline == true ? null : this.headline,
+      trigram: trigram == true ? null : this.trigram,
+      headlineNode: headlineNode == true ? null : this.headlineNode,
+      description: description == true ? null : this.description,
+      descriptionNode: descriptionNode == true ? null : this.descriptionNode,
+      flyerType: flyerType == true ? null : this.flyerType,
+      publishState: publishState == true ? null : this.publishState,
+      auditState: auditState == true ? null : this.auditState,
+      keywordsIDs: keywordsIDs == true ? [] : this.keywordsIDs,
+      showsAuthor: showsAuthor == true ? null : this.showsAuthor,
+      zone: zone == true ? null : this.zone,
+      authorID: authorID == true ? null : this.authorID,
+      bzID: bzID == true ? null : this.bzID,
+      position: position == true ? null : this.position,
+      mutableSlides: mutableSlides == true ? [] : this.mutableSlides,
+      specs: specs == true ? [] : this.specs,
+      times: times == true ? [] : this.times,
+      priceTagIsOn: priceTagIsOn == true ? null : this.priceTagIsOn,
+      score: score == true ? null : this.score,
+      pdfModel: pdfModel == true ? null : this.pdfModel,
+      bzModel: bzModel == true ? null : this.bzModel,
+      formKey: formKey == true ? null : this.formKey,
+      canPickImage: canPickImage == true ? null : this.canPickImage,
+      firstTimer: firstTimer == true ? null : this.firstTimer,
+    );
+}
   // -----------------------------------------------------------------------------
 
-  /// DISPOSING
+  /// CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static void disposeDraftNodes({
-    @required DraftFlyerModel draft,
-  }){
+  ///
+  Map<String, dynamic> toLDB(){
+    return {
+      'id' : id,
+      'headline' : headline,
+      'trigram' : Stringer.createTrigram(input: headline),
+      'description' : description,
+      'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
+      'publishState' : FlyerModel.cipherPublishState(publishState),
+      'auditState' : FlyerModel.cipherAuditState(auditState),
+      'keywordsIDs' : keywordsIDs,
+      'showsAuthor' : showsAuthor,
+      'zone' : zone?.toMap(),
+      'authorID' : authorID,
+      'bzID' : bzID,
+      'position' : Atlas.cipherGeoPoint(point: position, toJSON: true),
+      'mutableSlides': MutableSlide.cipherSlidesToLDB(mutableSlides),
+      'specs' : SpecModel.cipherSpecs(specs),
+      'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: true),
+      'priceTagIsOn' : priceTagIsOn,
+      'score' : score,
+      'pdfModel': pdfModel.toMap(includeBytes: true),
+      'bzModel': bzModel.toMap(toJSON: true),
+      'canPickImage': canPickImage,
+      'firstTimer': firstTimer,
+      'headlineNode': null,
+      'descriptionNode': null,
+      'formKey': null,
+    };
+  }
+  // --------------------
+  ///
+  static DraftFlyerModel fromLDB(Map<String, dynamic> map){
+    DraftFlyerModel _draft;
+
+    if (map != null){
+      _draft = DraftFlyerModel(
+
+        pdfPath: map['pdfPath'],
 
 
-    draft.headlineNode.dispose();
-    draft.descriptionNode.dispose();
+        id: map['id'],
+        headline: map['headline'],
+        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+        description: map['description'],
+        flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
+        publishState: FlyerModel.decipherFlyerState(map['publishState']),
+        auditState: FlyerModel.decipherAuditState(map['auditState']),
+        keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
+        showsAuthor: map['showsAuthor'],
+        zone: ZoneModel.decipherZone(map['zone']),
+        authorID: map['authorID'],
+        bzID: map['bzID'],
+        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
+        mutableSlides: MutableSlide.decipherSlidesFromLDB(map['mutableSlides']),
+        specs: SpecModel.decipherSpecs(map['specs']),
+        times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: true),
+        priceTagIsOn: map['priceTagIsOn'],
+        score: map['score'],
+        pdfModel: PDFModel.decipherFromMap(map['pdfModel']),
+        bzModel: BzModel.decipherBz(map: map['bzModel'], fromJSON: true),
+        canPickImage: map['canPickImage'],
+        firstTimer: map['firstTimer'],
+        headlineNode: null,
+        descriptionNode: null,
+        formKey: null,
+      );
+    }
 
+    return _draft;
   }
   // -----------------------------------------------------------------------------
 
   /// GENERATORS
 
   // --------------------
+  ///
   static String _generateStateTimeString({
     @required BuildContext context,
     @required PublishTime publishTime,
@@ -331,34 +514,6 @@ class DraftFlyerModel{
 
     return _draft;
   }
-  // --------------------
-  ///
-  static DraftFlyerModel removePDF(DraftFlyerModel draft){
-
-    return DraftFlyerModel(
-      bzModel: draft.bzModel,
-      id: draft.id,
-      headline: draft.headline,
-      description: draft.description,
-      flyerType: draft.flyerType,
-      publishState: draft.publishState,
-      auditState: draft.auditState,
-      keywordsIDs: draft.keywordsIDs,
-      showsAuthor: draft.showsAuthor,
-      zone: draft.zone,
-      authorID: draft.authorID,
-      bzID: draft.bzID,
-      position: draft.position,
-      mutableSlides: draft.mutableSlides,
-      specs: draft.specs,
-      times: draft.times,
-      priceTagIsOn: draft.priceTagIsOn,
-      score: draft.score,
-      pdf: null,
-      descriptionNode: draft.descriptionNode,
-      headlineNode: draft.headlineNode,
-    );
-  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -394,11 +549,11 @@ class DraftFlyerModel{
     blog('position : $position');
     blog('mutableSlides : ${mutableSlides.length} slides');
     blog('priceTagIsOn : $priceTagIsOn');
-    FileModel.blogFlyerPDF(pdf);
     blog('score : $score');
     PublishTime.blogTimes(times);
     SpecModel.blogSpecs(specs);
     MutableSlide.blogSlides(mutableSlides);
+    pdfModel.blogPDFModel(invoker: 'BLOGGING DRAFT');
     bzModel.blogBz(methodName: 'BLOGGING DRAFT');
 
     blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
@@ -472,7 +627,7 @@ class DraftFlyerModel{
       if (draft1.score != draft2.score){
         blog('scores are not identical');
       }
-      if (FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == false){
+      if (PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == false){
         blog('pdfs are not identical');
       }
       if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
@@ -516,6 +671,7 @@ class DraftFlyerModel{
     return _canPublish;
   }
   // --------------------
+  ///
   static bool checkDraftsAreIdentical({
     @required DraftFlyerModel draft1,
     @required DraftFlyerModel draft2,
@@ -547,7 +703,7 @@ class DraftFlyerModel{
           PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
           draft1.priceTagIsOn == draft2.priceTagIsOn &&
           draft1.score == draft2.score &&
-          FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == true &&
+          PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true
       ){
         _areIdentical = true;
@@ -613,7 +769,7 @@ class DraftFlyerModel{
       times.hashCode^
       priceTagIsOn.hashCode^
       score.hashCode^
-      pdf.hashCode;
+      pdfModel.hashCode;
 // -----------------------------------------------------------------------------
 }
 // --------------------
@@ -639,7 +795,7 @@ class DraftFlyerModel{
       times: times,
       priceTagIsOn: priceTagIsOn,
       score: score,
-      pdf: pdf,
+      pdfPath: pdfPath,
 
     );
   }

@@ -29,7 +29,7 @@ class SlideTransformer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    blog('SlideTransformer : BUILDING : slide : ${slide.picFileModel.file.path}');
+    blog('SlideTransformer : BUILDING : slide : ${slide.picFileModel.bytes.path}');
 
     return MatrixGestureDetector(
       key: const ValueKey<String>('SlideTransformer'),
@@ -90,7 +90,7 @@ class SlideTransformer extends StatelessWidget {
             return SuperFilteredImage(
               width: flyerBoxWidth,
               height: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
-              imageFile: slide.picFileModel.file,
+              imageFile: slide.picFileModel.bytes,
               filterModel: _filterModel,
               boxFit: slide.picFit,
             );

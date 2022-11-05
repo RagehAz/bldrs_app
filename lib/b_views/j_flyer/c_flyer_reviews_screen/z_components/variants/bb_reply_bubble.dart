@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/struct
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -63,7 +63,7 @@ class BzReplyBubble extends StatelessWidget {
               /// BZ LOGO
               BzLogo(
                 width: _logoWidth,
-                image: _bzModel?.logo,
+                image: _bzModel?.logoPath,
                 isVerified: _bzModel?.isVerified,
                 zeroCornerIsOn: true,
                 onTap: () => onReplyBzBalloonTap(_bzModel),

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:flutter/material.dart';
 
 class BzNetworkPage extends StatelessWidget {

@@ -11,6 +11,60 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:flutter/material.dart';
 
+/*
+
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SlideModel getSlideFromMutableSlide({
+    @required MutableSlide mSlide,
+    @required bool forLDB,
+  }) {
+    SlideModel _slideModel;
+
+    if (mSlide != null) {
+      _slideModel = SlideModel(
+        slideIndex: mSlide.slideIndex,
+        picPath: forLDB == true ?
+        FileModel.bakeFileForLDB(mSlide.picFileModel)
+        :
+        FileModel.bakeFileForUpload(
+          newFile: mSlide.picFileModel,
+          existingPic: mSlide.picURL,
+        ),
+        headline: mSlide.headline,
+        description: mSlide.description,
+        picFit: mSlide.picFit,
+        dimensions: mSlide.imageSize,
+        midColor: mSlide.midColor,
+        matrix: mSlide.matrix,
+        filterID: mSlide.filter.id,
+      );
+    }
+    return _slideModel;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<SlideModel> getSlidesFromMutableSlides({
+    @required List<MutableSlide> mSlides,
+    @required bool forLDB,
+  }) {
+    final List<SlideModel> _slides = <SlideModel>[];
+
+    if (Mapper.checkCanLoopList(mSlides)) {
+      for (final MutableSlide mSlide in mSlides) {
+        _slides.add(getSlideFromMutableSlide(
+          mSlide: mSlide,
+          forLDB: forLDB,
+        ));
+      }
+    }
+
+    return _slides;
+  }
+
+ */
+
 @immutable
 class MutableSlide {
   /// --------------------------------------------------------------------------
@@ -77,11 +131,11 @@ class MutableSlide {
   static MutableSlide createViewMutableSlideFromSlide(SlideModel slide) {
     return MutableSlide(
       slideIndex: slide.slideIndex,
-      picURL: slide.pic,
+      picURL: slide.picPath,
       picFileModel: null,
       headline: slide.headline,
       description: slide.description,
-      imageSize: slide.imageSize,
+      imageSize: slide.dimensions,
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
@@ -120,7 +174,7 @@ class MutableSlide {
   }) async {
 
     final FileModel _file = await FileModel.preparePicForEditing(
-      pic: slide.pic,
+      picPath: slide.picPath,
       fileName: SlideModel.generateSlideID(
         flyerID: flyerID,
         slideIndex: slide.slideIndex,
@@ -129,12 +183,12 @@ class MutableSlide {
 
     return MutableSlide(
       slideIndex: slide.slideIndex,
-      picURL: slide.pic,
+      picURL: slide.picPath,
       picFileModel: _file,
       headline: slide.headline,
       description: slide.description,
       // -------------------------
-      imageSize: slide.imageSize,
+      imageSize: slide.dimensions,
       picFit: slide.picFit,
       midColor: slide.midColor,
       opacity: 1,
@@ -277,7 +331,7 @@ class MutableSlide {
 
     for (final MutableSlide mSlide in mutableSlides) {
       if (mSlide.picFileModel != null) {
-        _files.add(mSlide.picFileModel.file);
+        _files.add(mSlide.picFileModel.bytes);
       }
     }
 
@@ -337,7 +391,7 @@ class MutableSlide {
     if (mSlides != null && mSlides.isNotEmpty && fileToSearchFor != null) {
       _assetIndexInAssets = mSlides.indexWhere(
             (MutableSlide mSlide) =>
-        Filers.checkFilesAreIdentical(file1: mSlide?.picFileModel?.file, file2: fileToSearchFor) == true,
+        Filers.checkFilesAreIdentical(file1: mSlide?.picFileModel?.bytes, file2: fileToSearchFor) == true,
       );
     }
 

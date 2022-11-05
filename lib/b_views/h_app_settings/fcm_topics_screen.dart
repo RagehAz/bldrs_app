@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:flutter/material.dart';
 
 class FCMTopicsScreen extends StatelessWidget {
@@ -53,7 +53,7 @@ class FCMTopicsScreen extends StatelessWidget {
         if (partyType == PartyType.bz)
         BzLogo(
           width: 40,
-          image: _bzModel.logo,
+          image: _bzModel.logoPath,
           isVerified: _bzModel.isVerified,
           zeroCornerIsOn: false,
           margins: const EdgeInsets.symmetric(horizontal: 5),

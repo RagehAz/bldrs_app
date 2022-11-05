@@ -6,8 +6,8 @@ import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_bz_poste
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_flyer_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:flutter/material.dart';
 

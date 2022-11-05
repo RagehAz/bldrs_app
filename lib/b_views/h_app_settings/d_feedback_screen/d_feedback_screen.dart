@@ -10,9 +10,9 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/auth_fire_ops.dart';
-import 'package:bldrs/e_back_end/x_ops/real_ops/app_feedback_real_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -174,7 +174,7 @@ class _FeedBackState extends State<FeedBack> {
               ),
               redDot: true,
             ),
-            leadingIcon: _userModel?.pic,
+            leadingIcon: _userModel?.picPath,
             bubbleColor: Colorz.white20,
             textController: _feedbackController,
             // loading: _loading,

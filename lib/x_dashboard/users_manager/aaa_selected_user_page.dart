@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/note_fire_ops.dart';
+import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/users_manager/x_users_manager_controller.dart';
@@ -157,7 +157,7 @@ class SelectedUserPage extends StatelessWidget {
       DataStrip(
         color: Colorz.white50,
         dataKey: 'Pic URL',
-        dataValue: userModel.pic,
+        dataValue: userModel.picPath,
       ),
 
       // -----------------------------------

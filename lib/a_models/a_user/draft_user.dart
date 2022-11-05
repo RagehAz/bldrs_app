@@ -6,11 +6,12 @@ import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/c_protocols/pic_protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class DraftUser {
     @required this.need,
     @required this.name,
     @required this.trigram,
-    @required this.pic,
+    @required this.picModel,
     @required this.title,
     @required this.company,
     @required this.gender,
@@ -42,6 +43,13 @@ class DraftUser {
     @required this.followedBzzIDs,
     @required this.appState,
     @required this.hasNewPic,
+    @required this.nameNode,
+    @required this.titleNode,
+    @required this.companyNode,
+    @required this.emailNode,
+    @required this.phoneNode,
+    @required this.formKey,
+    @required this.canPickImage,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -50,7 +58,7 @@ class DraftUser {
   final NeedModel need;
   final String name;
   final List<String> trigram;
-  final PicModel pic;
+  final PicModel picModel;
   final String title;
   final String company;
   final Gender gender;
@@ -68,46 +76,20 @@ class DraftUser {
   final List<String> followedBzzIDs;
   final AppState appState;
   final bool hasNewPic;
+  final FocusNode nameNode;
+  final FocusNode titleNode;
+  final FocusNode companyNode;
+  final FocusNode emailNode;
+  final FocusNode phoneNode;
+  final GlobalKey<FormState> formKey;
+  final bool canPickImage;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
   // --------------------
   ///
-  static DraftUser initializeForEditing(UserModel userModel){
-
-    /// NOTE : STARTS IN EDITOR'S InitState
-
-    return DraftUser(
-      id: userModel.id,
-      authBy: userModel.authBy,
-      createdAt: userModel.createdAt,
-      need: userModel.need,
-      name: userModel.name,
-      trigram: userModel.trigram,
-      pic: null,
-      title: userModel.title,
-      company: userModel.company,
-      gender: userModel.gender,
-      zone: userModel.zone,
-      language: userModel.language,
-      location: userModel.location,
-      contacts: userModel.contacts,
-      contactsArePublic: userModel.contactsArePublic,
-      myBzzIDs: userModel.myBzzIDs,
-      emailIsVerified: userModel.emailIsVerified,
-      isAdmin: userModel.isAdmin,
-      device: userModel.device,
-      fcmTopics: userModel.fcmTopics,
-      savedFlyersIDs: userModel.savedFlyersIDs,
-      followedBzzIDs: userModel.followedBzzIDs,
-      appState: userModel.appState,
-      hasNewPic: false,
-    );
-  }
-  // --------------------
-  ///
-  static Future<DraftUser> prepareForEditing({
+  static Future<DraftUser> createDraftUser({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
@@ -115,27 +97,63 @@ class DraftUser {
 
     if (userModel != null){
 
-      _draft = initializeForEditing(userModel);
 
-      _draft = _draft.copyWith(
-
-        pic: await PicProtocols.fetchPic(userModel.pic),
-
+      _draft = DraftUser(
+        id: userModel.id,
+        authBy: userModel.authBy,
+        createdAt: userModel.createdAt,
+        need: userModel.need,
+        name: userModel.name,
+        trigram: userModel.trigram,
+        picModel: await PicProtocols.fetchPic(userModel.picPath),
+        title: userModel.title,
+        company: userModel.company,
+        gender: userModel.gender,
         zone: await ZoneModel.prepareZoneForEditing(
           context: context,
           zoneModel: userModel.zone,
         ),
-
+        language: userModel.language,
+        location: userModel.location,
         contacts: ContactModel.prepareContactsForEditing(
           contacts: userModel.contacts,
           countryID: userModel.zone.countryID,
         ),
-
+        contactsArePublic: userModel.contactsArePublic,
+        myBzzIDs: userModel.myBzzIDs,
+        emailIsVerified: userModel.emailIsVerified,
+        isAdmin: userModel.isAdmin,
+        device: userModel.device,
+        fcmTopics: userModel.fcmTopics,
+        savedFlyersIDs: userModel.savedFlyersIDs,
+        followedBzzIDs: userModel.followedBzzIDs,
+        appState: userModel.appState,
+        hasNewPic: false,
+        canPickImage: true,
+        formKey: GlobalKey<FormState>(),
+        companyNode: FocusNode(),
+        emailNode: FocusNode(),
+        nameNode: FocusNode(),
+        phoneNode: FocusNode(),
+        titleNode: FocusNode(),
       );
 
     }
 
     return _draft;
+  }
+
+  // -----------------------------------------------------------------------------
+
+  /// DISPOSING
+
+  // --------------------
+  void dispose(){
+    nameNode.dispose();
+    titleNode.dispose();
+    companyNode.dispose();
+    emailNode.dispose();
+    phoneNode.dispose();
   }
   // -----------------------------------------------------------------------------
 
@@ -150,7 +168,7 @@ class DraftUser {
     NeedModel need,
     String name,
     List<String> trigram,
-    PicModel pic,
+    PicModel picModel,
     String title,
     String company,
     Gender gender,
@@ -168,6 +186,13 @@ class DraftUser {
     AppState appState,
     List<String> fcmTopics,
     bool hasNewPic,
+    FocusNode nameNode,
+    FocusNode titleNode,
+    FocusNode companyNode,
+    FocusNode emailNode,
+    FocusNode phoneNode,
+    GlobalKey<FormState> formKey,
+    bool canPickImage,
   }){
     return DraftUser(
       id: id ?? this.id,
@@ -176,7 +201,7 @@ class DraftUser {
       need: need ?? this.need,
       name: name ?? this.name,
       trigram: trigram ?? this.trigram,
-      pic: pic ?? this.pic,
+      picModel: picModel ?? this.picModel,
       title: title ?? this.title,
       company: company ?? this.company,
       gender: gender ?? this.gender,
@@ -194,6 +219,13 @@ class DraftUser {
       appState: appState ?? this.appState,
       fcmTopics: fcmTopics ?? this.fcmTopics,
       hasNewPic: hasNewPic ?? this.hasNewPic,
+      nameNode: nameNode ?? this.nameNode,
+      titleNode: titleNode ?? this.titleNode,
+      companyNode: companyNode ?? this.companyNode,
+      emailNode: emailNode ?? this.emailNode,
+      phoneNode: phoneNode ?? this.phoneNode,
+      formKey: formKey ?? this.formKey,
+      canPickImage: canPickImage ?? this.canPickImage,
     );
   }
   // --------------------
@@ -205,7 +237,7 @@ class DraftUser {
     bool need = false,
     bool name = false,
     bool trigram = false,
-    bool pic = false,
+    bool picModel = false,
     bool title = false,
     bool company = false,
     bool gender = false,
@@ -223,6 +255,13 @@ class DraftUser {
     bool appState = false,
     bool fcmTopics = false,
     bool hasNewPic = false,
+    bool nameNode = false,
+    bool titleNode = false,
+    bool companyNode = false,
+    bool emailNode = false,
+    bool phoneNode = false,
+    bool formKey = false,
+    bool canPickImage = false,
   }){
     return DraftUser(
       id : id == true ? null : this.id,
@@ -231,7 +270,7 @@ class DraftUser {
       need : need == true ? null : this.need,
       name : name == true ? null : this.name,
       trigram : trigram == true ? const [] : this.trigram,
-      pic : pic == true ? null : this.pic,
+      picModel : picModel == true ? null : this.picModel,
       title : title == true ? null : this.title,
       company : company == true ? null : this.company,
       gender : gender == true ? null : this.gender,
@@ -249,6 +288,13 @@ class DraftUser {
       appState : appState == true ? null : this.appState,
       fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
       hasNewPic: hasNewPic == true ? null : this.hasNewPic,
+      nameNode: nameNode == true ? null : this.nameNode,
+      titleNode: titleNode == true ? null : this.titleNode,
+      companyNode: companyNode == true ? null : this.companyNode,
+      emailNode: emailNode == true ? null : this.emailNode,
+      phoneNode: phoneNode == true ? null : this.phoneNode,
+      formKey: formKey == true ? null : this.formKey,
+      canPickImage: canPickImage == true ? null : this.canPickImage,
     );
   }
   // -----------------------------------------------------------------------------
@@ -266,7 +312,7 @@ class DraftUser {
 // -------------------------
       'name': name,
       'trigram': trigram,
-      'pic': PicModel.cipherToLDB(pic),
+      'picModel': PicModel.cipherToLDB(picModel),
       'title': title,
       'company': company,
       'gender': UserModel.cipherGender(gender),
@@ -292,32 +338,37 @@ class DraftUser {
   static DraftUser fromLDB(Map<String, dynamic> map) {
     return map == null ? null :
     DraftUser(
-        id: map['id'],
-        authBy: AuthModel.decipherAuthBy(map['authBy']),
-        createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
-        need: NeedModel.decipherNeed(map: map['need'], fromJSON: true),
-        // -------------------------
-        name: map['name'],
-        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
-        pic: PicModel.decipherFromLDB(map['pic']),
-        title: map['title'],
-        company: map['company'],
-        gender: UserModel.decipherGender(map['gender']),
-        zone: ZoneModel.decipherZone(map['zone']),
-        language: map['language'] ?? 'en',
-        location: Atlas.decipherGeoPoint(point: map['location'], fromJSON: true),
-        contacts: ContactModel.decipherContacts(map['contacts']),
-        contactsArePublic: map['contactsArePublic'],
-        // -------------------------
-        myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
-        emailIsVerified: map['emailIsVerified'],
-        isAdmin: map['isAdmin'],
-        device: DeviceModel.decipherFCMToken(map['device']),
-        fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
-        savedFlyersIDs: Stringer.getStringsFromDynamics(dynamics: map['savedFlyersIDs'],),
-        followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
-        appState: AppState.fromMap(map['appState']),
+      id: map['id'],
+      authBy: AuthModel.decipherAuthBy(map['authBy']),
+      createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
+      need: NeedModel.decipherNeed(map: map['need'], fromJSON: true),
+      name: map['name'],
+      trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
+      picModel: PicModel.decipherFromLDB(map['picModel']),
+      title: map['title'],
+      company: map['company'],
+      gender: UserModel.decipherGender(map['gender']),
+      zone: ZoneModel.decipherZone(map['zone']),
+      language: map['language'] ?? 'en',
+      location: Atlas.decipherGeoPoint(point: map['location'], fromJSON: true),
+      contacts: ContactModel.decipherContacts(map['contacts']),
+      contactsArePublic: map['contactsArePublic'],
+      myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
+      emailIsVerified: map['emailIsVerified'],
+      isAdmin: map['isAdmin'],
+      device: DeviceModel.decipherFCMToken(map['device']),
+      fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
+      savedFlyersIDs: Stringer.getStringsFromDynamics(dynamics: map['savedFlyersIDs'],),
+      followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
+      appState: AppState.fromMap(map['appState']),
       hasNewPic: map['hasNewPic'],
+      nameNode: null,
+      titleNode: null,
+      companyNode: null,
+      emailNode: null,
+      phoneNode: null,
+      formKey: null,
+      canPickImage: true,
     );
 
   }
@@ -330,7 +381,7 @@ class DraftUser {
     return UserModel(
 
       /// NEEDS BAKING
-      pic: draft.pic.path,
+      picPath: draft.picModel.path,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: draft.contacts,
         countryID: draft.zone.countryID,
@@ -363,6 +414,27 @@ class DraftUser {
   }
   // -----------------------------------------------------------------------------
 
+  /// MODIFIERS
+
+  // --------------------
+  ///
+  static void triggerCanPickImage({
+    @required ValueNotifier<DraftUser> draftUser,
+    @required bool setTo,
+    @required bool mounted,
+  }){
+
+    setNotifier(
+        notifier: draftUser,
+        mounted: mounted,
+        value: draftUser.value.copyWith(
+          canPickImage: setTo,
+        ),
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// CHECKERS
 
   // --------------------
@@ -386,7 +458,7 @@ class DraftUser {
           NeedModel.checkNeedsAreIdentical(draft1.need, draft2.need) == true &&
           draft1.name == draft2.name &&
           Mapper.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
-          PicModel.checkPicsAreIdentical(pic1: draft1.pic, pic2: draft2.pic) == true &&
+          PicModel.checkPicsAreIdentical(pic1: draft1.picModel, pic2: draft2.picModel) == true &&
           draft1.title == draft2.title &&
           draft1.company == draft2.company &&
           draft1.gender == draft2.gender &&
@@ -448,7 +520,7 @@ class DraftUser {
       need.hashCode^
       name.hashCode^
       trigram.hashCode^
-      pic.hashCode^
+      picModel.hashCode^
       title.hashCode^
       company.hashCode^
       gender.hashCode^

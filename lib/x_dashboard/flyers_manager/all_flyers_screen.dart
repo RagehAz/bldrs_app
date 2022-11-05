@@ -6,8 +6,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dar
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';

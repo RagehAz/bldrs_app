@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/e_back_end/x_ops/fire_ops/app_state_fire_ops.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/fire/app_state_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -314,7 +314,7 @@ void main() {
   test('base64 ', () async {
     final FlyerModel _flyerModel = FlyerModel.dummyFlyers()[0];
 
-    final dynamic _pic = _flyerModel.slides[0].pic;
+    final dynamic _pic = _flyerModel.slides[0].picPath;
 
     // final String _base64 = await Floaters.getBase64FromFileOrURL(_pic);
 

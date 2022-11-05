@@ -428,18 +428,6 @@
 //     return _shouldUpload;
 //   }
 //   // --------------------------------------
-//   /// TESTED : WORKS PERFECT
-//   bool checkSizeLimitReached(){
-//
-//     bool _bigger = false;
-//
-//     if (size != null){
-//       _bigger = size > Standards.maxFileSizeLimit;
-//     }
-//
-//     return _bigger;
-//   }
-//   // --------------------------------------
 //   static bool checkModelIsEmpty(FileModel model){
 //     bool _isEmpty = true;
 //
