@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_expanding_pyramid.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_pyramids.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:flutter/material.dart';
 
 class SuperPyramids extends StatelessWidget {

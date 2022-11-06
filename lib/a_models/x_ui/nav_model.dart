@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_tabber/bz_tabber.dart';
+import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
+import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +100,7 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getUserTabNavID(UserTab userTab){
-    final String _tabID = UserModel.getUserTabID(userTab);
+    final String _tabID = UserTabber.getUserTabID(userTab);
     return 'user_$_tabID';
   }
   // --------------------
@@ -179,7 +179,7 @@ class NavModel {
 
     final List<String> _userTabsNavModelsIDs = <String>[];
 
-    for (final UserTab userTab in UserModel.userProfileTabsList){
+    for (final UserTab userTab in UserTabber.userProfileTabsList){
       final String _navID = getUserTabNavID(userTab);
       _userTabsNavModelsIDs.add(_navID);
     }

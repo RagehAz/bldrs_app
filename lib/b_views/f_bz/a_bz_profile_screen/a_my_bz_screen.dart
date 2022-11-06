@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_tabber/bz_tabber.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_tabber/aa_my_bz_screen_pages.dart';
+import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
@@ -16,7 +16,7 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/ui_manager/go_back_widget_test.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
