@@ -22,7 +22,7 @@ class UserProfilePage extends StatelessWidget {
 
         final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
-        final UserModel _userModel = await UserProtocols.refetchUser(
+        final UserModel _userModel = await UserProtocols.refetch(
             context: context,
             userID: _usersProvider.myUserModel.id,
         );

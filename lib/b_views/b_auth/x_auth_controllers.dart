@@ -55,8 +55,9 @@ Future<void> authByFacebook(BuildContext context) async {
 
 }
 // --------------------
+/// PLAN : FIX ME
 Future<void> authByApple(BuildContext context) async {
-
+  /*
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final ZoneModel _currentZone = _zoneProvider.currentZone;
   final AuthModel _authModel = await AuthFireOps.signInByApple(
@@ -69,6 +70,8 @@ Future<void> authByApple(BuildContext context) async {
     authModel: _authModel,
   );
 
+
+   */
 }
 // --------------------
 Future<void> authByEmailSignIn({

@@ -33,7 +33,7 @@ class NotePartyButton extends StatelessWidget {
     if (type == PartyType.user){
 
       return FutureBuilder(
-        future: UserProtocols.fetchUser(
+        future: UserProtocols.fetch(
           context: context,
           userID: id,
         ),

@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -452,62 +453,6 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkUsersAreIdentical({
-    @required UserModel user1,
-    @required UserModel user2,
-  }){
-    bool _identical = false;
-
-    if (user1 == null && user2 == null){
-      _identical = true;
-    }
-
-    else if (user1 != null && user2 != null){
-
-      if (
-          user1.id == user2.id &&
-          user1.authBy == user2.authBy &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == true &&
-          NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == true &&
-          user1.name == user2.name &&
-          Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == true &&
-          user1.picPath == user2.picPath &&
-          user1.title == user2.title &&
-          user1.company == user2.company &&
-          user1.gender == user2.gender &&
-          ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) == true &&
-          user1.language == user2.language &&
-          Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == true &&
-          ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == true &&
-          user1.contactsArePublic == user2.contactsArePublic &&
-          Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == true &&
-          user1.emailIsVerified == user2.emailIsVerified &&
-          user1.isAdmin == user2.isAdmin &&
-          Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == true &&
-          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == true &&
-          DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
-          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
-    // DocumentSnapshot docSnapshot;
-
-      ){
-        _identical = true;
-      }
-
-    }
-
-    if (_identical == false){
-      blogUsersDifferences(
-        user1: user1,
-        user2: user2,
-      );
-
-    }
-
-    return _identical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   static bool checkUserFollowsBz({
     @required UserModel userModel,
     @required String bzID,
@@ -530,6 +475,20 @@ class UserModel {
         strings: userModel?.savedFlyersIDs,
         string: flyerID
     );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkItIsMe(String userID){
+    final String _myID = AuthFireOps.superUserID();
+
+    if (_myID != null && userID != null){
+      return userID == _myID;
+    }
+
+    else {
+      return false;
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -1099,6 +1058,66 @@ class UserModel {
    */
   // -----------------------------------------------------------------------------
 
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool usersAreIdentical({
+    @required UserModel user1,
+    @required UserModel user2,
+  }){
+    bool _identical = false;
+
+    if (user1 == null && user2 == null){
+      _identical = true;
+    }
+
+    else if (user1 != null && user2 != null){
+
+      if (
+      user1.id == user2.id &&
+          user1.authBy == user2.authBy &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == true &&
+          NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == true &&
+          user1.name == user2.name &&
+          Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == true &&
+          user1.picPath == user2.picPath &&
+          user1.title == user2.title &&
+          user1.company == user2.company &&
+          user1.gender == user2.gender &&
+          ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) == true &&
+          user1.language == user2.language &&
+          Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == true &&
+          ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == true &&
+          user1.contactsArePublic == user2.contactsArePublic &&
+          Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == true &&
+          user1.emailIsVerified == user2.emailIsVerified &&
+          user1.isAdmin == user2.isAdmin &&
+          Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == true &&
+          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == true &&
+          DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
+          Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
+      // DocumentSnapshot docSnapshot;
+
+      ){
+        _identical = true;
+      }
+
+    }
+
+    if (_identical == false){
+      blogUsersDifferences(
+        user1: user1,
+        user2: user2,
+      );
+
+    }
+
+    return _identical;
+  }
+  // -----------------------------------------------------------------------------
+
   /// OVERRIDES
 
   // --------------------
@@ -1116,7 +1135,7 @@ class UserModel {
 
     bool _areIdentical = false;
     if (other is UserModel){
-      _areIdentical = checkUsersAreIdentical(
+      _areIdentical = usersAreIdentical(
         user1: this,
         user2: other,
       );

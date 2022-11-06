@@ -1,26 +1,21 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
+///
 Future<void> readMoreUsers({
   @required BuildContext context,
   @required ValueNotifier<QueryDocumentSnapshot<Object>> lastSnapshot,
@@ -73,6 +68,7 @@ Future<void> readMoreUsers({
 
 }
 // -----------------------------------------------------------------------------
+///
 Future<void> onSelectUser({
   @required BuildContext context,
   @required UserModel userModel,
@@ -99,6 +95,7 @@ Future<void> onSelectUser({
 /// USER OPTIONS
 
 // --------------------
+///
 Future<void> onSelectedUserOptions({
   @required BuildContext context,
   @required UserModel userModel,
@@ -142,6 +139,7 @@ Future<void> onSelectedUserOptions({
 
 }
 // --------------------
+///
 Future<void> onDeleteUser({
   @required BuildContext context,
   @required ValueNotifier<List<UserModel>> usersModels,
@@ -150,112 +148,114 @@ Future<void> onDeleteUser({
   @required ValueNotifier<UserModel> selectedUserModel,
 }) async {
 
-  if (Mapper.checkCanLoopList(userModel.myBzzIDs) == true){
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: Verse.plain('User is Author !'),
-      bodyVerse: Verse.plain('For now, we can not delete this User from here'),
-      confirmButtonVerse: Verse.plain('Mashi'),
-    );
-  }
+  blog('can not delete user now,, maybe in Version fuckyou');
 
-  else {
-
-    final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: Verse.plain('Delete User ?'),
-      bodyVerse: Verse.plain('${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?'),
-      confirmButtonVerse: Verse.plain('Delete Fucker'),
-      boolDialog: true,
-    );
-
-    if (_result == true){
-
-      const bool _credentialsAreGood = true;
-      // await _doYouKnowThePassword(
-      //     context: context,
-      //     userModel: userModel
-      // );
-
-      blog('_credentialsAreGood : $_credentialsAreGood ');
-
-      if (_credentialsAreGood == true){
-
-        /// CLOSE BOTTOM DIALOG
-        await Nav.goBack(
-          context: context,
-          invoker: 'onDeleteUser',
-        );
-
-        /// START WAITING
-        unawaited(WaitDialog.showWaitDialog(
-          context: context,
-          loadingVerse: Verse.plain('Deleting ${userModel.name} : ${userModel.id}'),
-        ));
-
-        /// DELETE firebase user : auth/userID
-        final bool _firebaseSuccess = await AuthFireOps.deleteFirebaseUser(
-          userID: userModel.id,
-        );
-        blog('onDeleteUser : deleted firebase user : operation success is : $_firebaseSuccess');
-
-        /// WHEN COULD DELETE FIREBASE USER
-        if (_firebaseSuccess == true){
-
-          /// DELETE user image : storage/usersPics/userID
-          await Storage.deleteStoragePic(
-            collName: StorageColl.users,
-            docName: userModel.id,
-          );
-          blog('onDeleteUser : deleted user pic : [storage/usersPics/${userModel.id}]');
-
-          /// DELETE user doc : firestore/users/userID
-          await Fire.deleteDoc(
-            collName: FireColl.users,
-            docName: userModel.id,
-          );
-          blog('onDeleteUser : deleted user doc : [firestore/users/${userModel.id}]');
-
-
-          /// DELETE USER FROM USERS MODELS NOTIFIER
-          final int _userIndex = usersModels.value.indexWhere((UserModel user) => user.id == userModel.id);
-          if (_userIndex != -1){
-            final List<UserModel> _newUsers = <UserModel>[...usersModels.value];
-            _newUsers.removeAt(_userIndex);
-            usersModels.value = _newUsers;
-          }
-
-          /// CLOSE WAITING
-          await WaitDialog.closeWaitDialog(context);
-
-          await Sliders.slideToBackFrom(
-            pageController: pageController,
-            currentSlide: 1,
-          );
-
-          selectedUserModel.value = null;
-
-        }
-
-        /// WHEN DELETING FIREBASE USER FAILED\
-        else {
-
-          await CenterDialog.showCenterDialog(
-            context: context,
-            titleVerse: Verse.plain('Failed'),
-            bodyVerse: Verse.plain('Could not Delete this User'),
-          );
-
-          /// CLOSE WAITING
-          await WaitDialog.closeWaitDialog(context);
-
-        }
-
-      }
-
-    }
-
-  }
+  // if (Mapper.checkCanLoopList(userModel.myBzzIDs) == true){
+  //   await CenterDialog.showCenterDialog(
+  //     context: context,
+  //     titleVerse: Verse.plain('User is Author !'),
+  //     bodyVerse: Verse.plain('For now, we can not delete this User from here'),
+  //     confirmButtonVerse: Verse.plain('Mashi'),
+  //   );
+  // }
+  //
+  // else {
+  //
+  //   final bool _result = await CenterDialog.showCenterDialog(
+  //     context: context,
+  //     titleVerse: Verse.plain('Delete User ?'),
+  //     bodyVerse: Verse.plain('${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?'),
+  //     confirmButtonVerse: Verse.plain('Delete Fucker'),
+  //     boolDialog: true,
+  //   );
+  //
+  //   if (_result == true){
+  //
+  //     const bool _credentialsAreGood = true;
+  //     // await _doYouKnowThePassword(
+  //     //     context: context,
+  //     //     userModel: userModel
+  //     // );
+  //
+  //     blog('_credentialsAreGood : $_credentialsAreGood ');
+  //
+  //     if (_credentialsAreGood == true){
+  //
+  //       /// CLOSE BOTTOM DIALOG
+  //       await Nav.goBack(
+  //         context: context,
+  //         invoker: 'onDeleteUser',
+  //       );
+  //
+  //       /// START WAITING
+  //       unawaited(WaitDialog.showWaitDialog(
+  //         context: context,
+  //         loadingVerse: Verse.plain('Deleting ${userModel.name} : ${userModel.id}'),
+  //       ));
+  //
+  //       /// DELETE firebase user : auth/userID
+  //       final bool _firebaseSuccess = await AuthFireOps.deleteFirebaseUser(
+  //         userID: userModel.id,
+  //       );
+  //       blog('onDeleteUser : deleted firebase user : operation success is : $_firebaseSuccess');
+  //
+  //       /// WHEN COULD DELETE FIREBASE USER
+  //       if (_firebaseSuccess == true){
+  //
+  //         /// DELETE user image : storage/usersPics/userID
+  //         await Storage.deleteStoragePic(
+  //           collName: StorageColl.users,
+  //           docName: userModel.id,
+  //         );
+  //         blog('onDeleteUser : deleted user pic : [storage/usersPics/${userModel.id}]');
+  //
+  //         /// DELETE user doc : firestore/users/userID
+  //         await Fire.deleteDoc(
+  //           collName: FireColl.users,
+  //           docName: userModel.id,
+  //         );
+  //         blog('onDeleteUser : deleted user doc : [firestore/users/${userModel.id}]');
+  //
+  //
+  //         /// DELETE USER FROM USERS MODELS NOTIFIER
+  //         final int _userIndex = usersModels.value.indexWhere((UserModel user) => user.id == userModel.id);
+  //         if (_userIndex != -1){
+  //           final List<UserModel> _newUsers = <UserModel>[...usersModels.value];
+  //           _newUsers.removeAt(_userIndex);
+  //           usersModels.value = _newUsers;
+  //         }
+  //
+  //         /// CLOSE WAITING
+  //         await WaitDialog.closeWaitDialog(context);
+  //
+  //         await Sliders.slideToBackFrom(
+  //           pageController: pageController,
+  //           currentSlide: 1,
+  //         );
+  //
+  //         selectedUserModel.value = null;
+  //
+  //       }
+  //
+  //       /// WHEN DELETING FIREBASE USER FAILED\
+  //       else {
+  //
+  //         await CenterDialog.showCenterDialog(
+  //           context: context,
+  //           titleVerse: Verse.plain('Failed'),
+  //           bodyVerse: Verse.plain('Could not Delete this User'),
+  //         );
+  //
+  //         /// CLOSE WAITING
+  //         await WaitDialog.closeWaitDialog(context);
+  //
+  //       }
+  //
+  //     }
+  //
+  //   }
+  //
+  // }
 
 }
 // --------------------

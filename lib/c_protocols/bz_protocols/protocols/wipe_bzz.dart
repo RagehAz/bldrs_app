@@ -15,6 +15,7 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,7 @@ class WipeBzProtocols {
     @required BzModel bzModel,
     @required bool showWaitDialog,
     @required bool includeMyselfInBzDeletionNote,
+    @required bool deleteBzLocally, // TASK : DELETE THIS LINE WHEN EVERYTHING IS GOOD
   }) async {
 
     blog('WipeBzProtocol.wipeBz : START');
@@ -43,7 +45,7 @@ class WipeBzProtocols {
       unawaited(WaitDialog.showWaitDialog(
         context: context,
         loadingVerse: Verse(
-          text: '##Deleting ${bzModel.name}',
+          text: '${xPhrase(context, 'phid_deleting')} ${bzModel.name}',
           translate: true,
           variables: bzModel.name,
         ),
@@ -79,10 +81,22 @@ class WipeBzProtocols {
 
     ]);
 
-    /// DELETE BZ ON FIREBASE
-    await BzFireOps.deleteBzOps(
-      bzModel: bzModel,
-    );
+    await Future.wait(<Future>[
+
+      /// DELETE BZ ON FIREBASE
+      BzFireOps.deleteBzOps(
+        bzModel: bzModel,
+      ),
+
+      /// DELETE LOCALLY
+      if (deleteBzLocally == true)
+      deleteLocally(
+        context: context,
+        bzID: bzModel.id,
+        invoker: 'wipeBz',
+      ),
+
+    ]);
 
     /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
     if (showWaitDialog == true){

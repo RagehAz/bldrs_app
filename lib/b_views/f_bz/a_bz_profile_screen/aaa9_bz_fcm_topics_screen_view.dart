@@ -43,7 +43,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
 
     await Future.wait(<Future>[
 
-      UserProtocols.updateUserTopics(
+      UserProtocols.updateMyUserTopics(
         context: context,
         topicID: _customTopicID,
       ),

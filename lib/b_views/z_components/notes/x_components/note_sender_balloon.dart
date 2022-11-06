@@ -59,7 +59,7 @@ class NoteSenderBalloon extends StatelessWidget {
       /// USER
       else if (noteModel.parties.senderType == PartyType.user){
         return FutureBuilder(
-          future: UserProtocols.fetchUser(
+          future: UserProtocols.fetch(
               context: context,
               userID: noteModel.parties.senderID,
           ),
