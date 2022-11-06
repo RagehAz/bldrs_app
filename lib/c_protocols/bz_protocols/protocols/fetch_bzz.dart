@@ -35,9 +35,7 @@ class FetchBzProtocols {
 
       if (_bz != null) {
         // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
-        await BzLDBOps.insertBz(
-          bzModel: _bz,
-        );
+        await BzLDBOps.insertBz(_bz);
       }
 
     }

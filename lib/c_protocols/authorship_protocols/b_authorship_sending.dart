@@ -43,11 +43,12 @@ class AuthorshipSendingProtocols {
     );
 
     await BzProtocols.renovateBz(
-        context: context,
-        oldBzModel: bzModel,
-        newBzModel: _updatedBzModel,
-        showWaitDialog: false,
-        navigateToBzInfoPageOnEnd: false,
+      context: context,
+      oldBzModel: bzModel,
+      newBz: _updatedBzModel,
+      showWaitDialog: false,
+      navigateToBzInfoPageOnEnd: false,
+      newLogo: null,
     );
 
   }

@@ -47,7 +47,6 @@ class BzRecordRealOps {
 
     ]);
 
-
     blog('BzRecordOps.followBz : END');
   }
   // --------------------
@@ -117,7 +116,7 @@ class BzRecordRealOps {
   // --------------------
   /// CREATION - UPDATING
   // ---------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<BzCounterModel> incrementBzCounter({
     @required String bzID,
     @required String field,
@@ -140,23 +139,27 @@ class BzRecordRealOps {
       _value = incrementThis;
     }
 
-    await Real.updateDocField(
-      collName: RealColl.countingBzz,
-      docName: bzID,
-      fieldName: field,
-      value: fireDB.ServerValue.increment(_value),
-    );
-
     Map<String, dynamic> _map = await Real.readDocOnce(
       collName: RealColl.countingBzz,
       docName: bzID,
     );
 
-    _map = Mapper.insertPairInMap(
-      map: _map,
-      key: 'bzID',
-      value: bzID,
-    );
+    if (_value != 0){
+
+      await Real.updateDocField(
+        collName: RealColl.countingBzz,
+        docName: bzID,
+        fieldName: field,
+        value: fireDB.ServerValue.increment(_value),
+      );
+
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: 'bzID',
+        value: bzID,
+      );
+
+    }
 
     final BzCounterModel _model = BzCounterModel.decipherCounterMap(_map);
 

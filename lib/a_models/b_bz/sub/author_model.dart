@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
@@ -484,6 +485,44 @@ class AuthorModel {
 
     return _author;
   }
+  // --------------------
+  ///
+  static List<PicModel> getPicModels(List<AuthorModel> authors){
+    final List<PicModel> _output = <PicModel>[];
+
+    if (Mapper.checkCanLoopList(authors) == true){
+
+      for (final AuthorModel author in authors){
+
+        if (author.picModel != null){
+          _output.add(author.picModel);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<String> getAuthorsPicsPaths(List<AuthorModel> authors){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(authors) == true){
+
+      for (final AuthorModel author in authors){
+
+        if (author.picModel != null){
+          _output.add(author.picPath);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -717,6 +756,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
+  ///
   static List<AuthorModel> removeFlyerIDFromAuthors({
     @required String flyerID,
     @required List<AuthorModel> authors,
@@ -738,6 +778,38 @@ class AuthorModel {
             authorID: _ownerOfFlyer.userID,
             authors: authors
         );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<AuthorModel> overrideAuthorsBzID({
+    @required List<AuthorModel> authors,
+    @required String bzID,
+  }){
+    final List<AuthorModel> _output = <AuthorModel>[];
+
+    if (Mapper.checkCanLoopList(authors) == true){
+
+      for (final AuthorModel author in authors){
+
+        final String _picPath = StorageColl.getAuthorPicPath(
+          bzID: bzID,
+          authorID: author.userID,
+        );
+
+        final AuthorModel _overridden = author.copyWith(
+          picPath: _picPath,
+          picModel: author.picModel?.copyWith(
+            path: _picPath,
+          ),
+        );
+
+        _output.add(_overridden);
 
       }
 
@@ -1002,6 +1074,23 @@ class AuthorModel {
     }
 
     return _isAuthor;
+  }
+  // --------------------
+  ///
+  static Future<bool> checkImALoneAuthor({
+    @required BuildContext context,
+  @required String bzID,
+}) async {
+    bool _aLoneAuthor;
+
+    if (bzID != null){
+
+      final BzModel _bzModel = await BzProtocols.fetch(context: context, bzID: bzID);
+      _aLoneAuthor = _bzModel?.authors?.length == 1;
+
+    }
+
+    return _aLoneAuthor;
   }
   // -----------------------------------------------------------------------------
 

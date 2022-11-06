@@ -457,6 +457,8 @@ class SlideModel {
   /// MODIFIERS
 
   // --------------------
+  /// DEPRECATED
+  /*
   ///
   static List<SlideModel> replaceSlidesPicturesWithNewURLs({
     @required List<String> newPicturesURLs,
@@ -478,6 +480,7 @@ class SlideModel {
 
     return _outputSlides;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// GETTERS

@@ -327,7 +327,6 @@ class DraftSlide {
     BoxFit picFit,
     String headline,
     String description,
-    Dimensions imageSize,
     Color midColor,
     double opacity,
     Matrix4 matrix,
@@ -389,6 +388,23 @@ class DraftSlide {
       if (draft.picModel != null) {
         _output.add(draft.picModel.bytes);
       }
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<PicModel> getPicModels(List<DraftSlide> drafts){
+    final List<PicModel> _output = <PicModel>[];
+
+    if (Mapper.checkCanLoopList(drafts) == true){
+
+      for (final DraftSlide draft in drafts){
+
+        _output.add(draft.picModel);
+
+      }
+
     }
 
     return _output;
@@ -545,9 +561,40 @@ class DraftSlide {
     // slides[1].blogSlide();
     return slides;
   }
+  // --------------------
+  ///
+  static List<DraftSlide> overrideDraftsFlyerID({
+    @required List<DraftSlide> drafts,
+    @required String flyerID,
+  }){
+    final List<DraftSlide> _output = <DraftSlide>[];
+
+    if (Mapper.checkCanLoopList(drafts) == true && flyerID != null){
+
+      for (final DraftSlide draft in drafts){
+
+        final DraftSlide _updated = draft.copyWith(
+          flyerID: flyerID,
+          picModel: draft.picModel?.copyWith(
+            path: StorageColl.getFlyerSlidePath(
+                flyerID: flyerID,
+                slideIndex: draft.slideIndex,
+            ),
+          ),
+
+        );
+
+        _output.add(_updated);
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// EQUALITY
 
   // --------------------
   ///

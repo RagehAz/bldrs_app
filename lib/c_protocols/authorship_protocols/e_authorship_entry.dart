@@ -88,9 +88,10 @@ class AuthorshipEntryProtocols {
     final BzModel _uploadedBzModel = await BzProtocols.renovateBz(
       context: context,
       oldBzModel: _oldBzModel,
-      newBzModel: _bzModel,
+      newBz: _bzModel,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,
+      newLogo: null,
     );
 
     blog('AuthorshipEntryProtocols.addMeToBz : END');

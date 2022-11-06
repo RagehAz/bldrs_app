@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/mutables/draft_bz.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -26,11 +29,12 @@ class ComposeBzProtocols {
   ///
   static Future<void> compose({
     @required BuildContext context,
-    @required BzModel newBzModel,
+    @required DraftBz newDraft,
     @required UserModel userModel,
   }) async {
     blog('ComposeBzProtocol.compose : START');
 
+    /// WAIT DIALOG
     unawaited(WaitDialog.showWaitDialog(
       context: context,
       loadingVerse: const Verse(
@@ -39,70 +43,75 @@ class ComposeBzProtocols {
       ),
     ));
 
-    /// FIREBASE CREATE BZ OPS
-    final BzModel _uploadedBzModel = await BzFireOps.createBz(
-      draftBz: newBzModel,
-      userModel: userModel,
+    /// CREATE BZ ID
+    final String _bzID = await BzFireOps.createEmptyBzDocToGetBzID();
+
+    /// OVERRIDE BZ ID
+    final DraftBz _draftWithID = DraftBz.overrideBzID(
+      draft: newDraft,
+      bzID: _bzID,
     );
 
-    /// ON SUCCESS
-    if (_uploadedBzModel != null){
+    /// BAKE DRAFT TO INITIAL BZ
+    final BzModel _bzModel = DraftBz.toBzModel(_draftWithID);
 
-      await Future.wait(<Future>[
+    /// UPLOAD
+    await Future.wait(<Future>[
 
-        /// ADD NEW BZ LOCALLY
-        _addMyNewCreatedBzLocally(
-          context: context,
-          bzModel: _uploadedBzModel,
-        ),
+      /// UPDATE BZ DOC
+      BzFireOps.update(_bzModel),
 
-        /// UPDATE MY USER MODEL
-        _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
-          context: context,
-          bzID: _uploadedBzModel.id,
-        ),
+      /// UPLOAD BZ LOGO
+      PicProtocols.composePic(newDraft.logoPicModel),
 
+      /// UPLOAD AUTHOR PIC
+      PicProtocols.composePics(AuthorModel.getPicModels(newDraft.authors)),
 
-      ]);
-
-      /// CLOSE WAIT DIALOG
-      await WaitDialog.closeWaitDialog(context);
-
-      /// SHOW SUCCESS DIALOG
-      await CenterDialog.showCenterDialog(
+      /// ADD NEW BZ LOCALLY
+      _addMyNewCreatedBzLocally(
         context: context,
-        titleVerse: const Verse(
-          text: 'phid_great',
-          translate: true,
-        ),
-        bodyVerse: const Verse(
-          pseudo: 'Successfully created your Business Account\n system will reboot now',
-          text: 'phid_created_bz_successfully',
-          translate: true,
-        ),
-        // color: Colorz.green255,
-      );
+        bzModel: _bzModel,
+      ),
 
-      /// NAVIGATE
-      await Nav.goRebootToInitNewBzScreen(
+      /// UPDATE MY USER MODEL
+      _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
         context: context,
-        bzID: _uploadedBzModel.id,
-      );
+        bzID: _bzModel.id,
+      ),
 
-    }
+    ]);
 
-    /// ON FAILURE
-    else {
 
-      /// CLOSE WAIT DIALOG
-      await WaitDialog.closeWaitDialog(context);
+    /// CLOSE WAIT DIALOG
+    await WaitDialog.closeWaitDialog(context);
 
-      await _failureDialog(context);
+    /// SHOW SUCCESS DIALOG
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_great',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'Successfully created your Business Account\n system will reboot now',
+        text: 'phid_created_bz_successfully',
+        translate: true,
+      ),
+      // color: Colorz.green255,
+    );
 
-    }
+    /// NAVIGATE
+    await Nav.goRebootToInitNewBzScreen(
+      context: context,
+      bzID: _bzModel.id,
+    );
 
     blog('ComposeBzProtocol.compose : END');
   }
+  // -----------------------------------------------------------------------------
+
+  /// CREATION
+
   // --------------------
   ///
   static Future<void> _addMyNewCreatedBzLocally({
@@ -116,9 +125,7 @@ class ComposeBzProtocols {
     );
 
     /// LDB INSERT
-    await BzLDBOps.insertBz(
-      bzModel: _bzModelWithCompleteZoneModel,
-    );
+    await BzLDBOps.insertBz(_bzModelWithCompleteZoneModel);
 
     /// PRO INSERT IN MY BZZ
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -168,6 +175,8 @@ class ComposeBzProtocols {
 
   }
   // --------------------
+  /// DEPRECATED : IT WILL NEVER FAIL ISA
+  /*
   ///
   static Future<void> _failureDialog(BuildContext context) async {
 
@@ -185,5 +194,6 @@ class ComposeBzProtocols {
     );
 
   }
+   */
   // -----------------------------------------------------------------------------
 }

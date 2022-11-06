@@ -252,17 +252,10 @@ Future<void> _deleteFlyer({
     /// CLOSE BOTTOM DIALOG
     await Nav.goBack(context: context);
 
-    /// GET BZ
-    final BzModel bzModel = await BzProtocols.fetch(
-      context: context,
-      bzID: flyerModel.bzID,
-    );
-
     /// WIPE FLYER
-    await FlyerProtocols.wipeTheFlyer(
+    await FlyerProtocols.wipeFlyer(
       context: context,
       flyerModel: flyerModel,
-      bzModel: bzModel,
       showWaitDialog: true,
       isDeletingBz: false,
     );
