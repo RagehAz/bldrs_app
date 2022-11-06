@@ -32,7 +32,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : START');
 
     /// GET MY USER MODEL -------------------
-    final UserModel _myUserModel = await UserProtocols.fetchUser(
+    final UserModel _myUserModel = await UserProtocols.fetch(
       context: context,
       userID: AuthFireOps.superUserID(),
     );
@@ -118,9 +118,10 @@ class AuthorshipExitProtocols {
       ),
 
       /// UPDATE MY USER MODEL EVERYWHERE
-      UserProtocols.renovateMyUserModel(
+      UserProtocols.renovate(
         context: context,
         newUserModel: _newUserModel,
+        newPic: null,
       ),
 
     ]);
@@ -213,9 +214,10 @@ class AuthorshipExitProtocols {
         ),
 
         /// UPDATE USER MODEL EVERYWHERE
-        UserProtocols.renovateMyUserModel(
+        UserProtocols.renovate(
           context: context,
           newUserModel: _newUserModel,
+          newPic: null,
         ),
 
         /// DELETE MY AUTHOR PICTURE FROM STORAGE

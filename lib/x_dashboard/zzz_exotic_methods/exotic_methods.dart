@@ -317,7 +317,7 @@ class ExoticMethods {
     /// Auth => can only be done in firebase
     /// security level => can only be done in firebase
 
-    final UserModel _oldUserModel = await UserProtocols.fetchUser(
+    final UserModel _oldUserModel = await UserProtocols.fetch(
       context: context,
       userID: oldUserID,
     );
@@ -355,7 +355,7 @@ class ExoticMethods {
 
       if (_oldAuthor != null){
 
-        final UserModel _newUserModel = await UserProtocols.fetchUser(
+        final UserModel _newUserModel = await UserProtocols.fetch(
           context: context,
           userID: newUserID,
         );

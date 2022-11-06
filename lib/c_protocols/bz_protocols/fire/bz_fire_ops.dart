@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
@@ -552,13 +553,10 @@ class BzFireOps {
     @required String bzID,
   }) async {
 
-    await Storage.deleteStoragePic(
-      collName: StorageColl.authors,
-      docName: AuthorModel.generateAuthorPicID(
-        authorID: authorModel.userID,
+    await PicProtocols.wipePic(StorageColl.getAuthorPicPath(
         bzID: bzID,
-      ),
-    );
+        authorID: authorModel.userID,
+    ));
 
   }
   // -----------------------------------------------------------------------------

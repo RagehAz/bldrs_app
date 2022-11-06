@@ -77,6 +77,7 @@ Future<void> onDeleteBzButtonTap({
       bzModel: bzModel,
       showWaitDialog: true,
       includeMyselfInBzDeletionNote: true,
+      deleteBzLocally: false,
     );
 
     /// NO NEED FOR ROUTING BACK AND SHOWING DIALOGS HERE

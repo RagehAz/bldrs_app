@@ -191,7 +191,7 @@ Future<void> onAuthorOptionsTap({
 /// PRE DELETE AUTHOR
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK => SHOULD BECOME PROTOCOL OR SOMETHING
 Future<void> onDeleteAuthorFromBz({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -287,7 +287,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 /// DELETE AUTHOR WHO HAS FLYERS
 
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK => SHOULD BECOME PROTOCOL OR SOMETHING
 Future<void> _removeAuthorWhoHasFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -425,7 +425,7 @@ Future<bool> _showDeleteAllAuthorFlyers({
 /// DELETE AUTHOR WHO HAS NO FLYERS
 
 // ----------------------------------
-/// TESTED : WORKS PERFECT
+/// TASK => SHOULD BECOME PROTOCOL OR SOMETHING
 Future<void> _removeAuthorWhoHasNoFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -671,7 +671,7 @@ Future<void> onCancelSentAuthorshipInvitation({
 
   if (bzModel != null && userID != null){
 
-    final UserModel _receiverModel = await UserProtocols.fetchUser(
+    final UserModel _receiverModel = await UserProtocols.fetch(
       context: context,
       userID: userID,
     );

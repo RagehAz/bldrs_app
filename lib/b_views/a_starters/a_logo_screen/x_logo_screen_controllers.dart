@@ -208,7 +208,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   UserModel _userModel;
 
   if (authModel == null || authModel.userModel == null){
-    _userModel = await UserProtocols.fetchUser(
+    _userModel = await UserProtocols.fetch(
       context: context,
       userID: AuthFireOps.superUserID(),
     );

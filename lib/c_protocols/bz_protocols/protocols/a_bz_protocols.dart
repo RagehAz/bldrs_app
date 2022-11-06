@@ -128,11 +128,13 @@ class BzProtocols {
     @required BzModel bzModel,
     @required bool showWaitDialog,
     @required bool includeMyselfInBzDeletionNote,
+    @required bool deleteBzLocally,
   }) => WipeBzProtocols.wipeBz(
     context: context,
     bzModel: bzModel,
     showWaitDialog: showWaitDialog,
     includeMyselfInBzDeletionNote: includeMyselfInBzDeletionNote,
+    deleteBzLocally: deleteBzLocally,
   );
   // --------------------
   ///

@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -23,92 +25,62 @@ class RenovateUserProtocols {
 
   // -----------------------------------------------------------------------------
 
-  /// USER MODEL EDITS
+  /// RENOVATE
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<UserModel> renovateMyUserModel({
-    @required BuildContext context,
-    @required UserModel newUserModel,
-  }) async {
-
-    blog('RenovateUserProtocols.renovateMyUserModel : START');
-
-    UserModel _uploadedModel;
-
-    final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
-
-    final bool _modelsAreIdentical = UserModel.checkUsersAreIdentical(
-        user1: newUserModel,
-        user2: _oldUserModel
-    );
-
-    if (_modelsAreIdentical == false){
-
-      /// UPDATE USER IN FIRE STORE
-      _uploadedModel = await UserFireOps.updateUser(
-        newUserModel: newUserModel,
-        oldUserModel: _oldUserModel,
-      );
-
-      await updateLocally(
-        context: context,
-        newUserModel: _uploadedModel,
-      );
-
-    }
-
-    blog('RenovateUserProtocols.renovateMyUserModel : END');
-
-    return _uploadedModel ?? newUserModel;
-  }
   // --------------------
   ///
   static Future<UserModel> renovateUser({
     @required BuildContext context,
     @required UserModel newUserModel,
+    @required PicModel newPic,
   }) async {
 
     UserModel _uploadedModel;
 
     if (newUserModel != null){
 
-      final UserModel _oldUserModel = await UserProtocols.refetchUser(
+      final UserModel _oldUserModel = await UserProtocols.refetch(
           context: context,
           userID: newUserModel.id,
       );
 
-      final bool _modelsAreIdentical = UserModel.checkUsersAreIdentical(
+      final bool _modelsAreIdentical = UserModel.usersAreIdentical(
           user1: newUserModel,
           user2: _oldUserModel
       );
 
       if (_modelsAreIdentical == false){
 
-        _uploadedModel = await UserFireOps.updateUser(
-          newUserModel: newUserModel,
-          oldUserModel: _oldUserModel,
-        );
+        await Future.wait(<Future>[
 
-        _uploadedModel = await UserProtocols.completeUserZoneModels(
-            userModel: _uploadedModel,
-            context: context
+          /// FIRE UPDATE USER
+          UserFireOps.updateUser(
+            newUserModel: newUserModel,
+            oldUserModel: _oldUserModel,
+          ).then((UserModel uploadedModel){
+            _uploadedModel = uploadedModel;
+          }),
+
+          /// STORAGE RENOVATE PIC
+          if (newPic != null)
+          PicProtocols.renovatePic(newPic),
+
+        ]);
+
+        /// UPDATE LOCALLY
+        await updateLocally(
+          context: context,
+          newUserModel: _uploadedModel,
         );
-        /// UPDATE USER MODEL IN LDB
-        await UserLDBOps.updateUserModel(_uploadedModel);
 
       }
-
 
     }
 
     return _uploadedModel;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> updateLocally({
     @required UserModel newUserModel,
     @required BuildContext context,
@@ -116,39 +88,40 @@ class RenovateUserProtocols {
 
     blog('RenovateUserProtocols.updateLocally : START');
 
-    final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUserModel = await UserProtocols.fetch(
       context: context,
-      listen: false,
+      userID: newUserModel.id,
     );
 
-    final bool _modelsAreIdentical = UserModel.checkUsersAreIdentical(
+    final bool _modelsAreIdentical = UserModel.usersAreIdentical(
         user1: newUserModel,
         user2: _oldUserModel
     );
 
     if (_modelsAreIdentical == false){
 
-      final UserModel _fixedModel = await UserProtocols.completeUserZoneModels(
+      await Future.wait(<Future>[
+
+        /// UPDATE LDB USER MODEL
+        UserLDBOps.updateUserModel(newUserModel),
+
+        /// UPDATE LDB AUTHOR MODEL
+        if (UserModel.checkItIsMe(newUserModel.id) == true)
+          AuthLDBOps.updateAuthModel(UsersProvider.proGetAuthModel(
+            context: context,
+            listen: false,
+          )),
+
+      ]);
+
+      /// UPDATE PRO USER AND AUTH MODELS
+      if (UserModel.checkItIsMe(newUserModel.id) == true){
+        UsersProvider.proUpdateMyUserAndAuthModels(
+          context: context,
           userModel: newUserModel,
-          context: context
-      );
-
-      /// UPDATE USER AND AUTH IN PRO
-      UsersProvider.proUpdateUserAndAuthModels(
-        context: context,
-        userModel: _fixedModel,
-        notify: true,
-      );
-
-      /// UPDATE USER MODEL IN LDB
-      await UserLDBOps.updateUserModel(_fixedModel);
-
-      /// UPDATE AUTH MODEL IN LDB
-      final AuthModel _authModel = UsersProvider.proGetAuthModel(
-        context: context,
-        listen: false,
-      );
-      await AuthLDBOps.updateAuthModel(_authModel);
+          notify: true,
+        );
+      }
 
     }
 
@@ -185,8 +158,9 @@ class RenovateUserProtocols {
         bzIDToFollow: bzID,
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _updatedModel,
       );
 
@@ -203,8 +177,9 @@ class RenovateUserProtocols {
         bzIDToUnFollow: bzID,
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _updatedModel,
       );
 
@@ -241,8 +216,9 @@ class RenovateUserProtocols {
         flyerIDToAdd: flyerID,
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _updatedModel,
       );
 
@@ -261,9 +237,10 @@ class RenovateUserProtocols {
         flyerIDToRemove: flyerID,
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
         newUserModel: _updatedModel,
+        newPic: null,
       );
 
     }
@@ -330,7 +307,7 @@ class RenovateUserProtocols {
         /// we should get the most updated version of his model
         /// so we refetch model
         /// cheers
-        UserModel _refetchedUser = await UserProtocols.refetchUser(
+        UserModel _refetchedUser = await UserProtocols.refetch(
             context: context,
             userID: _myUserModel.id,
         );
@@ -344,8 +321,9 @@ class RenovateUserProtocols {
           context: context,
         ));
 
-        await UserProtocols.renovateMyUserModel(
+        await UserProtocols.renovate(
           context: context,
+          newPic: null,
           newUserModel: _refetchedUser,
         );
 
@@ -357,7 +335,7 @@ class RenovateUserProtocols {
 
   }
   // --------------------
-  /// NOT TESTED : BUT SHOULD BE WORKING
+  ///
   static Future<void> _resubscribeToAllMyTopics({
     @required BuildContext context,
   }) async {

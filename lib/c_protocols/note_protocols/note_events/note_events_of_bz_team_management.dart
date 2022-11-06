@@ -103,7 +103,7 @@ class NoteEventsOfBzTeamManagement {
     /// NOTE TO DELETED AUTHOR
     if (sendToUserAuthorExitNote == true){
 
-      final UserModel _userModel = await UserProtocols.fetchUser(
+      final UserModel _userModel = await UserProtocols.fetch(
         context: context,
         userID: deletedAuthor.userID,
       );
@@ -165,7 +165,7 @@ class NoteEventsOfBzTeamManagement {
 
             final AuthorModel author = _authors[index];
 
-            final UserModel _userModel = await UserProtocols.refetchUser(
+            final UserModel _userModel = await UserProtocols.refetch(
               context: context,
               userID: author.userID,
             );

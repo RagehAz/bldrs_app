@@ -30,7 +30,7 @@ class FutureUserTileButton extends StatelessWidget {
 
     return FutureBuilder(
         key: const ValueKey('FutureUserTileButton'),
-        future: UserProtocols.fetchUser(context: context, userID: userID),
+        future: UserProtocols.fetch(context: context, userID: userID),
         builder: (_, AsyncSnapshot<Object> snapshot){
 
           final UserModel _userModel = snapshot.data;

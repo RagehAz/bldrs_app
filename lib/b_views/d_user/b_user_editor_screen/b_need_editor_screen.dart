@@ -112,8 +112,9 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         ),
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _updatedUser,
       );
 

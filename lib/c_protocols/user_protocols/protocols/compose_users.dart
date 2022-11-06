@@ -24,6 +24,7 @@ class ComposeUserProtocols {
   const ComposeUserProtocols();
 
   // -----------------------------------------------------------------------------
+  ///
   static Future<AuthModel> compose({
     @required BuildContext context,
     @required bool authSucceeds,
@@ -43,34 +44,32 @@ class ComposeUserProtocols {
     if (_authModel.authSucceeds == true) {
 
       /// CREATE INITIAL USER MODEL
-      final UserModel _initialUserModel = await _createInitialUserModel(
+      final UserModel _userModel = await _createInitialUserModel(
         context: context,
         authType: authType,
         userCredential: userCredential,
+      );
+
+      /// UPDATE AUTH MODEL
+      _authModel = _authModel.copyWith(
+        userModel: _userModel,
       );
 
       await Future.wait(<Future>[
 
         /// CREATE FIRE USER
         UserFireOps.createUser(
-          userModel: _initialUserModel,
+          userModel: _userModel,
           authBy: authType,
-        ).then((UserModel uploadedModel){
-
-          _authModel = _authModel.copyWith(
-            userModel: uploadedModel,
-          );
-
-        }),
+        ),
 
         /// CREATE USER IMAGE FROM URL
         _composeUserImageFromUserPicURL(
-          userID: _initialUserModel.id,
+          userID: _userModel.id,
           picURL: userCredential.user.photoURL,
         ),
 
       ]);
-
 
       /// INSERT IN LDB
       await Future.wait(<Future>[
@@ -84,7 +83,6 @@ class ComposeUserProtocols {
     // -----------------------------
     return _authModel;
   }
-
   // --------------------
   ///
   static Future<UserModel> _createInitialUserModel({

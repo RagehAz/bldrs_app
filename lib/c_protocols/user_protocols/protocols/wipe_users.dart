@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x3_bz_authors_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -9,6 +10,8 @@ import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.da
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/real/user_record_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
@@ -24,7 +27,12 @@ class WipeUserProtocols {
   const WipeUserProtocols();
 
   // -----------------------------------------------------------------------------
-  static Future<void> wipeMyUserModel({
+
+  /// WIPE USER
+
+  // --------------------
+  ///
+  static Future<void> wipeMyUser({
     @required BuildContext context,
     @required bool showWaitDialog,
   }) async {
@@ -47,10 +55,10 @@ class WipeUserProtocols {
       listen: false,
     );
 
-    final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
+    final bool _imAuthor = UserModel.checkUserIsAuthor(_userModel);
 
     /// WHEN USER IS AUTHOR
-    if (_userIsAuthor == true){
+    if (_imAuthor == true){
 
       await _deleteAuthorUserProtocol(
         context: context,
@@ -77,7 +85,12 @@ class WipeUserProtocols {
     blog('WipeUserProtocols.wipeMyUserModel : END');
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// NON AUTHOR USER
+
   // --------------------
+  ///
   static Future<void> _deleteNonAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -85,26 +98,41 @@ class WipeUserProtocols {
 
     blog('UserProtocol._deleteNonAuthorUserProtocol : START');
 
-    /// TASK SHOULD DELETE QUESTIONS, RECORDS, SEARCHES
+    await Future.wait(<Future>[
 
-    /// FIRE : DELETE USER OPS
-    final bool _success = await UserFireOps.deleteNonAuthorUserOps(
+      /// WIPE NOTES
+      NoteProtocols.wipeAllNotes(
+        partyType: PartyType.user,
+        id: userModel.id,
+      ),
+
+      /// WIPE USER PIC
+      PicProtocols.wipePic(userModel.picPath),
+
+      /// DELETE USER
+      UserFireOps.deleteMyUser(context),
+
+      /// DELETE SEARCHES
+      UserRecordRealOps.deleteAllUserRecords(
+          userID: userModel.id,
+      ),
+
+    ]);
+
+    await _deleteMyUserLocallyProtocol(
+        context: context,
         userModel: userModel
     );
-
-    if (_success == true){
-
-      await _deleteMyUserLocallyProtocol(
-          context: context,
-          userModel: userModel
-      );
-
-    }
 
     blog('UserProtocol._deleteNonAuthorUserProtocol : END');
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// AUTHOR USER
+
   // --------------------
+  ///
   static Future<void> _deleteAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -112,60 +140,79 @@ class WipeUserProtocols {
 
     blog('UserProtocol._deleteAuthorUserProtocol : START');
 
-    await _deleteAllMyAuthorImages(
-      context: context,
-      userModel: userModel,
-    );
+    await Future.wait(<Future>[
 
-    await _deleteBzzICreatedProtocol(
-      context: context,
-      userModel: userModel,
-    );
+      /// ALL AUTHORS PICS
+      _deleteAllMyAuthorPics(
+        context: context,
+        userModel: userModel,
+      ),
 
-    await _exitBzzIDidNotCreateProtocol(
-      context: context,
-      userModel: userModel,
-    );
+      /// BZZ I CREATED
+      _deleteBzzICreatedProtocol(
+        context: context,
+        userModel: userModel,
+      ),
 
-    await _deleteNonAuthorUserProtocol(
-      context: context,
-      userModel: userModel,
-    );
+      /// BZZ I DID NOT CREATE
+      _exitBzzIDidNotCreateProtocol(
+        context: context,
+        userModel: userModel,
+      ),
+
+      /// DELETE EVERYTHING AS IF I'M NOT AUTHOR
+      _deleteNonAuthorUserProtocol(
+        context: context,
+        userModel: userModel,
+      ),
+
+    ]);
+
 
     blog('UserProtocol._deleteAuthorUserProtocol : END');
 
   }
   // --------------------
-  static Future<void> _deleteAllMyAuthorImages({
+  ///
+  static Future<void> _deleteAllMyAuthorPics({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
-    blog('UserProtocol._deleteAllMyAuthorImages : START');
+    blog('UserProtocol.deleteAllMyAuthorPics : START');
 
     final List<String> _bzzIDs = userModel.myBzzIDs;
 
     if (Mapper.checkCanLoopList(_bzzIDs) == true){
 
-      for (final String bzID in _bzzIDs){
-        await AuthorshipProtocols.deleteMyAuthorPic(
-          context: context,
-          bzID: bzID,
-        );
-      }
+      await Future.wait(<Future>[
+
+        ...List.generate(_bzzIDs.length, (index){
+
+          return AuthorshipProtocols.deleteMyAuthorPic(
+            context: context,
+            bzID: _bzzIDs[index],
+          );
+
+      }),
+
+    ]);
+
+
 
     }
 
-    blog('UserProtocol._deleteAllMyAuthorImages : END');
+    blog('UserProtocol.deleteAllMyAuthorPics : END');
 
   }
   // --------------------
+  ///
   static Future<void> _deleteBzzICreatedProtocol({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
-    blog('UserProtocol._deleteBzzICreatedProtocol : START');
+    blog('UserProtocol.deleteBzzICreatedProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
       context: context,
@@ -179,35 +226,35 @@ class WipeUserProtocols {
 
     if (Mapper.checkCanLoopList(_myBzzICreated) == true){
 
-      for (final BzModel bzModel in _myBzzICreated){
+      await Future.wait(<Future>[
 
-        await BzProtocols.wipeBz(
-            context: context,
-            bzModel: bzModel,
-            showWaitDialog: true,
-            includeMyselfInBzDeletionNote: false
-        );
+        ...List.generate(_myBzzICreated.length, (index){
 
-        await BzProtocols.deleteLocally(
-          context: context,
-          bzID: bzModel.id,
-          invoker: '_deleteBzzICreatedProtocol',
-        );
+          return BzProtocols.wipeBz(
+              context: context,
+              bzModel: _myBzzICreated[index],
+              showWaitDialog: true,
+              includeMyselfInBzDeletionNote: false,
+              deleteBzLocally: true
+          );
 
-      }
+        }),
+
+      ]);
 
     }
 
-    blog('UserProtocol._deleteBzzICreatedProtocol : END');
+    blog('UserProtocol.deleteBzzICreatedProtocol : END');
 
   }
   // --------------------
+  ///
   static Future<void> _exitBzzIDidNotCreateProtocol({
     @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
-    blog('UserProtocol._exitBzzIDidNotCreateProtocol : START');
+    blog('UserProtocol.exitBzzIDidNotCreateProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
       context: context,
@@ -221,36 +268,42 @@ class WipeUserProtocols {
 
     if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true){
 
-      for (final BzModel bzModel in _myBzzIDidNotCreate){
+      await Future.wait(<Future>[
 
-        final AuthorModel _authorModel = AuthorModel.getAuthorFromBzByAuthorID(
-          bz: bzModel,
-          authorID: userModel.id,
-        );
+        ...List.generate(_myBzzIDidNotCreate.length, (index){
 
-        await onDeleteAuthorFromBz(
-          context: context,
-          bzModel: bzModel,
-          authorModel: _authorModel,
-          showWaitingDialog: false,
-          showConfirmationDialog: false,
-          sendToUserAuthorExitNote: false,
-        );
+          final BzModel _bzModel = _myBzzIDidNotCreate[index];
 
-        await NoteProtocols.unsubscribeFromAllBzTopics(
-          context: context,
-          bzID: bzModel.id,
-          renovateUser: true,
-        );
+          final AuthorModel _authorModel = AuthorModel.getAuthorFromBzByAuthorID(
+            bz: _bzModel,
+            authorID: userModel.id,
+          );
 
-      }
+          /// TASK => SHOULD REWRITE THE BZ EXIT PROTOCOL
+          return onDeleteAuthorFromBz(
+            context: context,
+            bzModel: _bzModel,
+            authorModel: _authorModel,
+            showWaitingDialog: false,
+            showConfirmationDialog: false,
+            sendToUserAuthorExitNote: false,
+          ).then((value) => NoteProtocols.unsubscribeFromAllBzTopics(
+            context: context,
+            bzID: _bzModel.id,
+            renovateUser: true,
+          ));
+
+        }),
+
+      ]);
 
     }
 
-    blog('UserProtocol._exitBzzIDidNotCreateProtocol : END');
+    blog('UserProtocol.exitBzzIDidNotCreateProtocol : END');
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteMyUserLocallyProtocol({
     @required BuildContext context,
     @required UserModel userModel,
