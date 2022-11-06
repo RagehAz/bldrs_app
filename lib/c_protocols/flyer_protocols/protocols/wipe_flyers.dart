@@ -5,11 +5,11 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
-import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
@@ -24,20 +24,22 @@ class WipeFlyerProtocols {
 
   const WipeFlyerProtocols();
 
+  // -----------------------------------------------------------------------------
+
+  /// WIPE
+
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<BzModel> wipeFlyer({
+  ///
+  static Future<void> wipeFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
-    @required BzModel bzModel,
     @required bool showWaitDialog,
     @required bool isDeletingBz,
   }) async {
     blog('WipeFlyerProtocols.wipeFlyer : START');
 
-    BzModel _updatedBzModel = bzModel;
 
-    if (flyerModel != null && bzModel != null){
+    if (flyerModel != null){
 
       if (showWaitDialog == true){
         unawaited(WaitDialog.showWaitDialog(
@@ -49,46 +51,69 @@ class WipeFlyerProtocols {
         ));
       }
 
+      final BzModel _bzModel = await BzProtocols.fetch(
+          context: context,
+          bzID: flyerModel.bzID,
+      );
+
       await Future.wait(<Future>[
 
+        /// DECREMENT BZ COUNTER
+        if (isDeletingBz == false)
+          BzRecordRealOps.incrementBzCounter(
+            bzID: _bzModel.id,
+            field: 'allSlides',
+            incrementThis: - flyerModel.slides.length,
+          ),
+
+        /// REMOVE FLYER ID FROM BZ AND AUTHOR MODELS
+        if (isDeletingBz == false)
+          _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
+            context: context,
+            bzModel: _bzModel,
+            flyer: flyerModel,
+          ),
+
+        /// WIPE REVIEWS
         ReviewProtocols.wipeAllFlyerReviews(
           context: context,
           flyerID: flyerModel.id,
           isDeletingFlyer: true,
-          bzID: bzModel.id,
+          bzID: _bzModel.id,
           isDeletingBz: isDeletingBz,
         ),
 
+        /// WIPE FLYER COUNTERS
         FlyerRecordRealOps.deleteAllFlyerCountersAndRecords(
           flyerID: flyerModel.id,
         ),
 
-        BzRecordRealOps.incrementBzCounter(
-          bzID: bzModel.id,
-          field: 'allSlides',
-          incrementThis: - flyerModel.slides.length,
-        ),
-
+        /// REMOVE SPECS FROM CITY CHAIN USAGE
         CityPhidsRealOps.incrementFlyerCityChainUsage(
           context: context,
           flyerModel: flyerModel,
           isIncrementing: false,
         ),
 
+        /// WIPE SLIDES PICS
+        PicProtocols.wipePics(FlyerModel.getPicsPaths(flyerModel)),
+
+        /// WIPE PDF
+        PDFProtocols.wipe(flyerModel.pdfPath),
+
+        /// REMOVE FLYER DOC
+        FlyerFireOps.deleteFlyerDoc(
+          flyerID: flyerModel.id,
+        ),
+
+        /// REMOVE FLYER LOCALLY
+        deleteFlyersLocally(
+          context: context,
+          flyersIDs: <String>[flyerModel.id],
+        ),
+
       ]);
 
-      _updatedBzModel = await FlyerFireOps.deleteFlyerOps(
-        context: context,
-        flyerModel: flyerModel,
-        bzModel: bzModel,
-        bzFireUpdateOps: true,
-      );
-
-      /// DELETE FLYERS LOCALLY
-      await deleteFlyersLocally(
-        context: context,
-        flyersIDs: <String>[flyerModel.id],
-      );
 
       if (showWaitDialog == true){
         await WaitDialog.closeWaitDialog(context);
@@ -97,25 +122,49 @@ class WipeFlyerProtocols {
     }
 
     blog('WipeFlyerProtocols.wipeFlyer : END');
-    return _updatedBzModel;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
-  static Future<BzModel> wipeMultipleFlyers({
+  ///
+  static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
+    @required BuildContext context,
+    @required FlyerModel flyer,
+    @required BzModel bzModel,
+  }) async {
+    blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : START');
+
+    if (bzModel != null && flyer != null){
+
+      final BzModel _updatedBzModel = BzModel.removeFlyerIDFromBzAndAuthor(
+        bzModel: bzModel,
+        flyer: flyer,
+      );
+
+      await BzProtocols.renovateBz(
+          context: context,
+          newBz: _updatedBzModel,
+          oldBzModel: bzModel,
+          showWaitDialog: false,
+          navigateToBzInfoPageOnEnd: false,
+          newLogo: null,
+      );
+
+    }
+
+    blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : END');
+  }
+
+  // --------------------
+  ///
+  static Future<void> wipeFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
     @required List<FlyerModel> flyers,
     @required bool showWaitDialog,
-    @required bool updateBzEveryWhere,
     @required bool isDeletingBz,
   }) async {
-    blog('WipeFlyerProtocols.wipeMultipleFlyers : START');
-
-    BzModel _bzModel = bzModel;
+    blog('WipeFlyerProtocols.wipeFlyers : START');
 
     if (Mapper.checkCanLoopList(flyers) == true && bzModel != null){
-
-      final List<String> _flyersIDs = FlyerModel.getFlyersIDsFromFlyers(flyers);
 
       if (showWaitDialog == true){
         unawaited(WaitDialog.showWaitDialog(
@@ -129,68 +178,86 @@ class WipeFlyerProtocols {
 
       await Future.wait(<Future>[
 
-        ReviewProtocols.wipeMultipleFlyersReviews(
-          context: context,
-          flyersIDs: _flyersIDs,
-          isDeletingFlyer: true,
-          isDeletingBz: isDeletingBz,
-          bzID: bzModel.id,
-        ),
+        ...List.generate(flyers.length, (index){
 
-        FlyerRecordRealOps.deleteMultipleFlyersCountersAndRecords(
-          flyersIDs: _flyersIDs,
-        ),
+          return wipeFlyer(
+              context: context,
+              flyerModel: flyers[index],
+              showWaitDialog: false,
+              isDeletingBz: isDeletingBz,
+          );
 
-        CityPhidsRealOps.incrementFlyersCityChainUsage(
-          context: context,
-          flyersModels: flyers,
-          isIncrementing: false,
-        ),
+      }),
 
       ]);
 
-      /// FIRE DELETION
-      _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
-        context: context,
-        flyersToDelete: flyers,
-        bzModel: bzModel,
-        updateBzFireOps: updateBzEveryWhere,
-      );
+      // final List<String> _flyersIDs = FlyerModel.getFlyersIDsFromFlyers(flyers);
+      // BzModel _bzModel = bzModel;
+      //
+      // await Future.wait(<Future>[
+      //
+      //   ReviewProtocols.wipeMultipleFlyersReviews(
+      //     context: context,
+      //     flyersIDs: _flyersIDs,
+      //     isDeletingFlyer: true,
+      //     isDeletingBz: isDeletingBz,
+      //     bzID: bzModel.id,
+      //   ),
+      //
+      //   FlyerRecordRealOps.deleteMultipleFlyersCountersAndRecords(
+      //     flyersIDs: _flyersIDs,
+      //   ),
+      //
+      //   CityPhidsRealOps.incrementFlyersCityChainUsage(
+      //     context: context,
+      //     flyersModels: flyers,
+      //     isIncrementing: false,
+      //   ),
+      //
+      // ]);
 
-      if (isDeletingBz == false){
-        await BzRecordRealOps.incrementBzCounter(
-          bzID: _bzModel.id,
-          field: 'allSlides',
-          incrementThis: - FlyerModel.getNumberOfFlyersSlides(flyers),
-        );
-      }
+      // /// FIRE DELETION
+      // _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
+      //   context: context,
+      //   flyersToDelete: flyers,
+      //   bzModel: bzModel,
+      //   updateBzFireOps: updateBzEveryWhere,
+      // );
+      //
+      // if (isDeletingBz == false){
+      //   await BzRecordRealOps.incrementBzCounter(
+      //     bzID: _bzModel.id,
+      //     field: 'allSlides',
+      //     incrementThis: - FlyerModel.getNumberOfFlyersSlides(flyers),
+      //   );
+      // }
+      //
+      // /// BZ LDB UPDATE
+      // if (updateBzEveryWhere == true){
+      //   await BzLDBOps.updateBzOps(
+      //       bzModel: _bzModel
+      //   );
+      // }
+      //
+      // /// DELETE FLYERS LOCALLY
+      // await deleteFlyersLocally(
+      //   context: context,
+      //   flyersIDs: _flyersIDs,
+      // );
 
-      /// BZ LDB UPDATE
-      if (updateBzEveryWhere == true){
-        await BzLDBOps.updateBzOps(
-            bzModel: _bzModel
-        );
-      }
-
-      /// DELETE FLYERS LOCALLY
-      await deleteFlyersLocally(
-        context: context,
-        flyersIDs: _flyersIDs,
-      );
-
-      /// BZ PRO UPDATE
-      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-      final bool _thisBzIsTheActiveBz = _bzzProvider.myActiveBz?.id == _bzModel.id;
-      final bool _shouldUpdateMyActiveBz = updateBzEveryWhere == true && _thisBzIsTheActiveBz == true;
-
-
-      /// BZ PRO UPDATE
-      if (_shouldUpdateMyActiveBz == true){
-        _bzzProvider.setActiveBz(
-          bzModel: _bzModel,
-          notify: true,
-        );
-      }
+      // /// BZ PRO UPDATE
+      // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+      // final bool _thisBzIsTheActiveBz = _bzzProvider.myActiveBz?.id == _bzModel.id;
+      // final bool _shouldUpdateMyActiveBz = updateBzEveryWhere == true && _thisBzIsTheActiveBz == true;
+      //
+      //
+      // /// BZ PRO UPDATE
+      // if (_shouldUpdateMyActiveBz == true){
+      //   _bzzProvider.setActiveBz(
+      //     bzModel: _bzModel,
+      //     notify: true,
+      //   );
+      // }
 
       if (showWaitDialog == true){
         await WaitDialog.closeWaitDialog(context);
@@ -198,8 +265,7 @@ class WipeFlyerProtocols {
 
     }
 
-    blog('WipeFlyerProtocols.wipeMultipleFlyers : END');
-    return _bzModel;
+    blog('WipeFlyerProtocols.wipeFlyers : END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT

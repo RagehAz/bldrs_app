@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +32,7 @@ class WipeBzProtocols {
   /// WIPE OUT
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> wipeBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -74,17 +76,23 @@ class WipeBzProtocols {
         renovateUser: true,
       ),
 
-    /// DELETE BZ RECORDS - COUNTERS
+      /// DELETE BZ RECORDS - COUNTERS
       BzRecordRealOps.deleteAllBzCountersAndRecords(
         bzID: bzModel.id,
       ),
+
+      /// DELETE LOGO
+      PicProtocols.wipePic(bzModel.logoPath),
+
+      /// DELETE AUTHORS PICS
+      PicProtocols.wipePics(AuthorModel.getAuthorsPicsPaths(bzModel.authors)),
 
     ]);
 
     await Future.wait(<Future>[
 
       /// DELETE BZ ON FIREBASE
-      BzFireOps.deleteBzOps(
+      BzFireOps.delete(
         bzModel: bzModel,
       ),
 
@@ -110,11 +118,10 @@ class WipeBzProtocols {
       includeMyself: includeMyselfInBzDeletionNote,
     );
 
-
     blog('WipeBzProtocol.wipeBz : END');
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> _deleteAllBzFlyersOps({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -145,7 +152,6 @@ class WipeBzProtocols {
       bzModel: bzModel,
       flyers: _flyers,
       showWaitDialog: false,
-      updateBzEveryWhere: updateBz,
       isDeletingBz: true,
     );
 
@@ -243,10 +249,11 @@ class WipeBzProtocols {
       /// RENOVATE BZ
       await BzProtocols.renovateBz(
         context: context,
-        newBzModel: _updatedBzModel,
+        newBz: _updatedBzModel,
         oldBzModel: bzModel,
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
+        newLogo: null,
       );
 
     }

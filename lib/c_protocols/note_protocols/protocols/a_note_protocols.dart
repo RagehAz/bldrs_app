@@ -185,7 +185,7 @@ class NoteProtocols {
 
    */
   // --------------------
-  ///
+  /// TASK : FIX ME
   static Future<NoteModel> _uploadNotePoster({
     @required BuildContext context,
     @required NoteModel note,
@@ -253,6 +253,7 @@ class NoteProtocols {
     // _output.blogNoteModel(invoker: '_uploadNotePoster..END');
     //
     // return _output;
+    return null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

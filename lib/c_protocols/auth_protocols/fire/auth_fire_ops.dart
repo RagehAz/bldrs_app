@@ -198,6 +198,7 @@ class AuthFireOps {
   }
   // --------------------
   /// PLAN : FIX ME
+  /*
   static Future<AuthModel> signInByFacebook({
     @required BuildContext context,
     @required ZoneModel currentZone,
@@ -290,14 +291,14 @@ class AuthFireOps {
 
      */
   }
+   */
   // --------------------
   /// PLAN : FIX ME
+  /*
   static Future<AuthModel> signInByGoogle({
     @required BuildContext context,
     @required ZoneModel currentZone,
   }) async {
-
-    /*
 
 
     AuthModel _authModel = const AuthModel();
@@ -393,7 +394,12 @@ class AuthFireOps {
     // -----------------------------
     return _authModel;
   }
+
+   */
   // --------------------
+  /// PLAN : FIX ME
+  /*
+
   static Future<AuthModel> signInByApple({
     @required BuildContext context,
     @required ZoneModel currentZone,
@@ -405,8 +411,9 @@ class AuthFireOps {
 
 
     return _authModel;
-    */
+
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// sign out

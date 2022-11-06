@@ -203,7 +203,8 @@ class FlyerVerificationProtocols {
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
         oldBzModel: bzModel,
-        newBzModel: bzModel.copyWith(
+        newLogo: null,
+        newBz: bzModel.copyWith(
           isVerified: true,
         ),
     );

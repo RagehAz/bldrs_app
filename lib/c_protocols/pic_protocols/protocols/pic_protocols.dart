@@ -33,6 +33,25 @@ class PicProtocols {
     }
 
   }
+  // --------------------
+  ///
+  static Future<void> composePics(List<PicModel> pics) async {
+
+    if (Mapper.checkCanLoopList(pics) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(pics.length, (index){
+
+          return composePic(pics[index]);
+
+        }),
+
+      ]);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// FETCH
@@ -57,14 +76,53 @@ class PicProtocols {
 
   }
   // --------------------
+  ///
+  static Future<List<PicModel>> fetchPics(List<String> paths) async {
+    final List<PicModel> _output = <PicModel>[];
+
+    if (Mapper.checkCanLoopList(paths) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(paths.length, (index){
+
+          return fetchPic(paths[index]).then((PicModel pic){
+
+            _output.add(pic);
+
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ui.Image> fetchPicUiImage(String path) async {
     final PicModel _picModel = await PicProtocols.fetchPic(path);
     final ui.Image _theImage = await Floaters.getUiImageFromUint8List(_picModel.bytes);
     return _theImage;
   }
+  // --------------------
+  ///
+  static Future<List<PicModel>> refetchPics(List<String> paths) async {
 
+    List<PicModel> _output = <PicModel>[];
 
+    if (Mapper.checkCanLoopList(paths) == true){
+
+      await PicLDBOps.deletePics(paths);
+
+      _output = await fetchPics(paths);
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// DOWNLOAD
@@ -128,7 +186,42 @@ class PicProtocols {
 
     if (picModel != null){
 
-      await composePic(picModel);
+      final PicModel _oldPic = await fetchPic(picModel.path);
+
+      final bool _areIdentical = PicModel.checkPicsAreIdentical(
+          pic1: _oldPic,
+          pic2: picModel,
+      );
+
+      if (_areIdentical == false){
+
+        await Future.wait(<Future>[
+
+          PicStorageOps.updatePic(picModel: picModel),
+
+          PicLDBOps.insertPic(picModel),
+
+        ]);
+
+      }
+
+
+    }
+
+  }
+  // --------------------
+  ///
+  static Future<void> renovatePics(List<PicModel> picModels) async {
+
+    if (Mapper.checkCanLoopList(picModels) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(picModels.length, (index){
+          return renovatePic(picModels[index]);
+        }),
+
+      ]);
 
     }
 

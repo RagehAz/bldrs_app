@@ -163,36 +163,40 @@ class Sembast  {
     /// Note : either updates all existing maps with this primary key "ID"
     /// or inserts new map
 
-    if (allowDuplicateIDs == true){
-      await _addMap(
-        docName: docName,
-        map: map,
-      );
-    }
+    if (map != null){
 
-    else {
-
-      final String _primaryKey = LDBDoc.getPrimaryKey(docName);
-
-      final bool _exists = await checkMapExists(
-        docName: docName,
-        id: map[_primaryKey],
-      );
-
-      /// ADD IF NOT FOUND
-      if (_exists == false){
+      if (allowDuplicateIDs == true){
         await _addMap(
           docName: docName,
           map: map,
         );
       }
 
-      /// UPDATE IF FOUND
       else {
-        await _updateExistingMap(
+
+        final String _primaryKey = LDBDoc.getPrimaryKey(docName);
+
+        final bool _exists = await checkMapExists(
           docName: docName,
-          map: map,
+          id: map[_primaryKey],
         );
+
+        /// ADD IF NOT FOUND
+        if (_exists == false){
+          await _addMap(
+            docName: docName,
+            map: map,
+          );
+        }
+
+        /// UPDATE IF FOUND
+        else {
+          await _updateExistingMap(
+            docName: docName,
+            map: map,
+          );
+        }
+
       }
 
     }

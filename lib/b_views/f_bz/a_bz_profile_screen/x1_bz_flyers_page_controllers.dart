@@ -157,26 +157,12 @@ Future<void> _onDeleteFlyerButtonTap({
       invoker: '_onDeleteFlyerButtonTap',
     );
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
-      listen: false,
-    );
-
-    // final BzModel _updatedBzModel =
-    await FlyerProtocols.wipeTheFlyer(
+    await FlyerProtocols.wipeFlyer(
       context: context,
       flyerModel: flyer,
-      bzModel: _bzModel,
       showWaitDialog: true,
       isDeletingBz: false,
     );
-
-    /// NOTE : live bz stream will auto-update active bz locally
-    // await BzProtocols.updateBzLocally(
-    //     context: context,
-    //     newBzModel: _updatedBzModel,
-    //     oldBzModel: _bzModel
-    // );
 
     await TopDialog.showTopDialog(
       context: context,
