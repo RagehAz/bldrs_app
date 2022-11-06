@@ -151,7 +151,7 @@ class AuthFireOps {
         userModel: _userModel,
       );
 
-      _authModel.blogAuthModel(methodName: 'signInByEmailAndPassword');
+      _authModel.blogAuthModel(invoker: 'signInByEmailAndPassword');
     }
 
     return _authModel;
@@ -382,7 +382,7 @@ class AuthFireOps {
 
     }
     // -----------------------------
-    _authModel.blogAuthModel(methodName: 'signInByGoogle');
+    _authModel.blogAuthModel(invoker: 'signInByGoogle');
     // -----------------------------
     return _authModel;
   }

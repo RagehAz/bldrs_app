@@ -123,7 +123,7 @@ class UserFireOps {
       // blog('lng : ${Wordz.languageCode(context)}');
 
       /// E1 - create initial user model
-      final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
+      final UserModel _initialUserModel = await UserModel.fromFirebaseUser(
         context: context,
         user: user,
         zone: zone,

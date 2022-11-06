@@ -751,10 +751,10 @@ class AuthModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogAuthModel({String methodName = 'AUTH MODEL'}){
+  void blogAuthModel({String invoker = 'AUTH MODEL'}){
 
-    blog('BLOGGING AUTH MODEL   : $methodName -------------------------------------------------------');
-    userModel?.blogUserModel(methodName: 'blogAuthModel');
+    blog('BLOGGING AUTH MODEL   : $invoker -------------------------------------------------------');
+    userModel?.blogUserModel(invoker: 'blogAuthModel');
     blog('bool                  : firstTimer : $firstTimer');
     blog('bool                  : authSucceeds : $authSucceeds');
     blog('String                : authError : $authError');
@@ -819,7 +819,7 @@ class AuthModel {
     blog('String                : googleSignInAccountDisplayName : $googleSignInAccountDisplayName');
     blog('String                : googleSignInAuthenticationIdToken : $googleSignInAuthenticationIdToken');
     blog('String                : googleSignInAuthenticationAccessToken : $googleSignInAuthenticationAccessToken');
-    blog('BLOGGING AUTH MODEL   : $methodName -------------------------------------------------------');
+    blog('BLOGGING AUTH MODEL   : $invoker -------------------------------------------------------');
   }
   // -----------------------------------------------------------------------------
 
