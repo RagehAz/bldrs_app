@@ -202,8 +202,17 @@ class DraftFlyer{
   static Future<FlyerModel> draftToFlyer({
     @required DraftFlyer draft,
     @required bool toLDB,
-    PublishState overridePublishState,
+    /// CORRECTS PUBLISH STATE AND ADDS NEW PUBLISH TIME RECORD
+    bool isPublishing = false,
   }) async {
+
+    final List<PublishTime> _publishTimes = draft.times;
+    if (isPublishing == true){
+      _publishTimes.add(PublishTime(
+        state: PublishState.published,
+        time: DateTime.now(),
+      ));
+    }
 
     return FlyerModel(
       id: draft.id,
@@ -211,7 +220,7 @@ class DraftFlyer{
       trigram: Stringer.createTrigram(input: draft.headline),
       description: draft.description,
       flyerType: draft.flyerType,
-      publishState: overridePublishState ?? draft.publishState,
+      publishState: isPublishing == true ? PublishState.published : draft.publishState,
       auditState: draft.bzModel.isVerified == true ? AuditState.verified : AuditState.pending,
       keywordsIDs: draft.keywordsIDs,
       showsAuthor: draft.showsAuthor,
@@ -221,7 +230,7 @@ class DraftFlyer{
       position: draft.position,
       slides: await DraftSlide.draftsToSlides(draft.draftSlides),
       specs: draft.specs,
-      times: draft.times,
+      times: _publishTimes,
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
       pdfPath: draft.pdfModel == null ? null : StorageColl.getFlyerPDFPath(draft.id),
@@ -516,6 +525,32 @@ class DraftFlyer{
     }
 
     return _draft;
+  }
+  // --------------------
+  ///
+  static DraftFlyer overrideFlyerID({
+    @required DraftFlyer draft,
+    @required String flyerID,
+  }){
+    DraftFlyer _output;
+
+    if (draft != null && flyerID != null){
+
+
+      _output = draft.copyWith(
+        id: flyerID,
+        draftSlides: DraftSlide.overrideDraftsFlyerID(
+          drafts: draft.draftSlides,
+          flyerID: flyerID,
+        ),
+        pdfModel: draft.pdfModel?.copyWith(
+          path: StorageColl.getFlyerPDFPath(flyerID),
+        ),
+      );
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

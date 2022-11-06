@@ -1,6 +1,8 @@
+import 'package:bldrs/a_models/b_bz/mutables/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/compose_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/fetch_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/renovate_bzz.dart';
@@ -17,14 +19,14 @@ class BzProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> composeBz({
     @required BuildContext context,
-    @required BzModel newBzModel,
+    @required DraftBz newDraft,
     @required UserModel userModel,
   }) => ComposeBzProtocols.compose(
     context: context,
-    newBzModel: newBzModel,
+    newDraft: newDraft,
     userModel: userModel,
   );
   // -----------------------------------------------------------------------------
@@ -72,19 +74,21 @@ class BzProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<BzModel> renovateBz({
     @required BuildContext context,
-    @required BzModel newBzModel,
+    @required BzModel newBz,
     @required BzModel oldBzModel,
     @required bool showWaitDialog,
     @required bool navigateToBzInfoPageOnEnd, // should be done in controller not here
+    @required PicModel newLogo,
   }) => RenovateBzProtocols.renovateBz(
     context: context,
-    newBzModel: newBzModel,
+    newBz: newBz,
     oldBzModel: oldBzModel,
     showWaitDialog: showWaitDialog,
     navigateToBzInfoPageOnEnd: navigateToBzInfoPageOnEnd,
+    newPic: newLogo,
   );
   // --------------------
   /// TESTED : WORKS PERFECT

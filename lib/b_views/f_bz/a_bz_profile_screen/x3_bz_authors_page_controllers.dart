@@ -16,11 +16,11 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -328,13 +328,17 @@ Future<void> _removeAuthorWhoHasFlyers({
       flyersIDs: authorModel.flyersIDs,
     );
 
-    final BzModel _updatedBzModel = await FlyerProtocols.wipeFlyers(
+    await FlyerProtocols.wipeFlyers(
       context: context,
       bzModel: bzModel,
       showWaitDialog: false,
-      updateBzEveryWhere: false,
       flyers: _flyers,
       isDeletingBz: false,
+    );
+
+    final BzModel _updatedBzModel = await BzProtocols.fetch(
+        context: context,
+        bzID: bzModel.id,
     );
 
     /// REMOVE AUTHOR MODEL FROM BZ MODEL
@@ -344,11 +348,13 @@ Future<void> _removeAuthorWhoHasFlyers({
     );
 
     /// UPDATE BZ ON FIREBASE
-    await BzFireOps.updateBz(
-        context: context,
-        newBzModel: _bzWithoutAuthor,
-        oldBzModel: bzModel,
-        authorPicFile: null
+    await BzProtocols.renovateBz(
+      context: context,
+      newBz: _bzWithoutAuthor,
+      oldBzModel: bzModel,
+      navigateToBzInfoPageOnEnd: false,
+      showWaitDialog: false,
+      newLogo: null,
     );
 
 

@@ -370,6 +370,7 @@ class SpecModel {
   /// GETTERS
 
   // --------------------
+  ///
   static List<SpecModel> getSpecsBelongingToThisPicker({
     @required List<SpecModel> specs,
     @required PickerModel picker,
@@ -402,6 +403,7 @@ class SpecModel {
     return _result;
   }
   // --------------------
+  ///
   static List<SpecModel> getSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -419,6 +421,7 @@ class SpecModel {
     return _result;
   }
   // --------------------
+  ///
   static SpecModel getFirstSpecFromSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -445,6 +448,27 @@ class SpecModel {
 
         if (spec.value is String){
           _output.add(spec.value);
+        }
+
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<SpecModel> getChainKSpecs(List<SpecModel> specs){
+    final List<SpecModel> _output = <SpecModel>[];
+
+    if (Mapper.checkCanLoopList(specs) == true){
+      for (final SpecModel spec in specs){
+
+        final bool _specIsKeywordID = SpecModel.checkSpecIsFromChainK(
+          spec: spec,
+        );
+
+        if (_specIsKeywordID == true){
+          _output.add(spec);
         }
 
       }
@@ -601,6 +625,7 @@ class SpecModel {
     return _output;
   }
   // --------------------
+  ///
   static List<SpecModel> generateSpecsByPhids({
     @required BuildContext context,
     @required List<String> phids,

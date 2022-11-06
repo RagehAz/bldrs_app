@@ -62,6 +62,26 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
 
 
+    /// TASK : TEST THIS
+    //
+    // static Future<void> doFutures({
+    //   @required List<dynamic> things,
+    //   @required Function(int index) function,
+    // }) async {
+    //
+    //   if (Mapper.checkCanLoopList(things) == true){
+    //
+    //     await Future.wait(<Future>[
+    //
+    //       ...List.generate(things.length, (index){
+    //
+    //         return function(index);
+    //
+    //       }),
+    //
+    //     ]);
+    //
+    //   }
 
 
 
@@ -79,9 +99,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
 
 
-
-
-  }
+    }
   // -------------------------------------------------
   /// ======================================================================[ ]
 
