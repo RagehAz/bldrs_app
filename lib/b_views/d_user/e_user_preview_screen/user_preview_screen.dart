@@ -28,12 +28,12 @@ class UserPreviewScreen extends StatelessWidget {
       layoutWidget: PullToRefresh(
         onRefresh: () async {
 
-          final UserModel _userModel = await UserProtocols.refetchUser(
+          final UserModel _userModel = await UserProtocols.refetch(
               context: context,
               userID: userModel.id,
           );
 
-          final bool _identical = UserModel.checkUsersAreIdentical(
+          final bool _identical = UserModel.usersAreIdentical(
               user1: userModel,
               user2: _userModel,
           );

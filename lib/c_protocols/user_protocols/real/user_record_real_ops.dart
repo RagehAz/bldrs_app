@@ -17,7 +17,9 @@ class UserRecordRealOps {
   /// USER SEARCHES
 
   // --------------------
-  /// CREATION
+
+  /// CREATE SEARCH
+
   // ----------
   static Future<RecordModel> createUserSearchRecord({
     @required String searchText,
@@ -43,30 +45,27 @@ class UserRecordRealOps {
     blog('UserRecordOps.createUserSearchRecord : END');
     return _uploadedRecord;
   }
-  // --------------------
-  /// READING
+  // -------------------
+
+  /// READ SEARCHES
+
   // ----------
   ///
   // --------------------
-  /// DELETION
+
+  /// DELETE SEARCHES
+
   // ----------
+  ///
   static Future<void> deleteAllUserRecords({
     @required String userID,
   }) async {
 
-    /// SHARES
+    /// SEARCHES
     await Real.deleteDoc(
       collName: RealColl.recordingSearches,
       docName: userID,
     );
-
-    /// PLAN : USER COUNTERS DELETION IS HERE
-    // /// USER COUNTERS
-    // await Real.deleteDoc(
-    //   context: context,
-    //   collName: RealColl.userCounters,
-    //   docName: userID,
-    // );
 
   }
   // -----------------------------------------------------------------------------

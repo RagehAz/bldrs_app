@@ -76,7 +76,7 @@ class FlyerRecordsBox extends StatelessWidget {
                   itemBuilder: (_, int index){
 
                     return FutureBuilder(
-                      future: UserProtocols.fetchUser(context: context, userID: _records[index].userID),
+                      future: UserProtocols.fetch(context: context, userID: _records[index].userID),
                       builder: (_, AsyncSnapshot<dynamic> snapshot){
 
                         final UserModel _user = snapshot.data;

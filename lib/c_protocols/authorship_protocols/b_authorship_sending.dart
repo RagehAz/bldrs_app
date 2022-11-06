@@ -129,7 +129,7 @@ class AuthorshipSendingProtocols {
   }) async {
 
     /// get that user to send him cancellation note
-    final UserModel userModelToSendTo = await UserProtocols.fetchUser(
+    final UserModel userModelToSendTo = await UserProtocols.fetch(
       context: context,
       userID: pendingUserID,
     );

@@ -25,8 +25,9 @@ Future<void> autoDeleteThisBzIDFromMyFollowedBzzIDs({
     bzIDToUnFollow: bzID,
   );
 
-  await UserProtocols.renovateMyUserModel(
+  await UserProtocols.renovate(
     context: context,
+    newPic: null,
     newUserModel: _myUpdatedModel,
   );
 
