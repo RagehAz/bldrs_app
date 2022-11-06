@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
@@ -13,9 +13,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -486,7 +484,7 @@ Future<bool> _preFlyerUpdateCheck({
 /// PUBLISHING
 
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> _publishFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
@@ -500,28 +498,16 @@ Future<void> _publishFlyerOps({
     ),
   ));
 
-  final FlyerModel _flyerToPublish = await DraftFlyer.draftToFlyer(
-    draft: draft.value,
-    overridePublishState: PublishState.published,
-    toLDB: false,
-  );
-
-  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-    context: context,
-    listen: false,
-  );
-
   await FlyerProtocols.composeFlyer(
     context: context,
-    flyerModel: _flyerToPublish,
-    bzModel: _bzModel,
+    draftFlyer: draft.value,
   );
 
   await WaitDialog.closeWaitDialog(context);
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> _updateFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
@@ -536,28 +522,21 @@ Future<void> _updateFlyerOps({
     ),
   ));
 
-  final FlyerModel _flyerToUpdate = await DraftFlyer.draftToFlyer(
-    draft: draft.value,
-    toLDB: false,
-  );
-
-  final BzModel _bzModel = await BzProtocols.fetch(
+  final bool _imALoneAuthor = await AuthorModel.checkImALoneAuthor(
     context: context,
     bzID: oldFlyer.bzID,
   );
 
-  await FlyerProtocols.renovateFlyer(
+  await FlyerProtocols.renovate(
     context: context,
-    newFlyer: _flyerToUpdate,
+    newDraft: draft.value,
     oldFlyer: oldFlyer,
-    bzModel: _bzModel,
-    sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
-    updateFlyerLocally: _bzModel.authors.length == 1,
-    resetActiveBz: _bzModel.authors.length == 1,
+    sendFlyerUpdateNoteToItsBz: !_imALoneAuthor,
+    updateFlyerLocally: _imALoneAuthor,
+    resetActiveBz: _imALoneAuthor,
   );
 
   await WaitDialog.closeWaitDialog(context);
-
 
 }
 // -----------------------------------------------------------------------------

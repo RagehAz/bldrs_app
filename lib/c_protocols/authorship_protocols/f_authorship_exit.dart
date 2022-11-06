@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
@@ -149,15 +150,23 @@ class AuthorshipExitProtocols {
       authorID: author.userID,
     );
 
-    /// UPDATE BZ ON FIREBASE
-    await BzFireOps.updateBz(
-        context: context,
-        newBzModel: _updatedBzModel,
-        oldBzModel: bzModel,
-        authorPicFile: null
-    );
+    await Future.wait(<Future>[
 
-    /// NOTE : no need to update bz locally here as bz stream listener does the job
+      /// WIPE AUTHOR PIC
+      PicProtocols.wipePic(author.picPath),
+
+      /// UPDATE BZ ON FIREBASE
+      BzProtocols.renovateBz(
+        context: context,
+        newBz: _updatedBzModel,
+        oldBzModel: bzModel,
+        showWaitDialog: false,
+        navigateToBzInfoPageOnEnd: false,
+        newLogo: null,
+      ),
+
+    ]);
+
 
     blog('WipeAuthorProtocols.removeFlyerlessAuthorProtocol : END');
 

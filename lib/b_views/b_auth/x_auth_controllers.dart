@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -23,6 +22,7 @@ import 'package:provider/provider.dart';
 /// AUTHENTICATORS
 
 // --------------------
+/*
 Future<void> authByGoogle(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -38,7 +38,9 @@ Future<void> authByGoogle(BuildContext context) async {
   );
 
 }
+ */
 // --------------------
+/*
 Future<void> authByFacebook(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -54,6 +56,8 @@ Future<void> authByFacebook(BuildContext context) async {
   );
 
 }
+
+ */
 // --------------------
 /// PLAN : FIX ME
 Future<void> authByApple(BuildContext context) async {

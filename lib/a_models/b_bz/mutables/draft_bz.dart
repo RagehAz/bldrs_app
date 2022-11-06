@@ -92,7 +92,7 @@ class DraftBz {
   final bool firstTimer;
   // -----------------------------------------------------------------------------
 
-  /// INITIALIZATION
+  /// CREATION
 
   // -------------------
   ///
@@ -259,7 +259,157 @@ class DraftBz {
     );
 
   }
+  // --------------------
+  ///
+  static DraftBz reAttachNodes({
+    @required DraftBz draftFromLDB,
+    @required DraftBz draftWithNodes,
+  }){
+    return draftFromLDB.copyWith(
+      nameNode: draftWithNodes.nameNode,
+      aboutNode: draftWithNodes.aboutNode,
+      emailNode: draftWithNodes.emailNode,
+      websiteNode: draftWithNodes.websiteNode,
+      phoneNode: draftWithNodes.phoneNode,
+      formKey: draftWithNodes.formKey,
+    );
+  }
+  // -----------------------------------------------------------------------------
 
+  /// CYPHERS
+
+  // -------------------
+  ///
+  static BzModel toBzModel(DraftBz draft){
+
+    assert(draft != null, 'Draft can not be null');
+
+    return BzModel(
+      /// WILL BE OVERRIDDEN
+      id: draft.id,
+      createdAt: draft.createdAt,
+
+      /// MIGHT HAVE CHANGED
+      bzTypes: draft.bzTypes,
+      bzForm: draft.bzForm,
+      name: draft.name,
+      trigram: Stringer.createTrigram(input: draft.name),
+      logoPath: draft.logoPicModel.path,
+      scope: SpecModel.getSpecsIDs(draft.scopeSpecs),
+      zone: draft.zone,
+      about: draft.about,
+      position: draft.position,
+      contacts: ContactModel.bakeContactsAfterEditing(
+        contacts: draft.contacts,
+        countryID: draft.zone.countryID,
+      ),
+
+      /// NEVER CHANGED IN BZ EDITOR
+      accountType: draft.accountType,
+      authors: draft.authors,
+      pendingAuthors: draft.pendingAuthors,
+      showsTeam: draft.showsTeam,
+      isVerified: draft.isVerified,
+      bzState: draft.bzState,
+      flyersIDs: draft.flyersIDs,
+    );
+
+  }
+  // --------------------
+  ///
+  Map<String, dynamic> toLDB(){
+
+    return {
+      'id': id,
+      'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
+      'accountType': BzTyper.cipherBzAccountType(accountType),
+      'name': name,
+      'trigram': trigram,
+      'zone': zone?.toMap(),
+      'about': about,
+      'position': Atlas.cipherGeoPoint(point: position, toJSON: true),
+      'contacts': ContactModel.cipherContacts(contacts),
+      'authors': AuthorModel.cipherAuthors(authors),
+      'pendingAuthors': PendingAuthor.cipherPendingAuthors(pendingAuthors),
+      'showsTeam': showsTeam,
+      'isVerified': isVerified,
+      'bzState': BzTyper.cipherBzState(bzState),
+      'flyersIDs': flyersIDs,
+      'bzSection': bzSection,
+      'bzTypes': BzTyper.cipherBzTypes(bzTypes),
+      'inactiveBzTypes': inactiveBzTypes,
+      'bzForm': BzTyper.cipherBzForm(bzForm),
+      'inactiveBzForms': inactiveBzForms,
+      'scope': scope,
+      'scopeSpecs': scopeSpecs,
+      'logoPicModel': PicModel.cipherToLDB(logoPicModel),
+      'hasNewLogo': hasNewLogo,
+      'canPickImage': canPickImage,
+      'canValidate': canValidate,
+      // 'nameNode': nameNode,
+      // 'aboutNode': aboutNode,
+      // 'emailNode': emailNode,
+      // 'websiteNode': websiteNode,
+      // 'phoneNode': phoneNode,
+      // 'formKey': formKey,
+      'firstTimer': firstTimer,
+    };
+
+  }
+  // --------------------
+  ///
+  static DraftBz fromLDB({
+    @required BuildContext context,
+    @required Map<String, dynamic> map,
+  }){
+
+    final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
+    final BzSection _bzSection = BzTyper.concludeBzSectionByBzTypes(_bzTypes);
+    final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
+
+    return DraftBz(
+      id: map['id'],
+      createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
+      accountType: BzTyper.decipherBzAccountType(map['accountType']),
+      name: map['name'],
+      trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+      zone: ZoneModel.decipherZone(map['zone']),
+      about: map['about'],
+      position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
+      contacts: ContactModel.decipherContacts(map['contacts']),
+      authors: AuthorModel.decipherAuthors(map['authors']),
+      pendingAuthors: PendingAuthor.decipherPendingAuthors(map['pendingAuthors']),
+      showsTeam: map['showsTeam'],
+      isVerified: map['isVerified'],
+      bzState: BzTyper.decipherBzState(map['bzState']),
+      flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
+      bzSection: _bzSection,
+      bzTypes: _bzTypes,
+      inactiveBzTypes: BzTyper.concludeDeactivatedBzTypesBySection(
+        bzSection: _bzSection,
+        initialBzTypes: _bzTypes,
+      ),
+      bzForm: BzTyper.decipherBzForm(map['bzForm']),
+      inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(_bzTypes),
+      scope: _scope,
+      scopeSpecs: SpecModel.generateSpecsByPhids(
+        context: context,
+        phids: _scope,
+      ),
+      logoPicModel: PicModel.decipherFromLDB(map['logoPicModel']),
+      hasNewLogo: map['hasNewLogo'],
+      canPickImage: true,
+      canValidate: false,
+      nameNode: null,
+      aboutNode: null,
+      emailNode: null,
+      websiteNode: null,
+      phoneNode: null,
+      formKey: null,
+      firstTimer: map['firstTimer'],
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -410,159 +560,6 @@ class DraftBz {
   }
   // -----------------------------------------------------------------------------
 
-  /// CYPHERS
-  ///
-  // -------------------
-  ///
-  static BzModel toBzModel({
-    @required DraftBz draft,
-  }){
-
-    assert(draft != null, 'Draft can not be null');
-
-    return BzModel(
-      /// WILL BE OVERRIDDEN
-      id: draft.id,
-      createdAt: draft.createdAt,
-
-      /// MIGHT HAVE CHANGED
-      bzTypes: draft.bzTypes,
-      bzForm: draft.bzForm,
-      name: draft.name,
-      trigram: Stringer.createTrigram(input: draft.name),
-      logoPath: draft.logoPicModel.path,
-      scope: SpecModel.getSpecsIDs(draft.scopeSpecs),
-      zone: draft.zone,
-      about: draft.about,
-      position: draft.position,
-      contacts: ContactModel.bakeContactsAfterEditing(
-        contacts: draft.contacts,
-        countryID: draft.zone.countryID,
-      ),
-
-      /// NEVER CHANGED IN BZ EDITOR
-      accountType: draft.accountType,
-      authors: draft.authors,
-      pendingAuthors: draft.pendingAuthors,
-      showsTeam: draft.showsTeam,
-      isVerified: draft.isVerified,
-      bzState: draft.bzState,
-      flyersIDs: draft.flyersIDs,
-    );
-
-  }
-  // --------------------
-
-  Map<String, dynamic> toLDB(){
-
-    return {
-      'id': id,
-      'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
-      'accountType': BzTyper.cipherBzAccountType(accountType),
-      'name': name,
-      'trigram': trigram,
-      'zone': zone?.toMap(),
-      'about': about,
-      'position': Atlas.cipherGeoPoint(point: position, toJSON: true),
-      'contacts': ContactModel.cipherContacts(contacts),
-      'authors': AuthorModel.cipherAuthors(authors),
-      'pendingAuthors': PendingAuthor.cipherPendingAuthors(pendingAuthors),
-      'showsTeam': showsTeam,
-      'isVerified': isVerified,
-      'bzState': BzTyper.cipherBzState(bzState),
-      'flyersIDs': flyersIDs,
-      'bzSection': bzSection,
-      'bzTypes': BzTyper.cipherBzTypes(bzTypes),
-      'inactiveBzTypes': inactiveBzTypes,
-      'bzForm': BzTyper.cipherBzForm(bzForm),
-      'inactiveBzForms': inactiveBzForms,
-      'scope': scope,
-      'scopeSpecs': scopeSpecs,
-      'logoPicModel': PicModel.cipherToLDB(logoPicModel),
-      'hasNewLogo': hasNewLogo,
-      'canPickImage': canPickImage,
-      'canValidate': canValidate,
-      // 'nameNode': nameNode,
-      // 'aboutNode': aboutNode,
-      // 'emailNode': emailNode,
-      // 'websiteNode': websiteNode,
-      // 'phoneNode': phoneNode,
-      // 'formKey': formKey,
-      'firstTimer': firstTimer,
-    };
-
-  }
-  // --------------------
-
-  static DraftBz fromLDB({
-    @required BuildContext context,
-    @required Map<String, dynamic> map,
-  }){
-
-    final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
-    final BzSection _bzSection = BzTyper.concludeBzSectionByBzTypes(_bzTypes);
-    final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
-
-    return DraftBz(
-    id: map['id'],
-    createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
-    accountType: BzTyper.decipherBzAccountType(map['accountType']),
-    name: map['name'],
-    trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
-    zone: ZoneModel.decipherZone(map['zone']),
-    about: map['about'],
-    position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
-    contacts: ContactModel.decipherContacts(map['contacts']),
-    authors: AuthorModel.decipherAuthors(map['authors']),
-    pendingAuthors: PendingAuthor.decipherPendingAuthors(map['pendingAuthors']),
-    showsTeam: map['showsTeam'],
-    isVerified: map['isVerified'],
-    bzState: BzTyper.decipherBzState(map['bzState']),
-    flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
-    bzSection: _bzSection,
-    bzTypes: _bzTypes,
-    inactiveBzTypes: BzTyper.concludeDeactivatedBzTypesBySection(
-      bzSection: _bzSection,
-      initialBzTypes: _bzTypes,
-    ),
-    bzForm: BzTyper.decipherBzForm(map['bzForm']),
-    inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(_bzTypes),
-    scope: _scope,
-    scopeSpecs: SpecModel.generateSpecsByPhids(
-      context: context,
-      phids: _scope,
-    ),
-    logoPicModel: PicModel.decipherFromLDB(map['logoPicModel']),
-    hasNewLogo: map['hasNewLogo'],
-    canPickImage: true,
-    canValidate: false,
-    nameNode: null,
-    aboutNode: null,
-    emailNode: null,
-    websiteNode: null,
-    phoneNode: null,
-    formKey: null,
-    firstTimer: map['firstTimer'],
-    );
-
-  }
-  // --------------------
-
-  static DraftBz reAttachNodes({
-    @required DraftBz draftFromLDB,
-    @required DraftBz draftWithNodes,
-  }){
-    return draftFromLDB.copyWith(
-      nameNode: draftWithNodes.nameNode,
-      aboutNode: draftWithNodes.aboutNode,
-      emailNode: draftWithNodes.emailNode,
-      websiteNode: draftWithNodes.websiteNode,
-      phoneNode: draftWithNodes.phoneNode,
-      formKey: draftWithNodes.formKey,
-    );
-  }
-  // -----------------------------------------------------------------------------
-
   /// DISPOSING
 
   // -------------------
@@ -576,7 +573,62 @@ class DraftBz {
   }
   // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// MODIFIERS
+
+  // -------------------
+  ///
+  static DraftBz overrideBzID({
+    @required DraftBz draft,
+    @required String bzID,
+  }){
+    DraftBz _output;
+
+    if (draft != null && bzID != null){
+
+      final List<AuthorModel> _authors = AuthorModel.overrideAuthorsBzID(
+        authors: draft.authors,
+        bzID: bzID,
+      );
+
+      final PicModel _picModel = draft.logoPicModel?.copyWith(
+        path: StorageColl.getBzLogoPath(bzID),
+      );
+
+      _output = draft.copyWith(
+        id: bzID,
+        authors: _authors,
+        logoPicModel: _picModel,
+      );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // -------------------
+  ///
+  String getLogoPath(){
+
+    if (firstTimer == true){
+      return null;
+    }
+    else {
+      return StorageColl.getBzLogoPath(id);
+    }
+
+  }
+  // -------------------
+  ///
+  List<String> getLogoOwners(){
+    final AuthorModel _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
+    return <String>[_author?.userID];
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
 
   // -------------------
   ///
@@ -593,7 +645,7 @@ class DraftBz {
     else if (draft1 != null && draft2 != null){
 
       if (
-          draft1.id == draft2.id &&
+      draft1.id == draft2.id &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: draft1.createdAt, time2: draft2.createdAt) == true &&
           draft1.accountType == draft2.accountType &&
           draft1.name == draft2.name &&
@@ -620,12 +672,12 @@ class DraftBz {
           draft1.canPickImage == draft2.canPickImage &&
           draft1.canValidate == draft2.canValidate &&
           draft1.firstTimer == draft2.firstTimer
-          // FocusNode nameNode,
-          // FocusNode aboutNode,
-          // FocusNode emailNode,
-          // FocusNode websiteNode,
-          // FocusNode phoneNode,
-          // GlobalKey<FormState> formKey,
+      // FocusNode nameNode,
+      // FocusNode aboutNode,
+      // FocusNode emailNode,
+      // FocusNode websiteNode,
+      // FocusNode phoneNode,
+      // GlobalKey<FormState> formKey,
       ){
         _areIdentical = true;
       }
@@ -633,28 +685,6 @@ class DraftBz {
     }
 
     return _areIdentical;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// GETTERS
-
-  // -------------------
-  ///
-  String getLogoPath(){
-
-    if (firstTimer == true){
-      return null;
-    }
-    else {
-      return StorageColl.getBzLogoPath(id);
-    }
-
-  }
-  // -------------------
-  ///
-  List<String> getLogoOwners(){
-    final AuthorModel _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
-    return <String>[_author?.userID];
   }
   // -----------------------------------------------------------------------------
 

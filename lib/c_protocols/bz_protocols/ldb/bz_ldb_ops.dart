@@ -17,9 +17,7 @@ class BzLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertBz({
-    @required BzModel bzModel,
-  }) async {
+  static Future<void> insertBz(BzModel bzModel) async {
 
     await LDBOps.insertMap(
       docName: LDBDoc.bzz,

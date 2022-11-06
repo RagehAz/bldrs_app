@@ -949,6 +949,22 @@ class FlyerModel {
 
     return _owners;
   }
+  // --------------------
+  ///
+  static List<String> getPicsPaths(FlyerModel flyer){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(flyer?.slides) == true){
+
+      for (final SlideModel slide in flyer?.slides){
+        _output.add(slide.picPath);
+      }
+
+    }
+
+    return _output;
+
+  }
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

@@ -1,18 +1,19 @@
 import 'dart:async';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -30,42 +31,54 @@ class RenovateBzProtocols {
   /// BZ RENOVATION
 
 // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<BzModel> renovateBz({
+  ///
+  static Future<void> renovateBz({
     @required BuildContext context,
-    @required BzModel newBzModel,
+    @required BzModel newBz,
     @required BzModel oldBzModel,
     @required bool showWaitDialog,
     @required bool navigateToBzInfoPageOnEnd,
+    @required PicModel newPic,
   }) async {
     blog('RenovateBzProtocol.renovateBz : START');
 
-    if (showWaitDialog == true){
-      unawaited(WaitDialog.showWaitDialog(
-        context: context,
-        loadingVerse: const Verse(
-          text: 'phid_updating_bz_account',
-          translate: true,
-        ),
-      ));
-    }
-
-    /// FIRE
-    final BzModel _uploadedBzModel = await BzFireOps.updateBz(
-      context: context,
-      newBzModel: newBzModel,
-      oldBzModel: oldBzModel,
-      authorPicFile: null,
+    final bool _areIdentical = BzModel.checkBzzAreIdentical(
+      bz1: newBz,
+      bz2: oldBzModel,
     );
 
-    /// ON SUCCESS
-    if (_uploadedBzModel != null){
+    if (_areIdentical == false){
 
-      await updateBzLocally(
+      /// WAIT DIALOG
+      if (showWaitDialog == true){
+        unawaited(WaitDialog.showWaitDialog(
           context: context,
-          newBzModel: _uploadedBzModel,
-          oldBzModel: oldBzModel
-      );
+          loadingVerse: const Verse(
+            text: 'phid_updating_bz_account',
+            translate: true,
+          ),
+        ));
+      }
+
+      /// UPLOAD
+      await Future.wait(<Future>[
+
+        /// UPDATE BZ DOC
+        BzFireOps.update(newBz),
+
+        /// UPDATE BZ LOGO
+        if (newPic != null)
+          PicProtocols.renovatePic(newPic),
+
+        /// UPDATE LOCALLY
+        updateBzLocally(
+            context: context,
+            newBzModel: newBz,
+            oldBzModel: oldBzModel
+        ),
+
+      ]);
+
 
       /// CLOSE WAIT DIALOG
       if (showWaitDialog == true){
@@ -108,22 +121,21 @@ class RenovateBzProtocols {
 
       }
 
-    }
-
-    /// ON FAILURE
-    else {
-
-      /// CLOSE WAIT DIALOG
-      if (showWaitDialog == true){
-        await WaitDialog.closeWaitDialog(context);
-      }
-
-      await _failureDialog(context);
+      // /// ON FAILURE
+      // else {
+      //
+      //   /// CLOSE WAIT DIALOG
+      //   if (showWaitDialog == true){
+      //     await WaitDialog.closeWaitDialog(context);
+      //   }
+      //
+      //   await _failureDialog(context);
+      //
+      // }
 
     }
 
     blog('RenovateBzProtocol.renovateBz : END');
-    return _uploadedBzModel;
   }
 // --------------------
   /// TESTED : WORKS PERFECT
@@ -206,6 +218,7 @@ class RenovateBzProtocols {
     return _output;
   }
 // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<void> _failureDialog(BuildContext context) async {
 
@@ -224,6 +237,7 @@ class RenovateBzProtocols {
     );
 
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// AUTHOR RENOVATION
@@ -243,23 +257,27 @@ class RenovateBzProtocols {
       bzModel: oldBzModel,
     );
 
-    final BzModel _uploadedBzModel =  await BzFireOps.updateBz(
-      context: context,
-      newBzModel: _updatedBzModel,
-      oldBzModel: oldBzModel,
-      authorPicFile: ObjectCheck.objectIsFile(newAuthorModel.picPath) == true ? newAuthorModel.picPath : null,
-    );
+    await Future.wait(<Future>[
 
-    /// no need to do that as stream listener does it
-    // await myActiveBzLocalUpdateProtocol(
-    //   context: context,
-    //   newBzModel: _uploadedModel,
-    //   oldBzModel: _bzModel,
-    // );
+      /// UPDATE AUTHOR PIC
+      PicProtocols.renovatePic(newAuthorModel.picModel),
+
+      /// UPDATE BZ ON FIREBASE
+      BzProtocols.renovateBz(
+        context: context,
+        newBz: _updatedBzModel,
+        oldBzModel: oldBzModel,
+        showWaitDialog: false,
+        navigateToBzInfoPageOnEnd: false,
+        newLogo: null,
+      ),
+
+
+    ]);
 
     blog('RenovateBzProtocols.renovateAuthor : END');
 
-    return _uploadedBzModel;
+    return _updatedBzModel;
   }
   // -----------------------------------------------------------------------------
 }

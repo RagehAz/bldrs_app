@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/fetch_flyers.dart';
@@ -23,15 +24,13 @@ class FlyerProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> composeFlyer({
     @required BuildContext context,
-    @required FlyerModel flyerModel,
-    @required BzModel bzModel,
+    @required DraftFlyer draftFlyer,
   }) => ComposeFlyerProtocols.compose(
     context: context,
-    flyerToPublish: flyerModel,
-    bzModel: bzModel,
+    draftFlyer: draftFlyer,
   );
   // -----------------------------------------------------------------------------
 
@@ -125,7 +124,7 @@ class FlyerProtocols {
     return _flyer;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<FlyerModel> refetch({
     @required BuildContext context,
     @required  String flyerID,
@@ -135,7 +134,18 @@ class FlyerProtocols {
 
     if (flyerID != null){
 
-      await FlyerLDBOps.deleteFlyers(<String>[flyerID]);
+      final FlyerModel _flyerModel = await fetchFlyer(
+          context: context,
+          flyerID: flyerID,
+      );
+
+      await Future.wait(<Future>[
+
+        FlyerLDBOps.deleteFlyers(<String>[flyerID]),
+
+        PicProtocols.refetchPics(FlyerModel.getPicsPaths(_flyerModel)),
+
+      ]);
 
       _output = await fetchFlyer(
           context: context,
@@ -151,20 +161,18 @@ class FlyerProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> renovateFlyer({
+  ///
+  static Future<void> renovate({
     @required BuildContext context,
-    @required FlyerModel newFlyer,
+    @required DraftFlyer newDraft,
     @required FlyerModel oldFlyer,
-    @required BzModel bzModel,
     @required bool sendFlyerUpdateNoteToItsBz,
     @required bool updateFlyerLocally,
     @required bool resetActiveBz,
   }) => RenovateFlyerProtocols.renovate(
     context: context,
-    newFlyer: newFlyer,
+    newDraft: newDraft,
     oldFlyer: oldFlyer,
-    bzModel: bzModel,
     sendFlyerUpdateNoteToItsBz: sendFlyerUpdateNoteToItsBz,
     updateFlyerLocally: updateFlyerLocally,
     resetActiveBz: resetActiveBz,
@@ -187,35 +195,31 @@ class FlyerProtocols {
   /// WIPE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<BzModel> wipeTheFlyer({
+  ///
+  static Future<void> wipeFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
-    @required BzModel bzModel,
     @required bool showWaitDialog,
     @required bool isDeletingBz,
   }) => WipeFlyerProtocols.wipeFlyer(
     context: context,
     flyerModel: flyerModel,
-    bzModel: bzModel,
     showWaitDialog: showWaitDialog,
     isDeletingBz: isDeletingBz,
   );
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<BzModel> wipeFlyers({
+  ///
+  static Future<void> wipeFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
     @required List<FlyerModel> flyers,
     @required bool showWaitDialog,
-    @required bool updateBzEveryWhere,
     @required bool isDeletingBz,
-  }) => WipeFlyerProtocols.wipeMultipleFlyers(
+  }) => WipeFlyerProtocols.wipeFlyers(
     context: context,
     bzModel: bzModel,
     flyers: flyers,
     showWaitDialog: showWaitDialog,
-    updateBzEveryWhere: updateBzEveryWhere,
     isDeletingBz: isDeletingBz,
   );
   // --------------------
@@ -256,7 +260,7 @@ class FlyerProtocols {
         if (ObjectCheck.objectIsUiImage(_firstSlide.picPath) == false){
           final ui.Image _image = await PicProtocols.fetchPicUiImage(_firstSlide.picPath); // is path
           _firstSlide = _firstSlide.copyWith(
-            picPath: _image,
+            uiImage: _image,
           );
         }
 
@@ -299,7 +303,7 @@ class FlyerProtocols {
           else {
             final ui.Image _image = await PicProtocols.fetchPicUiImage(_slide.picPath); // is path
             final SlideModel _updatedSlide = _slide.copyWith(
-              picPath: _image,
+              uiImage: _image,
             );
             _flyerSlides.add(_updatedSlide);
           }

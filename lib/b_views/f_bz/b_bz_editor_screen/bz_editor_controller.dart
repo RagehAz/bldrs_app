@@ -147,15 +147,11 @@ Future<void> _uploadDraftBz({
   @required BzModel oldBz,
 }) async {
 
-  final BzModel _newBzModel = DraftBz.toBzModel(
-      draft: draftNotifier.value,
-  );
-
   /// CREATING NEW BZ
   if (draftNotifier.value.firstTimer == true){
     await BzProtocols.composeBz(
       context: context,
-      newBzModel: _newBzModel,
+      newDraft: draftNotifier.value,
       userModel: UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
@@ -167,10 +163,11 @@ Future<void> _uploadDraftBz({
   else {
     await BzProtocols.renovateBz(
       context: context,
-      newBzModel: _newBzModel,
+      newBz: DraftBz.toBzModel(draftNotifier.value),
       oldBzModel: oldBz,
       showWaitDialog: true,
       navigateToBzInfoPageOnEnd: true,
+      newLogo: draftNotifier.value.hasNewLogo == true ? draftNotifier.value.logoPicModel : null,
     );
   }
 
