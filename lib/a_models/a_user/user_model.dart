@@ -1,24 +1,16 @@
-import 'dart:typed_data';
-
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -29,13 +21,6 @@ import 'package:flutter/material.dart';
 enum Gender {
   male,
   female,
-}
-
-enum UserTab {
-  profile,
-  notifications,
-  following,
-  settings,
 }
 
 @immutable
@@ -94,11 +79,11 @@ class UserModel {
   final DocumentSnapshot docSnapshot;
   // -----------------------------------------------------------------------------
 
-  /// INITIALIZATION
+  /// CREATION
 
   // --------------------
   ///
-  static Future<UserModel> createInitialUserModelFromUser({
+  static Future<UserModel> fromFirebaseUser({
     @required BuildContext context,
     @required User user,
     @required ZoneModel zone,
@@ -106,15 +91,7 @@ class UserModel {
   }) async {
 
     assert(!user.isAnonymous, 'user must not be anonymous');
-    blog('createInitialUserModelFromUser : !_user.isAnonymous : ${!user.isAnonymous}');
-
     assert(await user.getIdToken() != null, 'user token must not be null');
-    blog('createInitialUserModelFromUser : _user.getIdToken() != null : ${user.getIdToken() != null}');
-
-    await _composeUserImageFromUserPicURL(
-      picURL: user.photoURL,
-      userID: user.uid,
-    );
 
     final UserModel _userModel = UserModel(
       id: user.uid,
@@ -147,143 +124,9 @@ class UserModel {
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
-    _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
+    _userModel.blogUserModel(invoker: 'fromFirebaseUser');
 
     return _userModel;
-  }
-  // --------------------
-  ///
-  static Future<void> _composeUserImageFromUserPicURL({
-    @required String picURL,
-    @required String userID,
-  }) async {
-
-    if (TextCheck.isEmpty(picURL) == false){
-
-      final Uint8List _bytes = await StorageByteOps.readBytesByURL(picURL);
-      final Dimensions _dims = await PicModel.getDimensions(_bytes);
-      
-      await PicProtocols.composePic(PicModel(
-        bytes: _bytes,
-        path: StorageColl.getUserPicPath(userID),
-        meta: PicMetaModel(
-          ownersIDs: [userID],
-          dimensions: _dims,
-        ),
-      ));
-
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CLONING
-
-  // --------------------
-  /// TAMAM : WORKS PERFECT
-  UserModel copyWith({
-    String id,
-    AuthType authBy,
-    DateTime createdAt,
-    NeedModel need,
-    String name,
-    List<String> trigram,
-    String picPath,
-    String title,
-    String company,
-    Gender gender,
-    ZoneModel zone,
-    String language,
-    GeoPoint location,
-    List<ContactModel> contacts,
-    bool contactsArePublic,
-    List<String> myBzzIDs,
-    bool emailIsVerified,
-    bool isAdmin,
-    DeviceModel device,
-    List<String> savedFlyersIDs,
-    List<String> followedBzzIDs,
-    AppState appState,
-    List<String> fcmTopics,
-  }){
-    return UserModel(
-      id: id ?? this.id,
-      authBy: authBy ?? this.authBy,
-      createdAt: createdAt ?? this.createdAt,
-      need: need ?? this.need,
-      name: name ?? this.name,
-      trigram: trigram ?? this.trigram,
-      picPath: picPath ?? this.picPath,
-      title: title ?? this.title,
-      company: company ?? this.company,
-      gender: gender ?? this.gender,
-      zone: zone ?? this.zone,
-      language: language ?? this.language,
-      location: location ?? this.location,
-      contacts: contacts ?? this.contacts,
-      contactsArePublic: contactsArePublic ?? this.contactsArePublic,
-      myBzzIDs: myBzzIDs ?? this.myBzzIDs,
-      emailIsVerified: emailIsVerified ?? this.emailIsVerified,
-      isAdmin: isAdmin ?? this.isAdmin,
-      device: device ?? this.device,
-      savedFlyersIDs: savedFlyersIDs ?? this.savedFlyersIDs,
-      followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
-      appState: appState ?? this.appState,
-      fcmTopics: fcmTopics ?? this.fcmTopics,
-    );
-  }
-  // --------------------
-  /// TAMAM : WORKS PERFECT
-  UserModel nullifyField({
-    bool id = false,
-    bool authBy = false,
-    bool createdAt = false,
-    bool need = false,
-    bool name = false,
-    bool trigram = false,
-    bool picPath = false,
-    bool title = false,
-    bool company = false,
-    bool gender = false,
-    bool zone = false,
-    bool language = false,
-    bool location = false,
-    bool contacts = false,
-    bool contactsArePublic = false,
-    bool myBzzIDs = false,
-    bool emailIsVerified = false,
-    bool isAdmin = false,
-    bool device = false,
-    bool savedFlyersIDs = false,
-    bool followedBzzIDs = false,
-    bool appState = false,
-    bool fcmTopics = false,
-  }){
-    return UserModel(
-      id : id == true ? null : this.id,
-      authBy : authBy == true ? null : this.authBy,
-      createdAt : createdAt == true ? null : this.createdAt,
-      need : need == true ? null : this.need,
-      name : name == true ? null : this.name,
-      trigram : trigram == true ? const [] : this.trigram,
-      picPath : picPath == true ? null : this.picPath,
-      title : title == true ? null : this.title,
-      company : company == true ? null : this.company,
-      gender : gender == true ? null : this.gender,
-      zone : zone == true ? null : this.zone,
-      language : language == true ? null : this.language,
-      location : location == true ? null : this.location,
-      contacts : contacts == true ? const [] : this.contacts,
-      contactsArePublic : contactsArePublic == true ? null : this.contactsArePublic,
-      myBzzIDs : myBzzIDs == true ? const [] : this.myBzzIDs,
-      emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
-      isAdmin : isAdmin == true ? null : this.isAdmin,
-      device : device == true ? null : this.device,
-      savedFlyersIDs : savedFlyersIDs == true ? const [] : this.savedFlyersIDs,
-      followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
-      appState : appState == true ? null : this.appState,
-      fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
-    );
   }
   // -----------------------------------------------------------------------------
 
@@ -403,9 +246,120 @@ class UserModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// CLONING
+
+  // --------------------
+  /// TAMAM : WORKS PERFECT
+  UserModel copyWith({
+    String id,
+    AuthType authBy,
+    DateTime createdAt,
+    NeedModel need,
+    String name,
+    List<String> trigram,
+    String picPath,
+    String title,
+    String company,
+    Gender gender,
+    ZoneModel zone,
+    String language,
+    GeoPoint location,
+    List<ContactModel> contacts,
+    bool contactsArePublic,
+    List<String> myBzzIDs,
+    bool emailIsVerified,
+    bool isAdmin,
+    DeviceModel device,
+    List<String> savedFlyersIDs,
+    List<String> followedBzzIDs,
+    AppState appState,
+    List<String> fcmTopics,
+  }){
+    return UserModel(
+      id: id ?? this.id,
+      authBy: authBy ?? this.authBy,
+      createdAt: createdAt ?? this.createdAt,
+      need: need ?? this.need,
+      name: name ?? this.name,
+      trigram: trigram ?? this.trigram,
+      picPath: picPath ?? this.picPath,
+      title: title ?? this.title,
+      company: company ?? this.company,
+      gender: gender ?? this.gender,
+      zone: zone ?? this.zone,
+      language: language ?? this.language,
+      location: location ?? this.location,
+      contacts: contacts ?? this.contacts,
+      contactsArePublic: contactsArePublic ?? this.contactsArePublic,
+      myBzzIDs: myBzzIDs ?? this.myBzzIDs,
+      emailIsVerified: emailIsVerified ?? this.emailIsVerified,
+      isAdmin: isAdmin ?? this.isAdmin,
+      device: device ?? this.device,
+      savedFlyersIDs: savedFlyersIDs ?? this.savedFlyersIDs,
+      followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
+      appState: appState ?? this.appState,
+      fcmTopics: fcmTopics ?? this.fcmTopics,
+    );
+  }
+  // --------------------
+  /// TAMAM : WORKS PERFECT
+  UserModel nullifyField({
+    bool id = false,
+    bool authBy = false,
+    bool createdAt = false,
+    bool need = false,
+    bool name = false,
+    bool trigram = false,
+    bool picPath = false,
+    bool title = false,
+    bool company = false,
+    bool gender = false,
+    bool zone = false,
+    bool language = false,
+    bool location = false,
+    bool contacts = false,
+    bool contactsArePublic = false,
+    bool myBzzIDs = false,
+    bool emailIsVerified = false,
+    bool isAdmin = false,
+    bool device = false,
+    bool savedFlyersIDs = false,
+    bool followedBzzIDs = false,
+    bool appState = false,
+    bool fcmTopics = false,
+  }){
+    return UserModel(
+      id : id == true ? null : this.id,
+      authBy : authBy == true ? null : this.authBy,
+      createdAt : createdAt == true ? null : this.createdAt,
+      need : need == true ? null : this.need,
+      name : name == true ? null : this.name,
+      trigram : trigram == true ? const [] : this.trigram,
+      picPath : picPath == true ? null : this.picPath,
+      title : title == true ? null : this.title,
+      company : company == true ? null : this.company,
+      gender : gender == true ? null : this.gender,
+      zone : zone == true ? null : this.zone,
+      language : language == true ? null : this.language,
+      location : location == true ? null : this.location,
+      contacts : contacts == true ? const [] : this.contacts,
+      contactsArePublic : contactsArePublic == true ? null : this.contactsArePublic,
+      myBzzIDs : myBzzIDs == true ? const [] : this.myBzzIDs,
+      emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
+      isAdmin : isAdmin == true ? null : this.isAdmin,
+      device : device == true ? null : this.device,
+      savedFlyersIDs : savedFlyersIDs == true ? const [] : this.savedFlyersIDs,
+      followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
+      appState : appState == true ? null : this.appState,
+      fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
   /// GENDER
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Gender decipherGender(String gender) {
     switch (gender) {
       case 'female' :   return Gender.female; break;
@@ -414,6 +368,7 @@ class UserModel {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherGender(Gender gender) {
     switch (gender) {
       case Gender.female:   return 'female';    break;
@@ -422,6 +377,7 @@ class UserModel {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getGenderPhid(Gender gender) {
     switch (gender) {
       case Gender.female:   return 'phid_female';    break;
@@ -430,6 +386,7 @@ class UserModel {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String genderIcon(Gender gender){
     switch (gender) {
       case Gender.female:   return Iconz.female;    break;
@@ -438,6 +395,7 @@ class UserModel {
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static const List<Gender> gendersList = <Gender>[
     Gender.male,
     Gender.female,
@@ -447,6 +405,7 @@ class UserModel {
   /// GENERATORS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Verse generateUserJobLine(UserModel userModel){
     return Verse(
       text: userModel == null ? null : '${userModel?.title} @ ${userModel?.company}',
@@ -469,6 +428,7 @@ class UserModel {
     return _userIsAuthor;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkUsersContainUser({
     @required List<UserModel> usersModels,
     @required UserModel userModel,
@@ -547,6 +507,7 @@ class UserModel {
     return _identical;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkUserFollowsBz({
     @required UserModel userModel,
     @required String bzID,
@@ -559,6 +520,7 @@ class UserModel {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkFlyerIsSaved({
     @required UserModel userModel,
     @required String flyerID,
@@ -605,6 +567,7 @@ class UserModel {
   /// MODIFIERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<UserModel> addOrRemoveUserToUsers({
     @required List<UserModel> usersModels,
     @required UserModel userModel,
@@ -630,6 +593,7 @@ class UserModel {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<UserModel> addUniqueUserToUsers({
     @required List<UserModel> usersToGet,
     @required UserModel userToAdd,
@@ -653,6 +617,7 @@ class UserModel {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<UserModel> addUniqueUsersToUsers({
     @required List<UserModel> usersToGet,
     @required List<UserModel> usersToAdd,
@@ -824,7 +789,7 @@ class UserModel {
     return _userModel;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static UserModel removeAllBzTopicsFromMyTopics({
     @required UserModel userModel,
     @required String bzID,
@@ -855,9 +820,9 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogUserModel({
-    String methodName = 'BLOGGING USER MODEL',
+    String invoker = 'BLOGGING USER MODEL',
   }) {
-    blog('$methodName : ---------------- START -- ');
+    blog('$invoker : ---------------- START -- ');
 
     blog('id : $id');
     blog('authBy : $authBy');
@@ -887,7 +852,7 @@ class UserModel {
     Stringer.blogStrings(strings: fcmTopics, invoker: 'user fcmTopics');
     appState?.blogAppState();
 
-    blog('$methodName : ---------------- END -- ');
+    blog('$invoker : ---------------- END -- ');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -899,7 +864,7 @@ class UserModel {
     if (Mapper.checkCanLoopList(usersModels) == true){
 
       for (final UserModel user in usersModels){
-        user.blogUserModel(methodName: methodName);
+        user.blogUserModel(invoker: methodName);
       }
 
     }
@@ -1132,65 +1097,6 @@ class UserModel {
     return _user;
   }
    */
-  // -----------------------------------------------------------------------------
-
-  /// USER TABS
-
-  // --------------------
-  static const List<UserTab> userProfileTabsList = <UserTab>[
-    UserTab.profile,
-    UserTab.notifications,
-    UserTab.following,
-    UserTab.settings,
-  ];
-  // --------------------
-  static String getUserTabIcon(UserTab userTab){
-    switch(userTab){
-      case UserTab.profile        : return Iconz.normalUser   ; break;
-      case UserTab.notifications  : return Iconz.notification         ; break;
-      case UserTab.following      : return Iconz.follow       ; break;
-      case UserTab.settings       : return Iconz.gears        ; break;
-      default : return null;
-    }
-  }
-  // --------------------
-  /// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
-  static String getUserTabID(UserTab userTab){
-    /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
-    switch(userTab){
-      case UserTab.profile        : return  'Profile'       ; break;
-      case UserTab.notifications  : return  'Notifications' ; break;
-      case UserTab.following      : return  'Following'     ; break;
-      case UserTab.settings       : return  'Settings'      ; break;
-      default: return null;
-    }
-  }
-  // --------------------
-  static String _getUserTabPhid(UserTab userTab){
-    switch(userTab){
-      case UserTab.profile        : return  'phid_profile'       ; break;
-      case UserTab.notifications  : return  'phid_notifications' ; break;
-      case UserTab.following      : return  'phid_followed_bz'   ; break;
-      case UserTab.settings       : return  'phid_settings'      ; break;
-      default: return null;
-    }
-  }
-  // --------------------
-  static Verse translateUserTab({
-    @required BuildContext context,
-    @required UserTab userTab,
-  }){
-    final String _tabPhraseID = _getUserTabPhid(userTab);
-    return Verse(
-      text: _tabPhraseID,
-      translate: true,
-    );
-  }
-  // --------------------
-  static int getUserTabIndex(UserTab userTab){
-    final int _index = userProfileTabsList.indexWhere((tab) => tab == userTab);
-    return _index;
-  }
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

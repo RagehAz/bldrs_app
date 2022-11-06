@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/aa_user_screen_view_pages.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,21 +19,21 @@ class UserProfileScreen extends StatelessWidget {
       context: context,
       listen: true,
     );
-    _user?.blogUserModel(methodName: 'UserProfileScreen');
+    _user?.blogUserModel(invoker: 'UserProfileScreen');
     // --------------------
     return ObeliskLayout(
       initiallyExpanded: true,
       canGoBack: true,
       navModels: <NavModel>[
 
-        ...List.generate(UserModel.userProfileTabsList.length, (index){
+        ...List.generate(UserTabber.userProfileTabsList.length, (index){
 
-          final UserTab _userTab = UserModel.userProfileTabsList[index];
+          final UserTab _userTab = UserTabber.userProfileTabsList[index];
 
           return NavModel(
             id: NavModel.getUserTabNavID(_userTab),
-            titleVerse: UserModel.translateUserTab(context: context, userTab: _userTab),
-            icon: UserModel.getUserTabIcon(_userTab),
+            titleVerse: UserTabber.translateUserTab(context: context, userTab: _userTab),
+            icon: UserTabber.getUserTabIcon(_userTab),
             screen: UserScreenViewPages.pages[index],
           );
 
