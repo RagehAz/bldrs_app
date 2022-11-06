@@ -353,7 +353,7 @@ class NoteProtocols {
       /// RECEIVER IS USER
       if (noteModel.parties.receiverType == PartyType.user){
 
-        final UserModel _userModel = await UserProtocols.refetchUser(
+        final UserModel _userModel = await UserProtocols.refetch(
           context: context,
           userID: noteModel.parties.receiverID,
         );
@@ -392,7 +392,7 @@ class NoteProtocols {
       /// USER RECEIVER : INJECT USER TOKEN IN NOTE
       if (noteModel.parties.receiverType == PartyType.user){
 
-        final UserModel _user = await UserProtocols.fetchUser(
+        final UserModel _user = await UserProtocols.fetch(
           context: context,
           userID: noteModel.parties.receiverID,
         );
@@ -701,8 +701,9 @@ class NoteProtocols {
           bzID: bzID
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _myUserModel,
       );
 
@@ -763,8 +764,9 @@ class NoteProtocols {
           bzID: bzID
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _myUserModel,
       );
 

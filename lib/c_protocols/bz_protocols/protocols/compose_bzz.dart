@@ -158,8 +158,9 @@ class ComposeBzProtocols {
         renovateUser: false,
       ),
 
-      UserProtocols.renovateMyUserModel(
+      UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _myUserModel,
       ),
 

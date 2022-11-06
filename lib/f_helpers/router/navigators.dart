@@ -479,7 +479,7 @@ class Nav {
 
     if (userID != null){
 
-      final UserModel _userModel = await UserProtocols.fetchUser(
+      final UserModel _userModel = await UserProtocols.fetch(
         context: context,
         userID: userID,
       );

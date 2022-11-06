@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -105,7 +104,7 @@ class UserBanner extends StatelessWidget {
     final Function _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap(context);
     // --------------------
-    final bool _itIsMe = userModel?.id == AuthFireOps.superUserID();
+    final bool _itIsMe = UserModel.checkItIsMe(userModel?.id);
 
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(userModel);
     // --------------------

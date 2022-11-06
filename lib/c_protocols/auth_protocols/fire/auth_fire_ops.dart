@@ -14,7 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFireOps {
@@ -186,7 +186,7 @@ class AuthFireOps {
 
     );
     // -----------------------------
-    final AuthModel _authModel = await UserProtocols.composeUser(
+    final AuthModel _authModel = await UserProtocols.compose(
       context: context,
       authSucceeds: _authSucceeds,
       userCredential: _userCredential,
@@ -197,10 +197,12 @@ class AuthFireOps {
     return _authModel;
   }
   // --------------------
+  /// PLAN : FIX ME
   static Future<AuthModel> signInByFacebook({
     @required BuildContext context,
     @required ZoneModel currentZone,
   }) async {
+    /*
     // steps ----------
     /// facebook sign in to get firebase user to check if it has a userModel or to
     /// create a new one
@@ -285,13 +287,18 @@ class AuthFireOps {
     }
 
     return _authModel;
+
+     */
   }
   // --------------------
-  /// returns error string or AuthModel
+  /// PLAN : FIX ME
   static Future<AuthModel> signInByGoogle({
     @required BuildContext context,
     @required ZoneModel currentZone,
   }) async {
+
+    /*
+
 
     AuthModel _authModel = const AuthModel();
     UserCredential _userCredential;
@@ -398,6 +405,7 @@ class AuthFireOps {
 
 
     return _authModel;
+    */
   }
   // -----------------------------------------------------------------------------
 

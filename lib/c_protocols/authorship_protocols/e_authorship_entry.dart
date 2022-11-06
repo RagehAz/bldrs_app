@@ -56,9 +56,10 @@ class AuthorshipEntryProtocols {
     );
 
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
-    final UserModel _uploadedUser = await UserProtocols.renovateMyUserModel(
+    final UserModel _uploadedUser = await UserProtocols.renovate(
       context: context,
       newUserModel: _newUserModel,
+      newPic: null,
     );
 
     /// MODIFY BZ MODEL --------------------------

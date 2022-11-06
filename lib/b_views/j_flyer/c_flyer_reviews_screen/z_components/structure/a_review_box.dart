@@ -52,7 +52,7 @@ class ReviewBox extends StatelessWidget {
       width: pageWidth,
       margin: const EdgeInsets.only(bottom: spacer),
       child: FutureBuilder(
-        future: UserProtocols.fetchUser(
+        future: UserProtocols.fetch(
           context: context,
           userID: userID,
         ),

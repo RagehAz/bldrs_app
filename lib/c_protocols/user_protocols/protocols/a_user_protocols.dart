@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/compose_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/fetch_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/renovate_users.dart';
@@ -22,7 +23,7 @@ class UserProtocols {
   /// COMPOSE
 
   // --------------------
-  static Future<AuthModel> composeUser({
+  static Future<AuthModel> compose({
     @required BuildContext context,
     @required bool authSucceeds,
     @required String authError,
@@ -41,7 +42,7 @@ class UserProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> fetchUser({
+  static Future<UserModel> fetch({
     @required BuildContext context,
     @required String userID
   }) => FetchUserProtocols.fetchUser(
@@ -59,12 +60,12 @@ class UserProtocols {
   );
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> refetchUser({
+  static Future<UserModel> refetch({
     @required BuildContext context,
     @required String userID
   }) async {
     await UserLDBOps.deleteUserOps(userID);
-    final UserModel _user = await fetchUser(context: context, userID: userID);
+    final UserModel _user = await fetch(context: context, userID: userID);
     return _user;
   }
   // -----------------------------------------------------------------------------
@@ -72,22 +73,15 @@ class UserProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<UserModel> renovateMyUserModel({
+  ///
+  static Future<UserModel> renovate({
     @required BuildContext context,
     @required UserModel newUserModel,
-  }) => RenovateUserProtocols.renovateMyUserModel(
-    context: context,
-    newUserModel: newUserModel,
-  );
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<UserModel> renovateUser({
-    @required BuildContext context,
-    @required UserModel newUserModel,
+    @required PicModel newPic,
   }) => RenovateUserProtocols.renovateUser(
     context: context,
     newUserModel: newUserModel,
+    newPic: newPic,
   );
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -98,8 +92,12 @@ class UserProtocols {
       newUserModel: newUserModel,
       context: context
   );
-  // --------------------
+  // -----------------------------------------------------------------------------
 
+  /// PARTIAL RENOVATIONS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> completeUserZoneModels({
     @required UserModel userModel,
     @required BuildContext context,
@@ -163,8 +161,8 @@ class UserProtocols {
     context: context,
   );
   // --------------------
-  ///
-  static Future<void> updateUserTopics({
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateMyUserTopics({
     @required BuildContext context,
     @required String topicID,
   }) async {
@@ -182,11 +180,11 @@ class UserProtocols {
       ),
     );
 
-    await UserProtocols.renovateMyUserModel(
+    await UserProtocols.renovate(
       context: context,
       newUserModel: updated,
+      newPic: null,
     );
-
 
   }
   // -----------------------------------------------------------------------------
@@ -194,11 +192,11 @@ class UserProtocols {
   /// WIPE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<void> wipeUser({
     @required BuildContext context,
     @required bool showWaitDialog,
-  }) => WipeUserProtocols.wipeMyUserModel(
+  }) => WipeUserProtocols.wipeMyUser(
     context: context,
     showWaitDialog: showWaitDialog,
   );

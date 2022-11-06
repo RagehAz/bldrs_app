@@ -27,7 +27,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
     @required bool value,
   }) async {
 
-    await UserProtocols.updateUserTopics(
+    await UserProtocols.updateMyUserTopics(
       context: context,
       topicID: topicID,
     );
@@ -53,8 +53,9 @@ class UserFCMTopicsScreenView extends StatelessWidget {
           listToAdd: TopicModel.getAllPossibleUserTopicsIDs(),
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
           context: context,
+          newPic: null,
           newUserModel: _userModel.copyWith(
             fcmTopics: _updatedTopics,
           ),
@@ -70,8 +71,9 @@ class UserFCMTopicsScreenView extends StatelessWidget {
         removeThis: TopicModel.getAllPossibleUserTopicsIDs(),
       );
 
-      await UserProtocols.renovateMyUserModel(
+      await UserProtocols.renovate(
         context: context,
+        newPic: null,
         newUserModel: _userModel.copyWith(
           fcmTopics: _updatedTopics,
         ),
