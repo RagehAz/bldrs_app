@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:flutter/material.dart';
 

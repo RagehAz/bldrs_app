@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verses_builder.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:flutter/material.dart';
 
 class Obelisk extends StatelessWidget {
