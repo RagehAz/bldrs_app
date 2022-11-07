@@ -397,7 +397,7 @@ class Filers {
   static bool checkFilesAreIdentical({
     @required File file1,
     @required File file2,
-    String methodName = 'checkFilesAreIdentical',
+    String invoker = 'checkFilesAreIdentical',
   }) {
     bool _identical = false;
 
@@ -460,7 +460,7 @@ class Filers {
   /// TESTED : WORKS PERFECT
   static void blogFile({
     @required File file,
-    String methodName = 'BLOG FILE',
+    String invoker = 'BLOG FILE',
   }){
 
     if (file == null){
@@ -468,30 +468,30 @@ class Filers {
     }
     else {
 
-      blog('blogFile : $methodName : file.path : ${file.path}');
-      blog('blogFile : $methodName : file.absolute : ${file.absolute}');
-      blog('blogFile : $methodName : file.fileNameWithExtension : ${file.fileNameWithExtension}');
-      blog('blogFile : $methodName : file.runtimeType : ${file.runtimeType}');
-      blog('blogFile : $methodName : file.isAbsolute : ${file.isAbsolute}');
-      blog('blogFile : $methodName : file.parent : ${file.parent}');
-      // blog('blogFile : $methodName : file.resolveSymbolicLinksSync() : ${file.resolveSymbolicLinksSync()}');
-      blog('blogFile : $methodName : file.lengthSync() : ${file.lengthSync()}');
-      blog('blogFile : $methodName : file.toString() : ${file.toString()}');
-      blog('blogFile : $methodName : file.lastAccessedSync() : ${file.lastAccessedSync()}');
-      blog('blogFile : $methodName : file.lastModifiedSync() : ${file.lastModifiedSync()}');
-      // blog('blogFile : $methodName : file.openSync() : ${file.openSync()}');
-      // blog('blogFile : $methodName : file.openWrite() : ${file.openWrite()}');
-      // blog('blogFile : $methodName : file.statSync() : ${file.statSync()}');
-      blog('blogFile : $methodName : file.existsSync() : ${file.existsSync()}');
+      blog('blogFile : $invoker : file.path : ${file.path}');
+      blog('blogFile : $invoker : file.absolute : ${file.absolute}');
+      blog('blogFile : $invoker : file.fileNameWithExtension : ${file.fileNameWithExtension}');
+      blog('blogFile : $invoker : file.runtimeType : ${file.runtimeType}');
+      blog('blogFile : $invoker : file.isAbsolute : ${file.isAbsolute}');
+      blog('blogFile : $invoker : file.parent : ${file.parent}');
+      // blog('blogFile : $invoker : file.resolveSymbolicLinksSync() : ${file.resolveSymbolicLinksSync()}');
+      blog('blogFile : $invoker : file.lengthSync() : ${file.lengthSync()}');
+      blog('blogFile : $invoker : file.toString() : ${file.toString()}');
+      blog('blogFile : $invoker : file.lastAccessedSync() : ${file.lastAccessedSync()}');
+      blog('blogFile : $invoker : file.lastModifiedSync() : ${file.lastModifiedSync()}');
+      // blog('blogFile : $invoker : file.openSync() : ${file.openSync()}');
+      // blog('blogFile : $invoker : file.openWrite() : ${file.openWrite()}');
+      // blog('blogFile : $invoker : file.statSync() : ${file.statSync()}');
+      blog('blogFile : $invoker : file.existsSync() : ${file.existsSync()}');
       // DynamicLinks.blogURI(
       //   uri: file.uri,
-      //   methodName: methodName,
+      //   invoker: invoker,
       // );
-      blog('blogFile : $methodName : file.hashCode : ${file.hashCode}');
+      blog('blogFile : $invoker : file.hashCode : ${file.hashCode}');
 
-      // blog('blogFile : $methodName : file.readAsLinesSync() : ${file.readAsLinesSync()}'); /// Unhandled Exception: FileSystemException: Failed to decode data using encoding 'utf-8',
-      // blog('blogFile : $methodName : file.readAsStringSync() : ${file.readAsStringSync()}'); /// ERROR WITH IMAGE FILES
-      // blog('blogFile : $methodName : file.readAsBytesSync() : ${file.readAsBytesSync()}'); /// TOO LONG
+      // blog('blogFile : $invoker : file.readAsLinesSync() : ${file.readAsLinesSync()}'); /// Unhandled Exception: FileSystemException: Failed to decode data using encoding 'utf-8',
+      // blog('blogFile : $invoker : file.readAsStringSync() : ${file.readAsStringSync()}'); /// ERROR WITH IMAGE FILES
+      // blog('blogFile : $invoker : file.readAsBytesSync() : ${file.readAsBytesSync()}'); /// TOO LONG
 
     }
 

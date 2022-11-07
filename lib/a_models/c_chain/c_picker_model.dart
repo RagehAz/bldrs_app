@@ -330,8 +330,8 @@ class PickerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogPicker({String methodName = 'PICKER'}) {
-    blog('PICKER-BLOG : $methodName --------------------------------------------------START');
+  void blogPicker({String invoker = 'PICKER'}) {
+    blog('PICKER-BLOG : $invoker --------------------------------------------------START');
 
     blog('isHeadline : $isHeadline');
     blog('index : $index');
@@ -342,11 +342,11 @@ class PickerModel {
     blog('unitChainID : $unitChainID');
     blog('blockers : $blockers');
 
-    blog('PICKER-BLOG : $methodName --------------------------------------------------END');
+    blog('PICKER-BLOG : $invoker --------------------------------------------------END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogPickers(List<PickerModel> pickers, {String methodName = 'PICKER'}) {
+  static void blogPickers(List<PickerModel> pickers, {String invoker = 'PICKER'}) {
 
 
     if (Mapper.checkCanLoopList(pickers) == true) {
@@ -354,11 +354,11 @@ class PickerModel {
       final List<PickerModel> _pickers = sortPickersByIndexes(pickers);
 
       for (final PickerModel _picker in _pickers) {
-        _picker?.blogPicker(methodName: methodName);
+        _picker?.blogPicker(invoker: invoker);
       }
     }
     else {
-      blog('pickers are empty : $methodName');
+      blog('pickers are empty : $invoker');
     }
   }
   // --------------------

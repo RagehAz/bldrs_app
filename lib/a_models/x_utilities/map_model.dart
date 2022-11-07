@@ -135,15 +135,15 @@ class MapModel{
   // --------------------
   static void blogMapModels({
     @required List<MapModel> mapModels,
-    String methodName = 'MapModels',
+    String invoker = 'MapModels',
   }){
-    blog('$methodName ------------------------------------------- START');
+    blog('$invoker ------------------------------------------- START');
     for (int i = 0; i < mapModels.length; i++){
       final int _num = i+1;
       final MapModel _mapModel = mapModels[i];
       blog('$_num : < ${_mapModel.key} : ${_mapModel.value} >');
     }
-    blog('$methodName ------------------------------------------- END');
+    blog('$invoker ------------------------------------------- END');
   }
   // -----------------------------------------------------------------------------
 

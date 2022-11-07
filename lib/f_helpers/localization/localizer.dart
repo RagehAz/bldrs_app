@@ -145,7 +145,7 @@ class Localizer {
     String _output;
 
     final bool _result = await tryCatchAndReturnBool(
-      methodName: 'getCountryNameByLingo',
+      invoker: 'getCountryNameByLingo',
       functions: () async {
 
         _jsonStringValues = await rootBundle.loadString('assets/languages/$langCode.json');

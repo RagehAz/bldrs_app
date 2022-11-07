@@ -139,7 +139,7 @@ class _PickerScreenState extends State<PickerScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    widget.picker?.blogPicker(methodName: 'PickerScreen');
+    widget.picker?.blogPicker(invoker: 'PickerScreen');
     // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final String _chainID = widget.picker?.chainID;

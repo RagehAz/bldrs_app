@@ -593,7 +593,7 @@ class DraftFlyer{
     blog('draftSlides : ${draftSlides.length} slides');
     DraftSlide.blogSlides(draftSlides);
     pdfModel.blogPDFModel(invoker: 'BLOGGING DRAFT');
-    bzModel.blogBz(methodName: 'BLOGGING DRAFT');
+    bzModel.blogBz(invoker: 'BLOGGING DRAFT');
 
     blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
   }

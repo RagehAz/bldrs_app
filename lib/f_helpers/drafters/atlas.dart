@@ -122,9 +122,9 @@ class Atlas {
   /// TESTED : WORKS PERFECT
   static void blogGeoPoint({
     @required GeoPoint point,
-    String methodName = 'GeoPoint',
+    String invoker = 'GeoPoint',
   }){
-    blog('$methodName : lat : ${point.latitude} : lng : ${point.longitude}');
+    blog('$invoker : lat : ${point.latitude} : lng : ${point.longitude}');
   }
   // -----------------------------------------------------------------------------
 

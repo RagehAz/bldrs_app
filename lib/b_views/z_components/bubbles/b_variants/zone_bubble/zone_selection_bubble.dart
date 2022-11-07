@@ -115,7 +115,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       zone2: widget.currentZone,
     ) == false
     ){
-      // widget.currentZone.blogZone(methodName: 'didUpdateWidget');
+      // widget.currentZone.blogZone(invoker: 'didUpdateWidget');
       _selectedZone.value = widget.currentZone;
     }
 
@@ -141,7 +141,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
     else {
 
-      _zone.blogZone(methodName: 'received zone');
+      _zone.blogZone(invoker: 'received zone');
       _selectedZone.value =  await ZoneProtocols.completeZoneModel(
         context: context,
         incompleteZoneModel: _zone,

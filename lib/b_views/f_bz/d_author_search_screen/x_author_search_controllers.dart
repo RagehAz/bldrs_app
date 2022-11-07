@@ -43,7 +43,7 @@ Future<void> onSearchUsers({
     foundUsers.value = _users;
 
     UserModel.blogUsersModels(
-      methodName: 'onSearchUsers : text : $_fixedText',
+      invoker: 'onSearchUsers : text : $_fixedText',
       usersModels: _users,
     );
 

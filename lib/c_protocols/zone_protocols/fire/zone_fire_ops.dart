@@ -139,7 +139,7 @@ class ZoneFireOps {
     final Uri _uri = Uri.parse(_url);
 
     await tryAndCatch(
-        methodName: 'get Country by IP',
+        invoker: 'get Country by IP',
         functions: () async {
 
           final http.Response _response = await http.get(_uri);
@@ -215,7 +215,7 @@ class ZoneFireOps {
     final Uri _uri = Uri.parse(_url);
 
     await tryAndCatch(
-        methodName: 'get Country by IP',
+        invoker: 'get Country by IP',
         functions: () async {
           final http.Response _response = await http.get(_uri);
 

@@ -45,7 +45,7 @@ class AuthFireOps {
     // String _error;
 
     final bool _success = await tryCatchAndReturnBool(
-        methodName: 'deleteFirebaseUser',
+        invoker: 'deleteFirebaseUser',
         functions: () async {
 
           final FirebaseAuth _auth = FirebaseAuth?.instance;
@@ -115,7 +115,7 @@ class AuthFireOps {
     // -----------------------------
     /// try sign in and check result
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        methodName: 'signInByEmailAndPassword',
+        invoker: 'signInByEmailAndPassword',
         functions: () async {
 
           final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
@@ -169,7 +169,7 @@ class AuthFireOps {
     // -----------------------------
     /// try register and check result
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        methodName: 'registerByEmailAndPassword',
+        invoker: 'registerByEmailAndPassword',
         functions: () async {
 
           final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
@@ -229,7 +229,7 @@ class AuthFireOps {
     // -------------------------------------------------------
     /// xx - try catch return facebook auth
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        methodName: 'signInByFacebook',
+        invoker: 'signInByFacebook',
         functions: () async {
 
           final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
@@ -313,7 +313,7 @@ class AuthFireOps {
     // -------------------------------------------------------
     /// xx - try catch return google auth
     final bool _authSucceeds = await tryCatchAndReturnBool(
-        methodName: 'signInByGoogle',
+        invoker: 'signInByGoogle',
         functions: () async {
 
           final FirebaseAuth _firebaseAuth = FirebaseAuth?.instance;
@@ -452,7 +452,7 @@ class AuthFireOps {
     blog('googleSignOutOps : currentUser was : ${googleSignIn.currentUser}');
 
     await tryAndCatch(
-        methodName: 'googleSignOutOps',
+        invoker: 'googleSignOutOps',
         functions: () async {
           if (!kIsWeb) {
             await googleSignIn.signOut();
@@ -548,7 +548,7 @@ class AuthFireOps {
     if (_oldEmail != newEmail){
 
       _success = await tryCatchAndReturnBool(
-        methodName: 'updateUserEmail',
+        invoker: 'updateUserEmail',
         functions: () async {
           await _auth.currentUser.updateEmail(newEmail);
           blog('updateUserEmail : END');

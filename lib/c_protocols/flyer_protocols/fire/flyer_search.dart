@@ -28,7 +28,7 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
   List<FlyerModel> _flyers = <FlyerModel>[];
 
   await tryAndCatch(
-      methodName: 'mapsByTwoValuesEqualTo',
+      invoker: 'mapsByTwoValuesEqualTo',
       functions: () async {
         final CollectionReference<Object> _flyersCollection =
         Fire.getCollectionRef(FireColl.flyers);
@@ -66,7 +66,7 @@ Future<List<FlyerModel>> flyersByZoneAndKeywordID({
   List<FlyerModel> _flyers = <FlyerModel>[];
 
   await tryAndCatch(
-      methodName: 'flyersByZoneAndKeyword',
+      invoker: 'flyersByZoneAndKeyword',
       functions: () async {
         final CollectionReference<Object> _flyersCollection =
         Fire.getCollectionRef(FireColl.flyers);

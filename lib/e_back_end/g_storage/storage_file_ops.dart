@@ -36,7 +36,7 @@ class StorageFileOps {
     String _fileURL;
 
     await tryAndCatch(
-        methodName: 'uploadFile',
+        invoker: 'uploadFile',
         functions: () async {
 
           /// GET REF
