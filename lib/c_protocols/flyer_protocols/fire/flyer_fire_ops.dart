@@ -28,14 +28,16 @@ class FlyerFireOps {
   /// CREATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Future<String> createEmptyFlyerDocToGetFlyerID() async {
 
     blog('createFlyerDoc : START');
 
     final DocumentReference<Object> _docRef = await Fire.createDoc(
       collName: FireColl.flyers,
-      input: {},
+      input: {
+        'id': 'x',
+      },
     );
 
     blog('createFlyerDoc : END');

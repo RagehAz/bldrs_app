@@ -42,60 +42,66 @@ class ComposeFlyerProtocols {
   }) async {
     blog('ComposeFlyerProtocol.compose : START');
 
+    assert(draftFlyer != null, 'Draft is null');
+
     if (draftFlyer != null){
 
       final String flyerID = await FlyerFireOps.createEmptyFlyerDocToGetFlyerID();
 
-      final DraftFlyer _draftWithID = DraftFlyer.overrideFlyerID(
-        draft: draftFlyer,
-        flyerID: flyerID,
-      );
+      if (flyerID != null){
 
-      final FlyerModel _flyerToPublish = await DraftFlyer.draftToFlyer(
-        draft: _draftWithID,
-        toLDB: false,
-        isPublishing: true,
-      );
+        final DraftFlyer _draftWithID = DraftFlyer.overrideFlyerID(
+          draft: draftFlyer,
+          flyerID: flyerID,
+        );
 
-      /// TASK : SHOULD ASSERT FLYER IS COMPOSABLE METHOD
-      assert (_flyerToPublish != null, 'Flyer is null');
-      assert (_flyerToPublish.id != null, 'Flyer ID is null');
+        final FlyerModel _flyerToPublish = await DraftFlyer.draftToFlyer(
+          draft: _draftWithID,
+          toLDB: false,
+          isPublishing: true,
+        );
 
-      await Future.wait(<Future>[
+        /// TASK : SHOULD ASSERT FLYER IS COMPOSABLE METHOD
+        assert (_flyerToPublish != null, 'Flyer is null');
+        assert (_flyerToPublish.id != null, 'Flyer ID is null');
 
-        /// UPDATE FLYER DOC
-        FlyerFireOps.updateFlyerDoc(_flyerToPublish),
+        await Future.wait(<Future>[
 
-        /// UPLOAD SLIDES PICS
-        PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID.draftSlides)),
+          /// UPDATE FLYER DOC
+          FlyerFireOps.updateFlyerDoc(_flyerToPublish),
 
-        /// UPLOAD PDF
-        PDFProtocols.compose(_draftWithID.pdfModel),
+          /// UPLOAD SLIDES PICS
+          PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID.draftSlides)),
 
-        /// ADD FLYER TO LDB
-        FlyerLDBOps.insertFlyer(_flyerToPublish),
+          /// UPLOAD PDF
+          PDFProtocols.compose(_draftWithID.pdfModel),
 
-        /// ADD FLYER ID TO BZ MODEL
-        _addFlyerIDToBzAndAuthorAndRenovateBz(
-          context: context,
-          newFlyerToAdd: _flyerToPublish,
-        ),
+          /// ADD FLYER TO LDB
+          FlyerLDBOps.insertFlyer(_flyerToPublish),
 
-        /// INCREMENT BZ COUNTER (allSlides) COUNT
-        BzRecordRealOps.incrementBzCounter(
-          bzID: _flyerToPublish.bzID,
-          field: 'allSlides',
-          incrementThis: _flyerToPublish.slides.length,
-        ),
-
-        /// INCREMENT CITY FLYER CHAIN USAGE
-        CityPhidsRealOps.incrementFlyerCityChainUsage(
+          /// ADD FLYER ID TO BZ MODEL
+          _addFlyerIDToBzAndAuthorAndRenovateBz(
             context: context,
-            flyerModel: _flyerToPublish,
-            isIncrementing: true
-        ),
+            newFlyerToAdd: _flyerToPublish,
+          ),
 
-      ]);
+          /// INCREMENT BZ COUNTER (allSlides) COUNT
+          BzRecordRealOps.incrementBzCounter(
+            bzID: _flyerToPublish.bzID,
+            field: 'allSlides',
+            incrementThis: _flyerToPublish.slides.length,
+          ),
+
+          /// INCREMENT CITY FLYER CHAIN USAGE
+          CityPhidsRealOps.incrementFlyerCityChainUsage(
+              context: context,
+              flyerModel: _flyerToPublish,
+              isIncrementing: true
+          ),
+
+        ]);
+
+      }
 
     }
 
@@ -107,7 +113,7 @@ class ComposeFlyerProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> _addFlyerIDToBzAndAuthorAndRenovateBz({
+  static Future<void> _addFlyerIDToBzAndAuthorAndRenovateBz({
     @required BuildContext context,
     @required FlyerModel newFlyerToAdd,
   }) async {
@@ -134,7 +140,8 @@ class ComposeFlyerProtocols {
       authors: _updatedAuthors,
     );
 
-    final BzModel _uploadedBzModel = await BzProtocols.renovateBz(
+    // final BzModel _uploadedBzModel =
+    await BzProtocols.renovateBz(
         context: context,
         newBz: _updatedBzModel,
         oldBzModel: _bzModel,
@@ -145,7 +152,7 @@ class ComposeFlyerProtocols {
 
     blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : END');
 
-    return _uploadedBzModel;
+    // return _uploadedBzModel;
   }
   // -----------------------------------------------------------------------------
 }

@@ -110,15 +110,22 @@ class Colorizer {
   static bool checkColorsAreIdentical(Color color1, Color color2) {
     bool _areIdentical = false;
 
-    if (
-    color1.alpha == color2.alpha &&
-        color1.red == color2.red &&
-        color1.green == color2.green &&
-        color1.blue == color2.blue
-
-    ) {
+    if (color1 == null && color2 == null){
       _areIdentical = true;
     }
+    else if (color1 != null && color2 != null){
+
+      if (
+          color1.alpha == color2.alpha &&
+          color1.red == color2.red &&
+          color1.green == color2.green &&
+          color1.blue == color2.blue
+      ) {
+        _areIdentical = true;
+      }
+
+    }
+
 
     return _areIdentical;
   }

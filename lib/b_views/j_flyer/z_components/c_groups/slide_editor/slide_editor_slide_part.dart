@@ -125,8 +125,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                   ),
                 ),
 
-                /// TASK : GROUP THIS IN STATELESS WIDGET
-                /// HEADLINE TEXT FIELD
+                /// HEADLINE TEXT FIELD : TASK : GROUP THIS IN STATELESS WIDGET
                 ValueListenableBuilder(
                     valueListenable: isTransforming,
                     builder: (_, bool transforming, Widget child){
@@ -191,10 +190,8 @@ class SlideEditorSlidePart extends StatelessWidget {
                 ),
 
                 /// BOTTOM SHADOW
-                IgnorePointer(
-                  child: FooterShadow(
-                    flyerBoxWidth: _flyerBoxWidth,
-                  ),
+                FooterShadow(
+                  flyerBoxWidth: _flyerBoxWidth,
                 ),
 
                 /// STATIC FOOTER
