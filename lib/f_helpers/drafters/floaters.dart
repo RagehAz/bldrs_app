@@ -439,11 +439,11 @@ static img.Image decodeToImgImage({
     return _ints;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Uint8List getUint8ListFromInts(List<int> ints){
+  ///
+  static Uint8List getBytesFromInts(List<dynamic> ints){
     Uint8List _bytes;
 
-    if (Mapper.checkCanLoopList(ints) == true){
+    if (ints != null){
       _bytes = Uint8List.fromList(ints.cast<int>());
     }
 
