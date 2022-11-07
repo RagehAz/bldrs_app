@@ -85,7 +85,8 @@ class AuthorshipEntryProtocols {
     );
 
     /// UPDATE BZ EVERYWHERE PROTOCOL --------------------------
-    final BzModel _uploadedBzModel = await BzProtocols.renovateBz(
+    // final BzModel _uploadedBzModel =
+    await BzProtocols.renovateBz(
       context: context,
       oldBzModel: _oldBzModel,
       newBz: _bzModel,
@@ -96,7 +97,7 @@ class AuthorshipEntryProtocols {
 
     blog('AuthorshipEntryProtocols.addMeToBz : END');
 
-    return _uploadedBzModel;
+    // return _uploadedBzModel;
   }
 // -----------------------------------------------------------------------------
 }

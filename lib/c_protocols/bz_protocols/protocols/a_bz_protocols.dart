@@ -75,7 +75,7 @@ class BzProtocols {
 
   // --------------------
   ///
-  static Future<BzModel> renovateBz({
+  static Future<void> renovateBz({
     @required BuildContext context,
     @required BzModel newBz,
     @required BzModel oldBzModel,

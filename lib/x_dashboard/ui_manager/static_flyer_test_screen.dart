@@ -101,10 +101,8 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-
     // _flyerModel?.blogFlyer(invoker: 'flyerTest');
-
-
+    // --------------------
     return DashBoardLayout(
       loading: _loading,
       listWidgets: <Widget>[

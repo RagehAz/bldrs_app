@@ -210,8 +210,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       ),
                       redDot: true,
                     ),
-                    formKey: _draft.formKey,
-                    focusNode: _draft.headlineNode,
+                    formKey: _draft?.formKey,
+                    focusNode: _draft?.headlineNode,
                     appBarType: AppBarType.non,
                     isFormField: true,
                     counterIsOn: true,
@@ -222,10 +222,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       draftNotifier: _draftNotifier,
                       text: text,
                     ),
-                    initialText: _draft.headline,
+                    initialText: _draft?.headline,
                     validator: (String text) => Formers.flyerHeadlineValidator(
                       context: context,
-                      headline: _draft.headline,
+                      headline: _draft?.headline,
                       canValidate: _canValidate,
                     ),
                   ),
@@ -239,17 +239,17 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                         translate: true,
                       ),
                     ),
-                    formKey: _draft.formKey,
-                    focusNode: _draft.descriptionNode,
+                    formKey: _draft?.formKey,
+                    focusNode: _draft?.descriptionNode,
                     appBarType: AppBarType.non,
                     isFormField: true,
                     counterIsOn: true,
                     maxLength: 1000,
                     maxLines: 7,
                     keyboardTextInputType: TextInputType.multiline,
-                    initialText: _draft.description,
+                    initialText: _draft?.description,
                     validator: (String text) => Formers.paragraphValidator(
-                      text: _draft.description,
+                      text: _draft?.description,
                       canValidate: _canValidate,
                     ),
                     onTextChanged: (String text) => onUpdateFlyerDescription(
@@ -293,7 +293,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     ),
                     selectedButtonsPhids: FlyerTyper.translateFlyerTypes(
                       context: context,
-                      flyerTypes: <FlyerType>[_draft.flyerType],
+                      flyerTypes: <FlyerType>[_draft?.flyerType],
                       pluralTranslation: false,
                     ),
                     onButtonTap: (int index) => onSelectFlyerType(
@@ -306,7 +306,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                         strings: FlyerTyper.translateFlyerTypes(
                           context: context,
                           flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
-                            bzModel: _draft.bzModel,
+                            bzModel: _draft?.bzModel,
                           ),
                           pluralTranslation: false,
                         ),
@@ -323,7 +323,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
                   /// SPECS SELECTOR
                   SpecsSelectorBubble(
-                    bzModel: _draft.bzModel,
+                    bzModel: _draft?.bzModel,
                     draft: _draft,
                     draftNotifier: _draftNotifier,
                   ),
@@ -333,11 +333,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
                   /// PDF SELECTOR
                   PDFSelectionBubble(
-                    flyerID: _draft.id,
-                    bzID: _draft.bzID,
+                    flyerID: _draft?.id,
+                    bzID: _draft?.bzID,
                     appBarType: AppBarType.non,
-                    formKey: _draft.formKey,
-                    existingPDF: _draft.pdfModel,
+                    formKey: _draft?.formKey,
+                    existingPDF: _draft?.pdfModel,
                     canValidate: _canValidate,
                     onChangePDF: (PDFModel pdf) => onChangeFlyerPDF(
                       draftNotifier: _draftNotifier,
@@ -374,14 +374,14 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                         translate: true,
                       ),
                     ],
-                    currentZone: _draft.zone,
+                    currentZone: _draft?.zone,
                     onZoneChanged: (ZoneModel zone) => onZoneChanged(
                       context: context,
                       draftNotifier: _draftNotifier,
                       zone: zone,
                     ),
                     validator: () => Formers.zoneValidator(
-                      zoneModel: _draft.zone,
+                      zoneModel: _draft?.zone,
                       selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,
                       canValidate: _canValidate,
@@ -394,7 +394,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                   /// SHOW FLYER AUTHOR
                   ShowAuthorSwitchBubble(
                     draft: _draft,
-                    bzModel: _draft.bzModel,
+                    bzModel: _draft?.bzModel,
                     onSwitch: (bool value) => onSwitchFlyerShowsAuthor(
                       value: value,
                       draftNotifier: _draftNotifier,

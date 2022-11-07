@@ -206,7 +206,12 @@ class DraftFlyer{
     bool isPublishing = false,
   }) async {
 
-    final List<PublishTime> _publishTimes = draft.times;
+    assert(draft != null, 'Draft is null');
+
+    final List<PublishTime> _publishTimes = <PublishTime>[];
+    if (Mapper.checkCanLoopList(draft.times) == true){
+      _publishTimes.addAll(draft.times);
+    }
     if (isPublishing == true){
       _publishTimes.add(PublishTime(
         state: PublishState.published,
@@ -266,7 +271,7 @@ class DraftFlyer{
         'times' : PublishTime.cipherPublishTimesToMap(times: draft.times, toJSON: true),
         'priceTagIsOn' : draft.priceTagIsOn,
         'score' : draft.score,
-        'pdfModel': draft.pdfModel.toMap(includeBytes: true),
+        'pdfModel': draft.pdfModel?.toMap(includeBytes: true),
         'bzModel': draft.bzModel.toMap(toJSON: true),
         'canPickImage': draft.canPickImage,
         'firstTimer': draft.firstTimer,
