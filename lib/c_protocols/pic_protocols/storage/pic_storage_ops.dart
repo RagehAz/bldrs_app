@@ -98,6 +98,8 @@ class PicStorageOps {
 
     }
 
+    blog('Picccc : readPic : _picModel : $_picModel');
+    
     return _picModel;
   }
   // -----------------------------------------------------------------------------

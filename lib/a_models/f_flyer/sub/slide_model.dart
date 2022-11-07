@@ -55,7 +55,7 @@ class SlideModel {
       'headline': headline,
       'description': description,
       'picFit': Dimensions.cipherBoxFit(picFit),
-      'dimensions': dimensions.toMap(),
+      'dimensions': dimensions?.toMap(),
       'midColor': Colorizer.cipherColor(midColor),
       'matrix' : Trinity.cipherMatrix(matrix),
       'filterID' : filterID,

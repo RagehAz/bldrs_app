@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
@@ -40,7 +41,7 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
       listen: false,
   );
 
-  if (_userModel != null){
+  if (_userModel != null && AuthFireOps.superUserID() != null){
 
     final Stream<QuerySnapshot<Object>> _unseenNotesStream = userUnseenNotesStream(
         context: context
