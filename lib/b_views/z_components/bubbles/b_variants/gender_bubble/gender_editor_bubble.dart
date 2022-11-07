@@ -46,7 +46,7 @@ class GenderBubble extends StatelessWidget {
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
         validator: () => Formers.genderValidator(
-          gender: draftUser.gender,
+          gender: draftUser?.gender,
           canValidate: canValidate,
         ),
       ),
@@ -69,7 +69,7 @@ class GenderBubble extends StatelessWidget {
                   final String _genderPhid = UserModel.getGenderPhid(_gender);
                   final String _genderIcon = UserModel.genderIcon(_gender);
 
-                  final bool _isSelected = _gender == draftUser.gender;
+                  final bool _isSelected = _gender == draftUser?.gender;
 
                   final Color _buttonColor = _isSelected ?
                   Colorz.yellow255
@@ -108,7 +108,7 @@ class GenderBubble extends StatelessWidget {
         SuperValidator(
           width: Bubble.clearWidth(context),
           validator: () => Formers.genderValidator(
-            gender: draftUser.gender,
+            gender: draftUser?.gender,
             canValidate: canValidate,
           ),
           // autoValidate: true,

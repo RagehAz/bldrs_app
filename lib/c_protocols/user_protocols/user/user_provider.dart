@@ -47,7 +47,7 @@ class UsersProvider extends ChangeNotifier {
     AuthModel authModel,
   }){
 
-    if (UserModel.checkItIsMe(userModel.id) == true){
+    if (UserModel.checkItIsMe(userModel?.id) == true){
 
       _myUserModel = userModel;
 

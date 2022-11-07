@@ -14,11 +14,11 @@ class PicModel {
     @required this.bytes,
     @required this.path,
     @required this.meta,
-  })
-      :
-        assert(bytes != null, 'bytes is null'),
-        assert(path != null, 'path is null'),
-        assert(meta != null, 'meta is null');
+  });
+      // :
+      //   assert(bytes != null, 'bytes is null'),
+      //   assert(path != null, 'path is null'),
+      //   assert(meta != null, 'meta is null');
   // -----------------------------------------------------------------------------
   final Uint8List bytes;
   /// collectionName/subCollectionName/fileName
@@ -66,12 +66,33 @@ class PicModel {
     PicModel _picModel;
 
     if (map != null){
-      _picModel = PicModel(
-        bytes: Floaters.getUint8ListFromInts(map['bytes']),
-        path: map['path'],
-        meta: PicMetaModel.decipherFromLDB(map['meta']),
+
+      // Mapper.blogMap(map,invoker: 'PicModel.decipherFromLDB');
+
+      blog('fuck youuuuuuuuuuuuuu');
+
+      final String path = map['path'];
+      blog('fuck : path : $path');
+      final PicMetaModel _meta = PicMetaModel.decipherFromLDB(map['meta']);
+      blog('fuck : _meta : ${_meta.dimensions.width} width');
+      blog('fuck : _bytes : ${map['bytes'].length} bytes');
+      final Uint8List _bytes = Floaters.getBytesFromInts(map['bytes']);
+      blog('fuck : _bytessss : ${_bytes?.length} bytes');
+
+      final PicModel _thePicModel = PicModel(
+        bytes: _bytes,
+        path: path,
+        meta: _meta,
       );
+
+      blog('you');
+
+      _thePicModel.blogPic(invoker: 'the fucking shit');
+
+      _picModel = _thePicModel;
+
     }
+
 
     return _picModel;
   }
@@ -141,9 +162,11 @@ class PicModel {
   /// BLOG
 
   // --------------------
-  void blogPic(){
+  void blogPic({
+    String invoker = '',
+  }){
 
-    blog('path : $path : ${bytes.length} Bytes : '
+    blog('=> $invoker :: path : $path : ${bytes.length} Bytes : '
         '[ (${meta?.dimensions?.width})w x (${meta?.dimensions?.height})h ] : '
         'owners : ${meta.ownersIDs}');
 

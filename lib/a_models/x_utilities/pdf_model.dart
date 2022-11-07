@@ -99,7 +99,7 @@ class PDFModel {
         name: map['name'],
         path: map['path'],
         ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
-        bytes: Floaters.getUint8ListFromInts(map['bytes']),
+        bytes: Floaters.getBytesFromInts(map['bytes']),
         sizeMB: map['size'],
       );
 
