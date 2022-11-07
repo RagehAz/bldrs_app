@@ -243,7 +243,7 @@ String getSectionIcon({
   }){
 
     final List<FlyerType> _allowableTypes = concludePossibleFlyerTypesByBzTypes(
-      bzTypes: bzModel.bzTypes,
+      bzTypes: bzModel?.bzTypes,
     );
 
     final List<FlyerType> _output = <FlyerType>[];
