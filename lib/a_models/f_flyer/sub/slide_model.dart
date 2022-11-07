@@ -169,7 +169,7 @@ class SlideModel {
     blog('headline : $headline');
     blog('description : $description');
     blog('midColor : $midColor : filterID : $filterID : picFit : $picFit : hasCustomMatrix : ${matrix != Matrix4.identity()}');
-    dimensions.blogDimensions();
+    dimensions?.blogDimensions();
     blog('pic : $picPath');
   }
   // --------------------

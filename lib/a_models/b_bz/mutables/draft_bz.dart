@@ -335,7 +335,7 @@ class DraftBz {
       'isVerified': isVerified,
       'bzState': BzTyper.cipherBzState(bzState),
       'flyersIDs': flyersIDs,
-      'bzSection': bzSection,
+      'bzSection': BzTyper.cipherBzSection(bzSection),
       'bzTypes': BzTyper.cipherBzTypes(bzTypes),
       'inactiveBzTypes': inactiveBzTypes,
       'bzForm': BzTyper.cipherBzForm(bzForm),
@@ -364,7 +364,7 @@ class DraftBz {
   }){
 
     final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
-    final BzSection _bzSection = BzTyper.concludeBzSectionByBzTypes(_bzTypes);
+    final BzSection _bzSection = BzTyper.decipherBzSection(map['bzSection']);
     final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
 
     return DraftBz(
