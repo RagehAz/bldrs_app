@@ -50,7 +50,7 @@ class StorageRef {
     Reference _ref;
 
     await tryAndCatch(
-        methodName: 'StorageRef.byURL',
+        invoker: 'StorageRef.byURL',
         functions: () {
           final FirebaseStorage _storage = FirebaseStorage.instance;
           _ref = _storage.refFromURL(url);
@@ -68,7 +68,7 @@ class StorageRef {
     String _url;
 
     await tryAndCatch(
-        methodName: '',
+        invoker: '',
         functions: () async {
           _url = await ref.getDownloadURL();
         }

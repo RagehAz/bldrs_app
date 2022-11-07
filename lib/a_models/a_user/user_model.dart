@@ -805,7 +805,7 @@ class UserModel {
     blog('contactsArePublic : $contactsArePublic');
     ContactModel.blogContacts(
       contacts: contacts,
-      methodName: 'user contacts',
+      invoker: 'user contacts',
     );
     device?.blogDevice();
     Stringer.blogStrings(strings: fcmTopics, invoker: 'user fcmTopics');
@@ -817,13 +817,13 @@ class UserModel {
   /// TESTED : WORKS PERFECT
   static void blogUsersModels({
     @required List<UserModel> usersModels,
-    String methodName,
+    String invoker,
   }){
 
     if (Mapper.checkCanLoopList(usersModels) == true){
 
       for (final UserModel user in usersModels){
-        user.blogUserModel(invoker: methodName);
+        user.blogUserModel(invoker: invoker);
       }
 
     }

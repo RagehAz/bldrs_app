@@ -148,7 +148,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
                 await Future.wait(futures);
 
-                // blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+                // blogMap(_map, invoker: 'REAL FUCKING TIME MAP IS :');
 
 
                 await TopDialog.showTopDialog(
@@ -156,7 +156,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                   firstVerse: Verse.plain('$_numberOfTimes requestS sent'),
                 );
 
-                // blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
+                // blogMap(_map, invoker: 'REAL FUCKING TIME MAP IS :');
 
               },
             ),

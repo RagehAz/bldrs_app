@@ -273,7 +273,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
         child: widget.child,
         builder: (_, List<Map<String, dynamic>> maps, Widget child){
 
-          // Mapper.blogMaps(maps, methodName: 'FireCollPaginator : builder');
+          // Mapper.blogMaps(maps, invoker: 'FireCollPaginator : builder');
 
           return widget.builder(context, maps, _loading.value, child);
 

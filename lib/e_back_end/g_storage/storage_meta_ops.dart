@@ -27,7 +27,7 @@ class StorageMetaOps {
     if (TextCheck.isEmpty(path) == false){
 
       await tryAndCatch(
-        methodName: 'getMetaByPath',
+        invoker: 'getMetaByPath',
         functions: () async {
 
           final Reference _ref = StorageRef.byPath(path);
@@ -52,7 +52,7 @@ class StorageMetaOps {
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
       await tryAndCatch(
-        methodName: 'getMetaByURL',
+        invoker: 'getMetaByURL',
         functions: () async {
 
           final Reference _ref = await StorageRef.byURL(
@@ -83,7 +83,7 @@ class StorageMetaOps {
     if (collName != null && docName != null){
 
       await tryAndCatch(
-        methodName: 'getMetaByNodes',
+        invoker: 'getMetaByNodes',
         functions: () async {
 
           final Reference _ref = StorageRef.byNodes(

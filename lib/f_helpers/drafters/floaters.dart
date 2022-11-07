@@ -65,7 +65,7 @@ class Floaters {
 
     if (uInt != null) {
       await tryAndCatch(
-        methodName: 'getUiImageFromUint8List',
+        invoker: 'getUiImageFromUint8List',
         functions: () async {
           _decodedImage = await decodeImageFromList(uInt);
           },
@@ -216,7 +216,7 @@ static img.Image decodeToImgImage({
     //
     if (file != null){
     //   await tryAndCatch(
-    //       methodName: 'transformFileToUint8List',
+    //       invoker: 'transformFileToUint8List',
     //       functions: () async {
     //
     //         blog('transformFileToUint8List : _uInt : $_uInt');
@@ -604,7 +604,7 @@ static img.Image decodeToImgImage({
     Uint8List _bytes;
 
     await tryAndCatch(
-        methodName: 'getBytesFromLocalRasterAsset',
+        invoker: 'getBytesFromLocalRasterAsset',
         functions: () async {
 
           /// IF SVG

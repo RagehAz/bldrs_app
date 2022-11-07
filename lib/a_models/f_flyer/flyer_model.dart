@@ -392,14 +392,14 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogFlyer({
-    String methodName,
+    String invoker,
   }){
 
-    if (methodName != null){
-      blog(methodName);
+    if (invoker != null){
+      blog(invoker);
     }
 
-    blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------START');
+    blog('FLYER-PRINT in ( $invoker ) --------------------------------------------------START');
 
     blog('id : $id');
     blog('headline : $headline');
@@ -421,20 +421,20 @@ class FlyerModel {
     blog('pdfPath : $pdfPath');
     SlideModel.blogSlides(slides);
 
-    blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------END');
+    blog('FLYER-PRINT in ( $invoker ) --------------------------------------------------END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyers({
     @required List<FlyerModel> flyers,
-    String methodName = 'BLOGGING FLYERS',
+    String invoker = 'BLOGGING FLYERS',
   }){
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
 
-        flyer?.blogFlyer(methodName: methodName);
+        flyer?.blogFlyer(invoker: invoker);
 
       }
 

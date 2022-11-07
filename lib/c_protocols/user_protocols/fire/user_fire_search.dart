@@ -65,7 +65,7 @@ class UserFireSearch{
     List<UserModel> _usersModels = <UserModel>[];
 
     await tryAndCatch(
-        methodName: 'usersByNameAndIsAuthor',
+        invoker: 'usersByNameAndIsAuthor',
         functions: () async {
           final CollectionReference<Object> _usersCollection =
           Fire.getCollectionRef(FireColl.users);

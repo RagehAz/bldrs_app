@@ -133,7 +133,7 @@ class PicStorageOps {
     if (_canDelete == true){
 
       final dynamic _result = await tryCatchAndReturnBool(
-          methodName: 'deletePic',
+          invoker: 'deletePic',
           functions: () async {
 
             final Reference _picRef = StorageRef.byPath(path);

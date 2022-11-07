@@ -45,7 +45,7 @@ class Sounder  {
   static Future<void> playAssetSound(String asset) async {
     // final AudioPlayer _audioPlayer = _getPlayer();
     // await tryAndCatch(
-    //   methodName: 'playAssetSound',
+    //   invoker: 'playAssetSound',
     //   functions: () async {
         // await _audioPlayer.setAsset(asset);
         // await _audioPlayer.play();

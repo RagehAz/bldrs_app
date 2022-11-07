@@ -132,9 +132,9 @@ class CustomerStatus {
 
   // --------------------
   void blogCustomerStatus({
-    String methodName = 'CUSTOMER STATUS BLOG',
+    String invoker = 'CUSTOMER STATUS BLOG',
   }){
-    blog('$methodName ---------------------------- START');
+    blog('$invoker ---------------------------- START');
 
     blog('bldrPhase : ${bldrPhase.toString()}');
     blog('neededBzz : ${neededBzz.toString()}');
@@ -143,19 +143,19 @@ class CustomerStatus {
     blog('zoneModel : ${zoneModel.toString()}');
     blog('location : ${location.toString()}');
 
-    blog('$methodName ---------------------------- END');
+    blog('$invoker ---------------------------- END');
   }
   // --------------------
   static void blogCustomerStatuses({
     @required List<CustomerStatus> statuses,
-    String methodName,
+    String invoker,
   }){
 
     if (Mapper.checkCanLoopList(statuses) == true){
 
       for (final CustomerStatus status in statuses){
         status.blogCustomerStatus(
-          methodName: methodName,
+          invoker: invoker,
         );
       }
 

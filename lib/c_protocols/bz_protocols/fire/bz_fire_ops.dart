@@ -269,7 +269,7 @@ class BzFireOps {
   //   // bool _result;
   //   //
   //   // _result = await tryCatchAndReturnBool(
-  //   //     methodName: 'createBz',
+  //   //     invoker: 'createBz',
   //   //     functions: () async {
   //   //
   //   //       final String _bzID = await _createEmptyBzDocToGetBzID();
