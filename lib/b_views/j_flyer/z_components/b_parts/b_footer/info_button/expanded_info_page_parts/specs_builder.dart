@@ -34,7 +34,7 @@ class SpecsBuilder extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(_specsPickers) == true){
 
-      // PickerModel.blogPickers(_specsPickers, methodName: 'fuckii');
+      // PickerModel.blogPickers(_specsPickers, invoker: 'fuckii');
 
       return SizedBox(
         key: const ValueKey<String>('SpecsBuilder'),
@@ -48,7 +48,7 @@ class SpecsBuilder extends StatelessWidget {
 
               final PickerModel _picker = _specsPickers[index];
 
-              // _picker?.blogPicker(methodName: 'bobo');
+              // _picker?.blogPicker(invoker: 'bobo');
 
               final List<SpecModel> _specsOfThisPicker = SpecModel.getSpecsBelongingToThisPicker(
                 specs: specs,

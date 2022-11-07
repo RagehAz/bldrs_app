@@ -19,7 +19,7 @@ class HttpException implements Exception {
 /// TESTED : WORKS PERFECT
 Future<void> tryAndCatch({
   @required Function functions,
-  String methodName,
+  String invoker,
   ValueChanged<String> onError,
 }) async {
 
@@ -29,7 +29,7 @@ Future<void> tryAndCatch({
 
   on Exception catch (error) {
 
-    blog('$methodName : tryAndCatch ERROR : $error');
+    blog('$invoker : tryAndCatch ERROR : $error');
 
     if (onError != null) {
       onError(error.toString());
@@ -44,7 +44,7 @@ Future<void> tryAndCatch({
 Future<bool> tryCatchAndReturnBool({
   @required Function functions,
   ValueChanged<String> onError,
-  String methodName = 'tryCatchAndReturnBool',
+  String invoker = 'tryCatchAndReturnBool',
 }) async {
   /// IF FUNCTIONS SUCCEED RETURN TRUE, IF ERROR CAUGHT RETURNS FALSE
   bool _success = true;
@@ -57,7 +57,7 @@ Future<bool> tryCatchAndReturnBool({
   /// CATCH EXCEPTION ERROR
   on Exception catch (error) {
 
-    blog('$methodName : tryAndCatch ERROR : $error');
+    blog('$invoker : tryAndCatch ERROR : $error');
 
     if (onError != null) {
       onError(error.toString());

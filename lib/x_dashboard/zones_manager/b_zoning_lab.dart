@@ -42,7 +42,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   screen: const CountriesScreen(),
               );
 
-              _zone?.blogZone(methodName: 'ZONE BY ONE BUTTON');
+              _zone?.blogZone(invoker: 'ZONE BY ONE BUTTON');
 
               if (_zone == null){
                 blog('ZONE IS NULL');
@@ -63,7 +63,7 @@ class _ZoningLabState extends State<ZoningLab> {
             ],
             onZoneChanged: (ZoneModel zone){
 
-              zone.blogZone(methodName: 'ZONE Received from bubble');
+              zone.blogZone(invoker: 'ZONE Received from bubble');
 
               if (zone != null){
                 _bubbleZone = zone;

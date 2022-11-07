@@ -231,16 +231,16 @@ class Continent {
 
   // --------------------
   void blogContinent({
-    String methodName = 'CONTINENT - BLOG',
+    String invoker = 'CONTINENT - BLOG',
   }) {
-    blog('$methodName ------------------------------- START');
+    blog('$invoker ------------------------------- START');
 
     blog('name : $name');
     blog('regions : $regions');
     blog('activatedCountriesIDs : $activatedCountriesIDs');
     blog('globalCountriesIDs : $globalCountriesIDs');
 
-    blog('$methodName ------------------------------- END');
+    blog('$invoker ------------------------------- END');
   }
   // -----------------------------------------------------------------------------
 }

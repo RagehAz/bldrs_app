@@ -286,20 +286,20 @@ class ZoneModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogZone({String methodName = 'ZONE - PRINT'}) {
-    blog('$methodName ------------------------------- START');
+  void blogZone({String invoker = 'ZONE - PRINT'}) {
+    blog('$invoker ------------------------------- START');
 
     blog('IDs [ $districtID - $cityID - $countryID ]');
     blog('names [ $districtName - $cityName - $countryName ]');
     blog('models [ cityModelExists : ${cityModel != null} - countryModelExists : ${countryModel != null} ]');
 
-    blog('$methodName ------------------------------- END');
+    blog('$invoker ------------------------------- END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogZoneIDs({String methodName = 'ZONE-IDs BLOG : '}){
+  void blogZoneIDs({String invoker = 'ZONE-IDs BLOG : '}){
 
-    blog('$methodName [ $districtID - $cityID - $countryID ]');
+    blog('$invoker [ $districtID - $cityID - $countryID ]');
 
   }
   // --------------------
@@ -377,7 +377,7 @@ class ZoneModel {
     bool showDistrict = true,
   }){
 
-    // zoneModel?.blogZone(methodName: 'translateZoneString');
+    // zoneModel?.blogZone(invoker: 'translateZoneString');
 
     String _text = '...';
     final String _inn = xPhrase(context, 'phid_inn');

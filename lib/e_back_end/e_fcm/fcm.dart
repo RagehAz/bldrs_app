@@ -264,7 +264,7 @@ class FCM {
   }) async {
 
     await tryAndCatch(
-      methodName: 'pushGlobalNotification',
+      invoker: 'pushGlobalNotification',
       functions: () async {
 
         await getAwesomeNoots().createNotification(
@@ -625,7 +625,7 @@ class FCM {
     String _fcmToken;
 
     await tryAndCatch(
-      methodName: 'generateToken',
+      invoker: 'generateToken',
       functions: () async {
 
         final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -838,7 +838,7 @@ class FCM {
     // static Future<void> createAwesomeNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
     //
     //   // blogRemoteMessage(
-    //   //   methodName: 'notificationPushHandler',
+    //   //   invoker: 'notificationPushHandler',
     //   //   remoteMessage: remoteMessage,
     //   // );
     //

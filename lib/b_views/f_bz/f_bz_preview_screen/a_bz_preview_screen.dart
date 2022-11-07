@@ -16,7 +16,7 @@ class BzPreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    bzModel?.blogBz(methodName: 'BzPreviewScreen');
+    bzModel?.blogBz(invoker: 'BzPreviewScreen');
 
     return MainLayout(
       skyType: SkyType.black,

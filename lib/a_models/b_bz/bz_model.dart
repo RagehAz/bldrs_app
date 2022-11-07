@@ -553,10 +553,9 @@ class BzModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogBz({String methodName = ''}) {
-    final String _methodName = methodName ?? 'BZ';
+  void blogBz({String invoker = ''}) {
 
-    blog('BZZZZZZZ ===> $_methodName : BLOGGING BZ MODEL -------------------------------- START -- ');
+    blog('$invoker : BLOGGING BZ MODEL -------------------------------- START -- ');
 
     blog('name : $name'); // fakes trigram
     blog('id : $id : accountType : $accountType : createdAt : $createdAt');
@@ -568,23 +567,23 @@ class BzModel{
     blog('showsTeam : $showsTeam : isVerified : $isVerified : bzState : $bzState');
     blog('flyersIDs : $flyersIDs');
     PendingAuthor.blogPendingAuthors(pendingAuthors);
-    zone?.blogZone(methodName: 'BZ MODEL ($id)');
-    AuthorModel.blogAuthors(authors: authors, methodName: 'BZ MODEL ($id)');
+    zone?.blogZone(invoker: 'BZ MODEL ($id)');
+    AuthorModel.blogAuthors(authors: authors, invoker: 'BZ MODEL ($id)');
     ContactModel.blogContacts(contacts: contacts);
 
-    blog('BZZZZZZZ ===> $_methodName : BLOGGING BZ MODEL -------------------------------- END -- ');
+    blog('$invoker : BLOGGING BZ MODEL -------------------------------- END -- ');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogBzz({
     @required List<BzModel> bzz,
-    String methodName,
+    String invoker,
   }){
 
     if (Mapper.checkCanLoopList(bzz)){
 
       for (final BzModel bz in bzz){
-        bz.blogBz(methodName: methodName);
+        bz.blogBz(invoker: invoker);
       }
 
     }

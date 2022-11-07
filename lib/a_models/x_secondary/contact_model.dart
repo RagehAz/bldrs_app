@@ -203,7 +203,7 @@ class ContactModel {
         type: type,
       );
 
-      // _contact.blogContact(methodName: 'initializeContactsForEditing');
+      // _contact.blogContact(invoker: 'initializeContactsForEditing');
 
       _output.add(_contact);
 
@@ -602,22 +602,22 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogContact({
-    String methodName = 'ContactModel',
+    String invoker = 'ContactModel',
   }){
-    blog('$methodName : $type : $value : controller : ${controller?.text}');
+    blog('$invoker : $type : $value : controller : ${controller?.text}');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogContacts({
     @required List<ContactModel> contacts,
-    String methodName = 'Contacts Models',
+    String invoker = 'Contacts Models',
   }){
 
     if (Mapper.checkCanLoopList(contacts) == true){
       for (final ContactModel contact in contacts){
 
         contact.blogContact(
-          methodName: methodName,
+          invoker: invoker,
         );
 
       }

@@ -88,7 +88,7 @@ Future<List<CityModel>> citiesByCityNameAndCountryID({
   List<CityModel> _cities = <CityModel>[];
 
   await tryAndCatch(
-      methodName: 'mapsByTwoValuesEqualTo',
+      invoker: 'mapsByTwoValuesEqualTo',
       functions: () async {
         final CollectionReference<Object> _collRef = Fire.getSubCollectionRef(
           collName: FireColl.zones,

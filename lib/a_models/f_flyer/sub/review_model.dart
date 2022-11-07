@@ -277,9 +277,9 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogReview({
-    String methodName = '',
+    String invoker = '',
   }){
-      blog('blogReview : $methodName ------ START');
+      blog('blogReview : $invoker ------ START');
       blog('reviewID : $id');
       blog('text : $text');
       blog('userID : $userID');
@@ -289,25 +289,25 @@ class ReviewModel {
       blog('reply : $reply');
       blog('replyTime : $replyTime');
       blog('agrees : $agrees');
-      blog('blogReview : $methodName  ------ END');
+      blog('blogReview : $invoker  ------ END');
     }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogReviews({
     @required List<ReviewModel> reviews,
-    String methodName,
+    String invoker,
   }){
-    blog('blogReviews : $methodName -------------------------------------- START');
+    blog('blogReviews : $invoker -------------------------------------- START');
     if (Mapper.checkCanLoopList(reviews) == true){
       for (final ReviewModel review in reviews){
-        review.blogReview(methodName: methodName);
+        review.blogReview(invoker: invoker);
       }
     }
     else {
       blog('no reviews to blog');
     }
 
-    blog('blogReviews : $methodName -------------------------------------- END');
+    blog('blogReviews : $invoker -------------------------------------- END');
   }
   // -----------------------------------------------------------------------------
 

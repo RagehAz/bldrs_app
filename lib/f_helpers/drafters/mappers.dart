@@ -603,7 +603,7 @@ class Mapper {
   }){
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
-    // Mapper.blogMap(mapToReplace, methodName: 'replaceMapInMapsWithSameIDField');
+    // Mapper.blogMap(mapToReplace, invoker: 'replaceMapInMapsWithSameIDField');
 
     /// Note : if baseMaps is empty, there will be nothing to replace ya zaki
     if (checkCanLoopList(baseMaps) == true && mapToReplace != null){
@@ -640,7 +640,7 @@ class Mapper {
   }){
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
-    // Mapper.blogMap(mapToReplace, methodName: 'replaceMapInMapsWithSameIDField');
+    // Mapper.blogMap(mapToReplace, invoker: 'replaceMapInMapsWithSameIDField');
 
     /// NOTE : if maps is empty, nothing to remove ya zaki bardo
     if (checkCanLoopList(baseMaps) == true && mapIDToRemove != null){
@@ -988,7 +988,7 @@ class Mapper {
       blogMapsListsDifferences(
         maps1: maps1,
         maps2: maps2,
-        methodName: 'checkMapsListsAreIdentical',
+        invoker: 'checkMapsListsAreIdentical',
       );
     }
     return _listsAreIdentical;
@@ -1112,10 +1112,10 @@ class Mapper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
+  static void blogMaps(List<Map<dynamic, dynamic>> maps, {String invoker}) {
     if (checkCanLoopList(maps)) {
       for (final Map<dynamic, dynamic> map in maps) {
-        blogMap(map, invoker: methodName);
+        blogMap(map, invoker: invoker);
       }
     }
   }
@@ -1124,7 +1124,7 @@ class Mapper {
   static void blogMapsListsDifferences({
     @required List<Map<String, dynamic>> maps1,
     @required List<Map<String, dynamic>> maps2,
-    @required String methodName,
+    @required String invoker,
   }){
 
     blog('blogMapsListsDifferences : START');

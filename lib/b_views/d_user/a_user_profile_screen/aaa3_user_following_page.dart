@@ -90,7 +90,7 @@ class UserFollowingPage extends StatelessWidget {
           //   title: _bzTypeString,
           //   icon: _bzTypeIcon,
           //   onBzTap: (BzModel bzModel){
-          //     bzModel.blogBz(methodName: 'Yabny tapped bzModel aho tapped aho');
+          //     bzModel.blogBz(invoker: 'Yabny tapped bzModel aho tapped aho');
           //   },
           // );
 

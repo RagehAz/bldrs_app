@@ -35,7 +35,7 @@ class StorageByteOps {
     Reference _output;
 
     await tryAndCatch(
-        methodName: 'createDocByUint8List',
+        invoker: 'createDocByUint8List',
         functions: () async {
 
           final Reference _ref = StorageRef.byPath(path);

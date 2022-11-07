@@ -1171,11 +1171,10 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogAuthor({
-    String methodName = '',
+    String invoker = '',
   }) {
-    final String _methodName = methodName ?? 'AUTHOR';
 
-    blog('$_methodName : BLOGGING AUTHOR ---------------- START -- ');
+    blog('$invoker : BLOGGING AUTHOR ---------------- START -- ');
 
     blog('userID : $userID');
     blog('name : $name');
@@ -1185,26 +1184,26 @@ class AuthorModel {
     blog('contacts : $contacts');
     blog('flyersID : $flyersIDs');
 
-    blog('$_methodName : BLOGGING AUTHOR ---------------- END -- ');
+    blog('$invoker : BLOGGING AUTHOR ---------------- END -- ');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogAuthors({
     @required List<AuthorModel> authors,
-    String methodName,
+    String invoker,
   }){
 
     if (Mapper.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors){
         author.blogAuthor(
-          methodName: methodName,
+          invoker: invoker,
         );
       }
 
     }
     else {
-      blog('no Authors to blog here : $methodName');
+      blog('no Authors to blog here : $invoker');
     }
 
   }

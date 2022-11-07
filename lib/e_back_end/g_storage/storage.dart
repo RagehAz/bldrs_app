@@ -34,7 +34,7 @@ class Storage {
     String _imageURL;
 
     await tryAndCatch(
-        methodName: 'createStoragePicAndGetURL',
+        invoker: 'createStoragePicAndGetURL',
         functions: () async {
 
           final Dimensions imageSize = await Dimensions.superDimensions(inputFile);
@@ -193,7 +193,7 @@ class Storage {
     if (oldURL != null && newPic != null){
 
       await tryAndCatch(
-        methodName: 'updateExistingPic',
+        invoker: 'updateExistingPic',
         functions: () async {
 
           final Reference _ref = await StorageRef.byURL(
@@ -284,7 +284,7 @@ class Storage {
     if (_canDelete == true){
 
       final dynamic _result = await tryCatchAndReturnBool(
-          methodName: 'deleteStoragePic',
+          invoker: 'deleteStoragePic',
           functions: () async {
 
             final Reference _picRef = StorageRef.byNodes(

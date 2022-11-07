@@ -20,7 +20,7 @@ Future<dynamic> subCollectionMapsByFieldValue({
   bool addDocSnapshotToEachMap = false,
   int limit = 3,
 }) async {
-  // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
+  // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
   final CollectionReference<Object> _collRef = Fire.getSubCollectionRef(
     collName: collName,
@@ -37,7 +37,7 @@ Future<dynamic> subCollectionMapsByFieldValue({
     limit: limit,
   );
 
-  // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
+  // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
 
   final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQuerySnapshot(
     querySnapshot: _collectionSnapshot,
@@ -45,7 +45,7 @@ Future<dynamic> subCollectionMapsByFieldValue({
     addDocSnapshotToEachMap: addDocSnapshotToEachMap,
   );
 
-  // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
+  // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
 
   return _maps;
 }
@@ -60,7 +60,7 @@ Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
   QuerySnapshot<Object> _collectionSnapshot;
 
   await tryAndCatch(
-      methodName: '_getCollectionSnapshots',
+      invoker: '_getCollectionSnapshots',
       functions: () async {
         /// IF EQUAL TO
         if (valueIs == FireComparison.equalTo) {
@@ -163,7 +163,7 @@ Future<dynamic> mapsByFieldValue({
   bool addDocSnapshotToEachMap = false,
   int limit = 3,
 }) async {
-  // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
+  // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
   final CollectionReference<Object> _collRef = Fire.getCollectionRef(collName);
 
@@ -176,7 +176,7 @@ Future<dynamic> mapsByFieldValue({
     limit: limit,
   );
 
-  // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
+  // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: 'valueIs', varNewValue: valueIs, tracerIsOn: true);
 
   final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQuerySnapshot(
     querySnapshot: _collectionSnapshot,
@@ -184,7 +184,7 @@ Future<dynamic> mapsByFieldValue({
     addDocSnapshotToEachMap: addDocSnapshotToEachMap,
   );
 
-  // Tracer.traceMethod(methodName: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
+  // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: '_maps', varNewValue: _maps, tracerIsOn: true);
 
   return _maps;
 }
@@ -202,7 +202,7 @@ Future<dynamic> mapsByValueInArray({
 
   await tryAndCatch(
       context: context,
-      methodName: 'mapsByValueInArray',
+      invoker: 'mapsByValueInArray',
       functions: () async {
         QuerySnapshot<Object> _collectionSnapshot;
 
@@ -247,7 +247,7 @@ Future<dynamic> mapsByTwoValuesEqualTo({
 
   await tryAndCatch(
       context: context,
-      methodName: 'mapsByTwoValuesEqualTo',
+      invoker: 'mapsByTwoValuesEqualTo',
       functions: () async {
 
         final CollectionReference<Object> _collRef = Fire.getCollectionRef(collName);

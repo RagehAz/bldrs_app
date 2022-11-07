@@ -91,7 +91,7 @@ class PickersScreenBrowseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // PickerModel.blogPickers(pickers, methodName: 'ChainsScreenBrowseView');
+    // PickerModel.blogPickers(pickers, invoker: 'ChainsScreenBrowseView');
 
     return ValueListenableBuilder(
       valueListenable: refinedPickersNotifier,

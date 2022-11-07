@@ -244,7 +244,7 @@ String pathOfSubDoc({
       if (_upload != null){
 
         await tryAndCatch(
-            methodName: invoker,
+            invoker: invoker,
             functions: () async {
 
               // final SetOptions options = SetOptions(
@@ -281,7 +281,7 @@ String pathOfSubDoc({
       if (_upload != null){
 
         await tryAndCatch(
-          methodName: invoker,
+          invoker: invoker,
           functions: () async {
 
             // final SetOptions options = SetOptions(
@@ -467,7 +467,7 @@ String pathOfSubDoc({
     List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
 
     await tryAndCatch(
-        methodName: 'superCollPaginator',
+        invoker: 'superCollPaginator',
         functions: () async {
 
           final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
@@ -505,7 +505,7 @@ String pathOfSubDoc({
     List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
 
     await tryAndCatch(
-        methodName: 'readCollectionDocs',
+        invoker: 'readCollectionDocs',
         functions: () async {
 
           final CollectionReference<Object> _collRef = getCollectionRef(collName);
@@ -567,7 +567,7 @@ String pathOfSubDoc({
     Map<String, dynamic> _map; //QueryDocumentSnapshot
 
     final dynamic _result = await tryCatchAndReturnBool(
-      methodName: 'readDoc',
+      invoker: 'readDoc',
       functions: () async {
 
         final DocumentReference<Object> _docRef = getDocRef(
@@ -607,7 +607,7 @@ String pathOfSubDoc({
     List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     await tryAndCatch(
-        methodName: 'readSubCollectionDocs',
+        invoker: 'readSubCollectionDocs',
         functions: () async {
 
           final CollectionReference<Object> _subCollectionRef = getSubCollectionRef(
@@ -651,7 +651,7 @@ String pathOfSubDoc({
     dynamic _map;
 
     await tryAndCatch(
-        methodName: 'readSubDoc',
+        invoker: 'readSubDoc',
         functions: () async {
 
           final DocumentReference<Object> _subDocRef = getSubDocRef(
@@ -878,7 +878,7 @@ String pathOfSubDoc({
   }) async {
 
     await tryAndCatch(
-        methodName: 'deleteDoc',
+        invoker: 'deleteDoc',
         functions: () async {
 
           final DocumentReference<Object> _doc = getDocRef(
@@ -901,7 +901,7 @@ String pathOfSubDoc({
   }) async {
 
     await tryAndCatch(
-        methodName: 'deleteSubDoc',
+        invoker: 'deleteSubDoc',
         functions: () async {
 
           final DocumentReference<Object> _subDoc = getSubDocRef(

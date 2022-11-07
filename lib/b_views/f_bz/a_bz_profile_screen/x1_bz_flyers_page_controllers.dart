@@ -26,7 +26,7 @@ Future<void> onFlyerBzOptionsTap({
   @required FlyerModel flyer,
 }) async {
 
-  flyer.blogFlyer(methodName: 'onFlyerBzOptionsTap');
+  flyer.blogFlyer(invoker: 'onFlyerBzOptionsTap');
 
   // final String _age = Timers.calculateSuperTimeDifferenceString(
   //   from: PublishTime.getPublishTimeFromTimes(
