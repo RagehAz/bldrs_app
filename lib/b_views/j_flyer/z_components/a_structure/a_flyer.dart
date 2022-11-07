@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,7 @@ class Flyer extends StatefulWidget {
 class _FlyerState extends State<Flyer> {
   // -----------------------------------------------------------------------------
    final ValueNotifier<BzModel> _bzModel = ValueNotifier(null);
+   FlyerModel _flyerModel;
    String _heroTag;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -57,6 +59,12 @@ class _FlyerState extends State<Flyer> {
         if (widget.flyerModel != null){
 
           if (mounted == true){
+
+            final FlyerModel _flyerWithUiImages = await FlyerProtocols.imagifyFirstSlide(widget.flyerModel);
+
+            setState(() {
+              _flyerModel = _flyerWithUiImages;
+            });
 
             final BzModel _bz = await BzProtocols.fetch(
               context: context,
@@ -137,7 +145,7 @@ class _FlyerState extends State<Flyer> {
                 builder: (_, BzModel bzModel, Widget child){
 
                   return FlyerHero(
-                    flyerModel: widget.flyerModel,
+                    flyerModel: _flyerModel,
                     bzModel: bzModel,
                     isFullScreen: false,
                     flyerBoxWidth: widget.flyerBoxWidth,
