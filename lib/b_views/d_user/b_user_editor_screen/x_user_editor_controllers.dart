@@ -5,7 +5,10 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x4_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
@@ -16,6 +19,7 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -133,7 +137,11 @@ Future<void> takeUserPicture({
 
   if (draft.value.canPickImage == true) {
 
-    DraftUser.triggerCanPickImage(draftUser: draft, mounted: mounted, setTo: false,);
+    DraftUser.triggerCanPickImage(
+      draftUser: draft,
+      mounted: mounted,
+      setTo: false,
+    );
 
     Uint8List _bytes;
 
@@ -166,8 +174,13 @@ Future<void> takeUserPicture({
       blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
 
       draft.value = draft.value.copyWith(
-        picModel: draft.value.picModel.copyWith(
+        picModel: PicModel(
           bytes: _bytes,
+          path: StorageColl.getUserPicPath(draft.value.id),
+          meta: PicMetaModel(
+            dimensions: await Dimensions.superDimensions(_bytes),
+            ownersIDs: [draft.value.id],
+          ),
         ),
         hasNewPic: true,
       );
@@ -405,8 +418,8 @@ Future<UserModel> _updateUserModel({
       newUserModel: DraftUser.toUserModel(
         draft: draft.value,
       ),
-    ).then((value){
-      _output = value;
+    ).then((UserModel updated){
+      _output = updated;
     }),
 
     /// UPDATE PIC

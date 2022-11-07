@@ -18,6 +18,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -47,6 +48,7 @@ class BigFlyer extends StatefulWidget {
 
 class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
+  FlyerModel _flyer;
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
   final ValueNotifier<bool> _followIsOn = ValueNotifier<bool>(false);
   // --------------------
@@ -144,6 +146,11 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       _triggerLoading(setTo: true).then((_) async {
 
+        final FlyerModel _flyerWithUiImage = await FlyerProtocols.imagifySlides(widget.flyerModel);
+
+        setState(() {
+          _flyer = _flyerWithUiImage;
+        });
 
         setNotifier(
           notifier: _bzCounters,
@@ -365,7 +372,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       if (mounted == true){
 
-
         await Future.wait(<Future>[
           _triggerAnimation(!_flyerIsSaved.value),
           onSaveFlyer(
@@ -467,7 +473,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
           /// SLIDES
           SlidesBuilder(
-            flyerModel: widget.flyerModel,
+            flyerModel: _flyer,
             bzModel: widget.bzModel,
             flyerBoxWidth: widget.flyerBoxWidth,
             flyerBoxHeight: _flyerBoxHeight,
@@ -485,7 +491,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
           /// HEADER
           FlyerHeader(
             flyerBoxWidth: widget.flyerBoxWidth,
-            flyerModel: widget.flyerModel,
+            flyerModel: _flyer,
             bzModel: widget.bzModel,
             onHeaderTap: _onHeaderTap,
             onFollowTap: _onFollowTap,
@@ -502,7 +508,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
           /// FOOTER
           FlyerFooter(
             flyerBoxWidth: widget.flyerBoxWidth,
-            flyerModel: widget.flyerModel,
+            flyerModel: _flyer,
             tinyMode: _tinyMode,
             onSaveFlyer: _onSaveFlyer,
             footerPageController: _footerPageController,

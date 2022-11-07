@@ -60,12 +60,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<PicModel> fetchPic(String path) async {
 
-    blog('fetchPic START FOR : PATH : $path ');
-
     PicModel _picModel = await PicLDBOps.readPic(path);
-
-    blog('the pic issssss aho _picModel : $_picModel');
-    // _picModel.blogPic();
 
     if (_picModel == null){
 
@@ -108,7 +103,6 @@ class PicProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ui.Image> fetchPicUiImage(String path) async {
-    blog('fuck fetchPicUiImage : path : $path');
     final PicModel _picModel = await PicProtocols.fetchPic(path);
     final ui.Image _theImage = await Floaters.getUiImageFromUint8List(_picModel.bytes);
     return _theImage;

@@ -67,29 +67,11 @@ class PicModel {
 
     if (map != null){
 
-      // Mapper.blogMap(map,invoker: 'PicModel.decipherFromLDB');
-
-      blog('fuck youuuuuuuuuuuuuu');
-
-      final String path = map['path'];
-      blog('fuck : path : $path');
-      final PicMetaModel _meta = PicMetaModel.decipherFromLDB(map['meta']);
-      blog('fuck : _meta : ${_meta.dimensions.width} width');
-      blog('fuck : _bytes : ${map['bytes'].length} bytes');
-      final Uint8List _bytes = Floaters.getBytesFromInts(map['bytes']);
-      blog('fuck : _bytessss : ${_bytes?.length} bytes');
-
-      final PicModel _thePicModel = PicModel(
-        bytes: _bytes,
-        path: path,
-        meta: _meta,
+      _picModel = PicModel(
+        bytes: Floaters.getBytesFromInts(map['bytes']),
+        path: map['path'],
+        meta: PicMetaModel.decipherFromLDB(map['meta']),
       );
-
-      blog('you');
-
-      _thePicModel.blogPic(invoker: 'the fucking shit');
-
-      _picModel = _thePicModel;
 
     }
 
@@ -113,13 +95,13 @@ class PicModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<Dimensions> getDimensions(Uint8List bytes) async {
     final Dimensions _dim = await Dimensions.superDimensions(bytes);
     return _dim;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   double getSize({
     FileSizeUnit fileSizeUnit = FileSizeUnit.megaByte,
   }){

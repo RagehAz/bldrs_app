@@ -49,6 +49,30 @@ class BzTyper {
 
   // -----------------------------------------------------------------------------
 
+  /// BZ SECTION CYPHERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String cipherBzSection(BzSection section){
+    switch (section) {
+      case BzSection.realestate      :  return 'realestate'    ; break;
+      case BzSection.construction    :  return 'construction'  ; break;
+      case BzSection.supplies        :  return 'supplies'      ; break;
+      default:  return null;
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BzSection decipherBzSection(String section){
+    switch (section) {
+      case 'realestate'   : return BzSection.realestate   ; break;
+      case 'construction' : return BzSection.construction ; break;
+      case 'supplies'     : return BzSection.supplies     ; break;
+      default:  return null;
+    }
+  }
+  // -----------------------------------------------------------------------------
+
   /// BZ TYPE CYPHERS
 
   // --------------------
