@@ -397,7 +397,7 @@ Future<void> controlCityOnTap({
         countryID: _city.countryID,
         cityID: _city.cityID,
       );
-      _zone.blogZone(methodName: 'SELECTED ZONE');
+      _zone.blogZone(invoker: 'SELECTED ZONE');
 
       /// WHEN SEQUENCE IS TO SET CURRENT ZONE
       if (settingCurrentZone == true){
@@ -566,7 +566,7 @@ Future<void> controlDistrictOnTap({
   );
 
 
-  _zone.blogZone(methodName: 'SELECTED ZONE');
+  _zone.blogZone(invoker: 'SELECTED ZONE');
 
   /// WHEN SEQUENCE IS TO SET CURRENT ZONE
   if (settingCurrentZone == true){

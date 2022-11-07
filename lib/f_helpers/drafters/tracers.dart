@@ -39,17 +39,17 @@ import 'package:flutter/material.dart';
   }
 // -----------------------------------------------------------------------------
   void traceMethod({
-    @required String methodName,
+    @required String invoker,
     @required String varName,
     @required dynamic varNewValue,
     bool tracerIsOn = true,
   }){
     if(_traceSetState == true && tracerIsOn == true){
-      blog('x - mm-> $methodName : $varName : ${varNewValue.toString()}');
+      blog('x - mm-> $invoker : $varName : ${varNewValue.toString()}');
     }
   }
 // -----------------------------------------------------------------------------
-  void blog(dynamic msg, {String methodName}){
+  void blog(dynamic msg, {String invoker}){
 
     assert((){
       // ignore: avoid_print

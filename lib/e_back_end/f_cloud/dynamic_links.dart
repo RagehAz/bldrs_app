@@ -214,40 +214,40 @@ class DynamicLinks {
     blog('blogPendingDynamicLinkData : END');
     blogURI(
       uri: data?.link,
-      methodName: 'PendingDynamicLinkData',
+      invoker: 'PendingDynamicLinkData',
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogURI({
     @required Uri uri,
-    String methodName = ':',
+    String invoker = ':',
   }){
 
-    blog('blogURI $methodName : link : $uri');
-    blog('blogURI $methodName : link.path : ${uri?.path}');
-    blog('blogURI $methodName : link.hashCode : ${uri?.hashCode}');
-    blog('blogURI $methodName : link.data : ${uri?.data}');
-    blog('blogURI $methodName : link.queryParameters : ${uri?.queryParameters}');
-    blog('blogURI $methodName : link.authority : ${uri?.authority}');
-    blog('blogURI $methodName : link.fragment : ${uri?.fragment}');
-    blog('blogURI $methodName : link.hasAbsolutePath : ${uri?.hasAbsolutePath}');
-    blog('blogURI $methodName : link.hasAuthority : ${uri?.hasAuthority}');
-    blog('blogURI $methodName : link.hasEmptyPath : ${uri?.hasEmptyPath}');
-    blog('blogURI $methodName : link.hasFragment : ${uri?.hasFragment}');
-    blog('blogURI $methodName : link.hasPort : ${uri?.hasPort}');
-    blog('blogURI $methodName : link.hasQuery : ${uri?.hasQuery}');
-    blog('blogURI $methodName : link.hasScheme : ${uri?.hasScheme}');
-    blog('blogURI $methodName : link.query : ${uri?.query}');
-    blog('blogURI $methodName : link.host : ${uri?.host}');
-    blog('blogURI $methodName : link.isAbsolute : ${uri?.isAbsolute}');
-    blog('blogURI $methodName : link.pathSegments : ${uri?.pathSegments}');
-    blog('blogURI $methodName : link.port : ${uri?.port}');
-    blog('blogURI $methodName : link.scheme : ${uri?.scheme}');
-    blog('blogURI $methodName : link.userInfo : ${uri?.userInfo}');
-    blog('blogURI $methodName : link.queryParametersAll : ${uri?.queryParametersAll}');
+    blog('blogURI $invoker : link : $uri');
+    blog('blogURI $invoker : link.path : ${uri?.path}');
+    blog('blogURI $invoker : link.hashCode : ${uri?.hashCode}');
+    blog('blogURI $invoker : link.data : ${uri?.data}');
+    blog('blogURI $invoker : link.queryParameters : ${uri?.queryParameters}');
+    blog('blogURI $invoker : link.authority : ${uri?.authority}');
+    blog('blogURI $invoker : link.fragment : ${uri?.fragment}');
+    blog('blogURI $invoker : link.hasAbsolutePath : ${uri?.hasAbsolutePath}');
+    blog('blogURI $invoker : link.hasAuthority : ${uri?.hasAuthority}');
+    blog('blogURI $invoker : link.hasEmptyPath : ${uri?.hasEmptyPath}');
+    blog('blogURI $invoker : link.hasFragment : ${uri?.hasFragment}');
+    blog('blogURI $invoker : link.hasPort : ${uri?.hasPort}');
+    blog('blogURI $invoker : link.hasQuery : ${uri?.hasQuery}');
+    blog('blogURI $invoker : link.hasScheme : ${uri?.hasScheme}');
+    blog('blogURI $invoker : link.query : ${uri?.query}');
+    blog('blogURI $invoker : link.host : ${uri?.host}');
+    blog('blogURI $invoker : link.isAbsolute : ${uri?.isAbsolute}');
+    blog('blogURI $invoker : link.pathSegments : ${uri?.pathSegments}');
+    blog('blogURI $invoker : link.port : ${uri?.port}');
+    blog('blogURI $invoker : link.scheme : ${uri?.scheme}');
+    blog('blogURI $invoker : link.userInfo : ${uri?.userInfo}');
+    blog('blogURI $invoker : link.queryParametersAll : ${uri?.queryParametersAll}');
 
-    // blog('blogURI $methodName : link.origin : ${uri?.origin}'); // Unhandled Exception: Bad state: Origin is only applicable schemes http and https:
+    // blog('blogURI $invoker : link.origin : ${uri?.origin}'); // Unhandled Exception: Bad state: Origin is only applicable schemes http and https:
   }
   // -----------------------------------------------------------------------------
 

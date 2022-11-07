@@ -272,7 +272,7 @@ class FlyerFireOps {
     if (flyerPromotion != null){
 
       await tryAndCatch(
-          methodName: 'promoteFlyerInCity',
+          invoker: 'promoteFlyerInCity',
           functions: () async {
 
             await Fire.createNamedDoc(

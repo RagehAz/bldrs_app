@@ -92,7 +92,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     unawaited(_triggerLoading(setTo: true));
 
     await tryAndCatch(
-        methodName: 'get location thing',
+        invoker: 'get location thing',
         functions: () async {
           blog('getting location aho');
 

@@ -68,7 +68,7 @@ class SmallFlyer extends StatelessWidget {
 
       unawaited(Sounder.playAssetSound(Sounder.whip_high));
 
-      // flyerModel.blogFlyer(methodName: '_openFullScreenFlyer');
+      // flyerModel.blogFlyer(invoker: '_openFullScreenFlyer');
 
       unawaited(recordFlyerView(
         index: 0,

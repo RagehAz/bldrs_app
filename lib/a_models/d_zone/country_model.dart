@@ -688,8 +688,8 @@ class CountryModel {
   /// BLOGGERS
 
   // --------------------
-  void blogCountry({String methodName = 'PRINTING COUNTRY'}) {
-    blog('$methodName ------------------------------------------- START');
+  void blogCountry({String invoker = 'PRINTING COUNTRY'}) {
+    blog('$invoker ------------------------------------------- START');
 
     blog('  id : $id');
     blog('  region : $region');
@@ -709,7 +709,7 @@ class CountryModel {
 
     Phrase.blogPhrases(phrases);
 
-    blog('$methodName ------------------------------------------- END');
+    blog('$invoker ------------------------------------------- END');
   }
   // --------------------
   static void blogCountries(List<CountryModel> countries){

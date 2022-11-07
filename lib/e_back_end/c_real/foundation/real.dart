@@ -129,7 +129,7 @@ class Real {
     if (map != null && collName != null){
 
       await tryAndCatch(
-        methodName: 'createColl',
+        invoker: 'createColl',
         functions: () async {
 
           /// GET PATH
@@ -189,7 +189,7 @@ class Real {
     if (map != null && collName != null){
 
       await tryAndCatch(
-        methodName: 'createDoc',
+        invoker: 'createDoc',
         functions: () async {
 
           /// GET PATH
@@ -256,7 +256,7 @@ class Real {
       }
 
       await tryAndCatch(
-        methodName: 'createNamedDoc',
+        invoker: 'createNamedDoc',
 
         functions: () async {
 
@@ -290,7 +290,7 @@ class Real {
       String _docID;
 
       await tryAndCatch(
-        methodName: 'createDoc',
+        invoker: 'createDoc',
         functions: () async {
 
           final String _path = docName == null ? pathWithoutDocName : '$pathWithoutDocName/$docName';
@@ -352,7 +352,7 @@ class Real {
   //
   //   await tryAndCatch(
   //     context: context,
-  //     methodName: 'createNamedDoc',
+  //     invoker: 'createNamedDoc',
   //
   //     functions: () async {
   //
@@ -399,7 +399,7 @@ class Real {
           // addDocID: false,
         );
 
-        // Mapper.blogMaps(_output, methodName: 'readPathMaps');
+        // Mapper.blogMaps(_output, invoker: 'readPathMaps');
 
 
       },
@@ -759,9 +759,9 @@ class Real {
   /// TESTED : WORKS PERFECT
   static void blogDatabaseEvent({
     @required DatabaseEvent event,
-    String methodName = 'blogDatabaseEvent',
+    String invoker = 'blogDatabaseEvent',
   }){
-    blog('blogDatabaseEvent : $methodName ----------------------- START');
+    blog('blogDatabaseEvent : $invoker ----------------------- START');
 
     if (event != null){
       blog('event.snapshot : ${event.snapshot}');
@@ -783,15 +783,15 @@ class Real {
     }
 
 
-    blog('blogDatabaseEvent : $methodName ----------------------- END');
+    blog('blogDatabaseEvent : $invoker ----------------------- END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogDataSnapshot ({
     @required DataSnapshot snapshot,
-    String methodName = 'blogDataSnapshot',
+    String invoker = 'blogDataSnapshot',
   }){
-    blog('blogDataSnapshot : $methodName ----------------------- START');
+    blog('blogDataSnapshot : $invoker ----------------------- START');
     if (snapshot != null){
       blog('snapshot.key : ${snapshot.key}');
       blog('snapshot.value : ${snapshot.value}');
@@ -806,7 +806,7 @@ class Real {
     else {
       blog('snapshot is null');
     }
-    blog('blogDataSnapshot : $methodName ----------------------- END');
+    blog('blogDataSnapshot : $invoker ----------------------- END');
   }
   // -----------------------------------------------------------------------------
 }

@@ -83,7 +83,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
       context: context,
       listen: true,
     );
-    _bzModel.blogBz(methodName: 'BzAuthorsPage');
+    _bzModel.blogBz(invoker: 'BzAuthorsPage');
     // --------------------
     return Selector<BzzProvider, BzModel>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,

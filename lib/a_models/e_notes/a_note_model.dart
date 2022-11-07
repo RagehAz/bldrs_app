@@ -410,7 +410,7 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static void blogNotes({
     @required List<NoteModel> notes,
-    String methodName,
+    String invoker,
   }){
 
     if (Mapper.checkCanLoopList(notes) == true){
@@ -418,7 +418,7 @@ class NoteModel {
       for (final NoteModel note in notes){
 
         note.blogNoteModel(
-          invoker: methodName,
+          invoker: invoker,
         );
 
       }

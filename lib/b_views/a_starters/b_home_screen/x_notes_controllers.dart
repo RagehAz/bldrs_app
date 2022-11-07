@@ -54,7 +54,7 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
       onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
 
         // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
-        // Mapper.blogMaps(allUpdatedMaps, methodName: 'initializeUserNotes');
+        // Mapper.blogMaps(allUpdatedMaps, invoker: 'initializeUserNotes');
 
         final List<NoteModel> _unseenNotes = NoteModel.decipherNotes(
           maps: unseenNotesMaps,

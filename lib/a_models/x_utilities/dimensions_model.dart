@@ -157,8 +157,8 @@ class Dimensions {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogDimensions({String methodName = ''}) {
-    blog('blogDimensions : $methodName : Dimensions: W [ $width ] x H [ $height ]');
+  void blogDimensions({String invoker = ''}) {
+    blog('blogDimensions : $invoker : Dimensions: W [ $width ] x H [ $height ]');
   }
   // -----------------------------------------------------------------------------
 

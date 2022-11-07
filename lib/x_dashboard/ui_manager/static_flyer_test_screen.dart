@@ -102,7 +102,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   Widget build(BuildContext context) {
     // --------------------
 
-    // _flyerModel?.blogFlyer(methodName: 'flyerTest');
+    // _flyerModel?.blogFlyer(invoker: 'flyerTest');
 
 
     return DashBoardLayout(
