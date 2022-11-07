@@ -3,6 +3,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
 class PicLDBOps {
   // -----------------------------------------------------------------------------
@@ -36,20 +37,30 @@ class PicLDBOps {
   static Future<PicModel> readPic(String path) async {
     PicModel _picModel;
 
+    blog('readPic START');
+
     if (TextCheck.isEmpty(path) == false){
+
+      blog('readPic isEmpty(path) == false');
 
       final List<Map<String, dynamic>> maps = await LDBOps.readMaps(
         docName: LDBDoc.pics,
         ids: [path],
       );
 
+
       if (Mapper.checkCanLoopList(maps) == true){
 
         _picModel = PicModel.decipherFromLDB(maps.first);
 
+
+        // blog('model is fucking null : ${_picModel == null}');
+
       }
 
     }
+
+
 
     return _picModel;
   }

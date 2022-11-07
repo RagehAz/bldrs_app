@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
+import 'dart:ui' as ui;
 
 class ImageSwitcher extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -104,10 +105,11 @@ class ImageSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // blog('pic is : ${pic.runtimeType} : $pic');
-
     /// NULL
     if (pic == null){
+
+      // blog('pic is : ${pic?.runtimeType} : null');
+
       return Container(
         width: width,
         height: height,
@@ -117,6 +119,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// LOADING
     else if (loading == true){
+
+      // blog('pic is : ${pic?.runtimeType} : LOADING');
+
       return InfiniteLoadingBox(
         width: width,
         height: height,
@@ -126,6 +131,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// URL
     else if (ObjectCheck.isAbsoluteURL(pic) == true){
+
+      // blog('pic is : isAbsoluteURL : $pic');
+
       return Image.network(
         pic,
         key: const ValueKey<String>('SuperImage_url'),
@@ -140,6 +148,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// JPG OR PNG
     else if (ObjectCheck.objectIsJPGorPNG(pic) == true){
+
+      // blog('pic is : objectIsJPGorPNG : $pic');
+
       return LocalAssetChecker(
         key: const ValueKey<String>('SuperImage_png_or_jpg'),
         asset: pic,
@@ -157,6 +168,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// SVG
     else if (ObjectCheck.objectIsSVG(pic) == true){
+
+      // blog('pic is : objectIsSVG : $pic');
+
       return LocalAssetChecker(
         key: const ValueKey<String>('SuperImage_svg'),
         asset: pic,
@@ -172,6 +186,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// FILE
     else if (ObjectCheck.objectIsFile(pic) == true){
+
+      // blog('pic is : objectIsFile : $pic');
+
       return Image.file(
         pic,
         key: const ValueKey<String>('SuperImage_file'),
@@ -185,18 +202,61 @@ class ImageSwitcher extends StatelessWidget {
 
     /// PATH
     else if (ObjectCheck.objectIsPicPath(pic) == true){
-      return FutureBuilder(
-        future: PicProtocols.fetchPic(pic),
-        builder: (_, AsyncSnapshot<PicModel> snap){
 
-          return CachelessImage(
-            key: const ValueKey<String>('SuperImage_future_bytes'),
-            bytes: snap?.data?.bytes,
+      blog('pic is : objectIsPicPath : $pic');
+
+      // return Container(
+      //   width: width,
+      //   height: height,
+      //   color: Colorz.red50,
+      // );
+
+      return FutureBuilder(
+        future: PicProtocols.fetchPicUiImage(pic),
+        builder: (_, AsyncSnapshot<ui.Image> snap){
+
+          blog('snap : ${snap?.data} thing');
+
+          return RawImage(
+            /// MAIN
+            key: const ValueKey<String>('SuperImage_UIIMAGE'),
+            // debugImageLabel: ,
+
+            /// IMAGE
+            image: snap?.data,
+            // repeat: ImageRepeat.noRepeat, // DEFAULT
+
+            /// SIZES
             width: width,
             height: height,
-            color: backgroundColor,
-            boxFit: boxFit,
+            scale: scale,
+
+            /// COLORS
+            // color: widget.color,
+            // opacity: opacity,
+            // colorBlendMode: blendMode,
+            // filterQuality: FilterQuality.low, // DEFAULT
+            // invertColors: false, // DEFAULT
+
+            /// POSITIONING
+            // alignment: Alignment.center, // DEFAULT
+            fit: boxFit,
+
+            /// DUNNO
+            // centerSlice: ,
+            // isAntiAlias: ,
+            // matchTextDirection: false, // DEFAULT : flips image horizontally
           );
+
+
+          // return CachelessImage(
+          //   key: const ValueKey<String>('SuperImage_future_bytes'),
+          //   bytes: snap?.data?.bytes,
+          //   width: width,
+          //   height: height,
+          //   color: backgroundColor,
+          //   boxFit: boxFit,
+          // );
 
         },
       );
@@ -204,6 +264,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// PIC MODEL
     else if (pic is PicModel){
+
+      blog('pic is : PicModel : $pic');
+
       return CachelessImage(
         key: const ValueKey<String>('SuperImage_pic_model'),
         bytes: pic.picModel,
@@ -216,6 +279,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// UINT8LIST
     else if (ObjectCheck.objectIsUint8List(pic) == true){
+
+      blog('pic is : objectIsUint8List : $pic');
+
       return CachelessImage(
         key: const ValueKey<String>('SuperImage_bytes'),
         bytes: pic,
@@ -228,6 +294,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// BASE64
     else if (ObjectCheck.isBase64(pic) == true){
+
+      blog('pic is : isBase64 : $pic');
+
       return CachelessImage(
         key: const ValueKey<String>('SuperImage_base64'),
         bytes: base64Decode(pic),
@@ -240,6 +309,9 @@ class ImageSwitcher extends StatelessWidget {
 
     /// UI.IMAGE
     else if (ObjectCheck.objectIsUiImage(pic) == true){
+
+      blog('pic is : objectIsUiImage : $pic');
+
       return RawImage(
         /// MAIN
         key: const ValueKey<String>('SuperImage_UIIMAGE'),
