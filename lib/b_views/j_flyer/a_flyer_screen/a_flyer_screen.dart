@@ -30,7 +30,7 @@ class FlyerScreen extends StatelessWidget {
         backgroundColor: Colorz.skyDarkBlue,
         body: Flyer(
           key: PageStorageKey<String>(flyerModel.id),
-          flyerBoxWidth: Scale.superScreenWidth(context),
+          flyerBoxWidth: Scale.screenWidth(context),
           flyerModel: flyerModel,
           screenName: 'FlyerScreen',
         ),

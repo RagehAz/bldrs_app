@@ -1,5 +1,12 @@
 /*0
 
+ ->
+ toom
+ lamoon
+ 2erfa may7oona
+ zeet looz 7elw
+ ->
+
 1 - zeet argan
 2 - zeet looz 7elw
 3 - zeet gooz el hend
@@ -8,11 +15,9 @@ tomaya mahroosa
 nos lamoona
 2erfa mat7oona
 
-
 - for tarteeb
 ma3la2et zeet zatoon
 zeet 5ardal
-
 
  */
 

@@ -300,7 +300,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       ],
       layoutWidget: Container(
         key: const ValueKey<String>('ChainsEditorScreenViews'),
-        width: Scale.superScreenWidth(context),
+        width: Scale.screenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
@@ -314,7 +314,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                   builder: (_, List<Chain> foundChains, Widget child,){
 
                     return EditingChainSplitter(
-                      width: Scale.superScreenWidth(context),
+                      width: Scale.screenWidth(context),
                       initiallyExpanded: false,
                       chainOrChainsOrSonOrSons: foundChains,
                       searchText: _searchController,
@@ -341,7 +341,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
             builder: (_, List<Chain> tempChains, Widget child){
 
               return EditingChainSplitter(
-                width: Scale.superScreenWidth(context),
+                width: Scale.screenWidth(context),
                 initiallyExpanded: false,
                 chainOrChainsOrSonOrSons: tempChains,
                 onPhidTap: _onPhidTap,

@@ -18,7 +18,7 @@ class DotSeparator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double screenWidth = boxWidth ?? Scale.superScreenWidth(context);
+    final double screenWidth = boxWidth ?? Scale.screenWidth(context);
 
     return Container(
       width: screenWidth,

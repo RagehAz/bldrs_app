@@ -173,7 +173,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 Container(
-                  width: Scale.superScreenWidth(context),
+                  width: Scale.screenWidth(context),
                   height: 80,
                   color: Colorz.white20,
                 ),
@@ -193,7 +193,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 Container(
-                  width: Scale.superScreenWidth(context),
+                  width: Scale.screenWidth(context),
                   height: 80,
                   color: Colorz.white20,
                 ),
@@ -212,7 +212,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 Container(
-                  width: Scale.superScreenWidth(context),
+                  width: Scale.screenWidth(context),
                   height: 80,
                   color: Colorz.white20,
                 ),
@@ -232,7 +232,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 Container(
-                  width: Scale.superScreenWidth(context),
+                  width: Scale.screenWidth(context),
                   height: 80,
                   color: Colorz.white20,
                 ),

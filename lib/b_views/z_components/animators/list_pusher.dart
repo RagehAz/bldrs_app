@@ -76,7 +76,7 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = widget.width ?? Scale.superScreenWidth(context);
+    final double _width = widget.width ?? Scale.screenWidth(context);
     // --------------------
     _animationController.reset();
     // --------------------

@@ -259,7 +259,7 @@ class IconsGridBuilder extends StatelessWidget {
     final double _iconBoxSize = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: _numberOfIconsInARow,
-      boxWidth: Scale.superScreenWidth(context),
+      boxWidth: Scale.screenWidth(context),
     );
 
     final SliverGridDelegate _gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(

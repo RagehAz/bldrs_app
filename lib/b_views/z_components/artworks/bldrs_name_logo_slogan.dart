@@ -21,7 +21,7 @@ class LogoSlogan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
     final double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
     // --------------------

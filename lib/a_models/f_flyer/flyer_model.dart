@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 enum PublishState{
   draft,
@@ -52,6 +54,8 @@ class FlyerModel {
     @required this.showsAuthor,
     @required this.score,
     @required this.pdfPath,
+    this.bzLogoImage,
+    this.authorImage,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -75,6 +79,8 @@ class FlyerModel {
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
   final String pdfPath;
+  final ui.Image bzLogoImage;
+  final ui.Image authorImage;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -103,6 +109,8 @@ class FlyerModel {
     DocumentSnapshot docSnapshot,
     int score,
     String pdfPath,
+    ui.Image bzLogoImage,
+    ui.Image authorImage,
   }){
 
     return FlyerModel(
@@ -126,6 +134,8 @@ class FlyerModel {
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
       pdfPath: pdfPath ?? this.pdfPath,
+      bzLogoImage: bzLogoImage ?? this.bzLogoImage,
+      authorImage: authorImage ?? this.authorImage,
     );
 
   }
@@ -195,6 +205,7 @@ class FlyerModel {
   }){
     FlyerModel _flyerModel;
     if (map != null){
+
       _flyerModel = FlyerModel(
         id: map['id'],
         headline: map['headline'],
@@ -512,6 +523,12 @@ class FlyerModel {
       }
       if (flyer1.pdfPath != flyer2.pdfPath){
         blog('flyers pdfPath are not identical');
+      }
+      if (flyer1.bzLogoImage != flyer2.bzLogoImage){
+        blog('flyers bzLogoImage are not identical');
+      }
+      if (flyer1.authorImage != flyer2.authorImage){
+        blog('flyers authorImage are not identical');
       }
 
     }
@@ -930,7 +947,7 @@ class FlyerModel {
     else if (flyer1 != null && flyer2 != null){
 
       if (
-      flyer1.id == flyer2.id &&
+          flyer1.id == flyer2.id &&
           flyer1.headline == flyer2.headline &&
           Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
           flyer1.description == flyer2.description &&
@@ -947,8 +964,10 @@ class FlyerModel {
           SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
-          flyer1.pdfPath == flyer2.pdfPath
-      // && flyer1.score == flyer2.score
+          flyer1.pdfPath == flyer2.pdfPath &&
+          Floaters.checkUiImagesAreIdentical(flyer1.bzLogoImage, flyer2.bzLogoImage) == true &&
+          Floaters.checkUiImagesAreIdentical(flyer1.authorImage, flyer2.authorImage) == true
+          // && flyer1.score == flyer2.score
       ){
         _areIdentical = true;
       }
@@ -1017,6 +1036,8 @@ class FlyerModel {
       showsAuthor.hashCode^
       score.hashCode^
       pdfPath.hashCode^
+      bzLogoImage.hashCode^
+      authorImage.hashCode^
       docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }

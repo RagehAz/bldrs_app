@@ -57,9 +57,9 @@ class FloatingCenteredList extends StatelessWidget {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
-        width: Scale.superScreenWidth(context),
+        width: Scale.screenWidth(context),
         constraints: BoxConstraints(
-          minHeight: Scale.superScreenHeight(context),
+          minHeight: Scale.screenHeight(context),
         ),
         alignment: Alignment.center,
         padding: Stratosphere.stratosphereSandwich,

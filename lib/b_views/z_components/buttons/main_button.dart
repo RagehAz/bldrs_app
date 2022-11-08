@@ -39,8 +39,8 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.superScreenHeight(context);
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     final double _buttonCorner = _screenHeight * Ratioz.mainButtonCornerRatioToScreenHeight;
     final double _buttonZoneHeight = _screenHeight * 0.08;

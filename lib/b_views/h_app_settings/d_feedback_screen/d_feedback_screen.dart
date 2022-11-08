@@ -145,7 +145,7 @@ class _FeedBackState extends State<FeedBack> {
 
           Center(
             child: Container(
-              width: Scale.superScreenWidth(context) * 0.7,
+              width: Scale.screenWidth(context) * 0.7,
               margin: const EdgeInsets.only(bottom: 10),
               child: const SuperVerse(
                 verse: Verse(

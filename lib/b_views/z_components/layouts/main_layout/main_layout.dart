@@ -118,7 +118,7 @@ class MainLayout extends StatelessWidget {
   );
   // --------------------
   static double clearHeight(BuildContext context) {
-    return  Scale.superScreenHeight(context)
+    return  Scale.screenHeight(context)
             - Ratioz.stratosphere
             - (2 * Ratioz.appBarMargin);
   }
@@ -202,8 +202,8 @@ class MainLayout extends StatelessWidget {
                 if (skyType == SkyType.non)
                   Container(
                     key: const ValueKey<String>('noSkyBackground'),
-                    width: Scale.superScreenWidth(context),
-                    height: Scale.superScreenHeight(context),
+                    width: Scale.screenWidth(context),
+                    height: Scale.screenHeight(context),
                     color: _backgroundColor,
                   ),
 

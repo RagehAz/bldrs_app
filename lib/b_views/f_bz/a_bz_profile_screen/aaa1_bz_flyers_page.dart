@@ -31,8 +31,8 @@ class BzFlyersPage extends StatelessWidget {
       key: const ValueKey<String>('BzFlyersPage_grid'),
       heroPath: 'bzFlyersPage',
       flyersIDs: bzModel.flyersIDs?.reversed?.toList(),
-      gridWidth: width ?? Scale.superScreenWidth(context),
-      gridHeight: height ?? Scale.superScreenHeight(context),
+      gridWidth: width ?? Scale.screenWidth(context),
+      gridHeight: height ?? Scale.screenHeight(context),
       authorMode: true,
       onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
         context: context,

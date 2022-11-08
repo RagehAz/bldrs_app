@@ -45,7 +45,7 @@ class CropperPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _imageSpaceHeight = CroppingScreen.getImagesZoneHeight(
       screenHeight: screenHeight,
     );
