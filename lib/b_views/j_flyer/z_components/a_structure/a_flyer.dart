@@ -58,30 +58,7 @@ class _FlyerState extends State<Flyer> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        if (widget.flyerModel != null){
-
-          if (mounted == true){
-
-            final FlyerModel _flyerWithUiImages = await FlyerProtocols.imagifyFirstSlide(widget.flyerModel);
-
-            setState(() {
-              _flyerModel = _flyerWithUiImages;
-            });
-
-            final BzModel _bz = await BzProtocols.fetch(
-              context: context,
-              bzID: widget.flyerModel.bzID,
-            );
-
-            setNotifier(
-              notifier: _bzModel,
-              mounted: mounted,
-              value: _bz,
-            );
-
-          }
-
-        }
+        await _preparations();
 
         await _triggerLoading(setTo: false);
       });
@@ -93,9 +70,63 @@ class _FlyerState extends State<Flyer> {
   // --------------------
   @override
   void dispose() {
-    _loading.dispose();
-    _bzModel.dispose();
+    // _loading.dispose();
+    // _flyerModel.slides[0].uiImage?.dispose();
+    // _flyerModel.bzLogoImage?.dispose();
+    // _bzModel.dispose();
     super.dispose();
+  }
+   // --------------------
+  Future<void> _preparations() async {
+
+    if (widget.flyerModel != null){
+
+      if (mounted == true){
+
+        FlyerModel _flyerWithUiImages = widget.flyerModel;
+
+        await Future.wait(<Future>[
+
+          /// OVERRIDE SLIDES
+          FlyerProtocols.imagifyFirstSlide(widget.flyerModel)
+              .then((FlyerModel flyer){
+            _flyerWithUiImages = _flyerWithUiImages.copyWith(
+              slides: flyer.slides,
+            );
+          }),
+
+          /// OVERRIDE BZ LOGO IMAGE
+          FlyerProtocols.imagifyBzLogo(widget.flyerModel)
+              .then((FlyerModel flyer){
+                _flyerWithUiImages = _flyerWithUiImages.copyWith(
+                  bzLogoImage: flyer.bzLogoImage,
+                );
+              }),
+
+          /// GET BZ
+          BzProtocols.fetch(
+            context: context,
+            bzID: widget.flyerModel.bzID,
+          ).then((BzModel bzModel){
+
+            setNotifier(
+              notifier: _bzModel,
+              mounted: mounted,
+              value: bzModel,
+            );
+
+          }),
+
+        ]);
+
+        setState(() {
+          _flyerModel = _flyerWithUiImages;
+        });
+
+      }
+
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override

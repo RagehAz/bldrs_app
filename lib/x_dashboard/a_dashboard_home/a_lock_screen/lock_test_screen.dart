@@ -100,7 +100,7 @@ class _LockScreenState extends State<LockScreen> {
       pageTitleVerse: Verse.plain('Lock Test'),
       appBarType: AppBarType.basic,
       layoutWidget: Container(
-        width: Scale.superScreenWidth(context),
+        width: Scale.screenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
         color: Colorz.black50,
         alignment: Alignment.center,
@@ -109,7 +109,7 @@ class _LockScreenState extends State<LockScreen> {
           children: <Widget>[
 
             SizedBox(
-              width: Scale.superScreenWidth(context) * 0.8,
+              width: Scale.screenWidth(context) * 0.8,
               child: const SuperVerse(
                 verse: Verse(
                   text: _message,
@@ -152,7 +152,7 @@ class _LockScreenState extends State<LockScreen> {
             ),
 
             DreamBox(
-              width: Scale.superScreenWidth(context) * 0.7,
+              width: Scale.screenWidth(context) * 0.7,
               height: 70,
               margins: 20,
               // verse: Verse.plain('Go Beyond'),

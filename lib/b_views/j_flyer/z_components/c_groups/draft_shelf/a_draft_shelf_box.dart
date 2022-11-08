@@ -30,7 +30,7 @@ class DraftShelfBox extends StatelessWidget {
         valueListenable: shelfUI,
 
         child: Container(
-          width: Scale.superScreenWidth(context),
+          width: Scale.screenWidth(context),
           height: DraftShelfSlide.shelfSlideZoneHeight(context),
           color: Colorz.white10,
           child: child,

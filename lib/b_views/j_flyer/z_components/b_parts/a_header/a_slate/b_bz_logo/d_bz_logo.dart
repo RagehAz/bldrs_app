@@ -43,7 +43,7 @@ class BzLogo extends StatelessWidget {
     );
     // --------------------
     return GestureDetector(
-      key: const ValueKey<String>('bz_logo'),
+      // key: const ValueKey<String>('bz_logo'),
       onTap: onTap,
       child: Center(
         child: Container(

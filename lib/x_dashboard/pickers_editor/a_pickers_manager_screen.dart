@@ -91,7 +91,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
   Widget build(BuildContext context) {
 
     // const FlyerType _flyerType = FlyerType.equipment;
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
 
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),

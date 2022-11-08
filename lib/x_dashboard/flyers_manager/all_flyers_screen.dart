@@ -151,8 +151,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
           );
 
           return FlyersGrid(
-            gridWidth: Scale.superScreenWidth(context),
-            gridHeight: Scale.superScreenHeight(context),
+            gridWidth: Scale.screenWidth(context),
+            gridHeight: Scale.screenHeight(context),
             // numberOfColumns: 2,
             flyers: _flyers,
             scrollController: ScrollController(),

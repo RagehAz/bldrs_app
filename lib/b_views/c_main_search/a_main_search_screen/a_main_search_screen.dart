@@ -47,7 +47,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
 
       final double _maxScroll = _scrollController.position.maxScrollExtent;
       final double _currentScroll = _scrollController.position.pixels;
-      final double _screenHeight = Scale.superScreenHeight(context); // * 0.25 why ??
+      final double _screenHeight = Scale.screenHeight(context); // * 0.25 why ??
       final double _delta = _screenHeight * 0.1;
 
       if (_maxScroll - _currentScroll <= 0){

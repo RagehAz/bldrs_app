@@ -47,7 +47,7 @@ class BldrsSliverAppBarSmall extends StatelessWidget {
       givenContentHeight: contentHeight,
     );
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     return SliverAppBar(
       collapsedHeight: _collapsedHeight,

@@ -168,8 +168,8 @@ class PickersScreenBrowseView extends StatelessWidget {
         else {
           return Center(
             child: Container(
-              width: Scale.superScreenWidth(context),
-              height: Scale.superScreenHeight(context),
+              width: Scale.screenWidth(context),
+              height: Scale.screenHeight(context),
               padding: Scale.constantMarginsAll20,
               child: const SuperVerse(
                 verse: Verse(

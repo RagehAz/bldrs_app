@@ -34,7 +34,7 @@ class ShelfSlidesPart extends StatelessWidget {
 
     return Container(
       key: const ValueKey<String>('ShelfSlidesPart'),
-      width: Scale.superScreenWidth(context),
+      width: Scale.screenWidth(context),
       height: slideZoneHeight,
       alignment: Aligners.superCenterAlignment(context),
       child: ValueListenableBuilder(

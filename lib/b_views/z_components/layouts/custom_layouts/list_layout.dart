@@ -40,8 +40,8 @@ class ListLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     final double _verseHeight = SuperVerse.superVerseRealHeight(
       context: context,

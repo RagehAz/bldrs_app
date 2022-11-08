@@ -45,7 +45,7 @@ class CropperFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _imagesFooterHeight = CroppingScreen.getFooterHeight();
     // --------------------
     final double _miniImageHeight = getMiniImageHeight();

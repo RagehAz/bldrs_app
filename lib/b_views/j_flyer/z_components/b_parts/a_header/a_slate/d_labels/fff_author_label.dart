@@ -16,6 +16,7 @@ class AuthorLabel extends StatelessWidget {
     @required this.showLabel,
     this.onLabelTap,
     this.labelIsOn = false,
+    this.authorImage,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class AuthorLabel extends StatelessWidget {
   final bool showLabel;
   final bool labelIsOn;
   final Function onLabelTap;
+  final dynamic authorImage;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,7 @@ class AuthorLabel extends StatelessWidget {
             /// AUTHOR IMAGE
             AuthorPic(
               size: FlyerDim.authorPicSizeBFlyerBoxWidth(flyerBoxWidth),
-              authorPic: _author?.picPath,
+              authorPic: authorImage ?? _author?.picPath,
               // tinyBz:
             ),
 

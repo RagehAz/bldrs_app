@@ -41,7 +41,7 @@ class HeaderTemplate extends StatelessWidget {
     // --------------------
     final bool flyerShowsAuthor = authorImage == null;
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     // --------------------
     final double _versesScaleFactor = FlyerVerses.bzLabelVersesScaleFactor(

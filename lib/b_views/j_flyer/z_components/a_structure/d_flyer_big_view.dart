@@ -53,7 +53,7 @@ class FlyerBigView extends StatelessWidget {
           flyerModel: flyerModel,
           bzModel: bzModel,
           isFullScreen: true,
-          flyerBoxWidth: Scale.superScreenWidth(context),
+          flyerBoxWidth: Scale.screenWidth(context),
           heroTag: heroTag,
         ),
 

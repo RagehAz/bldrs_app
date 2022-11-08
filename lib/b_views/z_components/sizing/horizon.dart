@@ -24,7 +24,7 @@ class Horizon extends StatelessWidget {
     Ratioz.horizon * heightFactor;
     // --------------------
     return SizedBox(
-      width: Scale.superScreenWidth(context),
+      width: Scale.screenWidth(context),
       height: height,
     );
     // --------------------

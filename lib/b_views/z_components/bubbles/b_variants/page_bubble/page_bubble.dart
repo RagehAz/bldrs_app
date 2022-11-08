@@ -39,7 +39,7 @@ class PageBubble extends StatelessWidget {
     EdgeInsets margins;
 
     final double _progressBarHeight = withProgressBar == true ?
-    FlyerDim.progressBarBoxHeight(Scale.superScreenWidth(context))
+    FlyerDim.progressBarBoxHeight(Scale.screenWidth(context))
         :
     0;
 
@@ -101,7 +101,7 @@ class PageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     final BorderRadius _borders = corners == null ?
     BldrsAppBar.corners

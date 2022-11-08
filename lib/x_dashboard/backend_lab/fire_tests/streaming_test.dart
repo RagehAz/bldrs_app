@@ -158,7 +158,7 @@ class _StreamingTestState extends State<StreamingTest> {
 
               /// left stream
               SizedBox(
-                width: Scale.superScreenWidth(context) * 0.5,
+                width: Scale.screenWidth(context) * 0.5,
                 child: FireCollStreamer(
                   queryModel: _queryParameters,
                   builder: (_, List<Map<String, dynamic>> _maps){
@@ -183,7 +183,7 @@ class _StreamingTestState extends State<StreamingTest> {
 
               /// right local
               SizedBox(
-                width: Scale.superScreenWidth(context) * 0.5,
+                width: Scale.screenWidth(context) * 0.5,
                 child: ValueListenableBuilder(
                   valueListenable: _localMaps,
                   builder: (_, List<Map<String, dynamic>> maps, Widget child){

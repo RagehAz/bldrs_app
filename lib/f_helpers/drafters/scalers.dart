@@ -14,18 +14,18 @@ class Scale {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double superScreenWidth(BuildContext context) {
+  static double screenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double superScreenHeight(BuildContext context) {
+  static double screenHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double superScreenHeightWithoutSafeArea(BuildContext context) {
-    return superScreenHeight(context) - superSafeAreaTopPadding(context);
+    return screenHeight(context) - superSafeAreaTopPadding(context);
   }
   // -----------------------------------------------------------------------------
 

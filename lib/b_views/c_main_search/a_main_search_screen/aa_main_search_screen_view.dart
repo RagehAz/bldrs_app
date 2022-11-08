@@ -20,12 +20,12 @@ class SearchScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return OldMaxBounceNavigator(
       boxDistance: _screenHeight,
       child: SizedBox(
-        width: Scale.superScreenWidth(context),
+        width: Scale.screenWidth(context),
         height: _screenHeight,
         // color: Colorz.BlackPlastic,
         child: Consumer<UiProvider>(
