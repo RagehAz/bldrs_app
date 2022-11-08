@@ -49,8 +49,8 @@ class BigFlyer extends StatefulWidget {
 }
 
 class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
-  // --------------------
-  FlyerModel _flyer;
+  // -----------------------------------------------------------------------------
+  final ValueNotifier<FlyerModel> _flyer = ValueNotifier(null);
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
   final ValueNotifier<bool> _followIsOn = ValueNotifier<bool>(false);
   // --------------------
@@ -74,6 +74,9 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
   // --------------------
   final ValueNotifier<BzCounterModel> _bzCounters = ValueNotifier(null);
+  // --------------------
+  final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
+  final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
   // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(true);
@@ -90,7 +93,58 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _flyer = widget.flyerModel;
+    _initializations();
+
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+
+    if (_isInit == true && widget.flyerModel != null) {
+
+      _triggerLoading(setTo: true).then((_) async {
+
+        await _preparations();
+
+        await _triggerLoading(setTo: false);
+        // ----------
+      });
+
+      _isInit = false;
+    }
+
+    super.didChangeDependencies();
+  }
+  // --------------------
+  @override
+  void dispose() {
+    _flyer.dispose();
+    _loading?.dispose();
+    _progressBarModel?.dispose();
+    _flyerIsSaved?.dispose();
+    _headerAnimationController?.dispose();
+    _headerScrollController?.dispose();
+    _savingAnimationController?.dispose();
+    _horizontalSlidesController?.dispose();
+    _footerPageController?.dispose();
+    _followIsOn?.dispose();
+    _progressBarOpacity?.dispose();
+    _headerIsExpanded?.dispose();
+    _headerPageOpacity?.dispose();
+    _graphicIsOn?.dispose();
+    _graphicOpacity?.dispose();
+    _bzCounters?.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
+  void _initializations(){
+
+    _flyer.value = widget.flyerModel;
 
     _flyerIsSaved.value = UserModel.checkFlyerIsSaved(
       userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
@@ -116,10 +170,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       ),
     );
 
-    blog('progModel : '
-        'index ${_progressBarModel.value?.index} : '
-        'strips ${_progressBarModel.value?.numberOfStrips} : '
-        'swipe ${_progressBarModel.value?.swipeDirection}');
     // ----------
     /// FOR HEADER
     _headerAnimationController = initializeHeaderAnimationController(
@@ -140,87 +190,9 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       reverseDuration: Ratioz.durationFading200,
     );
     // ----------
+
   }
   // --------------------
-  bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-
-    if (_isInit == true && widget.flyerModel != null) {
-
-      _triggerLoading(setTo: true).then((_) async {
-
-        unawaited(FlyerProtocols.imagifySlides(widget.flyerModel));
-
-        setNotifier(
-          notifier: _bzCounters,
-          mounted: mounted,
-          value: BzCounterModel.createInitialModel(widget.bzModel.id),
-        );
-
-        if (mounted == true){
-          // ----------
-          /// FOLLOW IS ON
-          final _followIsOn = checkFollowIsOn(
-            context: context,
-            bzModel: widget.bzModel,
-          );
-          _setFollowIsOn(_followIsOn);
-          // ----------
-          WidgetsBinding.instance.addPostFrameCallback((_) async {
-
-            // if (
-            // widget.flightDirection == FlightDirection.pop
-            //     &&
-            //     _horizontalSlidesController.hasClients
-            // ){
-            //
-            //   unawaited(_horizontalSlidesController
-            //       .animateToPage(0,
-            //       duration: const Duration(milliseconds: 200),
-            //       curve: Curves.easeOut
-            //   ));
-            //
-            //   widget.progressBarModel.value = widget.progressBarModel.value.copyWith(
-            //     index: 0,
-            //   );
-            //
-            // }
-
-          });
-        }
-        // ----------
-        await _triggerLoading(setTo: false);
-        // ----------
-      });
-
-      _isInit = false;
-    }
-
-    super.didChangeDependencies();
-  }
-  // --------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _loading?.dispose();
-    _progressBarModel?.dispose();
-    _flyerIsSaved?.dispose();
-    _headerAnimationController?.dispose();
-    _headerScrollController?.dispose();
-    _savingAnimationController?.dispose();
-    _horizontalSlidesController?.dispose();
-    _footerPageController?.dispose();
-    _followIsOn?.dispose();
-    _progressBarOpacity?.dispose();
-    _headerIsExpanded?.dispose();
-    _headerPageOpacity?.dispose();
-    _graphicIsOn?.dispose();
-    _graphicOpacity?.dispose();
-    _bzCounters?.dispose();
-    super.dispose();
-  }
-  // -----------------------------------------------------------------------------
   void _listenToHorizontalController(){
 
     final int _numberOfSlide = widget.flyerModel.slides.length - 1;
@@ -249,15 +221,44 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// PREPARATIONS
+
   // --------------------
-  /// FOLLOW IS ON
-  void _setFollowIsOn(bool setTo){
+  Future<void> _preparations() async {
+
+    unawaited(_imagifySlides());
+
+    setNotifier(
+      notifier: _bzCounters,
+      mounted: mounted,
+      value: BzCounterModel.createInitialModel(widget.bzModel.id),
+    );
+
     setNotifier(
       notifier: _followIsOn,
       mounted: mounted,
-      value: setTo,
+      value: checkFollowIsOn(context: context, bzModel: widget.bzModel,),
     );
+
   }
+  // --------------------
+  Future<void> _imagifySlides() async {
+
+    final FlyerModel _imagified = await FlyerProtocols.imagifySlides(widget.flyerModel);
+
+    setNotifier(
+        notifier: _flyer,
+        mounted: mounted,
+        value: _imagified,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// HEADER INTERACTIONS
+
   // --------------------
   Future<void> _onHeaderTap() async {
 
@@ -296,6 +297,10 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       bzModel: widget.bzModel,
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// SWIPING
+
   // --------------------
   void _onSwipeSlide(int index){
 
@@ -365,6 +370,10 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// FOOTER INTERACTIONS
+
   // --------------------
   Future<void> _onSaveFlyer() async {
 
@@ -392,9 +401,10 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     }
 
   }
-  // --------------------
-  final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
-  final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
+  // -----------------------------------------------------------------------------
+
+  /// ANIMATIONS
+
   // --------------------
   Future<void> _triggerAnimation(bool isSaved) async {
 
@@ -436,10 +446,38 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
   }
   // --------------------
+  /// DEPRECATED
   /*
-//   Future<void> _slideToZeroIndex() async {
-//     await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
-//   }
+    //   Future<void> _slideToZeroIndex() async {
+    //     await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
+    //   }
+   */
+  // --------------------
+  /// DEPRECATED
+  /*
+  void autoAnimateToFirstSlide(){
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+
+      // if (
+      // widget.flightDirection == FlightDirection.pop
+      //     &&
+      //     _horizontalSlidesController.hasClients
+      // ){
+      //
+      //   unawaited(_horizontalSlidesController
+      //       .animateToPage(0,
+      //       duration: const Duration(milliseconds: 200),
+      //       curve: Curves.easeOut
+      //   ));
+      //
+      //   widget.progressBarModel.value = widget.progressBarModel.value.copyWith(
+      //     index: 0,
+      //   );
+      //
+      // }
+
+    });
+  }
    */
   // -----------------------------------------------------------------------------
   @override
@@ -449,106 +487,87 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
 
     return ValueListenableBuilder(
-        valueListenable: _loading,
-        builder: (_, bool loading, Widget bigFlyer){
+        valueListenable: _flyer,
+        builder: (_, FlyerModel flyerModel, Widget savingNotice) {
 
-          if (loading == true){
+          return FlyerBox(
+            key: const ValueKey<String>('FullScreenFlyer'),
+            flyerBoxWidth: widget.flyerBoxWidth,
+            // boxColor: Colorz.bloodTest,
+            stackWidgets: <Widget>[
 
-            blog('Building loading flyer blue');
+              /// SLIDES
+              SlidesBuilder(
+                flyerModel: flyerModel,
+                bzModel: widget.bzModel,
+                flyerBoxWidth: widget.flyerBoxWidth,
+                flyerBoxHeight: _flyerBoxHeight,
+                tinyMode: false,
+                horizontalController: _horizontalSlidesController,
+                onSwipeSlide: _onSwipeSlide,
+                onSlideBackTap: _onSlideBackTap,
+                onSlideNextTap: _onSlideNextTap,
+                onDoubleTap: _onSaveFlyer,
+                heroTag: widget.heroPath,
+                progressBarModel: _progressBarModel,
+                flightDirection: FlightDirection.non,
+              ),
 
-            return FlyerLoading(
-              flyerBoxWidth: widget.flyerBoxWidth,
-              animate: false,
-              boxColor: Colorz.cyan255,
-            );
+              /// HEADER
+              FlyerHeader(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                flyerModel: flyerModel,
+                bzModel: widget.bzModel,
+                onHeaderTap: _onHeaderTap,
+                onFollowTap: _onFollowTap,
+                onCallTap: _onCallTap,
+                headerAnimationController: _headerAnimationController,
+                headerScrollController: _headerScrollController,
+                tinyMode: _tinyMode,
+                headerIsExpanded: _headerIsExpanded,
+                followIsOn: _followIsOn,
+                headerPageOpacity: _headerPageOpacity,
+                bzCounters: _bzCounters,
+              ),
 
-          }
+              /// FOOTER
+              FlyerFooter(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                flyerModel: flyerModel,
+                tinyMode: _tinyMode,
+                onSaveFlyer: _onSaveFlyer,
+                footerPageController: _footerPageController,
+                headerIsExpanded: _headerIsExpanded,
+                inFlight: false,
+                flyerIsSaved: _flyerIsSaved,
+              ),
 
-          else {
+              /// PROGRESS BAR
+              ProgressBar(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                progressBarOpacity: _progressBarOpacity,
+                progressBarModel: _progressBarModel,
+                tinyMode: _tinyMode,
+                loading: false,
+              ),
 
-            blog('BUILDING FLYER');
+              /// SAVING NOTICE
+              savingNotice,
 
-            return bigFlyer;
-          }
+            ],
+          );
 
         },
-
-      child: FlyerBox(
-        key: const ValueKey<String>('FullScreenFlyer'),
+      child: SavingNotice(
         flyerBoxWidth: widget.flyerBoxWidth,
-        // boxColor: Colorz.bloodTest,
-        stackWidgets: <Widget>[
-
-          /// SLIDES
-          SlidesBuilder(
-            flyerModel: _flyer,
-            bzModel: widget.bzModel,
-            flyerBoxWidth: widget.flyerBoxWidth,
-            flyerBoxHeight: _flyerBoxHeight,
-            tinyMode: false,
-            horizontalController: _horizontalSlidesController,
-            onSwipeSlide: _onSwipeSlide,
-            onSlideBackTap: _onSlideBackTap,
-            onSlideNextTap: _onSlideNextTap,
-            onDoubleTap: _onSaveFlyer,
-            heroTag: widget.heroPath,
-            progressBarModel: _progressBarModel,
-            flightDirection: FlightDirection.non,
-          ),
-
-          /// HEADER
-          FlyerHeader(
-            flyerBoxWidth: widget.flyerBoxWidth,
-            flyerModel: _flyer,
-            bzModel: widget.bzModel,
-            onHeaderTap: _onHeaderTap,
-            onFollowTap: _onFollowTap,
-            onCallTap: _onCallTap,
-            headerAnimationController: _headerAnimationController,
-            headerScrollController: _headerScrollController,
-            tinyMode: _tinyMode,
-            headerIsExpanded: _headerIsExpanded,
-            followIsOn: _followIsOn,
-            headerPageOpacity: _headerPageOpacity,
-            bzCounters: _bzCounters,
-          ),
-
-          /// FOOTER
-          FlyerFooter(
-            flyerBoxWidth: widget.flyerBoxWidth,
-            flyerModel: _flyer,
-            tinyMode: _tinyMode,
-            onSaveFlyer: _onSaveFlyer,
-            footerPageController: _footerPageController,
-            headerIsExpanded: _headerIsExpanded,
-            inFlight: false,
-            flyerIsSaved: _flyerIsSaved,
-          ),
-
-          /// PROGRESS BAR
-          ProgressBar(
-            flyerBoxWidth: widget.flyerBoxWidth,
-            progressBarOpacity: _progressBarOpacity,
-            progressBarModel: _progressBarModel,
-            tinyMode: _tinyMode,
-            loading: false,
-          ),
-
-          /// SAVING NOTICE
-          SavingNotice(
-            flyerBoxWidth: widget.flyerBoxWidth,
-            flyerBoxHeight: _flyerBoxHeight,
-            flyerIsSaved: _flyerIsSaved,
-            animationController: _savingAnimationController,
-            graphicIsOn: _graphicIsOn,
-            graphicOpacity: _graphicOpacity,
-          ),
-
-        ],
+        flyerBoxHeight: _flyerBoxHeight,
+        flyerIsSaved: _flyerIsSaved,
+        animationController: _savingAnimationController,
+        graphicIsOn: _graphicIsOn,
+        graphicOpacity: _graphicOpacity,
       ),
 
     );
-
   }
   // -----------------------------------------------------------------------------
 }

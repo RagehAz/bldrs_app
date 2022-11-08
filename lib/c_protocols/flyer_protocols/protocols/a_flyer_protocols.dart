@@ -294,22 +294,25 @@ class FlyerProtocols {
 
           final SlideModel _slide = flyerModel.slides[i];
 
-          /// ALREADY UI IMAGE
-          if (ObjectCheck.objectIsUiImage(_slide.picPath) == true){
-            _flyerSlides.add(_slide);
-          }
+          /// UI IMAGE IS MISSING
+          if (_slide.uiImage != null){
 
-          /// IS PATH ( SHOULD BE )
-          else {
             final ui.Image _image = await PicProtocols.fetchPicUiImage(_slide.picPath); // is path
             final SlideModel _updatedSlide = _slide.copyWith(
               uiImage: _image,
             );
+
             _flyerSlides.add(_updatedSlide);
           }
 
-        }
+          /// UI IMAGE IS DEFINED
+          else {
 
+            _flyerSlides.add(_slide);
+
+          }
+
+        }
 
         _output = flyerModel.copyWith(
           slides: _flyerSlides,
