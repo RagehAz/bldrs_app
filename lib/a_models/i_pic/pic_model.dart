@@ -7,6 +7,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
+/// ALL GOOD
 @immutable
 class PicModel {
   // -----------------------------------------------------------------------------
@@ -109,10 +110,25 @@ class PicModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// BLOG
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  void blogPic({
+    String invoker = '',
+  }){
+
+    blog('=> $invoker :: path : $path : ${bytes.length} Bytes : '
+        '[ (${meta?.dimensions?.width})w x (${meta?.dimensions?.height})h ] : '
+        'owners : ${meta.ownersIDs}');
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkPicsAreIdentical({
     @required PicModel pic1,
     @required PicModel pic2,
@@ -125,7 +141,7 @@ class PicModel {
     else if (pic1 != null && pic2 != null){
 
       if (
-          pic1.path == pic2.path &&
+      pic1.path == pic2.path &&
           Mapper.checkListsAreIdentical(list1: pic1.meta.ownersIDs, list2: pic2.meta.ownersIDs) == true &&
           pic1.meta.dimensions.width == pic2.meta.dimensions.width &&
           pic1.meta.dimensions.height == pic2.meta.dimensions.height &&
@@ -138,20 +154,6 @@ class PicModel {
     }
 
     return _identical;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BLOG
-
-  // --------------------
-  void blogPic({
-    String invoker = '',
-  }){
-
-    blog('=> $invoker :: path : $path : ${bytes.length} Bytes : '
-        '[ (${meta?.dimensions?.width})w x (${meta?.dimensions?.height})h ] : '
-        'owners : ${meta.ownersIDs}');
-
   }
   // -----------------------------------------------------------------------------
 

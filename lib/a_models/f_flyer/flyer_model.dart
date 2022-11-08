@@ -395,11 +395,11 @@ class FlyerModel {
     String invoker,
   }){
 
-    if (invoker != null){
-      blog(invoker);
-    }
+    // if (invoker != null){
+    //   blog(invoker);
+    // }
 
-    blog('FLYER-PRINT in ( $invoker ) --------------------------------------------------START');
+    blog('> FLYER-PRINT in ( $invoker ) --------------------------------------------------START');
 
     blog('id : $id');
     blog('headline : $headline');
@@ -421,7 +421,7 @@ class FlyerModel {
     blog('pdfPath : $pdfPath');
     SlideModel.blogSlides(slides);
 
-    blog('FLYER-PRINT in ( $invoker ) --------------------------------------------------END');
+    blog('> FLYER-PRINT in ( $invoker ) --------------------------------------------------END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -848,60 +848,6 @@ class FlyerModel {
     }
     return _canShow;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkFlyersAreIdentical({
-    @required FlyerModel flyer1,
-    @required FlyerModel flyer2,
-  }){
-
-    bool _areIdentical = false;
-
-    if (flyer1 == null && flyer2 == null){
-      _areIdentical = true;
-    }
-    else if (flyer1 != null && flyer2 != null){
-
-      if (
-          flyer1.id == flyer2.id &&
-          flyer1.headline == flyer2.headline &&
-          Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
-          flyer1.description == flyer2.description &&
-          flyer1.flyerType == flyer2.flyerType &&
-          flyer1.publishState == flyer2.publishState &&
-          flyer1.auditState == flyer2.auditState &&
-          Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == true &&
-          flyer1.showsAuthor == flyer2.showsAuthor &&
-          ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == true &&
-          flyer1.authorID == flyer2.authorID &&
-          flyer1.bzID == flyer2.bzID &&
-          Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == true &&
-          SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
-          SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
-          PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
-          flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
-          flyer1.pdfPath == flyer2.pdfPath
-          // flyer1.uiImage == flyer2.uiImage
-          // && flyer1.score == flyer2.score
-      ){
-        _areIdentical = true;
-      }
-
-    }
-
-    if (_areIdentical == false){
-      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
-      blogFlyersDifferences(
-        flyer1: flyer1,
-        flyer2: flyer2,
-      );
-    }
-    else {
-      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
-    }
-
-    return _areIdentical;
-  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -964,6 +910,63 @@ class FlyerModel {
 
     return _output;
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkFlyersAreIdentical({
+    @required FlyerModel flyer1,
+    @required FlyerModel flyer2,
+  }){
+
+    bool _areIdentical = false;
+
+    if (flyer1 == null && flyer2 == null){
+      _areIdentical = true;
+    }
+    else if (flyer1 != null && flyer2 != null){
+
+      if (
+      flyer1.id == flyer2.id &&
+          flyer1.headline == flyer2.headline &&
+          Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
+          flyer1.description == flyer2.description &&
+          flyer1.flyerType == flyer2.flyerType &&
+          flyer1.publishState == flyer2.publishState &&
+          flyer1.auditState == flyer2.auditState &&
+          Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == true &&
+          flyer1.showsAuthor == flyer2.showsAuthor &&
+          ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == true &&
+          flyer1.authorID == flyer2.authorID &&
+          flyer1.bzID == flyer2.bzID &&
+          Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == true &&
+          SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
+          SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
+          PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
+          flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
+          flyer1.pdfPath == flyer2.pdfPath
+      // && flyer1.score == flyer2.score
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    if (_areIdentical == false){
+      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
+      blogFlyersDifferences(
+        flyer1: flyer1,
+        flyer2: flyer2,
+      );
+    }
+    else {
+      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
+    }
+
+    return _areIdentical;
   }
   // -----------------------------------------------------------------------------
 
