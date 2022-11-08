@@ -75,7 +75,7 @@ class InfoPageMainDetails extends StatelessWidget {
 
         /// Flyer Type
         StatsLine(
-          bubbleWidth: pageWidth,
+          bubbleWidth: pageWidth - 20,
           verse: Verse(
             text: '${xPhrase(context, 'phid_flyer_type')} : ${xPhrase(context, _flyerTypePhid)}',
             translate: false,
@@ -87,7 +87,7 @@ class InfoPageMainDetails extends StatelessWidget {
 
         /// PUBLISH TIME
         StatsLine(
-          bubbleWidth: pageWidth,
+          bubbleWidth: pageWidth - 20,
           verse: Verse(
             text: '${xPhrase(context, 'phid_since')} $_timeDifferance',
             translate: false,
@@ -108,12 +108,12 @@ class InfoPageMainDetails extends StatelessWidget {
             final ZoneModel _zone = snap.data;
 
             return StatsLine(
+              bubbleWidth: pageWidth - 20,
               verse: Verse.plain(_getZoneLine(
                 context: context,
                 zone: _zone,
               )),
               icon: _zone?.flag ?? Iconz.target,
-              bubbleWidth: pageWidth,
             );
 
           },
