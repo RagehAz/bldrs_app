@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
@@ -186,7 +186,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       // loading: _loading,
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
-        child: OldMaxBounceNavigator(
+        child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
             controller: _scrollController,

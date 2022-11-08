@@ -62,6 +62,7 @@ class BzSlide extends StatelessWidget {
     return SizedBox(
       key: const ValueKey<String>('Max_Header'),
       width: flyerBoxWidth,
+      // height: 500,
       child: ValueListenableBuilder(
         valueListenable: bzCounters,
         builder: (_, BzCounterModel _counter, Widget child){

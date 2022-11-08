@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_call_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_follow_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class FollowAndCallButtons extends StatelessWidget {
@@ -41,12 +41,14 @@ class FollowAndCallButtons extends StatelessWidget {
         width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
         height: logoMinWidth * logoSizeRatioTween.value,
         alignment: Alignment.topCenter,
-        // color: Colorz.BloodTest,
+        // color: Colorz.bloodTest,
         child: SizedBox(
           height: FlyerDim.followAndCallBoxHeight(flyerBoxWidth),
           width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
             children: <Widget>[
 
               /// FOLLOW BUTTON

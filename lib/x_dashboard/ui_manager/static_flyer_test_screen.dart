@@ -30,8 +30,8 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   Offset position ;
   FlyerModel _flyerModel;
   BzModel _bzModel;
-  double _tweenValue = 0;
   FlightDirection _flight = FlightDirection.non;
+  double _tweenValue = 0;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -47,7 +47,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   @override
   void initState() {
     super.initState();
-    position = const Offset(0.0, 0.0);
+    position = Offset.zero;
   }
   // --------------------
   bool _isInit = true;
@@ -89,7 +89,6 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
     _loading.dispose();
     super.dispose();
   }
-  // -----------------------------------------------------------------------------
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
