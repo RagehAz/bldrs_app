@@ -86,6 +86,7 @@ abstract class Colorz {
   static const Color facebook = Color.fromARGB(255, 59, 89, 152);
   static const Color linkedIn = Color.fromARGB(255, 0, 115, 176);
   static const Color googleRed = Color.fromARGB(255, 234, 67, 53);
+  static const Color purple = Color.fromARGB(255, 87, 42, 105);
   // --------------------
   static const Color appBarColor = white20;
   static const Color bzPageBGColor = Colorz.black80;

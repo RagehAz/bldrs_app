@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class Flyer extends StatefulWidget {
@@ -46,6 +47,7 @@ class _FlyerState extends State<Flyer> {
   @override
   void initState() {
      _heroTag = '${widget.screenName}/${widget.flyerModel.id}/';
+     blog('Flyer() initState : heroTag : $_heroTag');
      super.initState();
   }
   // --------------------
@@ -101,9 +103,12 @@ class _FlyerState extends State<Flyer> {
 
     if (widget.flyerModel == null){
 
+      blog('Building loading flyer red');
+
       return FlyerLoading(
         flyerBoxWidth: widget.flyerBoxWidth,
-        animate: false,
+        animate: true,
+        boxColor: Colorz.bloodTest,
       );
 
     }
@@ -116,9 +121,12 @@ class _FlyerState extends State<Flyer> {
 
           if (loading == true){
 
+            blog('Building loading flyer yellow');
+
             return FlyerLoading(
               flyerBoxWidth: widget.flyerBoxWidth,
               animate: false,
+              boxColor: Colorz.yellow200,
             );
 
           }

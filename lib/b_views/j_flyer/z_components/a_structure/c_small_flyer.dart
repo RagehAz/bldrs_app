@@ -17,6 +17,8 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
@@ -108,9 +110,12 @@ class SmallFlyer extends StatelessWidget {
 
     if (flyerModel == null){
 
+      blog('Building loading flyer purple');
+
       return FlyerLoading(
         flyerBoxWidth: flyerBoxWidth,
-        animate: false,
+        animate: true,
+        boxColor: Colorz.purple,
       );
 
     }
