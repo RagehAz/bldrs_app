@@ -119,30 +119,31 @@ class InfoPageContents extends StatelessWidget {
                 /// PDF BUTTON
                 if (flyerModel.pdfPath != null)
                   FutureBuilder(
-                  future: PDFProtocols.fetch(flyerModel.pdfPath),
+                    future: PDFProtocols.fetch(flyerModel.pdfPath),
                     builder: (_, AsyncSnapshot<PDFModel> snap){
 
-                    final PDFModel _pdfModel = snap.data;
-                    final String _name = _pdfModel == null ? '' : '${_pdfModel.name}.pdf';
+                      final PDFModel _pdfModel = snap.data;
+                      final String _name = _pdfModel == null ? '' : '${_pdfModel.name}.pdf';
 
-                    return DreamBox(
-                      height: 30,
-                      width: _pageWidth - 20,
-                      color: Colorz.blue80,
-                      verse: Verse.plain(_name),
-                      verseScaleFactor: 0.6,
-                      isDeactivated: _pdfModel == null,
-                      onTap: () async {
+                      return DreamBox(
+                        height: 30,
+                        width: _pageWidth - 20,
+                        color: Colorz.blue80,
+                        verse: Verse.plain(_name),
+                        verseScaleFactor: 0.6,
+                        isDeactivated: _pdfModel == null,
+                        onTap: () async {
 
-                        await Nav.goToNewScreen(
-                          context: context,
-                          screen: PDFScreen(
-                            pdf: _pdfModel,
-                          ),
-                        );
+                          await Nav.goToNewScreen(
+                            context: context,
+                            screen: PDFScreen(
+                              pdf: _pdfModel,
+                            ),
+                          );
 
-                      },
-                    );
+                          },
+
+                      );
 
                     },
                   ),

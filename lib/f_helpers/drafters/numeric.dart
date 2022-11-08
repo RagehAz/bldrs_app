@@ -29,7 +29,7 @@ class Numeric {
     /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
     String _result = '0';
     final String _fractions = Numeric.getFractionStringWithoutZero(
-      number: number,
+      number: number.toDouble(),
       fractionDigits: fractions,
     );
 

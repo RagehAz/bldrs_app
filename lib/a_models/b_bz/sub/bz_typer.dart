@@ -647,6 +647,36 @@ class BzTyper {
       default:  return null;
     }
   }
+  // --------------------
+  ///
+  static List<String> cipherBzForms(List<BzForm> x){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(x) == true){
+
+      for (final BzForm form in x){
+        _output.add(cipherBzForm(form));
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<BzForm> decipherBzForms(List<String> y){
+    final List<BzForm> _output = <BzForm>[];
+
+    if (Mapper.checkCanLoopList(y) == true){
+
+      for (final String form in y){
+        _output.add(decipherBzForm(form));
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// BZ FORM TRANSLATION
