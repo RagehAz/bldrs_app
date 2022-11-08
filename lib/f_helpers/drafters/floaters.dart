@@ -19,6 +19,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image/image.dart' as img;
+import 'package:wechat_camera_picker/wechat_camera_picker.dart';
+
+
 
 class Floaters {
   // -----------------------------------------------------------------------------
@@ -212,18 +215,8 @@ static img.Image decodeToImgImage({
   static Future<Uint8List> getUint8ListFromFile(File file) async {
     Uint8List _uInt;
 
-    // blog('transformFileToUint8List : START');
-    //
     if (file != null){
-    //   await tryAndCatch(
-    //       invoker: 'transformFileToUint8List',
-    //       functions: () async {
-    //
-    //         blog('transformFileToUint8List : _uInt : $_uInt');
     _uInt = await file.readAsBytes();
-    //         blog('transformFileToUint8List : _uInt : $_uInt');
-    //
-    //       });
     }
 
     blog('transformFileToUint8List : END');
