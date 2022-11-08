@@ -67,6 +67,8 @@ class SlideImagePart extends StatelessWidget {
 
     // blog('SlideImagePart : slideModel.pic : ${slideModel.pic}');
 
+    assert(slideModel.uiImage != null, 'The slide ui is null');
+
     return ZoomablePicture(
       isOn: !tinyMode,
       // onTap: (){blog('image of single slide is tapped');},
