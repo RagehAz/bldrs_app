@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class UserHomeScreen extends StatefulWidget {
@@ -24,6 +25,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+    blog('UserHomeScreen : initState');
     super.initState();
   }
   // --------------------
@@ -47,6 +49,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   Widget build(BuildContext context) {
 
     return FireCollPaginator(
+      key: const ValueKey<String>('UserHomeScreen_FireCollPaginator'),
       paginationQuery: homeWallFlyersPaginationQuery(context),
       builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 

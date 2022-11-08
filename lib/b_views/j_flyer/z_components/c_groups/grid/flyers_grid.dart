@@ -67,7 +67,7 @@ class FlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (flyers == null && flyersIDs == null){
+    if (flyers == null && flyersIDs == null && isLoadingGrid == false){
       return const SizedBox();
     }
 
@@ -138,7 +138,8 @@ class FlyersGrid extends StatelessWidget {
               if (_showLoadingGrid == true){
                 return FlyerLoading(
                   flyerBoxWidth: _gridSlotWidth,
-                  animate: false,
+                  animate: true,
+                  // boxColor: Colorz.bloodTest,
                 );
               }
 
