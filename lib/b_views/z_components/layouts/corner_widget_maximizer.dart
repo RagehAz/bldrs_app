@@ -214,7 +214,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
               final Color _backgroundColor = _backgroundColorTween.evaluate(_animation);
 
               return Container(
-                width: Scale.superScreenWidth(context),
+                width: Scale.screenWidth(context),
                 height: Scale.superScreenHeightWithoutSafeArea(context),
                 color: _backgroundColor,
               );

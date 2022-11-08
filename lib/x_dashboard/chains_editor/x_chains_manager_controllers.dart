@@ -233,7 +233,7 @@ Future<void> onChainsEditorPhidTap({
 
   await BottomDialog.showBottomDialog(
       context: context,
-      height: Scale.superScreenHeight(context) * 0.7,
+      height: Scale.screenHeight(context) * 0.7,
       draggable: true,
       titleVerse: Verse.plain(phid),
       child: SingleChildScrollView(

@@ -51,7 +51,7 @@ class SmallFlyer extends StatelessWidget {
     double _opacity = 1;
 
     if (flightDirection == FlightDirection.non){
-      final bool _isFullScreen = flyerBoxWidth == Scale.superScreenWidth(context);
+      final bool _isFullScreen = flyerBoxWidth == Scale.screenWidth(context);
       _opacity = _isFullScreen == true ? 1 : 0;
     }
     else {
@@ -100,7 +100,7 @@ class SmallFlyer extends StatelessWidget {
   Duration _getFadeDuration({
     @required bool flyerIsBigNow,
   }){
-    return flyerIsBigNow == true ? const Duration(milliseconds: 200) : const Duration(milliseconds: 500);
+    return flyerIsBigNow == true ? const Duration(milliseconds: 500) : const Duration(milliseconds: 500);
   }
   // -----------------------------------------------------------------------------
   @override
@@ -167,6 +167,7 @@ class SmallFlyer extends StatelessWidget {
             child: StaticHeader(
               flyerBoxWidth: flyerBoxWidth,
               bzModel: bzModel,
+              bzImageLogo: flyerModel.bzLogoImage,
               authorID: flyerModel?.authorID,
               flyerShowsAuthor: flyerModel?.showsAuthor,
               flightTweenValue: _tweenValue,
@@ -193,7 +194,7 @@ class SmallFlyer extends StatelessWidget {
           if (_flyerIsBigNow == true)
             WidgetFader(
               fadeType: FadeType.fadeIn,
-              duration: const Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 400),
               child: BigFlyer(
                 heroPath: heroTag,
                 flyerBoxWidth: flyerBoxWidth,

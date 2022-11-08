@@ -74,8 +74,8 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
 
     if (widget.isOn == true){
 
-      final double _height = widget.boxDistance ?? Scale.superScreenHeight(context);
-      final double _width = widget.boxDistance ?? Scale.superScreenHeight(context);
+      final double _height = widget.boxDistance ?? Scale.screenHeight(context);
+      final double _width = widget.boxDistance ?? Scale.screenHeight(context);
 
       final double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
 

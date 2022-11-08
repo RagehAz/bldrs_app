@@ -20,7 +20,7 @@ class PickersGroupHeadline extends StatelessWidget {
 
     return Container(
       key: const ValueKey<String>('PickersGroupHeadline'),
-      width: width ?? Scale.superScreenWidth(context),
+      width: width ?? Scale.screenWidth(context),
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 20),
       alignment: Aligners.superCenterAlignment(context),

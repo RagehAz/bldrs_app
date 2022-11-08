@@ -90,7 +90,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     final double _slideZoneHeight = DraftShelfSlide.shelfSlideZoneHeight(context);
     // --------------------
     return Container(
-      width: Scale.superScreenWidth(context),
+      width: Scale.screenWidth(context),
       height: DraftShelfBox.height(context),
       decoration: BoxDecoration(
         // color: Colorz.white10,

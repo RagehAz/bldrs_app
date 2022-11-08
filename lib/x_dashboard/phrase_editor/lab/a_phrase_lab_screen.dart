@@ -69,7 +69,7 @@ class _PhrasesLabState extends State<PhrasesLab> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
 
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),

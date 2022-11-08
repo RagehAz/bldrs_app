@@ -382,7 +382,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
 
 // -----------------------------------------------------------------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     // blog('SCREEN WIDTH : ($_screenWidth) <=> SCREEN HEIGHT ($_screenHeight)');
 // -----------------------------------------------------------------------------

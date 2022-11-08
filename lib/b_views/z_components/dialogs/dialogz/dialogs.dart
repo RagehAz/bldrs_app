@@ -455,7 +455,7 @@ class Dialogs {
         text: 'phid_enter_your_password',
         translate: true,
       ),
-      height: Scale.superScreenHeight(context) * 0.6,
+      height: Scale.screenHeight(context) * 0.6,
       onOk: () async {
 
         await CenterDialog.closeCenterDialog(context);
@@ -699,7 +699,7 @@ class Dialogs {
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
-      height: Scale.superScreenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.85,
       child: UserBanner(
         userModel: userModel,
       ),
@@ -729,7 +729,7 @@ class Dialogs {
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
-      height: Scale.superScreenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.85,
       invertButtons: invertButtons,
       child: BzBanner(
         boxWidth: CenterDialog.clearWidth(context),
@@ -753,7 +753,7 @@ class Dialogs {
     bool boolDialog = true,
   }) async {
 
-    final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+    final double _gridHeight = Scale.screenHeight(context) * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
@@ -761,7 +761,7 @@ class Dialogs {
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
-      height: Scale.superScreenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,
@@ -805,7 +805,7 @@ class Dialogs {
     ValueChanged<ContactModel> onContact,
   }) async {
 
-    final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+    final double _gridHeight = Scale.screenHeight(context) * 0.5;
 
     await CenterDialog.showCenterDialog(
       context: context,
@@ -815,7 +815,7 @@ class Dialogs {
         text: 'phid_cancel',
         translate: true,
       ),
-      height: Scale.superScreenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,
@@ -856,7 +856,7 @@ class Dialogs {
     bool boolDialog = true,
   }) async {
 
-    final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+    final double _gridHeight = Scale.screenHeight(context) * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
@@ -864,7 +864,7 @@ class Dialogs {
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
-      height: Scale.superScreenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,
@@ -900,7 +900,7 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.7;
     final double _flyerBoxHeight = _dialogHeight * 0.5;
 

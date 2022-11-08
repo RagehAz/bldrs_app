@@ -13,6 +13,7 @@ class HeaderLabels extends StatelessWidget {
     @required this.headerIsExpanded,
     @required this.authorID,
     @required this.showHeaderLabels,
+    this.authorImage,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class HeaderLabels extends StatelessWidget {
   final bool headerIsExpanded;
   final String authorID;
   final bool showHeaderLabels;
+  final dynamic authorImage;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class HeaderLabels extends StatelessWidget {
                 bzModel: bzModel,
                 showLabel: headerIsExpanded,
                 labelIsOn: true,
+                authorImage: authorImage,
               ),
 
           ],

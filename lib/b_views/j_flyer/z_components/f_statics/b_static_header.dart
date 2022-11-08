@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_la
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_call_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_follow_button.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 class StaticHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -21,6 +22,7 @@ class StaticHeader extends StatelessWidget {
     this.onTap,
     this.showHeaderLabels = false,
     this.flightDirection = FlightDirection.non,
+    this.bzImageLogo,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,6 +34,7 @@ class StaticHeader extends StatelessWidget {
   final bool flyerShowsAuthor;
   final bool showHeaderLabels;
   final FlightDirection flightDirection;
+  final ui.Image bzImageLogo;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,7 @@ class StaticHeader extends StatelessWidget {
           /// BZ LOGO
           BzLogo(
             width: FlyerDim.logoWidth(flyerBoxWidth),
-            image: bzModel?.logoPath,
+            image: bzImageLogo, //bzModel?.logoPath,
             isVerified: bzModel?.isVerified,
             corners: FlyerDim.logoCornersByFlyerBoxWidth(
               context: context,

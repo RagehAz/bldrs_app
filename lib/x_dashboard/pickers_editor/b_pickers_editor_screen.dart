@@ -184,7 +184,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
       ],
       layoutWidget: Container(
-        width: Scale.superScreenWidth(context),
+        width: Scale.screenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(

@@ -45,8 +45,8 @@ class UserTileButtonsList extends StatelessWidget {
               builder: (_, List<UserModel> selectedUsers, Widget child){
 
                 return SizedBox(
-                  width: Scale.superScreenWidth(context),
-                  height: Scale.superScreenHeight(context),
+                  width: Scale.screenWidth(context),
+                  height: Scale.screenHeight(context),
                   child: ListView.builder(
                     itemCount: foundUsers.length,
                     physics: const NeverScrollableScrollPhysics(),

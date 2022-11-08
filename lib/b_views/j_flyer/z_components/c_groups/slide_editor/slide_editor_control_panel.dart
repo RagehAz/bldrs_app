@@ -37,7 +37,7 @@ class SlideEditorControlPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _controlPanelHeight = height;
     final double _buttonSize = getButtonSize(context, _controlPanelHeight);
     // --------------------

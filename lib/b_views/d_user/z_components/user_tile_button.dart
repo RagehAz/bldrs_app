@@ -36,7 +36,7 @@ class UserTileButtonOld extends StatelessWidget {
     @required BuildContext context,
     double boxWidthOverride,
   }){
-    return boxWidthOverride ?? Scale.superScreenWidth(context);
+    return boxWidthOverride ?? Scale.screenWidth(context);
   }
   // --------------------
   static double getUserButtonWidth({

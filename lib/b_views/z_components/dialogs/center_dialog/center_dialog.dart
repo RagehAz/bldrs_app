@@ -43,7 +43,7 @@ class CenterDialog extends StatelessWidget {
 
   // --------------------
   static double getWidth(BuildContext context) {
-    return Scale.superScreenWidth(context) * 0.85;
+    return Scale.screenWidth(context) * 0.85;
   }
   // --------------------
   static double clearWidth(BuildContext context){
@@ -60,7 +60,7 @@ class CenterDialog extends StatelessWidget {
     @required BuildContext context,
     double heightOverride,
   }) {
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _height = heightOverride ?? _screenHeight * 0.4;
     return _height;
   }
@@ -152,8 +152,8 @@ class CenterDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     final BorderRadius _dialogBorders = dialogBorders(context);
     // --------------------

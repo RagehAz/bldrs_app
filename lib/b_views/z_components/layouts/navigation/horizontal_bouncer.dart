@@ -93,7 +93,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
   @override
   Widget build(BuildContext context) {
 
-    final double _width = widget.boxDistance ?? Scale.superScreenWidth(context);
+    final double _width = widget.boxDistance ?? Scale.screenWidth(context);
 
     return ValueListenableBuilder(
         valueListenable: _canNavigate,

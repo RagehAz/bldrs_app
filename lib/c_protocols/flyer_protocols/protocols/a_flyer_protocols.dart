@@ -8,6 +8,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/renovate_flyers.dart
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/wipe_flyers.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -319,6 +320,61 @@ class FlyerProtocols {
         );
 
       }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static Future<FlyerModel> imagifyBzLogo(FlyerModel flyerModel) async {
+    FlyerModel _output = flyerModel;
+
+    if (flyerModel != null){
+
+      assert(flyerModel.bzID != null, 'bz ID is null');
+
+      if (ObjectCheck.objectIsUiImage(flyerModel.bzLogoImage) == false){
+
+        final ui.Image _logoImage = await PicProtocols.fetchPicUiImage(
+            StorageColl.getBzLogoPath(flyerModel.bzID)
+        );
+
+        _output = flyerModel.copyWith(
+          bzLogoImage: _logoImage,
+        );
+
+      }
+
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static Future<FlyerModel> imagifyAuthorPic(FlyerModel flyerModel) async {
+    FlyerModel _output = flyerModel;
+
+    if (flyerModel != null){
+
+      assert(flyerModel.bzID != null, 'bz ID is null');
+
+      if (ObjectCheck.objectIsUiImage(flyerModel.authorImage) == false){
+
+        final ui.Image _authorImage = await PicProtocols.fetchPicUiImage(
+            StorageColl.getAuthorPicPath(
+              authorID: flyerModel.authorID,
+              bzID: flyerModel.bzID,
+            )
+        );
+
+        _output = flyerModel.copyWith(
+          authorImage: _authorImage,
+        );
+
+      }
+
 
     }
 

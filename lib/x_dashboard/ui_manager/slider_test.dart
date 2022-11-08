@@ -153,7 +153,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
                 '_semanticFormatterCallback value : $_semanticFormatterCallback'),
 
             Container(
-              width: Scale.superScreenWidth(context),
+              width: Scale.screenWidth(context),
               margin: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

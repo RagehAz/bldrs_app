@@ -58,7 +58,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _slideZoneHeight = height;
     final double _flyerBoxWidth = getFlyerZoneWidth(context, _slideZoneHeight);
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth);

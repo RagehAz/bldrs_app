@@ -47,7 +47,7 @@ class FlyerDim {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static double flyerWidthByFactor(BuildContext context, double flyerSizeFactor) {
-    return Scale.superScreenWidth(context) * flyerSizeFactor;
+    return Scale.screenWidth(context) * flyerSizeFactor;
   }
   // ---------
   /// TAMAM : WORKS PERFECT
@@ -70,7 +70,7 @@ class FlyerDim {
   // ---------
   /// TAMAM : WORKS PERFECT
   static double flyerFactorByFlyerWidth(BuildContext context, double flyerBoxWidth) {
-    return flyerBoxWidth / Scale.superScreenWidth(context);
+    return flyerBoxWidth / Scale.screenWidth(context);
   }
   // ---------
   /// TAMAM : WORKS PERFECT
@@ -985,14 +985,14 @@ class FlyerDim {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static bool checkFlyerIsFullScreen(BuildContext context, double flyerBoxWidth){
-    return flyerBoxWidth >= Scale.superScreenWidth(context);
+    return flyerBoxWidth >= Scale.screenWidth(context);
   }
   // ---------
   /// TAMAM : WORKS PERFECT
   static bool isTinyMode(BuildContext context, double flyerBoxWidth) {
     bool _tinyMode = false; // 0.4 needs calibration
 
-    if (flyerBoxWidth < (Scale.superScreenWidth(context) * 0.58)) {
+    if (flyerBoxWidth < (Scale.screenWidth(context) * 0.58)) {
       _tinyMode = true;
     }
 
@@ -1007,14 +1007,14 @@ class FlyerDim {
     @required BuildContext context,
     @required double givenGridWidth,
   }){
-    return givenGridWidth ?? Scale.superScreenWidth(context);
+    return givenGridWidth ?? Scale.screenWidth(context);
   }
   // --------------------
   static double flyerGridHeight({
     @required BuildContext context,
     @required double givenGridHeight,
   }){
-    return givenGridHeight ?? Scale.superScreenHeight(context);
+    return givenGridHeight ?? Scale.screenHeight(context);
   }
   // --------------------
   static const double _spacingRatio = 0.03;
@@ -1093,7 +1093,7 @@ class FlyerDim {
     BuildContext context,
     int flyersLength
   }) {
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _gridWidth = _screenWidth - (2 * Ratioz.appBarMargin);
     final int _numberOfColumns = flyerGridColumnCount(flyersLength);
     return (_gridWidth - ((_numberOfColumns - 1) * Ratioz.appBarMargin)) / _numberOfColumns;

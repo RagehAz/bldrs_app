@@ -33,7 +33,7 @@ class SlidesShelf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     final double _stackZoneHeight = shelfHeight - _stackTitleHeight;
     // --------------------

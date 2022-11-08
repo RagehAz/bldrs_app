@@ -62,8 +62,8 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           onRefresh: () => onRefreshHomeWall(context),
           fadeOnBuild: true,
           child: FlyersGrid(
-            gridWidth: Scale.superScreenWidth(context),
-            gridHeight: Scale.superScreenHeight(context),
+            gridWidth: Scale.screenWidth(context),
+            gridHeight: Scale.screenHeight(context),
             flyers: _wallFlyers,
             scrollController: _scrollController,
             heroPath: 'userHomeScreen',

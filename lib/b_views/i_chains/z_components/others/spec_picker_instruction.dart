@@ -22,7 +22,7 @@ class ChainInstructions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
 
     return Container(
       width: _screenWidth,

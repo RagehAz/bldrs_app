@@ -166,9 +166,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       )
     };
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // LatLng userCurrentLocation = LatLng(_initialPosition?.latitude ?? 0, _initialPosition?.longitude ?? 0);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return MainLayout(
       skyType: SkyType.black,
