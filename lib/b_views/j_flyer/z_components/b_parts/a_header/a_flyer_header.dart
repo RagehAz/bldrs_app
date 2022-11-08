@@ -1,16 +1,18 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_convertible_header_strip_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/c_bz_slide_headline/a_bz_slide_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/a_bz_slide_tree.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/a_bz_slide_x_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatefulWidget {
@@ -64,6 +66,8 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   Animation<double> _headerMiddleSpacerWidthTween;
   Animation<double> _followCallButtonsScaleTween;
   CurvedAnimation _animation;
+  // --------------------
+  bool _canBounce = true;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -233,76 +237,80 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
           flyerBoxWidth: widget.flyerBoxWidth,
           headerColor: _headerColor,
           headerHeightTween: _headerHeightTween,
-          child: SingleChildScrollView(
-            physics: widget.tinyMode == true || widget.headerIsExpanded.value == false ?
-            const NeverScrollableScrollPhysics()
-                :
-            const BouncingScrollPhysics(),
-            padding: EdgeInsets.zero,/// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
-            controller: widget.headerScrollController,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: <Widget>[
+          child: MaxBounceNavigator(
+            onNavigate: () async {
 
-                Column(
-                  key: const PageStorageKey<String>('FlyerHeader_ListView'),
-                  children: <Widget>[
+              if (_canBounce = true) {
+                _canBounce = false;
+                blog('Bouncing back : $_canBounce');
+                await widget.onHeaderTap();
+                /// to wait header shrinkage until allowing new shrinkage
+                await Future.delayed(Ratioz.duration750ms, (){
+                  _canBounce = true;
+                });
+              }
 
-                    /// MINI HEADER STRIP
-                    ConvertibleHeaderStripPart(
-                      key: const ValueKey<String>('FlyerHeader_ConvertibleHeaderStripPart'),
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      minHeaderHeight: _minHeaderHeight,
-                      logoSizeRatioTween: _logoSizeRatioTween,
-                      headerLeftSpacerTween: _headerLeftSpacerTween,
-                      tinyMode: widget.tinyMode,
-                      headerBorders: _headerBorders,
-                      logoMinWidth: _logoMinWidth,
-                      logoCorners: _logoBorders,
-                      headerIsExpanded: widget.headerIsExpanded,
-                      headerMiddleSpacerWidthTween: _headerMiddleSpacerWidthTween,
-                      headerLabelsWidthTween: _headerLabelsWidthTween,
-                      followCallButtonsScaleTween: _followCallButtonsScaleTween,
-                      followIsOn: widget.followIsOn,
-                      onFollowTap: widget.onFollowTap,
-                      onCallTap: widget.onCallTap,
-                      headerRightSpacerTween: _headerRightSpacerTween,
-                      flyerModel: widget.flyerModel,
-                      bzModel: widget.bzModel,
+            },
+            // isOn: _canBounce,
+            boxDistance: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+            // numberOfScreens: 2,
+            child: SingleChildScrollView(
+              physics: widget.tinyMode == true || widget.headerIsExpanded.value == false ?
+              const NeverScrollableScrollPhysics()
+                  :
+              const BouncingScrollPhysics(),
+              padding: EdgeInsets.zero,/// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
+              controller: widget.headerScrollController,
+              child: Column(
+                key: const PageStorageKey<String>('FlyerHeader_ListView'),
+                children: <Widget>[
+
+                  /// MINI HEADER STRIP
+                  ConvertibleHeaderStripPart(
+                    key: const ValueKey<String>('FlyerHeader_ConvertibleHeaderStripPart'),
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    minHeaderHeight: _minHeaderHeight,
+                    logoSizeRatioTween: _logoSizeRatioTween,
+                    headerLeftSpacerTween: _headerLeftSpacerTween,
+                    tinyMode: widget.tinyMode,
+                    headerBorders: _headerBorders,
+                    logoMinWidth: _logoMinWidth,
+                    logoCorners: _logoBorders,
+                    headerIsExpanded: widget.headerIsExpanded,
+                    headerMiddleSpacerWidthTween: _headerMiddleSpacerWidthTween,
+                    headerLabelsWidthTween: _headerLabelsWidthTween,
+                    followCallButtonsScaleTween: _followCallButtonsScaleTween,
+                    followIsOn: widget.followIsOn,
+                    onFollowTap: widget.onFollowTap,
+                    onCallTap: widget.onCallTap,
+                    headerRightSpacerTween: _headerRightSpacerTween,
+                    flyerModel: widget.flyerModel,
+                    bzModel: widget.bzModel,
+                  ),
+
+                  /// BZ NAME BELOW LOGO
+                  BzSlideHeadline(
+                    key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    firstLine: Verse(
+                      text: widget.bzModel.name,
+                      translate: false,
                     ),
-
-                    /// BZ NAME BELOW LOGO
-                    BzSlideHeadline(
-                      key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      firstLine: Verse(
-                        text: widget.bzModel.name,
-                        translate: false,
-                      ),
-                      secondLine: ZoneModel.translateZoneString(
-                        context: context,
-                        zoneModel: widget.bzModel.zone,
-                      ),
-                      headerIsExpanded: widget.headerIsExpanded,
+                    secondLine: ZoneModel.translateZoneString(
+                      context: context,
+                      zoneModel: widget.bzModel.zone,
                     ),
-
-                    /// - BZ SLIDE
-                    bzSlideTree,
-
-                  ],
-                ),
-
-                /// --- CORNER X BUTTON
-                if (widget.tinyMode == false)
-                  XButtonPart(
-                    key: const ValueKey<String>('FlyerHeader_XButtonPart'),
-                    headerBorders: _headerMinCorners,
-                    onHeaderTap: widget.onHeaderTap,
                     headerIsExpanded: widget.headerIsExpanded,
                   ),
 
-              ],
+                  /// - BZ SLIDE
+                  bzSlideTree,
+
+                ],
+              ),
+
             ),
+
           ),
         );
 

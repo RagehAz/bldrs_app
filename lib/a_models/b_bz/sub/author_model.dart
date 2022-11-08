@@ -88,24 +88,6 @@ class AuthorModel {
       ),
     );
 
-    // final AuthorModel _author = AuthorModel(
-    //   userID: tempAuthor.userID,
-    //   role: tempAuthor.role,
-    //   flyersIDs: tempAuthor.flyersIDs,
-    //   name: nameController.text,
-    //   title: titleController.text,
-    //   pic: FileModel.bakeFileForUpload(
-    //     newFile: tempAuthor.pic,
-    //     existingPic: oldAuthor.pic,
-    //   ),
-    //   contacts: ContactModel.bakeContactsAfterEditing(
-    //     contacts: tempAuthor.contacts,
-    //     countryID: bzModel.zone.countryID,
-    //   ),
-    // );
-    //
-    // return _author;
-
   }
   // -----------------------------------------------------------------------------
 
