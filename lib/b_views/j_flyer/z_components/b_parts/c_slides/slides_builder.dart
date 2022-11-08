@@ -1,11 +1,13 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/gallery_slide/gallery_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +26,7 @@ class SlidesBuilder extends StatefulWidget {
     @required this.onDoubleTap,
     @required this.progressBarModel,
     @required this.flightDirection,
-    this.heroTag,
+    @required this.heroTag,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -70,11 +72,15 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
     super.build(context);
 
     if (widget.flyerModel.slides.isEmpty){
-      return Container(
-        width: widget.flyerBoxWidth,
-        height: widget.flyerBoxHeight,
-        color: Colorz.white50,
+
+      blog('Building loading flyer blue : slides are empty');
+
+      return FlyerLoading(
+        flyerBoxWidth: widget.flyerBoxWidth,
+        animate: true,
+        boxColor: Colorz.cyan255,
       );
+
     }
 
     else {
