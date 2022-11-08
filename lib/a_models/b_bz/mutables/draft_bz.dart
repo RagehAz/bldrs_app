@@ -316,7 +316,7 @@ class DraftBz {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toLDB(){
 
     return {
@@ -337,11 +337,11 @@ class DraftBz {
       'flyersIDs': flyersIDs,
       'bzSection': BzTyper.cipherBzSection(bzSection),
       'bzTypes': BzTyper.cipherBzTypes(bzTypes),
-      'inactiveBzTypes': inactiveBzTypes,
+      'inactiveBzTypes': BzTyper.cipherBzTypes(inactiveBzTypes),
       'bzForm': BzTyper.cipherBzForm(bzForm),
-      'inactiveBzForms': inactiveBzForms,
+      'inactiveBzForms': BzTyper.cipherBzForms(inactiveBzForms),
       'scope': scope,
-      'scopeSpecs': scopeSpecs,
+      'scopeSpecs': SpecModel.cipherSpecs(scopeSpecs),
       'logoPicModel': PicModel.cipherToLDB(logoPicModel),
       'hasNewLogo': hasNewLogo,
       'canPickImage': canPickImage,
@@ -357,7 +357,7 @@ class DraftBz {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static DraftBz fromLDB({
     @required BuildContext context,
     @required Map<String, dynamic> map,
