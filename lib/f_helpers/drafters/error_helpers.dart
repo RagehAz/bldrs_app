@@ -16,6 +16,10 @@ class HttpException implements Exception {
   /// --------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
+
+/// TRY AND CATCH
+
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> tryAndCatch({
   @required Function functions,
@@ -67,5 +71,29 @@ Future<bool> tryCatchAndReturnBool({
   }
 
   return _success;
+}
+// -----------------------------------------------------------------------------
+
+/// BLOGGING
+
+// --------------------
+void blogFlutterErrorDetails(FlutterErrorDetails details){
+
+  if (details != null){
+
+    blog('details.exception.toString() :  ${details.exception.toString()}');
+    blog('details.stack.toString() :      ${details.stack.toString()}');
+    blog('details.library :               ${details.library}');
+    blog('details.context.name :          ${details.context.name}');
+    blog('details.context.style :         ${details.context.style}');
+    blog('details.context.showName :      ${details.context.showName}');
+    blog('details.context.showSeparator : ${details.context.showSeparator}');
+    blog('details.context.linePrefix :    ${details.context.linePrefix}');
+    blog('details.stackFilter :           ${details.stackFilter.toString()}');
+    blog('details.informationCollector :  ${details.informationCollector.toString()}');
+    blog('details.silent :                ${details.silent}');
+
+  }
+
 }
 // -----------------------------------------------------------------------------

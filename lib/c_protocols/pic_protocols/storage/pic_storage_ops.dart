@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
-import 'package:bldrs/a_models/x_utilities/error_helpers.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
