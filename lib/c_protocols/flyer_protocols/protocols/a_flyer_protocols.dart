@@ -245,7 +245,7 @@ class FlyerProtocols {
   /// IMAGIFICATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> imagifyFirstSlide(FlyerModel flyerModel) async {
     FlyerModel _output;
 
@@ -278,7 +278,7 @@ class FlyerProtocols {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> imagifySlides(FlyerModel flyerModel) async {
     FlyerModel _output;
 
@@ -295,7 +295,7 @@ class FlyerProtocols {
           final SlideModel _slide = flyerModel.slides[i];
 
           /// UI IMAGE IS MISSING
-          if (_slide.uiImage != null){
+          if (_slide.uiImage == null){
 
             final ui.Image _image = await PicProtocols.fetchPicUiImage(_slide.picPath); // is path
             final SlideModel _updatedSlide = _slide.copyWith(

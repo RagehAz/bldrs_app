@@ -4,9 +4,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -19,9 +19,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image/image.dart' as img;
-import 'package:wechat_camera_picker/wechat_camera_picker.dart';
-
-
 
 class Floaters {
   // -----------------------------------------------------------------------------
@@ -85,6 +82,28 @@ class Floaters {
     ui.decodeImageFromList(ints, completer.complete);
 
     return completer.future;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkUiImagesAreIdentical(ui.Image image1, ui.Image image2){
+    bool _identical = false;
+
+    if (image1 == null && image2 == null){
+      _identical = true;
+    }
+    else if (image1 != null && image2 != null){
+
+      if (
+              image1.width == image2.width &&
+              image1.height == image2.height &&
+              image1.isCloneOf(image2) == true
+      ){
+        _identical = true;
+      }
+
+    }
+
+    return _identical;
   }
   // -----------------------------------------------------------------------------
 

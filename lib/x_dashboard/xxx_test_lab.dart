@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -15,14 +13,11 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -31,7 +26,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
-import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_signed_in_button.dart';
 import 'package:flutter/material.dart';
@@ -89,38 +83,51 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     //
     //   }
 
-
-    final List<FlyerModel> _allModels = await ExoticMethods.readAllFlyers(limit: 100);
-
-    for (final FlyerModel model in _allModels){
-
-      for (final SlideModel slide in model.slides){
-
-        await Future.wait(<Future>[
-
-          // Fire.deleteDocField(
-          //   collName: FireColl.flyers,
-          //   docName: model.id,
-          //   field: 'slides.${slide.slideIndex}.picture',
-          // ),
-
-          Fire.updateDocField(
-            collName: FireColl.flyers,
-            docName: model.id,
-            field: 'slides.${slide.slideIndex}.picPath',
-            input: StorageColl.getFlyerSlidePath(
-              flyerID: model.id,
-              slideIndex: slide.slideIndex,
-            ),
-          ),
-
-        ]);
-
-      }
-
-
-
-    }
+    ///----------------
+    // final bool _go = await Dialogs.confirmProceed(context: context);
+    //
+    // if (_go == true){
+    //
+    //   final List<FlyerModel> _allModels = await ExoticMethods.readAllFlyers(limit: 100);
+    //
+    //   for (final FlyerModel model in _allModels){
+    //
+    //     for (final SlideModel slide in model.slides){
+    //
+    //       // final PicModel _picModel = await PicProtocols.fetchPic(slide.picPath);
+    //       // final Dimensions _dims = await PicModel.getDimensions(_picModel.bytes);
+    //       //
+    //       // await Fire.updateDocField(
+    //       //   collName: FireColl.flyers,
+    //       //   docName: model.id,
+    //       //   field: 'slides.${slide.slideIndex}.dimensions',
+    //       //   input: _dims.toMap(),
+    //       // );
+    //       //
+    //       // await Fire.updateDocField(
+    //       //   collName: FireColl.flyers,
+    //       //   docName: model.id,
+    //       //   field: 'slides.${slide.slideIndex}.picFit',
+    //       //   input: Dimensions.cipherBoxFit(BoxFit.cover),
+    //       // );
+    //       //
+    //       // await Fire.deleteDocField(
+    //       //   collName: FireColl.flyers,
+    //       //   docName: model.id,
+    //       //   field: 'slides.${slide.slideIndex}.imageSize',
+    //       // );
+    //       //
+    //       // await Fire.deleteDocField(
+    //       //   collName: FireColl.flyers,
+    //       //   docName: model.id,
+    //       //   field: 'slides.${slide.slideIndex}.boxFit',
+    //       // );
+    //
+    //     }
+    //
+    //   }
+    //
+    // }
 
 
 
