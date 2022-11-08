@@ -70,10 +70,10 @@ class _FlyerState extends State<Flyer> {
   // --------------------
   @override
   void dispose() {
-    // _loading.dispose();
-    // _flyerModel.slides[0].uiImage?.dispose();
-    // _flyerModel.bzLogoImage?.dispose();
-    // _bzModel.dispose();
+    _loading.dispose();
+    _flyerModel.slides[0].uiImage?.dispose();
+    _flyerModel.bzLogoImage?.dispose();
+    _bzModel.dispose();
     super.dispose();
   }
    // --------------------
@@ -152,12 +152,12 @@ class _FlyerState extends State<Flyer> {
 
           if (loading == true){
 
-            blog('Building loading flyer yellow');
+            blog('Building loading flyer with mid color');
 
             return FlyerLoading(
               flyerBoxWidth: widget.flyerBoxWidth,
-              animate: false,
-              boxColor: Colorz.yellow200,
+              animate: true,
+              boxColor: widget.flyerModel.slides[0].midColor,
             );
 
           }

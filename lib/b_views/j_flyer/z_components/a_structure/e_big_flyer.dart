@@ -515,7 +515,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth);
     final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
 
@@ -523,9 +522,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
         valueListenable: _flyer,
         builder: (_, FlyerModel flyerModel, Widget savingNotice) {
 
-
-
-          flyerModel.blogFlyer(invoker: 'flyer receieved in BigFlyer to build is aho ');
+          blog('Building BIG FLYER');
 
           return FlyerBox(
             key: const ValueKey<String>('FullScreenFlyer'),
@@ -589,22 +586,23 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
               ),
 
               /// SAVING NOTICE
-              savingNotice,
+              SavingNotice(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                flyerBoxHeight: _flyerBoxHeight,
+                flyerIsSaved: _flyerIsSaved,
+                animationController: _savingAnimationController,
+                graphicIsOn: _graphicIsOn,
+                graphicOpacity: _graphicOpacity,
+              ),
 
             ],
           );
 
         },
-      child: SavingNotice(
-        flyerBoxWidth: widget.flyerBoxWidth,
-        flyerBoxHeight: _flyerBoxHeight,
-        flyerIsSaved: _flyerIsSaved,
-        animationController: _savingAnimationController,
-        graphicIsOn: _graphicIsOn,
-        graphicOpacity: _graphicOpacity,
-      ),
+      child: const SizedBox(),
 
     );
+
   }
   // -----------------------------------------------------------------------------
 }
