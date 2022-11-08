@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -98,7 +98,7 @@ class ListLayout extends StatelessWidget {
                   width: Bubble.clearWidth(context) - 10,
                   height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,
-                  child: OldMaxBounceNavigator(
+                  child: MaxBounceNavigator(
                     boxDistance: _bubbleHeight - (Ratioz.appBarMargin * 5),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),

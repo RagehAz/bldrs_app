@@ -20,47 +20,75 @@ class BzSlideHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ValueListenableBuilder<bool>(
-      valueListenable: headerIsExpanded,
-      builder: (_, bool _headerIsExpanded, Widget child){
+    return Container(
+      height: flyerBoxWidth * 0.3,
+      width: flyerBoxWidth,
+      color: Colorz.black80,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
 
-        if (_headerIsExpanded == true){
-          return child;
-        }
+          /// BUSINESS NAME
+          SuperVerse(
+            verse: firstLine,
+            size: 5,
+            shadow: true,
+            maxLines: 2,
+          ),
 
-        else {
-          return const SizedBox();
-        }
+          /// BUSINESS LOCALE
+          SuperVerse(
+            verse: secondLine,
+            italic: true,
+            weight: VerseWeight.regular,
+            color: Colorz.white200,
+          ),
 
-      },
-      child: Container(
-        height: flyerBoxWidth * 0.3,
-        width: flyerBoxWidth,
-        color: Colorz.black80,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            /// BUSINESS NAME
-            SuperVerse(
-              verse: firstLine,
-              size: 5,
-              shadow: true,
-              maxLines: 2,
-            ),
-
-            /// BUSINESS LOCALE
-            SuperVerse(
-              verse: secondLine,
-              italic: true,
-              weight: VerseWeight.regular,
-              color: Colorz.white200,
-            ),
-
-          ],
-        ),
+        ],
       ),
     );
+
+    // return ValueListenableBuilder<bool>(
+    //   valueListenable: headerIsExpanded,
+    //   builder: (_, bool _headerIsExpanded, Widget child){
+    //
+    //     // if (_headerIsExpanded == true){
+    //       return child;
+    //     // }
+    //     //
+    //     // else {
+    //     //   return const SizedBox();
+    //     // }
+    //
+    //   },
+    //   child: Container(
+    //     height: flyerBoxWidth * 0.3,
+    //     width: flyerBoxWidth,
+    //     color: Colorz.black80,
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: <Widget>[
+    //
+    //         /// BUSINESS NAME
+    //         SuperVerse(
+    //           verse: firstLine,
+    //           size: 5,
+    //           shadow: true,
+    //           maxLines: 2,
+    //         ),
+    //
+    //         /// BUSINESS LOCALE
+    //         SuperVerse(
+    //           verse: secondLine,
+    //           italic: true,
+    //           weight: VerseWeight.regular,
+    //           color: Colorz.white200,
+    //         ),
+    //
+    //       ],
+    //     ),
+    //   ),
+    // );
 
   }
 /// --------------------------------------------------------------------------

@@ -86,7 +86,7 @@ Future<void> onTriggerHeader({
     headerPageOpacity: headerPageOpacity,
   );
 
-  blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
+  // blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
 }
 // --------------------
 Future<void> readBzCounters({
@@ -112,14 +112,14 @@ Future<void> _triggerProgressBarOpacity({
 
   /// WHEN PROGRESS BAR IS VISIBLE
   if (progressBarOpacity.value == 1) {
-    blog('triggering _progressBarOpacity to 0');
+    // blog('triggering _progressBarOpacity to 0');
     progressBarOpacity.value = 0;
   }
 
   /// WHEN PROGRESS BAR IS HIDDEN
   else {
     await Future<void>.delayed(Ratioz.durationFading210, () {
-      blog('triggering _progressBarOpacity to 1');
+      // blog('triggering _progressBarOpacity to 1');
       progressBarOpacity.value = 1;
     });
   }

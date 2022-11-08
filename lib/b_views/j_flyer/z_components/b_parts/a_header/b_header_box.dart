@@ -32,7 +32,7 @@ class HeaderBox extends StatelessWidget {
           color: headerColor,
           borderRadius: headerBorders,
         ),
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         child: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
           scrollDirection: Axis.horizontal,

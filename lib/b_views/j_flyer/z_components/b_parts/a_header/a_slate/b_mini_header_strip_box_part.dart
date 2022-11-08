@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class MiniHeaderStripBoxPart extends StatelessWidget {
@@ -27,8 +28,9 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
     return Container(
       width: flyerBoxWidth,
       height: (minHeaderHeight * logoSizeRatioTween.value) + (headerLeftSpacerTween.value),
-      alignment: Alignment.center,
+      alignment: Alignment.topCenter,
       padding: EdgeInsets.only(top: headerLeftSpacerTween.value),
+      color: Colorz.black80,
       // decoration: BoxDecoration(
         // color: tinyMode == true ? Colorz.white50 : Colorz.black80,
         // borderRadius: Borderers.superBorderOnly(
@@ -46,7 +48,7 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: children,
         ),
       ),

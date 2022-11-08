@@ -10,12 +10,16 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
+
+// rageh 16 egp / hour
+// nour 37.5 egp / hour
 
 enum PicMakerType {
   cameraImage,
@@ -316,7 +320,7 @@ class PicMaker {
 
     final AssetEntity entity = await CameraPicker.pickFromCamera(
       context,
-      pickerConfig: const CameraPickerConfig(
+      pickerConfig: CameraPickerConfig(
 
         /// TURNS - ORIENTATION
         // cameraQuarterTurns: 0, // DEFAULT
@@ -352,7 +356,11 @@ class PicMaker {
         // preferredLensDirection: CameraLensDirection.back, // DEFAULT
 
         /// THEME - TEXTS
-        textDelegate: EnglishCameraPickerTextDelegate(), /// TASK : DO ARABIC CAMERA PICKER TEXT DELEGATE
+        textDelegate: Localizer.appIsArabic(context) == true ?
+        const ArabicCameraPickerTextDelegate()
+        :
+        const EnglishCameraPickerTextDelegate(),
+
         // theme: ThemeData.dark(),
 
         // onError: (Object object, StackTrace trace){
@@ -512,40 +520,6 @@ class PicMaker {
   /// CHECKERS
 
   // --------------------
-  /// DEPRECATED
-  /*
-  /// TESTED : WORKS PERFECT
-  static bool checkPicsAreIdentical({
-    @required dynamic pic1,
-    @required dynamic pic2,
-  }){
-    bool _identical = false;
-
-    if (pic1 == null && pic2 == null){
-      _identical = true;
-    }
-    else if (pic1 != null && pic2 != null){
-
-      if (pic1.runtimeType == pic2.runtimeType){
-
-        if (pic1 is String){
-          _identical = pic1 == pic2;
-        }
-        else if (ObjectCheck.objectIsFile(pic1) == true){
-          _identical = Filers.checkFilesAreIdentical(file1: pic1, file2: pic2);
-        }
-        else if (pic1 is FileModel){
-          _identical = FileModel.checkFileModelsAreIdentical(model1: pic1, model2: pic2);
-        }
-
-      }
-
-    }
-
-    return _identical;
-  }
-   */
-  // --------------------
   /// TESTED : WORKS PERFECT
   static bool picturesURLsAreIdentical({
     @required List<String> urls1,
@@ -688,4 +662,121 @@ class PicMaker {
     blog('blogPictureInfo : END');
   }
   // -----------------------------------------------------------------------------
+}
+
+/// Text delegate implements with Arabic.
+class ArabicCameraPickerTextDelegate extends CameraPickerTextDelegate {
+  const ArabicCameraPickerTextDelegate();
+
+  @override
+  String get languageCode => 'ar';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get shootingTips => 'اضغط للتصوير';
+
+  @override
+  String get shootingWithRecordingTips =>
+      'اضغط لتصوير صورة، و اضغط طويلا لتسجيل فيديو';
+
+  @override
+  String get shootingOnlyRecordingTips => 'اضغط طويلا لتسجيل فيديو';
+
+  @override
+  String get shootingTapRecordingTips => 'اضغط لتسجيل فيديو';
+
+  @override
+  String get loadFailed => 'فشلت عميلة التحميل';
+
+  @override
+  String get loading => 'جاري التحميل ...';
+
+  @override
+  String get saving => 'جاري الحفظ ...';
+
+  @override
+  String get sActionManuallyFocusHint => 'تعديل البؤرة يدويا';
+
+  @override
+  String get sActionPreviewHint => 'عرض';
+
+  @override
+  String get sActionRecordHint => 'تسجيل';
+
+  @override
+  String get sActionShootHint => 'صور صورة';
+
+  @override
+  String get sActionShootingButtonTooltip => 'زر التصوير';
+
+  @override
+  String get sActionStopRecordingHint => 'إيقاف التسجيل';
+
+  @override
+  String sCameraLensDirectionLabel(CameraLensDirection value){
+    if (value == CameraLensDirection.back){
+      return 'الكاميرا الخلفية';
+    }
+    else if (value == CameraLensDirection.front){
+      return 'الكاميرا الأمامية';
+    }
+    else {
+      return 'الكاميرا';
+    }
+  }
+
+  @override
+  String sCameraPreviewLabel(CameraLensDirection value) {
+    if (value == null) {
+      return null;
+    }
+    if (sCameraLensDirectionLabel(value) == CameraLensDirection.front.name){
+      return 'عرض الكاميرا الأمامية';
+    }
+    else if (sCameraLensDirectionLabel(value) == CameraLensDirection.back.name){
+      return 'عرض الكاميرا الخلفية';
+    }
+    else {
+      return 'عرض الكاميرا';
+    }
+
+  }
+
+  @override
+  String sFlashModeLabel(FlashMode mode){
+
+    if (mode == FlashMode.always){
+      return 'فلاش مستمر';
+    }
+    else if (mode == FlashMode.auto){
+      return 'فلاش أوتوماتيكي';
+    }
+    else if (mode == FlashMode.off){
+      return 'بدون فلاش';
+    }
+    else if (mode == FlashMode.torch){
+      return 'فلاش متقطع';
+    }
+    else {
+      return 'فلاش';
+    }
+  }
+
+  @override
+  String sSwitchCameraLensDirectionLabel(CameraLensDirection value){
+
+    if (value == CameraLensDirection.back){
+      return 'التحويل للكاميرا الخلفية';
+    }
+    else if (value == CameraLensDirection.front){
+      return 'التحويل للكاميرا الأمامية';
+    }
+    else {
+      return 'تحويل الكاميرا';
+    }
+
+  }
+
 }

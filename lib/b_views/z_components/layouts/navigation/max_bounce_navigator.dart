@@ -1,13 +1,12 @@
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 /// GoHomeOnMaxBounce
-class OldMaxBounceNavigator extends StatefulWidget {
+class MaxBounceNavigator extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const OldMaxBounceNavigator({
+  const MaxBounceNavigator({
     @required this.child,
     this.boxDistance,
     this.numberOfScreens = 1,
@@ -27,18 +26,17 @@ class OldMaxBounceNavigator extends StatefulWidget {
   final bool isOn;
   /// --------------------------------------------------------------------------
   @override
-  _OldMaxBounceNavigatorState createState() => _OldMaxBounceNavigatorState();
+  _MaxBounceNavigatorState createState() => _MaxBounceNavigatorState();
   /// --------------------------------------------------------------------------
 }
 
-class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
+class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
   // -----------------------------------------------------------------------------
   bool _canNavigate = true;
   // --------------------
   Future<void> navigate() async {
-    setState(() {
+
       _canNavigate = false;
-    });
 
     if (widget.onNavigate == null) {
 
@@ -51,9 +49,8 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
 
     else {
       await widget.onNavigate();
-      // setState(() {
-      //   _canNavigate = true;
-      // });
+      _canNavigate = true;
+
     }
   }
   // --------------------
@@ -76,15 +73,14 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
 
       final double _height = widget.boxDistance ?? Scale.screenHeight(context);
       final double _width = widget.boxDistance ?? Scale.screenHeight(context);
-
       final double _boxDistance = widget.axis == Axis.vertical ? _height : _width;
-
       final bool _goesBackOnly = _goesBackOnlyCheck();
 
       return NotificationListener<ScrollUpdateNotification>(
         key: widget.notificationListenerKey,
         onNotification: (ScrollUpdateNotification details) {
 
+          /// CAN SLIDE WHEN ( SLIDE LIMIT REACHED )
           final bool _canSlide = Scrollers.checkCanSlide(
             details: details,
             boxDistance: _boxDistance,
@@ -93,13 +89,12 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
             axis: widget.axis,
           );
 
-          blog('_canSlide : $_canSlide : _canNavigate : $_canNavigate');
+          // blog('_canSlide : $_canSlide : _canNavigate : $_canNavigate');
 
           if (_canSlide == true && _canNavigate == true) {
-            // ScrollDirection _direction = details.metrics.;
-
             navigate();
           }
+
           return true;
         },
         child: widget.child,

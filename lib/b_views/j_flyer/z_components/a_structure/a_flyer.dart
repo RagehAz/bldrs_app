@@ -31,7 +31,7 @@ class _FlyerState extends State<Flyer> {
   // -----------------------------------------------------------------------------
    final ValueNotifier<BzModel> _bzModel = ValueNotifier(null);
    FlyerModel _flyerModel;
-   String _heroTag;
+   String _heroPath;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(true);
@@ -46,8 +46,7 @@ class _FlyerState extends State<Flyer> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
-     _heroTag = '${widget.screenName}/${widget.flyerModel.id}/';
-     blog('Flyer() initState : heroTag : $_heroTag');
+     _heroPath = '${widget.screenName}/${widget.flyerModel.id}/';
      super.initState();
   }
   // --------------------
@@ -71,8 +70,8 @@ class _FlyerState extends State<Flyer> {
   @override
   void dispose() {
     _loading.dispose();
-    _flyerModel.slides[0].uiImage?.dispose();
-    _flyerModel.bzLogoImage?.dispose();
+    _flyerModel?.slides[0].uiImage?.dispose();
+    _flyerModel?.bzLogoImage?.dispose();
     _bzModel.dispose();
     super.dispose();
   }
@@ -134,7 +133,7 @@ class _FlyerState extends State<Flyer> {
 
     if (widget.flyerModel == null){
 
-      blog('Building loading flyer red');
+      blog('Building loading flyer red : FLYER IS NULL');
 
       return FlyerLoading(
         flyerBoxWidth: widget.flyerBoxWidth,
@@ -152,12 +151,12 @@ class _FlyerState extends State<Flyer> {
 
           if (loading == true){
 
-            blog('Building loading flyer with mid color');
+            blog('Building flyer [LOADING]---> ( $_heroPath )');
 
             return FlyerLoading(
               flyerBoxWidth: widget.flyerBoxWidth,
               animate: true,
-              boxColor: widget.flyerModel.slides[0].midColor,
+              // boxColor: widget.flyerModel.slides[0].midColor,
             );
 
           }
@@ -177,8 +176,8 @@ class _FlyerState extends State<Flyer> {
             // ),
 
             WidgetFader(
-              fadeType: FadeType.stillAtMax,
-              duration: const Duration(milliseconds: 100),
+              fadeType: FadeType.fadeIn,
+              duration: const Duration(milliseconds: 300),
               child: ValueListenableBuilder(
                 valueListenable: _bzModel,
                 builder: (_, BzModel bzModel, Widget child){
@@ -188,7 +187,7 @@ class _FlyerState extends State<Flyer> {
                     bzModel: bzModel,
                     isFullScreen: false,
                     flyerBoxWidth: widget.flyerBoxWidth,
-                    heroTag: _heroTag,
+                    heroTag: _heroPath,
                   );
 
                 },
