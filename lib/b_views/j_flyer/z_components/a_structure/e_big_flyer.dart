@@ -244,13 +244,20 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   Future<void> _imagifySlides() async {
 
+    blog('_imagifySlides : START');
+
     final FlyerModel _imagified = await FlyerProtocols.imagifySlides(widget.flyerModel);
+
+    assert(_imagified != null, 'received flyer with imagified slides is null');
+    assert(_imagified.slides[_imagified.slides.length - 1].uiImage != null, 'last slide uiImage is null');
 
     setNotifier(
         notifier: _flyer,
         mounted: mounted,
         value: _imagified,
     );
+
+    blog('_imagifySlides : END');
 
   }
   // -----------------------------------------------------------------------------
@@ -487,6 +494,8 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     return ValueListenableBuilder(
         valueListenable: _flyer,
         builder: (_, FlyerModel flyerModel, Widget savingNotice) {
+
+          flyerModel.blogFlyer(invoker: 'flyer receieved in BigFlyer to build is aho ');
 
           return FlyerBox(
             key: const ValueKey<String>('FullScreenFlyer'),

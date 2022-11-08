@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -11,7 +13,6 @@ import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 @immutable
 class SlideModel {
@@ -47,7 +48,7 @@ class SlideModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'slideIndex': slideIndex,
@@ -62,7 +63,7 @@ class SlideModel {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static SlideModel decipherSlide(dynamic map) {
 
     return SlideModel(
@@ -78,7 +79,7 @@ class SlideModel {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, Object> cipherSlides(List<SlideModel> slides) {
     Map<String, Object> _slidesMap = <String, Object>{};
 
@@ -95,7 +96,7 @@ class SlideModel {
     return _slidesMap;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<SlideModel> decipherSlides(Map<String, dynamic> maps) {
     final List<SlideModel> _slides = <SlideModel>[];
     final List<String> _keys = maps.keys.toList();
@@ -163,17 +164,21 @@ class SlideModel {
   /// BLOGGING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void blogSlide() {
-    blog('slideIndex : $slideIndex : flyerID : $flyerID --------------------------------------- []');
-    blog('headline : $headline');
-    blog('description : $description');
-    blog('midColor : $midColor : filterID : $filterID : picFit : $picFit : hasCustomMatrix : ${matrix != Matrix4.identity()}');
-    dimensions?.blogDimensions(invoker: 'blogSlide');
-    blog('pic : $picPath');
+    blog(' >> SLIDE [ $slideIndex ] --------------------------------------- []');
+    blog('  slideIndex : ($slideIndex ): flyerID : ($flyerID)  : pic : ($picPath) : uiImage : ($uiImage) ');
+    blog('  headline : ($headline) : description : ($description)');
+    blog('  midColor : ($midColor) : '
+        'filterID : ($filterID) : '
+        'picFit : ($picFit) : '
+        'hasCustomMatrix : (${matrix != Matrix4.identity()}) : '
+        'width : (${dimensions?.width}) : '
+        'height : (${dimensions?.height}) : '
+    );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogSlides(List<SlideModel> slides) {
 
     blog('blogSlides : ${slides.length} SLIDES -----------------------------------------START');
@@ -303,7 +308,7 @@ class SlideModel {
 
    */
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkSlidesAreIdentical({
     @required SlideModel slide1,
     @required SlideModel slide2,
@@ -321,12 +326,13 @@ class SlideModel {
           slide1.picPath == slide2.picPath &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
-          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
+          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
           slide1.picFit == slide2.picFit &&
-          Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) &&
-          Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
+          Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == true &&
+          Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.flyerID == slide2.flyerID &&
-          slide1.filterID == slide2.filterID
+          slide1.filterID == slide2.filterID &&
+          Floaters.checkUiImagesAreIdentical(slide1.uiImage, slide2.uiImage) == true
       ){
         _identical = true;
       }
