@@ -63,6 +63,7 @@ class HeaderLabelsTree extends StatelessWidget {
                 HeaderLabels(
                   flyerBoxWidth: flyerBoxWidth  * logoSizeRatioTween.value,
                   authorID: flyerModel.authorID,
+                  authorImage: flyerModel.authorImage,
                   bzModel: bzModel,
                   headerIsExpanded: false, //_headerIsExpanded,
                   flyerShowsAuthor: flyerModel.showsAuthor,

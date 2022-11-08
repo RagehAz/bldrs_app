@@ -58,7 +58,7 @@ class Stratosphere extends StatelessWidget {
     final double _height = bigAppBar == true ? bigAppBarStratosphere : smallAppBarStratosphere;
 
     return SizedBox(
-      width: Scale.superScreenWidth(context),
+      width: Scale.screenWidth(context),
       height: _height * heightFactor,
     );
 

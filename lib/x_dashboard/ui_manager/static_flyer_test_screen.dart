@@ -1,12 +1,26 @@
 import 'dart:ui' as ui;
 
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_small_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
+import 'package:bldrs/f_helpers/drafters/animators.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/ui_manager/slider_test.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +37,12 @@ class StaticFlyerTestScreen extends StatefulWidget {
 
 class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   // -----------------------------------------------------------------------------
+  Offset position ;
+  FlyerModel _flyerModel;
+  BzModel _bzModel;
+  double _tweenValue = 0;
+  FlightDirection _flight = FlightDirection.non;
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
@@ -37,6 +57,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   @override
   void initState() {
     super.initState();
+    position = const Offset(0.0, 0.0);
   }
   // --------------------
   bool _isInit = true;
@@ -50,37 +71,20 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
 
         const String flyerID = 'tuKZixD2pEazLtyyALOV';
 
-        _flyerModel = await FlyerProtocols.fetchFlyer(
+        FlyerModel flyer = await FlyerProtocols.fetchFlyer(
           context: context,
           flyerID: flyerID,
         );
+        final BzModel bz = await BzProtocols.fetch(context: context, bzID: flyer.bzID);
 
-        if (_flyerModel != null){
+        flyer = await FlyerProtocols.imagifySlides(flyer);
+        flyer = await FlyerProtocols.imagifyBzLogo(flyer);
+        flyer = await FlyerProtocols.imagifyAuthorPic(flyer);
 
-          final List<SlideModel> _slidesWithPaths = <SlideModel>[];
-          for (int i = 0; i < _flyerModel.slides.length; i++){
-
-            SlideModel _slide = _flyerModel.slides[i];
-            final String _path = await StorageRef.getPathByURL(_slide.picPath);
-            // await PicProtocols.downloadPic(_path);
-            final ui.Image _theImage = await PicProtocols.fetchPicUiImage(_path);
-            blog('the fucking shit is : ${_theImage.runtimeType}');
-            _slide = _slide.copyWith(
-              uiImage: _theImage,
-            );
-
-            _slidesWithPaths.add(_slide);
-
-          }
-
-          setState(() {
-            _flyerModel = _flyerModel.copyWith(
-              slides: _slidesWithPaths,
-            );
-          });
-
-        }
-
+        setState(() {
+          _flyerModel = flyer;
+          _bzModel = bz;
+        });
 
         await _triggerLoading(setTo: false);
       });
@@ -96,53 +100,94 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  FlyerModel _flyerModel;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     // _flyerModel?.blogFlyer(invoker: 'flyerTest');
     // --------------------
-    return DashBoardLayout(
+
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(context, Animators.limitTweenImpact(
+        maxDouble: 1,
+        minDouble: 0.3,
+        tweenValue: _tweenValue,
+    ));
+    
+    final Widget _flyerWidget = Flyer(
+      // key: const ValueKey<String>('FlyerHero_testthing'),
+      flyerBoxWidth: _flyerBoxWidth,
+      screenName: 'FlyerTestScreenWidgetthing',
+      flyerModel: _flyerModel,
+      // heroTag: 'FlyerTestScreen',
+      // bzModel: _bzModel,
+      // flightDirection: _flight,
+      // flightTweenValue: _tweenValue,
+    );
+
+    return MainLayout(
       loading: _loading,
-      listWidgets: <Widget>[
+      appBarRowWidgets: [
 
-        if (_flyerModel != null)
-          Flyer(
-            key: const ValueKey<String>('FlyerHero'),
-            flyerBoxWidth: 250,
-            screenName: 'FlyerTestScreen',
-            flyerModel: _flyerModel,
+        AppBarButton(
+          icon: Iconz.arrowDown,
+          onTap: (){
+            final double _newValue = _tweenValue - 0.1;
+            setState(() {
+              _flight = FlightDirection.push;
+            _tweenValue = _newValue < 0 ? 0 : _newValue;
+            });
+          },
         ),
 
-        const SizedBox(
-          height: 20,
-          width: 20,
-        ),
+        const Expander(),
 
-        // if (_flyerModel != null)
-        //   Stack(
-        //     children: <Widget>[
-        //
-        //       // StaticHeader(
-        //       //     flyerBoxWidth: Scale.superScreenWidth(context),
-        //       //     bzModel: _bzModel,
-        //       //     authorID: _flyerModel.id,
-        //       //     flyerShowsAuthor: true
-        //       // ),
-        //
-        //       Opacity(
-        //         opacity: 0.5,
-        //         child: HeaderTemplate(
-        //           flyerBoxWidth: Scale.superScreenWidth(context),
-        //
-        //         ),
-        //       ),
-        //
-        //     ],
-        //   ),
+        AppBarButton(
+          icon: Iconz.arrowUp,
+          onTap: (){
+            final double _newValue = _tweenValue + 0.1;
+            setState(() {
+              _flight = FlightDirection.pop;
+              _tweenValue = _newValue > 1 ? 1 : _newValue;
+            });
+          },
+        ),
 
       ],
+      layoutWidget: Stack(
+        children: [
+
+          Container(
+            width: Scale.screenWidth(context),
+            height: Scale.screenHeight(context),
+            color: Colorz.bloodTest,
+
+          ),
+
+          if (_flyerModel != null)
+            _flyerWidget
+
+            // if (_flyerModel != null)
+            // SuperPositioned(
+            //   enAlignment: Alignment.center,
+            //   verticalOffset: position.dy,
+            //   horizontalOffset: position.dx,
+            //   child: Draggable(
+            //     onDraggableCanceled: (Velocity velocity, Offset offset){
+            //       setState(() => position = offset);
+            //     },
+            //
+            //     // axis: Axis.horizontal,
+            //     affinity: Axis.vertical,
+            //     feedback: const SizedBox(), //_flyerWidget,
+            //     // childWhenDragging: const SizedBox(),
+            //     rootOverlay: true,
+            //     child: _flyerWidget,
+            //   ),
+            // ),
+
+
+        ],
+      ),
     );
     // --------------------
   }

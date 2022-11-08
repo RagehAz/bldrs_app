@@ -20,7 +20,7 @@ class GoldenScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _width = Scale.superScreenWidth(context) * 0.7;
+    final double _width = Scale.screenWidth(context) * 0.7;
 
     return InkWell(
       onTap: () => Keyboard.copyToClipboard(context: context, copy: text),

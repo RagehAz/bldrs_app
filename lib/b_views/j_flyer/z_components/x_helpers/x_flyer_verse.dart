@@ -72,7 +72,7 @@ class FlyerVerses {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-   return flyerBoxWidth / Scale.superScreenWidth(context);
+   return flyerBoxWidth / Scale.screenWidth(context);
   }
   // --------------------
   static Verse followersCounters({

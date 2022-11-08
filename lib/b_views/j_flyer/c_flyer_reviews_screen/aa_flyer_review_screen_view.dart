@@ -22,7 +22,7 @@ class FlyerReviewsScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     const double _slidesShelfHeight = 120;
     const double _separatorHeight = SeparatorLine.standardThickness + 4.5;
     // --------------------

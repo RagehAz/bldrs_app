@@ -48,7 +48,7 @@ class TopDialog extends StatelessWidget {
     int milliseconds = 5000,
   }) async {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _bubbleWidth = BldrsAppBar.width(context);
 
     await Flushbar(
@@ -222,7 +222,7 @@ class TopDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
 
     return Flushbar(
       message: verse,

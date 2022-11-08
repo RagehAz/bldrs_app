@@ -23,8 +23,8 @@ class SlideFullScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return MainLayout(
       pageTitleVerse: title,
@@ -51,8 +51,8 @@ class SlideFullScreen extends StatelessWidget {
               picWidth: imageSize.width,
               picHeight: imageSize.height,
             ),
-            width: Scale.superScreenWidth(context),
-            height: Scale.superScreenHeight(context),
+            width: Scale.screenWidth(context),
+            height: Scale.screenHeight(context),
           ),
         ),
       ),

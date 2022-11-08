@@ -349,7 +349,7 @@ class SuperVerse extends StatelessWidget {
       BuildContext context,
       int size,
       ) {
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.screenHeight(context);
     const double _labelCornerRatio = 0.4;
     final double _labelCornerValues =
     (size == 0) ?
@@ -385,7 +385,7 @@ class SuperVerse extends StatelessWidget {
   }
   // --------------------
   static double superVerseSidePaddingValues(BuildContext context, int size) {
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenHeight = Scale.screenHeight(context);
     const double _sidePaddingRatio = 0.45;
     final double _sidePaddingValues = (size == 0) ?
     _screenHeight * Ratioz.fontSize0 * _sidePaddingRatio // -- 8 -- A77A

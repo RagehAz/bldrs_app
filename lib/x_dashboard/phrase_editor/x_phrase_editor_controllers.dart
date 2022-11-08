@@ -197,7 +197,7 @@ List<Phrase> onSearchPhrases({
     }
   }
 
-  if (pageController.position.pixels >= Scale.superScreenWidth(context) == true){
+  if (pageController.position.pixels >= Scale.screenWidth(context) == true){
     Sliders.slideToBackFrom(
       pageController: pageController,
       currentSlide: 1,

@@ -72,8 +72,8 @@ class WaitDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.superScreenHeight(context);
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     return WillPopScope(
       onWillPop: () async {

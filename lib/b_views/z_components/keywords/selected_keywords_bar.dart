@@ -40,7 +40,7 @@ class SelectedPhidsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     final String _screenTitle = selectedPhids.isEmpty ?
     xPhrase(context, 'phid_select_keywords')

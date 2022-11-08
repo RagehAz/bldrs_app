@@ -33,8 +33,8 @@ class BzzTilesButtonsList extends StatelessWidget {
               builder: (_, List<BzModel> selectedBzz, Widget child){
 
                 return SizedBox(
-                  width: Scale.superScreenWidth(context),
-                  height: Scale.superScreenHeight(context),
+                  width: Scale.screenWidth(context),
+                  height: Scale.screenHeight(context),
                   child: ListView.builder(
                     itemCount: foundBzz.length,
                     physics: const NeverScrollableScrollPhysics(),

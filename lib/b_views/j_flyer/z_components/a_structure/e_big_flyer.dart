@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
@@ -117,6 +118,15 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   @override
   void dispose() {
+
+    /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
+    for (final SlideModel slide in _flyer.value.slides){
+      if (slide.slideIndex != 0){
+        slide.uiImage?.dispose();
+      }
+    }
+    _flyer.value.authorImage?.dispose();
+
     _flyer.dispose();
     _loading?.dispose();
     _progressBarModel?.dispose();
@@ -226,7 +236,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   Future<void> _preparations() async {
 
-    unawaited(_imagifySlides());
+    unawaited(_imagifySlidesAndAuthorPic());
 
     setNotifier(
       notifier: _bzCounters,
@@ -242,11 +252,30 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
   }
   // --------------------
-  Future<void> _imagifySlides() async {
+  Future<void> _imagifySlidesAndAuthorPic() async {
 
-    blog('_imagifySlides : START');
+    FlyerModel _imagified = widget.flyerModel;
 
-    final FlyerModel _imagified = await FlyerProtocols.imagifySlides(widget.flyerModel);
+    await Future.wait(<Future>[
+
+      /// IMAGIFY REMAINING SLIDES
+      FlyerProtocols.imagifySlides(widget.flyerModel)
+          .then((FlyerModel flyer){
+        _imagified = _imagified.copyWith(
+          slides: flyer.slides,
+        );
+      }),
+
+      /// IMAGIFY AUTHOR PIC
+      if (_imagified.showsAuthor == true)
+      FlyerProtocols.imagifyAuthorPic(widget.flyerModel)
+          .then((FlyerModel flyer){
+        _imagified = _imagified.copyWith(
+          authorImage: flyer.authorImage,
+        );
+      }),
+
+    ]);
 
     assert(_imagified != null, 'received flyer with imagified slides is null');
     assert(_imagified.slides[_imagified.slides.length - 1].uiImage != null, 'last slide uiImage is null');
@@ -256,8 +285,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
         mounted: mounted,
         value: _imagified,
     );
-
-    blog('_imagifySlides : END');
 
   }
   // -----------------------------------------------------------------------------
@@ -488,12 +515,15 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
+
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth);
     final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
 
     return ValueListenableBuilder(
         valueListenable: _flyer,
         builder: (_, FlyerModel flyerModel, Widget savingNotice) {
+
+
 
           flyerModel.blogFlyer(invoker: 'flyer receieved in BigFlyer to build is aho ');
 

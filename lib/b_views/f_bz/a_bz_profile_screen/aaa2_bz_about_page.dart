@@ -141,7 +141,7 @@ class AboutBzBubbles extends StatelessWidget {
             columnChildren: <Widget>[
 
               PhidsViewer(
-                pageWidth: Scale.superScreenWidth(context),
+                pageWidth: Scale.screenWidth(context),
                 phids: bzModel?.scope,
               ),
 

@@ -13,7 +13,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
   static Future<void> show({BuildContext context}) async {
     await CenterDialog.showCenterDialog(
       context: context,
-      height: Scale.superScreenHeight(context) - Ratioz.appBarMargin * 4,
+      height: Scale.screenHeight(context) - Ratioz.appBarMargin * 4,
       confirmButtonVerse: Verse.plain('Tamam'),
       titleVerse: Verse.plain('Ankhs & Slides'),
       bodyVerse: Verse.plain('Blah blah blah'),

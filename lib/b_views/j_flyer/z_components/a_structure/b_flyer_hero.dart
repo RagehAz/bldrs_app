@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/d_flight_flyer.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 enum FlightDirection{
@@ -66,6 +67,22 @@ class FlyerHero extends StatelessWidget {
       key: const ValueKey<String>('FlyerHero'),
       tag: heroTag,
       flightShuttleBuilder: buildFlight,
+      transitionOnUserGestures: true,
+      // createRectTween: (Rect x , Rect y){
+      //   return Tween<Rect>(
+      //       begin: x,
+      //       end: y,
+      //   );
+      // },
+      // placeholderBuilder: (BuildContext context, Size size, Widget child){
+      //
+      //   return Container(
+      //     width: 50,
+      //     height: 50,
+      //     color: Colorz.yellow255,
+      //   );
+      //
+      // },
       child: SmallFlyer(
         flyerBoxWidth: flyerBoxWidth,
         bzModel: bzModel,

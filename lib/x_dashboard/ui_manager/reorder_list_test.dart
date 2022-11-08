@@ -84,7 +84,7 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
         ),
 
         Container(
-          width: Scale.superScreenWidth(context),
+          width: Scale.screenWidth(context),
           height: 400,
           color: Colorz.bloodTest,
           child: ReorderableListView.builder(

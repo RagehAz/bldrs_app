@@ -229,8 +229,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     const double _logoWidth = 200;
     const double _logoHeight = 50;
     const double _logoBox = _logoWidth * 3;
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _leftOffset = _screenWidth - Ratioz.pyramidsWidth - (_logoBox * 0.5) + 30;
 
     return MainLayout(
@@ -449,7 +449,7 @@ class AnimatedLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     return AnimatedBuilder(
       animation: curvedAnimation,

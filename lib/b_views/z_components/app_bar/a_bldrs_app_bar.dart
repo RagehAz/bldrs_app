@@ -55,7 +55,7 @@ class BldrsAppBar extends StatelessWidget {
   final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context) {
-    return Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
+    return Scale.screenWidth(context) - (2 * Ratioz.appBarMargin);
   }
   // --------------------
   static double clearWidth(BuildContext context){
@@ -74,7 +74,7 @@ class BldrsAppBar extends StatelessWidget {
   }
   // --------------------
   static double scrollWidth(BuildContext context) {
-    return  Scale.superScreenWidth(context)
+    return  Scale.screenWidth(context)
             - (Ratioz.appBarMargin * 2)
             - (Ratioz.appBarPadding * 2)
             - Ratioz.appBarButtonSize
@@ -191,7 +191,7 @@ class BldrsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _abWidth = width(context);
     final double _abClearWidth = clearWidth(context);
     final double _abHeight = height(context, appBarType);

@@ -79,8 +79,8 @@ class Sky extends StatelessWidget {
     // --------------------
     return Container(
       key: key,
-      width: Scale.superScreenWidth(context),
-      height: Scale.superScreenHeight(context),
+      width: Scale.screenWidth(context),
+      height: Scale.screenHeight(context),
       decoration: BoxDecoration(
         color: _getBaseColor(
           skyType: skyType,
@@ -116,8 +116,8 @@ class SkyStars extends StatelessWidget {
     // --------------------
     else {
       return SizedBox(
-        width: Scale.superScreenWidth(context),
-        height: Scale.superScreenHeight(context),
+        width: Scale.screenWidth(context),
+        height: Scale.screenHeight(context),
         child: Stack(
           children: const <Widget>[
 
@@ -223,8 +223,8 @@ class RandomStar extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return Positioned(
-      left: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.superScreenWidth(context),
-      bottom: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.superScreenHeight(context),
+      left: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.screenWidth(context),
+      bottom: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.screenHeight(context),
       child: SuperImage(
         width: size,
         height: size,

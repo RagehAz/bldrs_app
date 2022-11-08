@@ -79,8 +79,8 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
       pageTitleVerse: Verse.plain('Flyers Auditor'),

@@ -229,7 +229,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
 
         /// LDB Buttons
         Container(
-          width: Scale.superScreenWidth(context),
+          width: Scale.screenWidth(context),
           height: 50,
           color: Colorz.bloodTest,
           child: ListView(

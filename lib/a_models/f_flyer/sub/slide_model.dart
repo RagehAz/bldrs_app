@@ -20,7 +20,6 @@ class SlideModel {
   const SlideModel({
     @required this.description,
     @required this.picFit,
-    /// TASK : update all methods below to include this boxfit parameter
     @required this.dimensions,
     @required this.midColor,
     @required this.matrix,
@@ -111,28 +110,12 @@ class SlideModel {
 
     return _slides;
   }
-  // --------------------
-  /*
-  static Future<Map<String, dynamic>> cipherSlidesCounters(List<SlideModel> slides) async {
-    final Map<String, dynamic> _combinedMap = <String, dynamic>{};
-
-    await Future.forEach(slides, (SlideModel slide) {
-      _combinedMap.addAll(<String, dynamic>{
-        'saves/${slide.slideIndex}': slide.savesCount,
-        'shares/${slide.slideIndex}': slide.sharesCount,
-        'views/${slide.slideIndex}': slide.viewsCount,
-      });
-    });
-
-    return _combinedMap;
-  }
-   */
   // -----------------------------------------------------------------------------
 
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   SlideModel copyWith({
     int slideIndex,
     String picPath,
@@ -197,7 +180,7 @@ class SlideModel {
     blog('blogSlides -------------------------------------------------- END');
   }
     // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogSlidesDifferences({
     @required SlideModel slide1,
     @required SlideModel slide2,
@@ -243,161 +226,61 @@ class SlideModel {
     if (slide1.filterID != slide2.filterID){
       blog('slide1.filterID != slide2.filterID');
     }
-
+    if (Floaters.checkUiImagesAreIdentical(slide1.uiImage, slide2.uiImage) == false){
+      blog('slide1.uiImage != slide2.uiImage');
+    }
 
     blog('blogSlidesDifferences : END');
   }
     // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogSlidesListsDifferences({
     @required List<SlideModel> slides1,
     @required List<SlideModel> slides2,
   }){
 
     if (slides1 == null){
-      blog('slides1 == null');
+      blog(' > slides1 == null');
     }
     if (slides2 == null){
-      blog('slides2 == null');
+      blog(' > slides2 == null');
     }
     if (slides1?.length != slides2?.length){
-      blog('slides1.length [ ${slides1?.length} ] != [ ${slides2?.length} ] slides2.length');
+      blog(' > slides1.length [ ${slides1?.length} ] != [ ${slides2?.length} ] slides2.length');
     }
 
-  }
-  // -----------------------------------------------------------------------------
+    if (Mapper.checkCanLoopList(slides1) == true && Mapper.checkCanLoopList(slides2) == true){
 
-  /// CHECKERS
-
-  // --------------------
-  /// DEPRECATED
-  /*
-  /// TESTED : WORKS PERFECT
-  static bool allSlidesPicsAreIdentical({
-    @required FlyerModel newFlyer,
-    @required FlyerModel oldFlyer,
-  }) {
-    bool _allSlidesPicsAreTheSame;
-
-    if (newFlyer.slides.length == oldFlyer.slides.length) {
-      for (int i = 0; i < newFlyer.slides.length; i++) {
-
-        final bool _slidesAreTheSame = slidesPicsAreTheSame(
-            newSlide: newFlyer.slides[i],
-            oldSlide: oldFlyer.slides[i],
-        );
-
-        if (_slidesAreTheSame == false) {
-          _allSlidesPicsAreTheSame = false;
-          break;
-        }
-
-        else {
-          _allSlidesPicsAreTheSame = true;
-        }
-
-      }
-    }
-
-    else if (newFlyer.slides.length != oldFlyer.slides.length) {
-      _allSlidesPicsAreTheSame = false;
-    }
-
-    return _allSlidesPicsAreTheSame;
-  }
-
-   */
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkSlidesAreIdentical({
-    @required SlideModel slide1,
-    @required SlideModel slide2,
-  }){
-    bool _identical = false;
-
-    if (slide1 == null && slide2 == null){
-      _identical = true;
-    }
-
-    else if (slide1 != null && slide2 != null){
-
-      if (
-          slide1.slideIndex == slide2.slideIndex &&
-          slide1.picPath == slide2.picPath &&
-          slide1.headline == slide2.headline &&
-          slide1.description == slide2.description &&
-          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
-          slide1.picFit == slide2.picFit &&
-          Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == true &&
-          Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
-          slide1.flyerID == slide2.flyerID &&
-          slide1.filterID == slide2.filterID &&
-          Floaters.checkUiImagesAreIdentical(slide1.uiImage, slide2.uiImage) == true
-      ){
-        _identical = true;
+      if (slides1.length != slides2.length) {
+        blog(' > maps1.length != maps2.length');
       }
 
-    }
+      else {
+        for (int i = 0; i < slides1.length; i++) {
 
-    if (_identical == false){
-      blogSlidesDifferences(
-        slide1: slide1,
-        slide2: slide2,
-      );
-    }
-
-    return _identical;
-  }
-  // --------------------
-  ///
-  static bool checkSlidesListsAreIdentical({
-    @required List<SlideModel> slides1,
-    @required List<SlideModel> slides2,
-  }){
-    bool _identical = false;
-
-    if (slides1 == null && slides2 == null){
-      _identical = true;
-    }
-    else if (slides1?.isEmpty == true && slides2?.isEmpty == true){
-      _identical = true;
-    }
-    else if (
-        Mapper.checkCanLoopList(slides1) == true &&
-        Mapper.checkCanLoopList(slides2) == true
-    ){
-
-      if (slides1.length == slides2.length){
-
-        for (int i = 0; i < slides1.length; i++){
-
-          final bool _slidesAreIdentical = checkSlidesAreIdentical(
+          final bool _identicalSlides = checkSlidesAreIdentical(
             slide1: slides1[i],
             slide2: slides2[i],
           );
 
-          if (_slidesAreIdentical == true && i + 1 == slides1.length){
-            _identical = true;
-          }
-          else if (_slidesAreIdentical == false){
-            _identical = false;
+          if (_identicalSlides == false) {
+            blog(' >> slides at index ( $i ) do not match : ( ${slides1[i]} ) <=> ( ${slides2[i]} )');
+            blogSlidesDifferences(
+              slide1: slides1[i],
+              slide2: slides2[i],
+            );
             break;
           }
 
-        }
+          else {
+            blog(' >> all maps are identical');
+          }
 
+        }
       }
 
     }
 
-    if (_identical == false){
-      blogSlidesListsDifferences(
-        slides1: slides1,
-        slides2: slides2,
-      );
-    }
-
-    return _identical;
   }
   // -----------------------------------------------------------------------------
 
@@ -643,6 +526,102 @@ class SlideModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkSlidesAreIdentical({
+    @required SlideModel slide1,
+    @required SlideModel slide2,
+  }){
+    bool _identical = false;
+
+    if (slide1 == null && slide2 == null){
+      _identical = true;
+    }
+
+    else if (slide1 != null && slide2 != null){
+
+      if (
+      slide1.slideIndex == slide2.slideIndex &&
+          slide1.picPath == slide2.picPath &&
+          slide1.headline == slide2.headline &&
+          slide1.description == slide2.description &&
+          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
+          slide1.picFit == slide2.picFit &&
+          Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == true &&
+          Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
+          slide1.flyerID == slide2.flyerID &&
+          slide1.filterID == slide2.filterID &&
+          Floaters.checkUiImagesAreIdentical(slide1.uiImage, slide2.uiImage) == true
+      ){
+        _identical = true;
+      }
+
+    }
+
+    if (_identical == false){
+      blogSlidesDifferences(
+        slide1: slide1,
+        slide2: slide2,
+      );
+    }
+
+    return _identical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkSlidesListsAreIdentical({
+    @required List<SlideModel> slides1,
+    @required List<SlideModel> slides2,
+  }){
+    bool _identical = false;
+
+    if (slides1 == null && slides2 == null){
+      _identical = true;
+    }
+    else if (slides1?.isEmpty == true && slides2?.isEmpty == true){
+      _identical = true;
+    }
+    else if (
+    Mapper.checkCanLoopList(slides1) == true &&
+        Mapper.checkCanLoopList(slides2) == true
+    ){
+
+      if (slides1.length == slides2.length){
+
+        for (int i = 0; i < slides1.length; i++){
+
+          final bool _slidesAreIdentical = checkSlidesAreIdentical(
+            slide1: slides1[i],
+            slide2: slides2[i],
+          );
+
+          if (_slidesAreIdentical == true && i + 1 == slides1.length){
+            _identical = true;
+          }
+          else if (_slidesAreIdentical == false){
+            _identical = false;
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+    if (_identical == false){
+      blogSlidesListsDifferences(
+        slides1: slides1,
+        slides2: slides2,
+      );
+    }
+
+    return _identical;
+  }
+  // -----------------------------------------------------------------------------
+
   /// OVERRIDES
 
   // --------------------
@@ -680,6 +659,7 @@ class SlideModel {
       slideIndex.hashCode^
       picPath.hashCode^
       headline.hashCode^
+      uiImage.hashCode^
       flyerID.hashCode;
   // -----------------------------------------------------------------------------
 }

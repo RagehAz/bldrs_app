@@ -136,8 +136,8 @@ class _GoBackWidgetState extends State<GoBackWidget> {
     blog('GoBackWidget : should go back now ahoooooooooooooooooooooooo');
 
     return Container(
-      width: Scale.superScreenWidth(context),
-      height: Scale.superScreenHeight(context),
+      width: Scale.screenWidth(context),
+      height: Scale.screenHeight(context),
       color: Colorz.black230,
       // child: const Center(
       //   child: SuperVerse(

@@ -30,8 +30,8 @@ class SuperValidator extends StatelessWidget {
 
           /// SPAN SPACING
           scrollPadding: EdgeInsets.only(
-            bottom: Scale.superScreenHeight(context) * 0.3,
-            top: Scale.superScreenHeight(context) * 0.3,
+            bottom: Scale.screenHeight(context) * 0.3,
+            top: Scale.screenHeight(context) * 0.3,
           ),
 
           /// DISABLE TEXT FIELD

@@ -73,7 +73,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double draggerWidth(BuildContext context) {
-    final double _draggerWidth = Scale.superScreenWidth(context) * 0.35;
+    final double _draggerWidth = Scale.screenWidth(context) * 0.35;
     return _draggerWidth;
   }
   // --------------------
@@ -108,7 +108,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double dialogWidth(BuildContext context) {
-    return Scale.superScreenWidth(context);
+    return Scale.screenWidth(context);
   }
   // --------------------
   static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;
@@ -119,7 +119,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static double clearWidth(BuildContext context) {
     final double _dialogClearWidth =
-        Scale.superScreenWidth(context)
+        Scale.screenWidth(context)
             - (dialogMarginValue * 2);
 
     return _dialogClearWidth;
@@ -132,7 +132,7 @@ class BottomDialog extends StatelessWidget {
         double ratioOfScreenHeight
       }) {
 
-    double _dialogHeight;final double _screenHeight = Scale.superScreenHeight(context);
+    double _dialogHeight;final double _screenHeight = Scale.screenHeight(context);
 
     final double _ratioOfScreenHeight = ratioOfScreenHeight ?? 0.5;
 
@@ -225,7 +225,7 @@ class BottomDialog extends StatelessWidget {
 
                 return SizedBox(
                   height: _height,
-                  width: Scale.superScreenWidth(context),
+                  width: Scale.screenWidth(context),
                   child: Scaffold(
                     backgroundColor: Colorz.nothing,
                     resizeToAvoidBottomInset: false,
@@ -317,7 +317,7 @@ class BottomDialog extends StatelessWidget {
       context: context,
       builder: (BuildContext context) => SizedBox(
           height: _height,
-          width: Scale.superScreenWidth(context),
+          width: Scale.screenWidth(context),
           child: Scaffold(
             backgroundColor: Colorz.nothing,
             resizeToAvoidBottomInset: false,
@@ -347,7 +347,7 @@ class BottomDialog extends StatelessWidget {
 
     await BottomDialog.showBottomDialog(
       context: context,
-      height: Scale.superScreenHeight(context) - 100,
+      height: Scale.screenHeight(context) - 100,
       draggable: true,
       child: Container(),
       // child: Center(
