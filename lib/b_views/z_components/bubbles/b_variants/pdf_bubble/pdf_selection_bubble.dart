@@ -77,8 +77,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        // _pdfNotifier.value = await FileModel.completeModel(_pdfNotifier.value);
-
         await _triggerLoading(setTo: false);
       });
 

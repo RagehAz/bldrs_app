@@ -206,13 +206,15 @@ class InfoPageContents extends StatelessWidget {
                   ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// COUNTERS
-                FlyerCountersAndRecords(
+                if (AuthModel.userIsSignedIn() == true)
+                  FlyerCountersAndRecords(
                   pageWidth: _pageWidth,
                   flyerModel: flyerModel,
                   flyerCounter: flyerCounter,
                 ),
                 /// COUNTERS LINE
-                InfoPageSeparator( /// ------------------------- SEPARATOR
+                if (AuthModel.userIsSignedIn() == true)
+                  InfoPageSeparator( /// ------------------------- SEPARATOR
                   pageWidth: _pageWidth,
                 ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0

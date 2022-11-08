@@ -33,7 +33,8 @@ class BzSlideTree extends StatelessWidget {
       valueListenable: headerIsExpanded,
       builder: (_, bool isExpanded, Widget animatedBzSlide){
 
-        if (isExpanded == true && tinyMode == false){
+      if (isExpanded == true && tinyMode == false){
+      //   if (tinyMode == false){
           return animatedBzSlide;
         }
 
