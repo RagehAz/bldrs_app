@@ -128,7 +128,6 @@ class StaticHeader extends StatelessWidget {
             ),
           ),
 
-
           /// RIGHT SPACER
             StaticHeaderSlateSpacer(
             flyerBoxWidth: flyerBoxWidth,

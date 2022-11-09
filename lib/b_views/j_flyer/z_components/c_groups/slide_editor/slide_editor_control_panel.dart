@@ -65,7 +65,7 @@ class SlideEditorControlPanel extends StatelessWidget {
           /// BOX FIT
           SlideEditorButton(
             size: _buttonSize,
-            icon: Iconz.fingerTap,
+            icon: Iconz.reload,
             verse: const Verse(
               text: 'phid_reset',
               translate: true,
@@ -76,7 +76,7 @@ class SlideEditorControlPanel extends StatelessWidget {
           /// CROP
           SlideEditorButton(
             size: _buttonSize,
-            icon: Iconz.reload,
+            icon: Iconz.crop,
             verse: const Verse(
               text: 'phid_crop',
               translate: true,

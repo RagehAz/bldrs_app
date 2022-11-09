@@ -125,10 +125,12 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// HEADER CORNERS
 
     //--------------------------------o
+    /*
     final BorderRadius _headerMinCorners = FlyerDim.headerSlateCorners(
       context: context,
       flyerBoxWidth: widget.flyerBoxWidth,
     );
+     */
     //--------------------------------o
     _headerCornerTween = BorderRadiusTween(
       begin: FlyerDim.headerSlateCorners(
