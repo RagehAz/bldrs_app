@@ -19,6 +19,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 
 @immutable
 class DraftFlyer{
@@ -49,6 +50,7 @@ class DraftFlyer{
     @required this.formKey,
     @required this.canPickImage,
     @required this.firstTimer,
+    @required this.posterController,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -76,6 +78,7 @@ class DraftFlyer{
   final GlobalKey<FormState> formKey;
   final bool canPickImage;
   final bool firstTimer;
+  final ScreenshotController posterController;
   // -----------------------------------------------------------------------------
   static const String newDraftID = 'newDraft';
   // -----------------------------------------------------------------------------
@@ -154,6 +157,7 @@ class DraftFlyer{
       canPickImage: true,
       formKey: GlobalKey<FormState>(),
       firstTimer: true,
+      posterController: ScreenshotController(),
     );
 
   }
@@ -194,6 +198,7 @@ class DraftFlyer{
       firstTimer: false,
       formKey: GlobalKey<FormState>(),
       canPickImage: true,
+      posterController: ScreenshotController(),
     );
 
   }
@@ -315,6 +320,7 @@ class DraftFlyer{
         headlineNode: null,
         descriptionNode: null,
         formKey: null,
+        posterController: ScreenshotController(),
       );
     }
 
@@ -352,6 +358,7 @@ class DraftFlyer{
     bool canPickImage,
     GlobalKey<FormState> formKey,
     bool firstTimer,
+    ScreenshotController posterController,
   }){
     return DraftFlyer(
       bzModel: bzModel ?? this.bzModel,
@@ -379,6 +386,7 @@ class DraftFlyer{
       canPickImage: canPickImage ?? this.canPickImage,
       formKey: formKey ?? this.formKey,
       firstTimer: firstTimer ?? this.firstTimer,
+      posterController: posterController ?? this.posterController,
     );
   }
   // --------------------
@@ -409,6 +417,7 @@ class DraftFlyer{
     bool formKey = false,
     bool canPickImage = false,
     bool firstTimer = false,
+    bool posterController = false,
   }){
     return DraftFlyer(
       id: id == true ? null : this.id,
@@ -436,6 +445,7 @@ class DraftFlyer{
       formKey: formKey == true ? null : this.formKey,
       canPickImage: canPickImage == true ? null : this.canPickImage,
       firstTimer: firstTimer == true ? null : this.firstTimer,
+      posterController: posterController == true ? null : this.posterController,
     );
 }
   // -----------------------------------------------------------------------------
@@ -813,6 +823,7 @@ class DraftFlyer{
       times.hashCode^
       priceTagIsOn.hashCode^
       score.hashCode^
+      posterController.hashCode^
       pdfModel.hashCode;
 // -----------------------------------------------------------------------------
 }

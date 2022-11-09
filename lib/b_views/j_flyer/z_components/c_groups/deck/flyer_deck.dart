@@ -1,12 +1,20 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 class FlyerDeck extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -18,6 +26,7 @@ class FlyerDeck extends StatelessWidget {
     @required this.expansion,
     @required this.minSlideHeightFactor,
     @required this.screenName,
+    this.draft,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -29,6 +38,7 @@ class FlyerDeck extends StatelessWidget {
   final double minSlideHeightFactor;
   final double expansion;
   final String screenName;
+  final DraftFlyer draft;
   // -----------------------------------------------------------------------------
   static double concludeDeckWidth({
     @required int numberOfSlides,
@@ -40,7 +50,11 @@ class FlyerDeck extends StatelessWidget {
 
     final double _biggestSlideWidth = FlyerDim.flyerWidthByFlyerHeight(deckHeight);
 
-    if (numberOfSlides == 1){
+    if (numberOfSlides == 0){
+      return 0;
+    }
+
+    else if (numberOfSlides == 1){
       return _biggestSlideWidth;
     }
 
@@ -215,86 +229,190 @@ class FlyerDeck extends StatelessWidget {
     return _scale;
   }
   // -----------------------------------------------------------------------------
+  Future<FlyerModel> _transformDraft(DraftFlyer draft) async {
+
+    FlyerModel _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
+    _flyer = await FlyerProtocols.imagifyBzLogo(_flyer);
+    _flyer = await FlyerProtocols.imagifyAuthorPic(_flyer);
+
+    final List<SlideModel> _flyerSlides = <SlideModel>[];
+
+    for (int i = 0; i < _flyer.slides.length; i++){
+
+      final SlideModel _slide = _flyer.slides[i];
+
+      /// UI IMAGE IS MISSING
+      if (_slide.uiImage == null){
+
+        final DraftSlide _draft = draft.draftSlides.firstWhere((element) => element.slideIndex == _slide.slideIndex);
+        final ui.Image _image = await Floaters.getUiImageFromUint8List(_draft.picModel.bytes);
+        final SlideModel _updatedSlide = _slide.copyWith(
+          uiImage: _image,
+        );
+        _flyerSlides.add(_updatedSlide);
+      }
+
+      /// UI IMAGE IS DEFINED
+      else {
+
+        _flyerSlides.add(_slide);
+
+      }
+
+    }
+
+    return _flyer.copyWith(
+      slides: _flyerSlides,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    if (flyerModel == null){
+    if (flyerModel == null && draft == null){
       return const SizedBox();
     }
 
+    /// BUILD DRAFT
+    else if (draft != null){
+
+      return FutureBuilder(
+        future: _transformDraft(draft),
+        builder: (_, AsyncSnapshot<FlyerModel> snap){
+
+          final FlyerModel _flyer = snap.data;
+          _flyer?.blogFlyer(invoker: 'REBUILDING POSTER');
+
+
+          return _TheDeck(
+            screenName: screenName,
+            flyerModel: _flyer,
+            deckHeight: deckHeight,
+            maxPossibleWidth: maxPossibleWidth,
+            expansion: expansion,
+            minSlideHeightFactor: minSlideHeightFactor,
+            bzModel: bzModel,
+          );
+
+        },
+      );
+
+    }
+
+    /// BUILD FLYER
     else {
 
-      final double _deckWidth = concludeDeckWidth(
-        numberOfSlides: flyerModel.slides.length,
+      return _TheDeck(
+        screenName: screenName,
+        flyerModel: flyerModel,
         deckHeight: deckHeight,
         maxPossibleWidth: maxPossibleWidth,
         expansion: expansion,
         minSlideHeightFactor: minSlideHeightFactor,
-      );
-
-      return SizedBox(
-        width: _deckWidth,
-        height: deckHeight,
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-
-            ...List.generate(flyerModel.slides.length, (_index){
-
-              final _reverseIndex = Numeric.reverseIndex(
-                listLength: flyerModel.slides.length,
-                index: _index,
-              );
-
-              final double _flyerBoxWidth = _getSlideWidth(
-                maxSlideHeight: deckHeight,
-                reverseIndex: _index,
-                minSlideHeightFactor: minSlideHeightFactor,
-                numberOfSlides: flyerModel.slides.length,
-              );
-
-              return SuperPositioned(
-                enAlignment: Alignment.centerLeft,
-                horizontalOffset: _getSlideOffset(
-                  deckWidth: _deckWidth,
-                  reverseIndex: _index,
-                  maxSlideHeight: deckHeight,
-                  minSlideHeightFactor: minSlideHeightFactor,
-                  numberOfSlides: flyerModel.slides.length,
-                ),
-                child:
-
-                _index + 1 ==  flyerModel.slides.length?
-                Flyer(
-                  // bzModel: bzModel,
-                  // flyerShadowIsOn: true,
-                  flyerModel: flyerModel,
-                  flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
-                  screenName: screenName,
-                )
-
-                    :
-
-                SingleSlide(
-                  flyerBoxWidth: _flyerBoxWidth,
-                  flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth),
-                  slideModel: flyerModel.slides[_reverseIndex],
-                  tinyMode: false,
-                  onSlideNextTap: null,
-                  onSlideBackTap: null,
-                  onDoubleTap: null,
-                  slideShadowIsOn: true,
-                ),
-              );
-
-            }),
-
-          ],
-        ),
+        bzModel: bzModel,
       );
 
     }
 
   }
   // -----------------------------------------------------------------------------
+}
+
+class _TheDeck extends StatelessWidget {
+
+  const _TheDeck({
+    @required this.maxPossibleWidth,
+    @required this.deckHeight,
+    @required this.flyerModel,
+    @required this.expansion,
+    @required this.minSlideHeightFactor,
+    @required this.bzModel,
+    @required this.screenName,
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
+  final double maxPossibleWidth;
+  final double deckHeight;
+  final FlyerModel flyerModel;
+  final double minSlideHeightFactor;
+  final double expansion;
+  final BzModel bzModel;
+  final String screenName;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final int _slidesLength = flyerModel?.slides?.length ?? 0;
+
+    final double _deckWidth = FlyerDeck.concludeDeckWidth(
+      numberOfSlides: _slidesLength,
+      deckHeight: deckHeight,
+      maxPossibleWidth: maxPossibleWidth,
+      expansion: expansion,
+      minSlideHeightFactor: minSlideHeightFactor,
+    );
+
+    return SizedBox(
+      width: _deckWidth,
+      height: deckHeight,
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+
+          if (_slidesLength > 0)
+          ...List.generate(_slidesLength, (_index){
+
+            final _reverseIndex = Numeric.reverseIndex(
+              listLength: _slidesLength,
+              index: _index,
+            );
+
+            final double _flyerBoxWidth = FlyerDeck._getSlideWidth(
+              maxSlideHeight: deckHeight,
+              reverseIndex: _index,
+              minSlideHeightFactor: minSlideHeightFactor,
+              numberOfSlides: _slidesLength,
+            );
+
+            return SuperPositioned(
+              enAlignment: Alignment.centerLeft,
+              horizontalOffset: FlyerDeck._getSlideOffset(
+                deckWidth: _deckWidth,
+                reverseIndex: _index,
+                maxSlideHeight: deckHeight,
+                minSlideHeightFactor: minSlideHeightFactor,
+                numberOfSlides: _slidesLength,
+              ),
+              child:
+
+              _index + 1 ==  _slidesLength?
+              StaticFlyer(
+                flyerModel: flyerModel,
+                flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
+                bzModel: bzModel,
+                flyerShadowIsOn: true,
+              )
+
+                  :
+
+              SingleSlide(
+                flyerBoxWidth: _flyerBoxWidth,
+                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth),
+                slideModel: flyerModel.slides[_reverseIndex],
+                tinyMode: false,
+                onSlideNextTap: null,
+                onSlideBackTap: null,
+                onDoubleTap: null,
+                slideShadowIsOn: true,
+              ),
+            );
+
+          }),
+
+        ],
+      ),
+    );
+
+  }
 }
