@@ -8,6 +8,9 @@ import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
@@ -22,6 +25,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -35,6 +39,7 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -74,7 +79,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   dynamic _posterModel;
   dynamic _posterHelperModel;
   PosterType _posterType;
-  File _posterPreviewFile;
+  PicModel _posterPicModel;
   // --------------------
   File _largeImageFile;
   String _largeIconURL;
@@ -174,7 +179,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     if (_continue == true){
 
-      if (_posterPreviewFile != null){
+      if (_posterPicModel != null){
 
         /// TASK : FIX US
         // final String _url = await Storage.createStoragePicAndGetURL(
@@ -232,10 +237,10 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _takePosterScreenshot() async {
 
     blog('_takeBannerScreenshot : START');
-    /// TASK : FIX US
 
     final double pixelRatio = MediaQuery.of(context).devicePixelRatio;
 
@@ -246,35 +251,28 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     // final String _fileName = Numeric.createUniqueID().toString();
 
-    /// TASK : FIX US
-    // final FileModel _fileModel = await PicMaker.resizePic(
-    //     resizeToWidth: NotePosterBox.standardSize.width,
-    //     picModel: FileModel(
-    //       fileName: _fileName,
-    //       _bytes: await Filers.getFileFromUint8List(
-    //         uInt8List: uint8List,
-    //         fileName: _fileName,
-    //       )
-    //     ),
-    // );
-    //
-    // setState(() {
-    //   _posterPreviewFile = _fileModel._bytes;
-    // });
+    final Uint8List _bytes = await PicMaker.resizePic(
+        finalWidth: NotePosterBox.standardSize.width,
+        bytes: uint8List,
+    );
+
+    final Dimensions _dimensions = await Dimensions.superDimensions(_bytes);
+
+    setState(() {
+
+      _posterURL = null;
+      _posterPicModel = PicModel(
+        path: null,
+        bytes: _bytes,
+        meta: PicMetaModel(
+          dimensions: _dimensions,
+          ownersIDs: [],
+        ),
+      );
+
+    });
 
     blog('_takeBannerScreenshot : END');
-
-    // if (_attachmentType == NoteAttachmentType.flyer){
-    //
-    //  
-    //
-    // }
-    // else if (_attachmentType == NoteAttachmentType.bz){
-    //
-    // }
-    // else if (_attachmentType == NoteAttachmentType.image){
-    //
-    // }
 
   }
   // --------------------
@@ -612,7 +610,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                   _posterType = null;
                                   _posterModel = null;
                                   _posterHelperModel = null;
-                                  _posterPreviewFile = null;
+                                  _posterPicModel = null;
                                 });
                               },
                             ),
@@ -777,13 +775,13 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             ),
                           ),
 
-                        if (_posterPreviewFile != null)
+                        if (_posterPicModel != null)
                         const SizedBox(height: 5, width: 5,),
 
-                        if (_posterPreviewFile != null)
+                        if (_posterPicModel != null)
                         ImagePoster(
                             width: _tileChildWidth,
-                            pic: _posterPreviewFile,
+                            pic: _posterPicModel,
                         ),
                         
                       ],

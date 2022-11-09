@@ -502,7 +502,7 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogMutableSlidesDifferences({
+  static void blogDraftSlidesDifferences({
     @required DraftSlide slide1,
     @required DraftSlide slide2,
   }){
@@ -555,11 +555,17 @@ class DraftSlide {
     @required List<DraftSlide> slides,
     @required DraftSlide slide,
   }){
+    List<DraftSlide> _output = <DraftSlide>[];
 
-    slides.removeAt(slide.slideIndex);
-    slides.insert(slide.slideIndex, slide);
-    // slides[1].blogSlide();
-    return slides;
+    if (Mapper.checkCanLoopList(slides) == true){
+
+      _output = [...slides];
+      _output.removeAt(slide.slideIndex);
+      _output.insert(slide.slideIndex, slide);
+
+    }
+
+    return _output;
   }
   // --------------------
   ///
@@ -603,7 +609,12 @@ class DraftSlide {
     @required DraftSlide slide2,
   }){
     bool _identical = false;
-    if (slide1 != null && slide2 != null){
+
+    if (slide1 == null && slide2 == null){
+      _identical = true;
+    }
+
+    else if (slide1 != null && slide2 != null){
 
       if (
           slide1.flyerID == slide2.flyerID &&
@@ -615,22 +626,24 @@ class DraftSlide {
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.opacity == slide2.opacity &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
-          ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter)
+          ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter) == true
       ){
         _identical = true;
       }
 
       if (_identical == false){
-        blogMutableSlidesDifferences(
+        blogDraftSlidesDifferences(
           slide1: slide1,
           slide2: slide2,
         );
       }
 
     }
+
     return _identical;
   }
   // --------------------
+  ///
   static bool checkSlidesListsAreIdentical({
     @required List<DraftSlide> slides1,
     @required List<DraftSlide> slides2,
@@ -639,14 +652,17 @@ class DraftSlide {
 
     if (slides1 == null && slides2 == null){
       _listsAreIdentical = true;
+      blog('checkSlidesListsAreIdentical : both are null');
     }
     else if (slides1.isEmpty == true && slides2.isEmpty == true){
       _listsAreIdentical = true;
+      blog('checkSlidesListsAreIdentical : both are empty');
     }
     else if (Mapper.checkCanLoopList(slides1) == true && Mapper.checkCanLoopList(slides2) == true){
 
       if (slides1.length != slides2.length){
         _listsAreIdentical = false;
+        blog('checkSlidesListsAreIdentical : lists are not the same length');
       }
       else {
 
@@ -655,6 +671,8 @@ class DraftSlide {
           final DraftSlide _slide1 = slides1[i];
           final DraftSlide _slide2 = slides2[i];
 
+          blog('eh dah ? : ${_slide1.picModel.bytes.length} : ${_slide2.picModel.bytes.length}');
+
           final bool _areIdentical = checkSlidesAreIdentical(
             slide1: _slide1,
             slide2: _slide2,
@@ -662,10 +680,12 @@ class DraftSlide {
 
           if (_areIdentical == false){
             _listsAreIdentical = false;
+            blog('checkSlidesListsAreIdentical : slides at index [$i] are not identical');
             break;
           }
 
           _listsAreIdentical = true;
+          blog('checkSlidesListsAreIdentical : seems like all are identicals');
 
         }
 
@@ -673,6 +693,7 @@ class DraftSlide {
 
     }
 
+    blog('_listsAreIdentical : $_listsAreIdentical');
     return _listsAreIdentical;
   }
   // -----------------------------------------------------------------------------

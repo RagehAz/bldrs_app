@@ -19,50 +19,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
-/*
-/// GIF THING
-// check this
-// https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
-// https://pub.dev/packages/file_picker
-// Container(
-//   width: 200,
-//   height: 200,
-//   margin: EdgeInsets.all(30),
-//   color: Colorz.BloodTest,
-//   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
-// ),
- */
-// -----------------------------------------------------------------------------
-
-/// INITIALIZATION
-
-// --------------------
-/*
-// Future<DraftFlyerModel> initializeDraftFlyerModel({
-//   @required FlyerModel existingFlyer,
-//   @required BzModel bzModel,
-// }) async {
-//   DraftFlyerModel _draft;
-//
-//   if (existingFlyer == null){
-//
-//     _draft = DraftFlyerModel.createNewDraft(
-//       bzModel: bzModel,
-//       authorID: AuthFireOps.superUserID(),
-//     );
-//
-//   }
-//
-//   else {
-//
-//     _draft = await DraftFlyerModel.createDraftFromFlyer(existingFlyer);
-//
-//   }
-//
-//   return _draft;
-// }
- */
-// -----------------------------------------------------------------------------
 
 /// EDITING
 
@@ -308,23 +264,6 @@ Future<void> onSlideTap({
     );
 
   }
-
-
-  /*
-
-    /// TASK : bokra isa
-
-    final bool _noChangeOccured = MutableSlide.slidesAreTheSame(slide, _result);
-
-    if (_noChangeOccured == true){
-      // do nothing
-    }
-    else {
-      _draftFlyer.value = _draftFlyer.value.replaceSlideWith(_result);
-    }
-
-
-     */
 
 }
 // --------------------

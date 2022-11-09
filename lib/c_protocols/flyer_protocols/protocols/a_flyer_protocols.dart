@@ -326,7 +326,7 @@ class FlyerProtocols {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> imagifyBzLogo(FlyerModel flyerModel) async {
     FlyerModel _output = flyerModel;
 
@@ -352,7 +352,7 @@ class FlyerProtocols {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> imagifyAuthorPic(FlyerModel flyerModel) async {
     FlyerModel _output = flyerModel;
 
