@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -236,13 +237,13 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
     blog('_takeBannerScreenshot : START');
     /// TASK : FIX US
 
-    // final double pixelRatio = MediaQuery.of(context).devicePixelRatio;
+    final double pixelRatio = MediaQuery.of(context).devicePixelRatio;
 
-    // final Uint8List uint8List = await screenshotController.capture(
-    //   pixelRatio: pixelRatio,
-    //   delay: const Duration(milliseconds: 200),
-    // );
-    //
+    final Uint8List uint8List = await screenshotController.capture(
+      pixelRatio: pixelRatio,
+      delay: const Duration(milliseconds: 200),
+    );
+
     // final String _fileName = Numeric.createUniqueID().toString();
 
     /// TASK : FIX US
@@ -520,7 +521,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         isDeactivated: !isGlobal,
                         icon: _largeIconURL ?? Iconz.comWebsite,
                         iconSizeFactor: 0.5,
-                        verse: Verse.plain('URL'),
                         onTap: () async {
 
                           final UserModel _user = await SearchUsersScreen.selectUser(context);
@@ -558,7 +558,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         isDeactivated: isGlobal,
                         icon: isGlobal == true ? (_largeImageFile ?? Iconz.phoneGallery) : Iconz.phoneGallery,
                         iconSizeFactor: 0.5,
-                        verse: Verse.plain('FILE <-----------'),
                         onTap: () async {
 
                           /// TASK : FIX US
@@ -741,14 +740,17 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                 if (Mapper.checkCanLoopList(_selectedFlyers) == true){
 
+                                  final FlyerModel _flyer = await FlyerProtocols.imagifySlides(_selectedFlyers.first);
+
                                   final BzModel _bz = await BzProtocols.fetch(
                                       context: context,
-                                      bzID: _selectedFlyers.first.bzID,
+                                      bzID: _flyer.bzID,
                                   );
+
 
                                   setState(() {
                                     _posterType = PosterType.flyer;
-                                    _posterModel = _selectedFlyers.first;
+                                    _posterModel = _flyer;
                                     _posterHelperModel = _bz;
                                   });
 

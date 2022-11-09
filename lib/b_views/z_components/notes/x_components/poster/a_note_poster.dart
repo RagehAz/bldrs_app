@@ -1,4 +1,6 @@
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_flyer_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
@@ -23,9 +25,11 @@ class NotePoster extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if (posterType == PosterType.flyer){
+
       return FlyerPoster(
         width: width,
-        flyerModel: model,
+        flyerModel: model is FlyerModel ? model : null,
+        draft: model is DraftFlyer ? model : null,
         flyerBzModel: modelHelper,
         screenName: 'NotePoster',
       );
