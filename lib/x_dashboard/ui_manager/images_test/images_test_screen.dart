@@ -2,8 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
@@ -13,11 +17,15 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
@@ -36,6 +44,8 @@ import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 class ImagesTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -112,21 +122,21 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       _loading.value = true;
       stopWatchController.start();
 
-
+      final File _filed = await Filers.getFileFromUint8List(uInt8List: bytes, fileName: 'bitch');
       final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(bytes);
       final img.Image _imgImage = await Floaters.getImgImageFromUint8List(bytes);
       final Dimensions _size = await Dimensions.superDimensions(bytes);
 
-      final String _base64FromLDB = await _addBase64ToLDBAndRead(bytes: bytes);
-      final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: bytes);
+      // final String _base64FromLDB = await _addBase64ToLDBAndRead(bytes: bytes);
+      // final Uint8List _ldbIntsFromLDB = await _addUintsToLDBAndRead(int8List: bytes);
 
       setState(() {
-        _file = null;
+        _file = _filed;
         _uInts = bytes;
         uiImage = _uiImage;
         imgImage = _imgImage;
-        _ldbBase64 = _base64FromLDB;
-        _ldbInts = _ldbIntsFromLDB;
+        // _ldbBase64 = _base64FromLDB;
+        // _ldbInts = _ldbIntsFromLDB;
 
         _imageSize = _size;
       });
@@ -433,6 +443,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// CLEAR CACHE
         AppBarButton(
           icon: Iconz.power,
+          verse: Verse.plain('Clear Cache'),
           onTap: () async {
 
             // await  _triggerLoading(setTo: true);
@@ -455,7 +466,52 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
           },
         ),
+        
+          /// BUILD SNAPSHOT
+        AppBarButton(
+          icon: Iconz.spark,
+          verse: Verse.plain('snapshot'),
+          onTap: () async {
 
+            await  _triggerLoading(setTo: true);
+
+            FlyerModel _flyer = await FlyerProtocols.fetchFlyer(context: context, flyerID: '5VOZyFGDaY3WHfFKzzkH');
+            final BzModel _bz = await BzProtocols.fetch(context: context, bzID: _flyer.bzID);
+            _flyer = await FlyerProtocols.imagifySlides(_flyer);
+
+
+            // final BuildContext _context = context; //BldrsAppStarter.navigatorKey.currentContext;
+
+            final Uint8List _bytes = await ScreenshotController().captureFromWidget(
+              // NotePoster(
+              //   posterType: PosterType.flyer,
+              //   width: Bubble.clearWidth(context),
+              //   model: _flyer,
+              //   modelHelper: _bz,
+              // ),
+              ChangeNotifierProvider(
+                create: (_) => PhraseProvider(),
+                child: NotePoster(
+                  posterType: PosterType.flyer,
+                  width: Bubble.clearWidth(context),
+                  model: _flyer,
+                  modelHelper: _bz,
+                ),
+              ),
+              context: context,
+              pixelRatio: MediaQuery.of(context).devicePixelRatio,
+              delay: const Duration(milliseconds: 500),
+            );
+
+            blog('_bytes : ${_bytes.length} bytes');
+
+            await setImage(_bytes);
+
+            await  _triggerLoading(setTo: false);
+
+          },
+        ),
+        
       ],
       layoutWidget: ValueListenableBuilder(
         valueListenable: _loading,

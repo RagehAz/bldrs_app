@@ -24,12 +24,12 @@ class Numeric {
     String separator = "'",
   }) {
 
-    assert(number is int || number is double, 'number is neither int nor double');
+    assert(number is int || number is double || number == null, 'number is neither int nor double');
 
     /// THE SEPARATOR AFTER EACH 3 DIGITS IN AN INTEGER X'XXX'XXX ...
     String _result = '0';
     final String _fractions = Numeric.getFractionStringWithoutZero(
-      number: number.toDouble(),
+      number: number?.toDouble() ?? 0,
       fractionDigits: fractions,
     );
 

@@ -231,6 +231,7 @@ class Verse {
   static String bakeVerseToString({
     @required BuildContext context,
     @required Verse verse,
+    PhraseProvider phrasePro,
   }){
 
     String _output;
@@ -250,7 +251,7 @@ class Verse {
           final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
           if (_isPhid == true || _isCurrency == true || _isHeadline == true){
 
-            final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+            final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
             final String _foundXPhrase = xPhrase(context, verse.text, phrasePro: _phraseProvider);
 
             /// X PHRASE NOT FOUND
@@ -293,8 +294,9 @@ class Verse {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String transBake(BuildContext context, String phid){
+  static String transBake(BuildContext context, String phid, {PhraseProvider phrasePro}){
     return Verse.bakeVerseToString(
+      phrasePro: phrasePro,
       context: context,
       verse: Verse(
         text: phid,
