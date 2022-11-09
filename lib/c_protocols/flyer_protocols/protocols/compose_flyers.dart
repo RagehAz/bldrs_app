@@ -1,8 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
+import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
@@ -10,6 +18,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +78,13 @@ class ComposeFlyerProtocols {
 
           /// UPDATE FLYER DOC
           FlyerFireOps.updateFlyerDoc(_flyerToPublish),
+
+          /// CREATE FLYER POSTER
+          _createFlyerPoster(
+            context: context,
+            flyerID: flyerID,
+            draftFlyer: draftFlyer,
+          ),
 
           /// UPLOAD SLIDES PICS
           PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID.draftSlides)),
@@ -153,6 +169,46 @@ class ComposeFlyerProtocols {
     blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : END');
 
     // return _uploadedBzModel;
+  }
+  // --------------------
+  ///
+  static Future<void> _createFlyerPoster({
+    @required String flyerID,
+    @required BuildContext context,
+    @required DraftFlyer draftFlyer,
+  }) async {
+
+    final Uint8List _bytes = await draftFlyer.posterController.captureFromWidget(
+        NotePoster(
+          posterType: PosterType.flyer,
+          width: Bubble.clearWidth(context),
+          model: draftFlyer,
+          modelHelper: draftFlyer.bzModel,
+        ),
+      context: context,
+      pixelRatio: MediaQuery.of(context).devicePixelRatio,
+      delay: const Duration(milliseconds: 200),
+    );
+
+    // final Uint8List _bytes = await draftFlyer.posterController.capture(
+    //   pixelRatio: MediaQuery.of(context).devicePixelRatio,
+    //   delay: const Duration(milliseconds: 200),
+    // );
+
+    final PicModel _posterPicModel = PicModel(
+      bytes: _bytes,
+      path: StorageColl.getFlyerPosterPath(flyerID),
+      meta: PicMetaModel(
+        dimensions: await Dimensions.superDimensions(_bytes),
+        ownersIDs: await FlyerModel.generateFlyerOwners(
+            context: context,
+            bzID: draftFlyer.bzID,
+        )
+      ),
+    );
+
+    await PicProtocols.composePic(_posterPicModel);
+
   }
   // -----------------------------------------------------------------------------
 }

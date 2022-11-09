@@ -18,8 +18,21 @@ import 'package:image/image.dart' as img;
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
-// rageh 16 egp / hour
-// nour 37.5 egp / hour
+// -----------------------------------------------------------------------------
+/*
+/// GIF THING
+// check this
+// https://stackoverflow.com/questions/67173576/how-to-get-or-pick-local-gif-file-from-device
+// https://pub.dev/packages/file_picker
+// Container(
+//   width: 200,
+//   height: 200,
+//   margin: EdgeInsets.all(30),
+//   color: Colorz.BloodTest,
+//   child: Image.network('https://media.giphy.com/media/hYUeC8Z6exWEg/giphy.gif'),
+// ),
+ */
+// -----------------------------------------------------------------------------
 
 enum PicMakerType {
   cameraImage,

@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -229,6 +227,7 @@ class FlyerDeck extends StatelessWidget {
     return _scale;
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<FlyerModel> _transformDraft(DraftFlyer draft) async {
 
     FlyerModel _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
@@ -320,7 +319,7 @@ class FlyerDeck extends StatelessWidget {
 }
 
 class _TheDeck extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const _TheDeck({
     @required this.maxPossibleWidth,
     @required this.deckHeight,
@@ -331,7 +330,7 @@ class _TheDeck extends StatelessWidget {
     @required this.screenName,
     Key key
   }) : super(key: key);
-  // -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   final double maxPossibleWidth;
   final double deckHeight;
   final FlyerModel flyerModel;
@@ -339,7 +338,7 @@ class _TheDeck extends StatelessWidget {
   final double expansion;
   final BzModel bzModel;
   final String screenName;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -415,4 +414,5 @@ class _TheDeck extends StatelessWidget {
     );
 
   }
+  /// --------------------------------------------------------------------------
 }

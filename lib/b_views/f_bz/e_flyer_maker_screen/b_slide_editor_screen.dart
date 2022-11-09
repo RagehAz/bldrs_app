@@ -30,7 +30,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // --------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // --------------------
-  ValueNotifier<DraftSlide> _tempSlide;
+  ValueNotifier<DraftSlide> _draftNotifier;
   ValueNotifier<Matrix4> _matrix;
   ValueNotifier<ImageFilterModel> _filterModel;
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
@@ -51,7 +51,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
         slide: widget.slide,
       ),
     );
-    _tempSlide = ValueNotifier<DraftSlide>(_initialSlide);
+    _draftNotifier = ValueNotifier<DraftSlide>(_initialSlide);
     _matrix = ValueNotifier(_initialSlide.matrix);
     _filterModel = ValueNotifier(_initialSlide.filter ?? _allFilters[0]);
 
@@ -68,7 +68,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   /// TAMAM
   @override
   void dispose() {
-    _tempSlide.dispose();
+    _draftNotifier.dispose();
     _isTransforming.dispose();
     _matrix.dispose();
     _filterModel.dispose();
@@ -94,12 +94,12 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             globalKey: globalKey,
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
-            tempSlide: _tempSlide,
+            tempSlide: _draftNotifier,
             matrix: _matrix,
             filterModel: _filterModel,
             isTransforming: _isTransforming,
             onSlideTap: () => onToggleFilter(
-              tempSlide: _tempSlide,
+              tempSlide: _draftNotifier,
               currentFilter: _filterModel,
             ),
           ),
@@ -112,13 +112,13 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             ),
             onReset: () => onReset(
               originalSlide: widget.slide,
-              tempSlide: _tempSlide,
+              tempSlide: _draftNotifier,
               filter: _filterModel,
               matrix: _matrix,
             ),
             onCrop: () => onCropSlide(
               context: context,
-              draftNotifier: _tempSlide,
+              draftNotifier: _draftNotifier,
               filterNotifier: _filterModel,
               matrixNotifier: _matrix,
               bzID: widget.bzID,
@@ -126,7 +126,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onConfirm: () => onConfirmSlideEdits(
               context: context,
               originalSlide: widget.slide,
-              tempSlide: _tempSlide,
+              draftNotifier: _draftNotifier,
               filter: _filterModel,
               matrix: _matrix,
             ),
