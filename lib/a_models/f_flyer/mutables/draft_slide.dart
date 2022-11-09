@@ -299,7 +299,7 @@ class DraftSlide {
   }
   // --------------------
   ///
-  static List<DraftSlide> draftsFromLDB(List<Map<String, dynamic>> maps){
+  static List<DraftSlide> draftsFromLDB(List<dynamic> maps){
     final List<DraftSlide> drafts = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(maps) == true){

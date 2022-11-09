@@ -192,7 +192,7 @@ class NoteProtocols {
     @required bool isPublic,
   }) async {
 
-    // NoteModel _output = note;
+    NoteModel _output = note;
     //
     // if (note != null && note.poster != null){
     //
@@ -252,8 +252,7 @@ class NoteProtocols {
     //
     // _output.blogNoteModel(invoker: '_uploadNotePoster..END');
     //
-    // return _output;
-    return null;
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

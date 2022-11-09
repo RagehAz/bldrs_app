@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/deck/flyer_deck.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class FlyerPoster extends StatelessWidget {
     @required this.flyerModel,
     @required this.flyerBzModel,
     @required this.screenName,
+    this.draft,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -18,6 +20,7 @@ class FlyerPoster extends StatelessWidget {
   final FlyerModel flyerModel;
   final BzModel flyerBzModel;
   final String screenName;
+  final DraftFlyer draft;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,6 +42,7 @@ class FlyerPoster extends StatelessWidget {
                   maxPossibleWidth: width,
                   deckHeight: NotePosterBox.getClearHeight(width),
                   flyerModel: flyerModel,
+                  draft: draft,
                   expansion: 0.5,
                   minSlideHeightFactor: 0.85,
                   screenName: screenName,
