@@ -21,6 +21,7 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -178,6 +179,8 @@ class ComposeFlyerProtocols {
     @required DraftFlyer draftFlyer,
   }) async {
 
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+
     final Uint8List _bytes = await draftFlyer.posterController.captureFromWidget(
         NotePoster(
           posterType: PosterType.flyer,
@@ -185,8 +188,8 @@ class ComposeFlyerProtocols {
           model: draftFlyer,
           modelHelper: draftFlyer.bzModel,
         ),
-      context: context,
-      pixelRatio: MediaQuery.of(context).devicePixelRatio,
+      context: _context,
+      pixelRatio: MediaQuery.of(_context).devicePixelRatio,
       delay: const Duration(milliseconds: 200),
     );
 
