@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -30,6 +31,7 @@ Matrix4 initializeMatrix({
 /// SLIDE MODIFIERS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onReset({
   @required DraftSlide originalSlide,
   @required ValueNotifier<DraftSlide> tempSlide,
@@ -44,7 +46,7 @@ Future<void> onReset({
   matrix.value = Matrix4.identity();
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onCropSlide({
   @required BuildContext context,
   @required ValueNotifier<DraftSlide> draftNotifier,
@@ -61,19 +63,18 @@ Future<void> onCropSlide({
 
   if (_bytes != null){
 
-    draftNotifier.value = await DraftSlide.createDraft(
-      flyerID: draftNotifier.value.flyerID,
-      bzID: bzID,
-      bytes: _bytes,
-      context: context,
-      headline: draftNotifier.value.headline,
-      index: draftNotifier.value.slideIndex,
+    draftNotifier.value = draftNotifier.value.copyWith(
+      midColor: await Colorizer.getAverageColor(_bytes),
+      picModel: draftNotifier.value.picModel.copyWith(
+        bytes: _bytes,
+      ),
     );
 
   }
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 void onToggleFilter({
   @required ValueNotifier<DraftSlide> tempSlide,
   @required ValueNotifier<ImageFilterModel> currentFilter,
@@ -129,6 +130,7 @@ void onSlideHeadlineChanged({
 /// CONFIRMATION - CANCELLING
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onCancelSlideEdits({
   @required BuildContext context,
 }) async {
@@ -140,15 +142,17 @@ Future<void> onCancelSlideEdits({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onConfirmSlideEdits({
   @required BuildContext context,
   @required DraftSlide originalSlide,
-  @required ValueNotifier<DraftSlide> tempSlide,
+  @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,
 }) async {
 
-  final DraftSlide _slide = tempSlide.value.copyWith(
+
+  final DraftSlide _slide = draftNotifier.value.copyWith(
     matrix: matrix.value,
     filter: filter.value,
   );

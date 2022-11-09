@@ -141,7 +141,7 @@ class PicModel {
     else if (pic1 != null && pic2 != null){
 
       if (
-      pic1.path == pic2.path &&
+          pic1.path == pic2.path &&
           Mapper.checkListsAreIdentical(list1: pic1.meta.ownersIDs, list2: pic2.meta.ownersIDs) == true &&
           pic1.meta.dimensions.width == pic2.meta.dimensions.width &&
           pic1.meta.dimensions.height == pic2.meta.dimensions.height &&

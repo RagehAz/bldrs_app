@@ -1,11 +1,8 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -29,8 +26,8 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
   // -----------------------------------------------------------------------------
   Offset position ;
   FlyerModel _flyerModel;
-  BzModel _bzModel;
-  FlightDirection _flight = FlightDirection.non;
+  // BzModel _bzModel;
+  // FlightDirection _flight = FlightDirection.non;
   double _tweenValue = 0;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -65,7 +62,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
           context: context,
           flyerID: flyerID,
         );
-        final BzModel bz = await BzProtocols.fetch(context: context, bzID: flyer.bzID);
+        // final BzModel bz = await BzProtocols.fetch(context: context, bzID: flyer.bzID);
 
         flyer = await FlyerProtocols.imagifySlides(flyer);
         flyer = await FlyerProtocols.imagifyBzLogo(flyer);
@@ -73,7 +70,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
 
         setState(() {
           _flyerModel = flyer;
-          _bzModel = bz;
+        //   _bzModel = bz;
         });
 
         await _triggerLoading(setTo: false);
@@ -122,7 +119,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
           onTap: (){
             final double _newValue = _tweenValue - 0.1;
             setState(() {
-              _flight = FlightDirection.push;
+              // _flight = FlightDirection.push;
             _tweenValue = _newValue < 0 ? 0 : _newValue;
             });
           },
@@ -135,7 +132,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
           onTap: (){
             final double _newValue = _tweenValue + 0.1;
             setState(() {
-              _flight = FlightDirection.pop;
+              // _flight = FlightDirection.pop;
               _tweenValue = _newValue > 1 ? 1 : _newValue;
             });
           },
