@@ -120,5 +120,12 @@ class StorageRef {
 
     return _path;
   }
+  // --------------------
+  ///
+  static Future<String> getURLByPath(String path) async {
+    final Reference _ref = byPath(path);
+    final String _url = await toURL(ref: _ref);
+    return _url;
+  }
   // -----------------------------------------------------------------------------
 }

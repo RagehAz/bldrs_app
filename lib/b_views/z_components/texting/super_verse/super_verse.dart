@@ -861,6 +861,7 @@ class _TheVerse extends StatelessWidget {
                   final TextEditingValue _t = _highlight;
                   _highLightedText = _t.text;
                 }
+
                 else if (_highlight is String){
                   _highLightedText = _highlight;
                 }

@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class ImageTile extends StatelessWidget {
-
+  // -----------------------------------------------------------------------------
   const ImageTile({
     @required this.pic,
     @required this.tileWidth,
@@ -15,12 +15,12 @@ class ImageTile extends StatelessWidget {
     @required this.text,
     Key key
   }) : super(key: key);
-
+  // -----------------------------------------------------------------------------
   final dynamic pic;
   final double tileWidth;
   final Dimensions imageSize;
   final String text;
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -65,5 +65,5 @@ class ImageTile extends StatelessWidget {
 
     }
   }
-
+  // -----------------------------------------------------------------------------
 }
