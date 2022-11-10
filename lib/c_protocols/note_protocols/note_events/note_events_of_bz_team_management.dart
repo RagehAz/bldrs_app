@@ -66,7 +66,7 @@ class NoteEventsOfBzTeamManagement {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendAuthorDeletionNotes({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -134,7 +134,7 @@ class NoteEventsOfBzTeamManagement {
     blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : END');
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -205,7 +205,7 @@ class NoteEventsOfBzTeamManagement {
     blog('NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors : END');
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendNoBzContactAvailableNote({
     @required BuildContext context,
     @required BzModel bzModel,

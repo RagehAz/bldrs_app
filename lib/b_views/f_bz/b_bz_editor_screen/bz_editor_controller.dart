@@ -28,7 +28,7 @@ import 'package:flutter/material.dart';
 /// LAST SESSION
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> loadBzEditorLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -67,7 +67,7 @@ Future<void> loadBzEditorLastSession({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> saveBzEditorSession(ValueNotifier<DraftBz> draftNotifier) async {
 
   triggerCanValidateDraftBz(draftNotifier: draftNotifier, setTo: true,);
@@ -303,7 +303,7 @@ void onChangeBzForm({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> onChangeBzLogo({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,

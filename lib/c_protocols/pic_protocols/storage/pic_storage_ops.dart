@@ -25,7 +25,7 @@ class PicStorageOps {
   /// CREATE
 
   // --------------------
-  /// TAMAM
+  /// TESTED: WORKS PERECT
   static Future<PicModel> createPic(PicModel picModel,) async {
 
     PicModel.assertIsUploadable(picModel);
@@ -49,7 +49,7 @@ class PicStorageOps {
   /// READ
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<PicModel> readPic({
     @required String path,
   }) async {
@@ -107,7 +107,7 @@ class PicStorageOps {
   /// UPDATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<PicModel> updatePic({
     @required PicModel picModel,
   }) async {
@@ -121,7 +121,7 @@ class PicStorageOps {
   /// DELETE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> deletePic(String path) async {
 
     blog('deletePic : START');
@@ -173,7 +173,7 @@ class PicStorageOps {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> deletePics(List<String> paths) async {
 
     if (Mapper.checkCanLoopList(paths) == true){
@@ -190,7 +190,7 @@ class PicStorageOps {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<bool> checkCanDeleteStorageFile({
     @required String path,
   }) async {

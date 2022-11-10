@@ -31,7 +31,7 @@ class RenovateBzProtocols {
   /// BZ RENOVATION
 
 // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovateBz({
     @required BuildContext context,
     @required BzModel newBz,
@@ -243,7 +243,7 @@ class RenovateBzProtocols {
   /// AUTHOR RENOVATION
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<BzModel> renovateAuthor({
     @required BuildContext context,
     @required BzModel oldBzModel,

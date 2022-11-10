@@ -144,7 +144,7 @@ class FlyerModel {
   /// FLYER CYPHERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -198,7 +198,7 @@ class FlyerModel {
     return _maps;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static FlyerModel decipherFlyer({
     @required dynamic map,
     @required bool fromJSON,
@@ -913,7 +913,7 @@ class FlyerModel {
     return _owners;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<String> getPicsPaths(FlyerModel flyer){
     final List<String> _output = <String>[];
 

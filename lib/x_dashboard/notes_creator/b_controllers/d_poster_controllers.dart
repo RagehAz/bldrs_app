@@ -161,7 +161,7 @@ Future<void> _onAddFlyerToPoster({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> _onAddGalleryImageToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
@@ -192,7 +192,7 @@ Future<void> _onAddGalleryImageToPoster({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> _onAddCameraImageToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,

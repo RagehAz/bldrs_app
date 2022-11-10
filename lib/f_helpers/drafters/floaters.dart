@@ -43,7 +43,7 @@ class Floaters {
     return _byteData;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<ByteData> getByteDataFromPath(String assetPath) async {
     /// NOTE : Asset path can be local path or url
     ByteData _byteData;
@@ -75,7 +75,7 @@ class Floaters {
     return _decodedImage;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<ui.Image> getUiImageFromInts(List<int> ints) async {
     final Completer<ui.Image> completer = Completer<ui.Image>();
 
@@ -316,7 +316,7 @@ static img.Image decodeToImgImage({
     return uInt;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<Uint8List> getUint8ListFromImgImageAsync(img.Image imgImage) async{
     Uint8List uInt;
     if (imgImage != null){
@@ -325,7 +325,7 @@ static img.Image decodeToImgImage({
     return uInt;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<Uint8List> getUint8ListFromURL(String url) async {
     Uint8List _uints;
 
@@ -384,7 +384,7 @@ static img.Image decodeToImgImage({
 
     }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static String getBase64FromUint8List(Uint8List bytes){
     String _output;
     if (Mapper.checkCanLoopList(bytes) == true){
@@ -397,7 +397,7 @@ static img.Image decodeToImgImage({
   /// BitmapDescriptor
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<BitmapDescriptor> getBitmapFromSVG({
     @required BuildContext context,
     @required String assetName,
@@ -427,7 +427,7 @@ static img.Image decodeToImgImage({
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<BitmapDescriptor> getBitmapFromPNG({
     String pngPic = Iconz.flyerPinPNG,
   }) async {
@@ -462,7 +462,7 @@ static img.Image decodeToImgImage({
     return _bytes;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<int> getIntsFromDynamics(List<dynamic> ints){
     final List<int> _ints = <int>[];
 
@@ -574,9 +574,10 @@ static img.Image decodeToImgImage({
   }
   // -----------------------------------------------------------------------------
 
+  /// GET BYTES
 
-  // ---------------------
-  ///
+  // --------------------
+  /// TASK : TEST ME
   static Future<List<Uint8List>> getBytezzFromLocalRasterImages({
     @required List<String> localAssets,
     int width = 100,
@@ -606,8 +607,8 @@ static img.Image decodeToImgImage({
 
     return _outputs;
   }
-
-  ///
+  // --------------------
+  /// TASK : TEST ME
   static Future<Uint8List> getBytesFromLocalRasterAsset({
     @required String localAsset,
     int width = 100,
@@ -644,6 +645,5 @@ static img.Image decodeToImgImage({
 
     return _bytes;
   }
-
-
+  // -----------------------------------------------------------------------------
 }

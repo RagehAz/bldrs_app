@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.da
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,9 @@ class _FlyerState extends State<Flyer> {
   @override
   void dispose() {
     _loading.dispose();
-    _flyerModel?.slides[0].uiImage?.dispose();
+    if (Mapper.checkCanLoopList(_flyerModel?.slides) == true){
+      _flyerModel?.slides[0].uiImage?.dispose();
+    }
     _flyerModel?.bzLogoImage?.dispose();
     _bzModel.dispose();
     super.dispose();
@@ -118,9 +121,11 @@ class _FlyerState extends State<Flyer> {
 
         ]);
 
-        setState(() {
-          _flyerModel = _flyerWithUiImages;
-        });
+        if (mounted){
+          setState(() {
+            _flyerModel = _flyerWithUiImages;
+          });
+        }
 
       }
 
@@ -151,7 +156,7 @@ class _FlyerState extends State<Flyer> {
 
           if (loading == true){
 
-            blog('Building flyer [LOADING]---> ( $_heroPath )');
+            // blog('Building flyer [LOADING]---> ( $_heroPath )');
 
             return FlyerLoading(
               flyerBoxWidth: widget.flyerBoxWidth,

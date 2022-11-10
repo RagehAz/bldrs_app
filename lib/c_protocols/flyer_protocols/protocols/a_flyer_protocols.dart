@@ -25,7 +25,7 @@ class FlyerProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> composeFlyer({
     @required BuildContext context,
     @required DraftFlyer draftFlyer,
@@ -125,7 +125,7 @@ class FlyerProtocols {
     return _flyer;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<FlyerModel> refetch({
     @required BuildContext context,
     @required  String flyerID,
@@ -162,7 +162,7 @@ class FlyerProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovate({
     @required BuildContext context,
     @required DraftFlyer newDraft,
@@ -196,7 +196,7 @@ class FlyerProtocols {
   /// WIPE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipeFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -209,7 +209,7 @@ class FlyerProtocols {
     isDeletingBz: isDeletingBz,
   );
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipeFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -266,7 +266,9 @@ class FlyerProtocols {
         }
 
         final List<SlideModel> _slides = <SlideModel>[...flyerModel.slides];
-        _slides[0] = _firstSlide; /// NOT SURE ABOUT YOU FUCKER
+
+        _slides.removeAt(0);
+        _slides.insert(0, _firstSlide);
 
         _output = flyerModel.copyWith(
           slides: _slides,

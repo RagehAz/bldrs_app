@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class DraftBz {
-
+  // -----------------------------------------------------------------------------
   const DraftBz({
     @required this.id,
     @required this.createdAt,
@@ -55,7 +55,7 @@ class DraftBz {
     @required this.formKey,
     @required this.firstTimer,
   });
-
+  // -----------------------------------------------------------------------------
   final String id;
   final DateTime createdAt;
   final BzAccountType accountType;
@@ -71,7 +71,6 @@ class DraftBz {
   final bool isVerified;
   final BzState bzState;
   final List<String> flyersIDs;
-
   final BzSection bzSection;
   final List<BzType> bzTypes;
   final List<BzType> inactiveBzTypes;
@@ -95,7 +94,7 @@ class DraftBz {
   /// CREATION
 
   // -------------------
-  ///
+  /// TASK : TEST ME
   static Future<DraftBz> createDraftBz({
     @required BuildContext context,
     @required BzModel oldBz,
@@ -123,7 +122,7 @@ class DraftBz {
     return _output;
   }
   // -------------------
-  ///
+  /// TASK : TEST ME
   static DraftBz _createNewDraftBz(BuildContext context){
 
     final UserModel creatorUser = UsersProvider.proGetMyUserModel(
@@ -200,7 +199,7 @@ class DraftBz {
 
   }
   // -------------------
-  ///
+  /// TASK : TEST ME
   static Future<DraftBz> _createDraftBzFromBzModel({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -260,7 +259,7 @@ class DraftBz {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static DraftBz reAttachNodes({
     @required DraftBz draftFromLDB,
     @required DraftBz draftWithNodes,
@@ -279,7 +278,7 @@ class DraftBz {
   /// CYPHERS
 
   // -------------------
-  ///
+  /// TASK : TEST ME
   static BzModel toBzModel(DraftBz draft){
 
     assert(draft != null, 'Draft can not be null');
@@ -415,6 +414,7 @@ class DraftBz {
   /// CLONING
 
   // -------------------
+  /// TASK : TEST ME
   DraftBz copyWith({
     String id,
     DateTime createdAt,
@@ -487,6 +487,7 @@ class DraftBz {
     );
   }
   // -------------------
+  /// TASK : TEST ME
   DraftBz nullifyField({
     bool id = false,
     bool createdAt = false,
@@ -576,7 +577,7 @@ class DraftBz {
   /// MODIFIERS
 
   // -------------------
-  ///
+  /// TASK : TEST ME
   static DraftBz overrideBzID({
     @required DraftBz draft,
     @required String bzID,
@@ -609,7 +610,7 @@ class DraftBz {
   /// GETTERS
 
   // -------------------
-  ///
+  /// TASK : TEST ME
   String getLogoPath(){
 
     if (firstTimer == true){
@@ -621,7 +622,7 @@ class DraftBz {
 
   }
   // -------------------
-  ///
+  /// TASK : TEST ME
   List<String> getLogoOwners(){
     final AuthorModel _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
     return <String>[_author?.userID];
@@ -631,7 +632,7 @@ class DraftBz {
   /// EQUALITY
 
   // -------------------
-  ///
+  /// TASK : TEST ME
   static bool checkDraftsAreIdentical({
     @required DraftBz draft1,
     @required DraftBz draft2,

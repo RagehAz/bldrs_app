@@ -31,7 +31,7 @@ class WipeUserProtocols {
   /// WIPE USER
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipeMyUser({
     @required BuildContext context,
     @required bool showWaitDialog,
@@ -90,7 +90,7 @@ class WipeUserProtocols {
   /// NON AUTHOR USER
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _deleteNonAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -132,7 +132,7 @@ class WipeUserProtocols {
   /// AUTHOR USER
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _deleteAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -173,7 +173,7 @@ class WipeUserProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _deleteAllMyAuthorPics({
     @required BuildContext context,
     @required UserModel userModel,
@@ -206,7 +206,7 @@ class WipeUserProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _deleteBzzICreatedProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -248,7 +248,7 @@ class WipeUserProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _exitBzzIDidNotCreateProtocol({
     @required BuildContext context,
     @required UserModel userModel,

@@ -70,7 +70,7 @@ class CityPhidsRealOps {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> incrementFlyersCityChainUsage({
     @required BuildContext context,
     @required List<FlyerModel> flyersModels,
@@ -93,7 +93,7 @@ class CityPhidsRealOps {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> updateFlyerCityChainUsage({
     @required BuildContext context,
     @required FlyerModel flyerModel,

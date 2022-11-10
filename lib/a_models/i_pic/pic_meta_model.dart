@@ -6,6 +6,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
+/// TASK : DO IMMUTABLE AND OVERRIDES THING
 class PicMetaModel {
   // -----------------------------------------------------------------------------
   const PicMetaModel({
@@ -20,15 +21,14 @@ class PicMetaModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   PicMetaModel copyWith({
     List<String> ownersIDs,
     Dimensions dimensions,
-    double size,
   }){
     return PicMetaModel(
-        ownersIDs: ownersIDs ?? this.ownersIDs,
-        dimensions: dimensions ?? this.dimensions,
+      ownersIDs: ownersIDs ?? this.ownersIDs,
+      dimensions: dimensions ?? this.dimensions,
     );
   }
   // -----------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class PicMetaModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> cipherToLDB(){
     return <String, dynamic>{
       'ownersIDs': ownersIDs,
@@ -44,7 +44,7 @@ class PicMetaModel {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PicMetaModel decipherFromLDB(Map<String, dynamic> map){
     return PicMetaModel(
         ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
@@ -52,7 +52,7 @@ class PicMetaModel {
     );
   }
   // --------------------
-  /// TAMAM
+  /// TESTED : WORKS PERFECT
   SettableMetadata toSettableMetadata({
     Map<String, String> extraData,
   }){
@@ -97,7 +97,7 @@ class PicMetaModel {
 
   }
   // --------------------
-  /// TAMAM
+  /// TESTED : WORKS PERFECT
   static PicMetaModel decipherSettableMetaData({
     @required SettableMetadata settableMetadata,
   }){
@@ -114,7 +114,7 @@ class PicMetaModel {
     return _output;
   }
   // --------------------
-  /// TAMAM
+  /// TESTED : WORKS PERFECT
   static PicMetaModel decipherFullMetaData({
     @required FullMetadata fullMetadata,
   }){
@@ -131,7 +131,7 @@ class PicMetaModel {
     return _output;
   }
   // --------------------
-  /// TAMAM
+  /// TESTED : WORKS PERFECT
   static PicMetaModel _decipherMetaMap({
     @required Map<String, String> customMetadata,
   }){

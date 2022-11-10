@@ -186,6 +186,7 @@ class PickerModel {
   /// RANGE CYPHERS
 
   // --------------------
+  /// TASK : TEST ME
   static List<String> cipherRange(List<String> range){
     List<String> _output;
 
@@ -202,6 +203,7 @@ class PickerModel {
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<dynamic> decipherRange(List<dynamic> dynamics){
     List<dynamic> _output;
 
@@ -619,7 +621,7 @@ class PickerModel {
     return _specPicker;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static PickerModel getPickerByChainID({
     @required List<PickerModel> pickers,
     @required String chainID,
@@ -640,7 +642,7 @@ class PickerModel {
     return _specPicker;
   }
   // --------------------
-
+  /// TASK : TEST ME
   static List<PickerModel> getPickersByChainsIDs({
     @required List<String> chainsIDs,
     @required List<PickerModel> pickers,

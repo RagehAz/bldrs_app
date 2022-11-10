@@ -69,7 +69,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : END');
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> removeMeFromBz({
     @required BuildContext context,
     @required BzModel streamedBzModelWithoutMyID,
@@ -136,7 +136,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.removeMeFromBzProtocol : END');
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> removeFlyerlessAuthor({
     @required BuildContext context,
     @required BzModel bzModel,
