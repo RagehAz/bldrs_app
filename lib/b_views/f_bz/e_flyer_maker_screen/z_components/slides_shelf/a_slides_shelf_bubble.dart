@@ -23,8 +23,6 @@ class SlidesShelfBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /// TASK : SHOULD BE ABLE TO DELETE A SLIDE FROM THE SHELF WHILE EDITING WITHOUT GOING INTO THE FUCKING GALLERY BITCH
-
     return Bubble(
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,

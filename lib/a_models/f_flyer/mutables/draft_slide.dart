@@ -102,7 +102,6 @@ class DraftSlide {
 
       final Dimensions _dimensions = await Dimensions.superDimensions(bytes);
       final Color _midColor = await Colorizer.getAverageColor(bytes);
-      blog('createDraft : _midColor is : $_midColor for (${bytes.length})');
 
       _slide = DraftSlide(
         flyerID: flyerID,
@@ -117,11 +116,11 @@ class DraftSlide {
             ),
           ),
         ),
-        headline: headline,
+        headline: '',
+        description: '',
         midColor: _midColor,
         opacity: 1,
         slideIndex: index,
-        description: '',
         picFit: Dimensions.concludeBoxFit(
           picWidth: _dimensions.width,
           picHeight: _dimensions.height,
@@ -787,57 +786,3 @@ class DraftSlide {
       filter.hashCode;
   // -----------------------------------------------------------------------------
 }
-
-// -------------
-/*
-  /// delete this ,, maybe
-//  static MutableSlide createMutableSlideFromFile({
-//     File file,
-//     int index,
-//     @required Color midColor,
-//     @required BoxFit boxFit,
-//   }) {
-//
-//     // ImageSize _imageSize = await Imagers.superImageSize(file);
-//
-//     return
-//       MutableSlide(
-//         slideIndex : index,
-//         picURL : null,
-//         picAsset: null,
-//         picFile: file,
-//         headline : null,
-//         headlineController: null,
-//         description : null,
-//         descriptionController: null,
-//         // -------------------------
-//         sharesCount : null,
-//         viewsCount : null,
-//         savesCount : null,
-//         imageSize: null,
-//         picFit: boxFit,
-//         midColor: midColor,
-//         isVisible: true,
-//
-//       );
-//   }
-
-
- */
-// -------------
-/*
-  static void disposeMutableSlidesTextControllers({
-    @required List<MutableSlide> mutableSlides,
-  }) {
-
-    if (Mapper.checkCanLoopList(mutableSlides)) {
-      for (final MutableSlide mSlide in mutableSlides) {
-        // TextChecker.disposeControllerIfPossible(mSlide?.headline);
-        TextCheck.disposeControllerIfPossible(mSlide?.description);
-      }
-    }
-
-  }
-
-   */
-// -------------

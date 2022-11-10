@@ -136,9 +136,12 @@ class SmallFlyer extends StatelessWidget {
           listen: true,
       );
 
+      assert(flyerModel.slides[0].midColor != null, 'midColor is null');
+
       return FlyerBox(
         key: const ValueKey<String>('StaticFlyer'),
         flyerBoxWidth: flyerBoxWidth,
+        // boxColor: flyerModel.slides[0].midColor,
         onTap: () => _openFullScreenFlyer(
           context: context,
           flyerIsBigNow: _flyerIsBigNow,
