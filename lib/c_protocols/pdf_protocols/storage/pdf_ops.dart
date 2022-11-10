@@ -23,7 +23,7 @@ class PDFStorageOps {
   /// CREATE - UPDATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<PDFModel> insert(PDFModel pdfModel) async {
 
     assert(pdfModel != null, 'picModel is null');
@@ -50,7 +50,7 @@ class PDFStorageOps {
   /// READ
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<PDFModel> read(String path) async {
     PDFModel _model;
 
@@ -108,7 +108,7 @@ class PDFStorageOps {
   /// DELETE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> delete(String path) async {
 
     await PicStorageOps.deletePic(path);

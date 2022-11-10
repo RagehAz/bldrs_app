@@ -24,7 +24,7 @@ class ComposeUserProtocols {
   const ComposeUserProtocols();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// TASK : TEST ME
   static Future<AuthModel> compose({
     @required BuildContext context,
     @required bool authSucceeds,
@@ -84,7 +84,7 @@ class ComposeUserProtocols {
     return _authModel;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<UserModel> _createInitialUserModel({
     @required BuildContext context,
     @required UserCredential userCredential,
@@ -106,7 +106,7 @@ class ComposeUserProtocols {
     return _initialUserModel;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _composeUserImageFromUserPicURL({
     @required String picURL,
     @required String userID,

@@ -17,7 +17,7 @@ class NoteEventsOfBzFlyersManagement {
   /// SENDERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendFlyerUpdateNoteToItsBz({
     @required BuildContext context,
     @required BzModel bzModel,

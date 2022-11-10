@@ -17,7 +17,7 @@ class StorageMetaOps {
   /// READ
 
   // --------------------
-  /// TAMAM
+  /// TESTED : WORKS PERFECT
   static Future<FullMetadata> getMetaByPath({
     @required String path,
   }) async {
@@ -156,7 +156,7 @@ class StorageMetaOps {
     return _ids;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<List<String>> getOwnersIDsByPath({
     @required String path,
   }) async {

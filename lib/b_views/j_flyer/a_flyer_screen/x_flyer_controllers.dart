@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 /// FLYER DATA COMPLETION
 
 // --------------------
+/// TASK : TEST ME
 Future<BzModel> getFlyerBzModel({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -34,6 +35,7 @@ Future<BzModel> getFlyerBzModel({
   return _bzModel;
 }
 // --------------------
+/// TASK : TEST ME
 Future<CountryModel> getFlyerBzCountry({
   @required String countryID,
 }) async {
@@ -45,6 +47,7 @@ Future<CountryModel> getFlyerBzCountry({
   return _country;
 }
 // --------------------
+/// TASK : TEST ME
 Future<CityModel> getFlyerBzCity({
   @required String cityID,
 }) async {
@@ -56,6 +59,7 @@ Future<CityModel> getFlyerBzCity({
   return _city;
 }
 // --------------------
+/// TASK : TEST ME
 ZoneModel getZoneModel({
   @required BuildContext context,
   @required String countryID,
@@ -94,6 +98,7 @@ ZoneModel getZoneModel({
 /// SLIDES INDEXING
 
 // --------------------
+/// TASK : TEST ME
 int getNumberOfSlides({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -118,6 +123,7 @@ int getNumberOfSlides({
   return _numberOfSlides;
 }
 // --------------------
+/// TASK : TEST ME
 int getPossibleStartingIndex({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -153,7 +159,7 @@ int getPossibleStartingIndex({
 /// HERO
 
 // --------------------
-///
+/// TASK : TEST ME
 String createFlyerHeroTag({
   @required String flyerID,
   @required String heroPath,
@@ -185,7 +191,8 @@ String createFlyerHeroTag({
 
 
 }
-
+// --------------------
+/// TASK : TEST ME
 bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
   bool _has = false;
 
@@ -198,7 +205,6 @@ bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
 
   return _has;
 }
-
 // --------------------
 /*
 /// DEPRECATED
@@ -293,7 +299,7 @@ FlightDirection getFlightDirection(String direction){
 /// GALLERY
 
 // --------------------
-///
+/// TASK : TEST ME
 bool canShowGalleryPage({
   @required BzModel bzModel,
   @required String heroPath,
@@ -322,7 +328,7 @@ bool canShowGalleryPage({
   return _canShowGallery;
 }
 // --------------------
-/// GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
+/// TASK : TEST ME
 List<String> getNextFlyersIDs({
   @required List<String> allFlyersIDsWithoutParentFlyerID,
   @required List<String> loadedFlyersIDs,
@@ -330,6 +336,9 @@ List<String> getNextFlyersIDs({
   @required FlyerModel flyerModel,
   int numberOfFlyers = 4,
 }){
+
+  /// NOTES : GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
+
   final List<String> _nextFlyersIDs = <String>[];
 
   /// 1 - check each id in all Ids
@@ -388,6 +397,7 @@ List<String> getNextFlyersIDs({
   return _nextFlyersIDs;
 }
 // --------------------
+/// TASK : TEST ME
 Future<List<FlyerModel>> fetchMoreFlyers({
   @required BuildContext context,
   @required List<FlyerModel> loadedFlyers,
@@ -421,6 +431,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
 /// SIZING
 
 // --------------------
+/// TASK : TEST ME
 double flyerWidthSizeFactor({
   @required double tween,
   /// min flyer width factor * screen width = minimum flyer width
@@ -434,6 +445,7 @@ double flyerWidthSizeFactor({
   return _flyerWidthSizeFactor;
 }
 // --------------------
+/// TASK : TEST ME
 Future<void> recordFlyerView({
   @required FlyerModel flyerModel,
   @required int index,

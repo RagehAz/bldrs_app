@@ -82,7 +82,7 @@ class NoteEvent {
     author: author,
   );
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendAuthorDeletionNotes({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -95,7 +95,7 @@ class NoteEvent {
     sendToUserAuthorExitNote: sendToUserAuthorExitNote,
   );
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -106,7 +106,7 @@ class NoteEvent {
     includeMyself: includeMyself,
   );
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendNoBzContactAvailableNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -119,7 +119,7 @@ class NoteEvent {
   /// Bz Flyers Management
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> sendFlyerUpdateNoteToItsBz({
     @required BuildContext context,
     @required BzModel bzModel,

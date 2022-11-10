@@ -28,7 +28,7 @@ class PDFModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   PDFModel copyWith({
     String name,
     String path,
@@ -45,7 +45,7 @@ class PDFModel {
     );
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   PDFModel nullifyField({
     bool name = false,
     bool path = false,
@@ -66,7 +66,7 @@ class PDFModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   Map<String, dynamic> toMap({
     bool includeBytes = false,
   }){
@@ -89,7 +89,7 @@ class PDFModel {
     return _map;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static PDFModel decipherFromMap(Map<String, dynamic> map){
     PDFModel _output;
 
@@ -108,7 +108,7 @@ class PDFModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   SettableMetadata createSettableMetadata({
     Map<String, String> extraData,
   }){
@@ -150,7 +150,7 @@ class PDFModel {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkPDFModelsAreIdentical({
     @required PDFModel pdf1,
     @required PDFModel pdf2,
@@ -195,7 +195,7 @@ class PDFModel {
   /// BLOGGING
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   void blogPDFModel({String invoker = ''}){
     blog('PDFModel: name : $name : path : $path : size : $sizeMB : '
         'bytes : ${bytes?.length} bytes : ownersIDs : $ownersIDs');

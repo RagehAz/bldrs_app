@@ -86,7 +86,7 @@ class DraftFlyer{
   /// CREATION
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<DraftFlyer> createDraft({
     @required BuildContext context,
     @required FlyerModel oldFlyer,
@@ -109,7 +109,7 @@ class DraftFlyer{
     return _draft;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<DraftFlyer> _createNewDraft({
     @required BuildContext context,
   }) async {
@@ -166,7 +166,7 @@ class DraftFlyer{
   /// CYPHERS - FLYER MODEL
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<DraftFlyer> draftFromFlyer({
     @required BuildContext context,
     @required FlyerModel flyer,
@@ -331,7 +331,7 @@ class DraftFlyer{
   /// CLONING
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   DraftFlyer copyWith({
     String id,
     String headline,
@@ -521,12 +521,14 @@ class DraftFlyer{
     if (draft != null){
 
       if (Mapper.checkCanLoopList(draft.draftSlides) == true){
+        blog('newHeadline : was : ($newHeadline)');
         final DraftSlide _newSlide = draft.draftSlides.first.copyWith(
           headline: newHeadline,
         );
+        blog('newHeadline : is : (${_newSlide.headline})');
         final List<DraftSlide> _newSlides = DraftSlide.replaceSlide(
-          slides: draft.draftSlides,
-          slide: _newSlide,
+          drafts: draft.draftSlides,
+          draft: _newSlide,
         );
         _draft = draft.copyWith(
           draftSlides: _newSlides,
@@ -542,7 +544,7 @@ class DraftFlyer{
     return _draft;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static DraftFlyer overrideFlyerID({
     @required DraftFlyer draft,
     @required String flyerID,
@@ -572,7 +574,7 @@ class DraftFlyer{
   /// GETTERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static String getFirstSlideHeadline(DraftFlyer draft){
     return Mapper.checkCanLoopList(draft?.draftSlides) == true ?
     draft.draftSlides[0].headline
@@ -585,9 +587,11 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogDraft(){
+  void blogDraft({
+  @required String invoker,
+}){
 
-    blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- START');
+    blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- START');
 
     blog('id : $id');
     blog('headline : $headline');
@@ -606,11 +610,14 @@ class DraftFlyer{
     PublishTime.blogTimes(times);
     SpecModel.blogSpecs(specs);
     blog('draftSlides : ${draftSlides.length} slides');
-    DraftSlide.blogSlides(draftSlides);
+    DraftSlide.blogSlides(
+      slides: draftSlides,
+      invoker: 'the_draft-flyer-slides'
+    );
     pdfModel.blogPDFModel(invoker: 'BLOGGING DRAFT');
     bzModel.blogBz(invoker: 'BLOGGING DRAFT');
 
-    blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
+    blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
   }
   // --------------------
   static void _blogDraftsDifferences({
@@ -725,7 +732,7 @@ class DraftFlyer{
     return _canPublish;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkDraftsAreIdentical({
     @required DraftFlyer draft1,
     @required DraftFlyer draft2,

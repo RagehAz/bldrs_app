@@ -19,7 +19,7 @@ class BzProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> composeBz({
     @required BuildContext context,
     @required DraftBz newDraft,
@@ -74,7 +74,7 @@ class BzProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovateBz({
     @required BuildContext context,
     @required BzModel newBz,

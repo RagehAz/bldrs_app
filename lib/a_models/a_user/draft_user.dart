@@ -88,7 +88,7 @@ class DraftUser {
   /// INITIALIZATION
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<DraftUser> createDraftUser({
     @required BuildContext context,
     @required UserModel userModel,
@@ -148,6 +148,7 @@ class DraftUser {
   /// DISPOSING
 
   // --------------------
+  /// TASK : TEST ME
   void dispose(){
     nameNode.dispose();
     titleNode.dispose();
@@ -160,7 +161,7 @@ class DraftUser {
   /// CLONING
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   DraftUser copyWith({
     String id,
     AuthType authBy,
@@ -229,7 +230,7 @@ class DraftUser {
     );
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   DraftUser nullifyField({
     bool id = false,
     bool authBy = false,
@@ -302,7 +303,7 @@ class DraftUser {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   Map<String, dynamic> toLDB() {
     return <String, dynamic>{
       'id': id,
@@ -334,7 +335,7 @@ class DraftUser {
     };
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static DraftUser fromLDB(Map<String, dynamic> map) {
     return map == null ? null :
     DraftUser(
@@ -417,7 +418,7 @@ class DraftUser {
   /// MODIFIERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static void triggerCanPickImage({
     @required ValueNotifier<DraftUser> draftUser,
     @required bool setTo,
@@ -438,7 +439,7 @@ class DraftUser {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkAreIdentical({
     @required DraftUser draft1,
     @required DraftUser draft2,

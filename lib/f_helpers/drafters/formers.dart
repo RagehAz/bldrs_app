@@ -447,7 +447,7 @@ class Formers {
     return _message;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static String paragraphValidator({
     @required String text,
     @required bool canValidate,
@@ -627,7 +627,7 @@ class Formers {
     return _message;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static String pdfValidator({
     @required PDFModel pdfModel,
     @required bool canValidate,

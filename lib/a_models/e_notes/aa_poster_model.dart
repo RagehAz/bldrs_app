@@ -38,7 +38,7 @@ class PosterModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   PosterModel copyWith({
     String modelID,
     PosterType type,
@@ -55,7 +55,7 @@ class PosterModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   Map<String, dynamic> toMap(){
     return {
       'modelID': modelID,
@@ -64,7 +64,7 @@ class PosterModel {
     };
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static PosterModel decipher(Map<String, dynamic> map){
     PosterModel _model;
 

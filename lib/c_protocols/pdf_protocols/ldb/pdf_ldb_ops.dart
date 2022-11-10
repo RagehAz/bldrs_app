@@ -14,7 +14,7 @@ class PDFLDBOps {
   /// CREATE - UPDATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> insert(PDFModel pdfModel) async {
 
     if (pdfModel != null){
@@ -32,7 +32,7 @@ class PDFLDBOps {
   /// READ
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<PDFModel> read(String path) async {
     PDFModel _picModel;
 
@@ -58,7 +58,7 @@ class PDFLDBOps {
   /// DELETE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> delete(String path) async {
 
     if (TextCheck.isEmpty(path) == false){

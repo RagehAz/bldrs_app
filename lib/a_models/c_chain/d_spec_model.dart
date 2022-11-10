@@ -264,6 +264,7 @@ class SpecModel {
     return _contains;
   }
   // --------------------
+  /// TASK : TEST ME
   static bool specsContainsNewSale(List<SpecModel> specs) {
     const SpecModel _newSaleSpec = SpecModel(
       pickerChainID: 'propertyContractType',
@@ -278,7 +279,7 @@ class SpecModel {
     return _containsNewSale;
   }
   // --------------------
-  /// NEED TEST
+  /// TASK : TEST ME
   static bool checkSpecIsFromChainK({
     @required SpecModel spec,
   }){
@@ -370,7 +371,7 @@ class SpecModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<SpecModel> getSpecsBelongingToThisPicker({
     @required List<SpecModel> specs,
     @required PickerModel picker,
@@ -403,7 +404,7 @@ class SpecModel {
     return _result;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<SpecModel> getSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -421,7 +422,7 @@ class SpecModel {
     return _result;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static SpecModel getFirstSpecFromSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -456,7 +457,7 @@ class SpecModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<SpecModel> getChainKSpecs(List<SpecModel> specs){
     final List<SpecModel> _output = <SpecModel>[];
 
@@ -625,7 +626,7 @@ class SpecModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<SpecModel> generateSpecsByPhids({
     @required BuildContext context,
     @required List<String> phids,
@@ -659,28 +660,28 @@ class SpecModel {
     return _specs;
   }
   // -----------------------------------------------------------------------------
-/*
-  /// STANDARDS
+  /*
+    /// STANDARDS
 
-  // --------------------
-  static int getMaxDigitsOfSelectedUnit({
-    @required String unitID,
-  }){
+    // --------------------
+    static int getMaxDigitsOfSelectedUnit({
+      @required String unitID,
+    }){
 
-    int _digits;
+      int _digits;
 
-    switch (Phider.removeIndexFromPhid(phid: unitID)){
+      switch (Phider.removeIndexFromPhid(phid: unitID)){
 
-      /// phid_s_linearMeasureUnit
-      case 'phid_s_micron': _digits = 0; break;
-      case 'phid_s_micrometer': _digits = 2; break;
+        /// phid_s_linearMeasureUnit
+        case 'phid_s_micron': _digits = 0; break;
+        case 'phid_s_micrometer': _digits = 2; break;
 
-      // default: _digits = null;
+        // default: _digits = null;
+      }
+
+      return _digits;
     }
-
-    return _digits;
-  }
- */
+   */
   // --------------------
 
     /// OVERRIDES

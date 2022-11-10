@@ -56,7 +56,7 @@ class PicLDBOps {
   /// DELETE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> deletePic(String path) async {
 
     if (TextCheck.isEmpty(path) == false){
@@ -68,7 +68,7 @@ class PicLDBOps {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> deletePics(List<String> paths) async {
 
     if (Mapper.checkCanLoopList(paths) == true){
@@ -82,7 +82,7 @@ class PicLDBOps {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> deleteAll() async {
 
     await LDBOps.deleteAllMapsAtOnce(

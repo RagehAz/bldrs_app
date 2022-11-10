@@ -96,6 +96,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TASK : TEST ME
   Future<void> _onSearchSubmit(String searchText) async {
 
     await controlOnSearchSubmit(
@@ -107,6 +108,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
 
   }
   // --------------------
+  /// TASK : TEST ME
   void _onSearchChanged(String searchText){
 
     controlOnSearchChange(
@@ -116,6 +118,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
 
   }
   // --------------------
+  /// TASK : TEST ME
   Verse _getSearchHintVerse(BuildContext context){
 
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
