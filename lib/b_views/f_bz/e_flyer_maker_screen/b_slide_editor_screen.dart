@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
@@ -12,12 +13,12 @@ class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorScreen({
     @required this.slide,
-    @required this.bzID,
+    @required this.draftFlyer,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final DraftSlide slide;
-  final String bzID;
+  final ValueNotifier<DraftFlyer> draftFlyer;
   /// --------------------------------------------------------------------------
   @override
   State<SlideEditorScreen> createState() => _SlideEditorScreenState();
@@ -30,15 +31,14 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // --------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // --------------------
-  ValueNotifier<DraftSlide> _draftNotifier;
-  ValueNotifier<Matrix4> _matrix;
-  ValueNotifier<ImageFilterModel> _filterModel;
+  final ValueNotifier<DraftSlide> _draftNotifier = ValueNotifier(null);
+  final ValueNotifier<Matrix4> _matrix = ValueNotifier(null);
+  final ValueNotifier<ImageFilterModel> _filterModel = ValueNotifier(null);
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
     initializeTempSlide();
   }
   // --------------------
@@ -51,9 +51,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
         slide: widget.slide,
       ),
     );
-    _draftNotifier = ValueNotifier<DraftSlide>(_initialSlide);
-    _matrix = ValueNotifier(_initialSlide.matrix);
-    _filterModel = ValueNotifier(_initialSlide.filter ?? _allFilters[0]);
+
+    _draftNotifier.value = _initialSlide;
+    _matrix.value = _initialSlide.matrix;
+    _filterModel.value = _initialSlide.filter ?? _allFilters[0];
 
     _isTransforming.addListener(() async {
       if (_isTransforming.value == true){
@@ -65,7 +66,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _draftNotifier.dispose();
@@ -94,12 +94,12 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             globalKey: globalKey,
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
-            tempSlide: _draftNotifier,
+            draftSlide: _draftNotifier,
             matrix: _matrix,
             filterModel: _filterModel,
             isTransforming: _isTransforming,
             onSlideTap: () => onToggleFilter(
-              tempSlide: _draftNotifier,
+              draftNotifier: _draftNotifier,
               currentFilter: _filterModel,
             ),
           ),
@@ -111,8 +111,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               context: context,
             ),
             onReset: () => onReset(
-              originalSlide: widget.slide,
-              tempSlide: _draftNotifier,
+              originalDraft: widget.slide,
+              draftNotifier: _draftNotifier,
               filter: _filterModel,
               matrix: _matrix,
             ),
@@ -121,11 +121,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               draftNotifier: _draftNotifier,
               filterNotifier: _filterModel,
               matrixNotifier: _matrix,
-              bzID: widget.bzID,
+              bzID: widget.draftFlyer.value.bzID,
             ),
             onConfirm: () => onConfirmSlideEdits(
               context: context,
-              originalSlide: widget.slide,
               draftNotifier: _draftNotifier,
               filter: _filterModel,
               matrix: _matrix,

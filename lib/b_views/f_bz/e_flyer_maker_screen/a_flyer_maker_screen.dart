@@ -166,6 +166,18 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         onTap: () => _onConfirmTap(),
       ),
       // onBack: () => onCancelFlyerCreation(context),
+      appBarRowWidgets: [
+
+        AppBarButton(
+          verse: Verse.plain('Blog'),
+          onTap: (){
+
+            _draftNotifier.value.blogDraft(invoker: 'kos ommoko');
+
+          },
+        ),
+
+      ],
       layoutWidget: ValueListenableBuilder(
           valueListenable: _draftNotifier,
           builder: (_, DraftFlyer _draft, Widget child){
@@ -225,10 +237,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       draftNotifier: _draftNotifier,
                       text: text,
                     ),
-                    initialText: _draft?.headline,
+                    textController: _draft?.headline,
                     validator: (String text) => Formers.flyerHeadlineValidator(
                       context: context,
-                      headline: _draft?.headline,
+                      headline: _draft?.headline?.text,
                       canValidate: _canValidate,
                     ),
                   ),

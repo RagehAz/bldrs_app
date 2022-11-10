@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_gene
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class SingleSlide extends StatelessWidget {
@@ -61,6 +62,10 @@ class SingleSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    assert(slideModel.midColor != null, 'slideModel.midColor is null');
+
+    blog('slideModel.midColor. : ${slideModel.midColor}');
+
     return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
       flyerBoxWidth: flyerBoxWidth,

@@ -35,6 +35,8 @@ class SuperFilteredImage extends StatefulWidget {
     @required ImageFilterModel filterModel,
   }) async {
 
+    Uint8List _output = input;
+
     if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
 
       final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
@@ -48,22 +50,26 @@ class SuperFilteredImage extends StatefulWidget {
       option.addOption(
           image_editor.ColorOption(
               matrix: _combinedMatrix
-          )
+          ),
       );
 
-      final Uint8List _bytesUpdated = await image_editor.ImageEditor.editImage(
-        image: input,
-        imageEditorOption: option,
-      );
+      if (_output?.isNotEmpty == true){
+        _output = await image_editor.ImageEditor.editImage(
+          image: input,
+          imageEditorOption: option,
+        );
 
-      blog('processImage : uint7list is : ${input.length} bytes');
+      }
 
-      return _bytesUpdated;
+      blog('processImage : uint8list is : ${input?.length} bytes');
+
+      return _output;
     }
 
     else {
-      return input;
+      return _output;
     }
+
   }
   // -----------------------------------------------------------------------------
   ///
@@ -87,7 +93,7 @@ class SuperFilteredImage extends StatefulWidget {
   // -----------------------------------------------------------------------------
   @override
   State<SuperFilteredImage> createState() => _SuperFilteredImageState();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
 class _SuperFilteredImageState extends State<SuperFilteredImage> {

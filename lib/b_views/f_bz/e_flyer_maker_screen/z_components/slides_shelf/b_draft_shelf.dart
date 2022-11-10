@@ -105,7 +105,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
           if (draft == null){
             return Container(
               width: DraftShelfSlide.flyerBoxWidth,
-              height: DraftShelfSlide.shelfSlideZoneHeight(context),
+              height: _slideZoneHeight,
               alignment: Alignment.bottomCenter,
               padding: const EdgeInsets.all(Ratioz.appBarPadding),
               child: const FlyerLoading(
@@ -126,7 +126,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 slide: slide,
                 draftFlyer: widget.draftNotifier,
               ),
-              onDeleteSlide: (DraftSlide slide)=> onDeleteSlideXXX(
+              onDeleteSlide: (DraftSlide slide)=> onDeleteSlide(
                 context: context,
                 draftSlide: slide,
                 draftFlyer: widget.draftNotifier,

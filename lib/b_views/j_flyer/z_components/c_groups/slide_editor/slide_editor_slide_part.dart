@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorSlidePart({
-    @required this.tempSlide,
+    @required this.draftSlide,
     @required this.height,
     @required this.onSlideTap,
     @required this.isTransforming,
@@ -35,7 +35,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<DraftSlide> tempSlide;
+  final ValueNotifier<DraftSlide> draftSlide;
   final double height;
   final Function onSlideTap;
   final ValueNotifier<bool> isTransforming;
@@ -44,11 +44,13 @@ class SlideEditorSlidePart extends StatelessWidget {
   final AppBarType appBarType;
   final GlobalKey globalKey;
   // --------------------
+  ///
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.85;
     return _slideZoneHeight;
   }
   // --------------------
+  ///
   static double getFlyerZoneWidth(BuildContext context, double zoneHeight){
     final double _flyerBoxHeight = zoneHeight - (2 * Ratioz.appBarMargin);
     final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight);
@@ -71,7 +73,7 @@ class SlideEditorSlidePart extends StatelessWidget {
         height: _slideZoneHeight,
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
-          valueListenable: tempSlide,
+          valueListenable: draftSlide,
           child: Container(),
           builder: (_, DraftSlide _slide, Widget child){
 
@@ -170,11 +172,12 @@ class SlideEditorSlidePart extends StatelessWidget {
                                   centered: true,
                                   // autoValidate: true,
                                   onChanged: (String text) => onSlideHeadlineChanged(
-                                    tempSlide: tempSlide,
+                                    draftSlide: draftSlide,
                                     text: text,
                                   ),
                                   textWeight: VerseWeight.bold,
                                   textShadow: true,
+                                  initialValue: draftSlide.value.headline,
                                   // autofocus: false,
                                   // fieldIsFormField: true,
                                   // onSubmitted: null,

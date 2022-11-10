@@ -138,13 +138,13 @@ Future<void> _addImagesForNewFlyer({
     /// B - if made new picks
     else {
 
-      blog('the thing is : $_picked');
+      blog('the thing is : ${_picked.length} bytes');
 
       final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
         context: context,
         bytezz: _picked,
         existingDrafts: draftFlyer.value.draftSlides,
-        headline: draftFlyer.value.headline,
+        headline: draftFlyer.value.headline.text,
         bzID: draftFlyer.value.bzID,
         flyerID: draftFlyer.value.id,
       );
@@ -231,7 +231,7 @@ Future<void> onSlideTap({
       context: context,
       screen: SlideEditorScreen(
         slide: slide,
-        bzID: draftFlyer.value.bzID,
+        draftFlyer: draftFlyer,
       )
   );
 
@@ -250,8 +250,8 @@ Future<void> onSlideTap({
 
 }
 // --------------------
-///
-Future<void> onDeleteSlideXXX({
+/// TESTED : WORKS PERFECT
+Future<void> onDeleteSlide({
   @required BuildContext context,
   @required DraftSlide draftSlide,
   @required ValueNotifier<DraftFlyer> draftFlyer,
@@ -263,7 +263,7 @@ Future<void> onDeleteSlideXXX({
 
   final bool _continue = await Dialogs.slideDialog(
       context: context,
-      slideModel: _slide, /// < --- TASK : THIS SLIDE HAS A UI.IMAGE THAT IS NOT YET DISPOSED
+      slideModel: _slide,
       titleVerse: const Verse(
         text: 'phid_delete_slide_?',
         translate: true,
@@ -283,10 +283,11 @@ Future<void> onDeleteSlideXXX({
       draftSlides: _slides,
     );
 
+    _slide.uiImage.dispose();
+
   }
 
 }
-
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMoreTap({
@@ -368,8 +369,9 @@ void onFlyerHeadlineChanged({
   formKey.currentState.validate();
 
   draftFlyer.value = DraftFlyer.updateHeadline(
-      draft: draftFlyer.value,
-      newHeadline: text
+    draft: draftFlyer.value,
+    newHeadline: text,
+    slideIndex: 0,
   );
 
 }
