@@ -1,13 +1,7 @@
-import 'package:bldrs/a_models/b_bz/mutables/draft_bz.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/compose_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/fetch_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/renovate_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/wipe_bzz.dart';
-import 'package:flutter/material.dart';
 
 class BzProtocols {
   // -----------------------------------------------------------------------------
@@ -20,147 +14,51 @@ class BzProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> composeBz({
-    @required BuildContext context,
-    @required DraftBz newDraft,
-    @required UserModel userModel,
-  }) => ComposeBzProtocols.compose(
-    context: context,
-    newDraft: newDraft,
-    userModel: userModel,
-  );
+  static const composeBz = ComposeBzProtocols.compose;
   // -----------------------------------------------------------------------------
 
   /// FETCH
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> fetch({
-    @required BuildContext context,
-    @required String bzID
-  }) => FetchBzProtocols.fetch(
-    context: context,
-    bzID: bzID,
-  );
+  static const fetch = FetchBzProtocols.fetch;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> refetch({
-    @required BuildContext context,
-    @required String bzID
-  }) => FetchBzProtocols.refetch(
-    context: context,
-    bzID: bzID,
-  );
+  static const refetch = FetchBzProtocols.refetch;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> fetchBzByFlyerID({
-    @required BuildContext context,
-    @required String flyerID,
-  })=> FetchBzProtocols.fetchBzByFlyerID(
-    context: context,
-    flyerID: flyerID,
-  );
+  static const fetchBzByFlyerID = FetchBzProtocols.fetchBzByFlyerID;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<BzModel>> fetchBzz({
-    @required BuildContext context,
-    @required List<String> bzzIDs
-  }) => FetchBzProtocols.fetchBzz(
-    context: context,
-    bzzIDs: bzzIDs,
-  );
+  static const fetchBzz = FetchBzProtocols.fetchBzz;
   // -----------------------------------------------------------------------------
 
   /// RENOVATE
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> renovateBz({
-    @required BuildContext context,
-    @required BzModel newBz,
-    @required BzModel oldBzModel,
-    @required bool showWaitDialog,
-    @required bool navigateToBzInfoPageOnEnd, // should be done in controller not here
-    @required PicModel newLogo,
-  }) => RenovateBzProtocols.renovateBz(
-    context: context,
-    newBz: newBz,
-    oldBzModel: oldBzModel,
-    showWaitDialog: showWaitDialog,
-    navigateToBzInfoPageOnEnd: navigateToBzInfoPageOnEnd,
-    newPic: newLogo,
-  );
+  static const renovateBz = RenovateBzProtocols.renovateBz;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateBzLocally({
-    @required BuildContext context,
-    @required BzModel newBzModel,
-    @required BzModel oldBzModel,
-  }) => RenovateBzProtocols.updateBzLocally(
-    context: context,
-    newBzModel: newBzModel,
-    oldBzModel: oldBzModel,
-  );
+  static const updateBzLocally = RenovateBzProtocols.updateBzLocally;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> completeBzZoneModel({
-    @required BuildContext context,
-    @required BzModel bzModel,
-  }) => RenovateBzProtocols.completeBzZoneModel(
-      context: context,
-      bzModel: bzModel
-  );
+  static const completeBzZoneModel = RenovateBzProtocols.completeBzZoneModel;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovateAuthorProtocol({
-    @required BuildContext context,
-    @required BzModel oldBzModel,
-    @required AuthorModel newAuthorModel,
-  }) => RenovateBzProtocols.renovateAuthor(
-    context: context,
-    oldBzModel: oldBzModel,
-    newAuthorModel: newAuthorModel,
-  );
+  static const renovateAuthorProtocol = RenovateBzProtocols.renovateAuthor;
   // -----------------------------------------------------------------------------
 
   /// WIPE
 
   // --------------------
-  ///
-  static Future<void> wipeBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required bool showWaitDialog,
-    @required bool includeMyselfInBzDeletionNote,
-    @required bool deleteBzLocally,
-  }) => WipeBzProtocols.wipeBz(
-    context: context,
-    bzModel: bzModel,
-    showWaitDialog: showWaitDialog,
-    includeMyselfInBzDeletionNote: includeMyselfInBzDeletionNote,
-    deleteBzLocally: deleteBzLocally,
-  );
+  /// TASK : TEST ME
+  static const wipeBz = WipeBzProtocols.wipeBz;
   // --------------------
-  ///
-  static Future<void> deleteLocally({
-    @required BuildContext context,
-    @required String bzID,
-    @required String invoker,
-  }) => WipeBzProtocols.deleteLocally(
-    context: context,
-    bzID: bzID,
-    invoker: invoker,
-  );
+  /// TASK : TEST ME
+  static const deleteLocally = WipeBzProtocols.deleteLocally;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipePendingAuthor({
-    @required BuildContext context,
-    @required String bzID,
-    @required String pendingUserID,
-  }) => WipeBzProtocols.wipePendingAuthor(
-    context: context,
-    bzID: bzID,
-    pendingUserID: pendingUserID,
-  );
+  static const wipePendingAuthor = WipeBzProtocols.wipePendingAuthor;
   // -----------------------------------------------------------------------------
 }

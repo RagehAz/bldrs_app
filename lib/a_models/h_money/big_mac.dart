@@ -250,9 +250,9 @@ class BigMac {
           toDollarRate: 6.12065),
       const BigMac(
           countryID: 'egy',
-          localPrice: 42.5,
+          localPrice: 52.5,
           currency: 'EGP',
-          toDollarRate: 15.64),
+          toDollarRate: 22),
       const BigMac(
           countryID: 'euz',
           localPrice: 4.25,

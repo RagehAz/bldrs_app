@@ -24,17 +24,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
-/*
-
-protocol level ops
-
- - create -> compose
- - read -> fetch
- - update -> renovate
- - delete -> wipe
-
- */
-
 class ComposeFlyerProtocols {
   // -----------------------------------------------------------------------------
 

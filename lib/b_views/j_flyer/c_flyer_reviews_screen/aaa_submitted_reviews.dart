@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controlle
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/a_review_box.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/variants/a_review_creator_bubble.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/variants/b_review_view_bubble.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
@@ -129,6 +130,9 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
           flyerID: widget.flyerModel.id,
         ),
         paginationController: _paginationController,
+        loadingWidget: const Loading(
+          loading: true,
+        ),
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           final List<ReviewModel> reviews = ReviewModel.decipherReviews(
