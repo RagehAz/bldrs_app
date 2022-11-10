@@ -54,10 +54,14 @@ Future<void> loadFlyerMakerLastSession({
 
     if (_continue == true){
 
+      draft.value.headline.text = _lastSessionDraft.headline.text;
+      _lastSessionDraft.headline.dispose();
+
       draft.value = _lastSessionDraft.copyWith(
         headlineNode: draft.value.headlineNode,
         descriptionNode: draft.value.descriptionNode,
         formKey: draft.value.formKey,
+        headline: draft.value.headline,
       );
 
     }
@@ -124,6 +128,7 @@ void onUpdateFlyerHeadline({
   draftNotifier.value = DraftFlyer.updateHeadline(
     draft: draftNotifier.value,
     newHeadline: text,
+    slideIndex: 0,
   );
 
 }
@@ -446,7 +451,7 @@ Future<bool> _preFlyerUpdateCheck({
 
       if (_isValid == false){
 
-        if (draft.value.headline.length < Standards.flyerHeadlineMinLength){
+        if (draft.value.headline.text.length < Standards.flyerHeadlineMinLength){
           TopDialog.showUnawaitedTopDialog(
             context: context,
             firstVerse: const Verse(

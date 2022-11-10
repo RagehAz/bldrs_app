@@ -19,14 +19,14 @@ class DeleteDraftSlideButton extends StatelessWidget {
 
     final double _boxHeight = FlyerDim.footerBoxHeight(
       context: context,
-      flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
+      flyerBoxWidth: DraftShelfSlide.flyerBoxWidth - 10,
       infoButtonExpanded: false,
     );
 
     return SuperPositioned(
       enAlignment: Alignment.bottomCenter,
       child: Container(
-        width: DraftShelfSlide.flyerBoxWidth,
+        width: DraftShelfSlide.flyerBoxWidth - 10,
         height: _boxHeight,
         // color: Colorz.bloodTest,
         alignment: Alignment.center,

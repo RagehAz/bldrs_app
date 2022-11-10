@@ -192,12 +192,7 @@ class ComposeFlyerProtocols {
       pixelRatio: MediaQuery.of(_context).devicePixelRatio,
       delay: const Duration(milliseconds: 200),
     );
-
-    // final Uint8List _bytes = await draftFlyer.posterController.capture(
-    //   pixelRatio: MediaQuery.of(context).devicePixelRatio,
-    //   delay: const Duration(milliseconds: 200),
-    // );
-
+    
     final PicModel _posterPicModel = PicModel(
       bytes: _bytes,
       path: StorageColl.getFlyerPosterPath(flyerID),

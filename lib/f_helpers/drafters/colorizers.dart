@@ -1,13 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
-import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as Image;
+import 'package:image/image.dart' as img;
 
 class Colorizer {
   // -----------------------------------------------------------------------------
@@ -135,14 +135,13 @@ class Colorizer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Color> getAverageColor(dynamic pic) async {
+  static Future<Color> getAverageColor(Uint8List bytes) async {
 
-    final File _imageFile = await Filers.getFileFromDynamics(pic);
     Color _color;
 
-    if (_imageFile != null){
+    if (bytes != null){
 
-      final Image.Image bitmap = Image.decodeImage(_imageFile?.readAsBytesSync());
+      final img.Image bitmap = await Floaters.getImgImageFromUint8List(bytes);
 
       int redBucket = 0;
       int greenBucket = 0;
@@ -154,9 +153,9 @@ class Colorizer {
           final int c = bitmap.getPixel(x, y);
 
           pixelCount++;
-          redBucket += Image.getRed(c);
-          greenBucket += Image.getGreen(c);
-          blueBucket += Image.getBlue(c);
+          redBucket += img.getRed(c);
+          greenBucket += img.getGreen(c);
+          blueBucket += img.getBlue(c);
         }
       }
 

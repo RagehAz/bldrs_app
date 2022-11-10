@@ -308,8 +308,8 @@ class SpecModel {
       for (final SpecModel spec in specs){
 
         final PickerModel _specPicker = PickerModel.getPickerByChainIDOrUnitChainID(
-            pickers: pickers,
-            chainIDOrUnitChainID: spec.pickerChainID,
+          pickers: pickers,
+          chainIDOrUnitChainID: spec.pickerChainID,
         );
 
         if (_specPicker?.unitChainID == unitSpec?.pickerChainID){
@@ -684,32 +684,32 @@ class SpecModel {
    */
   // --------------------
 
-    /// OVERRIDES
+  /// OVERRIDES
 
   // ----------------------------------------
-    /*
+  /*
      @override
      String toString() => 'MapModel(key: $key, value: ${value.toString()})';
      */
   // ----------------------------------------
-    @override
-    bool operator == (Object other){
+  @override
+  bool operator == (Object other){
 
-      if (identical(this, other)) {
-        return true;
-      }
-
-      bool _areIdentical = false;
-      if (other is SpecModel){
-        _areIdentical = checkSpecsAreIdentical(this, other,);
-      }
-
-      return _areIdentical;
+    if (identical(this, other)) {
+      return true;
     }
+
+    bool _areIdentical = false;
+    if (other is SpecModel){
+      _areIdentical = checkSpecsAreIdentical(this, other,);
+    }
+
+    return _areIdentical;
+  }
   // ----------------------------------------
-    @override
-    int get hashCode =>
-        pickerChainID.hashCode^
-        value.hashCode;
-  // -----------------------------------------------------------------------------
+  @override
+  int get hashCode =>
+      pickerChainID.hashCode^
+      value.hashCode;
+// -----------------------------------------------------------------------------
 }
