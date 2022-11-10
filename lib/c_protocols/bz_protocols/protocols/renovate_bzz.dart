@@ -38,7 +38,7 @@ class RenovateBzProtocols {
     @required BzModel oldBzModel,
     @required bool showWaitDialog,
     @required bool navigateToBzInfoPageOnEnd,
-    @required PicModel newPic,
+    @required PicModel newLogo,
   }) async {
     blog('RenovateBzProtocol.renovateBz : START');
 
@@ -67,8 +67,8 @@ class RenovateBzProtocols {
         BzFireOps.update(newBz),
 
         /// UPDATE BZ LOGO
-        if (newPic != null)
-          PicProtocols.renovatePic(newPic),
+        if (newLogo != null)
+          PicProtocols.renovatePic(newLogo),
 
         /// UPDATE LOCALLY
         updateBzLocally(
