@@ -4,10 +4,12 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -22,26 +24,7 @@ import 'package:flutter/material.dart';
 
 /// EDITING
 
-// --------------------
-/// TESTED : WORKS PERFECT
-void onDeleteSlide({
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required int index,
-}){
 
-  final List<DraftSlide> _slides = draftFlyer.value.draftSlides;
-
-  if (Mapper.checkCanLoopList(_slides) == true){
-
-    _slides.removeAt(index);
-
-    draftFlyer.value = draftFlyer.value.copyWith(
-      draftSlides: _slides,
-    );
-
-  }
-
-}
 // --------------------
 ///
 Future<void> onAddNewSlides({
@@ -255,8 +238,8 @@ Future<void> onSlideTap({
   if (_result != null){
 
     final List<DraftSlide> _updatedSlides = DraftSlide.replaceSlide(
-      slides: draftFlyer.value.draftSlides,
-      slide: _result,
+      drafts: draftFlyer.value.draftSlides,
+      draft: _result,
     );
 
     draftFlyer.value = draftFlyer.value.copyWith(
@@ -266,6 +249,44 @@ Future<void> onSlideTap({
   }
 
 }
+// --------------------
+///
+Future<void> onDeleteSlideXXX({
+  @required BuildContext context,
+  @required DraftSlide draftSlide,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
+}) async {
+
+  Keyboard.closeKeyboard(context);
+
+  final SlideModel _slide = await DraftSlide.draftToSlide(draftSlide);
+
+  final bool _continue = await Dialogs.slideDialog(
+      context: context,
+      slideModel: _slide, /// < --- TASK : THIS SLIDE HAS A UI.IMAGE THAT IS NOT YET DISPOSED
+      titleVerse: const Verse(
+        text: 'phid_delete_slide_?',
+        translate: true,
+      ),
+  );
+
+  if (_continue == true){
+
+    blog('should delete not');
+
+    final List<DraftSlide> _slides = DraftSlide.removeDraftFromDrafts(
+      drafts: draftFlyer.value.draftSlides,
+      draft: draftSlide,
+    );
+
+    draftFlyer.value = draftFlyer.value.copyWith(
+      draftSlides: _slides,
+    );
+
+  }
+
+}
+
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMoreTap({

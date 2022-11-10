@@ -64,7 +64,7 @@ class Dimensions {
     return width / height;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<double> getPicAspectRatio(Uint8List bytes) async {
     double _output;
 
@@ -83,6 +83,7 @@ class Dimensions {
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
   static double getHeightByAspectRatio({
     @required double aspectRatio,
     @required double width,
@@ -197,6 +198,7 @@ class Dimensions {
   /// CONCLUDERS
 
   // --------------------
+  /// TASK : TEST ME
   static double concludeHeightByDimensions({
     @required double width,
     @required double graphicWidth,

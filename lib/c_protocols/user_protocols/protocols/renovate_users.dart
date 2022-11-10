@@ -28,7 +28,7 @@ class RenovateUserProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<UserModel> renovateUser({
     @required BuildContext context,
     @required UserModel newUserModel,
@@ -80,7 +80,7 @@ class RenovateUserProtocols {
     return _uploadedModel;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> updateLocally({
     @required UserModel newUserModel,
     @required BuildContext context,
@@ -252,7 +252,7 @@ class RenovateUserProtocols {
   /// UPDATE DEVICE MODEL
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> refreshUserDeviceModel({
     @required BuildContext context,
   }) async {
@@ -335,7 +335,7 @@ class RenovateUserProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _resubscribeToAllMyTopics({
     @required BuildContext context,
   }) async {

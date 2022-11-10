@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -7,6 +8,7 @@ import 'package:bldrs/a_models/d_zone/city_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -927,5 +929,51 @@ class Dialogs {
     return _result;
 
   }
-  // -----------------------------------------------------------------------------
+
+  // --------------------
+  /// T
+  static Future<bool> slideDialog({
+    @required BuildContext context,
+    @required SlideModel slideModel,
+    @required Verse titleVerse,
+    Verse bodyVerse,
+    Verse confirmButtonVerse,
+    bool boolDialog = true,
+    bool invertButtons = false,
+  }) async {
+
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _dialogHeight = _screenHeight * 0.7;
+    final double _flyerBoxHeight = _dialogHeight * 0.5;
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
+      boolDialog: boolDialog,
+      confirmButtonVerse: confirmButtonVerse,
+      height: _dialogHeight,
+      invertButtons: invertButtons,
+      child: Container(
+        width: CenterDialog.getWidth(context),
+        alignment: Alignment.center,
+        child: SingleSlide(
+          flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight),
+          flyerBoxHeight: _flyerBoxHeight,
+          slideModel: slideModel,
+          tinyMode: true,
+          slideShadowIsOn: true,
+          onDoubleTap: null,
+          onSlideBackTap: null,
+          onSlideNextTap: null,
+          blurLayerIsOn: true,
+        ),
+      ),
+    );
+
+    return _result;
+
+  }
+
+// -----------------------------------------------------------------------------
 }

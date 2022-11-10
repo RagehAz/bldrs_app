@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
 /// AUTHOR EDITOR INITIALIZATION
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> prepareAuthorPicForEditing({
   @required BuildContext context,
   @required ValueNotifier<AuthorModel> draftAuthor,
@@ -52,7 +52,7 @@ Future<void> prepareAuthorPicForEditing({
 /// LAST SESSION
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> loadAuthorEditorSession({
   @required BuildContext context,
   @required bool mounted,
@@ -103,7 +103,7 @@ Future<void> loadAuthorEditorSession({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> saveAuthorEditorSession({
   @required BuildContext context,
   @required AuthorModel oldAuthor,
@@ -145,7 +145,7 @@ Future<void> saveAuthorEditorSession({
 /// AUTHOR PROFILE EDITOR
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> takeAuthorImage({
   @required BuildContext context,
   @required ValueNotifier<AuthorModel> author,

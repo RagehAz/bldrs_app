@@ -17,7 +17,7 @@ class PicProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> composePic(PicModel picModel) async {
 
     if (picModel != null){
@@ -34,7 +34,7 @@ class PicProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> composePics(List<PicModel> pics) async {
 
     if (Mapper.checkCanLoopList(pics) == true){
@@ -76,7 +76,7 @@ class PicProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<List<PicModel>> fetchPics(List<String> paths) async {
     final List<PicModel> _output = <PicModel>[];
 
@@ -108,7 +108,7 @@ class PicProtocols {
     return _theImage;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<List<PicModel>> refetchPics(List<String> paths) async {
 
     List<PicModel> _output = <PicModel>[];
@@ -156,7 +156,7 @@ class PicProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> downloadPics(List<String> paths) async {
 
     if (Mapper.checkCanLoopList(paths) == true){
@@ -181,7 +181,7 @@ class PicProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovatePic(PicModel picModel) async {
 
     if (picModel != null){
@@ -210,7 +210,7 @@ class PicProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovatePics(List<PicModel> picModels) async {
 
     if (Mapper.checkCanLoopList(picModels) == true){
@@ -231,7 +231,7 @@ class PicProtocols {
   /// DELETE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipePic(String path) async {
 
     if (TextCheck.isEmpty(path) == false){
@@ -248,7 +248,7 @@ class PicProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipePics(List<String> paths) async {
 
     if (Mapper.checkCanLoopList(paths) == true){

@@ -126,6 +126,11 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 slide: slide,
                 draftFlyer: widget.draftNotifier,
               ),
+              onDeleteSlide: (DraftSlide slide)=> onDeleteSlideXXX(
+                context: context,
+                draftSlide: slide,
+                draftFlyer: widget.draftNotifier,
+              ),
               onAddSlides: (PicMakerType imagePickerType) => onAddNewSlides(
                 context: context,
                 isLoading: _loading,
@@ -136,6 +141,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 flyerWidth: DraftShelfSlide.flyerBoxWidth,
                 imagePickerType: imagePickerType,
               ),
+
             );
           }
 

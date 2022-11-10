@@ -789,7 +789,7 @@ class Chain {
   /// GETTERS
 
   // --------------------
-
+  /// TASK : TEST ME
   static List<String> getChainsIDs(List<Chain> chains){
     final List<String> chainsIDs = <String>[];
 
@@ -930,6 +930,7 @@ class Chain {
     return _chainsIDs;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<Chain> getChainsFromChainsByIDs({
     List<String> phids,
     List<Chain> allChains,
@@ -1161,6 +1162,7 @@ class Chain {
     return _output?.first;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<Chain> replaceChainInChains({
     @required List<Chain> chains,
     @required Chain chainToReplace,
@@ -1188,7 +1190,7 @@ class Chain {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<Chain> removeAllPhidsNotUsedInThisList({
     @required List<Chain> chains,
     @required List<String> usedPhids,
@@ -1245,7 +1247,7 @@ class Chain {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<Chain> addPathToChains({
     @required List<Chain> chains,
     @required String path,
@@ -1288,7 +1290,7 @@ class Chain {
     return _output;
   }
   // --------------------
-
+  /// TASK : TEST ME
   static List<Chain> addPathsToChains({
     @required List<Chain> chains,
     @required List<String> paths,
@@ -1317,7 +1319,7 @@ class Chain {
     return _output;
   }
   // --------------------
-  /// TEST : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Chain removePathFromChain({
     @required Chain chain,
     @required String path,
@@ -1452,7 +1454,7 @@ class Chain {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<Chain> replaceChainsPathWithPath({
     @required List<Chain> chains,
     @required String pathToRemove,

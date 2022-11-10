@@ -73,7 +73,7 @@ Future<void> prepareUserForEditing({
 /// LAST SESSION
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> loadUserEditorLastSession({
   @required BuildContext context,
   @required String userID,
@@ -127,7 +127,7 @@ Future<void> loadUserEditorLastSession({
 /// EDITORS
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> takeUserPicture({
   @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
@@ -192,7 +192,7 @@ Future<void> takeUserPicture({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 void onChangeGender({
   @required Gender selectedGender,
   @required ValueNotifier<DraftUser> draft,
@@ -202,7 +202,7 @@ void onChangeGender({
   );
 }
 // --------------------
-///
+/// TASK : TEST ME
 void onUserNameChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
@@ -214,7 +214,7 @@ void onUserNameChanged({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 void onUserJobTitleChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
@@ -226,7 +226,7 @@ void onUserJobTitleChanged({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 void onUserCompanyNameChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
@@ -237,7 +237,7 @@ void onUserCompanyNameChanged({
 }
 
 // --------------------
-///
+/// TASK : TEST ME
 void onUserZoneChanged({
   @required ZoneModel selectedZone,
   @required ValueNotifier<DraftUser> draft,
@@ -251,7 +251,7 @@ void onUserZoneChanged({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 void onUserContactChanged({
   @required ValueNotifier<DraftUser> draft,
   @required ContactType contactType,
@@ -283,7 +283,7 @@ void onUserContactChanged({
 /// CONFIRMATION OPS
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> confirmEdits({
   @required BuildContext context,
   @required UserModel oldUserModel,
@@ -391,7 +391,7 @@ Future<void> confirmEdits({
 
 }
 // --------------------
-/// SHOULD BE RENOVATE PROTOCOL
+/// TASK : SHOULD BE RENOVATE PROTOCOL
 Future<UserModel> _updateUserModel({
   @required BuildContext context,
   @required UserModel oldUserModel,

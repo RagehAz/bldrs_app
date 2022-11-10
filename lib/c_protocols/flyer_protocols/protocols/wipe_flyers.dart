@@ -29,7 +29,7 @@ class WipeFlyerProtocols {
   /// WIPE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipeFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -124,7 +124,7 @@ class WipeFlyerProtocols {
     blog('WipeFlyerProtocols.wipeFlyer : END');
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
     @required BuildContext context,
     @required FlyerModel flyer,
@@ -154,7 +154,7 @@ class WipeFlyerProtocols {
   }
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipeFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
