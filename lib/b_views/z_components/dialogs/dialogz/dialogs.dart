@@ -943,7 +943,7 @@ class Dialogs {
 
     final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.7;
-    final double _flyerBoxHeight = _dialogHeight * 0.5;
+    // final double _flyerBoxHeight = _dialogHeight * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
