@@ -1,9 +1,8 @@
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -44,10 +43,12 @@ class HeaderTemplate extends StatelessWidget {
     final double _screenWidth = Scale.screenWidth(context);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     // --------------------
+    /*
     final double _versesScaleFactor = FlyerVerses.bzLabelVersesScaleFactor(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
+     */
     // --------------------
     return Opacity(
       key: const ValueKey<String>('StaticHeader'),
@@ -103,8 +104,8 @@ class HeaderTemplate extends StatelessWidget {
                       // width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-
+                        // children: const <Widget>[
+                          //
                           // /// B.NAME
                           // Expanded(
                           //   child: Padding(
@@ -139,8 +140,8 @@ class HeaderTemplate extends StatelessWidget {
                           //     ),
                           //   ),
                           // ),
-
-                        ],
+                        //
+                        // ],
                       ),
                     ),
 

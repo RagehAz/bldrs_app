@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
@@ -14,6 +16,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -127,6 +130,41 @@ class RenovateUserProtocols {
 
     blog('UserProtocol.updateLocally : END');
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// USER ZONE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<UserModel> completeUserZoneModels({
+    @required UserModel userModel,
+    @required BuildContext context,
+  }) async {
+    UserModel _output;
+
+    if (userModel != null){
+
+      final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: userModel.zone,
+      );
+
+      final ZoneModel _completeNeedZoneModel = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: userModel.need?.zone,
+      );
+
+      _output = userModel.copyWith(
+        zone: _completeZoneModel,
+        need: userModel.need?.copyWith(
+          zone: _completeNeedZoneModel,
+        ),
+      );
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -246,6 +284,37 @@ class RenovateUserProtocols {
     }
 
     blog('RenovateUserProtocols.savingFlyerProtocol : END');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// TOPICS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateMyUserTopics({
+    @required BuildContext context,
+    @required String topicID,
+  }) async {
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+    final List<String> _userSubscribedTopics = _userModel.fcmTopics;
+
+    final UserModel updated = _userModel.copyWith(
+      fcmTopics: Stringer.addOrRemoveStringToStrings(
+        strings: _userSubscribedTopics,
+        string: topicID,
+      ),
+    );
+
+    await UserProtocols.renovate(
+      context: context,
+      newUserModel: updated,
+      newPic: null,
+    );
+
   }
   // -----------------------------------------------------------------------------
 

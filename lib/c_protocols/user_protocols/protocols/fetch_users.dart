@@ -12,6 +12,10 @@ class FetchUserProtocols {
   const FetchUserProtocols();
 
   // -----------------------------------------------------------------------------
+
+  /// FETCH
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> fetchUser({
     @required BuildContext context,
@@ -87,6 +91,20 @@ class FetchUserProtocols {
 
     blog('FetchUserProtocols.fetchUsers : END');
     return _userModels;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// RE-FETCH
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<UserModel> refetch({
+    @required BuildContext context,
+    @required String userID
+  }) async {
+    await UserLDBOps.deleteUserOps(userID);
+    final UserModel _user = await fetchUser(context: context, userID: userID);
+    return _user;
   }
   // -----------------------------------------------------------------------------
 }

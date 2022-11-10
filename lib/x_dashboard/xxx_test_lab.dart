@@ -18,8 +18,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -59,35 +57,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    
-    final String _url = await StorageRef.getURLByPath(
-        StorageColl.getFlyerPosterPath('UXJbvpwQ3eIenv99P4Bn')
-    );
 
-    blog(_url);
 
-    /// TASK : TEST THIS
-    //
-    // static Future<void> doFutures({
-    //   @required List<dynamic> things,
-    //   @required Function(int index) function,
-    // }) async {
-    //
-    //   if (Mapper.checkCanLoopList(things) == true){
-    //
-    //     await Future.wait(<Future>[
-    //
-    //       ...List.generate(things.length, (index){
-    //
-    //         return function(index);
-    //
-    //       }),
-    //
-    //     ]);
-    //
-    //   }
-
-    ///----------------
+    // /----------------
     // final bool _go = await Dialogs.confirmProceed(context: context);
     //
     // if (_go == true){
@@ -132,8 +104,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     //   }
     //
     // }
-
-
+    //
 
     }
   // -------------------------------------------------
@@ -406,7 +377,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     final double _fieldWidth = BldrsAppBar.width(context) - 50;
 
     return MainLayout(
-      key: const ValueKey('test_lab'),
+      // key: const ValueKey('test_lab'),
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       appBarRowWidgets: <Widget>[
