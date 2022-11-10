@@ -73,7 +73,7 @@ class UserProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<UserModel> renovate({
     @required BuildContext context,
     @required UserModel newUserModel,
@@ -192,7 +192,7 @@ class UserProtocols {
   /// WIPE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipeUser({
     @required BuildContext context,
     @required bool showWaitDialog,

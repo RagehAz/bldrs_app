@@ -102,7 +102,7 @@ class BzFireOps {
   /// UPDATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> update(BzModel bzModel) async {
 
     if (bzModel != null){
@@ -121,7 +121,7 @@ class BzFireOps {
   /// DELETE BZ
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> delete({
     @required BzModel bzModel,
   }) async {

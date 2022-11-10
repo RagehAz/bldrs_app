@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/delete_draft_slide_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
@@ -22,12 +23,14 @@ class DraftShelfSlide extends StatefulWidget {
     @required this.draftSlide,
     @required this.number,
     @required this.onTap,
+    @required this.onDeleteSlide,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final DraftSlide draftSlide;
   final int number;
   final Function onTap;
+  final Function onDeleteSlide;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
@@ -64,7 +67,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
   Widget build(BuildContext context) {
 
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, DraftShelfSlide.flyerBoxWidth);
-    blog('ShelfSlide : BUILDING : picSize : ${widget.draftSlide?.picModel?.bytes?.length} bytes');
+    // blog('ShelfSlide : BUILDING : picSize : ${widget.draftSlide?.picModel?.bytes?.length} bytes');
 
     return Container(
       width: DraftShelfSlide.flyerBoxWidth,
@@ -190,6 +193,11 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       text: widget.draftSlide.headline,
                       translate: false,
                     ),
+                  ),
+
+                if (widget.draftSlide != null)
+                  DeleteDraftSlideButton(
+                    onTap: widget.onDeleteSlide,
                   ),
 
               ],

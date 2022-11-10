@@ -108,13 +108,14 @@ class ImageSwitcher extends StatelessWidget {
     /// NULL
     if (pic == null){
 
-      blog('pic is null');
+      // blog('pic is null');
 
-      return Container(
+      return SizedBox(
         width: width,
         height: height,
-        color: Colorz.errorColor,
+        // color: Colorz.errorColor,
       );
+
     }
 
     /// LOADING

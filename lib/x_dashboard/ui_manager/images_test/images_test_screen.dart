@@ -5,15 +5,15 @@ import 'dart:ui' as ui;
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
@@ -26,20 +26,18 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
@@ -162,58 +160,58 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
     });
   }
   // --------------------
-  Future<String> _addBase64ToLDBAndRead({
-    @required Uint8List bytes,
-  }) async {
-
-    await LDBOps.insertMap(
-      docName: 'tempPicDoc',
-      input: {
-        'id': 'ldbBase64',
-        'data' : Floaters.getBase64FromUint8List(bytes),
-      },
-    );
-
-    String _base64FromLDB;
-    final List<Map<String, dynamic>> _mapBase64 = await LDBOps.readMaps(
-      docName: 'tempPicDoc',
-      ids: ['ldbBase64'],
-    );
-    if (Mapper.checkCanLoopList(_mapBase64) == true){
-      _base64FromLDB = _mapBase64.first['data'];
-    }
-
-    return _base64FromLDB;
-  }
-  // --------------------
-  Future<Uint8List> _addUintsToLDBAndRead({
-    @required Uint8List int8List,
-  }) async {
-    Uint8List _int8List;
-
-    final List<int> _ints = Floaters.getIntsFromUint8List(int8List);
-
-    await LDBOps.insertMap(
-      docName: 'tempPicDoc',
-      input: {
-        'id': 'uInt8List',
-        'data' : _ints,
-      },
-    );
-
-    final List<Map<String, dynamic>> _intsMaps = await LDBOps.readMaps(
-      docName: 'tempPicDoc',
-      ids: ['uInt8List'],
-    );
-
-    if (Mapper.checkCanLoopList(_intsMaps) == true){
-      final dynamic _data = _intsMaps.first['data'];
-      final List<int> _intsFromLDB = Uint8List.fromList(_data.cast<int>());
-      _int8List = _intsFromLDB;
-    }
-
-    return _int8List;
-  }
+  // Future<String> _addBase64ToLDBAndRead({
+  //   @required Uint8List bytes,
+  // }) async {
+  //
+  //   await LDBOps.insertMap(
+  //     docName: 'tempPicDoc',
+  //     input: {
+  //       'id': 'ldbBase64',
+  //       'data' : Floaters.getBase64FromUint8List(bytes),
+  //     },
+  //   );
+  //
+  //   String _base64FromLDB;
+  //   final List<Map<String, dynamic>> _mapBase64 = await LDBOps.readMaps(
+  //     docName: 'tempPicDoc',
+  //     ids: ['ldbBase64'],
+  //   );
+  //   if (Mapper.checkCanLoopList(_mapBase64) == true){
+  //     _base64FromLDB = _mapBase64.first['data'];
+  //   }
+  //
+  //   return _base64FromLDB;
+  // }
+  // // --------------------
+  // Future<Uint8List> _addUintsToLDBAndRead({
+  //   @required Uint8List int8List,
+  // }) async {
+  //   Uint8List _int8List;
+  //
+  //   final List<int> _ints = Floaters.getIntsFromUint8List(int8List);
+  //
+  //   await LDBOps.insertMap(
+  //     docName: 'tempPicDoc',
+  //     input: {
+  //       'id': 'uInt8List',
+  //       'data' : _ints,
+  //     },
+  //   );
+  //
+  //   final List<Map<String, dynamic>> _intsMaps = await LDBOps.readMaps(
+  //     docName: 'tempPicDoc',
+  //     ids: ['uInt8List'],
+  //   );
+  //
+  //   if (Mapper.checkCanLoopList(_intsMaps) == true){
+  //     final dynamic _data = _intsMaps.first['data'];
+  //     final List<int> _intsFromLDB = Uint8List.fromList(_data.cast<int>());
+  //     _int8List = _intsFromLDB;
+  //   }
+  //
+  //   return _int8List;
+  // }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

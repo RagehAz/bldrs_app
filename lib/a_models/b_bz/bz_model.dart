@@ -166,7 +166,7 @@ class BzModel{
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -279,6 +279,7 @@ class BzModel{
   /// BZ CONVERTERS
 
   // --------------------
+  /// TASK : TEST ME
   static BzModel convertFireUserDataIntoInitialBzModel(UserModel userModel) {
     return BzModel(
       id: null,
@@ -326,6 +327,7 @@ class BzModel{
     );
   }
   // --------------------
+  /// TASK : TEST ME
   static BzModel convertDocSnapshotIntoBzModel(DocumentSnapshot<Object> doc) {
 
     final DocumentSnapshot<Object> _docSnap = doc.data();
@@ -432,6 +434,7 @@ class BzModel{
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
   static BzModel replaceAuthor({
     @required AuthorModel updatedAuthor,
     @required BzModel bzModel,
@@ -714,7 +717,7 @@ class BzModel{
     return _pics;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<BzModel> getBzzFromBzzByBzType({
     @required List<BzModel> bzz,
     @required BzType bzType,
@@ -741,7 +744,7 @@ class BzModel{
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<String> getBzTeamIDs(BzModel bzModel) {
     final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _bzTeamIDs = <String>[];
@@ -755,7 +758,7 @@ class BzModel{
     return _bzTeamIDs;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<BzModel> getBzzByCreatorID({
     @required List<BzModel> bzzModels,
     @required String creatorID,
@@ -779,7 +782,7 @@ class BzModel{
     return _bzzModels;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<BzModel> getBzzIDidNotCreate({
     @required List<BzModel> bzzModels,
     @required String userID,
@@ -908,6 +911,7 @@ class BzModel{
   /// BZ VALIDATION
 
   // --------------------
+  /// TASK : TEST ME
   static List<AlertModel> requiredFields(BzModel bzModel){
     final List<AlertModel> _invalidFields = <AlertModel>[];
 

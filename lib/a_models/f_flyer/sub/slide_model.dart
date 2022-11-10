@@ -375,7 +375,7 @@ class SlideModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
     final List<File> _files = <File>[];
 
@@ -390,7 +390,7 @@ class SlideModel {
     return _files;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<String> getSlidePics(List<SlideModel> slides){
     final List<String> _urls = <String>[];
 
@@ -433,7 +433,7 @@ class SlideModel {
   }
    */
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
     final List<BoxFit> _boxFits = <BoxFit>[];
 
@@ -452,7 +452,7 @@ class SlideModel {
     return _boxFits;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<SlideModel> getSlidesFromSlidesByFlyerID(List<SlideModel> allSlides, String flyerID) {
     final List<SlideModel> _foundSlides = <SlideModel>[];
 
@@ -474,7 +474,7 @@ class SlideModel {
   /// VISIBILITY LISTS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<bool> createVisibilityListFromSlides(List<SlideModel> slides) {
     final List<bool> _visibilityList = <bool>[];
 
@@ -491,7 +491,7 @@ class SlideModel {
   /// DUMMIES
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static SlideModel dummySlide() {
     return SlideModel(
       slideIndex: 0,
@@ -510,7 +510,7 @@ class SlideModel {
   /// SORTING
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<SlideModel> sortSlidesByIndexes(List<SlideModel> slides){
 
     if (Mapper.checkCanLoopList(slides) == true){

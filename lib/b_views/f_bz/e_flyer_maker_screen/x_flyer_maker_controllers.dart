@@ -27,7 +27,7 @@ import 'package:flutter/material.dart';
 /// LAST SESSION
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> loadFlyerMakerLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
@@ -67,7 +67,7 @@ Future<void> loadFlyerMakerLastSession({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> saveFlyerMakerSession({
   @required ValueNotifier<DraftFlyer> draft,
 }) async {
@@ -147,9 +147,11 @@ Future<void> onSelectFlyerType({
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
 
-  blog('_selectedFlyerType : $_selectedFlyerType : Mapper.checkCanLoopList(draft.value.specs) : ${draftNotifier.value.specs}' );
+  // blog('_selectedFlyerType : $_selectedFlyerType : Mapper.checkCanLoopList(draft.value.specs) : ${draftNotifier.value.specs}' );
 
-  draftNotifier.value.blogDraft();
+  draftNotifier.value.blogDraft(
+    invoker: 'onSelectFlyerType',
+  );
 
   if (draftNotifier.value.flyerType != _selectedFlyerType){
 
@@ -235,7 +237,7 @@ Future<void> onZoneChanged({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 void onChangeFlyerPDF({
   @required PDFModel pdfModel,
   @required ValueNotifier<DraftFlyer> draftNotifier,
@@ -247,7 +249,7 @@ void onChangeFlyerPDF({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 void onRemoveFlyerPDF({
   @required ValueNotifier<DraftFlyer> draftNotifier,
 }){
@@ -484,7 +486,7 @@ Future<bool> _preFlyerUpdateCheck({
 /// PUBLISHING
 
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> _publishFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
@@ -507,7 +509,7 @@ Future<void> _publishFlyerOps({
 
 }
 // --------------------
-///
+/// TASK : TEST ME
 Future<void> _updateFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,

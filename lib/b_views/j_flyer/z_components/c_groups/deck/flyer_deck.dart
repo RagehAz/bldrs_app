@@ -391,6 +391,7 @@ class _TheDeck extends StatelessWidget {
                 flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
                 bzModel: bzModel,
                 flyerShadowIsOn: true,
+                bluerLayerIsOn: true,
               )
 
                   :
@@ -404,6 +405,7 @@ class _TheDeck extends StatelessWidget {
                 onSlideBackTap: null,
                 onDoubleTap: null,
                 slideShadowIsOn: true,
+                blurLayerIsOn: true,
               ),
             );
 

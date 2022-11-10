@@ -92,6 +92,7 @@ class StaticFlyer extends StatelessWidget {
     @required this.flyerBoxWidth,
     this.slideIndex = 0,
     this.flyerShadowIsOn = false,
+    this.bluerLayerIsOn = false,
     Key key
   }) : super(key: key);
   // --------------------
@@ -100,6 +101,7 @@ class StaticFlyer extends StatelessWidget {
   final double flyerBoxWidth;
   final bool flyerShadowIsOn;
   final int slideIndex;
+  final bool bluerLayerIsOn;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -119,6 +121,7 @@ class StaticFlyer extends StatelessWidget {
           onSlideNextTap: null,
           onSlideBackTap: null,
           onDoubleTap: null,
+          blurLayerIsOn: bluerLayerIsOn,
         ),
 
         /// STATIC HEADER

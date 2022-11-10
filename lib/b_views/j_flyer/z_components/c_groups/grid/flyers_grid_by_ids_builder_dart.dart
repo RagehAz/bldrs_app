@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FutureFlyer extends StatelessWidget {
@@ -44,7 +42,7 @@ class FutureFlyer extends StatelessWidget {
           /// WHILE LOADING
           if (Streamer.connectionIsLoading(snap) == true){
 
-            blog('Building flyer [FETCHING]---> ( $heroPath )');
+            // blog('Building flyer [FETCHING]---> ( $heroPath )');
 
             return FlyerLoading(
               flyerBoxWidth: flyerBoxWidth,

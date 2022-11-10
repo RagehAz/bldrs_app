@@ -40,7 +40,7 @@ class UsersProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   void setMyUserModelAndAuthModel({
     @required UserModel userModel,
     @required bool notify,

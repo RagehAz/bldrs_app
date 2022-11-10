@@ -17,6 +17,7 @@ class ShelfSlidesPart extends StatelessWidget {
     @required this.scrollController,
     @required this.draft,
     @required this.onSlideTap,
+    @required this.onDeleteSlide,
     @required this.onAddSlides,
     @required this.loading,
     Key key
@@ -26,6 +27,7 @@ class ShelfSlidesPart extends StatelessWidget {
   final ScrollController scrollController;
   final DraftFlyer draft;
   final ValueChanged<DraftSlide> onSlideTap;
+  final ValueChanged<DraftSlide> onDeleteSlide;
   final ValueChanged<PicMakerType> onAddSlides;
   final ValueNotifier<bool> loading;
   /// --------------------------------------------------------------------------
@@ -66,12 +68,13 @@ class ShelfSlidesPart extends StatelessWidget {
                 if (Mapper.checkCanLoopList(draft.draftSlides) == true)
                 ...List.generate(draft.draftSlides.length, (index){
 
-                  final DraftSlide _mutableSlide = draft.draftSlides[index];
+                  final DraftSlide _draftSlide = draft.draftSlides[index];
 
                   return DraftShelfSlide(
-                    draftSlide: _mutableSlide,
+                    draftSlide: _draftSlide,
                     number: index + 1,
-                    onTap: () => onSlideTap(_mutableSlide),
+                    onTap: () => onSlideTap(_draftSlide),
+                    onDeleteSlide: ()=> onDeleteSlide(_draftSlide)
                   );
 
                 }),

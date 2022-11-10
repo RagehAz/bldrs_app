@@ -20,7 +20,7 @@ class PDFProtocols {
   /// PICK
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<PDFModel> pickPDF({
     @required BuildContext context,
     @required String flyerID,
@@ -64,7 +64,7 @@ class PDFProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> compose(PDFModel pdfModel) async {
 
     if (pdfModel != null){
@@ -85,7 +85,7 @@ class PDFProtocols {
   /// FETCH
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<PDFModel> fetch(String path) async {
 
     PDFModel _pdfModel = await PDFLDBOps.read(path);
@@ -107,7 +107,7 @@ class PDFProtocols {
   /// DOWNLOAD
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> download(String path) async {
 
     if (TextCheck.isEmpty(path) == false){
@@ -139,7 +139,7 @@ class PDFProtocols {
   /// UPDATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovate(PDFModel pdfModel) async {
 
     if (pdfModel != null){
@@ -154,7 +154,7 @@ class PDFProtocols {
   /// WIPE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> wipe(String path) async {
 
     if (TextCheck.isEmpty(path) == false){

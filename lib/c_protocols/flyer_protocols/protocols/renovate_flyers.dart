@@ -134,7 +134,7 @@ class RenovateFlyerProtocols {
     blog('RenovateFlyerProtocols.updateLocally : END');
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _renovateOrWipePDF({
     @required DraftFlyer draft,
     @required FlyerModel oldFlyer,
@@ -172,7 +172,7 @@ class RenovateFlyerProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> _wipeUnusedSlidesPics({
     @required DraftFlyer draft,
     @required FlyerModel oldFlyer,

@@ -21,7 +21,7 @@ class StorageByteOps {
   /// CREATE
 
   // --------------------
-  /// TAMAM
+  /// TESTED : WORKS PERFECT
   static Future<Reference> uploadBytes({
     @required Uint8List bytes,
     @required String path,
@@ -78,7 +78,7 @@ class StorageByteOps {
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> readBytesByPath({
     @required String path,
   }) async {
@@ -93,7 +93,7 @@ class StorageByteOps {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<Uint8List> readBytesByURL(String url) async {
     Uint8List _bytes;
 
@@ -124,13 +124,11 @@ class StorageByteOps {
 
   // --------------------
   ///
-
   // -----------------------------------------------------------------------------
 
   /// DELETE
 
   // --------------------
-///
-
-// -----------------------------------------------------------------------------
+  ///
+  // -----------------------------------------------------------------------------
 }

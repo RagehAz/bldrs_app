@@ -83,7 +83,7 @@ class UserModel {
   /// CREATION
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<UserModel> fromFirebaseUser({
     @required BuildContext context,
     @required User user,

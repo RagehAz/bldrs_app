@@ -101,6 +101,8 @@ class DraftSlide {
     if (bytes != null){
 
       final Dimensions _dimensions = await Dimensions.superDimensions(bytes);
+      final Color _midColor = await Colorizer.getAverageColor(bytes);
+      blog('createDraft : _midColor is : $_midColor for (${bytes.length})');
 
       _slide = DraftSlide(
         flyerID: flyerID,
@@ -116,7 +118,7 @@ class DraftSlide {
           ),
         ),
         headline: headline,
-        midColor: await Colorizer.getAverageColor(bytes),
+        midColor: _midColor,
         opacity: 1,
         slideIndex: index,
         description: '',
@@ -139,7 +141,7 @@ class DraftSlide {
   /// CYPHERS - SLIDE MODEL
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<SlideModel> draftToSlide(DraftSlide draft) async {
     SlideModel slide;
 
@@ -164,7 +166,7 @@ class DraftSlide {
     return slide;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<List<SlideModel>> draftsToSlides(List<DraftSlide> drafts) async {
     final List<SlideModel> _slides = <SlideModel>[];
 
@@ -187,7 +189,7 @@ class DraftSlide {
     return SlideModel.sortSlidesByIndexes(_slides);
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<DraftSlide> draftFromSlide(SlideModel slide) async {
     DraftSlide _draft;
 
@@ -209,7 +211,7 @@ class DraftSlide {
     return _draft;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<List<DraftSlide>> draftsFromSlides(List<SlideModel> slides) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
@@ -236,7 +238,7 @@ class DraftSlide {
   /// CYPHERS - LDB
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Map<String, dynamic> draftToLDB(DraftSlide draft){
     Map<String, dynamic> _map;
 
@@ -258,7 +260,7 @@ class DraftSlide {
     return _map;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<Map<String, dynamic>> draftsToLDB(List<DraftSlide> drafts){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -276,7 +278,7 @@ class DraftSlide {
     return _maps;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static DraftSlide draftFromLDB(Map<String, dynamic> map){
     DraftSlide _draft;
 
@@ -298,7 +300,7 @@ class DraftSlide {
     return _draft;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<DraftSlide> draftsFromLDB(List<dynamic> maps){
     final List<DraftSlide> drafts = <DraftSlide>[];
 
@@ -377,7 +379,7 @@ class DraftSlide {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<Uint8List> getBytezzFromDraftSlides({
     @required List<DraftSlide> drafts,
   }) {
@@ -393,7 +395,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<PicModel> getPicModels(List<DraftSlide> drafts){
     final List<PicModel> _output = <PicModel>[];
 
@@ -480,9 +482,9 @@ class DraftSlide {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogDraft(){
+  void blogDraft({@required String invoker}){
 
-    blog('($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
+    blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
     blog('headline : $headline : description : $description');
     blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} : hasCustomMatrix : ${matrix != Matrix4.identity()}');
     picModel.blogPic();
@@ -490,15 +492,20 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogSlides(List<DraftSlide> slides){
+  static void blogSlides({
+    @required List<DraftSlide> slides,
+    @required String invoker,
+  }){
 
-    blog('BLOGGING SLIDES -------- START');
+    blog('BLOGGING SLIDES [$invoker] -------- START');
 
     for (final DraftSlide slide in slides){
-      slide.blogDraft();
+      slide.blogDraft(
+        invoker: invoker,
+      );
     }
 
-    blog('BLOGGING SLIDES -------- END');
+    blog('BLOGGING SLIDES [$invoker] -------- END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -552,16 +559,16 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> replaceSlide({
-    @required List<DraftSlide> slides,
-    @required DraftSlide slide,
+    @required List<DraftSlide> drafts,
+    @required DraftSlide draft,
   }){
     List<DraftSlide> _output = <DraftSlide>[];
 
-    if (Mapper.checkCanLoopList(slides) == true){
+    if (Mapper.checkCanLoopList(drafts) == true){
 
-      _output = [...slides];
-      _output.removeAt(slide.slideIndex);
-      _output.insert(slide.slideIndex, slide);
+      _output = [...drafts];
+      _output.removeAt(draft.slideIndex);
+      _output.insert(draft.slideIndex, draft);
 
     }
 
@@ -569,6 +576,34 @@ class DraftSlide {
   }
   // --------------------
   ///
+  static List<DraftSlide> removeDraftFromDrafts({
+    @required List<DraftSlide> drafts,
+    @required DraftSlide draft,
+  }){
+    final List<DraftSlide> _output = <DraftSlide>[];
+
+    if (Mapper.checkCanLoopList(drafts) == true){
+
+      final List<DraftSlide> _list = [...drafts];
+      _list.removeAt(draft.slideIndex);
+
+
+      for (int i = 0; i < _list.length; i++){
+
+        final DraftSlide _adjusted = _list[i].copyWith(
+          slideIndex: i,
+        );
+
+        _output.add(_adjusted);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
   static List<DraftSlide> overrideDraftsFlyerID({
     @required List<DraftSlide> drafts,
     @required String flyerID,
@@ -603,7 +638,7 @@ class DraftSlide {
   /// EQUALITY
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkSlidesAreIdentical({
     @required DraftSlide slide1,
     @required DraftSlide slide2,
@@ -615,6 +650,8 @@ class DraftSlide {
     }
 
     else if (slide1 != null && slide2 != null){
+
+      blog('${slide1.headline} == ${slide2.headline}');
 
       if (
           slide1.flyerID == slide2.flyerID &&
@@ -640,10 +677,12 @@ class DraftSlide {
 
     }
 
+    blog('checkSlidesAreIdentical => $_identical');
+
     return _identical;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkSlidesListsAreIdentical({
     @required List<DraftSlide> slides1,
     @required List<DraftSlide> slides2,
@@ -671,21 +710,31 @@ class DraftSlide {
           final DraftSlide _slide1 = slides1[i];
           final DraftSlide _slide2 = slides2[i];
 
-          blog('eh dah ? : ${_slide1.picModel.bytes.length} : ${_slide2.picModel.bytes.length}');
-
           final bool _areIdentical = checkSlidesAreIdentical(
             slide1: _slide1,
             slide2: _slide2,
           );
 
-          if (_areIdentical == false){
+          /// PAIR ARE IDENTICAL
+          if (_areIdentical == true){
+
+            blog('checkSlidesListsAreIdentical : slides at index [$i] ARE INDEED IDENTICAL');
+
+            /// ON LAST SLIDE
+            if ( i + 1 == slides1.length){
+              blog('checkSlidesListsAreIdentical : All slides are identical');
+              _listsAreIdentical = true;
+            }
+
+          }
+
+          /// ARE ARE NOT IDENTICAL
+          else {
             _listsAreIdentical = false;
             blog('checkSlidesListsAreIdentical : slides at index [$i] are not identical');
             break;
           }
 
-          _listsAreIdentical = true;
-          blog('checkSlidesListsAreIdentical : seems like all are identicals');
 
         }
 

@@ -57,7 +57,7 @@ class AuthorModel {
   /// INITIALIZATION
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<AuthorModel> prepareAuthorForEditing({
     @required AuthorModel oldAuthor,
     @required BzModel bzModel,
@@ -74,7 +74,7 @@ class AuthorModel {
     return _tempAuthor;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AuthorModel bakeEditorVariablesToUpload({
     @required AuthorModel draftAuthor,
     @required AuthorModel oldAuthor,
@@ -117,7 +117,7 @@ class AuthorModel {
     );
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AuthorModel createAuthorFromUserModel({
     @required UserModel userModel,
     @required String bzID,
@@ -153,7 +153,7 @@ class AuthorModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   Map<String, dynamic> toMap({
   bool includePicModel = false,
 }) {
@@ -181,7 +181,7 @@ class AuthorModel {
     return _map;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AuthorModel decipherAuthor(Map<String, dynamic> map) {
     return AuthorModel(
       userID: map['userID'],
@@ -277,7 +277,7 @@ class AuthorModel {
   }
    */
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<String> getAuthorPicOwnersIDs({
     @required BzModel bzModel,
     @required AuthorModel authorModel,
@@ -408,7 +408,7 @@ class AuthorModel {
     return _bzAuthors;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AuthorModel getCreatorAuthorFromAuthors(List<AuthorModel> authors) {
 
     if (Mapper.checkCanLoopList(authors) == true){
@@ -468,7 +468,7 @@ class AuthorModel {
     return _author;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<PicModel> getPicModels(List<AuthorModel> authors){
     final List<PicModel> _output = <PicModel>[];
 
@@ -487,7 +487,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<String> getAuthorsPicsPaths(List<AuthorModel> authors){
     final List<String> _output = <String>[];
 
@@ -582,7 +582,7 @@ class AuthorModel {
     return _modifiedAuthorsIDsList;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<AuthorModel> addNewUserToAuthors({
     @required List<AuthorModel> authors,
     @required UserModel newUserModel,
@@ -738,7 +738,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<AuthorModel> removeFlyerIDFromAuthors({
     @required String flyerID,
     @required List<AuthorModel> authors,
@@ -768,7 +768,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<AuthorModel> overrideAuthorsBzID({
     @required List<AuthorModel> authors,
     @required String bzID,
@@ -1058,7 +1058,7 @@ class AuthorModel {
     return _isAuthor;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<bool> checkImALoneAuthor({
     @required BuildContext context,
   @required String bzID,
