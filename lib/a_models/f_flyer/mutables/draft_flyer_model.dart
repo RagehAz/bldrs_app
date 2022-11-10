@@ -54,7 +54,7 @@ class DraftFlyer{
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final String headline;
+  final TextEditingController headline;
   final List<String> trigram;
   final FocusNode headlineNode;
   final String description;
@@ -131,7 +131,7 @@ class DraftFlyer{
     return DraftFlyer(
       bzModel: bzModel,
       id: newDraftID,
-      headline: '',
+      headline: TextEditingController(),
       trigram: const [],
       headlineNode: FocusNode(),
       description: '',
@@ -175,7 +175,7 @@ class DraftFlyer{
     return DraftFlyer(
       bzModel: await BzProtocols.fetch(context: context, bzID: flyer.bzID),
       id: flyer.id,
-      headline: flyer.headline,
+      headline: TextEditingController(text: flyer.headline),
       trigram: flyer.trigram,
       headlineNode: FocusNode(),
       description: flyer.description,
@@ -226,8 +226,8 @@ class DraftFlyer{
 
     return FlyerModel(
       id: draft.id,
-      headline: draft.headline,
-      trigram: Stringer.createTrigram(input: draft.headline),
+      headline: draft.headline.text,
+      trigram: Stringer.createTrigram(input: draft.headline.text),
       description: draft.description,
       flyerType: draft.flyerType,
       publishState: isPublishing == true ? PublishState.published : draft.publishState,
@@ -259,8 +259,8 @@ class DraftFlyer{
     if (draft != null){
       _map = {
         'id' : draft.id,
-        'headline' : draft.headline,
-        'trigram' : Stringer.createTrigram(input: draft.headline),
+        'headline' : draft.headline.text,
+        'trigram' : Stringer.createTrigram(input: draft.headline.text),
         'description' : draft.description,
         'flyerType' : FlyerTyper.cipherFlyerType(draft.flyerType),
         'publishState' : FlyerModel.cipherPublishState(draft.publishState),
@@ -296,7 +296,7 @@ class DraftFlyer{
     if (map != null){
       _draft = DraftFlyer(
         id: map['id'],
-        headline: map['headline'],
+        headline: TextEditingController(text: map['headline']),
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         description: map['description'],
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
@@ -334,7 +334,7 @@ class DraftFlyer{
   /// TASK : TEST ME
   DraftFlyer copyWith({
     String id,
-    String headline,
+    TextEditingController headline,
     List<String> trigram,
     FocusNode headlineNode,
     String description,
@@ -514,6 +514,7 @@ class DraftFlyer{
   static DraftFlyer updateHeadline({
     @required String newHeadline,
     @required DraftFlyer draft,
+    @required int slideIndex,
   }){
 
     DraftFlyer _draft = draft;
@@ -521,23 +522,30 @@ class DraftFlyer{
     if (draft != null){
 
       if (Mapper.checkCanLoopList(draft.draftSlides) == true){
-        blog('newHeadline : was : ($newHeadline)');
-        final DraftSlide _newSlide = draft.draftSlides.first.copyWith(
+
+        /// UPDATE HEADLINE IN SLIDE
+        final DraftSlide _newSlide = draft.draftSlides[slideIndex].copyWith(
           headline: newHeadline,
         );
-        blog('newHeadline : is : (${_newSlide.headline})');
+
+        /// REPLACE SLIDE IN SLIDES
         final List<DraftSlide> _newSlides = DraftSlide.replaceSlide(
           drafts: draft.draftSlides,
           draft: _newSlide,
         );
-        _draft = draft.copyWith(
+
+        /// UPDATE SLIDES IN DRAFT
+        _draft = _draft.copyWith(
           draftSlides: _newSlides,
         );
+
+
       }
 
-      _draft = draft.copyWith(
-        headline: newHeadline,
-      );
+      // /// UPDATE FLYER HEADLINE IF ZERO INDEX
+      // if (slideIndex == 0){
+      //   draft.headline.text = newHeadline;
+      // }
 
     }
 
@@ -614,8 +622,8 @@ class DraftFlyer{
       slides: draftSlides,
       invoker: 'the_draft-flyer-slides'
     );
-    pdfModel.blogPDFModel(invoker: 'BLOGGING DRAFT');
-    bzModel.blogBz(invoker: 'BLOGGING DRAFT');
+    pdfModel?.blogPDFModel(invoker: 'BLOGGING DRAFT');
+    bzModel?.blogBz(invoker: 'BLOGGING DRAFT');
 
     blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
   }

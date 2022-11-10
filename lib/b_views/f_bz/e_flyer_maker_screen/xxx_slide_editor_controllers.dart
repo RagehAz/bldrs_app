@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 /// INITIALIZATION
 
 // --------------------
+/// TASK : TEST ME
 Matrix4 initializeMatrix({
   @required DraftSlide slide,
 }){
@@ -33,12 +33,12 @@ Matrix4 initializeMatrix({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReset({
-  @required DraftSlide originalSlide,
-  @required ValueNotifier<DraftSlide> tempSlide,
+  @required DraftSlide originalDraft,
+  @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,
 }) async {
-  tempSlide.value = originalSlide.copyWith(
+  draftNotifier.value = originalDraft.copyWith(
     matrix: Matrix4.identity(),
     filter: ImageFilterModel.noFilter(),
   );
@@ -76,7 +76,7 @@ Future<void> onCropSlide({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onToggleFilter({
-  @required ValueNotifier<DraftSlide> tempSlide,
+  @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> currentFilter,
 }){
 
@@ -111,18 +111,21 @@ void onToggleFilter({
     _filterIndex = 0;
   }
 
-  tempSlide.value = tempSlide.value.copyWith(
+  draftNotifier.value = draftNotifier.value.copyWith(
     filter: _bldrsFilters[_filterIndex],
   );
   currentFilter.value = _bldrsFilters[_filterIndex];
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 void onSlideHeadlineChanged({
-  @required ValueNotifier<DraftSlide> tempSlide,
+  @required ValueNotifier<DraftSlide> draftSlide,
   @required String text,
 }){
 
-  blog('onSlideHeadlineChanged : this should put the text and update temp slide and temp flyer and shit gets nasty');
+  draftSlide.value = draftSlide.value.copyWith(
+    headline: text,
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -145,7 +148,6 @@ Future<void> onCancelSlideEdits({
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmSlideEdits({
   @required BuildContext context,
-  @required DraftSlide originalSlide,
   @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,

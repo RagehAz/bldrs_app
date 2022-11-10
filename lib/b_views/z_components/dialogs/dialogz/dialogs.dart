@@ -1,18 +1,18 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/d_zone/city_model.dart';
+import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/d_zone/city_model.dart';
-import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
@@ -20,7 +20,6 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -954,21 +953,21 @@ class Dialogs {
       confirmButtonVerse: confirmButtonVerse,
       height: _dialogHeight,
       invertButtons: invertButtons,
-      child: Container(
-        width: CenterDialog.getWidth(context),
-        alignment: Alignment.center,
-        child: SingleSlide(
-          flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight),
-          flyerBoxHeight: _flyerBoxHeight,
-          slideModel: slideModel,
-          tinyMode: true,
-          slideShadowIsOn: true,
-          onDoubleTap: null,
-          onSlideBackTap: null,
-          onSlideNextTap: null,
-          blurLayerIsOn: true,
-        ),
-      ),
+      // child: Container(
+      //   width: CenterDialog.getWidth(context),
+      //   alignment: Alignment.center,
+      //   child: SingleSlide(
+      //     flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight),
+      //     flyerBoxHeight: _flyerBoxHeight,
+      //     slideModel: slideModel,
+      //     tinyMode: true,
+      //     slideShadowIsOn: true,
+      //     onDoubleTap: null,
+      //     onSlideBackTap: null,
+      //     onSlideNextTap: null,
+      //     blurLayerIsOn: true,
+      //   ),
+      // ),
     );
 
     return _result;

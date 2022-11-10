@@ -53,12 +53,12 @@ class HeaderTemplate extends StatelessWidget {
       key: const ValueKey<String>('StaticHeader'),
       opacity: opacity,
       child: HeaderBox(
+        flyerBoxWidth: flyerBoxWidth,
         onHeaderTap: onTap,
         headerBorders: FlyerDim.headerSlateCorners(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         ),
-        flyerBoxWidth: flyerBoxWidth,
         headerColor: Colorz.black255,
         headerHeightTween: FlyerDim.headerSlateHeight(flyerBoxWidth),
         child: Row(
@@ -100,45 +100,45 @@ class HeaderTemplate extends StatelessWidget {
                           flyerBoxWidth: flyerBoxWidth,
                           flyerShowsAuthor: flyerShowsAuthor,
                       ),
-                      width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
+                      // width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
 
-                          /// B.NAME
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
-                              child: SuperVerse(
-                                verse: firstLine,
-                                centered: false,
-                                size: FlyerVerses.bzLabelNameSize(
-                                    flyerShowsAuthor: flyerShowsAuthor
-                                ),
-                                scaleFactor: _versesScaleFactor,
-                                maxLines: FlyerVerses.bzLabelNameMaxLines(
-                                  flyerShowsAuthor: flyerShowsAuthor,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          /// B.LOCALE
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
-                              child: SuperVerse(
-                                verse: secondLine,
-                                size: FlyerVerses.bzLabelLocaleSize(
-                                    flyerShowsAuthor: flyerShowsAuthor,
-                                ),
-                                weight: VerseWeight.regular,
-                                centered: false,
-                                italic: true,
-                                scaleFactor: _versesScaleFactor,
-                              ),
-                            ),
-                          ),
+                          // /// B.NAME
+                          // Expanded(
+                          //   child: Padding(
+                          //     padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
+                          //     child: SuperVerse(
+                          //       verse: firstLine,
+                          //       centered: false,
+                          //       size: FlyerVerses.bzLabelNameSize(
+                          //           flyerShowsAuthor: flyerShowsAuthor
+                          //       ),
+                          //       scaleFactor: _versesScaleFactor,
+                          //       maxLines: FlyerVerses.bzLabelNameMaxLines(
+                          //         flyerShowsAuthor: flyerShowsAuthor,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          //
+                          // /// B.LOCALE
+                          // Expanded(
+                          //   child: Padding(
+                          //     padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
+                          //     child: SuperVerse(
+                          //       verse: secondLine,
+                          //       size: FlyerVerses.bzLabelLocaleSize(
+                          //           flyerShowsAuthor: flyerShowsAuthor,
+                          //       ),
+                          //       weight: VerseWeight.regular,
+                          //       centered: false,
+                          //       italic: true,
+                          //       scaleFactor: _versesScaleFactor,
+                          //     ),
+                          //   ),
+                          // ),
 
                         ],
                       ),
