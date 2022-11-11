@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:flutter/material.dart';
 
 class ImagePoster extends StatelessWidget {

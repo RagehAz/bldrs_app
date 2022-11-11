@@ -170,7 +170,7 @@ class FlyerModel {
       // -------------------------
       'specs' : SpecModel.cipherSpecs(specs),
       'priceTagIsOn' : priceTagIsOn,
-      'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
+      'times' : PublishTime.cipherTimes(times: times, toJSON: toJSON),
       'score' : score,
       'pdfPath' : pdfPath,
     };
@@ -228,7 +228,7 @@ class FlyerModel {
         // -------------------------
         specs: SpecModel.decipherSpecs(map['specs']),
         priceTagIsOn: map['priceTagIsOn'],
-        times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
+        times: PublishTime.decipherTimes(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
         pdfPath: map['pdfPath'],
         docSnapshot: map['docSnapshot'],

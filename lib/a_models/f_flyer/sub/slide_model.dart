@@ -390,19 +390,19 @@ class SlideModel {
     return _files;
   }
   // --------------------
-  /// TASK : TEST ME
-  static List<String> getSlidePics(List<SlideModel> slides){
-    final List<String> _urls = <String>[];
+  /// TESTED : WORKS PERFECT
+  static List<String> getSlidePicsPaths(List<SlideModel> slides){
+    final List<String> _paths = <String>[];
 
     if (Mapper.checkCanLoopList(slides) == true){
 
       for (final SlideModel slide in slides){
-        _urls.add(slide.picPath);
+        _paths.add(slide.picPath);
       }
 
     }
 
-    return _urls;
+    return _paths;
   }
   // --------------------
   /*

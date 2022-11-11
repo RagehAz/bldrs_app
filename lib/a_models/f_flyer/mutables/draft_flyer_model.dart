@@ -5,11 +5,13 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -273,7 +275,7 @@ class DraftFlyer{
         'position' : Atlas.cipherGeoPoint(point: draft.position, toJSON: true),
         'draftSlides': DraftSlide.draftsToLDB(draft.draftSlides),
         'specs' : SpecModel.cipherSpecs(draft.specs),
-        'times' : PublishTime.cipherPublishTimesToMap(times: draft.times, toJSON: true),
+        'times' : PublishTime.cipherTimes(times: draft.times, toJSON: true),
         'priceTagIsOn' : draft.priceTagIsOn,
         'score' : draft.score,
         'pdfModel': draft.pdfModel?.toMap(includeBytes: true),
@@ -310,7 +312,7 @@ class DraftFlyer{
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
         draftSlides: DraftSlide.draftsFromLDB(map['draftSlides']),
         specs: SpecModel.decipherSpecs(map['specs']),
-        times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: true),
+        times: PublishTime.decipherTimes(map: map['times'], fromJSON: true),
         priceTagIsOn: map['priceTagIsOn'],
         score: map['score'],
         pdfModel: PDFModel.decipherFromMap(map['pdfModel']),
@@ -447,7 +449,7 @@ class DraftFlyer{
       firstTimer: firstTimer == true ? null : this.firstTimer,
       posterController: posterController == true ? null : this.posterController,
     );
-}
+  }
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
@@ -481,6 +483,7 @@ class DraftFlyer{
     return '$_stateString @ $_timeString';
   }
   // --------------------
+  ///
   static String generateShelfTitle({
     @required BuildContext context,
     @required PublishState publishState,
@@ -589,6 +592,21 @@ class DraftFlyer{
         :
     null;
   }
+  // --------------------
+  /// TASK : TEST ME
+  static List<PicModel> getPics(DraftFlyer draft){
+    final List<PicModel> _output = [];
+
+    if (Mapper.checkCanLoopList(draft.draftSlides) == true){
+
+      for (final DraftSlide _slide in draft.draftSlides){
+        _output.add(_slide.picModel);
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGING
@@ -596,38 +614,39 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogDraft({
-  @required String invoker,
-}){
+    @required String invoker,
+  }){
 
-    blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- START');
+      blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- START');
 
-    blog('id : $id');
-    blog('headline : $headline');
-    blog('description : $description');
-    blog('flyerType : $flyerType');
-    blog('publishState : $publishState');
-    blog('auditState : auditState');
-    blog('keywordsIDs : $keywordsIDs');
-    blog('showsAuthor : $showsAuthor');
-    zone.blogZone();
-    blog('authorID : $authorID');
-    blog('bzID : $bzID');
-    blog('position : $position');
-    blog('priceTagIsOn : $priceTagIsOn');
-    blog('score : $score');
-    PublishTime.blogTimes(times);
-    SpecModel.blogSpecs(specs);
-    blog('draftSlides : ${draftSlides.length} slides');
-    DraftSlide.blogSlides(
-      slides: draftSlides,
-      invoker: 'the_draft-flyer-slides'
-    );
-    pdfModel?.blogPDFModel(invoker: 'BLOGGING DRAFT');
-    bzModel?.blogBz(invoker: 'BLOGGING DRAFT');
+      blog('id : $id');
+      blog('headline : $headline');
+      blog('description : $description');
+      blog('flyerType : $flyerType');
+      blog('publishState : $publishState');
+      blog('auditState : auditState');
+      blog('keywordsIDs : $keywordsIDs');
+      blog('showsAuthor : $showsAuthor');
+      zone.blogZone();
+      blog('authorID : $authorID');
+      blog('bzID : $bzID');
+      blog('position : $position');
+      blog('priceTagIsOn : $priceTagIsOn');
+      blog('score : $score');
+      PublishTime.blogTimes(times);
+      SpecModel.blogSpecs(specs);
+      blog('draftSlides : ${draftSlides.length} slides');
+      DraftSlide.blogSlides(
+        slides: draftSlides,
+        invoker: 'the_draft-flyer-slides'
+      );
+      pdfModel?.blogPDFModel(invoker: 'BLOGGING DRAFT');
+      bzModel?.blogBz(invoker: 'BLOGGING DRAFT');
 
-    blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
-  }
+      blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
+    }
   // --------------------
+  ///
   static void _blogDraftsDifferences({
     @required DraftFlyer draft1,
     @required DraftFlyer draft2,
@@ -740,6 +759,81 @@ class DraftFlyer{
     return _canPublish;
   }
   // --------------------
+  ///
+  static bool checkCanAddMoreSlides(DraftFlyer draft) {
+    bool _canAddMoreSlides = false;
+
+    if (draft != null){
+
+      /// FIRST TIMER
+      if (draft.firstTimer == true){
+        _canAddMoreSlides = true;
+      }
+
+      /// UPDATING FLYER
+      else {
+
+        final PublishTime _publishTime = PublishTime.getPublishTimeFromTimes(
+          times: draft.times,
+          state: PublishState.published,
+        );
+
+        final int _days = Timers.calculateTimeDifferenceInDays(
+            from: _publishTime.time,
+            to: DateTime.now(),
+        );
+
+        if (_days > Standards.flyerMaxDaysToUpdate){
+          _canAddMoreSlides = false;
+        }
+
+        else {
+          _canAddMoreSlides = true;
+        }
+
+      }
+
+    }
+
+    return _canAddMoreSlides;
+  }
+  // --------------------
+  ///
+  static Future<bool> checkPosterHasChanged({
+    @required DraftFlyer draft,
+    @required FlyerModel oldFlyer,
+  }) async {
+    bool _hasChanged = false;
+
+    if (draft.draftSlides.length != oldFlyer.slides.length){
+      _hasChanged = true;
+    }
+
+    else if (draft.headline.text != oldFlyer.headline){
+      _hasChanged = true;
+    }
+
+    else {
+
+      final List<PicModel> _draftPics = getPics(draft);
+      final List<PicModel> _oldPics = await PicProtocols.fetchFlyerPics(
+        flyerModel: oldFlyer,
+      );
+
+      _hasChanged = PicModel.checkPicsListsAreIdentical(
+        list1: _draftPics,
+        list2: _oldPics,
+      );
+
+    }
+
+    return _hasChanged;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
   /// TASK : TEST ME
   static bool checkDraftsAreIdentical({
     @required DraftFlyer draft1,
@@ -793,12 +887,12 @@ class DraftFlyer{
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -816,7 +910,7 @@ class DraftFlyer{
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       id.hashCode^
@@ -840,5 +934,5 @@ class DraftFlyer{
       score.hashCode^
       posterController.hashCode^
       pdfModel.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

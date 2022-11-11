@@ -66,6 +66,8 @@ class Standards {
   static const int maxFlyerSlidesPremiumAccount = 7;
   static const int maxFlyerSlidesFreeSuper = 25;
   // --------------------
+  static const int flyerMaxDaysToUpdate = 3; // 3 days to update flyer
+  // --------------------
   static int getMaxSlidesCount({
     @required BzAccountType bzAccountType,
   }) {
@@ -131,7 +133,7 @@ class Standards {
   static const double userPictureWidthPixels = 500;
   static const double authorPictureWidthPixels = 500;
   static const double slideWidthPixels = 1080;
-  // static const double notePosterWidthPixels = 1000;
+  static const double notePosterWidthPixels = 1000;
   // -----------------------------------------------------------------------------
 
   /// STANDARD BLDRS LINKS

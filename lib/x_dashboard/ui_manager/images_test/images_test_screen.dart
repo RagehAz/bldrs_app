@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
@@ -17,7 +17,7 @@ import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart'
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/a_note_switcher.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
@@ -489,7 +489,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               // ),
               ChangeNotifierProvider(
                 create: (_) => PhraseProvider(),
-                child: NotePoster(
+                child: PosterSwitcher(
                   posterType: PosterType.flyer,
                   width: Bubble.clearWidth(context),
                   model: _flyer,
