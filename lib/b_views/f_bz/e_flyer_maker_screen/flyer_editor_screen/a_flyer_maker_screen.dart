@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controllers.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/flyer_poster_creator/flyer_poster_creator_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author_switcher/show_author_switch_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
@@ -40,8 +40,6 @@ class FlyerMakerScreen extends StatefulWidget {
 }
 
 class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepAliveClientMixin{
-
-
   // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override
@@ -427,7 +425,6 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       blog('value of poster blah is : $value');
                     },
                   ),
-
 
                 ],
 

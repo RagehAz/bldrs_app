@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/a_note_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -38,7 +38,7 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
 
         Screenshot(
           controller: draft.posterController,
-          child: NotePoster(
+          child: PosterSwitcher(
             posterType: PosterType.flyer,
             width: Bubble.clearWidth(context),
             model: draft,

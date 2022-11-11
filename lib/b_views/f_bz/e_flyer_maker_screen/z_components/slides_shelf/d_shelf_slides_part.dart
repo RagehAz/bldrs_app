@@ -80,7 +80,7 @@ class ShelfSlidesPart extends StatelessWidget {
                 }),
 
                 /// ADD NEW SLIDE
-                if (isLoading == false && draft.firstTimer == true)
+                if (isLoading == false && DraftFlyer.checkCanAddMoreSlides(draft) == true)
                   AddSlidesButton(
                     onTap: onAddSlides,
                   ),

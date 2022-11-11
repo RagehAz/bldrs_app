@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
@@ -6,6 +8,8 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
 
 class PicProtocols {
   // -----------------------------------------------------------------------------
@@ -118,6 +122,22 @@ class PicProtocols {
       await PicLDBOps.deletePics(paths);
 
       _output = await fetchPics(paths);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<PicModel>> fetchFlyerPics({
+    @required FlyerModel flyerModel,
+  }) async {
+    List<PicModel> _output = <PicModel>[];
+
+    if (flyerModel != null){
+
+      final List<String> _slidesPicsPaths = SlideModel.getSlidePicsPaths(flyerModel.slides);
+      _output = await PicProtocols.fetchPics(_slidesPicsPaths);
 
     }
 

@@ -662,7 +662,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
       _output = to?.difference(from)?.inDays;
     }
 
-    return _output;
+    return Numeric.modulus(_output?.toDouble()).toInt();
   }
   // --------------------
   /// TESTED : WORKS PERFECT

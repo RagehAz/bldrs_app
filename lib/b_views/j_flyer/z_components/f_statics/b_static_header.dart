@@ -39,6 +39,8 @@ class StaticHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final bool _flyerShowsAuthor = flyerShowsAuthor ?? false;
+    // --------------------
     return HeaderBox(
       flyerBoxWidth: flyerBoxWidth,
       headerHeightTween: FlyerDim.headerSlateHeight(flyerBoxWidth),
@@ -65,9 +67,9 @@ class StaticHeader extends StatelessWidget {
             corners: FlyerDim.logoCornersByFlyerBoxWidth(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
-              zeroCornerIsOn: flyerShowsAuthor && FlyerDim.isTinyMode(context, flyerBoxWidth) == false,
+              zeroCornerIsOn: _flyerShowsAuthor && FlyerDim.isTinyMode(context, flyerBoxWidth) == false,
             ),
-            zeroCornerIsOn: flyerShowsAuthor,
+            zeroCornerIsOn: _flyerShowsAuthor,
             margins: EdgeInsets.zero,
           ),
 
@@ -79,7 +81,7 @@ class StaticHeader extends StatelessWidget {
               authorID: authorID,
               bzModel: bzModel,
               headerIsExpanded: false,
-              flyerShowsAuthor: flyerShowsAuthor,
+              flyerShowsAuthor: _flyerShowsAuthor,
               showHeaderLabels: showHeaderLabels,
             ),
           ),
