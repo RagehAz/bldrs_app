@@ -55,6 +55,7 @@ class FooterButton extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
 
+            /// ICON
             DreamBox(
               iconSizeFactor: 0.4,
               width: _buttonSize,
@@ -85,7 +86,7 @@ class FooterButton extends StatelessWidget {
               ),
             ),
 
-            /// verse
+            /// VERSE
             if (FlyerDim.isTinyMode(context, flyerBoxWidth) == false)
               Positioned(
                 bottom: flyerBoxWidth * 0.01,

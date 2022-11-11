@@ -88,7 +88,10 @@ class Dimensions {
     @required double aspectRatio,
     @required double width,
   }){
-    /// AspectRatio is width / height => so = oWidth / oHeight
+    /// AspectRatio = (widthA / heightA)
+    ///             = (widthB / heightB)
+    ///
+    /// so heightB = widthB / aspectRatio
     return width / aspectRatio;
   }
 

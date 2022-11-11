@@ -7,7 +7,6 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class Flyer extends StatefulWidget {
@@ -47,8 +46,8 @@ class _FlyerState extends State<Flyer> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
-     _heroPath = '${widget.screenName}/${widget.flyerModel.id}/';
      super.initState();
+     _heroPath = '${widget.screenName}/${widget.flyerModel?.id}/';
   }
   // --------------------
   bool _isInit = true;
@@ -82,6 +81,7 @@ class _FlyerState extends State<Flyer> {
   Future<void> _preparations() async {
 
     if (widget.flyerModel != null){
+
 
       if (mounted == true){
 
@@ -136,14 +136,14 @@ class _FlyerState extends State<Flyer> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget.flyerModel == null){
+    if (_flyerModel == null){
 
       blog('Building loading flyer red : FLYER IS NULL');
 
       return FlyerLoading(
         flyerBoxWidth: widget.flyerBoxWidth,
         animate: true,
-        boxColor: Colorz.bloodTest,
+        // boxColor: Colorz.bloodTest,
       );
 
     }

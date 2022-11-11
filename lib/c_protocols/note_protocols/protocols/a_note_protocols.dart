@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';

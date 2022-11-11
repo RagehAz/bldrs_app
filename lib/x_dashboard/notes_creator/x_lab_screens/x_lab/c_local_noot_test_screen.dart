@@ -6,10 +6,10 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
@@ -23,9 +23,9 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/aa_image_poster.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/x_note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/a_note_switcher.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/poster/variants/aa_image_poster.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -767,7 +767,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         if (_posterModel != null)
                           Screenshot(
                             controller: screenshotController,
-                            child: NotePoster(
+                            child: PosterSwitcher(
                               posterType: _posterType,
                               width: _tileChildWidth,
                               model: _posterModel,

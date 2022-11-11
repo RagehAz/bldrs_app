@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';

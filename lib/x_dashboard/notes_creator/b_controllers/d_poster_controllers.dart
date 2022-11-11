@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
