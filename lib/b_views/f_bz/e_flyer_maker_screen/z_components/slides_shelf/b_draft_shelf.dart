@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.da
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/a_draft_shelf_box.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/d_shelf_slides_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xx_draft_shelf_controllers.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/xx_draft_shelf_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
@@ -37,6 +37,8 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   @override
   bool get wantKeepAlive => true;
   // -----------------------------------------------------------------------------
+  final ScrollController _scrollController = ScrollController();
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
@@ -50,12 +52,9 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   }
    */
   // -----------------------------------------------------------------------------
-  ScrollController _scrollController;
-  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
   }
   // --------------------
   /// TAMAM
@@ -103,6 +102,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
 
           /// WHILE LOADING GIVEN EXISTING FLYER MODEL
           if (draft == null){
+
             return Container(
               width: DraftShelfSlide.flyerBoxWidth,
               height: _slideZoneHeight,
@@ -113,9 +113,11 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 animate: false,
               ),
             );
+
           }
 
           else {
+
             return ShelfSlidesPart(
               loading: _loading,
               slideZoneHeight: _slideZoneHeight,
@@ -143,6 +145,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
               ),
 
             );
+
           }
 
         },

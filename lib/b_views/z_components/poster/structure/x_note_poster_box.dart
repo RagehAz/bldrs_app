@@ -90,13 +90,13 @@ class NotePosterBox extends StatelessWidget {
     return Container(
       width: width,
       height: getBoxHeight(width),
-      decoration: BoxDecoration(
-        color: color,
+      color: Colorz.white10,
+      // decoration: BoxDecoration(
         // borderRadius: getCorners(
         //   context: context,
         //   boxWidth: width,
         // ),
-      ),
+      // ),
       alignment: Alignment.center,
       child: child,
     );

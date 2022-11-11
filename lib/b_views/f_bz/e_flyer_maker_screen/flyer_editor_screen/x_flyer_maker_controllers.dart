@@ -68,7 +68,6 @@ Future<void> loadFlyerMakerLastSession({
 
   }
 
-
 }
 // --------------------
 /// TASK : TEST ME

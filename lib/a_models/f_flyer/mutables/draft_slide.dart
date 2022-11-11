@@ -47,7 +47,7 @@ class DraftSlide {
   /// CREATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDrafts({
     @required BuildContext context,
     @required List<Uint8List> bytezz,
@@ -87,7 +87,7 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<DraftSlide> createDraft({
     @required BuildContext context,
     @required Uint8List bytes,
@@ -210,7 +210,7 @@ class DraftSlide {
     return _draft;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> draftsFromSlides(List<SlideModel> slides) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
@@ -220,7 +220,14 @@ class DraftSlide {
 
         ...List.generate(slides.length, (index){
 
-          return draftFromSlide(slides[index]);
+          return draftFromSlide(slides[index])
+              .then((DraftSlide draft){
+
+                blog('wadi one draft');
+                draft.copyWith();
+
+                _output.add(draft);
+          });
 
         }),
 
@@ -237,7 +244,7 @@ class DraftSlide {
   /// CYPHERS - LDB
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> draftToLDB(DraftSlide draft){
     Map<String, dynamic> _map;
 
@@ -259,7 +266,7 @@ class DraftSlide {
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> draftsToLDB(List<DraftSlide> drafts){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -277,7 +284,7 @@ class DraftSlide {
     return _maps;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static DraftSlide draftFromLDB(Map<String, dynamic> map){
     DraftSlide _draft;
 
@@ -299,7 +306,7 @@ class DraftSlide {
     return _draft;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<DraftSlide> draftsFromLDB(List<dynamic> maps){
     final List<DraftSlide> drafts = <DraftSlide>[];
 

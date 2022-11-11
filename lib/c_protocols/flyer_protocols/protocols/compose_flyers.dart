@@ -2,15 +2,14 @@ import 'dart:typed_data';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/poster/a_note_poster.dart';
+import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
@@ -21,6 +20,7 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +70,7 @@ class ComposeFlyerProtocols {
           FlyerFireOps.updateFlyerDoc(_flyerToPublish),
 
           /// CREATE FLYER POSTER
-          _createFlyerPoster(
+          createFlyerPoster(
             context: context,
             flyerID: flyerID,
             draftFlyer: draftFlyer,
@@ -162,21 +162,23 @@ class ComposeFlyerProtocols {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<void> _createFlyerPoster({
+  static Future<void> createFlyerPoster({
     @required String flyerID,
     @required BuildContext context,
     @required DraftFlyer draftFlyer,
   }) async {
 
     final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    const double _posterWidth = Standards.notePosterWidthPixels;
+    // final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
 
     final Uint8List _bytes = await draftFlyer.posterController.captureFromWidget(
-        NotePoster(
-          posterType: PosterType.flyer,
-          width: Bubble.clearWidth(context),
-          model: draftFlyer,
-          modelHelper: draftFlyer.bzModel,
-        ),
+      PosterDisplay(
+        posterType: PosterType.flyer,
+        posterWidth: _posterWidth,
+        model: draftFlyer,
+        modelHelper: draftFlyer.bzModel,
+      ),
       context: _context,
       pixelRatio: MediaQuery.of(_context).devicePixelRatio,
       delay: const Duration(milliseconds: 200),

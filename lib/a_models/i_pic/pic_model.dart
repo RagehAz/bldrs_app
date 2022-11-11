@@ -155,6 +155,53 @@ class PicModel {
 
     return _identical;
   }
+  // --------------------
+  ///
+  static bool checkPicsListsAreIdentical({
+    @required List<PicModel> list1,
+    @required List<PicModel> list2,
+  }){
+
+    bool _listsAreIdentical = false;
+
+    if (list1 == null && list2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (list1?.isEmpty == true && list2?.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+
+    else if (Mapper.checkCanLoopList(list1) == true && Mapper.checkCanLoopList(list2) == true){
+
+      if (list1.length != list2.length) {
+        _listsAreIdentical = false;
+      }
+
+      else {
+        for (int i = 0; i < list1.length; i++) {
+
+          final bool _pairAreIdentical = checkPicsAreIdentical(
+              pic1: list1[i],
+              pic2: list2[i]
+          );
+
+          if (_pairAreIdentical == false) {
+            _listsAreIdentical = false;
+            break;
+          }
+
+          else {
+            _listsAreIdentical = true;
+          }
+
+        }
+      }
+
+    }
+
+    return _listsAreIdentical;
+
+  }
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

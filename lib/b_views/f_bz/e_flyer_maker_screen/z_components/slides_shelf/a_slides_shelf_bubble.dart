@@ -49,6 +49,7 @@ class SlidesShelfBubble extends StatelessWidget {
           draftNotifier: draftNotifier,
         ),
 
+
         SuperValidator(
           width: Bubble.clearWidth(context),
           validator: () => Formers.slidesValidator(

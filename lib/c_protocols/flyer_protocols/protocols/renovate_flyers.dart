@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/f_flyer/mutables/draft_slide.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
@@ -21,8 +22,12 @@ class RenovateFlyerProtocols {
 
   const RenovateFlyerProtocols();
 
+  // -----------------------------------------------------------------------------
+
+  /// FLYER RENOVATION
+
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> renovate({
     @required BuildContext context,
     @required DraftFlyer newDraft,
@@ -50,10 +55,23 @@ class RenovateFlyerProtocols {
       toLDB: false,
     );
 
+    final bool _posterHasChanged = await DraftFlyer.checkPosterHasChanged(
+        draft: newDraft,
+        oldFlyer: oldFlyer,
+    );
+
     await Future.wait(<Future>[
 
       /// RENOVATE SLIDES PICS
       PicProtocols.renovatePics(DraftSlide.getPicModels(newDraft.draftSlides)),
+
+      /// RENOVATE POSTER PIC
+      if (_posterHasChanged == true)
+        ComposeFlyerProtocols.createFlyerPoster(
+            flyerID: oldFlyer.id,
+            context: context,
+            draftFlyer: newDraft
+        ),
 
       /// WIPE UN-USED PICS
       _wipeUnusedSlidesPics(
@@ -104,34 +122,6 @@ class RenovateFlyerProtocols {
     ]);
 
     blog('RenovateFlyerProtocols.renovate : END');
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> updateLocally({
-    @required BuildContext context,
-    @required FlyerModel flyerModel,
-    @required bool notifyFlyerPro,
-    @required bool resetActiveBz,
-  }) async {
-    blog('RenovateFlyerProtocols.updateLocally : START');
-
-    if (flyerModel != null){
-
-      await FlyerLDBOps.insertFlyer(flyerModel);
-
-      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-      _flyersProvider.updateFlyerInAllProFlyers(
-          flyerModel: flyerModel,
-          notify: notifyFlyerPro
-      );
-
-      if (resetActiveBz == true){
-        BzzProvider.resetActiveBz(context);
-      }
-
-    }
-
-    blog('RenovateFlyerProtocols.updateLocally : END');
   }
   // --------------------
   /// TASK : TEST ME
@@ -197,6 +187,37 @@ class RenovateFlyerProtocols {
 
       blog('wipeUnusedSlidesPics : END');
   }
+  // -----------------------------------------------------------------------------
 
+  /// LOCAL UPDATE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateLocally({
+    @required BuildContext context,
+    @required FlyerModel flyerModel,
+    @required bool notifyFlyerPro,
+    @required bool resetActiveBz,
+  }) async {
+    blog('RenovateFlyerProtocols.updateLocally : START');
+
+    if (flyerModel != null){
+
+      await FlyerLDBOps.insertFlyer(flyerModel);
+
+      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+      _flyersProvider.updateFlyerInAllProFlyers(
+          flyerModel: flyerModel,
+          notify: notifyFlyerPro
+      );
+
+      if (resetActiveBz == true){
+        BzzProvider.resetActiveBz(context);
+      }
+
+    }
+
+    blog('RenovateFlyerProtocols.updateLocally : END');
+  }
   // --------------------
 }

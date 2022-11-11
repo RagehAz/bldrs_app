@@ -1,20 +1,21 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_poster_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
+import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/a_note_switches_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/b_parties_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/c_note_texts_controllers.dart';
-import 'package:bldrs/x_dashboard/notes_creator/b_controllers/f_topics_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/d_poster_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/e_progress_controller.dart';
+import 'package:bldrs/x_dashboard/notes_creator/b_controllers/f_topics_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/g_buttons_controller.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/h_panel_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/i_note_sending_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/j_trigger_controllers.dart';
+import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/bubbles/a_parties_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/bubbles/b_note_title_creator_bubble.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/bubbles/c_note_body_creator_bubble.dart';
@@ -26,7 +27,6 @@ import 'package:bldrs/x_dashboard/notes_creator/z_components/bubbles/h_note_fcm_
 import 'package:bldrs/x_dashboard/notes_creator/z_components/bubbles/i_note_dismissible_trigger_bubble.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/bubbles/k_note_trigger_creator.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/bubbles/x_note_preview_panel.dart';
-import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
 import 'package:flutter/material.dart';
 
 class NoteCreatorScreenView extends StatefulWidget {
