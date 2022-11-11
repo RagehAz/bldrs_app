@@ -63,9 +63,7 @@ class SingleSlide extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     assert(slideModel.midColor != null, 'slideModel.midColor is null');
-
-    blog('slideModel.midColor. : ${slideModel.midColor}');
-
+    // --------------------
     return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
       flyerBoxWidth: flyerBoxWidth,

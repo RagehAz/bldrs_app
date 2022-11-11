@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 /// BZ EDITING
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onEditBzButtonTap({
   @required BuildContext context,
   @required BzModel bzModel,
