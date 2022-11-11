@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_slide_tap_area.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/cc_zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,9 @@ class SlideImagePart extends StatelessWidget {
   final Function onSlideNextTap;
   final Function onSlideBackTap;
   final Function onDoubleTap;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  ///DEPRECATED
+  /*
   // Future<void> _onImageDoubleTap(BuildContext context) async {
   //   final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
   //
@@ -39,6 +42,7 @@ class SlideImagePart extends StatelessWidget {
   //         ));
   //   }
   // }
+   */
   // -----------------------------------------------------------------------------
   ///DEPRECATED
   /*
@@ -67,8 +71,6 @@ class SlideImagePart extends StatelessWidget {
 
     // blog('SlideImagePart : slideModel.pic : ${slideModel.pic}');
 
-    assert(slideModel.uiImage != null, 'The slide ui is null');
-
     return ZoomablePicture(
       isOn: !tinyMode,
       // onTap: (){blog('image of single slide is tapped');},
@@ -76,6 +78,7 @@ class SlideImagePart extends StatelessWidget {
         children: <Widget>[
 
           /// IMAGE
+          if (slideModel.uiImage != null)
           SuperImage(
             pic: slideModel.uiImage ?? slideModel.picPath,
             fit: slideModel.picFit,
