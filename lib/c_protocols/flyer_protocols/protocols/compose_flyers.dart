@@ -17,11 +17,9 @@ import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 class ComposeFlyerProtocols {
@@ -168,25 +166,16 @@ class ComposeFlyerProtocols {
     @required DraftFlyer draftFlyer,
   }) async {
 
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
-    const double _posterWidth = Standards.notePosterWidthPixels;
-    // final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
-
-    final Uint8List _bytes = await draftFlyer.posterController.captureFromWidget(
-      PosterDisplay(
-        posterType: PosterType.flyer,
-        posterWidth: _posterWidth,
-        model: draftFlyer,
-        modelHelper: draftFlyer.bzModel,
-      ),
-      context: _context,
-      pixelRatio: MediaQuery.of(_context).devicePixelRatio,
-      delay: const Duration(milliseconds: 200),
+    final Uint8List _bytes = await PosterDisplay.capturePoster(
+      posterType: PosterType.flyer,
+      model: draftFlyer,
+      helperModel: draftFlyer.bzModel,
+      // finalDesiredPicWidth: Standards.posterDimensions.width,
     );
     
     final PicModel _posterPicModel = PicModel(
       bytes: _bytes,
-      path: StorageColl.getFlyerPosterPath(flyerID),
+      path: Storage.generateFlyerPosterPath(flyerID),
       meta: PicMetaModel(
         dimensions: await Dimensions.superDimensions(_bytes),
         ownersIDs: await FlyerModel.generateFlyerOwners(

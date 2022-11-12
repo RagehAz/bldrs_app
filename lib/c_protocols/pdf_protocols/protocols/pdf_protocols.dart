@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/storage/pdf_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -50,7 +50,7 @@ class PDFProtocols {
       final PlatformFile _platformFile = result.files.first;
       _output = PDFModel(
         bytes: _platformFile.bytes,
-        path: StorageColl.getFlyerPDFPath(flyerID),
+        path: Storage.generateFlyerPDFPath(flyerID),
         name: _platformFile.name,
         sizeMB: Filers.calculateSize(_platformFile.bytes.length, FileSizeUnit.megaByte),
         ownersIDs: await FlyerModel.generateFlyerOwners(context: context, bzID: bzID),

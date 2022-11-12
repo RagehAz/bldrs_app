@@ -1,19 +1,18 @@
 import 'dart:typed_data';
 
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_meta_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class PicStorageOps {
   // -----------------------------------------------------------------------------
@@ -25,12 +24,12 @@ class PicStorageOps {
   /// CREATE
 
   // --------------------
-  /// TESTED: WORKS PERECT
+  /// TESTED: WORKS PERFECT
   static Future<PicModel> createPic(PicModel picModel,) async {
 
     PicModel.assertIsUploadable(picModel);
 
-    final Reference _ref = await StorageByteOps.uploadBytes(
+    final Reference _ref = await Storage.uploadBytes(
       bytes: picModel.bytes,
       path: picModel.path,
       metaData: picModel.meta.toSettableMetadata(),
@@ -57,7 +56,7 @@ class PicStorageOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final Reference _ref = StorageRef.byPath(path);
+      final Reference _ref = StorageRef.getRefByPath(path);
       Uint8List _bytes;
       FullMetadata _meta;
 
@@ -136,7 +135,7 @@ class PicStorageOps {
           invoker: 'deletePic',
           functions: () async {
 
-            final Reference _picRef = StorageRef.byPath(path);
+            final Reference _picRef = StorageRef.getRefByPath(path);
 
             await _picRef?.delete();
           },
@@ -203,7 +202,7 @@ class PicStorageOps {
 
     if (path != null){
 
-      final List<String> _ownersIDs = await StorageMetaOps.getOwnersIDsByPath(
+      final List<String> _ownersIDs = await Storage.readOwnersIDsByPath(
         path: path,
       );
 

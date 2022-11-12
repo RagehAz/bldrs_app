@@ -6,12 +6,12 @@ import 'package:bldrs/a_models/x_secondary/record_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -151,7 +151,7 @@ class BzFireOps {
     @required String bzID,
   }) async {
 
-    await PicProtocols.wipePic(StorageColl.getAuthorPicPath(
+    await PicProtocols.wipePic(Storage.generateAuthorPicPath(
         bzID: bzID,
         authorID: authorModel.userID,
     ));
@@ -346,7 +346,7 @@ class BzFireOps {
   //   /// IF ITS A URL : CREATE FILE TO COPY IMAGE THEN UPLOAD
   //   else if (ObjectCheck.isAbsoluteURL(logo) == true){
   //
-  //     final File _fileFromURL = await StorageFileOps.downloadFileByURL(
+  //     final File _fileFromURL = await Storage.downloadFileByURL(
   //       url: logo,
   //     );
   //

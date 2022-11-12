@@ -15,11 +15,11 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -176,7 +176,7 @@ Future<void> takeUserPicture({
       draft.value = draft.value.copyWith(
         picModel: PicModel(
           bytes: _bytes,
-          path: StorageColl.getUserPicPath(draft.value.id),
+          path: Storage.generateUserPicPath(draft.value.id),
           meta: PicMetaModel(
             dimensions: await Dimensions.superDimensions(_bytes),
             ownersIDs: [draft.value.id],
