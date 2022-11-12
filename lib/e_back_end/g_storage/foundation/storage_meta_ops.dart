@@ -10,7 +10,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class StorageMetaOps {
   /// --------------------------------------------------------------------------
@@ -31,21 +30,19 @@ class StorageMetaOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      /// TRY GET META DATA
-      try {
-        final Reference _ref = StorageRef.getRefByPath(path);
-        _meta = await _ref.getMetadata();
-      }
-
-      /// CATCH
-      on firebase_core.FirebaseException catch (error){
-        StorageExceptionOps.onException(error);
-      }
+      await tryAndCatch(
+          invoker: 'readBytesByPath',
+          functions: () async {
+            final Reference _ref = StorageRef.getRefByPath(path);
+            _meta = await _ref.getMetadata();
+            },
+          onError: (String error){
+            StorageExceptionOps.onException(error);
+          });
 
     }
 
     return _meta;
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
