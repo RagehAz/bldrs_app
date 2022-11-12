@@ -124,7 +124,7 @@ class Atlas {
     @required GeoPoint point,
     String invoker = 'GeoPoint',
   }){
-    blog('$invoker : lat : ${point.latitude} : lng : ${point.longitude}');
+    blog('$invoker : lat : ${point?.latitude} : lng : ${point?.longitude}');
   }
   // -----------------------------------------------------------------------------
 

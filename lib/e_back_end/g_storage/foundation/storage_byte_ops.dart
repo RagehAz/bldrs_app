@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:bldrs/e_back_end/g_storage/foundation/storage_exception_ops.dart';
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_exception_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -11,7 +11,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class StorageByteOps {
   // -----------------------------------------------------------------------------
@@ -80,7 +79,7 @@ class StorageByteOps {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> readBytesByPath({
     @required String path,
   }) async {
@@ -88,17 +87,17 @@ class StorageByteOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      /// TRY
-      try {
-        final Reference _ref = StorageRef.getRefByPath(path);
-        /// 10'485'760 default max size
-        _output = await _ref.getData();
-      }
-
-      /// CATCH
-      on firebase_core.FirebaseException catch (error){
-        StorageExceptionOps.onException(error);
-      }
+      await tryAndCatch(
+        invoker: 'readBytesByPath',
+        functions: () async {
+          final Reference _ref = StorageRef.getRefByPath(path);
+          /// 10'485'760 default max size
+          _output = await _ref.getData();
+        },
+        onError: (String error){
+          StorageExceptionOps.onException(error);
+        }
+      );
 
     }
 

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/a_flyer_maker_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -16,7 +15,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -34,6 +32,7 @@ Future<void> onFlyerBzOptionsTap({
   @required FlyerModel flyer,
 }) async {
 
+  blog('~~~~~~~>');
   flyer.blogFlyer(invoker: 'onFlyerBzOptionsTap');
   blog('~~~~~~~>');
 
@@ -42,14 +41,10 @@ Future<void> onFlyerBzOptionsTap({
     myID: AuthFireOps.superUserID(),
     bzModel: BzzProvider.proGetActiveBzModel(context: context, listen: false),
   );
-  final PicModel _poster = await PicProtocols.fetchPic(Storage.generateFlyerPosterPath(flyer.id));
 
   final double _posterWidth = BottomDialog.clearWidth(context);
   final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
-
   final double _clearHeight = _posterHeight + (BottomDialog.wideButtonHeight * 2) + (5 * 2) + 10;
-
-  // _poster?.blogPic(invoker: 'POSTER');
 
   await BottomDialog.showBottomDialog(
       context: context,
@@ -60,17 +55,13 @@ Future<void> onFlyerBzOptionsTap({
 
           /// POSTER
           SuperImage(
-            pic: _poster,
+            pic: Storage.generateFlyerPosterPath(flyer.id),
             height: _posterHeight,
             width: _posterWidth,
             corners: BldrsAppBar.corners,
           ),
 
-          // NotePoster(
-          //   poster: _poster,
-          //   height: _totalHeight * 0.5,
-          // ),
-
+          /// SEPARATOR
           const SizedBox(
             width: 5,
             height: 5,
