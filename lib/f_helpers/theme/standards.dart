@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/link_model.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:flutter/material.dart';
@@ -133,7 +134,29 @@ class Standards {
   static const double userPictureWidthPixels = 500;
   static const double authorPictureWidthPixels = 500;
   static const double slideWidthPixels = 1080;
-  static const double notePosterWidthPixels = 1000;
+  // -----------------------------------------------------------------------------
+
+  /// POSTER SIZE
+
+  // --------------------
+  static const Dimensions posterDimensions = Dimensions(
+    width: 720,
+    height: 360,
+  );
+  // --------
+  /*
+  static const Dimensions oldSize = Dimensions(
+    width: 360,
+    height: 240,
+  );
+  // --------
+  static const Dimensions iosMaxSize = Dimensions(
+    width: 1038,
+    height: 1038,
+  );
+  // --------
+  // static const double notePosterWidthPixels = 1000; // NotePosterBox.standardSize.width
+   */
   // -----------------------------------------------------------------------------
 
   /// STANDARD BLDRS LINKS

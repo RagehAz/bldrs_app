@@ -23,8 +23,8 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/poster/structure/a_note_switcher.dart';
-import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
+import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_image_poster.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -39,7 +39,6 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -242,19 +241,13 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     blog('_takeBannerScreenshot : START');
 
-    final double pixelRatio = MediaQuery.of(context).devicePixelRatio;
-
-    final Uint8List uint8List = await screenshotController.capture(
-      pixelRatio: pixelRatio,
-      delay: const Duration(milliseconds: 200),
+    final Uint8List _bytes = await PosterDisplay.capturePoster(
+      posterType: _posterType,
+      model: _posterModel,
+      helperModel: _posterHelperModel,
     );
 
     // final String _fileName = Numeric.createUniqueID().toString();
-
-    final Uint8List _bytes = await PicMaker.resizePic(
-        finalWidth: NotePosterBox.standardSize.width,
-        bytes: uint8List,
-    );
 
     final Dimensions _dimensions = await Dimensions.superDimensions(_bytes);
 

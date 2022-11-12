@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -244,7 +244,7 @@ class DraftBz {
         context: context,
         phids: bzModel.scope,
       ),
-      logoPicModel: await PicProtocols.fetchPic(StorageColl.getBzLogoPath(bzModel.id)),
+      logoPicModel: await PicProtocols.fetchPic(Storage.generateBzLogoPath(bzModel.id)),
       hasNewLogo: false,
       canPickImage: true,
       canValidate: false,
@@ -592,7 +592,7 @@ class DraftBz {
       );
 
       final PicModel _picModel = draft.logoPicModel?.copyWith(
-        path: StorageColl.getBzLogoPath(bzID),
+        path: Storage.generateBzLogoPath(bzID),
       );
 
       _output = draft.copyWith(
@@ -617,7 +617,7 @@ class DraftBz {
       return null;
     }
     else {
-      return StorageColl.getBzLogoPath(id);
+      return Storage.generateBzLogoPath(id);
     }
 
   }

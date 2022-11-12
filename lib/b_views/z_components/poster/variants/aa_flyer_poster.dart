@@ -28,6 +28,7 @@ class FlyerPoster extends StatelessWidget {
     return NotePosterBox(
       width: width,
       child:
+
       // WidgetFader(
       //   fadeType: FadeType.fadeIn,
       //   // min: 0,
@@ -37,6 +38,7 @@ class FlyerPoster extends StatelessWidget {
       //   builder: (double value, Widget child){
       //
       //     return
+
                 FlyerDeck(
                   bzModel: flyerBzModel,
                   maxPossibleWidth: width,
@@ -47,6 +49,7 @@ class FlyerPoster extends StatelessWidget {
                   minSlideHeightFactor: 0.85,
                   screenName: screenName,
                 )
+
           // ;
       //   },
       // )

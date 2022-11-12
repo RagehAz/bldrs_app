@@ -555,7 +555,7 @@ class NoteProtocols {
     //
     //     if (note.poster.url != null){
     //
-    //       final String _picName = await StorageMetaOps.getImageNameByURL(
+    //       final String _picName = await Storage.getImageNameByURL(
     //         url: note.poster.url,
     //       );
     //

@@ -18,7 +18,7 @@ class StorageRef {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Reference byPath(String path){
+  static Reference getRefByPath(String path){
     return FirebaseStorage.instance.ref(path);
   }
   // -----------------------------------------------------------------------------
@@ -27,7 +27,7 @@ class StorageRef {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Reference byNodes({
+  static Reference getRefByNodes({
     @required String collName,
     @required String docName, // without extension
   }) {
@@ -44,7 +44,7 @@ class StorageRef {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Reference> byURL({
+  static Future<Reference> getRefByURL({
     @required String url,
   }) async {
     Reference _ref;
@@ -61,7 +61,7 @@ class StorageRef {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> toURL({
+  static Future<String> createURLByRef({
     @required Reference ref,
   }) async {
 
@@ -111,7 +111,7 @@ class StorageRef {
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
-      final Reference _ref = await byURL(url: url);
+      final Reference _ref = await getRefByURL(url: url);
       _path = _ref.fullPath;
 
     }
@@ -121,10 +121,10 @@ class StorageRef {
     return _path;
   }
   // --------------------
-  ///
-  static Future<String> getURLByPath(String path) async {
-    final Reference _ref = byPath(path);
-    final String _url = await toURL(ref: _ref);
+  /// TASK : TEST ME
+  static Future<String> createURLByPath(String path) async {
+    final Reference _ref = getRefByPath(path);
+    final String _url = await createURLByRef(ref: _ref);
     return _url;
   }
   // -----------------------------------------------------------------------------

@@ -145,12 +145,12 @@ class Dimensions {
       // -----------------------------------------------------------o
       if (_decodedImage != null) {
         _dimensions = Dimensions(
-          width: _decodedImage.width
-              .toDouble(), // was _decodedImage.size.toDouble() I don't know why,, needs a test
+          width: _decodedImage.width.toDouble(),
           height: _decodedImage.height.toDouble(),
         );
       }
       // -----------------------------------------------------------o
+      _decodedImage.dispose();
     }
 
     return _dimensions;

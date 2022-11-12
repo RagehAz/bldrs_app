@@ -1,7 +1,9 @@
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,7 +20,7 @@ class StorageMetaOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FullMetadata> getMetaByPath({
+  static Future<FullMetadata> readMetaByPath({
     @required String path,
   }) async {
 
@@ -30,7 +32,7 @@ class StorageMetaOps {
         invoker: 'getMetaByPath',
         functions: () async {
 
-          final Reference _ref = StorageRef.byPath(path);
+          final Reference _ref = StorageRef.getRefByPath(path);
 
           _meta = await _ref.getMetadata();
 
@@ -44,7 +46,7 @@ class StorageMetaOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FullMetadata> getMetaByURL({
+  static Future<FullMetadata> readMetaByURL({
     @required String url,
   }) async {
     FullMetadata _meta;
@@ -55,7 +57,7 @@ class StorageMetaOps {
         invoker: 'getMetaByURL',
         functions: () async {
 
-          final Reference _ref = await StorageRef.byURL(
+          final Reference _ref = await StorageRef.getRefByURL(
             url: url,
           );
 
@@ -71,7 +73,7 @@ class StorageMetaOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FullMetadata> getMetaByNodes({
+  static Future<FullMetadata> readMetaByNodes({
     @required String collName,
     @required String docName,
   }) async {
@@ -86,7 +88,7 @@ class StorageMetaOps {
         invoker: 'getMetaByNodes',
         functions: () async {
 
-          final Reference _ref = StorageRef.byNodes(
+          final Reference _ref = StorageRef.getRefByNodes(
             collName: collName,
             docName: docName,
           );
@@ -103,14 +105,14 @@ class StorageMetaOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<String>> getOwnersIDsByURL({
+  static Future<List<String>> readOwnersIDsByURL({
     @required String url,
   }) async {
     final List<String> _ids = [];
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
-      final FullMetadata _metaData = await StorageMetaOps.getMetaByURL(
+      final FullMetadata _metaData = await readMetaByURL(
         url: url,
       );
 
@@ -129,7 +131,7 @@ class StorageMetaOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<String>> getOwnersIDsByNodes({
+  static Future<List<String>> readOwnersIDsByNodes({
     @required String collName,
     @required String docName,
   }) async {
@@ -137,7 +139,7 @@ class StorageMetaOps {
 
     if (docName != null && collName != null){
 
-      final FullMetadata _metaData = await StorageMetaOps.getMetaByNodes(
+      final FullMetadata _metaData = await readMetaByNodes(
         collName: collName,
         docName: docName,
       );
@@ -157,14 +159,14 @@ class StorageMetaOps {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<List<String>> getOwnersIDsByPath({
+  static Future<List<String>> readOwnersIDsByPath({
     @required String path,
   }) async {
     final List<String> _ids = [];
 
     if (path != null){
 
-      final FullMetadata _metaData = await StorageMetaOps.getMetaByPath(
+      final FullMetadata _metaData = await readMetaByPath(
         path: path,
       );
 
@@ -183,7 +185,7 @@ class StorageMetaOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> getImageNameByURL({
+  static Future<String> readDocNameByURL({
     @required String url,
     // @required bool withExtension,
   }) async {
@@ -192,7 +194,7 @@ class StorageMetaOps {
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
-      final Reference _ref = await StorageRef.byURL(
+      final Reference _ref = await StorageRef.getRefByURL(
         url: url,
       );
 
@@ -239,7 +241,7 @@ class StorageMetaOps {
 
     if (ObjectCheck.isAbsoluteURL(picURL) == true && metaDataMap != null){
 
-      final Reference _ref = await StorageRef.byURL(
+      final Reference _ref = await StorageRef.getRefByURL(
         url: picURL,
       );
 
@@ -257,6 +259,50 @@ class StorageMetaOps {
 
     blog('updatePicMetaData : END');
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkCanDeleteDocByNodes({
+    @required String collName,
+    @required String docName,
+  }) async {
+
+    assert(docName != null && collName != null,
+    'checkCanDeleteStorageFile : fileName or storageDocName can not be null');
+
+    bool _canDelete = false;
+
+    blog('checkCanDeleteStorageFile : START');
+
+    if (docName != null && collName != null){
+
+      final List<String> _ownersIDs = await readOwnersIDsByNodes(
+        collName: collName,
+        docName: docName,
+      );
+
+      blog('checkCanDeleteStorageFile : _ownersIDs : $_ownersIDs');
+
+      if (Mapper.checkCanLoopList(_ownersIDs) == true){
+
+        _canDelete = Stringer.checkStringsContainString(
+          strings: _ownersIDs,
+          string: AuthFireOps.superUserID(),
+        );
+
+        blog('checkCanDeleteStorageFile : _canDelete : $_canDelete');
+
+      }
+
+    }
+
+
+    blog('checkCanDeleteStorageFile : END');
+    return _canDelete;
   }
   // -----------------------------------------------------------------------------
 }

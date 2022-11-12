@@ -10,8 +10,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
 import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
@@ -172,7 +172,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
           verse: Verse.plain('get URL by path'),
           onTap: () async {
 
-            final Reference _ref = StorageRef.byNodes(
+            final Reference _ref = StorageRef.getRefByNodes(
               collName: StorageColl.users,
               docName: AuthFireOps.superUserID(),
             );

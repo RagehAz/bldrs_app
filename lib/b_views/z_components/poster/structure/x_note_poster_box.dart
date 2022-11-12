@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 class NotePosterBox extends StatelessWidget {
@@ -16,63 +17,66 @@ class NotePosterBox extends StatelessWidget {
   final Color color;
   final Widget child;
   // --------------------
-  /// SIZES
+
+  /// STANDARD WIDTH AND HEIGHT
+
   // --------
-  static const Dimensions standardSize = Dimensions(
-    width: 720,
-    height: 360,
-  );
-  // --------
-  static const Dimensions oldSize = Dimensions(
-    width: 360,
-    height: 240,
-  );
-  // --------
-  static const Dimensions iosMaxSize = Dimensions(
-    width: 1038,
-    height: 1038,
-  );
-  // --------
+  /// TESTED : WORKS PERFECT
   static double getBoxHeight(double boxWidth){
     return Dimensions.getHeightByAspectRatio(
-        aspectRatio: standardSize.getAspectRatio(),
+        aspectRatio: Standards.posterDimensions.getAspectRatio(),
         width: boxWidth,
     );
   }
   // --------------------
+
   /// ASPECT RATIO
+
   // --------
+  /// TESTED : WORKS PERFECT
   static double getAspectRatio(){
-    return standardSize.getAspectRatio();
+    return Standards.posterDimensions.getAspectRatio();
   }
   // --------------------
+
   /// PADDING
+
   // --------
+  /// TESTED : WORKS PERFECT
   static double getPaddingValue(double boxWidth){
     return boxWidth * 0.05;
   }
   // --------
+  /// TESTED : WORKS PERFECT
   static EdgeInsets getPaddings(double boxWidth){
     return EdgeInsets.all(getPaddingValue(boxWidth));
   }
   // --------------------
+
   /// CLEAR SPACE
+
   // --------
+  /// TESTED : WORKS PERFECT
   static double getClearWidth(double boxWidth){
     return boxWidth - (getPaddingValue(boxWidth) * 2);
   }
   // --------
+  /// TESTED : WORKS PERFECT
   static double getClearHeight(double boxWidth){
     return getBoxHeight(boxWidth) - (getPaddingValue(boxWidth) * 2);
   }
   // --------------------
+
   /// CORNERS
+
   // --------
+  /// TESTED : WORKS PERFECT
   static double getCornerValue(double boxWidth){
     // const double posterCornerValue = Bubble.cornersValue - Ratioz.appBarMargin;
     return boxWidth * 0.03;
   }
   // --------
+  /// TESTED : WORKS PERFECT
   static BorderRadius getCorners({
     @required BuildContext context,
     @required double boxWidth,

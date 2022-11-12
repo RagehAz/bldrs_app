@@ -38,7 +38,6 @@ class WipeFlyerProtocols {
   }) async {
     blog('WipeFlyerProtocols.wipeFlyer : START');
 
-
     if (flyerModel != null){
 
       if (showWaitDialog == true){
@@ -100,6 +99,8 @@ class WipeFlyerProtocols {
 
         /// WIPE PDF
         PDFProtocols.wipe(flyerModel.pdfPath),
+
+
 
         /// REMOVE FLYER DOC
         FlyerFireOps.deleteFlyerDoc(

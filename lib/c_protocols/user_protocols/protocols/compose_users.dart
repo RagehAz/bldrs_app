@@ -9,11 +9,10 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -114,12 +113,12 @@ class ComposeUserProtocols {
 
     if (TextCheck.isEmpty(picURL) == false){
 
-      final Uint8List _bytes = await StorageByteOps.readBytesByURL(picURL);
+      final Uint8List _bytes = await Storage.readBytesByURL(picURL);
       final Dimensions _dims = await Dimensions.superDimensions(_bytes);
 
       await PicProtocols.composePic(PicModel(
         bytes: _bytes,
-        path: StorageColl.getUserPicPath(userID),
+        path: Storage.generateUserPicPath(userID),
         meta: PicMetaModel(
           ownersIDs: [userID],
           dimensions: _dims,
