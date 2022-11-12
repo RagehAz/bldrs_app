@@ -1,12 +1,12 @@
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_exception_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class StorageDeletionOps {
   // -----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ class StorageDeletionOps {
   /// DELETE DOC
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required String path,
   }) async {
@@ -31,17 +31,18 @@ class StorageDeletionOps {
 
       if (_canDelete == true){
 
-        /// TRY DELETE
-        try {
-          final Reference _picRef = Storage.getRefByPath(path);
-          await _picRef?.delete();
-          blog('deletePic : DELETED STORAGE FILE IN PATH: $path');
-        }
+        await tryAndCatch(
+          invoker: 'deleteDoc',
+          functions: () async {
+            final Reference _picRef = Storage.getRefByPath(path);
+            await _picRef?.delete();
+            blog('deletePic : DELETED STORAGE FILE IN PATH: $path');
+          },
+          onError: (String error){
+            StorageExceptionOps.onException(error);
+          }
+        );
 
-        /// CATCH
-        on firebase_core.FirebaseException catch (error){
-          StorageExceptionOps.onException(error);
-        }
       }
 
       else {
@@ -56,7 +57,7 @@ class StorageDeletionOps {
   /// DELETE DOCS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocs({
     @required List<String> paths,
   }) async {
@@ -81,7 +82,7 @@ class StorageDeletionOps {
   /// DELETE PATH ( COLLECTION - OR - DOC )
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deletePath({
     @required BuildContext context,
     @required String path,

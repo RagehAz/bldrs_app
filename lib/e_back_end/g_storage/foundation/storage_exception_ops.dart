@@ -1,9 +1,6 @@
-
-
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class StorageExceptionOps {
 
@@ -35,11 +32,11 @@ class StorageExceptionOps {
   };
   // --------------------
   /// NOT TESTED NOR USED
-  static void onException(FirebaseException error){
+  static void onException(String error){
 
-    if (TextCheck.isEmpty(error?.message) == false){
+    if (TextCheck.isEmpty(error) == false){
 
-      final String _code = TextMod.removeTextAfterFirstSpecialCharacter(error.message, ' ');
+      final String _code = TextMod.removeTextAfterFirstSpecialCharacter(error, ' ');
 
       blog('onStorageExceptions : code : ($_code) : message : ${storageErrorsMap[_code]}');
 

@@ -5,19 +5,20 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
+import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 
 class WipeFlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -26,7 +27,7 @@ class WipeFlyerProtocols {
 
   // -----------------------------------------------------------------------------
 
-  /// WIPE
+  /// WIPE FLYER
 
   // --------------------
   /// TASK : TEST ME
@@ -94,13 +95,11 @@ class WipeFlyerProtocols {
           isIncrementing: false,
         ),
 
-        /// WIPE SLIDES PICS
-        PicProtocols.wipePics(FlyerModel.getPicsPaths(flyerModel)),
-
-        /// WIPE PDF
-        PDFProtocols.wipe(flyerModel.pdfPath),
-
-
+        /// DELETE SLIDES PICS + PDF + POSTER
+        Storage.deletePath(
+          context: context,
+          path: '${StorageColl.flyers}/${flyerModel.id}',
+        ),
 
         /// REMOVE FLYER DOC
         FlyerFireOps.deleteFlyerDoc(
@@ -114,7 +113,6 @@ class WipeFlyerProtocols {
         ),
 
       ]);
-
 
       if (showWaitDialog == true){
         await WaitDialog.closeWaitDialog(context);
@@ -153,6 +151,9 @@ class WipeFlyerProtocols {
 
     blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : END');
   }
+  // -----------------------------------------------------------------------------
+
+  /// WIPE FLYERS
 
   // --------------------
   /// TASK : TEST ME
@@ -268,6 +269,10 @@ class WipeFlyerProtocols {
 
     blog('WipeFlyerProtocols.wipeFlyers : END');
   }
+  // -----------------------------------------------------------------------------
+
+  /// LOCAL DELETE
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyersLocally({
@@ -312,5 +317,5 @@ class WipeFlyerProtocols {
     }
 
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 }

@@ -2,8 +2,8 @@ import 'package:bldrs/e_back_end/g_storage/foundation/storage_byte_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_delete_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_file_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_meta_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/paths/storage_paths_generators.dart';
 
 class Storage {
   // -----------------------------------------------------------------------------
@@ -15,13 +15,13 @@ class Storage {
 
   // --------------------
   /// TESTED: WORKS PERFECT
-  static const generateUserPicPath = StorageColl.generateUserPicPath;
-  static const generateBzLogoPath = StorageColl.generateBzLogoPath;
-  static const generateAuthorPicPath = StorageColl.generateAuthorPicPath;
-  static const generateBzPostPicPath = StorageColl.generateBzPostPicPath;
-  static const generateFlyerSlidePath = StorageColl.generateFlyerSlidePath;
-  static const generateFlyerPosterPath = StorageColl.generateFlyerPosterPath;
-  static const generateFlyerPDFPath = StorageColl.generateFlyerPDFPath;
+  static const generateUserPicPath = StoragePathGenerator.generateUserPicPath;
+  static const generateBzLogoPath = StoragePathGenerator.generateBzLogoPath;
+  static const generateAuthorPicPath = StoragePathGenerator.generateAuthorPicPath;
+  static const generateBzPostPicPath = StoragePathGenerator.generateBzPostPicPath;
+  static const generateFlyerSlidePath = StoragePathGenerator.generateFlyerSlidePath;
+  static const generateFlyerPosterPath = StoragePathGenerator.generateFlyerPosterPath;
+  static const generateFlyerPDFPath = StoragePathGenerator.generateFlyerPDFPath;
   // -----------------------------------------------------------------------------
 
   /// REFERENCES
@@ -38,8 +38,6 @@ class Storage {
   // --------------------
   /// TESTED: WORKS PERFECT
   static const getPathByURL = StorageRef.getPathByURL;
-  // --------------------
-  /// TESTED: WORKS PERFECT
   // --------------------
   /// TESTED: WORKS PERFECT
   static const createURLByRef = StorageRef.createURLByRef;
@@ -109,13 +107,13 @@ class Storage {
   /// DELETE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static const deleteDoc = StorageDeletionOps.deleteDoc;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static const deleteDocs = StorageDeletionOps.deleteDocs;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static const deletePath = StorageDeletionOps.deletePath;
   // -----------------------------------------------------------------------------
 

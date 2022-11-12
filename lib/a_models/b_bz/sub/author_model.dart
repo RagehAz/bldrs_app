@@ -118,11 +118,14 @@ class AuthorModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static AuthorModel createAuthorFromUserModel({
+  static Future<AuthorModel> createAuthorFromUserModel({
     @required UserModel userModel,
     @required String bzID,
     @required bool isCreator,
-  }) {
+  }) async {
+
+    final PicModel _userPic = await PicProtocols.fetchPic(Storage.generateUserPicPath(userModel.id));
+
     final AuthorModel _author = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
@@ -131,8 +134,14 @@ class AuthorModel {
       role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
       contacts: userModel.contacts,
       flyersIDs: const <String>[],
-      // picModel: null, /// TASK : REVISE THIS
+      picModel: _userPic.copyWith(
+        path: Storage.generateAuthorPicPath(
+          bzID: bzID,
+          authorID: userModel.id,
+        ),
+      ),
     );
+
     return _author;
   }
   // --------------------
@@ -583,17 +592,17 @@ class AuthorModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static List<AuthorModel> addNewUserToAuthors({
+  static Future<List<AuthorModel>> addNewUserToAuthors({
     @required List<AuthorModel> authors,
     @required UserModel newUserModel,
     @required String bzID,
-  }){
+  }) async {
 
     final List<AuthorModel> _output = <AuthorModel>[...authors];
 
     if (newUserModel != null){
 
-      final AuthorModel _newAuthor = AuthorModel.createAuthorFromUserModel(
+      final AuthorModel _newAuthor = await AuthorModel.createAuthorFromUserModel(
         userModel: newUserModel,
         bzID: bzID,
         isCreator: false,

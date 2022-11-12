@@ -346,6 +346,7 @@ Future<void> onChangeBzLogo({
 
       draftNotifier.value = draftNotifier.value.copyWith(
         canPickImage: true,
+        hasNewLogo: true,
         logoPicModel: PicModel(
             bytes: _bytes,
             path: _path,

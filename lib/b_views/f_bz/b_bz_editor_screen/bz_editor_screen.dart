@@ -158,6 +158,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           oldBz: widget.bzModel,
         ),
       ),
+      appBarRowWidgets: [
+
+        AppBarButton(
+          verse: Verse.plain('Blog'),
+          onTap: (){
+
+            draftNotifier.value.blogDraft();
+
+          },
+        ),
+
+      ],
       layoutWidget: ValueListenableBuilder(
         valueListenable: draftNotifier,
         builder: (_, DraftBz draft, Widget child){

@@ -279,8 +279,12 @@ class BzModel{
   /// BZ CONVERTERS
 
   // --------------------
+  /*
   /// TASK : TEST ME
   static BzModel convertFireUserDataIntoInitialBzModel(UserModel userModel) {
+
+
+
     return BzModel(
       id: null,
       name: userModel?.company,
@@ -302,13 +306,7 @@ class BzModel{
           ),
         ),
       ],
-      authors: <AuthorModel>[
-        AuthorModel.createAuthorFromUserModel(
-          userModel: userModel,
-          bzID: null,
-          isCreator: true,
-        )
-      ],
+      authors: <AuthorModel>[_author],
       pendingAuthors: const <PendingAuthor>[],
       showsTeam: true,
       // -------------------------
@@ -326,6 +324,7 @@ class BzModel{
       bzTypes: null,
     );
   }
+   */
   // --------------------
   /// TASK : TEST ME
   static BzModel convertDocSnapshotIntoBzModel(DocumentSnapshot<Object> doc) {
@@ -488,12 +487,12 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel addNewUserAsAuthor({
+  static Future<BzModel> addNewUserAsAuthor({
     @required BzModel oldBzModel,
     @required UserModel userModel,
-  }){
+  }) async {
 
-    final List<AuthorModel> _newAuthors = AuthorModel.addNewUserToAuthors(
+    final List<AuthorModel> _newAuthors = await AuthorModel.addNewUserToAuthors(
       authors: oldBzModel.authors,
       bzID: oldBzModel.id,
       newUserModel: userModel,
