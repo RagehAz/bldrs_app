@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
-import 'package:bldrs/c_protocols/pdf_protocols/storage/pdf_ops.dart';
+import 'package:bldrs/c_protocols/pdf_protocols/storage/pdf_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -112,7 +112,7 @@ class PDFProtocols {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final bool _existsInLDB = await PDFStorageOps.checkExists(path);
+      final bool _existsInLDB = await PDFLDBOps.checkExists(path);
 
       if (_existsInLDB == false){
 
