@@ -4,8 +4,8 @@ import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_byte_ops.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -31,7 +31,7 @@ class PDFStorageOps {
     assert(pdfModel.path != null, 'path is null');
     assert(Mapper.checkCanLoopList(pdfModel.ownersIDs) == true, 'owners are Empty');
 
-    final Reference _ref = await StorageByteOps.uploadBytes(
+    final Reference _ref = await Storage.uploadBytes(
       bytes: pdfModel.bytes,
       path: pdfModel.path,
       metaData: pdfModel.createSettableMetadata(),
@@ -56,7 +56,7 @@ class PDFStorageOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final Reference _ref = StorageRef.byPath(path);
+      final Reference _ref = StorageRef.getRefByPath(path);
       Uint8List _bytes;
       FullMetadata _meta;
 

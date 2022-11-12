@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 /// ------------------------------------o
 
-
-/// ------------------------------------o
-
 /*
 
   | => STORAGE DATA TREE ----------------------|
@@ -48,6 +45,8 @@ import 'package:flutter/material.dart';
 
  */
 
+/// ------------------------------------o
+
 abstract class StorageColl{
   // -----------------------------------------------------------------------------
 
@@ -67,7 +66,7 @@ abstract class StorageColl{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getUserPicPath(String userID){
+  static String generateUserPicPath(String userID){
 
     if (userID == null){
       return null;
@@ -79,7 +78,7 @@ abstract class StorageColl{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getBzLogoPath(String bzID){
+  static String generateBzLogoPath(String bzID){
 
     if (bzID == null){
       return null;
@@ -91,7 +90,7 @@ abstract class StorageColl{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getAuthorPicPath({
+  static String generateAuthorPicPath({
     @required String bzID,
     @required String authorID,
   }){
@@ -106,7 +105,7 @@ abstract class StorageColl{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getBzPosterPath(String bzID){
+  static String generateBzPostPicPath(String bzID){
 
     if (bzID == null){
       return null;
@@ -117,7 +116,7 @@ abstract class StorageColl{
 
   }
   // --------------------
-  static String getFlyerSlidePath({
+  static String generateFlyerSlidePath({
     @required String flyerID,
     @required int slideIndex,
   }){
@@ -135,7 +134,7 @@ abstract class StorageColl{
 
   }
   // --------------------
-  static String getFlyerPosterPath(String flyerID){
+  static String generateFlyerPosterPath(String flyerID){
 
     if (flyerID == null){
       return null;
@@ -146,7 +145,7 @@ abstract class StorageColl{
 
   }
   // --------------------
-  static String getFlyerPDFPath(String flyerID){
+  static String generateFlyerPDFPath(String flyerID){
 
     if (flyerID == null){
       return null;

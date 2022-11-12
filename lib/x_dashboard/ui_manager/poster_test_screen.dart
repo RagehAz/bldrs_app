@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -8,9 +7,9 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
-import 'package:bldrs/b_views/z_components/poster/structure/a_note_switcher.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -18,18 +17,14 @@ import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/main.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 class PosterTestScreen extends StatefulWidget {
@@ -106,123 +101,151 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  String _createPosterAspectRatioLine({
+    @required double width,
+    @required double height,
+  }){
+
+    return  'w (~${Numeric.roundFractions(width, 1)}) / '
+            'h (~${Numeric.roundFractions(height, 1)}) = '
+            '${Numeric.roundFractions(width/height, 1)}';
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<PicModel> _createPicModel(Uint8List bytes) async {
+
+    final PicModel _picModel = PicModel(
+      path: 'flyers/{flyerID}/poster',
+      bytes: bytes,
+      meta: PicMetaModel(
+          ownersIDs: ['{ownerID}'],
+          dimensions: await Dimensions.superDimensions(bytes),
+    ),
+    );
+
+    return _picModel;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _captureTreeShot() async {
+
+    await _triggerLoading(setTo: true);
+    final double _screenWidth = Scale.screenWidth(context);
+
+    final Uint8List _bytes = await _controller.capture(
+      // MediaQuery.of(context).devicePixelRatio // no need for this, it messes my final result file width
+      pixelRatio: _desiredPosterWidth / _screenWidth,
+      delay: const Duration(milliseconds: 200),
+    );
+    final PicModel _picModel = await _createPicModel(_bytes);
+
+    setState(() {
+      _posterBytes = _bytes;
+      _posterPicModel = _picModel;
+    });
+
+    await _triggerLoading(setTo: false);
+  }
+  // --------------------
+  static final double _desiredPosterWidth = Standards.posterDimensions.width;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _captureTreelessShot() async {
+    await _triggerLoading(setTo: true);
+
+    final Uint8List _bytes = await PosterDisplay.capturePoster(
+      posterType: PosterType.flyer,
+      finalDesiredPicWidth: _desiredPosterWidth,
+      model: _flyer,
+      helperModel: _bz,
+    );
+
+    final PicModel _picModel = await _createPicModel(_bytes);
+
+    setState(() {
+      _posterBytes = _bytes;
+      _posterPicModel = _picModel;
+    });
+
+    await _triggerLoading(setTo: false);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _deleteShot() {
+    setState(() {
+      _posterBytes = null;
+      _posterPicModel = null;
+    });
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-
-    final double _posterWidth = BldrsAppBar.width(context);
+    final double _posterWidth = Scale.screenWidth(context);
     final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
-
+    // --------------------
     return DashBoardLayout(
       loading: _loading,
       appBarWidgets: <Widget>[
 
         const Expander(),
 
+        /// DELETE
         AppBarButton(
           icon: Iconz.xSmall,
-          onTap: () {
-            setState(() {
-              _posterBytes = null;
-            });
-          },
+          onTap: _deleteShot,
         ),
 
         /// TREE-LESS CAPTURE
         AppBarButton(
           verse: Verse.plain('Treeless shot'),
           isDeactivated: _flyer == null,
-          onTap: () async {
-
-            await _triggerLoading(setTo: true);
-
-            final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
-
-            final Uint8List _bytes = await _controller.captureFromWidget(
-              Material(
-                type: MaterialType.transparency,
-                child: ChangeNotifierProvider(
-                  create: (_) => PhraseProvider(),
-                  lazy: false,
-                  child: PosterSwitcher(
-                    posterType: PosterType.flyer,
-                    width: _posterWidth,
-                    model: _flyer,
-                    modelHelper: _bz,
-                  ),
-                ),
-              ),
-              context: _context,
-              pixelRatio: MediaQuery.of(_context).devicePixelRatio,
-              delay: const Duration(milliseconds: 200),
-            );
-
-            final PicModel _picModel = PicModel(
-              path: 'flyers/{flyerID}/poster',
-              bytes: _bytes,
-              meta: PicMetaModel(
-                ownersIDs: ['{ownerID}'],
-                dimensions: await Dimensions.superDimensions(_bytes),
-              ),
-            );
-
-            setState(() {
-              _posterBytes = _bytes;
-              _posterPicModel = _picModel;
-            });
-
-            await _triggerLoading(setTo: false);
-
-          },
+          onTap: _captureTreelessShot,
         ),
 
         /// TREE CAPTURE
         AppBarButton(
           verse: Verse.plain('Tree shot'),
           isDeactivated: _flyer == null,
-          onTap: () async {
-
-            final Uint8List _bytes = await _controller.capture(
-              pixelRatio: MediaQuery.of(context).devicePixelRatio,
-              delay: const Duration(milliseconds: 200),
-            );
-
-            setState(() {
-              _posterBytes = _bytes;
-            });
-
-          },
+          onTap: _captureTreeShot,
         ),
 
-        /// KEY SHOT
-        AppBarButton(
-          verse: Verse.plain('Key shot'),
-          isDeactivated: _flyer == null,
-          onTap: () async {
-
-            final RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
-            final ui.Image image = await boundary.toImage();
-            final Uint8List _bytes = await Floaters.getUint8ListFromUiImage(image);
-            // var byteData = await image.toByteData(format: ImageByteFormat.png);
-            // var pngBytes = byteData.buffer.asUint8List();
-            // print(pngBytes);
-
-            setState(() {
-              _posterBytes = _bytes;
-            });
-
-          },
-        ),
+        // /// KEY SHOT
+        // AppBarButton(
+        //   verse: Verse.plain('Key shot'),
+        //   isDeactivated: _flyer == null,
+        //   onTap: () async {
+        //
+        //     final RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
+        //     final ui.Image image = await boundary.toImage();
+        //     final Uint8List _bytes = await Floaters.getUint8ListFromUiImage(image);
+        //     // var byteData = await image.toByteData(format: ImageByteFormat.png);
+        //     // var pngBytes = byteData.buffer.asUint8List();
+        //     // print(pngBytes);
+        //
+        //     setState(() {
+        //       _posterBytes = _bytes;
+        //     });
+        //
+        //   },
+        // ),
 
       ],
       listWidgets: <Widget>[
 
+        // -------------------------------------
+
+        /// FLYER PREVIEW
         StaticFlyer(
           flyerModel: _flyer,
           flyerBoxWidth: 150,
           bzModel: _bz,
           flyerShadowIsOn: true,
         ),
+
+        // -------------------------------------
 
         /// POSTER WIDGET TITLE
         SuperVerse(
@@ -238,17 +261,56 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
           alignment: Alignment.center,
           child: Screenshot(
             controller: _controller,
-            child: RepaintBoundary(
-              key: globalKey,
-              child: PosterSwitcher(
-                width: BldrsAppBar.width(context),
-                posterType: PosterType.flyer,
-                model: _flyer,
-                modelHelper: _bz,
-              ),
+            child: PosterDisplay(
+              width: _posterWidth,
+              posterType: PosterType.flyer,
+              model: _flyer,
+              modelHelper: _bz,
             ),
           ),
         ),
+
+        // -------------------------------------
+
+        /// POSTER DIMENSIONS
+        DataStrip(
+          dataKey: 'Screen width',
+          dataValue: Dimensions(
+            width: Numeric.roundFractions(_posterWidth, 1),
+            height: Numeric.roundFractions(_posterHeight, 1),
+          ).toString(),
+          withHeadline: true,
+          color: Colorz.blue80,
+        ),
+
+        /// POSTER BOX ASPECT RATIO
+        DataStrip(
+          dataKey: 'Aspect Ratio ( posterWidth = screenWidth )',
+          dataValue: _createPosterAspectRatioLine(
+            width: _posterWidth,
+            height: _posterHeight,
+          ),
+          withHeadline: true,
+          color: Colorz.blue80,
+        ),
+
+        // -------------------------------------
+
+        const SeparatorLine(
+          withMargins: true,
+        ),
+
+        /// POSTER DIMENSIONS
+        if (_posterPicModel != null)
+          DataStrip(
+            dataKey: 'Poster Original Dims',
+            dataValue: Dimensions(
+              width: _desiredPosterWidth,
+              height:  NotePosterBox.getBoxHeight(_desiredPosterWidth),
+            ).toString(),
+            withHeadline: true,
+            color: Colorz.green20,
+          ),
 
         /// POSTER BYTES TITLE
         SuperVerse(
@@ -278,25 +340,30 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
           ),
         ),
 
+        // -------------------------------------
+
+        // _treelessShotWidth
+
         /// POSTER DIMENSIONS
         if (_posterPicModel != null)
-        DataStrip(
-            dataKey: 'Dimensions',
+          DataStrip(
+            dataKey: 'Poster Dims',
             dataValue: _posterPicModel.meta.dimensions.toString(),
-        ),
+            withHeadline: true,
+          ),
 
         /// POSTER BOX ASPECT RATIO
         if (_posterPicModel != null)
           DataStrip(
-            dataKey: 'Box AspectRatio',
-            dataValue: Numeric.roundFractions(_posterPicModel.meta.dimensions.getAspectRatio(), 4),
+            dataKey: 'Poster Aspect Ratio',
+            dataValue: _createPosterAspectRatioLine(
+              width: _posterPicModel.meta.dimensions.width,
+              height: _posterPicModel.meta.dimensions.height,
+            ),
+            withHeadline: true,
           ),
-        // StaticFlyer(
-        //   flyerModel: _flyer,
-        //   bzModel: _bz,
-        //   flyerBoxWidth: _clearWidth,
-        //   flyerShadowIsOn: true,
-        // ),
+
+        // -------------------------------------
 
         const Horizon(),
 
@@ -304,5 +371,5 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

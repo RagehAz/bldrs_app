@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -245,7 +245,7 @@ class DraftFlyer{
       times: _publishTimes,
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
-      pdfPath: draft.pdfModel == null ? null : StorageColl.getFlyerPDFPath(draft.id),
+      pdfPath: draft.pdfModel == null ? null : Storage.generateFlyerPDFPath(draft.id),
 
     );
   }
@@ -572,7 +572,7 @@ class DraftFlyer{
           flyerID: flyerID,
         ),
         pdfModel: draft.pdfModel?.copyWith(
-          path: StorageColl.getFlyerPDFPath(flyerID),
+          path: Storage.generateFlyerPDFPath(flyerID),
         ),
       );
 

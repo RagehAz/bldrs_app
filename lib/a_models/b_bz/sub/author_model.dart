@@ -6,8 +6,8 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -126,7 +126,7 @@ class AuthorModel {
     final AuthorModel _author = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
-      picPath: StorageColl.getAuthorPicPath(bzID: bzID, authorID: userModel.id),
+      picPath: Storage.generateAuthorPicPath(bzID: bzID, authorID: userModel.id),
       title: userModel.title,
       role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
       contacts: userModel.contacts,
@@ -779,7 +779,7 @@ class AuthorModel {
 
       for (final AuthorModel author in authors){
 
-        final String _picPath = StorageColl.getAuthorPicPath(
+        final String _picPath = Storage.generateAuthorPicPath(
           bzID: bzID,
           authorID: author.userID,
         );

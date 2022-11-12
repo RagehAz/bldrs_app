@@ -25,7 +25,6 @@ class PosterSwitcher extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if (posterType == PosterType.flyer){
-
       return FlyerPoster(
         width: width,
         flyerModel: model is FlyerModel ? model : null,
@@ -45,11 +44,11 @@ class PosterSwitcher extends StatelessWidget {
     }
 
     else if (
-    posterType == PosterType.url
-    ||
-    posterType == PosterType.cameraImage
-    ||
-    posterType == PosterType.galleryImage
+        posterType == PosterType.url
+        ||
+        posterType == PosterType.cameraImage
+        ||
+        posterType == PosterType.galleryImage
     ){
       return ImagePoster(
         width: width,

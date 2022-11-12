@@ -17,7 +17,7 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -42,14 +42,14 @@ Future<void> onFlyerBzOptionsTap({
     myID: AuthFireOps.superUserID(),
     bzModel: BzzProvider.proGetActiveBzModel(context: context, listen: false),
   );
-  final PicModel _poster = await PicProtocols.fetchPic(StorageColl.getFlyerPosterPath(flyer.id));
+  final PicModel _poster = await PicProtocols.fetchPic(Storage.generateFlyerPosterPath(flyer.id));
 
   final double _posterWidth = BottomDialog.clearWidth(context);
   final double _posterHeight = NotePosterBox.getBoxHeight(_posterWidth);
 
   final double _clearHeight = _posterHeight + (BottomDialog.wideButtonHeight * 2) + (5 * 2) + 10;
 
-  _poster.blogPic(invoker: 'POSTER');
+  // _poster?.blogPic(invoker: 'POSTER');
 
   await BottomDialog.showBottomDialog(
       context: context,

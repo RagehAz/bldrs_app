@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -40,7 +40,7 @@ class StorageFileOps {
         functions: () async {
 
           /// GET REF
-          final Reference _ref = StorageRef.byNodes(
+          final Reference _ref = StorageRef.getRefByNodes(
             collName: storageCollName,
             docName: docName,
           );
@@ -178,14 +178,14 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> downloadFileByURL({
+  static Future<File> readFileByURL({
     @required String url,
   }) async {
     File _file;
 
     if (url != null) {
 
-      final Reference _ref = await StorageRef.byURL(
+      final Reference _ref = await StorageRef.getRefByURL(
         url: url,
       );
 
@@ -205,7 +205,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<File> downloadFileByNodes({
+  static Future<File> readFileByNodes({
     @required String storageCollName,
     @required String docName,
   }) async {
@@ -223,7 +223,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     //
     // }
 
-    final Reference _ref = StorageRef.byNodes(
+    final Reference _ref = StorageRef.getRefByNodes(
       collName: storageCollName,
       docName: docName,
     );
