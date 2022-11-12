@@ -230,6 +230,7 @@ Future<void> onTapEditPhrase({
   await Nav.goBack(
     context: context,
     invoker: 'onTapEditPhrase',
+    addPostFrameCallback: true,
   );
 
   final Phrase _enPhrase = Phrase.searchPhraseByIDAndLangCode(

@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -38,7 +38,7 @@ class StorageByteOps {
         invoker: 'createDocByUint8List',
         functions: () async {
 
-          final Reference _ref = StorageRef.byPath(path);
+          final Reference _ref = StorageRef.getRefByPath(path);
 
           blog('createDocByUint8List : 1 - got ref : $_ref');
 

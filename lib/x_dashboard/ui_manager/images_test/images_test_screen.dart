@@ -17,7 +17,7 @@ import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart'
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/b_views/z_components/poster/structure/a_note_switcher.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
@@ -275,7 +275,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             //
             //   await _triggerLoading(setTo: true);
             //
-            //   final Uint8List _bytes = await StorageByteOps.readBytesByURL(
+            //   final Uint8List _bytes = await Storage.readBytesByURL(
             //     url: _user.picPath,
             //     fileName: _user.id,
             //   );

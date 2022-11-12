@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 
@@ -115,7 +115,7 @@ class ImagifyFlyerProtocols {
       if (ObjectCheck.objectIsUiImage(flyerModel.bzLogoImage) == false){
 
         final ui.Image _logoImage = await PicProtocols.fetchPicUiImage(
-            StorageColl.getBzLogoPath(flyerModel.bzID)
+            Storage.generateBzLogoPath(flyerModel.bzID)
         );
 
         _output = flyerModel.copyWith(
@@ -145,7 +145,7 @@ class ImagifyFlyerProtocols {
       if (ObjectCheck.objectIsUiImage(flyerModel.authorImage) == false){
 
         final ui.Image _authorImage = await PicProtocols.fetchPicUiImage(
-            StorageColl.getAuthorPicPath(
+            Storage.generateAuthorPicPath(
               authorID: flyerModel.authorID,
               bzID: flyerModel.bzID,
             )
