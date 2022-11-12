@@ -221,8 +221,3 @@ class CloudFunction {
 // -----------------------------------------------------------------------------
 
 }
-
-// Future<String> deleteFirebaseUser({String userID}) async {
-//   blog('will delete user tomorrow isa, after 3eid');
-//   return 'rabena ysahhel';
-// }
