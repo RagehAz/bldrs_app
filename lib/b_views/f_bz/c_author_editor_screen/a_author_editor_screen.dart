@@ -57,7 +57,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   }  // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
-  final ValueNotifier<AuthorModel> _tempAuthor = ValueNotifier(null);
+  final ValueNotifier<AuthorModel> _draftAuthor = ValueNotifier(null);
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // --------------------
@@ -81,7 +81,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void initState() {
     super.initState();
 
-    _tempAuthor.value = widget.author;
+    _draftAuthor.value = widget.author;
 
   }
   // --------------------
@@ -95,7 +95,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         await prepareAuthorPicForEditing(
           mounted: mounted,
           context: context,
-          draftAuthor: _tempAuthor,
+          draftAuthor: _draftAuthor,
           oldAuthor: widget.author,
           bzModel: widget.bzModel,
         );
@@ -106,7 +106,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             context: context,
             oldAuthor: widget.author,
             bzModel: widget.bzModel,
-            draftAuthor: _tempAuthor,
+            draftAuthor: _draftAuthor,
           );
         }
         // -----------------------------
@@ -116,11 +116,11 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         }
         // -----------------------------
         if (mounted == true){
-          _tempAuthor.addListener((){
+          _draftAuthor.addListener((){
             _switchOnValidation();
             saveAuthorEditorSession(
               context: context,
-              draftAuthor: _tempAuthor,
+              draftAuthor: _draftAuthor,
               bzModel: widget.bzModel,
               oldAuthor: widget.author,
               mounted: mounted,
@@ -147,7 +147,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _phoneNode.dispose();
     _emailNode.dispose();
 
-    _tempAuthor.dispose();
+    _draftAuthor.dispose();
 
     // _fuckingNode.dispose();
     _scrollController.dispose();
@@ -164,7 +164,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
       await onConfirmAuthorUpdates(
         context: context,
-        tempAuthor: _tempAuthor,
+        tempAuthor: _draftAuthor,
         bzModel: widget.bzModel,
         oldAuthor: widget.author,
       );
@@ -208,7 +208,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       layoutWidget: Form(
         key: _formKey,
         child: ValueListenableBuilder(
-          valueListenable: _tempAuthor,
+          valueListenable: _draftAuthor,
           builder: (_, AuthorModel authorModel, Widget child){
 
             return SingleChildScrollView(
@@ -234,7 +234,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       bubbleType: BubbleType.authorPic,
                       onAddPicture: (PicMakerType imagePickerType) => takeAuthorImage(
                         context: context,
-                        author: _tempAuthor,
+                        author: _draftAuthor,
                         bzModel: widget.bzModel,
                         imagePickerType: imagePickerType,
                         canPickImage: _canPickImage,
@@ -268,7 +268,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ],
                     initialText: authorModel.name,
                     onTextChanged: (String text) => onAuthorNameChanged(
-                      tempAuthor: _tempAuthor,
+                      tempAuthor: _draftAuthor,
                       text: text,
                     ),
                     // autoValidate: true,
@@ -298,7 +298,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     keyboardTextInputAction: TextInputAction.next,
                     onTextChanged: (String text) => onAuthorTitleChanged(
                       text: text,
-                      tempAuthor: _tempAuthor,
+                      tempAuthor: _draftAuthor,
                     ),
                     initialText: authorModel.title,
                     validator: (String text) => Formers.jobTitleValidator(
@@ -334,7 +334,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     textOnChanged: (String text) => onAuthorContactChanged(
                       contactType: ContactType.phone,
                       value: text,
-                      tempAuthor: _tempAuthor,
+                      tempAuthor: _draftAuthor,
                     ),
                     validator: (String text) => Formers.contactsPhoneValidator(
                       contacts: authorModel.contacts,
@@ -370,7 +370,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     textOnChanged: (String text) => onAuthorContactChanged(
                       contactType: ContactType.email,
                       value: text,
-                      tempAuthor: _tempAuthor,
+                      tempAuthor: _draftAuthor,
                     ),
                     canPaste: false,
                     validator: (String text) => Formers.contactsEmailValidator(

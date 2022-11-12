@@ -1,8 +1,10 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -63,14 +65,17 @@ class AuthorshipEntryProtocols {
     );
 
     /// MODIFY BZ MODEL --------------------------
-    BzModel _bzModel = BzModel.addNewUserAsAuthor(
+    BzModel _bzModel = await BzModel.addNewUserAsAuthor(
       oldBzModel: _oldBzModel,
       userModel: _uploadedUser,
     );
-    // _bzModel = await BzFireOps.updateAuthorPicIfChangedAndReturnNewBzModel(
-    //   context: context,
-    //   bzModel: _bzModel,
-    // );
+
+    /// upload author pic // author pic model is adjusted inside this method
+    final AuthorModel _author = AuthorModel.getAuthorFromAuthorsByID(
+        authors: _bzModel.authors,
+        authorID: _uploadedUser.id,
+    );
+    await PicProtocols.composePic(_author.picModel);
 
     _bzModel = PendingAuthor.removePendingAuthorFromBz(
         bzModel: _bzModel,

@@ -14,6 +14,7 @@ import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +106,7 @@ class DraftBz {
     /// FIRST TIMER
     if (oldBz == null){
 
-      _output = _createNewDraftBz(context);
+      _output = await _createNewDraftBz(context);
 
     }
 
@@ -123,7 +124,7 @@ class DraftBz {
   }
   // -------------------
   /// TASK : TEST ME
-  static DraftBz _createNewDraftBz(BuildContext context){
+  static Future<DraftBz> _createNewDraftBz(BuildContext context) async {
 
     final UserModel creatorUser = UsersProvider.proGetMyUserModel(
       context: context,
@@ -152,8 +153,14 @@ class DraftBz {
       ],
     );
 
+    final AuthorModel _author = await AuthorModel.createAuthorFromUserModel(
+      userModel: creatorUser,
+      isCreator: true,
+      bzID: null,
+    );
+
     return DraftBz(
-      id: null,
+      id: 'newDraft',
       createdAt: null,
       accountType: BzAccountType.normal,
       name: '',
@@ -162,13 +169,7 @@ class DraftBz {
       about: '',
       position: null,
       contacts: _contacts,
-      authors: <AuthorModel>[
-        AuthorModel.createAuthorFromUserModel(
-          userModel: creatorUser,
-          isCreator: true,
-          bzID: null,
-        )
-      ],
+      authors: <AuthorModel>[_author],
       pendingAuthors: const [],
       showsTeam: true,
       isVerified: false,
@@ -626,6 +627,53 @@ class DraftBz {
   List<String> getLogoOwners(){
     final AuthorModel _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
     return <String>[_author?.userID];
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // -------------------
+  ///
+  void blogDraft(){
+
+    blog('blogDraftBz ------------------------------------> START');
+
+    blog('id : $id');
+    Timers.blogDateTime(createdAt);
+    blog('accountType : ${BzTyper.cipherBzAccountType(accountType)}');
+    blog('name : $name');
+    blog('trigram : $trigram');
+    zone?.blogZone(invoker: 'DraftBz');
+    blog('about : $about');
+    Atlas.blogGeoPoint(point: position, invoker: 'DraftBz');
+    ContactModel.blogContacts(contacts: contacts);
+    AuthorModel.blogAuthors(authors: authors, invoker: 'DraftBz');
+    PendingAuthor.blogPendingAuthors(pendingAuthors);
+    blog('showsTeam : $showsTeam');
+    blog('isVerified : $isVerified');
+    blog('bzState : ${BzTyper.cipherBzState(bzState)}');
+    blog('flyersIDs : $flyersIDs');
+    blog('bzSection : ${BzTyper.cipherBzSection(bzSection)}');
+    blog('bzTypes : ${BzTyper.cipherBzTypes(bzTypes)}');
+    blog('inactiveBzTypes : ${BzTyper.cipherBzTypes(inactiveBzTypes)}');
+    blog('bzForm : ${BzTyper.cipherBzForm(bzForm)}');
+    blog('inactiveBzForms : ${BzTyper.cipherBzForms(inactiveBzForms)}');
+    blog('scope : $scope');
+    SpecModel.blogSpecs(scopeSpecs);
+    logoPicModel?.blogPic(invoker: 'DraftBz');
+    blog('hasNewLogo : $hasNewLogo');
+    blog('canPickImage : $canPickImage');
+    blog('canValidate : $canValidate');
+    blog('nameNode exists : ${nameNode != null} : '
+        'aboutNode exists : ${aboutNode != null} : '
+        'emailNode exists : ${emailNode != null} : '
+        'websiteNode exists : ${websiteNode != null} : '
+        'phoneNode exists : ${phoneNode != null}');
+    blog('formKey exists : ${formKey != null}');
+    blog('firstTimer : $firstTimer');
+
+    blog('blogDraftBz ------------------------------------> END');
+
   }
   // -----------------------------------------------------------------------------
 

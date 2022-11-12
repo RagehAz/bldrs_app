@@ -34,6 +34,8 @@ class ComposeBzProtocols {
   }) async {
     blog('ComposeBzProtocol.compose : START');
 
+    assert(newDraft.logoPicModel != null, 'logoPicModel is null');
+
     /// WAIT DIALOG
     unawaited(WaitDialog.showWaitDialog(
       context: context,
@@ -53,7 +55,18 @@ class ComposeBzProtocols {
     );
 
     /// BAKE DRAFT TO INITIAL BZ
-    final BzModel _bzModel = DraftBz.toBzModel(_draftWithID);
+    BzModel _bzModel = DraftBz.toBzModel(_draftWithID);
+
+    /// OVERRIDE CREATION TIME
+    _bzModel = _bzModel.copyWith(
+      createdAt: DateTime.now(),
+    );
+
+    /// UPDATE MY USER MODEL
+    await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
+      context: context,
+      bzID: _bzModel.id,
+    );
 
     /// UPLOAD
     await Future.wait(<Future>[
@@ -62,7 +75,7 @@ class ComposeBzProtocols {
       BzFireOps.update(_bzModel),
 
       /// UPLOAD BZ LOGO
-      PicProtocols.composePic(newDraft.logoPicModel),
+      PicProtocols.composePic(_draftWithID.logoPicModel),
 
       /// UPLOAD AUTHOR PIC
       PicProtocols.composePics(AuthorModel.getPicModels(newDraft.authors)),
@@ -71,12 +84,6 @@ class ComposeBzProtocols {
       _addMyNewCreatedBzLocally(
         context: context,
         bzModel: _bzModel,
-      ),
-
-      /// UPDATE MY USER MODEL
-      _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
-        context: context,
-        bzID: _bzModel.id,
       ),
 
     ]);
