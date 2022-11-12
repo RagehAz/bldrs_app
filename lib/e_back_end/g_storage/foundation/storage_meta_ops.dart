@@ -1,4 +1,6 @@
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_exception_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -8,6 +10,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 class StorageMetaOps {
   /// --------------------------------------------------------------------------
@@ -28,16 +31,16 @@ class StorageMetaOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      await tryAndCatch(
-        invoker: 'getMetaByPath',
-        functions: () async {
+      /// TRY GET META DATA
+      try {
+        final Reference _ref = StorageRef.getRefByPath(path);
+        _meta = await _ref.getMetadata();
+      }
 
-          final Reference _ref = StorageRef.getRefByPath(path);
-
-          _meta = await _ref.getMetadata();
-
-        },
-      );
+      /// CATCH
+      on firebase_core.FirebaseException catch (error){
+        StorageExceptionOps.onException(error);
+      }
 
     }
 
@@ -265,24 +268,21 @@ class StorageMetaOps {
   /// CHECKERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> checkCanDeleteDocByNodes({
-    @required String collName,
-    @required String docName,
+  /// TASK : TEST ME
+  static Future<bool> checkCanDeleteDocByPath({
+    @required String path,
   }) async {
 
-    assert(docName != null && collName != null,
-    'checkCanDeleteStorageFile : fileName or storageDocName can not be null');
+    assert(path != null, 'path is null');
 
     bool _canDelete = false;
 
     blog('checkCanDeleteStorageFile : START');
 
-    if (docName != null && collName != null){
+    if (path != null){
 
-      final List<String> _ownersIDs = await readOwnersIDsByNodes(
-        collName: collName,
-        docName: docName,
+      final List<String> _ownersIDs = await readOwnersIDsByPath(
+        path: path,
       );
 
       blog('checkCanDeleteStorageFile : _ownersIDs : $_ownersIDs');
@@ -302,6 +302,33 @@ class StorageMetaOps {
 
 
     blog('checkCanDeleteStorageFile : END');
+    return _canDelete;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> checkCanDeleteDocByNodes({
+    @required String collName,
+    @required String docName,
+  }) async {
+
+    assert(docName != null && collName != null,
+    'checkCanDeleteStorageFile : fileName or storageDocName can not be null');
+
+    bool _canDelete = false;
+
+    if (docName != null && collName != null){
+
+      final Reference _ref = Storage.getRefByNodes(
+          collName: collName,
+          docName: docName,
+        );
+
+      _canDelete = await checkCanDeleteDocByPath(
+        path: _ref.fullPath,
+      );
+
+    }
+
     return _canDelete;
   }
   // -----------------------------------------------------------------------------

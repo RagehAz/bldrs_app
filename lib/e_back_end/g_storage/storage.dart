@@ -1,6 +1,5 @@
-
-
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_byte_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_delete_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_file_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_meta_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
@@ -110,11 +109,21 @@ class Storage {
   /// DELETE
 
   // --------------------
-
+  ///
+  static const deleteDoc = StorageDeletionOps.deleteDoc;
+  // --------------------
+  ///
+  static const deleteDocs = StorageDeletionOps.deleteDocs;
+  // --------------------
+  ///
+  static const deletePath = StorageDeletionOps.deletePath;
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
+  // --------------------
+  /// TASK : TEST ME
+  static const checkCanDeleteDocByPath = StorageMetaOps.checkCanDeleteDocByPath;
   // --------------------
   /// TESTED : WORKS PERFECT
   static const checkCanDeleteDocByNodes = StorageMetaOps.checkCanDeleteDocByNodes;
