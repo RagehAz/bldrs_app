@@ -371,11 +371,15 @@ class _SuperTextFieldState extends State<SuperTextField> {
   // --------------------
   @override
   void didUpdateWidget(covariant SuperTextField oldWidget) {
-    // if (oldWidget.initialValue != widget.initialValue){
-    //   Future.delayed(Duration.zero, (){
-    //     _controller.text = widget.initialValue;
-    //   });
-    // }
+
+    if (oldWidget.initialValue != widget.initialValue){
+
+      WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+        _controller.text = widget.initialValue;
+      }));
+
+    }
+
     super.didUpdateWidget(oldWidget);
   }
   // --------------------

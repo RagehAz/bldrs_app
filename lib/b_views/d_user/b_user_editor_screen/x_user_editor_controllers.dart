@@ -11,7 +11,6 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x4_user_settings_page_controllers.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -23,7 +22,6 @@ import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -73,17 +71,18 @@ Future<void> prepareUserForEditing({
 /// LAST SESSION
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> loadUserEditorLastSession({
   @required BuildContext context,
-  @required String userID,
-  @required bool reAuthBeforeConfirm,
-  @required bool canGoBack,
-  @required Function onFinish,
+  @required ValueNotifier<DraftUser> draft,
+  // @required String userID,
+  // @required bool reAuthBeforeConfirm,
+  // @required bool canGoBack,
+  // @required Function onFinish,
 }) async {
 
   final DraftUser _lastSessionDraft = await UserLDBOps.loadEditorSession(
-    userID: userID,
+    userID: draft.value.id,
   );
 
   if (_lastSessionDraft != null){
@@ -103,19 +102,29 @@ Future<void> loadUserEditorLastSession({
 
     if (_continue == true){
 
-      await Nav.replaceScreen(
-        context: context,
-        screen: EditProfileScreen(
-          reAuthBeforeConfirm: reAuthBeforeConfirm,
-          canGoBack: canGoBack,
-          onFinish: onFinish,
-          checkLastSession: false,
-          validateOnStartup: true,
-          userModel: DraftUser.toUserModel(
-            draft: _lastSessionDraft,
-          ),
-        ),
+      draft.value = _lastSessionDraft.copyWith(
+        nameNode: draft.value.nameNode,
+        titleNode: draft.value.titleNode,
+        companyNode: draft.value.companyNode,
+        emailNode: draft.value.emailNode,
+        phoneNode: draft.value.phoneNode,
+        formKey: draft.value.formKey,
+        canPickImage: true,
       );
+
+      // await Nav.replaceScreen(
+      //   context: context,
+      //   screen: EditProfileScreen(
+      //     reAuthBeforeConfirm: reAuthBeforeConfirm,
+      //     canGoBack: canGoBack,
+      //     onFinish: onFinish,
+      //     checkLastSession: false,
+      //     validateOnStartup: true,
+      //     userModel: DraftUser.toUserModel(
+      //       draft: _lastSessionDraft,
+      //     ),
+      //   ),
+      // );
 
     }
 
@@ -127,7 +136,7 @@ Future<void> loadUserEditorLastSession({
 /// EDITORS
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
   @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
@@ -183,16 +192,16 @@ Future<void> takeUserPicture({
           ),
         ),
         hasNewPic: true,
+        canPickImage: true
       );
 
-      DraftUser.triggerCanPickImage(draftUser: draft, mounted: mounted, setTo: true,);
     }
 
   }
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 void onChangeGender({
   @required Gender selectedGender,
   @required ValueNotifier<DraftUser> draft,
@@ -202,7 +211,7 @@ void onChangeGender({
   );
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 void onUserNameChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
@@ -214,7 +223,7 @@ void onUserNameChanged({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 void onUserJobTitleChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
@@ -226,7 +235,7 @@ void onUserJobTitleChanged({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 void onUserCompanyNameChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
@@ -235,9 +244,8 @@ void onUserCompanyNameChanged({
     company: text,
   );
 }
-
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 void onUserZoneChanged({
   @required ZoneModel selectedZone,
   @required ValueNotifier<DraftUser> draft,
@@ -251,7 +259,7 @@ void onUserZoneChanged({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 void onUserContactChanged({
   @required ValueNotifier<DraftUser> draft,
   @required ContactType contactType,
