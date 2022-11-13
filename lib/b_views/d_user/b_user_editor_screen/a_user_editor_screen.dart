@@ -86,24 +86,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-        /// PREPARE (PIC - ZONE - CONTACTS)
         setNotifier(
-            notifier: _draftUser,
-            mounted: mounted,
-            value: await DraftUser.createDraftUser(
-              context: context,
-              userModel: widget.userModel,
-            ),
+          notifier: _draftUser,
+          mounted: mounted,
+          value: await DraftUser.createDraftUser(
+            context: context,
+            userModel: widget.userModel,
+          ),
         );
-        // -----------------------------
+        // -------------------------------
         if (widget.checkLastSession == true){
           await loadUserEditorLastSession(
             context: context,
-            userID: widget.userModel.id,
-            onFinish: widget.onFinish,
-            canGoBack: widget.canGoBack,
-            reAuthBeforeConfirm: widget.reAuthBeforeConfirm,
+            draft: _draftUser,
+            // userID: widget.userModel.id,
+            // onFinish: widget.onFinish,
+            // canGoBack: widget.canGoBack,
+            // reAuthBeforeConfirm: widget.reAuthBeforeConfirm,
           );
+          setState(() {
+            _canValidate = true;
+          });
         }
         // -----------------------------
         if (widget.validateOnStartup == true){
@@ -173,237 +176,243 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         valueListenable: _draftUser,
         builder: (_, DraftUser draft, Widget child){
 
-          return Form(
-            key: draft?.formKey,
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.zero,
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              children: <Widget>[
+          if (draft == null){
+            return const SizedBox();
+          }
 
-                const Stratosphere(),
+          else {
+            return Form(
+              key: draft?.formKey,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                padding: EdgeInsets.zero,
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                children: <Widget>[
 
-                /// PICTURE
-                AddImagePicBubble(
-                  formKey: draft?.formKey,
-                  titleVerse: const Verse(
-                    text: 'phid_picture',
-                    translate: true,
-                  ),
-                  redDot: true,
-                  picModel: draft?.picModel,
-                  bubbleType: BubbleType.userPic,
-                  onAddPicture: (PicMakerType imagePickerType) => takeUserPicture(
-                    context: context,
-                    draft: _draftUser,
-                    picMakerType: imagePickerType,
-                    mounted: mounted,
-                  ),
-                  validator: () => Formers.picValidator(
-                    pic: draft?.picModel,
-                    canValidate: _canValidate,
-                  ),
-                ),
+                  const Stratosphere(),
 
-                /// GENDER
-                GenderBubble(
-                  draftUser: draft,
-                  canValidate: _canValidate,
-                  onTap: (Gender gender) => onChangeGender(
-                    selectedGender: gender,
-                    draft: _draftUser,
-                  ),
-                ),
-
-                /// NAME
-                TextFieldBubble(
-                  key: const ValueKey<String>('name'),
-                  headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: Verse(
-                      text: 'phid_name',
+                  /// PICTURE
+                  AddImagePicBubble(
+                    formKey: draft?.formKey,
+                    titleVerse: const Verse(
+                      text: 'phid_picture',
                       translate: true,
                     ),
                     redDot: true,
-                  ),
-                  formKey: draft?.formKey,
-                  focusNode: draft?.nameNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft?.name,
-                  onTextChanged: (String text) => onUserNameChanged(
-                    text: text,
-                    draft: _draftUser,
-                  ),
-                  // autoValidate: true,
-                  validator: (String text) => Formers.personNameValidator(
-                    name: draft?.name,
-                    canValidate: _canValidate,
-                  ),
-                ),
-
-                /// JOB TITLE
-                TextFieldBubble(
-                  key: const ValueKey<String>('title'),
-                  headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: Verse(
-                      text: 'phid_occupation',
-                      translate: true,
+                    picModel: draft?.picModel,
+                    bubbleType: BubbleType.userPic,
+                    onAddPicture: (PicMakerType imagePickerType) => takeUserPicture(
+                      context: context,
+                      draft: _draftUser,
+                      picMakerType: imagePickerType,
+                      mounted: mounted,
                     ),
-                    redDot: true,
-                  ),
-                  formKey: draft?.formKey,
-                  focusNode: draft?.titleNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft?.title,
-                  onTextChanged: (String text) => onUserJobTitleChanged(
-                    draft: _draftUser,
-                    text: text,
-                  ),
-                  // autoValidate: true,
-                  validator: (String text) => Formers.jobTitleValidator(
-                    jobTitle: draft?.title,
-                    canValidate: _canValidate,
-                  ),
-                ),
-
-                /// COMPANY NAME
-                TextFieldBubble(
-                  key: const ValueKey<String>('company'),
-                  headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: Verse(
-                      text: 'phid_companyName',
-                      translate: true,
+                    validator: () => Formers.picValidator(
+                      pic: draft?.picModel,
+                      canValidate: _canValidate,
                     ),
-                    redDot: true,
                   ),
-                  formKey: draft?.formKey,
-                  focusNode: draft?.companyNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft?.company,
-                  // autoValidate: true,
-                  onTextChanged: (String text) => onUserCompanyNameChanged(
-                    text: text,
-                    draft: _draftUser,
-                  ),
-                  validator: (String text) => Formers.companyNameValidator(
-                    companyName: draft?.company,
+
+                  /// GENDER
+                  GenderBubble(
+                    draftUser: draft,
                     canValidate: _canValidate,
-                  ),
-                ),
-
-                const DotSeparator(),
-
-                /// PHONE
-                ContactFieldEditorBubble(
-                  key: const ValueKey<String>('phone'),
-                  formKey: draft?.formKey,
-                  focusNode: draft?.phoneNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: Verse(
-                      text: 'phid_phone',
-                      translate: true,
+                    onTap: (Gender gender) => onChangeGender(
+                      selectedGender: gender,
+                      draft: _draftUser,
                     ),
-                    redDot: true,
                   ),
-                  keyboardTextInputType: TextInputType.phone,
-                  keyboardTextInputAction: TextInputAction.next,
-                  initialTextValue: ContactModel.getInitialContactValue(
-                    type: ContactType.phone,
-                    countryID: draft?.zone?.countryID,
-                    existingContacts: draft?.contacts,
-                  ),
-                  textOnChanged: (String text) => onUserContactChanged(
-                    contactType: ContactType.phone,
-                    value: text,
-                    draft: _draftUser,
-                  ),
-                  canPaste: false,
-                  // autoValidate: true,
-                  validator: (String text) => Formers.contactsPhoneValidator(
-                    contacts: draft?.contacts,
-                    zoneModel: draft?.zone,
-                    canValidate: _canValidate,
-                    context: context,
-                    isRequired: false,
-                  ),
-                ),
 
-                /// EMAIL
-                ContactFieldEditorBubble(
-                  key: const ValueKey<String>('email'),
-                  formKey: draft?.formKey,
-                  focusNode: draft?.emailNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: Verse(
-                      text: 'phid_emailAddress',
-                      translate: true,
+                  /// NAME
+                  TextFieldBubble(
+                    key: const ValueKey<String>('name'),
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_name',
+                        translate: true,
+                      ),
+                      redDot: true,
                     ),
-                    redDot: true,
+                    formKey: draft?.formKey,
+                    focusNode: draft?.nameNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    initialText: draft?.name,
+                    onTextChanged: (String text) => onUserNameChanged(
+                      text: text,
+                      draft: _draftUser,
+                    ),
+                    // autoValidate: true,
+                    validator: (String text) => Formers.personNameValidator(
+                      name: draft?.name,
+                      canValidate: _canValidate,
+                    ),
                   ),
-                  keyboardTextInputType: TextInputType.emailAddress,
-                  keyboardTextInputAction: TextInputAction.done,
-                  initialTextValue: ContactModel.getInitialContactValue(
-                    type: ContactType.email,
-                    countryID: draft?.zone?.countryID,
-                    existingContacts: draft?.contacts,
-                  ),
-                  textOnChanged: (String text) => onUserContactChanged(
-                    contactType: ContactType.email,
-                    value: text,
-                    draft: _draftUser,
-                  ),
-                  canPaste: false,
-                  // autoValidate: true,
-                  validator: (String text) => Formers.contactsEmailValidator(
-                    contacts: draft?.contacts,
-                    canValidate: _canValidate,
-                  ),
-                ),
 
-                const DotSeparator(),
-
-                /// ZONE
-                ZoneSelectionBubble(
-                  currentZone: draft?.zone,
-                  onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
-                    selectedZone: zoneModel,
-                    draft: _draftUser,
+                  /// JOB TITLE
+                  TextFieldBubble(
+                    key: const ValueKey<String>('title'),
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_occupation',
+                        translate: true,
+                      ),
+                      redDot: true,
+                    ),
+                    formKey: draft?.formKey,
+                    focusNode: draft?.titleNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    initialText: draft?.title,
+                    onTextChanged: (String text) => onUserJobTitleChanged(
+                      draft: _draftUser,
+                      text: text,
+                    ),
+                    // autoValidate: true,
+                    validator: (String text) => Formers.jobTitleValidator(
+                      jobTitle: draft?.title,
+                      canValidate: _canValidate,
+                    ),
                   ),
-                  // selectCountryAndCityOnly: true,
-                  // selectCountryIDOnly: false,
-                  validator: () => Formers.zoneValidator(
-                    zoneModel: draft?.zone,
-                    selectCountryAndCityOnly: true,
-                    selectCountryIDOnly: false,
-                    canValidate: _canValidate,
+
+                  /// COMPANY NAME
+                  TextFieldBubble(
+                    key: const ValueKey<String>('company'),
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_companyName',
+                        translate: true,
+                      ),
+                      redDot: true,
+                    ),
+                    formKey: draft?.formKey,
+                    focusNode: draft?.companyNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    initialText: draft?.company,
+                    // autoValidate: true,
+                    onTextChanged: (String text) => onUserCompanyNameChanged(
+                      text: text,
+                      draft: _draftUser,
+                    ),
+                    validator: (String text) => Formers.companyNameValidator(
+                      companyName: draft?.company,
+                      canValidate: _canValidate,
+                    ),
                   ),
-                ),
 
-                /// CONTACTS
-                // ContactsEditorsBubbles(
-                //   globalKey: formKey,
-                //   contacts: userModel.contacts,
-                //   contactsOwnerType: ContactsOwnerType.user,
-                //   appBarType: appBarType,
-                // ),
+                  const DotSeparator(),
 
-                const Horizon(),
+                  /// PHONE
+                  ContactFieldEditorBubble(
+                    key: const ValueKey<String>('phone'),
+                    formKey: draft?.formKey,
+                    focusNode: draft?.phoneNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_phone',
+                        translate: true,
+                      ),
+                      redDot: true,
+                    ),
+                    keyboardTextInputType: TextInputType.phone,
+                    keyboardTextInputAction: TextInputAction.next,
+                    initialTextValue: ContactModel.getInitialContactValue(
+                      type: ContactType.phone,
+                      countryID: draft?.zone?.countryID,
+                      existingContacts: draft?.contacts,
+                    ),
+                    textOnChanged: (String text) => onUserContactChanged(
+                      contactType: ContactType.phone,
+                      value: text,
+                      draft: _draftUser,
+                    ),
+                    canPaste: false,
+                    // autoValidate: true,
+                    validator: (String text) => Formers.contactsPhoneValidator(
+                      contacts: draft?.contacts,
+                      zoneModel: draft?.zone,
+                      canValidate: _canValidate,
+                      context: context,
+                      isRequired: false,
+                    ),
+                  ),
 
-              ],
-            ),
-          );
+                  /// EMAIL
+                  ContactFieldEditorBubble(
+                    key: const ValueKey<String>('email'),
+                    formKey: draft?.formKey,
+                    focusNode: draft?.emailNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: Verse(
+                        text: 'phid_emailAddress',
+                        translate: true,
+                      ),
+                      redDot: true,
+                    ),
+                    keyboardTextInputType: TextInputType.emailAddress,
+                    keyboardTextInputAction: TextInputAction.done,
+                    initialTextValue: ContactModel.getInitialContactValue(
+                      type: ContactType.email,
+                      countryID: draft?.zone?.countryID,
+                      existingContacts: draft?.contacts,
+                    ),
+                    textOnChanged: (String text) => onUserContactChanged(
+                      contactType: ContactType.email,
+                      value: text,
+                      draft: _draftUser,
+                    ),
+                    canPaste: false,
+                    // autoValidate: true,
+                    validator: (String text) => Formers.contactsEmailValidator(
+                      contacts: draft?.contacts,
+                      canValidate: _canValidate,
+                    ),
+                  ),
+
+                  const DotSeparator(),
+
+                  /// ZONE
+                  ZoneSelectionBubble(
+                    currentZone: draft?.zone,
+                    onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
+                      selectedZone: zoneModel,
+                      draft: _draftUser,
+                    ),
+                    // selectCountryAndCityOnly: true,
+                    // selectCountryIDOnly: false,
+                    validator: () => Formers.zoneValidator(
+                      zoneModel: draft?.zone,
+                      selectCountryAndCityOnly: true,
+                      selectCountryIDOnly: false,
+                      canValidate: _canValidate,
+                    ),
+                  ),
+
+                  /// CONTACTS
+                  // ContactsEditorsBubbles(
+                  //   globalKey: formKey,
+                  //   contacts: userModel.contacts,
+                  //   contactsOwnerType: ContactsOwnerType.user,
+                  //   appBarType: appBarType,
+                  // ),
+
+                  const Horizon(),
+
+                ],
+              ),
+            );
+          }
 
         },
       ),

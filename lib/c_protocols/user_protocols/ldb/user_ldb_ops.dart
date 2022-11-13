@@ -5,6 +5,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
+/// TAMAM
 class UserLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -129,7 +130,7 @@ class UserLDBOps {
   /// EDITOR SESSION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> saveEditorSession({
     @required DraftUser draft,
   }) async {
@@ -145,7 +146,7 @@ class UserLDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftUser> loadEditorSession({
     @required String userID,
   }) async {
