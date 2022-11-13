@@ -90,7 +90,7 @@ class WipeUserProtocols {
   /// NON AUTHOR USER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteNonAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,

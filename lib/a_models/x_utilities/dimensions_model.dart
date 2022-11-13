@@ -53,18 +53,17 @@ class Dimensions {
   // --------------------
   /// TESTED : WORKS PERFECT
   double getAspectRatio(){
+    double _output;
 
-    /*
-       final double _ratio = _slide.imageSize.getAspectRatio();
-       final double _imageHeight = _flyerBoxWidth * _ratio;
-       final double _scale = _flyerBoxHeight / _imageHeight;
-   */
+    if (width != null && height != null){
+      /// ASPECT RATIO IS WITH / HEIGHT
+      _output = width / height;
+    }
 
-    /// ASPECT RATIO IS WITH / HEIGHT
-    return width / height;
+    return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<double> getPicAspectRatio(Uint8List bytes) async {
     double _output;
 
@@ -83,18 +82,23 @@ class Dimensions {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static double getHeightByAspectRatio({
     @required double aspectRatio,
     @required double width,
   }){
-    /// AspectRatio = (widthA / heightA)
-    ///             = (widthB / heightB)
-    ///
-    /// so heightB = widthB / aspectRatio
-    return width / aspectRatio;
-  }
+    double _output;
 
+    if (aspectRatio != null && width != null){
+      /// AspectRatio = (widthA / heightA)
+      ///             = (widthB / heightB)
+      ///
+      /// so heightB = widthB / aspectRatio
+      _output = width / aspectRatio;
+    }
+
+    return _output;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Dimensions> superDimensions(dynamic image) async {
@@ -150,7 +154,7 @@ class Dimensions {
         );
       }
       // -----------------------------------------------------------o
-      _decodedImage.dispose();
+      _decodedImage?.dispose();
     }
 
     return _dimensions;

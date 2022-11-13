@@ -2,16 +2,20 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -26,6 +30,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -160,6 +165,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
     });
   }
   // --------------------
+  /*
   // Future<String> _addBase64ToLDBAndRead({
   //   @required Uint8List bytes,
   // }) async {
@@ -212,6 +218,74 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
   //
   //   return _int8List;
   // }
+   */
+  // -----------------------------------------------------------------------------
+  Future<void> _showURLCreatorDialog({
+    @required BuildContext context,
+  }) async {
+
+    await BottomDialog.showButtonsBottomDialog(
+        context: context,
+        draggable: true,
+        numberOfWidgets: 2,
+        builder: (_){
+          return <Widget>[
+
+            /// URL
+            BottomDialog.wideButton(
+                context: context,
+                verse: Verse.plain('URL'),
+                onTap: () async {
+
+                  await Nav.goBack(context: context);
+
+                  final String _url = await KeyboardScreen.goToKeyboardScreen(
+                    context: context,
+                  );
+
+                  await _setURL(_url);
+
+                }),
+
+            /// USER PIC
+            BottomDialog.wideButton(
+                context: context,
+                verse: Verse.plain('from User Pic'),
+                onTap: () async {
+
+                  await Nav.goBack(context: context);
+
+                  final UserModel _user = await SearchUsersScreen.selectUser(context);
+
+                  if (_user != null){
+
+                    final String _url = await Storage.createURLByPath(_user.picPath);
+
+                    await _setURL(_url);
+                  }
+                }
+                ),
+          ];
+        }
+        );
+
+  }
+  // -----------------------------------------------------------------------------
+  Future<void> _setURL(String url) async {
+
+    if (TextCheck.isEmpty(url) == false){
+
+      await _triggerLoading(setTo: true);
+
+      final Uint8List _bytes = await Storage.readBytesByURL(url);
+
+      await setImage(_bytes);
+
+      await _triggerLoading(setTo: false);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -267,24 +341,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// URL
         AppBarButton(
           icon: Iconz.comWebsite,
-          onTap: () async {
-
-            // final UserModel _user = await SearchUsersScreen.selectUser(context);
-            //
-            // if (_user != null){
-            //
-            //   await _triggerLoading(setTo: true);
-            //
-            //   final Uint8List _bytes = await Storage.readBytesByURL(
-            //     url: _user.picPath,
-            //     fileName: _user.id,
-            //   );
-            //
-            //   await setImage(_bytes);
-            //
-            // }
-
-          },
+          onTap: () => _showURLCreatorDialog(context: context),
         ),
 
         /// ASSET
