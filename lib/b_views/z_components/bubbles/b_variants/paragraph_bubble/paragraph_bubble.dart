@@ -89,7 +89,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    blog('B---> ParagraphBubble : edit mode : ${widget.editMode}');
+    // blog('B---> ParagraphBubble : edit mode : ${widget.editMode}');
 
     // bool _infoExceededMaxLines = superFlyer.i
 

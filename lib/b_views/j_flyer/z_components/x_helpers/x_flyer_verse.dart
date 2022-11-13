@@ -46,7 +46,7 @@ class FlyerVerses {
   static int bzLabelNameSize({
     @required bool flyerShowsAuthor,
   }){
-    return flyerShowsAuthor == true ? 3 : 5;
+    return flyerShowsAuthor == true ? 3 : 4;
   }
   // --------------------
   static int bzLabelNameMaxLines({

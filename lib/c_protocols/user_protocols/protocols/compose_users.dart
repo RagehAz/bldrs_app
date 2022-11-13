@@ -43,32 +43,29 @@ class ComposeUserProtocols {
     if (_authModel.authSucceeds == true) {
 
       /// CREATE INITIAL USER MODEL
-      final UserModel _userModel = await _createInitialUserModel(
+      UserModel _userModel = await _createInitialUserModel(
         context: context,
         authType: authType,
         userCredential: userCredential,
+      );
+
+      /// CREATE USER IMAGE FROM URL
+      _userModel = await _composeUserImageFromUserPicURL(
+        userID: _userModel.id,
+        picURL: userCredential.user.photoURL,
+        userModel: _userModel,
+      );
+
+      /// CREATE FIRE USER
+      await UserFireOps.createUser(
+        userModel: _userModel,
+        authBy: authType,
       );
 
       /// UPDATE AUTH MODEL
       _authModel = _authModel.copyWith(
         userModel: _userModel,
       );
-
-      await Future.wait(<Future>[
-
-        /// CREATE FIRE USER
-        UserFireOps.createUser(
-          userModel: _userModel,
-          authBy: authType,
-        ),
-
-        /// CREATE USER IMAGE FROM URL
-        _composeUserImageFromUserPicURL(
-          userID: _userModel.id,
-          picURL: userCredential.user.photoURL,
-        ),
-
-      ]);
 
       /// INSERT IN LDB
       await Future.wait(<Future>[
@@ -106,27 +103,38 @@ class ComposeUserProtocols {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<void> _composeUserImageFromUserPicURL({
+  static Future<UserModel> _composeUserImageFromUserPicURL({
     @required String picURL,
     @required String userID,
+    @required UserModel userModel,
   }) async {
+
+    UserModel _output = userModel;
 
     if (TextCheck.isEmpty(picURL) == false){
 
       final Uint8List _bytes = await Storage.readBytesByURL(picURL);
       final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+      final String _picPath = Storage.generateUserPicPath(userID);
 
-      await PicProtocols.composePic(PicModel(
-        bytes: _bytes,
-        path: Storage.generateUserPicPath(userID),
-        meta: PicMetaModel(
-          ownersIDs: [userID],
-          dimensions: _dims,
-        ),
-      ));
+      await PicProtocols.composePic(
+          PicModel(
+            bytes: _bytes,
+            path: _picPath,
+            meta: PicMetaModel(
+              ownersIDs: [userID],
+              dimensions: _dims,
+            ),
+          )
+      );
+
+      _output = _output.copyWith(
+        picPath: _picPath,
+      );
 
     }
 
+    return _output;
   }
   // -----------------------------------------------------------------------------
 }

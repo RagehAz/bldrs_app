@@ -28,9 +28,11 @@ class ObeliskVersesBuilder extends StatelessWidget {
       valueListenable: isExpanded,
       builder: (_, bool isBig, Widget xChild){
 
+        // blog('is Big is : $isBig');
+
           return WidgetFader(
             fadeType: isBig == null ? FadeType.stillAtMin : isBig == true ? FadeType.fadeIn : FadeType.fadeOut,
-            curve: isBig == true ? Curves.easeOutBack : Curves.easeOutQuart,
+            curve: isBig == true ? Curves.easeOutQuart : Curves.easeOutQuart,
             duration: const Duration(milliseconds: 200),
             builder: (double value, Widget child){
 

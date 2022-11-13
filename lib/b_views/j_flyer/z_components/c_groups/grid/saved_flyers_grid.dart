@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,10 @@ class SavedFlyersGrid extends StatelessWidget {
         onSelectFlyer: onSelectFlyer,
         selectedFlyers: selectedFlyers,
         flyersIDs: flyersIDs,
-        removeFlyerIDFromMySavedFlyersIDIfNoFound: true,
+        onFlyerNotFound: (String flyerID) => autoRemoveSavedFlyerThatIsNotFound(
+          context: context,
+          flyerID: flyerID,
+        ),
         numberOfColumnsOrRows: 3,
       );
     }

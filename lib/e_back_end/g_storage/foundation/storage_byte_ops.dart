@@ -95,6 +95,7 @@ class StorageByteOps {
           _output = await _ref.getData();
         },
         onError: (String error){
+          blog('ERROR : readBytesByPath : path : $path');
           StorageExceptionOps.onException(error);
         }
       );

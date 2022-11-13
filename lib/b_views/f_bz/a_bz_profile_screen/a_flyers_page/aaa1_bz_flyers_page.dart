@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dar
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_flyers_page/x1_bz_flyers_page_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class BzFlyersPage extends StatelessWidget {
@@ -38,6 +39,9 @@ class BzFlyersPage extends StatelessWidget {
         context: context,
         flyer: flyerModel,
       ),
+      onFlyerNotFound: (String flyerID){
+        blog('BzFlyersPage : flyer is not found ($flyerID)');
+      },
     );
 
   }

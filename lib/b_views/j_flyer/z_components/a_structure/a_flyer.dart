@@ -73,7 +73,9 @@ class _FlyerState extends State<Flyer> {
     if (Mapper.checkCanLoopList(_flyerModel?.slides) == true){
       _flyerModel?.slides[0].uiImage?.dispose();
     }
-    _flyerModel?.bzLogoImage?.dispose();
+
+    blog('dispoing flyer logo ui image ahoo');
+    _flyerModel.bzLogoImage?.dispose();
     _bzModel.dispose();
     super.dispose();
   }

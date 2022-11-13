@@ -44,7 +44,7 @@ class PicStorageOps {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<PicModel> readPic({
     @required String path,
   }) async {
@@ -74,8 +74,6 @@ class PicStorageOps {
 
     }
 
-    blog('Pic : readPic : _picModel : $_picModel');
-    
     return _picModel;
   }
   // -----------------------------------------------------------------------------

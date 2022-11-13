@@ -29,14 +29,19 @@ class FlyerFireOps {
 
   // --------------------
   ///
-  static Future<String> createEmptyFlyerDocToGetFlyerID() async {
+  static Future<String> createEmptyFlyerDocToGetFlyerID({
+    @required String bzID,
+  }) async {
 
     blog('createFlyerDoc : START');
 
     final DocumentReference<Object> _docRef = await Fire.createDoc(
       collName: FireColl.flyers,
       input: {
+        /// temp id will be overridden
         'id': 'x',
+        ///  Super important : to allow user through security rules to continue compose flyer ops and renovate it
+        'bzID': bzID,
       },
     );
 
