@@ -23,7 +23,7 @@ class ComposeUserProtocols {
   const ComposeUserProtocols();
 
   // -----------------------------------------------------------------------------
-  /// TASK : TEST ME
+  /// TAMAM : WORKS PERFECT
   static Future<AuthModel> compose({
     @required BuildContext context,
     @required bool authSucceeds,
@@ -80,7 +80,7 @@ class ComposeUserProtocols {
     return _authModel;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TAMAM : WORKS PERFECT
   static Future<UserModel> _createInitialUserModel({
     @required BuildContext context,
     @required UserCredential userCredential,
