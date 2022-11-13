@@ -18,6 +18,9 @@ class InfiniteLoadingBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _width = width ?? 40;
+    final double _height = height ?? width;
+
     return WidgetFader(
       fadeType: FadeType.repeatForwards,
       curve: Curves.decelerate,
@@ -25,13 +28,13 @@ class InfiniteLoadingBox extends StatelessWidget {
       builder: (double value, Widget child){
 
         return Container(
-          width: width,
-          height: height,
+          width: _width,
+          height: _height,
           color: Colorz.white50,
           alignment: Alignment.bottomCenter,
           child: Container(
-            width: width,
-            height: height * value / 1, // the ( value / 1 ) part is the percentage
+            width: _width,
+            height: _height * value / 1, // the ( value / 1 ) part is the percentage
             color: color ?? Colorz.white20,
           ),
         );
