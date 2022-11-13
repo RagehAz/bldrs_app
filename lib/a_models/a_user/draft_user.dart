@@ -374,7 +374,7 @@ class DraftUser {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static UserModel toUserModel({
     @required DraftUser draft,
   }){

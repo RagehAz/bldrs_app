@@ -34,7 +34,7 @@ class FireDocStreamer extends StatefulWidget {
 
     stream.listen((DocumentSnapshot<Object> snapshot) async {
 
-      blog('xxx - onStreamDataChanged - snapshot : $snapshot');
+      // blog('xxx - onStreamDataChanged - snapshot : $snapshot');
 
       final Map<String, dynamic> _newMap = Mapper.getMapFromDocumentSnapshot(
         docSnapshot: snapshot,
@@ -47,7 +47,7 @@ class FireDocStreamer extends StatefulWidget {
         map2: _newMap,
       );
 
-      blog('FireDocStreamer - onStreamDataChanged - _oldMap == _newMap : $_mapsAreTheSame');
+      // blog('FireDocStreamer - onStreamDataChanged - _oldMap == _newMap : $_mapsAreTheSame');
 
 
       if (_mapsAreTheSame == false){
@@ -62,11 +62,11 @@ class FireDocStreamer extends StatefulWidget {
       cancelOnError: false,
 
       onDone: (){
-        blog('FireDocStreamer : onStreamDataChanged : done');
+        // blog('FireDocStreamer : onStreamDataChanged : done');
       },
 
       onError: (Object error){
-        blog('FireDocStreamer : onStreamDataChanged : error : $error');
+        // blog('FireDocStreamer : onStreamDataChanged : error : $error');
       },
 
     );

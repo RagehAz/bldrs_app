@@ -78,7 +78,7 @@ class ComposeBzProtocols {
       PicProtocols.composePic(_draftWithID.logoPicModel),
 
       /// UPLOAD AUTHOR PIC
-      PicProtocols.composePics(AuthorModel.getPicModels(newDraft.authors)),
+      PicProtocols.composePics(AuthorModel.getPicModels(_draftWithID.authors)),
 
       /// ADD NEW BZ LOCALLY
       _addMyNewCreatedBzLocally(

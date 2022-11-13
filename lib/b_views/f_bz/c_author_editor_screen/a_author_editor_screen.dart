@@ -321,7 +321,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         text: 'phid_phone',
                         translate: true,
                       ),
-                      redDot: true,
                     ),
                     canPaste: false,
                     keyboardTextInputType: TextInputType.phone,
@@ -341,7 +340,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       zoneModel: widget.bzModel.zone,
                       canValidate: _canValidate,
                       context: context,
-                      isRequired: true,
+                      isRequired: false,
 
                     ),
                   ),

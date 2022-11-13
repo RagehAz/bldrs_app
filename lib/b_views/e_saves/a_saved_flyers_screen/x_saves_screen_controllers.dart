@@ -43,6 +43,7 @@ void onSelectFlyerFromSavedFlyers({
 /// AUTO UPDATE MY SAVED FLYERS IDS
 
 // ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> autoRemoveSavedFlyerThatIsNotFound({
   @required BuildContext context,
   @required String flyerID,

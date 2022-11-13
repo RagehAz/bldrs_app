@@ -28,6 +28,7 @@ class GeneralProvider extends ChangeNotifier {
   /// APP STATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<AppState> fetchGlobalAppState({
     @required BuildContext context,
     @required bool assignToUser,

@@ -109,8 +109,6 @@ class WipeUserProtocols {
       /// WIPE USER PIC
       PicProtocols.wipePic(userModel.picPath),
 
-      /// DELETE USER
-      UserFireOps.deleteMyUser(context),
 
       /// DELETE SEARCHES
       UserRecordRealOps.deleteAllUserRecords(
@@ -119,10 +117,18 @@ class WipeUserProtocols {
 
     ]);
 
-    await _deleteMyUserLocallyProtocol(
-        context: context,
-        userModel: userModel
-    );
+    await Future.wait(<Future>[
+
+      /// DELETE USER : SHOULD BE LAST TO ALLOW SECURITY RULES DO THE PREVIOUS OPS
+      UserFireOps.deleteMyUser(context),
+
+      _deleteMyUserLocallyProtocol(
+          context: context,
+          userModel: userModel
+      ),
+
+    ]);
+
 
     blog('UserProtocol._deleteNonAuthorUserProtocol : END');
 
@@ -160,14 +166,14 @@ class WipeUserProtocols {
         userModel: userModel,
       ),
 
-      /// DELETE EVERYTHING AS IF I'M NOT AUTHOR
-      _deleteNonAuthorUserProtocol(
-        context: context,
-        userModel: userModel,
-      ),
-
     ]);
 
+    /// DELETE EVERYTHING AS IF I'M NOT AUTHOR
+    // should be last to allow security rules do the previous ops
+    await _deleteNonAuthorUserProtocol(
+      context: context,
+      userModel: userModel,
+    );
 
     blog('UserProtocol._deleteAuthorUserProtocol : END');
 

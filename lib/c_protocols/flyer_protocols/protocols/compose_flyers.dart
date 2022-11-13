@@ -43,7 +43,9 @@ class ComposeFlyerProtocols {
 
     if (draftFlyer != null){
 
-      final String flyerID = await FlyerFireOps.createEmptyFlyerDocToGetFlyerID();
+      final String flyerID = await FlyerFireOps.createEmptyFlyerDocToGetFlyerID(
+        bzID: draftFlyer.bzID,
+      );
 
       if (flyerID != null){
 

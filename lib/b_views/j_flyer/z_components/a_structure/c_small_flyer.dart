@@ -106,8 +106,6 @@ class SmallFlyer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // blog('aho');
-
     if (flyerModel == null){
 
       blog('Building loading flyer purple');

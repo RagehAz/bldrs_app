@@ -479,7 +479,7 @@ class Real {
 
         _output = Mapper.getMapFromDataSnapshot(
           snapshot: snapshot,
-          onNull: () => blog('Real.readDoc : No data available.'),
+          onNull: () => blog('Real.readDoc : No data available : path : $_path.'),
           addDocID: addDocID,
           // onExists:
         );
