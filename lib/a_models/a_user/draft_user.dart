@@ -303,14 +303,14 @@ class DraftUser {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toLDB() {
     return <String, dynamic>{
       'id': id,
       'authBy': AuthModel.cipherAuthBy(authBy),
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
       'need': need?.toMap(toJSON: true),
-// -------------------------
+      // -------------------------
       'name': name,
       'trigram': trigram,
       'picModel': PicModel.cipherToLDB(picModel),
@@ -322,7 +322,7 @@ class DraftUser {
       'location': Atlas.cipherGeoPoint(point: location, toJSON: true),
       'contacts': ContactModel.cipherContacts(contacts),
       'contactsArePublic': contactsArePublic,
-// -------------------------
+      // -------------------------
       'myBzzIDs': myBzzIDs ?? <String>[],
       'emailIsVerified': emailIsVerified,
       'isAdmin': isAdmin,
@@ -335,7 +335,7 @@ class DraftUser {
     };
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static DraftUser fromLDB(Map<String, dynamic> map) {
     return map == null ? null :
     DraftUser(

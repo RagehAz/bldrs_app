@@ -110,7 +110,7 @@ class StorageByteOps {
   static Future<Uint8List> readBytesByURL(String url) async {
     Uint8List _bytes;
 
-    blog('readBytesByURL : 1 - START');
+    // blog('readBytesByURL : 1 - START');
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
@@ -131,7 +131,7 @@ class StorageByteOps {
 
     }
 
-    blog('readBytesByURL : 2 - END : _bytes : ${_bytes.length} bytes');
+    // blog('readBytesByURL : 2 - END : _bytes : ${_bytes.length} bytes');
 
     return _bytes;
   }
