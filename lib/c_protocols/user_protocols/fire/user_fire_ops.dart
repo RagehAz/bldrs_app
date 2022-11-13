@@ -158,7 +158,7 @@ class UserFireOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteMyUser(BuildContext context) async {
 
     blog('deleteMyUser : START');

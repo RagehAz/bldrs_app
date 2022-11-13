@@ -42,7 +42,7 @@ class Storage {
   /// TESTED: WORKS PERFECT
   static const createURLByRef = StorageRef.createURLByRef;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static const createURLByPath = StorageRef.createURLByPath;
   // -----------------------------------------------------------------------------
 
