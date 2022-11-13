@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid_by_ids_builder_dart.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
@@ -25,7 +24,7 @@ class FlyersGrid extends StatelessWidget {
     this.onSelectFlyer,
     this.scrollDirection = Axis.vertical,
     this.isLoadingGrid = false,
-    this.removeFlyerIDFromMySavedFlyersIDIfNoFound = false,
+    this.onFlyerNotFound,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,7 +44,7 @@ class FlyersGrid extends StatelessWidget {
   final ValueChanged<FlyerModel> onSelectFlyer;
   final Axis scrollDirection;
   final bool isLoadingGrid;
-  final bool removeFlyerIDFromMySavedFlyersIDIfNoFound;
+  final ValueChanged<String> onFlyerNotFound;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
@@ -173,10 +172,7 @@ class FlyersGrid extends StatelessWidget {
                       ),
                       onSelectFlyer: onSelectFlyer,
                       onFlyerOptionsTap: onFlyerOptionsTap,
-                      onFlyerNotFound: () => autoRemoveSavedFlyerThatIsNotFound(
-                        context: context,
-                        flyerID: _flyerID,
-                      ),
+                      onFlyerNotFound: () => onFlyerNotFound(_flyerID),
                     );
 
                   }

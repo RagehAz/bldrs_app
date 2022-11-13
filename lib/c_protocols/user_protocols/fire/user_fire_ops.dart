@@ -21,7 +21,7 @@ class UserFireOps {
   /// CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> createUser({
     @required UserModel userModel,
     @required AuthType authBy,

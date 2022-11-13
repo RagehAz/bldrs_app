@@ -35,47 +35,44 @@ class BzLabel extends StatelessWidget {
         flyerShowsAuthor: flyerShowsAuthor,
       ),
       width: _bzLabelWidth,
+      // color: Colorz.bloodTest,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
           /// BZ NAME
-          Container(
+          SuperVerse(
             width: _bzLabelWidth,
-            padding: _bzLabelPaddings,
-            child: SuperVerse(
-              verse: Verse(
-                text: bzModel?.name,
-                translate: false,
-              ),
-              centered: false,
-              size: FlyerVerses.bzLabelNameSize(
-                flyerShowsAuthor: flyerShowsAuthor,
-              ),
-              scaleFactor: _versesScaleFactor,
-              maxLines: FlyerVerses.bzLabelNameMaxLines(
-                flyerShowsAuthor: flyerShowsAuthor,
-              ),
+            margin: _bzLabelPaddings,
+            verse: Verse(
+              text: bzModel?.name,
+              translate: false,
+            ),
+            centered: false,
+            size: FlyerVerses.bzLabelNameSize(
+              flyerShowsAuthor: flyerShowsAuthor,
+            ),
+            scaleFactor: _versesScaleFactor,
+            maxLines: FlyerVerses.bzLabelNameMaxLines(
+              flyerShowsAuthor: flyerShowsAuthor,
             ),
           ),
 
           /// BZ LOCALE
-          Container(
+          SuperVerse(
             width: _bzLabelWidth,
-            padding: _bzLabelPaddings,
-            child: SuperVerse(
-              verse: ZoneModel.translateZoneString(
-                context: context,
-                zoneModel: bzModel?.zone,
-              ),
-              size: FlyerVerses.bzLabelLocaleSize(
-                flyerShowsAuthor: flyerShowsAuthor,
-              ),
-              weight: VerseWeight.regular,
-              centered: false,
-              italic: true,
-              scaleFactor: _versesScaleFactor,
+            verse: ZoneModel.translateZoneString(
+              context: context,
+              zoneModel: bzModel?.zone,
             ),
+            margin: _bzLabelPaddings,
+            size: FlyerVerses.bzLabelLocaleSize(
+              flyerShowsAuthor: flyerShowsAuthor,
+            ),
+            weight: VerseWeight.regular,
+            centered: false,
+            italic: true,
+            scaleFactor: _versesScaleFactor,
           ),
 
         ],

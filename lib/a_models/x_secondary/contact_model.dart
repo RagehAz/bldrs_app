@@ -27,6 +27,7 @@ enum ContactsOwnerType {
   user,
 }
 
+/// TAMAM
 @immutable
 class ContactModel {
   /// --------------------------------------------------------------------------
@@ -212,7 +213,7 @@ class ContactModel {
     return _output;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static String getInitialContactValue({
     @required List<ContactModel> existingContacts,
     @required ContactType type,
@@ -843,7 +844,7 @@ class ContactModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// type CHECKERS
+  /// TYPE CHECKERS
 
   // --------------------
   /// TESTED : WORKS PERFECT

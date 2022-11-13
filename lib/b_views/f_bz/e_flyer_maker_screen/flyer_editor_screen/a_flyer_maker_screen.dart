@@ -257,7 +257,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     appBarType: AppBarType.non,
                     isFormField: true,
                     counterIsOn: true,
-                    maxLength: 1000,
+                    maxLength: 5000,
                     maxLines: 7,
                     keyboardTextInputType: TextInputType.multiline,
                     initialText: _draft?.description,

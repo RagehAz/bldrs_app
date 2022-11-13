@@ -389,7 +389,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       text: 'phid_phone',
                       translate: true,
                     ),
-                    redDot: true,
                   ),
                   keyboardTextInputType: TextInputType.phone,
                   keyboardTextInputAction: TextInputAction.next,
@@ -404,7 +403,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     contacts: draft?.contacts,
                     zoneModel: draft?.zone,
                     canValidate: draft?.canValidate,
-                    isRequired: true,
+                    isRequired: false,
                     context: context,
                   ),
                   textOnChanged: (String text) => onChangeBzContact(

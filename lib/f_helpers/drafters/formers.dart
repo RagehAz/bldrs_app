@@ -383,6 +383,7 @@ class Formers {
       if (_message != null){
         Formers.focusOnNode(focusNode);
       }
+
     }
 
     return _message;

@@ -53,7 +53,10 @@ class BzPgCounter extends StatelessWidget {
             /// COUNT
             SuperVerse(
               verse: Verse(
-                text: Numeric.formatNumToSeparatedKilos(number: count),
+                text: Numeric.formatNumToSeparatedKilos(
+                  number: count,
+                  fractions: 0,
+                ),
                 translate: false,
               ),
               margin: bzPageStripSideMargin * 0.1,

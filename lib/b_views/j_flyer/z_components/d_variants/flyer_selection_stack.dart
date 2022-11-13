@@ -54,7 +54,7 @@ class FlyerSelectionStack extends StatelessWidget {
           AbsorbPointer(
             absorbing: _isSelectionMode,
             child: Flyer(
-              key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
+              // key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
               flyerModel: flyerModel,
               flyerBoxWidth: flyerBoxWidth,
               screenName: heroPath,
