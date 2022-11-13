@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
+/// TAMAM
 class TopicModel {
   // -----------------------------------------------------------------------------
   const TopicModel({
@@ -50,6 +51,7 @@ class TopicModel {
     /// ALL EVENTS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static const Map<String, List<TopicModel>> userTopicMap = {
     // ------------------------------------------------
     'General' : <TopicModel>[
@@ -114,6 +116,7 @@ class TopicModel {
     // ------------------------------------------------
   };
   // --------------------
+  /// TESTED : WORKS PERFECT
   static const Map<String, List<TopicModel>> bzTopicsMap = {
     // ------------------------------------------------
     'General' : <TopicModel>[
@@ -412,7 +415,7 @@ class TopicModel {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> _checkUserIsSubscribedToTopic({
     @required BuildContext context,
     @required String userID,

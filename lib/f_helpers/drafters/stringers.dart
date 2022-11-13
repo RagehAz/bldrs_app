@@ -5,6 +5,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/foundation.dart';
 
+/// TAMAM
 class Stringer {
   // -----------------------------------------------------------------------------
 
@@ -15,6 +16,7 @@ class Stringer {
   /// CLONING
 
   // --------------------
+  /*
   static List<String> cloneListOfStrings(List<String> list) {
     final List<dynamic> _newList = <dynamic>[];
 
@@ -23,6 +25,7 @@ class Stringer {
     }
     return _newList;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -252,7 +255,6 @@ class Stringer {
   }
    */
   // --------------------
-
   /// TESTED : WORKS PERFECT
   static List<String> sortAlphabetically2(List<String> inputList) {
     // List<String> _outputList = <String>[];
