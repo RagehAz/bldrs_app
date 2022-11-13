@@ -12,6 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+/// TAMAM
 class StorageByteOps {
   // -----------------------------------------------------------------------------
 
@@ -105,9 +106,11 @@ class StorageByteOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> readBytesByURL(String url) async {
     Uint8List _bytes;
+
+    blog('readBytesByURL : 1 - START');
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
@@ -128,19 +131,9 @@ class StorageByteOps {
 
     }
 
+    blog('readBytesByURL : 2 - END : _bytes : ${_bytes.length} bytes');
+
     return _bytes;
   }
-  // -----------------------------------------------------------------------------
-
-  /// UPDATE
-
-  // --------------------
-  ///
-  // -----------------------------------------------------------------------------
-
-  /// DELETE
-
-  // --------------------
-  ///
   // -----------------------------------------------------------------------------
 }

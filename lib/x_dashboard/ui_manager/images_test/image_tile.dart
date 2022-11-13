@@ -32,7 +32,7 @@ class ImageTile extends StatelessWidget {
 
       final double _picHeight = Dimensions.getHeightByAspectRatio(
         width: tileWidth,
-        aspectRatio: imageSize.getAspectRatio(),
+        aspectRatio: imageSize?.getAspectRatio(),
       );
 
       return GestureDetector(
