@@ -127,8 +127,7 @@ Future<bool> _preUploadCheckups({
     _canContinue = await CenterDialog.showCenterDialog(
       context: context,
       bodyVerse: const Verse(
-        pseudo: 'Are you sure you want to continue ?',
-        text: 'phid_confirm_continue',
+        text: 'phid_you_want_to_continue',
         translate: true,
       ),
       boolDialog: true,
