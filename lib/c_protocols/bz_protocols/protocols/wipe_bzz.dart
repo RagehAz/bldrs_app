@@ -17,7 +17,9 @@ import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -81,11 +83,15 @@ class WipeBzProtocols {
         bzID: bzModel.id,
       ),
 
-      /// DELETE LOGO
-      PicProtocols.wipePic(bzModel.logoPath),
+      /// DELETE BZ STORAGE DIRECTORY
+      Storage.deletePath(
+        context: context,
+        path: '${StorageColl.bzz}/${bzModel.id}',
+      ),
 
-      /// DELETE AUTHORS PICS
-      PicProtocols.wipePics(AuthorModel.getAuthorsPicsPaths(bzModel.authors)),
+      /// DELETE BZ LOGO & AUTHORS PICS
+      PicLDBOps.deletePic(bzModel.logoPath),
+      PicLDBOps.deletePics(AuthorModel.getAuthorsPicsPaths(bzModel.authors)),
 
     ]);
 
