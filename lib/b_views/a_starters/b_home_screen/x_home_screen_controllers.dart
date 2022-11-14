@@ -83,7 +83,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+/// TASK : USER MODEL SHOULD HAVE COMPLETE ZONE MODEL BY THIS POINT
 Future<void> _initializeUserZone(BuildContext context) async {
   // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
@@ -97,7 +97,8 @@ Future<void> _initializeUserZone(BuildContext context) async {
       incompleteZoneModel: _myUserModel?.zone,
     );
 
-    _userProvider.setMyUserModelAndAuthModel(
+    UsersProvider.proSetMyUserAndAuthModels(
+      context: context,
       userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
       notify: true,
     );
