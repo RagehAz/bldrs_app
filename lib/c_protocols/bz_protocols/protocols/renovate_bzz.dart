@@ -107,7 +107,7 @@ class RenovateBzProtocols {
         unawaited(TopDialog.showTopDialog(
           context: context,
           firstVerse: const Verse(
-            text: 'phid_great',
+            text: 'phid_great_!',
             translate: true,
           ),
           secondVerse: const Verse(
