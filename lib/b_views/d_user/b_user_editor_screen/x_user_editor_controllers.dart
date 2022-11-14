@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
@@ -9,15 +8,12 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x4_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
@@ -294,20 +290,79 @@ void onUserContactChanged({
 /// TASK : TEST ME
 Future<void> confirmEdits({
   @required BuildContext context,
-  @required UserModel oldUserModel,
   @required ValueNotifier<DraftUser> draft,
   @required Function onFinish,
   @required ValueNotifier<bool> loading,
   @required bool forceReAuthentication,
+  @required bool mounted,
 }) async {
 
+  final bool _canContinue = await _preConfirmCheckups(
+    context: context,
+    draft: draft,
+    forceReAuthentication: forceReAuthentication,
+  );
 
+  if (_canContinue == true){
+
+    setNotifier(
+        notifier: loading,
+        mounted: mounted,
+        value: true
+    );
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingVerse: const Verse(
+        text: 'phid_updating_profile',
+        translate: true,
+      ),
+    ));
+
+    final UserModel _userUploaded = await UserProtocols.renovate(
+      context: context,
+      newUserModel: DraftUser.toUserModel(draft: draft.value,),
+      newPic: draft.value.hasNewPic == true ? draft.value.picModel : null,
+    );
+
+
+    setNotifier(
+      notifier: loading,
+      mounted: mounted,
+      value: false,
+    );
+
+    await WaitDialog.closeWaitDialog(context);
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_great_!',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'Successfully updated your user account',
+        text: 'phid_updated_your_profile_successfully',
+        translate: true,
+      ),
+    );
+
+    await UserLDBOps.wipeEditorSession(_userUploaded.id);
+
+    onFinish();
+
+  }
+
+}
+// --------------------
+/// TASK : TEST ME
+Future<bool> _preConfirmCheckups({
+  @required BuildContext context,
+  @required ValueNotifier<DraftUser> draft,
+  @required bool forceReAuthentication,
+}) async {
 
   bool _canContinue = Formers.validateForm(draft.value.formKey);
-
-  final UserModel newUserModel = DraftUser.toUserModel(
-    draft: draft.value,
-  );
 
   // /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
   // if (_canContinue == false){
@@ -319,19 +374,24 @@ Future<void> confirmEdits({
   // }
   //
   // /// A - IF ALL REQUIRED FIELDS ARE VALID
+
+
   if (_canContinue == true){
 
-    // bool _continueOps = true;
+    final UserModel oldUserModel = await UserProtocols.fetch(
+      context: context,
+      userID: draft.value.id,
+    );
 
-    final bool _shouldReAuthenticate =
-            forceReAuthentication == true
-            &&
-            ContactModel.checkEmailChanged(
-              oldContacts: oldUserModel.contacts,
-              newContacts: newUserModel.contacts,
-            ) == true;
+    final bool _shouldReAuthenticate =  forceReAuthentication == true
+                                        &&
+                                        ContactModel.checkEmailChanged(
+                                           oldContacts: oldUserModel.contacts,
+                                           newContacts: draft.value.contacts,
+                                         ) == true;
 
     if (_shouldReAuthenticate == true){
+
       _canContinue = await reAuthenticateUser(
         context: context,
         dialogTitleVerse: const Verse(
@@ -348,111 +408,23 @@ Future<void> confirmEdits({
           translate: true,
         ),
       );
+
     }
 
     else {
       _canContinue = await CenterDialog.showCenterDialog(
         context: context,
         bodyVerse: const Verse(
-          text: 'phid_you_want_to_continue',
-          translate: true,
-          pseudo: 'Are you sure you want to continue ?'
+            text: 'phid_you_want_to_continue',
+            translate: true,
+            pseudo: 'Are you sure you want to continue ?'
         ),
         boolDialog: true,
       );
     }
 
-    if (_canContinue == true){
-
-      final UserModel _uploadedUserModel = await _updateUserModel(
-        context: context,
-        draft: draft,
-        loading: loading,
-        oldUserModel: oldUserModel,
-      );
-
-      if (_uploadedUserModel != null){
-
-        final AuthModel _originalAuthModel = await AuthLDBOps.readAuthModel();
-        final AuthModel _authModel = _originalAuthModel.copyWith(
-          userModel: _uploadedUserModel,
-          firstTimer: false,
-        );
-
-        await setUserAndAuthModelsAndCompleteUserZoneLocally(
-          context: context,
-          authModel: _authModel,
-          notify: true,
-        );
-
-      }
-
-      blog('confirmEdits : finished updating the user Model');
-
-      await UserLDBOps.wipeEditorSession(_uploadedUserModel.id);
-
-      onFinish();
-
-    }
-
   }
 
-}
-// --------------------
-/// TASK : SHOULD BE RENOVATE PROTOCOL
-Future<UserModel> _updateUserModel({
-  @required BuildContext context,
-  @required UserModel oldUserModel,
-  @required ValueNotifier<DraftUser> draft,
-  @required ValueNotifier<bool> loading,
-}) async {
-
-  UserModel _output;
-
-  loading.value = true;
-  unawaited(WaitDialog.showWaitDialog(
-    context: context,
-    loadingVerse: const Verse(
-      text: 'phid_updating_profile',
-      translate: true,
-    ),
-  ));
-
-  await Future.wait(<Future>[
-
-    /// UPDATE USER
-    UserFireOps.updateUser(
-      oldUserModel: oldUserModel,
-      newUserModel: DraftUser.toUserModel(
-        draft: draft.value,
-      ),
-    ).then((UserModel updated){
-      _output = updated;
-    }),
-
-    /// UPDATE PIC
-    if (draft.value.hasNewPic == true)
-    PicProtocols.composePic(draft.value.picModel),
-
-  ]);
-
-
-  loading.value = false;
-  await WaitDialog.closeWaitDialog(context);
-
-  await CenterDialog.showCenterDialog(
-    context: context,
-    titleVerse: const Verse(
-      text: 'phid_great_!',
-      translate: true,
-    ),
-    bodyVerse: const Verse(
-      pseudo: 'Successfully updated your user account',
-      text: 'phid_updated_your_profile_successfully',
-      translate: true,
-    ),
-  );
-
-  return _output;
+  return _canContinue;
 }
 // -----------------------------------------------------------------------------

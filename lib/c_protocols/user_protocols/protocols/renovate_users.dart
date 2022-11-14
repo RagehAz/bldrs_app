@@ -119,7 +119,7 @@ class RenovateUserProtocols {
 
       /// UPDATE PRO USER AND AUTH MODELS
       if (UserModel.checkItIsMe(newUserModel.id) == true){
-        UsersProvider.proUpdateMyUserAndAuthModels(
+        UsersProvider.proSetMyUserAndAuthModels(
           context: context,
           userModel: newUserModel,
           notify: true,

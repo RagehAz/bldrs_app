@@ -1,24 +1,23 @@
 import 'dart:async';
-import 'package:bldrs/a_models/x_secondary/app_state.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/fire/app_state_fire_ops.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
-import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -165,36 +164,6 @@ Future<void> _initializeUserModel(BuildContext context) async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<UserModel> completeUserZoneModel({
-  @required BuildContext context,
-  @required UserModel userModel,
-}) async {
-
-  // blog('completeUserZoneModel : START');
-
-  UserModel _output = userModel;
-
-  if (userModel != null){
-
-    /// COMPLETED ZONE MODEL
-    final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
-      context: context,
-      incompleteZoneModel: userModel.zone,
-    );
-
-    /// COMPLETED USER MODEL
-    _output = userModel.copyWith(
-      zone: _completeZoneModel,
-    );
-
-  }
-
-  // blog('completeUserZoneModel : END');
-
-  return _output;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
 Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -205,24 +174,14 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
 
-  UserModel _userModel;
+  UserModel _userModel = authModel?.userModel;
+  _userModel ??= await UserProtocols.fetch(
+    context: context,
+    userID: AuthFireOps.superUserID(),
+  );
 
-  if (authModel == null || authModel.userModel == null){
-    _userModel = await UserProtocols.fetch(
-      context: context,
-      userID: AuthFireOps.superUserID(),
-    );
-  }
-  else {
-    _userModel = await completeUserZoneModel(
-      context: context,
-      userModel: authModel.userModel,
-    );
-  }
-
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-
-  _usersProvider.setMyUserModelAndAuthModel(
+  UsersProvider.proSetMyUserAndAuthModels(
+    context: context,
     userModel: _userModel,
     authModel: authModel,
     notify: notify,
