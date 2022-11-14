@@ -20,6 +20,7 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
+/// TAMAM
 // -----------------------------------------------------------------------------
 
 /// INITIALIZATION
@@ -99,6 +100,11 @@ Future<void> loadUserEditorLastSession({
     if (_continue == true){
 
       draft.value = _lastSessionDraft.copyWith(
+        nameController: draft.value.nameController,
+        titleController: draft.value.titleController,
+        companyController: draft.value.companyController,
+        emailController: draft.value.emailController,
+        phoneController: draft.value.phoneController,
         nameNode: draft.value.nameNode,
         titleNode: draft.value.titleNode,
         companyNode: draft.value.companyNode,
@@ -108,19 +114,19 @@ Future<void> loadUserEditorLastSession({
         canPickImage: true,
       );
 
-      // await Nav.replaceScreen(
-      //   context: context,
-      //   screen: EditProfileScreen(
-      //     reAuthBeforeConfirm: reAuthBeforeConfirm,
-      //     canGoBack: canGoBack,
-      //     onFinish: onFinish,
-      //     checkLastSession: false,
-      //     validateOnStartup: true,
-      //     userModel: DraftUser.toUserModel(
-      //       draft: _lastSessionDraft,
-      //     ),
-      //   ),
-      // );
+      draft.value.nameController.text = _lastSessionDraft.name;
+      draft.value.titleController.text = _lastSessionDraft.title;
+      draft.value.companyController.text = _lastSessionDraft.company;
+
+      draft.value.emailController.text = ContactModel.getContactFromContacts(
+        contacts: _lastSessionDraft.contacts,
+        type: ContactType.email,
+      )?.value;
+
+      draft.value.phoneController.text = ContactModel.getContactFromContacts(
+        contacts: _lastSessionDraft.contacts,
+        type: ContactType.phone,
+      )?.value;
 
     }
 
@@ -230,6 +236,7 @@ void onUserJobTitleChanged({
   );
 
 }
+
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserCompanyNameChanged({
@@ -240,6 +247,7 @@ void onUserCompanyNameChanged({
     company: text,
   );
 }
+
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserZoneChanged({
@@ -287,7 +295,7 @@ void onUserContactChanged({
 /// CONFIRMATION OPS
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> confirmEdits({
   @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
@@ -297,9 +305,11 @@ Future<void> confirmEdits({
   @required bool mounted,
 }) async {
 
+  final DraftUser _draft = _bakeDraftTextControllers(draft.value);
+
   final bool _canContinue = await _preConfirmCheckups(
     context: context,
-    draft: draft,
+    draft: _draft,
     forceReAuthentication: forceReAuthentication,
   );
 
@@ -321,8 +331,8 @@ Future<void> confirmEdits({
 
     final UserModel _userUploaded = await UserProtocols.renovate(
       context: context,
-      newUserModel: DraftUser.toUserModel(draft: draft.value,),
-      newPic: draft.value.hasNewPic == true ? draft.value.picModel : null,
+      newUserModel: DraftUser.toUserModel(draft: _draft),
+      newPic: _draft.hasNewPic == true ? _draft.picModel : null,
     );
 
 
@@ -355,14 +365,43 @@ Future<void> confirmEdits({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
+DraftUser _bakeDraftTextControllers(DraftUser draft){
+  List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
+    contacts: draft.contacts,
+    contactToReplace: ContactModel(
+      value: draft.emailController.text,
+      type: ContactType.email,
+    ),
+  );
+
+  _contacts = ContactModel.insertOrReplaceContact(
+    contacts: _contacts,
+    contactToReplace: ContactModel(
+      value: draft.phoneController.text,
+      type: ContactType.phone,
+    ),
+  );
+
+  final DraftUser _draft = draft.copyWith(
+    name: draft.nameController.text,
+    title: draft.titleController.text,
+    company: draft.companyController.text,
+    contacts: _contacts,
+  );
+
+  return _draft;
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _preConfirmCheckups({
   @required BuildContext context,
-  @required ValueNotifier<DraftUser> draft,
+  @required DraftUser draft,
   @required bool forceReAuthentication,
 }) async {
 
-  bool _canContinue = Formers.validateForm(draft.value.formKey);
+  bool _canContinue = Formers.validateForm(draft.formKey);
 
   // /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
   // if (_canContinue == false){
@@ -380,14 +419,14 @@ Future<bool> _preConfirmCheckups({
 
     final UserModel oldUserModel = await UserProtocols.fetch(
       context: context,
-      userID: draft.value.id,
+      userID: draft.id,
     );
 
     final bool _shouldReAuthenticate =  forceReAuthentication == true
                                         &&
                                         ContactModel.checkEmailChanged(
                                            oldContacts: oldUserModel.contacts,
-                                           newContacts: draft.value.contacts,
+                                           newContacts: draft.contacts,
                                          ) == true;
 
     if (_shouldReAuthenticate == true){
