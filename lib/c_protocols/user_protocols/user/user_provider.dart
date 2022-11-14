@@ -26,22 +26,24 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void proUpdateMyUserAndAuthModels({
+  static void proSetMyUserAndAuthModels({
     @required BuildContext context,
     @required UserModel userModel,
     @required bool notify,
+    AuthModel authModel,
   }){
 
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    _usersProvider.setMyUserModelAndAuthModel(
+    _usersProvider._setMyUserModelAndAuthModel(
       userModel: userModel,
       notify: notify,
+      authModel: authModel,
     );
 
   }
   // --------------------
   /// TASK : TEST ME
-  void setMyUserModelAndAuthModel({
+  void _setMyUserModelAndAuthModel({
     @required UserModel userModel,
     @required bool notify,
     AuthModel authModel,
@@ -314,7 +316,8 @@ class UsersProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
     /// _myUserModel
-    _usersProvider.setMyUserModelAndAuthModel(
+    UsersProvider.proSetMyUserAndAuthModels(
+      context: context,
       userModel: null,
       notify: false,
     );

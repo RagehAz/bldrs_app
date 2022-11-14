@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -78,7 +78,7 @@ Future<void> onSelectUser({
 
   userModel.blogUserModel(invoker: 'Dashboard onSelectUser');
 
-  selectedUserModel.value = await completeUserZoneModel(
+  selectedUserModel.value = await UserProtocols.completeUserZoneModels(
     context: context,
     userModel: userModel,
   );
