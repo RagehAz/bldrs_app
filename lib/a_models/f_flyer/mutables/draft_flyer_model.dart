@@ -847,7 +847,7 @@ class DraftFlyer{
     else if (draft1 != null && draft2 != null){
 
       if (
-      draft1.id == draft2.id &&
+          draft1.id == draft2.id &&
           draft1.headline == draft2.headline &&
           // FocusNode headlineNode,
           draft1.description == draft2.description &&

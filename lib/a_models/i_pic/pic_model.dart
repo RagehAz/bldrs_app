@@ -7,7 +7,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-/// ALL GOOD
 @immutable
 class PicModel {
   // -----------------------------------------------------------------------------

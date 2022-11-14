@@ -115,13 +115,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         }
         // -----------------------------
         if (mounted == true){
-          _draftUser.addListener(() async {
-            // _switchOnValidation();
-            await UserLDBOps.saveEditorSession(
-              draft: _draftUser.value,
-            );
-
-          });
+          _addSessionListeners();
         }
         // -----------------------------
         await _triggerLoading(setTo: false);
@@ -143,6 +137,39 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TAMAM : WORKS PERFECT
+  void _addSessionListeners(){
+
+    /// ON DRAFT
+    _draftUser.addListener(() async {
+      // _switchOnValidation();
+      await UserLDBOps.saveEditorSession(draft: _draftUser.value,);
+    });
+
+     // _draftUser.value.nameController.addListener(() async {
+    //   blog('shoulde save new name');
+    //   await UserLDBOps.saveEditorSession(draft: _draftUser.value);
+    // });
+    //
+    // _draftUser.value.titleController.addListener(() async {
+    //   await UserLDBOps.saveEditorSession(draft: _draftUser.value);
+    // });
+    //
+    // _draftUser.value.companyController.addListener(() async {
+    //   await UserLDBOps.saveEditorSession(draft: _draftUser.value);
+    // });
+    //
+    // _draftUser.value.phoneController.addListener(() async {
+    //   await UserLDBOps.saveEditorSession(draft: _draftUser.value);
+    // });
+    //
+    // _draftUser.value.emailController.addListener(() async {
+    //   await UserLDBOps.saveEditorSession(draft: _draftUser.value);
+    // });
+
+  }
+  // --------------------
+  /// TAMAM : WORKS PERFECT
   Future<void> _onConfirmTap() async {
 
     _switchOnValidation();
@@ -234,14 +261,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft?.name,
+                  textController: draft?.nameController,
                   onTextChanged: (String text) => onUserNameChanged(
                     text: text,
                     draft: _draftUser,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.personNameValidator(
-                    name: draft?.name,
+                    name: text,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -262,14 +289,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft?.title,
+                  textController: draft?.titleController,
                   onTextChanged: (String text) => onUserJobTitleChanged(
                     draft: _draftUser,
                     text: text,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.jobTitleValidator(
-                    jobTitle: draft?.title,
+                    jobTitle: text,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -290,14 +317,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isFormField: true,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialText: draft?.company,
+                  textController: draft?.companyController,
                   // autoValidate: true,
                   onTextChanged: (String text) => onUserCompanyNameChanged(
                     text: text,
                     draft: _draftUser,
                   ),
                   validator: (String text) => Formers.companyNameValidator(
-                    companyName: draft?.company,
+                    companyName: text,
                     canValidate: _canValidate,
                   ),
                 ),
@@ -320,11 +347,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   keyboardTextInputType: TextInputType.phone,
                   keyboardTextInputAction: TextInputAction.next,
-                  initialTextValue: ContactModel.getInitialContactValue(
-                    type: ContactType.phone,
-                    countryID: draft?.zone?.countryID,
-                    existingContacts: draft?.contacts,
-                  ),
+                  // initialTextValue: ContactModel.getInitialContactValue(
+                  //   type: ContactType.phone,
+                  //   countryID: draft?.zone?.countryID,
+                  //   existingContacts: draft?.contacts,
+                  // ),
+                  textController: draft?.phoneController,
                   textOnChanged: (String text) => onUserContactChanged(
                     contactType: ContactType.phone,
                     value: text,
@@ -357,11 +385,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   keyboardTextInputType: TextInputType.emailAddress,
                   keyboardTextInputAction: TextInputAction.done,
-                  initialTextValue: ContactModel.getInitialContactValue(
-                    type: ContactType.email,
-                    countryID: draft?.zone?.countryID,
-                    existingContacts: draft?.contacts,
-                  ),
+                  // initialTextValue: ContactModel.getInitialContactValue(
+                  //   type: ContactType.email,
+                  //   countryID: draft?.zone?.countryID,
+                  //   existingContacts: draft?.contacts,
+                  // ),
+                  textController: draft?.emailController,
                   textOnChanged: (String text) => onUserContactChanged(
                     contactType: ContactType.email,
                     value: text,
