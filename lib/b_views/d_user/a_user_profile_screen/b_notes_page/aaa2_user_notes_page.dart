@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
@@ -210,6 +211,11 @@ class _UserNotesPageState extends State<UserNotesPage> {
                   key: PageStorageKey<String>('user_note_card_${_note.id}'),
                   noteModel: _note,
                   isDraftNote: false,
+                  onNoteOptionsTap: () => onShowNoteOptions(
+                      context: context,
+                      noteModel: _note,
+                      paginationController: _paginationController,
+                  ),
                 );
 
               },

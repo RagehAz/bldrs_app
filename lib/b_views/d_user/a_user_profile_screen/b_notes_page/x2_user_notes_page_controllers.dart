@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 Future<void> onShowNoteOptions({
   @required BuildContext context,
   @required NoteModel noteModel,
+  @required PaginationController paginationController,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -39,23 +41,40 @@ Future<void> onShowNoteOptions({
                 translate: true,
               ),
               height: 50,
-              onTap: () async {
-
-                await NoteProtocols.wipeNote(
-                  note: noteModel,
-                );
-
-                await Nav.goBack(
-                  context: context,
-                  invoker: 'onShowNoteOptions',
-                );
-
-              }
+              onTap: () => _wipeNote(
+                context: context,
+                noteModel: noteModel,
+                paginationController: paginationController,
+              ),
           ),
 
         ];
 
       }
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> _wipeNote({
+  @required BuildContext context,
+  @required NoteModel noteModel,
+  @required PaginationController paginationController,
+}) async {
+
+  /// CLOSE BOTTOM DIALOG
+  await Nav.goBack(
+    context: context,
+    invoker: 'onShowNoteOptions',
+  );
+
+  /// WIPE NOTE
+  await NoteProtocols.wipeNote(
+    note: noteModel,
+  );
+
+  paginationController.deleteMapByID(
+    id: noteModel.id,
   );
 
 }

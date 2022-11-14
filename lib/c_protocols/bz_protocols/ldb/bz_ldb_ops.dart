@@ -126,7 +126,7 @@ class BzLDBOps {
   /// BZ EDITOR SESSION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> saveBzEditorSession({
     @required DraftBz draft,
   }) async {
@@ -142,7 +142,7 @@ class BzLDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftBz> loadBzEditorSession({
     @required BuildContext context,
     @required String bzID,
