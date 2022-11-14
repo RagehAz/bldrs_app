@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/d_zone/city_model.dart';
@@ -8,8 +7,8 @@ import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -451,13 +450,10 @@ Future<void> recordFlyerView({
   @required int index,
 }) async {
 
-  if (AuthModel.userIsSignedIn() == true){
     await FlyerRecordRealOps.viewFlyer(
       flyerModel: flyerModel,
       index: index,
     );
-
-  }
 
 }
 // -----------------------------------------------------------------------------
