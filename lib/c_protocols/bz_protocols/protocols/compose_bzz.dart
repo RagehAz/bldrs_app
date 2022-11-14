@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/mutables/draft_bz.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -15,18 +15,20 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// TAMAM
 class ComposeBzProtocols {
   // -----------------------------------------------------------------------------
 
   const ComposeBzProtocols();
 
   // -----------------------------------------------------------------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> compose({
     @required BuildContext context,
     @required DraftBz newDraft,
@@ -79,7 +81,10 @@ class ComposeBzProtocols {
       PicProtocols.composePic(_draftWithID.logoPicModel),
 
       /// UPLOAD AUTHOR PIC
-      PicProtocols.composePics(AuthorModel.getPicModels(_draftWithID.authors)),
+      _duplicateUserPicAsAuthorPic(
+        userModel: userModel,
+        bzID: _bzID,
+      ),
 
       /// ADD NEW BZ LOCALLY
       _addMyNewCreatedBzLocally(
@@ -88,7 +93,6 @@ class ComposeBzProtocols {
       ),
 
     ]);
-
 
     /// CLOSE WAIT DIALOG
     await WaitDialog.closeWaitDialog(context);
@@ -121,7 +125,7 @@ class ComposeBzProtocols {
   /// CREATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _addMyNewCreatedBzLocally({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -144,7 +148,7 @@ class ComposeBzProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics({
     @required BuildContext context,
     @required String bzID,
@@ -180,6 +184,31 @@ class ComposeBzProtocols {
       ),
 
     ]);
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _duplicateUserPicAsAuthorPic({
+    @required UserModel userModel,
+    @required String bzID,
+  }) async {
+
+    if (userModel != null && bzID != null){
+
+      final PicModel _picModel = await PicProtocols.fetchPic(userModel.picPath);
+
+      final PicModel _authorModel = _picModel.copyWith(
+        path: Storage.generateAuthorPicPath(
+          bzID: bzID,
+          authorID: userModel.id,
+        ),
+      );
+
+      _authorModel.blogPic(invoker: '_duplicateUserPicAsAuthorPic');
+
+      await PicProtocols.composePic(_authorModel);
+
+    }
 
   }
   // --------------------
