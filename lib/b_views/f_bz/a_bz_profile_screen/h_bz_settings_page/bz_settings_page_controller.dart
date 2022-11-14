@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/fcm_topics_screen.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -100,12 +102,16 @@ Future<void> onDeleteBzButtonTap({
       invoker: 'onDeleteBzButtonTap',
     );
 
+    await Nav.replaceScreen(
+      context: context,
+      screen: const HomeScreen(),
+      transitionType: PageTransitionType.fade,
+    );
 
     if (showSuccessDialog == true){
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          pseudo: 'Business Account has been deleted successfully',
           text: 'phid_bz_account_deleted_successfully',
           translate: true,
         ),
@@ -197,7 +203,6 @@ Future<bool> _showConfirmDeleteBzDialog({
       variables: bzModel.name,
     ),
     bodyVerse: const Verse(
-      pseudo: 'All Account flyers, records and data will be deleted and can not be retrieved',
       text: 'phid_bz_deletion_warning',
       translate: true,
     ),

@@ -57,15 +57,16 @@ class ComposeBzProtocols {
     /// BAKE DRAFT TO INITIAL BZ
     BzModel _bzModel = DraftBz.toBzModel(_draftWithID);
 
-    /// OVERRIDE CREATION TIME
-    _bzModel = _bzModel.copyWith(
-      createdAt: DateTime.now(),
-    );
 
     /// UPDATE MY USER MODEL
     await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
       context: context,
       bzID: _bzModel.id,
+    );
+
+    /// OVERRIDE CREATION TIME
+    _bzModel = _bzModel.copyWith(
+      createdAt: DateTime.now(),
     );
 
     /// UPLOAD
@@ -96,7 +97,7 @@ class ComposeBzProtocols {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_great',
+        text: 'phid_great_!',
         translate: true,
       ),
       bodyVerse: const Verse(
