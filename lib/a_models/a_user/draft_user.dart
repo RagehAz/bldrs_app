@@ -15,6 +15,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+/// TAMAM
 @immutable
 class DraftUser {
   /// --------------------------------------------------------------------------
@@ -43,6 +44,11 @@ class DraftUser {
     @required this.followedBzzIDs,
     @required this.appState,
     @required this.hasNewPic,
+    @required this.nameController,
+    @required this.titleController,
+    @required this.companyController,
+    @required this.emailController,
+    @required this.phoneController,
     @required this.nameNode,
     @required this.titleNode,
     @required this.companyNode,
@@ -76,6 +82,11 @@ class DraftUser {
   final List<String> followedBzzIDs;
   final AppState appState;
   final bool hasNewPic;
+  final TextEditingController nameController;
+  final TextEditingController titleController;
+  final TextEditingController companyController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
   final FocusNode nameNode;
   final FocusNode titleNode;
   final FocusNode companyNode;
@@ -88,7 +99,7 @@ class DraftUser {
   /// INITIALIZATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftUser> createDraftUser({
     @required BuildContext context,
     @required UserModel userModel,
@@ -97,6 +108,20 @@ class DraftUser {
 
     if (userModel != null){
 
+      final List<ContactModel> _contacts = ContactModel.prepareContactsForEditing(
+        contacts: userModel.contacts,
+        countryID: userModel.zone.countryID,
+      );
+
+      final String _email = ContactModel.getContactFromContacts(
+        contacts: userModel.contacts,
+        type: ContactType.email,
+      )?.value;
+
+      final String _phone = ContactModel.getContactFromContacts(
+        contacts: userModel.contacts,
+        type: ContactType.phone,
+      )?.value;
 
       _draft = DraftUser(
         id: userModel.id,
@@ -115,10 +140,7 @@ class DraftUser {
         ),
         language: userModel.language,
         location: userModel.location,
-        contacts: ContactModel.prepareContactsForEditing(
-          contacts: userModel.contacts,
-          countryID: userModel.zone.countryID,
-        ),
+        contacts: _contacts,
         contactsArePublic: userModel.contactsArePublic,
         myBzzIDs: userModel.myBzzIDs,
         emailIsVerified: userModel.emailIsVerified,
@@ -131,6 +153,11 @@ class DraftUser {
         hasNewPic: false,
         canPickImage: true,
         formKey: GlobalKey<FormState>(),
+          nameController: TextEditingController(text: userModel.name),
+          titleController: TextEditingController(text: userModel.title),
+          companyController: TextEditingController(text: userModel.company),
+          emailController: TextEditingController(text: _email),
+          phoneController: TextEditingController(text: _phone),
         companyNode: FocusNode(),
         emailNode: FocusNode(),
         nameNode: FocusNode(),
@@ -148,20 +175,25 @@ class DraftUser {
   /// DISPOSING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   void dispose(){
     nameNode.dispose();
     titleNode.dispose();
     companyNode.dispose();
     emailNode.dispose();
     phoneNode.dispose();
+    nameController.dispose();
+    titleController.dispose();
+    companyController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
   }
   // -----------------------------------------------------------------------------
 
   /// CLONING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   DraftUser copyWith({
     String id,
     AuthType authBy,
@@ -194,6 +226,11 @@ class DraftUser {
     FocusNode phoneNode,
     GlobalKey<FormState> formKey,
     bool canPickImage,
+    TextEditingController nameController,
+    TextEditingController titleController,
+    TextEditingController companyController,
+    TextEditingController emailController,
+    TextEditingController phoneController,
   }){
     return DraftUser(
       id: id ?? this.id,
@@ -220,6 +257,11 @@ class DraftUser {
       appState: appState ?? this.appState,
       fcmTopics: fcmTopics ?? this.fcmTopics,
       hasNewPic: hasNewPic ?? this.hasNewPic,
+      nameController: nameController ?? this.nameController,
+      titleController: titleController ?? this.titleController,
+      companyController: companyController ?? this.companyController,
+      emailController: emailController ?? this.emailController,
+      phoneController: phoneController ?? this.phoneController,
       nameNode: nameNode ?? this.nameNode,
       titleNode: titleNode ?? this.titleNode,
       companyNode: companyNode ?? this.companyNode,
@@ -230,7 +272,7 @@ class DraftUser {
     );
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   DraftUser nullifyField({
     bool id = false,
     bool authBy = false,
@@ -256,6 +298,11 @@ class DraftUser {
     bool appState = false,
     bool fcmTopics = false,
     bool hasNewPic = false,
+    bool nameController,
+    bool titleController,
+    bool companyController,
+    bool emailController,
+    bool phoneController,
     bool nameNode = false,
     bool titleNode = false,
     bool companyNode = false,
@@ -289,6 +336,11 @@ class DraftUser {
       appState : appState == true ? null : this.appState,
       fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
       hasNewPic: hasNewPic == true ? null : this.hasNewPic,
+      nameController: nameController == true ? null : this.nameController,
+      titleController: titleController == true ? null : this.titleController,
+      companyController: companyController == true ? null : this.companyController,
+      emailController: emailController == true ? null : this.emailController,
+      phoneController: phoneController == true ? null : this.phoneController,
       nameNode: nameNode == true ? null : this.nameNode,
       titleNode: titleNode == true ? null : this.titleNode,
       companyNode: companyNode == true ? null : this.companyNode,
@@ -311,11 +363,11 @@ class DraftUser {
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
       'need': need?.toMap(toJSON: true),
       // -------------------------
-      'name': name,
+      'name': nameController.text ?? name,
       'trigram': trigram,
       'picModel': PicModel.cipherToLDB(picModel),
-      'title': title,
-      'company': company,
+      'title': titleController.text ?? title,
+      'company': companyController.text ?? company,
       'gender': UserModel.cipherGender(gender),
       'zone': zone?.toMap(),
       'language': language,
@@ -363,6 +415,11 @@ class DraftUser {
       followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
       appState: AppState.fromMap(map['appState']),
       hasNewPic: map['hasNewPic'],
+      nameController: null,
+      titleController: null,
+      companyController: null,
+      emailController: null,
+      phoneController: null,
       nameNode: null,
       titleNode: null,
       companyNode: null,
@@ -374,7 +431,7 @@ class DraftUser {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static UserModel toUserModel({
     @required DraftUser draft,
   }){
@@ -393,10 +450,10 @@ class DraftUser {
       authBy: draft.authBy,
       createdAt: draft.createdAt,
       need: draft.need,
-      name: draft.name,
+      name: draft.nameController.text ?? draft.name,
       trigram: draft.trigram,
-      title: draft.title,
-      company: draft.company,
+      title: draft.titleController.text ?? draft.title,
+      company: draft.companyController.text ?? draft.company,
       gender: draft.gender,
       zone: draft.zone,
       language: draft.language,
@@ -418,7 +475,7 @@ class DraftUser {
   /// MODIFIERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static void triggerCanPickImage({
     @required ValueNotifier<DraftUser> draftUser,
     @required bool setTo,
@@ -439,7 +496,7 @@ class DraftUser {
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkAreIdentical({
     @required DraftUser draft1,
     @required DraftUser draft2,
@@ -476,6 +533,11 @@ class DraftUser {
           AppState.checkAppStatesAreIdentical(appState1: draft1.appState, appState2: draft2.appState) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: draft1.device, device2: draft2.device) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
+          draft1.nameController.text == draft2.nameController.text &&
+          draft1.titleController.text == draft2.titleController.text &&
+          draft1.companyController.text == draft2.companyController.text &&
+          draft1.emailController.text == draft2.emailController.text &&
+          draft1.phoneController.text == draft2.phoneController.text &&
           draft1.hasNewPic == draft2.hasNewPic
       ){
         _identical = true;
@@ -537,9 +599,19 @@ class DraftUser {
       fcmTopics.hashCode^
       savedFlyersIDs.hashCode^
       followedBzzIDs.hashCode^
+      appState.hashCode^
       hasNewPic.hashCode^
-      appState.hashCode;
-  // -----------------------------------------------------------------------------
-  void fuck(){}
+      nameController.hashCode^
+      titleController.hashCode^
+      companyController.hashCode^
+      emailController.hashCode^
+      phoneController.hashCode^
+      nameNode.hashCode^
+      titleNode.hashCode^
+      companyNode.hashCode^
+      emailNode.hashCode^
+      phoneNode.hashCode^
+      formKey.hashCode^
+      canPickImage.hashCode;
   /// --------------------------------------------------------------------------
 }

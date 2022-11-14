@@ -38,6 +38,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
     this.canPaste = true,
     this.focusNode,
     this.autoValidate = true,
+    this.textController,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -63,6 +64,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
   final GlobalKey formKey;
   final FocusNode focusNode;
   final bool autoValidate;
+  final TextEditingController textController;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldEditorBubbleState createState() => _ContactFieldEditorBubbleState();
@@ -79,7 +81,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     super.initState();
 
     // if (widget.textController == null){
-      _textController = TextEditingController(text: widget.initialTextValue);
+      _textController = widget.textController ?? TextEditingController(text: widget.initialTextValue);
     // }
     // else {
     //   _textController = widget.textController;
@@ -91,9 +93,9 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   @override
   void dispose() {
 
-    // if (widget.textController == null){
+    if (widget.textController == null){
       _textController?.dispose();
-    // }
+    }
 
     super.dispose();
   }
@@ -200,7 +202,6 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
               /// TEXT FIELD
               SuperTextField(
                 textController: _textController,
-
                 focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.formKey,
