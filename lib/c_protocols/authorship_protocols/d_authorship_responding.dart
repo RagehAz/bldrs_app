@@ -163,7 +163,7 @@ class AuthorshipRespondingProtocols{
           translate: true,
         ),
         confirmButtonVerse: const Verse(
-          text: 'phid_great',
+          text: 'phid_great_!',
           translate: true,
         ),
       );

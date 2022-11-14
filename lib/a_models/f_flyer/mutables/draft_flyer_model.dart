@@ -844,6 +844,7 @@ class DraftFlyer{
     if (draft1 == null && draft2 == null){
       _areIdentical = true;
     }
+
     else if (draft1 != null && draft2 != null){
 
       if (

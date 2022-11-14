@@ -184,9 +184,9 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                               // width: Bubble.clearWidth(context),
                               verse: widget.addButtonVerse ?? Verse(
                                 text: Mapper.checkCanLoopList(_phids) ?
-                                'phid_edit_scope'
+                                'phid_add_bz_scope' // phid_edit_scope
                                     :
-                                'phid_add_scope',
+                                'phid_add_bz_scope',
                                 translate: true,
                               ),
                               bubble: false,

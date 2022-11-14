@@ -246,6 +246,15 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                   /// FLYER DESCRIPTION
                   TextFieldBubble(
                     key: const ValueKey<String>('bz_scope_bubble'),
+                    // pasteFunction: () async {
+                    //   final String _text = await TextMod.paste();
+                    //   _draftNotifier.value = _draft.copyWith(
+                    //     description: _text,
+                    //   );
+                    //   setState(() {
+                    //
+                    //   });
+                    // },
                     headerViewModel: const BubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'phid_flyer_description',

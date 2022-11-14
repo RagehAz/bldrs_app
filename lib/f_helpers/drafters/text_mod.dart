@@ -661,10 +661,17 @@ class TextMod {
   /// TEXT CONTROLLERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void controllerClear(TextEditingController controller){
     controller.text = '';
   }
   // --------------------
+  static Future<String> paste() async {
+    final String _text = await FlutterClipboard.paste();
+    return _text;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> controllerPaste(TextEditingController controller) async {
     controller.text = await FlutterClipboard.paste();
   }
