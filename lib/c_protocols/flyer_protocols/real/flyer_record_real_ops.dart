@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -31,30 +33,35 @@ class FlyerRecordRealOps {
   }) async {
     blog('FlyerRecordOps.shareFlyer : START');
 
-    final RecordModel _record = RecordModel.createShareRecord(
-      userID: AuthFireOps.superUserID(),
-      flyerID: flyerID,
-    );
+    if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
-    await Future.wait(<Future>[
-
-      RecordRealOps.createRecord(
-        record: _record,
-      ),
-
-      incrementFlyerCounter(
+      final RecordModel _record = RecordModel.createShareRecord(
+        userID: AuthFireOps.superUserID(),
         flyerID: flyerID,
-        field: 'shares',
-        increaseOne: true,
-      ),
+      );
 
-      BzRecordRealOps.incrementBzCounter(
-        bzID: bzID,
-        field: 'allShares',
-        increaseOne: true,
-      ),
+      await Future.wait(<Future>[
 
-    ]);
+        RecordRealOps.createRecord(
+          record: _record,
+        ),
+
+        incrementFlyerCounter(
+          flyerID: flyerID,
+          field: 'shares',
+          increaseOne: true,
+        ),
+
+        BzRecordRealOps.incrementBzCounter(
+          bzID: bzID,
+          field: 'allShares',
+          increaseOne: true,
+        ),
+
+      ]);
+
+    }
+
 
     blog('FlyerRecordOps.shareFlyer : END');
   }
@@ -71,74 +78,78 @@ class FlyerRecordRealOps {
     /// TASK : CAUTION : THIS METHOD WILL DUPLICATE RECORDS IN REAL DB IF LDB VIEWS DOX IS WIPED OUT
     /// WE WEEN A MORE SOLID WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS
     /// OR,, CHANGE THE NODE ID IN
+    if (AuthModel.userIsSignedIn() == true && flyerModel?.id != DraftFlyer.newDraftID){
 
-    final int _numberOfSlides = flyerModel?.slides?.length;
+      final int _numberOfSlides = flyerModel?.slides?.length;
 
-    if (index < _numberOfSlides){
+      if (index < _numberOfSlides){
 
-      // final List<Map<String, dynamic>> _maps = await LDBOps.searchAllMaps(
-      //   fieldToSortBy: 'recordDetails',
-      //   searchField: 'modelID',
-      //   fieldIsList: false,
-      //   searchValue: flyerModel.id,
-      //   docName: LDBDoc.views,
-      // );
-      // bool _slideSeenAlready = false;
-      //
-      // blog('_maps are fuck : ${_maps.length} maps');
-      //
-      // /// IF RECORD IS FOUND IN LDB
-      // if (Mapper.checkCanLoopList(_maps) == true){
-      //
-      //   const String key = 'recordDetails';
-      //   final int searchValue = index;
-      //
-      //   for (final Map<String, dynamic> map in _maps){
-      //
-      //     blog('the thing is : key : $key : value : ${map[key]} : valueType : ${map[key].runtimeType} : index : $index');
-      //
-      //     if (map[key] == searchValue){
-      //       _slideSeenAlready = true;
-      //       break;
-      //     }
-      //   }
-      //
-      // }
-      //
-      // if (_slideSeenAlready == true){
-      //   blog('RecordProtocols.viewFlyer : VIEW RECORD ALREADY EXISTS');
-      // }
-      // else {
+        // final List<Map<String, dynamic>> _maps = await LDBOps.searchAllMaps(
+        //   fieldToSortBy: 'recordDetails',
+        //   searchField: 'modelID',
+        //   fieldIsList: false,
+        //   searchValue: flyerModel.id,
+        //   docName: LDBDoc.views,
+        // );
+        // bool _slideSeenAlready = false;
+        //
+        // blog('_maps are fuck : ${_maps.length} maps');
+        //
+        // /// IF RECORD IS FOUND IN LDB
+        // if (Mapper.checkCanLoopList(_maps) == true){
+        //
+        //   const String key = 'recordDetails';
+        //   final int searchValue = index;
+        //
+        //   for (final Map<String, dynamic> map in _maps){
+        //
+        //     blog('the thing is : key : $key : value : ${map[key]} : valueType : ${map[key].runtimeType} : index : $index');
+        //
+        //     if (map[key] == searchValue){
+        //       _slideSeenAlready = true;
+        //       break;
+        //     }
+        //   }
+        //
+        // }
+        //
+        // if (_slideSeenAlready == true){
+        //   blog('RecordProtocols.viewFlyer : VIEW RECORD ALREADY EXISTS');
+        // }
+        // else {
 
-      final RecordModel _record = RecordModel.createViewRecord(
-        userID: AuthFireOps.superUserID(),
-        flyerID: flyerModel.id,
-        slideIndex: index,
-      );
-
-      // await Future.wait(<Future>[]);
-
-      await Future.wait(<Future>[
-
-        RecordRealOps.createRecord(
-          record: _record,
-        ),
-
-        incrementFlyerCounter(
+        final RecordModel _record = RecordModel.createViewRecord(
+          userID: AuthFireOps.superUserID(),
           flyerID: flyerModel.id,
-          field: 'views',
-          increaseOne: true,
-        ),
+          slideIndex: index,
+        );
 
-        BzRecordRealOps.incrementBzCounter(
-          bzID: flyerModel.bzID,
-          field: 'allViews',
-          increaseOne: true,
-        ),
+        // await Future.wait(<Future>[]);
 
-      ]);
+        await Future.wait(<Future>[
+
+          RecordRealOps.createRecord(
+            record: _record,
+          ),
+
+          incrementFlyerCounter(
+            flyerID: flyerModel.id,
+            field: 'views',
+            increaseOne: true,
+          ),
+
+          BzRecordRealOps.incrementBzCounter(
+            bzID: flyerModel.bzID,
+            field: 'allViews',
+            increaseOne: true,
+          ),
+
+        ]);
+
+      }
 
     }
+
 
     blog('FlyerRecordOps.viewFlyer : END');
   }
@@ -153,31 +164,37 @@ class FlyerRecordRealOps {
   }) async {
     blog('FlyerRecordOps.saveFlyer : START');
 
-    final RecordModel _record = RecordModel.createSaveRecord(
-      userID: AuthFireOps.superUserID(),
-      flyerID: flyerID,
-      slideIndex: slideIndex,
-    );
+    if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
-    await Future.wait(<Future>[
-
-      RecordRealOps.createRecord(
-        record: _record,
-      ),
-
-      incrementFlyerCounter(
+      final RecordModel _record = RecordModel.createSaveRecord(
+        userID: AuthFireOps.superUserID(),
         flyerID: flyerID,
-        field: 'saves',
-        increaseOne: true,
-      ),
+        slideIndex: slideIndex,
+      );
 
-      BzRecordRealOps.incrementBzCounter(
-        bzID: bzID,
-        field: 'allSaves',
-        increaseOne: true,
-      ),
+      await Future.wait(<Future>[
 
-    ]);
+        RecordRealOps.createRecord(
+          record: _record,
+        ),
+
+        incrementFlyerCounter(
+          flyerID: flyerID,
+          field: 'saves',
+          increaseOne: true,
+        ),
+
+        BzRecordRealOps.incrementBzCounter(
+          bzID: bzID,
+          field: 'allSaves',
+          increaseOne: true,
+        ),
+
+      ]);
+
+    }
+
+
 
     blog('FlyerRecordOps.saveFlyer : END');
   }
@@ -190,30 +207,35 @@ class FlyerRecordRealOps {
   }) async {
     blog('FlyerRecordOps.unSaveFlyer : START');
 
-    final RecordModel _record = RecordModel.createUnSaveRecord(
-      userID: AuthFireOps.superUserID(),
-      flyerID: flyerID,
-    );
+    if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
-    await Future.wait(<Future>[
-
-      RecordRealOps.createRecord(
-        record: _record,
-      ),
-
-      incrementFlyerCounter(
+      final RecordModel _record = RecordModel.createUnSaveRecord(
+        userID: AuthFireOps.superUserID(),
         flyerID: flyerID,
-        field: 'saves',
-        increaseOne: false,
-      ),
+      );
 
-      BzRecordRealOps.incrementBzCounter(
-        bzID: bzID,
-        field: 'allSaves',
-        increaseOne: false,
-      ),
+      await Future.wait(<Future>[
 
-    ]);
+        RecordRealOps.createRecord(
+          record: _record,
+        ),
+
+        incrementFlyerCounter(
+          flyerID: flyerID,
+          field: 'saves',
+          increaseOne: false,
+        ),
+
+        BzRecordRealOps.incrementBzCounter(
+          bzID: bzID,
+          field: 'allSaves',
+          increaseOne: false,
+        ),
+
+      ]);
+
+    }
+
 
     blog('FlyerRecordOps.unSaveFlyer : END');
   }
@@ -231,32 +253,36 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.createCreateReview : START');
 
-    // final RecordModel _record = RecordModel.createCreateReviewRecord(
-    //   userID: AuthFireOps.superUserID(),
-    //   text: review,
-    //   flyerID: flyerID,
-    // );
+    if (AuthModel.userIsSignedIn() == true && reviewModel.flyerID != DraftFlyer.newDraftID){
 
-    await Future.wait(<Future>[
+      // final RecordModel _record = RecordModel.createCreateReviewRecord(
+      //   userID: AuthFireOps.superUserID(),
+      //   text: review,
+      //   flyerID: flyerID,
+      // );
 
-      // RecordRealOps.createRecord(
-      //   context: context,
-      //   record: _record,
-      // ),
+      await Future.wait(<Future>[
 
-      incrementFlyerCounter(
-        flyerID: reviewModel.flyerID,
-        field: 'reviews',
-        increaseOne: true,
-      ),
+        // RecordRealOps.createRecord(
+        //   context: context,
+        //   record: _record,
+        // ),
 
-      BzRecordRealOps.incrementBzCounter(
-        bzID: bzID,
-        field: 'allReviews',
-        increaseOne: true,
-      ),
+        incrementFlyerCounter(
+          flyerID: reviewModel.flyerID,
+          field: 'reviews',
+          increaseOne: true,
+        ),
 
-    ]);
+        BzRecordRealOps.incrementBzCounter(
+          bzID: bzID,
+          field: 'allReviews',
+          increaseOne: true,
+        ),
+
+      ]);
+
+    }
 
     blog('FlyerRecordOps.createCreateReview : END');
   }
