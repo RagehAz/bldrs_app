@@ -79,7 +79,7 @@ class UserNeedsBanner extends StatelessWidget {
         /// NOTES
         SuperVerse(
           verse: Verse(
-            text: userModel.need.notes,
+            text: userModel.need?.notes,
             translate: false,
           ),
           labelColor: Colorz.white20,
