@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
@@ -17,6 +17,7 @@ class UsersProvider extends ChangeNotifier {
   UserModel get myUserModel => _myUserModel;
   AuthModel get myAuthModel => _myAuthModel;
   // --------------------
+  /// TESTED : WORKS PERFECT
   static AuthModel proGetAuthModel({
     @required BuildContext context,
     @required bool listen,
@@ -42,7 +43,7 @@ class UsersProvider extends ChangeNotifier {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   void _setMyUserModelAndAuthModel({
     @required UserModel userModel,
     @required bool notify,
@@ -354,99 +355,3 @@ class UsersProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 }
-
-// --------------------
-/*
-  /// DEPRECATED
-
-  void addBzIDToMyBzzIDs({
-    @required String bzIDToAdd,
-    @required bool notify,
-  }) {
-
-    /// THIS UPDATES MY AUTH MODEL AND MY USER MODEL
-
-    final List<String> _newList = <String>[bzIDToAdd, ..._myUserModel.myBzzIDs];
-    _myUserModel = _myUserModel.copyWith(
-      myBzzIDs: _newList,
-    );
-    _myAuthModel = _myAuthModel.copyWith(
-      userModel: _myUserModel,
-    );
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-
-   */
-// --------------------
-/*
-  void removeBzIDFromMyBzzIDs({
-    @required String bzIDToRemove,
-    @required bool notify,
-  }){
-
-    /// THIS UPDATES MY AUTH MODEL AND MY USER MODEL
-
-    if (Mapper.checkCanLoopList(_myUserModel.myBzzIDs)) {
-
-      _myUserModel = UserModel.removeBzIDFromMyBzzIDs(
-        bzIDToRemove: bzIDToRemove,
-        userModel: _myUserModel,
-      );
-
-      _myAuthModel = _myAuthModel.copyWith(
-        userModel: _myUserModel,
-      );
-
-      if (notify == true){
-        notifyListeners();
-      }
-
-    }
-
-  }
-   */
-// --------------------
-/*
-  Future<void> fetchSetMyUserModelAndFixZone(BuildContext context) async {
-    UserModel _userModel;
-
-    final String _myUserID = AuthFireOps.superUserID();
-
-    if (_myUserID != null) {
-
-      _userModel = await UserProtocols.fetchUser(
-        context: context,
-        userID: _myUserID,
-      );
-
-      final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
-        context: context,
-        incompleteZoneModel: _userModel.zone,
-      );
-
-      final ZoneModel _completeNeedZoneModel = await ZoneProtocols.completeZoneModel(
-        context: context,
-        incompleteZoneModel: _userModel.need.zone,
-      );
-
-      _userModel = _userModel.copyWith(
-        zone: _completeZoneModel,
-        need: _userModel.need.copyWith(
-          zone: _completeNeedZoneModel,
-        ),
-      );
-
-      setMyUserModelAndAuthModel(
-        userModel: _userModel,
-        notify: true,
-      );
-
-    }
-
-  }
-   */
-// --------------------

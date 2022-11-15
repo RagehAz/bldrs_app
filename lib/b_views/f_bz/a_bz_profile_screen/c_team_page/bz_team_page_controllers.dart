@@ -25,7 +25,9 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// NAVIGATION
@@ -76,6 +78,8 @@ Future<void> onAuthorOptionsTap({
     theDoneWith: authorModel,
     ability: _itIsMine ? AuthorAbility.canRemoveSelf : AuthorAbility.canRemoveOtherAuthor,
   );
+
+  blog('it is meee : $_itIsMine : _canRemoveAuthor : $_canRemoveAuthor');
 
   final String _authorName = authorModel?.name ?? '...';
 
@@ -191,7 +195,7 @@ Future<void> onAuthorOptionsTap({
 /// PRE DELETE AUTHOR
 
 // --------------------
-/// TASK => SHOULD BECOME PROTOCOL OR SOMETHING
+/// TESTED : WORKS PERFECT
 Future<void> onDeleteAuthorFromBz({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -287,7 +291,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 /// DELETE AUTHOR WHO HAS FLYERS
 
 // --------------------
-/// TASK => SHOULD BECOME PROTOCOL OR SOMETHING
+/// TESTED : WORKS PERFECT
 Future<void> _removeAuthorWhoHasFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -431,7 +435,7 @@ Future<bool> _showDeleteAllAuthorFlyers({
 /// DELETE AUTHOR WHO HAS NO FLYERS
 
 // ----------------------------------
-/// TASK => SHOULD BECOME PROTOCOL OR SOMETHING
+/// TESTED : WORKS PERFECT
 Future<void> _removeAuthorWhoHasNoFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -475,7 +479,7 @@ Future<void> _showAuthorRemovalConfirmationDialog({
 }) async {
 
   unawaited(TopDialog.showTopDialog(
-    context: context,
+    context: BldrsAppStarter.navigatorKey.currentContext,
     firstVerse: Verse(
       text: '##${deletedAuthor.name} has been removed from the team of ${bzModel.name}',
       translate: true,

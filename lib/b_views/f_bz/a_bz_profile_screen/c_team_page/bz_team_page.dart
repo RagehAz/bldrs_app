@@ -30,8 +30,10 @@ class BzTeamPage extends StatefulWidget {
 
 class _BzTeamPageState extends State<BzTeamPage> {
   // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
+   */
   // --------------------
   /*
   Future<void> _triggerLoading({@required bool setTo}) async {
@@ -71,7 +73,9 @@ class _BzTeamPageState extends State<BzTeamPage> {
   // --------------------
   @override
   void dispose() {
+    /*
     _loading.dispose();
+     */
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -82,7 +86,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
       context: context,
       listen: true,
     );
-    _bzModel.blogBz(invoker: 'BzAuthorsPage');
+    _bzModel?.blogBz(invoker: 'BzAuthorsPage');
     // --------------------
     return Selector<BzzProvider, BzModel>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
@@ -150,7 +154,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
 
                 ],
               ),
-
 
           ],
         );
