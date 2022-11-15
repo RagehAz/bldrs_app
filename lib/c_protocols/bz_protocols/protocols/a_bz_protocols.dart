@@ -13,7 +13,7 @@ class BzProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const composeBz = ComposeBzProtocols.compose;
   // -----------------------------------------------------------------------------
 

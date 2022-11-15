@@ -88,7 +88,7 @@ class DraftFlyer{
   /// CREATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> createDraft({
     @required BuildContext context,
     @required FlyerModel oldFlyer,
@@ -111,7 +111,7 @@ class DraftFlyer{
     return _draft;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> _createNewDraft({
     @required BuildContext context,
   }) async {
@@ -168,7 +168,7 @@ class DraftFlyer{
   /// CYPHERS - FLYER MODEL
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> draftFromFlyer({
     @required BuildContext context,
     @required FlyerModel flyer,
@@ -254,7 +254,7 @@ class DraftFlyer{
   /// CYPHERS - LDB
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> draftToLDB(DraftFlyer draft){
     Map<String, dynamic> _map;
 
@@ -291,7 +291,7 @@ class DraftFlyer{
     return _map;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static DraftFlyer draftFromLDB(Map<String, dynamic> map){
     DraftFlyer _draft;
 
@@ -333,7 +333,7 @@ class DraftFlyer{
   /// CLONING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   DraftFlyer copyWith({
     String id,
     TextEditingController headline,
@@ -392,7 +392,7 @@ class DraftFlyer{
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   DraftFlyer nullifyField({
     bool id = false,
     bool headline = false,
@@ -455,7 +455,7 @@ class DraftFlyer{
   /// DISPOSING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void dispose(){
     headlineNode.dispose();
     descriptionNode.dispose();
@@ -465,7 +465,7 @@ class DraftFlyer{
   /// GENERATORS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String _generateStateTimeString({
     @required BuildContext context,
     @required PublishTime publishTime,
@@ -483,7 +483,7 @@ class DraftFlyer{
     return '$_stateString @ $_timeString';
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String generateShelfTitle({
     @required BuildContext context,
     @required PublishState publishState,
@@ -555,7 +555,7 @@ class DraftFlyer{
     return _draft;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static DraftFlyer overrideFlyerID({
     @required DraftFlyer draft,
     @required String flyerID,
@@ -585,7 +585,7 @@ class DraftFlyer{
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String getFirstSlideHeadline(DraftFlyer draft){
     return Mapper.checkCanLoopList(draft?.draftSlides) == true ?
     draft.draftSlides[0].headline
@@ -593,7 +593,7 @@ class DraftFlyer{
     null;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<PicModel> getPics(DraftFlyer draft){
     final List<PicModel> _output = [];
 
@@ -646,7 +646,7 @@ class DraftFlyer{
       blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
     }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void _blogDraftsDifferences({
     @required DraftFlyer draft1,
     @required DraftFlyer draft2,
@@ -759,7 +759,7 @@ class DraftFlyer{
     return _canPublish;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkCanAddMoreSlides(DraftFlyer draft) {
     bool _canAddMoreSlides = false;
 
@@ -798,7 +798,7 @@ class DraftFlyer{
     return _canAddMoreSlides;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkPosterHasChanged({
     @required DraftFlyer draft,
     @required FlyerModel oldFlyer,
@@ -834,7 +834,7 @@ class DraftFlyer{
   /// EQUALITY
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkDraftsAreIdentical({
     @required DraftFlyer draft1,
     @required DraftFlyer draft2,

@@ -10,8 +10,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
-/// Simple Embedded Application Store database
 class Sembast  {
+  // -----------------------------------------------------------------------------
+  /// Simple Embedded Application Store database
   // -----------------------------------------------------------------------------
 
   /// REFERENCES
@@ -267,7 +268,7 @@ class Sembast  {
   /// READ
 
   // --------------------
-  /// TESTED :
+  /// TASK : TEST ME
   static Future<List<Map <String, Object>>> readMaps({
     @required String docName,
     @required List<String> ids,
@@ -517,7 +518,7 @@ class Sembast  {
 
   }
   // --------------------
-  /// TESTED :
+  /// TASK : TEST ME
   static Future<void> deleteMaps({
     @required String primaryKeyName,
     @required List<String> ids,
@@ -545,6 +546,8 @@ class Sembast  {
 
   }
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED :
   static Future<void> deleteAllOneByOne({
     @required String docName,
@@ -579,6 +582,7 @@ class Sembast  {
 
   // -----------------------------------------------------------------------------
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllAtOnce({
