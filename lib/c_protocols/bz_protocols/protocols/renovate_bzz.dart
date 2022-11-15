@@ -20,7 +20,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class RenovateBzProtocols {
   // -----------------------------------------------------------------------------
 
@@ -30,8 +30,8 @@ class RenovateBzProtocols {
 
   /// BZ RENOVATION
 
-// --------------------
-  /// TASK : TEST ME
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> renovateBz({
     @required BuildContext context,
     @required BzModel newBz,
@@ -78,7 +78,6 @@ class RenovateBzProtocols {
         ),
 
       ]);
-
 
       /// CLOSE WAIT DIALOG
       if (showWaitDialog == true){
@@ -137,7 +136,7 @@ class RenovateBzProtocols {
 
     blog('RenovateBzProtocol.renovateBz : END');
   }
-// --------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBzLocally({
     @required BuildContext context,
@@ -189,7 +188,7 @@ class RenovateBzProtocols {
 
     blog('RenovateBzProtocol.updateBzLocally : END');
   }
-// --------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> completeBzZoneModel({
     @required BuildContext context,
@@ -217,7 +216,7 @@ class RenovateBzProtocols {
     // blog('RenovateBzProtocol.completeBzZoneModel : END');
     return _output;
   }
-// --------------------
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static Future<void> _failureDialog(BuildContext context) async {
@@ -243,7 +242,7 @@ class RenovateBzProtocols {
   /// AUTHOR RENOVATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> renovateAuthor({
     @required BuildContext context,
     @required BzModel oldBzModel,

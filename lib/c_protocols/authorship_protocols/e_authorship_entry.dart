@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class AuthorshipEntryProtocols {
   // -----------------------------------------------------------------------------
 
@@ -104,5 +104,5 @@ class AuthorshipEntryProtocols {
 
     // return _uploadedBzModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

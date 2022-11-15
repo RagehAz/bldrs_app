@@ -201,7 +201,7 @@ class PicProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> renovatePic(PicModel picModel) async {
 
     if (picModel != null){
@@ -224,7 +224,6 @@ class PicProtocols {
         ]);
 
       }
-
 
     }
 
