@@ -66,7 +66,6 @@ class _AppControlsManagerState extends State<AppControlsManager> {
   }
    */
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();

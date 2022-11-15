@@ -36,7 +36,6 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
     _scrollController = ScrollController();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _scrollController.dispose();

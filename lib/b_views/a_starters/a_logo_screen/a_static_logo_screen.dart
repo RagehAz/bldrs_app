@@ -78,7 +78,6 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _scaleController.dispose();

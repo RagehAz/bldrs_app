@@ -91,7 +91,6 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _isSearching.dispose();

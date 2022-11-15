@@ -48,7 +48,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     super.initState();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _emailController.dispose();

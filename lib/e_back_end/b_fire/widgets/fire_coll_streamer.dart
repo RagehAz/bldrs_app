@@ -85,7 +85,6 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _sub.cancel();

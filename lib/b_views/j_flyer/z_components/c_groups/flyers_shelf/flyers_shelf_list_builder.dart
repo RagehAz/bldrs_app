@@ -40,7 +40,6 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
     _controller.addListener(listenToScrolling);
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _controller.dispose();

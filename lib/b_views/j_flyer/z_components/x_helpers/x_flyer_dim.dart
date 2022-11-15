@@ -45,17 +45,17 @@ class FlyerDim {
   /// --- FLYER BOX SIZES
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double flyerWidthByFactor(BuildContext context, double flyerSizeFactor) {
     return Scale.screenWidth(context) * flyerSizeFactor;
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double flyerWidthByFlyerHeight(double flyerBoxHeight){
     return flyerBoxHeight / _xFlyerBoxHeight;
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double flyerHeightByFlyerWidth(BuildContext context, double flyerBoxWidth) {
 
     if (checkFlyerIsFullScreen(context, flyerBoxWidth) == true){
@@ -68,17 +68,17 @@ class FlyerDim {
 
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double flyerFactorByFlyerWidth(BuildContext context, double flyerBoxWidth) {
     return flyerBoxWidth / Scale.screenWidth(context);
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double flyerFactorByFlyerHeight(BuildContext context, double flyerBoxHeight) {
     return flyerFactorByFlyerWidth(context, flyerWidthByFlyerHeight(flyerBoxHeight));
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double heightBySizeFactor({
     @required BuildContext context,
     @required double flyerSizeFactor,
@@ -92,7 +92,7 @@ class FlyerDim {
   /// FLYER CORNERS
 
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static BorderRadius flyerCorners(BuildContext context, double flyerBoxWidth) {
 
     final double _flyerTopCorners = flyerTopCornerValue(flyerBoxWidth);
@@ -108,12 +108,12 @@ class FlyerDim {
 
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double flyerTopCornerValue(double flyerBoxWidth) {
     return flyerBoxWidth * _xFlyerTopCorners;
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double flyerBottomCornerValue(double flyerBoxWidth) {
     return flyerBoxWidth * _xFlyerBottomCorners;
   }
@@ -122,7 +122,7 @@ class FlyerDim {
   /// --- HEADER SIZES
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double headerSlateHeight(double flyerBoxWidth) {
     return flyerBoxWidth * _xFlyerHeaderMiniHeight;
   }
@@ -133,14 +133,14 @@ class FlyerDim {
   }
    */
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double headerOffsetHeight(double flyerBoxWidth) {
     return  headerSlateHeight(flyerBoxWidth)
             -
             headerSlatePaddingValue(flyerBoxWidth);
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double headerSlateAndProgressHeights(BuildContext context, double flyerBoxWidth) {
     return headerSlateHeight(flyerBoxWidth)
             +
@@ -163,7 +163,7 @@ class FlyerDim {
   /// HEADER CORNERS
 
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static BorderRadius headerSlateCorners({
     @required BuildContext context,
     @required double flyerBoxWidth
@@ -177,7 +177,7 @@ class FlyerDim {
   /// --- LOGO SIZE
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static double logoWidth(double flyerBoxWidth) {
     return flyerBoxWidth * _xFlyerLogoWidth;
   }
@@ -186,7 +186,7 @@ class FlyerDim {
   /// LOGO CORNER
 
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static BorderRadius logoCornersByFlyerBoxWidth({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -983,12 +983,12 @@ class FlyerDim {
   /// --- CHECKERS
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static bool checkFlyerIsFullScreen(BuildContext context, double flyerBoxWidth){
     return flyerBoxWidth >= Scale.screenWidth(context);
   }
   // ---------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static bool isTinyMode(BuildContext context, double flyerBoxWidth) {
     bool _tinyMode = false; // 0.4 needs calibration
 

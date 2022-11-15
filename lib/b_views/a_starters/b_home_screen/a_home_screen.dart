@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/aa_home_screen_view.dart';
+import 'package:bldrs/b_views/a_starters/b_home_screen/x_initialization_controllers.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
@@ -35,38 +36,29 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // -----------------------------------------------------------------------------
-  /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  /// KEYBOARD VISIBILITY
+  StreamSubscription<bool> _keyboardSubscription;
+  final KeyboardVisibilityController keyboardVisibilityController = KeyboardVisibilityController();
+  // --------------------
+  /// NOTES STREAM SUBSCRIPTIONS
+  StreamSubscription _userNotesStreamSub;
+  List<StreamSubscription> _bzzNotesStreamsSubs;
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({
+    @required bool setTo,
+  }) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
       value: setTo,
     );
   }
-  // -----------------------------------------------------------------------------
-  /// KEYBOARDS CONTROLLERS
-  StreamSubscription<bool> _keyboardSubscription;
-  KeyboardVisibilityController keyboardVisibilityController;
-  void _initializeKeyboard(){
-
-    keyboardVisibilityController = KeyboardVisibilityController();
-
-    /// Query
-    // blog('Keyboard visibility direct query: ${keyboardVisibilityController.isVisible}');
-
-    /// Subscribe
-    _keyboardSubscription = Keyboard.initializeKeyboardListener(
-      context: context,
-      controller: keyboardVisibilityController,
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-  /// NOTES STREAM SUBSCRIPTIONS
-  StreamSubscription _userNotesStreamSub;
-  List<StreamSubscription> _bzzNotesStreamsSubs;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -83,11 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         await initializeHomeScreen(context);
 
-        if (mounted){
-          await initializeObeliskNumbers(context);
-          _userNotesStreamSub = listenToUserUnseenNotes(context);
-          _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes(context);
-        }
+        await initializeNotesListeners();
 
         await _triggerLoading(setTo: false);
 
@@ -102,7 +90,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
@@ -115,12 +102,41 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   // -----------------------------------------------------------------------------
 
+  /// KEYBOARDS CONTROLLERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _initializeKeyboard(){
+
+    /// Query
+    // blog('Keyboard visibility direct query: ${keyboardVisibilityController.isVisible}');
+
+    /// Subscribe
+    _keyboardSubscription = Keyboard.initializeKeyboardListener(
+      context: context,
+      controller: keyboardVisibilityController,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// NOTE LISTENERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> initializeNotesListeners() async{
+    if (mounted){
+      await initializeObeliskNumbers(context);
+      _userNotesStreamSub = listenToUserUnseenNotes(context);
+      _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes(context);
+    }
+  }
+  // -----------------------------------------------------------------------------
+
   /// PYRAMID EXPANSION
 
   // --------------------
-  final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
-  // --------------------
+  /// TESTED : WORKS PERFECT
   void onTriggerExpansion(){
     _isExpanded.value = !_isExpanded.value;
   }
@@ -178,10 +194,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
 
-                /// UNKNOWN CONDITION
+                /// HOME FLYERS
                 else {
-
-                  return const UserHomeScreen();
+                  return const HomeFlyersGrid();
                 }
 
               },

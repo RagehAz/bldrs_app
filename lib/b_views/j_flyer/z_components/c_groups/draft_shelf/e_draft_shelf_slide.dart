@@ -56,7 +56,6 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
     _animateSlide.value = true;
   }
   // -----------------------------------------------------------------------------
-  /// TAMAM
   @override
   void dispose() {
     _animateSlide.dispose();

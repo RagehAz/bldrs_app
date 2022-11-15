@@ -55,7 +55,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier<ZoneModel>(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(

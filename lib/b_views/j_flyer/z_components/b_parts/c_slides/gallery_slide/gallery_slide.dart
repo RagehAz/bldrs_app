@@ -72,7 +72,6 @@ class _GallerySlideState extends State<GallerySlide> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _scrollController.dispose();

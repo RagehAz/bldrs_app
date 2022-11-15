@@ -65,7 +65,6 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
 
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _animationController.dispose();

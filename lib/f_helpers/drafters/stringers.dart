@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/foundation.dart';
 
-/// TAMAM
+/// => TAMAM
 class Stringer {
   // -----------------------------------------------------------------------------
 

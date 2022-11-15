@@ -50,7 +50,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
   // -----------------------------------------------------------------------------
   /*
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
@@ -96,7 +96,6 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     // _loading.dispose();

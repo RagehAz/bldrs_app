@@ -64,7 +64,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     confirmButtonIsActive = true;
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     mapController.dispose();

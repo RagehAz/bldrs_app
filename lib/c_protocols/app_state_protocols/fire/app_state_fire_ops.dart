@@ -16,7 +16,7 @@ class AppStateFireOps{
   /// CREATE
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<void> createGlobalAppState({
     @required AppState newAppState,
   }) async {
@@ -33,7 +33,7 @@ class AppStateFireOps{
   /// READ
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<AppState> readGlobalAppState() async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
@@ -48,7 +48,7 @@ class AppStateFireOps{
   /// UPDATE USER APP STATE
 
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<void> updateUserAppState({
     @required AppState newAppState,
     @required String userID
@@ -67,7 +67,7 @@ class AppStateFireOps{
   /// UPDATE GLOBAL APP STATE
 
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<void> _updateGlobalAppState({
     @required AppState newAppState,
   }) async {
@@ -78,7 +78,7 @@ class AppStateFireOps{
 
   }
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<void> updateGlobalAppVersion({
     @required String newVersion,
   }) async {
@@ -95,7 +95,7 @@ class AppStateFireOps{
 
   }
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<void> updateGlobalChainsVersion() async {
 
     final AppState _appState = await readGlobalAppState();
@@ -112,7 +112,7 @@ class AppStateFireOps{
 
   }
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<void> updateGlobalLDBVersion() async {
 
     final AppState _appState = await readGlobalAppState();
@@ -129,7 +129,7 @@ class AppStateFireOps{
 
   }
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<void> updateGlobalPhrasesVersion() async {
 
     final AppState _appState = await readGlobalAppState();
@@ -144,7 +144,7 @@ class AppStateFireOps{
 
   }
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<void> updatePickersVersion() async {
 
     final AppState _appState = await readGlobalAppState();
@@ -164,13 +164,13 @@ class AppStateFireOps{
   /// APP VERSION
 
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static Future<String> getAppVersion() async {
     final PackageInfo _packageInfo = await PackageInfo.fromPlatform();
     return _packageInfo.version;
   }
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static bool appVersionNeedUpdate({
     @required String globalVersion,
     @required String userVersion,
@@ -192,7 +192,7 @@ class AppStateFireOps{
     return _needUpdate;
   }
   // --------------------
-  /// TAMAM : WORKS PERFECTLY
+  /// TESTED : WORKS PERFECTLY
   static List<int> _getAppVersionDivisions(String version){
     final List<int> _divisions = <int>[];
 
