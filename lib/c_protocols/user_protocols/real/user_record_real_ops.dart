@@ -56,7 +56,7 @@ class UserRecordRealOps {
   /// DELETE SEARCHES
 
   // ----------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAllUserRecords({
     @required String userID,
   }) async {

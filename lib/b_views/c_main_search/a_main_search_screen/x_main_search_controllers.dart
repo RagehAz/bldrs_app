@@ -154,7 +154,7 @@ Future<void> onSearchRecordTap({
 /// SEARCHERS
 
 // --------------------
-/// TAMAM
+/// TASK : MAKE ME
 Future<List<SearchResult>> _searchKeywords({
   @required BuildContext context,
   @required String searchText,
@@ -195,7 +195,7 @@ Future<List<SearchResult>> _searchKeywords({
   return _results;
 }
 // --------------------
-/// TAMAM
+/// TESTED : WORKS PERECT
 Future<List<SearchResult>> _searchBzz({
   @required BuildContext context,
   @required String searchText,
@@ -283,7 +283,7 @@ Future<List<SearchResult>> _searchAuthors({
   return _results;
 }
 // --------------------
-/// TAMAM
+/// TASK : TEST ME
 Future<List<SearchResult>> _searchFlyersByTitle({
   @required BuildContext context,
   @required String searchText,

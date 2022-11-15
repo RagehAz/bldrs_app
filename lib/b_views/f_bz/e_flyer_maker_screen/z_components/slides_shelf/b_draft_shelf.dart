@@ -57,7 +57,6 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     super.initState();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose(){
     _scrollController.dispose();

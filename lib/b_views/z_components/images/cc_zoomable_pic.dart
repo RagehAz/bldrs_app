@@ -47,7 +47,6 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     });
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _transformationController.dispose();

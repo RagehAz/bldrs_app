@@ -68,7 +68,6 @@ class _ChainsManagerState extends State<ChainsManager> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     // _loading.dispose();

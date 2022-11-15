@@ -40,7 +40,6 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
     _expanded.value = widget.initiallyExpanded;
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _expanded.dispose();

@@ -20,7 +20,7 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-/// TAMAM
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// INITIALIZATION
@@ -331,10 +331,12 @@ Future<void> confirmEdits({
 
     final UserModel _userUploaded = await UserProtocols.renovate(
       context: context,
-      newUserModel: DraftUser.toUserModel(draft: _draft),
       newPic: _draft.hasNewPic == true ? _draft.picModel : null,
+      newUserModel: DraftUser.toUserModel(
+        context: context,
+        draft: _draft,
+      ),
     );
-
 
     setNotifier(
       notifier: loading,

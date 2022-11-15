@@ -12,10 +12,11 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-/// TAMAM
+/// => TAMAM
 @immutable
 class DraftUser {
   /// --------------------------------------------------------------------------
@@ -433,8 +434,13 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel toUserModel({
+    @required BuildContext context,
     @required DraftUser draft,
   }){
+
+    final String _name = draft.nameController.text ?? draft.name;
+
+
 
     return UserModel(
 
@@ -445,18 +451,19 @@ class DraftUser {
         countryID: draft.zone.countryID,
       ),
 
+
       /// NO BAKING NEEDED
       id: draft.id,
       authBy: draft.authBy,
       createdAt: draft.createdAt,
       need: draft.need,
-      name: draft.nameController.text ?? draft.name,
-      trigram: draft.trigram,
+      name: _name,
+      trigram: Stringer.createTrigram(input: _name),
       title: draft.titleController.text ?? draft.title,
       company: draft.companyController.text ?? draft.company,
       gender: draft.gender,
       zone: draft.zone,
-      language: draft.language,
+      language: draft.language ?? Words.languageCode(context),
       location: draft.location,
       contactsArePublic: draft.contactsArePublic,
       myBzzIDs: draft.myBzzIDs,

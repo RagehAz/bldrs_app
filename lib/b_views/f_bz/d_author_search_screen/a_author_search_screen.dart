@@ -25,7 +25,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
   Future<void> _triggerLoading({@required bool setTo}) async {
@@ -37,7 +37,6 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
   }
   */
   // -----------------------------------------------------------------------------
-  /// TAMAM
   @override
   void dispose() {
     _foundUsers.dispose();

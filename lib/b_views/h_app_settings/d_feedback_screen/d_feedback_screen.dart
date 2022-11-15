@@ -51,7 +51,6 @@ class _FeedBackState extends State<FeedBack> {
     _feedbackController = TextEditingController();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _feedbackController.dispose();

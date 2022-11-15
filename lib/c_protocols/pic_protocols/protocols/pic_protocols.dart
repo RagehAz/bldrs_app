@@ -251,7 +251,7 @@ class PicProtocols {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> wipePic(String path) async {
 
     if (TextCheck.isEmpty(path) == false){

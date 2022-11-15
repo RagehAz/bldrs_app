@@ -45,7 +45,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(

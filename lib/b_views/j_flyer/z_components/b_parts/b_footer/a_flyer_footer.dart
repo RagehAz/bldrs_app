@@ -93,7 +93,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _flyerCounter.dispose();

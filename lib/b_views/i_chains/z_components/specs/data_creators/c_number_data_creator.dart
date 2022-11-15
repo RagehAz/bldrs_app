@@ -67,7 +67,6 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
 
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _textController.dispose();
