@@ -5,46 +5,14 @@ import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-class UserHomeScreen extends StatefulWidget {
+class HomeFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const UserHomeScreen({
+  const HomeFlyersGrid({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  @override
-  _UserHomeScreenState createState() => _UserHomeScreenState();
-  /// --------------------------------------------------------------------------
-}
-
-class _UserHomeScreenState extends State<UserHomeScreen> {
-  // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-  // -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    blog('UserHomeScreen : initState');
-    super.initState();
-  }
-  // --------------------
-  bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-
-    }
-    _isInit = false;
-    super.didChangeDependencies();
-  }
-  // --------------------
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -65,7 +33,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
             gridWidth: Scale.screenWidth(context),
             gridHeight: Scale.screenHeight(context),
             flyers: _wallFlyers,
-            scrollController: _scrollController,
             heroPath: 'userHomeScreen',
             // isLoadingGrid: isLoading,
           ),
@@ -75,5 +42,76 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
+
+/// DEPRECATED
+// class UserHomeScreen extends StatefulWidget {
+//   /// --------------------------------------------------------------------------
+//   const UserHomeScreen({
+//     Key key
+//   }) : super(key: key);
+//   /// --------------------------------------------------------------------------
+//   @override
+//   _UserHomeScreenState createState() => _UserHomeScreenState();
+//   /// --------------------------------------------------------------------------
+// }
+//
+// class _UserHomeScreenState extends State<UserHomeScreen> {
+//   // -----------------------------------------------------------------------------
+//   final ScrollController _scrollController = ScrollController();
+//   // -----------------------------------------------------------------------------
+//   @override
+//   void initState() {
+//     blog('UserHomeScreen : initState');
+//     super.initState();
+//   }
+//   // --------------------
+//   bool _isInit = true;
+//   @override
+//   void didChangeDependencies() {
+//     if (_isInit) {
+//
+//     }
+//     _isInit = false;
+//     super.didChangeDependencies();
+//   }
+//   // --------------------
+//   @override
+//   void dispose() {
+//     _scrollController.dispose();
+//     super.dispose();
+//   }
+//   // -----------------------------------------------------------------------------
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     return FireCollPaginator(
+//       key: const ValueKey<String>('UserHomeScreen_FireCollPaginator'),
+//       paginationQuery: homeWallFlyersPaginationQuery(context),
+//       builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+//
+//         final List<FlyerModel> _wallFlyers = FlyerModel.decipherFlyers(
+//           maps: maps,
+//           fromJSON: false,
+//         );
+//
+//         return PullToRefresh(
+//           onRefresh: () => onRefreshHomeWall(context),
+//           fadeOnBuild: true,
+//           child: FlyersGrid(
+//             gridWidth: Scale.screenWidth(context),
+//             gridHeight: Scale.screenHeight(context),
+//             flyers: _wallFlyers,
+//             scrollController: _scrollController,
+//             heroPath: 'userHomeScreen',
+//             // isLoadingGrid: isLoading,
+//           ),
+//         );
+//
+//       },
+//     );
+//
+//   }
+//   // -----------------------------------------------------------------------------
+// }

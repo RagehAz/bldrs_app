@@ -68,7 +68,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _textController.dispose();

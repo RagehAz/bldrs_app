@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 void showWaitDialog(BuildContext context, {Verse verse}){
@@ -63,8 +64,9 @@ class WaitDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> closeWaitDialog(BuildContext context) async {
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
     await Nav.goBack(
-      context: context,
+      context: _context,
       invoker: 'closeWaitDialog',
     );
   }

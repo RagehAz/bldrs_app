@@ -277,10 +277,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   }*/
   // --------------------
-  final TextEditingController _textController = TextEditingController(); /// tamam disposed
+  final TextEditingController _textController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
-  final ValueNotifier<String> _highlightedText = ValueNotifier<String>(null); /// tamam disposed
+  final ValueNotifier<String> _highlightedText = ValueNotifier<String>(null);
   void _onTextFieldChanged(String text){
     blog('received text : $text');
 
@@ -356,13 +356,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
 
 
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     // blog('SCREEN WIDTH : ($_screenWidth) <=> SCREEN HEIGHT ($_screenHeight)');
-// -----------------------------------------------------------------------------
-
-    /// TAMAM THANK YOU ALLAH
+    // -----------------------------------------------------------------------------
+    /// THANK YOU ALLAH
     const int numberOfLines = 1;
     const int _textSize = 2;
     const double _sizeFactor = 1; // 1.5429 max factor before box starts expanding

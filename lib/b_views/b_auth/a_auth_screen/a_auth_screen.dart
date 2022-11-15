@@ -16,7 +16,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
   Future<void> _triggerLoading({@required bool setTo}) async {
@@ -50,7 +50,6 @@ class _AuthScreenState extends State<AuthScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();

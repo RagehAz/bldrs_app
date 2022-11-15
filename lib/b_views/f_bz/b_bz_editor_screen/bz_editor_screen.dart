@@ -48,7 +48,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   final ValueNotifier<DraftBz> draftNotifier = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(

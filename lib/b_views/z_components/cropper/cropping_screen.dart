@@ -107,7 +107,6 @@ class _CroppingScreenState extends State<CroppingScreen> {
     _isInit = false;
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();

@@ -45,7 +45,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   ValueNotifier<ZoneModel> _currentZone;
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
@@ -120,7 +120,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();

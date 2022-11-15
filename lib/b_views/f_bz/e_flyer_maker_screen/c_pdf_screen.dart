@@ -32,7 +32,7 @@ class _PDFScreenState extends State<PDFScreen> {
   final ValueNotifier<PDFViewController> _pdfController = ValueNotifier<PDFViewController>(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
   Future<void> _triggerLoading({@required bool setTo}) async {
@@ -66,7 +66,6 @@ class _PDFScreenState extends State<PDFScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();

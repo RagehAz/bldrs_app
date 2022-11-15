@@ -23,7 +23,7 @@ enum Gender {
   female,
 }
 
-/// TAMAM
+/// => TAMAM
 @immutable
 class UserModel {
   /// --------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class UserModel {
   /// CREATION
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> fromFirebaseUser({
     @required BuildContext context,
     @required User user,
@@ -135,7 +135,7 @@ class UserModel {
   /// USER MODEL CYPHERS
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -168,7 +168,7 @@ class UserModel {
     };
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherUsers({
     @required List<UserModel> users,
     @required bool toJSON,
@@ -190,7 +190,7 @@ class UserModel {
     return _maps;
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static UserModel decipherUser({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -227,7 +227,7 @@ class UserModel {
 
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static List<UserModel> decipherUsers({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -251,7 +251,7 @@ class UserModel {
   /// CLONING
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   UserModel copyWith({
     String id,
     AuthType authBy,
@@ -304,7 +304,7 @@ class UserModel {
     );
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   UserModel nullifyField({
     bool id = false,
     bool authBy = false,
@@ -419,7 +419,7 @@ class UserModel {
   /// CHECKERS
 
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static bool checkUserIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
 

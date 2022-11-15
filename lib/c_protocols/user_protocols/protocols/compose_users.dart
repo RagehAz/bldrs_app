@@ -18,14 +18,14 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-/// TAMAM
+/// => TAMAM
 class ComposeUserProtocols {
   // -----------------------------------------------------------------------------
 
   const ComposeUserProtocols();
 
   // -----------------------------------------------------------------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> compose({
     @required BuildContext context,
     @required bool authSucceeds,
@@ -82,7 +82,7 @@ class ComposeUserProtocols {
     return _authModel;
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> _createInitialUserModel({
     @required BuildContext context,
     @required UserCredential userCredential,
@@ -104,7 +104,7 @@ class ComposeUserProtocols {
     return _initialUserModel;
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> _composeUserImageFromUserPicURL({
     @required String picURL,
     @required String userID,

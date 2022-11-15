@@ -105,10 +105,10 @@ class BldrsAppStarter extends StatefulWidget {
 
 class _BldrsAppStarterState extends State<BldrsAppStarter> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<String> _fireError = ValueNotifier<String>(null); /// tamam disposed
+  final ValueNotifier<String> _fireError = ValueNotifier<String>(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
@@ -196,7 +196,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   /// LOCALE
 
   // --------------------
-  final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null); /// tamam disposed
+  final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
   // --------------------
   void _setLocale(Locale locale) {
     _locale.value = locale;

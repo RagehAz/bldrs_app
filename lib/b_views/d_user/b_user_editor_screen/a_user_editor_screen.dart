@@ -126,7 +126,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// tamam
   @override
   void dispose() {
 
@@ -137,7 +136,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
 
     /// ON DRAFT
@@ -169,7 +168,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   }
   // --------------------
-  /// TAMAM : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   Future<void> _onConfirmTap() async {
 
     _switchOnValidation();
