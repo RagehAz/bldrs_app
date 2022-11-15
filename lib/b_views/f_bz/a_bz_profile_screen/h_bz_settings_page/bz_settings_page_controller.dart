@@ -17,7 +17,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// BZ EDITING
@@ -62,6 +62,7 @@ Future<void> onGoToBzFCMSettings({
 /// BZ DELETION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onDeleteBzButtonTap({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -126,6 +127,7 @@ Future<void> onDeleteBzButtonTap({
 // --------------------
 /// bz deletion dialogs
 // -----
+/// TESTED : WORKS PERFECT
 Future<bool> _preDeleteBzAccountChecks({
   @required BuildContext context,
   @required BzModel bzModel,

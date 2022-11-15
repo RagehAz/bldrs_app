@@ -17,7 +17,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class DraftBz {
   // -----------------------------------------------------------------------------
@@ -95,7 +95,7 @@ class DraftBz {
   /// CREATION
 
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftBz> createDraftBz({
     @required BuildContext context,
     @required BzModel oldBz,
@@ -123,7 +123,7 @@ class DraftBz {
     return _output;
   }
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftBz> _createNewDraftBz(BuildContext context) async {
 
     final UserModel creatorUser = UsersProvider.proGetMyUserModel(
@@ -201,7 +201,7 @@ class DraftBz {
 
   }
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftBz> _createDraftBzFromBzModel({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -261,7 +261,7 @@ class DraftBz {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static DraftBz reAttachNodes({
     @required DraftBz draftFromLDB,
     @required DraftBz draftWithNodes,
@@ -280,7 +280,7 @@ class DraftBz {
   /// CYPHERS
 
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static BzModel toBzModel(DraftBz draft){
 
     assert(draft != null, 'Draft can not be null');
@@ -416,7 +416,7 @@ class DraftBz {
   /// CLONING
 
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   DraftBz copyWith({
     String id,
     DateTime createdAt,
@@ -489,7 +489,7 @@ class DraftBz {
     );
   }
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   DraftBz nullifyField({
     bool id = false,
     bool createdAt = false,
@@ -579,7 +579,7 @@ class DraftBz {
   /// MODIFIERS
 
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static DraftBz overrideBzID({
     @required DraftBz draft,
     @required String bzID,
@@ -612,7 +612,7 @@ class DraftBz {
   /// GETTERS
 
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   String getLogoPath(){
 
     if (firstTimer == true){
@@ -624,7 +624,7 @@ class DraftBz {
 
   }
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   List<String> getLogoOwners(){
     final AuthorModel _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
     return <String>[_author?.userID];
@@ -634,7 +634,7 @@ class DraftBz {
   /// BLOGGING
 
   // -------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void blogDraft(){
 
     blog('blogDraftBz ------------------------------------> START');
@@ -681,7 +681,7 @@ class DraftBz {
   /// EQUALITY
 
   // -------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkDraftsAreIdentical({
     @required DraftBz draft1,
     @required DraftBz draft2,

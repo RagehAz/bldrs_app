@@ -82,7 +82,7 @@ class PicLDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAll() async {
 
     await LDBOps.deleteAllMapsAtOnce(
