@@ -417,7 +417,7 @@ class AuthorModel {
     return _bzAuthors;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static AuthorModel getCreatorAuthorFromAuthors(List<AuthorModel> authors) {
 
     if (Mapper.checkCanLoopList(authors) == true){
@@ -777,7 +777,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<AuthorModel> overrideAuthorsBzID({
     @required List<AuthorModel> authors,
     @required String bzID,

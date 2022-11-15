@@ -236,7 +236,6 @@ void onUserJobTitleChanged({
   );
 
 }
-
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserCompanyNameChanged({

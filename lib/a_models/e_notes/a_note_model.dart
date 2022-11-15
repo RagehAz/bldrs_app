@@ -588,7 +588,7 @@ class NoteModel {
   /// MISSING FIELDS GETTERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<String> getMissingNoteFields({
     @required NoteModel note,
     /// if consider all fields is false, this will get only fields required to send a note
@@ -845,7 +845,7 @@ class NoteModel {
     return _contains;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkIsAuthorshipNote(NoteModel noteModel){
     bool _isAuthorship = false;
 
@@ -864,7 +864,7 @@ class NoteModel {
     return _isAuthorship;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<bool> checkCanShowAuthorshipButtons({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -1018,7 +1018,6 @@ class NoteModel {
 
     return _output;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNotesFromNotes({

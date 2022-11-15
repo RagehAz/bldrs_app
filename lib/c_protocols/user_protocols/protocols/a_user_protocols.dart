@@ -13,7 +13,7 @@ class UserProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const compose = ComposeUserProtocols.compose;
   // -----------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ class UserProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const renovate = RenovateUserProtocols.renovateUser;
   // --------------------
   /// TESTED : WORKS PERFECT

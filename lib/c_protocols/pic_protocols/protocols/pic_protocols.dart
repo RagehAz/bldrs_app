@@ -21,7 +21,7 @@ class PicProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> composePic(PicModel picModel) async {
 
     if (picModel != null){
