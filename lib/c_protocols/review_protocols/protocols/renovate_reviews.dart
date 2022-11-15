@@ -5,11 +5,12 @@ import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class RenovateReviewProtocols {
   // -----------------------------------------------------------------------------
 
   const RenovateReviewProtocols();
+
   // -----------------------------------------------------------------------------
 
   /// RENOVATE
@@ -84,10 +85,10 @@ class RenovateReviewProtocols {
 
       /// ADD MY ID IN REVIEW AGREES LIST
       Real.updateDocField(
-        collName: RealColl.agreesOnReviews,
-        docName: reviewModel.id,
+          collName: RealColl.agreesOnReviews,
+        docName: '${reviewModel.flyerID}/${reviewModel.id}',
         fieldName: AuthFireOps.superUserID(),
-        value: true,
+          value: true,
       ),
 
     ]);
@@ -119,7 +120,7 @@ class RenovateReviewProtocols {
       /// REMOVE ID IN REVIEW AGREES LIST
       Real.deleteField(
         collName: RealColl.agreesOnReviews,
-        docName: reviewModel.id,
+        docName: '${reviewModel.flyerID}/${reviewModel.id}',
         fieldName: AuthFireOps.superUserID(),
       ),
 

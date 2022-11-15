@@ -107,8 +107,8 @@ class UserFireOps {
     UserModel _output = newUserModel.copyWith();
 
     final bool _emailChanged = ContactModel.checkEmailChanged(
-      oldContacts: oldUserModel.contacts,
-      newContacts: newUserModel.contacts,
+      oldContacts: oldUserModel?.contacts,
+      newContacts: newUserModel?.contacts,
     );
 
     if (_emailChanged == true){

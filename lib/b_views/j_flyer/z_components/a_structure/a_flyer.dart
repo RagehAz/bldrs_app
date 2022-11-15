@@ -75,7 +75,7 @@ class _FlyerState extends State<Flyer> {
     }
 
     blog('dispoing flyer logo ui image ahoo');
-    _flyerModel.bzLogoImage?.dispose();
+    _flyerModel?.bzLogoImage?.dispose();
     _bzModel.dispose();
     super.dispose();
   }

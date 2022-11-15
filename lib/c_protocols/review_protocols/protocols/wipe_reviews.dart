@@ -43,7 +43,7 @@ class WipeReviewProtocols {
         /// DELETE REVIEW AGREES
         Real.deleteDoc(
           collName: RealColl.agreesOnReviews,
-          docName: reviewModel.id,
+          docName: '${reviewModel.flyerID}/${reviewModel.id}',
         ),
 
         FlyerRecordRealOps.reviewDeletion(
@@ -61,7 +61,7 @@ class WipeReviewProtocols {
   /// WIPE REVIEWS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> wipeAllFlyerReviews({
     @required BuildContext context,
     @required String flyerID,
@@ -74,7 +74,7 @@ class WipeReviewProtocols {
     /// TASK : NEED CLOUD FUNCTION
     // ---
     /// 1. delete sub collection (fire/flyers/flyerID/reviews)
-    /// 2. delete reviewAgrees node (real/agreesOnReviews/reviewID)
+    /// 2. delete reviewAgrees node (real/agreesOnReviews/flyerID)
     /// 3. decrement flyer counter field (real/countingFlyers/flyerID/reviews) if not deleting flyer
     /// 4. decrement bzz counter field (real/countingBzz/bzID/allReviews) if not deleting bz
     // ---
@@ -88,47 +88,41 @@ class WipeReviewProtocols {
         docName: flyerID,
         subCollName: FireSubColl.flyers_flyer_reviews,
         onDeleteSubDoc: (String reviewID) async {
-
           _numberOfReviews++;
-
-          await Future.wait(<Future>[
-
-            /// 2. DELETE REVIEW AGREES
-            Real.deleteDoc(
-              collName: RealColl.agreesOnReviews,
-              docName: reviewID,
-            ),
-
-            /// 3. DELETE OR DECREMENT FLYER COUNTER
-            // if (isDeletingFlyer == true) // => flyer counter will be deleted in wipeFlyerOps
-
-            /// 4. DELETE OR DECREMENT BZ COUNTER
-            // if (isDeletingBz == true) // => bz counter will be deleted in wipeBzOps
-
-          ]);
-
-
-          /// 3 - 4 : DECREMENTING FLYER & BZ COUNTERS IF NOT WIPING THEM OUT
-          await Future.wait(<Future>[
-
-            if (isDeletingFlyer == false)
-              FlyerRecordRealOps.incrementFlyerCounter(
-                flyerID: flyerID,
-                field: 'reviews',
-                incrementThis: -_numberOfReviews,
-              ),
-
-            if (isDeletingBz == false)
-              BzRecordRealOps.incrementBzCounter(
-                bzID: bzID,
-                field: 'allReviews',
-                incrementThis: -_numberOfReviews,
-              ),
-
-          ]);
-
         }
     );
+
+    /// 2. DELETE REVIEW AGREES
+    if (isDeletingFlyer == true){
+      await Real.deleteDoc(
+        collName: RealColl.agreesOnReviews,
+        docName: flyerID,
+      );
+    }
+
+    /// 3 - 4 : DECREMENTING FLYER & BZ COUNTERS IF NOT WIPING THEM OUT
+    await Future.wait(<Future>[
+
+      /// 3. DECREMENT FLYER COUNTER
+      // if (isDeletingFlyer == true) // => flyer counter will be deleted in wipeFlyerOps
+      if (isDeletingFlyer == false)
+        FlyerRecordRealOps.incrementFlyerCounter(
+          flyerID: flyerID,
+          field: 'reviews',
+          incrementThis: -_numberOfReviews,
+        ),
+
+      /// 4. DECREMENT BZ COUNTER
+      // if (isDeletingBz == true) // => bz counter will be deleted in wipeBzOps
+      if (isDeletingBz == false)
+        BzRecordRealOps.incrementBzCounter(
+          bzID: bzID,
+          field: 'allReviews',
+          incrementThis: -_numberOfReviews,
+        ),
+
+    ]);
+
 
   }
   // --------------------
@@ -145,13 +139,17 @@ class WipeReviewProtocols {
 
       await Future.wait(<Future>[
 
-        ...List.generate(flyersIDs.length, (index) => wipeAllFlyerReviews(
-          context: context,
-          flyerID: flyersIDs[index],
-          bzID: bzID,
-          isDeletingBz: isDeletingBz,
-          isDeletingFlyer: isDeletingFlyer,
-        )),
+        ...List.generate(flyersIDs.length, (index){
+
+          return wipeAllFlyerReviews(
+            context: context,
+            flyerID: flyersIDs[index],
+            bzID: bzID,
+            isDeletingBz: isDeletingBz,
+            isDeletingFlyer: isDeletingFlyer,
+          );
+
+        }),
 
       ]);
 

@@ -22,6 +22,7 @@ class UserLDBOps {
     if (userModel != null){
 
       await LDBOps.insertMap(
+        // allowDuplicateIDs: false,
         docName: LDBDoc.users,
         input: userModel.toMap(
           toJSON: true,
@@ -38,6 +39,7 @@ class UserLDBOps {
     if (Mapper.checkCanLoopList(users) == true){
 
       await LDBOps.insertMaps(
+        // allowDuplicateIDs: false,
         docName: LDBDoc.users,
         inputs: UserModel.cipherUsers(
           users: users,
@@ -102,6 +104,7 @@ class UserLDBOps {
     if (userModel != null){
 
       await LDBOps.insertMap(
+        // allowDuplicateIDs: false,
         docName: LDBDoc.users,
         input: userModel.toMap(
           toJSON: true,

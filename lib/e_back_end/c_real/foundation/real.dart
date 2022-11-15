@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class Real {
   // -----------------------------------------------------------------------------
 
@@ -703,6 +703,7 @@ class Real {
   /// TRANSACTION & ATOMICS & LISTENERS
 
   // --------------------
+  /// PLAN : TEST ME AND RE-WRITE THE ENTIRE APP
   static Future<TransactionResult> runTransaction ({
     @required BuildContext context,
     @required String collName,

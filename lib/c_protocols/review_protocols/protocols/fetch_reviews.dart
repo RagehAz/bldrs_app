@@ -2,7 +2,7 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class FetchReviewProtocols {
   // -----------------------------------------------------------------------------
 
@@ -12,12 +12,13 @@ class FetchReviewProtocols {
   /// TESTED : WORKS PERFECT
   static Future<bool> readIsAgreed({
     @required String reviewID,
+    @required String flyerID,
   }) async {
 
     bool _output = false;
 
     final dynamic _result = await Real.readPath(
-      path: '${RealColl.agreesOnReviews}/$reviewID/${AuthFireOps.superUserID()}',
+      path: '${RealColl.agreesOnReviews}/$flyerID/$reviewID/${AuthFireOps.superUserID()}',
     );
 
     if (_result == true){
