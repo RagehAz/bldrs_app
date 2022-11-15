@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-
+/// => TAMAM
 @immutable
 class ReviewModel {
   /// --------------------------------------------------------------------------

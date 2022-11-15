@@ -119,7 +119,6 @@ class AuthorshipRespondingProtocols{
         translate: true,
       ),
       bodyVerse: const Verse(
-        pseudo: 'This will add you as an Author for this business account',
         text: 'phid_accept_author_invitation_description',
         translate: true,
       ),
@@ -133,7 +132,7 @@ class AuthorshipRespondingProtocols{
       unawaited(WaitDialog.showWaitDialog(
         context: context,
         loadingVerse: Verse(
-          text: "##Adding you to '${bzModel.name}' business account",
+          text: 'phid_adding_you_to_bz',
           translate: true,
           variables: bzModel.name,
         ),
@@ -151,15 +150,12 @@ class AuthorshipRespondingProtocols{
         context: context,
         titleVerse: Verse(
           pseudo: 'You have become an Author in ${bzModel.name}',
-          text: 'phid_you_became_author_in_bz',
+          text: 'phid_great_!',
           translate: true,
           variables: bzModel.name,
         ),
         bodyVerse: const Verse(
-          pseudo: 'You can control the business account, publish flyers,'
-              ' reply to costumers on behalf of the business and more.\n'
-              'a system reboot is required',
-          text: 'phid_became_author_in_bz_description',
+          text: 'phid_you_can_control_this_bz',
           translate: true,
         ),
         confirmButtonVerse: const Verse(
