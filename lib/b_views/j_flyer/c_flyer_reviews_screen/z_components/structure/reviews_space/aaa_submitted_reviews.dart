@@ -3,9 +3,9 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/a_review_box.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/variants/a_review_creator_bubble.dart';
-import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/variants/b_review_view_bubble.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_box.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_creator_bubble.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/b_review_view_bubble.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
@@ -191,6 +191,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                 return FutureBuilder<bool>(
                     future: ReviewProtocols.readIsAgreed(
                       reviewID: _reviewModel.id,
+                      flyerID: _reviewModel.flyerID,
                     ),
                     initialData: false,
                     builder: (_, AsyncSnapshot<Object> snapshot){

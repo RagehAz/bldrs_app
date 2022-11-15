@@ -194,7 +194,7 @@ class WipeBzProtocols {
       /// DELETE ALL BZ FLYERS LOCALLY
       FlyerProtocols.deleteFlyersLocally(
         context: context,
-        flyersIDs: _bzModel.flyersIDs,
+        flyersIDs: _bzModel?.flyersIDs,
       ),
 
       /// DELETE BZ ON LDB

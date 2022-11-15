@@ -312,7 +312,7 @@ class FlyerRecordRealOps {
   }
    */
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> reviewDeletion({
     @required String flyerID,
     @required String bzID,
