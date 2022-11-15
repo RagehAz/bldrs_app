@@ -117,7 +117,6 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
 
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
       blog('FireDocStreamer : DISPOSING THE FUCKING PAGE');

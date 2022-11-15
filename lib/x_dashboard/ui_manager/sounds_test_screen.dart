@@ -23,7 +23,7 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
   // -----------------------------------------------------------------------------
   /*
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
@@ -57,7 +57,6 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     // _loading.dispose();

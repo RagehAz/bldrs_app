@@ -29,10 +29,10 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   double _onChangeEnd;
   double _onChangeStart;
   double _semanticFormatterCallback;
-  final TextEditingController _minController = TextEditingController(); /// tamam disposed
-  final TextEditingController _maxController = TextEditingController(); /// tamam disposed
+  final TextEditingController _minController = TextEditingController();
+  final TextEditingController _maxController = TextEditingController();
   int _divisions;
-  final TextEditingController _divisionsController = TextEditingController(); /// tamam disposed
+  final TextEditingController _divisionsController = TextEditingController();
   RangeValues _rangeValues;
   final double _startRangeValue = 100000;
   final double _endRangeValue = 500000000;

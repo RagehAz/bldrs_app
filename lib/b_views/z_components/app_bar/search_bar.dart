@@ -57,7 +57,6 @@ class _SearchBarState extends State<SearchBar> {
     _searchTextController = widget.searchController ?? TextEditingController();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
 

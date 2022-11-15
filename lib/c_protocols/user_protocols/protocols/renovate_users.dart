@@ -103,6 +103,11 @@ class RenovateUserProtocols {
 
     if (_modelsAreIdentical == false){
 
+      AuthModel _authModel = await AuthLDBOps.readAuthModel();
+      _authModel = _authModel.copyWith(
+        userModel: newUserModel,
+      );
+
       await Future.wait(<Future>[
 
         /// UPDATE LDB USER MODEL
@@ -110,10 +115,7 @@ class RenovateUserProtocols {
 
         /// UPDATE LDB AUTHOR MODEL
         if (UserModel.checkItIsMe(newUserModel.id) == true)
-          AuthLDBOps.updateAuthModel(UsersProvider.proGetAuthModel(
-            context: context,
-            listen: false,
-          )),
+          AuthLDBOps.updateAuthModel(_authModel),
 
       ]);
 

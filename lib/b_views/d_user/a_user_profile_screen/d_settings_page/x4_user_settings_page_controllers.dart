@@ -22,6 +22,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// INVITE BZZ
@@ -68,6 +69,7 @@ Future<void> onEditProfileTap(BuildContext context) async {
 /// FCM TOPICS SETTINGS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onGoToFCMTopicsScreen(BuildContext context) async {
 
   await Nav.goToNewScreen(
@@ -83,8 +85,8 @@ Future<void> onGoToFCMTopicsScreen(BuildContext context) async {
 /// DELETION OPS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onDeleteMyAccount(BuildContext context) async {
-  blog('on delete user tap aho');
 
   bool _continue = await _authorshipDeletionCheckups(context);
 

@@ -86,7 +86,6 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _draftNote.dispose();

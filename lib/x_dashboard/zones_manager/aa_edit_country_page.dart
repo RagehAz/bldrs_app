@@ -40,7 +40,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
   // -----------------------------------------------------------------------------
   /*
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
@@ -80,7 +80,6 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     _initialize();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     // _loading.dispose();

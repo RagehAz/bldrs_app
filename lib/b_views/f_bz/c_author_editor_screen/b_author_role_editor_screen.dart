@@ -34,7 +34,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   ValueNotifier<AuthorRole> _tempRole;
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
   Future<void> _triggerLoading({@required bool setTo}) async {

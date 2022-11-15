@@ -64,9 +64,9 @@ class _PickersScreenState extends State<PickersScreen> {
   // --------------------
   final TextEditingController _searchTextController = TextEditingController();
   final ValueNotifier<String> _searchText = ValueNotifier<String>(null);
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   /// FOUND RESULTS
-  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(<Chain>[]); /// tamam disposed
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(<Chain>[]);
   /// SELECTION
   // --------------------
   final ValueNotifier<List<SpecModel>> _selectedSpecs = ValueNotifier([]);
@@ -89,7 +89,6 @@ class _PickersScreenState extends State<PickersScreen> {
     // ------------------------------
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     /// DATA

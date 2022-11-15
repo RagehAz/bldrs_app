@@ -56,7 +56,7 @@ class PicLDBOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deletePic(String path) async {
 
     if (TextCheck.isEmpty(path) == false){

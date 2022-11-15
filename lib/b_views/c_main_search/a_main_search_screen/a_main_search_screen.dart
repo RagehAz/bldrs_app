@@ -88,7 +88,6 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// TAMAM
   @override
   void dispose() {
     _searchController.dispose();

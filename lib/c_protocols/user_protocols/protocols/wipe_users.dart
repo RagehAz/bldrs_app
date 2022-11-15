@@ -31,7 +31,7 @@ class WipeUserProtocols {
   /// WIPE USER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeMyUser({
     @required BuildContext context,
     @required bool showWaitDialog,
@@ -116,6 +116,8 @@ class WipeUserProtocols {
       ),
 
     ]);
+
+    blog('UserProtocol._deleteNonAuthorUserProtocol : MIDDLE');
 
     await Future.wait(<Future>[
 
@@ -308,6 +310,10 @@ class WipeUserProtocols {
     blog('UserProtocol.exitBzzIDidNotCreateProtocol : END');
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// LOCAL DELETE
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteMyUserLocallyProtocol({
@@ -317,12 +323,16 @@ class WipeUserProtocols {
 
     blog('UserProtocol._deleteMyUserLocallyProtocol : START');
 
-    /// LDB : DELETE USER MODEL
-    await UserLDBOps.deleteUserOps(userModel.id);
-    await AuthLDBOps.deleteAuthModel(userModel.id);
+    await Future.wait(<Future>[
 
-    /// LDB : DELETE SAVED FLYERS
-    await FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs);
+      /// LDB : DELETE USER MODEL
+      UserLDBOps.deleteUserOps(userModel.id),
+      AuthLDBOps.deleteAuthModel(userModel.id),
+
+      /// LDB : DELETE SAVED FLYERS
+      FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs),
+
+    ]);
 
     blog('UserProtocol._deleteMyUserLocallyProtocol : END');
 

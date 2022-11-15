@@ -34,7 +34,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 
   @override
