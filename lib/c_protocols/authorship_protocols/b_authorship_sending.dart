@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class AuthorshipSendingProtocols {
   // -----------------------------------------------------------------------------
 

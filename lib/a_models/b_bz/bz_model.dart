@@ -166,7 +166,7 @@ class BzModel{
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -326,7 +326,7 @@ class BzModel{
   }
    */
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static BzModel convertDocSnapshotIntoBzModel(DocumentSnapshot<Object> doc) {
 
     final DocumentSnapshot<Object> _docSnap = doc.data();
@@ -335,13 +335,10 @@ class BzModel{
       addDocID: false,
       addDocSnapshot: true,
     );
-
     final BzModel _bzModel = BzModel.decipherBz(
       map: _map,
       fromJSON: false,
     );
-
-    blog(' map the bz Model is $_bzModel');
 
     return _bzModel;
   }
@@ -433,7 +430,7 @@ class BzModel{
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static BzModel replaceAuthor({
     @required AuthorModel updatedAuthor,
     @required BzModel bzModel,

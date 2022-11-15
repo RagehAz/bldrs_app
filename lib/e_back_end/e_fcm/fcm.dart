@@ -7,13 +7,16 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -263,6 +266,9 @@ class FCM {
     List<String> buttonsTexts,
   }) async {
 
+    final String _largeIconURL = await _getNootPicURLIfNotURL(largeIconURL);
+    final String _posterURL = await _getNootPicURLIfNotURL(posterURL);
+
     await tryAndCatch(
       invoker: 'pushGlobalNotification',
       functions: () async {
@@ -272,8 +278,8 @@ class FCM {
           content: _createGlobalNootContent(
             body: body,
             title: title,
-            largeIconURL: largeIconURL,
-            bannerURL: posterURL,
+            largeIconURL: _largeIconURL,
+            bannerURL: _posterURL,
             progress: progress,
             payloadMap: payloadMap,
             progressBarIsLoading: progressBarIsLoading,
@@ -291,7 +297,35 @@ class FCM {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  ///
+  static Future<String> _getNootPicURLIfNotURL(String urlOrPath) async {
+    String _url;
+
+    if (TextCheck.isEmpty(urlOrPath) == false){
+
+      /// IS A URL ALREADY
+      if (ObjectCheck.isAbsoluteURL(urlOrPath) == true){
+        _url = urlOrPath;
+      }
+
+      /// IS PIC PATH
+      else if (ObjectCheck.objectIsPicPath(urlOrPath) == true){
+        _url = await Storage.createURLByPath(urlOrPath);
+      }
+
+      /// OTHERWISE
+      else {
+        _url = urlOrPath;
+      }
+
+    }
+
+    blog('the bitch ass fucking url isssss :$_url');
+
+    return _url;
+  }
+  // ----------------------------------------------------------------------------
 
   /// NOTIFICATION CONTENTS
 

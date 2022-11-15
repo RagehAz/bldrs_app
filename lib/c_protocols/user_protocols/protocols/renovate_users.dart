@@ -19,6 +19,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/cupertino.dart';
 
 class RenovateUserProtocols {
@@ -122,7 +123,7 @@ class RenovateUserProtocols {
       /// UPDATE PRO USER AND AUTH MODELS
       if (UserModel.checkItIsMe(newUserModel.id) == true){
         UsersProvider.proSetMyUserAndAuthModels(
-          context: context,
+          context: BldrsAppStarter.navigatorKey.currentContext,
           userModel: newUserModel,
           notify: true,
         );

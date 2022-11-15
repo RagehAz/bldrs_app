@@ -2,7 +2,7 @@ import 'package:bldrs/c_protocols/authorship_protocols/b_authorship_sending.dart
 import 'package:bldrs/c_protocols/authorship_protocols/d_authorship_responding.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/e_authorship_entry.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_authorship_exit.dart';
-
+/// => TAMAM
 class AuthorshipProtocols {
   /// --------------------------------------------------------------------------
 
@@ -16,7 +16,6 @@ class AuthorshipProtocols {
   /// TESTED : WORKS PERFECT
   static const sendRequest = AuthorshipSendingProtocols.sendRequest;
   // --------------------
-
   /// TESTED : WORKS PERFECT
   static const cancelRequest = AuthorshipSendingProtocols.cancelRequest;
   // -----------------------------------------------------------------------------
@@ -24,7 +23,7 @@ class AuthorshipProtocols {
   /// RESPONDING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const  respondToInvitation = AuthorshipRespondingProtocols.respond;
   // -----------------------------------------------------------------------------
 
@@ -38,7 +37,7 @@ class AuthorshipProtocols {
   /// EXIT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const removeMeFromBz = AuthorshipExitProtocols.removeMeFromBz;
   // --------------------
   /// TESTED : WORKS PERFECT
