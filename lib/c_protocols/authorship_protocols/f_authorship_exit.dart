@@ -12,64 +12,70 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class AuthorshipExitProtocols {
   // -----------------------------------------------------------------------------
 
   const AuthorshipExitProtocols();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteMyAuthorPic({
     @required BuildContext context,
     @required String bzID,
   }) async {
     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : START');
 
-    /// GET MY USER MODEL -------------------
-    final UserModel _myUserModel = await UserProtocols.fetch(
-      context: context,
-      userID: AuthFireOps.superUserID(),
-    );
+    /// WIPE AUTHOR PIC
+    await PicProtocols.wipePic(Storage.generateAuthorPicPath(
+      bzID: bzID,
+      authorID: AuthFireOps.superUserID(),
+    ));
 
-    /// GET THE BZ MODEL -------------------
-    final BzModel _bzModel = await BzLDBOps.readBz(bzID);
-
-    if (_bzModel != null){
-
-      /// GET MY AUTHOR MODEL -------------------
-      final AuthorModel _myAuthor = AuthorModel.getAuthorFromAuthorsByID(
-        authors: _bzModel.authors,
-        authorID: _myUserModel.id,
-      );
-
-      /// CHECK IF USER MODEL PIC IS AUTHOR MODEL PIC -------------------
-      final bool _authorPicIsHisUserPic = await AuthorModel.checkUserImageIsAuthorImage(
-        context: context,
-        authorModel: _myAuthor,
-        userModel: _myUserModel,
-      );
-
-      /// PROCEED IF NOT IDENTICAL -------------------
-      if (_authorPicIsHisUserPic == false){
-        await BzFireOps.deleteAuthorPic(
-          authorModel: _myAuthor,
-          bzID: bzID,
-        );
-      }
-
-    }
+    // /// GET MY USER MODEL -------------------
+    // final UserModel _myUserModel = await UserProtocols.fetch(
+    //   context: context,
+    //   userID: AuthFireOps.superUserID(),
+    // );
+    //
+    // /// GET THE BZ MODEL -------------------
+    // final BzModel _bzModel = await BzLDBOps.readBz(bzID);
+    //
+    // if (_bzModel != null){
+    //
+    //   /// GET MY AUTHOR MODEL -------------------
+    //   final AuthorModel _myAuthor = AuthorModel.getAuthorFromAuthorsByID(
+    //     authors: _bzModel.authors,
+    //     authorID: _myUserModel.id,
+    //   );
+    //
+    //   /// CHECK IF USER MODEL PIC IS AUTHOR MODEL PIC -------------------
+    //   final bool _authorPicIsHisUserPic = await AuthorModel.checkUserImageIsAuthorImage(
+    //     context: context,
+    //     authorModel: _myAuthor,
+    //     userModel: _myUserModel,
+    //   );
+    //
+    //   /// PROCEED IF NOT IDENTICAL -------------------
+    //   if (_authorPicIsHisUserPic == false){
+    //     await BzFireOps.deleteAuthorPic(
+    //       authorModel: _myAuthor,
+    //       bzID: bzID,
+    //     );
+    //   }
+    //
+    // }
 
     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> removeMeFromBz({
     @required BuildContext context,
     @required BzModel streamedBzModelWithoutMyID,
@@ -109,6 +115,12 @@ class AuthorshipExitProtocols {
         bzID: streamedBzModelWithoutMyID.id,
     );
 
+    /// WIPE AUTHOR PIC
+    await PicProtocols.wipePic(Storage.generateAuthorPicPath(
+      bzID: streamedBzModelWithoutMyID.id,
+      authorID: _newUserModel.id,
+    ));
+
     await Future.wait(<Future>[
 
       /// UNSUBSCRIBE FROM FCM TOPICS
@@ -136,7 +148,7 @@ class AuthorshipExitProtocols {
     blog('WipeAuthorProtocols.removeMeFromBzProtocol : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> removeFlyerlessAuthor({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -167,12 +179,11 @@ class AuthorshipExitProtocols {
 
     ]);
 
-
     blog('WipeAuthorProtocols.removeFlyerlessAuthorProtocol : END');
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> removeBzTracesAfterDeletion({
     @required BuildContext context,
     @required String bzID,
@@ -246,12 +257,11 @@ class AuthorshipExitProtocols {
 
     }
 
-
     blog('WipeAuthorProtocols.removeBzTracesAfterDeletion : end');
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _authorBzDeletionDialog({
     @required BuildContext context,
     @required String bzID,

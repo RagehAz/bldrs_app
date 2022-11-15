@@ -20,6 +20,7 @@ class PicLDBOps {
     if (picModel != null){
 
       await LDBOps.insertMap(
+        // allowDuplicateIDs: false,
         docName: LDBDoc.pics,
         input: PicModel.cipherToLDB(picModel),
       );

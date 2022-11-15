@@ -13,23 +13,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-
-enum AuthorRole {
-  creator,
-  moderator,
-  teamMember,
-}
-
-enum AuthorAbility {
-  canChangeOthersRoles,
-  canChangeSelfRole,
-  canEditOtherAuthor,
-  // canEditSelf, // keda keda
-  canRemoveOtherAuthor,
-  canSendAuthorships,
-  canRemoveSelf,
-}
-
+/// => TAAMAM
 @immutable
 class AuthorModel {
   /// --------------------------------------------------------------------------
@@ -57,7 +41,7 @@ class AuthorModel {
   /// INITIALIZATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthorModel> prepareAuthorForEditing({
     @required AuthorModel oldAuthor,
     @required BzModel bzModel,
@@ -74,7 +58,7 @@ class AuthorModel {
     return _tempAuthor;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static AuthorModel bakeEditorVariablesToUpload({
     @required AuthorModel draftAuthor,
     @required AuthorModel oldAuthor,
@@ -117,7 +101,7 @@ class AuthorModel {
     );
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthorModel> createAuthorFromUserModel({
     @required UserModel userModel,
     @required String bzID,
@@ -162,10 +146,10 @@ class AuthorModel {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-  bool includePicModel = false,
-}) {
+    bool includePicModel = false,
+  }) {
 
     Map<String, dynamic> _map =  <String, dynamic>{
       'userID': userID,
@@ -190,7 +174,7 @@ class AuthorModel {
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static AuthorModel decipherAuthor(Map<String, dynamic> map) {
     return AuthorModel(
       userID: map['userID'],
@@ -286,7 +270,7 @@ class AuthorModel {
   }
    */
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<String> getAuthorPicOwnersIDs({
     @required BzModel bzModel,
     @required AuthorModel authorModel,
@@ -477,7 +461,7 @@ class AuthorModel {
     return _author;
   }
   // --------------------
-  /// TASK : TEST ME
+  /*
   static List<PicModel> getPicModels(List<AuthorModel> authors){
     final List<PicModel> _output = <PicModel>[];
 
@@ -495,8 +479,9 @@ class AuthorModel {
 
     return _output;
   }
+   */
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<String> getAuthorsPicsPaths(List<AuthorModel> authors){
     final List<String> _output = <String>[];
 
@@ -591,7 +576,7 @@ class AuthorModel {
     return _modifiedAuthorsIDsList;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<AuthorModel>> addNewUserToAuthors({
     @required List<AuthorModel> authors,
     @required UserModel newUserModel,
@@ -747,7 +732,7 @@ class AuthorModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /*
   static List<AuthorModel> removeFlyerIDFromAuthors({
     @required String flyerID,
     @required List<AuthorModel> authors,
@@ -776,6 +761,7 @@ class AuthorModel {
 
     return _output;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> overrideAuthorsBzID({
@@ -1067,11 +1053,11 @@ class AuthorModel {
     return _isAuthor;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkImALoneAuthor({
     @required BuildContext context,
-  @required String bzID,
-}) async {
+    @required String bzID,
+  }) async {
     bool _aLoneAuthor;
 
     if (bzID != null){
@@ -1257,7 +1243,7 @@ class AuthorModel {
           case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
           case AuthorAbility.canRemoveOtherAuthor :     return false; break;
           case AuthorAbility.canSendAuthorships :       return true; break;
-          case AuthorAbility.canRemoveSelf :            return false; break;
+          case AuthorAbility.canRemoveSelf :            return true; break;
           default: return false;
         } break;
     /// TEAM MEMBER -------------
@@ -1268,7 +1254,7 @@ class AuthorModel {
           case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
           case AuthorAbility.canRemoveOtherAuthor :     return false; break;
           case AuthorAbility.canSendAuthorships :       return false; break;
-          case AuthorAbility.canRemoveSelf :            return false; break;
+          case AuthorAbility.canRemoveSelf :            return true; break;
           default: return false;
         } break;
     /// DEFAULT -------------
@@ -1366,4 +1352,20 @@ class AuthorModel {
       contacts.hashCode^
       flyersIDs.hashCode;
 // -----------------------------------------------------------------------------
+}
+
+enum AuthorRole {
+  creator,
+  moderator,
+  teamMember,
+}
+
+enum AuthorAbility {
+  canChangeOthersRoles,
+  canChangeSelfRole,
+  canEditOtherAuthor,
+  // canEditSelf, // keda keda
+  canRemoveOtherAuthor,
+  canSendAuthorships,
+  canRemoveSelf,
 }
