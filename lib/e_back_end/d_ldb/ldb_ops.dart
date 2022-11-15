@@ -211,6 +211,7 @@ class LDBOps {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static Future<void> deleteMaps ({
     @required List<String> ids,
     @required String docName,
@@ -226,6 +227,8 @@ class LDBOps {
 
   }
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllMapsOneByOne({
     @required String docName,
@@ -236,6 +239,7 @@ class LDBOps {
     );
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllMapsAtOnce({

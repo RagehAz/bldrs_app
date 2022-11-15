@@ -31,7 +31,7 @@ class RenovateUserProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> renovateUser({
     @required BuildContext context,
     @required UserModel newUserModel,
@@ -83,7 +83,7 @@ class RenovateUserProtocols {
     return _uploadedModel;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
     @required UserModel newUserModel,
     @required BuildContext context,

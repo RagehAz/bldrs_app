@@ -6,6 +6,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
+/// => TAMAM
 class BzLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -180,7 +181,7 @@ class BzLDBOps {
   /// AUTHOR EDITOR SESSION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> saveAuthorEditorSession({
     @required AuthorModel authorModel,
   }) async {
@@ -196,7 +197,7 @@ class BzLDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthorModel> loadAuthorEditorSession({
     @required String authorID,
   }) async {
