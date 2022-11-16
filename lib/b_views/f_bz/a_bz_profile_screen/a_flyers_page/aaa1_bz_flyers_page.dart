@@ -23,6 +23,8 @@ class BzFlyersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    // blog('A - BUILDING stless BzFlyersPage');
+
     final BzModel bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,

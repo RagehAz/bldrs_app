@@ -71,7 +71,7 @@ class PhraseProvider extends ChangeNotifier {
     String setLangCode,
   }) async {
 
-    blog('---> fetchSetCurrentLangAndAllPhrases : START');
+    // blog('---> fetchSetCurrentLangAndAllPhrases : START');
 
     await getSetCurrentLangCode(
       context: context,
@@ -79,20 +79,20 @@ class PhraseProvider extends ChangeNotifier {
       setLangCode: setLangCode,
     );
 
-    blog('---> fetchSetCurrentLangAndAllPhrases : _currentLangCode : $_currentLangCode');
+    // blog('---> fetchSetCurrentLangAndAllPhrases : _currentLangCode : $_currentLangCode');
 
-    final List<Phrase> phrases = await PhraseProtocols.generateCountriesMixedLangPhrases(
-      context: context,
-      langCodes: <String>['en', 'ar'],
-    );
+    // final List<Phrase> phrases = await PhraseProtocols.generateCountriesMixedLangPhrases(
+    //   context: context,
+    //   langCodes: <String>['en', 'ar'],
+    // );
 
-    blog('---> fetchSetCurrentLangAndAllPhrases : countriesPhrases : ${phrases.length}');
+    // blog('---> fetchSetCurrentLangAndAllPhrases : countriesPhrases : ${phrases.length}');
 
     await fetchSetMainPhrases(
         notify: true
     );
 
-    blog('---> fetchSetCurrentLangAndAllPhrases : END');
+    // blog('---> fetchSetCurrentLangAndAllPhrases : END');
 
   }
   // -----------------------------------------------------------------------------
@@ -153,19 +153,19 @@ class PhraseProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    blog('X1- fetchSetMainPhrases : START');
+    // blog('X1- fetchSetMainPhrases : START');
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
     final List<Phrase> _phrases = await PhraseProtocols.fetchMainMixedLangPhrases();
 
-    blog('X3- fetchSetMainPhrases : MAIN _phrases : ${_phrases.length}');
+    // blog('X3- fetchSetMainPhrases : MAIN _phrases : ${_phrases.length}');
 
     setMainPhrases(
       setTo: _phrases,
       notify: notify,
     );
 
-    blog('X3- fetchSetMainPhrases : END');
+    // blog('X3- fetchSetMainPhrases : END');
 
   }
   // --------------------

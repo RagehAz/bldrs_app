@@ -57,6 +57,7 @@ class AddFlyerButton extends StatelessWidget {
     final BzModel _bzModel = _bzzProvider.myActiveBz;
     // --------------------
     return GestureDetector(
+      key: const ValueKey<String>('AddFlyerButton'),
       onTap: () => _goToFlyerMaker(
         context: context,
         bzModel: _bzModel,
@@ -80,6 +81,7 @@ class AddFlyerButton extends StatelessWidget {
                 height: FlyerDim.headerSlateHeight(flyerBoxWidth),
               ),
 
+              /// PLUS ICON
               DreamBox(
                 height: flyerBoxWidth * 0.4,
                 width: flyerBoxWidth * 0.4,
@@ -92,6 +94,7 @@ class AddFlyerButton extends StatelessWidget {
                 // },
               ),
 
+              /// ADD NEW FLYER TEXT
               SuperVerse(
                 verse: const Verse(
                   text: 'phid_add_new_flyer',

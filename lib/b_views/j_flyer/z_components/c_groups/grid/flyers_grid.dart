@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid_by_ids_builder_dart.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/future_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
@@ -67,6 +67,7 @@ class FlyersGrid extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if (flyers == null && flyersIDs == null && isLoadingGrid == false){
+      // blog('B1 - BUILDING sizedBox');
       return const SizedBox();
     }
 
@@ -86,7 +87,7 @@ class FlyersGrid extends StatelessWidget {
         return _canBuild;
       }(), 'can not build flyer');
       // --------------------
-      final bool _showLoadingGrid = showLoadingGridInstead(
+      final bool _isLoadingGrid = showLoadingGridInstead(
         flyers : flyers,
         paginationFlyersIDs: flyersIDs,
         isLoadingGrid: isLoadingGrid,
@@ -132,26 +133,26 @@ class FlyersGrid extends StatelessWidget {
             ),
             scrollDirection: scrollDirection,
             itemBuilder: (BuildContext ctx, int index){
-
+              // ---------------------------------------------------------------
               /// WHEN IS JUST A LOADING GRID
-              if (_showLoadingGrid == true){
+              if (_isLoadingGrid == true){
                 return FlyerLoading(
                   flyerBoxWidth: _gridSlotWidth,
                   animate: true,
                   // boxColor: Colorz.bloodTest,
                 );
               }
-
+              // ---------------------------------------------------------------
               /// ACTUAL FLYERS
               else {
-
+                // ---------------------------------------------
                 /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
                 if (authorMode == true && index == 0){
                   return AddFlyerButton(
                     flyerBoxWidth: _gridSlotWidth,
                   );
                 }
-
+                // ---------------------------------------------
                 /// OTHERWISE
                 else {
 
@@ -197,13 +198,12 @@ class FlyersGrid extends StatelessWidget {
                   }
 
                 }
-
+                // ---------------------------------------------
               }
-
+              // ---------------------------------------------------------------
             }
 
         ),
-
       );
       // --------------------
     }

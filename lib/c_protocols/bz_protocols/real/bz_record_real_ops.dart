@@ -129,7 +129,7 @@ class BzRecordRealOps {
     'incrementBzCounter :YOU FORGOT TO ASSIGN INCREMENTATION VALUE MAN',
     );
 
-    blog('BzRecordOps.incrementBzCounter : START');
+    // blog('BzRecordOps.incrementBzCounter : START');
 
     int _value;
     if (incrementThis == null){
@@ -163,7 +163,7 @@ class BzRecordRealOps {
 
     final BzCounterModel _model = BzCounterModel.decipherCounterMap(_map);
 
-    blog('BzRecordOps.incrementBzCounter : END');
+    // blog('BzRecordOps.incrementBzCounter : END');
 
     return _model;
   }

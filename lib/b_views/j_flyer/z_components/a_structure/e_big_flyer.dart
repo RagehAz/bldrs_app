@@ -34,6 +34,7 @@ class BigFlyer extends StatefulWidget {
     @required this.bzModel,
     @required this.heroPath,
     @required this.flyerBoxWidth,
+    @required this.canBuild,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,6 +42,7 @@ class BigFlyer extends StatefulWidget {
   final BzModel bzModel;
   final String heroPath;
   final double flyerBoxWidth;
+  final bool canBuild;
   /// --------------------------------------------------------------------------
   @override
   _BigFlyerState createState() => _BigFlyerState();
@@ -92,7 +94,11 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _initializations();
+    // blog('HH- BIGFLYER BigFlyer initState');
+
+    if (widget.canBuild == true){
+      _initializations();
+    }
 
   }
   // --------------------
@@ -104,7 +110,9 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        await _preparations();
+        if (widget.canBuild == true){
+          await _preparations();
+        }
 
         await _triggerLoading(setTo: false);
         // ----------
@@ -117,32 +125,50 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   }
   // --------------------
   @override
-  void dispose() {
-
-    /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
-    for (final SlideModel slide in _flyer.value.slides){
-      if (slide.slideIndex != 0){
-        slide.uiImage?.dispose();
+  void didUpdateWidget(BigFlyer oldWidget) {
+    if (oldWidget.canBuild != widget.canBuild){
+      if (widget.canBuild == true){
+        setState(() {
+        _initializations();
+        unawaited(_preparations());
+        });
       }
     }
-    _flyer.value.authorImage?.dispose();
+    super.didUpdateWidget(oldWidget);
+  }
 
-    _flyer.dispose();
-    _loading?.dispose();
-    _progressBarModel?.dispose();
-    _flyerIsSaved?.dispose();
-    _headerAnimationController?.dispose();
-    _headerScrollController?.dispose();
-    _savingAnimationController?.dispose();
-    _horizontalSlidesController?.dispose();
-    _footerPageController?.dispose();
-    _followIsOn?.dispose();
-    _progressBarOpacity?.dispose();
-    _headerIsExpanded?.dispose();
-    _headerPageOpacity?.dispose();
-    _graphicIsOn?.dispose();
-    _graphicOpacity?.dispose();
-    _bzCounters?.dispose();
+  @override
+  void dispose() {
+
+    if (widget.canBuild == true){
+      /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
+      for (final SlideModel slide in _flyer.value.slides){
+        if (slide.slideIndex != 0){
+          blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
+          slide.uiImage?.dispose();
+        }
+      }
+      blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
+      _flyer.value.authorImage?.dispose();
+
+      _flyer.dispose();
+      _loading?.dispose();
+      _progressBarModel?.dispose();
+      _flyerIsSaved?.dispose();
+      _headerAnimationController?.dispose();
+      _headerScrollController?.dispose();
+      _savingAnimationController?.dispose();
+      _horizontalSlidesController?.dispose();
+      _footerPageController?.dispose();
+      _followIsOn?.dispose();
+      _progressBarOpacity?.dispose();
+      _headerIsExpanded?.dispose();
+      _headerPageOpacity?.dispose();
+      _graphicIsOn?.dispose();
+      _graphicOpacity?.dispose();
+      _bzCounters?.dispose();
+    }
+
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -336,7 +362,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   void _onSwipeSlide(int index){
 
-    blog('OPENING SLIDE INDEX : $index');
+    // blog('OPENING SLIDE INDEX : $index');
 
     unawaited(recordFlyerView(
       index: index,
@@ -515,14 +541,22 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth);
-    final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+    if (widget.canBuild == false){
+      return const SizedBox();
+    }
 
-    return ValueListenableBuilder(
+    else {
+
+      // blog('H - BUILDING stful BigFlyer');
+
+      final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth);
+      final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+
+      return ValueListenableBuilder(
         valueListenable: _flyer,
         builder: (_, FlyerModel flyerModel, Widget savingNotice) {
 
-          blog('Building BIG FLYER');
+          // blog('Building BIG FLYER');
 
           return FlyerBox(
             key: const ValueKey<String>('FullScreenFlyer'),
@@ -599,9 +633,11 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
           );
 
         },
-      child: const SizedBox(),
+        child: const SizedBox(),
 
-    );
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------

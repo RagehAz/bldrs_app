@@ -16,16 +16,18 @@ class FlyerHero extends StatelessWidget {
     @required this.flyerModel,
     @required this.bzModel,
     @required this.flyerBoxWidth,
-    @required this.isFullScreen,
+    @required this.canBuildBigFlyer,
     @required this.heroTag,
+    @required this.invoker,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final bool isFullScreen;
+  final bool canBuildBigFlyer;
   final double flyerBoxWidth;
   final String heroTag;
+  final String invoker;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Widget buildFlight(
@@ -41,26 +43,13 @@ class FlyerHero extends StatelessWidget {
       bzModel: bzModel,
       flyerBoxWidth: flyerBoxWidth,
       heroTag: heroTag,
-      animation: animation,
-      flightContext: flightContext,
       flightDirection: flightDirection,
-      // fromHeroContext: fromHeroContext,
-      // toHeroContext: toHeroContext,
     );
 
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    // final String _heroTag = createFlyerHeroTag(
-    //   flyerID: flyerModel.id,
-    //   heroPath: heroTag,
-    // );
-    // final double _factor = isFullScreen ?  1 : minWidthFactor;
-    // final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(context, _factor);
-
-    // blog('FlyerHero : heroTag : $heroTag');
 
     return Hero(
       key: const ValueKey<String>('FlyerHero'),
@@ -74,19 +63,22 @@ class FlyerHero extends StatelessWidget {
       //   );
       // },
       // placeholderBuilder: (BuildContext context, Size size, Widget child){
-      //
       //   return Container(
       //     width: 50,
       //     height: 50,
       //     color: Colorz.yellow255,
       //   );
-      //
       // },
+      /// THIS IS TO BUILD BIG FLYER
       child: SmallFlyer(
         flyerBoxWidth: flyerBoxWidth,
         bzModel: bzModel,
         flyerModel: flyerModel,
         heroTag: heroTag,
+        canBuildBigFlyer: canBuildBigFlyer,
+        flightTweenValue: 1,
+        // flightDirection: FlightDirection.non,
+        // contextOwnerGlobalKeyCount: context.owner.globalKeyCount,
         // flightTweenValue: 0, // DEFAULT
       ),
     );

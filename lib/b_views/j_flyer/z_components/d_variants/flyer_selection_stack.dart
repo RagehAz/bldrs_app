@@ -33,85 +33,80 @@ class FlyerSelectionStack extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final BorderRadius _corners = FlyerDim.flyerCorners(context, flyerBoxWidth);
+    final bool _isSelectionMode = onSelectFlyer != null;
+    // --------------------
+    final bool _tinyMode = FlyerDim.isTinyMode(context, flyerBoxWidth);
+    // --------------------
+    return Stack(
+      key: const ValueKey<String>('flyerSelectionStack'),
+      // alignment: Alignment.center,
+      children: <Widget>[
 
-    if (flyerModel == null){
-      return const SizedBox();
-    }
+        /// FLYER
+        AbsorbPointer(
+          absorbing: _isSelectionMode,
+          child: Flyer(
+            // key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
+            flyerModel: flyerModel,
+            flyerBoxWidth: flyerBoxWidth,
+            screenName: heroPath,
+          ),
+        ),
 
-    else {
-      // --------------------
-      final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
-      final BorderRadius _corners = FlyerDim.flyerCorners(context, flyerBoxWidth);
-      final bool _isSelectionMode = onSelectFlyer != null;
-      // --------------------
-      final bool _tinyMode = FlyerDim.isTinyMode(context, flyerBoxWidth);
-      // --------------------
-      return Stack(
-        // alignment: Alignment.center,
-        children: <Widget>[
-
-          /// FLYER
-          AbsorbPointer(
-            absorbing: _isSelectionMode,
-            child: Flyer(
-              // key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
-              flyerModel: flyerModel,
-              flyerBoxWidth: flyerBoxWidth,
-              screenName: heroPath,
-            ),
+        /// WAITING VERIFICATION LAYER
+        if (flyerModel != null && _tinyMode == true)
+          FlyerVerificationLayer(
+            flyerBoxWidth: flyerBoxWidth,
+            auditState: flyerModel?.auditState,
           ),
 
-          /// WAITING VERIFICATION LAYER
-          if (flyerModel.auditState != AuditState.verified && _tinyMode == true)
-            FlyerVerificationLayer(
+        /// IS-SELECTED GRAPHIC LAYER
+        if (flyerModel != null && isSelected == true)
+          FlyerSelectionLayer(
+            flyerBoxWidth: flyerBoxWidth,
+          ),
+
+        /// TAP LAYER
+        if (flyerModel != null && _isSelectionMode == true)
+          DreamBox(
+            height: _flyerBoxHeight,
+            width: flyerBoxWidth,
+            corners: _corners,
+            bubble: false,
+            splashColor: Colorz.yellow125,
+            onTap: onSelectFlyer,
+          ),
+
+        /// FLYER OPTIONS BUTTON
+        if (onFlyerOptionsTap != null)
+          SuperPositioned(
+            enAlignment: Alignment.bottomRight,
+            verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
+            horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
+            child: FooterButton(
+              icon: Iconz.more,
+              phid: 'phid_more',
               flyerBoxWidth: flyerBoxWidth,
-            ),
-
-          /// IS-SELECTED GRAPHIC LAYER
-          if (isSelected == true)
-            FlyerSelectionLayer(
-              flyerBoxWidth: flyerBoxWidth,
-            ),
-
-          /// TAP LAYER
-          if (_isSelectionMode == true)
-            DreamBox(
-              height: _flyerBoxHeight,
-              width: flyerBoxWidth,
-              corners: _corners,
-              bubble: false,
-              splashColor: Colorz.yellow125,
-              onTap: onSelectFlyer,
-            ),
-
-          /// FLYER OPTIONS BUTTON
-          if (onFlyerOptionsTap != null)
-            SuperPositioned(
-              enAlignment: Alignment.bottomRight,
-              verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
-              horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
-              child: FooterButton(
-                icon: Iconz.more,
-                phid: 'phid_more',
-                flyerBoxWidth: flyerBoxWidth,
-                onTap: onFlyerOptionsTap,
-                isOn: UserModel.checkFlyerIsSaved(
-                  flyerID: flyerModel.id,
-                  userModel: UsersProvider.proGetMyUserModel(
-                      context: context,
-                      listen: true,
-                  ),
+              onTap: onFlyerOptionsTap,
+              isOn: UserModel.checkFlyerIsSaved(
+                flyerID: flyerModel?.id,
+                userModel: UsersProvider.proGetMyUserModel(
+                  context: context,
+                  listen: true,
                 ),
-                canTap: true,
-                count: null,
               ),
-
+              canTap: true,
+              count: null,
             ),
 
-        ],
-      );
-    }
+          ),
 
+      ],
+    );
+    // --------------------
   }
 /// --------------------------------------------------------------------------
 }

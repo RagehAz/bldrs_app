@@ -20,7 +20,6 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -34,12 +33,12 @@ Future<void> initializeLogoScreen({
   @required bool mounted,
 }) async {
 
-  blog('1 - initializeLogoScreen : START');
+  // blog('1 - initializeLogoScreen : START');
 
   /// USER MODEL
   await _initializeUserModel(context);
 
-  blog('2 - initializeLogoScreen : ${AuthFireOps.superUserID()}');
+  // blog('2 - initializeLogoScreen : ${AuthFireOps.superUserID()}');
 
   await Future.wait(
       <Future<void>>[
@@ -56,11 +55,11 @@ Future<void> initializeLogoScreen({
       ]
   );
 
-  blog('3 - initializeLogoScreen : appControls + assetPaths + lang + appState should have ended');
+  // blog('3 - initializeLogoScreen : appControls + assetPaths + lang + appState should have ended');
 
   if (_phrasesAreLoaded(context) == false){
 
-    blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
+    // blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
 
     await Dialogs.confirmProceed(
       context: context,
@@ -77,12 +76,12 @@ Future<void> initializeLogoScreen({
 
   else {
 
-    blog('4 - initializeLogoScreen : phrases found and will check user device');
+    // blog('4 - initializeLogoScreen : phrases found and will check user device');
 
     /// DEVICE ID - TOKEN
     await _refreshUserDeviceModel(context);
 
-    blog('5 - initializeLogoScreen : device is refreshed');
+    // blog('5 - initializeLogoScreen : device is refreshed');
 
     /// CHECK DEVICE CLOCK
     final bool _deviceTimeIsCorrect = await Timers.checkDeviceTimeIsCorrect(
@@ -90,11 +89,11 @@ Future<void> initializeLogoScreen({
       showIncorrectTimeDialog: true,
     );
 
-    blog('6 - initializeLogoScreen : _deviceTimeIsCorrect : $_deviceTimeIsCorrect');
+    // blog('6 - initializeLogoScreen : _deviceTimeIsCorrect : $_deviceTimeIsCorrect');
 
     if (_deviceTimeIsCorrect == false){
 
-      blog('7 - initializeLogoScreen : will restart app now');
+      // blog('7 - initializeLogoScreen : will restart app now');
 
       await _onRestartAppInTimeCorrectionDialog(
         context: context,
@@ -108,11 +107,11 @@ Future<void> initializeLogoScreen({
       /// DAILY LDB REFRESH
       await _dailyRefreshLDB(context);
 
-      blog('7 - initializeLogoScreen : daily refresh is done');
+      // blog('7 - initializeLogoScreen : daily refresh is done');
 
     }
 
-    blog('8 - initializeLogoScreen : END');
+    // blog('8 - initializeLogoScreen : END');
 
   }
 
