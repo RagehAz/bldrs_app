@@ -63,7 +63,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
   void initState() {
     super.initState();
 
-    widget.realQueryModel.blogModel();
+    // widget.realQueryModel.blogModel();
 
     /// SCROLLING
     _initializeScrollListeners();

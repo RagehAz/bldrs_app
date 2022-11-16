@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerLDBOps {
@@ -19,14 +18,14 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertFlyer(FlyerModel flyerModel) async {
-    blog('FlyerLDBOps.insertFlyer : START');
+    // blog('FlyerLDBOps.insertFlyer : START');
 
     await LDBOps.insertMap(
       docName: LDBDoc.flyers,
       input: flyerModel.toMap(toJSON: true),
     );
 
-    blog('FlyerLDBOps.insertFlyer : END');
+    // blog('FlyerLDBOps.insertFlyer : END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT

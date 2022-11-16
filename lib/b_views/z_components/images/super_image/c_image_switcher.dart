@@ -294,13 +294,15 @@ class ImageSwitcher extends StatelessWidget {
     /// UI.IMAGE
     else if (ObjectCheck.objectIsUiImage(pic) == true){
 
+      final ui.Image _uiImage = pic;
+
       return RawImage(
         /// MAIN
         key: const ValueKey<String>('SuperImage_UIIMAGE'),
         // debugImageLabel: ,
 
         /// IMAGE
-        image: pic,
+        image: _uiImage,
         // repeat: ImageRepeat.noRepeat, // DEFAULT
 
         /// SIZES

@@ -61,30 +61,30 @@ class SingleSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    assert(slideModel.midColor != null, 'slideModel.midColor is null');
+    // assert(slideModel.midColor != null, 'slideModel.midColor is null');
     // --------------------
     return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
       flyerBoxWidth: flyerBoxWidth,
       flyerBoxHeight: flyerBoxHeight,
       tinyMode: tinyMode,
-      slideMidColor: slideModel.midColor,
+      slideMidColor: slideModel?.midColor,
       shadowIsOn: slideShadowIsOn,
       stackChildren: <Widget>[
 
         /// BACK GROUND COVER PIC
         if (blurLayerIsOn == true)
           FutureBuilder(
-            future: Floaters.getUint8ListFromUiImage(slideModel.uiImage),
+            future: Floaters.getUint8ListFromUiImage(slideModel?.uiImage),
             builder: (_, AsyncSnapshot<Uint8List> snap){
 
-              final Uint8List _bytes = snap.data;
+              final Uint8List _bytes = snap?.data;
 
               return SuperFilteredImage(
                 width: flyerBoxWidth,
                 height: flyerBoxHeight,
                 bytes: _bytes,
-                filterModel: ImageFilterModel.getFilterByID(slideModel.filterID),
+                filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
               );
 
             },
@@ -131,7 +131,7 @@ class SingleSlide extends StatelessWidget {
           key: const ValueKey<String>('SlideHeadline'),
           flyerBoxWidth: flyerBoxWidth,
           verse: Verse(
-            text: slideModel.headline,
+            text: slideModel?.headline,
             translate: false,
           ),
         ),

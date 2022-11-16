@@ -143,7 +143,7 @@ class RenovateBzProtocols {
     @required BzModel newBzModel,
     @required BzModel oldBzModel,
   }) async {
-    blog('RenovateBzProtocol.updateBzLocally : START');
+    // blog('RenovateBzProtocol.updateBzLocally : START');
 
     /// LOCAL UPDATE PROTOCOL
     /// is to update my-active-bz-model in PRO and LDB in case of model changes
@@ -152,7 +152,7 @@ class RenovateBzProtocols {
       bz1: newBzModel,
       bz2: oldBzModel,
     );
-    blog('RenovateBzProtocol.updateBzLocally : bzz are identical : $_areTheSame');
+    // blog('RenovateBzProtocol.updateBzLocally : bzz are identical : $_areTheSame');
 
     /// UPDATE BZ MODEL EVERYWHERE
     if (_areTheSame == false){
@@ -182,11 +182,11 @@ class RenovateBzProtocols {
         notify: true,
       );
 
-      blog('RenovateBzProtocol.updateBzLocally : my active bz updated in PRO & LDB');
+      // blog('RenovateBzProtocol.updateBzLocally : my active bz updated in PRO & LDB');
 
     }
 
-    blog('RenovateBzProtocol.updateBzLocally : END');
+    // blog('RenovateBzProtocol.updateBzLocally : END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -249,7 +249,7 @@ class RenovateBzProtocols {
     @required AuthorModel newAuthorModel,
   }) async {
 
-    blog('RenovateBzProtocols.renovateAuthor : START');
+    // blog('RenovateBzProtocols.renovateAuthor : START');
 
     final BzModel _updatedBzModel = BzModel.replaceAuthor(
       updatedAuthor: newAuthorModel,
@@ -274,7 +274,7 @@ class RenovateBzProtocols {
 
     ]);
 
-    blog('RenovateBzProtocols.renovateAuthor : END');
+    // blog('RenovateBzProtocols.renovateAuthor : END');
 
     return _updatedBzModel;
   }
