@@ -50,11 +50,12 @@ class FlyerBigView extends StatelessWidget {
         type: MaterialType.transparency,
 
         child: FlyerHero(
+          heroTag: heroTag,
           flyerModel: flyerModel,
           bzModel: bzModel,
-          isFullScreen: true,
           flyerBoxWidth: Scale.screenWidth(context),
-          heroTag: heroTag,
+          canBuildBigFlyer: true,
+          invoker: 'FlyerBigView',
         ),
 
       ),

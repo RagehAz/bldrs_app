@@ -9,6 +9,7 @@ enum FadeType{
   stillAtMax,
 }
 
+/// TASK : TEST IF STILL AT MAX CAN BE STATLESS STATE WITHIN THIS WIDGET
 class WidgetFader extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const WidgetFader({

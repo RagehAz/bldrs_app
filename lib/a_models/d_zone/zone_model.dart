@@ -208,12 +208,12 @@ class ZoneModel {
 
     }
 
-    if (_identical == false){
-      blogZonesDifferences(
-        zone1: zone1,
-        zone2: zone2,
-      );
-    }
+    // if (_identical == false){
+    //   blogZonesDifferences(
+    //     zone1: zone1,
+    //     zone2: zone2,
+    //   );
+    // }
 
     return _identical;
   }

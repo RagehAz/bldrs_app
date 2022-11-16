@@ -1,4 +1,3 @@
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
@@ -12,13 +11,13 @@ class AppCheck {
   /// WILL COME TO YOU LATER
   static Future<void> preInitialize() async {
 
-    blog('AppCheck INITIALIZATION START');
+    // blog('AppCheck INITIALIZATION START');
     await FirebaseAppCheck.instance.activate(
       // webRecaptchaSiteKey: 'recaptcha-v3-site-key',
       webRecaptchaSiteKey: Standards.recaptchaSiteKey,
       androidProvider: kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
     );
-    blog('AppCheck INITIALIZATION END');
+    // blog('AppCheck INITIALIZATION END');
   }
   // --------------------------------------------
   ///

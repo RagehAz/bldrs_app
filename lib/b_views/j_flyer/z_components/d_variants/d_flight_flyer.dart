@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 class FlightFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlightFlyer({
-    @required this.flightContext,
-    @required this.animation, // 0 to 1
     @required this.flightDirection,
     @required this.flyerModel,
     @required this.bzModel,
@@ -18,14 +16,13 @@ class FlightFlyer extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final BuildContext flightContext;
-  final Animation<double> animation;
   final HeroFlightDirection flightDirection;
   final FlyerModel flyerModel;
   final BzModel bzModel;
   final double flyerBoxWidth;
   final String heroTag;
-  // -----------------------------------------------------------------------------
+
+  // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   FlightDirection getFlightDirection(String direction){
 
@@ -36,7 +33,7 @@ class FlightFlyer extends StatelessWidget {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -46,9 +43,9 @@ class FlightFlyer extends StatelessWidget {
     final Curve _curve = _flightDirectionName == 'push' ? Curves.fastOutSlowIn : Curves.fastOutSlowIn.flipped;
 
     final Tween<double> _tween = _flightDirectionName == 'push' ?
-    Tween<double>(begin: 0, end: 1)
+    Tween<double>(begin: 0.01, end: 0.95)
         :
-    Tween<double>(begin: 1, end: 0);
+    Tween<double>(begin: 0.95, end: 0);
 
     return TweenAnimationBuilder(
         key: const ValueKey<String>('FlyerHero_TweenAnimationBuilder'),
@@ -56,14 +53,6 @@ class FlightFlyer extends StatelessWidget {
         duration: Ratioz.duration150ms,
         curve: _curve,
         builder: (ctx, double value, Widget child){
-
-          // final double _flyerWidthFactor = flyerWidthSizeFactor(
-          //   tween: value,
-          //   minWidthFactor: minWidthFactor,
-          //   // maxWidthFactor: 1, REDUNDANT
-          // );
-
-          // final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(flightContext, _flyerWidthFactor);
 
           final FlightDirection _flightDirection = getFlightDirection(flightDirection.name);
 
@@ -76,6 +65,7 @@ class FlightFlyer extends StatelessWidget {
               flightTweenValue: value,
               flightDirection: _flightDirection,
               heroTag: heroTag,
+              // canBuildBigFlyer: false, // DEFAULT
             ),
           );
 
@@ -83,5 +73,5 @@ class FlightFlyer extends StatelessWidget {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

@@ -12,7 +12,6 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -97,7 +96,7 @@ ZoneModel getZoneModel({
 /// SLIDES INDEXING
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 int getNumberOfSlides({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -118,7 +117,7 @@ int getNumberOfSlides({
     _numberOfSlides = flyerModel.slides.length;
   }
 
-  blog('getNumberOfSlides : $_numberOfSlides');
+  // blog('getNumberOfSlides : $_numberOfSlides');
   return _numberOfSlides;
 }
 // --------------------
@@ -150,7 +149,7 @@ int getPossibleStartingIndex({
   // }
 
 
-  blog('getPossibleStartingIndex : $_output');
+  // blog('getPossibleStartingIndex : $_output');
   return _output;
 }
 // -----------------------------------------------------------------------------

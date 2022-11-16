@@ -560,12 +560,12 @@ class SlideModel {
 
     }
 
-    if (_identical == false){
-      blogSlidesDifferences(
-        slide1: slide1,
-        slide2: slide2,
-      );
-    }
+    // if (_identical == false){
+    //   blogSlidesDifferences(
+    //     slide1: slide1,
+    //     slide2: slide2,
+    //   );
+    // }
 
     return _identical;
   }
@@ -611,12 +611,12 @@ class SlideModel {
 
     }
 
-    if (_identical == false){
-      blogSlidesListsDifferences(
-        slides1: slides1,
-        slides2: slides2,
-      );
-    }
+    // if (_identical == false){
+    //   blogSlidesListsDifferences(
+    //     slides1: slides1,
+    //     slides2: slides2,
+    //   );
+    // }
 
     return _identical;
   }

@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -70,20 +71,32 @@ class _FlyerState extends State<Flyer> {
   @override
   void dispose() {
     _loading.dispose();
-    if (Mapper.checkCanLoopList(_flyerModel?.slides) == true){
-      _flyerModel?.slides[0].uiImage?.dispose();
-    }
 
-    blog('dispoing flyer logo ui image ahoo');
-    _flyerModel?.bzLogoImage?.dispose();
-    _bzModel.dispose();
+
+    if (mounted == true){
+      if (Mapper.checkCanLoopList(_flyerModel?.slides) == true){
+        blog('xxxxx - === >>> disposing flyer[0] SLIDE IMAGE');
+        _flyerModel?.slides?.first?.uiImage?.dispose();
+      }
+      blog('xxxxx - === >>> disposing flyer LOGO IMAGE');
+      _flyerModel?.bzLogoImage?.dispose();
+      _bzModel.dispose();
+
+    }
     super.dispose();
+  }
+   // --------------------
+   @override
+   void didUpdateWidget(Flyer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.flyerModel != widget.flyerModel) {
+      unawaited(_preparations());
+    }
   }
    // --------------------
   Future<void> _preparations() async {
 
     if (widget.flyerModel != null){
-
 
       if (mounted == true){
 
@@ -126,6 +139,7 @@ class _FlyerState extends State<Flyer> {
         if (mounted){
           setState(() {
             _flyerModel = _flyerWithUiImages;
+            _heroPath = '${widget.screenName}/${_flyerModel?.id}/';
           });
         }
 
@@ -138,74 +152,25 @@ class _FlyerState extends State<Flyer> {
   @override
   Widget build(BuildContext context) {
 
-    if (_flyerModel == null){
+    return  WidgetFader(
+      fadeType: FadeType.fadeIn,
+      duration: const Duration(milliseconds: 300),
+      child: ValueListenableBuilder(
+        valueListenable: _bzModel,
+        builder: (_, BzModel bzModel, Widget child){
 
-      blog('Building loading flyer red : FLYER IS NULL');
-
-      return FlyerLoading(
-        flyerBoxWidth: widget.flyerBoxWidth,
-        animate: true,
-        // boxColor: Colorz.bloodTest,
-      );
-
-    }
-
-    else {
-
-      return ValueListenableBuilder(
-        valueListenable: _loading,
-        builder: (_, bool loading, Widget flyer){
-
-          if (loading == true){
-
-            // blog('Building flyer [LOADING]---> ( $_heroPath )');
-
-            return FlyerLoading(
-              flyerBoxWidth: widget.flyerBoxWidth,
-              animate: true,
-              // boxColor: widget.flyerModel.slides[0].midColor,
-            );
-
-          }
-
-          else {
-            return flyer;
-          }
+          return FlyerHero(
+            flyerModel: _flyerModel,
+            bzModel: bzModel,
+            canBuildBigFlyer: false,
+            flyerBoxWidth: widget.flyerBoxWidth,
+            heroTag: _heroPath,
+            invoker: 'Flyer',
+          );
 
         },
-        child: Stack(
-          children: <Widget>[
-
-            // /// FLYER MATTRESS
-            // FlyerLoading(
-            //   flyerBoxWidth: widget.flyerBoxWidth,
-            //   animate: false,
-            // ),
-
-            WidgetFader(
-              fadeType: FadeType.fadeIn,
-              duration: const Duration(milliseconds: 300),
-              child: ValueListenableBuilder(
-                valueListenable: _bzModel,
-                builder: (_, BzModel bzModel, Widget child){
-
-                  return FlyerHero(
-                    flyerModel: _flyerModel,
-                    bzModel: bzModel,
-                    isFullScreen: false,
-                    flyerBoxWidth: widget.flyerBoxWidth,
-                    heroTag: _heroPath,
-                  );
-
-                },
-              ) ,
-            ),
-
-          ],
-        ),
-      );
-
-    }
+      ) ,
+    );
 
   }
   // -----------------------------------------------------------------------------
