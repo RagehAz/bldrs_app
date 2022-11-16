@@ -73,7 +73,7 @@ class FlyerRecordRealOps {
     @required FlyerModel flyerModel,
     @required int index,
   }) async {
-    blog('FlyerRecordOps.viewFlyer : START');
+    // blog('FlyerRecordOps.viewFlyer : START');
 
     /// TASK : CAUTION : THIS METHOD WILL DUPLICATE RECORDS IN REAL DB IF LDB VIEWS DOX IS WIPED OUT
     /// WE WEEN A MORE SOLID WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS
@@ -151,7 +151,7 @@ class FlyerRecordRealOps {
     }
 
 
-    blog('FlyerRecordOps.viewFlyer : END');
+    // blog('FlyerRecordOps.viewFlyer : END');
   }
   // --------------------
   /// SAVES CREATION
@@ -162,7 +162,7 @@ class FlyerRecordRealOps {
     @required String bzID,
     @required int slideIndex,
   }) async {
-    blog('FlyerRecordOps.saveFlyer : START');
+    // blog('FlyerRecordOps.saveFlyer : START');
 
     if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
@@ -196,7 +196,7 @@ class FlyerRecordRealOps {
 
 
 
-    blog('FlyerRecordOps.saveFlyer : END');
+    // blog('FlyerRecordOps.saveFlyer : END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -205,7 +205,7 @@ class FlyerRecordRealOps {
     @required String bzID,
     @required int slideIndex,
   }) async {
-    blog('FlyerRecordOps.unSaveFlyer : START');
+    // blog('FlyerRecordOps.unSaveFlyer : START');
 
     if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
@@ -237,7 +237,7 @@ class FlyerRecordRealOps {
     }
 
 
-    blog('FlyerRecordOps.unSaveFlyer : END');
+    // blog('FlyerRecordOps.unSaveFlyer : END');
   }
   // --------------------
   /// REVIEWS CREATION
@@ -361,7 +361,7 @@ class FlyerRecordRealOps {
     bool increaseOne, // or decrease one
     int incrementThis,
   }) async {
-    blog('FlyerRecordOps.incrementFlyerCounter : START');
+    // blog('FlyerRecordOps.incrementFlyerCounter : START');
 
     assert (
     increaseOne != null || incrementThis != null,
@@ -396,7 +396,7 @@ class FlyerRecordRealOps {
 
     final FlyerCounterModel _model = FlyerCounterModel.decipherCounterMap(_map);
 
-    blog('FlyerRecordOps.incrementFlyerCounter : END');
+    // blog('FlyerRecordOps.incrementFlyerCounter : END');
     return _model;
   }
   // --------------------

@@ -61,7 +61,7 @@ Future<void> onMyActiveBzStreamChanged({
 
   if (newMap == null){
 
-    blog('onMyActiveBzStreamChanged : THE NEW BITCH MAP IS NULL NOW AND WE CAN DO SOME STUFF HEREEEEEEEEEEEEEEEEEE');
+    // blog('onMyActiveBzStreamChanged : THE NEW BITCH MAP IS NULL NOW AND WE CAN DO SOME STUFF HEREEEEEEEEEEEEEEEEEE');
 
   }
 
@@ -77,7 +77,7 @@ Future<void> onMyActiveBzStreamChanged({
       bz2: _newBzFromStream,
     );
 
-    blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
+    // blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
 
     if (_areIdentical == false){
 

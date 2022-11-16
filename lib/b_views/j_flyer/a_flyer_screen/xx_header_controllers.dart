@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -147,7 +146,7 @@ void _triggerHeaderPageOpacity({
   @required ValueNotifier<double> headerPageOpacity,
 }) {
 
-  blog('_headerPageOpacity = ${headerPageOpacity.value}');
+  // blog('_headerPageOpacity = ${headerPageOpacity.value}');
 
   Future<void>.delayed(Ratioz.durationFading200, () {
 

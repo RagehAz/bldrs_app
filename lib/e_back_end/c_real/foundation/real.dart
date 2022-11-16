@@ -228,9 +228,9 @@ class Real {
 
     }
 
-    if (_output != null){
-      blog('Real.createDoc : map added to [REAL/$collName/$_docID] : map : ${_output.keys.length} keys');
-    }
+    // if (_output != null){
+    //   blog('Real.createDoc : map added to [REAL/$collName/$_docID] : map : ${_output.keys.length} keys');
+    // }
 
     return _output;
   }
@@ -330,9 +330,9 @@ class Real {
       );
     }
 
-    if (_map != null){
-      blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : ${_map.keys.length} keys');
-    }
+    // if (_map != null){
+    //   blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : ${_map.keys.length} keys');
+    // }
 
     // blog('X - createDocInPath ================================ END');
 
@@ -575,7 +575,7 @@ class Real {
     @required dynamic value,
   }) async {
 
-    blog('updateDocField : START');
+    // blog('updateDocField : START');
 
     /// NOTE : if value is null the pair will be deleted on real db map
 
@@ -597,7 +597,7 @@ class Real {
 
             await _ref.set(value).then((_) {
               // Data saved successfully!
-              blog('Real.updateField : updated (Real/$collName/$docName/$fieldName) : $value');
+              // blog('Real.updateField : updated (Real/$collName/$docName/$fieldName) : $value');
 
             })
                 .catchError((error) {
@@ -610,7 +610,7 @@ class Real {
 
     }
 
-    blog('updateDocField : END');
+    // blog('updateDocField : END');
 
   }
   // --------------------

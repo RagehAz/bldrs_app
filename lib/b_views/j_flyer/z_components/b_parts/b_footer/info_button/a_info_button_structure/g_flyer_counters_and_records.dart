@@ -36,7 +36,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
 
           else {
 
-            counter?.blogCounter();
+            // counter?.blogCounter();
 
             final int _saves = counter.saves ?? 0;
             final int _shares = counter.shares ?? 0;

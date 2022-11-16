@@ -77,7 +77,7 @@ class SlideImagePart extends StatelessWidget {
         children: <Widget>[
 
           /// IMAGE
-          if (slideModel.uiImage != null)
+          if (slideModel?.uiImage != null)
           SuperImage(
             pic: slideModel.uiImage ?? slideModel.picPath,
             fit: slideModel.picFit,

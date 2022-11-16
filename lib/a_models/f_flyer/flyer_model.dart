@@ -974,16 +974,16 @@ class FlyerModel {
 
     }
 
-    if (_areIdentical == false){
-      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
-      blogFlyersDifferences(
-        flyer1: flyer1,
-        flyer2: flyer2,
-      );
-    }
-    else {
-      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
-    }
+    // if (_areIdentical == false){
+    //   blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
+    //   blogFlyersDifferences(
+    //     flyer1: flyer1,
+    //     flyer2: flyer2,
+    //   );
+    // }
+    // else {
+    //   blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
+    // }
 
     return _areIdentical;
   }

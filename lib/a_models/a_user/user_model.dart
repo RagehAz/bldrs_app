@@ -1107,13 +1107,13 @@ class UserModel {
 
     }
 
-    if (_identical == false){
-      blogUsersDifferences(
-        user1: user1,
-        user2: user2,
-      );
-
-    }
+    // if (_identical == false){
+    //   blogUsersDifferences(
+    //     user1: user1,
+    //     user2: user2,
+    //   );
+    //
+    // }
 
     return _identical;
   }

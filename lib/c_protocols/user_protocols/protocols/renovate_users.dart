@@ -90,7 +90,7 @@ class RenovateUserProtocols {
     @required BuildContext context,
   }) async {
 
-    blog('RenovateUserProtocols.updateLocally : START');
+    // blog('RenovateUserProtocols.updateLocally : START');
 
     final UserModel _oldUserModel = await UserProtocols.fetch(
       context: context,
@@ -131,7 +131,7 @@ class RenovateUserProtocols {
 
     }
 
-    blog('UserProtocol.updateLocally : END');
+    // blog('UserProtocol.updateLocally : END');
 
   }
   // -----------------------------------------------------------------------------
@@ -237,7 +237,7 @@ class RenovateUserProtocols {
     @required String bzID,
     @required int slideIndex,
   }) async {
-    blog('RenovateUserProtocols.savingFlyerProtocol : START');
+    // blog('RenovateUserProtocols.savingFlyerProtocol : START');
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
       context: context,
@@ -286,7 +286,7 @@ class RenovateUserProtocols {
 
     }
 
-    blog('RenovateUserProtocols.savingFlyerProtocol : END');
+    // blog('RenovateUserProtocols.savingFlyerProtocol : END');
   }
   // -----------------------------------------------------------------------------
 
