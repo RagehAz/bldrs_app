@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/c_main_search/a_main_search_screen/a_main_search_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/a_dashboard_home_screen.dart';
@@ -37,7 +36,8 @@ class Routing {
   static const String search = '/SearchScreen';
   // --------------------
   static const String bzEditor = '/BzEditorScreen';
-  static const String myBz = '/MyBzScreen';
+  static const String myBzScreen = '/MyBzScreen';
+  static const String myBzNotesPage = '/MyBzScreen/NotesPage';
   static const String editBz = '/EditBzScreen';
   // --------------------
   static const String flyerEditor = '/FlyerEditorScreen';
@@ -46,6 +46,15 @@ class Routing {
   static const String ragehDashBoard = '/RagehDashBoardScreen';
   static const String obelisk = '/ObeliskScreen';
   static const String dynamicLinkTest = '/DynamicLinkTest';
+  // --------------------
+  static const String userPreview = '/userPreview';
+  static const String bzPreview = '/bzPreview';
+  static const String countryPreview = '/countryPreview';
+  static const String flyerPreview = '/flyerPreview';
+  static const String bldrsPreview = '/bldrsPreview';
+  // --------------------
+  static const String myUserScreen = '/myUserScreen';
+  static const String myUserNotesPage = '/myUserNotesPage';
   // -----------------------------------------------------------------------------
 
   /// ROUTER
@@ -93,10 +102,12 @@ class Routing {
         return Nav.fadeToScreen(const MainSearchScreen(), settings);
         break;
     // --------------------------
+    /*
     ///  s51
       case Routing.flyerScreen:
-        return Nav.slideToScreen(const FlyerScreen(), settings);
+        return Nav.slideToScreen(const FlyerPreviewScreen(), settings);
         break;
+     */
     // --------------------------
     ///  s51
       case Routing.ragehDashBoard:

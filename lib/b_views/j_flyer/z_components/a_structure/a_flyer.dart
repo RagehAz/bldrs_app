@@ -121,7 +121,7 @@ class _FlyerState extends State<Flyer> {
               }),
 
           /// GET BZ
-          BzProtocols.fetch(
+          BzProtocols.fetchBz(
             context: context,
             bzID: widget.flyerModel.bzID,
           ).then((BzModel bzModel){

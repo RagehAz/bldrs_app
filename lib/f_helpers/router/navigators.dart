@@ -1,27 +1,33 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/d_zone/country_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
+import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
 import 'package:bldrs/b_views/d_user/e_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
+/// TAMAM
 class Nav {
   // -----------------------------------------------------------------------------
 
@@ -222,29 +228,17 @@ class Nav {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> goBackToHomeScreen({
+  static Future<void> pushHomeAndRemoveAllBelow({
     @required BuildContext context,
     @required String invoker,
-    bool addPostFrameCallback = false,
   }) async {
+
     blog('goBackToHomeScreen : popUntil Routing.home : $invoker');
 
-    if (context != null){
-
-      if (addPostFrameCallback == true){
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.popUntil(context, ModalRoute.withName(Routing.home));
-        });
-      }
-
-      else {
-        await Future.delayed(Duration.zero, (){
-          Navigator.popUntil(context, ModalRoute.withName(Routing.home));
-        });
-      }
-
-
-    }
+    await Nav.pushNamedAndRemoveAllBelow(
+      context: context,
+      goToRoute: Routing.home,
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -287,6 +281,39 @@ class Nav {
   /// HOME SCREEN NAV.
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> autoNav({
+    @required BuildContext context,
+    @required String routeName,
+    @required bool startFromHome,
+    Object arguments,
+  }) async {
+
+    if (TextCheck.isEmpty(routeName) == false){
+
+      UiProvider.proSetAfterHomeRoute(
+          context: context,
+          routeName:routeName,
+          arguments: arguments,
+          notify: true
+      );
+
+      if (startFromHome == true){
+        await Nav.pushHomeAndRemoveAllBelow(
+          context: context,
+          invoker: 'autoNav',
+        );
+      }
+
+      else {
+        await autoNavigateFromHomeScreen(context);
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> autoNavigateFromHomeScreen(BuildContext context) async {
 
     final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
@@ -296,26 +323,93 @@ class Nav {
 
     if (_afterHomeRoute != null){
 
-      if (_afterHomeRoute.name == Routing.myBz){
+      Future<void> _goTo;
 
-        await Nav.goToMyBzScreen(
-          context: context,
-          bzID: _afterHomeRoute.arguments,
-          replaceCurrentScreen: false,
-        );
-
+      switch(_afterHomeRoute.name){
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.myBzScreen:
+          _goTo = Nav.goToMyBzScreen(
+            context: context,
+            bzID: _afterHomeRoute.arguments,
+            replaceCurrentScreen: false,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.myBzNotesPage:
+          _goTo = Nav.goToMyBzScreen(
+            context: context,
+            bzID: _afterHomeRoute.arguments,
+            replaceCurrentScreen: false,
+            initialTab: BzTab.notes,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.myUserScreen:
+          _goTo = Nav.goToMyUserScreen(
+            context: context,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.myUserNotesPage:
+          _goTo = Nav.goToMyUserScreen(
+            context: context,
+            userTab: UserTab.notifications,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.userPreview:
+          _goTo = jumpToUserPreviewScreen(
+            context: context,
+            userID: _afterHomeRoute.arguments,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.bzPreview:
+          _goTo = jumpToBzPreviewScreen(
+            context: context,
+            bzID: _afterHomeRoute.arguments,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.flyerPreview:
+          _goTo = jumpToFlyerPreviewScreen(
+            context: context,
+            flyerID: _afterHomeRoute.arguments,
+          ); break;
+      // --------------------
+      /// PLAN : ADD COUNTRIES PREVIEW SCREEN
+      /*
+       case Routing.countryPreview:
+         return jumpToCountryPreviewScreen(
+           context: context,
+           countryID: _afterHomeRoute.arguments,
+         ); break;
+        */
+      // --------------------
+      /// PLAN : ADD BLDRS PREVIEW SCREEN
+      /*
+         case Routing.bldrsPreview:
+           return jumpToBldrsPreviewScreen(
+             context: context,
+           ); break;
+          */
+      // --------------------
       }
 
       /// CLEAR AFTER HOME ROUTE
       UiProvider.proClearAfterHomeRoute(
-        context: context,
+        context: BldrsAppStarter.navigatorKey.currentContext,
         notify: true,
       );
+
+      await _goTo;
 
     }
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
 
     final bool _result = await Dialogs.goBackDialog(
@@ -350,6 +444,25 @@ class Nav {
   }
   // -----------------------------------------------------------------------------
 
+  /// USER TAB NAV.
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToMyUserScreen({
+    @required BuildContext context,
+    UserTab userTab = UserTab.profile,
+  }) async {
+
+    await goToNewScreen(
+      context: context,
+      screen: UserProfileScreen(
+        userTab: userTab,
+      ),
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// BZ SCREEN NAV.
 
   // --------------------
@@ -358,11 +471,12 @@ class Nav {
     @required BuildContext context,
     @required String bzID,
     @required bool replaceCurrentScreen,
+    BzTab initialTab = BzTab.flyers,
   }) async {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-    final BzModel _bzModel = await BzProtocols.fetch(
+    final BzModel _bzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: bzID,
     );
@@ -375,17 +489,20 @@ class Nav {
     if (replaceCurrentScreen == true){
       await Nav.replaceScreen(
           context: context,
-          screen: const MyBzScreen()
+          screen: MyBzScreen(
+            initialTab: initialTab,
+          )
       );
     }
 
     else {
       await Nav.goToNewScreen(
           context: context,
-          screen: const MyBzScreen()
+          screen: MyBzScreen(
+            initialTab: initialTab,
+          )
       );
     }
-
 
   }
   // --------------------
@@ -395,12 +512,10 @@ class Nav {
     @required String bzID,
   }) async {
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    _uiProvider.setAfterHomeRoute(
-      settings: RouteSettings(
-        name:  Routing.myBz,
-        arguments: bzID,
-      ),
+    UiProvider.proSetAfterHomeRoute(
+      context: context,
+      routeName: Routing.myBzScreen,
+      arguments: bzID,
       notify: true,
     );
 
@@ -411,61 +526,6 @@ class Nav {
 
 
   }
-  // -----------------------------------------------------------------------------
-/*
-  /// FLYER NAVIGATORS
-
-  // --------------------
-  static Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
-    await Navigator.of(context).push(PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 750),
-      pageBuilder: (_, __, ___) {
-        return Hero(
-          tag: flyerID, // galleryCoFlyers[index].flyer.flyerID,
-          child: const Material(
-            type: MaterialType.transparency,
-            child: FlyerScreen(
-              // flyerID: flyerID, // galleryCoFlyers[index].flyer.flyerID,
-            ),
-          ),
-        );
-      },
-    ));
-  }
-  // --------------------
-  static Future<void> openFlyer({
-    @required BuildContext context,
-    String flyerID,
-    FlyerModel flyer,
-    bool isSponsored = false,
-  }) async {
-
-    /// A - by  flyer
-    if (flyer != null) {
-
-      await goToNewScreen(
-          context: context,
-          screen: FlyerScreen(
-            flyerModel: flyer,
-            flyerID: flyerID,
-            isSponsored: isSponsored,
-          )
-      );
-
-    }
-
-    /// A - by flyerID
-    else if (flyerID != null) {
-      await goToRoute(context, Routing.flyerScreen, arguments: flyerID);
-    }
-
-    // /// A - nothing give
-    // else {
-    //   // do nothing
-    // }
-  }
-
- */
   // -----------------------------------------------------------------------------
 
   /// JUMPERS
@@ -509,7 +569,7 @@ class Nav {
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetch(
+      final BzModel _bzModel = await BzProtocols.fetchBz(
         context: context,
         bzID: bzID,
       );
@@ -529,14 +589,51 @@ class Nav {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> jumpToFlyerPreviewScreen({
+    @required BuildContext context,
+    @required String flyerID,
+  }) async {
+
+    if (flyerID != null){
+
+      final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+        flyerID: flyerID,
+        context: context,
+      );
+
+      final BzModel _bzModel = await BzProtocols.fetchBz(
+        bzID: _flyerModel?.bzID,
+        context: context,
+      );
+
+
+      if (_flyerModel != null && _bzModel != null){
+
+        await Nav.goToNewScreen(
+          context: context,
+          screen: FlyerPreviewScreen(
+            flyerModel: _flyerModel,
+            bzModel: _bzModel,
+          ),
+        );
+
+      }
+
+    }
+  }
+  // --------------------
   /// PLAN : DO BLDRS PREVIEW SCREEN
+  /*
   static Future<void> jumpToBldrsPreviewScreen({
     @required BuildContext context,
   }) async {
     blog('should go to Bldrs.net preview screen');
   }
+   */
   // --------------------
   /// PLAN : DO COUNTRY PREVIEW SCREEN
+  /*
   static Future<void> jumpToCountryPreviewScreen({
     @required BuildContext context,
     @required String countryID,
@@ -562,5 +659,6 @@ class Nav {
     }
 
   }
+   */
   // -----------------------------------------------------------------------------
 }

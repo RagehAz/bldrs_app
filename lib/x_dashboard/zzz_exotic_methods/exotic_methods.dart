@@ -325,7 +325,7 @@ class ExoticMethods {
     final List<String> _oldUserFlyersIDs = <String>[];
 
     for (final String bzID in _oldUserModel.myBzzIDs){
-      final BzModel _bz = await BzProtocols.fetch(context: context, bzID: bzID);
+      final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: bzID);
       _oldUserFlyersIDs.addAll(_bz.flyersIDs);
       await _takeOverBz(context: context, oldUserID: oldUserID, newUserID: newUserID, bzModel: _bz);
     }

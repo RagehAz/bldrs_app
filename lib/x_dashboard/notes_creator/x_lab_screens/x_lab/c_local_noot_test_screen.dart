@@ -733,7 +733,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                   final FlyerModel _flyer = await FlyerProtocols.imagifySlides(_selectedFlyers.first);
 
-                                  final BzModel _bz = await BzProtocols.fetch(
+                                  final BzModel _bz = await BzProtocols.fetchBz(
                                       context: context,
                                       bzID: _flyer.bzID,
                                   );

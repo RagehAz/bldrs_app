@@ -1,24 +1,21 @@
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/d_flyer_big_view.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerScreen extends StatelessWidget {
+class FlyerPreviewScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerScreen({
-    this.flyerModel,
-    this.initialSlideIndex,
-    this.flyerID,
-    this.isSponsored,
+  const FlyerPreviewScreen({
+    @required this.flyerModel,
+    @required this.bzModel,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
-  final int initialSlideIndex;
-  final String flyerID;
-  final bool isSponsored;
+  final BzModel bzModel;
   /// --------------------------------------------------------------------------
   static const String routeName = Routing.flyerScreen;
   /// --------------------------------------------------------------------------
@@ -28,11 +25,12 @@ class FlyerScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colorz.skyDarkBlue,
-        body: Flyer(
+        body: FlyerBigView(
           key: PageStorageKey<String>(flyerModel.id),
           flyerBoxWidth: Scale.screenWidth(context),
           flyerModel: flyerModel,
-          screenName: 'FlyerScreen',
+          bzModel: bzModel,
+          heroTag: 'FlyerPreviewScreen',
         ),
       ),
     );

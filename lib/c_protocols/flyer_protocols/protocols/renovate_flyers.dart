@@ -45,7 +45,7 @@ class RenovateFlyerProtocols {
     assert(newDraft != null, 'flyer is null');
     // -------------------------------
 
-    final BzModel _bzModel = await BzProtocols.fetch(
+    final BzModel _bzModel = await BzProtocols.fetchBz(
         context: context,
         bzID: newDraft.bzID,
     );
