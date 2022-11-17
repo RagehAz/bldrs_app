@@ -890,7 +890,7 @@ class FlyerModel {
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetch(
+      final BzModel _bzModel = await BzProtocols.fetchBz(
         context: context,
         bzID: bzID,
       );

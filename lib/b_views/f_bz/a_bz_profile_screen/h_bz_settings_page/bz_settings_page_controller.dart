@@ -89,7 +89,7 @@ Future<void> onDeleteBzButtonTap({
 
     /// re-route back
     // if (routeBackHome == true){
-    await Nav.goBackToHomeScreen(
+    await Nav.pushHomeAndRemoveAllBelow(
         context: context,
         invoker: 'onDeleteBzButtonTap'
     );

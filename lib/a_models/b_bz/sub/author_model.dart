@@ -1062,7 +1062,7 @@ class AuthorModel {
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetch(context: context, bzID: bzID);
+      final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: bzID);
       _aLoneAuthor = _bzModel?.authors?.length == 1;
 
     }

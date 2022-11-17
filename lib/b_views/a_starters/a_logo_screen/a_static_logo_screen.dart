@@ -8,7 +8,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
-/// OLD LOGO SCREEN
 class StaticLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const StaticLogoScreen({
@@ -94,11 +93,14 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
       loading: _loading,
+      canGoBack: false,
       onBack: () async {
+
         await Nav.replaceScreen(
           context: context,
           screen: const StaticLogoScreen(),
         );
+
       },
       layoutWidget: LogoScreenView(
         scaleController: _scaleController,

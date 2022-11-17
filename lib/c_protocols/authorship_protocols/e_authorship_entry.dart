@@ -28,7 +28,7 @@ class AuthorshipEntryProtocols {
 
     blog('AuthorshipEntryProtocols.addMeToBz : START');
 
-    final BzModel _oldBzModel = await BzProtocols.fetch(
+    final BzModel _oldBzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: bzID,
     );

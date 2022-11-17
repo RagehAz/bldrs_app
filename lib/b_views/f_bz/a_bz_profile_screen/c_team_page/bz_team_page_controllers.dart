@@ -340,7 +340,7 @@ Future<void> _removeAuthorWhoHasFlyers({
       isDeletingBz: false,
     );
 
-    final BzModel _updatedBzModel = await BzProtocols.fetch(
+    final BzModel _updatedBzModel = await BzProtocols.fetchBz(
         context: context,
         bzID: bzModel.id,
     );

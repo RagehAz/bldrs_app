@@ -26,7 +26,6 @@ import 'dart:async';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
@@ -365,7 +364,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
                 Routing.staticLogoScreen: (BuildContext ctx) => const StaticLogoScreen(key: ValueKey<String>('LogoScreen'),),
                 Routing.home: (BuildContext ctx) => const HomeScreen(),
 
-                Routing.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
+                // Routing.flyerScreen: (BuildContext ctx) => const FlyerPreviewScreen(),
                 // Routez.Starting: (ctx) => StartingScreen(),
 
 
