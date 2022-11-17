@@ -29,7 +29,7 @@ class SlideBackCoverImage extends StatelessWidget {
           return SuperFilteredImage(
             width: flyerBoxWidth,
             height: flyerBoxHeight,
-            bytes: slide.picModel.bytes,
+            pic: slide.picModel.bytes,
             filterModel: _filterModel,
           );
         }

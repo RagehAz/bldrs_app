@@ -114,7 +114,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                   SuperFilteredImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
-                    bytes: widget.draftSlide.picModel.bytes,
+                    pic: widget.draftSlide.picModel.bytes,
                     filterModel: widget.draftSlide.filter,
                   ),
 
@@ -153,7 +153,8 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     child: SuperFilteredImage(
                       width: DraftShelfSlide.flyerBoxWidth - 10,
                       height: _flyerBoxHeight,
-                      bytes: widget.draftSlide.picModel.bytes,
+                      // bytes: widget.draftSlide.picModel.bytes,
+                      pic: widget.draftSlide.picModel.bytes,
                       filterModel: widget.draftSlide.filter,
                       boxFit: widget.draftSlide.picFit,
                     ),
