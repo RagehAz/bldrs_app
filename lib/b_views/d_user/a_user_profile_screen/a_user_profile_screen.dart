@@ -9,8 +9,11 @@ import 'package:flutter/material.dart';
 class UserProfileScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserProfileScreen({
+    this.userTab = UserTab.profile,
     Key key
   }) : super(key: key);
+
+  final UserTab userTab;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,7 @@ class UserProfileScreen extends StatelessWidget {
     return ObeliskLayout(
       initiallyExpanded: true,
       canGoBack: true,
+      initialIndex: UserTabber.getUserTabIndex(userTab),
       navModels: <NavModel>[
 
         ...List.generate(UserTabber.userProfileTabsList.length, (index){

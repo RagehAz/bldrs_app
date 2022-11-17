@@ -1,7 +1,7 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -394,15 +394,12 @@ class DynamicLinks {
     @required String link,
   }) async {
 
+    // final int _index = DynamicLinks.getSlideIndexFromDynamicLink(link);
     final String _flyerID = DynamicLinks.getFlyerIDFromDynamicLink(link);
-    final int _index = DynamicLinks.getSlideIndexFromDynamicLink(link);
 
-    await Nav.goToNewScreen(
+    await Nav.jumpToFlyerPreviewScreen(
       context: context,
-      screen: FlyerScreen(
-        flyerID: _flyerID,
-        initialSlideIndex: _index,
-      ),
+      flyerID: _flyerID,
     );
 
   }

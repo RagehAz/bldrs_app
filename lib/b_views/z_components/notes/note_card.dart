@@ -79,21 +79,19 @@ class NoteCard extends StatelessWidget {
     }
 
     /// BLDRS
-    else if (noteModel.parties.senderType == PartyType.bldrs){
-
-      await Nav.jumpToBldrsPreviewScreen(
-          context: context,
-      );
-
-    }
+    // else if (noteModel.parties.senderType == PartyType.bldrs){
+      // await Nav.jumpToBldrsPreviewScreen(
+      //     context: context,
+      // );
+    // }
 
     /// COUNTRY
-    else if (noteModel.parties.senderType == PartyType.country){
-      await Nav.jumpToCountryPreviewScreen(
-          context: context,
-          countryID: noteModel.parties.senderID,
-      );
-    }
+    // else if (noteModel.parties.senderType == PartyType.country){
+      // await Nav.jumpToCountryPreviewScreen(
+      //     context: context,
+      //     countryID: noteModel.parties.senderID,
+      // );
+    // }
 
   }
   // --------------------

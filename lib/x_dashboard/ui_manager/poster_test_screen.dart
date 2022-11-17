@@ -77,7 +77,7 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
 
         _flyerModel = await FlyerProtocols.imagifySlides(_flyerModel);
 
-        final BzModel _bzModel = await BzProtocols.fetch(
+        final BzModel _bzModel = await BzProtocols.fetchBz(
           context: context,
           bzID: _flyerModel.bzID,
         );

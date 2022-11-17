@@ -47,7 +47,7 @@ Future<void> onFlyerOptionsTap({
   // ---------
   final String _shortTitle = flyerModel.getShortHeadline();
   // ---------
-  final BzModel _bzModel = await BzProtocols.fetch(
+  final BzModel _bzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: flyerModel.bzID,
   );

@@ -29,7 +29,7 @@ class StaticFlyerStarter extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return FutureBuilder(
-      future: BzProtocols.fetch(context: context, bzID: flyerModel?.bzID),
+      future: BzProtocols.fetchBz(context: context, bzID: flyerModel?.bzID),
         builder: (_, AsyncSnapshot<BzModel> snap){
 
         final BzModel bzModel = snap.data;

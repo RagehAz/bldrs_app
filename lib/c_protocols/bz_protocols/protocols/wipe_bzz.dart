@@ -184,7 +184,7 @@ class WipeBzProtocols {
 
     blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
-    final BzModel _bzModel = await BzProtocols.fetch(
+    final BzModel _bzModel = await BzProtocols.fetchBz(
         context: context,
         bzID: bzID
     );
@@ -234,7 +234,7 @@ class WipeBzProtocols {
     @required String pendingUserID,
   }) async {
 
-    final BzModel bzModel = await BzProtocols.fetch(
+    final BzModel bzModel = await BzProtocols.fetchBz(
         context: context,
         bzID: bzID,
     );

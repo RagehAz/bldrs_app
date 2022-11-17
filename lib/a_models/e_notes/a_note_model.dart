@@ -882,7 +882,7 @@ class NoteModel {
 
         if (noteModel.parties.senderType == PartyType.bz){
 
-          final BzModel _bzModel = await BzProtocols.fetch(
+          final BzModel _bzModel = await BzProtocols.fetchBz(
             context: context,
             bzID: noteModel.parties.senderID,
           );

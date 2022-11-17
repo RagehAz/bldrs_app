@@ -22,9 +22,9 @@ class UiProvider extends ChangeNotifier {
 
   // --------------------
   List<String> _localAssetsPaths = <String>[];
-  // --------------------
   List<String> get localAssetsPaths => _localAssetsPaths;
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> getSetLocalAssetsPaths({
     @required bool notify,
   }) async {
@@ -37,6 +37,7 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _setLocalAssetPaths({
     @required List<String> paths,
     @required bool notify,
@@ -51,6 +52,7 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> proGetLocalAssetsPaths(BuildContext context){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     return _uiProvider.localAssetsPaths;
@@ -63,6 +65,7 @@ class UiProvider extends ChangeNotifier {
   RouteSettings _afterHomeRoute;
   RouteSettings get afterHomeRoute => _afterHomeRoute;
   // --------------------
+  /// TESTED : WORKS PERFECT
   static RouteSettings proGetAfterHomeRoute({
     @required BuildContext context,
     @required bool listen,
@@ -71,6 +74,7 @@ class UiProvider extends ChangeNotifier {
     return _uiProvider.afterHomeRoute;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void proClearAfterHomeRoute({
     @required BuildContext context,
     @required bool notify,
@@ -84,6 +88,26 @@ class UiProvider extends ChangeNotifier {
     blog('proClearAfterHomeRoute : now : ${_uiProvider._afterHomeRoute}');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static void proSetAfterHomeRoute({
+    @required BuildContext context,
+    @required String routeName,
+    @required String arguments,
+    @required bool notify,
+  }){
+
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider.setAfterHomeRoute(
+      settings: RouteSettings(
+        name:  routeName,
+        arguments: arguments,
+      ),
+      notify: notify,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void setAfterHomeRoute({
     @required RouteSettings settings,
     @required bool notify,
@@ -102,9 +126,9 @@ class UiProvider extends ChangeNotifier {
 
   // --------------------
   bool _loading = false;
-  // --------------------
   bool get isLoading => _loading;
   // --------------------
+  /// TESTED : WORKS PERFECT
   void triggerLoading({
     @required String callerName,
     @required bool notify,
@@ -156,36 +180,20 @@ class UiProvider extends ChangeNotifier {
    */
   // -----------------------------------------------------------------------------
 
-  /// --- KEYBOARD MODEL
+  /// --- KEYBOARD
 
   // --------------------
-//   KeyboardModel _keyboardModel;
-  // KeyboardModel get keyboardModel => _keyboardModel;
-//   void setKeyboard({
-//     @required KeyboardModel model,
-//     @required bool notify,
-//     @required String invoker,
-//   }){
-//
-//     // blog('UiProvider : setting keyboard to : ${model?.titleVerse} by $invoker');
-//     _keyboardModel = model;
-//
-//     if (notify == true){
-//       notifyListeners();
-//     }
-//
-//   }
-
   bool _keyboardIsOn = false;
   bool get keyboardIsOn => _keyboardIsOn;
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool proGetKeyboardIsOn (BuildContext context) {
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     return _keyboardIsOn;
   }
   // --------------------
-  // --------------------
+  /// TESTED : WORKS PERFECT
   void setKeyboardIsOn({
     @required bool setTo,
     @required bool notify,
@@ -223,10 +231,13 @@ class UiProvider extends ChangeNotifier {
   /// --- TEXT FIELD OBSCURED
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   bool _textFieldsObscured = true;
   // --------------------
+  /// TESTED : WORKS PERFECT
   bool get textFieldsObscured => _textFieldsObscured;
   // --------------------
+  /// TESTED : WORKS PERFECT
   void triggerTextFieldsObscured({
     @required bool notify,
     bool setObscuredTo

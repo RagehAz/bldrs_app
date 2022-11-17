@@ -175,7 +175,7 @@ class DraftFlyer{
   }) async {
 
     return DraftFlyer(
-      bzModel: await BzProtocols.fetch(context: context, bzID: flyer.bzID),
+      bzModel: await BzProtocols.fetchBz(context: context, bzID: flyer.bzID),
       id: flyer.id,
       headline: TextEditingController(text: flyer.headline),
       trigram: flyer.trigram,

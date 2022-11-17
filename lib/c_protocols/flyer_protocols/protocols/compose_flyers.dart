@@ -125,7 +125,7 @@ class ComposeFlyerProtocols {
   }) async {
     blog('addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
-    final BzModel _bzModel = await BzProtocols.fetch(
+    final BzModel _bzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: newFlyerToAdd.bzID,
     );
