@@ -7,11 +7,15 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/trinity.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SingleSlide extends StatelessWidget {
@@ -74,20 +78,11 @@ class SingleSlide extends StatelessWidget {
 
         /// BACK GROUND COVER PIC
         if (blurLayerIsOn == true)
-          FutureBuilder(
-            future: Floaters.getUint8ListFromUiImage(slideModel?.uiImage),
-            builder: (_, AsyncSnapshot<Uint8List> snap){
-
-              final Uint8List _bytes = snap?.data;
-
-              return SuperFilteredImage(
-                width: flyerBoxWidth,
-                height: flyerBoxHeight,
-                bytes: _bytes,
-                filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
-              );
-
-            },
+          SuperFilteredImage(
+            width: flyerBoxWidth,
+            height: flyerBoxHeight,
+            pic: slideModel?.uiImage,
+            filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
           ),
 
         /// BLUR LAYER
@@ -101,18 +96,66 @@ class SingleSlide extends StatelessWidget {
             borders: FlyerDim.flyerCorners(context, flyerBoxWidth),
           ),
 
-        /// IMAGE NETWORK
-        // if (ObjectCheck.isAbsoluteURL(slideModel.pic))
-          SlideImagePart(
-            key: const ValueKey<String>('SingleSlideImagePart'),
-            flyerBoxWidth: flyerBoxWidth,
-            flyerBoxHeight: flyerBoxHeight,
-            tinyMode: tinyMode,
-            slideModel: slideModel,
-            onSlideBackTap: onSlideBackTap,
-            onSlideNextTap: onSlideNextTap,
-            onDoubleTap: onDoubleTap,
-          ),
+        /// ANIMATED SLIDE
+        FutureBuilder(
+          future: Floaters.getUint8ListFromUiImage(slideModel?.uiImage),
+          builder: (_, AsyncSnapshot<Uint8List> snap){
+
+            final Uint8List _bytes = snap?.data;
+
+            if (Streamer.connectionIsLoading(snap) == true || _bytes == null){
+
+              return SuperFilteredImage(
+                width: flyerBoxWidth,
+                height: flyerBoxHeight,
+                pic: slideModel?.uiImage,
+                filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
+                boxFit: slideModel?.picFit,
+              );
+
+            // return SlideImagePart(
+            //     key: const ValueKey<String>('SingleSlideImagePart'),
+            //     flyerBoxWidth: flyerBoxWidth,
+            //     flyerBoxHeight: flyerBoxHeight,
+            //     tinyMode: tinyMode,
+            //     slideModel: slideModel,//?.copyWith(midColor: Colorz.red255),
+            //     onSlideBackTap: onSlideBackTap,
+            //     onSlideNextTap: onSlideNextTap,
+            //     onDoubleTap: onDoubleTap,
+            //   );
+            }
+
+            else {
+              return AnimateWidgetToMatrix(
+                matrix: Trinity.renderSlideMatrix(
+                  matrix: slideModel?.matrix,
+                  flyerBoxWidth: flyerBoxWidth,
+                  flyerBoxHeight: flyerBoxHeight,
+                ),
+                child: SuperFilteredImage(
+                  width: flyerBoxWidth - 10,
+                  height: flyerBoxHeight,
+                  pic: slideModel?.uiImage,
+                  filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
+                  boxFit: slideModel?.picFit,
+                ),
+              );
+            }
+
+          },
+        ),
+
+        // /// STATIC IMAGE
+        //   SlideImagePart(
+        //     key: const ValueKey<String>('SingleSlideImagePart'),
+        //     flyerBoxWidth: flyerBoxWidth,
+        //     flyerBoxHeight: flyerBoxHeight,
+        //     tinyMode: tinyMode,
+        //     slideModel: slideModel,
+        //     onSlideBackTap: onSlideBackTap,
+        //     onSlideNextTap: onSlideNextTap,
+        //     onDoubleTap: onDoubleTap,
+        //   ),
 
         /// SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
         SlideShadow(
