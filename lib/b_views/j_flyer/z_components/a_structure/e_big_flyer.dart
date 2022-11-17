@@ -94,9 +94,8 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    // blog('HH- BIGFLYER BigFlyer initState');
-
     if (widget.canBuild == true){
+    blog('HH- BIGFLYER BigFlyer initState');
       _initializations();
     }
 
@@ -136,7 +135,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     }
     super.didUpdateWidget(oldWidget);
   }
-
+  // --------------------
   @override
   void dispose() {
 
@@ -555,8 +554,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       return ValueListenableBuilder(
         valueListenable: _flyer,
         builder: (_, FlyerModel flyerModel, Widget savingNotice) {
-
-          // blog('Building BIG FLYER');
 
           return FlyerBox(
             key: const ValueKey<String>('FullScreenFlyer'),

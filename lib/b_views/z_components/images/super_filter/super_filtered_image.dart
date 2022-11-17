@@ -1,41 +1,49 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:image_editor/image_editor.dart' as image_editor;
+import 'dart:ui' as ui;
+import 'dart:ui' as ui;
 
 class SuperFilteredImage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperFilteredImage({
     @required this.filterModel,
-    @required this.bytes,
+    // @required this.bytes,
     @required this.width,
     @required this.height,
     this.opacity,
     this.boxFit = BoxFit.cover,
     this.scale = 1,
+    this.pic,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ImageFilterModel filterModel;
-  final Uint8List bytes;
+  // final Uint8List bytes;
   final double width;
   final double height;
   final BoxFit boxFit;
   final ValueNotifier<double> opacity;
   final double scale;
+  final dynamic pic;
   // -----------------------------------------------------------------------------
-  ///
-  static Future<Uint8List> processImage({
-    @required Uint8List input,
+  /// TESTED : WORKS PERFECT
+  static Future<ui.Image> processImage({
+    @required dynamic input,
     @required ImageFilterModel filterModel,
   }) async {
 
-    Uint8List _output = input;
+    ui.Image _output = input is Uint8List ?
+    await Floaters.getUiImageFromUint8List(input) : input;
+
 
     if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
 
@@ -53,15 +61,19 @@ class SuperFilteredImage extends StatefulWidget {
           ),
       );
 
-      if (_output?.isNotEmpty == true){
-        _output = await image_editor.ImageEditor.editImage(
-          image: input,
+      if (_output != null){
+        final Uint8List _bytes = await image_editor.ImageEditor.editImage(
+          image: await Floaters.getUint8ListFromUiImage(input),
           imageEditorOption: option,
         );
 
+        if (_bytes != null){
+          _output = await Floaters.getUiImageFromUint8List(_bytes);
+        }
+
       }
 
-      blog('processImage : uint8list is : ${input?.length} bytes');
+      // blog('processImage : uint8list is : ${input?.length} bytes');
 
       return _output;
     }
@@ -72,7 +84,7 @@ class SuperFilteredImage extends StatefulWidget {
 
   }
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Widget _createTree({
     @required Widget child,
     @required List<List<double>> matrixes,
@@ -98,7 +110,7 @@ class SuperFilteredImage extends StatefulWidget {
 
 class _SuperFilteredImageState extends State<SuperFilteredImage> {
   // -----------------------------------------------------------------------------
-  Uint8List _bytes;
+  ui.Image _uiImage;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -114,7 +126,8 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   @override
   void initState() {
     super.initState();
-    _bytes = widget.bytes;
+
+    // _uiImage = widget.pic;
   }
   // --------------------
   bool _isInit = true;
@@ -126,10 +139,16 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 
         _triggerLoading(setTo: true).then((_) async {
 
-          _bytes = await SuperFilteredImage.processImage(
-            input: widget.bytes,
+          final ui.Image uiImage = await SuperFilteredImage.processImage(
+            input: widget.pic,
             filterModel: widget.filterModel,
           );
+
+          if (mounted){
+            setState(() {
+              _uiImage = uiImage;
+            });
+          }
 
           await _triggerLoading(setTo: false);
         });
@@ -144,10 +163,22 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   @override
   void didUpdateWidget(covariant SuperFilteredImage oldWidget) {
 
-    final bool _bytesAreIdentical = Mapper.checkListsAreIdentical(
-        list1: widget.bytes,
-        list2: oldWidget.bytes,
-    );
+     bool _bytesAreIdentical;
+
+    if (widget.pic is Uint8List && oldWidget.pic is Uint8List){
+      _bytesAreIdentical = Mapper.checkListsAreIdentical(
+        list1: widget.pic,
+        list2: oldWidget.pic,
+      );
+    }
+
+    else if (widget.pic is ui.Image && oldWidget.pic is ui.Image){
+      _bytesAreIdentical = Floaters.checkUiImagesAreIdentical(widget.pic, oldWidget.pic);
+    }
+
+    else {
+      _bytesAreIdentical = false;
+    }
 
     if (
     widget.width != oldWidget.width ||
@@ -158,9 +189,13 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     widget.boxFit != oldWidget.boxFit ||
     ImageFilterModel.checkFiltersAreIdentical(filter1: widget.filterModel, filter2: oldWidget.filterModel) == false
     ) {
-      setState(() {
-        _bytes = widget.bytes;
-      });
+
+      unawaited(getUiImageFromDynamic(widget.pic).then((ui.Image uiImage){
+        setState(() {
+          _uiImage = uiImage;
+        });
+      }));
+
     }
 
     super.didUpdateWidget(oldWidget);
@@ -172,78 +207,115 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  Future<ui.Image> getUiImageFromDynamic(dynamic pic) async {
+
+    assert(pic is Uint8List || pic is ui.Image || pic == null, 'Pic is neither Bytes nor UiImage nor null');
+
+    if (pic is Uint8List){
+
+      return Floaters.getUiImageFromUint8List(pic);
+    }
+
+    else {
+      return pic;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    if (widget.filterModel == null){
+    if (_uiImage == null){
       return SuperImage(
         width: widget.width,
         height: widget.height,
-        pic: widget.bytes,
+        pic: widget.pic,
         fit: widget.boxFit,
       );
     }
 
     else {
-      return ValueListenableBuilder(
-          valueListenable: _loading,
-          builder: (_, bool _isLoading, Widget childA){
-
-            if (_isLoading == true){
-              return FlyerLoading(
-                flyerBoxWidth: widget.width,
-                animate: true,
-              );
-            }
-
-            else if (widget.opacity == null){
-              return SuperFilteredImage._createTree(
-                matrixes: widget.filterModel.matrixes,
-                child: SuperImage(
-                  width: widget.width,
-                  height: widget.height,
-                  pic: _bytes,
-                  fit: widget.boxFit,
-                ),
-              );
-
-            }
-
-            else {
-              return ValueListenableBuilder(
-                valueListenable: widget.opacity,
-                builder: (_, double _opacity, Widget child){
-
-                  return Stack(
-                    children: <Widget>[
-
-                      child,
-
-                      Opacity(
-                        opacity: _opacity,
-                        child: SuperFilteredImage._createTree(
-                          matrixes: widget.filterModel.matrixes,
-                          child: child,
-                        ),
-                      ),
-
-                    ],
-                  );
-
-                },
-                child: SuperImage(
-                  width: widget.width,
-                  height: widget.height,
-                  pic: _bytes,
-                  fit: widget.boxFit,
-                  scale: widget.scale,
-                ),
-              );
-            }
-
-          }
+      return SuperFilteredImage._createTree(
+        matrixes: widget.filterModel?.matrixes,
+        child: SuperImage(
+          width: widget.width,
+          height: widget.height,
+          pic: _uiImage,
+          fit: widget.boxFit,
+        ),
       );
     }
+
+
+    // if (widget.filterModel == null){
+    //   return SuperImage(
+    //     width: widget.width,
+    //     height: widget.height,
+    //     pic: widget.bytes,
+    //     fit: widget.boxFit,
+    //   );
+    // }
+    //
+    // else {
+    //   return ValueListenableBuilder(
+    //       valueListenable: _loading,
+    //       builder: (_, bool _isLoading, Widget childA){
+    //
+    //         if (_isLoading == true){
+    //           return FlyerLoading(
+    //             flyerBoxWidth: widget.width,
+    //             animate: true,
+    //           );
+    //         }
+    //
+    //         else if (widget.opacity == null){
+    //           return SuperFilteredImage._createTree(
+    //             matrixes: widget.filterModel.matrixes,
+    //             child: SuperImage(
+    //               width: widget.width,
+    //               height: widget.height,
+    //               pic: _uiImage,
+    //               fit: widget.boxFit,
+    //             ),
+    //           );
+    //
+    //         }
+    //
+    //         else {
+    //           return ValueListenableBuilder(
+    //             valueListenable: widget.opacity,
+    //             builder: (_, double _opacity, Widget child){
+    //
+    //               return Stack(
+    //                 children: <Widget>[
+    //
+    //                   child,
+    //
+    //                   Opacity(
+    //                     opacity: _opacity,
+    //                     child: SuperFilteredImage._createTree(
+    //                       matrixes: widget.filterModel.matrixes,
+    //                       child: child,
+    //                     ),
+    //                   ),
+    //
+    //                 ],
+    //               );
+    //
+    //             },
+    //             child: SuperImage(
+    //               width: widget.width,
+    //               height: widget.height,
+    //               pic: _uiImage,
+    //               fit: widget.boxFit,
+    //               scale: widget.scale,
+    //             ),
+    //           );
+    //         }
+    //
+    //       }
+    //   );
+    // }
 
   }
   // -----------------------------------------------------------------------------

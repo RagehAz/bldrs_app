@@ -37,7 +37,7 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
 
     _curvedAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Curves.easeInOutCirc,
+      curve: Curves.easeInExpo,
     );
 
   }
