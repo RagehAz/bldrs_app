@@ -21,7 +21,7 @@ class BzProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const fetch = FetchBzProtocols.fetch;
+  static const fetchBz = FetchBzProtocols.fetch;
   // --------------------
   /// TESTED : WORKS PERFECT
   static const refetch = FetchBzProtocols.refetch;

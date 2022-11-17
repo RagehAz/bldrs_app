@@ -5,6 +5,7 @@ import 'package:bldrs/x_dashboard/ui_manager/animations_lab.dart';
 import 'package:bldrs/x_dashboard/ui_manager/balloon_types_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/dialog_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/images_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/nav_jumping_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/poster_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_rage7.dart';
@@ -268,6 +269,20 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const StopWatchTest(),
+            );
+
+          },
+        ),
+
+        /// NAV JUMPING TEST
+        WideButton(
+          verse: Verse.plain('Nav Jumping test'),
+          icon: Iconz.arrowUp,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const NavJumpingTestScreen(),
             );
 
           },

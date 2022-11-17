@@ -82,6 +82,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       );
       _progressBarModel = ValueNotifier(_initialProgModel);
 
+      // blog('should go now to tab : ${widget.initialIndex}');
       _tabController = TabController(
         vsync: this,
         length: widget.navModels.length,

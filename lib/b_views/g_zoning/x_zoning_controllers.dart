@@ -48,7 +48,7 @@ Future<void> setCurrentZone({
 
     await WaitDialog.closeWaitDialog(context);
 
-    await Nav.goBackToHomeScreen(
+    await Nav.pushHomeAndRemoveAllBelow(
         context: context,
         invoker: 'SelectCountryScreen._onCountryTap'
     );
