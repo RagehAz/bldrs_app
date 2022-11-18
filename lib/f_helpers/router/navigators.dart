@@ -16,6 +16,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -29,7 +30,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-/// TAMAM
+
 class Nav {
   // -----------------------------------------------------------------------------
 
@@ -430,32 +431,45 @@ class Nav {
   /// TESTED : WORKS PERFECT
   static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
 
-    final bool _result = await Dialogs.goBackDialog(
-      context: context,
-      titleVerse: const Verse(
-        text: 'phid_exit_app_?',
-        translate: true,
-      ),
-      bodyVerse: const Verse(
-        pseudo: 'Would you like to exit and close Bldrs.net App ?',
-        text: 'phid_exit_app_notice',
-        translate: true,
-      ),
-      confirmButtonVerse: const Verse(
-        text: 'phid_exit',
-        translate: true,
-      ),
-
-    );
-
-    if (_result == true){
-
-      await CenterDialog.closeCenterDialog(context);
-
-      await Future.delayed(const Duration(milliseconds: 500), () async {
-        await Nav.closeApp(context);
-      },
+    /// TO HELP WHEN PHRASES ARE NOT LOADED TO REBOOT SCREENS
+    if (PhraseProvider.proGetPhidsAreLoaded(context) == false){
+      await Nav.pushNamedAndRemoveAllBelow(
+        context: context,
+        goToRoute: Routing.staticLogoScreen,
       );
+    }
+
+    /// NORMAL CASE WHEN ON BACK WHILE IN HO
+    else {
+
+      final bool _result = await Dialogs.goBackDialog(
+        context: context,
+        titleVerse: const Verse(
+          text: 'phid_exit_app_?',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          pseudo: 'Would you like to exit and close Bldrs.net App ?',
+          text: 'phid_exit_app_notice',
+          translate: true,
+        ),
+        confirmButtonVerse: const Verse(
+          text: 'phid_exit',
+          translate: true,
+        ),
+
+      );
+
+      if (_result == true){
+
+        await CenterDialog.closeCenterDialog(context);
+
+        await Future.delayed(const Duration(milliseconds: 500), () async {
+          await Nav.closeApp(context);
+        },
+        );
+
+      }
 
     }
 
@@ -578,6 +592,7 @@ class Nav {
 
 
   }
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToBzPreviewScreen({
@@ -641,7 +656,7 @@ class Nav {
     }
   }
   // --------------------
-  ///
+  /// TASK : DO JUMP TO REVIEW THING
   static Future<void> jumpToFlyerReviewScreen({
     @required BuildContext context,
     @required Object flyerIDAndReviewID,
