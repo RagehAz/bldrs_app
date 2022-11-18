@@ -163,7 +163,7 @@ class DraftBz {
     return DraftBz(
       id: 'newDraft',
       createdAt: null,
-      accountType: BzAccountType.normal,
+      accountType: BzAccountType.standard,
       name: '',
       trigram: const [],
       zone: creatorUser.zone,
