@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class NoteEventsOfBzFlyersManagement {
         bzID: bzModel.id,
         receiverPartyType: PartyType.bz,
       ),
-      function: TriggerProtocols.createFlyerRefetchTrigger(
+      function: NoteFunProtocols.createFlyerRefetchTrigger(
           flyerID: flyerID,
       ),
       navTo: TriggerModel(
@@ -86,7 +86,7 @@ class NoteEventsOfBzFlyersManagement {
       title: 'Flyer has been verified',
       body: 'This Flyer is now public to be seen and searched by all users',
       sentTime: DateTime.now(),
-      function: TriggerProtocols.createFlyerRefetchTrigger(
+      function: NoteFunProtocols.createFlyerRefetchTrigger(
         flyerID: flyerID,
       ),
       topic: TopicModel.bakeTopicID(

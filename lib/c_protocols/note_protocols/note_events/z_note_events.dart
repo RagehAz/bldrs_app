@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
@@ -304,7 +304,7 @@ class NoteEvent {
       body: 'You can now publish flyers directly without waiting its verification process, '
           'Any flyer you or your team publish will be automatically verified',
       sentTime: DateTime.now(),
-      function: TriggerProtocols.createDeleteAllBzzFlyersLocally(
+      function: NoteFunProtocols.createDeleteAllBzzFlyersLocally(
         bzID: bzModel.id,
       ),
       topic: TopicModel.bakeTopicID(
