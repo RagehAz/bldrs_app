@@ -10,43 +10,43 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-class TriggerProtocols {
+class NoteFunProtocols {
   /// --------------------------------------------------------------------------
 
-  const TriggerProtocols();
+  const NoteFunProtocols();
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS (trid = trigger ID)
 
   // --------------------
   /// -> fires refetch flyer protocol
-  static const String tridRefetchFlyer = 'tridRefetchFlyer';
+  static const String funRefetchFlyer = 'funRefetchFlyer';
   // --------------------
   /// -> fires refetchBZ
-  static const String tridRefetchBz = 'tridRefetchBz';
+  static const String funRefetchBz = 'funRefetchBz';
   // --------------------
   // /// -> shows note buttons + allows [ add Me To Bz Protocol ] + allows [ decline authorship protocol ]
   // static const String tridAuthorshipInvitation = 'tridAuthorshipInvitation';
   // --------------------
   /// -> fire AuthorshipProtocols.addMeToBz
-  static const String tridAddMeAsAuthorToBz = 'tridAddMeAsAuthorToBz';
+  static const String funAddMeAsAuthorToBz = 'funAddMeAsAuthorToBz';
   // --------------------
   /// -> fires AuthorshipProtocols.removeMeAsAuthorAfterBzDeletion
-  static const String tridRemoveBzTracesAfterDeletion = 'tridRemoveBzTracesAfterDeletion';
+  static const String funRemoveBzTracesAfterDeletion = 'funRemoveBzTracesAfterDeletion';
   // --------------------
   /// -> fires BzProtocols.wipePendingAuthor
-  static const String tridWipePendingAuthor = 'tridWipePendingAuthor';
+  static const String funWipePendingAuthor = 'funWipePendingAuthor';
   // --------------------
   /// -> fires FlyerProtocols.deleteAllBzFlyersLocally
-  static const String tridDeleteAllBzFlyersLocally = 'tridDeleteAllBzFlyersLocally';
+  static const String funDeleteAllBzFlyersLocally = 'funDeleteAllBzFlyersLocally';
   // --------------------
   static const List<String> triggersList = [
-    tridRefetchFlyer,
-    tridRefetchBz,
-    tridAddMeAsAuthorToBz,
-    tridRemoveBzTracesAfterDeletion,
-    tridWipePendingAuthor,
-    tridDeleteAllBzFlyersLocally,
+    funRefetchFlyer,
+    funRefetchBz,
+    funAddMeAsAuthorToBz,
+    funRemoveBzTracesAfterDeletion,
+    funWipePendingAuthor,
+    funDeleteAllBzFlyersLocally,
   ];
   // -----------------------------------------------------------------------------
 
@@ -54,11 +54,11 @@ class TriggerProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static TriggerModel createFlyerRefetchTrigger({ /// re-fetch flyer
+  static TriggerModel createFlyerRefetchTrigger({
     @required String flyerID,
   }){
     return TriggerModel(
-      name: tridRefetchFlyer,
+      name: funRefetchFlyer,
       argument: flyerID,
       done: const <String>[],
     );
@@ -76,7 +76,7 @@ class TriggerProtocols {
     @required String bzID,
   }){
     return TriggerModel(
-      name: tridRemoveBzTracesAfterDeletion,
+      name: funRemoveBzTracesAfterDeletion,
       argument: bzID,
       done: const <String>[],
     );
@@ -87,7 +87,7 @@ class TriggerProtocols {
     @required String bzID,
   }){
     return TriggerModel(
-      name: tridRefetchBz,
+      name: funRefetchBz,
       argument: bzID,
       done: const <String>[],
     );
@@ -99,7 +99,7 @@ class TriggerProtocols {
     @required String bzID,
   }){
     return TriggerModel(
-      name: tridWipePendingAuthor,
+      name: funWipePendingAuthor,
       argument: '${userID}_$bzID',
       done: const <String>[],
     );
@@ -110,7 +110,7 @@ class TriggerProtocols {
     @required String bzID,
   }){
     return TriggerModel(
-      name: tridDeleteAllBzFlyersLocally,
+      name: funDeleteAllBzFlyersLocally,
       argument: bzID,
       done: const <String>[],
     );
@@ -205,7 +205,7 @@ class TriggerProtocols {
       switch(trigger.name){
       // ----------
       /// ADD ME AS NEW AUTHOR TO BZ
-        case tridAddMeAsAuthorToBz:
+        case funAddMeAsAuthorToBz:
           blog('2--> Switcher : FIRING : ADD ME TO BZ FOR (${trigger.argument}) : START');
           await AuthorshipProtocols.addMeToBz(
             context: context,
@@ -215,7 +215,7 @@ class TriggerProtocols {
           break;
       // ----------
       /// ADD ME AS NEW AUTHOR TO BZ
-        case tridRemoveBzTracesAfterDeletion:
+        case funRemoveBzTracesAfterDeletion:
           blog('2--> Switcher : FIRING : REMOVE BZ TRACES FOR (${trigger.argument}) : START');
           await AuthorshipProtocols.removeBzTracesAfterDeletion(
             context: context,
@@ -225,7 +225,7 @@ class TriggerProtocols {
           break;
       // ----------
       /// REFETCH FLYER
-        case tridRefetchFlyer:
+        case funRefetchFlyer:
           blog('2--> Switcher : FIRING : REFETCH FLYER FOR (${trigger.argument}) : START');
           await FlyerProtocols.refetch(
             context: context,
@@ -235,7 +235,7 @@ class TriggerProtocols {
           break;
       // ----------
       /// REFETCH BZ
-        case tridRefetchBz:
+        case funRefetchBz:
           blog('2--> Switcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
           await BzProtocols.refetch(
             context: context,
@@ -245,7 +245,7 @@ class TriggerProtocols {
           break;
       // ----------
       /// REFETCH BZ
-        case tridWipePendingAuthor:
+        case funWipePendingAuthor:
           blog('2--> Switcher : FIRING : WIPE PENDING AUTHOR (${trigger.argument}) : START');
           // argument: '${userID}_$bzID',
           await BzProtocols.wipePendingAuthor(
@@ -257,7 +257,7 @@ class TriggerProtocols {
           break;
       // ----------
       /// REFETCH BZ
-        case tridDeleteAllBzFlyersLocally:
+        case funDeleteAllBzFlyersLocally:
           blog('2--> Switcher : FIRING : DELETE ALL BZ FLYERS LOCALLY (${trigger.argument}) : START');
           // argument: '${userID}_$bzID',
           await FlyerProtocols.deleteAllBzFlyersLocally(

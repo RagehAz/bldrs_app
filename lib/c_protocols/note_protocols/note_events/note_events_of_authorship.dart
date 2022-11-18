@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -73,7 +73,7 @@ class NoteEventsOfAuthorship {
       // seen: false,
       // sendFCM: true,
       // sendNote: true,
-      function: TriggerProtocols.createRefetchBzTrigger(
+      function: NoteFunProtocols.createRefetchBzTrigger(
           bzID: bzModel.id,
       ),
       navTo: const TriggerModel(
@@ -244,7 +244,7 @@ class NoteEventsOfAuthorship {
         bzID: bzID,
         receiverPartyType: PartyType.bz,
       ),
-      function: TriggerProtocols.createDeletePendingAuthorTrigger(
+      function: NoteFunProtocols.createDeletePendingAuthorTrigger(
         userID: senderModel.id,
         bzID: bzID,
       ),
