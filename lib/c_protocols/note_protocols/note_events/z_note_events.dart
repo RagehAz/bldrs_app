@@ -1,9 +1,12 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
@@ -11,6 +14,7 @@ import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_managemen
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
 class NoteEvent {
@@ -179,8 +183,7 @@ class NoteEvent {
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerReceivedNewReviewByMe({
     @required BuildContext context,
-    @required String text,
-    @required String flyerID,
+    @required ReviewModel reviewModel,
     @required String bzID,
   }) async {
 
@@ -204,7 +207,7 @@ class NoteEvent {
         receiverType: PartyType.bz,
       ),
       title: '${_myUserModel.name} has written a review over your flyer',
-      body: text,
+      body: reviewModel.text,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzFlyersNewReviews,
@@ -212,6 +215,14 @@ class NoteEvent {
         receiverPartyType: PartyType.bz,
       ),
       sendFCM: !_imAuthorOfThisBz, // do not send if im author in this bz
+      navTo: TriggerModel(
+        name: Routing.flyerReviews,
+        argument: ChainPathConverter.combinePathNodes([
+          reviewModel.flyerID,
+          reviewModel.id,
+        ]),
+        done: const [],
+      ),
     );
 
     await NoteProtocols.composeToOneReceiver(
@@ -224,9 +235,9 @@ class NoteEvent {
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerReviewReceivedBzReply({
     @required BuildContext context,
-    @required String reply,
+    @required ReviewModel reviewModel,
     @required BzModel bzModel,
-    @required String reviewCreatorID
+    // @required String reviewCreatorID
   }) async {
 
     final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
@@ -240,16 +251,24 @@ class NoteEvent {
         senderID: bzModel.id,
         senderImageURL: bzModel.logoPath,
         senderType: PartyType.bz,
-        receiverID: reviewCreatorID,
+        receiverID: reviewModel.userID,
         receiverType: PartyType.user,
       ),
       title: '${_myAuthorModel.name} replied on your flyer review',
-      body: reply,
+      body: reviewModel.reply,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.userReviewsReplies,
         bzID: bzModel.id,
         receiverPartyType: PartyType.user,
+      ),
+      navTo: TriggerModel(
+        name: Routing.flyerReviews,
+        argument: ChainPathConverter.combinePathNodes([
+          reviewModel.flyerID,
+          reviewModel.id,
+        ]),
+        done: const [],
       ),
     );
 
@@ -285,13 +304,18 @@ class NoteEvent {
       body: 'You can now publish flyers directly without waiting its verification process, '
           'Any flyer you or your team publish will be automatically verified',
       sentTime: DateTime.now(),
-      trigger: TriggerProtocols.createDeleteAllBzzFlyersLocally(
+      function: TriggerProtocols.createDeleteAllBzzFlyersLocally(
         bzID: bzModel.id,
       ),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzVerifications,
         bzID: bzModel.id,
         receiverPartyType: PartyType.bz,
+      ),
+      navTo: TriggerModel(
+        name: Routing.myBzNotesPage,
+        argument: bzModel.id,
+        done: const [],
       ),
     );
 

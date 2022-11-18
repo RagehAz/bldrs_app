@@ -16,6 +16,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -55,13 +56,14 @@ class NoteModel {
     @required this.body,
     @required this.sentTime,
     @required this.topic,
+    @required this.navTo,
+    this.function,
     this.dismissible = true,
     this.seen = false,
     this.sendFCM = true,
     this.sendNote = true,
     this.poster,
     this.poll,
-    this.trigger,
     this.progress,
     this.token,
     this.docSnapshot,
@@ -72,12 +74,13 @@ class NoteModel {
   final String title; /// max 30 char
   final String body; /// max 80 char
   final DateTime sentTime;
+  final String topic;
+  final TriggerModel navTo;
+  final TriggerModel function;
   final PosterModel poster;
   final PollModel poll;
   final bool sendFCM;
   final bool sendNote;
-  final String topic;
-  final TriggerModel trigger;
   final bool seen;
   final int progress;
   final bool dismissible;
@@ -118,7 +121,8 @@ class NoteModel {
     bool sendNote,
     String token,
     String topic,
-    TriggerModel trigger,
+    TriggerModel function,
+    TriggerModel navTo,
     bool seen,
     int progress,
     bool dismissible,
@@ -135,7 +139,8 @@ class NoteModel {
       poll: poll ?? this.poll,                        // PollModel poll,
       token: token ?? this.token,                     // String token,
       topic: topic ?? this.topic,                     // String topic,
-      trigger: trigger ?? this.trigger,               // TriggerModel trigger,
+      function: function ?? this.function,               // TriggerModel trigger,
+      navTo: navTo ?? this.navTo,                  // TriggerModel router,
       seen: seen ?? this.seen,                        // bool seen,
       progress: progress ?? this.progress,            // int progress,
       dismissible: dismissible ?? this.dismissible,   // bool dismissible,
@@ -157,7 +162,8 @@ class NoteModel {
     bool sendNote = false,
     bool token = false,
     bool topic = false,
-    bool trigger = false,
+    bool function = false,
+    bool navTo = false,
     bool seen = false,
     bool progress = false,
     bool dismissible = false,
@@ -174,7 +180,8 @@ class NoteModel {
       poll: poll == true ? null : this.poll,
       token: token == true ? null : this.token,
       topic: topic == true ? null : this.topic,
-      trigger: trigger == true ? null : this.trigger,
+      function: function == true ? null : this.function,
+      navTo: navTo == true ? null : this.navTo,
       seen: seen == true ? null : this.seen,
       progress: progress == true ? null : this.progress,
       dismissible: dismissible == true ? null : this.dismissible,
@@ -209,9 +216,12 @@ class NoteModel {
       'sendFCM': sendFCM,
       'sendNote': sendNote,
       'topic': topic,
-      'triggerName': trigger?.name,
-      'triggerArgument': trigger?.argument,
-      'triggerDone': ChainPathConverter.combinePathNodes(trigger?.done),
+      'functionName': function?.name,
+      'functionArgument': function?.argument,
+      'functionDone': ChainPathConverter.combinePathNodes(function?.done),
+      'navToName': navTo?.name,
+      'navToArgument': navTo?.argument,
+      // 'navToDone': [], // ChainPathConverter.combinePathNodes(navTo?.done), no Need, it should always fire
       'seen': seen,
       'progress': progress,
       'dismissible' : dismissible,
@@ -247,7 +257,7 @@ class NoteModel {
 
     if (map != null) {
 
-      // blog('======>>>>>> map[triggerDone] : ${map['triggerDone'].runtimeType} : ${map['triggerDone']}');
+      // blog('======>>>>>> map[functionDone] : ${map['functionDone'].runtimeType} : ${map['functionDone']}');
 
       _noti = NoteModel(
 
@@ -276,10 +286,15 @@ class NoteModel {
         sendFCM: map['sendFCM'],
         sendNote: map['sendNote'],
         topic: map['topic'],
-        trigger: TriggerModel(
-          name: map['triggerName'],
-          argument: map['triggerArgument'],
-          done: ChainPathConverter.splitPathNodes(map['triggerDone']),
+        function: TriggerModel(
+          name: map['functionName'],
+          argument: map['functionArgument'],
+          done: ChainPathConverter.splitPathNodes(map['functionDone']),
+        ),
+        navTo: TriggerModel(
+          name: map['navToName'],
+          argument: map['navToArgument'],
+          done: const [], // no need to pass map['navToDone'] as it should always fire trigger
         ),
         seen: map['seen'],
         progress: map['progress'],
@@ -361,10 +376,15 @@ class NoteModel {
         sendFCM: getBool('sendFCM'),
         sendNote: getBool('sendNote'),
         topic: get('topic'),
-        trigger: TriggerModel(
-          name: get('triggerName'),
-          argument: get('triggerArgument'),
-          done: ChainPathConverter.splitPathNodes(get('triggerDone')),
+        function: TriggerModel(
+          name: get('functionName'),
+          argument: get('functionArgument'),
+          done: ChainPathConverter.splitPathNodes(get('functionDone')),
+        ),
+        navTo: TriggerModel(
+          name: get('navToName'),
+          argument: get('navToArgument'),
+          done: const [], /// so navTo trigger will always fire
         ),
         seen: getBool('seen'),
         progress: Numeric.transformStringToInt(get('progress')),
@@ -402,7 +422,8 @@ class NoteModel {
     blog('O : ~ ~ ~ ~ ~ ~');
     blog('O : poster : id : ${poster?.modelID} : type : ${PosterModel.cipherPosterType(poster?.type)} : url : ${poster?.path}');
     blog('O : poll : button : ${poll?.buttons} : reply : ${poll?.reply} : replyTime : ${poll?.replyTime}');
-    blog('O : trigger : functionName : ${trigger?.name} : argument : ${trigger?.argument} : done : ${trigger?.done}');
+    blog('O : function : name : ${function?.name} : argument : ${function?.argument} : done : ${function?.done}');
+    blog('O : navTo : name : ${navTo?.name} : argument : ${navTo?.argument}');
     blog('O : ~ ~ ~ ~ ~ ~');
     blog('<= BLOGGING NoteModel : $invoker -------------------------------- END -- ');
   }
@@ -507,7 +528,7 @@ class NoteModel {
 
       for (final NoteModel note in notes){
 
-        if (note.trigger?.name == triggerFunctionName){
+        if (note.function?.name == triggerFunctionName){
           _output.add(note);
         }
 
@@ -655,8 +676,12 @@ class NoteModel {
           _missingFields.add('poster');
         }
 
-        if (note.trigger == null){
-          _missingFields.add('trigger');
+        if (note.function == null){
+          _missingFields.add('function');
+        }
+
+        if (note.navTo == null){
+          _missingFields.add('navTo');
         }
 
         if (note.poll == null){
@@ -746,81 +771,6 @@ class NoteModel {
     }
 
     return _canSend;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkNotesAreIdentical({
-    @required NoteModel note1,
-    @required NoteModel note2,
-  }){
-    bool _areIdentical = false;
-
-    if (note1 == null && note2 == null){
-      _areIdentical = true;
-    }
-
-    else if (note1 != null && note2 != null){
-
-      if (
-          note1.id == note2.id &&
-          NoteParties.checkPartiesAreIdentical(parties1: note1.parties, parties2: note2.parties) == true &&
-          note1.title == note2.title &&
-          note1.body == note2.body &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) == true &&
-          PosterModel.checkPostersAreIdentical(poster1: note1.poster, poster2: note2.poster) == true &&
-          PollModel.checkPollsAreIdentical(poll1: note1.poll, poll2: note2.poll) == true &&
-          note1.sendFCM == note2.sendFCM &&
-          note1.sendNote == note2.sendNote &&
-          note1.token == note2.token &&
-          note1.topic == note2.topic &&
-          TriggerModel.checkTriggersAreIdentical(note1.trigger, note2.trigger) == true &&
-          note1.seen == note2.seen &&
-          note1.progress == note2.progress &&
-          note1.dismissible == note2.dismissible
-      ){
-        _areIdentical = true;
-      }
-
-    }
-
-    return _areIdentical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkNotesListsAreIdentical({
-    @required List<NoteModel> notes1,
-    @required List<NoteModel> notes2,
-  }){
-    bool _areIdentical = true;
-
-    if (Mapper.checkCanLoopList(notes1) == true && Mapper.checkCanLoopList(notes2) == true){
-
-      if (notes1.length != notes2.length){
-        _areIdentical = false;
-      }
-
-      else {
-        for (int i = 0; i < notes1.length; i++){
-
-          final note1 = notes1[i];
-          final note2 = notes2[i];
-
-          final bool _identical = checkNotesAreIdentical(
-              note1: note1,
-              note2: note2
-          );
-
-          if (_identical == false){
-            _areIdentical = false;
-            break;
-          }
-
-        }
-      }
-
-    }
-
-    return _areIdentical;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -1189,6 +1139,11 @@ class NoteModel {
     body: null,
     sentTime: null,
     topic: TopicModel.userGeneralNews,
+    navTo: const TriggerModel(
+      name: Routing.myUserNotesPage,
+      done: [],
+      argument: null,
+    ),
     // sendFCM: true,
     // dismissible: true,
   );
@@ -1211,6 +1166,11 @@ class NoteModel {
       sentTime: DateTime.now(),
       poll: PollModel.dummyPoll(),
       topic: TopicModel.userGeneralNews,
+      navTo: const TriggerModel(
+        name: Routing.myUserNotesPage,
+        done: [],
+        argument: null,
+      ),
     );
   }
   // --------------------
@@ -1245,8 +1205,13 @@ class NoteModel {
       sentTime: DateTime.now(),
       token: 'will be auto adjusted on NoteFireOps.create.adjustToken',
       topic: TopicModel.userGeneralNews,
-
-    );
+      // sendNote: true,
+      // sendFCM: true,
+      navTo: const TriggerModel(
+        name: Routing.myUserNotesPage,
+        done: [],
+        argument: null,
+      ),    );
   }
   // -----------------------------------------------------------------------------
 
@@ -1293,6 +1258,86 @@ class NoteModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkNotesAreIdentical({
+    @required NoteModel note1,
+    @required NoteModel note2,
+  }){
+    bool _areIdentical = false;
+
+    if (note1 == null && note2 == null){
+      _areIdentical = true;
+    }
+
+    else if (note1 != null && note2 != null){
+
+      if (
+      note1.id == note2.id &&
+          NoteParties.checkPartiesAreIdentical(parties1: note1.parties, parties2: note2.parties) == true &&
+          note1.title == note2.title &&
+          note1.body == note2.body &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) == true &&
+          PosterModel.checkPostersAreIdentical(poster1: note1.poster, poster2: note2.poster) == true &&
+          PollModel.checkPollsAreIdentical(poll1: note1.poll, poll2: note2.poll) == true &&
+          note1.sendFCM == note2.sendFCM &&
+          note1.sendNote == note2.sendNote &&
+          note1.token == note2.token &&
+          note1.topic == note2.topic &&
+          TriggerModel.checkTriggersAreIdentical(note1.function, note2.function) == true &&
+          TriggerModel.checkTriggersAreIdentical(note1.navTo, note2.navTo) == true &&
+          note1.seen == note2.seen &&
+          note1.progress == note2.progress &&
+          note1.dismissible == note2.dismissible
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkNotesListsAreIdentical({
+    @required List<NoteModel> notes1,
+    @required List<NoteModel> notes2,
+  }){
+    bool _areIdentical = true;
+
+    if (Mapper.checkCanLoopList(notes1) == true && Mapper.checkCanLoopList(notes2) == true){
+
+      if (notes1.length != notes2.length){
+        _areIdentical = false;
+      }
+
+      else {
+        for (int i = 0; i < notes1.length; i++){
+
+          final note1 = notes1[i];
+          final note2 = notes2[i];
+
+          final bool _identical = checkNotesAreIdentical(
+              note1: note1,
+              note2: note2
+          );
+
+          if (_identical == false){
+            _areIdentical = false;
+            break;
+          }
+
+        }
+      }
+
+    }
+
+    return _areIdentical;
+  }
+  // -----------------------------------------------------------------------------
+
   /// OVERRIDES
 
   // --------------------
@@ -1332,7 +1377,8 @@ class NoteModel {
       sendNote.hashCode^
       token.hashCode^
       topic.hashCode^
-      trigger.hashCode^
+      function.hashCode^
+      navTo.hashCode^
       seen.hashCode^
       progress.hashCode^
       docSnapshot.hashCode;

@@ -48,8 +48,7 @@ class ComposeReviewProtocols {
 
       NoteEvent.sendFlyerReceivedNewReviewByMe(
         context: context,
-        text: reviewModel.text,
-        flyerID: reviewModel.flyerID,
+        reviewModel: reviewModel,
         bzID: bzID,
       ),
 
@@ -95,9 +94,8 @@ class ComposeReviewProtocols {
 
         NoteEvent.sendFlyerReviewReceivedBzReply(
           context: context,
-          reply: updatedReview.reply,
+          reviewModel: updatedReview,
           bzModel: _bzModel,
-          reviewCreatorID: updatedReview.userID,
         ),
 
       ]);
