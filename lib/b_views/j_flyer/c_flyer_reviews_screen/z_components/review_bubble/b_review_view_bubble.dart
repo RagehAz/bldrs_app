@@ -30,6 +30,7 @@ class ReviewViewBubble extends StatelessWidget {
     @required this.onReviewAgreeTap,
     @required this.onReplyOptionsTap,
     @required this.onReplyBzBalloonTap,
+    @required this.isSpecial,
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
@@ -43,6 +44,7 @@ class ReviewViewBubble extends StatelessWidget {
   final Function onReplyOptionsTap;
   final ValueChanged<UserModel> onReviewUserBalloonTap;
   final ValueChanged<BzModel> onReplyBzBalloonTap;
+  final bool isSpecial;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -62,8 +64,6 @@ class ReviewViewBubble extends StatelessWidget {
       balloonWidth: _textBubbleWidth,
     );
     // --------------------
-    final bool _isSpecialReview = reviewModel.text == 'Super cool';
-    // --------------------
     return ReviewBox(
       pageWidth: pageWidth,
       userID: reviewModel.userID,
@@ -76,6 +76,7 @@ class ReviewViewBubble extends StatelessWidget {
             /// REVIEW TEXT
             ReviewBubbleBox(
               width: _textBubbleWidth,
+              isSpecialReview: isSpecial,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -109,10 +110,10 @@ class ReviewViewBubble extends StatelessWidget {
                       verse: Verse.plain(reviewModel.text),
                       maxLines: 100,
                       centered: false,
-                      weight: _isSpecialReview ? VerseWeight.bold : VerseWeight.thin,
+                      weight: isSpecial ? VerseWeight.bold : VerseWeight.thin,
                       scaleFactor: 1.1,
-                      italic: _isSpecialReview,
-                      color: _isSpecialReview ? Colorz.yellow255 : Colorz.white255,
+                      italic: isSpecial,
+                      color: isSpecial ? Colorz.yellow255 : Colorz.white255,
                     ),
 
                   /// SEPARATOR LINE
@@ -188,6 +189,7 @@ class ReviewViewBubble extends StatelessWidget {
                 flyerModel: flyerModel,
                 onReplyOptionsTap: onReplyOptionsTap,
                 onReplyBzBalloonTap: onReplyBzBalloonTap,
+                isSpecialReview: isSpecial,
               ),
 
           ],

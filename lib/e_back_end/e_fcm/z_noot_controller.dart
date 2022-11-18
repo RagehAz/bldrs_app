@@ -7,6 +7,7 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 /// for AWESOME NOTIFICATION VERSION 7.
 abstract class NootController {
@@ -165,12 +166,17 @@ class NootListener {
       //   invoker: 'listenToNootActionStream',
       // );
 
-      await NootNavToProtocols.onNootTap(
-        context: BldrsAppStarter.navigatorKey.currentContext,
-        noteModel: NoteModel.decipherRemoteMessage(
-          map: receivedNotification?.payload,
-        ),
-      );
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+
+        await NootNavToProtocols.onNootTap(
+          context: BldrsAppStarter.navigatorKey.currentContext,
+          noteModel: NoteModel.decipherRemoteMessage(
+            map: receivedNotification?.payload,
+          ),
+        );
+
+      });
+
 
     });
 

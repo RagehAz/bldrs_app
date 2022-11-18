@@ -24,7 +24,6 @@ class CountryModel {
     @required this.language,
     @required this.currency,
     @required this.phrases,
-
     @required this.iso2,
     @required this.phoneCode,
     @required this.capital,

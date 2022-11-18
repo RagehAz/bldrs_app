@@ -66,6 +66,7 @@ class PhraseProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentLangAndAllPhrases({
     @required BuildContext context,
     String setLangCode,
@@ -103,6 +104,7 @@ class PhraseProvider extends ChangeNotifier {
   String _currentLangCode = 'en';
   String get currentLangCode => _currentLangCode;
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String proGetCurrentLangCode({
     @required BuildContext context,
     @required bool listen,
@@ -111,6 +113,7 @@ class PhraseProvider extends ChangeNotifier {
     return _phraseProvider._currentLangCode;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> getSetCurrentLangCode({
     @required BuildContext context,
     @required bool notify,
@@ -128,6 +131,7 @@ class PhraseProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _setCurrentLanguage({
     @required String code,
     @required bool notify,
@@ -149,6 +153,7 @@ class PhraseProvider extends ChangeNotifier {
   List<Phrase> _mainPhrases = <Phrase>[];
   List<Phrase> get mainPhrases  => _mainPhrases;
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> fetchSetMainPhrases({
     @required bool notify,
   }) async {
@@ -169,6 +174,7 @@ class PhraseProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void setMainPhrases({
     @required List<Phrase> setTo,
     @required bool notify,
@@ -199,6 +205,7 @@ class PhraseProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   String getTranslatedPhraseByID(String id){
 
     String _translation;
@@ -220,6 +227,12 @@ class PhraseProvider extends ChangeNotifier {
     }
 
     return _translation;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool proGetPhidsAreLoaded(BuildContext context){
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    return _phraseProvider.mainPhrases.isNotEmpty;
   }
   // -----------------------------------------------------------------------------
 

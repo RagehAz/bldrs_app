@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -21,6 +22,7 @@ import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -73,6 +75,13 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_isInit && mounted) {
 
       _triggerLoading(setTo: true).then((_) async {
+
+        if (PhraseProvider.proGetPhidsAreLoaded(context) == false){
+          await Nav.pushNamedAndRemoveAllBelow(
+              context: context,
+              goToRoute: Routing.staticLogoScreen,
+          );
+        }
 
         await initializeHomeScreen(context);
 

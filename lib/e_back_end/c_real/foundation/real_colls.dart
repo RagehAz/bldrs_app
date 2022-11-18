@@ -4,9 +4,9 @@
   | => REAL DATA TREE -------------------------|
   |
   | - [agreesOnReviews]
-  |     | - {flyerID} ...
-  |     |     | - {reviewID} ...
-  |     |     |     | - {userID} : true
+  |     | - {flyerID}
+  |     |     | - {reviewID}
+  |     |     |     | - {userID} : <bool>
   |     |     |     | - ...
   |     |     |
   |     |     | - ...
@@ -16,11 +16,16 @@
   | --------------------------|
   |
   | - [bldrsChains]
+  |     | - {phid_k} : <String>
+  |     | - ...
   |
   | --------------------------|
   |
-  | - [chainsUsage]
+  | - [chainsUsage] TASK : should rename this "citiesPhids"
   |     | - {cityID}
+  |     |     | - {phid_k} : <int>
+  |     |     | - ...
+  |     |
   |     | - ...
   |
   | --------------------------|
@@ -100,12 +105,58 @@
   |
   | --------------------------|
   |
-  | - [recordingViews]
+  | - recordingViews
   |     | - {flyerID}
   |     |     | - {flyerID_slideIndex_userID}
   |     |     | - ...
   |     |
   |     | - ...
+  |
+  | --------------------------|
+  |
+  | /// TASK : PROPOSAL
+  | - zones
+  |     | - {countryID}
+  |     |     | - id          : <String>
+  |     |     | - region      : <String>
+  |     |     | - continent   : <String>
+  |     |     | - isActivated : <bool>
+  |     |     | - isGlobal    : <bool>
+  |     |     | - citiesIDs   : List<String>
+  |     |     | - language    : <String>
+  |     |     | - currency    : <String>
+  |     |     | - phrases
+  |     |     |     | - {langCode}
+  |     |     |     |     | - langCode : <String>
+  |     |     |     |     | - value    : <String>
+  |     |     |     |
+  |     |     |     | - {langCode}...
+  |     |     |
+  |     |     | - iso2        : <String>
+  |     |     | - phoneCode   : <String>
+  |     |     | - capital     : <String>
+  |     |     | - cities
+  |     |          | - {cityID}
+  |     |          |     | - countryID   : <String>
+  |     |          |     | - cityID      : <String>
+  |     |          |     | - districts   : <List<DistrictModel>>
+  |     |          |     | - population  : <int>
+  |     |          |     | - isActivated : <bool>
+  |     |          |     | - isPublic    : <bool>
+  |     |          |     | - position    : <String>
+  |     |          |     | - state       : <String>
+  |     |          |     | - phrases
+  |     |          |          | - {langCode}
+  |     |          |          |     | - langCode : <String>
+  |     |          |          |     | - value    : <String>
+  |     |          |          |
+  |     |          |          | - {langCode}...
+  |     |          |
+  |     |          |
+  |     |          | - {cityID}...
+  |     |
+  |     |
+  |     | - {countryID}...
   |
   | -------------------------------------------|
 

@@ -9,10 +9,12 @@ class FlyerReviewsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerReviewsScreen({
     @required this.flyerModel,
+    this.highlightReviewID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
+  final String highlightReviewID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class FlyerReviewsScreen extends StatelessWidget {
       layoutWidget: FlyerReviewsScreenView(
         flyerModel: flyerModel,
         screenHeight: _screenHeight,
+        highlightReviewID: highlightReviewID,
       ),
     );
 
