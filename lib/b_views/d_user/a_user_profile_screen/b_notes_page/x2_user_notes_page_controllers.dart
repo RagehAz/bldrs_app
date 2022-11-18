@@ -5,10 +5,34 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
 
+/// NOTE TAP
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onUserNoteTap({
+  @required BuildContext context,
+  @required NoteModel noteModel,
+}) async {
+
+  noteModel.blogNoteModel(invoker: 'onUserNoteTap');
+
+  if (noteModel?.navTo?.name != Routing.myUserNotesPage){
+
+    await NootNavToProtocols.onNootTap(
+      context: context,
+      noteModel: noteModel,
+    );
+
+  }
+
+}
 // -----------------------------------------------------------------------------
 
 /// NOTE OPTIONS

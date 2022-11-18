@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
 class BzNotesPage extends StatefulWidget {
@@ -179,6 +181,23 @@ class _BzNotesPageState extends State<BzNotesPage>{
     closeWaitDialog(context);
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Function _onNoteTap(NoteModel _note) {
+
+    if (_note == null){
+      return null;
+    }
+    else if (_note.navTo.name == Routing.myBzNotesPage || _note.navTo.name == null){
+      return null;
+    }
+    else {
+      return () => onBzNoteTap(
+        context: context,
+        noteModel: _note,
+      );
+    }
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -218,6 +237,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
                   key: PageStorageKey<String>('bz_note_card_${_note.id}'),
                   noteModel: _note,
                   isDraftNote: false,
+                  onCardTap: _onNoteTap(_note),
                 );
 
               },

@@ -60,7 +60,7 @@ class UserNeedsBanner extends StatelessWidget {
         /// NEED TYPE
         SuperVerse(
           verse: Verse(
-            text: NeedModel.getNeedTypePhid(userModel.need?.needType),
+            text: NeedModel.getNeedTypePhid(userModel?.need?.needType),
             translate: true,
           ),
           margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -79,7 +79,7 @@ class UserNeedsBanner extends StatelessWidget {
         /// NOTES
         SuperVerse(
           verse: Verse(
-            text: userModel.need?.notes,
+            text: userModel?.need?.notes,
             translate: false,
           ),
           labelColor: Colorz.white20,
@@ -89,12 +89,12 @@ class UserNeedsBanner extends StatelessWidget {
         ),
 
         /// SPECS
-        if (Mapper.checkCanLoopList(userModel.need?.scope) == true)
+        if (Mapper.checkCanLoopList(userModel?.need?.scope) == true)
           SpecsBuilder(
             pageWidth: PageBubble.clearWidth(context),
             specs: SpecModel.generateSpecsByPhids(
               context: context,
-              phids: userModel.need?.scope,
+              phids: userModel?.need?.scope,
             ),
             onSpecTap: ({SpecModel value, SpecModel unit}){
               blog('NEED : UserNeedsPage : onSpecTap');

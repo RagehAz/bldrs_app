@@ -22,6 +22,7 @@ class BzReplyBubble extends StatelessWidget {
     @required this.flyerModel,
     @required this.onReplyOptionsTap,
     @required this.onReplyBzBalloonTap,
+    @required this.isSpecialReview,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class BzReplyBubble extends StatelessWidget {
   final FlyerModel flyerModel;
   final Function onReplyOptionsTap;
   final ValueChanged<BzModel> onReplyBzBalloonTap;
+  final bool isSpecialReview;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,8 +44,6 @@ class BzReplyBubble extends StatelessWidget {
     );
     // --------------------
     final double _balloonWidth = boxWidth - _logoWidth - ReviewBox.spacer * 0.5;
-    // --------------------
-    final bool _isSpecialReview = reviewModel.text == 'Super cool';
     // --------------------
     return SizedBox(
       width: boxWidth,
@@ -75,6 +75,7 @@ class BzReplyBubble extends StatelessWidget {
               /// REPLY TEXT BOX
               ReviewBubbleBox(
                 width: _balloonWidth,
+                isSpecialReview: isSpecialReview,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -108,10 +109,10 @@ class BzReplyBubble extends StatelessWidget {
                       verse: Verse.plain(reviewModel.reply),
                       maxLines: 100,
                       centered: false,
-                      weight: _isSpecialReview ? VerseWeight.bold : VerseWeight.thin,
+                      weight: isSpecialReview ? VerseWeight.bold : VerseWeight.thin,
                       scaleFactor: 1.1,
-                      italic: _isSpecialReview,
-                      color: _isSpecialReview ? Colorz.yellow255 : Colorz.white255,
+                      italic: isSpecialReview,
+                      color: isSpecialReview ? Colorz.yellow255 : Colorz.white255,
                     ),
 
                     /// SPACER

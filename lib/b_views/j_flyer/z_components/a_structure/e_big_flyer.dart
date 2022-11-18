@@ -617,20 +617,20 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
               ),
 
               /// SAVING NOTICE
-              SavingNotice(
-                flyerBoxWidth: widget.flyerBoxWidth,
-                flyerBoxHeight: _flyerBoxHeight,
-                flyerIsSaved: _flyerIsSaved,
-                animationController: _savingAnimationController,
-                graphicIsOn: _graphicIsOn,
-                graphicOpacity: _graphicOpacity,
-              ),
+              savingNotice,
 
             ],
           );
 
         },
-        child: const SizedBox(),
+        child: SavingNotice(
+          flyerBoxWidth: widget.flyerBoxWidth,
+          flyerBoxHeight: _flyerBoxHeight,
+          flyerIsSaved: _flyerIsSaved,
+          animationController: _savingAnimationController,
+          graphicIsOn: _graphicIsOn,
+          graphicOpacity: _graphicOpacity,
+        ),
 
       );
 

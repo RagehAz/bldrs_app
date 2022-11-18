@@ -62,6 +62,7 @@ class Routing {
   /// ROUTER
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Route<dynamic> allRoutes(RouteSettings settings) {
 
     switch (settings.name) {
@@ -119,5 +120,5 @@ class Routing {
     }
     return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
