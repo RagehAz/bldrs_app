@@ -9,7 +9,7 @@ void onAddTrigger({
 }){
 
   noteNotifier.value = noteNotifier.value.copyWith(
-    trigger: trigger,
+    function: trigger,
   );
 
 }
@@ -20,7 +20,7 @@ void removeTrigger({
 }){
 
   noteNotifier.value = noteNotifier.value.nullifyField(
-    trigger: true,
+    function: true,
   );
 
 }

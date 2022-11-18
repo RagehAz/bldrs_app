@@ -77,16 +77,16 @@ class TriggerModel {
     assert(AuthFireOps.superUserID() != null, 'User is not authenticated');
 
     final List<String> _updatedDone = Stringer.addStringToListIfDoesNotContainIt(
-      strings: noteModel.trigger.done,
+      strings: noteModel.function.done,
       stringToAdd: AuthFireOps.superUserID(),
     );
 
-    final TriggerModel _updatedTrigger = noteModel.trigger.copyWith(
+    final TriggerModel _updatedTrigger = noteModel.function.copyWith(
       done: _updatedDone,
     );
 
     return noteModel.copyWith(
-      trigger: _updatedTrigger,
+      function: _updatedTrigger,
     );
 
   }
