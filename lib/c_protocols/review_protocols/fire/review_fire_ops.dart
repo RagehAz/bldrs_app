@@ -46,6 +46,33 @@ class ReviewFireOps {
   /// READ
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ReviewModel> readReview({
+    @required String flyerID,
+    @required String reviewID,
+  }) async {
+    ReviewModel _output;
+
+    if (reviewID != null){
+
+      final Map<String, dynamic> _map = await Fire.readSubDoc(
+          collName: FireColl.flyers,
+          docName: flyerID,
+          subCollName: FireSubColl.flyers_flyer_reviews,
+          subDocName: reviewID,
+      );
+
+      _output = ReviewModel.decipherReview(
+        map: _map,
+        reviewID: reviewID,
+        fromJSON: false,
+      );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
   /*
   /// TESTED : WORKS PERFECT
   static Future<List<ReviewModel>> readAllFlyerReviews({

@@ -7,17 +7,27 @@ class ReviewBubbleBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewBubbleBox({
     @required this.width,
+    @required this.isSpecialReview,
     this.child,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double width;
   final Widget child;
-  /// --------------------------------------------------------------------------
+  final bool isSpecialReview;
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static double clearWidth({
     @required double balloonWidth,
   }){
     return balloonWidth - (ReviewBox.spacer * 2);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Color getBubbleColor({
+    @required bool isSpecialReview,
+  }){
+    return isSpecialReview ? Colorz.yellow20 : Colorz.white20;
   }
   // -----------------------------------------------------------------------------
   @override
@@ -30,8 +40,10 @@ class ReviewBubbleBox extends StatelessWidget {
       constraints: const BoxConstraints(
         minHeight: ReviewBox.userBalloonSize,
       ),
-      decoration: const BoxDecoration(
-        color: Colorz.white20,
+      decoration: BoxDecoration(
+        color: getBubbleColor(
+          isSpecialReview: isSpecialReview,
+        ),
         borderRadius: ReviewBox.textBubbleCorners,
       ),
       padding: const EdgeInsets.all(_spacing),
@@ -40,5 +52,5 @@ class ReviewBubbleBox extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

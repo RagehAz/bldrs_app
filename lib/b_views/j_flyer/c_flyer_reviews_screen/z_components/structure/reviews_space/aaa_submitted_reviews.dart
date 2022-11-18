@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_creator_bubble.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/b_review_view_bubble.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -22,12 +22,14 @@ class SubmittedReviews extends StatefulWidget {
     @required this.pageWidth,
     @required this.pageHeight,
     @required this.flyerModel,
+    @required this.highlightReviewID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double pageHeight;
   final FlyerModel flyerModel;
+  final String highlightReviewID;
   /// --------------------------------------------------------------------------
   @override
   State<SubmittedReviews> createState() => _SubmittedReviewsState();
@@ -84,6 +86,23 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
         // -----------------------------
         _createStateListeners();
         // -------------------------------
+          if (widget.highlightReviewID != null){
+
+            // final ReviewModel _review = await ReviewFireOps.readReview(
+            //   flyerID: widget.flyerModel.id,
+            //   reviewID: widget.highlightReviewID,
+            // );
+            //
+            // if (_review != null){
+            //   _paginationController.addMap.value = _review.toMap(
+            //     includeID: true,
+            //     includeDocSnapshot: true,
+            //     // toJSON: false,
+            //   );
+            // }
+
+
+          }
         await _triggerLoading(setTo: false);
       });
       _isInit = false;
@@ -199,6 +218,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                       final bool _isAlreadyAgreed = snapshot.data;
 
                       return ReviewViewBubble(
+                        isSpecial: widget.highlightReviewID == _reviewModel.id,
                         flyerModel: widget.flyerModel,
                         pageWidth : widget.pageWidth,
                         reviewModel: _reviewModel,

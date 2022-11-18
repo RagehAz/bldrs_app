@@ -45,6 +45,7 @@ class ReviewCreatorBubble extends StatelessWidget {
 
           return ReviewBubbleBox(
             width: _textBubbleWidth,
+            isSpecialReview: false,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
