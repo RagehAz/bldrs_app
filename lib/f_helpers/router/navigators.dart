@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -345,6 +347,15 @@ class Nav {
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
+        case Routing.myBzTeamPage:
+          _goTo = Nav.goToMyBzScreen(
+            context: context,
+            bzID: _afterHomeRoute.arguments,
+            replaceCurrentScreen: false,
+            initialTab: BzTab.team,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
         case Routing.myUserScreen:
           _goTo = Nav.goToMyUserScreen(
             context: context,
@@ -376,6 +387,13 @@ class Nav {
           _goTo = jumpToFlyerPreviewScreen(
             context: context,
             flyerID: _afterHomeRoute.arguments,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.flyerReviews:
+          _goTo = jumpToFlyerReviewScreen(
+            context: context,
+            flyerIDAndReviewID: _afterHomeRoute?.arguments,
           ); break;
       // --------------------
       /// PLAN : ADD COUNTRIES PREVIEW SCREEN
@@ -621,6 +639,64 @@ class Nav {
       }
 
     }
+  }
+  // --------------------
+  ///
+  static Future<void> jumpToFlyerReviewScreen({
+    @required BuildContext context,
+    @required Object flyerIDAndReviewID,
+  }) async {
+
+    /*
+
+    In this method [NoteEvent.sendFlyerReceivedNewReviewByMe]
+
+    The trigger to come here was :-
+
+    TriggerModel(
+        name: Routing.flyerReviews,
+        argument: ChainPathConverter.combinePathNodes([
+          reviewModel.flyerID, // index 0
+          reviewModel.id, // index 1
+        ]),
+
+     */
+
+    assert(flyerIDAndReviewID != null, 'flyerIDAndReviewID is null');
+    assert(flyerIDAndReviewID is String, 'flyerIDAndReviewID is not a String');
+
+    final List<String> _flyerIDAndReviewID = ChainPathConverter.splitPathNodes(flyerIDAndReviewID);
+
+    if (Mapper.checkCanLoopList(_flyerIDAndReviewID) == true){
+
+      final String _flyerID = _flyerIDAndReviewID[0];
+      final String _reviewID = _flyerIDAndReviewID[1];
+
+      final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+        flyerID: _flyerID,
+        context: context,
+      );
+
+      final BzModel _bzModel = await BzProtocols.fetchBz(
+        bzID: _flyerModel?.bzID,
+        context: context,
+      );
+
+      if (_flyerModel != null && _bzModel != null){
+
+        await Nav.goToNewScreen(
+          context: context,
+          screen: FlyerPreviewScreen(
+            flyerModel: _flyerModel,
+            bzModel: _bzModel,
+            reviewID: _reviewID,
+          ),
+        );
+
+      }
+
+    }
+
   }
   // --------------------
   /// PLAN : DO BLDRS PREVIEW SCREEN

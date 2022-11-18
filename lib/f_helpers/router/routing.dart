@@ -38,10 +38,11 @@ class Routing {
   static const String bzEditor = '/BzEditorScreen';
   static const String myBzScreen = '/MyBzScreen';
   static const String myBzNotesPage = '/MyBzScreen/NotesPage';
+  static const String myBzTeamPage = '/MyBzScreen/TeamPage';
   static const String editBz = '/EditBzScreen';
   // --------------------
   static const String flyerEditor = '/FlyerEditorScreen';
-  static const String flyerScreen = '/FlyerFullScreen';
+  static const String flyerScreen = '/FlyerFullScreen'; /// TASK : WHO ARE YOU ?
   // --------------------
   static const String ragehDashBoard = '/RagehDashBoardScreen';
   static const String obelisk = '/ObeliskScreen';
@@ -51,6 +52,7 @@ class Routing {
   static const String bzPreview = '/bzPreview';
   static const String countryPreview = '/countryPreview';
   static const String flyerPreview = '/flyerPreview';
+  static const String flyerReviews = '/flyerPreview/flyerReviews';
   static const String bldrsPreview = '/bldrsPreview';
   // --------------------
   static const String myUserScreen = '/myUserScreen';

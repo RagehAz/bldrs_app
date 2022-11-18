@@ -89,6 +89,7 @@ class SelectedUserPage extends StatelessWidget {
                   input: value,
                 ),
 
+
                 if (value == true)
                   NoteFireOps.createNote(
                     noteModel: NoteModel.quickUserNotice(

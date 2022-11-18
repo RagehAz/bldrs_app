@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -12,6 +13,7 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
 class NoteEventsOfBzTeamManagement {
@@ -55,6 +57,11 @@ class NoteEventsOfBzTeamManagement {
         bzID: bzID,
         receiverPartyType: PartyType.bz,
       ),
+      navTo: TriggerModel(
+        name: Routing.myBzTeamPage,
+        argument: bzID,
+        done: const [],
+      ),
     );
 
     await NoteProtocols.composeToOneReceiver(
@@ -93,6 +100,11 @@ class NoteEventsOfBzTeamManagement {
         bzID: bzModel.id,
         receiverPartyType: PartyType.bz,
       ),
+      navTo: TriggerModel(
+        name: Routing.myBzTeamPage,
+        argument: bzModel.id,
+        done: const [],
+      ),
     );
 
     await NoteProtocols.composeToOneReceiver(
@@ -122,6 +134,11 @@ class NoteEventsOfBzTeamManagement {
          sentTime: DateTime.now(),
          token: _userModel?.device?.token,
          topic: TopicModel.userAuthorshipsInvitations,
+         navTo: const TriggerModel(
+           name: Routing.myUserNotesPage,
+           argument: null,
+           done: [],
+         ),
        );
 
       await NoteProtocols.composeToOneReceiver(
@@ -183,10 +200,15 @@ class NoteEventsOfBzTeamManagement {
               body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
               sentTime: DateTime.now(),
               token: _userModel?.device?.token,
-              trigger: TriggerProtocols.createDeleteBzLocallyTrigger(
+              function: TriggerProtocols.createDeleteBzLocallyTrigger(
                 bzID: bzModel.id,
               ),
               topic: TopicModel.userAuthorshipsInvitations,
+              navTo: const TriggerModel(
+                name: Routing.myUserNotesPage,
+                argument: null,
+                done: [],
+              ),
             );
 
             await NoteProtocols.composeToOneReceiver(
@@ -233,6 +255,11 @@ class NoteEventsOfBzTeamManagement {
         topicID: TopicModel.bzGeneralNews,
         bzID: bzModel.id,
         receiverPartyType: PartyType.bz,
+      ),
+      navTo: TriggerModel(
+        name: Routing.userPreview,
+        argument: userModel.id,
+        done: const [],
       ),
     );
 
