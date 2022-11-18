@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
@@ -200,7 +200,7 @@ class NoteEventsOfBzTeamManagement {
               body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
               sentTime: DateTime.now(),
               token: _userModel?.device?.token,
-              function: TriggerProtocols.createDeleteBzLocallyTrigger(
+              function: NoteFunProtocols.createDeleteBzLocallyTrigger(
                 bzID: bzModel.id,
               ),
               topic: TopicModel.userAuthorshipsInvitations,
