@@ -29,9 +29,9 @@ enum BzForm {
 }
 
 enum BzAccountType {
-  normal,
-  premium,
-  sphinx,
+  standard,
+  pro,
+  master,
 }
 
 enum BzState {
@@ -603,9 +603,9 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static String cipherBzAccountType(BzAccountType bzAccountType) {
     switch (bzAccountType) {
-      case BzAccountType.normal:  return 'normal';  break;
-      case BzAccountType.premium: return 'premium'; break;
-      case BzAccountType.sphinx:  return 'sphinx';  break;
+      case BzAccountType.standard:  return 'standard';  break;
+      case BzAccountType.pro:       return 'pro';       break;
+      case BzAccountType.master:    return 'master';    break;
       default:  return null;
     }
   }
@@ -613,17 +613,17 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static BzAccountType decipherBzAccountType(String bzAccountType) {
     switch (bzAccountType) {
-      case 'normal'   : return BzAccountType.normal   ; break; // 1
-      case 'premium'  : return BzAccountType.premium  ; break; // 2
-      case 'sphinx'   : return BzAccountType.sphinx   ; break; // 3
+      case 'standard'   : return BzAccountType.standard   ; break;
+      case 'pro'        : return BzAccountType.pro        ; break;
+      case 'master'     : return BzAccountType.master     ; break;
       default:return null;
     }
   }
   // --------------------
   static const List<BzAccountType> bzAccountTypesList = <BzAccountType>[
-    BzAccountType.normal,
-    BzAccountType.premium,
-    BzAccountType.sphinx,
+    BzAccountType.standard,
+    BzAccountType.pro,
+    BzAccountType.master,
   ];
   // -----------------------------------------------------------------------------
 
