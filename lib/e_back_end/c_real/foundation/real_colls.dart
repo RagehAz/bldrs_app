@@ -114,7 +114,63 @@
   |
   | --------------------------|
   |
-  | /// TASK : PROPOSAL
+  | /// TASK : PROPOSAL FOR STATISTICS : which will be used to filter which countries are
+  | - statistics
+  |     | - activeCountriesIDs                  : <List<String>>
+  |     | - globalCountriesIDs                  : <List<String>>
+  |     | - planet
+  |     |     | - totalUsers                    : <int>
+  |     |     | - totalBzz                      : <int>
+  |     |     | - totalFlyers                   : <int>
+  |     |     | - totalSlides                   : <int>
+  |     |     | - bzSectionRealEstate           : <int>
+  |     |     | - bzSectionConstruction         : <int>
+  |     |     | - bzSectionSupplies             : <int>
+  |     |     | - bzTypeDeveloper               : <int>
+  |     |     | - bzTypeBroker                  : <int>
+  |     |     | - bzTypeDesigner                : <int>
+  |     |     | - bzTypeContractor              : <int>
+  |     |     | - bzTypeArtisan                 : <int>
+  |     |     | - bzTypeManufacturer            : <int>
+  |     |     | - bzTypeSupplier                : <int>
+  |     |     | - bzFormIndividual              : <int>
+  |     |     | - bzFormCompany                 : <int>
+  |     |     | - bzAccountTypeStandard         : <int>
+  |     |     | - bzAccountTypePro              : <int>
+  |     |     | - bzAccountTypeMaster           : <int>
+  |     |     | - flyerTypeProperty             : <int>
+  |     |     | - flyerTypeDesign               : <int>
+  |     |     | - flyerTypeProject              : <int>
+  |     |     | - flyerTypeProduct              : <int>
+  |     |     | - flyerTypeTrade                : <int>
+  |     |     | - flyerTypeEquipment            : <int>
+  |     |     | - needTypeSeekProperty          : <int>
+  |     |     | - needTypePlanConstruction      : <int>
+  |     |     | - needTypeFinishConstruction    : <int>
+  |     |     | - needTypeFurnish               : <int>
+  |     |     | - needTypeOfferProperty         : <int>
+  |     |
+  |     | - countries
+  |     |     | - {countryID}
+  |     |     |     | => [zoneState]
+  |     |     |
+  |     |     | - {countryID}...
+  |     |
+  |     | - cities
+  |     |     | - {cityID}
+  |     |     |     | => [zoneState]
+  |     |     |
+  |     |     | - {cityID}...
+  |     |
+  |     | - districts
+  |           | - {districtID}
+  |           |     | => [zoneState]
+  |           |
+  |           | - {districtID}...
+  |
+  | --------------------------|
+  |
+  | /// TASK : PROPOSAL TO MIGRATE FIRE ZONE COLL TO THIS TREE
   | - zones
   |     | - {countryID}
   |     |     | - id          : <String>
