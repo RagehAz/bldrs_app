@@ -33,7 +33,7 @@ class NoteTriggerCreator extends StatelessWidget {
     // --------------------
     return ExpandingTile(
       width: _bubbleWidth,
-      firstHeadline: Verse.plain(noteModel?.trigger?.name),
+      firstHeadline: Verse.plain(noteModel?.function?.name),
       secondHeadline: Verse.plain('Trigger'),
       icon: Iconz.power,
       iconSizeFactor: 0.4,
@@ -47,7 +47,7 @@ class NoteTriggerCreator extends StatelessWidget {
           ...List.generate(_triggers.length, (index){
 
             final String _triggerID = _triggers[index];
-            final bool _isSelected = noteModel?.trigger?.name == _triggerID;
+            final bool _isSelected = noteModel?.function?.name == _triggerID;
 
             return DreamBox(
               height: _buttonHeight,

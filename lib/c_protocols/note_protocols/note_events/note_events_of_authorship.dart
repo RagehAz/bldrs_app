@@ -6,12 +6,14 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_trigger_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
 class NoteEventsOfAuthorship {
@@ -71,8 +73,13 @@ class NoteEventsOfAuthorship {
       // seen: false,
       // sendFCM: true,
       // sendNote: true,
-      trigger: TriggerProtocols.createRefetchBzTrigger(
+      function: TriggerProtocols.createRefetchBzTrigger(
           bzID: bzModel.id,
+      ),
+      navTo: const TriggerModel(
+        name: Routing.myUserNotesPage,
+        argument: null,
+        done: [],
       ),
     );
 
@@ -120,6 +127,11 @@ class NoteEventsOfAuthorship {
       // poll: null,
       token: userModelToSendTo?.device?.token,
       topic: TopicModel.userAuthorshipsInvitations,
+      navTo: const TriggerModel(
+        name: Routing.myUserNotesPage,
+        argument: null,
+        done: [],
+      ),
       // dismissible: true,
       // poster: PosterModel(
       //   type: PosterType.bz,
@@ -181,6 +193,11 @@ class NoteEventsOfAuthorship {
         bzID: bzID,
         receiverPartyType: PartyType.bz,
       ),
+      navTo: TriggerModel(
+        name: Routing.myBzNotesPage,
+        argument: bzID,
+        done: const [],
+      ),
       // trigger: TriggerProtocols.createAuthorshipAcceptanceTrigger(),
     );
 
@@ -227,9 +244,14 @@ class NoteEventsOfAuthorship {
         bzID: bzID,
         receiverPartyType: PartyType.bz,
       ),
-      trigger: TriggerProtocols.createDeletePendingAuthorTrigger(
+      function: TriggerProtocols.createDeletePendingAuthorTrigger(
         userID: senderModel.id,
         bzID: bzID,
+      ),
+      navTo: TriggerModel(
+        name: Routing.myBzNotesPage,
+        argument: bzID,
+        done: const [],
       ),
     );
 

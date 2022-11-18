@@ -156,14 +156,14 @@ class TriggerProtocols {
     if (
         noteModel != null
         &&
-        noteModel.trigger != null
+        noteModel.function != null
         &&
-        TriggerModel.checkIFiredThisTrigger(noteModel.trigger) == false
+        TriggerModel.checkIFiredThisTrigger(noteModel.function) == false
     ){
 
       await _triggerSwitcher(
         context: context,
-        trigger: noteModel.trigger,
+        trigger: noteModel.function,
       );
 
       final NoteModel _newNote = TriggerModel.addMeToTriggerDones(

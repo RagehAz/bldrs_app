@@ -20,6 +20,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Build Something',
     body: 'Bldrs.net',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user did not sign in for 4 weeks',
@@ -44,6 +45,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Create Something new',
     body: 'Bldrs.net',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user did not sign in for a 5 weeks',
@@ -68,6 +70,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Plan your future',
     body: 'Collect as many flyers as you can NOW, so when you start, You are ready. 👌',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user did not sign in for  6 weeks',
@@ -92,6 +95,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Come and See',
     body: '👁️ You did not see what lies inside Bldrs.net',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user downloaded app but did not sign up aslan for 7 days',
@@ -116,6 +120,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Consider your Options',
     body: '🔺 Bldrs.net is your RealEstate, Construction & Supplies search engine.',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.reminder,
     //   eventTrigger: 'when user downloaded app but did not sign up aslan for 14 days',
@@ -140,6 +145,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#CityName Builders went public.',
     body: '📢 Bldrs businesses have been posting for some time, and now all their work is LIVE !',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when city goes public',
@@ -164,6 +170,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Thank you',
     body: 'Thank you for taking part in building Bldrs.net, Your feedback is currently being reviewed.',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'after user posts opinion feedback with 24 hours',
@@ -188,6 +195,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Bldrs.net team have replied over your feedback',
     body: null,
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when bldrs.net replies over customer feedback',
@@ -212,6 +220,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'The Easy way',
     body: 'Builders will assist find your specific needs, just assign your profile status 👌',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when bldrs.net replies over customer feedback',
@@ -236,6 +245,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'The Community is Growing',
     body: '#numberOfNewBzz new businesses had joined and #numberOfNewFlyers new flyers were published on Bldrs.net Last month',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.ad,
     //   eventTrigger: 'every month',
@@ -260,6 +270,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'New flyer',
     body: '#{bzModel.name} published a new #{flyer.flyerType.toString()}flyer',
     topic: TopicModel.userFollowedBzzNewFlyers,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when followed premium bz adds new flyers',
@@ -284,6 +295,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{bzModel.name} has replied on your review',
     body: null,
     topic: TopicModel.userReviewsReplies,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when author replies on user review',
@@ -308,6 +320,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{userModel.name} wrote a review on your flyer',
     body: null,
     topic: TopicModel.bzFlyersNewReviews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when user posts flyer review',
@@ -332,6 +345,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{userModel.name} saved your flyer',
     body: null,
     topic: TopicModel.bzFlyersNewSaves,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a user saves a flyer',
@@ -356,6 +370,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{userModel.name} shared your flyer',
     body: null,
     topic: TopicModel.bzFlyersNewShares,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a user shares a flyer',
@@ -380,6 +395,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{userModel.name} followed your business page',
     body: '#{userModel.name} will be updated with you activity',
     topic: TopicModel.bzNewFollowers,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a user follows bz',
@@ -409,6 +425,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
         '#reviews reviews\n'
         '#calls phone calls',
     topic: TopicModel.bzGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.ad,
     //   eventTrigger: 'every week',
@@ -438,6 +455,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{authorModel.name} invites you',
     body: 'You are invited to become an author of the Bldr account : #{bzModel.name}',
     topic: TopicModel.userAuthorshipsInvitations,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when author sends author invitation to a user',
@@ -462,6 +480,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{userModel.name} Replied on his author invitation',
     body: 'Invitation has been #_reply.',
     topic: TopicModel.bzAuthorshipsInvitations,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when user replies on author invitation',
@@ -486,6 +505,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#{sender.name} invited #{reciever.name}',
     body: 'An invitation has been sent for #{reciever.name} to join the team of #{bzModel.name}',
     topic: TopicModel.bzAuthorshipsInvitations,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when author sends author invitation to a user',
@@ -510,6 +530,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: '#countryName Builders are Global',
     body:'#countryName Business and their flyers are now available world wide to reach',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a county goes global',
@@ -534,6 +555,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Section #sectionName is now available',
     body: 'You can now view the businesses publishing flyers in section #sectionName',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.event,
     //   eventTrigger: 'when a section goes live',
@@ -560,6 +582,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
         '#views views, #shares shares while #competitors new businesses specialized in '
         '#{bzModel.bzTypes.toString()} have joined Bldrs.net this month',
     topic: TopicModel.bzGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.ad,
     //   eventTrigger: 'every week',
@@ -631,6 +654,7 @@ const List<NoteModel> noteTemplates = <NoteModel>[
     title: 'Welcome to Bldrs.net',
     body: 'Find thousands of businesses to help you find and build what you want to build',
     topic: TopicModel.userGeneralNews,
+    navTo: null,
     /// pseudo
     //   subject: NotiSubject.welcome,
     //   eventTrigger: 'when new user joins bldrs.net',

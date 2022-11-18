@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 enum BzTab{
   flyers,
   about,
-  authors,
+  team,
   notes,
   // targets,
   // powers,
@@ -32,7 +32,7 @@ class BzTabber {
   static const List<BzTab> bzTabsList = <BzTab>[
     BzTab.flyers,
     BzTab.about,
-    BzTab.authors,
+    BzTab.team,
     BzTab.notes,
     // BzTab.targets,
     // BzTab.powers,
@@ -61,7 +61,7 @@ class BzTabber {
     switch(bzTab){
       case BzTab.flyers   : return 'phid_flyers'  ; break;
       case BzTab.about    : return 'phid_info'  ; break;
-      case BzTab.authors  : return 'phid_team'  ; break;
+      case BzTab.team  : return 'phid_team'  ; break;
       case BzTab.notes    : return 'phid_notifications'  ; break;
       // case BzTab.targets  : return 'phid_targets'  ; break;
       // case BzTab.powers   : return 'phid_powers'  ; break;
@@ -76,7 +76,7 @@ class BzTabber {
     switch(bzTab){
       case BzTab.flyers   : return Iconz.flyerGrid  ; break;
       case BzTab.about    : return Iconz.info       ; break;
-      case BzTab.authors  : return Iconz.bz         ; break;
+      case BzTab.team  : return Iconz.bz         ; break;
       case BzTab.notes    : return Iconz.notification       ; break;
       // case BzTab.targets  : return Iconz.target     ; break;
       // case BzTab.powers   : return Iconz.power      ; break;
