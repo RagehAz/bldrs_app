@@ -511,6 +511,35 @@ class DeckModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// GETTERS
+
+  // --------------------
+  ///
+  static int getCountByFlyerType({
+    @required FlyerType flyerType,
+    @required DeckModel deckModel,
+  }){
+    int _output;
+
+    if (flyerType != null && deckModel != null){
+
+      switch (flyerType) {
+        case FlyerType.all        : return _output = deckModel.all.length;          break;
+        case FlyerType.property   : return _output = deckModel.properties.length;   break;
+        case FlyerType.design     : return _output = deckModel.designs.length;      break;
+        case FlyerType.project    : return _output = deckModel.undertakings.length; break;
+        case FlyerType.trade      : return _output = deckModel.trades.length;       break;
+        case FlyerType.product    : return _output = deckModel.products.length;     break;
+        case FlyerType.equipment  : return _output = deckModel.equipment.length;    break;
+        default: _output = 0;
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------

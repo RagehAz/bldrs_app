@@ -100,9 +100,9 @@ class FlyerTyper{
     FlyerType.all,
     FlyerType.property,
     FlyerType.design,
-    FlyerType.product,
     FlyerType.project,
     FlyerType.trade,
+    FlyerType.product,
     FlyerType.equipment,
   ];
   // --------------------
@@ -131,6 +131,8 @@ class FlyerTyper{
     flyerType == FlyerType.product ? Iconz.bxProductsOn
         :
     flyerType == FlyerType.equipment ? Iconz.bxEquipmentOn
+        :
+    flyerType == FlyerType.all   ? Iconz.flyerCollection
         :
     null;
 
