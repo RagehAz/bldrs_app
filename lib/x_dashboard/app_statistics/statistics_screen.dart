@@ -1,20 +1,17 @@
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_bz_pg_counter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/e_back_end/c_real/widgets/real_doc_streamer.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/x_dashboard/app_statistics/components/census_line.dart';
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatelessWidget {
@@ -26,38 +23,22 @@ class GeneralStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = MediaQuery.of(context).size.width;
-
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidType: PyramidType.crystalYellow,
-      pageTitleVerse: Verse.plain(Words.allahoAkbar(context)),
-      appBarRowWidgets: const <Widget>[
-
-        Expander(),
-
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-          child: BldrsName(
-            size: 40,
-          ),
-        ),
-
-      ],
+      pageTitleVerse: Verse.plain('Statistics'),
       layoutWidget:
 
       /// STREAM : DB / admin / statistics
-      StreamBuilder(
-        stream: Fire.streamDoc(
-          collName: FireColl.admin,
-          docName: 'statistics',
-        ),
+      RealDocStreamer(
+        collName: 'statistics',
+        docName: 'planet',
         // initialData: null,
-        builder: (BuildContext context, AsyncSnapshot<Object> snapshot) {
+        builder: (BuildContext context,  Map<String, dynamic> map) {
 
-          if (Streamer.connectionIsLoading(snapshot) == true) {
+          if (map == null) {
             return const Loading(
               loading: true,
             );
@@ -65,13 +46,7 @@ class GeneralStatistics extends StatelessWidget {
 
           else {
 
-            final dynamic map = snapshot.data;
-
-            final int _numberOfUsers = map['numberOfUsers'];
-            final int _numberOfCountries = map['numberOfCountries'];
-            final int _numberOfBzz = map['numberOfBzz'];
-            final int _numberOfFlyers = map['numberOfFlyers'];
-            final int _numberOfSlides = map['numberOfSlides'];
+            final CensusModel _censusModel = CensusModel.decipher(map);
 
             return ListView(
               physics: const BouncingScrollPhysics(),
@@ -79,348 +54,191 @@ class GeneralStatistics extends StatelessWidget {
 
                 const Stratosphere(),
 
-                const SuperVerse(
-                  verse: Verse(
-                    text: 'General states :-',
-                    translate: false,
-                  ),
-                  italic: true,
-                  shadow: true,
-                  weight: VerseWeight.black,
-                  centered: false,
-                  margin: Ratioz.appBarMargin,
+                // -------------------------------------------
+
+                /// GENERAL STATISTICS
+                InfoPageHeadline(
+                  verse: const Verse(text: 'phid_general_statistics', translate: true,),
+                  pageWidth: Scale.screenWidth(context),
                 ),
 
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'Users',
-                    translate: false,
-                  ),
-                  count: _numberOfUsers,
+                ///  TOTAL USERS
+                CensusLine(
+                  verse: const Verse(text: 'phid_users', translate: true),
                   icon: Iconz.normalUser,
-                  iconSizeFactor: 0.95,
+                  count: _censusModel?.totalUsers,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'Countries',
-                    translate: false,
-                  ),
-                  count: _numberOfCountries,
+                /// TOTAL COUNTRIES
+                const CensusLine(
+                  verse: Verse(text: 'phid_countries', translate: true,),
                   icon: Iconz.earth,
-                  iconSizeFactor: 0.95,
+                  count: 0,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'Businesses',
-                    translate: false,
-                  ),
-                  count: _numberOfBzz,
+                /// TOTAL BZZ
+                CensusLine(
+                  verse: const Verse(text: 'phid_bzz', translate: true,),
                   icon: Iconz.bz,
-                  iconSizeFactor: 0.95,
+                  count: _censusModel?.totalBzz,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'Flyers',
-                    translate: false,
-                  ),
-                  count: _numberOfFlyers,
+                /// TOTAL AUTHORS
+                CensusLine(
+                  verse: const Verse(text: 'phid_authors', translate: true,),
+                  icon: Iconz.bzWhite,
+                  count: _censusModel?.totalAuthors,
+                ),
+                /// TOTAL FLYERS
+                CensusLine(
+                  verse: const Verse(text: 'phid_flyers', translate: true,),
                   icon: Iconz.gallery,
-                  iconSizeFactor: 0.8,
+                  count: _censusModel?.totalFlyers,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'Slides',
-                    translate: false,
-                  ),
-                  count: _numberOfSlides,
+                /// TOTAL SLIDES
+                CensusLine(
+                  verse: const Verse(text: 'phid_slides', translate: true,),
                   icon: Iconz.flyer,
-                  iconSizeFactor: 0.8,
+                  count: _censusModel?.totalSlides,
                 ),
 
-                /// --- SECTION SEPARATOR
-                Container(
-                  width: _screenWidth,
-                  height: _screenWidth * 0.002,
-                  color: Colorz.yellow255,
-                  // margin: EdgeInsets.only(top: screenWidth * 0.05),
+                // -------------------------------------------
+
+                /// BZZ AND FLYERS STATISTICS
+                InfoPageHeadline(
+                  verse: const Verse(text: 'phid_bzz_statistics', translate: true,),
+                  pageWidth: Scale.screenWidth(context),
                 ),
 
-                const SuperVerse(
-                  verse: Verse(
-                    text: 'Bzz Statistics',
-                    translate: false,
-                  ),
-                  size: 3,
-                  italic: true,
-                  shadow: true,
-                  weight: VerseWeight.black,
-                  centered: false,
-                  margin: Ratioz.appBarMargin,
-                ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_realtors',
-                    translate: true,
-                  ),
-                  count: 0,
+                /// BZ TYPE : DEVELOPERS
+                CensusLine(
+                  verse: const Verse(text: 'phid_developers', translate: true,),
+                  count: _censusModel?.bzTypeDeveloper,
                   icon: Iconz.bxPropertiesOn,
-                  iconSizeFactor: 0.95,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: FlyerTyper.propertyChainID,
-                    translate: true,
-                  ),
-                  count: 0,
+                /// BZ TYPE : BROKERS
+                CensusLine(
+                  verse: const Verse(text: 'phid_brokers', translate: true,),
+                  count: _censusModel?.bzTypeBroker,
+                  icon: Iconz.bxPropertiesOn,
+                ),
+                /// FLYER TYPE : PROPERTY
+                CensusLine(
+                  verse: const Verse(text: FlyerTyper.propertyChainID, translate: true,),
+                  count: _censusModel?.flyerTypeProperty,
                   icon: Iconz.flyer,
-                  iconSizeFactor: 0.8,
                 ),
 
-                // ------------------------------------------------
-                /// -- SEPARATOR
-                Center(
-                  child: Container(
-                    width: _screenWidth * 0.9,
-                    height: _screenWidth * 0.001,
-                    color: Colorz.yellow80,
-                  ),
-                ),
+                /// SEPARATOR
+                const SeparatorLine(),
 
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_designers',
-                    translate: true,
-                  ),
-                  count: 0,
+                /// BZ TYPE : DESIGNERS
+                CensusLine(
+                  verse: const Verse(text: 'phid_designers', translate: true,),
+                  count: _censusModel?.bzTypeDesigner,
                   icon: Iconz.bxDesignsOn,
-                  iconSizeFactor: 0.95,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: FlyerTyper.designChainID,
-                    translate: true,
-                  ),
-                  count: 0,
+                /// FLYER TYPE : DESIGN
+                CensusLine(
+                  verse: const Verse(text: FlyerTyper.designChainID, translate: true,),
+                  count: _censusModel?.flyerTypeDesign,
                   icon: Iconz.flyer,
-                  iconSizeFactor: 0.8,
                 ),
 
-                // ------------------------------------------------
-                /// -- SEPARATOR
-                Center(
-                  child: Container(
-                    width: _screenWidth * 0.9,
-                    height: _screenWidth * 0.001,
-                    color: Colorz.yellow80,
-                  ),
-                ),
+                /// SEPARATOR
+                const SeparatorLine(),
 
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_suppliers',
-                    translate: true,
-                  ),
-                  count: 0,
-                  icon: Iconz.bxEquipmentOn,
-                  iconSizeFactor: 0.95,
-                ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: FlyerTyper.productChainID,
-                    translate: true,
-                  ),
-                  count: 0,
-                  icon: Iconz.flyer,
-                  iconSizeFactor: 0.8,
-                ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: FlyerTyper.equipmentChainID,
-                    translate: true,
-                  ),
-                  count: 0,
-                  icon: Iconz.flyer,
-                  iconSizeFactor: 0.8,
-                ),
-
-                // ------------------------------------------------
-                /// -- SEPARATOR
-                Center(
-                  child: Container(
-                    width: _screenWidth * 0.9,
-                    height: _screenWidth * 0.001,
-                    color: Colorz.yellow80,
-                  ),
-                ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_contractors',
-                    translate: true,
-                  ),
-                  count: 0,
+                /// BZ TYPE : CONTRACTORS
+                CensusLine(
+                  verse: const Verse(text: 'phid_contractors', translate: true,),
+                  count: _censusModel?.bzTypeContractor,
                   icon: Iconz.bxProjectsOn,
-                  iconSizeFactor: 0.95,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_k_flyer_type_project',
-                    translate: true,
-                  ),
-                  count: 0,
+                /// FLYER TYPE : PROJECT
+                CensusLine(
+                  verse: const Verse(text: 'phid_project_flyer', translate: true,),
+                  count: _censusModel?.flyerTypeProject,
                   icon: Iconz.flyer,
-                  iconSizeFactor: 0.8,
                 ),
 
-                // ------------------------------------------------
-                /// -- SEPARATOR
-                Center(
-                  child: Container(
-                    width: _screenWidth * 0.9,
-                    height: _screenWidth * 0.001,
-                    color: Colorz.yellow80,
-                  ),
-                ),
+                /// SEPARATOR
+                const SeparatorLine(),
 
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_tradesmanship',
-                    translate: true,
-                  ),
-                  count: 0,
+                /// BZ TYPE : ARTISANS
+                CensusLine(
+                  verse: const Verse(text: 'phid_artisans', translate: true,),
+                  count: _censusModel?.bzTypeArtisan,
                   icon: Iconz.bxTradesOn,
-                  iconSizeFactor: 0.95,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_k_flyer_type_trades',
-                    translate: true,
-                  ),
-                  count: 0,
+                /// FLYER TYPE : TRADE
+                CensusLine(
+                  verse: const Verse(text: FlyerTyper.tradesChainID, translate: true,),
+                  count: _censusModel?.flyerTypeTrade,
                   icon: Iconz.flyer,
-                  iconSizeFactor: 0.8,
                 ),
 
-                // ------------------------------------------------
-                /// --- SECTION SEPARATOR
-                Container(
-                  width: _screenWidth,
-                  height: _screenWidth * 0.002,
-                  color: Colorz.yellow255,
-                  margin: EdgeInsets.only(top: _screenWidth * 0.05),
+                /// SEPARATOR
+                const SeparatorLine(),
+
+                /// BZ TYPE : MANUFACTURER
+                CensusLine(
+                  verse: const Verse(text: 'phid_manufacturer', translate: true,),
+                  count: _censusModel?.bzTypeManufacturer,
+                  icon: Iconz.bxProductsOn,
+                ),
+                /// BZ TYPE : SUPPLIER
+                CensusLine(
+                  verse: const Verse(text: 'phid_supplier', translate: true,),
+                  count: _censusModel?.bzTypeSupplier,
+                  icon: Iconz.bxProductsOn,
+                ),
+                /// FLYER TYPE : PRODUCT
+                CensusLine(
+                  verse: const Verse(text: FlyerTyper.productChainID, translate: true,),
+                  count: _censusModel?.flyerTypeProduct,
+                  icon: Iconz.flyer,
+                ),
+                /// FLYER TYPE : EQUIPMENT
+                CensusLine(
+                  verse: const Verse(text: FlyerTyper.equipmentChainID, translate: true,),
+                  count: _censusModel?.flyerTypeEquipment,
+                  icon: Iconz.flyer,
                 ),
 
-                SuperVerse(
-                  verse: const Verse(
-                    text: 'Engagement rates',
-                    translate: false,
-                  ),
-                  size: 3,
-                  italic: true,
-                  shadow: true,
-                  weight: VerseWeight.black,
-                  centered: false,
-                  margin: _screenWidth * 0.05,
+                /// SEPARATOR
+                const SeparatorLine(),
+
+                // -------------------------------------------
+
+                /// ENGAGEMENT RATES
+                InfoPageHeadline(
+                  verse: const Verse(text: 'phid_engagement_rates', translate: false,),
+                  pageWidth: Scale.screenWidth(context),
                 ),
 
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_totalSaves',
-                    translate: true,
-                  ), // Wordz.saves
+                /// TOTAL SAVES
+                const CensusLine(
+                  verse: Verse(text: 'phid_totalSaves', translate: true,), // Wordz.saves
                   count: 0,
                   icon: Iconz.saveOn,
-                  iconSizeFactor: 0.8,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_views',
-                    translate: true,
-                  ),
-                  count: 0,
-                  icon: Iconz.viewsIcon,
-                  iconSizeFactor: 0.8,
-                ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_totalShares',
-                    translate: true
-                  ),
-                  count: 0,
-                  icon: Iconz.share,
-                  iconSizeFactor: 0.8,
-                ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_followers',
-                    translate: true,
-                  ),
+                /// TOTAL FOLLOWS
+                const CensusLine(
+                  verse: Verse(text: 'phid_follows', translate: true,),
                   count: 0,
                   icon: Iconz.follow,
-                  iconSizeFactor: 0.8,
                 ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_bldrsConnected',
-                    translate: true,
-                  ),
-                  count: 0,
-                  icon: Iconz.handShake,
-                  iconSizeFactor: 0.9,
-                ),
-
-                BzPgCounter(
-                  flyerBoxWidth: _screenWidth,
-                  verse: const Verse(
-                    text: 'phid_contact_me_clicks',
-                    translate: true,
-                  ),
+                /// TOTAL CONTACTS
+                const CensusLine(
+                  verse: Verse(text: 'phid_contact_me_clicks', translate: true,),
                   count: 0,
                   icon: Iconz.comPhone,
-                  iconSizeFactor: 0.8,
                 ),
 
-                /// --- THE END
-                SizedBox(
-                  width: _screenWidth,
-                  height: _screenWidth * 0.5,
-                ),
+                /// SEPARATOR
+                const SeparatorLine(),
+
+                // -------------------------------------------
+
+                const Horizon(),
+
               ],
             );
 

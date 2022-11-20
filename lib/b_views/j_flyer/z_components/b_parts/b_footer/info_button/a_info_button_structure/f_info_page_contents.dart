@@ -63,7 +63,7 @@ class InfoPageContents extends StatelessWidget {
           /// MAIN DETAILS HEADLINE
           InfoPageHeadline(
             pageWidth: _pageWidth,
-            headlineVerse: const Verse(
+            verse: const Verse(
               text: 'phid_main_details',
               translate: true,
             ),
@@ -99,7 +99,7 @@ class InfoPageContents extends StatelessWidget {
                 if (flyerModel.description?.isNotEmpty == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
-                    headlineVerse: const Verse(
+                    verse: const Verse(
                       text: 'phid_more_about_this_flyer',
                       translate: true,
                     ),
@@ -157,7 +157,7 @@ class InfoPageContents extends StatelessWidget {
                 if (flyerModel.keywordsIDs?.isNotEmpty == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
-                    headlineVerse: const Verse(
+                    verse: const Verse(
                       text: 'phid_flyer_keywords',
                       translate: true,
                     ),
@@ -178,7 +178,7 @@ class InfoPageContents extends StatelessWidget {
                 if (flyerModel.specs?.isNotEmpty == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
-                    headlineVerse: const Verse(
+                    verse: const Verse(
                       text: 'phid_specs',
                       translate: true,
                     ),

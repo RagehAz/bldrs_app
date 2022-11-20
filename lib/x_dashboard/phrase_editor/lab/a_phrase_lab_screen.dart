@@ -79,7 +79,7 @@ class _PhrasesLabState extends State<PhrasesLab> {
         /// PHRASES CREATION
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: Verse.plain('REAL'),
+          verse: Verse.plain('REAL'),
         ),
 
         /// MIGRATE main phrases from fire to real
@@ -159,7 +159,7 @@ class _PhrasesLabState extends State<PhrasesLab> {
         /// PHRASES PRO
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: Verse.plain('PRO'),
+          verse: Verse.plain('PRO'),
         ),
 
         /// READ MAIN PHRASES
@@ -179,7 +179,7 @@ class _PhrasesLabState extends State<PhrasesLab> {
         /// LDD
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: Verse.plain('LDB'),
+          verse: Verse.plain('LDB'),
         ),
 
         /// READ MAIN PHRASES
