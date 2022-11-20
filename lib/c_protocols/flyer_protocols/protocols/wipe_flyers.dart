@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
+import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
@@ -20,7 +21,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class WipeFlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ class WipeFlyerProtocols {
         ));
       }
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel _oldBz = await BzProtocols.fetchBz(
           context: context,
           bzID: flyerModel.bzID,
       );
@@ -63,7 +63,7 @@ class WipeFlyerProtocols {
         /// DECREMENT BZ COUNTER
         if (isDeletingBz == false)
           BzRecordRealOps.incrementBzCounter(
-            bzID: _bzModel.id,
+            bzID: _oldBz.id,
             field: 'allSlides',
             incrementThis: - flyerModel.slides.length,
           ),
@@ -72,7 +72,7 @@ class WipeFlyerProtocols {
         if (isDeletingBz == false)
           _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
             context: context,
-            oldBz: _bzModel,
+            oldBz: _oldBz,
             flyer: flyerModel,
           ),
 
@@ -81,7 +81,7 @@ class WipeFlyerProtocols {
           context: context,
           flyerID: flyerModel.id,
           isDeletingFlyer: true,
-          bzID: _bzModel.id,
+          bzID: _oldBz.id,
           isDeletingBz: isDeletingBz,
         ),
 
@@ -107,6 +107,9 @@ class WipeFlyerProtocols {
         PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyerModel)),
         PicLDBOps.deletePic(Storage.generateFlyerPosterPath(flyerModel.id)),
         PDFLDBOps.delete(flyerModel.pdfPath),
+
+        /// CENSUS
+        CensusProtocols.onWipeFlyer(flyerModel),
 
         /// REMOVE FLYER DOC
         FlyerFireOps.deleteFlyerDoc(

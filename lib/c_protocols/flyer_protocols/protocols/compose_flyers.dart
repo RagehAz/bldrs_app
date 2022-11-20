@@ -12,6 +12,7 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
+import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
@@ -104,6 +105,9 @@ class ComposeFlyerProtocols {
               flyerModel: _flyerToPublish,
               isIncrementing: true
           ),
+
+          /// CENSUS
+          CensusProtocols.onComposeFlyer(_flyerToPublish),
 
         ]);
 
