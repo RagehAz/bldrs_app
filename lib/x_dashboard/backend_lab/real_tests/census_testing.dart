@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -12,8 +14,10 @@ import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.da
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
+import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:flutter/material.dart';
 
 class CensusTestingScreen extends StatefulWidget {
@@ -374,6 +378,60 @@ class _TheStatefulScreenState extends State<CensusTestingScreen> {
         const DotSeparator(),
 
         // -----------------------------------
+
+        /// CREATE INITIAL CENSUS
+        WideButton(
+          verse: Verse.plain('X - Create Initial Census'),
+          color: Colorz.bloodTest,
+          onTap: () async {
+
+            final bool _go = await Dialogs.confirmProceed(
+              context: context,
+              titleVerse: Verse.plain('This is Dangerous !'),
+              bodyVerse: Verse.plain('This will read all Users - All Bzz - All Flyers and create a Census for each of them'),
+              invertButtons: true,
+            );
+
+            if (_go == true){
+
+              /// ALL USERS
+              await ExoticMethods.readAllUserModels(
+                limit: 900,
+                onRead: (int index, UserModel _userModel) async {
+
+                  await CensusProtocols.onComposeUser(_userModel);
+                  blog('DONE : $index : UserModel: ${_userModel.name}');
+
+                },
+              );
+
+              /// ALL BZZ
+              await ExoticMethods.readAllBzzModels(
+                limit: 900,
+                onRead: (int i, BzModel _bzModel) async {
+
+                  blog('DONE : $i : BzModel: ${_bzModel.name}');
+                  await CensusProtocols.onComposeBz(_bzModel);
+
+                },
+              );
+
+              /// ALL FLYERS
+              await ExoticMethods.readAllFlyers(
+                limit: 1000,
+                onRead: (int index, FlyerModel _flyerModel) async {
+
+                  blog('DONE : $index : FlyerModel: ${_flyerModel.id}');
+                  await CensusProtocols.onComposeFlyer(_flyerModel);
+
+                },
+              );
+
+            }
+
+          },
+        ),
+
 
       ],
     );
