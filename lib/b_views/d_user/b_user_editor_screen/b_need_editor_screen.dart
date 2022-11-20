@@ -93,12 +93,12 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   Future<void> onConfirmEditingNeed() async {
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    final bool _needsChanged = NeedModel.checkNeedsAreIdentical(_userModel.need , _need.value) == false;
+    final bool _needsChanged = NeedModel.checkNeedsAreIdentical(_oldUser.need , _need.value) == false;
 
     if (_needsChanged == true){
 
@@ -106,7 +106,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         context: context,
       ));
 
-      final UserModel _updatedUser = _userModel.copyWith(
+      final UserModel _newUser = _oldUser.copyWith(
         need: _need.value.copyWith(
           since: DateTime.now(),
         ),
@@ -115,7 +115,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       await UserProtocols.renovate(
         context: context,
         newPic: null,
-        newUserModel: _updatedUser,
+        newUser: _newUser,
+        oldUser: _oldUser,
       );
 
       await WaitDialog.closeWaitDialog(context);

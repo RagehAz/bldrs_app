@@ -56,7 +56,8 @@ class UserFCMTopicsScreenView extends StatelessWidget {
       await UserProtocols.renovate(
           context: context,
           newPic: null,
-          newUserModel: _userModel.copyWith(
+          oldUser: _userModel,
+          newUser: _userModel.copyWith(
             fcmTopics: _updatedTopics,
           ),
       );
@@ -74,9 +75,10 @@ class UserFCMTopicsScreenView extends StatelessWidget {
       await UserProtocols.renovate(
         context: context,
         newPic: null,
-        newUserModel: _userModel.copyWith(
+        newUser: _userModel.copyWith(
           fcmTopics: _updatedTopics,
         ),
+        oldUser: _userModel,
       );
 
     }

@@ -579,16 +579,16 @@ class AuthorModel {
   /// TESTED : WORKS PERFECT
   static Future<List<AuthorModel>> addNewUserToAuthors({
     @required List<AuthorModel> authors,
-    @required UserModel newUserModel,
+    @required UserModel newUser,
     @required String bzID,
   }) async {
 
     final List<AuthorModel> _output = <AuthorModel>[...authors];
 
-    if (newUserModel != null){
+    if (newUser != null){
 
       final AuthorModel _newAuthor = await AuthorModel.createAuthorFromUserModel(
-        userModel: newUserModel,
+        userModel: newUser,
         bzID: bzID,
         isCreator: false,
       );

@@ -101,24 +101,24 @@ class AuthorshipExitProtocols {
     );
 
     /// MODIFY MY USER MODEL
-    final UserModel _myOldUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
-    UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
+    UserModel _newUser = UserModel.removeBzIDFromUserBzzIDs(
         bzIDToRemove: streamedBzModelWithoutMyID.id,
-        userModel: _myOldUserModel
+        oldUser: _oldUser
     );
 
-    _newUserModel = UserModel.removeAllBzTopicsFromMyTopics(
-        userModel: _newUserModel,
+    _newUser = UserModel.removeAllBzTopicsFromMyTopics(
+        oldUser: _newUser,
         bzID: streamedBzModelWithoutMyID.id,
     );
 
     /// WIPE AUTHOR PIC
     await PicProtocols.wipePic(Storage.generateAuthorPicPath(
       bzID: streamedBzModelWithoutMyID.id,
-      authorID: _newUserModel.id,
+      authorID: _newUser.id,
     ));
 
     await Future.wait(<Future>[
@@ -133,7 +133,8 @@ class AuthorshipExitProtocols {
       /// UPDATE MY USER MODEL EVERYWHERE
       UserProtocols.renovate(
         context: context,
-        newUserModel: _newUserModel,
+        newUser: _newUser,
+        oldUser: _oldUser,
         newPic: null,
       ),
 
@@ -151,14 +152,14 @@ class AuthorshipExitProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> removeFlyerlessAuthor({
     @required BuildContext context,
-    @required BzModel bzModel,
+    @required BzModel oldBz,
     @required AuthorModel author,
   }) async {
     blog('WipeAuthorProtocols.removeFlyerlessAuthorProtocol : START');
 
     /// REMOVE AUTHOR MODEL FROM BZ MODEL
-    final BzModel _updatedBzModel = BzModel.removeAuthor(
-      bzModel: bzModel,
+    final BzModel _newBz = BzModel.removeAuthor(
+      bzModel: oldBz,
       authorID: author.userID,
     );
 
@@ -170,8 +171,8 @@ class AuthorshipExitProtocols {
       /// UPDATE BZ ON FIREBASE
       BzProtocols.renovateBz(
         context: context,
-        newBz: _updatedBzModel,
-        oldBzModel: bzModel,
+        newBz: _newBz,
+        oldBz: oldBz,
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
         newLogo: null,
@@ -196,13 +197,13 @@ class AuthorshipExitProtocols {
 
     blog('WipeAuthorProtocols.removeBzTracesAfterDeletion : start');
 
-    final UserModel _myOldUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
     final bool _bzIDisInMyBzzIDs = Stringer.checkStringsContainString(
-      strings: _myOldUserModel.myBzzIDs,
+      strings: _oldUser.myBzzIDs,
       string: bzID,
     );
 
@@ -214,13 +215,13 @@ class AuthorshipExitProtocols {
       );
 
       /// MODIFY USER MODEL
-      UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
+      UserModel _newUser = UserModel.removeBzIDFromUserBzzIDs(
         bzIDToRemove: bzID,
-        userModel: _myOldUserModel,
+        oldUser: _oldUser,
       );
 
-      _newUserModel = UserModel.removeAllBzTopicsFromMyTopics(
-          userModel: _newUserModel,
+      _newUser = UserModel.removeAllBzTopicsFromMyTopics(
+          oldUser: _newUser,
           bzID: bzID
       );
 
@@ -236,8 +237,9 @@ class AuthorshipExitProtocols {
         /// UPDATE USER MODEL EVERYWHERE
         UserProtocols.renovate(
           context: context,
-          newUserModel: _newUserModel,
+          newUser: _newUser,
           newPic: null,
+          oldUser: _oldUser,
         ),
 
         /// DELETE MY AUTHOR PICTURE FROM STORAGE
