@@ -187,7 +187,7 @@ class AuthorCard extends StatelessWidget {
                 iconSizeFactor: 0.6,
                 onTap: () => onAuthorOptionsTap(
                   context: context,
-                  bzModel: bzModel,
+                  oldBz: bzModel,
                   authorModel: author,
                 ),
               ),

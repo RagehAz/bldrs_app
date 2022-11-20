@@ -22,30 +22,30 @@ class AuthorshipSendingProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> sendRequest({
     @required BuildContext context,
-    @required BzModel bzModel,
+    @required BzModel oldBz,
     @required UserModel userModelToSendTo,
   }) async {
 
     final NoteModel noteModel = await NoteEvent.sendAuthorshipInvitationNote(
       context: context,
-      bzModel: bzModel,
+      bzModel: oldBz,
       userModelToSendTo: userModelToSendTo,
     );
 
     final List<PendingAuthor> _pendingAuthors = PendingAuthor.addNewPendingAuthor(
-      pendingAuthors: bzModel.pendingAuthors,
+      pendingAuthors: oldBz.pendingAuthors,
       noteID: noteModel.id,
       userID: userModelToSendTo.id,
     );
 
-    final BzModel _updatedBzModel = bzModel.copyWith(
+    final BzModel _newBz = oldBz.copyWith(
       pendingAuthors: _pendingAuthors,
     );
 
     await BzProtocols.renovateBz(
       context: context,
-      oldBz: bzModel,
-      newBz: _updatedBzModel,
+      oldBz: oldBz,
+      newBz: _newBz,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,
       newLogo: null,
