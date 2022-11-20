@@ -35,18 +35,18 @@ class AuthorshipEntryProtocols {
 
     /// GET AND MODIFY MY USER MODEL --------------------------
     // NOTE : modify user before bz to allow the user modify the bz in fire security rules
-    final UserModel _oldUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    UserModel _newUserModel = UserModel.addBzIDToUserBzz(
-      userModel: _oldUserModel,
+    UserModel _newUser = UserModel.addBzIDToUserBzzIDs(
+      oldUser: _oldUser,
       bzIDToAdd: _oldBzModel.id,
     );
 
-    _newUserModel = UserModel.addAllBzTopicsToMyTopics(
-        userModel: _newUserModel,
+    _newUser = UserModel.addAllBzTopicsToMyTopics(
+        oldUser: _newUser,
         bzID: bzID
     );
 
@@ -60,14 +60,15 @@ class AuthorshipEntryProtocols {
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
     final UserModel _uploadedUser = await UserProtocols.renovate(
       context: context,
-      newUserModel: _newUserModel,
+      newUser: _newUser,
+      oldUser: _oldUser,
       newPic: null,
     );
 
     /// MODIFY BZ MODEL --------------------------
     BzModel _bzModel = await BzModel.addNewUserAsAuthor(
-      oldBzModel: _oldBzModel,
-      userModel: _uploadedUser,
+      oldBz: _oldBzModel,
+      newUser: _uploadedUser,
     );
 
     /// upload author pic // author pic model is adjusted inside this method
@@ -79,7 +80,7 @@ class AuthorshipEntryProtocols {
 
     _bzModel = PendingAuthor.removePendingAuthorFromBz(
         bzModel: _bzModel,
-        userID: _newUserModel.id,
+        userID: _newUser.id,
     );
 
     /// ADD BZ MODEL TO MY BZZ --------------------------
@@ -93,7 +94,7 @@ class AuthorshipEntryProtocols {
     // final BzModel _uploadedBzModel =
     await BzProtocols.renovateBz(
       context: context,
-      oldBzModel: _oldBzModel,
+      oldBz: _oldBzModel,
       newBz: _bzModel,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,

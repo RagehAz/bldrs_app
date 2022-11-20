@@ -20,15 +20,16 @@ Future<void> autoDeleteThisBzIDFromMyFollowedBzzIDs({
     listen: false,
   );
 
-  final UserModel _myUpdatedModel = UserModel.removeBzIDFromMyFollows(
-    userModel: _userModel,
+  final UserModel _myUpdatedModel = UserModel.removeBzIDFromUserFollows(
+    oldUser: _userModel,
     bzIDToUnFollow: bzID,
   );
 
   await UserProtocols.renovate(
     context: context,
     newPic: null,
-    newUserModel: _myUpdatedModel,
+    newUser: _myUpdatedModel,
+    oldUser: _userModel,
   );
 
   blog('autoDeleteThisBzIDFromMyFollowedBzzIDs : END');

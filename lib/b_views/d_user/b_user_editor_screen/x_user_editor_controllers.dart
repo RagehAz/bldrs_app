@@ -298,6 +298,7 @@ void onUserContactChanged({
 Future<void> confirmEdits({
   @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
+  @required UserModel oldUser,
   @required Function onFinish,
   @required ValueNotifier<bool> loading,
   @required bool forceReAuthentication,
@@ -331,7 +332,8 @@ Future<void> confirmEdits({
     final UserModel _userUploaded = await UserProtocols.renovate(
       context: context,
       newPic: _draft.hasNewPic == true ? _draft.picModel : null,
-      newUserModel: DraftUser.toUserModel(
+      oldUser: oldUser,
+      newUser: DraftUser.toUserModel(
         context: context,
         draft: _draft,
       ),
@@ -418,7 +420,7 @@ Future<bool> _preConfirmCheckups({
 
   if (_canContinue == true){
 
-    final UserModel oldUserModel = await UserProtocols.fetch(
+    final UserModel _oldUser = await UserProtocols.fetch(
       context: context,
       userID: draft.id,
     );
@@ -426,7 +428,7 @@ Future<bool> _preConfirmCheckups({
     final bool _shouldReAuthenticate =  forceReAuthentication == true
                                         &&
                                         ContactModel.checkEmailChanged(
-                                           oldContacts: oldUserModel.contacts,
+                                           oldContacts: _oldUser.contacts,
                                            newContacts: draft.contacts,
                                          ) == true;
 

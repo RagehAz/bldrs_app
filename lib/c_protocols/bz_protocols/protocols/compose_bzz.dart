@@ -154,18 +154,18 @@ class ComposeBzProtocols {
     @required String bzID,
   }) async {
 
-    UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    _myUserModel = UserModel.addBzIDToUserBzz(
-      userModel: _myUserModel,
+    UserModel _newUser = UserModel.addBzIDToUserBzzIDs(
+      oldUser: _oldUser,
       bzIDToAdd: bzID,
     );
 
-    _myUserModel = UserModel.addAllBzTopicsToMyTopics(
-        userModel: _myUserModel,
+    _newUser = UserModel.addAllBzTopicsToMyTopics(
+        oldUser: _newUser,
         bzID: bzID
     );
 
@@ -180,7 +180,8 @@ class ComposeBzProtocols {
       UserProtocols.renovate(
         context: context,
         newPic: null,
-        newUserModel: _myUserModel,
+        newUser: _newUser,
+        oldUser: _oldUser,
       ),
 
     ]);

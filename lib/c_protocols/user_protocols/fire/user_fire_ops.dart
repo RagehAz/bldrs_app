@@ -68,26 +68,26 @@ class UserFireOps {
   // --------------------
   /// TASK : TEST ME
   static Future<UserModel> updateUser({
-    @required UserModel oldUserModel,
-    @required UserModel newUserModel,
+    @required UserModel oldUser,
+    @required UserModel newUser,
   }) async {
     UserModel _output;
 
     final bool _userModelsAreIdentical = UserModel.usersAreIdentical(
-      user1: oldUserModel,
-      user2: newUserModel,
+      user1: oldUser,
+      user2: newUser,
     );
 
     if (_userModelsAreIdentical == false){
 
       final UserModel _finalUserModel = await _updateUserEmailIfChanged(
-        oldUserModel: oldUserModel,
-        newUserModel: newUserModel,
+        oldUser: oldUser,
+        newUser: newUser,
       );
 
       await Fire.updateDoc(
         collName: FireColl.users,
-        docName: newUserModel.id,
+        docName: newUser.id,
         input: _finalUserModel.toMap(toJSON: false),
       );
 
@@ -100,21 +100,21 @@ class UserFireOps {
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> _updateUserEmailIfChanged({
-    @required UserModel oldUserModel,
-    @required UserModel newUserModel,
+    @required UserModel oldUser,
+    @required UserModel newUser,
   }) async {
 
-    UserModel _output = newUserModel.copyWith();
+    UserModel _output = newUser.copyWith();
 
     final bool _emailChanged = ContactModel.checkEmailChanged(
-      oldContacts: oldUserModel?.contacts,
-      newContacts: newUserModel?.contacts,
+      oldContacts: oldUser?.contacts,
+      newContacts: newUser?.contacts,
     );
 
     if (_emailChanged == true){
 
       final String _newEmail = ContactModel.getValueFromContacts(
-        contacts: newUserModel.contacts,
+        contacts: newUser.contacts,
         contactType: ContactType.email,
       );
 
@@ -126,21 +126,21 @@ class UserFireOps {
 
         /// EMAIL CHANGED
         if (_success == true){
-          /// keep newUserModel as is with the new email defined in it
+          /// keep new UserModel as is with the new email defined in it
         }
         else {
-          /// refactor the newUserModel with the old email
+          /// refactor the new UserModel with the old email
           final ContactModel _oldEmailContact = ContactModel.getContactFromContacts(
-            contacts: oldUserModel.contacts,
+            contacts: oldUser.contacts,
             type: ContactType.email,
           );
 
           final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-            contacts: newUserModel.contacts,
+            contacts: newUser.contacts,
             contactToReplace: _oldEmailContact,
           );
 
-          _output = newUserModel.copyWith(
+          _output = newUser.copyWith(
             contacts: _contacts,
           );
 
@@ -188,158 +188,9 @@ class UserFireOps {
   }
   // --------------------
 }
-// -----------------------------------------------------------------------------
 
-/// USER FIELD MODIFIERS
-
-
-// --------------------
 /*
-  static Future<void> addFlyerIDToSavedFlyersIDs({
-    @required BuildContext context,
-    @required String flyerID,
-    @required List<String> savedFlyersIDs,
-    @required String userID,
-  }) async {
-
-    final List<String> _savedFlyersIDs = <String>[];
-
-    if (Mapper.checkCanLoopList(savedFlyersIDs)) {
-      _savedFlyersIDs.addAll(savedFlyersIDs);
-    }
-
-    _savedFlyersIDs.add(flyerID);
-
-    await Fire.updateDocField(
-      collName: FireColl.users,
-      docName: userID,
-      field: 'savedFlyersIDs',
-      input: _savedFlyersIDs,
-    );
-
-  }
-  // --------------------
-  static Future<void> removeFlyerIDFromSavedFlyersIDs({
-    @required String flyerID,
-    @required String userID,
-    @required List<String> savedFlyersIDs,
-  }) async {
-
-    final int _index = savedFlyersIDs.indexWhere((String id) => id == flyerID);
-
-    if (_index >= 0) {
-      savedFlyersIDs.remove(flyerID);
-
-      await Fire.updateDocField(
-        collName: FireColl.users,
-        docName: userID,
-        field: 'savedFlyersIDs',
-        input: savedFlyersIDs,
-      );
-    }
-  }
-  // --------------------
-  static Future<UserModel> addBzIDToUserBzzIDs({
-    @required String bzID,
-    @required UserModel oldUserModel,
-  }) async {
-
-    final UserModel _updatedUserModel = UserModel.addBzIDToUserBzz(
-      userModel: oldUserModel,
-      bzIDToAdd: bzID,
-    );
-
-    final UserModel _uploadedModel = await updateUser(
-      oldUserModel: oldUserModel,
-      newUserModel: _updatedUserModel,
-    );
-
-    return _uploadedModel;
-  }
-  // --------------------
-  static Future<void> removeBzIDFromUserBzzIDs({
-    @required String bzID,
-    @required UserModel oldUserModel,
-  }) async {
-
-    final List<dynamic> _modifiedMyBzzIDs = Stringer.removeStringsFromStrings(
-      removeFrom: oldUserModel.myBzzIDs,
-      removeThis: <String>[bzID],
-    );
-
-    await Fire.updateDocField(
-      collName: FireColl.users,
-      docName: oldUserModel.id,
-      field: 'myBzzIDs',
-      input: _modifiedMyBzzIDs,
-    );
-
-  }
-   */
-
-// -----------------------------------------------------------------------------
 /// DEPRECATED
-/*
-  static Future<UserModel> getOrCreateUserModelFromUser({
-    @required BuildContext context,
-    @required User user,
-    @required ZoneModel zone,
-    @required AuthType authBy,
-  }) async {
-    // ----------
-    /// E - read user ops if existed
-    ///    Ex - if new user (userModel == null)
-    ///       E1 - create initial user model
-    ///       E2 - create user ops
-    ///       E3 - return new userModel in AuthModel
-    ///    Ex - if user has existing user model
-    ///       E3 - return existing userMode in AuthModel
-    // ----------
-
-    /// E - read user ops if existed
-    final UserModel _existingUserModel = await readUser(
-      userID: user.uid,
-    );
-    // blog('lng : ${Wordz.languageCode(context)}');
-
-    /// Ex - if new user (userModel == null)
-    if (_existingUserModel == null) {
-      // blog('lng : ${Wordz.languageCode(context)}');
-
-      /// E1 - create initial user model
-      final UserModel _initialUserModel = await UserModel.fromFirebaseUser(
-        context: context,
-        user: user,
-        zone: zone,
-        authBy: authBy,
-      );
-      blog('googleSignInOps : _initialUserModel : $_initialUserModel');
-
-      /// E2 - create user ops
-      final UserModel _finalUserModel = await createUser(
-        userModel: _initialUserModel,
-        authBy: authBy,
-      );
-
-      blog('googleSignInOps : createUserOps : _finalUserModel : $_finalUserModel');
-
-      /// E3 - return new userModel inside userModel-firstTimer map
-      return _finalUserModel;
-
-    }
-
-    /// Ex - if user has existing user model
-    else {
-
-      /// E3 - return existing userMode inside userModel-firstTimer map
-      return _existingUserModel;
-
-    }
-  }
-   */
-// ---------------------
-/// DEPRECATED
-/*
   /// auth change user stream
   Stream<UserModel> streamInitialUser() {
 
@@ -353,5 +204,4 @@ class UserFireOps {
     //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet
   }
 
-   */
-// -----------------------------------------------------------------------------
+ */

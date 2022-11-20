@@ -178,6 +178,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       draft: _draftUser,
       mounted: mounted,
       onFinish: widget.onFinish,
+      oldUser: widget.userModel,
       loading: _loading,
       forceReAuthentication: widget.reAuthBeforeConfirm,
     );

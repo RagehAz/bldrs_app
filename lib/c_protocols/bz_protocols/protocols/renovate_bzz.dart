@@ -35,7 +35,7 @@ class RenovateBzProtocols {
   static Future<void> renovateBz({
     @required BuildContext context,
     @required BzModel newBz,
-    @required BzModel oldBzModel,
+    @required BzModel oldBz,
     @required bool showWaitDialog,
     @required bool navigateToBzInfoPageOnEnd,
     @required PicModel newLogo,
@@ -44,7 +44,7 @@ class RenovateBzProtocols {
 
     final bool _areIdentical = BzModel.checkBzzAreIdentical(
       bz1: newBz,
-      bz2: oldBzModel,
+      bz2: oldBz,
     );
 
     if (_areIdentical == false){
@@ -74,7 +74,7 @@ class RenovateBzProtocols {
         updateBzLocally(
             context: context,
             newBzModel: newBz,
-            oldBzModel: oldBzModel
+            oldBzModel: oldBz
         ),
 
       ]);
@@ -265,7 +265,7 @@ class RenovateBzProtocols {
       BzProtocols.renovateBz(
         context: context,
         newBz: _updatedBzModel,
-        oldBzModel: oldBzModel,
+        oldBz: oldBzModel,
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
         newLogo: null,

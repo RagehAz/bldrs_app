@@ -355,7 +355,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     await BzProtocols.renovateBz(
       context: context,
       newBz: _bzWithoutAuthor,
-      oldBzModel: bzModel,
+      oldBz: bzModel,
       navigateToBzInfoPageOnEnd: false,
       showWaitDialog: false,
       newLogo: null,
@@ -448,7 +448,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
   /// REMOVE AUTHOR MODEL FROM BZ MODEL
   await AuthorshipProtocols.removeFlyerlessAuthor(
     context: context,
-    bzModel: bzModel,
+    oldBz: bzModel,
     author: authorModel,
   );
 
