@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_secondary/record_model.dart';
+import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:flutter/foundation.dart';
