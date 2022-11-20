@@ -1,14 +1,18 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -251,72 +255,102 @@ Future<void> onFollowTap({
 Future<void> onCallTap({
   @required BuildContext context,
   @required BzModel bzModel,
+  @required FlyerModel flyerModel,
 }) async {
 
-  final bool _bzHasContacts = BzModel.checkBzHasContacts(
-    bzModel: bzModel,
-  );
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
-  /// alert user there is no contact to call
-  if (_bzHasContacts == false){
+  /// USER IS NOT SIGNED IN
+  if (_userModel == null){
 
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: Verse(
-        text: '##${bzModel.name} has no available contact',
-        translate: true,
-        variables: bzModel.name,
-      ),
-      bodyVerse: const Verse(
-        pseudo: 'A reminder notification for the business will be sent to request updating their phone number',
-        text: 'phid_reminder_will_be_sent_to_bz_for_phone',
-        translate: true,
-      ),
-    );
+    /// TASK : IF SIGN IN DIALOG DIVERTS TO SIGN IN, WE NEED TO STORE THIS FLYER TO AUTO VIEW AFTER SIGN IN OR SIGN UP
+    // UiProvider.proSetAfterHomeRoute(
+    //     context: context,
+    //     routeName: routeName,
+    //     arguments: arguments,
+    //     notify: notify
+    // );
 
-    await NoteEvent.sendNoBzContactAvailableNote(
-      context: context,
-      bzModel: bzModel,
-    );
+    await Dialogs.youNeedToBeSignedInDialog(context);
 
   }
 
+  /// USER IS SIGNED IN
   else {
 
-    await Dialogs.bzContactsDialog(
+    final bool _bzHasContacts = BzModel.checkBzHasContacts(
+      bzModel: bzModel,
+    );
+
+    /// BZ HAS NO CONTACTS
+    if (_bzHasContacts == false){
+
+      await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: Verse(
-          text: '##Contact ${bzModel.name}',
+          text: '##${bzModel.name} has no available contact',
           translate: true,
           variables: bzModel.name,
         ),
         bodyVerse: const Verse(
-          pseudo: 'Select an Author to contact',
-          text: 'phid_select_author_to_contact',
+          pseudo: 'A reminder notification for the business will be sent to request updating their phone number',
+          text: 'phid_reminder_will_be_sent_to_bz_for_phone',
           translate: true,
         ),
+      );
+
+      await NoteEvent.sendNoBzContactAvailableNote(
+        context: context,
         bzModel: bzModel,
-        onContact: (ContactModel contact) async {
+      );
 
-          await Future.wait(<Future>[
+    }
 
-            /// LAUNCH CONTACT
-            Launcher.launchContactModel(
-              context: context,
-              contact: contact,
-            ),
+    /// BZ HAS CONTACTS
+    else {
 
-            /// CALL RECORD PROTOCOL
-            BzRecordRealOps.callBz(
-              bzID: bzModel.id,
-              contact: contact,
-            ),
+      await Dialogs.bzContactsDialog(
+          context: context,
+          titleVerse: Verse(
+            text: '##Contact ${bzModel.name}',
+            translate: true,
+            variables: bzModel.name,
+          ),
+          bodyVerse: const Verse(
+            pseudo: 'Select an Author to contact',
+            text: 'phid_select_author_to_contact',
+            translate: true,
+          ),
+          bzModel: bzModel,
+          onContact: (ContactModel contact) async {
 
-          ]);
+            await Future.wait(<Future>[
 
-        }
-    );
+              /// LAUNCH CONTACT
+              Launcher.launchContactModel(
+                context: context,
+                contact: contact,
+              ),
 
+              /// CALL RECORD PROTOCOL
+              BzRecordRealOps.callBz(
+                bzID: bzModel.id,
+                contact: contact,
+              ),
+
+              /// CENSUS
+              CensusProtocols.onCallBz(
+                bzModel: bzModel,
+                userModel: _userModel,
+              ),
+
+            ]);
+
+          }
+      );
+
+
+    }
 
   }
 

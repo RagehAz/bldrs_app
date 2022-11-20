@@ -114,7 +114,6 @@
   |
   | --------------------------|
   |
-  | /// TASK : PROPOSAL FOR STATISTICS : which will be used to filter which countries are
   | - statistics
   |     | - activeCountriesIDs                  : <List<String>>
   |     | - globalCountriesIDs                  : <List<String>>
