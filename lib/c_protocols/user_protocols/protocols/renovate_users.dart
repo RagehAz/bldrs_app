@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -46,7 +47,7 @@ class RenovateUserProtocols {
 
       final UserModel _oldUser = await UserProtocols.refetch(
           context: context,
-          userID: newUser.id,
+          userID: oldUser.id,
       );
 
       final bool _modelsAreIdentical = UserModel.usersAreIdentical(
@@ -72,11 +73,21 @@ class RenovateUserProtocols {
 
         ]);
 
-        /// UPDATE LOCALLY
-        await updateLocally(
-          context: context,
-          newUser: _output,
-        );
+        await Future.wait(<Future>[
+
+          /// UPDATE CENSUS
+          CensusProtocols.onRenovateUser(
+              newUser: _output,
+              oldUser: _oldUser,
+          ),
+
+          /// UPDATE LOCALLY
+          updateLocally(
+            context: context,
+            newUser: _output,
+          ),
+
+        ]);
 
       }
 
@@ -220,7 +231,7 @@ class RenovateUserProtocols {
         bzIDToUnFollow: bzID,
       );
 
-      await UserProtocols.renovate(
+      await renovateUser(
         context: context,
         newPic: null,
         newUser: _newUser,
@@ -282,7 +293,7 @@ class RenovateUserProtocols {
         flyerIDToRemove: flyerID,
       );
 
-      await UserProtocols.renovate(
+      await renovateUser(
         context: context,
         newUser: _newUser,
         newPic: null,
@@ -317,7 +328,7 @@ class RenovateUserProtocols {
       ),
     );
 
-    await UserProtocols.renovate(
+    await renovateUser(
       context: context,
       newUser: _newUser,
       newPic: null,
@@ -399,7 +410,7 @@ class RenovateUserProtocols {
           context: context,
         ));
 
-        await UserProtocols.renovate(
+        await renovateUser(
           context: context,
           newPic: null,
           newUser: _newUser,

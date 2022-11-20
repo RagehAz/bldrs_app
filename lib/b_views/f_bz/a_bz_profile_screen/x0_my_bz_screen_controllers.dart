@@ -67,14 +67,14 @@ Future<void> onMyActiveBzStreamChanged({
 
   else {
 
-    final BzModel _newBzFromStream = BzModel.decipherBz(
+    final BzModel _newBz = BzModel.decipherBz(
       map: newMap,
       fromJSON: false,
     );
 
     final bool _areIdentical = BzModel.checkBzzAreIdentical(
       bz1: bzzProvider.myActiveBz,
-      bz2: _newBzFromStream,
+      bz2: _newBz,
     );
 
     // blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
@@ -82,7 +82,7 @@ Future<void> onMyActiveBzStreamChanged({
     if (_areIdentical == false){
 
       final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
-        authors: _newBzFromStream.authors,
+        authors: _newBz.authors,
         userID: AuthFireOps.superUserID(),
       );
 
@@ -90,22 +90,22 @@ Future<void> onMyActiveBzStreamChanged({
 
         await _myBzResignationProtocol(
           context: context,
-          newBzFromStream: _newBzFromStream,
+          newBzFromStream: _newBz,
         );
 
       }
 
       else {
 
-        final BzModel _oldBzModel = BzModel.decipherBz(
+        final BzModel _oldBz = BzModel.decipherBz(
           map: oldMap,
           fromJSON: false,
         );
 
         await BzProtocols.updateBzLocally(
           context: context,
-          newBzModel: _newBzFromStream,
-          oldBzModel: _oldBzModel,
+          newBz: _newBz,
+          oldBz: _oldBz,
         );
 
       }

@@ -274,8 +274,8 @@ void onAuthorContactChanged({
 Future<void> onConfirmAuthorUpdates({
   @required BuildContext context,
   @required AuthorModel oldAuthor,
-  @required ValueNotifier<AuthorModel> tempAuthor,
-  @required BzModel bzModel,
+  @required ValueNotifier<AuthorModel> draftAuthor,
+  @required BzModel oldBz,
 }) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
@@ -306,16 +306,16 @@ Future<void> onConfirmAuthorUpdates({
       ),
     ));
 
-    final AuthorModel _author = AuthorModel.bakeEditorVariablesToUpload(
-      bzModel: bzModel,
+    final AuthorModel _newAuthor = AuthorModel.bakeEditorVariablesToUpload(
+      bzModel: oldBz,
       oldAuthor: oldAuthor,
-      draftAuthor: tempAuthor.value,
+      draftAuthor: draftAuthor.value,
     );
 
     await BzProtocols.renovateAuthorProtocol(
       context: context,
-      oldBzModel: bzModel,
-      newAuthorModel: _author,
+      oldBz: oldBz,
+      newAuthor: _newAuthor,
     );
 
     await BzLDBOps.deleteAuthorEditorSession(oldAuthor.userID);
@@ -337,15 +337,15 @@ Future<void> onConfirmAuthorUpdates({
 /// TESTED : WORKS PERFECT
 Future<void> onChangeAuthorRoleOps({
   @required BuildContext context,
-  @required ValueNotifier<AuthorRole> tempRole,
+  @required ValueNotifier<AuthorRole> draftRole,
   @required AuthorModel oldAuthor,
 }) async {
 
-  if (tempRole.value != oldAuthor.role){
+  if (draftRole.value != oldAuthor.role){
 
     final String _role = AuthorModel.getAuthorRolePhid(
       context: context,
-      role: tempRole.value,
+      role: draftRole.value,
     );
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -363,7 +363,7 @@ Future<void> onChangeAuthorRoleOps({
     );
 
     if (_result == false){
-      tempRole.value = oldAuthor.role;
+      draftRole.value = oldAuthor.role;
     }
 
     else {
@@ -376,27 +376,27 @@ Future<void> onChangeAuthorRoleOps({
         ),
       ));
 
-      final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      final BzModel _oldBz = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: false,
       );
 
-      final AuthorModel _author = oldAuthor.copyWith(
-        role: tempRole.value,
+      final AuthorModel _newAuthor = oldAuthor.copyWith(
+        role: draftRole.value,
       );
 
       await Future.wait(<Future>[
 
         BzProtocols.renovateAuthorProtocol(
           context: context,
-          oldBzModel: _bzModel,
-          newAuthorModel: _author,
+          oldBz: _oldBz,
+          newAuthor: _newAuthor,
         ),
 
         NoteEvent.sendAuthorRoleChangeNote(
           context: context,
-          bzID: _bzModel.id,
-          author: _author,
+          bzID: _oldBz.id,
+          author: _newAuthor,
         )
 
       ]);
@@ -436,7 +436,7 @@ Future<void> setAuthorRole({
 
     await onChangeAuthorRoleOps(
       context: context,
-      tempRole: tempRole,
+      draftRole: tempRole,
       oldAuthor: oldAuthor,
 
     );

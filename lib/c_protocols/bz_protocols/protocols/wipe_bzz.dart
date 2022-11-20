@@ -234,29 +234,29 @@ class WipeBzProtocols {
     @required String pendingUserID,
   }) async {
 
-    final BzModel bzModel = await BzProtocols.fetchBz(
+    final BzModel _oldBz = await BzProtocols.fetchBz(
         context: context,
         bzID: bzID,
     );
 
-    if (bzModel != null){
+    if (_oldBz != null){
 
       /// remove this user from the pending authors list to update bz
       final List<PendingAuthor> _updatedPendingUsers = PendingAuthor.removePendingAuthor(
-        pendingAuthors: bzModel.pendingAuthors,
+        pendingAuthors: _oldBz.pendingAuthors,
         userID: pendingUserID,
       );
 
       /// update bz model to renovate
-      final BzModel _updatedBzModel = bzModel.copyWith(
+      final BzModel _newBz = _oldBz.copyWith(
         pendingAuthors: _updatedPendingUsers,
       );
 
       /// RENOVATE BZ
       await BzProtocols.renovateBz(
         context: context,
-        newBz: _updatedBzModel,
-        oldBz: bzModel,
+        newBz: _newBz,
+        oldBz: _oldBz,
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
         newLogo: null,

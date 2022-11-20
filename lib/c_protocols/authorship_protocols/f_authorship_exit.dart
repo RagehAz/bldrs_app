@@ -159,7 +159,7 @@ class AuthorshipExitProtocols {
 
     /// REMOVE AUTHOR MODEL FROM BZ MODEL
     final BzModel _newBz = BzModel.removeAuthor(
-      bzModel: oldBz,
+      oldBz: oldBz,
       authorID: author.userID,
     );
 
