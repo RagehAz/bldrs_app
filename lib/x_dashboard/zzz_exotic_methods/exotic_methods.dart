@@ -13,8 +13,6 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +23,11 @@ class ExoticMethods {
   const ExoticMethods();
 
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
+
+  /// COLLECTION READERS
+
+  // --------------------
+  ///
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
     @required String collName,
     QueryOrderBy orderBy,
@@ -42,7 +44,8 @@ class ExoticMethods {
 
     return _maps;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  ///
   static Future<List<Map<String, dynamic>>> readAllSubCollectionDocs({
     @required String collName,
     @required String docName,
@@ -62,43 +65,169 @@ class ExoticMethods {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// READ ALL USERS
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> readAllUserModels({
     @required int limit,
+    Future Function(int index, UserModel userModel) onRead,
   }) async {
-    // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
-    List<UserModel> _allUserModels = <UserModel>[];
+    blog('readAllUserModels : START');
 
-    final List<dynamic> _ldbUsers = await LDBOps.readAllMaps(
-      docName: LDBDoc.users,
-    );
+    final List<UserModel> _allUserModels = <UserModel>[];
 
-    if (_ldbUsers.length < 4) {
-      final List<dynamic> _maps = await Fire.readCollectionDocs(
-        limit: limit ?? 100,
+    for (int i = 0; i < limit; i++){
+
+      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
         collName: FireColl.users,
-        orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
+        limit: 1,
+        addDocsIDs: true,
+        startAfter: _allUserModels.isEmpty ? null : _allUserModels.last.docSnapshot,
+        addDocSnapshotToEachMap: true,
+        orderBy: const QueryOrderBy(
+          fieldName: 'id',
+          descending: true,
+        )
       );
 
-      _allUserModels = UserModel.decipherUsers(
-        maps: _maps,
-        fromJSON: false,
-      );
-
-      for (final UserModel user in _allUserModels) {
-        await LDBOps.insertMap(
-          docName: LDBDoc.users,
-          input: user.toMap(toJSON: true),
-        );
+      if (_maps.isEmpty){
+        break;
       }
-    } else {
-      _allUserModels = UserModel.decipherUsers(maps: _ldbUsers, fromJSON: true);
+
+      else {
+
+        final UserModel _userModel = UserModel.decipherUser(
+            map: _maps.first,
+            fromJSON: false,
+        );
+
+        _allUserModels.add(_userModel);
+
+        if (onRead != null){
+          await onRead(i, _userModel);
+        }
+
+      }
+
     }
+
+    blog('readAllUserModels : END');
 
     return _allUserModels;
   }
   // -----------------------------------------------------------------------------
+
+  /// READ ALL BZZ
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<BzModel>> readAllBzzModels({
+    @required int limit,
+    Future Function(int index, BzModel bzModel) onRead,
+  }) async {
+    blog('readAllBzzModels : START');
+
+    final List<BzModel> _allBzzModels = <BzModel>[];
+
+    for (int i = 0; i < limit; i++){
+
+      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+          collName: FireColl.bzz,
+          limit: 1,
+          addDocsIDs: true,
+          startAfter: _allBzzModels.isEmpty ? null : _allBzzModels.last.docSnapshot,
+          addDocSnapshotToEachMap: true,
+          orderBy: const QueryOrderBy(
+            fieldName: 'id',
+            descending: true,
+          )
+      );
+
+      if (_maps.isEmpty){
+        break;
+      }
+
+      else {
+
+        final BzModel _bzModel = BzModel.decipherBz(
+          map: _maps.first,
+          fromJSON: false,
+        );
+
+        _allBzzModels.add(_bzModel);
+
+        if (onRead != null){
+          await onRead(i, _bzModel);
+        }
+
+      }
+
+    }
+
+    blog('readAllBzzModels : END');
+    return _allBzzModels;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ ALL FLYERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<FlyerModel>> readAllFlyers({
+    @required int limit,
+    Future Function(int index, FlyerModel flyerModel) onRead,
+  }) async {
+    blog('readAllFlyers : START');
+
+    final List<FlyerModel> _allFlyerModels = <FlyerModel>[];
+
+    for (int i = 0; i < limit; i++){
+
+      final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+          collName: FireColl.flyers,
+          limit: 1,
+          addDocsIDs: true,
+          startAfter: _allFlyerModels.isEmpty ? null : _allFlyerModels.last.docSnapshot,
+          addDocSnapshotToEachMap: true,
+          orderBy: const QueryOrderBy(
+            fieldName: 'id',
+            descending: true,
+          )
+      );
+
+      if (_maps.isEmpty){
+        break;
+      }
+
+      else {
+
+        final FlyerModel _flyerModel = FlyerModel.decipherFlyer(
+          map: _maps.first,
+          fromJSON: false,
+        );
+
+        _allFlyerModels.add(_flyerModel);
+
+        if (onRead != null){
+          await onRead(i, _flyerModel);
+        }
+
+      }
+
+    }
+
+    blog('readAllFlyers : END');
+    return _allFlyerModels;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ ALL NOTES
+
+  // --------------------
+  ///
   static Future<List<NoteModel>> readAllNoteModels({
     @required String userID,
   }) async {
@@ -123,25 +252,11 @@ class ExoticMethods {
     return _allModels;
   }
   // -----------------------------------------------------------------------------
-  static Future<List<BzModel>> readAllBzzModels({
-    @required int limit,
-  }) async {
-    // List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: limit);
 
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
-      limit: limit ?? 100,
-      collName: FireColl.bzz,
-      orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-    );
+  /// OTHER STUFF
 
-    final List<BzModel> _allModels = BzModel.decipherBzz(
-      maps: _maps,
-      fromJSON: false,
-    );
-
-    return _allModels;
-  }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /*
 //   static Future<List<FeedbackModel>> readAllFeedbacks({
 //   @required BuildContext context,
 //   @required int limit,
@@ -160,25 +275,8 @@ class ExoticMethods {
 
 //   return _allModels;
 // }
-  // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<FlyerModel>> readAllFlyers({
-    @required int limit,
-  }) async {
-    // List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: limit);
-
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
-      limit: limit ?? 100,
-      collName: FireColl.flyers,
-      orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-    );
-
-    final List<FlyerModel> _allModels =
-    FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
-
-    return _allModels;
-  }
-  // -----------------------------------------------------------------------------
+   */
+  // --------------------
   static Future<List<CountryModel>> fetchAllCountryModels() async {
 
     final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
@@ -198,7 +296,7 @@ class ExoticMethods {
 
     return _countries;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> createContinentsDocFromAllCountriesCollection() async {
     /// in case any (continent name) or (region name) or (countryID) has changed
 
@@ -267,7 +365,7 @@ class ExoticMethods {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<List<BigMac>> readAllBigMacs() async {
 
     final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
@@ -282,7 +380,7 @@ class ExoticMethods {
 
     return _allBigMacs;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// super dangerous method,, take care !!
   static Future<void> updateAFieldInAllCollDocs({
     @required String collName,
@@ -307,7 +405,7 @@ class ExoticMethods {
 
     blog('Tamam with : ${_maps.length} flyers updated their [$field] field');
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> takeOwnerShip({
     @required BuildContext context,
     @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
@@ -336,7 +434,7 @@ class ExoticMethods {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> _takeOverBz({
     @required BuildContext context,
     @required String oldUserID,
@@ -383,7 +481,7 @@ class ExoticMethods {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> takeOverFlyers({
     @required String newUserID,
     @required List<String> flyersIDs,
@@ -403,7 +501,7 @@ class ExoticMethods {
     }
 
   }
-  /// ----------------------------------------------------------------------------
+  // --------------------
   static Future<void> assignBzzOwnership({
     @required String userID,
     @required List<String> bzzIDs,
@@ -417,7 +515,7 @@ class ExoticMethods {
     );
 
   }
-  /// ----------------------------------------------------------------------------
+  // --------------------
   static Future<List<BzModel>> searchBzzByAuthorID({
     @required String authorID,
     @required QueryDocumentSnapshot<Object> startAfter,
@@ -444,7 +542,8 @@ class ExoticMethods {
 
     return _foundBzz;
   }
-  /// ----------------------------------------------------------------------------
+  // --------------------
+  /*
   // Future<List<CurrencyModel>> getCurrenciesFromCountries({@required BuildContext context}) async {
   //
   //   final List<CurrencyModel> _currencies = <CurrencyModel>[];
@@ -484,7 +583,8 @@ class ExoticMethods {
   //
   //   return _currencies;
   // }
-  /// ----------------------------------------------------------------------------
+   */
+  // --------------------
   static Future<List<CountryModel>> readAllCountries() async {
 
     final List<Map<String, dynamic>> allMaps = await readAllSubCollectionDocs(
@@ -500,7 +600,7 @@ class ExoticMethods {
 
     return _countries;
   }
-  /// ----------------------------------------------------------------------------
+  // --------------------
   static Future<void> duplicateDoc({
     @required String fromCollName,
     @required String docName,
@@ -519,7 +619,7 @@ class ExoticMethods {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> changeDocFieldName({
     @required String collName,
@@ -552,5 +652,5 @@ class ExoticMethods {
     }
 
   }
-/// ----------------------------------------------------------------------------
+  /// ----------------------------------------------------------------------------
 }
