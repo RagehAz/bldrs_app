@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
-import 'package:bldrs/a_models/x_secondary/record_model.dart';
+import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';

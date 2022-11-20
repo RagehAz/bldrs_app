@@ -152,19 +152,19 @@
   |     |
   |     | - countries
   |     |     | - {countryID}
-  |     |     |     | => [zoneState]
+  |     |     |     | => [CensusModel]
   |     |     |
   |     |     | - {countryID}...
   |     |
   |     | - cities
   |     |     | - {cityID}
-  |     |     |     | => [zoneState]
+  |     |     |     | => [CensusModel]
   |     |     |
   |     |     | - {cityID}...
   |     |
   |     | - districts
   |           | - {districtID}
-  |           |     | => [zoneState]
+  |           |     | => [CensusModel]
   |           |
   |           | - {districtID}...
   |
@@ -273,6 +273,8 @@ class RealColl {
   /// NOTES
   // --------------------
   static const String notes = 'notes';
+
+  static const String statistics = 'statistics';
   // -----------------------------------------------------------------------------
 }
 
@@ -285,5 +287,12 @@ class RealDoc {
   /// PICKERS
   // --------------------
   static const String pickers_properties = 'properties';
+  // -----------------------------------------------------------------------------
+  /// STATISTICS
+  // --------------------
+  static const String statistics_planet = 'planet';
+  static const String statistics_countries = 'countries';
+  static const String statistics_cities = 'cities';
+  static const String statistics_districts = 'districts';
   // -----------------------------------------------------------------------------
 }

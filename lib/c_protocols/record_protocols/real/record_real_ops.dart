@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_secondary/record_model.dart';
+import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
