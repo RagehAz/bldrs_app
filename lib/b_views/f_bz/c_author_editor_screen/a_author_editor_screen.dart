@@ -163,8 +163,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
       await onConfirmAuthorUpdates(
         context: context,
-        tempAuthor: _draftAuthor,
-        bzModel: widget.bzModel,
+        draftAuthor: _draftAuthor,
+        oldBz: widget.bzModel,
         oldAuthor: widget.author,
       );
 

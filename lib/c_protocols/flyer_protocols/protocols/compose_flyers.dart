@@ -125,32 +125,32 @@ class ComposeFlyerProtocols {
   }) async {
     blog('addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
+    final BzModel _oldBz = await BzProtocols.fetchBz(
       context: context,
       bzID: newFlyerToAdd.bzID,
     );
 
-    final List<String> _updatedBzFlyersIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: _bzModel.flyersIDs,
+    final List<String> _newBzFlyersIDs = Stringer.addStringToListIfDoesNotContainIt(
+      strings: _oldBz.flyersIDs,
       stringToAdd: newFlyerToAdd.id,
     );
 
-    final List<AuthorModel> _updatedAuthors = AuthorModel.addFlyerIDToAuthor(
+    final List<AuthorModel> _newAuthors = AuthorModel.addFlyerIDToAuthor(
       flyerID: newFlyerToAdd.id,
       authorID: newFlyerToAdd.authorID,
-      authors: _bzModel.authors,
+      oldAuthors: _oldBz.authors,
     );
 
-    final BzModel _updatedBzModel = _bzModel.copyWith(
-      flyersIDs: _updatedBzFlyersIDs,
-      authors: _updatedAuthors,
+    final BzModel _newBz = _oldBz.copyWith(
+      flyersIDs: _newBzFlyersIDs,
+      authors: _newAuthors,
     );
 
     // final BzModel _uploadedBzModel =
     await BzProtocols.renovateBz(
         context: context,
-        newBz: _updatedBzModel,
-        oldBz: _bzModel,
+        newBz: _newBz,
+        oldBz: _oldBz,
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
         newLogo: null,

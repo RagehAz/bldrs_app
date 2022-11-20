@@ -116,7 +116,7 @@ class _TheStatefulScreenState extends State<CensusTestingScreen> {
               ),
             );
 
-            await CensusProtocols.onUserRenovation(
+            await CensusProtocols.onRenovateUser(
               oldUser: _oldUser,
               newUser: _newUser,
             );
@@ -205,7 +205,7 @@ class _TheStatefulScreenState extends State<CensusTestingScreen> {
             if (_bzModel != null){
               await CensusProtocols.onRenovateBz(
                 oldBz: _bzModel,
-                updatedBz: _bzModel.copyWith(
+                newBz: _bzModel.copyWith(
                   bzTypes: <BzType>[
                     BzType.broker,
                   ],

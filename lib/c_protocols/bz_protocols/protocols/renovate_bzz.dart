@@ -1,19 +1,20 @@
 import 'dart:async';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -70,11 +71,16 @@ class RenovateBzProtocols {
         if (newLogo != null)
           PicProtocols.renovatePic(newLogo),
 
+        CensusProtocols.onRenovateBz(
+            newBz: newBz,
+            oldBz: oldBz
+        ),
+
         /// UPDATE LOCALLY
         updateBzLocally(
             context: context,
-            newBzModel: newBz,
-            oldBzModel: oldBz
+            newBz: newBz,
+            oldBz: oldBz
         ),
 
       ]);
@@ -140,8 +146,8 @@ class RenovateBzProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> updateBzLocally({
     @required BuildContext context,
-    @required BzModel newBzModel,
-    @required BzModel oldBzModel,
+    @required BzModel newBz,
+    @required BzModel oldBz,
   }) async {
     // blog('RenovateBzProtocol.updateBzLocally : START');
 
@@ -149,8 +155,8 @@ class RenovateBzProtocols {
     /// is to update my-active-bz-model in PRO and LDB in case of model changes
 
     final bool _areTheSame = BzModel.checkBzzAreIdentical(
-      bz1: newBzModel,
-      bz2: oldBzModel,
+      bz1: newBz,
+      bz2: oldBz,
     );
     // blog('RenovateBzProtocol.updateBzLocally : bzz are identical : $_areTheSame');
 
@@ -160,7 +166,7 @@ class RenovateBzProtocols {
       /// SET UPDATED BZ MODEL LOCALLY ( USER BZZ )
       final BzModel _finalBz = await completeBzZoneModel(
         context: context,
-        bzModel: newBzModel,
+        bzModel: newBz,
       );
 
       /// OVERRIDE BZ ON LDB
@@ -245,27 +251,27 @@ class RenovateBzProtocols {
   /// TESTED : WORKS PERFECT
   static Future<BzModel> renovateAuthor({
     @required BuildContext context,
-    @required BzModel oldBzModel,
-    @required AuthorModel newAuthorModel,
+    @required BzModel oldBz,
+    @required AuthorModel newAuthor,
   }) async {
 
     // blog('RenovateBzProtocols.renovateAuthor : START');
 
-    final BzModel _updatedBzModel = BzModel.replaceAuthor(
-      updatedAuthor: newAuthorModel,
-      bzModel: oldBzModel,
+    final BzModel _newBz = BzModel.replaceAuthor(
+      newAuthor: newAuthor,
+      oldBz: oldBz,
     );
 
     await Future.wait(<Future>[
 
       /// UPDATE AUTHOR PIC
-      PicProtocols.renovatePic(newAuthorModel.picModel),
+      PicProtocols.renovatePic(newAuthor.picModel),
 
       /// UPDATE BZ ON FIREBASE
-      BzProtocols.renovateBz(
+      renovateBz(
         context: context,
-        newBz: _updatedBzModel,
-        oldBz: oldBzModel,
+        newBz: _newBz,
+        oldBz: oldBz,
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
         newLogo: null,
@@ -276,7 +282,7 @@ class RenovateBzProtocols {
 
     // blog('RenovateBzProtocols.renovateAuthor : END');
 
-    return _updatedBzModel;
+    return _newBz;
   }
   // -----------------------------------------------------------------------------
 }

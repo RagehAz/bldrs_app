@@ -32,7 +32,7 @@ class CensusProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onUserRenovation({
+  static Future<void> onRenovateUser({
     @required UserModel newUser,
     @required UserModel oldUser,
   }) async {
@@ -111,11 +111,11 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateBz({
-    @required BzModel updatedBz,
+    @required BzModel newBz,
     @required BzModel oldBz,
   }) async {
 
-    assert(updatedBz != null, 'updatedBz is null');
+    assert(newBz != null, 'newBz is null');
     assert(oldBz != null, 'oldBz is null');
 
     await Future.wait(<Future>[
@@ -131,9 +131,9 @@ class CensusProtocols {
 
       /// INCREMENT BZ CENSUS
       CensusRealOps.updateAllCensus(
-        zoneModel: updatedBz.zone,
+        zoneModel: newBz.zone,
         map: CensusModel.createBzCensusMap(
-          bzModel: updatedBz,
+          bzModel: newBz,
           isIncrementing: true,
         ),
       ),

@@ -28,7 +28,7 @@ class AuthorshipEntryProtocols {
 
     blog('AuthorshipEntryProtocols.addMeToBz : START');
 
-    final BzModel _oldBzModel = await BzProtocols.fetchBz(
+    final BzModel _oldBz = await BzProtocols.fetchBz(
       context: context,
       bzID: bzID,
     );
@@ -42,7 +42,7 @@ class AuthorshipEntryProtocols {
 
     UserModel _newUser = UserModel.addBzIDToUserBzzIDs(
       oldUser: _oldUser,
-      bzIDToAdd: _oldBzModel.id,
+      bzIDToAdd: _oldBz.id,
     );
 
     _newUser = UserModel.addAllBzTopicsToMyTopics(
@@ -66,27 +66,27 @@ class AuthorshipEntryProtocols {
     );
 
     /// MODIFY BZ MODEL --------------------------
-    BzModel _bzModel = await BzModel.addNewUserAsAuthor(
-      oldBz: _oldBzModel,
+    BzModel _newBz = await BzModel.addNewUserAsAuthor(
+      oldBz: _oldBz,
       newUser: _uploadedUser,
     );
 
     /// upload author pic // author pic model is adjusted inside this method
     final AuthorModel _author = AuthorModel.getAuthorFromAuthorsByID(
-        authors: _bzModel.authors,
+        authors: _newBz.authors,
         authorID: _uploadedUser.id,
     );
     await PicProtocols.composePic(_author.picModel);
 
-    _bzModel = PendingAuthor.removePendingAuthorFromBz(
-        bzModel: _bzModel,
-        userID: _newUser.id,
+    _newBz = PendingAuthor.removePendingAuthorFromBz(
+        bzModel: _newBz,
+        userID: _uploadedUser.id,
     );
 
     /// ADD BZ MODEL TO MY BZZ --------------------------
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     _bzzProvider.addBzToMyBzz(
-      bzModel: _bzModel,
+      bzModel: _newBz,
       notify: false, // uploaded model will update it and notify listeners
     );
 
@@ -94,8 +94,8 @@ class AuthorshipEntryProtocols {
     // final BzModel _uploadedBzModel =
     await BzProtocols.renovateBz(
       context: context,
-      oldBz: _oldBzModel,
-      newBz: _bzModel,
+      oldBz: _oldBz,
+      newBz: _newBz,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,
       newLogo: null,

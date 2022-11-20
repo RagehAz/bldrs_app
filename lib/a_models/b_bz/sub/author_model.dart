@@ -506,20 +506,20 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel replaceAuthorModelInBzModel({
-    @required BzModel bzModel,
+    @required BzModel oldBz,
     @required AuthorModel newAuthor,
   }) {
 
     final List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsListByID(
-      authors: bzModel.authors,
+      authors: oldBz.authors,
       authorToReplace: newAuthor,
     );
 
-    final BzModel _updatedBzModel = bzModel.copyWith(
+    final BzModel _newBz = oldBz.copyWith(
       authors: _modifiedAuthorsList,
     );
 
-    return _updatedBzModel;
+    return _newBz;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -630,13 +630,13 @@ class AuthorModel {
   static List<AuthorModel> addFlyerIDToAuthor({
     @required String flyerID,
     @required String authorID,
-    @required List<AuthorModel> authors,
+    @required List<AuthorModel> oldAuthors,
   }){
 
-    List<AuthorModel> _output = authors;
+    List<AuthorModel> _output = oldAuthors;
 
     if (
-    Mapper.checkCanLoopList(authors) == true
+    Mapper.checkCanLoopList(oldAuthors) == true
         &&
         flyerID != null
         &&
@@ -645,30 +645,30 @@ class AuthorModel {
 
       // blog('addFlyerIDToAuthor : flyerID $flyerID : authorID $authorID : authors count : ${authors.length}');
 
-      final AuthorModel _author = getAuthorFromAuthorsByID(
-          authors: authors,
+      final AuthorModel _oldAuthor = getAuthorFromAuthorsByID(
+          authors: oldAuthors,
           authorID: authorID
       );
 
-      // blog('addFlyerIDToAuthor : author $authorID flyers was ${_author.flyersIDs} ');
+      // blog('addFlyerIDToAuthor : author $authorID flyers was ${_oldAuthor.flyersIDs} ');
 
-      final List<String> _updatedFlyersIDs = Stringer.putStringInStringsIfAbsent(
-          strings: _author.flyersIDs,
+      final List<String> _newFlyersIDs = Stringer.putStringInStringsIfAbsent(
+          strings: _oldAuthor.flyersIDs,
           string: flyerID
       );
 
-      // blog('addFlyerIDToAuthor : author $authorID flyers should be $_updatedFlyersIDs ');
+      // blog('addFlyerIDToAuthor : author $authorID flyers should be $_newFlyersIDs ');
 
-      final AuthorModel _updatedAuthor = _author.copyWith(
-        flyersIDs: _updatedFlyersIDs,
+      final AuthorModel _newAuthor = _oldAuthor.copyWith(
+        flyersIDs: _newFlyersIDs,
       );
 
-      // blog('addFlyerIDToAuthor : author $authorID flyers is now ${_updatedAuthor.flyersIDs} ');
+      // blog('addFlyerIDToAuthor : author $authorID flyers is now ${_newAuthor.flyersIDs} ');
 
 
       _output = replaceAuthorModelInAuthorsListByID(
-        authors: authors,
-        authorToReplace: _updatedAuthor,
+        authors: oldAuthors,
+        authorToReplace: _newAuthor,
       );
 
 
@@ -681,13 +681,13 @@ class AuthorModel {
   static List<AuthorModel> removeFlyerIDFromAuthor({
     @required String flyerID,
     @required String authorID,
-    @required List<AuthorModel> authors,
+    @required List<AuthorModel> oldAuthors,
   }){
 
-    List<AuthorModel> _output = authors;
+    List<AuthorModel> _newAuthors = oldAuthors;
 
     if (
-        Mapper.checkCanLoopList(authors) == true
+        Mapper.checkCanLoopList(oldAuthors) == true
         &&
         flyerID != null
         &&
@@ -696,40 +696,39 @@ class AuthorModel {
 
       blog('removeFlyerIDToAuthor : flyerID : $flyerID : authorID : $authorID');
 
-      final AuthorModel _author = getAuthorFromAuthorsByID(
-          authors: authors,
+      final AuthorModel _oldAuthor = getAuthorFromAuthorsByID(
+          authors: oldAuthors,
           authorID: authorID
       );
 
-      blog('removeFlyerIDToAuthor : author flyers was : ${_author.flyersIDs}');
+      blog('removeFlyerIDToAuthor : author flyers was : ${_oldAuthor.flyersIDs}');
 
       final List<String> _updatedFlyersIDs = Stringer.removeStringsFromStrings(
-        removeFrom: _author.flyersIDs,
+        removeFrom: _oldAuthor.flyersIDs,
         removeThis: <String>[flyerID],
       );
 
       blog('removeFlyerIDToAuthor : author flyers is : $_updatedFlyersIDs');
 
-      final AuthorModel _updatedAuthor = _author.copyWith(
+      final AuthorModel _newAuthor = _oldAuthor.copyWith(
         flyersIDs: _updatedFlyersIDs,
       );
 
-      _output = replaceAuthorModelInAuthorsListByID(
-        authors: authors,
-        authorToReplace: _updatedAuthor,
+      _newAuthors = replaceAuthorModelInAuthorsListByID(
+        authors: oldAuthors,
+        authorToReplace: _newAuthor,
       );
 
       final bool _authorsAreIdentical = AuthorModel.checkAuthorsListsAreIdentical(
-        authors1: authors,
-        authors2: _output,
+        authors1: oldAuthors,
+        authors2: _newAuthors,
       );
 
       blog('removeFlyerIDToAuthor : author are identical : $_authorsAreIdentical');
 
-
     }
 
-    return _output;
+    return _newAuthors;
   }
   // --------------------
   /*

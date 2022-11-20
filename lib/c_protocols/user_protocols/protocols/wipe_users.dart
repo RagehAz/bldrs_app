@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -87,60 +88,10 @@ class WipeUserProtocols {
   }
   // -----------------------------------------------------------------------------
 
-  /// NON AUTHOR USER
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _deleteNonAuthorUserProtocol({
-    @required BuildContext context,
-    @required UserModel userModel,
-  }) async {
-
-    blog('UserProtocol._deleteNonAuthorUserProtocol : START');
-
-    await Future.wait(<Future>[
-
-      /// WIPE NOTES
-      NoteProtocols.wipeAllNotes(
-        partyType: PartyType.user,
-        id: userModel.id,
-      ),
-
-      /// WIPE USER PIC
-      PicProtocols.wipePic(userModel.picPath),
-
-
-      /// DELETE SEARCHES
-      UserRecordRealOps.deleteAllUserRecords(
-          userID: userModel.id,
-      ),
-
-    ]);
-
-    blog('UserProtocol._deleteNonAuthorUserProtocol : MIDDLE');
-
-    await Future.wait(<Future>[
-
-      /// DELETE USER : SHOULD BE LAST TO ALLOW SECURITY RULES DO THE PREVIOUS OPS
-      UserFireOps.deleteMyUser(context),
-
-      _deleteMyUserLocallyProtocol(
-          context: context,
-          userModel: userModel
-      ),
-
-    ]);
-
-
-    blog('UserProtocol._deleteNonAuthorUserProtocol : END');
-
-  }
-  // -----------------------------------------------------------------------------
-
   /// AUTHOR USER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -181,7 +132,7 @@ class WipeUserProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteAllMyAuthorPics({
     @required BuildContext context,
     @required UserModel userModel,
@@ -214,7 +165,7 @@ class WipeUserProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteBzzICreatedProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -256,7 +207,7 @@ class WipeUserProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _exitBzzIDidNotCreateProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -280,24 +231,24 @@ class WipeUserProtocols {
 
         ...List.generate(_myBzzIDidNotCreate.length, (index){
 
-          final BzModel _bzModel = _myBzzIDidNotCreate[index];
+          final BzModel _oldBz = _myBzzIDidNotCreate[index];
 
           final AuthorModel _authorModel = AuthorModel.getAuthorFromBzByAuthorID(
-            bz: _bzModel,
+            bz: _oldBz,
             authorID: userModel.id,
           );
 
           /// TASK => SHOULD REWRITE THE BZ EXIT PROTOCOL
           return onDeleteAuthorFromBz(
             context: context,
-            bzModel: _bzModel,
+            oldBz: _oldBz,
             authorModel: _authorModel,
             showWaitingDialog: false,
             showConfirmationDialog: false,
             sendToUserAuthorExitNote: false,
           ).then((value) => NoteProtocols.unsubscribeFromAllBzTopics(
             context: context,
-            bzID: _bzModel.id,
+            bzID: _oldBz.id,
             renovateUser: true,
           ));
 
@@ -308,6 +259,59 @@ class WipeUserProtocols {
     }
 
     blog('UserProtocol.exitBzzIDidNotCreateProtocol : END');
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// NON AUTHOR USER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _deleteNonAuthorUserProtocol({
+    @required BuildContext context,
+    @required UserModel userModel,
+  }) async {
+
+    blog('UserProtocol._deleteNonAuthorUserProtocol : START');
+
+    await Future.wait(<Future>[
+
+      /// WIPE NOTES
+      NoteProtocols.wipeAllNotes(
+        partyType: PartyType.user,
+        id: userModel.id,
+      ),
+
+      /// WIPE USER PIC
+      PicProtocols.wipePic(userModel.picPath),
+
+
+      /// DELETE SEARCHES
+      UserRecordRealOps.deleteAllUserRecords(
+        userID: userModel.id,
+      ),
+
+      /// UPDATE USER CENSUS
+      CensusProtocols.onWipeUser(userModel),
+
+    ]);
+
+    blog('UserProtocol._deleteNonAuthorUserProtocol : MIDDLE');
+
+    await Future.wait(<Future>[
+
+      /// DELETE USER : SHOULD BE LAST TO ALLOW SECURITY RULES DO THE PREVIOUS OPS
+      UserFireOps.deleteMyUser(context),
+
+      _deleteMyUserLocallyProtocol(
+          context: context,
+          userModel: userModel
+      ),
+
+    ]);
+
+
+    blog('UserProtocol._deleteNonAuthorUserProtocol : END');
 
   }
   // -----------------------------------------------------------------------------
