@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -388,6 +389,76 @@ class CensusModel {
       case FlyerType.equipment  : return 'flyerTypeEquipment'; break;
       default: return null;
     }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  ///
+  static bool checkShouldUpdateUserCensus({
+    @required UserModel oldUser,
+    @required UserModel newUser,
+  }){
+    bool _shouldUpdate = false;
+
+    if (newUser != null){
+
+      if (
+        ZoneModel.checkZonesIDsAreIdentical(zone1: oldUser?.zone, zone2: newUser.zone) == false ||
+        NeedModel.checkNeedsAreIdentical(oldUser?.need, newUser.need) == false
+      ){
+        _shouldUpdate = true;
+      }
+
+
+    }
+
+    return _shouldUpdate;
+  }
+  // --------------------
+  ///
+  static bool checkShouldUpdateBzCensus({
+    @required BzModel oldBz,
+    @required BzModel newBz,
+  }){
+    bool _shouldUpdate = false;
+
+    if (newBz != null){
+
+      if (
+      oldBz?.authors?.length != newBz.authors.length ||
+      BzTyper.checkBzTypesAreIdentical(oldBz?.bzTypes, newBz.bzTypes) == false ||
+      oldBz?.bzForm != newBz.bzForm ||
+      oldBz?.accountType != newBz.accountType
+      ){
+        _shouldUpdate = true;
+      }
+
+    }
+
+    return _shouldUpdate;
+  }
+  // --------------------
+  ///
+  static bool checkShouldUpdateFlyerCensus({
+    @required FlyerModel oldFlyer,
+    @required FlyerModel newFlyer,
+  }){
+    bool _shouldUpdate = false;
+
+    if (newFlyer != null){
+
+      if (
+      oldFlyer?.slides?.length != newFlyer.slides.length ||
+      oldFlyer?.flyerType != newFlyer.flyerType
+      ){
+        _shouldUpdate = true;
+      }
+
+    }
+
+    return _shouldUpdate;
   }
   // -----------------------------------------------------------------------------
 

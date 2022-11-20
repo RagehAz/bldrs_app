@@ -163,7 +163,7 @@ Future<void> _uploadDraftBz({
     await BzProtocols.renovateBz(
       context: context,
       newBz: DraftBz.toBzModel(draftNotifier.value),
-      oldBzModel: oldBz,
+      oldBz: oldBz,
       showWaitDialog: true,
       navigateToBzInfoPageOnEnd: true,
       newLogo: draftNotifier.value.hasNewLogo == true ? draftNotifier.value.logoPicModel : null,

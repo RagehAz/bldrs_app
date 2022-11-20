@@ -33,34 +33,43 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onUserRenovation({
-    @required UserModel updatedUser,
+    @required UserModel newUser,
     @required UserModel oldUser,
   }) async {
 
-    assert(updatedUser != null, 'updatedUser is null');
+    assert(newUser != null, 'newUser is null');
     assert(oldUser != null, 'oldUser is null');
 
-    await Future.wait(<Future>[
+    final bool _shouldUpdateCensus = CensusModel.checkShouldUpdateUserCensus(
+        oldUser: oldUser,
+        newUser: newUser,
+    );
 
-      /// DECREMENT OLD USER CENSUS
-      CensusRealOps.updateAllCensus(
-        zoneModel: oldUser.zone,
-        map: CensusModel.createUserCensusMap(
-          userModel: oldUser,
-          isIncrementing: false,
+    if (_shouldUpdateCensus == true){
+
+      await Future.wait(<Future>[
+
+        /// DECREMENT OLD USER CENSUS
+        CensusRealOps.updateAllCensus(
+          zoneModel: oldUser.zone,
+          map: CensusModel.createUserCensusMap(
+            userModel: oldUser,
+            isIncrementing: false,
+          ),
         ),
-      ),
 
-      /// INCREMENT NEW USER CENSUS
-      CensusRealOps.updateAllCensus(
-        zoneModel: updatedUser.zone,
-        map: CensusModel.createUserCensusMap(
-          userModel: updatedUser,
-          isIncrementing: true,
+        /// INCREMENT NEW USER CENSUS
+        CensusRealOps.updateAllCensus(
+          zoneModel: newUser.zone,
+          map: CensusModel.createUserCensusMap(
+            userModel: newUser,
+            isIncrementing: true,
+          ),
         ),
-      ),
 
-    ]);
+      ]);
+
+    }
 
   }
   // --------------------

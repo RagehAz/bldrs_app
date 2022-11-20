@@ -524,7 +524,7 @@ class UserModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// MODIFIERS
+  /// USERS MODIFIERS
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -600,178 +600,182 @@ class UserModel {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// USER MODIFIERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel addBzIDToUserBzz({
-    @required UserModel userModel,
+  static UserModel addBzIDToUserBzzIDs({
+    @required UserModel oldUser,
     @required String bzIDToAdd,
   }){
 
     final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: userModel.myBzzIDs,
+      strings: oldUser.myBzzIDs,
       stringToAdd: bzIDToAdd,
     );
 
-    final UserModel _updatedUserModel = userModel.copyWith(
+    final UserModel _newUser = oldUser.copyWith(
       myBzzIDs: _newBzzIDs,
     );
 
-    return _updatedUserModel;
+    return _newUser;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel addBzIDToUserFollows({
-    @required UserModel userModel,
-    @required String bzIDToFollow,
-  }){
-
-    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: userModel.followedBzzIDs,
-      stringToAdd: bzIDToFollow,
-    );
-
-    final UserModel _updatedUserModel = userModel.copyWith(
-      followedBzzIDs: _newBzzIDs,
-    );
-
-    return _updatedUserModel;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static UserModel addFlyerIDToSavedFlyersIDs({
-    @required UserModel userModel,
-    @required String flyerIDToAdd,
-  }){
-
-    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: userModel?.savedFlyersIDs,
-      stringToAdd: flyerIDToAdd,
-    );
-
-    final UserModel _updatedUserModel = userModel?.copyWith(
-      savedFlyersIDs: _newBzzIDs,
-    );
-
-    return _updatedUserModel;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static UserModel removeBzIDFromMyBzzIDs({
+  static UserModel removeBzIDFromUserBzzIDs({
+    @required UserModel oldUser,
     @required String bzIDToRemove,
-    @required UserModel userModel,
   }){
-    UserModel _userModel = userModel;
+    UserModel _newUser = oldUser;
 
-    if (Mapper.checkCanLoopList(userModel?.myBzzIDs) == true) {
+    if (Mapper.checkCanLoopList(oldUser?.myBzzIDs) == true) {
 
       final List<String> _newList = Stringer.removeStringsFromStrings(
-        removeFrom: userModel.myBzzIDs,
+        removeFrom: oldUser.myBzzIDs,
         removeThis: <String>[bzIDToRemove],
       );
 
-      _userModel = userModel.copyWith(
+      _newUser = oldUser.copyWith(
         myBzzIDs: _newList,
       );
 
     }
 
-    return _userModel;
+    return _newUser;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel removeBzIDFromMyFollows({
-    @required UserModel userModel,
+  static UserModel addBzIDToUserFollows({
+    @required UserModel oldUser,
+    @required String bzIDToFollow,
+  }){
+
+    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
+      strings: oldUser.followedBzzIDs,
+      stringToAdd: bzIDToFollow,
+    );
+
+    final UserModel newUser = oldUser.copyWith(
+      followedBzzIDs: _newBzzIDs,
+    );
+
+    return newUser;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static UserModel removeBzIDFromUserFollows({
+    @required UserModel oldUser,
     @required String bzIDToUnFollow,
   }){
-    UserModel _userModel = userModel;
+    UserModel _newUser = oldUser;
 
-    if (Mapper.checkCanLoopList(userModel?.followedBzzIDs) == true) {
+    if (Mapper.checkCanLoopList(oldUser?.followedBzzIDs) == true) {
 
       final List<String> _newList = Stringer.removeStringsFromStrings(
-        removeFrom: userModel.followedBzzIDs,
+        removeFrom: oldUser.followedBzzIDs,
         removeThis: <String>[bzIDToUnFollow],
       );
 
-      _userModel = userModel.copyWith(
+      _newUser = oldUser.copyWith(
         followedBzzIDs: _newList,
       );
 
     }
 
-    return _userModel;
+    return _newUser;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static UserModel addFlyerIDToSavedFlyersIDs({
+    @required UserModel oldUser,
+    @required String flyerIDToAdd,
+  }){
+
+    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
+      strings: oldUser?.savedFlyersIDs,
+      stringToAdd: flyerIDToAdd,
+    );
+
+    final UserModel _newUser = oldUser?.copyWith(
+      savedFlyersIDs: _newBzzIDs,
+    );
+
+    return _newUser;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeFlyerIDFromSavedFlyersIDs({
-    @required UserModel userModel,
+    @required UserModel oldUser,
     @required String flyerIDToRemove,
   }){
-    UserModel _userModel = userModel;
+    UserModel _newUser = oldUser;
 
-    if (Mapper.checkCanLoopList(userModel?.savedFlyersIDs) == true) {
+    if (Mapper.checkCanLoopList(oldUser?.savedFlyersIDs) == true) {
 
       final List<String> _newList = Stringer.removeStringsFromStrings(
-        removeFrom: userModel.savedFlyersIDs,
+        removeFrom: oldUser.savedFlyersIDs,
         removeThis: <String>[flyerIDToRemove],
       );
 
-      _userModel = userModel.copyWith(
+      _newUser = oldUser.copyWith(
         savedFlyersIDs: _newList,
       );
 
     }
 
-    return _userModel;
+    return _newUser;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addAllBzTopicsToMyTopics({
-    @required UserModel userModel,
+    @required UserModel oldUser,
     @required String bzID,
   }){
-    UserModel _userModel = userModel;
+    UserModel _newUser = oldUser;
 
-    if (bzID != null && _userModel != null){
+    if (bzID != null && _newUser != null){
 
-      List<String> userTopics = <String>[..._userModel.fcmTopics];
+      List<String> userTopics = <String>[..._newUser.fcmTopics];
 
       userTopics = Stringer.addStringsToStringsIfDoNotContainThem(
         listToTake: userTopics,
         listToAdd: TopicModel.getAllPossibleBzTopicsIDs(bzID: bzID),
       );
 
-      _userModel = _userModel.copyWith(
+      _newUser = _newUser.copyWith(
         fcmTopics: userTopics,
       );
 
     }
 
-    return _userModel;
+    return _newUser;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeAllBzTopicsFromMyTopics({
-    @required UserModel userModel,
+    @required UserModel oldUser,
     @required String bzID,
   }){
-    UserModel _userModel = userModel;
+    UserModel _newUser = oldUser;
 
-    if (bzID != null && _userModel != null){
+    if (bzID != null && _newUser != null){
 
-      List<String> userTopics = <String>[..._userModel.fcmTopics];
+      List<String> userTopics = <String>[..._newUser.fcmTopics];
 
       userTopics = Stringer.removeStringsFromStrings(
         removeFrom: userTopics,
         removeThis: TopicModel.getAllPossibleBzTopicsIDs(bzID: bzID),
       );
 
-      _userModel = _userModel.copyWith(
+      _newUser = _newUser.copyWith(
         fcmTopics: userTopics,
       );
 
     }
 
-    return _userModel;
+    return _newUser;
   }
   // -----------------------------------------------------------------------------
 

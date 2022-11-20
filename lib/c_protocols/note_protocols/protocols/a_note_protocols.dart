@@ -689,22 +689,23 @@ class NoteProtocols {
     @required String bzID,
   }) async {
 
-    UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    if (_myUserModel != null){
+    if (_oldUser != null){
 
-      _myUserModel = UserModel.addAllBzTopicsToMyTopics(
-          userModel: _myUserModel,
+      final UserModel _newUser = UserModel.addAllBzTopicsToMyTopics(
+          oldUser: _oldUser,
           bzID: bzID
       );
 
       await UserProtocols.renovate(
         context: context,
         newPic: null,
-        newUserModel: _myUserModel,
+        newUser: _newUser,
+        oldUser: _oldUser,
       );
 
     }
@@ -752,22 +753,23 @@ class NoteProtocols {
     @required String bzID,
   }) async {
 
-    UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    if (_myUserModel != null) {
+    if (_oldUser != null) {
 
-      _myUserModel = UserModel.removeAllBzTopicsFromMyTopics(
-          userModel: _myUserModel,
+      final UserModel _newUser = UserModel.removeAllBzTopicsFromMyTopics(
+          oldUser: _oldUser,
           bzID: bzID
       );
 
       await UserProtocols.renovate(
         context: context,
         newPic: null,
-        newUserModel: _myUserModel,
+        newUser: _newUser,
+        oldUser: _oldUser,
       );
 
     }
