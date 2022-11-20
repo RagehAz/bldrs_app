@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_secondary/record_model.dart';
+import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/ggg_mini_user_banner.dart';
