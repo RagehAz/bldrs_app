@@ -19,58 +19,21 @@ class CensusProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> onComposeUser(UserModel userModel) async {
 
-    final Map<String, dynamic> _map = CensusModel.createUserCensusMap(
+    await CensusRealOps.updateAllCensus(
+      zoneModel: userModel.zone,
+      map: CensusModel.createUserCensusMap(
         userModel: userModel,
         isIncrementing: true,
-    );
-
-    await CensusRealOps.updateAllCensus(
-      map: _map,
-      zoneModel: userModel.zone,
+      ),
     );
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> onUserRenovation({
     @required UserModel updatedUser,
     @required UserModel oldUser,
   }) async {
-
-    // if (updatedUser != null && oldUser != null){
-    //
-    //   Map<String, dynamic> _map = {};
-    //
-    //   /// UPDATE NEED
-    //   if (NeedModel.checkNeedsAreIdentical(updatedUser.need, oldUser.need) == false){
-    //
-    //     /// REMOVE OLD NEED
-    //     _map = Mapper.insertPairInMap(
-    //         map: _map,
-    //         key: CensusModel.getNeedTypeFieldName(oldUser?.need?.needType),
-    //         value: fireDB.ServerValue.increment(-1)
-    //     );
-    //
-    //     /// ADD NEW NEED
-    //     _map = Mapper.insertPairInMap(
-    //         map: _map,
-    //         key: CensusModel.getNeedTypeFieldName(updatedUser?.need?.needType),
-    //         value: fireDB.ServerValue.increment(1)
-    //     );
-    //
-    //   }
-    //
-    //   /// ZONE HAS CHANGED
-    //   if (ZoneModel.checkZonesIDsAreIdentical(zone1: oldUser.zone, zone2: updatedUser.zone) == false){
-    //
-    //   }
-    //
-    //   /// ZONE IS THE SAME
-    //   else {
-    //
-    //   }
-    //
-    // }
 
     await Future.wait(<Future>[
 
@@ -94,8 +57,16 @@ class CensusProtocols {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeUser(UserModel userModel) async {
+
+    await CensusRealOps.updateAllCensus(
+      zoneModel: userModel.zone,
+      map: CensusModel.createUserCensusMap(
+        userModel: userModel,
+        isIncrementing: false,
+      ),
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -105,6 +76,14 @@ class CensusProtocols {
   // --------------------
   ///
   static Future<void> onComposeBz(BzModel bzModel) async {
+
+    await CensusRealOps.updateAllCensus(
+      zoneModel: bzModel.zone,
+      map: CensusModel.createBzCensusMap(
+        bzModel: bzModel,
+        isIncrementing: true,
+      ),
+    );
 
   }
   // --------------------
