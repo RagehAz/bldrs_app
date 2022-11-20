@@ -121,6 +121,7 @@
   |     | - planet
   |     |     | - totalUsers                    : <int>
   |     |     | - totalBzz                      : <int>
+  |     |     | - totalAuthors                  : <int>
   |     |     | - totalFlyers                   : <int>
   |     |     | - totalSlides                   : <int>
   |     |     | - bzSectionRealEstate           : <int>

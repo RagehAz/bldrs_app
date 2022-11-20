@@ -1,6 +1,9 @@
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -67,6 +70,8 @@ class _TheStatefulScreenState extends State<CensusTestingScreen> {
       loading: _loading,
       listWidgets: <Widget>[
 
+        // -----------------------------------
+
         /// ON COMPOSE USER
         WideButton(
           verse: Verse.plain('on Compose User'),
@@ -106,6 +111,58 @@ class _TheStatefulScreenState extends State<CensusTestingScreen> {
               oldUser: _userModel,
               updatedUser: _updatedUser,
             );
+
+          },
+        ),
+
+        /// ON WIPE USER
+        WideButton(
+          verse: Verse.plain('on Wipe User'),
+          onTap: () async {
+
+            final UserModel _userModel = UsersProvider.proGetMyUserModel(
+              context: context,
+              listen: false,
+            );
+
+            final UserModel _updatedUser = _userModel.copyWith(
+              need: _userModel.need.copyWith(
+                needType: NeedType.furnish,
+              ),
+              zone: _userModel.zone.copyWith(
+                countryID: 'alb',
+                cityID: 'alb_erseke',
+              ),
+            );
+
+            await CensusProtocols.onWipeUser(_updatedUser);
+
+          },
+        ),
+
+        /// SEPARATOR
+        const DotSeparator(),
+
+        // -----------------------------------
+
+        /// ON COMPOSE BZ
+        WideButton(
+          verse: Verse.plain('on Compose Bz'),
+          onTap: () async {
+
+            final UserModel _userModel = UsersProvider.proGetMyUserModel(
+              context: context,
+              listen: false,
+            );
+
+            final BzModel _bzModel = await BzProtocols.fetchBz(
+              context: context,
+              bzID: _userModel.myBzzIDs.first,
+            );
+
+            if (_bzModel != null){
+              await CensusProtocols.onComposeBz(_bzModel);
+            }
 
           },
         ),
