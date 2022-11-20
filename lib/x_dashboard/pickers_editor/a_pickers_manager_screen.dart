@@ -107,7 +107,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         /// VIEWING SPEC PICKERS
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: Verse.plain('Fetch Picker and go'),
+          verse: Verse.plain('Fetch Picker and go'),
         ),
 
         /// GO TO PICKERS SCREEN
@@ -153,7 +153,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         /// SPEC REAL OPS
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: Verse.plain('COMPOSING'),
+          verse: Verse.plain('COMPOSING'),
         ),
 
         /// COMPOSE PICKERS
@@ -263,7 +263,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         /// VIEWING SPEC PICKERS
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: Verse.plain('BLOG PICKERS'),
+          verse: Verse.plain('BLOG PICKERS'),
         ),
 
         /// BLOG
