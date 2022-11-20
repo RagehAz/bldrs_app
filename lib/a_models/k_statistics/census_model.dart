@@ -2,6 +2,8 @@ import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
@@ -374,6 +376,19 @@ class CensusModel {
       default:                       return null;
       }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getFlyerTypeFieldName(FlyerType flyerType){
+    switch (flyerType) {
+      case FlyerType.property   : return 'flyerTypeProperty';  break;
+      case FlyerType.design     : return 'flyerTypeDesign';    break;
+      case FlyerType.product    : return 'flyerTypeProduct';   break;
+      case FlyerType.project    : return 'flyerTypeProject';   break;
+      case FlyerType.trade      : return 'flyerTypeTrade';     break;
+      case FlyerType.equipment  : return 'flyerTypeEquipment'; break;
+      default: return null;
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// CREATOR
@@ -415,6 +430,7 @@ class CensusModel {
     Map<String, dynamic> _map = {
       /// TOTAL BZZ
       'totalBzz' : fireDB.ServerValue.increment(_increment),
+      /// TOTAL AUTHORS
       'totalAuthors' : fireDB.ServerValue.increment(bzModel.authors.length * _increment),
     };
 
@@ -450,6 +466,29 @@ class CensusModel {
 
     return _map;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> createFlyerCensusMap({
+    @required FlyerModel flyerModel,
+    @required bool isIncrementing,
+  }){
+
+    final int _increment = isIncrementing ? 1 : -1;
+
+    final Map<String, dynamic> _map = {
+      /// TOTAL FLYERS
+      'totalFlyers' : fireDB.ServerValue.increment(_increment),
+      /// TOTAL SLIDES
+      'totalSlides' : fireDB.ServerValue.increment(flyerModel.slides.length * _increment),
+    };
+
+    /// FLYER TYPE
+    return Mapper.insertPairInMap(
+        map: _map,
+        key: CensusModel.getFlyerTypeFieldName(flyerModel.flyerType),
+        value: fireDB.ServerValue.increment(_increment)
+    );
+
+  }
   // -----------------------------------------------------------------------------
-  void f(){}
 }
