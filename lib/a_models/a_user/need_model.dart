@@ -119,7 +119,7 @@ class NeedModel {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   NeedModel nullifyField({
     bool needType = false,
     bool scope = false,
@@ -189,7 +189,7 @@ class NeedModel {
   /// NEED TYPE CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String cipherNeedType(NeedType type){
     switch (type) {
       case NeedType.seekProperty :       return 'seekProperty'; break;
@@ -201,7 +201,7 @@ class NeedModel {
     }
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static NeedType decipherNeedType(String type){
     switch (type) {
       case 'seekProperty' :       return  NeedType.seekProperty; break;
@@ -229,7 +229,7 @@ class NeedModel {
   /// TRANSLATION
 
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static String getNeedTypePhid(NeedType type){
     switch (type) {
       case NeedType.seekProperty :       return 'phid_seekProperty'; break;
@@ -241,7 +241,7 @@ class NeedModel {
     }
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static List<Verse> getNeedsTypesVerses({
     @required List<NeedType> needsTypes,
     @required BuildContext context,

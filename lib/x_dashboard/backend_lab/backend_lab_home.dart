@@ -9,6 +9,7 @@ import 'package:bldrs/x_dashboard/backend_lab/fire_tests/fire_storage_test.dart'
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/backend_lab/real_tests/census_testing.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
@@ -188,6 +189,21 @@ class BackendLabHome extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const CacheViewerScreen(),
+            );
+          },
+        ),
+
+        const DotSeparator(),
+        // ---------------------------------------------------
+
+        /// CENSUS TEST
+        WideButton(
+          verse: Verse.plain('Census test'),
+          icon: Iconz.earth,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const CensusTestingScreen(),
             );
           },
         ),
