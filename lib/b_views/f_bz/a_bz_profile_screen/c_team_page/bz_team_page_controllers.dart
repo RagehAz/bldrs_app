@@ -51,13 +51,13 @@ Future<void> onGoToAddAuthorsScreen(BuildContext context) async {
 Future<void> onAuthorOptionsTap({
   @required BuildContext context,
   @required AuthorModel authorModel,
-  @required BzModel bzModel,
+  @required BzModel oldBz,
 }) async {
 
   final bool _itIsMine = AuthFireOps.superUserID() == authorModel.userID;
 
   final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromAuthorsByID(
-      authors: bzModel.authors,
+      authors: oldBz.authors,
       authorID: AuthFireOps.superUserID(),
   );
 
@@ -108,7 +108,7 @@ Future<void> onAuthorOptionsTap({
 
         await _onChangeAuthorRole(
           context: context,
-          bzModel: bzModel,
+          bzModel: oldBz,
           authorModel: authorModel,
         );
 
@@ -138,7 +138,7 @@ Future<void> onAuthorOptionsTap({
 
         await _onEditAuthor(
           context: context,
-          bzModel: bzModel,
+          bzModel: oldBz,
           authorModel: authorModel,
         );
 
@@ -168,7 +168,7 @@ Future<void> onAuthorOptionsTap({
 
         await onDeleteAuthorFromBz(
           context: context,
-          bzModel: bzModel,
+          oldBz: oldBz,
           authorModel: authorModel,
           showConfirmationDialog: true,
           showWaitingDialog: true,
@@ -199,7 +199,7 @@ Future<void> onAuthorOptionsTap({
 Future<void> onDeleteAuthorFromBz({
   @required BuildContext context,
   @required AuthorModel authorModel,
-  @required BzModel bzModel,
+  @required BzModel oldBz,
   @required bool showConfirmationDialog,
   @required bool showWaitingDialog,
   @required bool sendToUserAuthorExitNote,
@@ -239,7 +239,7 @@ Future<void> onDeleteAuthorFromBz({
       await _removeAuthorWhoHasFlyers(
         context: context,
         authorModel: authorModel,
-        bzModel: bzModel,
+        oldBz: oldBz,
         showWaitDialog: showWaitingDialog,
         showConfirmationDialog: showConfirmationDialog,
         sendToUserAuthorExitNote: sendToUserAuthorExitNote,
@@ -253,7 +253,7 @@ Future<void> onDeleteAuthorFromBz({
       await _removeAuthorWhoHasNoFlyers(
         context: context,
         authorModel: authorModel,
-        bzModel: bzModel,
+        oldBz: oldBz,
         showWaitDialog: showWaitingDialog,
         showConfirmationDialog: showConfirmationDialog,
         sendToUserAuthorExitNote: sendToUserAuthorExitNote,
@@ -295,7 +295,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 Future<void> _removeAuthorWhoHasFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
-  @required BzModel bzModel,
+  @required BzModel oldBz,
   @required bool showWaitDialog,
   @required bool showConfirmationDialog,
   @required bool sendToUserAuthorExitNote,
@@ -332,30 +332,32 @@ Future<void> _removeAuthorWhoHasFlyers({
       flyersIDs: authorModel.flyersIDs,
     );
 
+
     await FlyerProtocols.wipeFlyers(
       context: context,
-      bzModel: bzModel,
+      bzModel: oldBz,
       showWaitDialog: false,
       flyers: _flyers,
       isDeletingBz: false,
     );
 
-    final BzModel _updatedBzModel = await BzProtocols.fetchBz(
+    /// AS WIPE FLYERS RENOVATES BZ,, WE NEED TO REFETCH
+    final BzModel _oldBz = await BzProtocols.refetch(
         context: context,
-        bzID: bzModel.id,
+        bzID: oldBz.id,
     );
 
     /// REMOVE AUTHOR MODEL FROM BZ MODEL
-    final BzModel _bzWithoutAuthor = BzModel.removeAuthor(
-      bzModel: _updatedBzModel,
+    final BzModel _newBz = BzModel.removeAuthor(
+      oldBz: _oldBz,
       authorID: authorModel.userID,
     );
 
     /// UPDATE BZ ON FIREBASE
     await BzProtocols.renovateBz(
       context: context,
-      newBz: _bzWithoutAuthor,
-      oldBz: bzModel,
+      newBz: _newBz,
+      oldBz: _oldBz,
       navigateToBzInfoPageOnEnd: false,
       showWaitDialog: false,
       newLogo: null,
@@ -365,7 +367,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     /// SEND AUTHOR DELETION NOTES
     await NoteEvent.sendAuthorDeletionNotes(
       context: context,
-      bzModel: bzModel,
+      bzModel: _newBz,
       deletedAuthor: authorModel,
       sendToUserAuthorExitNote: sendToUserAuthorExitNote,
     );
@@ -378,7 +380,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     if (showConfirmationDialog == true){
       await _showAuthorRemovalConfirmationDialog(
         context: context,
-        bzModel: bzModel,
+        bzModel: _newBz,
         deletedAuthor: authorModel,
       );
     }
@@ -439,7 +441,7 @@ Future<bool> _showDeleteAllAuthorFlyers({
 Future<void> _removeAuthorWhoHasNoFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
-  @required BzModel bzModel,
+  @required BzModel oldBz,
   @required bool showConfirmationDialog,
   @required bool showWaitDialog,
   @required bool sendToUserAuthorExitNote,
@@ -448,14 +450,14 @@ Future<void> _removeAuthorWhoHasNoFlyers({
   /// REMOVE AUTHOR MODEL FROM BZ MODEL
   await AuthorshipProtocols.removeFlyerlessAuthor(
     context: context,
-    oldBz: bzModel,
+    oldBz: oldBz,
     author: authorModel,
   );
 
   /// SEND AUTHOR DELETION NOTES
   await NoteEvent.sendAuthorDeletionNotes(
     context: context,
-    bzModel: bzModel,
+    bzModel: oldBz,
     deletedAuthor: authorModel,
     sendToUserAuthorExitNote: sendToUserAuthorExitNote,
   );
@@ -464,7 +466,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
   if (showConfirmationDialog == true){
     await _showAuthorRemovalConfirmationDialog(
       context: context,
-      bzModel: bzModel,
+      bzModel: oldBz,
       deletedAuthor: authorModel,
     );
   }
@@ -619,7 +621,7 @@ Future<void> onSendAuthorshipInvitation({
 
       await AuthorshipProtocols.sendRequest(
         context: context,
-        bzModel: bzModel,
+        oldBz: bzModel,
         userModelToSendTo: selectedUser,
       );
 

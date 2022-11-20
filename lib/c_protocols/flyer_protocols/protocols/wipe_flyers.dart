@@ -72,7 +72,7 @@ class WipeFlyerProtocols {
         if (isDeletingBz == false)
           _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs(
             context: context,
-            bzModel: _bzModel,
+            oldBz: _bzModel,
             flyer: flyerModel,
           ),
 
@@ -134,21 +134,21 @@ class WipeFlyerProtocols {
   static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
     @required BuildContext context,
     @required FlyerModel flyer,
-    @required BzModel bzModel,
+    @required BzModel oldBz,
   }) async {
     blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : START');
 
-    if (bzModel != null && flyer != null){
+    if (oldBz != null && flyer != null){
 
-      final BzModel _updatedBzModel = BzModel.removeFlyerIDFromBzAndAuthor(
-        bzModel: bzModel,
+      final BzModel _newBz = BzModel.removeFlyerIDFromBzAndAuthor(
+        oldBz: oldBz,
         flyer: flyer,
       );
 
       await BzProtocols.renovateBz(
           context: context,
-          newBz: _updatedBzModel,
-          oldBz: bzModel,
+          newBz: _newBz,
+          oldBz: oldBz,
           showWaitDialog: false,
           navigateToBzInfoPageOnEnd: false,
           newLogo: null,
