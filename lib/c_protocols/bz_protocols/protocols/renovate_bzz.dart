@@ -71,6 +71,7 @@ class RenovateBzProtocols {
         if (newLogo != null)
           PicProtocols.renovatePic(newLogo),
 
+        /// CENSUS
         CensusProtocols.onRenovateBz(
             newBz: newBz,
             oldBz: oldBz
