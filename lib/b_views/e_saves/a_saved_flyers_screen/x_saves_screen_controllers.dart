@@ -57,14 +57,15 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
   );
 
   final UserModel _myUpdatedModel = UserModel.removeFlyerIDFromSavedFlyersIDs(
-    userModel: _userModel,
+    oldUser: _userModel,
     flyerIDToRemove: flyerID,
   );
 
   await UserProtocols.renovate(
     context: context,
     newPic: null,
-    newUserModel: _myUpdatedModel,
+    newUser: _myUpdatedModel,
+    oldUser: _userModel,
   );
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);

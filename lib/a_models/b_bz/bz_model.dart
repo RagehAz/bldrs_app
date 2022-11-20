@@ -485,21 +485,21 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> addNewUserAsAuthor({
-    @required BzModel oldBzModel,
-    @required UserModel userModel,
+    @required BzModel oldBz,
+    @required UserModel newUser,
   }) async {
 
     final List<AuthorModel> _newAuthors = await AuthorModel.addNewUserToAuthors(
-      authors: oldBzModel.authors,
-      bzID: oldBzModel.id,
-      newUserModel: userModel,
+      authors: oldBz.authors,
+      bzID: oldBz.id,
+      newUser: newUser,
     );
 
-    final BzModel _newBzModel = oldBzModel.copyWith(
+    final BzModel _newBz = oldBz.copyWith(
       authors: _newAuthors,
     );
 
-    return _newBzModel;
+    return _newBz;
   }
   // -----------------------------------------------------------------------------
 

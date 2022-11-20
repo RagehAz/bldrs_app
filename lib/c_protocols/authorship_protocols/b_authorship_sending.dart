@@ -44,7 +44,7 @@ class AuthorshipSendingProtocols {
 
     await BzProtocols.renovateBz(
       context: context,
-      oldBzModel: bzModel,
+      oldBz: bzModel,
       newBz: _updatedBzModel,
       showWaitDialog: false,
       navigateToBzInfoPageOnEnd: false,

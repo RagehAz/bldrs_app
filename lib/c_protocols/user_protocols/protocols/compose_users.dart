@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
@@ -69,10 +70,15 @@ class ComposeUserProtocols {
         userModel: _userModel,
       );
 
-      /// INSERT IN LDB
       await Future.wait(<Future>[
+
+        /// CENSUS
+        CensusProtocols.onComposeUser(_userModel),
+
+        /// INSERT IN LDB
         AuthLDBOps.insertAuthModel(_authModel),
         UserLDBOps.insertUserModel(_authModel.userModel),
+
       ]);
 
     }

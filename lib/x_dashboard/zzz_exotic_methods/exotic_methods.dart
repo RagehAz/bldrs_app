@@ -1,14 +1,11 @@
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/h_money/big_mac.dart';
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/d_zone/region_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/h_money/big_mac.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
@@ -412,20 +409,22 @@ class ExoticMethods {
     @required String newUserID, // 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2'
   }) async {
 
+    /*
+
     /// Auth => can only be done in firebase
     /// security level => can only be done in firebase
 
-    final UserModel _oldUserModel = await UserProtocols.fetch(
+    final UserModel _oldUser = await UserProtocols.fetch(
       context: context,
       userID: oldUserID,
     );
 
     final List<String> _oldUserFlyersIDs = <String>[];
 
-    for (final String bzID in _oldUserModel.myBzzIDs){
+    for (final String bzID in _oldUser.myBzzIDs){
       final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: bzID);
       _oldUserFlyersIDs.addAll(_bz.flyersIDs);
-      await _takeOverBz(context: context, oldUserID: oldUserID, newUserID: newUserID, bzModel: _bz);
+      await _takeOverBz(context: context, giverUserID: oldUserID, takerUserID: newUserID, bzModel: _bz);
     }
 
     await takeOverFlyers(
@@ -433,34 +432,38 @@ class ExoticMethods {
         flyersIDs: _oldUserFlyersIDs,
     );
 
+
+     */
   }
   // --------------------
+  /*
   static Future<void> _takeOverBz({
     @required BuildContext context,
-    @required String oldUserID,
-    @required String newUserID,
+    @required String giverUserID,
+    @required String takerUserID,
     @required BzModel bzModel,
   }) async {
 
-    if (bzModel != null && oldUserID != null && newUserID != null){
+    /*
+    if (bzModel != null && giverUserID != null && takerUserID != null){
 
       final List<AuthorModel> _authors = bzModel.authors;
 
-      final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
+      final AuthorModel _giverAuthor = AuthorModel.getAuthorFromBzByAuthorID(
         bz: bzModel,
-        authorID: oldUserID,
+        authorID: giverUserID,
       );
 
-      if (_oldAuthor != null){
+      if (_giverAuthor != null){
 
-        final UserModel _newUserModel = await UserProtocols.fetch(
+        final UserModel _takerUser = await UserProtocols.fetch(
           context: context,
-          userID: newUserID,
+          userID: takerUserID,
         );
 
-        final AuthorModel _newAuthor = _oldAuthor.copyWith(
-          userID: newUserID,
-          picPath: _newUserModel.picPath,
+        final AuthorModel _newAuthor = _giverAuthor.copyWith(
+          userID: takerUserID,
+          picPath: _takerUser.picPath,
         );
 
         final List<AuthorModel> _updatedAuthors = AuthorModel.replaceAuthorModelInAuthorsListByID(
@@ -480,8 +483,12 @@ class ExoticMethods {
 
     }
 
+
+     */
   }
+   */
   // --------------------
+  /*
   static Future<void> takeOverFlyers({
     @required String newUserID,
     @required List<String> flyersIDs,
@@ -501,6 +508,7 @@ class ExoticMethods {
     }
 
   }
+   */
   // --------------------
   static Future<void> assignBzzOwnership({
     @required String userID,

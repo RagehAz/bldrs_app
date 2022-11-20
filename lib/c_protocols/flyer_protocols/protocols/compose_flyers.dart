@@ -150,7 +150,7 @@ class ComposeFlyerProtocols {
     await BzProtocols.renovateBz(
         context: context,
         newBz: _updatedBzModel,
-        oldBzModel: _bzModel,
+        oldBz: _bzModel,
         showWaitDialog: false,
         navigateToBzInfoPageOnEnd: false,
         newLogo: null,

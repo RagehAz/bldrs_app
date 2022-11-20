@@ -101,24 +101,24 @@ class _TheStatefulScreenState extends State<CensusTestingScreen> {
           verse: Verse.plain('2 - on Renovate User'),
           onTap: () async {
 
-            final UserModel _userModel = UsersProvider.proGetMyUserModel(
+            final UserModel _oldUser = UsersProvider.proGetMyUserModel(
               context: context,
               listen: false,
             );
 
-            final UserModel _updatedUser = _userModel.copyWith(
-              need: _userModel.need.copyWith(
+            final UserModel _newUser = _oldUser.copyWith(
+              need: _oldUser.need.copyWith(
                 needType: NeedType.furnish,
               ),
-              zone: _userModel.zone.copyWith(
+              zone: _oldUser.zone.copyWith(
                 countryID: 'alb',
                 cityID: 'alb_erseke',
               ),
             );
 
             await CensusProtocols.onUserRenovation(
-              oldUser: _userModel,
-              updatedUser: _updatedUser,
+              oldUser: _oldUser,
+              newUser: _newUser,
             );
 
           },
@@ -137,22 +137,22 @@ class _TheStatefulScreenState extends State<CensusTestingScreen> {
 
             if (_go == true){
 
-              final UserModel _userModel = UsersProvider.proGetMyUserModel(
+              final UserModel _oldUser = UsersProvider.proGetMyUserModel(
                 context: context,
                 listen: false,
               );
 
-              final UserModel _updatedUser = _userModel.copyWith(
-                need: _userModel.need.copyWith(
+              final UserModel _newUser = _oldUser.copyWith(
+                need: _oldUser.need.copyWith(
                   needType: NeedType.furnish,
                 ),
-                zone: _userModel.zone.copyWith(
+                zone: _oldUser.zone.copyWith(
                   countryID: 'alb',
                   cityID: 'alb_erseke',
                 ),
               );
 
-              await CensusProtocols.onWipeUser(_updatedUser);
+              await CensusProtocols.onWipeUser(_newUser);
 
 
             }

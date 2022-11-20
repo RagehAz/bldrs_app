@@ -148,7 +148,7 @@ class WipeFlyerProtocols {
       await BzProtocols.renovateBz(
           context: context,
           newBz: _updatedBzModel,
-          oldBzModel: bzModel,
+          oldBz: bzModel,
           showWaitDialog: false,
           navigateToBzInfoPageOnEnd: false,
           newLogo: null,
