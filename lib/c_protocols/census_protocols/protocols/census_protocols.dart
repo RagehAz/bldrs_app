@@ -227,4 +227,19 @@ class CensusProtocols {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// ENGAGEMENT CENSUS
+
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<void> onCallBz({
+    @required BzModel bzModel,
+    @required UserModel userModel,
+  }) async {
+
+  }
+
+
+  // -----------------------------------------------------------------------------
+  void f (){}
 }

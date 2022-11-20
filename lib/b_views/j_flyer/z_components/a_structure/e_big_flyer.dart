@@ -352,6 +352,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     await onCallTap(
       context: context,
       bzModel: widget.bzModel,
+      flyerModel: widget.flyerModel,
     );
   }
   // -----------------------------------------------------------------------------

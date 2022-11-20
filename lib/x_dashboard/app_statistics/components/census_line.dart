@@ -1,32 +1,31 @@
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_bz_pg_counter.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
-class InfoPageHeadline extends StatelessWidget {
+class CensusLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const InfoPageHeadline({
-    @required this.pageWidth,
+  const CensusLine({
     @required this.verse,
+    @required this.icon,
+    @required this.count,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double pageWidth;
   final Verse verse;
+  final String icon;
+  final int count;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      width: pageWidth,
-      alignment: Aligners.superCenterAlignment(context),
-      // padding: const EdgeInsets.symmetric(horizontal: 5),
-      margin: const EdgeInsets.only(bottom: 10),
-      child: SuperVerse(
-        verse: verse,
-        centered: false,
-        size: 3,
-        leadingDot: true,
-      ),
+    return BzPgCounter(
+      flyerBoxWidth: Scale.screenWidth(context),
+      verse: verse,
+      count: count,
+      icon: icon,
+      iconSizeFactor: 0.95,
     );
 
   }
