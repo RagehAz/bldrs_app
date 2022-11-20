@@ -5,6 +5,7 @@ import 'package:bldrs/x_dashboard/backend_lab/cache_viewer/cache_viewer_screen.d
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/email_test_screen.dart';
+import 'package:bldrs/x_dashboard/backend_lab/deck_model_tested.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/fire_storage_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
@@ -204,6 +205,21 @@ class BackendLabHome extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const CensusTestingScreen(),
+            );
+          },
+        ),
+
+        const DotSeparator(),
+        // ---------------------------------------------------
+
+        /// DECK MODEL
+        WideButton(
+          verse: Verse.plain('Deck Model'),
+          icon: Iconz.flyerCollection,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const DeckModelTester(),
             );
           },
         ),
