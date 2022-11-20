@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
@@ -9,6 +11,7 @@ class CensusModel {
   CensusModel({
     @required this.totalUsers,
     @required this.totalBzz,
+    @required this.totalAuthors,
     @required this.totalFlyers,
     @required this.totalSlides,
     @required this.bzSectionRealEstate,
@@ -41,6 +44,7 @@ class CensusModel {
   /// --------------------------------------------------------------------------
   final int totalUsers;
   final int totalBzz;
+  final int totalAuthors;
   final int totalFlyers;
   final int totalSlides;
   final int bzSectionRealEstate;
@@ -74,10 +78,11 @@ class CensusModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   CensusModel copyWith({
     int totalUsers,
     int totalBzz,
+    int totalAuthors,
     int totalFlyers,
     int totalSlides,
     int bzSectionRealEstate,
@@ -111,6 +116,7 @@ class CensusModel {
     return CensusModel(
       totalUsers: totalUsers ?? this.totalUsers,
       totalBzz: totalBzz ?? this.totalBzz,
+      totalAuthors: totalAuthors ?? this.totalAuthors,
       totalFlyers: totalFlyers ?? this.totalFlyers,
       totalSlides: totalSlides ?? this.totalSlides,
       bzSectionRealEstate: bzSectionRealEstate ?? this.bzSectionRealEstate,
@@ -147,11 +153,12 @@ class CensusModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'totalUsers': totalUsers,
       'totalBzz': totalBzz,
+      'totalAuthors': totalAuthors,
       'totalFlyers': totalFlyers,
       'totalSlides': totalSlides,
       'bzSectionRealEstate': bzSectionRealEstate,
@@ -183,7 +190,7 @@ class CensusModel {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static CensusModel decipher(Map<String, dynamic> map){
     CensusModel _output;
 
@@ -192,6 +199,7 @@ class CensusModel {
       _output = CensusModel(
         totalUsers: map['totalUsers'],
         totalBzz: map['totalBzz'],
+        totalAuthors: map['totalAuthors'],
         totalFlyers: map['totalFlyers'],
         totalSlides: map['totalSlides'],
         bzSectionRealEstate: map['bzSectionRealEstate'],
@@ -226,11 +234,93 @@ class CensusModel {
 
     return _output;
   }
+  // --------------------
+
+  /// MODIFIERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> completeMapForIncrementation(Map<String, dynamic> input){
+    Map<String, dynamic> _output;
+
+    /// NOTE : THIS METHOD MAKES SURE THAT NO FIELD IN CENSUS MODEL IS NULL ON CENSUS PROTOCOLS
+
+    if (input != null){
+
+      _output = {};
+      final Map<String, dynamic> _fullMap = createEmptyModel().toMap();
+      final List<String> _allKeys = _fullMap.keys.toList();
+
+      for (final String _key in _allKeys){
+
+        /// WHEN KEY IS ABSENT
+        if (input[_key] == null){
+          _output = Mapper.insertPairInMap(
+              map: _output,
+              key: _key,
+              value: fireDB.ServerValue.increment(0), /// ADD NO INCREMENTATION IN THIS FIELD
+          );
+        }
+
+        /// KEY IS DEFINED
+        else {
+          _output = Mapper.insertPairInMap(
+            map: _output,
+            key: _key,
+            value: input[_key], /// ADD THE FIELD THAT'S ALREADY DEFINED BY PREVIOUS METHODS
+          );
+        }
+
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static CensusModel createEmptyModel(){
+    return CensusModel(
+      totalUsers: 0,
+      totalBzz: 0,
+      totalAuthors: 0,
+      totalFlyers: 0,
+      totalSlides: 0,
+      bzSectionRealEstate: 0,
+      bzSectionConstruction: 0,
+      bzSectionSupplies: 0,
+      bzTypeDeveloper: 0,
+      bzTypeBroker: 0,
+      bzTypeDesigner: 0,
+      bzTypeContractor: 0,
+      bzTypeArtisan: 0,
+      bzTypeManufacturer: 0,
+      bzTypeSupplier: 0,
+      bzFormIndividual: 0,
+      bzFormCompany: 0,
+      bzAccountTypeStandard: 0,
+      bzAccountTypePro: 0,
+      bzAccountTypeMaster: 0,
+      flyerTypeProperty: 0,
+      flyerTypeDesign: 0,
+      flyerTypeProject: 0,
+      flyerTypeProduct: 0,
+      flyerTypeTrade: 0,
+      flyerTypeEquipment: 0,
+      needTypeSeekProperty: 0,
+      needTypePlanConstruction: 0,
+      needTypeFinishConstruction: 0,
+      needTypeFurnish: 0,
+      needTypeOfferProperty: 0,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static String getNeedTypeFieldName(NeedType needType){
     switch (needType) {
       case NeedType.seekProperty :       return 'needTypeSeekProperty'; break;
@@ -241,12 +331,55 @@ class CensusModel {
       default:return null;
       }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getBzSectionFieldName(BzSection bzSection){
+    switch (bzSection) {
+      case BzSection.realestate :   return 'bzSectionRealEstate';   break;
+      case BzSection.construction : return 'bzSectionConstruction'; break;
+      case BzSection.supplies :     return 'bzSectionSupplies';     break;
+      default:                      return null;
+      }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getBzTypeFieldName(BzType bzType){
+    switch (bzType) {
+      case BzType.developer :     return 'bzTypeDeveloper';     break;
+      case BzType.broker :        return 'bzTypeBroker';        break;
+      case BzType.designer :      return 'bzTypeDesigner';      break;
+      case BzType.contractor :    return 'bzTypeContractor';    break;
+      case BzType.artisan :       return 'bzTypeArtisan';       break;
+      case BzType.manufacturer :  return 'bzTypeManufacturer';  break;
+      case BzType.supplier :      return 'bzTypeSupplier';      break;
+      default:                    return null;
+      }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getBzFormFieldName(BzForm bzForm){
+    switch (bzForm) {
+      case BzForm.individual :  return 'bzFormIndividual';  break;
+      case BzForm.company :     return 'bzFormCompany';     break;
+      default:                  return null;
+      }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getBzAccountTypeFieldName(BzAccountType bzAccountType){
+    switch (bzAccountType) {
+      case BzAccountType.standard :  return 'bzAccountTypeStandard';  break;
+      case BzAccountType.pro :       return 'bzAccountTypePro';       break;
+      case BzAccountType.master :    return 'bzAccountTypeMaster';    break;
+      default:                       return null;
+      }
+  }
   // -----------------------------------------------------------------------------
 
   /// CREATOR
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createUserCensusMap({
     @required UserModel userModel,
     @required bool isIncrementing,
@@ -271,7 +404,52 @@ class CensusModel {
     return _map;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> createBzCensusMap({
+    @required BzModel bzModel,
+    @required bool isIncrementing,
+  }){
 
+    final int _increment = isIncrementing ? 1 : -1;
+
+    Map<String, dynamic> _map = {
+      /// TOTAL BZZ
+      'totalBzz' : fireDB.ServerValue.increment(_increment),
+      'totalAuthors' : fireDB.ServerValue.increment(bzModel.authors.length * _increment),
+    };
+
+    /// SECTION
+    _map = Mapper.insertPairInMap(
+        map: _map,
+        key: CensusModel.getBzSectionFieldName(BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes)),
+        value: fireDB.ServerValue.increment(_increment)
+    );
+
+    /// TYPE
+    for (final BzType bzType in bzModel.bzTypes){
+      _map = Mapper.insertPairInMap(
+          map: _map,
+          key: CensusModel.getBzTypeFieldName(bzType),
+          value: fireDB.ServerValue.increment(_increment)
+      );
+    }
+
+    /// FORM
+    _map = Mapper.insertPairInMap(
+        map: _map,
+        key: CensusModel.getBzFormFieldName(bzModel.bzForm),
+        value: fireDB.ServerValue.increment(_increment)
+    );
+
+    /// ACCOUNT TYPE
+    _map = Mapper.insertPairInMap(
+        map: _map,
+        key: CensusModel.getBzAccountTypeFieldName(bzModel.accountType),
+        value: fireDB.ServerValue.increment(_increment)
+    );
+
+    return _map;
+  }
   // -----------------------------------------------------------------------------
   void f(){}
 }

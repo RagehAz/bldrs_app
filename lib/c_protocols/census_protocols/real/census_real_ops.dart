@@ -1,6 +1,7 @@
 
 
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -12,7 +13,7 @@ class CensusRealOps {
   const CensusRealOps();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateAllCensus({
     @required Map<String, dynamic> map,
     @required ZoneModel zoneModel,
@@ -20,7 +21,8 @@ class CensusRealOps {
 
     if (map != null && zoneModel != null){
 
-      final Map<String, dynamic> _map = Mapper.cleanNullPairs(map);
+      Map<String, dynamic> _map = Mapper.cleanNullPairs(map);
+      _map = CensusModel.completeMapForIncrementation(_map);
 
       await Future.wait(<Future>[
 
