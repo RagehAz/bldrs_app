@@ -37,7 +37,7 @@ class SavedFlyersScreenView extends StatelessWidget {
               flyer: flyer,
             ),
             selectedFlyers: _selectedFlyers,
-            flyersIDs: _userModel.savedFlyersIDs,
+            flyersIDs: _userModel.savedFlyers.all,
           );
 
         },
@@ -48,7 +48,7 @@ class SavedFlyersScreenView extends StatelessWidget {
       return SavedFlyersGrid(
         scrollController: scrollController,
         selectionMode: false,
-        flyersIDs: _userModel.savedFlyersIDs,
+        flyersIDs: _userModel.savedFlyers.all,
       );
     }
 

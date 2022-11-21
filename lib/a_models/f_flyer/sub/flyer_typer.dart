@@ -4,18 +4,16 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 enum FlyerType {
-  all,
+  general,
   property,
   design,
-  project, /// TASK : SHOULD RENAME IT TO 'construction'
+  undertaking,
   trade,
   product,
   equipment,
-  non,
 }
 
 class FlyerTyper{
@@ -25,11 +23,12 @@ class FlyerTyper{
 
   // -----------------------------------------------------------------------------
   static const List<FlyerType> flyerTypesList = <FlyerType>[
+    FlyerType.general,
     FlyerType.property,
     FlyerType.design,
-    FlyerType.project,
-    FlyerType.product,
+    FlyerType.undertaking,
     FlyerType.trade,
+    FlyerType.product,
     FlyerType.equipment,
   ];
   // -----------------------------------------------------------------------------
@@ -40,13 +39,13 @@ class FlyerTyper{
   /// TESTED : WORKS PERFECT
   static FlyerType decipherFlyerType(String x) {
     switch (x) {
-      case 'all'      : return FlyerType.all;       break; // 1
-      case 'property' : return FlyerType.property;  break; // 1
-      case 'design'   : return FlyerType.design;    break; // 2
-      case 'product'  : return FlyerType.product;   break; // 3
-      case 'project'  : return FlyerType.project;   break; // 4
-      case 'trade'    : return FlyerType.trade;     break; // 5
-      case 'equipment': return FlyerType.equipment; break; // 6
+      case 'general'    : return FlyerType.general;     break;
+      case 'property'   : return FlyerType.property;    break;
+      case 'design'     : return FlyerType.design;      break;
+      case 'undertaking': return FlyerType.undertaking; break;
+      case 'trade'      : return FlyerType.trade;       break;
+      case 'product'    : return FlyerType.product;     break;
+      case 'equipment'  : return FlyerType.equipment;   break;
       default: return null;
     }
   }
@@ -54,13 +53,13 @@ class FlyerTyper{
   /// TESTED : WORKS PERFECT
   static String cipherFlyerType(FlyerType x) {
     switch (x) {
-    // case FlyerType.all        : return 'all';       break;
-      case FlyerType.property   : return 'property';  break;
-      case FlyerType.design     : return 'design';    break;
-      case FlyerType.product    : return 'product';   break;
-      case FlyerType.project    : return 'project';   break;
-      case FlyerType.trade      : return 'trade';     break;
-      case FlyerType.equipment  : return 'equipment'; break;
+      case FlyerType.general      : return 'general';     break;
+      case FlyerType.property     : return 'property';    break;
+      case FlyerType.design       : return 'design';      break;
+      case FlyerType.undertaking  : return 'undertaking'; break;
+      case FlyerType.trade        : return 'trade';       break;
+      case FlyerType.product      : return 'product';     break;
+      case FlyerType.equipment    : return 'equipment';   break;
       default: return null;
     }
   }
@@ -76,6 +75,7 @@ class FlyerTyper{
       }
 
     }
+
     return _strings;
   }
   // --------------------
@@ -97,10 +97,10 @@ class FlyerTyper{
 
   // --------------------
   static const List<FlyerType> savedFlyersTabs = <FlyerType>[
-    FlyerType.all,
+    FlyerType.general,
     FlyerType.property,
     FlyerType.design,
-    FlyerType.project,
+    FlyerType.undertaking,
     FlyerType.trade,
     FlyerType.product,
     FlyerType.equipment,
@@ -117,97 +117,75 @@ class FlyerTyper{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyerTypeIconOn(FlyerType flyerType) {
+  static String flyerTypeIcon({
+    @required FlyerType flyerType,
+    @required bool isOn,
+  }) {
 
-    final String icon =
-    flyerType == FlyerType.property ? Iconz.bxPropertiesOn
-        :
-    flyerType == FlyerType.design ? Iconz.bxDesignsOn
-        :
-    flyerType == FlyerType.project ? Iconz.bxProjectsOn
-        :
-    flyerType == FlyerType.trade ? Iconz.bxTradesOn
-        :
-    flyerType == FlyerType.product ? Iconz.bxProductsOn
-        :
-    flyerType == FlyerType.equipment ? Iconz.bxEquipmentOn
-        :
-    flyerType == FlyerType.all   ? Iconz.flyerCollection
-        :
-    null;
+    /// ON ICONS
+    if (isOn == true){
+      switch (flyerType) {
+        case FlyerType.general      : return Iconz.flyer;           break;
+        case FlyerType.property     : return Iconz.bxPropertiesOn;  break;
+        case FlyerType.design       : return Iconz.bxDesignsOn;     break;
+        case FlyerType.undertaking  : return Iconz.bzUndertakingOn; break;
+        case FlyerType.trade        : return Iconz.bxTradesOn;      break;
+        case FlyerType.product      : return Iconz.bxProductsOn;    break;
+        case FlyerType.equipment    : return Iconz.bxEquipmentOn;   break;
+        default: return null;
+      }
+    }
 
-    return icon;
+    /// OFF ICONS
+    else {
+      switch (flyerType) {
+        case FlyerType.general      : return Iconz.flyer;             break;
+        case FlyerType.property     : return Iconz.bxPropertiesOff;   break;
+        case FlyerType.design       : return Iconz.bxDesignsOff;      break;
+        case FlyerType.undertaking  : return Iconz.bxUndertakingOff;  break;
+        case FlyerType.trade        : return Iconz.bxTradesOff;       break;
+        case FlyerType.product      : return Iconz.bxProductsOff;     break;
+        case FlyerType.equipment    : return Iconz.bxEquipmentOff;    break;
+        default: return null;
+      }
+    }
+
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String flyerTypeIconOff(FlyerType flyerType) {
-
-    final String _icon =
-    flyerType == FlyerType.property ? Iconz.bxPropertiesOff
-        :
-    flyerType == FlyerType.design ? Iconz.bxDesignsOff
-        :
-    flyerType == FlyerType.project ? Iconz.bxProjectsOff
-        :
-    flyerType == FlyerType.trade ? Iconz.bxTradesOff
-        :
-    flyerType == FlyerType.product ? Iconz.bxProductsOff
-        :
-    flyerType == FlyerType.equipment ? Iconz.bxEquipmentOff
-        :
-    null;
-
-    return _icon;
-  }
-  // --------------------
-  /*
-String getSectionIcon({
-  @required FlyerType section,
-  @required bool inActiveMode
-}){
-
-  String _icon;
-
-  if (inActiveMode == true) {
-    _icon = FlyerTyper.flyerTypeIconOff(section);
-  } else {
-    _icon = FlyerTyper.flyerTypeIconOn(section);
-  }
-
-  return _icon;
-}
- */
   // -----------------------------------------------------------------------------
 
   /// BZ TYPE <--> FLYER TYPE : CONCLUDERS
 
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
-  static FlyerType concludeFlyerTypeByBzType(BzType bzType) {
+  static FlyerType XconcludeFlyerTypeByBzType(BzType bzType) {
     switch (bzType) {
-      case BzType.developer: return FlyerType.property; break;
-      case BzType.broker: return FlyerType.property; break;
-      case BzType.designer: return FlyerType.design; break;
-      case BzType.contractor: return FlyerType.project; break;
-      case BzType.artisan: return FlyerType.trade; break;
-      case BzType.manufacturer: return FlyerType.product; break; // product or equipment for author to choose while creating flyer
-      case BzType.supplier: return FlyerType.product; break; // product or equipment for author to choose while creating flyer
+      case BzType.developer:    return FlyerType.property;    break;
+      case BzType.broker:       return FlyerType.property;    break;
+      case BzType.designer:     return FlyerType.design;      break;
+      case BzType.contractor:   return FlyerType.undertaking; break;
+      case BzType.artisan:      return FlyerType.trade;       break;
+      case BzType.manufacturer: return FlyerType.product;     break; // product or equipment for author to choose while creating flyer
+      case BzType.supplier:     return FlyerType.product;     break; // product or equipment for author to choose while creating flyer
       default: return null;
     }
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByBzType({
     @required BzType bzType
   }) {
     switch (bzType) {
-      case BzType.developer: return <FlyerType>[FlyerType.property]; break;
-      case BzType.broker: return <FlyerType>[FlyerType.property]; break;
-      case BzType.designer: return <FlyerType>[FlyerType.design]; break;
-      case BzType.contractor: return <FlyerType>[FlyerType.project]; break;
-      case BzType.artisan: return <FlyerType>[FlyerType.trade]; break;
-      case BzType.manufacturer: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break; // product or equipment for author to choose while creating flyer
-      case BzType.supplier: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break; // product or equipment for author to choose while creating flyer
+      case BzType.developer:    return <FlyerType>[FlyerType.property];                     break;
+      case BzType.broker:       return <FlyerType>[FlyerType.property];                     break;
+      case BzType.designer:     return <FlyerType>[FlyerType.design];                       break;
+      case BzType.contractor:   return <FlyerType>[FlyerType.undertaking];                  break;
+      case BzType.artisan:      return <FlyerType>[FlyerType.trade];                        break;
+      /// product or equipment for author to choose while creating flyer
+      case BzType.manufacturer: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break;
+      /// product or equipment for author to choose while creating flyer
+      case BzType.supplier:     return <FlyerType>[FlyerType.product, FlyerType.equipment]; break;
       default: return null;
     }
   }
@@ -299,28 +277,34 @@ String getSectionIcon({
 
     /// PLURAL
     if (pluralTranslation == true){
-      return
-        flyerType == FlyerType.all         ? 'phid_all_flyer_types' :
-        flyerType == FlyerType.property    ? 'phid_properties'      :
-        flyerType == FlyerType.design      ? 'phid_designs'         :
-        flyerType == FlyerType.product     ? 'phid_products'        :
-        flyerType == FlyerType.project     ? 'phid_projects'        :
-        flyerType == FlyerType.equipment   ? 'phid_equipments'      :
-        flyerType == FlyerType.trade       ? 'phid_trades'          :
-        'phid_general';
+
+      switch (flyerType) {
+        case FlyerType.general      : return 'phid_general'     ; break;
+        case FlyerType.property     : return 'phid_properties'  ; break;
+        case FlyerType.design       : return 'phid_designs'     ; break;
+        case FlyerType.undertaking  : return 'phid_undertakings'; break;
+        case FlyerType.trade        : return 'phid_trades'      ; break;
+        case FlyerType.product      : return 'phid_products'    ; break;
+        case FlyerType.equipment    : return 'phid_equipments'  ; break;
+        default: return null;
+      }
+
     }
 
     /// SINGLE
     else {
-      return
-        flyerType == FlyerType.all              ? 'phid_all_flyer_types'  :
-        flyerType == FlyerType.property         ? 'phid_propertyFlyer'    :
-        flyerType == FlyerType.design           ? 'phid_designFlyer'      :
-        flyerType == FlyerType.product          ? 'phid_productFlyer'     :
-        flyerType == FlyerType.project          ? 'phid_projectFlyer'     :
-        flyerType == FlyerType.equipment        ? 'phid_equipmentFlyer'   :
-        flyerType == FlyerType.trade            ? 'phid_tradeFlyer'       :
-        'phid_general';
+
+      switch (flyerType) {
+        case FlyerType.general      : return  'phid_general'          ; break;
+        case FlyerType.property     : return  'phid_propertyFlyer'    ; break;
+        case FlyerType.design       : return  'phid_designFlyer'      ; break;
+        case FlyerType.undertaking  : return  'phid_undertakingFlyer' ; break;
+        case FlyerType.trade        : return  'phid_tradeFlyer'       ; break;
+        case FlyerType.product      : return  'phid_productFlyer'     ; break;
+        case FlyerType.equipment    : return  'phid_equipmentFlyer'   ; break;
+        default: return null;
+      }
+
     }
 
   }
@@ -353,8 +337,9 @@ String getSectionIcon({
     return _translations;
   }
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
-  static String translateFlyerTypeByBzType({
+  static String XtranslateFlyerTypeByBzType({
     @required BuildContext context,
     @required BzType bzType,
     bool pluralTranslation = true,
@@ -369,6 +354,7 @@ String getSectionIcon({
 
     return _translation;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static String translateFlyerTypeDescription({
@@ -376,17 +362,17 @@ String getSectionIcon({
     @required FlyerType flyerType,
   }){
 
-    final String _description =
-    flyerType == FlyerType.property ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
-    flyerType == FlyerType.design ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
-    flyerType == FlyerType.project ? 'By Contractors' : //Wordz.constructionTagLine(context) :
-    flyerType == FlyerType.trade ? 'By Artisans, Craftsmen & Technicians.' : //Wordz.constructionTagLine(context) :
-    flyerType == FlyerType.product ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
-    flyerType == FlyerType.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
+    switch (flyerType) {
+      case FlyerType.general      : return 'phid_generalDescription';     break;
+      case FlyerType.property     : return 'phid_propertiesDescription';  break;
+      case FlyerType.design       : return 'phid_designsDescription';     break;
+      case FlyerType.undertaking  : return 'phid_projectsDescription';    break;
+      case FlyerType.trade        : return 'phid_tradesDescription';      break;
+      case FlyerType.product      : return 'phid_productsDescription';    break;
+      case FlyerType.equipment    : return 'phid_equipmentDescription';   break;
+      default: return null;
+    }
 
-    Words.bldrsShortName(context);
-
-    return _description;
   }
 
   // -----------------------------------------------------------------------------
@@ -400,13 +386,14 @@ String getSectionIcon({
   }){
     switch (chainID) {
     /// REAL ESTATE
-      case propertyChainID:  return FlyerType.property; break;
+      case propertyChainID:     return FlyerType.property;    break;
     /// CONSTRUCTION
-      case designChainID:    return FlyerType.design; break;
-      case tradesChainID:    return FlyerType.trade; break;
+      case designChainID:       return FlyerType.design;      break;
+      case undertakingChainID:  return FlyerType.undertaking; break;
+      case tradesChainID:       return FlyerType.trade;       break;
     /// SUPPLIES
-      case productChainID:   return FlyerType.product; break;
-      case equipmentChainID: return FlyerType.equipment; break;
+      case productChainID:      return FlyerType.product;     break;
+      case equipmentChainID:    return FlyerType.equipment;   break;
       default: return null;
     }
   }
@@ -415,18 +402,16 @@ String getSectionIcon({
   static String concludeChainIDByFlyerType({
     @required FlyerType flyerType,
   }){
-
     String _chainID;
 
     switch(flyerType){
-      case FlyerType.property   : _chainID = propertyChainID;   break;
-      case FlyerType.design     : _chainID = designChainID;     break;
-      case FlyerType.project    : _chainID = designChainID;     break;
-      case FlyerType.trade      : _chainID = tradesChainID;     break;
-      case FlyerType.product    : _chainID = productChainID;    break;
-      case FlyerType.equipment  : _chainID = equipmentChainID;  break;
-      case FlyerType.all        : _chainID = null;   break;
-      case FlyerType.non        : _chainID = null;   break;
+      case FlyerType.general      : _chainID = null;              break;
+      case FlyerType.property     : _chainID = propertyChainID;   break;
+      case FlyerType.design       : _chainID = designChainID;     break;
+      case FlyerType.undertaking  : _chainID = designChainID;     break;
+      case FlyerType.trade        : _chainID = tradesChainID;     break;
+      case FlyerType.product      : _chainID = productChainID;    break;
+      case FlyerType.equipment    : _chainID = equipmentChainID;  break;
     }
 
     return _chainID;
@@ -449,7 +434,7 @@ String getSectionIcon({
       default: return null;
     }
   }
-
+  // --------------------
   static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain> chains){
     final List<FlyerType> _types = <FlyerType>[];
 
@@ -486,20 +471,20 @@ String getSectionIcon({
   /// CHAINS IDS
 
   // --------------------
-  static const String propertyChainID = 'phid_k_flyer_type_property';
-  static const String designChainID = 'phid_k_flyer_type_design';
-  static const String tradesChainID = 'phid_k_flyer_type_trades';
-  static const String productChainID = 'phid_k_flyer_type_product';
-  static const String equipmentChainID = 'phid_k_flyer_type_equipment';
-  static const String PROJECTSCHAINID = null; // UNDER-TAKING
+  static const String propertyChainID =     'phid_k_flyer_type_property';
+  static const String designChainID =       'phid_k_flyer_type_design';
+  static const String undertakingChainID =  'phid_k_flyer_type_undertaking';
+  static const String tradesChainID =       'phid_k_flyer_type_trades';
+  static const String productChainID =      'phid_k_flyer_type_product';
+  static const String equipmentChainID =    'phid_k_flyer_type_equipment';
   // --------------------
   static List<String> chainKSonsIDs = <String>[
     propertyChainID,
     designChainID,
+    undertakingChainID,
     tradesChainID,
     productChainID,
     equipmentChainID,
-    // PROJECTSCHAINID,
   ];
   // -----------------------------------------------------------------------------
 }

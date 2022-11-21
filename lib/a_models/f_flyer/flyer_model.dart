@@ -691,27 +691,20 @@ class FlyerModel {
     return _flyerIDs;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static List<FlyerModel> filterFlyersByFlyerType({
     @required List<FlyerModel> flyers,
     @required FlyerType flyerType,
   }){
-    List<FlyerModel> _filteredFlyers = <FlyerModel>[];
+    final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
     if(Mapper.checkCanLoopList(flyers)){
 
-      if (flyerType == FlyerType.all){
-        _filteredFlyers = flyers;
-      }
-
-      else {
-        for (final FlyerModel flyer in flyers){
-          if (flyer.flyerType == flyerType){
-            _filteredFlyers.add(flyer);
-          }
+      for (final FlyerModel flyer in flyers){
+        if (flyer.flyerType == flyerType){
+          _filteredFlyers.add(flyer);
         }
       }
-
     }
 
     return _filteredFlyers;

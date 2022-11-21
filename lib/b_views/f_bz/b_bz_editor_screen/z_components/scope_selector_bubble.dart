@@ -150,7 +150,10 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                         DreamBox(
                           width: ScopeSelectorBubble.typeButtonSize,
                           height: ScopeSelectorBubble.typeButtonSize,
-                          icon: FlyerTyper.flyerTypeIconOff(_flyerType),
+                          icon: FlyerTyper.flyerTypeIcon(
+                            flyerType: _flyerType,
+                            isOn: false,
+                          ),
                         ),
 
                         /// SPACER
