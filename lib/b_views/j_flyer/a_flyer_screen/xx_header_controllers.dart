@@ -237,7 +237,7 @@ Future<void> onFollowTap({
 
     await UserProtocols.followingProtocol(
       context: context,
-      bzID: bzModel.id,
+      bzToFollow: bzModel,
       followIsOn: followIsOn.value,
     );
 

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -183,7 +184,7 @@ class RenovateUserProtocols {
   static Future<void> followingProtocol({
     @required BuildContext context,
     @required bool followIsOn,
-    @required String bzID,
+    @required BzModel bzToFollow,
   }) async {
 
     blog('RenovateUserProtocols.followingProtocol : START');
@@ -196,12 +197,12 @@ class RenovateUserProtocols {
     if (followIsOn == true){
 
       await BzRecordRealOps.followBz(
-        bzID: bzID,
+        bzID: bzToFollow.id,
       );
 
       final UserModel _newUser = UserModel.addBzIDToUserFollows(
         oldUser: _oldUser,
-        bzIDToFollow: bzID,
+        bzToFollow: bzToFollow,
       );
 
       await UserProtocols.renovate(
@@ -216,12 +217,12 @@ class RenovateUserProtocols {
     else {
 
       await BzRecordRealOps.unfollowBz(
-        bzID: bzID,
+        bzID: bzToFollow.id,
       );
 
       final UserModel _newUser = UserModel.removeBzIDFromUserFollows(
         oldUser: _oldUser,
-        bzIDToUnFollow: bzID,
+        bzIDToUnFollow: bzToFollow.id,
       );
 
       await renovateUser(

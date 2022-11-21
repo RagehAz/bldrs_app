@@ -31,7 +31,7 @@ class AgendaModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   AgendaModel copyWith({
     List<String> all,
     List<String> developers,
@@ -56,7 +56,7 @@ class AgendaModel {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static AgendaModel newAgenda(){
     return const AgendaModel(
       all: <String>[],
@@ -74,7 +74,7 @@ class AgendaModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'all': all,
@@ -88,7 +88,7 @@ class AgendaModel {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static AgendaModel decipher(Map<String, dynamic> map){
     AgendaModel _agenda = newAgenda();
 
@@ -114,7 +114,7 @@ class AgendaModel {
   /// MODIFIERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static AgendaModel addBz({
     @required BzModel bzModel,
     @required AgendaModel oldAgenda,
@@ -208,7 +208,7 @@ class AgendaModel {
     return _newAgenda;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static AgendaModel addBzz({
     @required List<BzModel> bzzModels,
     @required AgendaModel oldAgenda,
@@ -564,7 +564,7 @@ class AgendaModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static int getCountByBzType({
     @required BzType bzType,
     @required AgendaModel agenda,
