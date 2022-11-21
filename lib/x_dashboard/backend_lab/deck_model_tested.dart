@@ -267,7 +267,10 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                   ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
 
                     final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
-                    final String _icon = FlyerTyper.flyerTypeIconOn(_type);
+                    final String _icon = FlyerTyper.flyerTypeIcon(
+                      flyerType: _type,
+                      isOn: true
+                    );
 
                     return DreamBox(
                       width: _parcelWidth,
@@ -312,11 +315,10 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
 
-                  ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
+                  ...List.generate(FlyerTyper.savedFlyersTabs.length + 1, (index){
 
-                    final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
 
-                    if (_type == FlyerType.all){
+                    if (index == 0){
                       return SizedBox(
                         width: _parcelWidth,
                         height: _parcelWidth,
@@ -324,6 +326,9 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                     }
 
                     else {
+
+                      final FlyerType _type = FlyerTyper.savedFlyersTabs[index - 1];
+
                       return DreamBox(
                         key: ValueKey('plus_$_type'),
                         width: _parcelWidth,
@@ -332,6 +337,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                         iconSizeFactor: 0.5,
                         onTap: () => _onAdd(_type),
                       );
+
                     }
 
                   }),
@@ -345,11 +351,10 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
 
-                  ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
+                  ...List.generate(FlyerTyper.savedFlyersTabs.length + 1, (index){
 
-                    final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
 
-                    if (_type == FlyerType.all){
+                    if (index == 0){
                       return SizedBox(
                         width: _parcelWidth,
                         height: _parcelWidth,
@@ -357,6 +362,9 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                     }
 
                     else {
+
+                      final FlyerType _type = FlyerTyper.savedFlyersTabs[index - 1];
+
                       return DreamBox(
                         key: ValueKey('minus_$_type'),
                         width: _parcelWidth,

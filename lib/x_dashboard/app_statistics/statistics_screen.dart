@@ -149,7 +149,7 @@ class GeneralStatistics extends StatelessWidget {
                 CensusLine(
                   verse: const Verse(text: 'phid_contractors', translate: true,),
                   count: _censusModel?.bzTypeContractor,
-                  icon: Iconz.bxProjectsOn,
+                  icon: Iconz.bzUndertakingOn,
                 ),
                 /// FLYER TYPE : PROJECT
                 CensusLine(

@@ -9,6 +9,7 @@ class DeckModel {
   // -----------------------------------------------------------------------------
   const DeckModel({
     @required this.all,
+    @required this.general,
     @required this.properties,
     @required this.designs,
     @required this.undertakings,
@@ -18,6 +19,7 @@ class DeckModel {
   });
   // -----------------------------------------------------------------------------
   final List<String> all;
+  final List<String> general;
   final List<String> properties;
   final List<String> designs;
   final List<String> undertakings;
@@ -32,6 +34,7 @@ class DeckModel {
   /// TESTED: WORKS PERFECT
   DeckModel copyWith({
     List<String> all,
+    List<String> general,
     List<String> properties,
     List<String> designs,
     List<String> undertakings,
@@ -42,6 +45,7 @@ class DeckModel {
 
     return DeckModel(
       all: all?? this.all,
+      general: general?? this.general,
       properties: properties?? this.properties,
       designs: designs?? this.designs,
       undertakings: undertakings?? this.undertakings,
@@ -56,6 +60,7 @@ class DeckModel {
   static DeckModel newDeck(){
     return const DeckModel(
       all: <String>[],
+      general: <String>[],
       properties: <String>[],
       designs: <String>[],
       undertakings: <String>[],
@@ -73,6 +78,7 @@ class DeckModel {
   Map<String, dynamic> toMap(){
     return {
       'all': all,
+      'general': general,
       'properties': properties,
       'designs': designs,
       'undertakings': undertakings,
@@ -90,6 +96,7 @@ class DeckModel {
 
       _deck = DeckModel(
           all: Stringer.getStringsFromDynamics(dynamics: map['all']),
+          general: Stringer.getStringsFromDynamics(dynamics: map['general']),
           properties: Stringer.getStringsFromDynamics(dynamics: map['properties']),
           designs: Stringer.getStringsFromDynamics(dynamics: map['designs']),
           undertakings: Stringer.getStringsFromDynamics(dynamics: map['undertakings']),
@@ -125,6 +132,16 @@ class DeckModel {
 
       switch(flyer.flyerType){
 
+        /// GENERAL
+        case FlyerType.general:
+          _newDeck = _newDeck.copyWith(
+              general: Stringer.addStringToListIfDoesNotContainIt(
+                strings: _newDeck.general,
+                stringToAdd: flyer.id,
+              )
+          );
+          break;
+
       /// PROPERTIES
         case FlyerType.property   :
           _newDeck = _newDeck.copyWith(
@@ -144,7 +161,7 @@ class DeckModel {
           ); break;
 
       /// UNDERTAKING
-        case FlyerType.project    :
+        case FlyerType.undertaking    :
           _newDeck = _newDeck.copyWith(
             undertakings: Stringer.addStringToListIfDoesNotContainIt(
               strings: _newDeck.undertakings,
@@ -228,6 +245,16 @@ class DeckModel {
 
       switch(flyer.flyerType){
 
+        /// GENERAL
+        case FlyerType.general:
+          _newDeck = _newDeck.copyWith(
+            general: Stringer.addOrRemoveStringToStrings(
+              strings: _newDeck.general,
+              string: flyer.id,
+            )
+          );
+          break;
+
         /// PROPERTIES
         case FlyerType.property   :
           _newDeck = _newDeck.copyWith(
@@ -247,7 +274,7 @@ class DeckModel {
           ); break;
 
           /// UNDERTAKING
-        case FlyerType.project    :
+        case FlyerType.undertaking    :
           _newDeck = _newDeck.copyWith(
             undertakings: Stringer.addOrRemoveStringToStrings(
               strings: _newDeck.undertakings,
@@ -331,6 +358,16 @@ class DeckModel {
 
       switch(flyer.flyerType){
 
+      /// GENERAL
+      case FlyerType.general:
+        _newDeck = _newDeck.copyWith(
+          general: Stringer.removeStringsFromStrings(
+            removeFrom: _newDeck.general,
+            removeThis: [flyer.id],
+          )
+        );
+        break;
+
       /// PROPERTIES
         case FlyerType.property   :
           _newDeck = _newDeck.copyWith(
@@ -350,7 +387,7 @@ class DeckModel {
           ); break;
 
       /// UNDERTAKING
-        case FlyerType.project    :
+        case FlyerType.undertaking    :
           _newDeck = _newDeck.copyWith(
             undertakings: Stringer.removeStringsFromStrings(
               removeFrom: _newDeck.undertakings,
@@ -438,48 +475,56 @@ class DeckModel {
               removeThis: [flyerID],
           ),);
 
+        /// GENERAL
+        if (Stringer.checkStringsContainString(strings: _newDeck.general, string: flyerID,) == true){
+          _newDeck = _newDeck.copyWith(general: Stringer.removeStringsFromStrings(
+            removeFrom: _newDeck.general,
+            removeThis: [flyerID],
+          ),);
+        }
         /// PROPERTIES
-        if (Stringer.checkStringsContainString(strings: _newDeck.properties, string: flyerID)){
+        else if (Stringer.checkStringsContainString(strings: _newDeck.properties, string: flyerID) == true){
           _newDeck = _newDeck.copyWith(properties: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.properties,
             removeThis: [flyerID],
           ),);
         }
         /// DESIGNS
-        else if (Stringer.checkStringsContainString(strings: _newDeck.designs, string: flyerID)){
+        else if (Stringer.checkStringsContainString(strings: _newDeck.designs, string: flyerID) == true){
           _newDeck = _newDeck.copyWith(designs: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.designs,
             removeThis: [flyerID],
           ),);
         }
         /// UNDERTAKINGS
-        else if (Stringer.checkStringsContainString(strings: _newDeck.undertakings, string: flyerID)){
+        else if (Stringer.checkStringsContainString(strings: _newDeck.undertakings, string: flyerID) == true){
           _newDeck = _newDeck.copyWith(undertakings: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.undertakings,
             removeThis: [flyerID],
           ),);
         }
         /// TRADES
-        else if (Stringer.checkStringsContainString(strings: _newDeck.trades, string: flyerID)){
+        else if (Stringer.checkStringsContainString(strings: _newDeck.trades, string: flyerID) == true){
           _newDeck = _newDeck.copyWith(trades: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.trades,
             removeThis: [flyerID],
           ),);
         }
         /// PRODUCTS
-        else if (Stringer.checkStringsContainString(strings: _newDeck.products, string: flyerID)){
+        else if (Stringer.checkStringsContainString(strings: _newDeck.products, string: flyerID) == true){
           _newDeck = _newDeck.copyWith(products: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.products,
             removeThis: [flyerID],
           ),);
         }
         /// EQUIPMENT
-        else if (Stringer.checkStringsContainString(strings: _newDeck.equipment, string: flyerID)){
+        else if (Stringer.checkStringsContainString(strings: _newDeck.equipment, string: flyerID) == true){
           _newDeck = _newDeck.copyWith(equipment: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.equipment,
             removeThis: [flyerID],
           ),);
         }
+
       }
 
     }
@@ -524,13 +569,13 @@ class DeckModel {
     if (flyerType != null && deckModel != null){
 
       switch (flyerType) {
-        case FlyerType.all        : return _output = deckModel.all.length;          break;
-        case FlyerType.property   : return _output = deckModel.properties.length;   break;
-        case FlyerType.design     : return _output = deckModel.designs.length;      break;
-        case FlyerType.project    : return _output = deckModel.undertakings.length; break;
-        case FlyerType.trade      : return _output = deckModel.trades.length;       break;
-        case FlyerType.product    : return _output = deckModel.products.length;     break;
-        case FlyerType.equipment  : return _output = deckModel.equipment.length;    break;
+        case FlyerType.general      : return _output = deckModel.general.length;      break;
+        case FlyerType.property     : return _output = deckModel.properties.length;   break;
+        case FlyerType.design       : return _output = deckModel.designs.length;      break;
+        case FlyerType.undertaking  : return _output = deckModel.undertakings.length; break;
+        case FlyerType.trade        : return _output = deckModel.trades.length;       break;
+        case FlyerType.product      : return _output = deckModel.products.length;     break;
+        case FlyerType.equipment    : return _output = deckModel.equipment.length;    break;
         default: _output = 0;
       }
 
@@ -557,6 +602,7 @@ class DeckModel {
     else if (deck1 != null && deck2 != null){
 
       if (
+        Mapper.checkListsAreIdentical(list1: deck1.general,       list2: deck2.general) == true &&
         Mapper.checkListsAreIdentical(list1: deck1.all,           list2: deck2.all) == true &&
         Mapper.checkListsAreIdentical(list1: deck1.properties,    list2: deck2.properties) == true &&
         Mapper.checkListsAreIdentical(list1: deck1.designs,       list2: deck2.designs) == true &&
@@ -581,6 +627,7 @@ class DeckModel {
    String toString() =>
       'DeckModel(\n'
       '   all :          \n       $all\n'
+      '   general :      \n       $general\n'
       '   properties :   \n       $properties\n'
       '   designs :      \n       $designs\n'
       '   undertakings : \n       $undertakings\n'
@@ -610,6 +657,7 @@ class DeckModel {
   @override
   int get hashCode =>
       all.hashCode^
+      general.hashCode^
       properties.hashCode^
       designs.hashCode^
       undertakings.hashCode^

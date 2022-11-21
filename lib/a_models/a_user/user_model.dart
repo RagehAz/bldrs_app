@@ -3,6 +3,8 @@ import 'package:bldrs/a_models/a_user/need_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/deck_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -48,7 +50,7 @@ class UserModel {
     @required this.isAdmin,
     @required this.device,
     @required this.fcmTopics,
-    @required this.savedFlyersIDs,
+    @required this.savedFlyers,
     @required this.followedBzzIDs,
     @required this.appState,
     this.docSnapshot,
@@ -74,7 +76,7 @@ class UserModel {
   final bool isAdmin;
   final DeviceModel device;
   final List<String> fcmTopics;
-  final List<String> savedFlyersIDs;
+  final DeckModel savedFlyers;
   final List<String> followedBzzIDs;
   final AppState appState;
   final DocumentSnapshot docSnapshot;
@@ -117,7 +119,7 @@ class UserModel {
       isAdmin: false,
       company: null,
       device: null,
-      savedFlyersIDs: const <String>[],
+      savedFlyers: DeckModel.newDeck(),
       followedBzzIDs: const <String>[],
       appState: await GeneralProvider.fetchGlobalAppState(
         context: context,
@@ -162,7 +164,7 @@ class UserModel {
       'isAdmin': isAdmin,
       'device': device?.toMap(),
       'fcmTopics': fcmTopics,
-      'savedFlyersIDs': savedFlyersIDs ?? <String>[],
+      'savedFlyers': savedFlyers?.toMap(),
       'followedBzzIDs': followedBzzIDs ?? <String>[],
       'appState' : appState.toMap(),
     };
@@ -219,7 +221,7 @@ class UserModel {
         isAdmin: map['isAdmin'],
         device: DeviceModel.decipherFCMToken(map['device']),
         fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
-        savedFlyersIDs: Stringer.getStringsFromDynamics(dynamics: map['savedFlyersIDs'],),
+        savedFlyers: DeckModel.decipher(map['savedFlyers']),
         followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
         appState: AppState.fromMap(map['appState']),
         docSnapshot: map['docSnapshot']
@@ -272,7 +274,7 @@ class UserModel {
     bool emailIsVerified,
     bool isAdmin,
     DeviceModel device,
-    List<String> savedFlyersIDs,
+    DeckModel savedFlyers,
     List<String> followedBzzIDs,
     AppState appState,
     List<String> fcmTopics,
@@ -297,7 +299,7 @@ class UserModel {
       emailIsVerified: emailIsVerified ?? this.emailIsVerified,
       isAdmin: isAdmin ?? this.isAdmin,
       device: device ?? this.device,
-      savedFlyersIDs: savedFlyersIDs ?? this.savedFlyersIDs,
+      savedFlyers: savedFlyers ?? this.savedFlyers,
       followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
       appState: appState ?? this.appState,
       fcmTopics: fcmTopics ?? this.fcmTopics,
@@ -325,7 +327,7 @@ class UserModel {
     bool emailIsVerified = false,
     bool isAdmin = false,
     bool device = false,
-    bool savedFlyersIDs = false,
+    bool savedFlyers = false,
     bool followedBzzIDs = false,
     bool appState = false,
     bool fcmTopics = false,
@@ -350,7 +352,7 @@ class UserModel {
       emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
       isAdmin : isAdmin == true ? null : this.isAdmin,
       device : device == true ? null : this.device,
-      savedFlyersIDs : savedFlyersIDs == true ? const [] : this.savedFlyersIDs,
+      savedFlyers : savedFlyers == true ? DeckModel.newDeck() : this.savedFlyers,
       followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
       appState : appState == true ? null : this.appState,
       fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
@@ -466,14 +468,14 @@ class UserModel {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static bool checkFlyerIsSaved({
     @required UserModel userModel,
     @required String flyerID,
   }){
 
     return Stringer.checkStringsContainString(
-        strings: userModel?.savedFlyersIDs,
+        strings: userModel?.savedFlyers?.all,
         string: flyerID
     );
 
@@ -687,43 +689,38 @@ class UserModel {
     return _newUser;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static UserModel addFlyerIDToSavedFlyersIDs({
+  /// TASK : TEST ME
+  static UserModel addFlyerToSavedFlyers({
     @required UserModel oldUser,
-    @required String flyerIDToAdd,
+    @required FlyerModel flyerModel,
   }){
 
-    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: oldUser?.savedFlyersIDs,
-      stringToAdd: flyerIDToAdd,
+    final DeckModel _newSavedFlyers = DeckModel.addFlyer(
+        flyer: flyerModel,
+        oldDeck: oldUser?.savedFlyers,
     );
 
     final UserModel _newUser = oldUser?.copyWith(
-      savedFlyersIDs: _newBzzIDs,
+      savedFlyers: _newSavedFlyers,
     );
 
     return _newUser;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static UserModel removeFlyerIDFromSavedFlyersIDs({
+  /// TASK : TEST ME
+  static UserModel removeFlyerFromSavedFlyers({
     @required UserModel oldUser,
     @required String flyerIDToRemove,
   }){
-    UserModel _newUser = oldUser;
 
-    if (Mapper.checkCanLoopList(oldUser?.savedFlyersIDs) == true) {
+    final DeckModel _newSavedFlyers = DeckModel.removeFlyerByID(
+        oldDeck: oldUser?.savedFlyers,
+        flyerID: flyerIDToRemove
+    );
 
-      final List<String> _newList = Stringer.removeStringsFromStrings(
-        removeFrom: oldUser.savedFlyersIDs,
-        removeThis: <String>[flyerIDToRemove],
-      );
-
-      _newUser = oldUser.copyWith(
-        savedFlyersIDs: _newList,
-      );
-
-    }
+    final UserModel _newUser = oldUser.copyWith(
+      savedFlyers: _newSavedFlyers,
+    );
 
     return _newUser;
   }
@@ -801,13 +798,13 @@ class UserModel {
     blog('location : $location');
     blog('myBzzIDs : $myBzzIDs');
     blog('followedBzzIDs : $followedBzzIDs');
-    blog('savedFlyersIDs : $savedFlyersIDs');
     blog('isAdmin : $isAdmin');
     blog('emailIsVerified : $emailIsVerified');
     blog('docSnapshot : $docSnapshot');
     zone?.blogZone();
     need?.blogNeed();
     blog('contactsArePublic : $contactsArePublic');
+    blog('savedFlyers : ${savedFlyers?.toString()}');
     ContactModel.blogContacts(
       contacts: contacts,
       invoker: 'user contacts',
@@ -926,8 +923,8 @@ class UserModel {
         blog('blogUserDifferences : [isAdmin] are not identical');
       }
 
-      if (Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == false){
-        blog('blogUserDifferences : [savedFlyersIDs] are not identical');
+      if (DeckModel.checkDecksAreIdentical(deck1: user1.savedFlyers, deck2: user2.savedFlyers) == false){
+        blog('blogUserDifferences : [savedFlyers] are not identical');
       }
 
       if (Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == false){
@@ -981,7 +978,7 @@ class UserModel {
       emailIsVerified: true,
       isAdmin: true,
       device: null,
-      savedFlyersIDs: const <String>[],
+      savedFlyers: DeckModel.newDeck(),
       followedBzzIDs: const <String>[],
       appState: AppState.dummyAppState(),
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
@@ -1098,7 +1095,7 @@ class UserModel {
           Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == true &&
           user1.emailIsVerified == user2.emailIsVerified &&
           user1.isAdmin == user2.isAdmin &&
-          Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == true &&
+          DeckModel.checkDecksAreIdentical(deck1: user1.savedFlyers, deck2: user2.savedFlyers) == true &&
           Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == true &&
           AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
@@ -1171,7 +1168,7 @@ class UserModel {
       isAdmin.hashCode^
       device.hashCode^
       fcmTopics.hashCode^
-      savedFlyersIDs.hashCode^
+      savedFlyers.hashCode^
       followedBzzIDs.hashCode^
       appState.hashCode^
       docSnapshot.hashCode;

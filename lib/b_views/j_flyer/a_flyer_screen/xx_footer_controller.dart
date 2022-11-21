@@ -25,8 +25,7 @@ Future<void> onSaveFlyer({
 
   await UserProtocols.savingFlyerProtocol(
     context: context,
-    flyerID: flyerModel.id,
-    bzID: flyerModel.bzID,
+    flyerModel: flyerModel,
     flyerIsSaved: flyerIsSaved.value,
     slideIndex: slideIndex,
   );
