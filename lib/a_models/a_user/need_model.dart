@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -27,7 +26,6 @@ class NeedModel {
   /// --------------------------------------------------------------------------
   const NeedModel({
     @required this.needType,
-    @required this.zone,
     @required this.notes,
     @required this.flyerIDs,
     @required this.bzzIDs,
@@ -38,7 +36,6 @@ class NeedModel {
   /// --------------------------------------------------------------------------
   final NeedType needType;
   final List<String> scope;
-  final ZoneModel zone;
   final GeoPoint location;
   final String notes;
   final List<String> flyerIDs;
@@ -57,7 +54,6 @@ class NeedModel {
     return NeedModel(
       needType: null,
       scope: const [],
-      zone: userZone ?? ZoneProvider.proGetCurrentZone(context: context, listen: false),
       location: null,
       notes: '',
       flyerIDs: const [],
@@ -66,18 +62,14 @@ class NeedModel {
     );
   }
   // --------------------
+  /*
   ///
   static Future<NeedModel> prepareNeedForEditing({
     @required BuildContext context,
     @required NeedModel need,
   }) async {
 
-    return need.copyWith(
-      zone: await ZoneModel.prepareZoneForEditing(
-          context: context,
-          zoneModel: need.zone,
-      ),
-    );
+    return need.copyWith();
 
   }
   // --------------------
@@ -91,6 +83,7 @@ class NeedModel {
     return tempNeed;
 
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -100,7 +93,6 @@ class NeedModel {
   NeedModel copyWith({
     NeedType needType,
     List<String> scope,
-    ZoneModel zone,
     GeoPoint location,
     String notes,
     List<String> flyerIDs,
@@ -110,7 +102,6 @@ class NeedModel {
     return NeedModel(
       needType: needType ?? this.needType,
       scope: scope ?? this.scope,
-      zone: zone ?? this.zone,
       location: location ?? this.location,
       notes: notes ?? this.notes,
       flyerIDs: flyerIDs ?? this.flyerIDs,
@@ -123,7 +114,6 @@ class NeedModel {
   NeedModel nullifyField({
     bool needType = false,
     bool scope = false,
-    bool zone = false,
     bool location = false,
     bool notes = false,
     bool flyerIDs = false,
@@ -133,7 +123,6 @@ class NeedModel {
     return NeedModel(
       needType: needType == true ? null : this.needType,
       scope: scope == true ? null : this.scope,
-      zone: zone == true ? null : this.zone,
       location: location == true ? null : this.location,
       notes: notes == true ? null : this.notes,
       flyerIDs: flyerIDs == true ? null : this.flyerIDs,
@@ -153,7 +142,6 @@ class NeedModel {
     return {
       'needType': cipherNeedType(needType),
       'scope': scope,
-      'zone': zone?.toMap(),
       'location': Atlas.cipherGeoPoint(point: location, toJSON: toJSON),
       'notes': notes,
       'flyerIDs': flyerIDs,
@@ -173,7 +161,6 @@ class NeedModel {
       _need = NeedModel(
         needType: decipherNeedType(map['needType']),
         scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
-        zone: ZoneModel.decipherZone(map['zone']),
         location: Atlas.decipherGeoPoint(point: map['location'], fromJSON: fromJSON),
         notes: map['notes'],
         flyerIDs: Stringer.getStringsFromDynamics(dynamics: map['flyerIDs']),
@@ -332,7 +319,6 @@ class NeedModel {
 
       if (
           need1.needType == need2.needType &&
-          ZoneModel.checkZonesAreIdentical(zone1: need1.zone, zone2: need2.zone) == true &&
           need1.notes == need2.notes &&
           Mapper.checkListsAreIdentical(list1: need1.flyerIDs , list2: need2.flyerIDs) == true &&
           Mapper.checkListsAreIdentical(list1: need1.bzzIDs , list2: need2.bzzIDs) == true &&
@@ -362,7 +348,6 @@ class NeedModel {
     return NeedModel(
       needType: NeedType.finishConstruction,
       notes: 'This is a need description, and my need is to reach all countries',
-      zone: ZoneModel.dummyZone(),
       scope: SpecModel.getSpecsIDs(SpecModel.dummySpecs()),
       bzzIDs: _userModel.followedBzzIDs,
       flyerIDs: _userModel.savedFlyers.all,
@@ -384,7 +369,6 @@ class NeedModel {
     blog('bzzIDs : $bzzIDs');
     blog('scope : $scope');
     blog('position : $location');
-    zone.blogZoneIDs();
   }
   // -----------------------------------------------------------------------------
 
@@ -414,7 +398,6 @@ class NeedModel {
   @override
   int get hashCode =>
       needType.hashCode^
-      zone.hashCode^
       notes.hashCode^
       flyerIDs.hashCode^
       bzzIDs.hashCode^
