@@ -29,7 +29,7 @@ class DeckModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   DeckModel copyWith({
     List<String> all,
     List<String> properties,
@@ -52,7 +52,7 @@ class DeckModel {
 
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel newDeck(){
     return const DeckModel(
       all: <String>[],
@@ -577,10 +577,17 @@ class DeckModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() =>
+      'DeckModel(\n'
+      '   all :          \n       $all\n'
+      '   properties :   \n       $properties\n'
+      '   designs :      \n       $designs\n'
+      '   undertakings : \n       $undertakings\n'
+      '   trades :       \n       $trades\n'
+      '   products :     \n       $products\n'
+      '   equipment :    \n       $equipment\n'
+      ')';
   // --------------------
   @override
   bool operator == (Object other){
