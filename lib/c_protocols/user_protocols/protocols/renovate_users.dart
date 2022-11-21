@@ -166,16 +166,8 @@ class RenovateUserProtocols {
         incompleteZoneModel: userModel.zone,
       );
 
-      final ZoneModel _completeNeedZoneModel = await ZoneProtocols.completeZoneModel(
-        context: context,
-        incompleteZoneModel: userModel.need?.zone,
-      );
-
       _output = userModel.copyWith(
         zone: _completeZoneModel,
-        need: userModel.need?.copyWith(
-          zone: _completeNeedZoneModel,
-        ),
       );
 
     }

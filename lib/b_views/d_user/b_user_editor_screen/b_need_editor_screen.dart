@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -37,7 +38,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
-  final ValueNotifier<NeedModel> _need = ValueNotifier(null);
+  final ValueNotifier<UserModel> _userModel = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -56,15 +57,22 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   void initState() {
     super.initState();
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    UserModel _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    _need.value = _userModel.need ?? NeedModel.createInitialNeed(
-      context: context,
-      userZone: _userModel.zone,
-    );
+    if (_oldUser.need == null){
+      _oldUser = _oldUser.copyWith(
+        need: NeedModel.createInitialNeed(
+          context: context,
+          userZone: _oldUser.zone,
+        ),
+      );
+    }
+
+
+    _userModel.value = _oldUser;
 
   }
   // --------------------
@@ -87,7 +95,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    _need.dispose();
+    _userModel.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -98,7 +106,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       listen: false,
     );
 
-    final bool _needsChanged = NeedModel.checkNeedsAreIdentical(_oldUser.need , _need.value) == false;
+    final bool _needsChanged = UserModel.usersAreIdentical(
+        user1: _oldUser,
+        user2: _userModel.value
+    ) == false;
 
     if (_needsChanged == true){
 
@@ -106,8 +117,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         context: context,
       ));
 
-      final UserModel _newUser = _oldUser.copyWith(
-        need: _need.value.copyWith(
+      final UserModel _newUser = _userModel.value.copyWith(
+        need: _userModel.value.need.copyWith(
           since: DateTime.now(),
         ),
       );
@@ -160,8 +171,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       layoutWidget: Form(
         key: _formKey,
         child: ValueListenableBuilder(
-            valueListenable: _need,
-            builder: (_, NeedModel need, Widget child){
+            valueListenable: _userModel,
+            builder: (_, UserModel userModel, Widget child){
 
               return ListView(
                 physics: const BouncingScrollPhysics(),
@@ -210,15 +221,21 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                         ...List.generate(NeedModel.needsTypes.length, (index){
 
                           final NeedType _type = NeedModel.needsTypes[index];
-                          final bool _isSelected = need.needType == _type;
+                          final bool _isSelected = userModel.need.needType == _type;
 
                           return Bubble(
                             width: Bubble.clearWidth(context),
                             bubbleColor: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
                             headerViewModel: const BubbleHeaderVM(),
                             onBubbleTap: (){
-                              _need.value = _need.value.copyWith(needType: _type,);
-                            },
+
+                              _userModel.value = _userModel.value.copyWith(
+                                need: _userModel.value.need.copyWith(
+                                  needType: _type,
+                                ),
+                              );
+
+                              },
                             childrenCentered: true,
                             columnChildren: <Widget>[
 
@@ -263,11 +280,15 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     maxLength: 1000,
                     maxLines: 20,
                     keyboardTextInputType: TextInputType.multiline,
-                    initialText: need?.notes,
+                    initialText: userModel.need?.notes,
                     onTextChanged: (String text){
-                      _need.value = _need.value.copyWith(
-                        notes: text,
+
+                      _userModel.value = _userModel.value.copyWith(
+                        need: _userModel.value.need.copyWith(
+                          notes: text,
+                        ),
                       );
+
                     },
                     // autoValidate: true,
                     validator: (String text){
@@ -282,16 +303,23 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       translate: true,
                     ),
                     isRequired: false,
-                    currentZone: need.zone,
-                    onZoneChanged: (ZoneModel zone){
-                      _need.value = _need.value.copyWith(
-                        zone: zone,
+                    currentZone: userModel.zone,
+                    onZoneChanged: (ZoneModel zone) async {
+
+                      final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
+                        context: context,
+                        incompleteZoneModel: zone,
                       );
+
+                      _userModel.value = _userModel.value.copyWith(
+                        zone: _completeZone,
+                      );
+
                     },
                     // selectCountryAndCityOnly: true,
                     // selectCountryIDOnly: false,
                     validator: () => Formers.zoneValidator(
-                      zoneModel: need.zone,
+                      zoneModel: userModel.zone,
                       selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,
                       canValidate: true,
