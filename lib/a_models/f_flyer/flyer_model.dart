@@ -546,7 +546,7 @@ class FlyerModel {
       headline: 'Dummy Flyer',
       trigram: Stringer.createTrigram(input: 'Dummy Flyer'),
       description: 'This is a dummy flyer',
-      authorID: AuthFireOps.superUserID(),
+      authorID: 'x',
       flyerType : FlyerType.property,
       publishState : PublishState.published,
       auditState: AuditState.verified,
