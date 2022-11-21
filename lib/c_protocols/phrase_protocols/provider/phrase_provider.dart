@@ -82,10 +82,11 @@ class PhraseProvider extends ChangeNotifier {
 
     // blog('---> fetchSetCurrentLangAndAllPhrases : _currentLangCode : $_currentLangCode');
 
-    // final List<Phrase> phrases = await PhraseProtocols.generateCountriesMixedLangPhrases(
-    //   context: context,
-    //   langCodes: <String>['en', 'ar'],
-    // );
+    /// THIS GENERATES COUNTRIES PHRASES AND INSERTS THEM IN LDB TO FACILITATE COUNTRY SEARCH BY NAME
+    await PhraseProtocols.composeCountriesMixedLangPhrases(
+      context: context,
+      langCodes: <String>['en', 'ar'],
+    );
 
     // blog('---> fetchSetCurrentLangAndAllPhrases : countriesPhrases : ${phrases.length}');
 
