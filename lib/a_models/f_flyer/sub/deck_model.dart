@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class DeckModel {
   // -----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ class DeckModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'all': all,
@@ -82,7 +82,7 @@ class DeckModel {
     };
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel decipher(Map<String, dynamic> map){
     DeckModel _deck = newDeck();
 
@@ -107,7 +107,7 @@ class DeckModel {
   /// MODIFIERS
 
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel addFlyer({
     @required FlyerModel flyer,
     @required DeckModel oldDeck,
@@ -187,7 +187,7 @@ class DeckModel {
     return _newDeck;
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel addFlyers({
     @required List<FlyerModel> flyers,
     @required DeckModel deckModel,
@@ -210,7 +210,7 @@ class DeckModel {
     return _newDeck;
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel addOrRemoveFlyer({
     @required FlyerModel flyer,
     @required DeckModel oldDeck,
@@ -290,7 +290,7 @@ class DeckModel {
     return _newDeck;
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel addOrRemoveFlyers({
     @required List<FlyerModel> flyers,
     @required DeckModel deckModel,
@@ -313,7 +313,7 @@ class DeckModel {
     return _newDeck;
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel removeFlyer({
     @required FlyerModel flyer,
     @required DeckModel oldDeck,
@@ -393,7 +393,7 @@ class DeckModel {
     return _newDeck;
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel removeFlyers({
     @required List<FlyerModel> flyers,
     @required DeckModel oldDeck,
@@ -416,7 +416,7 @@ class DeckModel {
     return _newDeck;
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel removeFlyerByID({
     @required DeckModel oldDeck,
     @required String flyerID,
@@ -487,7 +487,7 @@ class DeckModel {
     return _newDeck;
   }
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static DeckModel removeFlyersByIDs({
     @required DeckModel oldDeck,
     @required List<String> flyersIDs,
@@ -514,7 +514,7 @@ class DeckModel {
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static int getCountByFlyerType({
     @required FlyerType flyerType,
     @required DeckModel deckModel,
@@ -543,7 +543,7 @@ class DeckModel {
   /// EQUALITY
 
   // --------------------
-  ///
+  /// TESTED: WORKS PERFECT
   static bool checkDecksAreIdentical({
     @required DeckModel deck1,
     @required DeckModel deck2,
