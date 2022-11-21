@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/a_user/need_model.dart';
+import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';

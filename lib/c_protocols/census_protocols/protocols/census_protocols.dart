@@ -238,8 +238,19 @@ class CensusProtocols {
   }) async {
 
   }
+  // --------------------
+  /// will be included in user protocols
+  static Future<void> onFollowBz({
+    @required BzModel bzModel,
+    @required UserModel userModel,
+  }) async {
 
+}
+  // --------------------
+  /// will be included in user protocols
+  static Future<void> onSaveFlyer() async {
 
+  }
   // -----------------------------------------------------------------------------
   void f (){}
 }

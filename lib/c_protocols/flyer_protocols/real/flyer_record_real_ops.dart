@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_flyer_poster.dart';

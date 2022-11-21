@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/a_user/need_model.dart';
+import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
