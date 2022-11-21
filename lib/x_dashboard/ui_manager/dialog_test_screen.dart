@@ -57,7 +57,7 @@ class DialogsTestScreen extends StatelessWidget {
             verse: Verse.plain('close Top Dialog'),
             onTap: () async {
 
-              TopDialog.closeTopDialog(context);
+              await TopDialog.closeTopDialog(context);
 
             },
           ),

@@ -27,14 +27,19 @@ class TopDialog extends StatelessWidget {
   // final int duration;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static void closeTopDialog(BuildContext context){
+  static Future<void> closeTopDialog(BuildContext context) async {
 
     final GlobalKey _key = UiProvider.proGetTopDialogKey(
       context: context,
       listen: false,
     );
 
-    (_key?.currentWidget as Flushbar)?.dismiss();
+    final Flushbar _flushbar = _key?.currentWidget;
+
+    if (_flushbar?.isDismissed() == false){
+      await _flushbar.dismiss();
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -47,6 +52,8 @@ class TopDialog extends StatelessWidget {
     Function onTap,
     int milliseconds = 5000,
   }) async {
+
+    await closeTopDialog(context);
 
     final double _screenWidth = Scale.screenWidth(context);
     final double _bubbleWidth = BldrsAppBar.width(context);
