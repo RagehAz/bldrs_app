@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
@@ -51,7 +53,7 @@ class UserModel {
     @required this.device,
     @required this.fcmTopics,
     @required this.savedFlyers,
-    @required this.followedBzzIDs,
+    @required this.followedBzz,
     @required this.appState,
     this.docSnapshot,
   });
@@ -77,7 +79,7 @@ class UserModel {
   final DeviceModel device;
   final List<String> fcmTopics;
   final DeckModel savedFlyers;
-  final List<String> followedBzzIDs;
+  final AgendaModel followedBzz;
   final AppState appState;
   final DocumentSnapshot docSnapshot;
   // -----------------------------------------------------------------------------
@@ -120,7 +122,7 @@ class UserModel {
       company: null,
       device: null,
       savedFlyers: DeckModel.newDeck(),
-      followedBzzIDs: const <String>[],
+      followedBzz: AgendaModel.newAgenda(),
       appState: await GeneralProvider.fetchGlobalAppState(
         context: context,
         assignToUser: true,
@@ -165,7 +167,7 @@ class UserModel {
       'device': device?.toMap(),
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
-      'followedBzzIDs': followedBzzIDs ?? <String>[],
+      'followedBzz': followedBzz?.toMap(),
       'appState' : appState.toMap(),
     };
   }
@@ -222,7 +224,7 @@ class UserModel {
         device: DeviceModel.decipherFCMToken(map['device']),
         fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
         savedFlyers: DeckModel.decipher(map['savedFlyers']),
-        followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
+        followedBzz: AgendaModel.decipher(map['followedBzz']),
         appState: AppState.fromMap(map['appState']),
         docSnapshot: map['docSnapshot']
     );
@@ -275,7 +277,7 @@ class UserModel {
     bool isAdmin,
     DeviceModel device,
     DeckModel savedFlyers,
-    List<String> followedBzzIDs,
+    AgendaModel followedBzz,
     AppState appState,
     List<String> fcmTopics,
   }){
@@ -300,7 +302,7 @@ class UserModel {
       isAdmin: isAdmin ?? this.isAdmin,
       device: device ?? this.device,
       savedFlyers: savedFlyers ?? this.savedFlyers,
-      followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
+      followedBzz: followedBzz ?? this.followedBzz,
       appState: appState ?? this.appState,
       fcmTopics: fcmTopics ?? this.fcmTopics,
     );
@@ -328,7 +330,7 @@ class UserModel {
     bool isAdmin = false,
     bool device = false,
     bool savedFlyers = false,
-    bool followedBzzIDs = false,
+    bool followedBzz = false,
     bool appState = false,
     bool fcmTopics = false,
   }){
@@ -353,7 +355,7 @@ class UserModel {
       isAdmin : isAdmin == true ? null : this.isAdmin,
       device : device == true ? null : this.device,
       savedFlyers : savedFlyers == true ? DeckModel.newDeck() : this.savedFlyers,
-      followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
+      followedBzz : followedBzz == true ? AgendaModel.newAgenda() : this.followedBzz,
       appState : appState == true ? null : this.appState,
       fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
     );
@@ -462,13 +464,13 @@ class UserModel {
   }){
 
     return Stringer.checkStringsContainString(
-        strings: userModel.followedBzzIDs,
+        strings: userModel?.followedBzz?.all,
         string: bzID
     );
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkFlyerIsSaved({
     @required UserModel userModel,
     @required String flyerID,
@@ -648,43 +650,39 @@ class UserModel {
     return _newUser;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static UserModel addBzIDToUserFollows({
     @required UserModel oldUser,
-    @required String bzIDToFollow,
+    @required BzModel bzToFollow,
   }){
 
-    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: oldUser.followedBzzIDs,
-      stringToAdd: bzIDToFollow,
+    final AgendaModel _newFollows = AgendaModel.addBz(
+      bzModel: bzToFollow,
+      oldAgenda: oldUser?.followedBzz,
     );
 
-    final UserModel newUser = oldUser.copyWith(
-      followedBzzIDs: _newBzzIDs,
+    final UserModel _newUser = oldUser?.copyWith(
+      followedBzz: _newFollows,
     );
 
-    return newUser;
+    return _newUser;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static UserModel removeBzIDFromUserFollows({
     @required UserModel oldUser,
     @required String bzIDToUnFollow,
   }){
-    UserModel _newUser = oldUser;
 
-    if (Mapper.checkCanLoopList(oldUser?.followedBzzIDs) == true) {
 
-      final List<String> _newList = Stringer.removeStringsFromStrings(
-        removeFrom: oldUser.followedBzzIDs,
-        removeThis: <String>[bzIDToUnFollow],
-      );
+    final AgendaModel _newFollows = AgendaModel.removeBzByID(
+        oldAgenda: oldUser?.followedBzz,
+        bzID: bzIDToUnFollow,
+    );
 
-      _newUser = oldUser.copyWith(
-        followedBzzIDs: _newList,
-      );
-
-    }
+    final UserModel _newUser = oldUser.copyWith(
+      followedBzz: _newFollows,
+    );
 
     return _newUser;
   }
@@ -797,7 +795,6 @@ class UserModel {
     blog('language : $language');
     blog('location : $location');
     blog('myBzzIDs : $myBzzIDs');
-    blog('followedBzzIDs : $followedBzzIDs');
     blog('isAdmin : $isAdmin');
     blog('emailIsVerified : $emailIsVerified');
     blog('docSnapshot : $docSnapshot');
@@ -805,6 +802,7 @@ class UserModel {
     need?.blogNeed();
     blog('contactsArePublic : $contactsArePublic');
     blog('savedFlyers : ${savedFlyers?.toString()}');
+    blog('followedBzz : ${followedBzz.toString()}');
     ContactModel.blogContacts(
       contacts: contacts,
       invoker: 'user contacts',
@@ -927,8 +925,8 @@ class UserModel {
         blog('blogUserDifferences : [savedFlyers] are not identical');
       }
 
-      if (Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == false){
-        blog('blogUserDifferences : [followedBzzIDs] are not identical');
+      if (AgendaModel.checkAgendasAreIdentical(agenda1: user1.followedBzz, agenda2: user2.followedBzz) == false){
+        blog('blogUserDifferences : [followedBzz] are not identical');
       }
 
       if (AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == false){
@@ -979,7 +977,7 @@ class UserModel {
       isAdmin: true,
       device: null,
       savedFlyers: DeckModel.newDeck(),
-      followedBzzIDs: const <String>[],
+      followedBzz: AgendaModel.newAgenda(),
       appState: AppState.dummyAppState(),
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
@@ -1096,7 +1094,7 @@ class UserModel {
           user1.emailIsVerified == user2.emailIsVerified &&
           user1.isAdmin == user2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: user1.savedFlyers, deck2: user2.savedFlyers) == true &&
-          Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == true &&
+          AgendaModel.checkAgendasAreIdentical(agenda1: user1.followedBzz, agenda2: user2.followedBzz) == true &&
           AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
           Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
@@ -1169,7 +1167,7 @@ class UserModel {
       device.hashCode^
       fcmTopics.hashCode^
       savedFlyers.hashCode^
-      followedBzzIDs.hashCode^
+      followedBzz.hashCode^
       appState.hashCode^
       docSnapshot.hashCode;
   // -----------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
@@ -43,7 +44,7 @@ class DraftUser {
     @required this.device,
     @required this.fcmTopics,
     @required this.savedFlyers,
-    @required this.followedBzzIDs,
+    @required this.followedBzz,
     @required this.appState,
     @required this.hasNewPic,
     @required this.nameController,
@@ -81,7 +82,7 @@ class DraftUser {
   final DeviceModel device;
   final List<String> fcmTopics;
   final DeckModel savedFlyers;
-  final List<String> followedBzzIDs;
+  final AgendaModel followedBzz;
   final AppState appState;
   final bool hasNewPic;
   final TextEditingController nameController;
@@ -150,7 +151,7 @@ class DraftUser {
         device: userModel.device,
         fcmTopics: userModel.fcmTopics,
         savedFlyers: userModel.savedFlyers,
-        followedBzzIDs: userModel.followedBzzIDs,
+        followedBzz: userModel.followedBzz,
         appState: userModel.appState,
         hasNewPic: false,
         canPickImage: true,
@@ -217,7 +218,7 @@ class DraftUser {
     bool isAdmin,
     DeviceModel device,
     DeckModel savedFlyers,
-    List<String> followedBzzIDs,
+    AgendaModel followedBzz,
     AppState appState,
     List<String> fcmTopics,
     bool hasNewPic,
@@ -255,7 +256,7 @@ class DraftUser {
       isAdmin: isAdmin ?? this.isAdmin,
       device: device ?? this.device,
       savedFlyers: savedFlyers ?? this.savedFlyers,
-      followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
+      followedBzz: followedBzz ?? this.followedBzz,
       appState: appState ?? this.appState,
       fcmTopics: fcmTopics ?? this.fcmTopics,
       hasNewPic: hasNewPic ?? this.hasNewPic,
@@ -296,7 +297,7 @@ class DraftUser {
     bool isAdmin = false,
     bool device = false,
     bool savedFlyers = false,
-    bool followedBzzIDs = false,
+    bool followedBzz = false,
     bool appState = false,
     bool fcmTopics = false,
     bool hasNewPic = false,
@@ -334,7 +335,7 @@ class DraftUser {
       isAdmin : isAdmin == true ? null : this.isAdmin,
       device : device == true ? null : this.device,
       savedFlyers : savedFlyers == true ? DeckModel.newDeck() : this.savedFlyers,
-      followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
+      followedBzz : followedBzz == true ? AgendaModel.newAgenda() : this.followedBzz,
       appState : appState == true ? null : this.appState,
       fcmTopics: fcmTopics == true ? const [] : this.fcmTopics,
       hasNewPic: hasNewPic == true ? null : this.hasNewPic,
@@ -383,7 +384,7 @@ class DraftUser {
       'device': device?.toMap(),
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
-      'followedBzzIDs': followedBzzIDs ?? <String>[],
+      'followedBzzIDs': followedBzz ?? <String>[],
       'appState' : appState.toMap(),
       'hasNewPic' : hasNewPic,
     };
@@ -414,7 +415,7 @@ class DraftUser {
       device: DeviceModel.decipherFCMToken(map['device']),
       fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
       savedFlyers: DeckModel.decipher(map['savedFlyers']),
-      followedBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['followedBzzIDs'],),
+      followedBzz: AgendaModel.decipher(map['followedBzz']),
       appState: AppState.fromMap(map['appState']),
       hasNewPic: map['hasNewPic'],
       nameController: null,
@@ -473,7 +474,7 @@ class DraftUser {
       device: draft.device,
       fcmTopics: draft.fcmTopics,
       savedFlyers: draft.savedFlyers,
-      followedBzzIDs: draft.followedBzzIDs,
+      followedBzz: draft.followedBzz,
       appState: draft.appState,
     );
 
@@ -537,7 +538,7 @@ class DraftUser {
           draft1.emailIsVerified == draft2.emailIsVerified &&
           draft1.isAdmin == draft2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: draft1.savedFlyers, deck2: draft2.savedFlyers) == true &&
-          Mapper.checkListsAreIdentical(list1: draft1.followedBzzIDs, list2: draft2.followedBzzIDs) == true &&
+          AgendaModel.checkAgendasAreIdentical(agenda1: draft1.followedBzz, agenda2: draft2.followedBzz) == true &&
           AppState.checkAppStatesAreIdentical(appState1: draft1.appState, appState2: draft2.appState) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: draft1.device, device2: draft2.device) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
@@ -606,7 +607,7 @@ class DraftUser {
       device.hashCode^
       fcmTopics.hashCode^
       savedFlyers.hashCode^
-      followedBzzIDs.hashCode^
+      followedBzz.hashCode^
       appState.hashCode^
       hasNewPic.hashCode^
       nameController.hashCode^
