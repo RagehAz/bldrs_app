@@ -308,6 +308,7 @@ class NeedModel {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkNeedsAreIdentical(NeedModel need1, NeedModel need2){
     bool _identical = false;
 
