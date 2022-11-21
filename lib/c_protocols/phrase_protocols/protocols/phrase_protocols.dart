@@ -269,7 +269,7 @@ class PhraseProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> generateCountriesMixedLangPhrases({
+  static Future<List<Phrase>> composeCountriesMixedLangPhrases({
     @required BuildContext context,
     @required List<String> langCodes,
   }) async {
