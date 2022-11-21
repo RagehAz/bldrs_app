@@ -149,7 +149,7 @@ class AboutBldrsScreen extends StatelessWidget {
                 text: 'phid_contractors',
                 translate: true,
               ),
-              leadingIcon: Iconz.bxProjectsOn,
+              leadingIcon: Iconz.bzUndertakingOn,
             ),
             bubbleColor: Colorz.white20,
             secondLineVerse: Verse(

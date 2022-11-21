@@ -80,7 +80,7 @@ class InfoPageMainDetails extends StatelessWidget {
             text: '${xPhrase(context, 'phid_flyer_type')} : ${xPhrase(context, _flyerTypePhid)}',
             translate: false,
           ),
-          icon: FlyerTyper.flyerTypeIconOff(flyerModel.flyerType),
+          icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel.flyerType, isOn: false),
           iconSizeFactor: 1,
           verseScaleFactor: 0.85 * 0.7,
         ),

@@ -265,7 +265,7 @@ class UiProvider extends ChangeNotifier {
   /// --- SAVED FLYERS TAB CURRENT FLYER TYPE
 
   // --------------------
-  FlyerType _currentSavedFlyerTypeTab = FlyerType.all;
+  FlyerType _currentSavedFlyerTypeTab = FlyerType.general;
   // --------------------
   FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
   // --------------------
@@ -414,7 +414,7 @@ class UiProvider extends ChangeNotifier {
     /// _textFieldsObscured
     _uiProvider.triggerTextFieldsObscured(setObscuredTo: true, notify: false);
     /// _currentSavedFlyerTypeTab
-    _uiProvider.setCurrentFlyerTypeTab(flyerType: FlyerType.all, notify: false);
+    _uiProvider.setCurrentFlyerTypeTab(flyerType: FlyerType.general, notify: false);
     /// _currentBzTab
     _uiProvider.setCurrentBzTab(bzTab: BzTab.flyers, notify: false);
     /// _currentUserTab

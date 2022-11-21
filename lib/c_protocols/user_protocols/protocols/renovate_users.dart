@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -243,62 +244,65 @@ class RenovateUserProtocols {
     blog('RenovateUserProtocols.followingProtocol : END');
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> savingFlyerProtocol({
     @required BuildContext context,
     @required bool flyerIsSaved,
-    @required String flyerID,
-    @required String bzID,
+    @required FlyerModel flyerModel,
     @required int slideIndex,
   }) async {
     // blog('RenovateUserProtocols.savingFlyerProtocol : START');
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
+    if (flyerModel != null){
 
-    if (flyerIsSaved == true){
-
-      await FlyerRecordRealOps.saveFlyer(
-          flyerID: flyerID,
-          bzID: bzID,
-          slideIndex: slideIndex
-      );
-
-      final UserModel _newUser = UserModel.addFlyerIDToSavedFlyersIDs(
-        oldUser: _oldUser,
-        flyerIDToAdd: flyerID,
-      );
-
-      await UserProtocols.renovate(
+      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
         context: context,
-        newPic: null,
-        newUser: _newUser,
-        oldUser: _oldUser,
+        listen: false,
       );
 
-    }
+      if (flyerIsSaved == true){
 
-    else {
+        await FlyerRecordRealOps.saveFlyer(
+            flyerID: flyerModel.id,
+            bzID: flyerModel.bzID,
+            slideIndex: slideIndex
+        );
 
-      await FlyerRecordRealOps.unSaveFlyer(
-        flyerID: flyerID,
-        bzID: bzID,
-        slideIndex: slideIndex,
-      );
+        final UserModel _newUser = UserModel.addFlyerToSavedFlyers(
+          oldUser: _oldUser,
+          flyerModel: flyerModel,
+        );
 
-      final UserModel _newUser = UserModel.removeFlyerIDFromSavedFlyersIDs(
-        oldUser: _oldUser,
-        flyerIDToRemove: flyerID,
-      );
+        await UserProtocols.renovate(
+          context: context,
+          newPic: null,
+          newUser: _newUser,
+          oldUser: _oldUser,
+        );
 
-      await renovateUser(
-        context: context,
-        newUser: _newUser,
-        newPic: null,
-        oldUser: _oldUser,
-      );
+      }
+
+      else {
+
+        await FlyerRecordRealOps.unSaveFlyer(
+          flyerID: flyerModel.id,
+          bzID: flyerModel.bzID,
+          slideIndex: slideIndex,
+        );
+
+        final UserModel _newUser = UserModel.removeFlyerFromSavedFlyers(
+          oldUser: _oldUser,
+          flyerIDToRemove: flyerModel.id,
+        );
+
+        await renovateUser(
+          context: context,
+          newUser: _newUser,
+          newPic: null,
+          oldUser: _oldUser,
+        );
+
+      }
 
     }
 

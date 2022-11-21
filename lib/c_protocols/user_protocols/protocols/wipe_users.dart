@@ -330,11 +330,11 @@ class WipeUserProtocols {
     await Future.wait(<Future>[
 
       /// LDB : DELETE USER MODEL
-      UserLDBOps.deleteUserOps(userModel.id),
-      AuthLDBOps.deleteAuthModel(userModel.id),
+      UserLDBOps.deleteUserOps(userModel?.id),
+      AuthLDBOps.deleteAuthModel(userModel?.id),
 
       /// LDB : DELETE SAVED FLYERS
-      FlyerLDBOps.deleteFlyers(userModel.savedFlyersIDs),
+      FlyerLDBOps.deleteFlyers(userModel?.savedFlyers?.all),
 
     ]);
 

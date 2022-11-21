@@ -118,7 +118,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
           return WideButton(
             verse: Verse.plain('Edit ${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers'),
-            icon: FlyerTyper.flyerTypeIconOff(_flyerType),
+            icon: FlyerTyper.flyerTypeIcon(flyerType: _flyerType, isOn: false),
             onTap: () async {
 
               final List<PickerModel> _pickers = await PickerProtocols.fetchFlyerTypPickers(
