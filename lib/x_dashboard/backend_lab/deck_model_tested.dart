@@ -72,6 +72,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
 
   // -----------------------------------------------------------------------------
   int _num = 0;
+  final List<String> _someList = [];
   // --------------------
   String _generateID(FlyerType type){
     return '${FlyerTyper.getFlyerTypePhid(flyerType: type)}_$_num';
@@ -86,6 +87,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
     )));
 
     setState(() {
+      _someList.add(_id);
       _deckModel = DeckModel.addFlyer(
           oldDeck: _deckModel,
           flyer: FlyerModel.dummyFlyer().copyWith(
@@ -113,6 +115,47 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
           flyerType: type,
         ),
       );
+    });
+
+
+  }
+  // --------------------
+  void _insertMany(){
+
+    final List<FlyerModel> _flyers = [];
+    for (final String id in _someList){
+      _flyers.add(FlyerModel.dummyFlyer().copyWith(
+        id: id,
+        flyerType: FlyerType.design,
+      ));
+    }
+
+    setState(() {
+      _deckModel = DeckModel.addFlyers(
+        deckModel: _deckModel,
+        flyers: _flyers,
+      );
+    });
+
+
+  }
+  // --------------------
+  void _clearDeck(){
+
+    final List<FlyerModel> _flyers = [];
+    for (final String id in _someList){
+      _flyers.add(FlyerModel.dummyFlyer().copyWith(
+        id: id,
+        flyerType: FlyerType.design,
+      ));
+    }
+
+    setState(() {
+      _deckModel = DeckModel.removeFlyers(
+        oldDeck: _deckModel,
+        flyers: _flyers,
+      );
+      _someList.clear();
     });
 
 
@@ -148,6 +191,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
           size: 4,
         ),
 
+        /// UP
         AppBarButton(
           icon: Iconz.arrowUp,
           onTap: () => setState(() {
@@ -155,6 +199,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
           }),
         ),
 
+        /// DOWN
         AppBarButton(
           icon: Iconz.arrowDown,
           onTap: () => setState(() {
@@ -162,177 +207,192 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
           }),
         ),
 
+        /// many
+        AppBarButton(
+          verse: Verse.plain('many'),
+          onTap: () => _insertMany()
+        ),
+
+        /// clear all
+        AppBarButton(
+            verse: Verse.plain('CLEAR'),
+            onTap: () => _clearDeck()
+        ),
+
       ],
       listWidgets: <Widget>[
 
-        // Container(
-        //   key: const ValueKey('DeckModelTesterBoxThing'),
-        //   width: _boxWidth,
-        //   height: _parcelHeight*3,
-        //   color: Colorz.bloodTest,
-        //   child: Column(
-        //     children: <Widget>[
-        //
-        //       /// COUNTS
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //         children: <Widget>[
-        //
-        //           ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
-        //
-        //             final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
-        //             final int _count = DeckModel.getCountByFlyerType(
-        //                 flyerType: _type,
-        //                 deckModel: _deckModel,
-        //             );
-        //
-        //             return SuperVerse(
-        //               width: _parcelWidth,
-        //               // height: _parcelWidth * 0.5,
-        //               verse: Verse.plain(_count.toString()),
-        //               weight: VerseWeight.black,
-        //               scaleFactor: 0.8,
-        //               size: 3,
-        //               labelColor: Colorz.white20,
-        //             );
-        //
-        //           }),
-        //
-        //         ],
-        //       ),
-        //
-        //       /// ICONS
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //         children: <Widget>[
-        //
-        //           ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
-        //
-        //             final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
-        //             final String _icon = FlyerTyper.flyerTypeIconOn(_type);
-        //
-        //             return DreamBox(
-        //               width: _parcelWidth,
-        //               height: _parcelWidth,
-        //               icon: _icon,
-        //               iconSizeFactor: 0.7,
-        //             );
-        //
-        //           }),
-        //
-        //         ],
-        //       ),
-        //
-        //       /// VERSES
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //         children: <Widget>[
-        //
-        //           ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
-        //
-        //             final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
-        //             final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _type);
-        //
-        //             return SuperVerse(
-        //               width: _parcelWidth,
-        //               // height: _parcelWidth * 0.5,
-        //               verse: Verse(text: _phid, translate: true),
-        //               weight: VerseWeight.thin,
-        //               scaleFactor: 0.5,
-        //               size: 3,
-        //               maxLines: 1,
-        //             );
-        //
-        //           }),
-        //
-        //         ],
-        //       ),
-        //
-        //       /// PLUS
-        //       Row(
-        //         key: const ValueKey<String>('plus'),
-        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //         children: <Widget>[
-        //
-        //           ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
-        //
-        //             final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
-        //
-        //             if (_type == FlyerType.all){
-        //               return SizedBox(
-        //                 width: _parcelWidth,
-        //                 height: _parcelWidth,
-        //               );
-        //             }
-        //
-        //             else {
-        //               return DreamBox(
-        //                 key: ValueKey('plus_$_type'),
-        //                 width: _parcelWidth,
-        //                 height: _parcelWidth,
-        //                 icon: Iconz.arrowUp,
-        //                 iconSizeFactor: 0.5,
-        //                 onTap: () => _onAdd(_type),
-        //               );
-        //             }
-        //
-        //           }),
-        //
-        //         ],
-        //       ),
-        //
-        //       /// MINUS
-        //       Row(
-        //         key: const ValueKey('minus'),
-        //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //         children: <Widget>[
-        //
-        //           ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
-        //
-        //             final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
-        //
-        //             if (_type == FlyerType.all){
-        //               return SizedBox(
-        //                 width: _parcelWidth,
-        //                 height: _parcelWidth,
-        //               );
-        //             }
-        //
-        //             else {
-        //               return DreamBox(
-        //                 key: ValueKey('minus_$_type'),
-        //                 width: _parcelWidth,
-        //                 height: _parcelWidth,
-        //                 icon: Iconz.arrowDown,
-        //                 iconSizeFactor: 0.5,
-        //                 onTap: () => _onRemove(_type),
-        //               );
-        //             }
-        //
-        //           }),
-        //
-        //         ],
-        //       ),
-        //
-        //     ],
-        //   ),
-        // ),
-        //
-        // SuperVerse(
-        //   width: Scale.screenWidth(context),
-        //   verse: Verse.plain(_deckModel.toString()),
-        //   maxLines: 850,
-        //   centered: false,
-        // ),
+        /// CONTROLLERS
+        Container(
+          key: const ValueKey('DeckModelTesterBoxThing'),
+          width: _boxWidth,
+          height: _parcelHeight*3,
+          color: Colorz.bloodTest,
+          child: Column(
+            children: <Widget>[
 
-        DreamBox(
-          key: ValueKey('plus_${FlyerType.equipment}'),
-          width: _parcelWidth,
-          height: _parcelWidth,
-          icon: Iconz.arrowUp,
-          iconSizeFactor: 0.5,
-          onTap: () => _onAdd(FlyerType.equipment),
+              /// COUNTS
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+                  ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
+
+                    final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
+                    final int _count = DeckModel.getCountByFlyerType(
+                        flyerType: _type,
+                        deckModel: _deckModel,
+                    );
+
+                    return SuperVerse(
+                      width: _parcelWidth,
+                      // height: _parcelWidth * 0.5,
+                      verse: Verse.plain(_count.toString()),
+                      weight: VerseWeight.black,
+                      scaleFactor: 0.8,
+                      size: 3,
+                      labelColor: Colorz.white20,
+                    );
+
+                  }),
+
+                ],
+              ),
+
+              /// ICONS
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+                  ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
+
+                    final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
+                    final String _icon = FlyerTyper.flyerTypeIconOn(_type);
+
+                    return DreamBox(
+                      width: _parcelWidth,
+                      height: _parcelWidth,
+                      icon: _icon,
+                      iconSizeFactor: 0.7,
+                    );
+
+                  }),
+
+                ],
+              ),
+
+              /// VERSES
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+                  ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
+
+                    final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
+                    final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _type);
+
+                    return SuperVerse(
+                      width: _parcelWidth,
+                      // height: _parcelWidth * 0.5,
+                      verse: Verse(text: _phid, translate: true),
+                      weight: VerseWeight.thin,
+                      scaleFactor: 0.5,
+                      size: 3,
+                      // maxLines: 1,
+                    );
+
+                  }),
+
+                ],
+              ),
+
+              /// PLUS
+              Row(
+                key: const ValueKey<String>('plus'),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+                  ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
+
+                    final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
+
+                    if (_type == FlyerType.all){
+                      return SizedBox(
+                        width: _parcelWidth,
+                        height: _parcelWidth,
+                      );
+                    }
+
+                    else {
+                      return DreamBox(
+                        key: ValueKey('plus_$_type'),
+                        width: _parcelWidth,
+                        height: _parcelWidth,
+                        icon: Iconz.arrowUp,
+                        iconSizeFactor: 0.5,
+                        onTap: () => _onAdd(_type),
+                      );
+                    }
+
+                  }),
+
+                ],
+              ),
+
+              /// MINUS
+              Row(
+                key: const ValueKey('minus'),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+
+                  ...List.generate(FlyerTyper.savedFlyersTabs.length, (index){
+
+                    final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
+
+                    if (_type == FlyerType.all){
+                      return SizedBox(
+                        width: _parcelWidth,
+                        height: _parcelWidth,
+                      );
+                    }
+
+                    else {
+                      return DreamBox(
+                        key: ValueKey('minus_$_type'),
+                        width: _parcelWidth,
+                        height: _parcelWidth,
+                        icon: Iconz.arrowDown,
+                        iconSizeFactor: 0.5,
+                        onTap: () => _onRemove(_type),
+                      );
+                    }
+
+                  }),
+
+                ],
+              ),
+
+            ],
+          ),
         ),
+
+        /// LIST
+        SuperVerse(
+          width: Scale.screenWidth(context),
+          verse: Verse.plain(_someList.toString()),
+          color: Colorz.yellow20,
+          maxLines: 850,
+          centered: false,
+        ),
+
+        /// DECK MODEL
+        SuperVerse(
+          width: Scale.screenWidth(context),
+          verse: Verse.plain(_deckModel.toString()),
+          maxLines: 850,
+          centered: false,
+        ),
+
 
       ],
     );
