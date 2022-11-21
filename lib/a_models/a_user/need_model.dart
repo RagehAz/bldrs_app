@@ -282,7 +282,7 @@ class NeedModel {
         return <FlyerType>[FlyerType.design, FlyerType.product]; break;
 
       case NeedType.finishConstruction :
-        return <FlyerType>[FlyerType.project, FlyerType.product, FlyerType.equipment, FlyerType.trade,]; break;
+        return <FlyerType>[FlyerType.undertaking, FlyerType.product, FlyerType.equipment, FlyerType.trade,]; break;
 
       case NeedType.furnish :
         return <FlyerType>[FlyerType.product, FlyerType.trade]; break;
@@ -365,7 +365,7 @@ class NeedModel {
       zone: ZoneModel.dummyZone(),
       scope: SpecModel.getSpecsIDs(SpecModel.dummySpecs()),
       bzzIDs: _userModel.followedBzzIDs,
-      flyerIDs: _userModel.savedFlyersIDs,
+      flyerIDs: _userModel.savedFlyers.all,
       location: Atlas.dummyLocation(),
       since: Timers.createDate(year: 1987, month: 06, day: 10),
     );

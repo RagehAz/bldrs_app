@@ -384,7 +384,7 @@ class CensusModel {
       case FlyerType.property   : return 'flyerTypeProperty';  break;
       case FlyerType.design     : return 'flyerTypeDesign';    break;
       case FlyerType.product    : return 'flyerTypeProduct';   break;
-      case FlyerType.project    : return 'flyerTypeProject';   break;
+      case FlyerType.undertaking    : return 'flyerTypeProject';   break;
       case FlyerType.trade      : return 'flyerTypeTrade';     break;
       case FlyerType.equipment  : return 'flyerTypeEquipment'; break;
       default: return null;

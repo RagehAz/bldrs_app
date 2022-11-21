@@ -199,7 +199,10 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,
-                      icon: FlyerTyper.flyerTypeIconOff(_type),
+                      icon: FlyerTyper.flyerTypeIcon(
+                        flyerType: _type,
+                        isOn: false,
+                      ),
                       color: _isSelected == true ? Colorz.green255 : null,
                       iconSizeFactor: 0.8,
                       onTap: () => _onSelectFlyerType(_type),

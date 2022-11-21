@@ -179,7 +179,7 @@ class BzTyper {
         :
     bzType == BzType.designer ? Iconz.bxDesignsOff
         :
-    bzType == BzType.contractor ? Iconz.bxProjectsOff
+    bzType == BzType.contractor ? Iconz.bxUndertakingOff
         :
     bzType == BzType.artisan ? Iconz.bxTradesOff
         :
@@ -202,7 +202,7 @@ class BzTyper {
         :
     bzType == BzType.designer ? Iconz.bxDesignsOn
         :
-    bzType == BzType.contractor ? Iconz.bxProjectsOn
+    bzType == BzType.contractor ? Iconz.bzUndertakingOn
         :
     bzType == BzType.artisan ? Iconz.bxTradesOn
         :

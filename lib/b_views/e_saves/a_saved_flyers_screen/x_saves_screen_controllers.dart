@@ -56,7 +56,7 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
     listen: false,
   );
 
-  final UserModel _myUpdatedModel = UserModel.removeFlyerIDFromSavedFlyersIDs(
+  final UserModel _myUpdatedModel = UserModel.removeFlyerFromSavedFlyers(
     oldUser: _userModel,
     flyerIDToRemove: flyerID,
   );

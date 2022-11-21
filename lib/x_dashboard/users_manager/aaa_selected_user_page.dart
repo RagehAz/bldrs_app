@@ -312,7 +312,7 @@ class SelectedUserPage extends StatelessWidget {
       DataStrip(
         color: Colorz.white50,
         dataKey: 'Saves',
-        dataValue: '${userModel.savedFlyersIDs.length} Flyers Saved',
+        dataValue: '${userModel.savedFlyers.all.length} Flyers Saved',
       ),
 
       // -----------------------------------
