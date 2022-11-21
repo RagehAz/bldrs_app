@@ -350,7 +350,7 @@ class NeedModel {
       needType: NeedType.finishConstruction,
       notes: 'This is a need description, and my need is to reach all countries',
       scope: SpecModel.getSpecsIDs(SpecModel.dummySpecs()),
-      bzzIDs: _userModel.followedBzzIDs,
+      bzzIDs: _userModel.followedBzz?.all,
       flyerIDs: _userModel.savedFlyers.all,
       location: Atlas.dummyLocation(),
       since: Timers.createDate(year: 1987, month: 06, day: 10),

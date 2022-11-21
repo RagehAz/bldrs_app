@@ -303,7 +303,7 @@ class BzzProvider extends ChangeNotifier {
     /// 1 - get user saved followed bzz IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
-    final List<String> _followedBzzIDs = _myUserModel?.followedBzzIDs;
+    final List<String> _followedBzzIDs = _myUserModel?.followedBzz?.all;
 
     if (Mapper.checkCanLoopList(_followedBzzIDs)) {
 
@@ -340,7 +340,7 @@ class BzzProvider extends ChangeNotifier {
     );
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   bool checkFollow({
     @required BuildContext context,
     @required String bzID,
@@ -350,7 +350,7 @@ class BzzProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
 
-    final String _id = _myUserModel?.followedBzzIDs?.firstWhere((String id) => id == bzID, orElse: () => null);
+    final String _id = _myUserModel?.followedBzz?.all?.firstWhere((String id) => id == bzID, orElse: () => null);
 
     if (_id == null) {
       _isFollowing = false;
