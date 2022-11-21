@@ -323,7 +323,7 @@ class SelectedUserPage extends StatelessWidget {
       DataStrip(
         color: Colorz.white50,
         dataKey: 'Follows',
-        dataValue: '${userModel.followedBzzIDs.length} Followed Bzz',
+        dataValue: '${userModel.followedBzz.all.length} Followed Bzz',
       ),
 
       // -----------------------------------

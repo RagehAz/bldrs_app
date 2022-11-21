@@ -26,7 +26,7 @@ class UserFollowingPage extends StatelessWidget {
       context: context,
       listen: true,
     );
-    final List<String> _followedBzzIds = userModel.followedBzzIDs;
+    final List<String> _followedBzzIds = userModel.followedBzz?.all;
     // --------------------
     /// FOLLOWS EXIST
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
