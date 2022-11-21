@@ -71,7 +71,7 @@ class UserNeedsBanner extends StatelessWidget {
 
         /// NEED LOCALE
         ZoneLine(
-          zoneModel: userModel?.need?.zone,
+          zoneModel: userModel?.zone,
           // showCity: true,
           // showDistrict: true,
         ),
