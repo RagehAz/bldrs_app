@@ -79,11 +79,6 @@ class WipeBzProtocols {
         renovateUser: true,
       ),
 
-      /// DELETE BZ RECORDS - COUNTERS
-      BzRecordRealOps.deleteAllBzCountersAndRecords(
-        bzID: bzModel.id,
-      ),
-
       /// DELETE BZ STORAGE DIRECTORY
       Storage.deletePath(
         context: context,
@@ -100,6 +95,11 @@ class WipeBzProtocols {
     ]);
 
     await Future.wait(<Future>[
+
+      /// DELETE BZ RECORDS - COUNTERS : NOTE : SHOULD BE DELETED AFTER CENSUS WIPE PROTOCOL IS DONE
+      BzRecordRealOps.deleteAllBzCountersAndRecords(
+        bzID: bzModel.id,
+      ),
 
       /// DELETE BZ ON FIREBASE
       BzFireOps.delete(
