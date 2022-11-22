@@ -543,6 +543,45 @@ class Mapper {
     return _map;
   }
    */
+
+  // --------------------
+  /// TASK : TEST ME
+  static Map<String, dynamic> insertMapInMap({
+    @required Map<String, dynamic> baseMap,
+    @required Map<String, dynamic> insert,
+    bool replaceDuplicateKeys = true,
+  }){
+    Map<String, dynamic> _output = {};
+
+    if (baseMap != null){
+
+      _output = baseMap;
+
+      if (insert != null){
+
+        final List<String> _keys = insert.keys.toList();
+
+        if (checkCanLoopList(_keys) == true){
+
+          for (final String key in _keys){
+
+            _output = insertPairInMap(
+              map: _output,
+              key: key,
+              value: insert[key],
+              overrideExisting: replaceDuplicateKeys,
+            );
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cleanDuplicateMaps({
@@ -1238,7 +1277,7 @@ class Mapper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, String> mergeMaps({
+  static Map<String, String> combineStringStringMap({
     @required Map<String, String> baseMap,
     @required Map<String, String> insert,
     @required bool replaceDuplicateKeys,

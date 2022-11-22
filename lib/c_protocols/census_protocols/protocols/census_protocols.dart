@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/cupertino.dart';
 
 class CensusProtocols {
@@ -142,21 +143,31 @@ class CensusProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> onWipeBz(BzModel bzModel) async {
 
     assert(bzModel != null, 'bzModel is null');
 
+    final Map<String, dynamic> _censusMap = CensusModel.createBzCensusMap(
+      bzModel: bzModel,
+      isIncrementing: false,
+    );
+
+    final Map<String, dynamic> _callsMap = await CensusModel.createCallsWipeMap(bzModel);
+
+    final Map<String, dynamic> _mergedMap = Mapper.insertMapInMap(
+        baseMap: _censusMap,
+        insert: _callsMap,
+    );
+
     /// DECREMENT BZ CENSUS
     await CensusRealOps.updateAllCensus(
       zoneModel: bzModel.zone,
-      map: CensusModel.createBzCensusMap(
-        bzModel: bzModel,
-        isIncrementing: false,
-      ),
+      map: _mergedMap,
     );
 
   }
+
   // -----------------------------------------------------------------------------
 
   /// FLYER CENSUS
@@ -231,26 +242,24 @@ class CensusProtocols {
   /// ENGAGEMENT CENSUS
 
   // --------------------
-  /// TASK : WRITE ME
+  /// TASK : TEST ME
   static Future<void> onCallBz({
     @required BzModel bzModel,
     @required UserModel userModel,
   }) async {
 
-  }
-  // --------------------
-  /// will be included in user protocols
-  static Future<void> onFollowBz({
-    @required BzModel bzModel,
-    @required UserModel userModel,
-  }) async {
+    assert(bzModel != null, 'bzModel is null');
+    assert(userModel != null, 'userModel is null');
 
-}
-  // --------------------
-  /// will be included in user protocols
-  static Future<void> onSaveFlyer() async {
+    await CensusRealOps.updateAllCensus(
+      zoneModel: userModel.zone, // i want to know the caller zone,, where the calls are coming from
+      map: CensusModel.createCallCensusMap(
+          bzModel: bzModel,
+          isIncrementing: true,
+      ),
+    );
+
 
   }
   // -----------------------------------------------------------------------------
-  void f (){}
 }
