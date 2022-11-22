@@ -279,7 +279,7 @@ class FlyerTyper{
     if (pluralTranslation == true){
 
       switch (flyerType) {
-        case FlyerType.general      : return 'phid_general'     ; break;
+        case FlyerType.general      : return 'phid_generalFlyers'     ; break;
         case FlyerType.property     : return 'phid_properties'  ; break;
         case FlyerType.design       : return 'phid_designs'     ; break;
         case FlyerType.undertaking  : return 'phid_undertakings'; break;
@@ -295,7 +295,7 @@ class FlyerTyper{
     else {
 
       switch (flyerType) {
-        case FlyerType.general      : return  'phid_general'          ; break;
+        case FlyerType.general      : return  'phid_generalFlyer'     ; break;
         case FlyerType.property     : return  'phid_propertyFlyer'    ; break;
         case FlyerType.design       : return  'phid_designFlyer'      ; break;
         case FlyerType.undertaking  : return  'phid_undertakingFlyer' ; break;

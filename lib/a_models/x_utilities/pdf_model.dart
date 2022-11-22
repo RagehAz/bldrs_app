@@ -127,7 +127,7 @@ class PDFModel {
 
     /// ADD EXTRA DATA MAP
     if (extraData != null) {
-      _metaDataMap = Mapper.mergeMaps(
+      _metaDataMap = Mapper.combineStringStringMap(
         baseMap: _metaDataMap,
         replaceDuplicateKeys: true,
         insert: extraData,

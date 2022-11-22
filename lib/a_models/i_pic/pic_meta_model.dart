@@ -67,7 +67,7 @@ class PicMetaModel {
 
     /// ADD DIMENSIONS
     if (dimensions != null) {
-      _metaDataMap = Mapper.mergeMaps(
+      _metaDataMap = Mapper.combineStringStringMap(
         baseMap: _metaDataMap,
         replaceDuplicateKeys: true,
         insert: <String, String>{
@@ -79,7 +79,7 @@ class PicMetaModel {
 
     /// ADD EXTRA DATA MAP
     if (extraData != null) {
-      _metaDataMap = Mapper.mergeMaps(
+      _metaDataMap = Mapper.combineStringStringMap(
         baseMap: _metaDataMap,
         replaceDuplicateKeys: true,
         insert: extraData,

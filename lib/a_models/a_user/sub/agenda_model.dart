@@ -231,7 +231,7 @@ class AgendaModel {
     return _newAgenda;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AgendaModel addOrRemoveBz({
     @required BzModel bzModel,
     @required AgendaModel oldAgenda,
@@ -314,7 +314,7 @@ class AgendaModel {
     return _newAgenda;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AgendaModel addOrRemoveFlyers({
     @required List<BzModel> bzModels,
     @required AgendaModel oldAgenda,
@@ -337,7 +337,7 @@ class AgendaModel {
     return _newAgenda;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AgendaModel removeBz({
     @required BzModel bz,
     @required AgendaModel oldAgenda,
@@ -435,7 +435,7 @@ class AgendaModel {
     return _newAgenda;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static AgendaModel removeBzz({
     @required List<BzModel> bzz,
     @required AgendaModel oldAgenda,
@@ -458,7 +458,7 @@ class AgendaModel {
     return _newAgenda;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static AgendaModel removeBzByID({
     @required AgendaModel oldAgenda,
     @required String bzID,
@@ -537,7 +537,7 @@ class AgendaModel {
     return _newAgenda;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static AgendaModel removeFlyersByIDs({
     @required AgendaModel oldAgenda,
     @required List<String> bzzIDs,
