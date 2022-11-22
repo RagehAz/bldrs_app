@@ -196,48 +196,67 @@ class RenovateUserProtocols {
 
     if (followIsOn == true){
 
-      await BzRecordRealOps.followBz(
-        bzID: bzToFollow.id,
-      );
-
       final UserModel _newUser = UserModel.addBzIDToUserFollows(
         oldUser: _oldUser,
         bzToFollow: bzToFollow,
       );
 
-      await UserProtocols.renovate(
-        context: context,
-        newPic: null,
-        newUser: _newUser,
-        oldUser: _oldUser,
-      );
+      await Future.wait(<Future>[
+
+        BzRecordRealOps.followBz(
+          bzID: bzToFollow.id,
+        ),
+
+        renovateUser(
+          context: context,
+          newPic: null,
+          newUser: _newUser,
+          oldUser: _oldUser,
+        ),
+
+        CensusProtocols.onFollowBz(
+            bzModel: bzToFollow,
+            isFollowing: true
+        ),
+
+      ]);
+
 
     }
 
     else {
-
-      await BzRecordRealOps.unfollowBz(
-        bzID: bzToFollow.id,
-      );
 
       final UserModel _newUser = UserModel.removeBzIDFromUserFollows(
         oldUser: _oldUser,
         bzIDToUnFollow: bzToFollow.id,
       );
 
-      await renovateUser(
-        context: context,
-        newPic: null,
-        newUser: _newUser,
-        oldUser: _oldUser,
-      );
+      await Future.wait(<Future>[
+
+        BzRecordRealOps.unfollowBz(
+          bzID: bzToFollow.id,
+        ),
+
+        renovateUser(
+          context: context,
+          newPic: null,
+          newUser: _newUser,
+          oldUser: _oldUser,
+        ),
+
+        CensusProtocols.onFollowBz(
+            bzModel: bzToFollow,
+            isFollowing: false
+        ),
+
+      ]);
 
     }
 
     blog('RenovateUserProtocols.followingProtocol : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> savingFlyerProtocol({
     @required BuildContext context,
     @required bool flyerIsSaved,
@@ -255,45 +274,69 @@ class RenovateUserProtocols {
 
       if (flyerIsSaved == true){
 
-        await FlyerRecordRealOps.saveFlyer(
-            flyerID: flyerModel.id,
-            bzID: flyerModel.bzID,
-            slideIndex: slideIndex
-        );
-
         final UserModel _newUser = UserModel.addFlyerToSavedFlyers(
           oldUser: _oldUser,
           flyerModel: flyerModel,
         );
 
-        await UserProtocols.renovate(
-          context: context,
-          newPic: null,
-          newUser: _newUser,
-          oldUser: _oldUser,
-        );
+        await Future.wait(<Future>[
+
+          /// FLYER RECORDS
+          FlyerRecordRealOps.saveFlyer(
+              flyerID: flyerModel.id,
+              bzID: flyerModel.bzID,
+              slideIndex: slideIndex
+          ),
+
+          /// RENOVATE USER
+          UserProtocols.renovate(
+            context: context,
+            newPic: null,
+            newUser: _newUser,
+            oldUser: _oldUser,
+          ),
+
+          /// CENSUS SAVE FLYER
+          CensusProtocols.onSaveFlyer(
+              flyerModel: flyerModel,
+              userModel: _newUser,
+              isSaving: true,
+          ),
+
+        ]);
 
       }
 
       else {
-
-        await FlyerRecordRealOps.unSaveFlyer(
-          flyerID: flyerModel.id,
-          bzID: flyerModel.bzID,
-          slideIndex: slideIndex,
-        );
 
         final UserModel _newUser = UserModel.removeFlyerFromSavedFlyers(
           oldUser: _oldUser,
           flyerIDToRemove: flyerModel.id,
         );
 
-        await renovateUser(
-          context: context,
-          newUser: _newUser,
-          newPic: null,
-          oldUser: _oldUser,
-        );
+        await Future.wait(<Future>[
+
+          FlyerRecordRealOps.unSaveFlyer(
+            flyerID: flyerModel.id,
+            bzID: flyerModel.bzID,
+            slideIndex: slideIndex,
+          ),
+
+          renovateUser(
+            context: context,
+            newUser: _newUser,
+            newPic: null,
+            oldUser: _oldUser,
+          ),
+
+          /// CENSUS SAVE FLYER
+          CensusProtocols.onSaveFlyer(
+            flyerModel: flyerModel,
+            userModel: _newUser,
+            isSaving: false,
+          ),
+
+        ]);
 
       }
 
