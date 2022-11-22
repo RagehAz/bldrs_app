@@ -16,7 +16,7 @@ enum BzType {
   broker, // (property flyer)
 
   designer, // (design flyer)
-  contractor, // (project flyer)
+  contractor, // (undertaking flyer)
   artisan, // (trade flyer)
 
   manufacturer, // (product flyer - product source flyer)

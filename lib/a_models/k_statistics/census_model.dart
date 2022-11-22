@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
+import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -5,6 +7,8 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
@@ -32,27 +36,52 @@ class CensusModel {
     @required this.bzAccountTypeStandard,
     @required this.bzAccountTypePro,
     @required this.bzAccountTypeMaster,
+    @required this.flyerTypeGeneral,
     @required this.flyerTypeProperty,
     @required this.flyerTypeDesign,
-    @required this.flyerTypeProject,
-    @required this.flyerTypeProduct,
+    @required this.flyerTypeUndertaking,
     @required this.flyerTypeTrade,
+    @required this.flyerTypeProduct,
     @required this.flyerTypeEquipment,
     @required this.needTypeSeekProperty,
     @required this.needTypePlanConstruction,
     @required this.needTypeFinishConstruction,
     @required this.needTypeFurnish,
     @required this.needTypeOfferProperty,
+    @required this.savesGeneral,
+    @required this.savesProperties,
+    @required this.savesDesigns,
+    @required this.savesUndertakings,
+    @required this.savesTrades,
+    @required this.savesProducts,
+    @required this.savesEquipments,
+    @required this.followsDevelopers,
+    @required this.followsBrokers,
+    @required this.followsDesigners,
+    @required this.followsContractors,
+    @required this.followsArtisans,
+    @required this.followsManufacturers,
+    @required this.followsSuppliers,
+    @required this.callsDevelopers,
+    @required this.callsBrokers,
+    @required this.callsDesigners,
+    @required this.callsContractors,
+    @required this.callsArtisans,
+    @required this.callsManufacturers,
+    @required this.callsSuppliers,
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TOTALS
   final int totalUsers;
   final int totalBzz;
   final int totalAuthors;
   final int totalFlyers;
   final int totalSlides;
+  /// BZ SECTIONS
   final int bzSectionRealEstate;
   final int bzSectionConstruction;
   final int bzSectionSupplies;
+  /// BZ TYPES
   final int bzTypeDeveloper;
   final int bzTypeBroker;
   final int bzTypeDesigner;
@@ -60,22 +89,51 @@ class CensusModel {
   final int bzTypeArtisan;
   final int bzTypeManufacturer;
   final int bzTypeSupplier;
+  /// BZ FORMS
   final int bzFormIndividual;
   final int bzFormCompany;
+  /// BZ ACCOUNT TYPES
   final int bzAccountTypeStandard;
   final int bzAccountTypePro;
   final int bzAccountTypeMaster;
+  /// FLYER TYPES
+  final int flyerTypeGeneral;
   final int flyerTypeProperty;
   final int flyerTypeDesign;
-  final int flyerTypeProject;
-  final int flyerTypeProduct;
+  final int flyerTypeUndertaking;
   final int flyerTypeTrade;
+  final int flyerTypeProduct;
   final int flyerTypeEquipment;
+  /// NEED TYPES
   final int needTypeSeekProperty;
   final int needTypePlanConstruction;
   final int needTypeFinishConstruction;
   final int needTypeFurnish;
   final int needTypeOfferProperty;
+  /// SAVES
+  final int savesGeneral;
+  final int savesProperties;
+  final int savesDesigns;
+  final int savesUndertakings;
+  final int savesTrades;
+  final int savesProducts;
+  final int savesEquipments;
+  /// FOLLOWS
+  final int followsDevelopers;
+  final int followsBrokers;
+  final int followsDesigners;
+  final int followsContractors;
+  final int followsArtisans;
+  final int followsManufacturers;
+  final int followsSuppliers;
+  /// CALLS
+  final int callsDevelopers;
+  final int callsBrokers;
+  final int callsDesigners;
+  final int callsContractors;
+  final int callsArtisans;
+  final int callsManufacturers;
+  final int callsSuppliers;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -103,9 +161,10 @@ class CensusModel {
     int bzAccountTypeStandard,
     int bzAccountTypePro,
     int bzAccountTypeMaster,
+    int flyerTypeGeneral,
     int flyerTypeProperty,
     int flyerTypeDesign,
-    int flyerTypeProject,
+    int flyerTypeUndertaking,
     int flyerTypeProduct,
     int flyerTypeTrade,
     int flyerTypeEquipment,
@@ -114,6 +173,27 @@ class CensusModel {
     int needTypeFinishConstruction,
     int needTypeFurnish,
     int needTypeOfferProperty,
+    int savesGeneral,
+    int savesProperties,
+    int savesDesigns,
+    int savesUndertakings,
+    int savesTrades,
+    int savesProducts,
+    int savesEquipments,
+    int followsDevelopers,
+    int followsBrokers,
+    int followsDesigners,
+    int followsContractors,
+    int followsArtisans,
+    int followsManufacturers,
+    int followsSuppliers,
+    int callsDevelopers,
+    int callsBrokers,
+    int callsDesigners,
+    int callsContractors,
+    int callsArtisans,
+    int callsManufacturers,
+    int callsSuppliers,
   }){
 
     return CensusModel(
@@ -137,9 +217,10 @@ class CensusModel {
       bzAccountTypeStandard: bzAccountTypeStandard ?? this.bzAccountTypeStandard,
       bzAccountTypePro: bzAccountTypePro ?? this.bzAccountTypePro,
       bzAccountTypeMaster: bzAccountTypeMaster ?? this.bzAccountTypeMaster,
+      flyerTypeGeneral: flyerTypeGeneral ?? this.flyerTypeGeneral,
       flyerTypeProperty: flyerTypeProperty ?? this.flyerTypeProperty,
       flyerTypeDesign: flyerTypeDesign ?? this.flyerTypeDesign,
-      flyerTypeProject: flyerTypeProject ?? this.flyerTypeProject,
+      flyerTypeUndertaking: flyerTypeUndertaking ?? this.flyerTypeUndertaking,
       flyerTypeProduct: flyerTypeProduct ?? this.flyerTypeProduct,
       flyerTypeTrade: flyerTypeTrade ?? this.flyerTypeTrade,
       flyerTypeEquipment: flyerTypeEquipment ?? this.flyerTypeEquipment,
@@ -148,6 +229,27 @@ class CensusModel {
       needTypeFinishConstruction: needTypeFinishConstruction ?? this.needTypeFinishConstruction,
       needTypeFurnish: needTypeFurnish ?? this.needTypeFurnish,
       needTypeOfferProperty: needTypeOfferProperty ?? this.needTypeOfferProperty,
+      savesGeneral: savesGeneral ?? this.savesGeneral,
+      savesProperties: savesProperties ?? this.savesProperties,
+      savesDesigns: savesDesigns ?? this.savesDesigns,
+      savesUndertakings: savesUndertakings ?? this.savesUndertakings,
+      savesTrades: savesTrades ?? this.savesTrades,
+      savesProducts: savesProducts ?? this.savesProducts,
+      savesEquipments: savesEquipments ?? this.savesEquipments,
+      followsDevelopers: followsDevelopers ?? this.followsDevelopers,
+      followsBrokers: followsBrokers ?? this.followsBrokers,
+      followsDesigners: followsDesigners ?? this.followsDesigners,
+      followsContractors: followsContractors ?? this.followsContractors,
+      followsArtisans: followsArtisans ?? this.followsArtisans,
+      followsManufacturers: followsManufacturers ?? this.followsManufacturers,
+      followsSuppliers: followsSuppliers ?? this.followsSuppliers,
+      callsDevelopers: callsDevelopers ?? this.callsDevelopers,
+      callsBrokers: callsBrokers ?? this.callsBrokers,
+      callsDesigners: callsDesigners ?? this.callsDesigners,
+      callsContractors: callsContractors ?? this.callsContractors,
+      callsArtisans: callsArtisans ?? this.callsArtisans,
+      callsManufacturers: callsManufacturers ?? this.callsManufacturers,
+      callsSuppliers: callsSuppliers ?? this.callsSuppliers,
     );
 
   }
@@ -179,9 +281,10 @@ class CensusModel {
       'bzAccountTypeStandard': bzAccountTypeStandard,
       'bzAccountTypePro': bzAccountTypePro,
       'bzAccountTypeMaster': bzAccountTypeMaster,
+      'flyerTypeGeneral': flyerTypeGeneral,
       'flyerTypeProperty': flyerTypeProperty,
       'flyerTypeDesign': flyerTypeDesign,
-      'flyerTypeProject': flyerTypeProject,
+      'flyerTypeUndertaking': flyerTypeUndertaking,
       'flyerTypeProduct': flyerTypeProduct,
       'flyerTypeTrade': flyerTypeTrade,
       'flyerTypeEquipment': flyerTypeEquipment,
@@ -190,6 +293,27 @@ class CensusModel {
       'needTypeFinishConstruction': needTypeFinishConstruction,
       'needTypeFurnish': needTypeFurnish,
       'needTypeOfferProperty': needTypeOfferProperty,
+      'savesGeneral': savesGeneral,
+      'savesProperties': savesProperties,
+      'savesDesigns': savesDesigns,
+      'savesUndertakings': savesUndertakings,
+      'savesTrades': savesTrades,
+      'savesProducts': savesProducts,
+      'savesEquipments': savesEquipments,
+      'followsDevelopers': followsDevelopers,
+      'followsBrokers': followsBrokers,
+      'followsDesigners': followsDesigners,
+      'followsContractors': followsContractors,
+      'followsArtisans': followsArtisans,
+      'followsManufacturers': followsManufacturers,
+      'followsSuppliers': followsSuppliers,
+      'callsDevelopers': callsDevelopers,
+      'callsBrokers': callsBrokers,
+      'callsDesigners': callsDesigners,
+      'callsContractors': callsContractors,
+      'callsArtisans': callsArtisans,
+      'callsManufacturers': callsManufacturers,
+      'callsSuppliers': callsSuppliers,
     };
   }
   // --------------------
@@ -220,9 +344,10 @@ class CensusModel {
         bzAccountTypeStandard: map['bzAccountTypeStandard'],
         bzAccountTypePro: map['bzAccountTypePro'],
         bzAccountTypeMaster: map['bzAccountTypeMaster'],
+        flyerTypeGeneral: map['flyerTypeGeneral'],
         flyerTypeProperty: map['flyerTypeProperty'],
         flyerTypeDesign: map['flyerTypeDesign'],
-        flyerTypeProject: map['flyerTypeProject'],
+        flyerTypeUndertaking: map['flyerTypeUndertaking'],
         flyerTypeProduct: map['flyerTypeProduct'],
         flyerTypeTrade: map['flyerTypeTrade'],
         flyerTypeEquipment: map['flyerTypeEquipment'],
@@ -231,11 +356,98 @@ class CensusModel {
         needTypeFinishConstruction: map['needTypeFinishConstruction'],
         needTypeFurnish: map['needTypeFurnish'],
         needTypeOfferProperty: map['needTypeOfferProperty'],
+        savesGeneral: map['savesGeneral'],
+        savesProperties: map['savesProperties'],
+        savesDesigns: map['savesDesigns'],
+        savesUndertakings: map['savesUndertakings'],
+        savesTrades: map['savesTrades'],
+        savesProducts: map['savesProducts'],
+        savesEquipments: map['savesEquipments'],
+        followsDevelopers: map['followsDevelopers'],
+        followsBrokers: map['followsBrokers'],
+        followsDesigners: map['followsDesigners'],
+        followsContractors: map['followsContractors'],
+        followsArtisans: map['followsArtisans'],
+        followsManufacturers: map['followsManufacturers'],
+        followsSuppliers: map['followsSuppliers'],
+        callsDevelopers: map['callsDevelopers'],
+        callsBrokers: map['callsBrokers'],
+        callsDesigners: map['callsDesigners'],
+        callsContractors: map['callsContractors'],
+        callsArtisans: map['callsArtisans'],
+        callsManufacturers: map['callsManufacturers'],
+        callsSuppliers: map['callsSuppliers'],
       );
 
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// AGENDA MODEL CYPHER
+
+  // --------------------
+  /// TASK : TEST ME
+  static Map<String, dynamic> cypherAgendaToCensus({
+    @required bool isIncrementing,
+    @required AgendaModel agenda,
+  }){
+
+    /// AGENDA IS NULL
+    if (agenda == null){
+      return null;
+    }
+
+    /// AGENDA IS NOT NULL
+    else {
+
+      final int _increment = isIncrementing ? 1 : -1;
+
+      return {
+        'followsDevelopers'   : fireDB.ServerValue.increment(agenda?.developers?.length    ?? 0  * _increment),
+        'followsBrokers'      : fireDB.ServerValue.increment(agenda?.brokers?.length       ?? 0  * _increment),
+        'followsDesigners'    : fireDB.ServerValue.increment(agenda?.designers?.length     ?? 0  * _increment),
+        'followsContractors'  : fireDB.ServerValue.increment(agenda?.contractors?.length   ?? 0  * _increment),
+        'followsArtisans'     : fireDB.ServerValue.increment(agenda?.artisans?.length      ?? 0  * _increment),
+        'followsManufacturers': fireDB.ServerValue.increment(agenda?.manufacturers?.length ?? 0  * _increment),
+        'followsSuppliers'    : fireDB.ServerValue.increment(agenda?.suppliers?.length     ?? 0  * _increment),
+      };
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DECK MODEL CYPHER
+
+  // --------------------
+  /// TASK : TEST ME
+  static Map<String, dynamic> cypherDeckToCensus({
+    @required bool isIncrementing,
+    @required DeckModel deck,
+  }){
+
+    /// DECK IS NULL
+    if (deck == null){
+      return null;
+    }
+
+    /// DECK HAS VALUE
+    else {
+      final int _increment = isIncrementing ? 1 : -1;
+
+      return {
+        'savesGeneral':      fireDB.ServerValue.increment(deck?.general?.length       ?? 0 * _increment),
+        'savesProperties':   fireDB.ServerValue.increment(deck?.properties?.length    ?? 0 * _increment),
+        'savesDesigns':      fireDB.ServerValue.increment(deck?.designs?.length       ?? 0 * _increment),
+        'savesUndertakings': fireDB.ServerValue.increment(deck?.undertakings?.length  ?? 0 * _increment),
+        'savesTrades':       fireDB.ServerValue.increment(deck?.trades?.length        ?? 0 * _increment),
+        'savesProducts':     fireDB.ServerValue.increment(deck?.products?.length      ?? 0 * _increment),
+        'savesEquipments':   fireDB.ServerValue.increment(deck?.equipment?.length     ?? 0 * _increment),
+      };
+    }
+
   }
   // --------------------
 
@@ -309,9 +521,10 @@ class CensusModel {
       bzAccountTypeStandard: 0,
       bzAccountTypePro: 0,
       bzAccountTypeMaster: 0,
+      flyerTypeGeneral: 0,
       flyerTypeProperty: 0,
       flyerTypeDesign: 0,
-      flyerTypeProject: 0,
+      flyerTypeUndertaking: 0,
       flyerTypeProduct: 0,
       flyerTypeTrade: 0,
       flyerTypeEquipment: 0,
@@ -320,6 +533,27 @@ class CensusModel {
       needTypeFinishConstruction: 0,
       needTypeFurnish: 0,
       needTypeOfferProperty: 0,
+      savesGeneral: 0,
+      savesProperties: 0,
+      savesDesigns: 0,
+      savesUndertakings: 0,
+      savesTrades: 0,
+      savesProducts: 0,
+      savesEquipments: 0,
+      followsDevelopers: 0,
+      followsBrokers: 0,
+      followsDesigners: 0,
+      followsContractors: 0,
+      followsArtisans: 0,
+      followsManufacturers: 0,
+      followsSuppliers: 0,
+      callsDevelopers: 0,
+      callsBrokers: 0,
+      callsDesigners: 0,
+      callsContractors: 0,
+      callsArtisans: 0,
+      callsManufacturers: 0,
+      callsSuppliers: 0,
     );
   }
   // --------------------
@@ -359,6 +593,20 @@ class CensusModel {
       }
   }
   // --------------------
+  ///
+  static String getCallBzTypeFieldName(BzType bzType){
+    switch (bzType) {
+      case BzType.developer :     return 'callsDevelopers   ';  break;
+      case BzType.broker :        return 'callsBrokers      ';  break;
+      case BzType.designer :      return 'callsDesigners    ';  break;
+      case BzType.contractor :    return 'callsContractors  ';  break;
+      case BzType.artisan :       return 'callsArtisans     ';  break;
+      case BzType.manufacturer :  return 'callsManufacturers';  break;
+      case BzType.supplier :      return 'callsSuppliers    ';  break;
+      default:                    return null;
+    }
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzFormFieldName(BzForm bzForm){
     switch (bzForm) {
@@ -395,7 +643,7 @@ class CensusModel {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkShouldUpdateUserCensus({
     @required UserModel oldUser,
     @required UserModel newUser,
@@ -406,7 +654,9 @@ class CensusModel {
 
       if (
         ZoneModel.checkZonesIDsAreIdentical(zone1: oldUser?.zone, zone2: newUser.zone) == false ||
-        NeedModel.checkNeedsAreIdentical(oldUser?.need, newUser.need) == false
+        NeedModel.checkNeedsAreIdentical(oldUser?.need, newUser.need) == false ||
+        DeckModel.checkDecksAreIdentical(deck1: oldUser?.savedFlyers, deck2: newUser.savedFlyers) == false ||
+        AgendaModel.checkAgendasAreIdentical(agenda1: oldUser?.followedBzz, agenda2: newUser.followedBzz) == false
       ){
         _shouldUpdate = true;
       }
@@ -417,7 +667,7 @@ class CensusModel {
     return _shouldUpdate;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkShouldUpdateBzCensus({
     @required BzModel oldBz,
     @required BzModel newBz,
@@ -440,7 +690,7 @@ class CensusModel {
     return _shouldUpdate;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static bool checkShouldUpdateFlyerCensus({
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
@@ -462,10 +712,10 @@ class CensusModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// CREATOR
+  /// CREATE USER CENSUS MAP
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Map<String, dynamic> createUserCensusMap({
     @required UserModel userModel,
     @required bool isIncrementing,
@@ -478,6 +728,7 @@ class CensusModel {
       'totalUsers' : fireDB.ServerValue.increment(_increment),
     };
 
+    /// NEED
     if (userModel?.need?.needType != null){
       /// NEED TYPES
       _map = Mapper.insertPairInMap(
@@ -487,8 +738,34 @@ class CensusModel {
       );
     }
 
+    /// SAVED FLYERS
+    if (Mapper.checkCanLoopList(userModel?.savedFlyers?.all) == true){
+      _map = Mapper.insertMapInMap(
+        baseMap: _map,
+        insert: cypherDeckToCensus(
+          deck: userModel?.savedFlyers,
+          isIncrementing: isIncrementing,
+        ),
+      );
+    }
+
+    /// FOLLOWED BZZ
+    if (Mapper.checkCanLoopList(userModel?.followedBzz?.all) == true){
+      _map = Mapper.insertMapInMap(
+        baseMap: _map,
+        insert: cypherAgendaToCensus(
+          isIncrementing: isIncrementing,
+          agenda: userModel?.followedBzz,
+        ),
+      );
+    }
+
     return _map;
   }
+  // -----------------------------------------------------------------------------
+
+  /// CREATE BZ CENSUS MAP
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createBzCensusMap({
@@ -537,6 +814,73 @@ class CensusModel {
 
     return _map;
   }
+  // -----------------------------------------------------------------------------
+
+  /// CREATE CALL CENSUS MAP
+
+  // --------------------
+  /// TASK : TEST ME
+  static Map<String, dynamic> createCallCensusMap({
+    @required BzModel bzModel,
+    @required bool isIncrementing, // WILL ALWAYS BE TRUE
+  }){
+    Map<String, dynamic> _map = {};
+
+    if (bzModel != null){
+
+      if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
+
+        final int _increment = isIncrementing ? 1 : -1;
+
+        for (final BzType bzType in bzModel.bzTypes){
+          _map = Mapper.insertPairInMap(
+              map: _map,
+              key: CensusModel.getCallBzTypeFieldName(bzType),
+              value: fireDB.ServerValue.increment(_increment)
+          );
+        }
+
+      }
+
+    }
+
+    return _map;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<Map<String, dynamic>> createCallsWipeMap(BzModel bzModel) async {
+
+    assert(bzModel != null, 'bzModel is null');
+
+    Map<String, dynamic> _map = <String, dynamic>{};
+
+    /// NOTE : MAKE SURE TO DELETE COUNTING BZ LOCATION AFTER READING THIS INFO IN WIPE BZ PROTOCOLS
+    final int _callsCount = await Real.readPath(
+      path: '${RealColl.countingBzz}/${bzModel.id}/calls',
+    );
+
+    if (_callsCount != null && _callsCount > 0){
+
+      if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
+
+        for (final BzType bzType in bzModel.bzTypes){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: CensusModel.getCallBzTypeFieldName(bzType),
+            value: fireDB.ServerValue.increment(_callsCount * -1),
+          );
+        }
+
+      }
+
+    }
+
+    return _map;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CREATE FLYER CENSUS MAP
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createFlyerCensusMap({
