@@ -209,6 +209,7 @@ void _animateHeaderExpansion({
 /// TAPS - BUTTONS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 bool checkFollowIsOn({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -240,6 +241,7 @@ Future<void> onFollowTap({
       bzToFollow: bzModel,
       followIsOn: followIsOn.value,
     );
+
 
   }
 
@@ -341,7 +343,6 @@ Future<void> onCallTap({
               /// CENSUS
               CensusProtocols.onCallBz(
                 bzModel: bzModel,
-                userModel: _userModel,
               ),
 
             ]);

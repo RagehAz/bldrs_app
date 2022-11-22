@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
@@ -371,10 +372,48 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
                 icon: Iconz.bxProductsOff,
               ),
 
-              /// SEPARATOR
-              const SeparatorLine(),
 
               // -------------------------------------------
+
+              /// NEEDS
+              InfoPageHeadline(
+                verse: const Verse(text: 'phid_needs_statistics', translate: true,),
+                pageWidth: Scale.screenWidth(context),
+              ),
+
+              /// SEEKING PROPERTY
+              CensusLine(
+                verse: Verse(text: NeedModel.getNeedTypePhid(NeedType.seekProperty), translate: true,),
+                count: _censusModel?.needTypeSeekProperty,
+                icon: Iconz.bxNewPropertiesOn,
+              ),
+              /// PLANNING CONSTRUCTION
+              CensusLine(
+                verse: Verse(text: NeedModel.getNeedTypePhid(NeedType.planConstruction), translate: true,),
+                count: _censusModel?.needTypePlanConstruction,
+                icon: Iconz.bzUndertakingOn,
+              ),
+              /// FINISHING CONSTRUCTION
+              CensusLine(
+                verse: Verse(text: NeedModel.getNeedTypePhid(NeedType.finishConstruction), translate: true,),
+                count: _censusModel?.needTypeFinishConstruction,
+                icon: Iconz.bxUndertakingOff,
+              ),
+              /// FURNISH PROPERTY
+              CensusLine(
+                verse: Verse(text: NeedModel.getNeedTypePhid(NeedType.furnish), translate: true,),
+                count: _censusModel?.needTypeFurnish,
+                icon: Iconz.yellowAlert,
+              ),
+              /// OFFER PROPERTY
+              CensusLine(
+                verse: Verse(text: NeedModel.getNeedTypePhid(NeedType.offerProperty), translate: true,),
+                count: _censusModel?.needTypeOfferProperty,
+                icon: Iconz.yellowAlert,
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
 
               const Horizon(),
 
