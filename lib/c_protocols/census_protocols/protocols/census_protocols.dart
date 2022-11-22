@@ -5,9 +5,9 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/cupertino.dart';
-
+/// => TAMAM
 class CensusProtocols {
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const CensusProtocols();
 
@@ -143,7 +143,7 @@ class CensusProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeBz(BzModel bzModel) async {
 
     assert(bzModel != null, 'bzModel is null');
@@ -167,7 +167,6 @@ class CensusProtocols {
     );
 
   }
-
   // -----------------------------------------------------------------------------
 
   /// FLYER CENSUS
@@ -186,6 +185,12 @@ class CensusProtocols {
         isIncrementing: true,
       ),
     );
+
+  }
+
+  static Future<void> _activateCityAndCountry(FlyerModel flyerModel) async {
+
+
 
   }
   // --------------------
@@ -242,20 +247,58 @@ class CensusProtocols {
   /// ENGAGEMENT CENSUS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
     @required BzModel bzModel,
-    @required UserModel userModel,
   }) async {
 
     assert(bzModel != null, 'bzModel is null');
-    assert(userModel != null, 'userModel is null');
 
     await CensusRealOps.updateAllCensus(
-      zoneModel: userModel.zone, // i want to know the caller zone,, where the calls are coming from
+      zoneModel: bzModel.zone,
       map: CensusModel.createCallCensusMap(
           bzModel: bzModel,
           isIncrementing: true,
+      ),
+    );
+
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onFollowBz({
+    @required BzModel bzModel,
+    @required bool isFollowing,
+  }) async {
+
+    assert(bzModel != null, 'bzModel is null');
+
+    await CensusRealOps.updateAllCensus(
+      zoneModel: bzModel.zone, // should be bz zone to be wiped with bz wipe
+      map: CensusModel.createFollowCensusMap(
+        bzModel: bzModel,
+        isIncrementing: isFollowing,
+      ),
+    );
+
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onSaveFlyer({
+    @required FlyerModel flyerModel,
+    @required UserModel userModel,
+    @required bool isSaving,
+  }) async {
+
+    assert(flyerModel != null, 'flyerModel is null');
+    assert(userModel != null, 'userModel is null');
+
+    await CensusRealOps.updateAllCensus(
+      zoneModel: userModel.zone, // should be user zone to delete it on wipe user protocols
+      map: CensusModel.createFlyerSaveCensusMap(
+        flyerModel: flyerModel,
+        isIncrementing: isSaving,
       ),
     );
 
