@@ -257,6 +257,7 @@ class FlyerTyper{
     return _includes;
   }
   // --------------------
+  /// TASK : TEST ME
   static bool checkFlyerTypesAreIdentical(List<FlyerType> types1, List<FlyerType> types2){
 
     final List<String> _a = cipherFlyersTypes(types1);
@@ -435,6 +436,7 @@ class FlyerTyper{
     }
   }
   // --------------------
+  /// TASK : TEST ME
   static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain> chains){
     final List<FlyerType> _types = <FlyerType>[];
 

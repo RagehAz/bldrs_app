@@ -545,7 +545,7 @@ class Mapper {
    */
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> insertMapInMap({
     @required Map<String, dynamic> baseMap,
     @required Map<String, dynamic> insert,
@@ -565,12 +565,12 @@ class Mapper {
 
           for (final String key in _keys){
 
-            _output = insertPairInMap(
-              map: _output,
-              key: key,
-              value: insert[key],
-              overrideExisting: replaceDuplicateKeys,
-            );
+              _output = insertPairInMap(
+                map: _output,
+                key: key,
+                value: insert[key],
+                overrideExisting: replaceDuplicateKeys,
+              );
 
           }
 
