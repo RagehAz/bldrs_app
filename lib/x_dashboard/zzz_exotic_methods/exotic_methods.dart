@@ -49,19 +49,51 @@ class ExoticMethods {
     @required String collName,
     @required String docName,
     @required String subCollName,
-    @required QueryOrderBy orderBy,
+    @required int limit,
+    List<FireFinder> finders,
+    Future Function(int index, Map<String, dynamic> map) onRead,
   }) async {
+    blog('readAllSubCollectionDocs : START');
 
-    final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
-      limit: 1000,
-      collName: FireColl.zones,
-      docName: docName,
-      subCollName: subCollName,
-      orderBy: orderBy,
-    );
+    final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
-    return _maps;
+    for (int i = 0; i < limit; i++){
 
+      final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
+          collName: collName,
+          docName: docName,
+          subCollName: subCollName,
+          limit: 1,
+          addDocsIDs: true,
+          startAfter: _output.isEmpty ? null : _output.last['docSnapshot'],
+          addDocSnapshotToEachMap: true,
+          finders: finders,
+          // orderBy: const QueryOrderBy(
+          //   fieldName: 'id',
+          //   descending: true,
+          // )
+      );
+
+      if (_maps.isEmpty){
+        break;
+      }
+
+      else {
+
+
+        _output.add(_maps.first);
+
+        if (onRead != null){
+          await onRead(i, _maps.first);
+        }
+
+      }
+
+    }
+
+    blog('readAllSubCollectionDocs : END');
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
