@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/d_zone/country_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class ISO3 {
     @required this.capital,
     @required this.langCodes,
     @required this.areaSqKm,
+    @required this.phrases,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -34,12 +37,13 @@ class ISO3 {
   final String capital;
   final String langCodes;
   final int areaSqKm;
+  final List<Phrase> phrases;
   // -----------------------------------------------------------------------------
 
   /// CLONING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   ISO3 copyWith({
     String id,
     String iso2,
@@ -52,6 +56,7 @@ class ISO3 {
     String capital,
     String langCodes,
     int areaSqKm,
+    List<Phrase> phrases,
   }){
     return ISO3(
       id: id ?? this.id,
@@ -65,6 +70,7 @@ class ISO3 {
       capital: capital ?? this.capital,
       langCodes: langCodes ?? this.langCodes,
       areaSqKm: areaSqKm ?? this.areaSqKm,
+      phrases: phrases ?? this.phrases,
     );
   }
   // -----------------------------------------------------------------------------
@@ -72,8 +78,9 @@ class ISO3 {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
+    blog('.');
     return {
       'id': id,
       'iso2': iso2,
@@ -86,10 +93,14 @@ class ISO3 {
       'capital': capital,
       'langCodes': langCodes,
       'areaSqKm': areaSqKm,
+      'phrases': CountryModel.cipherZonePhrases(
+        phrases: phrases,
+        includeTrigram: false,
+      ),
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherISO3s(List<ISO3> iso3s){
     final List<Map<String, dynamic>> _maps = [];
 
@@ -119,6 +130,10 @@ class ISO3 {
         capital: map['capital'],
         langCodes: map['langCodes'],
         areaSqKm: map['areaSqKm'],
+        phrases: CountryModel.decipherZonePhrases(
+          phrasesMap: map['phrases'],
+          zoneID: map['id'],
+        ),
       );
     }
 
@@ -179,35 +194,72 @@ class ISO3 {
     }
   }
   // --------------------
+
   /// TESTED : WORKS PERFECT
   static void blogISO3sToJSON(List<ISO3> iso3s){
     if (Mapper.checkCanLoopList(iso3s) == true){
-      for (final ISO3 iso3 in iso3s){
-        blog(
-            '{'
-            '"id":"${iso3.id}",'
-            '"iso2":"${iso3.iso2}",'
-            '"flag":"${iso3.flag}",'
-            '"region":"${iso3.region}",'
-            '"continent":"${iso3.continent}",'
-            '"language":"${iso3.language}",'
-            '"currencyID":"${iso3.currencyID}",'
-            '"phoneCode":"${iso3.phoneCode}",'
-            '"capital":"${iso3.capital}",'
-            '"langCodes":"${iso3.langCodes}",'
-            '"areaSqKm":${iso3.areaSqKm}'
-            '},'
-        );
+      blog('[\n');
+      for (int i = 0; i < iso3s.length; i++){
+
+        final ISO3 iso3 = iso3s[i];
+        final bool lastItem = i == iso3s.length - 1;
+
+        String _string = '{\n'
+            '"id":"${iso3.id}",\n'
+            '"iso2":"${iso3.iso2}",\n'
+            '"flag":"${iso3.flag}",\n'
+            '"region":"${iso3.region}",\n'
+            '"continent":"${iso3.continent}",\n'
+            '"language":"${iso3.language}",\n'
+            '"currencyID":"${iso3.currencyID}",\n'
+            '"phoneCode":"${iso3.phoneCode}",\n'
+            '"capital":"${iso3.capital}",\n'
+            '"langCodes":"${iso3.langCodes}",\n'
+            '"areaSqKm":${iso3.areaSqKm},\n'
+            '"phrases":${blogPhrasesToJSON(iso3.phrases)}\n'
+            '}';
+
+        if (lastItem == false){
+          _string = '$_string,';
+        }
+
+        blog(_string);
 
       }
+      blog(']');
     }
+  }
+
+  static String blogPhrasesToJSON(List<Phrase> phrases){
+    String _output = '[\n';
+
+    if (Mapper.checkCanLoopList(phrases) == true) {
+
+      for (int i = 0; i < phrases.length; i++) {
+
+        final Phrase phrase = phrases[i];
+        final bool _isLast = i + 1 == phrases.length;
+
+        if (_isLast == false){
+          _output = '$_output{"id":"${phrase.id}","langCode":"${phrase.langCode}","value":"${phrase.value}"},\n';
+        }
+        else {
+          /// remove last comma
+          _output = '$_output{"id":"${phrase.id}","langCode":"${phrase.langCode}","value":"${phrase.value}"}\n';
+        }
+
+      }
+
+  }
+
+    return '$_output]';
   }
   // -----------------------------------------------------------------------------
 
   /// EQUALITY
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkISO3sAreIdentical(ISO3 iso1, ISO3 iso2){
     bool _identical = false;
 
@@ -227,8 +279,9 @@ class ISO3 {
       iso1.phoneCode == iso2.phoneCode &&
       iso1.capital == iso2.capital &&
       iso1.langCodes == iso2.langCodes &&
-      iso1.areaSqKm == iso2.areaSqKm
-      ) {
+      iso1.areaSqKm == iso2.areaSqKm &&
+      Phrase.checkPhrasesListsAreIdentical(phrases1: iso1.phrases, phrases2: iso2.phrases,) == true
+    ) {
         _identical = true;
       }
     }
@@ -275,6 +328,7 @@ class ISO3 {
       phoneCode.hashCode^
       capital.hashCode^
       langCodes.hashCode^
-      areaSqKm.hashCode;
+      areaSqKm.hashCode^
+      phrases.hashCode;
   // -----------------------------------------------------------------------------
 }

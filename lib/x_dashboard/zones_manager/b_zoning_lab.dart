@@ -1,5 +1,9 @@
+import 'package:bldrs/a_models/d_zone/country_model.dart';
+import 'package:bldrs/a_models/d_zone/flag_model.dart';
+import 'package:bldrs/a_models/d_zone/real_models/country_fix.dart';
 import 'package:bldrs/a_models/d_zone/real_models/iso3.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/h_money/big_mac.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
@@ -8,6 +12,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
+import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:flutter/material.dart';
 
 class ZoningLab extends StatefulWidget {
@@ -29,7 +34,7 @@ class _ZoningLabState extends State<ZoningLab> {
   /// DONE : KEEP FOR REFERENCE
   Future<void> _createISO3JSONBlog() async {
     blog('CREATE ISO3 MAP : START');
-    /*
+
     final int _totalLength = CountryModel.getAllCountriesIDs().length;
     final List<ISO3> _iso3s = [];
 
@@ -54,6 +59,7 @@ class _ZoningLabState extends State<ZoningLab> {
             capital: countryModel.capital ?? xGetCapital(countryModel.id),
             langCodes: countryModel.langCodes ?? xGetLangs(countryModel.id),
             areaSqKm: countryModel.areaSqKm ?? xGetAreaKM(countryModel.id),
+            phrases: countryModel.phrases,
           );
 
         }
@@ -74,7 +80,6 @@ class _ZoningLabState extends State<ZoningLab> {
 
     ISO3.blogISO3sToJSON(_iso3s);
 
- */
     blog('CREATE ISO3 MAP : END : already done and kept for reference');
   }
   // -----------------------------------------------------------------------------
