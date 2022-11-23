@@ -10,6 +10,7 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -250,6 +251,45 @@ class ExoticMethods {
   }
   // -----------------------------------------------------------------------------
 
+  /// FETCH ALL COUNTRIES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<CountryModel>> fetchAllCountryModels({
+    Future Function(int index, CountryModel countryModel) onRead,
+  }) async {
+
+    final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
+
+    final List<CountryModel> _countries = <CountryModel>[];
+
+    for (int i = 0; i < _allCountriesIDs.length; i++){
+
+      await tryAndCatch(
+          functions: () async {
+
+            final CountryModel _country = await ZoneProtocols.fetchCountry(
+              countryID: _allCountriesIDs[i],
+            );
+
+            if (_country != null) {
+              _countries.add(_country);
+            }
+
+            if (onRead != null){
+              await onRead(i, _country);
+            }
+
+          },
+        invoker: 'fetchAllCountryModels',
+      );
+
+    }
+
+    return _countries;
+  }
+  // -----------------------------------------------------------------------------
+
   /// OTHER STUFF
 
   // --------------------
@@ -274,25 +314,7 @@ class ExoticMethods {
 // }
    */
   // --------------------
-  static Future<List<CountryModel>> fetchAllCountryModels() async {
 
-    final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
-
-    final List<CountryModel> _countries = <CountryModel>[];
-
-    for (final String id in _allCountriesIDs) {
-
-      final CountryModel _country = await ZoneProtocols.fetchCountry(
-        countryID: id,
-      );
-
-      if (_country != null) {
-        _countries.add(_country);
-      }
-    }
-
-    return _countries;
-  }
   // --------------------
   static Future<void> createContinentsDocFromAllCountriesCollection() async {
     /// in case any (continent name) or (region name) or (countryID) has changed
@@ -592,22 +614,6 @@ class ExoticMethods {
   //   return _currencies;
   // }
    */
-  // --------------------
-  static Future<List<CountryModel>> readAllCountries() async {
-
-    final List<Map<String, dynamic>> allMaps = await readAllSubCollectionDocs(
-      collName: FireColl.zones,
-      docName: FireDoc.zones_countries,
-      subCollName: FireSubColl.zones_countries_countries,
-      orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-    );
-
-    final List<CountryModel> _countries = CountryModel.decipherCountriesMaps(
-      maps: allMaps,
-    );
-
-    return _countries;
-  }
   // --------------------
   static Future<void> duplicateDoc({
     @required String fromCollName,

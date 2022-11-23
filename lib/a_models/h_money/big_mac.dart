@@ -129,10 +129,10 @@ class BigMac {
   // --------------------
   static String getCurrencyByCountryIdFromBigMacs({
     @required String countryID,
-    List<BigMac> bigMacs,
+    // List<BigMac> bigMacs,
   }) {
 
-    final BigMac _bigMacOfThisCountry = bigMacs.singleWhere(
+    final BigMac _bigMacOfThisCountry = bigMacs().singleWhere(
             (BigMac bigMac) => bigMac.countryID == countryID,
         orElse: () => null);
 

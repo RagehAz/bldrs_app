@@ -118,37 +118,7 @@
   |     | - activeCountriesIDs                  : <List<String>>
   |     | - globalCountriesIDs                  : <List<String>>
   |     | - planet
-  |     |     | - totalUsers                    : <int>
-  |     |     | - totalBzz                      : <int>
-  |     |     | - totalAuthors                  : <int>
-  |     |     | - totalFlyers                   : <int>
-  |     |     | - totalSlides                   : <int>
-  |     |     | - bzSectionRealEstate           : <int>
-  |     |     | - bzSectionConstruction         : <int>
-  |     |     | - bzSectionSupplies             : <int>
-  |     |     | - bzTypeDeveloper               : <int>
-  |     |     | - bzTypeBroker                  : <int>
-  |     |     | - bzTypeDesigner                : <int>
-  |     |     | - bzTypeContractor              : <int>
-  |     |     | - bzTypeArtisan                 : <int>
-  |     |     | - bzTypeManufacturer            : <int>
-  |     |     | - bzTypeSupplier                : <int>
-  |     |     | - bzFormIndividual              : <int>
-  |     |     | - bzFormCompany                 : <int>
-  |     |     | - bzAccountTypeStandard         : <int>
-  |     |     | - bzAccountTypePro              : <int>
-  |     |     | - bzAccountTypeMaster           : <int>
-  |     |     | - flyerTypeProperty             : <int>
-  |     |     | - flyerTypeDesign               : <int>
-  |     |     | - flyerTypeProject              : <int>
-  |     |     | - flyerTypeProduct              : <int>
-  |     |     | - flyerTypeTrade                : <int>
-  |     |     | - flyerTypeEquipment            : <int>
-  |     |     | - needTypeSeekProperty          : <int>
-  |     |     | - needTypePlanConstruction      : <int>
-  |     |     | - needTypeFinishConstruction    : <int>
-  |     |     | - needTypeFurnish               : <int>
-  |     |     | - needTypeOfferProperty         : <int>
+  |     |     | => [CensusModel]
   |     |
   |     | - countries
   |     |     | - {countryID}
@@ -170,49 +140,83 @@
   |
   | --------------------------|
   |
+  | /// TASK : PROPOSAL TO MIGRATE APP STATE
+  | - appState : <AppStateModel>
+  |     | - id
+  |     | - showOnlyVerifiedFlyersInHomeWall /// TASK : COMBINE APP CONTROLS WITH APP STATE
+  |     | - appControlsVersion
+  |     | - appVersion
+  |     | - chainsVersion
+  |     | - ldbVersion
+  |     | - phrasesVersion
+  |     | - pickersVersion
+  |     | - countriesLevels
+  |             | - hidden    : <List<String>>
+  |             | - inactive  : <List<String>>
+  |             | - active    : <List<String>>
+  |             | - public    : <List<String>>
+  |
+  | --------------------------|
+  |
   | /// TASK : PROPOSAL TO MIGRATE FIRE ZONE COLL TO THIS TREE
   | - zones
-  |     | - {countryID}
-  |     |     | - id          : <String>
-  |     |     | - region      : <String>
-  |     |     | - continent   : <String>
-  |     |     | - isActivated : <bool>
-  |     |     | - isGlobal    : <bool>
-  |     |     | - citiesIDs   : List<String>
-  |     |     | - language    : <String>
-  |     |     | - currency    : <String>
-  |     |     | - phrases
-  |     |     |     | - {langCode}
-  |     |     |     |     | - langCode : <String>
-  |     |     |     |     | - value    : <String>
+  |     | - continents
+  |     |
+  |     | - currencies
+  |     |     | - {currencyID}    : <CurrencyModel>
+  |     |     | - {currencyID} ...
+  |     |
+  |     | - countries
+  |     |     | - {countryID}
+  |     |     |     | - id          : <String>
+  |     |     |     | - region      : <String>
+  |     |     |     | - continent   : <String>
+  |     |     |     | - isActivated : <bool>
+  |     |     |     | - isGlobal    : <bool>
+  |     |     |     | - language    : <String>
+  |     |     |     | - currency    : <String>
+  |     |     |     | - phrases
+  |     |     |     |     | - {langCode}
+  |     |     |     |     |     | - langCode : <String>
+  |     |     |     |     |     | - value    : <String>
+  |     |     |     |     |
+  |     |     |     |     | - {langCode}...
   |     |     |     |
-  |     |     |     | - {langCode}...
+  |     |     |     | - iso2        : <String>
+  |     |     |     | - phoneCode   : <String>
+  |     |     |     | - capital     : <String>
+  |     |     |     | - citiesIDs   : List<String> TASK : OLD
+  |     |     |     | - citiesIDs
+  |     |     |           | - hidden    : <List<String>>
+  |     |     |           | - inactive  : <List<String>>
+  |     |     |           | - active    : <List<String>>
+  |     |     |           | - public    : <List<String>>
   |     |     |
-  |     |     | - iso2        : <String>
-  |     |     | - phoneCode   : <String>
-  |     |     | - capital     : <String>
-  |     |     | - cities
-  |     |          | - {cityID}
-  |     |          |     | - countryID   : <String>
-  |     |          |     | - cityID      : <String>
-  |     |          |     | - districts   : <List<DistrictModel>>
-  |     |          |     | - population  : <int>
-  |     |          |     | - isActivated : <bool>
-  |     |          |     | - isPublic    : <bool>
-  |     |          |     | - position    : <String>
-  |     |          |     | - state       : <String>
-  |     |          |     | - phrases
-  |     |          |          | - {langCode}
-  |     |          |          |     | - langCode : <String>
-  |     |          |          |     | - value    : <String>
-  |     |          |          |
-  |     |          |          | - {langCode}...
-  |     |          |
-  |     |          |
-  |     |          | - {cityID}...
+  |     |     | - {countryID}...
   |     |
   |     |
-  |     | - {countryID}...
+  |     | - cities
+  |           | - {countryID}
+  |           |       | - {cityID}
+  |           |       |     | - countryID   : <String>
+  |           |       |     | - cityID      : <String>
+  |           |       |     | - districts   : <List<DistrictModel>>
+  |           |       |     | - population  : <int>
+  |           |       |     | - isActivated : <bool>
+  |           |       |     | - isPublic    : <bool>
+  |           |       |     | - position    : <String>
+  |           |       |     | - state       : <String>
+  |           |       |     | - phrases
+  |           |       |          | - {langCode}
+  |           |       |          |     | - langCode : <String>
+  |           |       |          |     | - value    : <String>
+  |           |       |          |
+  |           |       |          | - {langCode}...
+  |           |       |
+  |           |       |
+  |           |       | - {cityID}...
+  |           |
+  |           | - {countryID}...
   |
   | -------------------------------------------|
 
