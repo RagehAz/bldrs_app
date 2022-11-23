@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bldrs/a_models/d_zone/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/real_models/country_fix.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_s
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -88,7 +90,7 @@ class _ZoningLabState extends State<ZoningLab> {
     blog('CREATE ISO3 MAP : END : already done and kept for reference');
   }
   // --------------------
-  ///
+  /// DONE : KEEP FOR REFERENCE
   Future<void> _createCurrenciesJSON() async {
 
     final List<CurrencyModel> _currencies = ZoneProvider.proGetAllCurrencies(context: context, listen: false);
@@ -97,6 +99,18 @@ class _ZoningLabState extends State<ZoningLab> {
     final Map<String, dynamic> _map = CurrencyModel.cipherCurrencies(_currencies);
 
     final String _json = json.encode(_map, );
+
+    blog(_json);
+
+  }
+  // --------------------
+  ///
+  Future<void> _createContinentsJSONMap() async {
+
+    final List<Continent> _allContinents = await ZoneProtocols.fetchContinents();
+
+    final Map<String, dynamic> _map = Continent.cipherContinents(_allContinents);
+    final String _json = json.encode(_map);
 
     blog(_json);
 
@@ -197,6 +211,32 @@ class _ZoningLabState extends State<ZoningLab> {
             onTap: _createCurrenciesJSON,
           ),
 
+          /// GET CURRENCIES JSON
+          WideButton(
+            verse: Verse.plain('Get Currencies JSON map'),
+            onTap: () async {
+
+              final List<CurrencyModel> _currencies = await CurrencyModel.readAllCurrenciesFromJSON();
+              blog('start');
+              CurrencyModel.blogCurrencies(_currencies);
+              blog('end');
+            },
+          ),
+
+          // -----------------------------------
+
+          /// SEPARATOR
+          const SeparatorLine(),
+
+          /// CREATE CURRENCIES JSON
+          WideButton(
+            verse: Verse.plain('Create CONTINENTS JSON'),
+            onTap: _createContinentsJSONMap,
+          ),
+
+
+          /// SEPARATOR
+          const SeparatorLine(),
         ],
       ),
     );
