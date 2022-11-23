@@ -58,7 +58,7 @@ class CityModel {
           point: position,
           toJSON: toJSON
       ),
-      'phrases' : CountryModel.cipherZonePhrases(
+      'phrases' : CountryModel.oldCipherZonePhrases(
         phrases: phrases,
         includeTrigram: toJSON,
       ),
@@ -105,7 +105,7 @@ class CityModel {
           point: map['position'],
           fromJSON: fromJSON,
         ),
-        phrases: CountryModel.decipherZonePhrases(
+        phrases: CountryModel.oldDecipherZonePhrases(
             phrasesMap: map['phrases'],
             zoneID: map['cityID']
         ),

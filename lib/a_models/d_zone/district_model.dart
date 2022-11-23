@@ -42,7 +42,7 @@ class DistrictModel{
       'districtID' : TextMod.fixCountryName(districtID),
       'isActivated' : isActivated,
       'isPublic' : isPublic,
-      'phrases' : CountryModel.cipherZonePhrases(
+      'phrases' : CountryModel.oldCipherZonePhrases(
         phrases: phrases,
         includeTrigram: toJSON,
       ),
@@ -79,7 +79,7 @@ class DistrictModel{
       districtID : map['districtID'],
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
-      phrases: CountryModel.decipherZonePhrases(
+      phrases: CountryModel.oldDecipherZonePhrases(
         phrasesMap: map['phrases'],
         zoneID: map['districtID'],
       ),
