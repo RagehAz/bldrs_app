@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/real_models/country_fix.dart';
 import 'package:bldrs/a_models/d_zone/real_models/iso3.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
 import 'package:bldrs/a_models/h_money/big_mac.dart';
+import 'package:bldrs/a_models/h_money/currency_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
@@ -82,6 +87,20 @@ class _ZoningLabState extends State<ZoningLab> {
 
     blog('CREATE ISO3 MAP : END : already done and kept for reference');
   }
+  // --------------------
+  ///
+  Future<void> _createCurrenciesJSON() async {
+
+    final List<CurrencyModel> _currencies = ZoneProvider.proGetAllCurrencies(context: context, listen: false);
+    // CurrencyModel.blogCurrencies(_currencies);
+
+    final Map<String, dynamic> _map = CurrencyModel.cipherCurrencies(_currencies);
+
+    final String _json = json.encode(_map, );
+
+    blog(_json);
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -92,8 +111,10 @@ class _ZoningLabState extends State<ZoningLab> {
       layoutWidget: FloatingCenteredList(
         columnChildren: <Widget>[
 
+          // -----------------------------------
+
           /// ZONE BY ONE BUTTON
-          AppBarButton(
+          WideButton(
             verse: Verse.plain('Zone by one button'),
             onTap: () async {
 
@@ -107,6 +128,16 @@ class _ZoningLabState extends State<ZoningLab> {
               if (_zone == null){
                 blog('ZONE IS NULL');
               }
+
+            },
+          ),
+
+          /// BLOG BUBBLE ZONE
+          WideButton(
+            verse: Verse.plain('blog current zone'),
+            onTap: (){
+
+              _bubbleZone?.blogZone();
 
             },
           ),
@@ -133,18 +164,10 @@ class _ZoningLabState extends State<ZoningLab> {
             },
           ),
 
-          /// BLOG BUBBLE ZONE
-          AppBarButton(
-            verse: Verse.plain('blog current zone'),
-            onTap: (){
-
-              _bubbleZone?.blogZone();
-
-            },
-          ),
+          // -----------------------------------
 
           /// SEPARATOR
-          // const SeparatorLine(),
+          const SeparatorLine(),
 
           /// CREATE ISO3 JSON
           WideButton(
@@ -161,6 +184,17 @@ class _ZoningLabState extends State<ZoningLab> {
               ISO3.blogISO3s(_iso3s);
 
             },
+          ),
+
+          // -----------------------------------
+
+          /// SEPARATOR
+          const SeparatorLine(),
+
+          /// CREATE CURRENCIES JSON
+          WideButton(
+            verse: Verse.plain('Create Currencies JSON'),
+            onTap: _createCurrenciesJSON,
           ),
 
         ],

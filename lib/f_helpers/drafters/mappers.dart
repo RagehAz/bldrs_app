@@ -1362,4 +1362,35 @@ class Mapper {
     return _output;
   }
   // --------------------
+
+
+
+
+
+
+
+  // static String mapsToJson(List<Map<String, dynamic>> map) {
+  //   String res = '[';
+  //
+  //   for (var s in map) {
+  //     res += '{';
+  //
+  //     for (String k in s.keys) {
+  //       res += '"';
+  //       res += k;
+  //       res += '":"';
+  //       res += s[k].toString();
+  //       res += '",';
+  //     }
+  //     res = res.substring(0, res.length - 1);
+  //
+  //     res += '},';
+  //     res = res.substring(0, res.length - 1);
+  //   }
+  //
+  //   res += "]";
+  //
+  //   return res;
+  // }
+
 }

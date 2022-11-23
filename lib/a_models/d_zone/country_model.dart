@@ -246,26 +246,6 @@ class CountryModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// CHECKERS
-
-  // --------------------
-  static bool countriesIDsIncludeCountryID({
-    @required List<String> countriesIDs,
-    @required String countryID,
-  }) {
-    bool _includes = false;
-
-    for (final String id in countriesIDs) {
-      if (id == countryID) {
-        _includes = true;
-        break;
-      }
-    }
-
-    return _includes;
-  }
-  // -----------------------------------------------------------------------------
-
   /// GETTERS
 
   // --------------------
