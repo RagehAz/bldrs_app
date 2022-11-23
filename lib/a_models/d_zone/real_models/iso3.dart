@@ -1,7 +1,8 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:convert';
+import 'package:flutter/services.dart';
 
 @immutable
 class ISO3 {
@@ -101,7 +102,7 @@ class ISO3 {
     return _maps;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static ISO3 decipher(Map<String, dynamic> map){
     ISO3 _iso3;
 
@@ -124,17 +125,28 @@ class ISO3 {
     return _iso3;
   }
   // --------------------
-  ///
-  static List<ISO3> decipherMaps(List<Map<String, dynamic>> maps){
+  /// TESTED : WORKS PERFECT
+  static List<ISO3> decipherMaps(List<dynamic> maps){
     final List<ISO3> _iso3s = [];
 
     if (Mapper.checkCanLoopList(maps) == true){
-      for (final Map<String, dynamic> map in maps){
+      for (final dynamic map in maps){
         _iso3s.add(decipher(map));
       }
     }
 
     return _iso3s;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// JSON GETTER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<ISO3>> readAllISO3s() async {
+    final String _jsonStringValues = await rootBundle.loadString('assets/planet/iso3.json');
+    final List<dynamic> _mappedJson = json.decode(_jsonStringValues);
+    return decipherMaps(_mappedJson);
   }
   // -----------------------------------------------------------------------------
 
@@ -190,7 +202,6 @@ class ISO3 {
       }
     }
   }
-
   // -----------------------------------------------------------------------------
 
   /// EQUALITY
