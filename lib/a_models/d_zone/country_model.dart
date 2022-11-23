@@ -115,10 +115,7 @@ class CountryModel {
       'citiesIDs': citiesIDs,
       'language': language,
       'currency': currency,
-      'phrases' : cipherZonePhrases(
-        phrases: phrases,
-        includeTrigram: includePhrasesTrigrams,
-      ),
+      'phrases' : cipherZonePhrases(phrases: phrases, includeTrigram: includePhrasesTrigrams,),
       'iso2' : iso2,
       'phoneCode' : phoneCode,
       'capital' : capital,
@@ -268,59 +265,6 @@ class CountryModel {
 
     return _includes;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool countriesIDsAreTheSame(CountryModel country1, CountryModel country2) {
-    bool _areTheSame = false;
-
-    if (country1 != null && country2 != null) {
-      if (country1.id == country2.id) {
-        _areTheSame = true;
-      }
-    }
-
-    return _areTheSame;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkCountriesAreIdentical(CountryModel country1, CountryModel country2) {
-    bool _identical = false;
-
-    if (country1 == null && country2 == null){
-      _identical = true;
-    }
-    else if (country1 != null && country2 != null) {
-      if (
-      country1.id == country2.id
-          &&
-          country1.continent == country2.continent
-          &&
-          country1.region == country2.region
-          &&
-          country1.currency == country2.currency
-          &&
-          country1.language == country2.language
-          &&
-          Phrase.checkPhrasesListsAreIdentical(
-            phrases1: country1.phrases,
-            phrases2: country2.phrases,
-          ) == true
-          &&
-          country1.isActivated == country2.isActivated
-          &&
-          country1.isGlobal == country2.isGlobal
-          &&
-          Mapper.checkListsAreIdentical(
-              list1: country1.citiesIDs,
-              list2: country2.citiesIDs
-          ) == true
-      ) {
-        _identical = true;
-      }
-    }
-
-    return _identical;
-  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -362,6 +306,7 @@ class CountryModel {
     return _ids;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getCountryPhoneCode(String countryID) {
 
     const Map<String , dynamic> _phoneCodes =  <String, dynamic>{
@@ -622,6 +567,7 @@ class CountryModel {
     return _code;
   }
   // --------------------
+  ///
   static List<MapModel> getAllCountriesNamesMapModels(BuildContext context) {
 
     final List<MapModel> _mapModels = <MapModel>[];
@@ -647,6 +593,7 @@ class CountryModel {
     return _mapModels;
   }
   // --------------------
+  ///
   static List<String> getAllCountriesIDsSortedByName(BuildContext context){
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
@@ -687,6 +634,7 @@ class CountryModel {
   /// BLOGGERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogCountry({String invoker = 'PRINTING COUNTRY'}) {
     blog('$invoker ------------------------------------------- START');
 
@@ -711,6 +659,7 @@ class CountryModel {
     blog('$invoker ------------------------------------------- END');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogCountries(List<CountryModel> countries){
 
     if (Mapper.checkCanLoopList(countries) == true){
@@ -778,6 +727,66 @@ class CountryModel {
     }
 
     return _countriesPhrases;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool countriesIDsAreIdentical(CountryModel country1, CountryModel country2) {
+    bool _identical = false;
+
+    if (country1 == null && country2 == null){
+      _identical = true;
+    }
+    else if (country1 != null && country2 != null) {
+      if (country1.id == country2.id) {
+        _identical = true;
+      }
+    }
+
+    return _identical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCountriesAreIdentical(CountryModel country1, CountryModel country2) {
+    bool _identical = false;
+
+    if (country1 == null && country2 == null){
+      _identical = true;
+    }
+    else if (country1 != null && country2 != null) {
+      if (
+          country1.id == country2.id
+          &&
+          country1.continent == country2.continent
+          &&
+          country1.region == country2.region
+          &&
+          country1.currency == country2.currency
+          &&
+          country1.language == country2.language
+          &&
+          Phrase.checkPhrasesListsAreIdentical(
+            phrases1: country1.phrases,
+            phrases2: country2.phrases,
+          ) == true
+          &&
+          country1.isActivated == country2.isActivated
+          &&
+          country1.isGlobal == country2.isGlobal
+          &&
+          Mapper.checkListsAreIdentical(
+              list1: country1.citiesIDs,
+              list2: country2.citiesIDs
+          ) == true
+      ) {
+        _identical = true;
+      }
+    }
+
+    return _identical;
   }
   // -----------------------------------------------------------------------------
 
