@@ -120,6 +120,7 @@ flutter:
     - assets/icons/specs/
     - assets/icons/flags/
     - assets/languages/
+    - assets/planet/
     - assets/sounds/
 
   # To add assets to your application, add an assets section, like this:
