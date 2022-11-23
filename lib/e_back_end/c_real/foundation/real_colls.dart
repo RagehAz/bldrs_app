@@ -160,33 +160,13 @@
   |
   | /// TASK : PROPOSAL TO MIGRATE FIRE ZONE COLL TO THIS TREE
   | - zones
-  |     | - continents
   |     |
-  |     | - countries
+  |     | - citiesLevels
   |     |     | - {countryID}
-  |     |     |     | - id          : <String>
-  |     |     |     | - region      : <String>
-  |     |     |     | - continent   : <String>
-  |     |     |     | - isActivated : <bool>
-  |     |     |     | - isGlobal    : <bool>
-  |     |     |     | - language    : <String>
-  |     |     |     | - currency    : <String>
-  |     |     |     | - phrases
-  |     |     |     |     | - {langCode}
-  |     |     |     |     |     | - langCode : <String>
-  |     |     |     |     |     | - value    : <String>
-  |     |     |     |     |
-  |     |     |     |     | - {langCode}...
-  |     |     |     |
-  |     |     |     | - iso2        : <String>
-  |     |     |     | - phoneCode   : <String>
-  |     |     |     | - capital     : <String>
-  |     |     |     | - citiesIDs   : List<String> TASK : OLD
-  |     |     |     | - citiesIDs
-  |     |     |           | - hidden    : <List<String>>
-  |     |     |           | - inactive  : <List<String>>
-  |     |     |           | - active    : <List<String>>
-  |     |     |           | - public    : <List<String>>
+  |     |     |     | - hidden    : <List<String>>
+  |     |     |     | - inactive  : <List<String>>
+  |     |     |     | - active    : <List<String>>
+  |     |     |     | - public    : <List<String>>
   |     |     |
   |     |     | - {countryID}...
   |     |
@@ -194,20 +174,21 @@
   |     | - cities
   |           | - {countryID}
   |           |       | - {cityID}
-  |           |       |     | - countryID   : <String>
-  |           |       |     | - cityID      : <String>
-  |           |       |     | - districts   : <List<DistrictModel>>
-  |           |       |     | - population  : <int>
-  |           |       |     | - isActivated : <bool>
-  |           |       |     | - isPublic    : <bool>
-  |           |       |     | - position    : <String>
-  |           |       |     | - state       : <String>
+  |           |       |     | - population
+  |           |       |     | - position
   |           |       |     | - phrases
-  |           |       |          | - {langCode}
-  |           |       |          |     | - langCode : <String>
-  |           |       |          |     | - value    : <String>
+  |           |       |     |    | - {langCode} : <String>
+  |           |       |     |    | - {langCode}...
+  |           |       |     |
+  |           |       |     | - districts
+  |           |       |          | - {districtID}
+  |           |       |          |      | - level
+  |           |       |          |      | - phrases : <String>
+  |           |       |          |            | - {langCode} : <String>
+  |           |       |          |            | - {langCode}...
   |           |       |          |
-  |           |       |          | - {langCode}...
+  |           |       |          | - {districtID}...
+  |           |       |
   |           |       |
   |           |       |
   |           |       | - {cityID}...
