@@ -11,6 +11,7 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -360,9 +361,9 @@ class ExoticMethods {
           .regions
           .indexWhere((Region region) => region.name == country.region);
 
-      final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
-        countryID: country.id,
-        countriesIDs: _continents[_continentIndex].regions[_regionIndex].countriesIDs,
+      final bool _countryIsAddedAlready = Stringer.checkStringsContainString(
+        string: country.id,
+        strings: _continents[_continentIndex].regions[_regionIndex].countriesIDs,
       );
 
       if (_countryIsAddedAlready == false) {
