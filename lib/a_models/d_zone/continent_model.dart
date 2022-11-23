@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:bldrs/a_models/d_zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 @immutable
 class Continent {
@@ -221,12 +224,34 @@ class Continent {
   /// BLOGGING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogContinent({
-    String invoker = 'CONTINENT - BLOG',
+    String invoker = '',
   }) {
-    blog('$invoker ------------------------------- START');
-    blog('name : $name : regions : $regions');
-    blog('$invoker ------------------------------- END');
+    blog('CONTINENT : name : $name : regions : $regions');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogContinents(List<Continent> continents){
+    if (Mapper.checkCanLoopList(continents) == true){
+
+      for (final Continent cont in continents){
+        cont.blogContinent();
+      }
+
+    }
   }
   // -----------------------------------------------------------------------------
+
+  /// JSON GETTER
+
+  // --------------------
+  ///
+  static Future<List<Continent>> readAllContinentsFromJSON() async {
+    final String _jsonStringValues = await rootBundle.loadString('assets/planet/continents.json');
+    final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+    return decipherContinents(_mappedJson);
+  }
+  // -----------------------------------------------------------------------------
+
 }
