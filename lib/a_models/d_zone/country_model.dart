@@ -114,7 +114,7 @@ class CountryModel {
       'citiesIDs': citiesIDs,
       'language': language,
       'currency': currency,
-      'phrases' : cipherZonePhrases(phrases: phrases, includeTrigram: includePhrasesTrigrams,),
+      'phrases' : oldCipherZonePhrases(phrases: phrases, includeTrigram: includePhrasesTrigrams,),
       'iso2' : iso2,
       'phoneCode' : phoneCode,
       'capital' : capital,
@@ -142,7 +142,7 @@ class CountryModel {
         citiesIDs: Stringer.getStringsFromDynamics(dynamics: map['citiesIDs']),
         language: map['language'],
         currency: map['currency'],
-        phrases: decipherZonePhrases(
+        phrases: oldDecipherZonePhrases(
           phrasesMap: map['phrases'],
           zoneID: map['id'],
         ),
@@ -182,7 +182,7 @@ class CountryModel {
 
   // --------------------
   /// phrases contain mixed languages phrases in one list
-  static Map<String, dynamic> cipherZonePhrases({
+  static Map<String, dynamic> oldCipherZonePhrases({
     @required List<Phrase> phrases,
     @required bool includeTrigram,
   }){
@@ -209,7 +209,7 @@ class CountryModel {
     return _output;
   }
   // --------------------
-  static List<Phrase> decipherZonePhrases({
+  static List<Phrase> oldDecipherZonePhrases({
     @required Map<String, dynamic> phrasesMap,
     @required String zoneID,
   }){

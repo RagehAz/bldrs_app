@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/d_zone/country_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -80,7 +82,6 @@ class ISO3 {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
-    blog('.');
     return {
       'id': id,
       'iso2': iso2,
@@ -93,10 +94,7 @@ class ISO3 {
       'capital': capital,
       'langCodes': langCodes,
       'areaSqKm': areaSqKm,
-      'phrases': CountryModel.cipherZonePhrases(
-        phrases: phrases,
-        includeTrigram: false,
-      ),
+      'phrases': cipherISO3Phrases(phrases),
     };
   }
   // --------------------
@@ -130,9 +128,9 @@ class ISO3 {
         capital: map['capital'],
         langCodes: map['langCodes'],
         areaSqKm: map['areaSqKm'],
-        phrases: CountryModel.decipherZonePhrases(
+        phrases: decipherISO3Phrases(
+          countryID: map['id'],
           phrasesMap: map['phrases'],
-          zoneID: map['id'],
         ),
       );
     }
@@ -151,6 +149,76 @@ class ISO3 {
     }
 
     return _iso3s;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// COUNTRY PHRASES CYPHERS
+
+  // --------------------
+  ///
+  static Map<String, dynamic> cipherISO3Phrases(List<Phrase> phrases){
+    Map<String, dynamic> _output = {};
+
+    /// SHOULD LOOK LIKE THIS
+    /// {
+    /// 'en' : 'countryName',
+    /// 'ar' : 'الاسم',
+    /// }
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        _output = Mapper.insertPairInMap(
+          map: _output,
+          key: phrase.langCode,
+          value: phrase.value,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> decipherISO3Phrases({
+    @required Map<String, dynamic> phrasesMap,
+    @required String countryID,
+  }){
+
+    final List<Phrase> _output = <Phrase>[];
+
+    if (phrasesMap != null){
+
+      final List<String> _keys = phrasesMap.keys.toList(); // lang codes
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          final String _value = phrasesMap[key];
+
+          final Phrase _phrase = Phrase(
+            id: countryID,
+            langCode: key,
+            value: _value,
+            trigram: Stringer.createTrigram(
+              input: TextMod.fixCountryName(_value),
+            ),
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -182,6 +250,7 @@ class ISO3 {
     blog('  capital: $capital,');
     blog('  langCodes: $langCodes,');
     blog('  areaSqKm: $areaSqKm,');
+    Phrase.blogPhrases(phrases);
     blog(')');
   }
   // --------------------
@@ -193,8 +262,11 @@ class ISO3 {
       }
     }
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 
+  /// JSON BLOG CREATOR
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogISO3sToJSON(List<ISO3> iso3s){
     if (Mapper.checkCanLoopList(iso3s) == true){
@@ -229,9 +301,10 @@ class ISO3 {
       blog(']');
     }
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static String blogPhrasesToJSON(List<Phrase> phrases){
-    String _output = '[\n';
+    String _output = '{\n';
 
     if (Mapper.checkCanLoopList(phrases) == true) {
 
@@ -241,18 +314,18 @@ class ISO3 {
         final bool _isLast = i + 1 == phrases.length;
 
         if (_isLast == false){
-          _output = '$_output{"id":"${phrase.id}","langCode":"${phrase.langCode}","value":"${phrase.value}"},\n';
+          _output = '$_output"${phrase.langCode}": "${phrase.value}",\n';
         }
         else {
           /// remove last comma
-          _output = '$_output{"id":"${phrase.id}","langCode":"${phrase.langCode}","value":"${phrase.value}"}\n';
+          _output = '$_output"${phrase.langCode}": "${phrase.value}"\n';
         }
 
       }
 
   }
 
-    return '$_output]';
+    return '$_output}';
   }
   // -----------------------------------------------------------------------------
 

@@ -51,7 +51,7 @@ class RealCountryModel {
     return {
       'id': id,
       'citiesIDs': citiesIDs.toMap(),
-      'phrases' : CountryModel.cipherZonePhrases(phrases: phrases, includeTrigram: includePhrasesTrigrams,),
+      'phrases' : CountryModel.oldCipherZonePhrases(phrases: phrases, includeTrigram: includePhrasesTrigrams,),
       'internetUsers': internetUsers,
       'gdp': gdp,
     };
