@@ -16,6 +16,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
@@ -232,6 +234,135 @@ class _ZoningLabState extends State<ZoningLab> {
           WideButton(
             verse: Verse.plain('Create CONTINENTS JSON'),
             onTap: _createContinentsJSONMap,
+          ),
+
+          /// GET CONTINENTS JSON
+          WideButton(
+            verse: Verse.plain('Get CONTINENTS JSON map'),
+            onTap: () async {
+
+              final List<Continent> _continents = await Continent.readAllContinentsFromJSON();
+              blog('start');
+
+              Continent.blogContinents(_continents);
+
+              blog('end');
+            },
+          ),
+
+          // -----------------------------------
+
+          /// SEPARATOR
+          const SeparatorLine(),
+
+          /// MIGRATE CITY TO NEW REAL
+          WideButton(
+            verse: Verse.plain('Migrate Cities to real'),
+            isActive: false,
+            onTap: () async {
+
+              /// DONE : VERY LONG AND DANGEROUS
+              // await ExoticMethods.readAllSubCollectionDocs(
+              //   collName: FireColl.zones,
+              //   docName: FireDoc.zones_cities,
+              //   subCollName: FireSubColl.zones_cities_cities,
+              //   limit: 40000,
+              //   finders: <FireFinder>[
+              //     // const FireFinder(
+              //     //   field: 'countryID',
+              //     //   comparison: FireComparison.equalTo,
+              //     //   value: 'egy',
+              //     // ),
+              //   ],
+              //   onRead: (i, Map<String, dynamic> map) async {
+              //
+              //     final CityModel _city = CityModel.decipherCityMap(map: map, fromJSON: false);
+              //
+              //     Map<String, dynamic> _newCityMap = {
+              //       'population': _city.population ?? 0,
+              //       'position': Atlas.cipherGeoPoint(point: _city.position, toJSON: true),
+              //     };
+              //
+              //     /// PHRASES
+              //     Map<String, dynamic> _phrasesMap = {};
+              //     for (final Phrase phrase in _city.phrases){
+              //       _phrasesMap = Mapper.insertPairInMap(
+              //           map: _phrasesMap,
+              //           key: phrase.langCode,
+              //           value: phrase.value,
+              //       );
+              //     }
+              //     _newCityMap = Mapper.insertPairInMap(
+              //         map: _newCityMap,
+              //         key: 'phrases',
+              //         value: _phrasesMap,
+              //     );
+              //
+              //     /// DISTRICTS
+              //     if (Mapper.checkCanLoopList(_city.districts) == true){
+              //       Map<String, dynamic> _districtsMap = {};
+              //       for (final DistrictModel dis in _city.districts){
+              //         // -->
+              //         Map<String, dynamic> _disPhrasesMap = {};
+              //         for (final Phrase disPhrase in dis.phrases){
+              //           _disPhrasesMap = Mapper.insertPairInMap(
+              //             map: _disPhrasesMap,
+              //             key: disPhrase.langCode,
+              //             value: disPhrase.value,
+              //           );
+              //         }
+              //         // -->
+              //         _districtsMap = Mapper.insertPairInMap(
+              //           map: _districtsMap,
+              //           key: dis.districtID,
+              //           value: {
+              //             'level': 'inactive',
+              //             'phrases': _disPhrasesMap,
+              //           },
+              //         );
+              //       }
+              //       _newCityMap = Mapper.insertPairInMap(
+              //         map: _newCityMap,
+              //         key: 'districts',
+              //         value: _districtsMap,
+              //       );
+              //
+              //     }
+              //
+              //     // Mapper.blogMap(_newCityMap);
+              //
+              //     await Real.createDocInPath(
+              //       pathWithoutDocName: 'zones/cities/${_city.countryID}',
+              //       docName: _city.cityID,
+              //       addDocIDToOutput: false,
+              //       map: _newCityMap,
+              //     );
+              //
+              //     final String _num = Numeric.formatNumberWithinDigits(num: i, digits: 5);
+              //     blog('$_num : DONE : ${_city.cityID}');
+              //   }
+              // );
+
+            },
+          ),
+
+          /// READ A CITY
+          WideButton(
+            verse: Verse.plain('Read a city'),
+            onTap: () async {
+
+              final dynamic _dynamic = await Real.readPath(
+                  path: 'zones/cities/bra',
+              );
+
+              final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(
+                internalHashLinkedMapObjectObject: _dynamic,
+              );
+
+              blog('read ${_maps.length} maps');
+              // Mapper.blogMaps(_maps);
+
+            },
           ),
 
 
