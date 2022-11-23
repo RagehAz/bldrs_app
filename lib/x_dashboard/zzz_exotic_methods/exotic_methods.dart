@@ -335,8 +335,6 @@ class ExoticMethods {
         _continents.add(Continent(
           name: country.continent,
           regions: const <Region>[],
-          globalCountriesIDs: const <String>[],
-          activatedCountriesIDs: const <String>[],
         ));
       }
 
