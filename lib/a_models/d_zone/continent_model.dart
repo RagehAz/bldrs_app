@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/d_zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:flutter/material.dart';
 
 @immutable
 class Continent {
@@ -11,14 +10,10 @@ class Continent {
   const Continent({
     @required this.name,
     @required this.regions,
-    @required this.activatedCountriesIDs,
-    @required this.globalCountriesIDs,
   });
   /// --------------------------------------------------------------------------
   final String name;
   final List<Region> regions;
-  final List<String> activatedCountriesIDs;
-  final List<String> globalCountriesIDs;
   // -----------------------------------------------------------------------------
   static const continentsMapID = 'continents';
   // -----------------------------------------------------------------------------
@@ -30,8 +25,6 @@ class Continent {
     return <String, dynamic>{
       'name': name,
       'regions': Region.cipherRegions(regions),
-      'activatedCountriesIDs': activatedCountriesIDs,
-      'globalCountriesIDs': globalCountriesIDs,
     };
   }
   // --------------------
@@ -39,8 +32,6 @@ class Continent {
     return Continent(
       name: map['name'],
       regions: Region.decipherRegions(map['regions']),
-      activatedCountriesIDs: Stringer.getStringsFromDynamics(dynamics: map['activatedCountriesIDs']),
-      globalCountriesIDs: Stringer.getStringsFromDynamics(dynamics: map['globalCountriesIDs']),
     );
   }
   // --------------------
@@ -234,12 +225,7 @@ class Continent {
     String invoker = 'CONTINENT - BLOG',
   }) {
     blog('$invoker ------------------------------- START');
-
-    blog('name : $name');
-    blog('regions : $regions');
-    blog('activatedCountriesIDs : $activatedCountriesIDs');
-    blog('globalCountriesIDs : $globalCountriesIDs');
-
+    blog('name : $name : regions : $regions');
     blog('$invoker ------------------------------- END');
   }
   // -----------------------------------------------------------------------------

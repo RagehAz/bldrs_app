@@ -162,10 +162,6 @@
   | - zones
   |     | - continents
   |     |
-  |     | - currencies
-  |     |     | - {currencyID}    : <CurrencyModel>
-  |     |     | - {currencyID} ...
-  |     |
   |     | - countries
   |     |     | - {countryID}
   |     |     |     | - id          : <String>
