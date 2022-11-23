@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/fire/app_state_fire_ops.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
@@ -20,6 +19,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -38,7 +38,7 @@ Future<void> initializeLogoScreen({
   /// USER MODEL
   await _initializeUserModel(context);
 
-  // blog('2 - initializeLogoScreen : ${AuthFireOps.superUserID()}');
+  blog('2 - initializeLogoScreen : ${AuthFireOps.superUserID()}');
 
   await Future.wait(
       <Future<void>>[
@@ -55,16 +55,17 @@ Future<void> initializeLogoScreen({
       ]
   );
 
-  // blog('3 - initializeLogoScreen : appControls + assetPaths + lang + appState should have ended');
+  blog('3 - initializeLogoScreen : appControls + assetPaths + lang + appState should have ended');
 
   if (_phrasesAreLoaded(context) == false){
 
     // blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
 
-    await Dialogs.confirmProceed(
+    await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse.plain('Bldrs.net is currently under construction'),
       bodyVerse: Verse.plain('Sorry for inconvenience'),
+      confirmButtonVerse: Verse.plain('Ok'),
     );
 
     await Nav.pushNamedAndRemoveAllBelow(
