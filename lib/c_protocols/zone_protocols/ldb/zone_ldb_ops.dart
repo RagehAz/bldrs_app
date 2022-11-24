@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/planet/b_continent_model.dart';
+import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:flutter/material.dart';

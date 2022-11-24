@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';

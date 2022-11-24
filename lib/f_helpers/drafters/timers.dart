@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
 
-import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
