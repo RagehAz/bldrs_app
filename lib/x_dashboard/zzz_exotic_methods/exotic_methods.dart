@@ -307,11 +307,17 @@ class ExoticMethods {
 
             if (_country != null) {
               _countries.add(_country);
+
+              if (onRead != null){
+                await onRead(i, _country);
+              }
+
+            }
+            else {
+              blog('skipped country : ${_allCountriesIDs[i]} : not found');
             }
 
-            if (onRead != null){
-              await onRead(i, _country);
-            }
+
 
           },
         invoker: 'fetchAllCountryModels',
