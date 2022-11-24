@@ -1,18 +1,16 @@
 import 'dart:convert';
 
-import 'package:bldrs/a_models/d_zone/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/country_model.dart';
-import 'package:bldrs/a_models/d_zone/flag_model.dart';
-import 'package:bldrs/a_models/d_zone/real_models/country_fix.dart';
-import 'package:bldrs/a_models/d_zone/real_models/iso3.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/zone_policy.dart';
-import 'package:bldrs/a_models/h_money/big_mac.dart';
-import 'package:bldrs/a_models/h_money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/planet/b_continent_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/country/d_iso3.dart';
+import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
+import 'package:bldrs/a_models/d_zone/zoning/a_zone_level.dart';
+import 'package:bldrs/a_models/d_zone/money/currency_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
@@ -45,6 +43,7 @@ class _ZoningLabState extends State<ZoningLab> {
   Future<void> _createISO3JSONBlog() async {
     blog('CREATE ISO3 MAP : START');
 
+    /*
     final int _totalLength = CountryModel.getAllCountriesIDs().length;
     final List<ISO3> _iso3s = [];
 
@@ -89,7 +88,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
 
     ISO3.blogISO3sToJSON(_iso3s);
-
+     */
     blog('CREATE ISO3 MAP : END : already done and kept for reference');
   }
   // --------------------
@@ -123,7 +122,10 @@ class _ZoningLabState extends State<ZoningLab> {
   Widget build(BuildContext context) {
 
     return MainLayout(
+      pyramidsAreOn: true,
       pageTitleVerse: Verse.plain('Zoning Lab'),
+      appBarType: AppBarType.basic,
+      skyType: SkyType.black,
       pyramidType: PyramidType.crystalYellow,
       layoutWidget: FloatingCenteredList(
         columnChildren: <Widget>[
@@ -445,6 +447,7 @@ class _ZoningLabState extends State<ZoningLab> {
           /// CREATE INITIAL COUNTRIES LEVELS
           WideButton(
             verse: Verse.plain('Create initial Countries levels'),
+            isActive: false,
             onTap: () async {
 
               final List<ISO3> _iso3s = await ISO3.readAllISO3s();
@@ -455,7 +458,12 @@ class _ZoningLabState extends State<ZoningLab> {
               for (final ISO3 iso3 in _iso3s){
 
                 if (
-                iso3.id == 'egy' || iso3.id == 'sau' || iso3.id == 'kuw' || iso3.id == 'qat' || iso3.id == 'are'
+                iso3.id == 'egy' ||
+                    iso3.id == 'sau' ||
+                    iso3.id == 'kwt' ||
+                    iso3.id == 'and' ||
+                    iso3.id == 'are' ||
+                    iso3.id == 'bhr'
                 ){
                   inactive.add(iso3.id);
                 }
@@ -475,12 +483,40 @@ class _ZoningLabState extends State<ZoningLab> {
 
               _lvl.blogLeveL();
 
+              await Real.createDocInPath(
+                  pathWithoutDocName: 'zones',
+                  docName: 'countriesLevels',
+                  addDocIDToOutput: false,
+                  map: _lvl.toMap(),
+              );
+
             },
           ),
 
+          /// READ COUNTRIES LEVELS
+          WideButton(
+            verse: Verse.plain('Read Countries Levels'),
+            onTap: () async {
+
+              final dynamic _dynamic = await Real.readPath(
+                path: 'zones/countriesLevels',
+              );
+
+              final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+                internalHashLinkedMapObjectObject: _dynamic,
+              );
+
+              final ZoneLevel _lvl = ZoneLevel.decipher(_map);
+              _lvl.blogLeveL();
+
+            },
+          ),
+
+          // -----------------------------------
 
           /// SEPARATOR
           const SeparatorLine(),
+
         ],
       ),
     );

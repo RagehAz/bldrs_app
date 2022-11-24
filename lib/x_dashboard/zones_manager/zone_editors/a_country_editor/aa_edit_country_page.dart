@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/a_models/d_zone/country_model.dart';
-import 'package:bldrs/a_models/h_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/flag_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
