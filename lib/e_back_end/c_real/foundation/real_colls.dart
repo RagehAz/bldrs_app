@@ -115,8 +115,7 @@
   | --------------------------|
   |
   | - statistics
-  |     | - activeCountriesIDs                  : <List<String>>
-  |     | - globalCountriesIDs                  : <List<String>>
+  |     |
   |     | - planet
   |     |     | => [CensusModel]
   |     |
@@ -150,26 +149,25 @@
   |     | - ldbVersion
   |     | - phrasesVersion
   |     | - pickersVersion
-  |     | - countriesLevels
-  |             | - hidden    : <List<String>>
-  |             | - inactive  : <List<String>>
-  |             | - active    : <List<String>>
-  |             | - public    : <List<String>>
   |
   | --------------------------|
   |
-  | /// TASK : PROPOSAL TO MIGRATE FIRE ZONE COLL TO THIS TREE
   | - zones
+  |     |
+  |     | - countriesLevels
+  |     |     | - hidden    : <List<String>> "countriesIDs"
+  |     |     | - inactive  : <List<String>> "countriesIDs"
+  |     |     | - active    : <List<String>> "countriesIDs"
+  |     |     | - public    : <List<String>> "countriesIDs"
   |     |
   |     | - citiesLevels
   |     |     | - {countryID}
-  |     |     |     | - hidden    : <List<String>>
-  |     |     |     | - inactive  : <List<String>>
-  |     |     |     | - active    : <List<String>>
-  |     |     |     | - public    : <List<String>>
+  |     |     |       | - hidden    : <List<String>> "citiesIDs"
+  |     |     |       | - inactive  : <List<String>> "citiesIDs"
+  |     |     |       | - active    : <List<String>> "citiesIDs"
+  |     |     |       | - public    : <List<String>> "citiesIDs"
   |     |     |
   |     |     | - {countryID}...
-  |     |
   |     |
   |     | - cities
   |           | - {countryID}

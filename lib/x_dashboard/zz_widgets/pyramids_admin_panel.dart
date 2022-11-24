@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -21,11 +20,13 @@ class PyramidsAdminPanel extends StatelessWidget {
   const PyramidsAdminPanel({
     @required this.isInTransScreen,
     @required this.pyramidsAreOn,
+    this.pyramidButtonsModels,
     Key key
   }) : super(key: key);
   /// ---------------------------------------------------------------------------
   final bool isInTransScreen;
   final bool pyramidsAreOn;
+  final List<PyramidButtonModel> pyramidButtonsModels;
   /// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,20 +55,23 @@ class PyramidsAdminPanel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
 
+              /// EXTRA BUTTONS
+              if (Mapper.checkCanLoopList(pyramidButtonsModels) == true)
+                ...List.generate(pyramidButtonsModels.length, (index){
+
+                  return PyramidFloatingButton(
+                    buttonModel: pyramidButtonsModels[index],
+                  );
+
+                }),
+
               /// TRANSLATION BUTTON
               if (Mapper.checkCanLoopList(_phidsPendingTranslation) == true)
-                NoteRedDotWrapper(
-                  childWidth: 40,
-                  redDotIsOn: true,
-                  count: _phidsPendingTranslation.length,
-                  shrinkChild: true,
-                  child: DreamBox(
-                    height: 40,
-                    width: 40,
-                    corners: 20,
+                PyramidFloatingButton(
+                  buttonModel: PyramidButtonModel(
                     color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
                     icon: Iconz.language,
-                    iconSizeFactor: 0.6,
+                    redDotCount: _phidsPendingTranslation.length,
                     onTap: () async {
 
                       if (isInTransScreen == true){
@@ -90,23 +94,16 @@ class PyramidsAdminPanel extends StatelessWidget {
 
               /// CREATE NOTES BUTTON
               if (pyramidsAreOn == true)
-                NoteRedDotWrapper(
-                  childWidth: 40,
-                  redDotIsOn: true,
-                  count: _badgeNum,
-                  shrinkChild: true,
-                  child: DreamBox(
-                    height: 40,
-                    width: 40,
-                    corners: 20,
+                PyramidFloatingButton(
+                  buttonModel: PyramidButtonModel(
                     color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
                     icon: Iconz.notification,
-                    iconSizeFactor: 0.6,
-                    onLongTap: () => NotesProvider.proRefreshBadgeNum(context),
+                    redDotCount: _badgeNum,
                     onTap: () => Nav.goToNewScreen(
                       context: context,
                       screen: const NotesCreatorScreen(),
                     ),
+                    onLongTap: () => NotesProvider.proRefreshBadgeNum(context),
                   ),
                 ),
 

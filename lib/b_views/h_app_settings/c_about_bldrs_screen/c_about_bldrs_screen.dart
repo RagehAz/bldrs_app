@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
