@@ -6,14 +6,15 @@ import 'package:bldrs/a_models/d_zone/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/real_models/country_fix.dart';
 import 'package:bldrs/a_models/d_zone/real_models/iso3.dart';
 import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/zone_policy.dart';
 import 'package:bldrs/a_models/h_money/big_mac.dart';
 import 'package:bldrs/a_models/h_money/currency_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
-import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
@@ -346,9 +347,9 @@ class _ZoningLabState extends State<ZoningLab> {
             },
           ),
 
-          /// READ A CITY
+          /// READ A COUNTRY CITIES
           WideButton(
-            verse: Verse.plain('Read a city'),
+            verse: Verse.plain('Read Country Cities'),
             onTap: () async {
 
               final dynamic _dynamic = await Real.readPath(
@@ -365,6 +366,118 @@ class _ZoningLabState extends State<ZoningLab> {
             },
           ),
 
+          // -----------------------------------
+
+          /// SEPARATOR
+          const SeparatorLine(),
+
+          /// CREATE INITIAL CITIES LEVELS
+          WideButton(
+            verse: Verse.plain('Create initial cities levels'),
+            isActive: false,
+            onTap: () async {
+
+              await ExoticMethods.fetchAllCountryModels(
+                onRead: (int index, CountryModel countryModel) async {
+
+                  await Real.createDocInPath(
+                      pathWithoutDocName: 'zones/citiesLevels',
+                      docName: countryModel.id,
+                      addDocIDToOutput: false,
+                      map: {
+                        'hidden': countryModel.citiesIDs,
+                        'inactive': <String>[],
+                        'active': <String>[],
+                        'public': <String>[],
+                      },
+                  );
+
+                },
+              );
+
+            },
+          ),
+
+          /// READ CITIES LEVELS
+          WideButton(
+            verse: Verse.plain('Read Cities Levels'),
+            onTap: () async {
+
+              final dynamic _dynamic = await Real.readPath(
+                path: 'zones/citiesLevels',
+              );
+
+              final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+                internalHashLinkedMapObjectObject: _dynamic,
+              );
+
+              if (_map != null){
+
+                final List<String> _countriesIDs = _map.keys.toList();
+
+                for (final String countryID in _countriesIDs){
+
+                  final Map<String, dynamic> _countryMap = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+                    internalHashLinkedMapObjectObject: _map[countryID],
+                  );
+
+                  final ZoneLevel _lvl = ZoneLevel.decipher(_countryMap);
+                  _lvl.blogLeveL();
+
+                }
+
+                blog('done with : ${_countriesIDs.length} countries');
+
+              }
+
+
+
+
+
+            },
+          ),
+
+          // -----------------------------------
+
+          /// SEPARATOR
+          const SeparatorLine(),
+
+          /// CREATE INITIAL COUNTRIES LEVELS
+          WideButton(
+            verse: Verse.plain('Create initial Countries levels'),
+            onTap: () async {
+
+              final List<ISO3> _iso3s = await ISO3.readAllISO3s();
+
+              final List<String> hidden = [];
+              final List<String> inactive = [];
+
+              for (final ISO3 iso3 in _iso3s){
+
+                if (
+                iso3.id == 'egy' || iso3.id == 'sau' || iso3.id == 'kuw' || iso3.id == 'qat' || iso3.id == 'are'
+                ){
+                  inactive.add(iso3.id);
+                }
+
+                else {
+                  hidden.add(iso3.id);
+                }
+
+              }
+
+              final ZoneLevel _lvl = ZoneLevel(
+                  hidden: hidden,
+                  inactive: inactive,
+                  active: const [],
+                  public: const [],
+              );
+
+              _lvl.blogLeveL();
+
+            },
+          ),
+
 
           /// SEPARATOR
           const SeparatorLine(),
@@ -373,4 +486,5 @@ class _ZoningLabState extends State<ZoningLab> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

@@ -3,14 +3,15 @@ import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/zones_manager/aa_edit_country_page.dart';
-import 'package:bldrs/x_dashboard/zones_manager/aaa_edit_city_page.dart';
-import 'package:bldrs/x_dashboard/zones_manager/b_zoning_lab.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zone_editors/a_country_editor/aa_edit_country_page.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/aaa_edit_city_page.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zoning_lab/b_zoning_lab.dart';
 import 'package:bldrs/x_dashboard/zones_manager/x_zones_manager_controller.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +91,19 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       appBarType: AppBarType.basic,
       pageTitleVerse: Verse.plain('Zones Manager'),
       skyType: SkyType.black,
+      pyramidButtonsModels: <PyramidButtonModel>[
+
+        PyramidButtonModel(
+          icon: Iconz.lab,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const ZoningLab(),
+            );
+          },
+        ),
+
+      ],
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -113,18 +127,6 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       ],
       layoutWidget: FloatingCenteredList(
         columnChildren: [
-
-          /// ZONING LAB
-          WideButton(
-            verse: Verse.plain('Zoning Lab'),
-            icon: Iconz.lab,
-            onTap: () async {
-              await Nav.goToNewScreen(
-                context: context,
-                screen: const ZoningLab(),
-              );
-            },
-          ),
 
           /// GO TO COUNTRY SCREEN
           ValueListenableBuilder(
@@ -154,30 +156,34 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
                 //   countryID: zone.countryID,
                 // );
 
-                return PageView(
-                  physics: const BouncingScrollPhysics(),
-                  controller: _pageController,
-                  children: <Widget>[
+                return SizedBox(
+                  width: Scale.screenWidth(context),
+                  height: Scale.screenHeight(context),
+                  child: PageView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: _pageController,
+                    children: <Widget>[
 
-                    /// COUNTRY PAGE
-                    CountryEditorPage(
-                      appBarType: AppBarType.basic,
-                      country: zone.countryModel,
-                      screenHeight: _screenHeight,
-                      onCityTap: () => goToCitySelectionScreen(
-                        context: context,
-                        zone: _zone,
-                        pageController: _pageController,
+                      /// COUNTRY PAGE
+                      CountryEditorPage(
+                        appBarType: AppBarType.basic,
+                        country: zone.countryModel,
+                        screenHeight: _screenHeight,
+                        onCityTap: () => goToCitySelectionScreen(
+                          context: context,
+                          zone: _zone,
+                          pageController: _pageController,
+                        ),
                       ),
-                    ),
 
-                    /// CITY PAGE
-                    EditCityPage(
-                      screenHeight: _screenHeight,
-                      zoneModel: zone,
-                    ),
+                      /// CITY PAGE
+                      EditCityPage(
+                        screenHeight: _screenHeight,
+                        zoneModel: zone,
+                      ),
 
-                  ],
+                    ],
+                  ),
                 );
 
               }
