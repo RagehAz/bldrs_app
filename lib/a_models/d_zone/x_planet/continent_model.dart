@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bldrs/a_models/d_zone/planet/c_region_model.dart';
+import 'package:bldrs/a_models/d_zone/x_planet/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';

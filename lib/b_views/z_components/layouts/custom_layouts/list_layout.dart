@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:bldrs/a_models/d_zone/planet/b_continent_model.dart';
+import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
