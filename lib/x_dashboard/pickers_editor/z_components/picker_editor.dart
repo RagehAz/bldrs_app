@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/cc_pickers_blocker.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/spec_label.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';

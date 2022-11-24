@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/d_zone/continent_model.dart';
-import 'package:bldrs/a_models/h_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/planet/b_continent_model.dart';
+import 'package:bldrs/a_models/d_zone/money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

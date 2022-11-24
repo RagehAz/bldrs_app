@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/h_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/flag_model.dart';
+import 'package:bldrs/a_models/d_zone/money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';

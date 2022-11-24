@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
-import 'package:bldrs/a_models/h_money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/money/currency_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
