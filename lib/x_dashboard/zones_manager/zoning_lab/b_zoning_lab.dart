@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
@@ -199,7 +200,7 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Get ISO3 JSON map'),
             onTap: () async {
 
-              final List<ISO3> _iso3s = await ISO3.readAllISO3s();
+              final List<ISO3> _iso3s = await ZoneJSONOps.readAllISO3s();
               ISO3.blogISO3s(_iso3s);
 
             },
@@ -221,7 +222,7 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Get Currencies JSON map'),
             onTap: () async {
 
-              final List<CurrencyModel> _currencies = await CurrencyModel.readAllCurrenciesFromJSON();
+              final List<CurrencyModel> _currencies = await ZoneJSONOps.readAllCurrencies();
               blog('start');
               CurrencyModel.blogCurrencies(_currencies);
               blog('end');
@@ -244,7 +245,7 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Get CONTINENTS JSON map'),
             onTap: () async {
 
-              final List<Continent> _continents = await Continent.readAllContinentsFromJSON();
+              final List<Continent> _continents = await ZoneJSONOps.readAllContinents();
               blog('start');
 
               Continent.blogContinents(_continents);
@@ -432,10 +433,6 @@ class _ZoningLabState extends State<ZoningLab> {
 
               }
 
-
-
-
-
             },
           ),
 
@@ -450,7 +447,7 @@ class _ZoningLabState extends State<ZoningLab> {
             isActive: false,
             onTap: () async {
 
-              final List<ISO3> _iso3s = await ISO3.readAllISO3s();
+              final List<ISO3> _iso3s = await ZoneJSONOps.readAllISO3s();
 
               final List<String> hidden = [];
               final List<String> inactive = [];

@@ -17,8 +17,6 @@ class CountryModel {
     @required this.id,
     @required this.region,
     @required this.continent,
-    @required this.isActivated,
-    @required this.isGlobal,
     @required this.citiesIDs,
     @required this.language,
     @required this.currency,
@@ -28,33 +26,21 @@ class CountryModel {
     @required this.capital,
     @required this.langCodes,
     @required this.areaSqKm,
-    @required this.internetUsers,
-    @required this.gdp, // in Millions
   });
   /// --------------------------------------------------------------------------
   final String id;
   final String region;
   final String continent;
-
-  /// manual dashboard switch to deactivate an entire country
-  final bool isActivated;
-
-  /// automatic switch when country reaches 'Global target' ~ 10'000 flyers
-  /// then country flyers will be visible to other countries users 'bzz & users'
-  final bool isGlobal;
   final List<String> citiesIDs;
   final String language;
   final String currency;
   /// mixed languages country names
   final List<Phrase> phrases;
-
   final String iso2;
   final String phoneCode;
   final String capital;
   final String langCodes;
   final int areaSqKm;
-  final int internetUsers;
-  final double gdp;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -64,8 +50,6 @@ class CountryModel {
     String id,
     String region,
     String continent,
-    bool isActivated,
-    bool isGlobal,
     List<String> citiesIDs,
     String language,
     String currency,
@@ -75,15 +59,11 @@ class CountryModel {
     String capital,
     String langCodes,
     int areaSqKm,
-    int internetUsers,
-    double gdp,
   }){
     return CountryModel(
       id: id ?? this.id,
       region: region ?? this.region,
       continent: continent ?? this.continent,
-      isActivated: isActivated ?? this.isActivated,
-      isGlobal: isGlobal ?? this.isGlobal,
       citiesIDs: citiesIDs ?? this.citiesIDs,
       language: language ?? this.language,
       currency: currency ?? this.currency,
@@ -93,8 +73,6 @@ class CountryModel {
       capital: capital ?? this.capital,
       langCodes: langCodes ?? this.langCodes,
       areaSqKm: areaSqKm ?? this.areaSqKm,
-      internetUsers: internetUsers ?? this.internetUsers,
-      gdp: gdp ?? this.gdp,
     );
   }
   // -----------------------------------------------------------------------------
@@ -109,8 +87,6 @@ class CountryModel {
       'id': id,
       'region': region,
       'continent': continent,
-      'isActivated': isActivated,
-      'isGlobal': isGlobal,
       'citiesIDs': citiesIDs,
       'language': language,
       'currency': currency,
@@ -120,8 +96,6 @@ class CountryModel {
       'capital' : capital,
       'langCodes' : langCodes,
       'areaSqKm' : areaSqKm,
-      'internetUsers' : internetUsers,
-      'gdp' : gdp,
     };
   }
   // --------------------
@@ -137,8 +111,6 @@ class CountryModel {
         id: map['id'],
         region: map['region'],
         continent: map['continent'],
-        isActivated: map['isActivated'],
-        isGlobal: map['isGlobal'],
         citiesIDs: Stringer.getStringsFromDynamics(dynamics: map['citiesIDs']),
         language: map['language'],
         currency: map['currency'],
@@ -151,8 +123,6 @@ class CountryModel {
         capital : map['capital'],
         langCodes : map['langCodes'],
         areaSqKm : map['areaSqKm'],
-        internetUsers : map['internetUsers'],
-        gdp : map['gdp'],
       );
     }
 
@@ -622,8 +592,6 @@ class CountryModel {
     blog('  id : $id');
     blog('  region : $region');
     blog('  continent : $continent');
-    blog('  isActivated : $isActivated');
-    blog('  isGlobal : $isGlobal');
     blog('  citiesIDs : ${citiesIDs.length} cities');
     blog('  language : $language');
     blog('  currency : $currency');
@@ -632,8 +600,6 @@ class CountryModel {
     blog('  capital : $capital');
     blog('  langCodes : $langCodes');
     blog('  areaSqKm : $areaSqKm');
-    blog('  internetUsers : $internetUsers');
-    blog('  gdp : $gdp');
 
     Phrase.blogPhrases(phrases);
 
@@ -754,10 +720,6 @@ class CountryModel {
             phrases2: country2.phrases,
           ) == true
           &&
-          country1.isActivated == country2.isActivated
-          &&
-          country1.isGlobal == country2.isGlobal
-          &&
           Mapper.checkListsAreIdentical(
               list1: country1.citiesIDs,
               list2: country2.citiesIDs
@@ -802,8 +764,6 @@ class CountryModel {
       id.hashCode^
       region.hashCode^
       continent.hashCode^
-      isActivated.hashCode^
-      isGlobal.hashCode^
       citiesIDs.hashCode^
       language.hashCode^
       currency.hashCode^
@@ -812,9 +772,7 @@ class CountryModel {
       phoneCode.hashCode^
       capital.hashCode^
       langCodes.hashCode^
-      areaSqKm.hashCode^
-      internetUsers.hashCode^
-      gdp.hashCode;
+      areaSqKm.hashCode;
   // -----------------------------------------------------------------------------
 }
 

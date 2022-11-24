@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -256,11 +257,14 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   headlineVerse: Verse.plain('Country is Activated'),
                   hasSwitch: true,
                   onSwitchTap: (bool val) {
-                    _countryModel.value = _countryModel.value.copyWith(
-                      isActivated: val,
-                    );
+                    // _countryModel.value = _countryModel.value.copyWith(
+                    //   isActivated: val,
+                    // );
+
+                    blog('should trigger country activation to : $val');
+
                   },
-                  switchValue: country.isActivated,
+                  // switchValue: false,
 
                 ),
                 secondLineVerse: Verse.plain('The Main Country Switch.. When Activated, '
@@ -277,11 +281,14 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   leadingIconBoxColor: Colorz.grey50,
                   hasSwitch: true,
                   onSwitchTap: (bool val) {
-                    _countryModel.value = _countryModel.value.copyWith(
-                      isGlobal: val,
-                    );
+                    // _countryModel.value = _countryModel.value.copyWith(
+                    //   isGlobal: val,
+                    // );
+
+                    blog('should trigger country global to : $val');
+
                   },
-                  switchValue: country.isGlobal,
+                  // switchValue: false,
                 ),
                 secondLineVerse: Verse.plain('Country is only Local by Default, '
                     'where only Users in this country can see themselves '
