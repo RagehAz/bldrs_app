@@ -1,11 +1,9 @@
-import 'dart:convert';
 
 import 'package:bldrs/a_models/d_zone/x_planet/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 @immutable
 class Continent {
@@ -240,17 +238,6 @@ class Continent {
       }
 
     }
-  }
-  // -----------------------------------------------------------------------------
-
-  /// JSON GETTER
-
-  // --------------------
-  ///
-  static Future<List<Continent>> readAllContinentsFromJSON() async {
-    final String _jsonStringValues = await rootBundle.loadString('assets/planet/continents.json');
-    final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
-    return decipherContinents(_mappedJson);
   }
   // -----------------------------------------------------------------------------
 
