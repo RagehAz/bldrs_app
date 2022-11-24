@@ -1,38 +1,33 @@
-import 'package:bldrs/a_models/d_zone/zoning/a_zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:flutter/material.dart';
 
-class RealCountryModel {
+@immutable
+class RealCountry {
   /// --------------------------------------------------------------------------
-  const RealCountryModel({
+  const RealCountry({
     @required this.id,
     @required this.citiesIDs,
-    @required this.internetUsers,
-    @required this.gdp, // in Millions
   });
   /// --------------------------------------------------------------------------
   final String id;
   final ZoneLevel citiesIDs;
-  final int internetUsers;
-  final double gdp;
   // -----------------------------------------------------------------------------
 
   /// CLONING
 
   // --------------------
   /// TASK : TEST ME
-  RealCountryModel copyWith({
+  RealCountry copyWith({
     String id,
     ZoneLevel citiesIDs,
     List<Phrase> phrases,
     int internetUsers,
     double gdp,
   }) {
-    return RealCountryModel(
+    return RealCountry(
       id: id ?? this.id,
       citiesIDs: citiesIDs ?? this.citiesIDs,
-      internetUsers: internetUsers ?? this.internetUsers,
-      gdp: gdp ?? this.gdp,
     );
   }
   // -----------------------------------------------------------------------------
@@ -47,22 +42,18 @@ class RealCountryModel {
     return {
       'id': id,
       'citiesIDs': citiesIDs.toMap(),
-      'internetUsers': internetUsers,
-      'gdp': gdp,
     };
   }
   // --------------------
   /// TASK : TEST ME
-  static RealCountryModel decipher(Map<String, dynamic> map){
-    RealCountryModel _output;
+  static RealCountry decipher(Map<String, dynamic> map){
+    RealCountry _output;
 
     if (map != null) {
 
-      _output = RealCountryModel(
+      _output = RealCountry(
         id: map['id'],
         citiesIDs: ZoneLevel.decipher(map['citiesIDs']),
-        internetUsers: map['internetUsers'],
-        gdp: map['gdp'],
       );
     }
 

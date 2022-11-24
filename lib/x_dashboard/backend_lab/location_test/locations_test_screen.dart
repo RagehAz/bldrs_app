@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
-import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
