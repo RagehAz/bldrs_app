@@ -1,11 +1,10 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -56,7 +55,7 @@ class MainLayout extends StatelessWidget {
     this.confirmButtonModel,
     this.globalKey,
     this.isInPhrasesScreen,
-    this.pyramidButtonsModels,
+    this.pyramidButtons,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -85,7 +84,7 @@ class MainLayout extends StatelessWidget {
   final ConfirmButtonModel confirmButtonModel;
   final GlobalKey globalKey;
   final bool isInPhrasesScreen;
-  final List<PyramidButtonModel> pyramidButtonsModels;
+  final List<Widget> pyramidButtons;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void onCancelSearch({
@@ -257,7 +256,7 @@ class MainLayout extends StatelessWidget {
                 PyramidsAdminPanel(
                   isInTransScreen: isInPhrasesScreen,
                   pyramidsAreOn: pyramidsAreOn,
-                  pyramidButtonsModels: pyramidButtonsModels,
+                  pyramidButtons: pyramidButtons,
                 ),
 
               ],

@@ -20,13 +20,13 @@ class PyramidsAdminPanel extends StatelessWidget {
   const PyramidsAdminPanel({
     @required this.isInTransScreen,
     @required this.pyramidsAreOn,
-    this.pyramidButtonsModels,
+    this.pyramidButtons,
     Key key
   }) : super(key: key);
   /// ---------------------------------------------------------------------------
   final bool isInTransScreen;
   final bool pyramidsAreOn;
-  final List<PyramidButtonModel> pyramidButtonsModels;
+  final List<Widget> pyramidButtons;
   /// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -56,55 +56,49 @@ class PyramidsAdminPanel extends StatelessWidget {
             children: <Widget>[
 
               /// EXTRA BUTTONS
-              if (Mapper.checkCanLoopList(pyramidButtonsModels) == true)
-                ...List.generate(pyramidButtonsModels.length, (index){
+              if (Mapper.checkCanLoopList(pyramidButtons) == true)
+                ...List.generate(pyramidButtons.length, (index){
 
-                  return PyramidFloatingButton(
-                    buttonModel: pyramidButtonsModels[index],
-                  );
+                  return pyramidButtons[index];
 
                 }),
 
               /// TRANSLATION BUTTON
               if (Mapper.checkCanLoopList(_phidsPendingTranslation) == true)
                 PyramidFloatingButton(
-                  buttonModel: PyramidButtonModel(
-                    color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
-                    icon: Iconz.language,
-                    redDotCount: _phidsPendingTranslation.length,
-                    onTap: () async {
+                  color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
+                  icon: Iconz.language,
+                  redDotCount: _phidsPendingTranslation.length,
+                  onTap: () async {
 
-                      if (isInTransScreen == true){
+                    if (isInTransScreen == true){
 
-                        await showPhidsPendingTranslationDialog(context);
+                      await showPhidsPendingTranslationDialog(context);
 
-                      }
+                    }
 
-                      else {
+                    else {
 
-                        await createAPhidFast(
-                          context: context,
-                          verse: Verse.plain(_phidsPendingTranslation[0]),
-                        );
+                      await createAPhidFast(
+                        context: context,
+                        verse: Verse.plain(_phidsPendingTranslation[0]),
+                      );
 
-                      }
-                    },
-                  ),
+                    }
+                  },
                 ),
 
               /// CREATE NOTES BUTTON
               if (pyramidsAreOn == true)
                 PyramidFloatingButton(
-                  buttonModel: PyramidButtonModel(
-                    color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
-                    icon: Iconz.notification,
-                    redDotCount: _badgeNum,
-                    onTap: () => Nav.goToNewScreen(
-                      context: context,
-                      screen: const NotesCreatorScreen(),
-                    ),
-                    onLongTap: () => NotesProvider.proRefreshBadgeNum(context),
+                  color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
+                  icon: Iconz.notification,
+                  redDotCount: _badgeNum,
+                  onTap: () => Nav.goToNewScreen(
+                    context: context,
+                    screen: const NotesCreatorScreen(),
                   ),
+                  onLongTap: () => NotesProvider.proRefreshBadgeNum(context),
                 ),
 
             ],
