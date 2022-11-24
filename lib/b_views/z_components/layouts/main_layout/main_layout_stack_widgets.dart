@@ -99,6 +99,14 @@ class MainLayoutStackWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    assert(
+        progressBarModel == null && loading == null
+        ||
+        progressBarModel == null && loading != null
+        ||
+        progressBarModel != null && loading != null,
+    'you have to use the loading parameter when adding progressBarModel');
+
     return Stack(
       key: key,
       alignment: alignment,
