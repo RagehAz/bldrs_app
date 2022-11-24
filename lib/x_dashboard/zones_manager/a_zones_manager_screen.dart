@@ -1,6 +1,7 @@
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
@@ -99,6 +100,10 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       skyType: SkyType.black,
       loading: _loading,
       progressBarModel: _progressBarModel,
+      onBack: () => Dialogs.goBackDialog(
+        context: context,
+        goBackOnConfirm: true,
+      ),
       pyramidButtons: <Widget>[
 
         /// SYNCING

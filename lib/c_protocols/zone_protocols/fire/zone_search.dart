@@ -1,6 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/a_models/d_zone/city_model.dart';
-import 'package:bldrs/a_models/d_zone/country_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
