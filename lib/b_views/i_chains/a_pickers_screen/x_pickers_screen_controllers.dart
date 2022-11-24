@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
-import 'package:bldrs/a_models/d_zone/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/zoning/a_zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';

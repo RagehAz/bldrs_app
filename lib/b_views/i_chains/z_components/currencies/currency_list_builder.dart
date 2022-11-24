@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/h_money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/money/currency_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_currency_button.dart';
 import 'package:flutter/material.dart';
 

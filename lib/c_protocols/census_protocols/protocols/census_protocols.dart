@@ -187,7 +187,8 @@ class CensusProtocols {
     );
 
   }
-
+  // --------------------
+  /// TASK : WRITE ME
   static Future<void> _activateCityAndCountry(FlyerModel flyerModel) async {
 
 
