@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -6,7 +5,6 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 @immutable
 class ISO3 {
@@ -225,11 +223,23 @@ class ISO3 {
   /// JSON GETTER
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<ISO3>> readAllISO3s() async {
-    final String _jsonStringValues = await rootBundle.loadString('assets/planet/iso3.json');
-    final List<dynamic> _mappedJson = json.decode(_jsonStringValues);
-    return decipherMaps(_mappedJson);
+  ///
+  static ISO3 getISO3FromISO3sByCountryID({
+    @required List<ISO3> iso3s,
+    @required String countryID,
+  }){
+    ISO3 _iso3;
+
+    if (Mapper.checkCanLoopList(iso3s) == true){
+      for (final ISO3 iso3 in iso3s){
+        if (iso3.id == countryID){
+          _iso3 = iso3;
+          break;
+        }
+      }
+    }
+
+    return _iso3;
   }
   // -----------------------------------------------------------------------------
 
