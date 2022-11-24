@@ -1,5 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 // --------------------------------------------------------------------------
 
@@ -98,7 +99,7 @@ class ZoneLevel {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static ZoneLevel decipher(Map<String, dynamic> map){
     ZoneLevel _level;
 
@@ -121,7 +122,7 @@ class ZoneLevel {
 
   // --------------------
   ///
-  static ZoneLevelType concludeLowestZoneLevel({
+  static ZoneLevelType concludeLowestZoneLevelOnViewingEvent({
     @required ZoneViewingEvent event,
     @required bool isAuthor,
   }){
@@ -178,6 +179,14 @@ class ZoneLevel {
     }
 
     return _identical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void blogLeveL(){
+    blog('hidden : ${hidden.length} : $hidden');
+    blog('inactive : ${inactive.length} : $inactive');
+    blog('active : ${active.length} : $active');
+    blog('public : ${public.length} : $public');
   }
   // -----------------------------------------------------------------------------
 
