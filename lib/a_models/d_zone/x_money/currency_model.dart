@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 @immutable
 class CurrencyModel {
@@ -261,17 +258,6 @@ class CurrencyModel {
     }
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// JSON GETTER
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<CurrencyModel>> readAllCurrenciesFromJSON() async {
-    final String _jsonStringValues = await rootBundle.loadString('assets/planet/currencies.json');
-    final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
-    return decipherCurrencies(_mappedJson);
   }
   // -----------------------------------------------------------------------------
 }
