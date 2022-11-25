@@ -18,8 +18,6 @@ class LDBDoc {
       case LDBDoc.bldrsChains: return 'id';
       case LDBDoc.countries: return 'id';
       case LDBDoc.cities: return 'cityID';
-      case LDBDoc.continents: return 'id';
-      case LDBDoc.currencies: return 'id';
       case LDBDoc.mainPhrases: return 'id';
       case LDBDoc.countriesPhrases: return 'id';
       case LDBDoc.appState: return 'id';
@@ -55,8 +53,6 @@ class LDBDoc {
 
   static const String countries = 'countries';
   static const String cities = 'cities';
-  static const String continents = 'continents';
-  static const String currencies = 'currencies';
   static const String notes = 'notes';
 
   /// all docs include mixed lang phrases with extra primary key of "id_langCodo"
@@ -89,8 +85,6 @@ class LDBDoc {
     pickers,
     countries,
     cities,
-    continents,
-    currencies,
     notes,
     mainPhrases,
     countriesPhrases,

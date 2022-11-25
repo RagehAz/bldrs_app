@@ -4,8 +4,7 @@ import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/fetch_zones.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/renovate_zones.dart';
@@ -154,30 +153,8 @@ class ZoneProtocols {
   // ---------
   /// TESTED : WORKS PERFECT
   static Future<List<CurrencyModel>> fetchCurrencies() async {
-
-    List<CurrencyModel> _currencies = await ZoneLDBOps.readCurrencies();
-
-    if (Mapper.checkCanLoopList(_currencies) == true){
-      // blog('fetchCurrencies : All CurrencyModels FOUND in LDB');
-    }
-
-    else {
-
-      _currencies = await ZoneFireOps.readCurrencies();
-
-      if (Mapper.checkCanLoopList(_currencies) == true){
-        // blog('fetchCurrencies : All CurrencyModels FOUND in FIREBASE and inserted in LDB');
-        await ZoneLDBOps.insertCurrencies(_currencies);
-      }
-
-    }
-
-    if (Mapper.checkCanLoopList(_currencies) == false){
-      // blog('fetchCurrencies : currencies NOT FOUND');
-    }
-
+    final List<CurrencyModel> _currencies = await ZoneJSONOps.readAllCurrencies();
     return _currencies;
-
   }
   // -----------------------------------------------------------------------------
 
