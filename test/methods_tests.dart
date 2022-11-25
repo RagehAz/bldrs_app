@@ -260,12 +260,12 @@ void main() {
   });
    */
 // -----------------------------------------------------------------------------
+  /*
   test('get map from urlQuery', () {
-    const String _urlQuery =
-        'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
 
-    final Map<String, dynamic> _map =
-        Mapper.getMapFromURLQuery(urlQuery: _urlQuery);
+    const String _urlQuery = 'country=eg&category=business&apiKey=65f7556ec76449fa7dc7c0069f040ca';
+
+    final Map<String, dynamic> _map = Mapper.getMapFromURLQuery(urlQuery: _urlQuery);
 
     final Map<String, dynamic> _expected = <String, dynamic>{
       'country': 'eg',
@@ -275,6 +275,7 @@ void main() {
 
     expect(_map, _expected);
   });
+   */
 // -----------------------------------------------------------------------------
   test('sqlCipherGeoPoint and sqlDecipherGeoPoint', () {
     const GeoPoint _point = GeoPoint(12.3, 45.6);
