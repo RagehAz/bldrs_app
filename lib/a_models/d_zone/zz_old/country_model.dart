@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -16,7 +17,7 @@ class CountryModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final List<String> citiesIDs;
+  final ZoneLevel citiesIDs;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -24,7 +25,7 @@ class CountryModel {
   // --------------------
   CountryModel copyWith({
     String id,
-    List<String> citiesIDs,
+    ZoneLevel citiesIDs,
   }){
     return CountryModel(
       id: id ?? this.id,
@@ -36,15 +37,17 @@ class CountryModel {
   /// CYPHERS
 
   // --------------------
+  /// TASK : TEST ME
   Map<String, dynamic> toMap({
     @required bool includePhrasesTrigrams,
   }) {
     return <String, dynamic>{
       'id': id,
-      'citiesIDs': citiesIDs,
+      'citiesIDs': citiesIDs.toMap(),
     };
   }
   // --------------------
+  /// TASK : TEST ME
   static CountryModel decipherCountryMap({
     @required Map<String, dynamic> map,
   }) {
@@ -54,13 +57,14 @@ class CountryModel {
 
       _countryModel = CountryModel(
         id: map['id'],
-        citiesIDs: Stringer.getStringsFromDynamics(dynamics: map['citiesIDs']),
+        citiesIDs: ZoneLevel.decipher(map['citiesIDs']),
       );
     }
 
     return _countryModel;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<CountryModel> decipherCountriesMaps({
     @required List<Map<String, dynamic>> maps,
   }) {
@@ -83,11 +87,14 @@ class CountryModel {
   /// COUNTRY PHRASES CYPHERS
 
   // --------------------
-  /// phrases contain mixed languages phrases in one list
+  /// TASK : TEST ME
   static Map<String, dynamic> oldCipherZonePhrases({
     @required List<Phrase> phrases,
     @required bool includeTrigram,
   }){
+
+    /// phrases contain mixed languages phrases in one list
+
     Map<String, dynamic> _output = {};
 
     if (Mapper.checkCanLoopList(phrases) == true){
@@ -111,6 +118,7 @@ class CountryModel {
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<Phrase> oldDecipherZonePhrases({
     @required Map<String, dynamic> phrasesMap,
     @required String zoneID,
@@ -156,7 +164,7 @@ class CountryModel {
     blog('$invoker ------------------------------------------- START');
 
     blog('  id : $id');
-    blog('  citiesIDs : ${citiesIDs.length} cities');
+    citiesIDs?.blogLeveL();
 
     blog('$invoker ------------------------------------------- END');
   }
@@ -261,7 +269,7 @@ class CountryModel {
     else if (country1 != null && country2 != null) {
       if (
           country1.id == country2.id &&
-          Mapper.checkListsAreIdentical(list1: country1.citiesIDs, list2: country2.citiesIDs) == true
+          ZoneLevel.checkLevelsAreIdentical(country1.citiesIDs, country2.citiesIDs) == true
       ) {
         _identical = true;
       }

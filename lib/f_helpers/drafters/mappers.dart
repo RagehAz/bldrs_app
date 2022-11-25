@@ -336,7 +336,13 @@ class Mapper {
   static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
   }){
-    return Map.from(internalHashLinkedMapObjectObject);
+    Map<String, dynamic> _output;
+
+    if (internalHashLinkedMapObjectObject != null){
+      _output = Map<String, dynamic>.from(internalHashLinkedMapObjectObject);
+    }
+
+    return _output;
   }
   // --------------------
   ///

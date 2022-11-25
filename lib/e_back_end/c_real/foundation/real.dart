@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
@@ -441,17 +442,21 @@ class Real {
 
     dynamic _output;
 
-    final DatabaseReference _ref = getRefByPath(path: path);
+    if (TextCheck.isEmpty(path) == false){
 
-    await tryAndCatch(
-      functions: () async {
+      final DatabaseReference _ref = getRefByPath(path: path);
 
-        final DatabaseEvent event = await _ref.once(DatabaseEventType.value);
+      await tryAndCatch(
+        functions: () async {
 
-        _output = event.snapshot.value;
+          final DatabaseEvent event = await _ref.once(DatabaseEventType.value);
 
-      },
-    );
+          _output = event.snapshot.value;
+
+        },
+      );
+
+    }
 
     return _output;
   }
