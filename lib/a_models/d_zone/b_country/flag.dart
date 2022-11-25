@@ -153,7 +153,7 @@ class Flag {
   }
   // -----------------------------------------------------------------------------
 
-  /// COUNTRY PHRASES CYPHERS
+  /// FLAG PHRASES CYPHERS
 
   // --------------------
   ///
@@ -341,7 +341,7 @@ class Flag {
 
   // --------------------
   ///
-  static String getFlagIcon(String countryID) {
+  static String getCountryIcon(String countryID) {
     String _output = Iconz.dvBlankSVG;
 
     if (countryID != null) {
@@ -359,8 +359,77 @@ class Flag {
   }
   // -----------------------------------------------------------------------------
 
+  /// PHONE CODE GETTERS
+
+  // --------------------
+  ///
+  static String getCountryPhoneCode(String countryID){
+    String _output;
+
+    if (countryID != null) {
+
+      final Flag _flag = getFlagFromFlagsByCountryID(
+        flags: allFlags,
+        countryID: countryID,
+      );
+
+      _output = _flag.phoneCode;
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PHONE CODE GETTERS
+
+  // --------------------
+  ///
+  static String getCountryCurrencyID(String countryID){
+    String _output;
+
+    if (countryID != null) {
+
+      final Flag _flag = getFlagFromFlagsByCountryID(
+        flags: allFlags,
+        countryID: countryID,
+      );
+
+      _output = _flag.currencyID;
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// TRANSLATION GETTERS
 
+  // --------------------
+  ///
+  static Phrase getCountryPhrase({
+    @required String countryID,
+    @required String langCode,
+  }){
+    Phrase _output;
+
+    if (countryID != null) {
+
+      final Flag _flag = getFlagFromFlagsByCountryID(
+        flags: allFlags,
+        countryID: countryID,
+      );
+
+      _output = Phrase.searchPhraseByIDAndLangCode(
+          phrases: _flag.phrases,
+          phid: _flag.id,
+          langCode: langCode
+      );
+
+    }
+
+    return _output;
+  }
   // --------------------
   ///
   static String getCountryName({
@@ -368,15 +437,9 @@ class Flag {
     @required String langCode,
   }){
 
-    final Flag _flag = getFlagFromFlagsByCountryID(
-      flags: allFlags,
+    final Phrase _phrase = getCountryPhrase(
       countryID: countryID,
-    );
-
-    final Phrase _phrase = Phrase.searchPhraseByIDAndLangCode(
-      phrases: _flag?.phrases,
       langCode: langCode,
-      phid: countryID,
     );
 
     return _phrase?.value;

@@ -57,7 +57,7 @@ class BottomDialogButtons extends StatelessWidget {
           final dynamic _value = mapsModels[index].value;
 
           final String _icon = bottomDialogType == BottomDialogType.countries ?
-          Flag.getFlagIcon(_id)
+          Flag.getCountryIcon(_id)
               :
           null;
 

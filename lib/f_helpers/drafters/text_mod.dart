@@ -1,5 +1,5 @@
 // ignore_for_file: always_put_control_body_on_new_line
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -702,7 +702,7 @@ class TextMod {
     /// NO NUMBER GIVEN
     if (TextCheck.isEmpty(number) == true){
 
-      final String _code = CountryModel.getCountryPhoneCode(countryID);
+      final String _code = Flag.getCountryPhoneCode(countryID);
 
       if (TextCheck.isEmpty(_code) == false){
         initialNumber = _code;
@@ -727,7 +727,7 @@ class TextMod {
 
     if (number != null && countryID != null){
 
-      final String _code = CountryModel.getCountryPhoneCode(countryID);
+      final String _code = Flag.getCountryPhoneCode(countryID);
 
       if (_code != number){
         _output = TextMod.removeSpacesFromAString(number);

@@ -41,7 +41,7 @@ class CurrencyButton extends StatelessWidget {
         height: height,
         width: width ?? PageBubble.clearWidth(context),
         color: Colorz.blackSemi255,
-        icon: icon ?? Flag.getFlagIcon(countryID.toLowerCase()),
+        icon: icon ?? Flag.getCountryIcon(countryID.toLowerCase()),
         verse: Verse(
           text: '${currency.symbol} . ${xPhrase(context, currency.id)}',
           translate: false,
