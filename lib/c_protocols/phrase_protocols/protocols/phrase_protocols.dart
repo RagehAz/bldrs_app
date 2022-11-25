@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/real/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -227,7 +228,7 @@ class PhraseProtocols {
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     await _phraseProvider.changeAppLang(
       context: context,
-      langCode: Words.languageCode(context),
+      langCode: Localizer.getCurrentLangCode(context),
     );
 
   }
@@ -286,7 +287,7 @@ class PhraseProtocols {
       /// CREATE THEM FROM JSON
       _allCountriesPhrases = await CountryModel.createMixedCountriesPhrases(
         langCodes: langCodes,
-        countriesIDs: CountryModel.getAllCountriesIDs(),
+        countriesIDs: Flag.getAllCountriesIDs(),
       );
 
       /// THEN STORE THEM IN LDB

@@ -1,5 +1,4 @@
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
@@ -27,7 +26,7 @@ class CountryTileButton extends StatelessWidget {
       height: height,
       width: width ?? Bubble.clearWidth(context),
       icon: Flag.getFlagIcon(countryID),
-      verse: Verse.plain(CountryModel.translateCountryName(context: context, countryID: countryID)),
+      verse: Verse.plain(Flag.getCountryNameByCurrentLang(context: context, countryID: countryID)),
       onTap: onTap,
     );
 

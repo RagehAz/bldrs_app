@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -249,7 +250,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryName = CountryModel.translateCountryName(
+    final String _countryName = Flag.getCountryNameByCurrentLang(
       context: context,
       countryID: widget.country?.id,
     );

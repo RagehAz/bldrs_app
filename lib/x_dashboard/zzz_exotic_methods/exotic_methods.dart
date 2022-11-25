@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/region_model.dart';
@@ -292,7 +293,7 @@ class ExoticMethods {
     Future Function(int index, CountryModel countryModel) onRead,
   }) async {
 
-    final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
+    final List<String> _allCountriesIDs = Flag.getAllCountriesIDs();
 
     final List<CountryModel> _countries = <CountryModel>[];
 

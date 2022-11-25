@@ -1,8 +1,8 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/district_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -52,7 +52,7 @@ class RenovateZoneProtocols {
       if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
         // superPhrase(context, _zone.countryID);
-        final String _countryName = CountryModel.translateCountryName(
+        final String _countryName = Flag.getCountryNameByCurrentLang(
           context: context,
           countryID: incompleteZoneModel.countryID,
         );
