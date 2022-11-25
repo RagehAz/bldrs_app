@@ -18,8 +18,8 @@ class Phrase {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final String langCode; /// language code
-  final String value; /// name in this language
+  final String langCode;
+  final String value;
   final List<String> trigram;
   // -----------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ class Phrase {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Phrase completeTrigram(){
 
     Phrase _phrase = Phrase(
@@ -301,152 +301,23 @@ class Phrase {
     return _output;
   }
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT : used to upload to firebase
-  static Map<String, dynamic> cipherOneLangPhrasesToMap({
-    @required List<Phrase> phrases,
-    bool addTrigrams = false,
-    bool includeLangCode = false,
-    String overrideLangCode,
-  }) {
-    Map<String, dynamic> _phrasesMap = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(phrases) == true){
+  /// MIXED LANGS CYPHER
 
-      for (final Phrase phrase in phrases){
-
-        _phrasesMap = Mapper.insertPairInMap(
-          map: _phrasesMap,
-          key: phrase.id,
-          value: phrase.toDefaultMap(
-            includeID: false,
-            includeTrigram: addTrigrams,
-            includeLangCode: includeLangCode,
-            overrideLangCode: overrideLangCode,
-          ),
-
-        );
-      }
-
-    }
-
-    return _phrasesMap;
-  }
   // --------------------
-  /// used to store in LDB
-  static List<Map<String, dynamic>> cipherOneLangPhrasesToMaps({
-    @required List<Phrase> phrases,
-    bool addTrigrams = false,
-    bool includeLangCode = false,
-    String overrideLangCode,
-  }){
-
-    final List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
-
-    if (Mapper.checkCanLoopList(phrases) == true){
-
-      for (final Phrase phrase in phrases){
-
-        final Map<String, dynamic> _map = phrase.toDefaultMap(
-          includeID: true,
-          includeTrigram: addTrigrams,
-          includeLangCode: includeLangCode,
-          overrideLangCode: overrideLangCode,
-        );
-
-        _maps.add(_map);
-
-      }
-
-    }
-
-    return _maps;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Phrase> decipherOneLangPhrasesMap({
-    @required Map<String, dynamic> map,
-    String addLangCodeOverride,
-    bool includeTrigrams = false,
-  }){
-    final List<Phrase> _phrases = <Phrase>[];
-
-    final List<String> _keys = map?.keys?.toList();
-
-    if (Mapper.checkCanLoopList(_keys)){
-
-      for (int i = 0; i<_keys.length; i++){
-
-        final String _key = _keys[i];
-        final Phrase _phrase = decipherPhraseDefaultMap(
-          id: _key,
-          map: map[_key],
-          langCodeOverride: addLangCodeOverride,
-          includeTrigram: includeTrigrams,
-        );
-        _phrases.add(_phrase);
-
-      }
-
-    }
-
-    return _phrases;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Phrase> decipherOneLangPhrasesMaps({
-    @required List<Map<String, dynamic>> maps,
-    String langCodeOverride,
-    bool includeTrigrams = false,
-  }){
-
-    final List<Phrase> _phrases = <Phrase>[];
-
-    if (Mapper.checkCanLoopList(maps) == true){
-
-      for (int i = 0; i< maps.length; i++){
-
-        final Map<String, dynamic> _map = maps[i];
-
-        final Phrase _phrase = decipherPhraseDefaultMap(
-          id: _map['id'],
-          map: _map,
-          langCodeOverride: langCodeOverride,
-          includeTrigram: includeTrigrams,
-        );
-
-        _phrases.add(_phrase);
-      }
-
-    }
-
-    return _phrases;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Phrase> decipherMixedLangPhrases({
-    @required List<Map<String, dynamic>> maps,
-  }){
-    final List<Phrase> _phrases = <Phrase>[];
-
-    if (Mapper.checkCanLoopList(maps) == true){
-
-      for (final Map<String, dynamic> map in maps){
-
-        final Phrase _phrase = decipherPhraseDefaultMap(
-          id: map['id'],
-          map: map,
-          langCodeOverride: map['langCode'],
-          includeTrigram: true,
-        );
-
-        _phrases.add(_phrase);
-
-      }
-
-    }
-
-    return _phrases;
-  }
+  /// MIXED LANGS LOOKS LIKE THIS:
+  /// {
+  ///   'id': id, <----- duplicate ID
+  ///   'langCode': en, <----- different lang code
+  ///   'value': valueEN,
+  ///   'trigram': trigramEN,
+  /// }
+  /// {
+  ///   'id': id, <----- duplicate ID
+  ///   'langCode': ar, <----- different lang code
+  ///   'value': valueAR,
+  ///   'trigram': trigramAR,
+  /// }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherMixedLangPhrases({
@@ -481,6 +352,165 @@ class Phrase {
 
     return _maps;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> decipherMixedLangPhrases({
+    @required List<Map<String, dynamic>> maps,
+  }){
+    final List<Phrase> _phrases = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      for (final Map<String, dynamic> map in maps){
+
+        final Phrase _phrase = decipherPhraseDefaultMap(
+          id: map['id'],
+          map: map,
+          langCodeOverride: map['langCode'],
+          includeTrigram: true,
+        );
+
+        _phrases.add(_phrase);
+
+      }
+
+    }
+
+    return _phrases;
+  }
+  // -----------------------------------------------------------------------------
+  /// DEPRECATED
+  /*
+  /// TESTED : WORKS PERFECT : used to upload to firebase
+  static Map<String, dynamic> cipherOneLangPhrasesToMap({
+    @required List<Phrase> phrases,
+    bool addTrigrams = false,
+    bool includeLangCode = false,
+    String overrideLangCode,
+  }) {
+    Map<String, dynamic> _phrasesMap = <String, dynamic>{};
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        _phrasesMap = Mapper.insertPairInMap(
+          map: _phrasesMap,
+          key: phrase.id,
+          value: phrase.toDefaultMap(
+            includeID: false,
+            includeTrigram: addTrigrams,
+            includeLangCode: includeLangCode,
+            overrideLangCode: overrideLangCode,
+          ),
+
+        );
+      }
+
+    }
+
+    return _phrasesMap;
+  }
+   */
+  // --------------------
+  /// DEPRECATED
+  /*
+  /// used to store in LDB
+  static List<Map<String, dynamic>> cipherOneLangPhrasesToMapsX({
+    @required List<Phrase> phrases,
+    bool addTrigrams = false,
+    bool includeLangCode = false,
+    String overrideLangCode,
+  }){
+
+    final List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        final Map<String, dynamic> _map = phrase.toDefaultMap(
+          includeID: true,
+          includeTrigram: addTrigrams,
+          includeLangCode: includeLangCode,
+          overrideLangCode: overrideLangCode,
+        );
+
+        _maps.add(_map);
+
+      }
+
+    }
+
+    return _maps;
+  }
+   */
+  // --------------------
+  /// DEPRECATED
+  /*
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> decipherOneLangPhrasesMapX({
+    @required Map<String, dynamic> map,
+    String addLangCodeOverride,
+    bool includeTrigrams = false,
+  }){
+    final List<Phrase> _phrases = <Phrase>[];
+
+    final List<String> _keys = map?.keys?.toList();
+
+    if (Mapper.checkCanLoopList(_keys)){
+
+      for (int i = 0; i<_keys.length; i++){
+
+        final String _key = _keys[i];
+        final Phrase _phrase = decipherPhraseDefaultMap(
+          id: _key,
+          map: map[_key],
+          langCodeOverride: addLangCodeOverride,
+          includeTrigram: includeTrigrams,
+        );
+        _phrases.add(_phrase);
+
+      }
+
+    }
+
+    return _phrases;
+  }
+   */
+  // --------------------
+  /// DEPRECATED
+  /*
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> decipherOneLangPhrasesMapsX({
+    @required List<Map<String, dynamic>> maps,
+    String langCodeOverride,
+    bool includeTrigrams = false,
+  }){
+
+    final List<Phrase> _phrases = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      for (int i = 0; i< maps.length; i++){
+
+        final Map<String, dynamic> _map = maps[i];
+
+        final Phrase _phrase = decipherPhraseDefaultMap(
+          id: _map['id'],
+          map: _map,
+          langCodeOverride: langCodeOverride,
+          includeTrigram: includeTrigrams,
+        );
+
+        _phrases.add(_phrase);
+      }
+
+    }
+
+    return _phrases;
+  }
+   */
   // -----------------------------------------------------------------------------
 
   /// STREAMING

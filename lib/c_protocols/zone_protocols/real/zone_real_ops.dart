@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -82,7 +82,7 @@ class ZoneRealOps {
   /// READ CITY MODEL
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CityModel> readCity({
     @required String countryID,
     @required String cityID,
@@ -111,11 +111,10 @@ class ZoneRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCountryCities({
     @required String countryID,
   }) async {
-    // final List<CityModel> _output = [];
 
     final Object _citiesMap = await Real.readPath(
       path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID',
@@ -125,12 +124,11 @@ class ZoneRealOps {
       internalHashLinkedMapObjectObject: _citiesMap,
     );
 
-    Mapper.blogMaps(_maps, invoker: 'readCountryCities');
-
-
-    return CityModel.decipherCities(maps: _maps, fromJSON: true,);
+    return CityModel.decipherCities(
+      maps: _maps,
+      fromJSON: true,
+    );
 
   }
   // -----------------------------------------------------------------------------
-  void f(){}
 }
