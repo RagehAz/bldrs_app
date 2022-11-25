@@ -265,7 +265,7 @@ class Phrase {
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesLangsMap({
     @required Map<String, dynamic> langsMap,
-    @required String countryID,
+    @required String phid,
   }){
 
     final List<Phrase> _output = <Phrase>[];
@@ -281,7 +281,7 @@ class Phrase {
           final String _value = langsMap[key];
 
           final Phrase _phrase = Phrase(
-            id: countryID,
+            id: phid,
             langCode: key,
             value: _value,
             trigram: Stringer.createTrigram(

@@ -1,4 +1,6 @@
 // ignore_for_file: noop_primitive_operations
+import 'dart:convert';
+
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -343,7 +345,8 @@ class Mapper {
     Map<String, dynamic> _output;
 
     if (internalHashLinkedMapObjectObject != null){
-      _output = Map<String, dynamic>.from(internalHashLinkedMapObjectObject);
+      _output = jsonDecode(jsonEncode(internalHashLinkedMapObjectObject));
+      // _output = Map<String, dynamic>.from(internalHashLinkedMapObjectObject);
     }
 
     return _output;
@@ -357,7 +360,8 @@ class Mapper {
 
     if (internalHashLinkedMapObjectObject != null){
 
-      final Map<String, dynamic> _bigMap = Map.from(internalHashLinkedMapObjectObject);
+      final Map<String, dynamic> _bigMap = jsonDecode(jsonEncode(internalHashLinkedMapObjectObject));
+      // Map.from(internalHashLinkedMapObjectObject);
       final List<String> _ids = _bigMap.keys.toList();
 
       for (final String id in _ids){

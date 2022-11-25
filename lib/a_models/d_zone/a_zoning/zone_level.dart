@@ -118,6 +118,32 @@ class ZoneLevel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static String cipherLevelType(ZoneLevelType type){
+
+    switch (type) {
+      case ZoneLevelType.hidden:    return 'hidden';    break;
+      case ZoneLevelType.inactive:  return 'inactive';  break;
+      case ZoneLevelType.active:    return 'active';    break;
+      case ZoneLevelType.public:    return 'public';    break;
+      default: return null;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static ZoneLevelType decipherLevelType(String type){
+
+      switch (type) {
+        case 'hidden':    return ZoneLevelType.hidden;    break;
+        case 'inactive':  return ZoneLevelType.inactive;  break;
+        case 'active':    return ZoneLevelType.active;    break;
+        case 'public':    return ZoneLevelType.public;    break;
+        default: return null;
+      }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   ZoneLevel copyWith({
     List<String> hidden,
     List<String> inactive,
