@@ -91,12 +91,17 @@ class ZoneRealOps {
 
     if (countryID != null && cityID != null){
 
-      final Map<String, dynamic> _cityMap = await Real.readPath(
+      final Object _cityMap = await Real.readPath(
         path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID',
       );
 
+      final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+        internalHashLinkedMapObjectObject: _cityMap,
+      );
+
+
       _output = CityModel.decipherCityMap(
-        map: _cityMap,
+        map: _map,
         fromJSON: true,
       );
 
@@ -105,7 +110,26 @@ class ZoneRealOps {
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
+  static Future<List<CityModel>> readCountryCities({
+    @required String countryID,
+  }) async {
+    // final List<CityModel> _output = [];
 
+    final Object _citiesMap = await Real.readPath(
+      path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID',
+    );
+
+    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(
+      internalHashLinkedMapObjectObject: _citiesMap,
+    );
+
+    Mapper.blogMaps(_maps, invoker: 'readCountryCities');
+
+
+    return CityModel.decipherCitiesMaps(maps: _maps, fromJSON: true,);
+
+  }
   // -----------------------------------------------------------------------------
   void f(){}
 }

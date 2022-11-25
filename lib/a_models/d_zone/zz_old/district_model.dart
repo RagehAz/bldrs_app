@@ -92,16 +92,20 @@ class DistrictModel{
 
     final List<DistrictModel> _districts = <DistrictModel>[];
 
-    final List<String> _keys = map.keys.toList();
-    final List<dynamic> _values = map.values.toList();
+    if (map != null){
 
-    if (Mapper.checkCanLoopList(_keys)){
+      final List<String> _keys = map.keys.toList();
+      final List<dynamic> _values = map.values.toList();
 
-      for (int i = 0; i<_keys.length; i++){
+      if (Mapper.checkCanLoopList(_keys)){
 
-        final DistrictModel _district = decipherDistrict(_values[i]);
+        for (int i = 0; i<_keys.length; i++){
 
-        _districts.add(_district);
+          final DistrictModel _district = decipherDistrict(_values[i]);
+
+          _districts.add(_district);
+
+        }
 
       }
 

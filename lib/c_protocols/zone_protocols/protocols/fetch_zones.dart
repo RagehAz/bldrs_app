@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
@@ -88,8 +87,9 @@ class FetchZoneProtocols {
   /// CITY
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<CityModel> fetchCity({
+    @required String countryID,
     @required String cityID,
   }) async {
 
@@ -101,7 +101,8 @@ class FetchZoneProtocols {
 
     else {
 
-      _cityModel = await ZoneFireOps.readCityOps(
+      _cityModel = await ZoneRealOps.readCity(
+        countryID: countryID,
         cityID: cityID,
       );
 
@@ -121,33 +122,40 @@ class FetchZoneProtocols {
     return _cityModel;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<List<CityModel>> fetchCities({
-    @required List<String> citiesIDs,
+    @required String countryID,
+    @required List<String> citiesIDsOfThisCountry,
     ValueChanged<CityModel> onCityLoaded,
   }) async {
 
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(citiesIDs)){
+    if (Mapper.checkCanLoopList(citiesIDsOfThisCountry) == true){
 
-      for (final String id in citiesIDs){
+      await Future.wait(<Future>[
 
-        final CityModel _city = await fetchCity(
-          cityID: id,
-        );
+        ...List.generate(citiesIDsOfThisCountry.length, (index) {
 
-        if (_city != null){
+          return fetchCity(
+            cityID: citiesIDsOfThisCountry[index],
+            countryID: countryID,
+          ).then((value) {
 
-          _cities.add(_city);
+            if (value != null) {
 
-          if (onCityLoaded != null){
-            onCityLoaded(_city);
-          }
+              _cities.add(value);
 
-        }
+              if (onCityLoaded != null) {
+                onCityLoaded(value);
+              }
 
-      }
+            }
+
+          });
+        }),
+
+      ]);
 
     }
 
@@ -159,7 +167,7 @@ class FetchZoneProtocols {
     @required BuildContext context,
     @required String cityName,
     @required String langCode,
-    String countryID,
+    @required String countryID,
   }) async {
 
     CityModel _city;
@@ -176,6 +184,7 @@ class FetchZoneProtocols {
 
         _city = await fetchCity(
           cityID: _cityID,
+          countryID: countryID,
         );
 
       }

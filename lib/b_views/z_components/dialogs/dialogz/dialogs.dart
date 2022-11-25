@@ -658,7 +658,7 @@ class Dialogs {
                     text: _foundCityName,
                     translate: false,
                   ),
-                  icon: Flag.getCountryIcon(_foundCity.countryID),
+                  icon: Flag.getCountryIcon(_foundCity.getCountryID()),
                   onTap: () async {
 
                     _city = _foundCity;

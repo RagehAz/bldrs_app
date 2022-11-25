@@ -1,13 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
-import 'dart:async';
 
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:flutter/material.dart';
 
 class ZoneFireOps {
   // -----------------------------------------------------------------------------
@@ -63,7 +55,8 @@ class ZoneFireOps {
   /// CITY
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   static Future<CityModel> readCityOps({
     @required String cityID,
   }) async {
@@ -82,8 +75,10 @@ class ZoneFireOps {
 
     return _cityModel;
   }
+   */
   // --------------------
-  /// TASK : TEST ME
+  /// DEPRECATED
+  /*
   static Future<List<CityModel>> readCountryCitiesOps({
     @required String countryID,
   }) async {
@@ -113,6 +108,7 @@ class ZoneFireOps {
 
     return _cities;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CURRENCY
