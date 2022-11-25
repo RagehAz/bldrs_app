@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/iso3.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
@@ -198,8 +198,8 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Get ISO3 JSON map'),
             onTap: () async {
 
-              final List<ISO3> _iso3s = await ZoneJSONOps.readAllISO3s();
-              ISO3.blogISO3s(_iso3s);
+              final List<Flag> _iso3s = await ZoneJSONOps.readAllISO3s();
+              Flag.blogFlags(_iso3s);
 
             },
           ),
@@ -448,12 +448,12 @@ class _ZoningLabState extends State<ZoningLab> {
             isActive: false,
             onTap: () async {
 
-              final List<ISO3> _iso3s = await ZoneJSONOps.readAllISO3s();
+              final List<Flag> _iso3s = await ZoneJSONOps.readAllISO3s();
 
               final List<String> hidden = [];
               final List<String> inactive = [];
 
-              for (final ISO3 iso3 in _iso3s){
+              for (final Flag iso3 in _iso3s){
 
                 if (
                 iso3.id == 'egy' ||
@@ -514,6 +514,18 @@ class _ZoningLabState extends State<ZoningLab> {
 
           /// SEPARATOR
           const SeparatorLine(),
+
+          /// CREATE FLAGS
+          WideButton(
+            verse: Verse.plain('Create Flags'),
+            onTap: () async {
+
+              final List<Flag> _iso3s = await ZoneJSONOps.readAllISO3s();
+
+              Flag.blogFlags(_iso3s);
+
+            },
+          ),
 
         ],
       ),

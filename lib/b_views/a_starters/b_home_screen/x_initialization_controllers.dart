@@ -207,7 +207,7 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
   /// USER ZONE IS NOT DEFINED
   else {
 
-    final ZoneModel _zoneByIP = await ZoneIPOps.superGetZoneByIP(context);
+    final ZoneModel _zoneByIP = await ZoneIPOps.getZoneByIP(context);
 
     await zoneProvider.fetchSetCurrentCompleteZone(
       context: context,
