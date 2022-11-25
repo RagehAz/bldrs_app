@@ -270,7 +270,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               width: _screenWidth * 0.6,
               height: 50,
               margins: Ratioz.appBarMargin,
-              icon: _countryModel == null ? Iconz.locationPin : Flag.getFlagIcon(_countryModel.id),
+              icon: _countryModel == null ? Iconz.locationPin : Flag.getCountryIcon(_countryModel.id),
               // iconColor: Colorz.red230,
               iconSizeFactor: 0.7,
               verse: const Verse(text: 'phid_confirm', translate: true),

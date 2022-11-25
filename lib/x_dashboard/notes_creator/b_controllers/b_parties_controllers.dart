@@ -195,7 +195,7 @@ Future<void> _onSelectCountryAsNoteSender({
     note.value = note.value.copyWith(
       parties: note.value.parties.copyWith(
         senderID: _countryModel.id,
-        senderImageURL: Flag.getFlagIcon(_countryModel.id), /// TASK : THIS BRINGS LOCAL PATH,, ARE YOU SURE ? IT WANTS A URL MAN
+        senderImageURL: Flag.getCountryIcon(_countryModel.id), /// TASK : THIS BRINGS LOCAL PATH,, ARE YOU SURE ? IT WANTS A URL MAN
         senderType: senderType,
       ),
     );
