@@ -199,7 +199,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               /// CITIES
               WideButton(
                 width: PageBubble.clearWidth(context),
-                verse: Verse.plain('View ${country.citiesIDs.length} Cities'),
+                verse: Verse.plain('View ZEROOOOOO EDIT ME Cities'),
                 onTap: widget.onCityTap,
               ),
 

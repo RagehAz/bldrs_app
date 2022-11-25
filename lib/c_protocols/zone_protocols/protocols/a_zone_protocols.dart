@@ -1,11 +1,12 @@
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
+import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/fetch_zones.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/renovate_zones.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -41,7 +42,7 @@ class ZoneProtocols {
 
     if (geoPoint != null){
 
-      final List<Placemark> _marks = await ZoneFireOps.getAddressFromPosition(geoPoint: geoPoint);
+      final List<Placemark> _marks = await LocationOps.getPlaceMarksFromGeoPoint(geoPoint: geoPoint);
 
       // blog('_getCountryData : got place marks : ${_marks.length}');
 
