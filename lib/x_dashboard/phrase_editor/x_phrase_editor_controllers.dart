@@ -8,8 +8,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -21,7 +19,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 // ---------------------------------------------------------------------------
@@ -740,36 +737,6 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
 
     }
   );
-
-}
-// ---------------------------------------------------------------------------
-
-/// OLD FIRE READ OPS
-
-// --------------------
-/// TASK : DELETE AFTER DELETING PHRASES FIRE COLL FROM FIREBASE
-Future<List<Phrase>> readMainPhrasesFromFire({
-  @required String langCode,
-}) async {
-
-  final Map<String, dynamic> _phrasesMap = await Fire.readDoc(
-    collName: FireColl.phrases,
-    docName: langCode,
-  );
-
-  if (_phrasesMap != null){
-
-    final List<Phrase> _phrasesModels = Phrase.decipherOneLangPhrasesMap(
-      map: _phrasesMap,
-      addLangCodeOverride: langCode,
-    );
-
-    return _phrasesModels;
-  }
-
-  else {
-    return null;
-  }
 
 }
 // ---------------------------------------------------------------------------

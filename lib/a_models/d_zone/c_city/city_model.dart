@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/zz_old/district_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';

@@ -1,17 +1,6 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
-import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/fetch_zones.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/renovate_zones.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 
 class ZoneProtocols {
   // -----------------------------------------------------------------------------
@@ -31,87 +20,16 @@ class ZoneProtocols {
   // --------------------
   /// ZONE
   // ---------
-  /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> fetchZoneModelByGeoPoint({
-    @required BuildContext context,
-    @required GeoPoint geoPoint
-  }) async {
-
-    ZoneModel _zoneModel;
-
-    if (geoPoint != null){
-
-      final List<Placemark> _marks = await LocationOps.getPlaceMarksFromGeoPoint(geoPoint: geoPoint);
-
-      // blog('_getCountryData : got place marks : ${_marks.length}');
-
-      if (Mapper.checkCanLoopList(_marks)){
-
-        final Placemark _mark = _marks[0];
-
-        // blog('mark is : $_mark');
-
-        final String _countryISO2 = _mark.isoCountryCode;
-        final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
-
-        /// try by sub admin area
-        final String _subAdministrativeArea = _mark.subAdministrativeArea;
-        CityModel _foundCity = await ZoneProtocols.fetchCityByName(
-          context: context,
-          countryID: _countryID,
-          cityName: _subAdministrativeArea,
-          langCode: 'en',
-        );
-
-        /// try by admin area
-        if (_foundCity == null){
-          final String _administrativeArea = _mark.administrativeArea;
-          _foundCity = await ZoneProtocols.fetchCityByName(
-            context: context,
-            countryID: _countryID,
-            cityName: _administrativeArea,
-            langCode: 'en',
-          );
-        }
-
-        /// try by locality
-        if (_foundCity == null){
-          final String _locality = _mark.locality;
-          _foundCity = await ZoneProtocols.fetchCityByName(
-            context: context,
-            countryID: _countryID,
-            cityName: _locality,
-            langCode: 'en',
-          );
-        }
-
-        _zoneModel = ZoneModel(
-          countryID: _countryID,
-          cityID: _foundCity?.cityID,
-        );
-
-      }
-
-    }
-
-    return _zoneModel;
-  }
+  /// TASK : TEST ME
+  static const fetchZoneModelByGeoPoint = FetchZoneProtocols.fetchZoneModelByGeoPoint;
   // --------------------
   /// COUNTRY
   // ---------
   /// TESTED : WORKS PERFECT
-  static Future<CountryModel> fetchCountry({
-    @required String countryID,
-  }) => FetchZoneProtocols.fetchCountry(
-    countryID: countryID,
-  );
+  static const  fetchCountry = FetchZoneProtocols.fetchCountry;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<CountryModel>> fetchCountries({
-    @required List<String> countriesIDs,
-  }) => FetchZoneProtocols.fetchCountries(
-      countriesIDs: countriesIDs
-  );
+  static const  fetchCountries = FetchZoneProtocols.fetchCountries;
   // --------------------
   /// CITY
   // ---------
@@ -121,44 +39,25 @@ class ZoneProtocols {
   /// TESTED : WORKS PERFECT
   static const fetchCities = FetchZoneProtocols.fetchCities;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<CityModel> fetchCityByName({
-    @required BuildContext context,
-    @required String cityName,
-    @required String langCode,
-    String countryID,
-  }) => FetchZoneProtocols.fetchCityByName(
-    context: context,
-    cityName: cityName,
-    langCode: langCode,
-    countryID: countryID,
-  );
+  /// TASK : TEST ME
+  static const fetchCityByName = FetchZoneProtocols.fetchCityByName;
   // --------------------
   /// CONTINENT
   // ---------
   /// TESTED : WORKS PERFECT
-  static Future<List<Continent>> fetchContinents() => FetchZoneProtocols.fetchContinents();
+  static const fetchContinents = FetchZoneProtocols.fetchContinents;
   // --------------------
   /// CURRENCY
   // ---------
   /// TESTED : WORKS PERFECT
-  static Future<List<CurrencyModel>> fetchCurrencies() async {
-    final List<CurrencyModel> _currencies = await ZoneJSONOps.readAllCurrencies();
-    return _currencies;
-  }
+  static const fetchCurrencies = ZoneJSONOps.readAllCurrencies;
   // -----------------------------------------------------------------------------
 
   /// RENOVATE
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> completeZoneModel({
-    @required BuildContext context,
-    @required ZoneModel incompleteZoneModel,
-  }) => RenovateZoneProtocols.completeZoneModel(
-    context: context,
-    incompleteZoneModel: incompleteZoneModel,
-  );
+  static const completeZoneModel = RenovateZoneProtocols.completeZoneModel;
   // -----------------------------------------------------------------------------
 
   /// WIPE
