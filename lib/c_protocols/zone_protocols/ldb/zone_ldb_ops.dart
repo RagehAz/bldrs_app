@@ -69,7 +69,7 @@ class ZoneLDBOps{
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> insertCities(List<CityModel> cities) async {
 
     if (Mapper.checkCanLoopList(cities) == true){
@@ -99,9 +99,10 @@ class ZoneLDBOps{
       searchValue: cityID,
     );
 
-    final CityModel _city = CityModel.decipherCityMap(
+    final CityModel _city = CityModel.decipherCity(
       map: _map,
       fromJSON: true,
+      cityID: cityID,
     );
 
     return _city;
@@ -119,8 +120,9 @@ class ZoneLDBOps{
       lingoCode: langCode,
     );
 
-    final List<CityModel> _foundCities = CityModel.decipherCitiesMaps(
+    final List<CityModel> _foundCities = CityModel.decipherCities(
       maps: _foundMaps,
+
       fromJSON: true,
     );
 

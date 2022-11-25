@@ -33,7 +33,7 @@ class WideDistrictButton extends StatelessWidget {
       verseScaleFactor: 0.8,
       color: Colorz.white10,
       // textDirection: superTextDirection(context),
-      onTap: () => onTap(district.districtID),
+      onTap: () => onTap(district.id),
     );
 
   }
