@@ -82,12 +82,6 @@ class EditCityPage extends StatelessWidget {
               dataValue: 'Lat: ${_city?.position?.latitude} , Lng: ${_city?.position?.longitude}',
             ),
 
-            /// STATE
-            DataStrip(
-              dataKey: 'State',
-              dataValue: _city?.state,
-            ),
-
             /// PHRASES
             if (Mapper.checkCanLoopList(_city.phrases) == true)
               ...List.generate(_city.phrases.length, (index){
@@ -110,7 +104,7 @@ class EditCityPage extends StatelessWidget {
                 onSwitchTap: (bool val) {
                   blog('city is Active : $val');
                 },
-                switchValue: _city?.isActivated,
+                // switchValue: false,
 
               ),
               secondLineVerse: Verse.plain('When City is Deactivated, '
@@ -128,7 +122,7 @@ class EditCityPage extends StatelessWidget {
                 onSwitchTap: (bool val) {
                   blog('city is Global : $val');
                 },
-                switchValue: _city?.isPublic,
+                // switchValue: false,
               ),
               secondLineVerse: Verse.plain('Means City content volumes reached the publishing sweet spot'
                   '\nUsers of This city can view Flyers now,, not only The Businesses'
