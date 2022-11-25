@@ -1,8 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:async';
 
-import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
@@ -21,8 +19,9 @@ class ZoneFireOps {
   /// CONTINENT
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Continent>> readContinentsOps() async {
+  /// DEPRECATED
+  /*
+  static Future<List<Continent>> readContinentsOpsX() async {
     final Map<String, dynamic> _map = await Fire.readDoc(
       collName: FireColl.zones,
       docName: FireDoc.zones_continents,
@@ -32,6 +31,7 @@ class ZoneFireOps {
 
     return _allContinents;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// COUNTRY
@@ -118,7 +118,8 @@ class ZoneFireOps {
   /// CURRENCY
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   static Future<List<CurrencyModel>> readCurrencies() async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
@@ -130,5 +131,6 @@ class ZoneFireOps {
 
     return _currencies;
   }
+   */
   // -----------------------------------------------------------------------------
 }
