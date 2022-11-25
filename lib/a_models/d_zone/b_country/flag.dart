@@ -1,9 +1,7 @@
 import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -95,7 +93,7 @@ class Flag {
       'capital': capital,
       'langCodes': langCodes,
       'areaSqKm': areaSqKm,
-      'phrases': cipherFlagsPhrases(phrases),
+      'phrases': Phrase.cipherPhrasesToLangsMap(phrases),
     };
   }
   // --------------------
@@ -129,9 +127,9 @@ class Flag {
         capital: map['capital'],
         langCodes: map['langCodes'],
         areaSqKm: map['areaSqKm'],
-        phrases: decipherFlagsPhrases(
+        phrases: Phrase.decipherPhrasesLangsMap(
           countryID: map['id'],
-          phrasesMap: map['phrases'],
+          langsMap: map['phrases'],
         ),
       );
     }
@@ -153,74 +151,7 @@ class Flag {
   }
   // -----------------------------------------------------------------------------
 
-  /// FLAG PHRASES CYPHERS
-
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherFlagsPhrases(List<Phrase> phrases){
-    Map<String, dynamic> _output = {};
-
-    /// NOTE : SHOULD LOOK LIKE THIS
-    /// {
-    /// 'en' : 'countryName',
-    /// 'ar' : 'الاسم',
-    /// }
-
-    if (Mapper.checkCanLoopList(phrases) == true){
-
-      for (final Phrase phrase in phrases){
-
-        _output = Mapper.insertPairInMap(
-          map: _output,
-          key: phrase.langCode,
-          value: phrase.value,
-        );
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<Phrase> decipherFlagsPhrases({
-    @required Map<String, dynamic> phrasesMap,
-    @required String countryID,
-  }){
-
-    final List<Phrase> _output = <Phrase>[];
-
-    if (phrasesMap != null){
-
-      final List<String> _keys = phrasesMap.keys.toList(); // lang codes
-
-      if (Mapper.checkCanLoopList(_keys) == true){
-
-        for (final String key in _keys){
-
-          final String _value = phrasesMap[key];
-
-          final Phrase _phrase = Phrase(
-            id: countryID,
-            langCode: key,
-            value: _value,
-            trigram: Stringer.createTrigram(
-              input: TextMod.fixCountryName(_value),
-            ),
-          );
-
-          _output.add(_phrase);
-
-        }
-
-      }
-
-
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 
   /// FLAG GETTERS

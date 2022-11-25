@@ -1,7 +1,6 @@
-import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/district_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -17,10 +16,7 @@ class CityModel {
     this.cityID,
     this.districts,
     this.population,
-    this.isActivated,
-    this.isPublic,
     this.position,
-    this.state,
     this.phrases,
   });
   /// --------------------------------------------------------------------------
@@ -28,63 +24,67 @@ class CityModel {
   final String cityID;
   final List<DistrictModel> districts;
   final int population;
-  final bool isActivated;
-  final bool isPublic;
   final GeoPoint position;
   final List<Phrase> phrases;
-  final String state; // only for USA
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   Map<String, Object> toMap({
     @required bool toJSON,
-  }) {
-    return <String, Object>{
-      'countryID': countryID,
-      'cityID': TextMod.fixCountryName(cityID),
-      'districts': DistrictModel.cipherDistricts(
-        districts: districts,
-        toJSON: toJSON,
-      ),
+    @required bool toLDB,
+  }){
+
+    Map<String, dynamic> _map = {
+      'districts': DistrictModel.cipherDistricts(districts: districts, toJSON: toJSON,),
       'population': population,
-      'isActivated': isActivated,
-      'isPublic': isPublic,
-      'position': Atlas.cipherGeoPoint(
-          point: position,
-          toJSON: toJSON
-      ),
-      'phrases' : CountryModel.oldCipherZonePhrases(
-        phrases: phrases,
-        includeTrigram: toJSON,
-      ),
+      'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
+      'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
     };
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherCities({
-    @required List<CityModel> cities,
-    @required bool toJSON,
-  }) {
 
-    Map<String, dynamic> _citiesMap = <String, dynamic>{};
-
-    if (Mapper.checkCanLoopList(cities)) {
-      for (final CityModel city in cities) {
-        _citiesMap = Mapper.insertPairInMap(
-          map: _citiesMap,
-          key: TextMod.fixCountryName(city.cityID),
-          value: city.toMap(toJSON: toJSON),
-        );
-      }
+    if (toLDB == true){
+      _map = Mapper.insertMapInMap(
+        baseMap: _map,
+        insert: {
+          'countryID': countryID,
+          'cityID': cityID,
+        },
+      );
     }
 
-    return _citiesMap;
+
+    return _map;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
+  static List<Map<String, dynamic>> cipherCities({
+    @required List<CityModel> cities,
+    @required bool toJSON,
+    @required bool toLDB,
+  }) {
+    final List<Map<String, dynamic>> _output = [];
+
+    if (Mapper.checkCanLoopList(cities) == true){
+
+      for (final CityModel _city in cities){
+
+        final Map<String, dynamic> _map = _city.toMap(
+            toJSON: toJSON,
+            toLDB: toLDB,
+        );
+
+        _output.add(_map);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
   static CityModel decipherCityMap({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -97,15 +97,13 @@ class CityModel {
         cityID: map['cityID'],
         districts: DistrictModel.decipherDistricts(map['districts']),
         population: map['population'],
-        isActivated: map['isActivated'],
-        isPublic: map['isPublic'],
         position: Atlas.decipherGeoPoint(
           point: map['position'],
           fromJSON: fromJSON,
         ),
-        phrases: CountryModel.oldDecipherZonePhrases(
-            phrasesMap: map['phrases'],
-            zoneID: map['cityID']
+        phrases: Phrase.decipherPhrasesLangsMap(
+          langsMap: map['phrases'],
+          countryID: map['countryID'],
         ),
       );
     }
@@ -113,7 +111,7 @@ class CityModel {
     return _city;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static List<CityModel> decipherCitiesMaps({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -310,8 +308,6 @@ class CityModel {
     blog('countryID : $countryID');
     blog('cityID : $cityID');
     blog('population : $population');
-    blog('isActivated : $isActivated');
-    blog('isPublic : $isPublic');
     blog('position : $position');
     Phrase.blogPhrases(phrases);
     DistrictModel.blogDistricts(districts);
@@ -497,15 +493,12 @@ class CityModel {
       if (city1 != null && city2 != null){
 
         if (
-        city1.countryID == city2.countryID &&
+            city1.countryID == city2.countryID &&
             city1.cityID == city2.cityID &&
             DistrictModel.checkDistrictsListsAreIdentical(city1.districts, city2.districts) == true &&
             city1.population == city2.population &&
-            city1.isActivated == city2.isActivated &&
-            city1.isPublic == city2.isPublic &&
             Atlas.checkPointsAreIdentical(point1: city1.position, point2: city2.position) == true &&
-            city1.state == city2.state &&
-            Phrase.checkPhrasesListsAreIdentical(phrases1: city1.phrases, phrases2: city2.phrases)
+            Phrase.checkPhrasesListsAreIdentical(phrases1: city1.phrases, phrases2: city2.phrases) == true
         ){
           _identical = true;
         }
@@ -550,10 +543,7 @@ class CityModel {
       cityID.hashCode^
       districts.hashCode^
       population.hashCode^
-      isActivated.hashCode^
-      isPublic.hashCode^
       position.hashCode^
-      state.hashCode^
       phrases.hashCode;
   // -----------------------------------------------------------------------------
 }

@@ -1,14 +1,12 @@
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/fire/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/fire/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -211,17 +209,7 @@ class FetchZoneProtocols {
           }
 
           /// C-2 - if firebase returned results
-          if (Mapper.checkCanLoopList(_foundCities) == true){
-
-            /// insert all cities in ldb
-            for (final CityModel city in _foundCities){
-              await LDBOps.insertMap(
-                input: city.toMap(toJSON: true),
-                docName: LDBDoc.cities,
-              );
-            }
-
-          }
+          await ZoneLDBOps.insertCities(_foundCities);
 
         }
 

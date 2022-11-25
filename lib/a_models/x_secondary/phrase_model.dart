@@ -41,7 +41,7 @@ class Phrase {
     );
   }
   // --------------------
-
+  ///
   Phrase completeTrigram(){
 
     Phrase _phrase = Phrase(
@@ -63,77 +63,19 @@ class Phrase {
   }
   // -----------------------------------------------------------------------------
 
-  /// CYPHERS
+  /// Default Map CYPHER
 
   // --------------------
-  ///  TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherPhrasesToReal(List<Phrase> phrases){
-
-    Map<String, dynamic> _map;
-
-    if (Mapper.checkCanLoopList(phrases) == true){
-      _map = {};
-
-      for (final Phrase phrase in phrases){
-
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          key: phrase.id,
-          value: phrase.value,
-        );
-
-      }
-
-    }
-
-    return _map;
-  }
-  // --------------------
-  ///  TESTED : WORKS PERFECT
-  static List<Phrase> decipherPhrasesFromReal({
-    @required String langCode,
-    @required Map<String, dynamic> map,
-    bool includeTrigram = true,
-  }){
-    final List<Phrase> _output = <Phrase>[];
-
-    if (map != null){
-
-      final List<String> _keys = map.keys.toList();
-
-      if (Mapper.checkCanLoopList(_keys) == true){
-
-        for (final String key in _keys){
-
-          final List<String> _trigram =
-          includeTrigram == true ?
-          Stringer.createTrigram(
-            input: map[key],
-            // removeSpaces: false,
-          )
-              :
-          null;
-
-          final Phrase _phrase = Phrase(
-            id: key,
-            value: map[key],
-            langCode: langCode,
-            trigram: _trigram,
-          );
-
-          _output.add(_phrase);
-
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
+  /// DEFAULT MAP LOOKS LIKE THIS:
+  /// {
+  ///   'id': id,
+  ///   'langCode': langCode,
+  ///   'value': value,
+  ///   'trigram': trigram,
+  /// }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap({
+  Map<String, dynamic> toDefaultMap({
     @required bool includeID,
     bool includeTrigram = false,
     bool includeLangCode = false,
@@ -188,6 +130,177 @@ class Phrase {
     return _map;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Phrase decipherPhraseDefaultMap({
+    @required String id,
+    @required Map<String, dynamic> map,
+    String langCodeOverride,
+    bool includeTrigram,
+  }) {
+
+    final List<String> _trigram = _getTrigramIfIncluded(
+      includeTrigram: includeTrigram,
+      existingTrigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
+      originalString: map['value'],
+    );
+
+    return Phrase(
+      id: id ?? map['id'],
+      value: map['value'],
+      langCode: langCodeOverride ?? map['langCode'],
+      trigram: _trigram,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// Phids Map CYPHER
+
+  // --------------------
+  /// PHIDS MAP LOOKS LIKE THIS:
+  /// {
+  ///   'phid_1': value1,
+  ///   'phid_2': value2,
+  /// }
+  // --------------------
+  ///  TESTED : WORKS PERFECT
+  static Map<String, dynamic> cipherPhrasesToPhidsMap(List<Phrase> phrases){
+
+    Map<String, dynamic> _map;
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+      _map = {};
+
+      for (final Phrase phrase in phrases){
+
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: phrase.id,
+          value: phrase.value,
+        );
+
+      }
+
+    }
+
+    return _map;
+  }
+  // --------------------
+  ///  TESTED : WORKS PERFECT
+  static List<Phrase> decipherPhrasesFromPhidsMap({
+    @required String langCode,
+    @required Map<String, dynamic> map,
+    bool includeTrigram = true,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (map != null){
+
+      final List<String> _keys = map.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          final List<String> _trigram =
+          includeTrigram == true ?
+          Stringer.createTrigram(
+            input: map[key],
+            // removeSpaces: false,
+          )
+              :
+          null;
+
+          final Phrase _phrase = Phrase(
+            id: key,
+            value: map[key],
+            langCode: langCode,
+            trigram: _trigram,
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// Langs Map CYPHER
+
+  // --------------------
+  /// LANGS MAP LOOKS LIKE THIS:
+  /// {
+  ///   'langCode_1': value1,
+  ///   'langCode_2': value2,
+  ///   'en' : 'countryName',
+  ///   'ar' : 'الاسم',
+  /// }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cipherPhrasesToLangsMap(List<Phrase> phrases){
+    Map<String, dynamic> _output = {};
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        _output = Mapper.insertPairInMap(
+          map: _output,
+          key: phrase.langCode,
+          value: phrase.value,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> decipherPhrasesLangsMap({
+    @required Map<String, dynamic> langsMap,
+    @required String countryID,
+  }){
+
+    final List<Phrase> _output = <Phrase>[];
+
+    if (langsMap != null){
+
+      final List<String> _keys = langsMap.keys.toList(); // lang codes
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          final String _value = langsMap[key];
+
+          final Phrase _phrase = Phrase(
+            id: countryID,
+            langCode: key,
+            value: _value,
+            trigram: Stringer.createTrigram(
+              input: TextMod.fixCountryName(_value),
+            ),
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT : used to upload to firebase
   static Map<String, dynamic> cipherOneLangPhrasesToMap({
     @required List<Phrase> phrases,
@@ -204,7 +317,7 @@ class Phrase {
         _phrasesMap = Mapper.insertPairInMap(
           map: _phrasesMap,
           key: phrase.id,
-          value: phrase.toMap(
+          value: phrase.toDefaultMap(
             includeID: false,
             includeTrigram: addTrigrams,
             includeLangCode: includeLangCode,
@@ -233,7 +346,7 @@ class Phrase {
 
       for (final Phrase phrase in phrases){
 
-        final Map<String, dynamic> _map = phrase.toMap(
+        final Map<String, dynamic> _map = phrase.toDefaultMap(
           includeID: true,
           includeTrigram: addTrigrams,
           includeLangCode: includeLangCode,
@@ -247,29 +360,6 @@ class Phrase {
     }
 
     return _maps;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Phrase decipherPhrase({
-    @required String id,
-    @required Map<String, dynamic> map,
-    String langCodeOverride,
-    bool includeTrigram,
-  }) {
-
-    final List<String> _trigram = _getTrigramIfIncluded(
-      includeTrigram: includeTrigram,
-      existingTrigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
-      originalString: map['value'],
-    );
-
-    return Phrase(
-      id: id ?? map['id'],
-      value: map['value'],
-      langCode: langCodeOverride ?? map['langCode'],
-      trigram: _trigram,
-    );
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -287,7 +377,7 @@ class Phrase {
       for (int i = 0; i<_keys.length; i++){
 
         final String _key = _keys[i];
-        final Phrase _phrase = decipherPhrase(
+        final Phrase _phrase = decipherPhraseDefaultMap(
           id: _key,
           map: map[_key],
           langCodeOverride: addLangCodeOverride,
@@ -317,7 +407,7 @@ class Phrase {
 
         final Map<String, dynamic> _map = maps[i];
 
-        final Phrase _phrase = decipherPhrase(
+        final Phrase _phrase = decipherPhraseDefaultMap(
           id: _map['id'],
           map: _map,
           langCodeOverride: langCodeOverride,
@@ -342,7 +432,7 @@ class Phrase {
 
       for (final Map<String, dynamic> map in maps){
 
-        final Phrase _phrase = decipherPhrase(
+        final Phrase _phrase = decipherPhraseDefaultMap(
           id: map['id'],
           map: map,
           langCodeOverride: map['langCode'],
@@ -369,7 +459,7 @@ class Phrase {
 
       for (final Phrase phrase in phrases){
 
-        Map<String, dynamic> _map = phrase.toMap(
+        Map<String, dynamic> _map = phrase.toDefaultMap(
           includeID: true,
           includeTrigram: includeTrigrams,
           overrideLangCode: phrase.langCode,

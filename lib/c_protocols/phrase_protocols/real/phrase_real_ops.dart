@@ -35,7 +35,7 @@ class PhraseRealOps {
         await Real.createNamedDoc(
             collName: RealColl.phrases,
             docName: langCode,
-            map: Phrase.cipherPhrasesToReal(_phrasesOfLang),
+            map: Phrase.cipherPhrasesToPhidsMap(_phrasesOfLang),
         );
 
       }
@@ -99,7 +99,7 @@ class PhraseRealOps {
 
       if (_map != null){
 
-        _output = Phrase.decipherPhrasesFromReal(
+        _output = Phrase.decipherPhrasesFromPhidsMap(
           langCode: langCode,
           map: _map,
           includeTrigram: createTrigram,
@@ -130,7 +130,7 @@ class PhraseRealOps {
       await Real.updateDoc(
           collName: RealColl.phrases,
           docName: langCode,
-          map: Phrase.cipherPhrasesToReal(updatedPhrases),
+          map: Phrase.cipherPhrasesToPhidsMap(updatedPhrases),
       );
 
     }

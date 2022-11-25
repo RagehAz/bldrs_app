@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -76,6 +77,35 @@ class ZoneRealOps {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// READ CITY MODEL
+
   // --------------------
+  /// TASK : TEST ME
+  static Future<CityModel> readCity({
+    @required String countryID,
+    @required String cityID,
+  }) async {
+    CityModel _output;
+
+    if (countryID != null && cityID != null){
+
+      final Map<String, dynamic> _cityMap = await Real.readPath(
+        path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID',
+      );
+
+      _output = CityModel.decipherCityMap(
+        map: _cityMap,
+        fromJSON: true,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+
+  // -----------------------------------------------------------------------------
   void f(){}
 }
