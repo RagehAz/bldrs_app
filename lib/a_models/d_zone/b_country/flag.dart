@@ -466,7 +466,7 @@ class Flag {
 
     for (final Flag flag in allFlags){
 
-      final List<Phrase> _phrasesOfGivenLangCodes = Phrase.getPhrasesByLangCodes(
+      final List<Phrase> _phrasesOfGivenLangCodes = Phrase.searchPhrasesByLangs(
         phrases: flag.phrases,
         langCodes: langCodes,
       );
