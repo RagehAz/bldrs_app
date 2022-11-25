@@ -1,33 +1,23 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class DistrictModel{
   /// --------------------------------------------------------------------------
   const DistrictModel({
-    this.countryID,
-    this.cityID,
-    this.districtID,
-    this.isActivated,
-    this.isPublic,
-    this.phrases,
+    @required this.id,
+    @required this.level,
+    @required this.phrases,
   });
   /// --------------------------------------------------------------------------
-  final String countryID;
-  final String cityID;
-  final String districtID;
-  /// dashboard manual switch to deactivate entire cities.
-  final bool isActivated;
-  /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
-  /// then all flyers will be visible to users not only between bzz
-  final bool isPublic;
-  final List<Phrase> phrases; /// was not changed in firebase sub docs,, kessa ba2a
-    // -----------------------------------------------------------------------------
+  final String id;
+  final ZoneLevelType level;
+  final List<Phrase> phrases;
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
@@ -35,53 +25,59 @@ class DistrictModel{
   /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
     @required bool toJSON,
+    @required bool toLDB,
   }){
-    return <String, Object>{
-      'countryID' : countryID,
-      'cityID' : cityID,
-      'districtID' : TextMod.fixCountryName(districtID),
-      'isActivated' : isActivated,
-      'isPublic' : isPublic,
-      'phrases' : CountryModel.oldCipherZonePhrases(
-        phrases: phrases,
-        includeTrigram: toJSON,
-      ),
 
+    Map<String, dynamic> _map = {
+      'id': id,
+      'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
+      'level': ZoneLevel.cipherLevelType(level),
     };
+
+    if (toLDB == true){
+      _map = Mapper.insertMapInMap(
+        baseMap: _map,
+        insert: {
+          'id': id,
+        },
+      );
+    }
+
+    return _map;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String,dynamic> cipherDistricts({
     @required List<DistrictModel> districts,
     @required bool toJSON,
+    @required bool toLDB,
   }){
-
     Map<String, dynamic> _districtsMap = <String, dynamic>{};
 
-    for (final DistrictModel district in districts){
-
-      _districtsMap = Mapper.insertPairInMap(
-        map: _districtsMap,
-        key: TextMod.fixCountryName(district.districtID),
-        value: district.toMap(toJSON: toJSON),
-      );
-
+    if (Mapper.checkCanLoopList(districts) == true){
+      for (final DistrictModel district in districts){
+        _districtsMap = Mapper.insertPairInMap(
+          map: _districtsMap,
+          key: district.id,
+          value: district.toMap(
+            toJSON: toJSON,
+            toLDB: toLDB,
+          ),
+        );
+      }
     }
 
     return _districtsMap;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DistrictModel decipherDistrict(Map<String, dynamic> map){
+  static DistrictModel decipherDistrict(dynamic map){
     return DistrictModel(
-      countryID : map['countryID'],
-      cityID : map['cityID'],
-      districtID : map['districtID'],
-      isActivated : map['isActivated'],
-      isPublic : map['isPublic'],
-      phrases: CountryModel.oldDecipherZonePhrases(
-        phrasesMap: map['phrases'],
-        zoneID: map['districtID'],
+      id : map['id'],
+      level: ZoneLevel.decipherLevelType(map['level']),
+      phrases: Phrase.decipherPhrasesLangsMap(
+        langsMap: map['phrases'],
+        phid: map['id'],
       ),
 
     );
@@ -94,15 +90,20 @@ class DistrictModel{
 
     if (map != null){
 
-      final List<String> _keys = map.keys.toList();
-      final List<dynamic> _values = map.values.toList();
+      final List<String> districtsIDs = map.keys.toList();
+      final List<dynamic> _districtsMaps = map.values.toList();
 
-      if (Mapper.checkCanLoopList(_keys)){
+      if (Mapper.checkCanLoopList(districtsIDs)){
 
-        for (int i = 0; i<_keys.length; i++){
+        for (int i = 0; i< districtsIDs.length; i++){
 
-          final DistrictModel _district = decipherDistrict(_values[i]);
+          final Map<String, dynamic> _districtMapWithID = Mapper.insertPairInMap(
+              map: _districtsMaps[i],
+              key:'id',
+              value: districtsIDs[i],
+          );
 
+          final DistrictModel _district = decipherDistrict(_districtMapWithID);
           _districts.add(_district);
 
         }
@@ -158,14 +159,13 @@ class DistrictModel{
     @required String districtID
   }){
     DistrictModel _district;
-    if (Mapper.checkCanLoopList(districts)){
 
-      _district = districts.firstWhere(
-              (DistrictModel district) => district.districtID == districtID,
+    if (Mapper.checkCanLoopList(districts)){
+      _district = districts.firstWhere((DistrictModel district) => district.id == districtID,
           orElse: () => null
       );
-
     }
+
     return _district;
   }
   // -----------------------------------------------------------------------------
@@ -234,7 +234,7 @@ class DistrictModel{
       for (final DistrictModel district in sourceDistricts){
 
         final Phrase _districtPhrase = Phrase.searchPhraseByIDAndLangCode(
-          phid: district.districtID,
+          phid: district.id,
           langCode: langCode,
           phrases: district.phrases,
         );
@@ -299,14 +299,7 @@ class DistrictModel{
   /// TESTED : WORKS PERFECT
   void blogDistrict(){
 
-    blog('districtID : $districtID : '
-        'cityID : $cityID : '
-        'countryID : $countryID : '
-        'isActivated : $isActivated : '
-        'isPublic : $isPublic : '
-        'has ${phrases.length} phrases'
-    );
-    blog('district phrases are : -');
+    blog('districtID : $id : has ${phrases.length} phrases : level : $level');
     Phrase.blogPhrases(phrases);
 
   }
@@ -319,9 +312,7 @@ class DistrictModel{
       blog('BLOGGING ${districts.length} DISTRICTS -------------------------------- STAR');
 
       for (final DistrictModel district in districts){
-
         district.blogDistrict();
-
       }
 
       blog('BLOGGING ----- DISTRICTS -------------------------------- END');
@@ -384,11 +375,8 @@ class DistrictModel{
       if (district1 != null && district2 != null){
 
         if (
-        district1.countryID == district2.countryID &&
-            district1.cityID == district2.cityID &&
-            district1.districtID == district2.districtID &&
-            district1.isActivated == district2.isActivated &&
-            district1.isPublic == district2.isPublic &&
+            district1.id == district2.id &&
+            district1.level == district2.level &&
             Phrase.checkPhrasesListsAreIdentical(phrases1: district1.phrases, phrases2: district2.phrases) == true
         ){
           _identical = true;
@@ -468,11 +456,8 @@ class DistrictModel{
   // --------------------
   @override
   int get hashCode =>
-      countryID.hashCode^
-      cityID.hashCode^
-      districtID.hashCode^
-      isActivated.hashCode^
-      isPublic.hashCode^
+      id.hashCode^
+      level.hashCode^
       phrases.hashCode;
   // -----------------------------------------------------------------------------
 }
