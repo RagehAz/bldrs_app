@@ -100,9 +100,10 @@ class ZoneRealOps {
       );
 
 
-      _output = CityModel.decipherCityMap(
+      _output = CityModel.decipherCity(
         map: _map,
         fromJSON: true,
+        cityID: cityID,
       );
 
     }
@@ -127,7 +128,7 @@ class ZoneRealOps {
     Mapper.blogMaps(_maps, invoker: 'readCountryCities');
 
 
-    return CityModel.decipherCitiesMaps(maps: _maps, fromJSON: true,);
+    return CityModel.decipherCities(maps: _maps, fromJSON: true,);
 
   }
   // -----------------------------------------------------------------------------

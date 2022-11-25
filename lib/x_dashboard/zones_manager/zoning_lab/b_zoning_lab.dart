@@ -283,8 +283,8 @@ class _ZoningLabState extends State<ZoningLab> {
             onTap: () async {
 
               final CityModel _city = await ZoneRealOps.readCity(
-                  countryID: 's',
-                  cityID: 's',
+                  countryID: 'sau',
+                  cityID: 'sau_khamis_mushait',
               );
 
               _city?.blogCity();
@@ -298,7 +298,7 @@ class _ZoningLabState extends State<ZoningLab> {
             onTap: () async {
 
               final List<CityModel> _cities = await ZoneRealOps.readCountryCities(
-                countryID: 'bhr',
+                countryID: 'egy',
               );
 
               blog('read ${_cities.length} Cities');

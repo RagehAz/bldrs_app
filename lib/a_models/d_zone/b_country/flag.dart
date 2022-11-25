@@ -128,7 +128,7 @@ class Flag {
         langCodes: map['langCodes'],
         areaSqKm: map['areaSqKm'],
         phrases: Phrase.decipherPhrasesLangsMap(
-          countryID: map['id'],
+          phid: map['id'],
           langsMap: map['phrases'],
         ),
       );

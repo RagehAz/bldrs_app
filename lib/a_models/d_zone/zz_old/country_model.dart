@@ -118,7 +118,7 @@ class CountryModel {
   // --------------------
   /// TASK : TEST ME
   static List<Phrase> oldDecipherZonePhrases({
-    @required Map<String, dynamic> phrasesMap,
+    @required dynamic phrasesMap,
     @required String zoneID,
   }){
 

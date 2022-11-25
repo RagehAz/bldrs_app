@@ -29,14 +29,14 @@ class CityModel {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
     @required bool toJSON,
     @required bool toLDB,
   }){
 
     Map<String, dynamic> _map = {
-      'districts': DistrictModel.cipherDistricts(districts: districts, toJSON: toJSON,),
+      'districts': DistrictModel.cipherDistricts(districts: districts, toJSON: toJSON, toLDB: toLDB),
       'population': population,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
@@ -55,7 +55,7 @@ class CityModel {
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherCities({
     @required List<CityModel> cities,
     @required bool toJSON,
@@ -81,49 +81,41 @@ class CityModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static CityModel decipherCityMap({
+  /// TESTED : WORKS PERFECT
+  static CityModel decipherCity({
     @required Map<String, dynamic> map,
+    @required String cityID,
     @required bool fromJSON,
   }) {
     CityModel _city;
 
     if (map != null) {
       _city = CityModel(
-        cityID: map['id'],
-        districts: DistrictModel.decipherDistricts(
-            Mapper.getMapFromInternalHashLinkedMapObjectObject(
-                internalHashLinkedMapObjectObject: map['districts']
-            )
-        ),
+        cityID: cityID,
+        districts: DistrictModel.decipherDistricts(map['districts']),
         population: map['population'],
-        position: Atlas.decipherGeoPoint(
-          point: map['position'],
-          fromJSON: fromJSON,
-        ),
-        phrases: Phrase.decipherPhrasesLangsMap(
-          langsMap: Mapper.getMapFromInternalHashLinkedMapObjectObject(internalHashLinkedMapObjectObject: map['phrases']),
-          countryID: map['id'],
-        ),
+        position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON,),
+        phrases: Phrase.decipherPhrasesLangsMap(langsMap: map['phrases'], phid: cityID,),
       );
     }
 
     return _city;
   }
   // --------------------
-  /// TASK : TEST ME
-  static List<CityModel> decipherCitiesMaps({
+  /// TESTED : WORKS PERFECT
+  static List<CityModel> decipherCities({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
   }) {
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(maps)) {
+    if (Mapper.checkCanLoopList(maps) == true) {
       for (final Map<String, dynamic> map in maps) {
         _cities.add(
-            decipherCityMap(
+            decipherCity(
               map: map,
               fromJSON: fromJSON,
+              cityID: map['id'],
             )
         );
       }
@@ -162,6 +154,7 @@ class CityModel {
   /// GETTERS
 
   // --------------------
+  /// TASK : TEST ME
   static List<String> getTranslatedCitiesNamesFromCities({
     @required BuildContext context,
     @required List<CityModel> cities,
@@ -179,6 +172,7 @@ class CityModel {
     return null;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<MapModel> getCitiesNamesMapModels({
     @required BuildContext context,
     @required List<CityModel> cities,
@@ -207,6 +201,7 @@ class CityModel {
     return MapModel.sortValuesAlphabetically(_citiesMapModels);
   }
   // --------------------
+  /// TASK : TEST ME
   static CityModel getCityFromCities({
     @required List<CityModel> cities,
     @required String cityID,
@@ -242,6 +237,7 @@ class CityModel {
     return _cityName;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<String> getCitiesIDsFromCities({
     @required List<CityModel> cities,
   }) {
@@ -257,6 +253,7 @@ class CityModel {
     return _citiesIDs;
   }
   // --------------------
+  /// TASK : TEST ME
   static String translateCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
     // final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
     //     context: context,
@@ -302,6 +299,7 @@ class CityModel {
   /// BLOGGERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogCity() {
     blog('CITY - PRINT --------------------------------------- START');
 
@@ -405,6 +403,7 @@ class CityModel {
   /// SORTING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<CityModel> sortCitiesPerNearestToCity({
     @required CityModel city,
     @required List<CityModel> cities,
@@ -463,6 +462,7 @@ class CityModel {
   /// MODIFIERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<CityModel> addCityToCities({
     @required List<CityModel> cities,
     @required CityModel city,
