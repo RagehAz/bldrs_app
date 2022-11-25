@@ -277,7 +277,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                         translate: true,
                       ),
                       verse: Verse(
-                        text: zone.countryName,
+                        text: zone?.countryName,
                         translate: false,
                       ),
                       icon: zone?.flag,
@@ -297,7 +297,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                         translate: true,
                       ),
                       verse: Verse(
-                        text: zone.cityName,
+                        text: zone?.cityName,
                         translate: false,
                       ),
                       onTap: () => _onCityButtonTap(context: context),
@@ -318,7 +318,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                           translate: true,
                         ),
                         verse: Verse(
-                          text: zone.districtName,
+                          text: zone?.districtName,
                           translate: false,
                         ),
                         onTap: () => _onDistrictButtonTap(context: context),

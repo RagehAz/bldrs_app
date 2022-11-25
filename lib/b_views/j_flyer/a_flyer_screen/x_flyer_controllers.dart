@@ -49,10 +49,12 @@ Future<CountryModel> getFlyerBzCountry({
 /// TASK : TEST ME
 Future<CityModel> getFlyerBzCity({
   @required String cityID,
+  @required String countryID,
 }) async {
 
   final CityModel _city = await ZoneProtocols.fetchCity(
-      cityID: cityID
+      cityID: cityID,
+      countryID: countryID,
   );
 
   return _city;
