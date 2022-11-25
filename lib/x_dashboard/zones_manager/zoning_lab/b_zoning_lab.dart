@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
@@ -15,6 +16,7 @@ import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -34,63 +36,11 @@ class ZoningLab extends StatefulWidget {
 }
 
 class _ZoningLabState extends State<ZoningLab> {
+  // -----------------------------------------------------------------------------
 
   ZoneModel _bubbleZone;
 
   // -----------------------------------------------------------------------------
-  /// DONE : KEEP FOR REFERENCE
-  Future<void> _createISO3JSONBlog() async {
-    blog('CREATE ISO3 MAP : START');
-
-    /*
-    final int _totalLength = CountryModel.getAllCountriesIDs().length;
-    final List<ISO3> _iso3s = [];
-
-    // final List<CountryModel> _allCountries =
-    await ExoticMethods.fetchAllCountryModels(
-      onRead: (int index, CountryModel countryModel) async {
-
-        ISO3 _iso3;
-
-        if (countryModel != null){
-          _iso3 = ISO3(
-            id: countryModel.id,
-            iso2: countryModel.iso2 ?? xGetIso2(countryModel.id),
-            flag: Flag.getFlagIcon(countryModel.id),
-            region: countryModel.region,
-            continent: countryModel.continent,
-            language: countryModel.language,
-            currencyID: countryModel.currency ?? BigMac.getCurrencyByCountryIdFromBigMacs(
-              countryID: countryModel.id,
-            ),
-            phoneCode: countryModel.phoneCode ?? CountryModel.getCountryPhoneCode(countryModel.id),
-            capital: countryModel.capital ?? xGetCapital(countryModel.id),
-            langCodes: countryModel.langCodes ?? xGetLangs(countryModel.id),
-            areaSqKm: countryModel.areaSqKm ?? xGetAreaKM(countryModel.id),
-            phrases: countryModel.phrases,
-          );
-
-        }
-
-        if (_iso3 != null && _iso3.iso2 != null){
-          _iso3s.add(_iso3);
-          blog('DONE : #${index + 1} / $_totalLength');
-        }
-        else {
-          blog('SKIP : #${index + 1} / $_totalLength');
-        }
-
-      },
-    );
-
-    blog('done with ${_iso3s.length} iso3s');
-
-
-    ISO3.blogISO3sToJSON(_iso3s);
-     */
-    blog('CREATE ISO3 MAP : END : already done and kept for reference');
-  }
-  // --------------------
   /// DONE : KEEP FOR REFERENCE
   Future<void> _createCurrenciesJSON() async {
 
@@ -178,28 +128,6 @@ class _ZoningLabState extends State<ZoningLab> {
               if (zone != null){
                 _bubbleZone = zone;
               }
-
-            },
-          ),
-
-          // -----------------------------------
-
-          /// SEPARATOR
-          const SeparatorLine(),
-
-          /// CREATE ISO3 JSON
-          WideButton(
-            verse: Verse.plain('Create ISO3 map'),
-            onTap: _createISO3JSONBlog,
-          ),
-
-          /// GET ISO3 JSON
-          WideButton(
-            verse: Verse.plain('Get ISO3 JSON map'),
-            onTap: () async {
-
-              final List<Flag> _iso3s = await ZoneJSONOps.readAllISO3s();
-              Flag.blogFlags(_iso3s);
 
             },
           ),
@@ -407,30 +335,13 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Read Cities Levels'),
             onTap: () async {
 
-              final dynamic _dynamic = await Real.readPath(
-                path: 'zones/citiesLevels',
-              );
+              /// TASK : RETEST ME
+              final List<String> _countriesIDs = Flag.getAllCountriesIDs();
 
-              final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-                internalHashLinkedMapObjectObject: _dynamic,
-              );
+              for (final String countryID in _countriesIDs){
 
-              if (_map != null){
-
-                final List<String> _countriesIDs = _map.keys.toList();
-
-                for (final String countryID in _countriesIDs){
-
-                  final Map<String, dynamic> _countryMap = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-                    internalHashLinkedMapObjectObject: _map[countryID],
-                  );
-
-                  final ZoneLevel _lvl = ZoneLevel.decipher(_countryMap);
-                  _lvl.blogLeveL();
-
-                }
-
-                blog('done with : ${_countriesIDs.length} countries');
+                final ZoneLevel _lvl = await ZoneRealOps.readCitiesLevels(countryID);
+                _lvl.blogLeveL();
 
               }
 
@@ -448,7 +359,7 @@ class _ZoningLabState extends State<ZoningLab> {
             isActive: false,
             onTap: () async {
 
-              final List<Flag> _iso3s = await ZoneJSONOps.readAllISO3s();
+              const List<Flag> _iso3s = allFlags;
 
               final List<String> hidden = [];
               final List<String> inactive = [];
@@ -496,15 +407,7 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Read Countries Levels'),
             onTap: () async {
 
-              final dynamic _dynamic = await Real.readPath(
-                path: 'zones/countriesLevels',
-              );
-
-              final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-                internalHashLinkedMapObjectObject: _dynamic,
-              );
-
-              final ZoneLevel _lvl = ZoneLevel.decipher(_map);
+              final ZoneLevel _lvl = await ZoneRealOps.readCountriesLevels();
               _lvl.blogLeveL();
 
             },
@@ -520,7 +423,7 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Create Flags'),
             onTap: () async {
 
-              final List<Flag> _iso3s = await ZoneJSONOps.readAllISO3s();
+              const List<Flag> _iso3s = allFlags;
 
               Flag.blogFlags(_iso3s);
 

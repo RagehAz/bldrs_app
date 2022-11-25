@@ -82,7 +82,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
         List<CityModel> _growingList = <CityModel>[];
         final List<CityModel> _fetchedCities = await ZoneProtocols.fetchCities(
-          citiesIDs: _currentZone.value.countryModel?.citiesIDs,
+          citiesIDs: _currentZone.value.countryModel?.citiesIDs?.getAllIDs(),
           onCityLoaded: (CityModel city) async {
 
             if (mounted == true){
@@ -277,7 +277,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         const Expander(),
 
         /// LOADING COUNTER
-        if (Mapper.checkCanLoopList(widget.country?.citiesIDs) == true)
+        if (Mapper.checkCanLoopList(widget.country?.citiesIDs?.getAllIDs()) == true)
           ValueListenableBuilder(
               valueListenable: _loading,
               builder: (_, bool isLoading, Widget child){
@@ -288,7 +288,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                     builder: (_, List<CityModel> cities, Widget child){
 
                       return SuperVerse(
-                        verse: Verse.plain('${cities.length} / ${widget.country.citiesIDs.length}'),
+                        verse: Verse.plain('${cities.length} / ${widget.country.citiesIDs.getAllIDs().length}'),
                         weight: VerseWeight.thin,
                         size: 1,
                         margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),

@@ -218,11 +218,11 @@ class RealColl {
   // static const String recordingReviews = 'recordingReviews';
   static const String reviews = 'reviews';
   static const String agreesOnReviews = 'agreesOnReviews';
-// ----------------------------------
+  // ----------------------------------
   /// USER
   // --------------------
   static const String recordingSearches = 'recordingSearches';
-// ----------------------------------
+  // ----------------------------------
   /// QUESTIONS - ANSWERS
   // --------------------
   static const String recordingQuestions = 'recordingQuestions';
@@ -252,8 +252,14 @@ class RealColl {
   /// NOTES
   // --------------------
   static const String notes = 'notes';
-
+  // -----------------------------------------------------------------------------
+  /// STATISTICS
+  // --------------------
   static const String statistics = 'statistics';
+  // -----------------------------------------------------------------------------
+  /// ZONES LEVELS
+  // --------------------
+  static const String zones = 'zones';
   // -----------------------------------------------------------------------------
 }
 
@@ -273,5 +279,10 @@ class RealDoc {
   static const String statistics_countries = 'countries';
   static const String statistics_cities = 'cities';
   static const String statistics_districts = 'districts';
+  // -----------------------------------------------------------------------------
+  /// ZONES LEVELS
+  // --------------------
+  static const String zones_countriesLevels = 'countriesLevels';
+  static const String zones_citiesLevels = 'citiesLevels';
   // -----------------------------------------------------------------------------
 }
