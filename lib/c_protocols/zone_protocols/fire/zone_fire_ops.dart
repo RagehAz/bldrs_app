@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -36,6 +37,8 @@ class ZoneFireOps {
   /// COUNTRY
 
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> readCountryOps({
     @required String countryID,
@@ -54,6 +57,7 @@ class ZoneFireOps {
 
     return _countryModel;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CITY
@@ -79,19 +83,19 @@ class ZoneFireOps {
     return _cityModel;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<List<CityModel>> readCountryCitiesOps({
     @required String countryID,
   }) async {
+    final List<CityModel> _cities = <CityModel>[];
 
-    final CountryModel _country = await readCountryOps(
+    final CountryModel _country = await ZoneRealOps.readCountry(
       countryID: countryID,
     );
 
-    final List<CityModel> _cities = <CityModel>[];
-
     if (_country != null) {
-      final List<String> _citiesIDs = _country.citiesIDs;
+
+      final List<String> _citiesIDs = _country.citiesIDs.getAllIDs();
 
       if (Mapper.checkCanLoopList(_citiesIDs)) {
         for (final String id in _citiesIDs) {
