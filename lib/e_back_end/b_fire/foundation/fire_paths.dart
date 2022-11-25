@@ -88,10 +88,7 @@ abstract class FireDoc {
   static const String admin_appControls = 'appControls';
 
   static const String zones_cities = 'cities';
-  static const String zones_countries = 'countries';
-  static const String zones_continents = 'continents';
   static const String zones_usa = 'usa'; /// TASK : temp
-  static const String zones_currencies = 'currencies';
 
   static const String phrases_en = 'en';
   static const String phrases_ar = 'ar';
@@ -118,7 +115,6 @@ abstract class FireSubColl {
   static const String flyers_flyer_reviews = 'reviews';
 
   static const String zones_cities_cities = 'cities';
-  static const String zones_countries_countries = 'countries';
 
 }
 /// -----------------------

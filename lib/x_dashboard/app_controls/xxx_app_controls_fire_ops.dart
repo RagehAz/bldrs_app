@@ -1,5 +1,5 @@
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/x_dashboard/app_controls/xx_app_controls_model.dart';
 import 'package:flutter/cupertino.dart';
 
