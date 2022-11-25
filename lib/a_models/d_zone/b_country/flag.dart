@@ -226,7 +226,7 @@ class Flag {
   /// FLAG GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Flag getFlagFromFlagsByCountryID({
     @required List<Flag> flags,
     @required String countryID,
@@ -247,7 +247,7 @@ class Flag {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Flag getFlagFromFlagsByISO2({
     @required List<Flag> flags,
     @required String iso2,
@@ -272,7 +272,7 @@ class Flag {
   /// ID GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getCountryIDByISO2(String iso2){
     String _output;
 
@@ -299,7 +299,7 @@ class Flag {
     return _ids;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> getAllCountriesIDsSortedByName(BuildContext context){
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
@@ -340,7 +340,7 @@ class Flag {
   /// ICON GETTER
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getCountryIcon(String countryID) {
     String _output = Iconz.dvBlankSVG;
 
@@ -362,7 +362,7 @@ class Flag {
   /// PHONE CODE GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getCountryPhoneCode(String countryID){
     String _output;
 
@@ -384,7 +384,7 @@ class Flag {
   /// PHONE CODE GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getCountryCurrencyID(String countryID){
     String _output;
 
@@ -406,7 +406,7 @@ class Flag {
   /// TRANSLATION GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Phrase getCountryPhrase({
     @required String countryID,
     @required String langCode,
@@ -431,7 +431,7 @@ class Flag {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getCountryName({
     @required String countryID,
     @required String langCode,
@@ -445,7 +445,7 @@ class Flag {
     return _phrase?.value;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getCountryNameByCurrentLang({
     @required BuildContext context,
     @required String countryID,
