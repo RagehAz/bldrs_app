@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/district_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_search_view.dart';

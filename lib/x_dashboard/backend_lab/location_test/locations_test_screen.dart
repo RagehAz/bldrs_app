@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -203,35 +202,39 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                   // onSearchChanged: (String val) async {blog(val);},
                     onSearchSubmit: (String val) async {
 
-                      final CityModel _result = await ZoneProtocols.fetchCityByName(
-                          context: context,
-                          cityName: val,
-                          langCode: 'en'
-                      );
+                    blog('you need to select a country before you can search cities by name');
 
-                      if (_result != null) {
-
-                        final String _cityCountryID = _result.getCountryID();
-
-                        final CountryModel _country = await ZoneProtocols.fetchCountry(
-                            countryID: _cityCountryID,
-                        );
-
-                        setState(() {
-                          _countryModel = _country;
-                          _countryID = _cityCountryID;
-                          _cityModel = _result;
-                        });
-
-                        _result.blogCity();
-                      }
-
-                      else {
-                        await TopDialog.showTopDialog(
-                            context: context,
-                            firstVerse: Verse.plain('No city found'),
-                        );
-                      }
+                      //
+                      // final CityModel _result = await ZoneProtocols.fetchCityByName(
+                      //     context: context,
+                      //     cityName: val,
+                      //     langCode: 'en',
+                      //   countryID: _countryID
+                      // );
+                      //
+                      // if (_result != null) {
+                      //
+                      //   final String _cityCountryID = _result.getCountryID();
+                      //
+                      //   final CountryModel _country = await ZoneProtocols.fetchCountry(
+                      //       countryID: _cityCountryID,
+                      //   );
+                      //
+                      //   setState(() {
+                      //     _countryModel = _country;
+                      //     _countryID = _cityCountryID;
+                      //     _cityModel = _result;
+                      //   });
+                      //
+                      //   _result.blogCity();
+                      // }
+                      //
+                      // else {
+                      //   await TopDialog.showTopDialog(
+                      //       context: context,
+                      //       firstVerse: Verse.plain('No city found'),
+                      //   );
+                      // }
 
                     },
                     searchIconIsOn: false),

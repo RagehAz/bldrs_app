@@ -1,5 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------

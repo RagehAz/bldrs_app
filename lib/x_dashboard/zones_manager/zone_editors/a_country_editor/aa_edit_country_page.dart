@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';

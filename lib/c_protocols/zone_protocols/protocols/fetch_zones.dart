@@ -1,21 +1,96 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 
 class FetchZoneProtocols {
   // -----------------------------------------------------------------------------
 
   const FetchZoneProtocols();
 
+  // -----------------------------------------------------------------------------
+
+  /// ZONE
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<ZoneModel> fetchZoneModelByGeoPoint({
+    @required BuildContext context,
+    @required GeoPoint geoPoint
+  }) async {
+
+    ZoneModel _zoneModel;
+
+    if (geoPoint != null){
+
+      final List<Placemark> _marks = await LocationOps.getPlaceMarksFromGeoPoint(geoPoint: geoPoint);
+
+      // blog('_getCountryData : got place marks : ${_marks.length}');
+
+      if (Mapper.checkCanLoopList(_marks)){
+
+        final Placemark _mark = _marks[0];
+
+        // blog('mark is : $_mark');
+
+        final String _countryISO2 = _mark.isoCountryCode;
+        final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
+
+        /// try by sub admin area
+        final String _subAdministrativeArea = _mark.subAdministrativeArea;
+        CityModel _foundCity = await fetchCityByName(
+          context: context,
+          countryID: _countryID,
+          cityName: _subAdministrativeArea,
+          langCode: 'en',
+        );
+
+        /// try by admin area
+        if (_foundCity == null){
+          final String _administrativeArea = _mark.administrativeArea;
+          _foundCity = await fetchCityByName(
+            context: context,
+            countryID: _countryID,
+            cityName: _administrativeArea,
+            langCode: 'en',
+          );
+        }
+
+        /// try by locality
+        if (_foundCity == null){
+          final String _locality = _mark.locality;
+          _foundCity = await fetchCityByName(
+            context: context,
+            countryID: _countryID,
+            cityName: _locality,
+            langCode: 'en',
+          );
+        }
+
+        _zoneModel = ZoneModel(
+          countryID: _countryID,
+          cityID: _foundCity?.cityID,
+        );
+
+      }
+
+    }
+
+    return _zoneModel;
+  }
   // -----------------------------------------------------------------------------
 
   /// COUNTRY
@@ -82,12 +157,13 @@ class FetchZoneProtocols {
 
     return _output;
   }
+
   // -----------------------------------------------------------------------------
 
   /// CITY
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCity({
     @required String countryID,
     @required String cityID,
