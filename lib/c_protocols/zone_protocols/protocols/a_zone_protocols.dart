@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
@@ -52,8 +52,8 @@ class ZoneProtocols {
 
         // blog('mark is : $_mark');
 
-        final String _countryIso = _mark.isoCountryCode;
-        final String _countryID = CountryIso.getCountryIDByIso(_countryIso);
+        final String _countryISO2 = _mark.isoCountryCode;
+        final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
 
         /// try by sub admin area
         final String _subAdministrativeArea = _mark.subAdministrativeArea;

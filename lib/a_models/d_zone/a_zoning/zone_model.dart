@@ -1,10 +1,11 @@
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/district_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ip/zone_ip_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -49,7 +50,7 @@ class ZoneModel {
     final ZoneModel _zone = zoneModel ?? ZoneProvider.proGetCurrentZone(
       context: context,
       listen: false,
-    ) ?? await ZoneIPOps.superGetZoneByIP(context);
+    ) ?? await ZoneIPOps.getZoneByIP(context);
 
     return ZoneProtocols.completeZoneModel(
       context: context,
@@ -386,7 +387,7 @@ class ZoneModel {
 
       if (zoneModel.countryID != null){
 
-        final String _countryName = CountryModel.translateCountryName(
+        final String _countryName = Flag.getCountryNameByCurrentLang(
           context: context,
           countryID: zoneModel.countryID,
         );

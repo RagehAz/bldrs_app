@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
@@ -195,7 +195,7 @@ Future<void> _onSelectCountryAsNoteSender({
     note.value = note.value.copyWith(
       parties: note.value.parties.copyWith(
         senderID: _countryModel.id,
-        senderImageURL: Flag.getFlagIcon(_countryModel.id),
+        senderImageURL: Flag.getFlagIcon(_countryModel.id), /// TASK : THIS BRINGS LOCAL PATH,, ARE YOU SURE ? IT WANTS A URL MAN
         senderType: senderType,
       ),
     );
