@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_fire_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/fire/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
@@ -60,24 +61,29 @@ class FetchZoneProtocols {
   static Future<List<CountryModel>> fetchCountries({
     @required List<String> countriesIDs,
   }) async {
+    final List<CountryModel> _output = <CountryModel>[];
 
-    final List<CountryModel> _countries = <CountryModel>[];
+    if (Mapper.checkCanLoopList(countriesIDs) == true){
 
-    if (Mapper.checkCanLoopList(countriesIDs)){
+      await Future.wait(<Future>[
 
-      for (final String id in countriesIDs){
+        ...List.generate(countriesIDs.length, (index){
 
-        final CountryModel _country = await fetchCountry(
-          countryID: id,
-        );
+          return fetchCountry(
+            countryID: countriesIDs[index],
+          ).then((CountryModel country){
+            if (country != null){
+              _output.add(country);
+            }
+          });
 
-        _countries.add(_country);
+        }),
 
-      }
+      ]);
 
     }
 
-    return _countries;
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -258,32 +264,8 @@ class FetchZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> fetchContinents() async {
-
-    List<Continent> _continents = await ZoneLDBOps.readContinents();
-
-    if (Mapper.checkCanLoopList(_continents) == true){
-      // blog('fetchContinents : All Continents FOUND in LDB');
-    }
-
-    else {
-
-      _continents = await ZoneFireOps.readContinentsOps();
-
-      if (_continents != null){
-        // blog('fetchContinents : All Continents FOUND in FIREBASE and inserted in LDB');
-
-        await ZoneLDBOps.insertContinents(_continents);
-
-      }
-
-    }
-
-    if (_continents == null){
-      // blog('fetchContinents : All Continents NOT FOUND');
-    }
-
+    final List<Continent> _continents = await ZoneJSONOps.readAllContinents();
     return _continents;
-
   }
   // --------------------
 
