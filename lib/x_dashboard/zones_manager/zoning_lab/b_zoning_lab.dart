@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/iso3.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
@@ -21,7 +20,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
-import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:flutter/material.dart';
 
 class ZoningLab extends StatefulWidget {
@@ -380,6 +378,7 @@ class _ZoningLabState extends State<ZoningLab> {
             isActive: false,
             onTap: () async {
 
+              /*
               await ExoticMethods.fetchAllCountryModels(
                 onRead: (int index, CountryModel countryModel) async {
 
@@ -397,6 +396,8 @@ class _ZoningLabState extends State<ZoningLab> {
 
                 },
               );
+
+ */
 
             },
           ),
