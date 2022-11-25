@@ -1,4 +1,3 @@
-
 import 'package:bldrs/a_models/d_zone/x_planet/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -185,6 +184,16 @@ class Continent {
       case 'South America': return Iconz.contSouthAmerica; break;
       default: return null;
     }
+  }
+  // --------------------
+  static List<String> getCountriesIDsOfContinent(Continent continent) {
+    final List<String> _countriesIDs = <String>[];
+
+    for (final Region region in continent.regions) {
+      _countriesIDs.addAll(region.countriesIDs);
+    }
+
+    return _countriesIDs;
   }
   // -----------------------------------------------------------------------------
 

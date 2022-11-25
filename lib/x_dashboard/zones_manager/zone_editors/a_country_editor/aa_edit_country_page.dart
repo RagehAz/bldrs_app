@@ -60,14 +60,14 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
   // --------------------
   void _initialize(){
 
-    _oldEnPhrase = Phrase.searchFirstPhraseByLang(
-      phrases: widget.country.phrases,
+    _oldEnPhrase = Flag.getCountryPhrase(
+      countryID: widget.country.id,
       langCode: 'en',
     );
     _enNameController = TextEditingController(text: _oldEnPhrase?.value);
 
-    _oldArPhrase = Phrase.searchFirstPhraseByLang(
-      phrases: widget.country.phrases,
+    _oldArPhrase = Flag.getCountryPhrase(
+      countryID: widget.country.id,
       langCode: 'ar',
     );
     _arNameController = TextEditingController(text: _oldArPhrase?.value);
@@ -115,20 +115,23 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     @required String text,
   }){
 
-    final Phrase _phrase = Phrase.searchFirstPhraseByLang(
-      phrases: _countryModel.value.phrases,
-      langCode: langCode,
-    );
+    blog('you can not change country names : case closed');
 
-    final Phrase _updated = _phrase.copyWith(
-      value: text,
-    );
+    //
+    // final Phrase _phrase = Phrase.searchFirstPhraseByLang(
+    //   phrases: _countryModel.value.phrases,
+    //   langCode: langCode,
+    // );
+    //
+    // final Phrase _updated = _phrase.copyWith(
+    //   value: text,
+    // );
+    //
+    // final List<Phrase> _phrases = <Phrase>[..._countryModel.value.phrases];
+    // _phrases.removeWhere((ph) => ph.langCode == langCode);
+    // _phrases.add(_updated);
 
-    final List<Phrase> _phrases = <Phrase>[..._countryModel.value.phrases];
-    _phrases.removeWhere((ph) => ph.langCode == langCode);
-    _phrases.add(_updated);
-
-    return _phrases;
+    return [];
   }
   // -----------------------------------------------------------------------------
   @override
@@ -144,7 +147,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     //   context: context,
     //   countryID: widget.country.id,
     // );
-    final String _countryFlag = Flag.getFlagIcon(widget.country.id);
+    final String _countryFlag = Flag.getCountryIcon(widget.country.id);
     final double _clearWidth = PageBubble.clearWidth(context);
 
     return PageBubble(
@@ -175,12 +178,12 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                 dataValue: country.id,
               ),
 
-              /// REGION - CONTINENT
-              DataStrip(
-                width: _clearWidth,
-                dataKey: 'Region\nCont.',
-                dataValue: '${country.region} - ${country.continent}',
-              ),
+              // /// REGION - CONTINENT
+              // DataStrip(
+              //   width: _clearWidth,
+              //   dataKey: 'Region\nCont.',
+              //   dataValue: '${country.region} - ${country.continent}',
+              // ),
 
               /// CURRENCY
               DataStrip(
@@ -189,12 +192,12 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                 dataValue: '${_currencyModel.symbol} : ${xPhrase( context, _currencyModel.id)}',
               ),
 
-              /// LANGUAGE
-              DataStrip(
-                width: _clearWidth,
-                dataKey: 'Lang',
-                dataValue: country.language,
-              ),
+              // /// LANGUAGE
+              // DataStrip(
+              //   width: _clearWidth,
+              //   dataKey: 'Lang',
+              //   dataValue: country.language,
+              // ),
 
               /// CITIES
               WideButton(
@@ -215,12 +218,12 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                 textController: _enNameController,
                 onTextChanged: (String text){
 
-                  _countryModel.value = _countryModel.value.copyWith(
-                    phrases: updatePhrases(
-                        langCode: 'en',
-                        text: text
-                    ),
-                  );
+                  // _countryModel.value = _countryModel.value.copyWith(
+                  //   phrases: updatePhrases(
+                  //       langCode: 'en',
+                  //       text: text
+                  //   ),
+                  // );
 
                 },
               ),
@@ -235,12 +238,12 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                 textController: _arNameController,
                 onTextChanged: (String text){
 
-                  _countryModel.value = _countryModel.value.copyWith(
-                    phrases: updatePhrases(
-                        langCode: 'ar',
-                        text: text
-                    ),
-                  );
+                  // _countryModel.value = _countryModel.value.copyWith(
+                  //   phrases: updatePhrases(
+                  //       langCode: 'ar',
+                  //       text: text
+                  //   ),
+                  // );
 
                 },
               ),

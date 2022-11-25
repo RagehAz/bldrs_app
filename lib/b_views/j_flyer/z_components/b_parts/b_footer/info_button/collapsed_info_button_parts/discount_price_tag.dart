@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
@@ -37,7 +38,7 @@ class DiscountPriceTag extends StatelessWidget {
     final CountryModel _currentCountry = _zoneProvider.currentZone?.countryModel;
     // --------------------
     const double _currentPrice = 14019.50;
-    final String _currency = _currentCountry?.currency;
+    final String _currencyID = Flag.getCountryCurrencyID(_currentCountry.id);
     const double _oldPrice = 17800;
     final int _discountPercentage = Numeric.calculateDiscountPercentage(
       oldPrice: _oldPrice,
@@ -188,7 +189,7 @@ class DiscountPriceTag extends StatelessWidget {
                               padding: _paddings,
                               child: SuperVerse(
                                 verse: Verse(
-                                  text: _currency,
+                                  text: _currencyID,
                                   translate: true,
                                   casing: Casing.upperCase,
                                 ),

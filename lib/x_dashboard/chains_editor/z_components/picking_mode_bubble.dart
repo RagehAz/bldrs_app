@@ -260,7 +260,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
                 :
             Verse.threeDots(),
             headerWidth: Bubble.clearWidth(context) - 20,
-            leadingIcon: _onlyCityChains == true ? Flag.getFlagIcon(_zone.countryID) : Iconz.earth,
+            leadingIcon: _onlyCityChains == true ? Flag.getCountryIcon(_zone.countryID) : Iconz.earth,
           ),
           bubbleColor: _onlyCityChains == true ? Colorz.white10 : Colorz.black50,
           margins: const EdgeInsets.only(top: 5),

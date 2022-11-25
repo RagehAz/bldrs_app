@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
@@ -31,7 +32,7 @@ class NormalPriceTag extends StatelessWidget {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentZone?.countryModel;
     const double _currentPrice = 10000000;
-    final String _currency = _currentCountry?.currency;
+    final String _currencyID = Flag.getCountryCurrencyID(_currentCountry?.id);
     // --------------------
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: paddingValue);
     final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
@@ -51,7 +52,7 @@ class NormalPriceTag extends StatelessWidget {
               fit: BoxFit.fitWidth,
               child: SuperVerse.priceVerse(
                 context: context,
-                currency: _currency,
+                currency: _currencyID,
                 price: _currentPrice,
                 scaleFactor: tinyMode ? _flyerSizeFactor * 1.3 : _flyerSizeFactor * 0.6,
                 color: Colorz.yellow255,
