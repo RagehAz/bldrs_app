@@ -5,7 +5,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -397,6 +396,8 @@ class Phrase {
   /// STREAMING
 
   // --------------------
+  /// DEPRECATED
+  /*
   static List<Phrase> getPhrasesFromStream({
     @required DocumentSnapshot<Object> doc,
     @required String langCode,
@@ -415,6 +416,7 @@ class Phrase {
 
     return _models;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// BLOGGERS
@@ -492,8 +494,8 @@ class Phrase {
   /// GETTERS
 
   // --------------------
+  /// DEPRECATED IN FAVOR TO [getLangCodes]
   /*
-  /// TASK : DEPRECATED IN FAVOR TO [getLangCodes]
   static List<String> _getLingCodesFromPhrases(List<Phrase> phrases){
 
     final List<String> _langCodes = <String>[];
@@ -978,7 +980,7 @@ class Phrase {
     return _include;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeThisValue({
     @required List<Phrase> phrases,
     @required String value,
@@ -1098,7 +1100,7 @@ class Phrase {
     return phrases;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<Phrase> sortPhrasesByIDAndLang({
     @required List<Phrase> phrases,
   }){

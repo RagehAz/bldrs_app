@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class Flag {
   // --------------------------------------------------------------------------
@@ -156,11 +156,11 @@ class Flag {
   /// FLAG PHRASES CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherFlagsPhrases(List<Phrase> phrases){
     Map<String, dynamic> _output = {};
 
-    /// SHOULD LOOK LIKE THIS
+    /// NOTE : SHOULD LOOK LIKE THIS
     /// {
     /// 'en' : 'countryName',
     /// 'ar' : 'الاسم',

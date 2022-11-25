@@ -89,7 +89,7 @@ class ZoneLevel {
     /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
     'hidden': hidden,
@@ -116,12 +116,27 @@ class ZoneLevel {
 
     return _level;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  ZoneLevel copyWith({
+    List<String> hidden,
+    List<String> inactive,
+    List<String> active,
+    List<String> public,
+  }) {
+    return ZoneLevel(
+      hidden: hidden ?? this.hidden,
+      inactive: inactive ?? this.inactive,
+      active: active ?? this.active,
+      public: public ?? this.public,
+    );
+  }
   // --------------------------------------------------------------------------
 
   /// GETTERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   List<String> getAllIDs(){
     return <String>[
       ...?hidden,
@@ -173,7 +188,7 @@ class ZoneLevel {
   /// EQUALITY
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkLevelsAreIdentical(ZoneLevel lvl1, ZoneLevel lvl2){
     bool _identical = false;
 
