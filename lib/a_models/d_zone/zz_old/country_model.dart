@@ -37,15 +37,15 @@ class CountryModel {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'citiesIDs': citiesIDs.toMap(),
+      'citiesIDs': citiesIDs?.toMap(),
     };
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static CountryModel decipherCountryMap({
     @required Map<String, dynamic> map,
   }) {
