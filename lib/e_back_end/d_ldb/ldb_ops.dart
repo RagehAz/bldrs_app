@@ -259,8 +259,6 @@ class LDBOps {
     bool pickers = true,
     bool countries = true,
     bool cities = true,
-    bool continents = true,
-    bool currencies = true,
     bool notes = true,
     bool mainPhrases = true,
     bool countriesPhrases = true,
@@ -284,8 +282,6 @@ class LDBOps {
     if (pickers == true) {_docs.add(LDBDoc.pickers);}
     if (countries == true) {_docs.add(LDBDoc.countries);}
     if (cities == true) {_docs.add(LDBDoc.cities);}
-    if (continents == true) {_docs.add(LDBDoc.continents);}
-    if (currencies == true) {_docs.add(LDBDoc.currencies);}
     if (notes == true) {_docs.add(LDBDoc.notes);}
     if (mainPhrases == true) {_docs.add(LDBDoc.mainPhrases);}
     if (countriesPhrases == true) {_docs.add(LDBDoc.countriesPhrases);}

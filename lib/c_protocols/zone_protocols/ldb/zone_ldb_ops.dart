@@ -1,55 +1,14 @@
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
-import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
 class ZoneLDBOps{
   // -----------------------------------------------------------------------------
 
   const ZoneLDBOps();
 
-  // -----------------------------------------------------------------------------
-
-  /// CONTINENT
-
-  // --------------------
-  /// CREATE / INSERT
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> insertContinents(List<Continent> continents) async {
-
-    await LDBOps.insertMap(
-      input: Continent.cipherContinents(continents),
-      docName: LDBDoc.continents,
-    );
-
-  }
-  // --------------------
-  /// READ
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Continent>> readContinents() async {
-
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.continents,
-    );
-
-    List<Continent> _continents = <Continent>[];
-
-    if (Mapper.checkCanLoopList(_maps) == true){
-      _continents = Continent.decipherContinents(_maps[0]);
-    }
-
-    return _continents;
-  }
-  // --------------------
-  /// UPDATE
-  // --------------------
-  /// DELETE
   // -----------------------------------------------------------------------------
 
   /// COUNTRY
@@ -149,40 +108,6 @@ class ZoneLDBOps{
   /// UPDATE
   // --------------------
   /// DELETE
-  // -----------------------------------------------------------------------------
-
-  /// CURRENCIES
-
-  // --------------------
-  /// CREATE / INSERT
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> insertCurrencies(List<CurrencyModel> currencies) async {
-
-    await LDBOps.insertMap(
-      input: CurrencyModel.cipherCurrencies(currencies),
-      docName: LDBDoc.currencies,
-    );
-
-  }
-  // --------------------
-  /// READ
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<CurrencyModel>> readCurrencies() async {
-
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.currencies,
-    );
-
-    List<CurrencyModel> _currencies = <CurrencyModel>[];
-
-    if (Mapper.checkCanLoopList(_maps) == true){
-      _currencies = CurrencyModel.decipherCurrencies(_maps[0]);
-    }
-
-    return _currencies;
-  }
   // -----------------------------------------------------------------------------
 
 }
