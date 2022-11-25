@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 class CityModel {
   /// --------------------------------------------------------------------------
   const CityModel({
-    this.countryID,
     this.cityID,
     this.districts,
     this.population,
@@ -20,7 +19,6 @@ class CityModel {
     this.phrases,
   });
   /// --------------------------------------------------------------------------
-  final String countryID;
   final String cityID;
   final List<DistrictModel> districts;
   final int population;
@@ -48,7 +46,6 @@ class CityModel {
       _map = Mapper.insertMapInMap(
         baseMap: _map,
         insert: {
-          'countryID': countryID,
           'cityID': cityID,
         },
       );
@@ -93,17 +90,20 @@ class CityModel {
 
     if (map != null) {
       _city = CityModel(
-        countryID: map['countryID'],
-        cityID: map['cityID'],
-        districts: DistrictModel.decipherDistricts(map['districts']),
+        cityID: map['id'],
+        districts: DistrictModel.decipherDistricts(
+            Mapper.getMapFromInternalHashLinkedMapObjectObject(
+                internalHashLinkedMapObjectObject: map['districts']
+            )
+        ),
         population: map['population'],
         position: Atlas.decipherGeoPoint(
           point: map['position'],
           fromJSON: fromJSON,
         ),
         phrases: Phrase.decipherPhrasesLangsMap(
-          langsMap: map['phrases'],
-          countryID: map['countryID'],
+          langsMap: Mapper.getMapFromInternalHashLinkedMapObjectObject(internalHashLinkedMapObjectObject: map['phrases']),
+          countryID: map['id'],
         ),
       );
     }
@@ -305,7 +305,6 @@ class CityModel {
   void blogCity() {
     blog('CITY - PRINT --------------------------------------- START');
 
-    blog('countryID : $countryID');
     blog('cityID : $cityID');
     blog('population : $population');
     blog('position : $position');
@@ -347,6 +346,11 @@ class CityModel {
     }
 
     return _cityID;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  String getCountryID(){
+    return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '_');
   }
   // -----------------------------------------------------------------------------
 
@@ -493,7 +497,6 @@ class CityModel {
       if (city1 != null && city2 != null){
 
         if (
-            city1.countryID == city2.countryID &&
             city1.cityID == city2.cityID &&
             DistrictModel.checkDistrictsListsAreIdentical(city1.districts, city2.districts) == true &&
             city1.population == city2.population &&
@@ -539,7 +542,6 @@ class CityModel {
   // --------------------
   @override
   int get hashCode =>
-      countryID.hashCode^
       cityID.hashCode^
       districts.hashCode^
       population.hashCode^

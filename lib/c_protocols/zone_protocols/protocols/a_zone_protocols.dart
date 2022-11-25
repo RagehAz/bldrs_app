@@ -116,20 +116,10 @@ class ZoneProtocols {
   /// CITY
   // ---------
   /// TESTED : WORKS PERFECT
-  static Future<CityModel> fetchCity({
-    @required String cityID,
-  }) => FetchZoneProtocols.fetchCity(
-    cityID: cityID,
-  );
+  static const fetchCity = FetchZoneProtocols.fetchCity;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<CityModel>> fetchCities({
-    @required List<String> citiesIDs,
-    ValueChanged<CityModel> onCityLoaded,
-  }) => FetchZoneProtocols.fetchCities(
-    citiesIDs: citiesIDs,
-    onCityLoaded: onCityLoaded,
-  );
+  static const fetchCities = FetchZoneProtocols.fetchCities;
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCityByName({
