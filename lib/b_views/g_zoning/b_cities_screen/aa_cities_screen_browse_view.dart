@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/city_tile_button.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

@@ -88,25 +88,25 @@ class _PhrasesLabState extends State<PhrasesLab> {
           verse: Verse.plain('MIGRATE main phrases from FIRE to REAL'),
           onTap: () async {
 
-            final List<Phrase> _enPhrases = await readMainPhrasesFromFire(
-              langCode: 'en',
-            );
-            await PhraseRealOps.createPhrasesForLang(
-                langCode: 'en',
-                phrases: _enPhrases
-            );
-
-            final List<Phrase> _arPhrases = await readMainPhrasesFromFire(
-              langCode: 'ar',
-            );
-            await PhraseRealOps.createPhrasesForLang(
-                langCode: 'ar',
-                phrases: _arPhrases
-            );
-
-
-            Phrase.blogPhrases(_enPhrases);
-            Phrase.blogPhrases(_arPhrases);
+            // final List<Phrase> _enPhrases = await readMainPhrasesFromFire(
+            //   langCode: 'en',
+            // );
+            // await PhraseRealOps.createPhrasesForLang(
+            //     langCode: 'en',
+            //     phrases: _enPhrases
+            // );
+            //
+            // final List<Phrase> _arPhrases = await readMainPhrasesFromFire(
+            //   langCode: 'ar',
+            // );
+            // await PhraseRealOps.createPhrasesForLang(
+            //     langCode: 'ar',
+            //     phrases: _arPhrases
+            // );
+            //
+            //
+            // Phrase.blogPhrases(_enPhrases);
+            // Phrase.blogPhrases(_arPhrases);
 
           },
         ),
