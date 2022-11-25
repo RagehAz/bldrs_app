@@ -20,7 +20,7 @@ class ZoneLDBOps{
   static Future<void> insertCountry(CountryModel country) async {
 
     await LDBOps.insertMap(
-      input: country.toMap(includePhrasesTrigrams: true),
+      input: country?.toMap(),
       docName: LDBDoc.countries,
     );
 

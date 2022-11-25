@@ -5,7 +5,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -23,6 +22,7 @@ class CountryModel {
   /// CLONING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   CountryModel copyWith({
     String id,
     ZoneLevel citiesIDs,
@@ -38,9 +38,7 @@ class CountryModel {
 
   // --------------------
   /// TASK : TEST ME
-  Map<String, dynamic> toMap({
-    @required bool includePhrasesTrigrams,
-  }) {
+  Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'citiesIDs': citiesIDs.toMap(),
@@ -188,7 +186,8 @@ class CountryModel {
   /// COUNTRY PHRASE CREATION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   static Future<List<Phrase>> _createCountriesPhrasesByLangCode({
     @required String langCode,
     @required List<String> countriesIDs,
@@ -215,9 +214,11 @@ class CountryModel {
 
     return _output;
   }
+   */
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> createMixedCountriesPhrases({
+  /// DEPRECATED
+  /*
+  static Future<List<Phrase>> createMixedCountriesPhrasesXX({
     @required List<String> langCodes,
     @required List<String> countriesIDs,
   }) async {
@@ -238,6 +239,7 @@ class CountryModel {
 
     return _countriesPhrases;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// EQUALITY

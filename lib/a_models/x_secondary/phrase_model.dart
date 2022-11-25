@@ -552,6 +552,37 @@ class Phrase {
 
     return _codes;
   }
+  // --------------------
+  /// TASK : TEST ME
+  static List<Phrase> getPhrasesByLangCodes({
+    @required List<Phrase> phrases,
+    @required List<String> langCodes,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true && Mapper.checkCanLoopList(langCodes) == true){
+
+      for (final Phrase phrase in phrases){
+
+        if (
+        Stringer.checkStringsContainString(
+            strings: langCodes,
+            string: phrase.langCode,
+        ) == true
+        ){
+
+          _output.add(phrase);
+
+        }
+
+
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// SEARCHERS
@@ -1551,6 +1582,31 @@ class Phrase {
     final List<String> _specsPhraseIDs = getPhrasesIDs(_specsIDs);
 
     return _specsPhraseIDs;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// TRIGRAMS
+
+  // --------------------
+  /// TASK : TEST ME
+  static List<Phrase> addTrigramsToPhrases({
+    @required List<Phrase> phrases,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        _output.add(phrase.copyWith(
+          trigram: Stringer.createTrigram(input: phrase.value),
+        ));
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
