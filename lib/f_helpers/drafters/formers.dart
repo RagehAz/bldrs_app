@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -349,7 +349,7 @@ class Formers {
         /// COUNTRY CODE
         if (zoneModel != null && zoneModel.countryID != null){
 
-          final String _code = CountryModel.getCountryPhoneCode(zoneModel.countryID);
+          final String _code = Flag.getCountryPhoneCode(zoneModel.countryID);
           final bool _startsWithCode = TextCheck.stringStartsExactlyWith(
             text: _phone,
             startsWith: _code,

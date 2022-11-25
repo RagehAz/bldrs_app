@@ -89,7 +89,7 @@ class RenovateZoneProtocols {
       /// FLAG
       if (TextCheck.isEmpty(incompleteZoneModel.flag) == true || incompleteZoneModel.flag == Iconz.dvBlankSVG){
         _output = _output.copyWith(
-          flag: Flag.getFlagIcon(incompleteZoneModel.countryID),
+          flag: Flag.getCountryIcon(incompleteZoneModel.countryID),
         );
       }
 

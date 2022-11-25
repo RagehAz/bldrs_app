@@ -1,18 +1,15 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
-import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
+import 'package:bldrs/a_models/d_zone/x_money/big_mac.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/x_planet/region_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/d_zone/x_money/big_mac.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -359,67 +356,67 @@ class ExoticMethods {
   static Future<void> createContinentsDocFromAllCountriesCollection() async {
     /// in case any (continent name) or (region name) or (countryID) has changed
 
-    final List<CountryModel> _allCountries = await fetchAllCountryModels();
-
-    final List<Continent> _continents = <Continent>[];
-
-    for (final CountryModel country in _allCountries) {
-      /// add continent
-      final bool _continentIsAddedAlready = Continent.checkContinentsIncludeContinent(
-        name: country.continent,
-        continents: _continents,
-      );
-
-      if (_continentIsAddedAlready == false) {
-        _continents.add(Continent(
-          name: country.continent,
-          regions: const <Region>[],
-        ));
-      }
-
-      /// add region to continent
-      final int _continentIndex = _continents.indexWhere((Continent continent) => continent.name == country.continent);
-
-      final bool _regionIsAddedAlready = Region.regionsIncludeRegion(
-        name: country.region,
-        regions: _continents[_continentIndex].regions,
-      );
-
-      if (_regionIsAddedAlready == false) {
-        _continents[_continentIndex].regions.add(Region(
-          continent: _continents[_continentIndex].name,
-          name: country.region,
-          countriesIDs: const <String>[],
-        ));
-      }
-
-      /// add country to region
-      final int _regionIndex = _continents[_continentIndex]
-          .regions
-          .indexWhere((Region region) => region.name == country.region);
-
-      final bool _countryIsAddedAlready = Stringer.checkStringsContainString(
-        string: country.id,
-        strings: _continents[_continentIndex].regions[_regionIndex].countriesIDs,
-      );
-
-      if (_countryIsAddedAlready == false) {
-        _continents[_continentIndex]
-            .regions[_regionIndex]
-            .countriesIDs
-            .add(country.id);
-      }
-
-      blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.id}');
-    }
-
-    final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
-
-    await Fire.createNamedDoc(
-      collName: FireColl.admin,
-      docName: 'continents',
-      input: _contMaps,
-    );
+    // final List<CountryModel> _allCountries = await fetchAllCountryModels();
+    //
+    // final List<Continent> _continents = <Continent>[];
+    //
+    // for (final CountryModel country in _allCountries) {
+    //   /// add continent
+    //   final bool _continentIsAddedAlready = Continent.checkContinentsIncludeContinent(
+    //     name: country.continent,
+    //     continents: _continents,
+    //   );
+    //
+    //   if (_continentIsAddedAlready == false) {
+    //     _continents.add(Continent(
+    //       name: country.continent,
+    //       regions: const <Region>[],
+    //     ));
+    //   }
+    //
+    //   /// add region to continent
+    //   final int _continentIndex = _continents.indexWhere((Continent continent) => continent.name == country.continent);
+    //
+    //   final bool _regionIsAddedAlready = Region.regionsIncludeRegion(
+    //     name: country.region,
+    //     regions: _continents[_continentIndex].regions,
+    //   );
+    //
+    //   if (_regionIsAddedAlready == false) {
+    //     _continents[_continentIndex].regions.add(Region(
+    //       continent: _continents[_continentIndex].name,
+    //       name: country.region,
+    //       countriesIDs: const <String>[],
+    //     ));
+    //   }
+    //
+    //   /// add country to region
+    //   final int _regionIndex = _continents[_continentIndex]
+    //       .regions
+    //       .indexWhere((Region region) => region.name == country.region);
+    //
+    //   final bool _countryIsAddedAlready = Stringer.checkStringsContainString(
+    //     string: country.id,
+    //     strings: _continents[_continentIndex].regions[_regionIndex].countriesIDs,
+    //   );
+    //
+    //   if (_countryIsAddedAlready == false) {
+    //     _continents[_continentIndex]
+    //         .regions[_regionIndex]
+    //         .countriesIDs
+    //         .add(country.id);
+    //   }
+    //
+    //   blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.id}');
+    // }
+    //
+    // final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
+    //
+    // await Fire.createNamedDoc(
+    //   collName: FireColl.admin,
+    //   docName: 'continents',
+    //   input: _contMaps,
+    // );
 
   }
   // --------------------

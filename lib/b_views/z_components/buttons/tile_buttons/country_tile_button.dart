@@ -25,7 +25,7 @@ class CountryTileButton extends StatelessWidget {
     return TileButton(
       height: height,
       width: width ?? Bubble.clearWidth(context),
-      icon: Flag.getFlagIcon(countryID),
+      icon: Flag.getCountryIcon(countryID),
       verse: Verse.plain(Flag.getCountryNameByCurrentLang(context: context, countryID: countryID)),
       onTap: onTap,
     );
