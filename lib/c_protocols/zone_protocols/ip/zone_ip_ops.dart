@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/a_rest/rest.dart';
@@ -27,7 +27,7 @@ class ZoneIPOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> superGetZoneByIP(BuildContext context) async {
+  static Future<ZoneModel> getZoneByIP(BuildContext context) async {
     /// trial 1
     ZoneModel _zone = await _getZoneByIP_ipApi(context: context);
 
@@ -92,7 +92,7 @@ class ZoneIPOps {
 
               if (_countryISO != null && _countryISO != '') {
 
-                _countryID = CountryIso.getCountryIDByIso(_countryISO);
+                _countryID = Flag.getCountryIDByISO2(_countryISO);
 
                 if (_countryID != null) {
 
@@ -181,7 +181,7 @@ class ZoneIPOps {
 
               if (_countryISO != null && _countryISO != '') {
 
-                _countryID = CountryIso.getCountryIDByIso(_countryISO);
+                _countryID = Flag.getCountryIDByISO2(_countryISO);
 
                 if (_countryID != null) {
 

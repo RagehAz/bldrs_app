@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
@@ -261,7 +261,7 @@ class GeneralProvider extends ChangeNotifier {
 
 List<String> getActiveCountriesIDs(BuildContext context){
 
-  final List<String> _allIDs = CountryModel.getAllCountriesIDsSortedByName(context);
+  final List<String> _allIDs = Flag.getAllCountriesIDsSortedByName(context);
   return _allIDs;
 
   // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);

@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -692,7 +692,7 @@ class Phrase {
 
     /// NOTE : Searches list of phrases of different lang codes by current lang code
 
-    final String _currentLanguageCode = Words.languageCode(context);
+    final String _currentLanguageCode = Localizer.getCurrentLangCode(context);
     Phrase _phrase;
 
     if (Mapper.checkCanLoopList(phrases)){

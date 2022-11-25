@@ -1,7 +1,6 @@
-import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/region_model.dart';
-import 'package:bldrs/a_models/d_zone/zz_old/flag_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -219,6 +218,8 @@ class CountryModel {
   /// GETTERS
 
   // --------------------
+  /// DEPRECATED : COUNTRY NAMES REMOVED FROM LOCALIZED DATA
+  /*
   /// TESTED : WORKS PERFECT
   static String translateCountryName({
     @required BuildContext context,
@@ -233,6 +234,7 @@ class CountryModel {
 
     return _countryName;
   }
+   */
   // --------------------
   static List<String> getCountriesIDsOfContinent(Continent continent) {
     final List<String> _countriesIDs = <String>[];
@@ -244,16 +246,7 @@ class CountryModel {
     return _countriesIDs;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> getAllCountriesIDs() {
-    final List<String> _ids = <String>[];
 
-    for (final Flag flag in Flag.allFlags) {
-      _ids.add(flag.countryID);
-    }
-
-    return _ids;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getCountryPhoneCode(String countryID) {
@@ -544,42 +537,6 @@ class CountryModel {
   }
    */
   // --------------------
-  ///
-  static List<String> getAllCountriesIDsSortedByName(BuildContext context){
-
-    final List<String> _allCountriesIDs = getAllCountriesIDs();
-
-    final List<Phrase> _allCountriesPhrasesInCurrentLang = <Phrase>[];
-
-    for (final String id in _allCountriesIDs){
-
-      final String _countryName = translateCountryName(
-        context: context,
-        countryID: id,
-      );
-
-      final Phrase _phrase = Phrase(
-        id: id,
-        value: _countryName,
-      );
-
-      if (_countryName != null){
-        _allCountriesPhrasesInCurrentLang.add(_phrase);
-      }
-    }
-
-    final List<Phrase> _namesSorted = Phrase.sortNamesAlphabetically(_allCountriesPhrasesInCurrentLang);
-
-    final List<String> _sortedCountriesIDs = <String>[];
-
-    for (final Phrase phrase in _namesSorted){
-
-      _sortedCountriesIDs.add(phrase.id);
-
-    }
-
-    return _sortedCountriesIDs;
-  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGERS

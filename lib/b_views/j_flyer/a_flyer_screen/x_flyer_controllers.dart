@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/district_model.dart';
@@ -65,7 +66,7 @@ ZoneModel getZoneModel({
   @required String districtID,
 }){
 
-  final String _countryName = CountryModel.translateCountryName(
+  final String _countryName = Flag.getCountryNameByCurrentLang(
     context: context,
     countryID: countryID,
   );

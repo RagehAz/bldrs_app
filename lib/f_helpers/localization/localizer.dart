@@ -193,7 +193,7 @@ class Localizer {
   /// TESTED : WORKS PERFECT
   static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
 
-    if (Words.languageCode(context) == Lang.englishLingo.code){
+    if (getCurrentLangCode(context) == Lang.englishLingo.code){
       await changeAppLanguage(context, Lang.arabicLingo.code);
     }
 
@@ -233,7 +233,7 @@ class Localizer {
   /// TESTED : WORKS PERFECT
   static bool appIsArabic(BuildContext context) {
 
-    if (Words.languageCode(context) == Lang.arabicLingo.code) {
+    if (getCurrentLangCode(context) == Lang.arabicLingo.code) {
       return true;
     }
 
@@ -262,6 +262,14 @@ class Localizer {
     // );
 
     return '( $_langNameByActiveAppLang ) ';
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+  // --------------------
+  static String getCurrentLangCode(BuildContext context){
+    return Words.languageCode(context);
   }
   // -----------------------------------------------------------------------------
 }

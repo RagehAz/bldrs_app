@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bldrs/a_models/d_zone/b_country/iso3.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,10 @@ class ZoneJSONOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<ISO3>> readAllISO3s() async {
+  static Future<List<Flag>> readAllISO3s() async {
     final String _jsonStringValues = await rootBundle.loadString('assets/planet/iso3.json');
     final List<dynamic> _mappedJson = json.decode(_jsonStringValues);
-    return ISO3.decipherMaps(_mappedJson);
+    return Flag.decipherMaps(_mappedJson);
   }
   // -----------------------------------------------------------------------------
 
@@ -28,12 +28,12 @@ class ZoneJSONOps {
 
   // --------------------
   ///
-  static Future<ISO3> readISO3ByCountryID({
+  static Future<Flag> readISO3ByCountryID({
     @required String countryID,
   }) async {
-    final List<ISO3> _allISO3s = await readAllISO3s();
-    return ISO3.getISO3FromISO3sByCountryID(
-      iso3s: _allISO3s,
+    final List<Flag> _allISO3s = await readAllISO3s();
+    return Flag.getFlagFromFlagsByCountryID(
+      flags: _allISO3s,
       countryID: countryID,
     );
   }
