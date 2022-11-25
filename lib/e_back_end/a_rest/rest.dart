@@ -110,14 +110,14 @@ class Rest {
     );
 
   }
-
+  // --------------------
+  ///
   static Future<Uint8List> readBytes({
     // @required BuildContext context,
     @required String rawLink,
     String invoker = '',
     int timeoutSeconds = 2,
     Map<String, String> headers,
-
   }) async {
 
     Uint8List _uInts;
