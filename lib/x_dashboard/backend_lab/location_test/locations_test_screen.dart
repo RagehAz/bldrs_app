@@ -160,7 +160,8 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       );
 
       final CityModel _city = await ZoneProtocols.fetchCity(
-          cityID: _zoneModel.cityID
+        cityID: _zoneModel.cityID,
+        countryID: _zoneModel.countryID,
       );
 
       setState(() {
@@ -210,13 +211,15 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
                       if (_result != null) {
 
+                        final String _cityCountryID = _result.getCountryID();
+
                         final CountryModel _country = await ZoneProtocols.fetchCountry(
-                            countryID: _result.countryID
+                            countryID: _cityCountryID,
                         );
 
                         setState(() {
                           _countryModel = _country;
-                          _countryID = _result.countryID;
+                          _countryID = _cityCountryID;
                           _cityModel = _result;
                         });
 

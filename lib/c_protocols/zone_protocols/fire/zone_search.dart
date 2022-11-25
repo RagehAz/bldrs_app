@@ -74,6 +74,7 @@ Future<List<CityModel>> citiesByCityName({
       _cities = CityModel.decipherCitiesMaps(
         maps: _result,
         fromJSON: false,
+
       );
     }
   }

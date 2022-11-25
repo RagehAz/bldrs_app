@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
+import 'package:bldrs/a_models/d_zone/zz_old/city_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
@@ -18,7 +19,6 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -277,21 +277,34 @@ class _ZoningLabState extends State<ZoningLab> {
             },
           ),
 
+          /// READ A CITY
+          WideButton(
+            verse: Verse.plain('Read a City'),
+            onTap: () async {
+
+              final CityModel _city = await ZoneRealOps.readCity(
+                  countryID: 's',
+                  cityID: 's',
+              );
+
+              _city?.blogCity();
+
+            },
+          ),
+
           /// READ A COUNTRY CITIES
           WideButton(
             verse: Verse.plain('Read Country Cities'),
             onTap: () async {
 
-              final dynamic _dynamic = await Real.readPath(
-                  path: 'zones/cities/bra',
+              final List<CityModel> _cities = await ZoneRealOps.readCountryCities(
+                countryID: 'bhr',
               );
 
-              final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(
-                internalHashLinkedMapObjectObject: _dynamic,
-              );
-
-              blog('read ${_maps.length} maps');
+              blog('read ${_cities.length} Cities');
               // Mapper.blogMaps(_maps);
+
+              CityModel.blogCities(_cities);
 
             },
           ),
