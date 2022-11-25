@@ -552,37 +552,6 @@ class Phrase {
 
     return _codes;
   }
-  // --------------------
-  /// TASK : TEST ME
-  static List<Phrase> getPhrasesByLangCodes({
-    @required List<Phrase> phrases,
-    @required List<String> langCodes,
-  }){
-    final List<Phrase> _output = <Phrase>[];
-
-    if (Mapper.checkCanLoopList(phrases) == true && Mapper.checkCanLoopList(langCodes) == true){
-
-      for (final Phrase phrase in phrases){
-
-        if (
-        Stringer.checkStringsContainString(
-            strings: langCodes,
-            string: phrase.langCode,
-        ) == true
-        ){
-
-          _output.add(phrase);
-
-        }
-
-
-
-      }
-
-    }
-
-    return _output;
-  }
   // -----------------------------------------------------------------------------
 
   /// SEARCHERS
@@ -762,6 +731,37 @@ class Phrase {
     }
 
     return _phrase;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static List<Phrase> searchPhrasesByLangs({
+    @required List<Phrase> phrases,
+    @required List<String> langCodes,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true && Mapper.checkCanLoopList(langCodes) == true){
+
+      for (final Phrase phrase in phrases){
+
+        if (
+        Stringer.checkStringsContainString(
+          strings: langCodes,
+          string: phrase.langCode,
+        ) == true
+        ){
+
+          _output.add(phrase);
+
+        }
+
+
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
   /// BY VALUE / TRIGRAM ( SEARCH )
@@ -1032,89 +1032,6 @@ class Phrase {
     }
 
     return _include;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkPhrasesAreIdentical({
-    @required Phrase phrase1,
-    @required Phrase phrase2,
-  }){
-
-    bool _areIdentical = false;
-
-    if (phrase1 != null && phrase2 != null){
-
-      if (phrase1.id == phrase2.id){
-
-        if (phrase1.langCode == phrase2.langCode){
-
-          if (phrase1.value == phrase2.value){
-
-            if (Mapper.checkListsAreIdentical(list1: phrase1.trigram, list2: phrase2.trigram)){
-
-              _areIdentical = true;
-
-            }
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return _areIdentical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkPhrasesListsAreIdentical({
-    @required List<Phrase> phrases1,
-    @required List<Phrase> phrases2,
-  }){
-
-    bool _listsAreIdentical = false;
-
-    if (phrases1 == null && phrases2 == null){
-      _listsAreIdentical = true;
-    }
-    else if (phrases1?.isEmpty == true && phrases2?.isEmpty == true){
-      _listsAreIdentical = true;
-    }
-
-    else if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
-
-      if (phrases1.length == phrases2.length){
-
-        // final List<String> codes = _getLingCodesFromPhrases(phrases1);
-
-        bool _allLangCodesAreIdentical = true;
-
-        for (int i = 0; i < phrases1.length; i++){
-
-          final Phrase _phrase1 = phrases1[i];
-          final Phrase _phrase2 = phrases2[i];
-
-          if (Phrase.checkPhrasesAreIdentical(phrase1: _phrase1, phrase2: _phrase2) == true){
-            _allLangCodesAreIdentical = true;
-          }
-
-          else {
-            _allLangCodesAreIdentical = false;
-            break;
-          }
-
-        }
-
-        if (_allLangCodesAreIdentical == true){
-          _listsAreIdentical = true;
-        }
-
-      }
-
-    }
-
-    return _listsAreIdentical;
   }
   // -----------------------------------------------------------------------------
 
@@ -1607,6 +1524,93 @@ class Phrase {
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkPhrasesAreIdentical({
+    @required Phrase phrase1,
+    @required Phrase phrase2,
+  }){
+
+    bool _areIdentical = false;
+
+    if (phrase1 != null && phrase2 != null){
+
+      if (phrase1.id == phrase2.id){
+
+        if (phrase1.langCode == phrase2.langCode){
+
+          if (phrase1.value == phrase2.value){
+
+            if (Mapper.checkListsAreIdentical(list1: phrase1.trigram, list2: phrase2.trigram)){
+
+              _areIdentical = true;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkPhrasesListsAreIdentical({
+    @required List<Phrase> phrases1,
+    @required List<Phrase> phrases2,
+  }){
+
+    bool _listsAreIdentical = false;
+
+    if (phrases1 == null && phrases2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (phrases1?.isEmpty == true && phrases2?.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+
+    else if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
+
+      if (phrases1.length == phrases2.length){
+
+        // final List<String> codes = _getLingCodesFromPhrases(phrases1);
+
+        bool _allLangCodesAreIdentical = true;
+
+        for (int i = 0; i < phrases1.length; i++){
+
+          final Phrase _phrase1 = phrases1[i];
+          final Phrase _phrase2 = phrases2[i];
+
+          if (Phrase.checkPhrasesAreIdentical(phrase1: _phrase1, phrase2: _phrase2) == true){
+            _allLangCodesAreIdentical = true;
+          }
+
+          else {
+            _allLangCodesAreIdentical = false;
+            break;
+          }
+
+        }
+
+        if (_allLangCodesAreIdentical == true){
+          _listsAreIdentical = true;
+        }
+
+      }
+
+    }
+
+    return _listsAreIdentical;
   }
   // -----------------------------------------------------------------------------
 

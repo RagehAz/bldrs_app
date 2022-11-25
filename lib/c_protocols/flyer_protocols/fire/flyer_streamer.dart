@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/paths.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
