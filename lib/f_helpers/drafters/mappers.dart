@@ -1,6 +1,5 @@
 // ignore_for_file: noop_primitive_operations
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -11,6 +10,7 @@ enum InsertionDuplicity {
   replace,
 }
 
+/// => TAMAM
 class Mapper {
   // -----------------------------------------------------------------------------
 
@@ -253,11 +253,12 @@ class Mapper {
   /// MAP GETTERS FROM (URL - DYNAMIC - STRING STRING IMMUTABLE MAP STRING OBJECT)
 
   // --------------------
-  ///
+  /// NOT USED
+  /*
   static List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (checkCanLoopList(dynamics)) {
+    if (checkCanLoopList(dynamics) == true) {
       for (final dynamic map in dynamics) {
         _maps.add(map);
       }
@@ -265,8 +266,10 @@ class Mapper {
 
     return _maps;
   }
+   */
   // --------------------
-  ///
+  /// NOT USED
+  /*
   static Map<String, dynamic> getMapFromURLQuery({
     @required String urlQuery,
   }) {
@@ -331,6 +334,7 @@ class Mapper {
 
     return _output;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
@@ -345,7 +349,7 @@ class Mapper {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
   }){
@@ -471,6 +475,7 @@ class Mapper {
     }
   }
   // --------------------
+  /// NOT USED
   /*
   static int indexOfMapByValueInListOfMaps({
     @required List<Map<String, dynamic>> listOfMaps,
@@ -516,6 +521,7 @@ class Mapper {
     return _result;
   }
   // --------------------
+  /// NOT USED
   /*
   static Map<String, Object> replacePair({
     @required Map<String, Object> map,
@@ -537,6 +543,7 @@ class Mapper {
   }
    */
   // --------------------
+  /// NOT USED
   /*
   static Map<String, Object> removePair({
     @required Map<String, Object> map,
@@ -549,7 +556,6 @@ class Mapper {
     return _map;
   }
    */
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> insertMapInMap({
@@ -674,7 +680,6 @@ class Mapper {
 
     return _output;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> removeMapFromMapsByIdField({
@@ -832,6 +837,7 @@ class Mapper {
     return _listsAreIdentical;
   }
   // --------------------
+  /// NOT USED
   /*
   ///
   static bool checkIsLastListObject({
@@ -1367,36 +1373,36 @@ class Mapper {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// TO JSON
+
   // --------------------
-
-
-
-
-
-
-
-  // static String mapsToJson(List<Map<String, dynamic>> map) {
-  //   String res = '[';
-  //
-  //   for (var s in map) {
-  //     res += '{';
-  //
-  //     for (String k in s.keys) {
-  //       res += '"';
-  //       res += k;
-  //       res += '":"';
-  //       res += s[k].toString();
-  //       res += '",';
-  //     }
-  //     res = res.substring(0, res.length - 1);
-  //
-  //     res += '},';
-  //     res = res.substring(0, res.length - 1);
-  //   }
-  //
-  //   res += "]";
-  //
-  //   return res;
-  // }
-
+  /// EXPERIMENT
+  /*
+         // static String mapsToJson(List<Map<String, dynamic>> map) {
+         //   String res = '[';
+         //
+         //   for (var s in map) {
+         //     res += '{';
+         //
+         //     for (String k in s.keys) {
+         //       res += '"';
+         //       res += k;
+         //       res += '":"';
+         //       res += s[k].toString();
+         //       res += '",';
+         //     }
+         //     res = res.substring(0, res.length - 1);
+         //
+         //     res += '},';
+         //     res = res.substring(0, res.length - 1);
+         //   }
+         //
+         //   res += "]";
+         //
+         //   return res;
+         // }
+       */
+  // -----------------------------------------------------------------------------
 }

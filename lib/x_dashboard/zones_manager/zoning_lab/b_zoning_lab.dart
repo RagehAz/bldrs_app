@@ -19,6 +19,7 @@ import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
@@ -335,13 +336,16 @@ class _ZoningLabState extends State<ZoningLab> {
             verse: Verse.plain('Read Cities Levels'),
             onTap: () async {
 
-              /// TASK : RETEST ME
               final List<String> _countriesIDs = Flag.getAllCountriesIDs();
 
               for (final String countryID in _countriesIDs){
 
                 final ZoneLevel _lvl = await ZoneRealOps.readCitiesLevels(countryID);
-                _lvl.blogLeveL();
+                _lvl?.blogLeveL();
+
+                if (_lvl == null){
+                  blog('NULL : for $countryID');
+                }
 
               }
 
@@ -409,6 +413,15 @@ class _ZoningLabState extends State<ZoningLab> {
 
               final ZoneLevel _lvl = await ZoneRealOps.readCountriesLevels();
               _lvl.blogLeveL();
+
+              final List<String> _countriesIDs = ZoneLevel(
+                  hidden: _lvl.hidden,
+                  inactive: _lvl.inactive,
+                  active: null,
+                  public: const [],
+              ).getAllIDs();
+
+              Stringer.blogStrings(strings: _countriesIDs, invoker: '');
 
             },
           ),

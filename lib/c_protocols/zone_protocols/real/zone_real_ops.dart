@@ -1,4 +1,3 @@
-
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/zz_old/country_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
@@ -35,7 +34,7 @@ class ZoneRealOps {
   /// READ CITIES LEVELS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<ZoneLevel> readCitiesLevels(String countryID) async {
     ZoneLevel _output;
 
@@ -60,7 +59,7 @@ class ZoneRealOps {
   /// READ COUNTRY MODEL
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CountryModel> readCountry({
     @required String countryID,
   }) async {
