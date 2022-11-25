@@ -457,6 +457,31 @@ class Flag {
     );
 
   }
+  // --------------------
+  ///
+  static List<Phrase> createAllCountriesPhrasesForLDB({
+    @required List<String> langCodes,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    for (final Flag flag in allFlags){
+
+      final List<Phrase> _phrasesOfGivenLangCodes = Phrase.getPhrasesByLangCodes(
+        phrases: flag.phrases,
+        langCodes: langCodes,
+      );
+
+      final List<Phrase> _phrases = Phrase.addTrigramsToPhrases(
+        phrases: _phrasesOfGivenLangCodes,
+      );
+
+      _output.addAll(_phrases);
+
+    }
+
+    return _output;
+  }
+
   // -----------------------------------------------------------------------------
 
   /// BLOG
