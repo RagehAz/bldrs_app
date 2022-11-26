@@ -1,21 +1,18 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
-import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/c_protocols/zone_protocols/fire/zone_search.dart' as ZoneFireSearch;
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/searchg_zones.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/search/zone_search_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -281,98 +278,6 @@ class FetchZoneProtocols {
     return _output;
   }
   // --------------------
-  /// DEPRECATED
-  static Future<CityModel> fetchCityByName({
-    @required BuildContext context,
-    @required String cityName,
-    @required String langCode,
-    @required String countryID,
-  }) async {
-
-    CityModel _city;
-
-    if (TextCheck.isEmpty(cityName) == false){
-
-      /// A - trial 1 : search by generated cityID
-      if (countryID != null){
-
-        final String _cityID = CityModel.createCityID(
-          countryID: countryID,
-          cityEnName: cityName,
-        );
-
-        _city = await fetchCity(
-          cityID: _cityID,
-          countryID: countryID,
-        );
-
-      }
-
-      /// B - when trial 1 fails
-      if (_city == null){
-
-        List<CityModel> _foundCities = await ZoneLDBOps.searchCitiesByName(
-          cityName: cityName,
-          langCode: langCode,
-        );
-
-        /// C - trial 3 search firebase if no result found in LDB
-        if (Mapper.checkCanLoopList(_foundCities) == false){
-
-          /// C-1 - trial 3 if countryID is not available
-          if (countryID == null){
-            _foundCities = await ZoneFireSearch.citiesByCityName(
-              cityName: cityName,
-              lingoCode: langCode,
-            );
-          }
-
-          /// C-1 - trial 3 if countryID is available
-          else {
-            _foundCities = await ZoneFireSearch.citiesByCityNameAndCountryID(
-              cityName: cityName,
-              countryID: countryID,
-              lingoCode: langCode,
-            );
-          }
-
-          /// C-2 - if firebase returned results
-          await ZoneLDBOps.insertCities(_foundCities);
-
-        }
-
-        /// D - if firebase or LDB found any cities
-        if (Mapper.checkCanLoopList(_foundCities) == true){
-
-          blog('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
-
-          /// D-1 if only one city found
-          if (_foundCities.length == 1){
-            _city = _foundCities[0];
-          }
-
-          /// D-2 if multiple cities found
-          else {
-
-            final CityModel _selectedCity = await Dialogs.confirmCityDialog(
-              context: context,
-              cities: _foundCities,
-            );
-
-            if (_selectedCity != null){
-              _city = _selectedCity;
-            }
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return _city;
-  }
 
   // -----------------------------------------------------------------------------
 
