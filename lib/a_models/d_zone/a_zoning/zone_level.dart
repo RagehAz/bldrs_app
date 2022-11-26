@@ -171,12 +171,23 @@ class ZoneLevel {
       ...?public,
     ];
   }
+  // --------------------
+  /// TASK : TEST ME
+  List<String> getIDsByCityLevel(ZoneLevelType level){
+    switch (level) {
+      case ZoneLevelType.hidden:    return hidden;    break;
+      case ZoneLevelType.inactive:  return inactive;  break;
+      case ZoneLevelType.active:    return active;    break;
+      case ZoneLevelType.public:    return public;    break;
+      default: return getAllIDs();
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// CONCLUDERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static ZoneLevelType concludeLowestZoneLevelOnViewingEvent({
     @required ZoneViewingEvent event,
     @required bool isAuthor,

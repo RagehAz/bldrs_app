@@ -40,6 +40,9 @@ class ZoneProtocols {
   static const fetchCities = FetchZoneProtocols.fetchCities;
   // --------------------
   /// TASK : TEST ME
+  static const fetchCitiesByCountryID = FetchZoneProtocols.fetchCitiesByCountryID;
+  // --------------------
+  /// TASK : TEST ME
   static const fetchCityByName = FetchZoneProtocols.fetchCityByName;
   // --------------------
   /// CONTINENT
