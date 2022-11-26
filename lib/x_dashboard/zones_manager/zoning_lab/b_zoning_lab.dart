@@ -4,24 +4,26 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
@@ -71,256 +73,322 @@ class _ZoningLabState extends State<ZoningLab> {
   @override
   Widget build(BuildContext context) {
 
-    return MainLayout(
-      pyramidsAreOn: true,
-      pageTitleVerse: Verse.plain('Zoning Lab'),
-      appBarType: AppBarType.basic,
-      skyType: SkyType.black,
-      pyramidType: PyramidType.crystalYellow,
-      layoutWidget: FloatingCenteredList(
-        columnChildren: <Widget>[
+    final double _screenHeightWithoutSafeArea = Scale.superScreenHeightWithoutSafeArea(context);
+    const AppBarType _appBarType = AppBarType.basic;
 
-          // -----------------------------------
+    return PagesLayout(
+      title: Verse.plain('Zoning Lab'),
+      pageBubbles: [
 
-          /// ZONE BY ONE BUTTON
-          WideButton(
-            verse: Verse.plain('Zone by one button'),
-            onTap: () async {
+        /// SELECTION
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            children: <Widget>[
 
-              final ZoneModel _zone = await Nav.goToNewScreen(
-                  context: context,
-                  screen: const CountriesScreen(),
-              );
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Selection'),
+              ),
 
-              _zone?.blogZone(invoker: 'ZONE BY ONE BUTTON');
+              /// ZONE BY ONE BUTTON
+              WideButton(
+                verse: Verse.plain('Zone by one button'),
+                onTap: () async {
 
-              if (_zone == null){
-                blog('ZONE IS NULL');
-              }
+                  final ZoneModel _zone = await Nav.goToNewScreen(
+                    context: context,
+                    screen: const CountriesScreen(),
+                  );
 
-            },
-          ),
+                  _zone?.blogZone(invoker: 'ZONE BY ONE BUTTON');
 
-          /// BLOG BUBBLE ZONE
-          WideButton(
-            verse: Verse.plain('blog current zone'),
-            onTap: (){
+                  if (_zone == null){
+                    blog('ZONE IS NULL');
+                  }
 
-              _bubbleZone?.blogZone();
+                },
+              ),
 
-            },
-          ),
+              /// BLOG BUBBLE ZONE
+              WideButton(
+                verse: Verse.plain('blog current zone'),
+                onTap: (){
 
-          /// ZONE BUBBLE
-          ZoneSelectionBubble(
-            currentZone: _bubbleZone,
-            titleVerse:  const Verse(
-              text: 'Zoning test',
-              translate: false,
-            ),
-            bulletPoints:  const <Verse>[
-              Verse(text: 'Fuck you', translate: false,),
-              Verse(text: 'Bitch', translate: false,),
+                  _bubbleZone?.blogZone();
+
+                },
+              ),
+
+              /// ZONE BUBBLE
+              ZoneSelectionBubble(
+                currentZone: _bubbleZone,
+                titleVerse:  const Verse(
+                  text: 'Zoning test',
+                  translate: false,
+                ),
+                bulletPoints:  const <Verse>[
+                  Verse(text: 'Fuck you', translate: false,),
+                  Verse(text: 'Bitch', translate: false,),
+                ],
+                onZoneChanged: (ZoneModel zone){
+
+                  zone.blogZone(invoker: 'ZONE Received from bubble');
+
+                  if (zone != null){
+                    _bubbleZone = zone;
+                  }
+
+                },
+              ),
+
             ],
-            onZoneChanged: (ZoneModel zone){
-
-              zone.blogZone(invoker: 'ZONE Received from bubble');
-
-              if (zone != null){
-                _bubbleZone = zone;
-              }
-
-            },
           ),
+        ),
 
-          // -----------------------------------
+        /// CURRENCIES
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            children: <Widget>[
 
-          /// SEPARATOR
-          const SeparatorLine(),
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Currencies'),
+              ),
 
-          /// CREATE CURRENCIES JSON
-          WideButton(
-            verse: Verse.plain('Create Currencies JSON'),
-            onTap: _createCurrenciesJSON,
+              /// CREATE CURRENCIES JSON
+              WideButton(
+                verse: Verse.plain('Create Currencies JSON'),
+                onTap: _createCurrenciesJSON,
+              ),
+
+              /// GET CURRENCIES JSON
+              WideButton(
+                verse: Verse.plain('Get Currencies JSON map'),
+                onTap: () async {
+
+                  final List<CurrencyModel> _currencies = await ZoneJSONOps.readAllCurrencies();
+                  blog('start');
+                  CurrencyModel.blogCurrencies(_currencies);
+                  blog('end');
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
           ),
+        ),
 
-          /// GET CURRENCIES JSON
-          WideButton(
-            verse: Verse.plain('Get Currencies JSON map'),
-            onTap: () async {
+        /// CONTINENTS
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            children: <Widget>[
 
-              final List<CurrencyModel> _currencies = await ZoneJSONOps.readAllCurrencies();
-              blog('start');
-              CurrencyModel.blogCurrencies(_currencies);
-              blog('end');
-            },
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Continents'),
+              ),
+
+              /// CREATE CONTINENTS JSON
+              WideButton(
+                verse: Verse.plain('Create CONTINENTS JSON'),
+                onTap: _createContinentsJSONMap,
+              ),
+
+              /// GET CONTINENTS JSON
+              WideButton(
+                verse: Verse.plain('Get CONTINENTS JSON map'),
+                onTap: () async {
+
+                  final List<Continent> _continents = await ZoneJSONOps.readAllContinents();
+                  blog('start');
+
+                  Continent.blogContinents(_continents);
+
+                  blog('end');
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
           ),
+        ),
 
-          // -----------------------------------
+        /// CITIES
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            children: <Widget>[
 
-          /// SEPARATOR
-          const SeparatorLine(),
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Cities'),
+              ),
 
-          /// CREATE CURRENCIES JSON
-          WideButton(
-            verse: Verse.plain('Create CONTINENTS JSON'),
-            onTap: _createContinentsJSONMap,
+              /// MIGRATE CITY TO NEW REAL
+              WideButton(
+                verse: Verse.plain('Migrate Cities to real'),
+                isActive: false,
+                onTap: () async {
+
+                  /// DONE : VERY LONG AND DANGEROUS
+                  // await ExoticMethods.readAllSubCollectionDocs(
+                  //   collName: FireColl.zones,
+                  //   docName: FireDoc.zones_cities,
+                  //   subCollName: FireSubColl.zones_cities_cities,
+                  //   limit: 40000,
+                  //   finders: <FireFinder>[
+                  //     // const FireFinder(
+                  //     //   field: 'countryID',
+                  //     //   comparison: FireComparison.equalTo,
+                  //     //   value: 'egy',
+                  //     // ),
+                  //   ],
+                  //   onRead: (i, Map<String, dynamic> map) async {
+                  //
+                  //     final CityModel _city = CityModel.decipherCityMap(map: map, fromJSON: false);
+                  //
+                  //     Map<String, dynamic> _newCityMap = {
+                  //       'population': _city.population ?? 0,
+                  //       'position': Atlas.cipherGeoPoint(point: _city.position, toJSON: true),
+                  //     };
+                  //
+                  //     /// PHRASES
+                  //     Map<String, dynamic> _phrasesMap = {};
+                  //     for (final Phrase phrase in _city.phrases){
+                  //       _phrasesMap = Mapper.insertPairInMap(
+                  //           map: _phrasesMap,
+                  //           key: phrase.langCode,
+                  //           value: phrase.value,
+                  //       );
+                  //     }
+                  //     _newCityMap = Mapper.insertPairInMap(
+                  //         map: _newCityMap,
+                  //         key: 'phrases',
+                  //         value: _phrasesMap,
+                  //     );
+                  //
+                  //     /// DISTRICTS
+                  //     if (Mapper.checkCanLoopList(_city.districts) == true){
+                  //       Map<String, dynamic> _districtsMap = {};
+                  //       for (final DistrictModel dis in _city.districts){
+                  //         // -->
+                  //         Map<String, dynamic> _disPhrasesMap = {};
+                  //         for (final Phrase disPhrase in dis.phrases){
+                  //           _disPhrasesMap = Mapper.insertPairInMap(
+                  //             map: _disPhrasesMap,
+                  //             key: disPhrase.langCode,
+                  //             value: disPhrase.value,
+                  //           );
+                  //         }
+                  //         // -->
+                  //         _districtsMap = Mapper.insertPairInMap(
+                  //           map: _districtsMap,
+                  //           key: dis.districtID,
+                  //           value: {
+                  //             'level': 'inactive',
+                  //             'phrases': _disPhrasesMap,
+                  //           },
+                  //         );
+                  //       }
+                  //       _newCityMap = Mapper.insertPairInMap(
+                  //         map: _newCityMap,
+                  //         key: 'districts',
+                  //         value: _districtsMap,
+                  //       );
+                  //
+                  //     }
+                  //
+                  //     // Mapper.blogMap(_newCityMap);
+                  //
+                  //     await Real.createDocInPath(
+                  //       pathWithoutDocName: 'zones/cities/${_city.countryID}',
+                  //       docName: _city.cityID,
+                  //       addDocIDToOutput: false,
+                  //       map: _newCityMap,
+                  //     );
+                  //
+                  //     final String _num = Numeric.formatNumberWithinDigits(num: i, digits: 5);
+                  //     blog('$_num : DONE : ${_city.cityID}');
+                  //   }
+                  // );
+
+                },
+              ),
+
+              /// READ A CITY
+              WideButton(
+                verse: Verse.plain('Read a City'),
+                onTap: () async {
+
+                  final CityModel _city = await ZoneRealOps.readCity(
+                    countryID: 'sau',
+                    cityID: 'sau_khamis_mushait',
+                  );
+
+                  _city?.blogCity();
+
+                },
+              ),
+
+              /// READ A COUNTRY CITIES
+              WideButton(
+                verse: Verse.plain('Read Country Cities'),
+                onTap: () async {
+
+                  final List<CityModel> _cities = await ZoneRealOps.readCountryCities(
+                    countryID: 'egy',
+                  );
+
+                  blog('read ${_cities.length} Cities');
+                  // Mapper.blogMaps(_maps);
+
+                  CityModel.blogCities(_cities);
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
           ),
+        ),
 
-          /// GET CONTINENTS JSON
-          WideButton(
-            verse: Verse.plain('Get CONTINENTS JSON map'),
-            onTap: () async {
+        /// CITIES LEVELS
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            children: <Widget>[
 
-              final List<Continent> _continents = await ZoneJSONOps.readAllContinents();
-              blog('start');
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Cities levels'),
+              ),
 
-              Continent.blogContinents(_continents);
+              /// CREATE INITIAL CITIES LEVELS
+              WideButton(
+                verse: Verse.plain('Create initial cities levels'),
+                isActive: false,
+                onTap: () async {
 
-              blog('end');
-            },
-          ),
-
-          // -----------------------------------
-
-          /// SEPARATOR
-          const SeparatorLine(),
-
-          /// MIGRATE CITY TO NEW REAL
-          WideButton(
-            verse: Verse.plain('Migrate Cities to real'),
-            isActive: false,
-            onTap: () async {
-
-              /// DONE : VERY LONG AND DANGEROUS
-              // await ExoticMethods.readAllSubCollectionDocs(
-              //   collName: FireColl.zones,
-              //   docName: FireDoc.zones_cities,
-              //   subCollName: FireSubColl.zones_cities_cities,
-              //   limit: 40000,
-              //   finders: <FireFinder>[
-              //     // const FireFinder(
-              //     //   field: 'countryID',
-              //     //   comparison: FireComparison.equalTo,
-              //     //   value: 'egy',
-              //     // ),
-              //   ],
-              //   onRead: (i, Map<String, dynamic> map) async {
-              //
-              //     final CityModel _city = CityModel.decipherCityMap(map: map, fromJSON: false);
-              //
-              //     Map<String, dynamic> _newCityMap = {
-              //       'population': _city.population ?? 0,
-              //       'position': Atlas.cipherGeoPoint(point: _city.position, toJSON: true),
-              //     };
-              //
-              //     /// PHRASES
-              //     Map<String, dynamic> _phrasesMap = {};
-              //     for (final Phrase phrase in _city.phrases){
-              //       _phrasesMap = Mapper.insertPairInMap(
-              //           map: _phrasesMap,
-              //           key: phrase.langCode,
-              //           value: phrase.value,
-              //       );
-              //     }
-              //     _newCityMap = Mapper.insertPairInMap(
-              //         map: _newCityMap,
-              //         key: 'phrases',
-              //         value: _phrasesMap,
-              //     );
-              //
-              //     /// DISTRICTS
-              //     if (Mapper.checkCanLoopList(_city.districts) == true){
-              //       Map<String, dynamic> _districtsMap = {};
-              //       for (final DistrictModel dis in _city.districts){
-              //         // -->
-              //         Map<String, dynamic> _disPhrasesMap = {};
-              //         for (final Phrase disPhrase in dis.phrases){
-              //           _disPhrasesMap = Mapper.insertPairInMap(
-              //             map: _disPhrasesMap,
-              //             key: disPhrase.langCode,
-              //             value: disPhrase.value,
-              //           );
-              //         }
-              //         // -->
-              //         _districtsMap = Mapper.insertPairInMap(
-              //           map: _districtsMap,
-              //           key: dis.districtID,
-              //           value: {
-              //             'level': 'inactive',
-              //             'phrases': _disPhrasesMap,
-              //           },
-              //         );
-              //       }
-              //       _newCityMap = Mapper.insertPairInMap(
-              //         map: _newCityMap,
-              //         key: 'districts',
-              //         value: _districtsMap,
-              //       );
-              //
-              //     }
-              //
-              //     // Mapper.blogMap(_newCityMap);
-              //
-              //     await Real.createDocInPath(
-              //       pathWithoutDocName: 'zones/cities/${_city.countryID}',
-              //       docName: _city.cityID,
-              //       addDocIDToOutput: false,
-              //       map: _newCityMap,
-              //     );
-              //
-              //     final String _num = Numeric.formatNumberWithinDigits(num: i, digits: 5);
-              //     blog('$_num : DONE : ${_city.cityID}');
-              //   }
-              // );
-
-            },
-          ),
-
-          /// READ A CITY
-          WideButton(
-            verse: Verse.plain('Read a City'),
-            onTap: () async {
-
-              final CityModel _city = await ZoneRealOps.readCity(
-                  countryID: 'sau',
-                  cityID: 'sau_khamis_mushait',
-              );
-
-              _city?.blogCity();
-
-            },
-          ),
-
-          /// READ A COUNTRY CITIES
-          WideButton(
-            verse: Verse.plain('Read Country Cities'),
-            onTap: () async {
-
-              final List<CityModel> _cities = await ZoneRealOps.readCountryCities(
-                countryID: 'egy',
-              );
-
-              blog('read ${_cities.length} Cities');
-              // Mapper.blogMaps(_maps);
-
-              CityModel.blogCities(_cities);
-
-            },
-          ),
-
-          // -----------------------------------
-
-          /// SEPARATOR
-          const SeparatorLine(),
-
-          /// CREATE INITIAL CITIES LEVELS
-          WideButton(
-            verse: Verse.plain('Create initial cities levels'),
-            isActive: false,
-            onTap: () async {
-
-              /*
+                  /*
               await ExoticMethods.fetchAllCountryModels(
                 onRead: (int index, CountryModel countryModel) async {
 
@@ -341,123 +409,159 @@ class _ZoningLabState extends State<ZoningLab> {
 
  */
 
-            },
+                },
+              ),
+
+              /// READ CITIES LEVELS
+              WideButton(
+                verse: Verse.plain('Read Cities Levels'),
+                onTap: () async {
+
+                  final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+
+                  for (final String countryID in _countriesIDs){
+
+                    final ZoneLevel _lvl = await ZoneRealOps.readCitiesLevels(countryID);
+                    _lvl?.blogLeveL();
+
+                    if (_lvl == null){
+                      blog('NULL : for $countryID');
+                    }
+
+                  }
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
           ),
+        ),
 
-          /// READ CITIES LEVELS
-          WideButton(
-            verse: Verse.plain('Read Cities Levels'),
-            onTap: () async {
+        /// COUNTRIES LEVELS
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            children: <Widget>[
 
-              final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Countries levels'),
+              ),
 
-              for (final String countryID in _countriesIDs){
+              /// CREATE INITIAL COUNTRIES LEVELS
+              WideButton(
+                verse: Verse.plain('Create initial Countries levels'),
+                isActive: false,
+                onTap: () async {
 
-                final ZoneLevel _lvl = await ZoneRealOps.readCitiesLevels(countryID);
-                _lvl?.blogLeveL();
+                  const List<Flag> _iso3s = allFlags;
 
-                if (_lvl == null){
-                  blog('NULL : for $countryID');
-                }
+                  final List<String> hidden = [];
+                  final List<String> inactive = [];
 
-              }
+                  for (final Flag iso3 in _iso3s){
 
-            },
+                    if (
+                    iso3.id == 'egy' ||
+                        iso3.id == 'sau' ||
+                        iso3.id == 'kwt' ||
+                        iso3.id == 'and' ||
+                        iso3.id == 'are' ||
+                        iso3.id == 'bhr'
+                    ){
+                      inactive.add(iso3.id);
+                    }
+
+                    else {
+                      hidden.add(iso3.id);
+                    }
+
+                  }
+
+                  final ZoneLevel _lvl = ZoneLevel(
+                    hidden: hidden,
+                    inactive: inactive,
+                    active: const [],
+                    public: const [],
+                  );
+
+                  _lvl.blogLeveL();
+
+                  await Real.createDocInPath(
+                    pathWithoutDocName: 'zones',
+                    docName: 'countriesLevels',
+                    addDocIDToOutput: false,
+                    map: _lvl.toMap(),
+                  );
+
+                },
+              ),
+
+              /// READ COUNTRIES LEVELS
+              WideButton(
+                verse: Verse.plain('Read Countries Levels'),
+                onTap: () async {
+
+                  final ZoneLevel _lvl = await ZoneRealOps.readCountriesLevels();
+                  _lvl.blogLeveL();
+
+                  final List<String> _countriesIDs = ZoneLevel(
+                    hidden: _lvl.hidden,
+                    inactive: _lvl.inactive,
+                    active: null,
+                    public: const [],
+                  ).getAllIDs();
+
+                  Stringer.blogStrings(strings: _countriesIDs, invoker: '');
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
           ),
+        ),
 
-          // -----------------------------------
+        /// FLAGS
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            children: <Widget>[
 
-          /// SEPARATOR
-          const SeparatorLine(),
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Flag'),
+              ),
 
-          /// CREATE INITIAL COUNTRIES LEVELS
-          WideButton(
-            verse: Verse.plain('Create initial Countries levels'),
-            isActive: false,
-            onTap: () async {
+              /// CREATE FLAGS
+              WideButton(
+                verse: Verse.plain('Create Flags'),
+                onTap: () async {
 
-              const List<Flag> _iso3s = allFlags;
+                  const List<Flag> _iso3s = allFlags;
 
-              final List<String> hidden = [];
-              final List<String> inactive = [];
+                  Flag.blogFlags(_iso3s);
 
-              for (final Flag iso3 in _iso3s){
+                },
+              ),
 
-                if (
-                iso3.id == 'egy' ||
-                    iso3.id == 'sau' ||
-                    iso3.id == 'kwt' ||
-                    iso3.id == 'and' ||
-                    iso3.id == 'are' ||
-                    iso3.id == 'bhr'
-                ){
-                  inactive.add(iso3.id);
-                }
+              /// SEPARATOR
+              const SeparatorLine(),
 
-                else {
-                  hidden.add(iso3.id);
-                }
-
-              }
-
-              final ZoneLevel _lvl = ZoneLevel(
-                  hidden: hidden,
-                  inactive: inactive,
-                  active: const [],
-                  public: const [],
-              );
-
-              _lvl.blogLeveL();
-
-              await Real.createDocInPath(
-                  pathWithoutDocName: 'zones',
-                  docName: 'countriesLevels',
-                  addDocIDToOutput: false,
-                  map: _lvl.toMap(),
-              );
-
-            },
+            ],
           ),
+        ),
 
-          /// READ COUNTRIES LEVELS
-          WideButton(
-            verse: Verse.plain('Read Countries Levels'),
-            onTap: () async {
-
-              final ZoneLevel _lvl = await ZoneRealOps.readCountriesLevels();
-              _lvl.blogLeveL();
-
-              final List<String> _countriesIDs = ZoneLevel(
-                  hidden: _lvl.hidden,
-                  inactive: _lvl.inactive,
-                  active: null,
-                  public: const [],
-              ).getAllIDs();
-
-              Stringer.blogStrings(strings: _countriesIDs, invoker: '');
-
-            },
-          ),
-
-          // -----------------------------------
-
-          /// SEPARATOR
-          const SeparatorLine(),
-
-          /// CREATE FLAGS
-          WideButton(
-            verse: Verse.plain('Create Flags'),
-            onTap: () async {
-
-              const List<Flag> _iso3s = allFlags;
-
-              Flag.blogFlags(_iso3s);
-
-            },
-          ),
-
-        ],
-      ),
+      ],
     );
 
   }

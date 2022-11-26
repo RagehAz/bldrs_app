@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -123,6 +122,7 @@ class CityModel {
     return _cities;
   }
   // --------------------
+  /// DEPRECATED
   /*
 //   static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
 //     final List<CityModel> _cities = <CityModel>[];
@@ -154,7 +154,8 @@ class CityModel {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// DEPRECATED
+  /*
   static List<String> getTranslatedCitiesNamesFromCities({
     @required BuildContext context,
     @required List<CityModel> cities,
@@ -171,8 +172,10 @@ class CityModel {
     // return TextMod.sortAlphabetically(_citiesNames);
     return null;
   }
+   */
   // --------------------
-  /// TASK : TEST ME
+  /// DEPRECATED
+  /*
   static List<MapModel> getCitiesNamesMapModels({
     @required BuildContext context,
     @required List<CityModel> cities,
@@ -200,8 +203,23 @@ class CityModel {
 
     return MapModel.sortValuesAlphabetically(_citiesMapModels);
   }
+   */
   // --------------------
-  /// TASK : TEST ME
+  /// DEPRECATED
+  /*
+  static String translateCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
+    // final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
+    //     context: context,
+    //     phrases: cityModel?.phrases
+    // )?.value;
+    //
+    // return _nameInCurrentLanguage ?? cityModel?.cityID;
+    return null;
+  }
+   */
+  // --------------------
+  /// DEPRECATED
+  /*
   static CityModel getCityFromCities({
     @required List<CityModel> cities,
     @required String cityID,
@@ -213,6 +231,30 @@ class CityModel {
     }
     return _city;
   }
+   */
+  // --------------------
+  /// DEPRECATED
+  /*
+  static List<String> getCitiesIDsFromCities({
+    @required List<CityModel> cities,
+  }) {
+
+    final List<String> _citiesIDs = <String>[];
+
+    if (Mapper.checkCanLoopList(cities)) {
+      for (final CityModel city in cities) {
+        _citiesIDs.add(city.cityID);
+      }
+    }
+
+    return _citiesIDs;
+  }
+
+   */
+  // -----------------------------------------------------------------------------
+
+  /// TRANSLATIONS
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getTranslatedCityNameFromCity({
@@ -235,64 +277,6 @@ class CityModel {
     }
 
     return _cityName;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static List<String> getCitiesIDsFromCities({
-    @required List<CityModel> cities,
-  }) {
-
-    final List<String> _citiesIDs = <String>[];
-
-    if (Mapper.checkCanLoopList(cities)) {
-      for (final CityModel city in cities) {
-        _citiesIDs.add(city.cityID);
-      }
-    }
-
-    return _citiesIDs;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static String translateCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
-    // final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
-    //     context: context,
-    //     phrases: cityModel?.phrases
-    // )?.value;
-    //
-    // return _nameInCurrentLanguage ?? cityModel?.cityID;
-    return null;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<CityModel> _getCitiesFromPhrases({
-    @required List<Phrase> phrases,
-    @required List<CityModel> sourceCities,
-  }){
-    final List<CityModel> _foundCities = <CityModel>[];
-
-    if (Mapper.checkCanLoopList(sourceCities) && Mapper.checkCanLoopList(phrases)){
-
-      for (final Phrase phrase in phrases){
-
-        for (final CityModel city in sourceCities){
-
-          if (city.phrases.contains(phrase)){
-
-            if (!_foundCities.contains(city)){
-              _foundCities.add(city);
-
-            }
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return _foundCities;
   }
   // -----------------------------------------------------------------------------
 
@@ -349,54 +333,6 @@ class CityModel {
   /// TASK : TEST ME
   String getCountryID(){
     return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '_');
-  }
-  // -----------------------------------------------------------------------------
-
-  /// SEARCHERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<CityModel> searchCitiesByName({
-    @required BuildContext context,
-    @required List<CityModel> sourceCities,
-    @required String inputText,
-    List<String> langCodes = const <String>['en', 'ar'],
-  }){
-
-    /// CREATE PHRASES LIST
-    final List<Phrase> _citiesPhrases = <Phrase>[];
-
-    /// ADD ALL MIXED LANG PHRASES IN THE LIST
-    for (final String langCode in langCodes){
-      for (final CityModel city in sourceCities){
-
-        final Phrase _cityPhrase = Phrase.searchPhraseByIDAndLangCode(
-          phid: city.cityID,
-          langCode: langCode,
-          phrases: city.phrases,
-        );
-        _citiesPhrases.add(_cityPhrase);
-
-      }
-
-    }
-
-
-    /// SEARCH PHRASES
-    final List<Phrase> _foundPhrases = Phrase.searchPhrasesTrigrams(
-      sourcePhrases: _citiesPhrases,
-      inputText: inputText,
-    );
-
-    /// GET CITIES BY IDS FROM NAMES
-    final List<CityModel> _foundCities = _getCitiesFromPhrases(
-        phrases: _foundPhrases,
-        sourceCities: sourceCities
-    );
-
-    // CityModel.blogCities(_foundCities);
-
-    return _foundCities;
   }
   // -----------------------------------------------------------------------------
 

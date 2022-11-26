@@ -1,11 +1,9 @@
-
-
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-
+/// => TAMAM
 class LocationOps {
   // -----------------------------------------------------------------------------
 

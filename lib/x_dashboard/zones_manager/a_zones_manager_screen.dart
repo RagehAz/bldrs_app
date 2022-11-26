@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -93,147 +92,121 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
-    return MainLayout(
-      pyramidsAreOn: true,
-      appBarType: AppBarType.basic,
-      pageTitleVerse: Verse.plain('Zones Manager'),
-      skyType: SkyType.black,
-      loading: _loading,
-      progressBarModel: _progressBarModel,
-      onBack: () => Dialogs.goBackDialog(
-        context: context,
-        goBackOnConfirm: true,
-      ),
-      pyramidButtons: <Widget>[
+    return ValueListenableBuilder(
+      valueListenable: _zone,
+      builder: (_, ZoneModel zone, Widget child){
 
-        /// SYNCING
-        ValueListenableBuilder(
-          valueListenable: _zone,
-          builder: (_, ZoneModel zone, Widget child){
+        // final String _countryName = CountryModel.getTranslatedCountryName(
+        //   context: context,
+        //   countryID: zone.countryID,
+        // );
+        // final String _countryFlag = Flag.getFlagIconByCountryID(zone.countryID);
+        //
+        // final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+        //   currencies: ZoneProvider.proGetAllCurrencies(context),
+        //   countryID: zone.countryID,
+        // );
 
-            final bool _areIdentical = ZoneModel.checkZonesIDsAreIdentical(
-              zone1: zone,
-              zone2: zone,
-            );
+        return PagesLayout(
+          title: Verse.plain('Zones manager'),
+          appBarRowWidgets: <Widget>[
 
-            return PyramidFloatingButton(
-              icon: Iconz.reload,
-              color: _areIdentical == true ? Colorz.nothing : Colorz.yellow255,
-              isDeactivated: _areIdentical,
-              onTap: (){
-                if (_areIdentical == true){
-                  blog('Zones has NOT changed');
-                }
-                else {
-                  blog('Zones has changed');
-                }
+            const Expander(),
+
+            /// ZONE BUTTON
+            ValueListenableBuilder(
+              valueListenable: _zone,
+              builder: (_, ZoneModel zone, Widget child){
+
+                return ZoneButton(
+                  zoneOverride: zone,
+                  onTap: () => goToCountrySelectionScreen(
+                    context: context,
+                    zone: _zone,
+                  ),
+                );
+
               },
-            );
+            ),
 
-          },
-        ),
+          ],
+          pyramidButtons: <Widget>[
 
-        /// LAB
-        PyramidFloatingButton(
-          icon: Iconz.lab,
-          onTap: () async {
-            await Nav.goToNewScreen(
-              context: context,
-              screen: const ZoningLab(),
-            );
-          },
-        ),
+            /// SYNCING
+            ValueListenableBuilder(
+              valueListenable: _zone,
+              builder: (_, ZoneModel zone, Widget child){
 
-      ],
-      appBarRowWidgets: <Widget>[
+                final bool _areIdentical = ZoneModel.checkZonesIDsAreIdentical(
+                  zone1: zone,
+                  zone2: zone,
+                );
 
-        const Expander(),
+                return PyramidFloatingButton(
+                  icon: Iconz.reload,
+                  color: _areIdentical == true ? Colorz.nothing : Colorz.yellow255,
+                  isDeactivated: _areIdentical,
+                  onTap: (){
+                    if (_areIdentical == true){
+                      blog('Zones has NOT changed');
+                    }
+                    else {
+                      blog('Zones has changed');
+                    }
+                  },
+                );
 
-        /// ZONE BUTTON
-        ValueListenableBuilder(
-          valueListenable: _zone,
-          builder: (_, ZoneModel zone, Widget child){
+              },
+            ),
 
-            return ZoneButton(
-              zoneOverride: zone,
-              onTap: () => goToCountrySelectionScreen(
-                context: context,
-                zone: _zone,
-              ),
-            );
-
-          },
-        ),
-
-      ],
-      layoutWidget: ValueListenableBuilder(
-        valueListenable: _zone,
-        builder: (_, ZoneModel zone, Widget child){
-
-          if (zone == null){
-            return Center(
-              child: SuperVerse(
-                verse: Verse.plain('Select a Zone'),
-                size: 4,
-                italic: true,
-                color: Colorz.white50,
-              ),
-            );
-          }
-
-          else {
-
-            // final String _countryName = CountryModel.getTranslatedCountryName(
-            //   context: context,
-            //   countryID: zone.countryID,
-            // );
-            // final String _countryFlag = Flag.getFlagIconByCountryID(zone.countryID);
-            //
-            // final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
-            //   currencies: ZoneProvider.proGetAllCurrencies(context),
-            //   countryID: zone.countryID,
-            // );
-
-            return SizedBox(
-              width: Scale.screenWidth(context),
-              height: Scale.screenHeight(context),
-              child: PageView(
-                physics: const BouncingScrollPhysics(),
-                controller: _pageController,
-                onPageChanged: (int index) => ProgressBarModel.onSwipe(
+            /// LAB
+            PyramidFloatingButton(
+              icon: Iconz.lab,
+              onTap: () async {
+                await Nav.goToNewScreen(
                   context: context,
-                  newIndex: index,
-                  progressBarModel: _progressBarModel,
+                  screen: const ZoningLab(),
+                );
+              },
+            ),
+
+          ],
+          pageBubbles: [
+
+              if (zone == null)
+                Center(
+                  child: SuperVerse(
+                    verse: Verse.plain('Select a Zone'),
+                    size: 4,
+                    italic: true,
+                    color: Colorz.white50,
+                  ),
                 ),
-                children: <Widget>[
 
-                  /// COUNTRY PAGE
-                  CountryEditorPage(
-                    appBarType: AppBarType.basic,
-                    country: zone.countryModel,
-                    screenHeight: _screenHeight,
-                    onCityTap: () => goToCitySelectionScreen(
-                      context: context,
-                      zone: _zone,
-                      pageController: _pageController,
-                    ),
+              /// COUNTRY PAGE
+              if (zone != null)
+                CountryEditorPage(
+                  appBarType: AppBarType.basic,
+                  country: zone.countryModel,
+                  screenHeight: _screenHeight,
+                  onCityTap: () => goToCitySelectionScreen(
+                    context: context,
+                    zone: _zone,
+                    pageController: _pageController,
                   ),
+                ),
 
-                  /// CITY PAGE
-                  EditCityPage(
-                    screenHeight: _screenHeight,
-                    zoneModel: zone,
-                  ),
+              /// CITY PAGE
+              if (zone != null)
+                EditCityPage(
+                  screenHeight: _screenHeight,
+                  zoneModel: zone,
+                ),
 
-                ],
-              ),
-            );
+            ],
+        );
 
-          }
-
-
-        },
-      ),
+      },
     );
 
   }
