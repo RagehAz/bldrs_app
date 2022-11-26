@@ -86,6 +86,7 @@ class _ZoningLabState extends State<ZoningLab> {
           appBarType: _appBarType,
           color: Colorz.white20,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               /// HEADLINE
@@ -154,6 +155,7 @@ class _ZoningLabState extends State<ZoningLab> {
           appBarType: _appBarType,
           color: Colorz.white20,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               /// HEADLINE
@@ -192,6 +194,7 @@ class _ZoningLabState extends State<ZoningLab> {
           appBarType: _appBarType,
           color: Colorz.white20,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               /// HEADLINE
@@ -232,6 +235,7 @@ class _ZoningLabState extends State<ZoningLab> {
           appBarType: _appBarType,
           color: Colorz.white20,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               /// HEADLINE
@@ -375,6 +379,7 @@ class _ZoningLabState extends State<ZoningLab> {
           appBarType: _appBarType,
           color: Colorz.white20,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               /// HEADLINE
@@ -446,6 +451,7 @@ class _ZoningLabState extends State<ZoningLab> {
           appBarType: _appBarType,
           color: Colorz.white20,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               /// HEADLINE
@@ -535,6 +541,7 @@ class _ZoningLabState extends State<ZoningLab> {
           appBarType: _appBarType,
           color: Colorz.white20,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
               /// HEADLINE
