@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
@@ -8,10 +9,14 @@ import 'package:bldrs/c_protocols/zone_protocols/fire/zone_search.dart' as ZoneF
 import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/search/zone_search_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -40,7 +45,7 @@ class FetchZoneProtocols {
 
       // blog('_getCountryData : got place marks : ${_marks.length}');
 
-      if (Mapper.checkCanLoopList(_marks)){
+      if (Mapper.checkCanLoopList(_marks) == true){
 
         final Placemark _mark = _marks[0];
 
@@ -49,35 +54,53 @@ class FetchZoneProtocols {
         final String _countryISO2 = _mark.isoCountryCode;
         final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
 
-        /// try by sub admin area
-        final String _subAdministrativeArea = _mark.subAdministrativeArea;
-        CityModel _foundCity = await fetchCityByName(
-          context: context,
+        final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesByCountryID(
           countryID: _countryID,
-          cityName: _subAdministrativeArea,
-          langCode: 'en',
         );
 
-        /// try by admin area
-        if (_foundCity == null){
-          final String _administrativeArea = _mark.administrativeArea;
-          _foundCity = await fetchCityByName(
-            context: context,
-            countryID: _countryID,
-            cityName: _administrativeArea,
-            langCode: 'en',
-          );
-        }
+        CityModel _foundCity;
 
-        /// try by locality
-        if (_foundCity == null){
-          final String _locality = _mark.locality;
-          _foundCity = await fetchCityByName(
+        if (Mapper.checkCanLoopList(_countryCities) == true) {
+
+          /// by subAdministrativeArea
+          List<CityModel> _foundCities = ZoneSearchOps.searchCitiesByName(
             context: context,
-            countryID: _countryID,
-            cityName: _locality,
-            langCode: 'en',
+            sourceCities: _countryCities,
+            inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
+              input: TextMod.fixCountryName(_mark.subAdministrativeArea),
+              numberOfChars: Standards.maxTrigramLength,
+            ),
+            langCodes: ['en'],
           );
+
+          /// by administrativeArea
+          if (Mapper.checkCanLoopList(_foundCities) == false) {
+            _foundCities = ZoneSearchOps.searchCitiesByName(
+              context: context,
+              sourceCities: _countryCities,
+              inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
+                input: TextMod.fixCountryName(_mark.administrativeArea),
+                numberOfChars: Standards.maxTrigramLength,
+              ),
+              langCodes: ['en'],
+            );
+          }
+
+          /// by locality
+          if (Mapper.checkCanLoopList(_foundCities) == false) {
+            _foundCities = ZoneSearchOps.searchCitiesByName(
+              context: context,
+              sourceCities: _countryCities,
+              inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
+                input: TextMod.fixCountryName(_mark.locality),
+                numberOfChars: Standards.maxTrigramLength,
+              ),
+              langCodes: ['en'],
+            );
+          }
+
+          _foundCity = _foundCities?.first;
+
         }
 
         _zoneModel = ZoneModel(
@@ -157,7 +180,6 @@ class FetchZoneProtocols {
 
     return _output;
   }
-
   // -----------------------------------------------------------------------------
 
   /// CITY
@@ -238,7 +260,28 @@ class FetchZoneProtocols {
     return _cities;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
+  static Future<List<CityModel>> fetchCitiesByCountryID({
+    @required String countryID,
+    ZoneLevelType cityLevel,
+  }) async {
+    List<CityModel> _output = <CityModel>[];
+
+    if (TextCheck.isEmpty(countryID) == false){
+
+      final ZoneLevel _citiesIDs = await ZoneRealOps.readCitiesLevels(countryID);
+
+      _output = await fetchCities(
+        countryID: countryID,
+        citiesIDsOfThisCountry: _citiesIDs.getIDsByCityLevel(cityLevel),
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// DEPRECATED
   static Future<CityModel> fetchCityByName({
     @required BuildContext context,
     @required String cityName,
@@ -330,6 +373,7 @@ class FetchZoneProtocols {
 
     return _city;
   }
+
   // -----------------------------------------------------------------------------
 
   /// CONTINENT
