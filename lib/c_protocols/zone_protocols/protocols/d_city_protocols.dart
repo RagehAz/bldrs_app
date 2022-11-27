@@ -158,7 +158,9 @@ class CityProtocols {
 
     if (Mapper.checkCanLoopList(citiesIDsOfThisCountry) == true){
 
-      final List<CityModel> _ldbCities = await CityLDBOps.readCities(citiesIDsOfThisCountry);
+      final List<CityModel> _ldbCities = await CityLDBOps.readCities(
+        citiesIDs: citiesIDsOfThisCountry,
+      );
 
       if (_ldbCities.length == citiesIDsOfThisCountry.length){
         _output = _ldbCities;
