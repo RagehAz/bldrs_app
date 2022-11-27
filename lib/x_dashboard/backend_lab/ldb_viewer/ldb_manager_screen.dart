@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -12,7 +13,6 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LDBViewersScreen extends StatelessWidget {
@@ -21,6 +21,7 @@ class LDBViewersScreen extends StatelessWidget {
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> goToLDBViewer(BuildContext context, String ldbDocName) async {
     await Nav.goToNewScreen(
         context: context,
@@ -62,14 +63,21 @@ class LDBViewersScreen extends StatelessWidget {
 
             ...List<Widget>.generate(LDBDoc.allDocs.length, (int index) {
 
-              final String ldbDoc = LDBDoc.allDocs[index];
+              final dynamic ldbDoc = LDBDoc.allDocs[index];
 
-              return WideButton(
-                verse: Verse.plain(ldbDoc), // notifications prefs, my user model
-                onTap: () => goToLDBViewer(context, ldbDoc),
-                icon: Iconz.info,
-              );
+              /// HEADLINE
+              if (ldbDoc is Verse){
+                return SuperHeadline(verse: ldbDoc);
+              }
 
+              /// BUTTON
+              else {
+                return WideButton(
+                  verse: Verse.plain(ldbDoc), // notifications prefs, my user model
+                  onTap: () => goToLDBViewer(context, ldbDoc),
+                  icon: Iconz.info,
+                );
+              }
             }
             ),
           ],
@@ -117,11 +125,11 @@ class SmallFuckingButton extends StatelessWidget {
     );
   }
   /// --------------------------------------------------------------------------
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('verse', verse));
-    properties.add(DiagnosticsProperty<Function>('onTap', onTap));
-  }
+  // @override
+  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  //   super.debugFillProperties(properties);
+  //   properties.add(StringProperty('verse', verse));
+  //   properties.add(DiagnosticsProperty<Function>('onTap', onTap));
+  // }
   /// --------------------------------------------------------------------------
 }

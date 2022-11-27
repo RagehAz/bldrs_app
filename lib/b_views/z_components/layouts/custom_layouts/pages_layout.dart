@@ -62,7 +62,7 @@ class _PagesLayoutState extends State<PagesLayout> {
   // --------------------
   @override
   void didUpdateWidget(covariant PagesLayout oldWidget) {
-    if (widget.pageBubbles != oldWidget.pageBubbles) {
+    if (widget.pageBubbles.length != oldWidget.pageBubbles.length) {
       setState(() {});
       _initializeProgressBarModel();
     }
