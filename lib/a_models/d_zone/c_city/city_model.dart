@@ -57,7 +57,7 @@ class CityModel {
   }){
 
     Map<String, dynamic> _map = {
-      'districts': DistrictModel.oldCipherDistrictsOneMap(districts: districts, toJSON: toJSON, toLDB: toLDB),
+      // 'districts': DistrictModel.oldCipherDistrictsOneMap(districts: districts, toJSON: toJSON, toLDB: toLDB),
       'population': population,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
@@ -177,7 +177,7 @@ class CityModel {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String getCountryIDFromCityID(String cityID){
 
     /// NEW IDS

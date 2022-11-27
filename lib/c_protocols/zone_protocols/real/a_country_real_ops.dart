@@ -45,8 +45,8 @@ class CountryRealOps {
       path: '${RealColl.zones}/${RealDoc.zones_countriesLevels}',
     );
 
-    final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-      internalHashLinkedMapObjectObject: _dynamic,
+    final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+      ihlmoo: _dynamic,
     );
 
     return ZoneLevel.decipher(_map);
