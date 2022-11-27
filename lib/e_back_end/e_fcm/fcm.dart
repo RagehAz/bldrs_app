@@ -638,8 +638,8 @@ class FCM {
 
       final Map<String, dynamic> _map = json.decode(_result.body);
 
-      final Map<String, dynamic> _topicsMap = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-          internalHashLinkedMapObjectObject: _map['rel']['topics'],
+      final Map<String, dynamic> _topicsMap = Mapper.getMapFromIHLMOO(
+          ihlmoo: _map['rel']['topics'],
       );
 
       _topics = _topicsMap.keys.toList();

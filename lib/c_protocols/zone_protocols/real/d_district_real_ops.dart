@@ -6,7 +6,7 @@ import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class DistrictRealOps {
   // -----------------------------------------------------------------------------
 
@@ -14,10 +14,41 @@ class DistrictRealOps {
 
   // -----------------------------------------------------------------------------
 
+  /// CREATE DISTRICT
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> createDistrict({
+    @required DistrictModel district,
+  }) async {
+
+    /// TASK : ASSERT THAT DISTRICT ID IS CORRECT AND HAS TWO + +
+    /// TASK : ASSERT THAT MAP HAS NO 'id' FIELD
+
+    if (district != null){
+
+      final String _countryID = DistrictModel.getCountryIDFromDistrictID(district.id);
+      final String _cityID = DistrictModel.getCityIDFromDistrictID(district.id);
+
+      await Real.createDocInPath(
+          pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$_cityID',
+          docName: district.id,
+          addDocIDToOutput: false,
+          map: district.toMap(
+            toJSON: true,
+            toLDB: false,
+          ),
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// READ DISTRICTS LEVELS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<ZoneLevel> readDistrictsLevels(String cityID) async {
     ZoneLevel _output;
 
@@ -29,8 +60,8 @@ class DistrictRealOps {
         path: '${RealColl.zones}/${RealDoc.zones_districtsLevels}/$countryID/$cityID',
       );
 
-      final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-        internalHashLinkedMapObjectObject: _dynamic,
+      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        ihlmoo: _dynamic,
       );
 
       _output = ZoneLevel.decipher(_map);
@@ -44,7 +75,7 @@ class DistrictRealOps {
   /// READ DISTRICT MODEL
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DistrictModel> readDistrict(String districtID) async {
     DistrictModel _output;
 
@@ -54,11 +85,11 @@ class DistrictRealOps {
       final String _cityID     = DistrictModel.getCityIDFromDistrictID(districtID);
 
       final Object _districtMap = await Real.readPath(
-        path: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID/$_cityID/$districtID',
+        path: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$_cityID/$districtID',
       );
 
-      final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-        internalHashLinkedMapObjectObject: _districtMap,
+      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        ihlmoo: _districtMap,
       );
 
       _output = DistrictModel.decipherDistrict(
@@ -71,7 +102,7 @@ class DistrictRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<DistrictModel>> readDistricts({
     @required List<String> districtsIDs,
   }) async {
@@ -106,7 +137,7 @@ class DistrictRealOps {
   /// READ CITY DISTRICTS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<DistrictModel>> readCityDistricts(String cityID) async {
 
     final String _countryID = CityModel.getCountryIDFromCityID(cityID);
@@ -115,8 +146,8 @@ class DistrictRealOps {
       path: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$cityID',
     );
 
-    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(
-      internalHashLinkedMapObjectObject: _objects,
+    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+      ihlmoo: _objects,
     );
 
     return DistrictModel.decipherDistrictsMaps(_maps);
@@ -126,9 +157,50 @@ class DistrictRealOps {
   /// READ COUNTRY DISTRICTS
 
   // --------------------
-  /// TASK : WRITE MEeeee
+  /// TESTED : WORKS PERFECT : TOO EXPENSIVE BIG COUNTRIES
   static Future<List<DistrictModel>> readCountryDistricts(String countryID) async {
+    final List<DistrictModel> _output = [];
 
+    if (TextCheck.isEmpty(countryID) == false){
+
+      final Object object = await Real.readPath(
+          path: '${RealColl.zones}/${RealDoc.zones_districts}/$countryID'
+      );
+
+      if (object != null){
+
+        final List<Map<String, dynamic>> citiesMaps = Mapper.getMapsFromIHLMOO(
+          ihlmoo: object,
+          addChildrenIDs: false,
+        );
+
+        for (final Map<String, dynamic> cityMap in citiesMaps){
+
+          final List<String> _districtsIDs = cityMap.keys.toList();
+
+          for (int i = 0; i < _districtsIDs.length; i++){
+
+            final String _districtID = _districtsIDs[i];
+
+            final Map<String, dynamic> _districtMap = cityMap[_districtID];
+
+            final DistrictModel _district = DistrictModel.decipherDistrict(
+              map: _districtMap,
+              districtID: _districtID,
+            );
+
+            _output.add(_district);
+
+          }
+
+      }
+
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 }

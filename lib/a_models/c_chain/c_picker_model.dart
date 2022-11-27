@@ -163,8 +163,8 @@ class PickerModel {
 
         for (final String chainID in _keys){
 
-          final Map<String, dynamic> _pickerMap = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-            internalHashLinkedMapObjectObject: bigMap[chainID],
+          final Map<String, dynamic> _pickerMap = Mapper.getMapFromIHLMOO(
+            ihlmoo: bigMap[chainID],
           );
 
           final PickerModel _model = decipherPicker(
