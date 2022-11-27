@@ -51,7 +51,7 @@ class FetchZoneProtocols {
         final String _countryISO2 = _mark.isoCountryCode;
         final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
 
-        final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesByCountryID(
+        final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesOfCountryByLevel(
           countryID: _countryID,
         );
 
@@ -184,7 +184,6 @@ class FetchZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCity({
-    @required String countryID,
     @required String cityID,
   }) async {
 
@@ -196,15 +195,17 @@ class FetchZoneProtocols {
 
     else {
 
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
       _cityModel = await ZoneRealOps.readCity(
-        countryID: countryID,
+        countryID: _countryID,
         cityID: cityID,
       );
 
       if (_cityModel != null){
         // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
 
-        await ZoneLDBOps.insertCity(_cityModel);
+        // await ZoneLDBOps.insertCity(_cityModel);
 
       }
 
@@ -219,22 +220,20 @@ class FetchZoneProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<List<CityModel>> fetchCities({
-    @required String countryID,
-    @required List<String> citiesIDsOfThisCountry,
+    @required List<String> citiesIDs,
     ValueChanged<CityModel> onCityLoaded,
   }) async {
 
     final List<CityModel> _cities = <CityModel>[];
 
-    if (Mapper.checkCanLoopList(citiesIDsOfThisCountry) == true){
+    if (Mapper.checkCanLoopList(citiesIDs) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(citiesIDsOfThisCountry.length, (index) {
+        ...List.generate(citiesIDs.length, (index) {
 
           return fetchCity(
-            cityID: citiesIDsOfThisCountry[index],
-            countryID: countryID,
+            cityID: citiesIDs[index],
           ).then((value) {
 
             if (value != null) {
@@ -256,29 +255,105 @@ class FetchZoneProtocols {
 
     return _cities;
   }
+  // -----------------------------------------------------------------------------
+
+  /// COUNTRY CITIES
+
   // --------------------
   /// TASK : TEST ME
-  static Future<List<CityModel>> fetchCitiesByCountryID({
+  static Future<List<CityModel>> fetchCitiesOfCountryByLevel({
     @required String countryID,
+    /// If cityLevel is null, then all cities will be returned
     ZoneLevelType cityLevel,
   }) async {
     List<CityModel> _output = <CityModel>[];
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final ZoneLevel _citiesIDs = await ZoneRealOps.readCitiesLevels(countryID);
+      /// SHOULD FETCH ALL CITIES
+      if (cityLevel == null){
+        _output = await fetchCitiesFromAllOfCountry(countryID: countryID);
+      }
 
-      _output = await fetchCities(
-        countryID: countryID,
-        citiesIDsOfThisCountry: _citiesIDs.getIDsByCityLevel(cityLevel),
-      );
+      /// SHOULD FETCH ONLY CITIES OF THIS LEVEL
+      else {
+
+        final ZoneLevel _citiesIDs = await ZoneRealOps.readCitiesLevels(countryID);
+
+        _output = await fetchCitiesFromSomeOfCountry(
+          citiesIDsOfThisCountry: _citiesIDs?.getIDsByCityLevel(cityLevel),
+        );
+
+      }
 
     }
 
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
+  static Future<List<CityModel>> fetchCitiesFromAllOfCountry({
+    @required String countryID,
+  }) async {
+    List<CityModel> _output = <CityModel>[];
 
+    if (TextCheck.isEmpty(countryID) == false){
+
+      _output = await ZoneRealOps.readCountryCities(countryID: countryID);
+
+      if (Mapper.checkCanLoopList(_output) == true){
+        await ZoneLDBOps.insertCities(_output);
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<CityModel>> fetchCitiesFromSomeOfCountry({
+    @required List<String> citiesIDsOfThisCountry,
+  }) async {
+    List<CityModel> _output = <CityModel>[];
+
+    if (Mapper.checkCanLoopList(citiesIDsOfThisCountry) == true){
+
+      final List<CityModel> _ldbCities = await ZoneLDBOps.readCities(citiesIDsOfThisCountry);
+
+      if (_ldbCities.length == citiesIDsOfThisCountry.length){
+        _output = _ldbCities;
+      }
+
+      else {
+
+        /// ADD FOUND CITIES
+        _output.addAll(_ldbCities);
+
+        /// COLLECT NOT FOUND CITIES
+        final List<String> _citiesIDsToReadFromReal = <String>[];
+        for (final String cityID in citiesIDsOfThisCountry){
+          final bool _wasInLDB = CityModel.checkCitiesIncludeCityID(_ldbCities, cityID);
+          if (_wasInLDB == false){
+            _citiesIDsToReadFromReal.add(cityID);
+          }
+        }
+
+        /// READ REMAINING CITIES FROM REAL
+        final List<CityModel> _remainingCities = await ZoneRealOps.readCities(
+          citiesIDs: _citiesIDsToReadFromReal,
+        );
+
+        if (Mapper.checkCanLoopList(_remainingCities) == true){
+          await ZoneLDBOps.insertCities(_remainingCities);
+          _output.addAll(_remainingCities);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// CONTINENT
@@ -290,5 +365,4 @@ class FetchZoneProtocols {
     return _continents;
   }
   // --------------------
-
 }

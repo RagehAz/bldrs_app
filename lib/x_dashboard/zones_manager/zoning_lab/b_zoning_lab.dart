@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
@@ -5,11 +6,13 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -18,13 +21,20 @@ import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/tempppp.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
+import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:flutter/material.dart';
 
 class ZoningLab extends StatefulWidget {
@@ -557,6 +567,235 @@ class _ZoningLabState extends State<ZoningLab> {
                   const List<Flag> _iso3s = allFlags;
 
                   Flag.blogFlags(_iso3s);
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
+          ),
+        ),
+
+        /// PLAY GROUND
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Play Ground'),
+              ),
+
+              /// CREATE INITIAL DISTRICTS
+              WideButton(
+                verse: Verse.plain('Create initial Districts'),
+                onTap: () async {
+
+                  const String _countryID = 'sau';
+
+                  final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByLevel(
+                    countryID: _countryID,
+                  );
+
+                  for (final CityModel cityModel in _cities){
+
+                    final List<DistrictModel> _districts = cityModel.districts;
+
+                    for (final DistrictModel district in _districts){
+
+                      blog('${cityModel.cityID} : ${district.id}');
+
+                      final String _districtID = district.id;
+
+                      await Real.createDocInPath(
+                          pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/${cityModel.cityID}',
+                          docName: _districtID,
+                          addDocIDToOutput: false,
+                          map: district.toMap(
+                              toJSON: true,
+                              toLDB: false,
+                          ),
+                      );
+
+                    }
+
+                  }
+
+                },
+              ),
+
+              /// SYMBOL TEST
+              WideButton(
+                verse: Verse.plain('Symbol test'),
+                onTap: () async {
+
+                  await Real.createDocInPath(
+                    pathWithoutDocName: 'zzzzzzzz',
+                    docName: 'xxx+yyy+zzz',
+                    addDocIDToOutput: false,
+                    map: {
+                      'yy=zz' : 3,
+                      'bb*uuu' : 4,
+                      'ss&tt' : 5,
+                      'ee@ee' : {
+                        'fuck' : {'e' : 'ffff'},
+                        'fff': 34333,
+                      },
+                    },
+                  );
+
+                },
+              ),
+
+              /// DELETE PATH TEST
+              WideButton(
+                verse: Verse.plain('Delete path test'),
+                onTap: () async {
+
+                  await Real.deletePath(
+                    pathWithDocName: 'zzzzzzzz/xxx+yyy+zzz/ee@ee',
+                  );
+
+                },
+              ),
+
+              /// REAL OVERRIDE TEST
+              WideButton(
+                verse: Verse.plain('Real override test'),
+                onTap: () async {
+
+                  await Real.createDocInPath(
+                    pathWithoutDocName: 'zzzzzzzz',
+                    docName: 'xxx+yyy+zzz',
+                    addDocIDToOutput: false,
+                    map: {
+                      's' : 3,
+                      // 'bb*uuu' : 4,
+                      // 'ss&tt' : 5,
+                      // 'ee@ee' : {
+                      //   'xx' : 3,
+                      //   'yy' : 4,
+                      // },
+                    },
+                  );
+
+
+                },
+              ),
+
+              /// FIX CITIES IDS
+              WideButton(
+                verse: Verse.plain('FIX CITIES IDS AND CREATE FIRE PHRASES'),
+                onTap: () async {
+
+               final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+               _countriesIDs.remove('egy');
+
+               for (int i = 0; i < _countriesIDs.length; i++){
+
+                 final String countryID = _countriesIDs[i];
+
+                 final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesFromAllOfCountry(
+                   countryID: countryID,
+                 );
+
+                 for (int i = 0; i < _countryCities.length; i++){
+
+                   final CityModel city = _countryCities[i];
+                   final String _oldID = city.cityID;
+                   String _newCityID = _oldID;
+                   final bool _isAlreadyNewID = TextCheck.stringContainsSubString(string: _oldID, subString: '+');
+
+                   if (_isAlreadyNewID == true){
+                     _newCityID = _oldID;
+                   }
+
+                   else {
+
+                     final String _cityPortion = TextMod.removeTextBeforeFirstSpecialCharacter(_oldID, '_');
+                     _newCityID = CityModel.createCityID(
+                       countryID: countryID,
+                       cityEnName: _cityPortion,
+                     );
+
+                     await Future.wait(<Future>[
+
+                       /// TAMAM : FIRE CITY PHRASES
+                       createCityPhrases(
+                         countryID: countryID,
+                         city: city.copyWith(cityID: _newCityID,),
+                         newCItyID: _newCityID,
+                       ),
+
+                       /// TAMAM : CREATE NEW REAL CITY MODELS
+                       createNewCityModel(
+                         countryID: countryID,
+                         city: city.copyWith(cityID: _newCityID,),
+                         newCityID: _newCityID,
+                       ),
+
+                       /// TAMAM : REMOVE OLD REAL CITY MODEL
+                       removeOldCityModel(
+                         countryID: countryID,
+                         oldCityID: _oldID,
+                       ),
+
+                       /// TAMAM : CREATE OLD MODEL BACKUP
+                       createCityBackup(
+                         countryID: countryID,
+                         city: city.copyWith(cityID: _newCityID,),
+                       ),
+
+                       /// TAMAM FIRE DISTRICTS PHRASES
+                       createDistrictPhrasesModelsAndEverything(
+                         countryID: countryID,
+                         city: city.copyWith(cityID: _newCityID,),
+                       ),
+
+                       /// TAMAM : DISTRICTS LEVELS
+                       createDistrictsLevels(
+                         countryID: countryID,
+                         city: city.copyWith(cityID: _newCityID,),
+                       ),
+
+
+                     ])
+                         .then((value) => blog(
+                         '##      ======= >>>>>>> ${i+1} / ${_countryCities.length} : DONE : $_newCityID'
+                     )
+                     );
+
+
+                   }
+
+                 }
+
+
+                 blog('#######      ================ >>>>>>> $i / ${_countriesIDs.length} : DONE : $countryID');
+
+                 unawaited(Dialogs.showSuccessDialog(context: context, firstLine: Verse.plain('$i / ${_countriesIDs.length} : countryID')),);
+
+               }
+
+                },
+              ),
+
+              /// FIX DISTRICTS PHRASES
+              WideButton(
+                verse: Verse.plain('Fix egy districts phrases'),
+                onTap: () async {
+
+                  final List<Map<String, dynamic>> _maps = await ExoticMethods.readAllCollectionDocs(
+                      collName: FireColl.phrases_districts,
+                  );
+
+                  Mapper.blogMaps(_maps);
 
                 },
               ),

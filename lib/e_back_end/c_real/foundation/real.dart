@@ -703,6 +703,27 @@ class Real {
     );
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deletePath({
+    @required String pathWithDocName,
+  }) async {
+
+    if (TextCheck.isEmpty(pathWithDocName) == false){
+
+      final DatabaseReference _ref = getRefByPath(
+        path: pathWithDocName,
+      );
+
+      await tryAndCatch(
+        functions: () async {
+          await _ref.remove();
+        },
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// TRANSACTION & ATOMICS & LISTENERS
