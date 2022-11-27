@@ -84,16 +84,16 @@ class LDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, Object>> searchFirstMap({
-    @required String fieldToSortBy,
-    @required String searchField,
+    @required String sortFieldName,
+    @required String searchFieldName,
     @required dynamic searchValue,
     @required String docName,
   }) async {
 
     final Map<String, Object> _result = await Sembast.findFirst(
       docName: docName,
-      fieldToSortBy: fieldToSortBy,
-      searchField: searchField,
+      fieldToSortBy: sortFieldName,
+      searchField: searchFieldName,
       searchValue: searchValue,
     );
 

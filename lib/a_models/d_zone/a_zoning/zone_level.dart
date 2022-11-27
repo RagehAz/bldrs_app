@@ -173,7 +173,7 @@ class ZoneLevel {
   }
   // --------------------
   /// TASK : TEST ME
-  List<String> getIDsByCityLevel(ZoneLevelType level){
+  List<String> getIDsByLevel(ZoneLevelType level){
     switch (level) {
       case ZoneLevelType.hidden:    return hidden;    break;
       case ZoneLevelType.inactive:  return inactive;  break;
