@@ -83,12 +83,13 @@ class Dialogs {
   static Future<void> topNotice({
     @required BuildContext context,
     @required Verse verse,
+    Color color,
   }) async {
 
     await TopDialog.showTopDialog(
       context: context,
       firstVerse: verse,
-      // color: Colorz.yellow255,
+      color: color,
     );
 
   }
@@ -97,11 +98,13 @@ class Dialogs {
   static Future<void> centerNotice({
     @required BuildContext context,
     @required Verse verse,
+    Color color,
   }) async {
 
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: verse,
+      color: color,
       // boolDialog: false,
     );
 

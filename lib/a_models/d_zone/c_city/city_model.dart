@@ -9,8 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class CityModel
-{
+class CityModel {
   /// --------------------------------------------------------------------------
   const CityModel({
     this.cityID,
@@ -58,7 +57,7 @@ class CityModel
   }){
 
     Map<String, dynamic> _map = {
-      'districts': DistrictModel.cipherDistricts(districts: districts, toJSON: toJSON, toLDB: toLDB),
+      'districts': DistrictModel.oldCipherDistrictsOneMap(districts: districts, toJSON: toJSON, toLDB: toLDB),
       'population': population,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
@@ -114,7 +113,7 @@ class CityModel
     if (map != null) {
       _city = CityModel(
         cityID: cityID,
-        districts: DistrictModel.decipherDistricts(map['districts']),
+        districts: DistrictModel.oldDecipherDistrictsOneMap(map['districts']),
         population: map['population'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON,),
         phrases: Phrase.decipherPhrasesLangsMap(langsMap: map['phrases'], phid: cityID,),
@@ -277,15 +276,12 @@ class CityModel
   }
    */
   // --------------------
-  /// DEPRECATED
-  /*
-  static List<String> getCitiesIDsFromCities({
-    @required List<CityModel> cities,
-  }) {
+  /// TESTED : WORKS PERFECT
+  static List<String> getCitiesIDs(List<CityModel> cities) {
 
     final List<String> _citiesIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(cities)) {
+    if (Mapper.checkCanLoopList(cities) == true) {
       for (final CityModel city in cities) {
         _citiesIDs.add(city.cityID);
       }
@@ -293,8 +289,6 @@ class CityModel
 
     return _citiesIDs;
   }
-
-   */
   // -----------------------------------------------------------------------------
 
   /// TRANSLATIONS
@@ -475,7 +469,7 @@ class CityModel
 
     return _output;
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 

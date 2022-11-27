@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/c_protocols/zone_protocols/ldb/zone_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -195,7 +195,7 @@ class ZoneSearchOps {
       /// B - when trial 1 fails
       if (_city == null){
 
-        List<CityModel> _foundCities = await ZoneLDBOps.searchCitiesByName(
+        List<CityModel> _foundCities = await CityLDBOps.searchCitiesByName(
           cityName: cityName,
           langCode: langCode,
         );
@@ -221,7 +221,7 @@ class ZoneSearchOps {
           }
 
           /// C-2 - if firebase returned results
-          await ZoneLDBOps.insertCities(_foundCities);
+          await CityLDBOps.insertCities(_foundCities);
 
         }
 

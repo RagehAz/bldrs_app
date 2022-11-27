@@ -49,8 +49,8 @@ class BzLDBOps {
   static Future<BzModel> readBz(String bzID) async {
 
     final Map<String, dynamic> _bzMap = await LDBOps.searchFirstMap(
-      fieldToSortBy: 'id',
-      searchField: 'id',
+      sortFieldName: 'id',
+      searchFieldName: 'id',
       searchValue: bzID,
       docName: LDBDoc.bzz,
     );

@@ -76,8 +76,8 @@ class UserLDBOps {
   }) async {
 
     final Map<String, dynamic> _userMap = await LDBOps.searchFirstMap(
-      fieldToSortBy: 'id',
-      searchField: 'id',
+      sortFieldName: 'id',
+      searchFieldName: 'id',
       searchValue: userID,
       docName: LDBDoc.users,
     );

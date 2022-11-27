@@ -1,7 +1,7 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -10,12 +10,10 @@ class DistrictModel{
   /// --------------------------------------------------------------------------
   const DistrictModel({
     @required this.id,
-    @required this.level,
     @required this.phrases,
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final ZoneLevelType level;
   final List<Phrase> phrases;
   // -----------------------------------------------------------------------------
 
@@ -29,25 +27,79 @@ class DistrictModel{
   }){
 
     Map<String, dynamic> _map = {
-      'id': id,
       'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
-      'level': ZoneLevel.cipherLevelType(level),
     };
 
     if (toLDB == true){
-      _map = Mapper.insertMapInMap(
-        baseMap: _map,
-        insert: {
-          'id': id,
-        },
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: 'id',
+        value: id,
       );
     }
 
     return _map;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String,dynamic> cipherDistricts({
+  /// TASK : TEST ME
+  static DistrictModel decipherDistrict({
+    @required Map<String, dynamic> map,
+    @required String districtID,
+  }){
+    return DistrictModel(
+      id : districtID,
+      phrases: Phrase.decipherPhrasesLangsMap(
+        langsMap: map['phrases'],
+        phid: districtID,
+      ),
+
+    );
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static List<Map<String, dynamic>> cipherDistrictsMaps({
+    @required List<DistrictModel> districts,
+    @required bool toJSON,
+    @required bool toLDB,
+  }){
+    final List<Map<String, dynamic>> _output = [];
+
+    if (Mapper.checkCanLoopList(districts) == true){
+
+      for (final DistrictModel _district in districts){
+        _output.add(_district.toMap(
+          toJSON: toJSON,
+          toLDB: toLDB,
+        ));
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static List<DistrictModel> decipherDistrictsMaps(List<Map<String, dynamic>> maps){
+    final List<DistrictModel> _output = <DistrictModel>[];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+      for (final Map<String, dynamic> map in maps){
+        _output.add(decipherDistrict(
+          map: map,
+          districtID: map['id'],
+        ));
+      }
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DEPRECATED CYPHERS
+
+  // --------------------
+  /// DEPRECATED
+  static Map<String,dynamic> oldCipherDistrictsOneMap({
     @required List<DistrictModel> districts,
     @required bool toJSON,
     @required bool toLDB,
@@ -70,21 +122,8 @@ class DistrictModel{
     return _districtsMap;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static DistrictModel decipherDistrict(dynamic map){
-    return DistrictModel(
-      id : map['id'],
-      level: ZoneLevel.decipherLevelType(map['level']),
-      phrases: Phrase.decipherPhrasesLangsMap(
-        langsMap: map['phrases'],
-        phid: map['id'],
-      ),
-
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<DistrictModel> decipherDistricts(Map<String, dynamic> map){
+  /// DEPRECATED
+  static List<DistrictModel> oldDecipherDistrictsOneMap(Map<String, dynamic> map){
 
     final List<DistrictModel> _districts = <DistrictModel>[];
 
@@ -98,12 +137,15 @@ class DistrictModel{
         for (int i = 0; i< districtsIDs.length; i++){
 
           final Map<String, dynamic> _districtMapWithID = Mapper.insertPairInMap(
-              map: _districtsMaps[i],
-              key:'id',
-              value: districtsIDs[i],
+            map: _districtsMaps[i],
+            key:'id',
+            value: districtsIDs[i],
           );
 
-          final DistrictModel _district = decipherDistrict(_districtMapWithID);
+          final DistrictModel _district = decipherDistrict(
+            map: _districtMapWithID,
+            districtID: _districtMapWithID['id'],
+          );
           _districts.add(_district);
 
         }
@@ -167,6 +209,18 @@ class DistrictModel{
     }
 
     return _district;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static String getCountryIDFromDistrictID(String districtID){
+    return TextMod.removeTextAfterFirstSpecialCharacter(districtID, '+');
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static String getCityIDFromDistrictID(String districtID){
+    /// DISTRICT ID LOOKS LIKE THIS ('countryID+cityID+districtID')
+    final String _cityIDDistrictID = TextMod.removeTextBeforeFirstSpecialCharacter(districtID, '+');
+    return TextMod.removeTextAfterLastSpecialCharacter(_cityIDDistrictID, '+');
   }
   // -----------------------------------------------------------------------------
 
@@ -299,7 +353,7 @@ class DistrictModel{
   /// TESTED : WORKS PERFECT
   void blogDistrict(){
 
-    blog('districtID : $id : has ${phrases.length} phrases : level : $level');
+    blog('districtID : $id : has ${phrases.length} phrases');
     Phrase.blogPhrases(phrases);
 
   }
@@ -363,6 +417,26 @@ class DistrictModel{
   /// CHECKERS
 
   // --------------------
+  /// TASK : TEST ME
+  static bool checkDistrictsIncludeDistrictID(List<DistrictModel> districts, String districtID){
+    bool _output = false;
+
+    if (Mapper.checkCanLoopList(districts) == true){
+      for (final DistrictModel district in districts){
+        if (district.id == districtID){
+          _output = true;
+          break;
+        }
+      }
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkDistrictsAreIdentical(DistrictModel district1, DistrictModel district2){
     bool _identical = false;
@@ -376,7 +450,6 @@ class DistrictModel{
 
         if (
             district1.id == district2.id &&
-            district1.level == district2.level &&
             Phrase.checkPhrasesListsAreIdentical(phrases1: district1.phrases, phrases2: district2.phrases) == true
         ){
           _identical = true;
@@ -457,7 +530,6 @@ class DistrictModel{
   @override
   int get hashCode =>
       id.hashCode^
-      level.hashCode^
       phrases.hashCode;
   // -----------------------------------------------------------------------------
 }

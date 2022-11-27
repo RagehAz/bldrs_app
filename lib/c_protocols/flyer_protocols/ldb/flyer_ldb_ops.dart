@@ -53,8 +53,8 @@ class FlyerLDBOps {
   static Future<FlyerModel> readFlyer(String flyerID) async {
 
     final Map<String, dynamic> _map = await LDBOps.searchFirstMap(
-      fieldToSortBy: 'id',
-      searchField: 'id',
+      sortFieldName: 'id',
+      searchFieldName: 'id',
       searchValue: flyerID,
       docName: LDBDoc.flyers,
     );
