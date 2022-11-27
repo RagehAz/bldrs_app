@@ -17,11 +17,11 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.d
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
-import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/json/currency_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/zone_real_ops.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/a_country_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -32,9 +32,8 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/tempppp.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zoning_lab/zones_initial_creators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
-import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:flutter/material.dart';
 
 class ZoningLab extends StatefulWidget {
@@ -71,7 +70,7 @@ class _ZoningLabState extends State<ZoningLab> {
   ///
   Future<void> _createContinentsJSONMap() async {
 
-    final List<Continent> _allContinents = await ZoneProtocols.fetchContinents();
+    final List<Continent> _allContinents = await ZoneProtocols.readAllContinents();
 
     final Map<String, dynamic> _map = Continent.cipherContinents(_allContinents);
     final String _json = json.encode(_map);
@@ -88,7 +87,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
     return PagesLayout(
       title: Verse.plain('Zoning Lab'),
-      pageBubbles: [
+      pageBubbles: <Widget>[
 
         /// SELECTION
         PageBubble(
@@ -184,7 +183,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Get Currencies JSON map'),
                 onTap: () async {
 
-                  final List<CurrencyModel> _currencies = await ZoneJSONOps.readAllCurrencies();
+                  final List<CurrencyModel> _currencies = await CurrencyJsonOps.readAllCurrencies();
                   blog('start');
                   CurrencyModel.blogCurrencies(_currencies);
                   blog('end');
@@ -223,7 +222,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Get CONTINENTS JSON map'),
                 onTap: () async {
 
-                  final List<Continent> _continents = await ZoneJSONOps.readAllContinents();
+                  final List<Continent> _continents = await ZoneProtocols.readAllContinents();
                   blog('start');
 
                   Continent.blogContinents(_continents);
@@ -349,7 +348,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Read a City'),
                 onTap: () async {
 
-                  final CityModel _city = await ZoneRealOps.readCity(
+                  final CityModel _city = await CityRealOps.readCity(
                     countryID: 'sau',
                     cityID: 'sau_khamis_mushait',
                   );
@@ -364,7 +363,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Read Country Cities'),
                 onTap: () async {
 
-                  final List<CityModel> _cities = await ZoneRealOps.readCountryCities(
+                  final List<CityModel> _cities = await CityRealOps.readCountryCities(
                     countryID: 'egy',
                   );
 
@@ -404,23 +403,29 @@ class _ZoningLabState extends State<ZoningLab> {
                 onTap: () async {
 
                   /*
-              await ExoticMethods.fetchAllCountryModels(
-                onRead: (int index, CountryModel countryModel) async {
+                  final List<String> _countriesIDs = Flag.getAllCountriesIDs();
 
-                  await Real.createDocInPath(
+                  for (int i = 0; i < _countriesIDs.length; i++){
+
+                    final String countryID = _countriesIDs[i];
+                    final List<CityModel> _cities = await ZoneRealOps.readCountryCities(countryID: countryID);
+                    final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
+
+                    await Real.createDocInPath(
                       pathWithoutDocName: 'zones/citiesLevels',
-                      docName: countryModel.id,
+                      docName: countryID,
                       addDocIDToOutput: false,
                       map: {
-                        'hidden': countryModel.citiesIDs,
+                        'hidden': _citiesIDs,
                         'inactive': <String>[],
                         'active': <String>[],
                         'public': <String>[],
                       },
-                  );
+                    );
 
-                },
-              );
+                    blog('## ${i+1} / ${_countriesIDs.length} - Country is good : $countryID');
+                  }
+
 
  */
 
@@ -436,7 +441,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   for (final String countryID in _countriesIDs){
 
-                    final ZoneLevel _lvl = await ZoneRealOps.readCitiesLevels(countryID);
+                    final ZoneLevel _lvl = await CityRealOps.readCitiesLevels(countryID);
                     _lvl?.blogLeveL();
 
                     if (_lvl == null){
@@ -523,7 +528,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Read Countries Levels'),
                 onTap: () async {
 
-                  final ZoneLevel _lvl = await ZoneRealOps.readCountriesLevels();
+                  final ZoneLevel _lvl = await CountryRealOps.readCountriesLevels();
                   _lvl.blogLeveL();
 
                   final List<String> _countriesIDs = ZoneLevel(
@@ -788,14 +793,72 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// FIX DISTRICTS PHRASES
               WideButton(
-                verse: Verse.plain('Fix egy districts phrases'),
+                verse: Verse.plain('Fix egy districts phrases and districts models structures in real'),
                 onTap: () async {
 
-                  final List<Map<String, dynamic>> _maps = await ExoticMethods.readAllCollectionDocs(
-                      collName: FireColl.phrases_districts,
-                  );
+                  final List<DistrictModel> _districts = await ZoneProtocols.fetchCountryDistricts('egy');
 
-                  Mapper.blogMaps(_maps);
+                },
+              ),
+
+              /// TAMAM : CHECK ALL CITIES IDS ARE GOOD
+              WideButton(
+                verse: Verse.plain('Check all cities ids are good'),
+                onTap: () async {
+
+                  final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+
+                  for (final String countryID in _countriesIDs){
+
+                    blog('===========================> STARTING : $countryID');
+
+                    final List<CityModel> _cities = await CityRealOps.readCountryCities(countryID: countryID);
+                    bool _countryIsGood = true;
+
+                    // -----------------
+
+                    if (Mapper.checkCanLoopList(_cities) == true){
+
+                      for (final CityModel city in _cities){
+
+                        final bool _isGood = TextCheck.stringContainsSubString(
+                            string: city.cityID,
+                            subString: '+',
+                        );
+
+                        if (_isGood == true){
+                          blog('00 - GOOD : ${city.cityID}');
+                        }
+
+                        else {
+                          blog('xx - BAD : $countryID : (${city.cityID})');
+                          _countryIsGood = false;
+                          // await Dialogs.topNotice(
+                          //     context: context,
+                          //     color: Colorz.red255,
+                          //     verse: Verse.plain('BAD : ${city.cityID}'),
+                          // );
+                        }
+
+                      }
+
+                    }
+
+                    else {
+                      blog('xxx! - COUNTRY : $countryID : NO CITIES FOUND, take a fucking note');
+                    }
+
+                    // -----------------
+
+                    if (_countryIsGood == true){
+                      blog('## 000 - Country is good : $countryID');
+                    }
+
+                    else {
+                      blog('## xxx! - COUNTRY : $countryID : IS BAD : has old cities IDs, take a fucking note');
+                    }
+
+                  }
 
                 },
               ),

@@ -21,7 +21,7 @@ class ZoneProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final List<Continent> _allContinents = await ZoneProtocols.fetchContinents();
+    final List<Continent> _allContinents = await ZoneProtocols.readAllContinents();
 
     final Continent _continent = Continent.getContinentFromContinentsByCountryID(
       continents: _allContinents,

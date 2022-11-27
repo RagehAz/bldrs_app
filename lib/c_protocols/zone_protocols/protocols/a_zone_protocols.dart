@@ -1,7 +1,13 @@
-import 'package:bldrs/c_protocols/zone_protocols/json/zone_json_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/fetch_zones.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/renovate_zones.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/searchg_zones.dart';
+import 'package:bldrs/c_protocols/zone_protocols/json/continent_json_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/json/currency_json_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/b_zone_search_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/c_country_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/d_city_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/e_district_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/x_zone_ids_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/a_country_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
 
 class ZoneProtocols {
   // -----------------------------------------------------------------------------
@@ -24,54 +30,97 @@ class ZoneProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static const fetchZoneModelByGeoPoint = FetchZoneProtocols.fetchZoneModelByGeoPoint;
+  static const fetchZoneModelByGeoPoint = ZoneIDsProtocols.fetchZoneModelByGeoPoint;
   // -----------------------------------------------------------------------------
 
   /// FETCH COUNTRY
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const  fetchCountry = FetchZoneProtocols.fetchCountry;
+  static const  fetchCountry = CountryProtocols.fetchCountry;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const  fetchCountries = FetchZoneProtocols.fetchCountries;
+  static const  fetchCountries = CountryProtocols.fetchCountries;
   // -----------------------------------------------------------------------------
 
   /// FETCH CITY
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const fetchCity = FetchZoneProtocols.fetchCity;
+  static const fetchCity = CityProtocols.fetchCity;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const fetchCities = FetchZoneProtocols.fetchCities;
+  static const fetchCities = CityProtocols.fetchCities;
   // -----------------------------------------------------------------------------
 
   /// FETCH COUNTRY CITY
 
   // --------------------
   /// TASK : TEST ME
-  static const fetchCitiesOfCountryByLevel = FetchZoneProtocols.fetchCitiesOfCountryByLevel;
+  static const fetchCitiesOfCountryByLevel = CityProtocols.fetchCitiesOfCountryByLevel;
   // --------------------
   /// TASK : TEST ME
-  static const fetchCitiesFromAllOfCountry = FetchZoneProtocols.fetchCitiesFromAllOfCountry;
+  static const fetchCitiesFromAllOfCountry = CityProtocols.fetchCitiesFromAllOfCountry;
   // --------------------
   /// TASK : TEST ME
-  static const fetchCitiesFromSomeOfCountry = FetchZoneProtocols.fetchCitiesFromSomeOfCountry;
+  static const fetchCitiesFromSomeOfCountry = CityProtocols.fetchCitiesFromSomeOfCountry;
+  // -----------------------------------------------------------------------------
+
+  /// FETCH DISTRICT
+
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchDistrict = DistrictProtocols.fetchDistrict;
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchDistricts = DistrictProtocols.fetchDistricts;
+  // -----------------------------------------------------------------------------
+
+  /// FETCH CITY DISTRICTS
+
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchCityDistrictsByLevel = DistrictProtocols.fetchCityDistrictsByLevel;
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchDistrictsFromAllOfCity = DistrictProtocols.fetchDistrictsFromAllOfCity;
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchDistrictsFromSomeOfCity = DistrictProtocols.fetchDistrictsFromSomeOfCity;
+  // -----------------------------------------------------------------------------
+
+  /// FETCH COUNTRY DISTRICTS
+
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchCountryDistricts = DistrictProtocols.fetchDistrictsFromAllOfCountryOneByOne;
+  // -----------------------------------------------------------------------------
+
+  /// READ ZONE LEVELS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const readCountriesLevels = CountryRealOps.readCountriesLevels;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const readCitiesLevels = CityRealOps.readCitiesLevels;
+  // --------------------
+  /// TASK : TEST ME
+  static const readDistrictsLevels = DistrictRealOps.readDistrictsLevels;
   // -----------------------------------------------------------------------------
 
   /// FETCH CONTINENT
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const fetchContinents = FetchZoneProtocols.fetchContinents;
+  static const readAllContinents = ContinentJsonOps.readAllContinents;
   // -----------------------------------------------------------------------------
 
   /// READ CURRENCIES
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const fetchCurrencies = ZoneJSONOps.readAllCurrencies;
+  static const fetchCurrencies = CurrencyJsonOps.readAllCurrencies;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -80,7 +129,7 @@ class ZoneProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const completeZoneModel = RenovateZoneProtocols.completeZoneModel;
+  static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------

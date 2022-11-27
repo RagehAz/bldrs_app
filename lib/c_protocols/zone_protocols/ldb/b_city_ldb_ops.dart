@@ -1,67 +1,25 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
-class ZoneLDBOps{
+class CityLDBOps{
   // -----------------------------------------------------------------------------
 
-  const ZoneLDBOps();
+  const CityLDBOps();
 
   // -----------------------------------------------------------------------------
 
-  /// COUNTRY
-
-  // --------------------
   /// CREATE / INSERT
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> insertCountry(CountryModel country) async {
 
-    await LDBOps.insertMap(
-      input: country?.toMap(),
-      docName: LDBDoc.countries,
-    );
-
-  }
-  // --------------------
-  /// READ
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<CountryModel> readCountry(String countryID) async {
-
-    final Map<String, Object> _map = await LDBOps.searchFirstMap(
-      docName: LDBDoc.countries,
-      fieldToSortBy: 'id',
-      searchField: 'id',
-      searchValue: countryID,
-    );
-
-    final CountryModel _country  = CountryModel.decipherCountryMap(
-      map: _map,
-    );
-
-    return _country;
-  }
-  // --------------------
-  /// UPDATE
-  // --------------------
-  /// DELETE
-  // -----------------------------------------------------------------------------
-
-  /// CITY
-
-  // --------------------
-  /// CREATE / INSERT
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCity(CityModel city) async {
 
     await LDBOps.insertMap(
       docName: LDBDoc.cities,
-      input: city.toMap(
+      input: city?.toMap(
         toJSON: true,
         toLDB: true,
       ),
@@ -86,16 +44,18 @@ class ZoneLDBOps{
     }
 
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
+
   /// READ
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> readCity(String cityID) async {
 
     final Map<String, Object> _map = await LDBOps.searchFirstMap(
       docName: LDBDoc.cities,
-      fieldToSortBy: 'cityID',
-      searchField: 'cityID',
+      sortFieldName: 'cityID',
+      searchFieldName: 'cityID',
       searchValue: cityID,
     );
 
@@ -120,8 +80,8 @@ class ZoneLDBOps{
       );
 
       _output = CityModel.decipherCities(
-          maps: _maps,
-          fromJSON: true,
+        maps: _maps,
+        fromJSON: true,
       );
 
     }
@@ -149,10 +109,17 @@ class ZoneLDBOps{
 
     return _foundCities;
   }
-  // --------------------
-  /// UPDATE
-  // --------------------
-  /// DELETE
   // -----------------------------------------------------------------------------
 
+  /// UPDATE
+
+  // --------------------
+  ///
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  ///
+  // -----------------------------------------------------------------------------
 }
