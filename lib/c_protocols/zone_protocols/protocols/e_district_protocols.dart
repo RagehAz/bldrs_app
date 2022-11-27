@@ -29,7 +29,9 @@ class DistrictProtocols {
     @required String districtID,
   }) async {
 
-    DistrictModel _districtModel = await DistrictLDBOps.readDistrict(districtID);
+    DistrictModel _districtModel = await DistrictLDBOps.readDistrict(
+      districtID: districtID,
+    );
 
     if (_districtModel != null){
       // blog('fetchCity : ($cityID) CityModel FOUND in LDB');
@@ -37,12 +39,16 @@ class DistrictProtocols {
 
     else {
 
-      _districtModel = await DistrictRealOps.readDistrict(districtID);
+      _districtModel = await DistrictRealOps.readDistrict(
+        districtID: districtID,
+      );
 
       if (_districtModel != null){
         // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
 
-        await DistrictLDBOps.insertDistrict(_districtModel);
+        await DistrictLDBOps.insertDistrict(
+          districtModel: _districtModel,
+        );
 
       }
 
@@ -114,7 +120,9 @@ class DistrictProtocols {
       /// SHOULD FETCH ONLY DISTRICTS OF THIS LEVEL
       else {
 
-        final ZoneLevel _districtsIDs = await DistrictRealOps.readDistrictsLevels(cityID);
+        final ZoneLevel _districtsIDs = await DistrictRealOps.readDistrictsLevels(
+          cityID: cityID,
+        );
 
         _output = await fetchDistrictsFromSomeOfCity(
           districtsIDsOfThisCity: _districtsIDs?.getIDsByLevel(districtLevel),
@@ -135,10 +143,14 @@ class DistrictProtocols {
 
     if (TextCheck.isEmpty(cityID) == false){
 
-      _output = await DistrictRealOps.readCityDistricts(cityID);
+      _output = await DistrictRealOps.readCityDistricts(
+        cityID: cityID,
+      );
 
       if (Mapper.checkCanLoopList(_output) == true){
-        await DistrictLDBOps.insertDistricts(_output);
+        await DistrictLDBOps.insertDistricts(
+          districts: _output,
+        );
       }
 
     }
@@ -154,7 +166,9 @@ class DistrictProtocols {
 
     if (Mapper.checkCanLoopList(districtsIDsOfThisCity) == true){
 
-      final List<DistrictModel> _ldbDistricts = await DistrictLDBOps.readDistricts(districtsIDsOfThisCity);
+      final List<DistrictModel> _ldbDistricts = await DistrictLDBOps.readDistricts(
+        districtsIDs: districtsIDsOfThisCity,
+      );
 
       if (_ldbDistricts.length == districtsIDsOfThisCity.length){
         _output = _ldbDistricts;
@@ -180,7 +194,9 @@ class DistrictProtocols {
         );
 
         if (Mapper.checkCanLoopList(_remainingDistricts) == true){
-          await DistrictLDBOps.insertDistricts(_remainingDistricts);
+          await DistrictLDBOps.insertDistricts(
+            districts: _remainingDistricts,
+          );
           _output.addAll(_remainingDistricts);
         }
 

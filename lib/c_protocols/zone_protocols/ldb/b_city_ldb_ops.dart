@@ -27,7 +27,7 @@ class CityLDBOps{
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> insertCities(List<CityModel> cities) async {
 
     if (Mapper.checkCanLoopList(cities) == true){
@@ -68,8 +68,10 @@ class CityLDBOps{
     return _city;
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<CityModel>> readCities(List<String> citiesIDs) async {
+  /// TESTED : WORKS PERFECT
+  static Future<List<CityModel>> readCities({
+    @required List<String> citiesIDs,
+  }) async {
     List<CityModel> _output = <CityModel>[];
 
     if (Mapper.checkCanLoopList(citiesIDs) == true){
@@ -89,7 +91,7 @@ class CityLDBOps{
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<List<CityModel>> searchCitiesByName({
     @required String cityName,
     @required String langCode,

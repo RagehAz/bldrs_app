@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -165,6 +166,51 @@ class DistrictModel{
   }
   // -----------------------------------------------------------------------------
 
+  /// PHRASES CYPHERS
+
+  // --------------------
+  /// TASK : TEST ME
+  List<Map<String, dynamic>> toFirePhrasesMaps(){
+
+    final List<Map<String, dynamic>> _output = [];
+
+    final String _countryID = getCountryIDFromDistrictID(id);
+    final String _cityID = getCityIDFromDistrictID(id);
+    final List<String> _langCodes = Phrase.getLangCodes(phrases);
+
+    if (Mapper.checkCanLoopList(_langCodes) == true){
+
+      for (final String langCode in _langCodes){
+
+        final String _phraseValue = Phrase.searchFirstPhraseByLang(phrases: phrases, langCode: langCode)?.value;
+
+        if (_phraseValue != null){
+
+          final Map<String, dynamic> _map = {
+            'docName': getDistrictPhraseDocName(
+              districtID: id,
+              langCode: langCode,
+            ),
+            'countryID': _countryID,
+            'cityID': _cityID,
+            'id': id,
+            'value': _phraseValue,
+            'langCode': langCode,
+            'trigram': Stringer.createTrigram(input: _phraseValue),
+          };
+
+          _output.add(_map);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// GETTERS
 
   // --------------------
@@ -228,6 +274,15 @@ class DistrictModel{
     /// DISTRICT ID LOOKS LIKE THIS ('countryID+cityID+districtID')
     /// CITY ID LOOKS LIKE THIS ('countryID+cityID')
     return TextMod.removeTextAfterLastSpecialCharacter(districtID, '+');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getDistrictPhraseDocName({
+    @required String districtID,
+    @required String langCode,
+  }){
+    assert(districtID != null && langCode != null, 'districtID and langCode must not be null');
+    return '$districtID+$langCode';
   }
   // -----------------------------------------------------------------------------
 

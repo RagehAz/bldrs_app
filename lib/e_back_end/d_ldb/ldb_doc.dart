@@ -1,4 +1,6 @@
 
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+
 class LDBDoc {
   // -----------------------------------------------------------------------------
 
@@ -95,8 +97,8 @@ class LDBDoc {
   /// ALL DOCS LIST
 
   // --------------------
-  static const List<String> allDocs = <String>[
-    /// MAIN
+  static const List<dynamic> allDocs = <dynamic>[
+    Verse(text: 'Main', translate: false),
     flyers,
     bzz,
     users,
@@ -105,27 +107,27 @@ class LDBDoc {
     pics,
     pdfs,
 
-    /// CHAINS
+    Verse(text: 'Chains', translate: false),
     bldrsChains,
     pickers,
 
-    /// ZONES
+    Verse(text: 'Zones', translate: false),
     countries,
     cities,
     districts,
 
-    /// PHRASES
+    Verse(text: 'Phrases', translate: false),
     mainPhrases,
     countriesPhrases,
 
-    /// EDITORS
+    Verse(text: 'Editors', translate: false),
     userEditor,
     bzEditor,
     authorEditor,
     flyerMaker,
     reviewEditor,
 
-    /// SETTINGS
+    Verse(text: 'Settings', translate: false),
     theLastWipe,
     appState,
     appControls,

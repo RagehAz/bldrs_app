@@ -19,6 +19,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/currency_json_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/a_country_real_ops.dart';
@@ -28,6 +30,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -36,6 +39,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zoning_lab/zones_initial_creators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -349,7 +353,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// READ A CITY
               WideButton(
-                verse: Verse.plain('Read a City'),
+                verse: Verse.plain('REAL Read a City'),
                 onTap: () async {
 
                   final CityModel _city = await CityRealOps.readCity(
@@ -364,7 +368,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// READ CITIES
               WideButton(
-                verse: Verse.plain('Read CITIES'),
+                verse: Verse.plain('REAL Read CITIES'),
                 onTap: () async {
 
                   final List<CityModel> _cities = await CityRealOps.readCities(
@@ -387,7 +391,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// READ A COUNTRY CITIES
               WideButton(
-                verse: Verse.plain('Read Country Cities'),
+                verse: Verse.plain('REAL Read Country Cities'),
                 onTap: () async {
 
                   final List<CityModel> _cities = await CityRealOps.readCountryCities(
@@ -404,6 +408,43 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// SEPARATOR
               const SeparatorLine(),
+
+              /// LDB INSERT CITIES
+              WideButton(
+                verse: Verse.plain('LDB Insert cities'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+
+
+                  final List<CityModel> _cities = await CityRealOps.readCountryCities(
+                    countryID: 'egy',
+                  );
+                  await CityLDBOps.insertCities(_cities);
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+
+                },
+              ),
+
+              /// LDB READ CITIES
+              WideButton(
+                verse: Verse.plain('LDB READ cities'),
+                onTap: () async {
+
+                  final List<CityModel> _cities = await CityLDBOps.readCities(
+                    citiesIDs: [
+                      'egy+kafr_el_sheikh',
+                      'btn+jakar',
+                      'cub+colon',
+                      'egy+red_sea',
+                    ],
+                  );
+
+                  CityModel.blogCities(_cities);
+
+                },
+              ),
 
             ],
           ),
@@ -423,11 +464,143 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Districts Ops'),
               ),
 
+              /// FIX DISTRICTS PHRASES 2
+              WideButton(
+                verse: Verse.plain('read districts backups and create new real districts models'),
+                color: Colorz.bloodTest,
+                isActive: false,
+                onTap: () async {
+
+                  // final List<DistrictModel> _districts = await ZoneProtocols.fetchCountryDistricts('egy');
+
+                  const String _countryID = 'sau';
+
+                  final List<CityModel> _cities = await CityRealOps.readCountryCities(countryID: _countryID);
+                  final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
+
+
+                  for (final String cityID in _citiesIDs){
+
+                    final Object object = await Real.readPath(
+                        path: 'citiesBackups/$cityID'
+                    );
+
+                    final Map<String, dynamic> cityMap = Mapper.getMapFromIHLMOO(
+                      ihlmoo: object,
+                    );
+
+                    final Map<String, dynamic> _districtsMap = Mapper.getMapFromIHLMOO(
+                      ihlmoo: cityMap['districts'],
+                    );
+
+                    final List<String> _districtsIDs = _districtsMap.keys.toList();
+
+                    for (final String districtsID in _districtsIDs){
+
+                      final Map<String, dynamic> _districtMap = Mapper.getMapFromIHLMOO(
+                        ihlmoo: _districtsMap[districtsID],
+                      );
+
+                      final DistrictModel _districtModel = DistrictModel(
+                        id: _districtMap['id'],
+                        phrases: [
+                          Phrase(
+                            langCode: 'en',
+                            value: _districtMap['phrases']['en'],
+                            id: _districtMap['id'],
+                          ),
+                          Phrase(
+                            langCode: 'ar',
+                            value: _districtMap['phrases']['ar'],
+                            id: _districtMap['id'],
+                          ),
+                        ],
+                      );
+
+                      await DistrictRealOps.createDistrict(
+                        district: _districtModel,
+                      );
+
+
+                    }
+
+
+
+                  }
+
+
+                  // final List<Map<String, dynamic>> cities = Mapper.getMapsFromIHLMOO(
+                  //   ihlmoo: object,
+                  //   addChildrenIDs: false,
+                  // );
+                  //
+                  // for (final Map<String, dynamic> city in cities){
+                  //
+                  //   // Mapper.blogMap(city);
+                  //
+                  //   final List<String> _districtsIDs = city.keys.toList();
+                  //
+                  //   for (int i = 0; i < _districtsIDs.length; i++){
+                  //
+                  //     final String _districtID = _districtsIDs[i];
+                  //     blog('$i / ${_districtsIDs.length} : districtID : $_districtID');
+                  //
+                  //     final Map<String, dynamic> _enFireMap = await Fire.readDoc(
+                  //       collName: FireColl.phrases_districts,
+                  //       docName: '$_districtID+en',
+                  //     );
+                  //
+                  //     final Map<String, dynamic> _arFireMap = await Fire.readDoc(
+                  //       collName: FireColl.phrases_districts,
+                  //       docName: '$_districtID+ar',
+                  //     );
+                  //
+                  //     final DistrictModel _districtModel = DistrictModel(
+                  //       id: _districtID,
+                  //       phrases: [
+                  //         Phrase(
+                  //           langCode: 'en',
+                  //           value: _enFireMap['value'],
+                  //           id: _districtID,
+                  //         ),
+                  //         Phrase(
+                  //           langCode: 'ar',
+                  //           value: _arFireMap['value'],
+                  //           id: _districtID,
+                  //         ),
+                  //       ],
+                  //     );
+                  //
+                  //     _districtModel.blogDistrict();
+                  //
+                  //     // final Object _districtObject = city[_districtID];
+                  //     //
+                  //     // final Map<String, dynamic> _districtMap = Mapper.getMapFromIHLMOO(
+                  //     //     ihlmoo: _districtObject,
+                  //     // );
+                  //     //
+                  //     // Mapper.blogMap(_districtMap);
+                  //
+                  //     // blog('cityDistrictsMap[cityID] : ${cityDistrictsMap[cityID]}');
+                  //
+                  //     // final Map<String, dynamic> _districtMap = cityDistrictsMap[cityID];
+                  //     //
+                  //     // Mapper.blogMap(_districtMap);
+                  //
+                  //   }
+                  //
+                  // }
+
+                },
+              ),
+
               /// TAMAM : READ A DISTRICT
               WideButton(
                 verse: Verse.plain('Read a DistrictModel'),
                 onTap: () async {
-                 final DistrictModel _district = await DistrictRealOps.readDistrict('egy+alexandria+bulkly');
+                 final DistrictModel _district = await DistrictRealOps.readDistrict(
+                   districtID: 'egy+alexandria+bulkly',
+                 );
                   _district?.blogDistrict();
                 },
               ),
@@ -457,7 +630,9 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('GET DISTRICTS LEVELS'),
                 onTap: () async {
 
-                  final ZoneLevel _districts = await DistrictRealOps.readDistrictsLevels('egy+alexandria');
+                  final ZoneLevel _districts = await DistrictRealOps.readDistrictsLevels(
+                    cityID: 'egy+alexandria',
+                  );
                   _districts?.blogLeveL();
 
                 },
@@ -471,7 +646,9 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('READ CITY DISTRICTS'),
                 onTap: () async {
 
-                  final List<DistrictModel> _districts = await DistrictRealOps.readCityDistricts('egy+alexandria');
+                  final List<DistrictModel> _districts = await DistrictRealOps.readCityDistricts(
+                    cityID: 'egy+alexandria',
+                  );
                   DistrictModel.blogDistricts(_districts);
 
                 },
@@ -488,6 +665,152 @@ class _ZoningLabState extends State<ZoningLab> {
                 },
               ),
 
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// LDB INSERT DISTRICT
+              WideButton(
+                verse: Verse.plain('LDB Insert ONE DISTRICT'),
+                color: Colorz.green255,
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                  final List<DistrictModel> _diss = await DistrictRealOps.readCityDistricts(
+                    cityID: 'egy+alexandria',
+                  );
+                  await DistrictLDBOps.insertDistrict(
+                    districtModel: _diss.first,
+                  );
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                },
+              ),
+
+              /// LDB INSERT DISTRICTS
+              WideButton(
+                verse: Verse.plain('LDB Insert DISTRICTS'),
+                color: Colorz.green255,
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                  final List<DistrictModel> _diss = await DistrictRealOps.readCityDistricts(
+                    cityID: 'egy+alexandria',
+                  );
+
+                  await DistrictLDBOps.insertDistricts(
+                    districts: _diss,
+                  );
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                },
+              ),
+
+              /// LDB READ DISTRICT
+              WideButton(
+                verse: Verse.plain('LDB READ DISTRICT'),
+                color: Colorz.green255,
+                onTap: () async {
+
+                  final DistrictModel _dis = await DistrictLDBOps.readDistrict(
+                    districtID: 'egy+alexandria+victoria',
+                  );
+                  _dis?.blogDistrict();
+
+                },
+              ),
+
+              /// LDB READ DISTRICTS
+              WideButton(
+                verse: Verse.plain('LDB READ DISTRICTS'),
+                color: Colorz.green255,
+                onTap: () async {
+
+                  final List<DistrictModel> _dis = await DistrictLDBOps.readDistricts(
+                    districtsIDs: [
+                      'egy+alexandria+victoria',
+                      'egy+alexandria+bulkly',
+                    ],
+                  );
+                  DistrictModel.blogDistricts(_dis);
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// FIX DISTRICTS PHRASES
+              WideButton(
+                verse: Verse.plain('Fix egy districts phrases in FIRE'),
+                color: Colorz.bloodTest,
+                onTap: () async {
+
+                  // final List<DistrictModel> _districts = await ZoneProtocols.fetchCountryDistricts('egy');
+
+                  const String _countryID = 'sau';
+
+                  final List<DistrictModel> _districts = await ZoneProtocols.fetchCountryDistricts(_countryID);
+
+                  blog('read ${_districts.length} districts');
+
+                  for (final DistrictModel _district in _districts) {
+
+                    // _district.blogDistrict();
+
+                    final List<Map<String, dynamic>> _maps = _district.toFirePhrasesMaps();
+
+                    for (final Map<String, dynamic> _map in _maps) {
+
+                      await Fire.createNamedDoc(
+                          collName: FireColl.phrases_districts,
+                          docName: _map['docName'],
+                          input: Mapper.removePair(
+                            map: _map,
+                            fieldKey: 'docName',
+                          ),
+                      );
+
+                      // Mapper.blogMap(_mapWithoutDocName);
+
+                    }
+
+                  }
+
+                },
+              ),
+
+              // WideButton(
+              //   verse: Verse.plain('clean fire districts egy'),
+              //   color: Colorz.bloodTest,
+              //   onTap: () async {
+              //
+              //     final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+              //         queryModel: FireQueryModel(
+              //           collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+              //           limit: 500,
+              //           finders: const [
+              //             FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: 'egy'),
+              //           ],
+              //           idFieldName: 'id',
+              //         ),
+              //         startAfter: null,
+              //       addDocsIDs: true,
+              //     );
+              //
+              //     for (final dynamic map in _maps){
+              //
+              //       await Fire.deleteDoc(collName: FireColl.phrases_districts, docName: map['id']);
+              //
+              //     }
+              //
+              //
+              //
+              //   },
+              // ),
 
 
             ],
@@ -965,216 +1288,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 },
               ),
 
-              /// FIX DISTRICTS PHRASES
-              WideButton(
-                verse: Verse.plain('Fix egy districts phrases and districts models structures in real'),
-                color: Colorz.bloodTest,
-                onTap: () async {
 
-                  // final List<DistrictModel> _districts = await ZoneProtocols.fetchCountryDistricts('egy');
-
-                  const String _countryID = 'egy';
-
-                  blog('===========================> STARTING : $_countryID');
-
-                  final Object object = await Real.readPath(
-                      path: 'zones/districts/$_countryID'
-                  );
-
-                  final List<Map<String, dynamic>> cities = Mapper.getMapsFromIHLMOO(
-                    ihlmoo: object,
-                    addChildrenIDs: false,
-                  );
-
-                  for (final Map<String, dynamic> city in cities){
-
-                    // Mapper.blogMap(city);
-
-                    final List<String> _districtsIDs = city.keys.toList();
-
-                    for (int i = 0; i < _districtsIDs.length; i++){
-
-                      final String _districtID = _districtsIDs[i];
-                      blog('$i / ${_districtsIDs.length} : districtID : $_districtID');
-
-                      final Map<String, dynamic> _enFireMap = await Fire.readDoc(
-                          collName: FireColl.phrases_districts,
-                          docName: '$_districtID+en',
-                      );
-
-                      final Map<String, dynamic> _arFireMap = await Fire.readDoc(
-                        collName: FireColl.phrases_districts,
-                        docName: '$_districtID+ar',
-                      );
-
-                      final DistrictModel _districtModel = DistrictModel(
-                        id: _districtID,
-                        phrases: [
-                          Phrase(
-                            langCode: 'en',
-                            value: _enFireMap['value'],
-                            id: _districtID,
-                          ),
-                          Phrase(
-                            langCode: 'ar',
-                            value: _arFireMap['value'],
-                            id: _districtID,
-                          ),
-                        ],
-                      );
-
-                      _districtModel.blogDistrict();
-
-                      // final Object _districtObject = city[_districtID];
-                      //
-                      // final Map<String, dynamic> _districtMap = Mapper.getMapFromIHLMOO(
-                      //     ihlmoo: _districtObject,
-                      // );
-                      //
-                      // Mapper.blogMap(_districtMap);
-
-                      // blog('cityDistrictsMap[cityID] : ${cityDistrictsMap[cityID]}');
-
-                      // final Map<String, dynamic> _districtMap = cityDistrictsMap[cityID];
-                      //
-                      // Mapper.blogMap(_districtMap);
-
-                    }
-
-                  }
-
-                },
-              ),
-
-              /// FIX DISTRICTS PHRASES 2
-              WideButton(
-                verse: Verse.plain('read districts backups and create new real districts models'),
-                color: Colorz.bloodTest,
-                isActive: false,
-                onTap: () async {
-
-                  // final List<DistrictModel> _districts = await ZoneProtocols.fetchCountryDistricts('egy');
-
-                  const String _countryID = 'sau';
-
-                  final List<CityModel> _cities = await CityRealOps.readCountryCities(countryID: _countryID);
-                  final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
-
-
-                  for (final String cityID in _citiesIDs){
-
-                    final Object object = await Real.readPath(
-                        path: 'citiesBackups/$cityID'
-                    );
-
-                    final Map<String, dynamic> cityMap = Mapper.getMapFromIHLMOO(
-                      ihlmoo: object,
-                    );
-
-                    final Map<String, dynamic> _districtsMap = Mapper.getMapFromIHLMOO(
-                        ihlmoo: cityMap['districts'],
-                    );
-
-                    final List<String> _districtsIDs = _districtsMap.keys.toList();
-
-                    for (final String districtsID in _districtsIDs){
-
-                      final Map<String, dynamic> _districtMap = Mapper.getMapFromIHLMOO(
-                          ihlmoo: _districtsMap[districtsID],
-                      );
-
-                      final DistrictModel _districtModel = DistrictModel(
-                        id: _districtMap['id'],
-                        phrases: [
-                          Phrase(
-                            langCode: 'en',
-                            value: _districtMap['phrases']['en'],
-                            id: _districtMap['id'],
-                          ),
-                          Phrase(
-                            langCode: 'ar',
-                            value: _districtMap['phrases']['ar'],
-                            id: _districtMap['id'],
-                          ),
-                        ],
-                      );
-
-                      await DistrictRealOps.createDistrict(
-                          district: _districtModel,
-                      );
-
-
-                    }
-
-
-
-                  }
-
-
-                  // final List<Map<String, dynamic>> cities = Mapper.getMapsFromIHLMOO(
-                  //   ihlmoo: object,
-                  //   addChildrenIDs: false,
-                  // );
-                  //
-                  // for (final Map<String, dynamic> city in cities){
-                  //
-                  //   // Mapper.blogMap(city);
-                  //
-                  //   final List<String> _districtsIDs = city.keys.toList();
-                  //
-                  //   for (int i = 0; i < _districtsIDs.length; i++){
-                  //
-                  //     final String _districtID = _districtsIDs[i];
-                  //     blog('$i / ${_districtsIDs.length} : districtID : $_districtID');
-                  //
-                  //     final Map<String, dynamic> _enFireMap = await Fire.readDoc(
-                  //       collName: FireColl.phrases_districts,
-                  //       docName: '$_districtID+en',
-                  //     );
-                  //
-                  //     final Map<String, dynamic> _arFireMap = await Fire.readDoc(
-                  //       collName: FireColl.phrases_districts,
-                  //       docName: '$_districtID+ar',
-                  //     );
-                  //
-                  //     final DistrictModel _districtModel = DistrictModel(
-                  //       id: _districtID,
-                  //       phrases: [
-                  //         Phrase(
-                  //           langCode: 'en',
-                  //           value: _enFireMap['value'],
-                  //           id: _districtID,
-                  //         ),
-                  //         Phrase(
-                  //           langCode: 'ar',
-                  //           value: _arFireMap['value'],
-                  //           id: _districtID,
-                  //         ),
-                  //       ],
-                  //     );
-                  //
-                  //     _districtModel.blogDistrict();
-                  //
-                  //     // final Object _districtObject = city[_districtID];
-                  //     //
-                  //     // final Map<String, dynamic> _districtMap = Mapper.getMapFromIHLMOO(
-                  //     //     ihlmoo: _districtObject,
-                  //     // );
-                  //     //
-                  //     // Mapper.blogMap(_districtMap);
-                  //
-                  //     // blog('cityDistrictsMap[cityID] : ${cityDistrictsMap[cityID]}');
-                  //
-                  //     // final Map<String, dynamic> _districtMap = cityDistrictsMap[cityID];
-                  //     //
-                  //     // Mapper.blogMap(_districtMap);
-                  //
-                  //   }
-                  //
-                  // }
-
-                },
-              ),
 
               /// SEPARATOR
               const SeparatorLine(),

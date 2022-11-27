@@ -555,19 +555,20 @@ class Mapper {
   }
    */
   // --------------------
-  /// NOT USED
-  /*
+  /// TESTED : WORKS PERFECT
   static Map<String, Object> removePair({
     @required Map<String, Object> map,
     @required String fieldKey,
   }) {
-    final Map<String, Object> _map = cloneMap(map);
+    Map<String, Object> _output = {};
 
-    _map.remove(fieldKey);
+    if (map != null && fieldKey != null){
+      map.removeWhere((key, value) => key == fieldKey);
+      _output = insertMapInMap(baseMap: _output, insert: map);
+    }
 
-    return _map;
+    return _output;
   }
-   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> insertMapInMap({
