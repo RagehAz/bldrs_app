@@ -181,14 +181,13 @@ class ZoneSearchOps {
       /// A - trial 1 : search by generated cityID
       if (countryID != null){
 
-        final String _cityID = CityModel.createCityID(
+        final String _cityID = CityModel.oldCreateCityID(
           countryID: countryID,
           cityEnName: cityName,
         );
 
         _city = await ZoneProtocols.fetchCity(
           cityID: _cityID,
-          countryID: countryID,
         );
 
       }

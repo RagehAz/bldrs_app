@@ -108,6 +108,27 @@ class ZoneLDBOps{
     return _city;
   }
   // --------------------
+  /// TASK : TEST ME
+  static Future<List<CityModel>> readCities(List<String> citiesIDs) async {
+    List<CityModel> _output = <CityModel>[];
+
+    if (Mapper.checkCanLoopList(citiesIDs) == true){
+
+      final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        docName: LDBDoc.cities,
+        ids: citiesIDs,
+      );
+
+      _output = CityModel.decipherCities(
+          maps: _maps,
+          fromJSON: true,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> searchCitiesByName({
     @required String cityName,

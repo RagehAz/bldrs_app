@@ -2,13 +2,15 @@ import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class CityModel {
+class CityModel
+{
   /// --------------------------------------------------------------------------
   const CityModel({
     this.cityID,
@@ -23,6 +25,27 @@ class CityModel {
   final int population;
   final GeoPoint position;
   final List<Phrase> phrases;
+  // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  CityModel copyWith({
+    String cityID,
+    List<DistrictModel> districts,
+    int population,
+    GeoPoint position,
+    List<Phrase> phrases,
+  }) {
+    return CityModel(
+      cityID: cityID ?? this.cityID,
+      districts: districts ?? this.districts,
+      population: population ?? this.population,
+      position: position ?? this.position,
+      phrases: phrases ?? this.phrases,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -119,6 +142,7 @@ class CityModel {
         );
       }
     }
+
     return _cities;
   }
   // --------------------
@@ -154,6 +178,26 @@ class CityModel {
   /// GETTERS
 
   // --------------------
+  /// TASK : TEST ME
+  static String getCountryIDFromCityID(String cityID){
+
+    /// NEW IDS
+    if (TextCheck.stringContainsSubString(string: cityID, subString: '+') == true){
+      return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '+');
+    }
+
+    /// OLD IDS : TASK : DELETE WHEN ALL CITIES ARE DONE AND LAUNCH READY
+    else if (TextCheck.stringContainsSubString(string: cityID, subString: '_') == true){
+      return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '_');
+    }
+
+    /// SOMETHING IS WRONG
+    else {
+      return null;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   /// DEPRECATED
   /*
   static List<String> getTranslatedCitiesNamesFromCities({
@@ -316,7 +360,7 @@ class CityModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String createCityID({
+  static String oldCreateCityID({
     @required String countryID,
     @required String cityEnName,
   }) {
@@ -331,8 +375,23 @@ class CityModel {
   }
   // --------------------
   /// TASK : TEST ME
-  String getCountryID(){
+  static String createCityID({
+    @required String countryID,
+    @required String cityEnName,
+  }){
+
+    return '$countryID+$cityEnName';
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  String oldGetCountryID(){
     return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '_');
+  }
+  // --------------------
+  /// TASK : TEST ME
+  String getCountryID(){
+    return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '+');
   }
   // -----------------------------------------------------------------------------
 
@@ -416,9 +475,29 @@ class CityModel {
 
     return _output;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
 
   /// CHECKERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static bool checkCitiesIncludeCityID(List<CityModel> cities, String cityID){
+    bool _output = false;
+
+    if (Mapper.checkCanLoopList(cities) == true){
+      for (final CityModel city in cities){
+        if (city.cityID == cityID){
+          _output = true;
+          break;
+        }
+      }
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
 
   // --------------------
   /// TESTED : WORKS PERFECT
