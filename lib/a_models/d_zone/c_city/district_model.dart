@@ -41,19 +41,24 @@ class DistrictModel{
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static DistrictModel decipherDistrict({
     @required Map<String, dynamic> map,
     @required String districtID,
   }){
-    return DistrictModel(
-      id : districtID,
-      phrases: Phrase.decipherPhrasesLangsMap(
-        langsMap: map['phrases'],
-        phid: districtID,
-      ),
+    DistrictModel _output;
 
-    );
+    if (map != null){
+      _output = DistrictModel(
+        id : districtID,
+        phrases: Phrase.decipherPhrasesLangsMap(
+          langsMap: map['phrases'],
+          phid: districtID,
+        ),
+      );
+    }
+
+    return _output;
   }
   // --------------------
   /// TASK : TEST ME
@@ -78,7 +83,7 @@ class DistrictModel{
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<DistrictModel> decipherDistrictsMaps(List<Map<String, dynamic>> maps){
     final List<DistrictModel> _output = <DistrictModel>[];
 
@@ -99,6 +104,7 @@ class DistrictModel{
 
   // --------------------
   /// DEPRECATED
+  /*
   static Map<String,dynamic> oldCipherDistrictsOneMap({
     @required List<DistrictModel> districts,
     @required bool toJSON,
@@ -121,6 +127,7 @@ class DistrictModel{
 
     return _districtsMap;
   }
+   */
   // --------------------
   /// DEPRECATED
   static List<DistrictModel> oldDecipherDistrictsOneMap(Map<String, dynamic> map){
@@ -211,16 +218,16 @@ class DistrictModel{
     return _district;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String getCountryIDFromDistrictID(String districtID){
     return TextMod.removeTextAfterFirstSpecialCharacter(districtID, '+');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String getCityIDFromDistrictID(String districtID){
     /// DISTRICT ID LOOKS LIKE THIS ('countryID+cityID+districtID')
-    final String _cityIDDistrictID = TextMod.removeTextBeforeFirstSpecialCharacter(districtID, '+');
-    return TextMod.removeTextAfterLastSpecialCharacter(_cityIDDistrictID, '+');
+    /// CITY ID LOOKS LIKE THIS ('countryID+cityID')
+    return TextMod.removeTextAfterLastSpecialCharacter(districtID, '+');
   }
   // -----------------------------------------------------------------------------
 

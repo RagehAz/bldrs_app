@@ -143,8 +143,8 @@ class Real {
 
             // final _docID = event.previousChildKey;
 
-            _output = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-              internalHashLinkedMapObjectObject: event.snapshot.value,
+            _output = Mapper.getMapFromIHLMOO(
+              ihlmoo: event.snapshot.value,
               // addDocID: false,
               // onNull: () => blog('Real.createColl : failed to create doc '),
             );

@@ -5,7 +5,7 @@ import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class CityRealOps {
   // -----------------------------------------------------------------------------
 
@@ -26,8 +26,8 @@ class CityRealOps {
         path: '${RealColl.zones}/${RealDoc.zones_citiesLevels}/$countryID',
       );
 
-      final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-        internalHashLinkedMapObjectObject: _dynamic,
+      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        ihlmoo: _dynamic,
       );
 
       _output = ZoneLevel.decipher(_map);
@@ -54,8 +54,8 @@ class CityRealOps {
         path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID',
       );
 
-      final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-        internalHashLinkedMapObjectObject: _cityMap,
+      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        ihlmoo: _cityMap,
       );
 
 
@@ -70,7 +70,7 @@ class CityRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCities({
     @required List<String> citiesIDs,
   }) async {
@@ -118,8 +118,8 @@ class CityRealOps {
       path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID',
     );
 
-    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(
-      internalHashLinkedMapObjectObject: _citiesMap,
+    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+      ihlmoo: _citiesMap,
     );
 
     return CityModel.decipherCities(
