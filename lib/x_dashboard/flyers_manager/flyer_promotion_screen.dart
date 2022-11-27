@@ -56,7 +56,6 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
       final CityModel _city = await ZoneProtocols.fetchCity(
         cityID: _zone.cityID,
-        countryID: _zone.countryID,
       );
 
       _selectedZone.value = ZoneModel(

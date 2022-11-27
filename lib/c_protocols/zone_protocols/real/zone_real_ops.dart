@@ -111,6 +111,41 @@ class ZoneRealOps {
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
+  static Future<List<CityModel>> readCities({
+    @required List<String> citiesIDs,
+  }) async {
+    final List<CityModel> _output = [];
+
+    if (Mapper.checkCanLoopList(citiesIDs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(citiesIDs.length, (index){
+
+          final String _cityID = citiesIDs[index];
+          final String _countryID = CityModel.getCountryIDFromCityID(_cityID);
+
+          return readCity(
+            countryID: _countryID,
+            cityID: _cityID,
+          ).then((CityModel _cityModel){
+
+            if (_cityModel != null){
+              _output.add(_cityModel);
+            }
+
+          });
+
+      }),
+
+      ]);
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCountryCities({
     @required String countryID,
