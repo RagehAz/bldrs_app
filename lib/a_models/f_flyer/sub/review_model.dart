@@ -161,8 +161,8 @@ class ReviewModel {
 
     if (snapshot != null && snapshot.value != null){
 
-      final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-        internalHashLinkedMapObjectObject: snapshot.value,
+      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        ihlmoo: snapshot.value,
       );
 
       _review = ReviewModel.decipherReview(

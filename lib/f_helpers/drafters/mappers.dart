@@ -143,8 +143,8 @@ class Mapper {
       // blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
       if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
-        _output = getMapFromInternalHashLinkedMapObjectObject(
-          internalHashLinkedMapObjectObject: snapshot.value,
+        _output = getMapFromIHLMOO(
+          ihlmoo: snapshot.value,
         );
       }
       else {
@@ -339,13 +339,15 @@ class Mapper {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
-    @required Object internalHashLinkedMapObjectObject,
+  static Map<String, dynamic> getMapFromIHLMOO({
+    @required Object ihlmoo,
   }){
     Map<String, dynamic> _output;
 
-    if (internalHashLinkedMapObjectObject != null){
-      _output = jsonDecode(jsonEncode(internalHashLinkedMapObjectObject));
+    /// NOTE : IHLMOO = Internal Hash Linked Map Object Object
+
+    if (ihlmoo != null){
+      _output = jsonDecode(jsonEncode(ihlmoo));
       // _output = Map<String, dynamic>.from(internalHashLinkedMapObjectObject);
     }
 
@@ -353,26 +355,32 @@ class Mapper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, dynamic>> getMapsFromInternalHashLinkedMapObjectObject({
-    @required Object internalHashLinkedMapObjectObject,
+  static List<Map<String, dynamic>> getMapsFromIHLMOO({
+    @required Object ihlmoo,
+    bool addChildrenIDs = true,
   }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (internalHashLinkedMapObjectObject != null){
+    /// NOTE : IHLMOO = Internal Hash Linked Map Object Object
 
-      final Map<String, dynamic> _bigMap = jsonDecode(jsonEncode(internalHashLinkedMapObjectObject));
+    if (ihlmoo != null){
+
+      final Map<String, dynamic> _bigMap = jsonDecode(jsonEncode(ihlmoo));
       // Map.from(internalHashLinkedMapObjectObject);
       final List<String> _ids = _bigMap.keys.toList();
 
       for (final String id in _ids){
 
-        Map<String, dynamic> _map = Map.from(_bigMap[id]);
+        Map<String, dynamic> _map = jsonDecode(jsonEncode(_bigMap[id]));
+        // Map.from();
 
-        _map = insertPairInMap(
-          map: _map,
-          key: 'id',
-          value: id,
-        );
+        if (addChildrenIDs == true){
+          _map = insertPairInMap(
+            map: _map,
+            key: 'id',
+            value: id,
+          );
+        }
 
         _maps.add(_map);
 
