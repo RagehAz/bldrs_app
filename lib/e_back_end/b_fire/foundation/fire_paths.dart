@@ -40,6 +40,30 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
   |     |
   |     | - ...
   |
+  | --------------------------|
+  |
+  | - [zones]
+  |     | - [phrases_cities]
+  |     |     | - {cityID+langCode}
+  |     |     |     | - countryID
+  |     |     |     | - id (is cityID & is phid)
+  |     |     |     | - value
+  |     |     |     | - langCode
+  |     |     |     | - trigram
+  |     |     |
+  |     |     | - {cityID_langCode} ...
+  |     |
+  |     | - [phrases_districts]
+  |           | - {districtID+langCode}
+  |           |     | - countryID
+  |           |     | - cityID
+  |           |     | - id (is districtID & is phid)
+  |           |     | - value
+  |           |     | - langCode
+  |           |     | - trigram
+  |           |
+  |           | - {districtID+langCode} ...
+  |
   | -------------------------------------------|
 
  */
@@ -60,6 +84,8 @@ abstract class FireColl{
   static const String admin = 'admin';
 
   static const String zones = 'zones';
+  static const String phrases_cities = 'phrases_cities';
+  static const String phrases_districts = 'phrases_districts';
 
   static const String keys = 'keys';
   static const String records = 'records';

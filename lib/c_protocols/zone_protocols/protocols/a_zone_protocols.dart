@@ -45,9 +45,19 @@ class ZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchCities = FetchZoneProtocols.fetchCities;
+  // -----------------------------------------------------------------------------
+
+  /// FETCH COUNTRY CITY
+
   // --------------------
   /// TASK : TEST ME
-  static const fetchCitiesByCountryID = FetchZoneProtocols.fetchCitiesByCountryID;
+  static const fetchCitiesOfCountryByLevel = FetchZoneProtocols.fetchCitiesOfCountryByLevel;
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchCitiesFromAllOfCountry = FetchZoneProtocols.fetchCitiesFromAllOfCountry;
+  // --------------------
+  /// TASK : TEST ME
+  static const fetchCitiesFromSomeOfCountry = FetchZoneProtocols.fetchCitiesFromSomeOfCountry;
   // -----------------------------------------------------------------------------
 
   /// FETCH CONTINENT

@@ -110,7 +110,7 @@ class ZoneIPOps {
                       langCode: 'en',
                     );
 
-                    _cityID = CityModel.createCityID(
+                    _cityID = CityModel.oldCreateCityID(
                         countryID: _country?.id,
                         cityEnName: _cityName
                     );

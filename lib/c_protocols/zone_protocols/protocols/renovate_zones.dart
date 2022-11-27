@@ -41,7 +41,6 @@ class RenovateZoneProtocols {
       if (incompleteZoneModel.cityModel == null){
         final CityModel _bzCity = await ZoneProtocols.fetchCity(
           cityID: incompleteZoneModel.cityID,
-          countryID: incompleteZoneModel.countryID,
         );
         _output = _output.copyWith(
           cityModel: _bzCity,

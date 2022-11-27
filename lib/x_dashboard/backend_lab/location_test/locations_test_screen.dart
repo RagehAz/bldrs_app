@@ -160,7 +160,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
       final CityModel _city = await ZoneProtocols.fetchCity(
         cityID: _zoneModel.cityID,
-        countryID: _zoneModel.countryID,
       );
 
       setState(() {
