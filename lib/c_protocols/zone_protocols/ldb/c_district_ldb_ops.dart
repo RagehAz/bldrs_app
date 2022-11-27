@@ -2,7 +2,8 @@ import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-
+import 'package:flutter/material.dart';
+/// => TAMAM
 class DistrictLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -13,8 +14,10 @@ class DistrictLDBOps {
   /// CREATE / INSERT
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> insertDistrict(DistrictModel districtModel) async {
+  /// TESTED : WORKS PERFECT
+  static Future<void> insertDistrict({
+    @required DistrictModel districtModel,
+  }) async {
 
     await LDBOps.insertMap(
       docName: LDBDoc.districts,
@@ -26,8 +29,10 @@ class DistrictLDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> insertDistricts(List<DistrictModel> districts) async {
+  /// TESTED : WORKS PERFECT
+  static Future<void> insertDistricts({
+    @required List<DistrictModel> districts,
+  }) async {
 
     if (Mapper.checkCanLoopList(districts) == true){
 
@@ -48,8 +53,10 @@ class DistrictLDBOps {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<DistrictModel> readDistrict(String districtID) async {
+  /// TESTED : WORKS PERFECT
+  static Future<DistrictModel> readDistrict({
+    @required String districtID,
+  }) async {
 
     final Map<String, Object> _map = await LDBOps.searchFirstMap(
       docName: LDBDoc.districts,
@@ -66,8 +73,10 @@ class DistrictLDBOps {
     return _district;
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<DistrictModel>> readDistricts(List<String> districtsIDs) async {
+  /// TESTED : WORKS PERFECT
+  static Future<List<DistrictModel>> readDistricts({
+    @required List<String> districtsIDs,
+  }) async {
     List<DistrictModel> _output = <DistrictModel>[];
 
     if (Mapper.checkCanLoopList(districtsIDs) == true){

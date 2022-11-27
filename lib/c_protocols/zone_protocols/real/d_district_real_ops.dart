@@ -49,7 +49,9 @@ class DistrictRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneLevel> readDistrictsLevels(String cityID) async {
+  static Future<ZoneLevel> readDistrictsLevels({
+    @required String cityID,
+  }) async {
     ZoneLevel _output;
 
     if (TextCheck.isEmpty(cityID) == false){
@@ -76,7 +78,9 @@ class DistrictRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DistrictModel> readDistrict(String districtID) async {
+  static Future<DistrictModel> readDistrict({
+  @required String districtID,
+  }) async {
     DistrictModel _output;
 
     if (TextCheck.isEmpty(districtID) == false){
@@ -116,7 +120,9 @@ class DistrictRealOps {
 
           final String _districtID = districtsIDs[index];
 
-          return readDistrict(_districtID).then((DistrictModel _district){
+          return readDistrict(
+            districtID: _districtID,
+          ).then((DistrictModel _district){
 
             if (_district != null){
               _output.add(_district);
@@ -138,7 +144,9 @@ class DistrictRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<DistrictModel>> readCityDistricts(String cityID) async {
+  static Future<List<DistrictModel>> readCityDistricts({
+  @required String cityID,
+  }) async {
 
     final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
