@@ -48,8 +48,8 @@ class CountriesLevelsRealOps {
 
       final ZoneLevel _countriesLevels = await readCountriesLevels();
 
-      final ZoneLevel _newCountriesLevels = ZoneLevel.updateIDLevel(
-        oldLevel: _countriesLevels,
+      final ZoneLevel _newCountriesLevels = ZoneLevel.insertIDToZoneLevel(
+        zoneLevel: _countriesLevels,
         id: countryID,
         newType: newType,
       );
