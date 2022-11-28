@@ -70,6 +70,9 @@ enum ZoneViewingEvent {
   flyerEditor,
 }
 
+// --------------------------------------------------------------------------
+
+/// => TAMAM
 @immutable
 class ZoneLevel {
   // --------------------------------------------------------------------------
@@ -158,20 +161,20 @@ class ZoneLevel {
     );
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   ZoneLevel copyListWith({
-    @required List<String> list,
+    @required List<String> newList,
     @required ZoneLevelType type,
   }){
     ZoneLevel _output = this;
 
-    if (this != null && list != null && type != null){
+    if (this != null && newList != null && type != null){
 
       _output = _output.copyWith(
-        hidden:    type == ZoneLevelType.hidden    ? list : _output.hidden,
-        inactive:  type == ZoneLevelType.inactive  ? list : _output.inactive,
-        active:    type == ZoneLevelType.active    ? list : _output.active,
-        public:    type == ZoneLevelType.public    ? list : _output.public,
+        hidden:    type == ZoneLevelType.hidden    ? newList : _output.hidden,
+        inactive:  type == ZoneLevelType.inactive  ? newList : _output.inactive,
+        active:    type == ZoneLevelType.active    ? newList : _output.active,
+        public:    type == ZoneLevelType.public    ? newList : _output.public,
       );
 
     }
@@ -193,7 +196,7 @@ class ZoneLevel {
     ];
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   List<String> getIDsByLevel(ZoneLevelType level){
     switch (level) {
       case ZoneLevelType.hidden:    return hidden;    break;
@@ -204,7 +207,7 @@ class ZoneLevel {
     }
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   ZoneLevelType getLevelTypeByID(String id){
 
     if (checkHasID(id: id, levelType: ZoneLevelType.hidden) == true){
@@ -229,7 +232,7 @@ class ZoneLevel {
   /// CONCLUDERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static ZoneLevelType concludeLowestZoneLevelOnViewingEvent({
     @required ZoneViewingEvent event,
     @required bool isAuthor,
@@ -267,49 +270,8 @@ class ZoneLevel {
   /// MODIFIERS
 
   // --------------------
-  /// TASK : TEST ME
-  static ZoneLevel updateIDLevel({
-    @required ZoneLevel oldLevel,
-    @required String id,
-    @required ZoneLevelType newType,
-  }){
-
-    ZoneLevel _output;
-
-    if (oldLevel == null || id == null || newType == null){
-      _output = oldLevel;
-    }
-
-    else {
-
-      final ZoneLevelType _type = oldLevel.getLevelTypeByID(id);
-
-      if (_type == null){
-        _output = oldLevel;
-      }
-
-      else {
-
-        _output = _removeIDFromZoneLevel(
-          id: id,
-          zoneLevel: _output,
-        );
-
-        _output = _addIDToZoneLevel(
-          id: id,
-          zoneLevel: _output,
-          newType: newType,
-        );
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static ZoneLevel _removeIDFromZoneLevel({
+  /// TESTED : WORKS PERFECT
+  static ZoneLevel removeIDFromZoneLevel({
     @required String id,
     @required ZoneLevel zoneLevel,
   }){
@@ -330,7 +292,7 @@ class ZoneLevel {
         );
 
         _output = _output.copyListWith(
-            list: _newList,
+            newList: _newList,
             type: _type,
         );
 
@@ -341,39 +303,60 @@ class ZoneLevel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static ZoneLevel _addIDToZoneLevel({
+  /// TESTED : WORKS PERFECT
+  static ZoneLevel insertIDToZoneLevel({
     @required String id,
     @required ZoneLevelType newType,
     @required ZoneLevel zoneLevel,
   }){
     ZoneLevel _output = zoneLevel;
 
+    // print('1 addIDToZoneLevel : START');
+    // print('2 _output : $_output');
+
     if (zoneLevel != null && id != null){
+
+      // print('3 zoneLevel != null && id != null');
 
       final bool _idExists = zoneLevel.checkHasID(id: id);
 
+      // print('4 _idExists : $_idExists');
+
       if (_idExists == true){
-        _output = _removeIDFromZoneLevel(
+
+        // print('5 _output : $_output');
+
+        _output = removeIDFromZoneLevel(
           id: id,
           zoneLevel: _output,
         );
+
+        // print('6 _output : $_output');
+
       }
 
 
       final List<String> _oldList = zoneLevel.getIDsByLevel(newType);
+
+      // print('7 _oldList : $_oldList');
 
       final List<String> _newList = Stringer.addStringToListIfDoesNotContainIt(
           strings: _oldList,
           stringToAdd: id,
       );
 
+      // print('8 _newList : $_newList');
+
       _output = _output.copyListWith(
-        list: _newList,
+        newList: _newList,
         type: newType,
       );
 
+      // print('9 _output : $_output');
+
     }
+
+    // print('10 addIDToZoneLevel : END');
 
     return _output;
   }
@@ -382,7 +365,7 @@ class ZoneLevel {
   /// CHECKERS
 
   // ---------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   bool checkHasID({
     @required String id,
     ZoneLevelType levelType,
