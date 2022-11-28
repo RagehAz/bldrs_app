@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 ///   - is a zone that has certain amount of flyers and bzz to be visible to users
 ///
 /// PUBLIC ZONE
-///   - is a zone that reached a level that can be visible to other zones
+///   - is a zone that reached a stage that can be visible to other zones
 ///
 /// ACTIVE CITY
 ///   - is a city that has certain amount of flyers and bzz to be visible to users
@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 ///   - is a country that has atleast 1 active city
 ///
 /// PUBLIC CITY
-///   - is a city that reached a level that can be visible to other cities
+///   - is a city that reached a stage that can be visible to other cities
 ///
 /// PUBLIC COUNTRY
 ///   - is a country that has atleast 1 public city
@@ -48,7 +48,7 @@ import 'package:flutter/material.dart';
 ///   - User zone and User Need Zone are the same
 // --------------------------------------------------------------------------
 
-enum ZoneLevelType {
+enum StageType {
   /// LVL 1 - SWITCHED OFF - CAN NOT BE USED - IS HIDDEN,
   hidden,
 
@@ -74,9 +74,9 @@ enum ZoneViewingEvent {
 
 /// => TAMAM
 @immutable
-class ZoneLevel {
+class ZoneStages {
   // --------------------------------------------------------------------------
-  const ZoneLevel({
+  const ZoneStages({
     @required this.hidden,
     @required this.inactive,
     @required this.active,
@@ -87,6 +87,17 @@ class ZoneLevel {
   final List<String> inactive;
   final List<String> active;
   final List<String> public;
+  // --------------------------------------------------------------------------
+
+  /// CONSTANTS
+
+  // --------------------
+  static const List<StageType> zoneStagesList = <StageType>[
+    StageType.hidden,
+    StageType.inactive,
+    StageType.active,
+    StageType.public,
+  ];
   // --------------------------------------------------------------------------
 
     /// CYPHERS
@@ -103,12 +114,12 @@ class ZoneLevel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneLevel decipher(Map<String, dynamic> map){
-    ZoneLevel _level;
+  static ZoneStages decipher(Map<String, dynamic> map){
+    ZoneStages _output;
 
     if (map != null){
 
-      _level = ZoneLevel(
+      _output = ZoneStages(
         hidden: Stringer.getStringsFromDynamics(dynamics: map['hidden']),
         inactive: Stringer.getStringsFromDynamics(dynamics: map['inactive']),
         active: Stringer.getStringsFromDynamics(dynamics: map['active']),
@@ -117,43 +128,43 @@ class ZoneLevel {
 
     }
 
-    return _level;
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherLevelType(ZoneLevelType type){
+  static String cipherStageType(StageType type){
 
     switch (type) {
-      case ZoneLevelType.hidden:    return 'hidden';    break;
-      case ZoneLevelType.inactive:  return 'inactive';  break;
-      case ZoneLevelType.active:    return 'active';    break;
-      case ZoneLevelType.public:    return 'public';    break;
+      case StageType.hidden:    return 'hidden';    break;
+      case StageType.inactive:  return 'inactive';  break;
+      case StageType.active:    return 'active';    break;
+      case StageType.public:    return 'public';    break;
       default: return null;
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneLevelType decipherLevelType(String type){
+  static StageType decipherStageType(String type){
 
       switch (type) {
-        case 'hidden':    return ZoneLevelType.hidden;    break;
-        case 'inactive':  return ZoneLevelType.inactive;  break;
-        case 'active':    return ZoneLevelType.active;    break;
-        case 'public':    return ZoneLevelType.public;    break;
+        case 'hidden':    return StageType.hidden;    break;
+        case 'inactive':  return StageType.inactive;  break;
+        case 'active':    return StageType.active;    break;
+        case 'public':    return StageType.public;    break;
         default: return null;
       }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  ZoneLevel copyWith({
+  ZoneStages copyWith({
     List<String> hidden,
     List<String> inactive,
     List<String> active,
     List<String> public,
   }) {
-    return ZoneLevel(
+    return ZoneStages(
       hidden: hidden ?? this.hidden,
       inactive: inactive ?? this.inactive,
       active: active ?? this.active,
@@ -162,19 +173,19 @@ class ZoneLevel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  ZoneLevel copyListWith({
+  ZoneStages copyListWith({
     @required List<String> newList,
-    @required ZoneLevelType type,
+    @required StageType type,
   }){
-    ZoneLevel _output = this;
+    ZoneStages _output = this;
 
     if (this != null && newList != null && type != null){
 
       _output = _output.copyWith(
-        hidden:    type == ZoneLevelType.hidden    ? newList : _output.hidden,
-        inactive:  type == ZoneLevelType.inactive  ? newList : _output.inactive,
-        active:    type == ZoneLevelType.active    ? newList : _output.active,
-        public:    type == ZoneLevelType.public    ? newList : _output.public,
+        hidden:    type == StageType.hidden    ? newList : _output.hidden,
+        inactive:  type == StageType.inactive  ? newList : _output.inactive,
+        active:    type == StageType.active    ? newList : _output.active,
+        public:    type == StageType.public    ? newList : _output.public,
       );
 
     }
@@ -197,30 +208,30 @@ class ZoneLevel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  List<String> getIDsByLevel(ZoneLevelType level){
-    switch (level) {
-      case ZoneLevelType.hidden:    return hidden;    break;
-      case ZoneLevelType.inactive:  return inactive;  break;
-      case ZoneLevelType.active:    return active;    break;
-      case ZoneLevelType.public:    return public;    break;
+  List<String> getIDsByStage(StageType stageType){
+    switch (stageType) {
+      case StageType.hidden:    return hidden;    break;
+      case StageType.inactive:  return inactive;  break;
+      case StageType.active:    return active;    break;
+      case StageType.public:    return public;    break;
       default: return getAllIDs();
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  ZoneLevelType getLevelTypeByID(String id){
+  StageType getStageTypeByID(String id){
 
-    if (checkHasID(id: id, levelType: ZoneLevelType.hidden) == true){
-      return ZoneLevelType.hidden;
+    if (checkHasID(id: id, zoneStageType: StageType.hidden) == true){
+      return StageType.hidden;
     }
-    else if (checkHasID(id: id, levelType: ZoneLevelType.inactive) == true){
-      return ZoneLevelType.inactive;
+    else if (checkHasID(id: id, zoneStageType: StageType.inactive) == true){
+      return StageType.inactive;
     }
-    else if (checkHasID(id: id, levelType: ZoneLevelType.active) == true){
-      return ZoneLevelType.active;
+    else if (checkHasID(id: id, zoneStageType: StageType.active) == true){
+      return StageType.active;
     }
-    else if (checkHasID(id: id, levelType: ZoneLevelType.public) == true){
-      return ZoneLevelType.public;
+    else if (checkHasID(id: id, zoneStageType: StageType.public) == true){
+      return StageType.public;
     }
     else {
       return null;
@@ -233,7 +244,7 @@ class ZoneLevel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneLevelType concludeLowestZoneLevelOnViewingEvent({
+  static StageType concludeLowestZoneStageOnViewingEvent({
     @required ZoneViewingEvent event,
     @required bool isAuthor,
   }){
@@ -242,10 +253,10 @@ class ZoneLevel {
     if (isAuthor == true){
 
       switch(event){
-        case ZoneViewingEvent.homeView    : return ZoneLevelType.active;    break; /// = if active : will show bzz : if public : will show flyers
-        case ZoneViewingEvent.userEditor  : return ZoneLevelType.inactive;  break;
-        case ZoneViewingEvent.bzEditor    : return ZoneLevelType.inactive;  break;
-        case ZoneViewingEvent.flyerEditor : return ZoneLevelType.active;    break; /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
+        case ZoneViewingEvent.homeView    : return StageType.active;    break; /// = if active : will show bzz : if public : will show flyers
+        case ZoneViewingEvent.userEditor  : return StageType.inactive;  break;
+        case ZoneViewingEvent.bzEditor    : return StageType.inactive;  break;
+        case ZoneViewingEvent.flyerEditor : return StageType.active;    break; /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
         default: return null; break;
       }
 
@@ -255,9 +266,9 @@ class ZoneLevel {
     else {
 
       switch(event){
-        case ZoneViewingEvent.homeView    : return ZoneLevelType.active;    break; /// = if active : will show bzz : if public : will show flyers
-        case ZoneViewingEvent.userEditor  : return ZoneLevelType.inactive;  break;
-        case ZoneViewingEvent.bzEditor    : return ZoneLevelType.inactive;  break;
+        case ZoneViewingEvent.homeView    : return StageType.active;    break; /// = if active : will show bzz : if public : will show flyers
+        case ZoneViewingEvent.userEditor  : return StageType.inactive;  break;
+        case ZoneViewingEvent.bzEditor    : return StageType.inactive;  break;
         case ZoneViewingEvent.flyerEditor : return null;                break; /// USER DOES NOT PUBLISH FLYERS
         default: return null; break;
       }
@@ -271,20 +282,20 @@ class ZoneLevel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneLevel removeIDFromZoneLevel({
+  static ZoneStages removeIDFromZoneStage({
     @required String id,
-    @required ZoneLevel zoneLevel,
+    @required ZoneStages zoneStages,
   }){
-    ZoneLevel _output = zoneLevel;
+    ZoneStages _output = zoneStages;
 
-    if (zoneLevel != null && id != null){
+    if (zoneStages != null && id != null){
 
-      final bool _idExists = zoneLevel.checkHasID(id: id);
+      final bool _idExists = zoneStages.checkHasID(id: id);
 
       if (_idExists == true){
 
-        final ZoneLevelType _type = zoneLevel.getLevelTypeByID(id);
-        final List<String> _oldList = zoneLevel.getIDsByLevel(_type);
+        final StageType _type = zoneStages.getStageTypeByID(id);
+        final List<String> _oldList = zoneStages.getIDsByStage(_type);
 
         final List<String> _newList = Stringer.removeStringsFromStrings(
             removeFrom: _oldList,
@@ -304,31 +315,26 @@ class ZoneLevel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneLevel insertIDToZoneLevel({
+  static ZoneStages insertIDToZoneStages({
     @required String id,
-    @required ZoneLevelType newType,
-    @required ZoneLevel zoneLevel,
+    @required StageType newType,
+    @required ZoneStages zoneStages,
   }){
-    ZoneLevel _output = zoneLevel;
+    ZoneStages _output = zoneStages;
 
-    // print('1 addIDToZoneLevel : START');
-    // print('2 _output : $_output');
+    if (zoneStages != null && id != null){
 
-    if (zoneLevel != null && id != null){
 
-      // print('3 zoneLevel != null && id != null');
+      final bool _idExists = zoneStages.checkHasID(id: id);
 
-      final bool _idExists = zoneLevel.checkHasID(id: id);
-
-      // print('4 _idExists : $_idExists');
 
       if (_idExists == true){
 
         // print('5 _output : $_output');
 
-        _output = removeIDFromZoneLevel(
+        _output = removeIDFromZoneStage(
           id: id,
-          zoneLevel: _output,
+          zoneStages: _output,
         );
 
         // print('6 _output : $_output');
@@ -336,27 +342,19 @@ class ZoneLevel {
       }
 
 
-      final List<String> _oldList = zoneLevel.getIDsByLevel(newType);
-
-      // print('7 _oldList : $_oldList');
+      final List<String> _oldList = zoneStages.getIDsByStage(newType);
 
       final List<String> _newList = Stringer.addStringToListIfDoesNotContainIt(
           strings: _oldList,
           stringToAdd: id,
       );
 
-      // print('8 _newList : $_newList');
-
       _output = _output.copyListWith(
         newList: _newList,
         type: newType,
       );
 
-      // print('9 _output : $_output');
-
     }
-
-    // print('10 addIDToZoneLevel : END');
 
     return _output;
   }
@@ -368,21 +366,21 @@ class ZoneLevel {
   /// TESTED : WORKS PERFECT
   bool checkHasID({
     @required String id,
-    ZoneLevelType levelType,
+    StageType zoneStageType,
   }){
 
     /// CHECK ALL
-    if (levelType == null){
+    if (zoneStageType == null){
       return Stringer.checkStringsContainString(
           strings: getAllIDs(),
           string: id
       );
     }
 
-    /// CHECK SPECIFIC LEVEL
+    /// CHECK SPECIFIC STAGE
     else {
       return Stringer.checkStringsContainString(
-          strings: getIDsByLevel(levelType),
+          strings: getIDsByStage(zoneStageType),
           string: id
       );
     }
@@ -394,19 +392,19 @@ class ZoneLevel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkLevelsAreIdentical(ZoneLevel lvl1, ZoneLevel lvl2){
+  static bool checkStagesAreIdentical(ZoneStages stage1, ZoneStages stage2){
     bool _identical = false;
 
-    if (lvl1 == null && lvl2 == null){
+    if (stage1 == null && stage2 == null){
       _identical = true;
     }
 
-    else if (lvl1 != null && lvl2 != null) {
+    else if (stage1 != null && stage2 != null) {
       if (
-          Mapper.checkListsAreIdentical(list1: lvl1.hidden, list2: lvl2.hidden) == true &&
-          Mapper.checkListsAreIdentical(list1: lvl1.inactive, list2: lvl2.inactive) == true &&
-          Mapper.checkListsAreIdentical(list1: lvl1.active, list2: lvl2.active) == true &&
-          Mapper.checkListsAreIdentical(list1: lvl1.public, list2: lvl2.public) == true
+          Mapper.checkListsAreIdentical(list1: stage1.hidden, list2: stage2.hidden) == true &&
+          Mapper.checkListsAreIdentical(list1: stage1.inactive, list2: stage2.inactive) == true &&
+          Mapper.checkListsAreIdentical(list1: stage1.active, list2: stage2.active) == true &&
+          Mapper.checkListsAreIdentical(list1: stage1.public, list2: stage2.public) == true
       ) {
         _identical = true;
       }
@@ -416,7 +414,7 @@ class ZoneLevel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogLeveL(){
+  void blogStages(){
     blog('hidden : ${hidden.length} : $hidden');
     blog('inactive : ${inactive.length} : $inactive');
     blog('active : ${active.length} : $active');
@@ -440,8 +438,8 @@ class ZoneLevel {
     }
 
     bool _areIdentical = false;
-    if (other is ZoneLevel){
-      _areIdentical = checkLevelsAreIdentical(
+    if (other is ZoneStages){
+      _areIdentical = checkStagesAreIdentical(
         this,
         other,
       );

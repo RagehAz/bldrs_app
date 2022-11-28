@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dar
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zone_editors/a_country_editor/edit_country_screen.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -12,7 +13,6 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> goToCountrySelectionScreen({
   @required BuildContext context,
-  @required ValueNotifier<ZoneModel> zone,
 }) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
@@ -24,9 +24,11 @@ Future<void> goToCountrySelectionScreen({
 
   if (_zone != null){
 
-    zone.value = await ZoneProtocols.completeZoneModel(
-      context: context,
-      incompleteZoneModel: _zone,
+    await Nav.goToNewScreen(
+        context: context,
+        screen: CountryEditorScreen(
+          countryID: _zone.countryID,
+        ),
     );
 
   }
