@@ -137,9 +137,9 @@ class DashBoardHomeScreen extends StatelessWidget {
       ),
       /// ZONES EDITOR
       DashButtonModel(
-        verse:  'Zones\nEditor',
+        verse:  'Zones\nManager',
         icon: Iconz.earth,
-        screen: ZonesEditorScreen(),
+        screen: ZonesManagerScreen(),
       ),
       /// CURRENCIES
       DashButtonModel(

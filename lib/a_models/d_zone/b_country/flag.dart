@@ -24,6 +24,7 @@ class Flag {
     @required this.capital,
     @required this.langCodes,
     @required this.areaSqKm,
+    @required this.population,
     @required this.phrases,
   });
   /// --------------------------------------------------------------------------
@@ -37,6 +38,7 @@ class Flag {
   final String phoneCode;
   final String capital;
   final String langCodes;
+  final int population;
   final int areaSqKm;
   final List<Phrase> phrases;
   // -----------------------------------------------------------------------------
@@ -57,6 +59,7 @@ class Flag {
     String capital,
     String langCodes,
     int areaSqKm,
+    int population,
     List<Phrase> phrases,
   }){
     return Flag(
@@ -71,6 +74,7 @@ class Flag {
       capital: capital ?? this.capital,
       langCodes: langCodes ?? this.langCodes,
       areaSqKm: areaSqKm ?? this.areaSqKm,
+      population: population ?? this.population,
       phrases: phrases ?? this.phrases,
     );
   }
@@ -93,6 +97,7 @@ class Flag {
       'capital': capital,
       'langCodes': langCodes,
       'areaSqKm': areaSqKm,
+      'population': population,
       'phrases': Phrase.cipherPhrasesToLangsMap(phrases),
     };
   }
@@ -127,6 +132,7 @@ class Flag {
         capital: map['capital'],
         langCodes: map['langCodes'],
         areaSqKm: map['areaSqKm'],
+        population: map['population'],
         phrases: Phrase.decipherPhrasesLangsMap(
           phid: map['id'],
           langsMap: map['phrases'],
@@ -149,9 +155,6 @@ class Flag {
 
     return _output;
   }
-  // -----------------------------------------------------------------------------
-
-  // --------------------
   // -----------------------------------------------------------------------------
 
   /// FLAG GETTERS
@@ -420,11 +423,12 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogFlag(){
+
     blog(
       'Flag(\n'
           "id: '$id',\n"
           "iso2: '$iso2',\n"
-          "flag: '$icon',\n"
+          "icon: '$icon',\n"
           "region: '$region',\n"
           "continent: '$continent',\n"
           "language: '$language',\n"
@@ -433,6 +437,7 @@ class Flag {
           "capital: '$capital',\n"
           "langCodes: '$langCodes',\n"
           'areaSqKm: $areaSqKm,\n'
+          'population: $population,\n'
           'phrases: <Phrase>[\n'
               "Phrase(langCode: 'de', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'de').value}', id: '$id'),\n"
               "Phrase(langCode: 'ar', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'ar').value}', id: '$id'),\n"
@@ -479,6 +484,7 @@ class Flag {
             '"capital":"${_flag.capital}",\n'
             '"langCodes":"${_flag.langCodes}",\n'
             '"areaSqKm":${_flag.areaSqKm},\n'
+            '"population":${_flag.population},\n'
             '"phrases":${_blogPhrasesToJSON(_flag.phrases)}\n'
             '}';
 
@@ -544,6 +550,7 @@ class Flag {
       flag1.capital == flag2.capital &&
       flag1.langCodes == flag2.langCodes &&
       flag1.areaSqKm == flag2.areaSqKm &&
+      flag1.population == flag2.population &&
       Phrase.checkPhrasesListsAreIdentical(phrases1: flag1.phrases, phrases2: flag2.phrases,) == true
     ) {
         _identical = true;
@@ -593,6 +600,7 @@ class Flag {
       capital.hashCode^
       langCodes.hashCode^
       areaSqKm.hashCode^
+      population.hashCode^
       phrases.hashCode;
   // -----------------------------------------------------------------------------
 }

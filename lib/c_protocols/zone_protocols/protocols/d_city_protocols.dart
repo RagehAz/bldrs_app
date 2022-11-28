@@ -1,7 +1,7 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_levels_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -102,27 +102,27 @@ class CityProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<List<CityModel>> fetchCitiesOfCountryByLevel({
+  static Future<List<CityModel>> fetchCitiesOfCountryByStage({
     @required String countryID,
-    /// If cityLevel is null, then all cities will be returned
-    ZoneLevelType cityLevel,
+    /// If CITY STAGE is null, then all cities will be returned
+    StageType cityStage,
   }) async {
     List<CityModel> _output = <CityModel>[];
 
     if (TextCheck.isEmpty(countryID) == false){
 
       /// SHOULD FETCH ALL CITIES
-      if (cityLevel == null){
+      if (cityStage == null){
         _output = await fetchCitiesFromAllOfCountry(countryID: countryID);
       }
 
-      /// SHOULD FETCH ONLY CITIES OF THIS LEVEL
+      /// SHOULD FETCH ONLY CITIES OF THIS STAGE
       else {
 
-        final ZoneLevel _citiesIDs = await CitiesLevelsRealOps.readCitiesLevels(countryID);
+        final ZoneStages _citiesIDs = await CitiesStagesRealOps.readCitiesStages(countryID);
 
         _output = await fetchCitiesFromSomeOfCountry(
-          citiesIDsOfThisCountry: _citiesIDs?.getIDsByLevel(cityLevel),
+          citiesIDsOfThisCountry: _citiesIDs?.getIDsByStage(cityStage),
         );
 
       }

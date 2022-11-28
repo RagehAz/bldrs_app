@@ -1,9 +1,9 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main(){
 
-  const ZoneLevel _zoneLevel = ZoneLevel(
+  const ZoneStages _zoneLevel = ZoneStages(
     hidden: ['1', '2', '3'],
     inactive: ['4', '5', '6'],
     active: ['7', '8', '9'],
@@ -13,12 +13,12 @@ void main(){
   // -----------------------------------------------------------------------------
   test('copyListWith', () {
 
-      final ZoneLevel _new = _zoneLevel.copyListWith(
+      final ZoneStages _new = _zoneLevel.copyListWith(
         newList: ['1', '2', '3', '4'],
-        type: ZoneLevelType.hidden,
+        type: StageType.hidden,
       );
 
-      const ZoneLevel _shouldBe =  ZoneLevel(
+      const ZoneStages _shouldBe =  ZoneStages(
         hidden: ['1', '2', '3', '4'],
         inactive: ['4', '5', '6'],
         active: ['7', '8', '9'],
@@ -32,22 +32,22 @@ void main(){
   // ---------------------------
   test('copyListWith 2', () {
 
-    ZoneLevel _new = _zoneLevel.copyListWith(
+    ZoneStages _new = _zoneLevel.copyListWith(
       newList: ['xxx'],
-      type: ZoneLevelType.hidden,
+      type: StageType.hidden,
     );
 
     _new = _new.copyListWith(
       newList: null,
-      type: ZoneLevelType.active,
+      type: StageType.active,
     );
 
     _new = _new.copyListWith(
       newList: [],
-      type: ZoneLevelType.public,
+      type: StageType.public,
     );
 
-    const ZoneLevel _shouldBe =  ZoneLevel(
+    const ZoneStages _shouldBe =  ZoneStages(
       hidden: ['xxx'],
       inactive: ['4', '5', '6'],
       active: ['7', '8', '9'],
@@ -61,15 +61,15 @@ void main(){
   // ---------------------------
   test('getIDsByLevel', () {
 
-    const ZoneLevelType _type = ZoneLevelType.hidden;
+    const StageType _type = StageType.hidden;
 
-    final List<String> _list = _zoneLevel.getIDsByLevel(_type);
+    final List<String> _list = _zoneLevel.getIDsByStage(_type);
 
     const List<String> _shouldBe = ['1', '2', '3'];
 
     expect(_list, _shouldBe);
 
-    final List<String> _list2 = _zoneLevel.getIDsByLevel(null);
+    final List<String> _list2 = _zoneLevel.getIDsByStage(null);
     final List<String> _shouldBe2 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     expect(_list2, _shouldBe2);
 
@@ -77,17 +77,17 @@ void main(){
   // ---------------------------
   test('getLevelTypeByID', () {
 
-    final ZoneLevelType _type = _zoneLevel.getLevelTypeByID('11');
-    expect(_type, ZoneLevelType.public);
+    final StageType _type = _zoneLevel.getStageTypeByID('11');
+    expect(_type, StageType.public);
 
-    final ZoneLevelType _type2 = _zoneLevel.getLevelTypeByID(null);
+    final StageType _type2 = _zoneLevel.getStageTypeByID(null);
     expect(_type2, null);
 
-    final ZoneLevelType _type3 = _zoneLevel.getLevelTypeByID('13');
+    final StageType _type3 = _zoneLevel.getStageTypeByID('13');
     expect(_type3, null);
 
-    final ZoneLevelType _type4 = _zoneLevel.getLevelTypeByID('2');
-    expect(_type4, ZoneLevelType.hidden);
+    final StageType _type4 = _zoneLevel.getStageTypeByID('2');
+    expect(_type4, StageType.hidden);
 
   });
   // ---------------------------
@@ -98,11 +98,11 @@ void main(){
     );
     final bool _has1InHidden = _zoneLevel.checkHasID(
       id: '1',
-      levelType: ZoneLevelType.hidden,
+      zoneStageType: StageType.hidden,
     );
     final bool _has1InActive = _zoneLevel.checkHasID(
       id: '1',
-      levelType: ZoneLevelType.active,
+      zoneStageType: StageType.active,
     );
 
     final bool _has15 = _zoneLevel.checkHasID(
@@ -110,7 +110,7 @@ void main(){
     );
     final bool _has15InHidden = _zoneLevel.checkHasID(
       id: '15',
-      levelType: ZoneLevelType.hidden,
+      zoneStageType: StageType.hidden,
     );
 
     expect(_has1, true);
@@ -125,11 +125,11 @@ void main(){
   // -----------------------------------------------------------------------------
   test('removeIDFromZoneLevel', () {
 
-    final ZoneLevel _new = ZoneLevel.removeIDFromZoneLevel(
+    final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
       id: 'XX',
-      zoneLevel: _zoneLevel,
+      zoneStages: _zoneLevel,
     );
-    const ZoneLevel _shouldBe = ZoneLevel(
+    const ZoneStages _shouldBe = ZoneStages(
       hidden: ['1', '2', '3'],
       inactive: ['4', '5', '6'],
       active: ['7', '8', '9'],
@@ -137,17 +137,17 @@ void main(){
     );
     expect(_new, _shouldBe);
 
-    ZoneLevel _new2 = ZoneLevel.removeIDFromZoneLevel(
+    ZoneStages _new2 = ZoneStages.removeIDFromZoneStage(
       id: '1',
-      zoneLevel: _zoneLevel,
+      zoneStages: _zoneLevel,
     );
 
-    _new2 = ZoneLevel.removeIDFromZoneLevel(
+    _new2 = ZoneStages.removeIDFromZoneStage(
       id: '8',
-      zoneLevel: _new2,
+      zoneStages: _new2,
     );
 
-    const ZoneLevel _shouldBe2 = ZoneLevel(
+    const ZoneStages _shouldBe2 = ZoneStages(
       hidden: ['2', '3'],
       inactive: ['4', '5', '6'],
       active: ['7', '9'],
@@ -159,13 +159,13 @@ void main(){
   // ---------------------------
   test('addIDToZoneLevel', () {
 
-    final ZoneLevel _new = ZoneLevel.insertIDToZoneLevel(
+    final ZoneStages _new = ZoneStages.insertIDToZoneStages(
       id: 'XX',
-      newType: ZoneLevelType.active,
-      zoneLevel: _zoneLevel,
+      newType: StageType.active,
+      zoneStages: _zoneLevel,
     );
 
-    const ZoneLevel _shouldBe = ZoneLevel(
+    const ZoneStages _shouldBe = ZoneStages(
       hidden: ['1', '2', '3'],
       inactive: ['4', '5', '6'],
       active: ['7', '8', '9', 'XX'],
@@ -179,13 +179,13 @@ void main(){
   // ---------------------------
   test('addIDToZoneLevel2', () {
 
-    final ZoneLevel _new = ZoneLevel.insertIDToZoneLevel(
+    final ZoneStages _new = ZoneStages.insertIDToZoneStages(
       id: '9',
-      newType: ZoneLevelType.active,
-      zoneLevel: _zoneLevel,
+      newType: StageType.active,
+      zoneStages: _zoneLevel,
     );
 
-    const ZoneLevel _shouldBe = ZoneLevel(
+    const ZoneStages _shouldBe = ZoneStages(
       hidden: ['1', '2', '3'],
       inactive: ['4', '5', '6'],
       active: ['7', '8', '9',],
@@ -199,13 +199,13 @@ void main(){
   // ---------------------------
   test('addIDToZoneLevel3', () {
 
-    final ZoneLevel _new = ZoneLevel.insertIDToZoneLevel(
+    final ZoneStages _new = ZoneStages.insertIDToZoneStages(
       id: '9',
-      newType: ZoneLevelType.inactive,
-      zoneLevel: _zoneLevel,
+      newType: StageType.inactive,
+      zoneStages: _zoneLevel,
     );
 
-    const ZoneLevel _shouldBe = ZoneLevel(
+    const ZoneStages _shouldBe = ZoneStages(
       hidden: ['1', '2', '3'],
       inactive: ['4', '5', '6', '9'],
       active: ['7', '8',],

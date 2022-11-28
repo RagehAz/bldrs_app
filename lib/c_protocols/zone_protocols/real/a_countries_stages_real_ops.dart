@@ -1,13 +1,13 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
-
-class CountriesLevelsRealOps {
+/// => TAMAM
+class CountriesStagesRealOps {
   // -----------------------------------------------------------------------------
 
-  const CountriesLevelsRealOps();
+  const CountriesStagesRealOps();
 
   // -----------------------------------------------------------------------------
 
@@ -21,55 +21,57 @@ class CountriesLevelsRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneLevel> readCountriesLevels() async {
+  static Future<ZoneStages> readCountriesStages() async {
 
     final dynamic _dynamic = await Real.readPath(
-      path: '${RealColl.zones}/${RealDoc.zones_countriesLevels}',
+      path: '${RealColl.zones}/${RealDoc.zones_countriesStages}',
     );
 
     final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
       ihlmoo: _dynamic,
     );
 
-    return ZoneLevel.decipher(_map);
+    return ZoneStages.decipher(_map);
   }
   // -----------------------------------------------------------------------------
 
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> updateCountryLevel({
+  /// TESTED : WORKS PERFECT
+  static Future<ZoneStages> updateCountryStage({
     @required String countryID,
-    @required ZoneLevelType newType,
+    @required StageType newType,
   }) async {
+
+    ZoneStages _output;
 
     if (countryID != null && newType != null){
 
-      final ZoneLevel _countriesLevels = await readCountriesLevels();
+      final ZoneStages _countriesStages = await readCountriesStages();
 
-      final ZoneLevel _newCountriesLevels = ZoneLevel.insertIDToZoneLevel(
-        zoneLevel: _countriesLevels,
+      _output = ZoneStages.insertIDToZoneStages(
+        zoneStages: _countriesStages,
         id: countryID,
         newType: newType,
       );
 
       await Real.createDocInPath(
         pathWithoutDocName: RealColl.zones,
-        docName: RealDoc.zones_countriesLevels,
+        docName: RealDoc.zones_countriesStages,
         addDocIDToOutput: false,
-        map: _newCountriesLevels.toMap(),
+        map: _output.toMap(),
       );
 
     }
 
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
   /// CREATE
 
   // --------------------
-  /// creating new country is a Hard code task
+  /// creating new country is a Hard code job
   // -----------------------------------------------------------------------------
-  void f(){}
 }

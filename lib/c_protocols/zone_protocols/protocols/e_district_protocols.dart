@@ -1,9 +1,9 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/d_city_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_levels_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -104,29 +104,29 @@ class DistrictProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<List<DistrictModel>> fetchCityDistrictsByLevel({
+  static Future<List<DistrictModel>> fetchCityDistrictsByStage({
     @required String cityID,
-    /// If cityLevel is null, then all cities will be returned
-    ZoneLevelType districtLevel,
+    /// If cityStage is null, then all cities will be returned
+    StageType districtStageType,
   }) async {
     List<DistrictModel> _output = <DistrictModel>[];
 
     if (TextCheck.isEmpty(cityID) == false){
 
       /// SHOULD FETCH ALL DISTRICTS
-      if (districtLevel == null){
+      if (districtStageType == null){
         _output = await fetchDistrictsFromAllOfCity(cityID: cityID);
       }
 
-      /// SHOULD FETCH ONLY DISTRICTS OF THIS LEVEL
+      /// SHOULD FETCH ONLY DISTRICTS OF THIS STAGE
       else {
 
-        final ZoneLevel _districtsIDs = await DistrictsLevelsRealOps.readDistrictsLevels(
+        final ZoneStages _districtsIDs = await DistrictsStagesRealOps.readDistrictsStages(
           cityID: cityID,
         );
 
         _output = await fetchDistrictsFromSomeOfCity(
-          districtsIDsOfThisCity: _districtsIDs?.getIDsByLevel(districtLevel),
+          districtsIDsOfThisCity: _districtsIDs?.getIDsByStage(districtStageType),
         );
 
       }
