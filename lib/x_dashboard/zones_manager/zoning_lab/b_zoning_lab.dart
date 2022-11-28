@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
@@ -23,10 +23,10 @@ import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_levels_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_levels_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_levels_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
@@ -627,15 +627,15 @@ class _ZoningLabState extends State<ZoningLab> {
               /// SEPARATOR
               const SeparatorLine(),
 
-              /// READ DISTRICTS LEVELS
+              /// READ DISTRICTS STAGES
               WideButton(
-                verse: Verse.plain('GET DISTRICTS LEVELS'),
+                verse: Verse.plain('GET DISTRICTS STAGES'),
                 onTap: () async {
 
-                  final ZoneLevel _districts = await DistrictsLevelsRealOps.readDistrictsLevels(
+                  final ZoneStages _districts = await DistrictsStagesRealOps.readDistrictsStages(
                     cityID: 'egy+alexandria',
                   );
-                  _districts?.blogLeveL();
+                  _districts?.blogStages();
 
                 },
               ),
@@ -819,7 +819,7 @@ class _ZoningLabState extends State<ZoningLab> {
           ),
         ),
 
-        /// CITIES LEVELS
+        /// CITIES STAGES
         PageBubble(
           screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
           appBarType: _appBarType,
@@ -830,12 +830,12 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// HEADLINE
               SuperHeadline(
-                verse: Verse.plain('Cities levels'),
+                verse: Verse.plain('Cities Stages'),
               ),
 
-              /// CREATE INITIAL CITIES LEVELS
+              /// CREATE INITIAL CITIES STAGES
               WideButton(
-                verse: Verse.plain('Create initial cities levels'),
+                verse: Verse.plain('Create initial cities Stages'),
                 isActive: false,
                 onTap: () async {
 
@@ -869,17 +869,17 @@ class _ZoningLabState extends State<ZoningLab> {
                 },
               ),
 
-              /// READ CITIES LEVELS
+              /// READ CITIES STAGES
               WideButton(
-                verse: Verse.plain('Read Cities Levels'),
+                verse: Verse.plain('Read Cities Stages'),
                 onTap: () async {
 
                   final List<String> _countriesIDs = Flag.getAllCountriesIDs();
 
                   for (final String countryID in _countriesIDs){
 
-                    final ZoneLevel _lvl = await CitiesLevelsRealOps.readCitiesLevels(countryID);
-                    _lvl?.blogLeveL();
+                    final ZoneStages _lvl = await CitiesStagesRealOps.readCitiesStages(countryID);
+                    _lvl?.blogStages();
 
                     if (_lvl == null){
                       blog('NULL : for $countryID');
@@ -897,7 +897,7 @@ class _ZoningLabState extends State<ZoningLab> {
           ),
         ),
 
-        /// COUNTRIES LEVELS
+        /// COUNTRIES STAGES
         PageBubble(
           screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
           appBarType: _appBarType,
@@ -908,12 +908,12 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// HEADLINE
               SuperHeadline(
-                verse: Verse.plain('Countries levels'),
+                verse: Verse.plain('Countries Stages'),
               ),
 
-              /// CREATE INITIAL COUNTRIES LEVELS
+              /// CREATE INITIAL COUNTRIES STAGES
               WideButton(
-                verse: Verse.plain('Create initial Countries levels'),
+                verse: Verse.plain('Create initial Countries Stages'),
                 isActive: false,
                 onTap: () async {
 
@@ -941,18 +941,18 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   }
 
-                  final ZoneLevel _lvl = ZoneLevel(
+                  final ZoneStages _lvl = ZoneStages(
                     hidden: hidden,
                     inactive: inactive,
                     active: const [],
                     public: const [],
                   );
 
-                  _lvl.blogLeveL();
+                  _lvl.blogStages();
 
                   await Real.createDocInPath(
                     pathWithoutDocName: 'zones',
-                    docName: 'countriesLevels',
+                    docName: RealDoc.zones_countriesStages,
                     addDocIDToOutput: false,
                     map: _lvl.toMap(),
                   );
@@ -960,15 +960,15 @@ class _ZoningLabState extends State<ZoningLab> {
                 },
               ),
 
-              /// READ COUNTRIES LEVELS
+              /// READ COUNTRIES STAGES
               WideButton(
-                verse: Verse.plain('Read Countries Levels'),
+                verse: Verse.plain('Read Countries STAGES'),
                 onTap: () async {
 
-                  final ZoneLevel _lvl = await CountriesLevelsRealOps.readCountriesLevels();
-                  _lvl.blogLeveL();
+                  final ZoneStages _lvl = await CountriesStagesRealOps.readCountriesStages();
+                  _lvl.blogStages();
 
-                  final List<String> _countriesIDs = ZoneLevel(
+                  final List<String> _countriesIDs = ZoneStages(
                     hidden: _lvl.hidden,
                     inactive: _lvl.inactive,
                     active: null,
@@ -1041,7 +1041,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   const String _countryID = 'sau';
 
-                  final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByLevel(
+                  final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByStage(
                     countryID: _countryID,
                   );
 
@@ -1200,8 +1200,8 @@ class _ZoningLabState extends State<ZoningLab> {
                          city: city.copyWith(cityID: _newCityID,),
                        ),
 
-                       /// TAMAM : DISTRICTS LEVELS
-                       createDistrictsLevels(
+                       /// TAMAM : DISTRICTS STAGES
+                       createDistrictsStages(
                          countryID: countryID,
                          city: city.copyWith(cityID: _newCityID,),
                        ),

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
@@ -257,7 +257,7 @@ Future<void> _createDistrictPhrase({
 
 // ------------------------------------o
 
-Future<void> createDistrictsLevels({
+Future<void> createDistrictsStages({
   @required String countryID,
   @required CityModel city,
 }) async {
@@ -269,7 +269,7 @@ Future<void> createDistrictsLevels({
       _districtsIDs.add('${city.cityID}+${district.id}');
     }
 
-    final ZoneLevel _lvl = ZoneLevel(
+    final ZoneStages _lvl = ZoneStages(
         hidden: const [],
         inactive: _districtsIDs,
         active: null,
