@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/e_district_protocols.
 import 'package:bldrs/c_protocols/zone_protocols/protocols/x_zone_ids_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_levels_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_levels_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_levels_real_ops.dart';
 
 class ZoneProtocols {
   // -----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ class ZoneProtocols {
   static const readCitiesLevels = CitiesLevelsRealOps.readCitiesLevels;
   // --------------------
   /// TASK : TEST ME
-  static const readDistrictsLevels = DistrictRealOps.readDistrictsLevels;
+  static const readDistrictsLevels = DistrictsLevelsRealOps.readDistrictsLevels;
   // -----------------------------------------------------------------------------
 
   /// FETCH CONTINENT
