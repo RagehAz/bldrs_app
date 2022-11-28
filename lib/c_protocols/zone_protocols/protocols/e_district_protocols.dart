@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/d_city_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_levels_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -120,7 +121,7 @@ class DistrictProtocols {
       /// SHOULD FETCH ONLY DISTRICTS OF THIS LEVEL
       else {
 
-        final ZoneLevel _districtsIDs = await DistrictRealOps.readDistrictsLevels(
+        final ZoneLevel _districtsIDs = await DistrictsLevelsRealOps.readDistrictsLevels(
           cityID: cityID,
         );
 
