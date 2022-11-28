@@ -5,8 +5,8 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/c_country_protocols.d
 import 'package:bldrs/c_protocols/zone_protocols/protocols/d_city_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/e_district_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/x_zone_ids_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/a_country_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_levels_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_levels_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
 
 class ZoneProtocols {
@@ -100,10 +100,10 @@ class ZoneProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const readCountriesLevels = CountryRealOps.readCountriesLevels;
+  static const readCountriesLevels = CountriesLevelsRealOps.readCountriesLevels;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const readCitiesLevels = CityRealOps.readCitiesLevels;
+  static const readCitiesLevels = CitiesLevelsRealOps.readCitiesLevels;
   // --------------------
   /// TASK : TEST ME
   static const readDistrictsLevels = DistrictRealOps.readDistrictsLevels;
