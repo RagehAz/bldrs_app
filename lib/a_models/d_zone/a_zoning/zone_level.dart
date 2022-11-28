@@ -157,6 +157,27 @@ class ZoneLevel {
       public: public ?? this.public,
     );
   }
+  // --------------------
+  /// TASK : TEST ME
+  ZoneLevel copyListWith({
+    @required List<String> list,
+    @required ZoneLevelType type,
+  }){
+    ZoneLevel _output = this;
+
+    if (this != null && list != null && type != null){
+
+      _output = _output.copyWith(
+        hidden:    type == ZoneLevelType.hidden    ? list : _output.hidden,
+        inactive:  type == ZoneLevelType.inactive  ? list : _output.inactive,
+        active:    type == ZoneLevelType.active    ? list : _output.active,
+        public:    type == ZoneLevelType.public    ? list : _output.public,
+      );
+
+    }
+
+    return _output;
+  }
   // --------------------------------------------------------------------------
 
   /// GETTERS
@@ -181,6 +202,27 @@ class ZoneLevel {
       case ZoneLevelType.public:    return public;    break;
       default: return getAllIDs();
     }
+  }
+  // --------------------
+  /// TASK : TEST ME
+  ZoneLevelType getLevelTypeByID(String id){
+
+    if (checkHasID(id: id, levelType: ZoneLevelType.hidden) == true){
+      return ZoneLevelType.hidden;
+    }
+    else if (checkHasID(id: id, levelType: ZoneLevelType.inactive) == true){
+      return ZoneLevelType.inactive;
+    }
+    else if (checkHasID(id: id, levelType: ZoneLevelType.active) == true){
+      return ZoneLevelType.active;
+    }
+    else if (checkHasID(id: id, levelType: ZoneLevelType.public) == true){
+      return ZoneLevelType.public;
+    }
+    else {
+      return null;
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -217,6 +259,149 @@ class ZoneLevel {
         default: return null; break;
       }
 
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static ZoneLevel updateIDLevel({
+    @required ZoneLevel oldLevel,
+    @required String id,
+    @required ZoneLevelType newType,
+  }){
+
+    ZoneLevel _output;
+
+    if (oldLevel == null || id == null || newType == null){
+      _output = oldLevel;
+    }
+
+    else {
+
+      final ZoneLevelType _type = oldLevel.getLevelTypeByID(id);
+
+      if (_type == null){
+        _output = oldLevel;
+      }
+
+      else {
+
+        _output = _removeIDFromZoneLevel(
+          id: id,
+          zoneLevel: _output,
+        );
+
+        _output = _addIDToZoneLevel(
+          id: id,
+          zoneLevel: _output,
+          newType: newType,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static ZoneLevel _removeIDFromZoneLevel({
+    @required String id,
+    @required ZoneLevel zoneLevel,
+  }){
+    ZoneLevel _output = zoneLevel;
+
+    if (zoneLevel != null && id != null){
+
+      final bool _idExists = zoneLevel.checkHasID(id: id);
+
+      if (_idExists == true){
+
+        final ZoneLevelType _type = zoneLevel.getLevelTypeByID(id);
+        final List<String> _oldList = zoneLevel.getIDsByLevel(_type);
+
+        final List<String> _newList = Stringer.removeStringsFromStrings(
+            removeFrom: _oldList,
+            removeThis: [id],
+        );
+
+        _output = _output.copyListWith(
+            list: _newList,
+            type: _type,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static ZoneLevel _addIDToZoneLevel({
+    @required String id,
+    @required ZoneLevelType newType,
+    @required ZoneLevel zoneLevel,
+  }){
+    ZoneLevel _output = zoneLevel;
+
+    if (zoneLevel != null && id != null){
+
+      final bool _idExists = zoneLevel.checkHasID(id: id);
+
+      if (_idExists == true){
+        _output = _removeIDFromZoneLevel(
+          id: id,
+          zoneLevel: _output,
+        );
+      }
+
+
+      final List<String> _oldList = zoneLevel.getIDsByLevel(newType);
+
+      final List<String> _newList = Stringer.addStringToListIfDoesNotContainIt(
+          strings: _oldList,
+          stringToAdd: id,
+      );
+
+      _output = _output.copyListWith(
+        list: _newList,
+        type: newType,
+      );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // ---------------------
+  /// TASK : TEST ME
+  bool checkHasID({
+    @required String id,
+    ZoneLevelType levelType,
+  }){
+
+    /// CHECK ALL
+    if (levelType == null){
+      return Stringer.checkStringsContainString(
+          strings: getAllIDs(),
+          string: id
+      );
+    }
+
+    /// CHECK SPECIFIC LEVEL
+    else {
+      return Stringer.checkStringsContainString(
+          strings: getIDsByLevel(levelType),
+          string: id
+      );
     }
 
   }
