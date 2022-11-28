@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_escaping_inner_quotes
+
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 
@@ -15,6 +17,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tirana',
     langCodes: 'sq,el',
     areaSqKm: 28748,
+    population: 2866376,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Albanien', id: 'alb'),
       Phrase(langCode: 'ar', value: 'ألبانيا', id: 'alb'),
@@ -37,6 +40,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Algiers',
     langCodes: 'ar-DZ',
     areaSqKm: 2381740,
+    population: 42228429,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Algerien', id: 'dza'),
       Phrase(langCode: 'ar', value: 'الجزائر', id: 'dza'),
@@ -59,6 +63,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Pago Pago',
     langCodes: 'en-AS,sm,to',
     areaSqKm: 199,
+    population: 55465,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Amerikanisch-Samoa', id: 'asm'),
       Phrase(langCode: 'ar', value: 'ساموا الأمريكية', id: 'asm'),
@@ -81,6 +86,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Andorra la Vella',
     langCodes: 'ca',
     areaSqKm: 468,
+    population: 77006,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Andorra', id: 'and'),
       Phrase(langCode: 'ar', value: 'أندورا', id: 'and'),
@@ -103,6 +109,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Luanda',
     langCodes: 'pt-AO',
     areaSqKm: 1246700,
+    population: 30809762,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Angola', id: 'ago'),
       Phrase(langCode: 'ar', value: 'أنغولا', id: 'ago'),
@@ -122,9 +129,10 @@ const List<Flag> allFlags = <Flag>[
     language: 'en',
     currencyID: 'XCD',
     phoneCode: '+1',
-    capital: "St. John's",
+    capital: 'St. John\'s',
     langCodes: 'en-AG',
     areaSqKm: 443,
+    population: 96286,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Antigua und Barbuda', id: 'atg'),
       Phrase(langCode: 'ar', value: 'أنتيغوا وباربودا', id: 'atg'),
@@ -147,6 +155,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Buenos Aires',
     langCodes: 'es-AR,en,it,de,fr,gn',
     areaSqKm: 2766890,
+    population: 44494502,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Argentinien', id: 'arg'),
       Phrase(langCode: 'ar', value: 'الأرجنتين', id: 'arg'),
@@ -169,6 +178,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Yerevan',
     langCodes: 'hy',
     areaSqKm: 29800,
+    population: 2951776,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Armenien', id: 'arm'),
       Phrase(langCode: 'ar', value: 'أرمينيا', id: 'arm'),
@@ -191,6 +201,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Oranjestad',
     langCodes: 'nl-AW,es,en',
     areaSqKm: 193,
+    population: 105845,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Aruba', id: 'abw'),
       Phrase(langCode: 'ar', value: 'أروبا', id: 'abw'),
@@ -213,6 +224,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Canberra',
     langCodes: 'en-AU',
     areaSqKm: 7686850,
+    population: 24982688,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Australien', id: 'aus'),
       Phrase(langCode: 'ar', value: 'أستراليا', id: 'aus'),
@@ -235,6 +247,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Vienna',
     langCodes: 'de-AT,hr,hu,sl',
     areaSqKm: 83858,
+    population: 8840521,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Österreich', id: 'aut'),
       Phrase(langCode: 'ar', value: 'النمسا', id: 'aut'),
@@ -257,6 +270,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Baku',
     langCodes: 'az,ru,hy',
     areaSqKm: 86600,
+    population: 9939800,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Aserbaidschan', id: 'aze'),
       Phrase(langCode: 'ar', value: 'أذربيجان', id: 'aze'),
@@ -279,6 +293,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Nassau',
     langCodes: 'en-BS',
     areaSqKm: 13940,
+    population: 385640,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bahamas', id: 'bhs'),
       Phrase(langCode: 'ar', value: 'باهاماس', id: 'bhs'),
@@ -301,6 +316,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Manama',
     langCodes: 'ar-BH,en,fa,ur',
     areaSqKm: 665,
+    population: 1569439,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bahrain', id: 'bhr'),
       Phrase(langCode: 'ar', value: 'البحرين', id: 'bhr'),
@@ -323,6 +339,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Dhaka',
     langCodes: 'bn-BD,en',
     areaSqKm: 144000,
+    population: 161356039,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bangladesch', id: 'bgd'),
       Phrase(langCode: 'ar', value: 'بنغلاديش', id: 'bgd'),
@@ -345,6 +362,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bridgetown',
     langCodes: 'en-BB',
     areaSqKm: 431,
+    population: 286641,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Barbados', id: 'brb'),
       Phrase(langCode: 'ar', value: 'باربادوس', id: 'brb'),
@@ -367,6 +385,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Minsk',
     langCodes: 'be,ru',
     areaSqKm: 207600,
+    population: 9483499,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Belarus', id: 'blr'),
       Phrase(langCode: 'ar', value: 'بيلاروس', id: 'blr'),
@@ -389,6 +408,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Brussels',
     langCodes: 'nl-BE,fr-BE,de-BE',
     areaSqKm: 30510,
+    population: 11433256,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Belgien', id: 'bel'),
       Phrase(langCode: 'ar', value: 'بلجيكا', id: 'bel'),
@@ -411,6 +431,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Belmopan',
     langCodes: 'en-BZ,es',
     areaSqKm: 22966,
+    population: 383071,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Belize', id: 'blz'),
       Phrase(langCode: 'ar', value: 'بليز', id: 'blz'),
@@ -433,6 +454,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Porto-Novo',
     langCodes: 'fr-BJ',
     areaSqKm: 112620,
+    population: 11485048,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Benin', id: 'ben'),
       Phrase(langCode: 'ar', value: 'بنين', id: 'ben'),
@@ -455,6 +477,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Hamilton',
     langCodes: 'en-BM,pt',
     areaSqKm: 53,
+    population: 63973,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bermuda', id: 'bmu'),
       Phrase(langCode: 'ar', value: 'برمودا', id: 'bmu'),
@@ -477,6 +500,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Thimphu',
     langCodes: 'dz',
     areaSqKm: 47000,
+    population: 754394,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bhutan', id: 'btn'),
       Phrase(langCode: 'ar', value: 'بوتان', id: 'btn'),
@@ -499,6 +523,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Sucre',
     langCodes: 'es-BO,qu,ay',
     areaSqKm: 1098580,
+    population: 11353142,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bolivien', id: 'bol'),
       Phrase(langCode: 'ar', value: 'بوليفيا', id: 'bol'),
@@ -521,6 +546,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Sarajevo',
     langCodes: 'bs,hr-BA,sr-BA',
     areaSqKm: 51129,
+    population: 3323929,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bosnien und Herzegowina', id: 'bih'),
       Phrase(langCode: 'ar', value: 'البوسنة والهرسك', id: 'bih'),
@@ -543,6 +569,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Gaborone',
     langCodes: 'en-BW,tn-BW',
     areaSqKm: 600370,
+    population: 2254126,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Botswana', id: 'bwa'),
       Phrase(langCode: 'ar', value: 'بوتسوانا', id: 'bwa'),
@@ -565,6 +592,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Brasilia',
     langCodes: 'pt-BR,es,en,fr',
     areaSqKm: 8511965,
+    population: 209469333,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Brasilien', id: 'bra'),
       Phrase(langCode: 'ar', value: 'البرازيل', id: 'bra'),
@@ -587,6 +615,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bandar Seri Begawan',
     langCodes: 'ms-BN,en-BN',
     areaSqKm: 5770,
+    population: 428962,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Brunei', id: 'brn'),
       Phrase(langCode: 'ar', value: 'بروناي', id: 'brn'),
@@ -609,6 +638,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Sofia',
     langCodes: 'bg,tr-BG',
     areaSqKm: 110910,
+    population: 7025037,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Bulgarien', id: 'bgr'),
       Phrase(langCode: 'ar', value: 'بلغاريا', id: 'bgr'),
@@ -631,6 +661,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Ouagadougou',
     langCodes: 'fr-BF',
     areaSqKm: 274200,
+    population: 19751535,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Burkina Faso', id: 'bfa'),
       Phrase(langCode: 'ar', value: 'بوركينا فاسو', id: 'bfa'),
@@ -653,6 +684,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bujumbura',
     langCodes: 'fr-BI,rn',
     areaSqKm: 27830,
+    population: 11175378,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Burundi', id: 'bdi'),
       Phrase(langCode: 'ar', value: 'بوروندي', id: 'bdi'),
@@ -675,6 +707,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Praia',
     langCodes: 'pt-CV',
     areaSqKm: 4033,
+    population: 543767,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kap Verde', id: 'cpv'),
       Phrase(langCode: 'ar', value: 'الرأس الأخضر', id: 'cpv'),
@@ -697,6 +730,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Phnom Penh',
     langCodes: 'km,fr,en',
     areaSqKm: 181040,
+    population: 16249798,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kambodscha', id: 'khm'),
       Phrase(langCode: 'ar', value: 'كمبوديا', id: 'khm'),
@@ -719,6 +753,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Yaounde',
     langCodes: 'en-CM,fr-CM',
     areaSqKm: 475440,
+    population: 25216237,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kamerun', id: 'cmr'),
       Phrase(langCode: 'ar', value: 'الكاميرون', id: 'cmr'),
@@ -741,6 +776,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Ottawa',
     langCodes: 'en-CA,fr-CA,iu',
     areaSqKm: 9984670,
+    population: 37057765,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kanada', id: 'can'),
       Phrase(langCode: 'ar', value: 'كندا', id: 'can'),
@@ -763,6 +799,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'George Town',
     langCodes: 'en-KY',
     areaSqKm: 262,
+    population: 64174,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kaimaninseln', id: 'cym'),
       Phrase(langCode: 'ar', value: 'جزر كايمان', id: 'cym'),
@@ -785,6 +822,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bangui',
     langCodes: 'fr-CF,sg,ln,kg',
     areaSqKm: 622984,
+    population: 4666377,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Zentral­afrikanische Republik', id: 'caf'),
       Phrase(langCode: 'ar', value: 'جمهورية أفريقيا الوسطى', id: 'caf'),
@@ -804,9 +842,10 @@ const List<Flag> allFlags = <Flag>[
     language: 'en',
     currencyID: 'XAF',
     phoneCode: '+235',
-    capital: "N'Djamena",
+    capital: 'N\'Djamena',
     langCodes: 'fr-TD,ar-TD,sre',
     areaSqKm: 1284000,
+    population: 15477751,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Tschad', id: 'tcd'),
       Phrase(langCode: 'ar', value: 'تشاد', id: 'tcd'),
@@ -829,6 +868,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Santiago',
     langCodes: 'es-CL',
     areaSqKm: 756950,
+    population: 18729160,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Chile', id: 'chl'),
       Phrase(langCode: 'ar', value: 'تشيلي', id: 'chl'),
@@ -851,6 +891,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Beijing',
     langCodes: 'zh-CN,yue,wuu,dta,ug,za',
     areaSqKm: 9596960,
+    population: 1392730000,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Volksrepublik China', id: 'chn'),
       Phrase(langCode: 'ar', value: 'الصين', id: 'chn'),
@@ -873,6 +914,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bogota',
     langCodes: 'es-CO',
     areaSqKm: 1138910,
+    population: 49648685,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kolumbien', id: 'col'),
       Phrase(langCode: 'ar', value: 'كولومبيا', id: 'col'),
@@ -895,6 +937,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Moroni',
     langCodes: 'ar,fr-KM',
     areaSqKm: 2170,
+    population: 832322,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Komoren', id: 'com'),
       Phrase(langCode: 'ar', value: 'جزر القمر', id: 'com'),
@@ -917,6 +960,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Brazzaville',
     langCodes: 'fr-CG,kg,ln-CG',
     areaSqKm: 342000,
+    population: 5244363,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kongo, Republik', id: 'cog'),
       Phrase(langCode: 'ar', value: 'جمهورية الكونغو', id: 'cog'),
@@ -939,6 +983,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kinshasa',
     langCodes: 'fr-CD,ln,kg',
     areaSqKm: 2345410,
+    population: 84068091,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kongo, Demokratische Republik', id: 'cod'),
       Phrase(langCode: 'ar', value: 'جمهورية الكونغو الديمقراطية', id: 'cod'),
@@ -961,6 +1006,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Avarua',
     langCodes: 'en-CK,mi',
     areaSqKm: 240,
+    population: 17379,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Cookinseln', id: 'cok'),
       Phrase(langCode: 'ar', value: 'جزر كوك', id: 'cok'),
@@ -983,6 +1029,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'San Jose',
     langCodes: 'es-CR,en',
     areaSqKm: 51100,
+    population: 4999441,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Costa Rica', id: 'cri'),
       Phrase(langCode: 'ar', value: 'كوستاريكا', id: 'cri'),
@@ -1005,11 +1052,12 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Yamoussoukro',
     langCodes: 'fr-CI',
     areaSqKm: 322460,
+    population: 25069229,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Elfenbeinküste', id: 'civ'),
       Phrase(langCode: 'ar', value: 'ساحل العاج', id: 'civ'),
       Phrase(langCode: 'en', value: 'Côte D’Ivoire', id: 'civ'),
-      Phrase(langCode: 'fr', value: "Côte d'Ivoire", id: 'civ'),
+      Phrase(langCode: 'fr', value: 'Côte d\'Ivoire', id: 'civ'),
       Phrase(langCode: 'es', value: 'Costa de Marfil', id: 'civ'),
       Phrase(langCode: 'zh', value: '科特迪瓦', id: 'civ'),
     ],
@@ -1027,6 +1075,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Zagreb',
     langCodes: 'hr-HR,sr',
     areaSqKm: 56542,
+    population: 4087843,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kroatien', id: 'hrv'),
       Phrase(langCode: 'ar', value: 'كرواتيا', id: 'hrv'),
@@ -1049,6 +1098,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Havana',
     langCodes: 'es-CU',
     areaSqKm: 110860,
+    population: 11338138,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kuba', id: 'cub'),
       Phrase(langCode: 'ar', value: 'كوبا', id: 'cub'),
@@ -1071,6 +1121,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Willemstad',
     langCodes: 'nl,pap',
     areaSqKm: 444,
+    population: null,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Curaçao', id: 'cuw'),
       Phrase(langCode: 'ar', value: 'كوراساو', id: 'cuw'),
@@ -1093,6 +1144,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Nicosia',
     langCodes: 'el-CY,tr-CY,en',
     areaSqKm: 9250,
+    population: 1189265,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Zypern', id: 'cyp'),
       Phrase(langCode: 'ar', value: 'قبرص', id: 'cyp'),
@@ -1115,6 +1167,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Prague',
     langCodes: 'cs,sk',
     areaSqKm: 78866,
+    population: 10629928,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Tschechien', id: 'cze'),
       Phrase(langCode: 'ar', value: 'جمهورية التشيك', id: 'cze'),
@@ -1137,6 +1190,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Copenhagen',
     langCodes: 'da-DK,en,fo,de-DK',
     areaSqKm: 43094,
+    population: 5793636,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Dänemark', id: 'dnk'),
       Phrase(langCode: 'ar', value: 'الدنمارك', id: 'dnk'),
@@ -1159,6 +1213,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Djibouti',
     langCodes: 'fr-DJ,ar,so-DJ,aa',
     areaSqKm: 23000,
+    population: 958920,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Dschibuti', id: 'dji'),
       Phrase(langCode: 'ar', value: 'جيبوتي', id: 'dji'),
@@ -1181,6 +1236,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Roseau',
     langCodes: 'en-DM',
     areaSqKm: 754,
+    population: 71625,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Dominica', id: 'dma'),
       Phrase(langCode: 'ar', value: 'دومينيكا', id: 'dma'),
@@ -1203,6 +1259,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Santo Domingo',
     langCodes: 'es-DO',
     areaSqKm: 48730,
+    population: 10627165,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Dominikanische Republik', id: 'dom'),
       Phrase(langCode: 'ar', value: 'جمهورية الدومينيكان', id: 'dom'),
@@ -1225,6 +1282,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Quito',
     langCodes: 'es-EC',
     areaSqKm: 283560,
+    population: 17084357,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Ecuador', id: 'ecu'),
       Phrase(langCode: 'ar', value: 'الإكوادور', id: 'ecu'),
@@ -1247,6 +1305,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Cairo',
     langCodes: 'ar-EG,en,fr',
     areaSqKm: 1001450,
+    population: 98423595,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Ägypten', id: 'egy'),
       Phrase(langCode: 'ar', value: 'مصر', id: 'egy'),
@@ -1269,6 +1328,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'San Salvador',
     langCodes: 'es-SV',
     areaSqKm: 21040,
+    population: 6420744,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'El Salvador', id: 'slv'),
       Phrase(langCode: 'ar', value: 'السلفادور', id: 'slv'),
@@ -1291,6 +1351,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Malabo',
     langCodes: 'es-GQ,fr',
     areaSqKm: 28051,
+    population: 1308974,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Äquatorialguinea', id: 'gnq'),
       Phrase(langCode: 'ar', value: 'غينيا الاستوائية', id: 'gnq'),
@@ -1313,6 +1374,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Asmara',
     langCodes: 'aa-ER,ar,tig,kun,ti-ER',
     areaSqKm: 121320,
+    population: 6213972,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Eritrea', id: 'eri'),
       Phrase(langCode: 'ar', value: 'إريتريا', id: 'eri'),
@@ -1335,6 +1397,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tallinn',
     langCodes: 'et,ru',
     areaSqKm: 45226,
+    population: 1321977,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Estland', id: 'est'),
       Phrase(langCode: 'ar', value: 'إستونيا', id: 'est'),
@@ -1357,6 +1420,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Mbabane',
     langCodes: 'en-SZ,ss-SZ',
     areaSqKm: 17363,
+    population: 1136191,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Eswatini', id: 'swz'),
       Phrase(langCode: 'ar', value: 'إسواتيني', id: 'swz'),
@@ -1379,6 +1443,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Addis Ababa',
     langCodes: 'am,en-ET,om-ET,ti-ET,so-ET,sid',
     areaSqKm: 1127127,
+    population: 109224559,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Äthiopien', id: 'eth'),
       Phrase(langCode: 'ar', value: 'إثيوبيا', id: 'eth'),
@@ -1401,6 +1466,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Stanley',
     langCodes: 'en-FK',
     areaSqKm: 12173,
+    population: 2840,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Falklandinseln', id: 'flk'),
       Phrase(langCode: 'ar', value: 'جزر فوكلاند', id: 'flk'),
@@ -1423,6 +1489,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Torshavn',
     langCodes: 'fo,da-FO',
     areaSqKm: 1399,
+    population: 48497,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Färöer', id: 'fro'),
       Phrase(langCode: 'ar', value: 'جزر فارو', id: 'fro'),
@@ -1445,6 +1512,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Suva',
     langCodes: 'en-FJ,fj',
     areaSqKm: 18270,
+    population: 883483,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Fidschi', id: 'fji'),
       Phrase(langCode: 'ar', value: 'فيجي', id: 'fji'),
@@ -1467,6 +1535,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Helsinki',
     langCodes: 'fi-FI,sv-FI,smn',
     areaSqKm: 337030,
+    population: 5515525,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Finnland', id: 'fin'),
       Phrase(langCode: 'ar', value: 'فنلندا', id: 'fin'),
@@ -1489,6 +1558,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Paris',
     langCodes: 'fr-FR,frp,br,co,ca,eu,oc',
     areaSqKm: 547030,
+    population: 66977107,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Frankreich', id: 'fra'),
       Phrase(langCode: 'ar', value: 'فرنسا', id: 'fra'),
@@ -1511,6 +1581,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Papeete',
     langCodes: 'fr-PF,ty',
     areaSqKm: 4167,
+    population: 277679,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Französisch-Polynesien', id: 'pyf'),
       Phrase(langCode: 'ar', value: 'بولينزيا الفرنسية', id: 'pyf'),
@@ -1533,6 +1604,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Libreville',
     langCodes: 'fr-GA',
     areaSqKm: 267667,
+    population: 2119275,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Gabun', id: 'gab'),
       Phrase(langCode: 'ar', value: 'الغابون', id: 'gab'),
@@ -1555,6 +1627,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Banjul',
     langCodes: 'en-GM,mnk,wof,wo,ff',
     areaSqKm: 11300,
+    population: 2280102,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Gambia', id: 'gmb'),
       Phrase(langCode: 'ar', value: 'غامبيا', id: 'gmb'),
@@ -1577,6 +1650,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tbilisi',
     langCodes: 'ka,ru,hy,az',
     areaSqKm: 69700,
+    population: 3726549,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Georgien', id: 'geo'),
       Phrase(langCode: 'ar', value: 'جورجيا', id: 'geo'),
@@ -1599,6 +1673,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Berlin',
     langCodes: 'de',
     areaSqKm: 357021,
+    population: 82905782,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Deutschland', id: 'deu'),
       Phrase(langCode: 'ar', value: 'ألمانيا', id: 'deu'),
@@ -1621,6 +1696,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Accra',
     langCodes: 'en-GH,ak,ee,tw',
     areaSqKm: 239460,
+    population: 29767108,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Ghana', id: 'gha'),
       Phrase(langCode: 'ar', value: 'غانا', id: 'gha'),
@@ -1643,6 +1719,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Gibraltar',
     langCodes: 'en-GI,es,it,pt',
     areaSqKm: 7,
+    population: 33718,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Gibraltar', id: 'gib'),
       Phrase(langCode: 'ar', value: 'جبل طارق', id: 'gib'),
@@ -1665,6 +1742,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Athens',
     langCodes: 'el-GR,en,fr',
     areaSqKm: 131940,
+    population: 10731726,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Griechenland', id: 'grc'),
       Phrase(langCode: 'ar', value: 'اليونان', id: 'grc'),
@@ -1687,6 +1765,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Nuuk',
     langCodes: 'kl,da-GL,en',
     areaSqKm: 2166086,
+    population: 56025,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Grönland', id: 'grl'),
       Phrase(langCode: 'ar', value: 'جرينلاند', id: 'grl'),
@@ -1706,9 +1785,10 @@ const List<Flag> allFlags = <Flag>[
     language: 'en',
     currencyID: 'XCD',
     phoneCode: '+1',
-    capital: "St. George's",
+    capital: 'St. George\'s',
     langCodes: 'en-GD',
     areaSqKm: 344,
+    population: 111454,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Grenada', id: 'grd'),
       Phrase(langCode: 'ar', value: 'غرينادا', id: 'grd'),
@@ -1731,6 +1811,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Hagatna',
     langCodes: 'en-GU,ch-GU',
     areaSqKm: 549,
+    population: 165768,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Guam', id: 'gum'),
       Phrase(langCode: 'ar', value: 'غوام', id: 'gum'),
@@ -1753,6 +1834,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Guatemala City',
     langCodes: 'es-GT',
     areaSqKm: 108890,
+    population: 17247807,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Guatemala', id: 'gtm'),
       Phrase(langCode: 'ar', value: 'غواتيمالا', id: 'gtm'),
@@ -1775,6 +1857,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Conakry',
     langCodes: 'fr-GN',
     areaSqKm: 245857,
+    population: 12414318,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Guinea', id: 'gin'),
       Phrase(langCode: 'ar', value: 'غينيا', id: 'gin'),
@@ -1797,6 +1880,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bissau',
     langCodes: 'pt-GW,pov',
     areaSqKm: 36120,
+    population: 1874309,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Guinea-Bissau', id: 'gnb'),
       Phrase(langCode: 'ar', value: 'غينيا بيساو', id: 'gnb'),
@@ -1819,6 +1903,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Georgetown',
     langCodes: 'en-GY',
     areaSqKm: 214970,
+    population: 779004,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Guyana', id: 'guy'),
       Phrase(langCode: 'ar', value: 'غيانا', id: 'guy'),
@@ -1841,6 +1926,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Port-au-Prince',
     langCodes: 'ht,fr-HT',
     areaSqKm: 27750,
+    population: 11123176,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Haiti', id: 'hti'),
       Phrase(langCode: 'ar', value: 'هايتي', id: 'hti'),
@@ -1863,6 +1949,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Vatican City',
     langCodes: 'la,it,fr',
     areaSqKm: 0,
+    population: 825,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Vatikanstadt', id: 'vat'),
       Phrase(langCode: 'ar', value: 'الفاتيكان', id: 'vat'),
@@ -1885,6 +1972,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tegucigalpa',
     langCodes: 'es-HN',
     areaSqKm: 112090,
+    population: 9587522,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Honduras', id: 'hnd'),
       Phrase(langCode: 'ar', value: 'هندوراس', id: 'hnd'),
@@ -1907,6 +1995,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Hong Kong',
     langCodes: 'zh-HK,yue,zh,en',
     areaSqKm: 1092,
+    population: 7451000,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Hongkong', id: 'hkg'),
       Phrase(langCode: 'ar', value: 'هونغ كونغ', id: 'hkg'),
@@ -1929,6 +2018,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Budapest',
     langCodes: 'hu-HU',
     areaSqKm: 93030,
+    population: 9775564,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Ungarn', id: 'hun'),
       Phrase(langCode: 'ar', value: 'المجر', id: 'hun'),
@@ -1951,6 +2041,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Reykjavik',
     langCodes: 'is,en,de,da,sv,no',
     areaSqKm: 103000,
+    population: 352721,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Island', id: 'isl'),
       Phrase(langCode: 'ar', value: 'آيسلندا', id: 'isl'),
@@ -1973,6 +2064,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'New Delhi',
     langCodes: 'en-IN,hi,bn,te,mr,ta,ur,gu,kn,ml,or,pa,as,bh,sat,ks,ne,sd,kok,doi,mni,sit,sa,fr,lus,inc',
     areaSqKm: 3287590,
+    population: 1352617328,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Indien', id: 'ind'),
       Phrase(langCode: 'ar', value: 'الهند', id: 'ind'),
@@ -1995,6 +2087,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Jakarta',
     langCodes: 'id,en,nl,jv',
     areaSqKm: 1919440,
+    population: 267663435,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Indonesien', id: 'idn'),
       Phrase(langCode: 'ar', value: 'إندونيسيا', id: 'idn'),
@@ -2017,6 +2110,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tehran',
     langCodes: 'fa-IR,ku',
     areaSqKm: 1648000,
+    population: 81800269,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Iran', id: 'irn'),
       Phrase(langCode: 'ar', value: 'إيران', id: 'irn'),
@@ -2039,6 +2133,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Baghdad',
     langCodes: 'ar-IQ,ku,hy',
     areaSqKm: 437072,
+    population: 38433600,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Irak', id: 'irq'),
       Phrase(langCode: 'ar', value: 'العراق', id: 'irq'),
@@ -2061,6 +2156,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Dublin',
     langCodes: 'en-IE,ga-IE',
     areaSqKm: 70280,
+    population: 4867309,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Irland', id: 'irl'),
       Phrase(langCode: 'ar', value: 'أيرلندا', id: 'irl'),
@@ -2083,6 +2179,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Douglas, Isle of Man',
     langCodes: 'en,gv',
     areaSqKm: 572,
+    population: null,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Insel Man', id: 'imn'),
       Phrase(langCode: 'ar', value: 'جزيرة مان', id: 'imn'),
@@ -2105,6 +2202,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Jerusalem',
     langCodes: 'he,ar-IL,en-IL,',
     areaSqKm: 20770,
+    population: 8882800,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Israel', id: 'isr'),
       Phrase(langCode: 'ar', value: 'إسرائيل', id: 'isr'),
@@ -2127,6 +2225,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Rome',
     langCodes: 'it-IT,de-IT,fr-IT,sc,ca,co,sl',
     areaSqKm: 301230,
+    population: 60421760,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Italien', id: 'ita'),
       Phrase(langCode: 'ar', value: 'إيطاليا', id: 'ita'),
@@ -2149,6 +2248,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kingston',
     langCodes: 'en-JM',
     areaSqKm: 10991,
+    population: 2934855,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Jamaika', id: 'jam'),
       Phrase(langCode: 'ar', value: 'جامايكا', id: 'jam'),
@@ -2171,6 +2271,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tokyo',
     langCodes: 'ja',
     areaSqKm: 377835,
+    population: 126529100,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Japan', id: 'jpn'),
       Phrase(langCode: 'ar', value: 'اليابان', id: 'jpn'),
@@ -2193,6 +2294,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Saint Helier',
     langCodes: 'en,pt',
     areaSqKm: 116,
+    population: null,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Jersey (Kanalinsel)', id: 'jey'),
       Phrase(langCode: 'ar', value: 'جيرزي', id: 'jey'),
@@ -2215,6 +2317,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Amman',
     langCodes: 'ar-JO,en',
     areaSqKm: 92300,
+    population: 9956011,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Jordanien', id: 'jor'),
       Phrase(langCode: 'ar', value: 'الأردن', id: 'jor'),
@@ -2237,6 +2340,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Astana',
     langCodes: 'kk,ru',
     areaSqKm: 2717300,
+    population: 18272430,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kasachstan', id: 'kaz'),
       Phrase(langCode: 'ar', value: 'كازاخستان', id: 'kaz'),
@@ -2259,6 +2363,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Nairobi',
     langCodes: 'en-KE,sw-KE',
     areaSqKm: 582650,
+    population: 51393010,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kenia', id: 'ken'),
       Phrase(langCode: 'ar', value: 'كينيا', id: 'ken'),
@@ -2281,6 +2386,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tarawa',
     langCodes: 'en-KI,gil',
     areaSqKm: 811,
+    population: 115847,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kiribati', id: 'kir'),
       Phrase(langCode: 'ar', value: 'كيريباتي', id: 'kir'),
@@ -2303,6 +2409,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Pyongyang',
     langCodes: 'ko-KP',
     areaSqKm: 120540,
+    population: 25549819,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Korea, Nord', id: 'prk'),
       Phrase(langCode: 'ar', value: 'كوريا الشمالية', id: 'prk'),
@@ -2325,6 +2432,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Seoul',
     langCodes: 'ko-KR,en',
     areaSqKm: 98480,
+    population: 51606633,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Korea, Süd', id: 'kor'),
       Phrase(langCode: 'ar', value: 'كوريا الجنوبية', id: 'kor'),
@@ -2347,6 +2455,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kuwait City',
     langCodes: 'ar-KW,en',
     areaSqKm: 17820,
+    population: 4137309,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kuwait', id: 'kwt'),
       Phrase(langCode: 'ar', value: 'الكويت', id: 'kwt'),
@@ -2369,6 +2478,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bishkek',
     langCodes: 'ky,uz,ru',
     areaSqKm: 198500,
+    population: 6322800,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Kirgisistan', id: 'kgz'),
       Phrase(langCode: 'ar', value: 'قيرغيزستان', id: 'kgz'),
@@ -2391,6 +2501,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Vientiane',
     langCodes: 'lo,fr,en',
     areaSqKm: 236800,
+    population: 7061507,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Laos', id: 'lao'),
       Phrase(langCode: 'ar', value: 'لاوس', id: 'lao'),
@@ -2413,6 +2524,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Riga',
     langCodes: 'lv,ru,lt',
     areaSqKm: 64589,
+    population: 1927174,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Lettland', id: 'lva'),
       Phrase(langCode: 'ar', value: 'لاتفيا', id: 'lva'),
@@ -2435,6 +2547,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Beirut',
     langCodes: 'ar-LB,fr-LB,en,hy',
     areaSqKm: 10400,
+    population: 6848925,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Libanon', id: 'lbn'),
       Phrase(langCode: 'ar', value: 'لبنان', id: 'lbn'),
@@ -2457,6 +2570,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Maseru',
     langCodes: 'en-LS,st,zu,xh',
     areaSqKm: 30355,
+    population: 2108132,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Lesotho', id: 'lso'),
       Phrase(langCode: 'ar', value: 'ليسوتو', id: 'lso'),
@@ -2479,6 +2593,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Monrovia',
     langCodes: 'en-LR',
     areaSqKm: 111370,
+    population: 4818977,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Liberia', id: 'lbr'),
       Phrase(langCode: 'ar', value: 'ليبيريا', id: 'lbr'),
@@ -2501,6 +2616,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tripolis',
     langCodes: 'ar-LY,it,en',
     areaSqKm: 1759540,
+    population: 6678567,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Libyen', id: 'lby'),
       Phrase(langCode: 'ar', value: 'ليبيا', id: 'lby'),
@@ -2523,6 +2639,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Vaduz',
     langCodes: 'de-LI',
     areaSqKm: 160,
+    population: 37910,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Liechtenstein', id: 'lie'),
       Phrase(langCode: 'ar', value: 'ليختنشتاين', id: 'lie'),
@@ -2545,6 +2662,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Vilnius',
     langCodes: 'lt,ru,pl',
     areaSqKm: 65200,
+    population: 2801543,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Litauen', id: 'ltu'),
       Phrase(langCode: 'ar', value: 'ليتوانيا', id: 'ltu'),
@@ -2567,6 +2685,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Luxembourg',
     langCodes: 'lb,de-LU,fr-LU',
     areaSqKm: 2586,
+    population: 607950,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Luxemburg', id: 'lux'),
       Phrase(langCode: 'ar', value: 'لوكسمبورغ', id: 'lux'),
@@ -2589,6 +2708,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Macao',
     langCodes: 'zh,zh-MO,pt',
     areaSqKm: 254,
+    population: 631636,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Macau', id: 'mac'),
       Phrase(langCode: 'ar', value: 'ماكاو', id: 'mac'),
@@ -2611,6 +2731,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Antananarivo',
     langCodes: 'fr-MG,mg',
     areaSqKm: 587040,
+    population: 26262368,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Madagaskar', id: 'mdg'),
       Phrase(langCode: 'ar', value: 'مدغشقر', id: 'mdg'),
@@ -2633,6 +2754,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Lilongwe',
     langCodes: 'ny,yao,tum,swk',
     areaSqKm: 118480,
+    population: 18143315,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Malawi', id: 'mwi'),
       Phrase(langCode: 'ar', value: 'مالاوي', id: 'mwi'),
@@ -2655,6 +2777,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kuala Lumpur',
     langCodes: 'ms-MY,en,zh,ta,te,ml,pa,th',
     areaSqKm: 329750,
+    population: 31528585,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Malaysia', id: 'mys'),
       Phrase(langCode: 'ar', value: 'ماليزيا', id: 'mys'),
@@ -2677,6 +2800,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Male',
     langCodes: 'dv,en',
     areaSqKm: 300,
+    population: 515696,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Malediven', id: 'mdv'),
       Phrase(langCode: 'ar', value: 'جزر المالديف', id: 'mdv'),
@@ -2699,6 +2823,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bamako',
     langCodes: 'fr-ML,bm',
     areaSqKm: 1240000,
+    population: 19077690,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mali', id: 'mli'),
       Phrase(langCode: 'ar', value: 'مالي', id: 'mli'),
@@ -2721,6 +2846,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Valletta',
     langCodes: 'mt,en-MT',
     areaSqKm: 316,
+    population: 484630,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Malta', id: 'mlt'),
       Phrase(langCode: 'ar', value: 'مالطا', id: 'mlt'),
@@ -2743,6 +2869,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Majuro',
     langCodes: 'mh,en-MH',
     areaSqKm: 181,
+    population: 58413,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Marshallinseln', id: 'mhl'),
       Phrase(langCode: 'ar', value: 'جزر مارشال', id: 'mhl'),
@@ -2765,6 +2892,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Nouakchott',
     langCodes: 'ar-MR,fuc,snk,fr,mey,wo',
     areaSqKm: 1030700,
+    population: 4403319,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mauretanien', id: 'mrt'),
       Phrase(langCode: 'ar', value: 'موريتانيا', id: 'mrt'),
@@ -2787,6 +2915,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Port Louis',
     langCodes: 'en-MU,bho,fr',
     areaSqKm: 2040,
+    population: 1265303,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mauritius', id: 'mus'),
       Phrase(langCode: 'ar', value: 'موريشيوس', id: 'mus'),
@@ -2809,6 +2938,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Mamoudzou',
     langCodes: 'fr-YT',
     areaSqKm: 374,
+    population: 270372,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mayotte', id: 'myt'),
       Phrase(langCode: 'ar', value: 'مايوت', id: 'myt'),
@@ -2831,6 +2961,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Mexico City',
     langCodes: 'es-MX',
     areaSqKm: 1972550,
+    population: 126190788,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mexiko', id: 'mex'),
       Phrase(langCode: 'ar', value: 'المكسيك', id: 'mex'),
@@ -2853,6 +2984,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Palikir',
     langCodes: 'en-FM,chk,pon,yap,kos,uli,woe,nkr,kpg',
     areaSqKm: 702,
+    population: 112640,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mikronesien', id: 'fsm'),
       Phrase(langCode: 'ar', value: 'ولايات ميكرونيسيا المتحدة', id: 'fsm'),
@@ -2875,6 +3007,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Chisinau',
     langCodes: 'ro,ru,gag,tr',
     areaSqKm: 33843,
+    population: 2706049,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Moldau', id: 'mda'),
       Phrase(langCode: 'ar', value: 'مولدوفا', id: 'mda'),
@@ -2897,6 +3030,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Monaco',
     langCodes: 'fr-MC,en,it',
     areaSqKm: 2,
+    population: 38682,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Monaco', id: 'mco'),
       Phrase(langCode: 'ar', value: 'موناكو', id: 'mco'),
@@ -2919,6 +3053,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Ulan Bator',
     langCodes: 'mn,ru',
     areaSqKm: 1565000,
+    population: 3170208,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mongolei', id: 'mng'),
       Phrase(langCode: 'ar', value: 'منغوليا', id: 'mng'),
@@ -2941,6 +3076,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Podgorica',
     langCodes: 'sr,hu,bs,sq,hr,rom',
     areaSqKm: 14026,
+    population: 631219,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Montenegro', id: 'mne'),
       Phrase(langCode: 'ar', value: 'الجبل الأسود', id: 'mne'),
@@ -2963,6 +3099,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Rabat',
     langCodes: 'ar-MA,fr',
     areaSqKm: 446550,
+    population: 36029138,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Marokko', id: 'mar'),
       Phrase(langCode: 'ar', value: 'المغرب', id: 'mar'),
@@ -2985,6 +3122,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Maputo',
     langCodes: 'pt-MZ,vmw',
     areaSqKm: 801590,
+    population: 29495962,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Mosambik', id: 'moz'),
       Phrase(langCode: 'ar', value: 'موزمبيق', id: 'moz'),
@@ -3007,6 +3145,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Nay Pyi Taw',
     langCodes: 'my',
     areaSqKm: 678500,
+    population: 53708395,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Myanmar', id: 'mmr'),
       Phrase(langCode: 'ar', value: 'ميانمار', id: 'mmr'),
@@ -3029,6 +3168,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Windhoek',
     langCodes: 'en-NA,af,de,hz,naq',
     areaSqKm: 825418,
+    population: 2448255,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Namibia', id: 'nam'),
       Phrase(langCode: 'ar', value: 'ناميبيا', id: 'nam'),
@@ -3051,6 +3191,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kathmandu',
     langCodes: 'ne,en',
     areaSqKm: 140800,
+    population: 28087871,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Nepal', id: 'npl'),
       Phrase(langCode: 'ar', value: 'نيبال', id: 'npl'),
@@ -3073,6 +3214,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Amsterdam',
     langCodes: 'nl-NL,fy-NL',
     areaSqKm: 41526,
+    population: 17231624,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Niederlande', id: 'nld'),
       Phrase(langCode: 'ar', value: 'هولندا', id: 'nld'),
@@ -3095,6 +3237,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Noumea',
     langCodes: 'fr-NC',
     areaSqKm: 19060,
+    population: 284060,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Neukaledonien', id: 'ncl'),
       Phrase(langCode: 'ar', value: 'كاليدونيا الجديدة', id: 'ncl'),
@@ -3117,6 +3260,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Wellington',
     langCodes: 'en-NZ,mi',
     areaSqKm: 268680,
+    population: 4841000,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Neuseeland', id: 'nzl'),
       Phrase(langCode: 'ar', value: 'نيوزيلندا', id: 'nzl'),
@@ -3139,6 +3283,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Managua',
     langCodes: 'es-NI,en',
     areaSqKm: 129494,
+    population: 6465513,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Nicaragua', id: 'nic'),
       Phrase(langCode: 'ar', value: 'نيكاراغوا', id: 'nic'),
@@ -3161,6 +3306,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Niamey',
     langCodes: 'fr-NE,ha,kr,dje',
     areaSqKm: 1267000,
+    population: 22442948,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Niger', id: 'ner'),
       Phrase(langCode: 'ar', value: 'النيجر', id: 'ner'),
@@ -3183,6 +3329,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Abuja',
     langCodes: 'en-NG,ha,yo,ig,ff',
     areaSqKm: 923768,
+    population: 195874740,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Nigeria', id: 'nga'),
       Phrase(langCode: 'ar', value: 'نيجيريا', id: 'nga'),
@@ -3205,6 +3352,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Skopje',
     langCodes: 'mk,sq,tr,rmm,sr',
     areaSqKm: 25333,
+    population: 2084367,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Nordmazedonien', id: 'mkd'),
       Phrase(langCode: 'ar', value: 'مقدونيا', id: 'mkd'),
@@ -3227,6 +3375,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Saipan',
     langCodes: 'fil,tl,zh,ch-MP,en-MP',
     areaSqKm: 477,
+    population: 56882,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Nördliche Marianen', id: 'mnp'),
       Phrase(langCode: 'ar', value: 'جزر ماريانا الشمالية', id: 'mnp'),
@@ -3249,6 +3398,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Oslo',
     langCodes: 'no,nb,nn,se,fi',
     areaSqKm: 324220,
+    population: 5311916,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Norwegen', id: 'nor'),
       Phrase(langCode: 'ar', value: 'النرويج', id: 'nor'),
@@ -3271,6 +3421,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Muscat',
     langCodes: 'ar-OM,en,bal,ur',
     areaSqKm: 212460,
+    population: 4829483,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Oman', id: 'omn'),
       Phrase(langCode: 'ar', value: 'عمان', id: 'omn'),
@@ -3293,6 +3444,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Islamabad',
     langCodes: 'ur-PK,en-PK,pa,sd,ps,brh',
     areaSqKm: 803940,
+    population: 212215030,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Pakistan', id: 'pak'),
       Phrase(langCode: 'ar', value: 'باكستان', id: 'pak'),
@@ -3315,6 +3467,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Melekeok',
     langCodes: 'pau,sov,en-PW,tox,ja,fil,zh',
     areaSqKm: 458,
+    population: 17907,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Palau', id: 'plw'),
       Phrase(langCode: 'ar', value: 'بالاو', id: 'plw'),
@@ -3337,6 +3490,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'East Jerusalem',
     langCodes: 'ar-PS',
     areaSqKm: 5970,
+    population: 4569087,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Palästina', id: 'pse'),
       Phrase(langCode: 'ar', value: 'فلسطين', id: 'pse'),
@@ -3359,6 +3513,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Panama City',
     langCodes: 'es-PA,en',
     areaSqKm: 78200,
+    population: 4176873,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Panama', id: 'pan'),
       Phrase(langCode: 'ar', value: 'بنما', id: 'pan'),
@@ -3381,6 +3536,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Port Moresby',
     langCodes: 'en-PG,ho,meu,tpi',
     areaSqKm: 462840,
+    population: 8606316,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Papua-Neuguinea', id: 'png'),
       Phrase(langCode: 'ar', value: 'بابوا غينيا الجديدة', id: 'png'),
@@ -3403,6 +3559,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Asuncion',
     langCodes: 'es-PY,gn',
     areaSqKm: 406750,
+    population: 6956071,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Paraguay', id: 'pry'),
       Phrase(langCode: 'ar', value: 'باراغواي', id: 'pry'),
@@ -3425,6 +3582,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Lima',
     langCodes: 'es-PE,qu,ay',
     areaSqKm: 1285220,
+    population: 31989256,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Peru', id: 'per'),
       Phrase(langCode: 'ar', value: 'بيرو', id: 'per'),
@@ -3447,6 +3605,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Manila',
     langCodes: 'tl,en-PH,fil',
     areaSqKm: 300000,
+    population: 106651922,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Philippinen', id: 'phl'),
       Phrase(langCode: 'ar', value: 'الفلبين', id: 'phl'),
@@ -3469,6 +3628,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Warsaw',
     langCodes: 'pl',
     areaSqKm: 312685,
+    population: 37974750,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Polen', id: 'pol'),
       Phrase(langCode: 'ar', value: 'بولندا', id: 'pol'),
@@ -3491,6 +3651,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Lisbon',
     langCodes: 'pt-PT,mwl',
     areaSqKm: 92391,
+    population: 10283822,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Portugal', id: 'prt'),
       Phrase(langCode: 'ar', value: 'البرتغال', id: 'prt'),
@@ -3513,6 +3674,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'San Juan',
     langCodes: 'en-PR,es-PR',
     areaSqKm: 9104,
+    population: 3195153,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Puerto Rico', id: 'pri'),
       Phrase(langCode: 'ar', value: 'بورتوريكو', id: 'pri'),
@@ -3535,6 +3697,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Doha',
     langCodes: 'ar-QA,es',
     areaSqKm: 11437,
+    population: 2781677,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Katar', id: 'qat'),
       Phrase(langCode: 'ar', value: 'قطر', id: 'qat'),
@@ -3557,6 +3720,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Saint-Denis',
     langCodes: 'fr-RE',
     areaSqKm: 2517,
+    population: 859959,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Réunion', id: 'reu'),
       Phrase(langCode: 'ar', value: 'لا ريونيون', id: 'reu'),
@@ -3579,6 +3743,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bucharest',
     langCodes: 'ro,hu,rom',
     areaSqKm: 237500,
+    population: 19466145,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Rumänien', id: 'rou'),
       Phrase(langCode: 'ar', value: 'رومانيا', id: 'rou'),
@@ -3601,6 +3766,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Moscow',
     langCodes: 'ru,tt,xal,cau,ady,kv,ce,tyv,cv,udm,tut,mns,bua,myv,mdf,chm,ba,inh,tut,kbd,krc,ava,sah,nog',
     areaSqKm: 17100000,
+    population: 144478050,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Russland', id: 'rus'),
       Phrase(langCode: 'ar', value: 'روسيا', id: 'rus'),
@@ -3623,6 +3789,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kigali',
     langCodes: 'rw,en-RW,fr-RW,sw',
     areaSqKm: 26338,
+    population: 12301939,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Ruanda', id: 'rwa'),
       Phrase(langCode: 'ar', value: 'رواندا', id: 'rwa'),
@@ -3645,6 +3812,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Jamestown',
     langCodes: 'en-SH',
     areaSqKm: 410,
+    population: 6600,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'St. Helena, Ascension und Tristan da Cunha', id: 'shn'),
       Phrase(langCode: 'ar', value: 'سانت هيلانة وأسينشين وتريستان دا كونا', id: 'shn'),
@@ -3667,6 +3835,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Basseterre',
     langCodes: 'en-KN',
     areaSqKm: 261,
+    population: 52441,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'St. Kitts und Nevis', id: 'kna'),
       Phrase(langCode: 'ar', value: 'سانت كيتس ونيفيس', id: 'kna'),
@@ -3689,6 +3858,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Castries',
     langCodes: 'en-LC',
     areaSqKm: 616,
+    population: 181889,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'St. Lucia', id: 'lca'),
       Phrase(langCode: 'ar', value: 'سانت لوسيا', id: 'lca'),
@@ -3711,6 +3881,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kingstown',
     langCodes: 'en-VC,fr',
     areaSqKm: 389,
+    population: 110210,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'St. Vincent und die Grenadinen', id: 'vct'),
       Phrase(langCode: 'ar', value: 'سانت فينسنت والغرينادين', id: 'vct'),
@@ -3733,6 +3904,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Apia',
     langCodes: 'sm,en-WS',
     areaSqKm: 2944,
+    population: 196130,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Samoa', id: 'wsm'),
       Phrase(langCode: 'ar', value: 'ساموا', id: 'wsm'),
@@ -3755,6 +3927,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'San Marino',
     langCodes: 'it-SM',
     areaSqKm: 61,
+    population: 33785,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'San Marino', id: 'smr'),
       Phrase(langCode: 'ar', value: 'سان مارينو', id: 'smr'),
@@ -3777,6 +3950,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Sao Tome',
     langCodes: 'pt-ST',
     areaSqKm: 1001,
+    population: 211028,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'São Tomé und Príncipe', id: 'stp'),
       Phrase(langCode: 'ar', value: 'ساو تومي وبرينسيب', id: 'stp'),
@@ -3799,6 +3973,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Riyadh',
     langCodes: 'ar-SA',
     areaSqKm: 1960582,
+    population: 33699947,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Saudi-Arabien', id: 'sau'),
       Phrase(langCode: 'ar', value: 'السعودية', id: 'sau'),
@@ -3821,6 +3996,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Dakar',
     langCodes: 'fr-SN,wo,fuc,mnk',
     areaSqKm: 196190,
+    population: 15854360,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Senegal', id: 'sen'),
       Phrase(langCode: 'ar', value: 'السنغال', id: 'sen'),
@@ -3843,6 +4019,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Belgrade',
     langCodes: 'sr,hu,bs,rom',
     areaSqKm: 88361,
+    population: 6963764,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Serbien', id: 'srb'),
       Phrase(langCode: 'ar', value: 'صربيا', id: 'srb'),
@@ -3865,6 +4042,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Victoria',
     langCodes: 'en-SC,fr-SC',
     areaSqKm: 455,
+    population: 96762,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Seychellen', id: 'syc'),
       Phrase(langCode: 'ar', value: 'سيشل', id: 'syc'),
@@ -3887,6 +4065,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Freetown',
     langCodes: 'en-SL,men,tem',
     areaSqKm: 71740,
+    population: 7650154,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Sierra Leone', id: 'sle'),
       Phrase(langCode: 'ar', value: 'سيراليون', id: 'sle'),
@@ -3909,6 +4088,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Singapore',
     langCodes: 'cmn,en-SG,ms-SG,ta-SG,zh-SG',
     areaSqKm: 693,
+    population: 5638676,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Singapur', id: 'sgp'),
       Phrase(langCode: 'ar', value: 'سنغافورة', id: 'sgp'),
@@ -3931,6 +4111,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bratislava',
     langCodes: 'sk,hu',
     areaSqKm: 48845,
+    population: 5446771,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Slowakei', id: 'svk'),
       Phrase(langCode: 'ar', value: 'سلوفاكيا', id: 'svk'),
@@ -3953,6 +4134,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Ljubljana',
     langCodes: 'sl,sh',
     areaSqKm: 20273,
+    population: 2073894,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Slowenien', id: 'svn'),
       Phrase(langCode: 'ar', value: 'سلوفينيا', id: 'svn'),
@@ -3975,6 +4157,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Honiara',
     langCodes: 'en-SB,tpi',
     areaSqKm: 28450,
+    population: 652858,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Salomonen', id: 'slb'),
       Phrase(langCode: 'ar', value: 'جزر سليمان', id: 'slb'),
@@ -3997,6 +4180,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Mogadishu',
     langCodes: 'so-SO,ar-SO,it,en-SO',
     areaSqKm: 637657,
+    population: 15008154,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Somalia', id: 'som'),
       Phrase(langCode: 'ar', value: 'الصومال', id: 'som'),
@@ -4019,6 +4203,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Pretoria',
     langCodes: 'zu,xh,af,nso,en-ZA,tn,st,ts,ss,ve,nr',
     areaSqKm: 1219912,
+    population: 57779622,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Südafrika', id: 'zaf'),
       Phrase(langCode: 'ar', value: 'جنوب أفريقيا', id: 'zaf'),
@@ -4041,6 +4226,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Juba',
     langCodes: 'en',
     areaSqKm: 644329,
+    population: 10975920,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Südsudan', id: 'ssd'),
       Phrase(langCode: 'ar', value: 'جنوب السودان', id: 'ssd'),
@@ -4063,6 +4249,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Madrid',
     langCodes: 'es-ES,ca,gl,eu,oc',
     areaSqKm: 504782,
+    population: 46796540,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Spanien', id: 'esp'),
       Phrase(langCode: 'ar', value: 'إسبانيا', id: 'esp'),
@@ -4085,6 +4272,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Colombo',
     langCodes: 'si,ta,en',
     areaSqKm: 65610,
+    population: 21670000,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Sri Lanka', id: 'lka'),
       Phrase(langCode: 'ar', value: 'سريلانكا', id: 'lka'),
@@ -4107,6 +4295,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Khartoum',
     langCodes: 'ar-SD,en,fia',
     areaSqKm: 1861484,
+    population: 41801533,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Sudan', id: 'sdn'),
       Phrase(langCode: 'ar', value: 'السودان', id: 'sdn'),
@@ -4129,6 +4318,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Paramaribo',
     langCodes: 'nl-SR,en,srn,hns,jv',
     areaSqKm: 163270,
+    population: 575991,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Suriname', id: 'sur'),
       Phrase(langCode: 'ar', value: 'سورينام', id: 'sur'),
@@ -4151,6 +4341,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Stockholm',
     langCodes: 'sv-SE,se,sma,fi-SE',
     areaSqKm: 449964,
+    population: 10175214,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Schweden', id: 'swe'),
       Phrase(langCode: 'ar', value: 'السويد', id: 'swe'),
@@ -4173,6 +4364,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Berne',
     langCodes: 'de-CH,fr-CH,it-CH,rm',
     areaSqKm: 41290,
+    population: 8513227,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Schweiz', id: 'che'),
       Phrase(langCode: 'ar', value: 'سويسرا', id: 'che'),
@@ -4195,6 +4387,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Damascus',
     langCodes: 'ar-SY,ku,hy,arc,fr,en',
     areaSqKm: 185180,
+    population: 16906283,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Syrien', id: 'syr'),
       Phrase(langCode: 'ar', value: 'سوريا', id: 'syr'),
@@ -4217,6 +4410,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Taipei',
     langCodes: 'zh-TW,zh,nan,hak',
     areaSqKm: 35980,
+    population: null,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Republik China', id: 'twn'),
       Phrase(langCode: 'ar', value: 'تايوان', id: 'twn'),
@@ -4239,6 +4433,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Dushanbe',
     langCodes: 'tg,ru',
     areaSqKm: 143100,
+    population: 9100837,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Tadschikistan', id: 'tjk'),
       Phrase(langCode: 'ar', value: 'طاجيكستان', id: 'tjk'),
@@ -4261,6 +4456,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Dodoma',
     langCodes: 'sw-TZ,en,ar',
     areaSqKm: 945087,
+    population: 56318348,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Tansania', id: 'tza'),
       Phrase(langCode: 'ar', value: 'تنزانيا', id: 'tza'),
@@ -4283,6 +4479,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Bangkok',
     langCodes: 'th,en',
     areaSqKm: 514000,
+    population: 69428524,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Thailand', id: 'tha'),
       Phrase(langCode: 'ar', value: 'تايلاند', id: 'tha'),
@@ -4305,6 +4502,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Dili',
     langCodes: 'tet,pt-TL,id,en',
     areaSqKm: 15007,
+    population: null,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Osttimor', id: 'tls'),
       Phrase(langCode: 'ar', value: 'تيمور الشرقية', id: 'tls'),
@@ -4327,6 +4525,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Lome',
     langCodes: 'fr-TG,ee,hna,kbp,dag,ha',
     areaSqKm: 56785,
+    population: 7889094,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Togo', id: 'tgo'),
       Phrase(langCode: 'ar', value: 'توغو', id: 'tgo'),
@@ -4346,9 +4545,10 @@ const List<Flag> allFlags = <Flag>[
     language: 'en',
     currencyID: 'TOP',
     phoneCode: '+676',
-    capital: "Nuku'alofa",
+    capital: 'Nuku\'alofa',
     langCodes: 'to,en-TO',
     areaSqKm: 748,
+    population: 103197,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Tonga', id: 'ton'),
       Phrase(langCode: 'ar', value: 'تونغا', id: 'ton'),
@@ -4371,6 +4571,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Port of Spain',
     langCodes: 'en-TT,hns,fr,es,zh',
     areaSqKm: 5128,
+    population: 1389858,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Trinidad und Tobago', id: 'tto'),
       Phrase(langCode: 'ar', value: 'ترينيداد وتوباغو', id: 'tto'),
@@ -4393,6 +4594,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tunis',
     langCodes: 'ar-TN,fr',
     areaSqKm: 163610,
+    population: 11565204,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Tunesien', id: 'tun'),
       Phrase(langCode: 'ar', value: 'تونس', id: 'tun'),
@@ -4415,6 +4617,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Ankara',
     langCodes: 'tr-TR,ku,diq,az,av',
     areaSqKm: 780580,
+    population: 82319724,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Türkei', id: 'tur'),
       Phrase(langCode: 'ar', value: 'تركيا', id: 'tur'),
@@ -4437,6 +4640,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Ashgabat',
     langCodes: 'tk,ru,uz',
     areaSqKm: 488100,
+    population: 5850908,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Turkmenistan', id: 'tkm'),
       Phrase(langCode: 'ar', value: 'تركمانستان', id: 'tkm'),
@@ -4459,6 +4663,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Cockburn Town',
     langCodes: 'en-TC',
     areaSqKm: 430,
+    population: 37665,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Turks- und Caicosinseln', id: 'tca'),
       Phrase(langCode: 'ar', value: 'جزر توركس وكايكوس', id: 'tca'),
@@ -4481,6 +4686,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Funafuti',
     langCodes: 'tvl,en,sm,gil',
     areaSqKm: 26,
+    population: 11508,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Tuvalu', id: 'tuv'),
       Phrase(langCode: 'ar', value: 'توفالو', id: 'tuv'),
@@ -4503,6 +4709,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kampala',
     langCodes: 'en-UG,lg,sw,ar',
     areaSqKm: 236040,
+    population: 42723139,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Uganda', id: 'uga'),
       Phrase(langCode: 'ar', value: 'أوغندا', id: 'uga'),
@@ -4525,6 +4732,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kiev',
     langCodes: 'uk,ru-UA,rom,pl,hu',
     areaSqKm: 603700,
+    population: 44622516,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Ukraine', id: 'ukr'),
       Phrase(langCode: 'ar', value: 'أوكرانيا', id: 'ukr'),
@@ -4547,6 +4755,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Abu Dhabi',
     langCodes: 'ar-AE,fa,en,hi,ur',
     areaSqKm: 82880,
+    population: 9630959,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Vereinigte Arabische Emirate', id: 'are'),
       Phrase(langCode: 'ar', value: 'الإمارات العربية المتحدة', id: 'are'),
@@ -4569,6 +4778,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'London',
     langCodes: 'en-GB,cy-GB,gd',
     areaSqKm: 244820,
+    population: 1885400,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Vereinigtes Königreich', id: 'gbr'),
       Phrase(langCode: 'ar', value: 'المملكة المتحدة', id: 'gbr'),
@@ -4591,6 +4801,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Washington',
     langCodes: 'en-US,es-US,haw,fr',
     areaSqKm: 9629091,
+    population: 326687501,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Vereinigte Staaten', id: 'usa'),
       Phrase(langCode: 'ar', value: 'الولايات المتحدة', id: 'usa'),
@@ -4613,6 +4824,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Montevideo',
     langCodes: 'es-UY',
     areaSqKm: 176220,
+    population: 3449299,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Uruguay', id: 'ury'),
       Phrase(langCode: 'ar', value: 'الأوروغواي', id: 'ury'),
@@ -4635,6 +4847,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Tashkent',
     langCodes: 'uz,ru,tg',
     areaSqKm: 447400,
+    population: 32955400,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Usbekistan', id: 'uzb'),
       Phrase(langCode: 'ar', value: 'أوزبكستان', id: 'uzb'),
@@ -4657,6 +4870,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Port Vila',
     langCodes: 'bi,en-VU,fr-VU',
     areaSqKm: 12200,
+    population: 292680,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Vanuatu', id: 'vut'),
       Phrase(langCode: 'ar', value: 'فانواتو', id: 'vut'),
@@ -4679,6 +4893,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Caracas',
     langCodes: 'es-VE',
     areaSqKm: 912050,
+    population: 28870195,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Venezuela', id: 'ven'),
       Phrase(langCode: 'ar', value: 'فنزويلا', id: 'ven'),
@@ -4701,6 +4916,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Hanoi',
     langCodes: 'vi,en,fr,zh,km',
     areaSqKm: 329560,
+    population: 95540395,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Vietnam', id: 'vnm'),
       Phrase(langCode: 'ar', value: 'فيتنام', id: 'vnm'),
@@ -4723,6 +4939,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Mata Utu',
     langCodes: 'wls,fud,fr-WF',
     areaSqKm: 274,
+    population: 15289,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Wallis und Futuna', id: 'wlf'),
       Phrase(langCode: 'ar', value: 'والس وفوتونا', id: 'wlf'),
@@ -4745,6 +4962,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Sanaa',
     langCodes: 'ar-YE',
     areaSqKm: 527970,
+    population: 28498687,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Jemen', id: 'yem'),
       Phrase(langCode: 'ar', value: 'اليمن', id: 'yem'),
@@ -4767,6 +4985,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Lusaka',
     langCodes: 'en-ZM,bem,loz,lun,lue,ny,toi',
     areaSqKm: 752614,
+    population: 17351822,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Sambia', id: 'zmb'),
       Phrase(langCode: 'ar', value: 'زامبيا', id: 'zmb'),
@@ -4789,6 +5008,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Harare',
     langCodes: 'en-ZW,sn,nr,nd',
     areaSqKm: 390580,
+    population: 14439018,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Simbabwe', id: 'zwe'),
       Phrase(langCode: 'ar', value: 'زيمبابوي', id: 'zwe'),
@@ -4811,6 +5031,7 @@ const List<Flag> allFlags = <Flag>[
     capital: 'Kabul',
     langCodes: 'fa-AF,ps,uz-AF,tk',
     areaSqKm: 647500,
+    population: 37172386,
     phrases: <Phrase>[
       Phrase(langCode: 'de', value: 'Afghanistan', id: 'afg'),
       Phrase(langCode: 'ar', value: 'أفغانستان', id: 'afg'),

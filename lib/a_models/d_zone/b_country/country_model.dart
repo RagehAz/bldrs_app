@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_level.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -13,7 +13,7 @@ class CountryModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final ZoneLevel citiesIDs;
+  final ZoneStages citiesIDs;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -22,7 +22,7 @@ class CountryModel {
   /// TESTED : WORKS PERFECT
   CountryModel copyWith({
     String id,
-    ZoneLevel citiesIDs,
+    ZoneStages citiesIDs,
   }){
     return CountryModel(
       id: id ?? this.id,
@@ -52,7 +52,7 @@ class CountryModel {
 
       _countryModel = CountryModel(
         id: map['id'],
-        citiesIDs: ZoneLevel.decipher(map['citiesIDs']),
+        citiesIDs: ZoneStages.decipher(map['citiesIDs']),
       );
     }
 
@@ -87,7 +87,7 @@ class CountryModel {
     blog('$invoker ------------------------------------------- START');
 
     blog('  id : $id');
-    citiesIDs?.blogLeveL();
+    citiesIDs?.blogStages();
 
     blog('$invoker ------------------------------------------- END');
   }
@@ -137,7 +137,7 @@ class CountryModel {
     else if (country1 != null && country2 != null) {
       if (
           country1.id == country2.id &&
-          ZoneLevel.checkLevelsAreIdentical(country1.citiesIDs, country2.citiesIDs) == true
+          ZoneStages.checkStagesAreIdentical(country1.citiesIDs, country2.citiesIDs) == true
       ) {
         _identical = true;
       }

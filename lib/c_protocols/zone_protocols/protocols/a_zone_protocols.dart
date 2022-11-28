@@ -5,9 +5,9 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/c_country_protocols.d
 import 'package:bldrs/c_protocols/zone_protocols/protocols/d_city_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/e_district_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/x_zone_ids_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_levels_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_levels_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_levels_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_stages_real_ops.dart';
 
 class ZoneProtocols {
   // -----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class ZoneProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static const fetchCitiesOfCountryByLevel = CityProtocols.fetchCitiesOfCountryByLevel;
+  static const fetchCitiesOfCountryByStage = CityProtocols.fetchCitiesOfCountryByStage;
   // --------------------
   /// TASK : TEST ME
   static const fetchCitiesFromAllOfCountry = CityProtocols.fetchCitiesFromAllOfCountry;
@@ -80,7 +80,7 @@ class ZoneProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static const fetchCityDistrictsByLevel = DistrictProtocols.fetchCityDistrictsByLevel;
+  static const fetchCityDistrictsByStage = DistrictProtocols.fetchCityDistrictsByStage;
   // --------------------
   /// TASK : TEST ME
   static const fetchDistrictsFromAllOfCity = DistrictProtocols.fetchDistrictsFromAllOfCity;
@@ -96,17 +96,17 @@ class ZoneProtocols {
   static const fetchCountryDistricts = DistrictProtocols.fetchDistrictsFromAllOfCountryOneByOne;
   // -----------------------------------------------------------------------------
 
-  /// READ ZONE LEVELS
+  /// READ ZONE STAGES
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const readCountriesLevels = CountriesLevelsRealOps.readCountriesLevels;
+  static const readCountriesStages = CountriesStagesRealOps.readCountriesStages;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const readCitiesLevels = CitiesLevelsRealOps.readCitiesLevels;
+  static const readCitiesStages = CitiesStagesRealOps.readCitiesStages;
   // --------------------
   /// TASK : TEST ME
-  static const readDistrictsLevels = DistrictsLevelsRealOps.readDistrictsLevels;
+  static const readDistrictsStages = DistrictsStagesRealOps.readDistrictsStages;
   // -----------------------------------------------------------------------------
 
   /// FETCH CONTINENT
@@ -130,6 +130,19 @@ class ZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE STAGES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const updateCountryStage = CountriesStagesRealOps.updateCountryStage;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  // static const updateCityStage = CitiesStagesRealOps.updateCityStage;
+  // --------------------
+  /// TASK : TEST ME
+  // static const updateDistrictStage = DistrictsStagesRealOps.updateDistrictStage;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
