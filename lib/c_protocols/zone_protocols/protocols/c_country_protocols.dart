@@ -14,7 +14,7 @@ class CountryProtocols {
   /// COMPOSE
 
   // --------------------
-  /// ONLY TO BE HARD CODED IN ISO3s LIST
+  /// => COUNTRIES ARE HARD CODED IN (allFLags)
   // -----------------------------------------------------------------------------
 
   /// FETCH
@@ -54,6 +54,23 @@ class CountryProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<CountryModel> refetchCountry({
+    @required String countryID,
+  }) async {
+    CountryModel _output;
+
+    if (countryID != null){
+
+      await CountryLDBOps.deleteCountry(countryID);
+
+      _output = await fetchCountry(countryID: countryID);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<CountryModel>> fetchCountries({
     @required List<String> countriesIDs,
   }) async {
@@ -86,12 +103,12 @@ class CountryProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+/// => COUNTRIES ARE HARD CODED IN (allFLags)
   // -----------------------------------------------------------------------------
 
   /// WIPE
 
   // --------------------
-  ///
+/// => COUNTRIES ARE HARD CODED IN (allFLags)
   // -----------------------------------------------------------------------------
 }

@@ -90,16 +90,19 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    /// NOTE : this ignores if there is an existing map with same ID
-    final Database _db = await _getDB();
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(
-      docName: docName,
-    );
+    if (map != null && docName != null){
 
-    if (map != null){
+      /// NOTE : this ignores if there is an existing map with same ID
+      final Database _db = await _getDB();
+
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName,
+      );
+
       await _doc.add(_db, map);
       // final String _id = LDBDoc.getPrimaryKey(docName);
       // blog('SEMBAST : _addMap : added to ($docName) : map has (${map.keys.length}) keys : (${map[_id]})');
+
     }
 
   }
@@ -112,7 +115,7 @@ class Sembast  {
 
     /// NOTE : this allows duplicate IDs
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (Mapper.checkCanLoopList(maps) == true && docName != null){
 
       final Database _db = await _getDB();
       final StoreRef<int, Map<String, Object>> _doc = _getStore(
@@ -130,26 +133,30 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    final Database _db = await _getDB();
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(
-      docName: docName,
-    );
+    if (map != null && docName != null){
 
-    final String _primaryKey = LDBDoc.getPrimaryKey(docName);
-    final String _objectID = map[_primaryKey];
+      final Database _db = await _getDB();
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName,
+      );
 
-    final Finder _finder = Finder(
-      filter: Filter.equals(_primaryKey, _objectID),
-    );
+      final String _primaryKey = LDBDoc.getPrimaryKey(docName);
+      final String _objectID = map[_primaryKey];
 
-    // final int _result =
-    await _doc.update(
-      _db,
-      map,
-      finder: _finder,
-    );
+      final Finder _finder = Finder(
+        filter: Filter.equals(_primaryKey, _objectID),
+      );
 
-    // blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map has ${map?.keys?.length} keys');
+      // final int _result =
+      await _doc.update(
+        _db,
+        map,
+        finder: _finder,
+      );
+
+      // blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map has ${map?.keys?.length} keys');
+
+    }
 
   }
   // --------------------
@@ -163,7 +170,10 @@ class Sembast  {
     /// Note : either updates all existing maps with this primary key "ID"
     /// or inserts new map
 
-    if (map != null){
+    if (
+    map != null &&
+    docName != null
+    ){
 
       if (allowDuplicateIDs == true){
         await _addMap(
@@ -210,7 +220,10 @@ class Sembast  {
     bool allowDuplicateIDs = false,
   }) async {
 
-    if (Mapper.checkCanLoopList(maps)) {
+    if (
+      Mapper.checkCanLoopList(maps) == true &&
+      docName != null
+    ) {
 
       if (allowDuplicateIDs == true){
         await _addMaps(
@@ -252,14 +265,21 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    await deleteAllAtOnce(
-      docName: docName,
-    );
+    if (
+          Mapper.checkCanLoopList(maps) == true &&
+          docName != null
+    ){
 
-    await _addMaps(
-      maps: maps,
-      docName: docName,
-    );
+      await deleteAllAtOnce(
+        docName: docName,
+      );
+
+      await _addMaps(
+        maps: maps,
+        docName: docName,
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -274,34 +294,42 @@ class Sembast  {
     @required String primaryKeyName,
   }) async {
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(
-      docName: docName,
-    );
+    List<Map<String, Object>> _output = [];
 
-    final Database _db = await _getDB();
+    if (
+      docName != null &&
+      Mapper.checkCanLoopList(ids) == true &&
+      primaryKeyName != null
+    ){
 
-    final Finder _finder = Finder(
-      filter: Filter.inList(primaryKeyName, ids),
-    );
-
-    List<Map<String, Object>> _maps;
-
-    if (_db != null && _doc != null){
-
-      final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
-      await _doc.find(
-        _db,
-        finder: _finder,
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName,
       );
 
-      _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
-        return snapshot.value;
-      }).toList();
+      final Database _db = await _getDB();
+
+      final Finder _finder = Finder(
+        filter: Filter.inList(primaryKeyName, ids),
+      );
+
+      if (_db != null && _doc != null){
+
+        final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
+        await _doc.find(
+          _db,
+          finder: _finder,
+        );
+
+        _output = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+          return snapshot.value;
+        }).toList();
+
+      }
+      // blog('Sembast : readMaps : $docName : $primaryKeyName : ${_maps.length} maps');
 
     }
-    // blog('Sembast : readMaps : $docName : $primaryKeyName : ${_maps.length} maps');
 
-    return _maps;
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -309,29 +337,34 @@ class Sembast  {
     @required String docName,
   }) async {
 
+    List<Map<String, Object>> _output = [];
     /// TASK : THIS METHOD IS VERY SLOW IN FETCHING PHRASES
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
+    if (docName != null){
 
-    final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
-    await _doc.find(
-      _db,
-      // finder: _finder,
-    );
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+      final Database _db = await _getDB();
 
-    final List<Map<String, Object>> _maps = _recordSnapshots
-        .map((RecordSnapshot<int, Map<String, Object>> snapshot) {
-      return snapshot.value;
-    }).toList();
+      final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
+      await _doc.find(
+        _db,
+        // finder: _finder,
+      );
 
-    return _maps;
+      _output = _recordSnapshots
+          .map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+        return snapshot.value;
+      }).toList();
+
+    }
+
+    return _output;
   }
   // --------------------
   /*
   static Future<List<Map<String, Object>>> readAllNewMethod({
-  @required String docName,
-}) async {
+    @required String docName,
+  }) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -358,26 +391,37 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
+    List<Map<String, Object>> _output = [];
 
-    final _finder = Finder(
-      filter: Filter.matches(searchField, searchValue, anyInList: true),
-      sortOrders: <SortOrder>[
-        SortOrder(fieldToSortBy)
-      ],
-    );
+    if (
+        fieldToSortBy != null &&
+        searchField != null &&
+        searchValue != null &&
+        docName != null
+    ){
 
-    final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
-      _db,
-      finder: _finder,
-    );
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+      final Database _db = await _getDB();
 
-    final List<Map<String, Object>> _maps = _recordSnapshots.map((snapshot){
-      return snapshot.value;
-    }).toList();
+      final _finder = Finder(
+        filter: Filter.matches(searchField, searchValue, anyInList: true),
+        sortOrders: <SortOrder>[
+          SortOrder(fieldToSortBy)
+        ],
+      );
 
-    return _maps;
+      final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots = await _doc.find(
+        _db,
+        finder: _finder,
+      );
+
+      _output = _recordSnapshots.map((snapshot){
+        return snapshot.value;
+      }).toList();
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -389,34 +433,46 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
+    List<Map<String, Object>> _output = [];
 
-    final Finder _finder = Finder(
-      filter: Filter.equals(searchField, searchValue, anyInList: fieldIsList),
-      sortOrders: <SortOrder>[SortOrder(fieldToSortBy)],
-    );
+    if (
+        fieldToSortBy != null &&
+        searchField != null &&
+        fieldIsList != null &&
+        searchValue != null &&
+        docName != null
+    ){
 
-    final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
-    await _doc.find(
-      _db,
-      finder: _finder,
-    );
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+      final Database _db = await _getDB();
 
-    // blog('fieldToSortBy : $fieldToSortBy');
-    // blog('searchField : $searchField');
-    // blog('searchValue : $searchValue');
-    // blog('docName : $docName');
-    // blog('_doc : $_doc');
-    // blog('_db : $_db');
-    // blog('_finder : $_finder');
-    // blog('_recordSnapshots : $_recordSnapshots');
+      final Finder _finder = Finder(
+        filter: Filter.equals(searchField, searchValue, anyInList: fieldIsList),
+        sortOrders: <SortOrder>[SortOrder(fieldToSortBy)],
+      );
 
-    final List<Map<String, Object>> _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
-      return snapshot.value;
-    }).toList();
+      final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
+      await _doc.find(
+        _db,
+        finder: _finder,
+      );
 
-    return _maps;
+      // blog('fieldToSortBy : $fieldToSortBy');
+      // blog('searchField : $searchField');
+      // blog('searchValue : $searchValue');
+      // blog('docName : $docName');
+      // blog('_doc : $_doc');
+      // blog('_db : $_db');
+      // blog('_finder : $_finder');
+      // blog('_recordSnapshots : $_recordSnapshots');
+
+      _output = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+        return snapshot.value;
+      }).toList();
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -426,30 +482,40 @@ class Sembast  {
     @required dynamic searchValue,
     @required String docName,
   }) async {
+    Map<String, dynamic> _output;
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
+    if (
+        fieldToSortBy != null &&
+        searchField != null &&
+        searchValue != null &&
+        docName != null
+    ) {
 
-    final Finder _finder = Finder(
-      filter: Filter.equals(searchField, searchValue, anyInList: false),
-      // sortOrders: <SortOrder>[
-      //   SortOrder(fieldToSortBy)
-      // ],
-    );
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+      final Database _db = await _getDB();
 
-    // blog('_finder is : $_finder');
+      final Finder _finder = Finder(
+        filter: Filter.equals(searchField, searchValue, anyInList: false),
+        // sortOrders: <SortOrder>[
+        //   SortOrder(fieldToSortBy)
+        // ],
+      );
 
-    final RecordSnapshot<int, Map<String, Object>> _recordSnapshot =
-    await _doc?.findFirst(
-      _db,
-      finder: _finder,
-    );
+      // blog('_finder is : $_finder');
 
-    // blog('_recordSnapshot : $_recordSnapshot');
+      final RecordSnapshot<int, Map<String, Object>> _recordSnapshot =
+      await _doc?.findFirst(
+        _db,
+        finder: _finder,
+      );
 
-    final Map<String, Object> _map = _recordSnapshot?.value;
+      // blog('_recordSnapshot : $_recordSnapshot');
 
-    return _map;
+       _output = _recordSnapshot?.value;
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -460,25 +526,36 @@ class Sembast  {
     @required String fieldToSortBy,
   }) async {
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
-    final Database _db = await _getDB();
+    List<Map<String, Object>> _output = [];
 
-    final Finder _finder = Finder(
-      filter: Filter.inList(searchField, searchObjects ?? []),
-      sortOrders: <SortOrder>[SortOrder(fieldToSortBy)],
-    );
+    if (
+        docName != null &&
+        searchField != null &&
+        Mapper.checkCanLoopList(searchObjects) == true &&
+        fieldToSortBy != null
+    ){
 
-    final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
-    await _doc.find(
-      _db,
-      finder: _finder,
-    );
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+      final Database _db = await _getDB();
 
-    final List<Map<String, Object>> _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
-      return snapshot.value;
-    }).toList();
+      final Finder _finder = Finder(
+        filter: Filter.inList(searchField, searchObjects ?? []),
+        sortOrders: <SortOrder>[SortOrder(fieldToSortBy)],
+      );
 
-    return _maps;
+      final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
+      await _doc.find(
+        _db,
+        finder: _finder,
+      );
+
+      _output = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+        return snapshot.value;
+      }).toList();
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -491,27 +568,31 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    /// NOTE : Deletes all maps with the given primary key,
-    /// as LDB allows duplicate maps of same ID "same value of the primary key"
+    if (objectID != null && docName != null){
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(
-        docName: docName
-    );
-    final Database _db = await _getDB();
-    final String _primaryKey = LDBDoc.getPrimaryKey(docName);
+      /// NOTE : Deletes all maps with the given primary key,
+      /// as LDB allows duplicate maps of same ID "same value of the primary key"
 
-    final Finder _finder = Finder(
-      filter: Filter.equals(_primaryKey, objectID),
-    );
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(
+          docName: docName
+      );
+      final Database _db = await _getDB();
+      final String _primaryKey = LDBDoc.getPrimaryKey(docName);
 
-    if (_db != null && _doc != null){
-
-      await _doc.delete(
-        _db,
-        finder: _finder,
+      final Finder _finder = Finder(
+        filter: Filter.equals(_primaryKey, objectID),
       );
 
-      // blog('Sembast : deleteMap : $docName : $_primaryKey : $objectID');
+      if (_db != null && _doc != null){
+
+        await _doc.delete(
+          _db,
+          finder: _finder,
+        );
+
+        // blog('Sembast : deleteMap : $docName : $_primaryKey : $objectID');
+
+      }
 
     }
 
@@ -524,23 +605,27 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(
-      docName: docName,
-    );
+    if (primaryKeyName != null && Mapper.checkCanLoopList(ids) == true && docName != null){
 
-    final Database _db = await _getDB();
-
-    final Finder _finder = Finder(
-      filter: Filter.inList(primaryKeyName, ids),
-    );
-
-    if (_db != null && _doc != null){
-      await _doc.delete(
-        _db,
-        finder: _finder,
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(
+        docName: docName,
       );
 
-      blog('Sembast : deleteDocs : $docName : $primaryKeyName : $ids');
+      final Database _db = await _getDB();
+
+      final Finder _finder = Finder(
+        filter: Filter.inList(primaryKeyName, ids),
+      );
+
+      if (_db != null && _doc != null){
+        await _doc.delete(
+          _db,
+          finder: _finder,
+        );
+
+        blog('Sembast : deleteDocs : $docName : $primaryKeyName : $ids');
+      }
+
     }
 
   }
@@ -588,13 +673,17 @@ class Sembast  {
     @required String docName,
   }) async {
 
-    final StoreRef<int, Map<String, Object>> _doc = _getStore(
-        docName: docName
-    );
+    if (docName != null){
 
-    final Database _db = await _getDB();
+      final StoreRef<int, Map<String, Object>> _doc = _getStore(
+          docName: docName
+      );
 
-    await _doc.delete(_db,);
+      final Database _db = await _getDB();
+
+      await _doc.delete(_db,);
+
+    }
 
   }
   // -----------------------------------------------------------------------------

@@ -11,13 +11,14 @@ class CityLDBOps{
 
   // -----------------------------------------------------------------------------
 
-  /// CREATE / INSERT
+  /// CREATE / INSERT / UPDATE
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCity(CityModel city) async {
 
     await LDBOps.insertMap(
+      // allowDuplicateIDs: false, DEFAULT
       docName: LDBDoc.cities,
       input: city?.toMap(
         toJSON: true,
@@ -113,15 +114,17 @@ class CityLDBOps{
   }
   // -----------------------------------------------------------------------------
 
-  /// UPDATE
-
-  // --------------------
-  ///
-  // -----------------------------------------------------------------------------
-
   /// DELETE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteCity(String cityID) async {
+
+    await LDBOps.deleteMap(
+        objectID: cityID,
+        docName: LDBDoc.cities,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 }

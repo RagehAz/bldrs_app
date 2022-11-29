@@ -1,7 +1,5 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
-import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -116,5 +114,34 @@ class CitiesStagesRealOps {
     return _output;
   }
   // -----------------------------------------------------------------------------
-  void f(){}
+
+  /// DELETE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> removeCityFromStages({
+    @required String cityID,
+  }) async {
+
+    if (cityID != null){
+
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+      final ZoneStages _citiesStages = await readCitiesStages(_countryID);
+
+      final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
+        zoneStages: _citiesStages,
+        id: cityID,
+      );
+
+      await Real.createDocInPath(
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
+        docName: _countryID,
+        addDocIDToOutput: false,
+        map: _new.toMap(),
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
 }

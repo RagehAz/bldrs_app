@@ -21,7 +21,8 @@ class ZoneProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static const composeCity = CityProtocols.composeCity;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -38,6 +39,9 @@ class ZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const  fetchCountry = CountryProtocols.fetchCountry;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const refetchCountry = CountryProtocols.refetchCountry;
   // --------------------
   /// TESTED : WORKS PERFECT
   static const  fetchCountries = CountryProtocols.fetchCountries;
@@ -130,6 +134,9 @@ class ZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const renovateCity = CityProtocols.renovateCity;
   // -----------------------------------------------------------------------------
 
   /// UPDATE STAGES
@@ -150,7 +157,8 @@ class ZoneProtocols {
   /// WIPE ZONE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static const wipeCity = CityProtocols.wipeCity;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
