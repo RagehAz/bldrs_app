@@ -139,7 +139,7 @@ class ZoneProtocols {
   static const updateCountryStage = CountriesStagesRealOps.updateCountryStage;
   // --------------------
   /// TESTED : WORKS PERFECT
-  // static const updateCityStage = CitiesStagesRealOps.updateCityStage;
+  static const updateCityStage = CitiesStagesRealOps.updateCityStage;
   // --------------------
   /// TASK : TEST ME
   // static const updateDistrictStage = DistrictsStagesRealOps.updateDistrictStage;

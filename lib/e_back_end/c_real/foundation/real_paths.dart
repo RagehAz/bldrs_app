@@ -283,7 +283,7 @@ class RealDoc {
   /// ZONES LEVELS
   // --------------------
   static const String zones_countriesStages = 'countriesLevels';
-  static const String zones_citiesStages = 'citiesLevels';
+  static const String zones_stagesCities = 'stagesCities';
   static const String zones_districtsStages = 'districtsLevels';
   static const String zones_cities = 'cities';
   static const String zones_districts = 'districts';
