@@ -11,6 +11,33 @@ class CityRealOps {
 
   // -----------------------------------------------------------------------------
 
+  /// CREATE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> createCity({
+    @required CityModel cityModel
+  }) async {
+
+    if (cityModel != null){
+
+      final String _countryID = cityModel.getCountryID();
+
+      await Real.createDocInPath(
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID',
+        docName: cityModel.cityID,
+        addDocIDToOutput: false,
+        map: cityModel.toMap(
+          toJSON: true,
+          toLDB: false,
+        ),
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// READ CITY MODEL
 
   // --------------------
@@ -99,6 +126,40 @@ class CityRealOps {
       maps: _maps,
       fromJSON: true,
     );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateCity({
+    @required CityModel newCity
+  }) async {
+
+    await createCity(cityModel: newCity);
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteCity({
+  @required String cityID,
+  }) async {
+
+    if (cityID != null){
+
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+      await Real.deletePath(
+          pathWithDocName: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID/$cityID',
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------

@@ -4,7 +4,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class CityPhraseFireOps {
   // -----------------------------------------------------------------------------
 
@@ -15,12 +15,12 @@ class CityPhraseFireOps {
   /// CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> createCityPhrases({
     @required CityModel cityModel,
   }) async {
 
-    if (cityModel == null){
+    if (cityModel != null){
 
       final String _countryID = cityModel.getCountryID();
 
@@ -29,6 +29,8 @@ class CityPhraseFireOps {
         ...List.generate(cityModel.phrases.length, (index){
 
           final Phrase _phrase = cityModel.phrases[index];
+
+          _phrase.blogPhrase(invoker: 'ahooo');
 
           return Fire.createNamedDoc(
             collName: FireColl.phrases_cities,
@@ -60,10 +62,11 @@ class CityPhraseFireOps {
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateCityPhrases({
     @required CityModel cityModel,
   }) async {
+
     await createCityPhrases(cityModel: cityModel);
   }
   // -----------------------------------------------------------------------------
@@ -71,12 +74,12 @@ class CityPhraseFireOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteCityPhrases({
     @required CityModel cityModel,
   }) async {
 
-    if (cityModel == null){
+    if (cityModel != null){
 
       await Future.wait(<Future>[
 

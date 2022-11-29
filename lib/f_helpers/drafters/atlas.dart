@@ -132,6 +132,11 @@ class Atlas {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static bool checkCoordinateIsGood(double coordinate) {
+    return coordinate != null && coordinate >= -90 && coordinate <= 90;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkPointsAreIdentical({
     @required GeoPoint point1,
     @required GeoPoint point2,

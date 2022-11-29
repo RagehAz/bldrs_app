@@ -1195,7 +1195,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortPhrasesByID({
     @required List<Phrase> phrases,
@@ -1207,7 +1207,7 @@ class Phrase {
 
     return phrases;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INSERT
 
@@ -1405,6 +1405,65 @@ class Phrase {
 
     return _output;
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> replacePhraseByLangCode({
+    @required List<Phrase> phrases,
+    @required Phrase phrase,
+  }){
+   List<Phrase> _output = <Phrase>[];
+
+   if (Mapper.checkCanLoopList(phrases) == true){
+
+     _output.addAll(phrases);
+
+     if (phrase != null){
+
+       Map<String, dynamic> _langsMap = cipherPhrasesToLangsMap(_output);
+
+       _langsMap = Mapper.insertPairInMap(
+         map: _langsMap,
+         key: phrase.langCode,
+         value: phrase.value,
+         overrideExisting: true,
+       );
+
+       _output = decipherPhrasesLangsMap(
+           langsMap: _langsMap,
+           phid: phrase.id,
+       );
+
+     }
+
+   }
+
+   return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> removePhraseByLangCode({
+    @required List<Phrase> phrases,
+    @required String langCode,
+  }){
+    final List<Phrase> _output = [];
+
+    if (phrases != null && langCode != null){
+      _output.addAll(phrases);
+
+      final int _index = _output.indexWhere((ph) => ph.langCode == langCode);
+
+      if (_index != -1){
+        _output.removeAt(_index);
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

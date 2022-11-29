@@ -1,30 +1,23 @@
-import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/city_preview_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/city_editor_bubble.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +36,6 @@ class EditCityScreen extends StatefulWidget {
 
 class _EditCityScreenState extends State<EditCityScreen> {
   // -----------------------------------------------------------------------------
-  String _countryID;
   ZoneStages _citiesStages;
   StageType _stageType;
   // -----------------------------------------------------------------------------
@@ -130,6 +122,56 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// UPDATE CITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onUpdateCity(CityModel newCity) async {
+
+    final bool _go = await Dialogs.confirmProceed(
+      context: context,
+      invertButtons: true,
+    );
+
+    if (_go == true){
+
+      await ZoneProtocols.renovateCity(
+        newCity: newCity,
+        oldCity: widget.zoneModel?.cityModel,
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DELETE CITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> onDeleteCity() async {
+
+    final bool _go = await Dialogs.confirmProceed(
+      context: context,
+      invertButtons: true,
+    );
+
+    if (_go == true){
+
+      await ZoneProtocols.wipeCity(
+        cityModel: widget.zoneModel?.cityModel,
+      );
+
+      await Nav.goBack(
+        context: context,
+        passedData: 'cityIsDeleted',
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -149,45 +191,14 @@ class _EditCityScreenState extends State<EditCityScreen> {
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
 
+          /// CITY PREVIEW BUBBLE
           CityPreviewBubble(
             cityModel: _city,
           ),
 
           const DotSeparator(),
 
-          /// STAGE
-          ZoneStageSwitcherBubble(
-            zoneID: _city.getCountryID(),
-            zoneName: Phrase.searchFirstPhraseByLang(phrases: _city.phrases, langCode: 'en')?.value,
-            stageType: _stageType,
-            onSelectStageType: _onSelectStageType,
-          ),
-
-          const DotSeparator(),
-
-          /// PHRASES
-          if (Mapper.checkCanLoopList(_namesWithoutEnglishName) == true)
-            ...List.generate(_city.phrases.length, (index){
-
-              final Phrase _phrase = _city.phrases[index];
-
-              return DataStrip(
-                dataKey: 'Name ${_phrase?.langCode}',
-                dataValue: _phrase.value,
-              );
-
-            }),
-
-          /// POSITION
-          DataStrip(
-            dataKey: 'Position',
-            dataValue: 'Lat: ${_city?.position?.latitude} , Lng: ${_city?.position?.longitude}',
-          ),
-
-          const DotSeparator(),
-
-
-          /// CITIES
+          /// DISTRICTS BUTTON
           FutureBuilder(
               future: ZoneProtocols.fetchCityDistrictsByStage(
                 cityID: _city.cityID,
@@ -216,70 +227,121 @@ class _EditCityScreenState extends State<EditCityScreen> {
               }
           ),
 
-          const SeparatorLine(
-            width: 300,
+          const DotSeparator(),
+
+          /// CITY STAGE
+          ZoneStageSwitcherBubble(
+            zoneID: _city.getCountryID(),
+            zoneName: Phrase.searchFirstPhraseByLang(phrases: _city.phrases, langCode: 'en')?.value,
+            stageType: _stageType,
+            onSelectStageType: _onSelectStageType,
           ),
 
-          /// CHAIN USAGE
-          if (_city?.cityID != null)
-            FutureBuilder(
-                future: Real.readDocOnce(
-                  collName: RealColl.chainsUsage,
-                  docName: _city.cityID,
-                ),
-                builder: (_, AsyncSnapshot<dynamic> snapshot){
-                  final Map<String, dynamic> _map = snapshot.data;
+          const DotSeparator(),
 
-                  if (Streamer.connectionIsLoading(snapshot) == true){
-                    return const Loading(loading: true);
-                  }
+          /// PHRASES
+          if (Mapper.checkCanLoopList(_namesWithoutEnglishName) == true)
+            ...List.generate(_city.phrases.length, (index){
 
-                  else {
+              final Phrase _phrase = _city.phrases[index];
 
-                    final CityPhidsModel _countersModel = CityPhidsModel.decipherCityPhids(
-                      map: _map,
-                      cityID: _city.cityID,
-                    );
+              return DataStrip(
+                color: Colorz.black50,
+                dataKey: 'Name ${_phrase?.langCode}',
+                dataValue: _phrase.value,
+              );
 
-                    List<MapModel> keywords = _countersModel.phidsMapModels;
-                    keywords = MapModel.removeMapsWithThisValue(
-                      mapModels: keywords,
-                      value: 0,
-                    );
-                    keywords = MapModel.removeMapsWithThisValue(
-                      mapModels: keywords,
-                      value: _city.cityID,
-                    );
+            }),
 
-                    return Column(
-                      children: <Widget>[
+          /// POSITION
+          DataStrip(
+            color: Colorz.black50,
+            dataKey: 'Position',
+            dataValue: 'Lat: ${_city?.position?.latitude} , Lng: ${_city?.position?.longitude}',
+          ),
 
-                        if (Mapper.checkCanLoopList(keywords) == true)
-                          ...List.generate(keywords.length, (index){
+          const DotSeparator(),
 
-                            final MapModel _kw = keywords[index];
+          /// CITY EDITOR BUBBLE
+          CityEditorBubble(
+            cityModel: _city,
+            onSync: _onUpdateCity,
+          ),
 
-                            return DreamBox(
-                              height: 30,
-                              width: PageBubble.clearWidth(context),
-                              icon: ChainsProvider.proGetPhidIcon(context: context, son: _kw.key),
-                              verse: Verse.plain('${_kw.value} : ${_kw.key}'),
-                              verseScaleFactor: 0.6,
-                              verseWeight: VerseWeight.thin,
-                              verseCentered: false,
-                            );
+          /// DELETE CITY
+          DreamBox(
+            height: 50,
+            width: _bubbleWidth,
+            color: Colorz.bloodTest,
+            verse: const Verse(
+              text: 'Delete city',
+              translate: false,
+              casing: Casing.upperCase,
+            ),
+            verseItalic: true,
+            onTap: () => onDeleteCity(),
+          ),
 
-                          },
-
-
-                          )
-                      ],
-
-                    );
-
-                  }
-
-                }),
+          // /// CHAIN USAGE
+          // if (_city?.cityID != null)
+          //   FutureBuilder(
+          //       future: Real.readDocOnce(
+          //         collName: RealColl.chainsUsage,
+          //         docName: _city.cityID,
+          //       ),
+          //       builder: (_, AsyncSnapshot<dynamic> snapshot){
+          //         final Map<String, dynamic> _map = snapshot.data;
+          //
+          //         if (Streamer.connectionIsLoading(snapshot) == true){
+          //           return const Loading(loading: true);
+          //         }
+          //
+          //         else {
+          //
+          //           final CityPhidsModel _countersModel = CityPhidsModel.decipherCityPhids(
+          //             map: _map,
+          //             cityID: _city.cityID,
+          //           );
+          //
+          //           List<MapModel> keywords = _countersModel.phidsMapModels;
+          //           keywords = MapModel.removeMapsWithThisValue(
+          //             mapModels: keywords,
+          //             value: 0,
+          //           );
+          //           keywords = MapModel.removeMapsWithThisValue(
+          //             mapModels: keywords,
+          //             value: _city.cityID,
+          //           );
+          //
+          //           return Column(
+          //             children: <Widget>[
+          //
+          //               if (Mapper.checkCanLoopList(keywords) == true)
+          //                 ...List.generate(keywords.length, (index){
+          //
+          //                   final MapModel _kw = keywords[index];
+          //
+          //                   return DreamBox(
+          //                     height: 30,
+          //                     width: PageBubble.clearWidth(context),
+          //                     icon: ChainsProvider.proGetPhidIcon(context: context, son: _kw.key),
+          //                     verse: Verse.plain('${_kw.value} : ${_kw.key}'),
+          //                     verseScaleFactor: 0.6,
+          //                     verseWeight: VerseWeight.thin,
+          //                     verseCentered: false,
+          //                   );
+          //
+          //                 },
+          //
+          //
+          //                 )
+          //             ],
+          //
+          //           );
+          //
+          //         }
+          //
+          //       }),
 
           const Horizon(),
 

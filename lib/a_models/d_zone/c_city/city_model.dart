@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class CityModel {
   /// --------------------------------------------------------------------------
@@ -58,7 +58,7 @@ class CityModel {
 
     Map<String, dynamic> _map = {
       // 'districts': DistrictModel.oldCipherDistrictsOneMap(districts: districts, toJSON: toJSON, toLDB: toLDB),
-      'population': population,
+      'population': population ?? 0,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
     };
@@ -368,22 +368,26 @@ class CityModel {
     return _cityID;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String createCityID({
     @required String countryID,
     @required String cityEnName,
   }){
+    String _output;
 
-    return '$countryID+$cityEnName';
+    if (TextCheck.isEmpty(countryID) == false && TextCheck.isEmpty(cityEnName) == false){
+      _output = '$countryID+$cityEnName';
+    }
 
+    return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   String oldGetCountryID(){
     return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '_');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   String getCountryID(){
     return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '+');
   }
@@ -469,16 +473,56 @@ class CityModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static CityModel replacePhraseInCityPhrases({
+    @required CityModel city,
+    @required Phrase phrase,
+  }){
+    CityModel _output = city;
+
+    if (phrase != null && _output?.phrases != null) {
+
+      final List<Phrase> _newPhrases = Phrase.replacePhraseByLangCode(
+        phrases: _output.phrases,
+        phrase: phrase,
+      );
+
+      _output = city.copyWith(phrases: _newPhrases);
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static CityModel removePhraseFromCityPhrases({
+    @required CityModel city,
+    @required String langCode,
+  }){
+    CityModel _output = city;
+
+    if (langCode != null && _output?.phrases != null) {
+
+      final List<Phrase> _newPhrases = Phrase.removePhraseByLangCode(
+        phrases: _output.phrases,
+        langCode: langCode,
+      );
+
+      _output = city.copyWith(phrases: _newPhrases);
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkCitiesIncludeCityID(List<CityModel> cities, String cityID){
     bool _output = false;
 
-    if (Mapper.checkCanLoopList(cities) == true){
+    if (Mapper.checkCanLoopList(cities) == true && cityID != null){
       for (final CityModel city in cities){
         if (city.cityID == cityID){
           _output = true;

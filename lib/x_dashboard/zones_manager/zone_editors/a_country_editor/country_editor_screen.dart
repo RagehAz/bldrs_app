@@ -13,10 +13,14 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/create_city_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/edit_city_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:flutter/material.dart';
@@ -128,11 +132,44 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
     if (_zone != null){
 
-      await Nav.goToNewScreen(
+      final String _return = await Nav.goToNewScreen(
           context: context,
           screen: EditCityScreen(
             zoneModel: _zone,
           ),
+      );
+
+      if (_return == 'cityIsDeleted'){
+
+        setState(() {});
+
+        await Dialogs.showSuccessDialog(
+          context: context,
+          firstLine: Verse.plain('City is Deleted'),
+        );
+
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onAddNewCity() async {
+
+    final String _cityIDWithoutCountyID = await KeyboardScreen.goToKeyboardScreen(
+      context: context,
+      screenTitleVerse: Verse.plain('Add New city ID without countryID'),
+    );
+
+    if (TextCheck.isEmpty(_cityIDWithoutCountyID?.trim()) == false){
+
+      await Nav.goToNewScreen(
+        context: context,
+        screen: CreateCityScreen(
+          countryID: widget.countryID,
+          cityName: _cityIDWithoutCountyID,
+        ),
       );
 
     }
@@ -165,16 +202,6 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           const DotSeparator(),
 
-          /// STAGE
-          ZoneStageSwitcherBubble(
-            zoneID: widget.countryID,
-            zoneName: Phrase.searchFirstPhraseByLang(phrases: _flag.phrases, langCode: 'en')?.value,
-            stageType: _stageType,
-            onSelectStageType: _onSelectStageType,
-          ),
-
-          const DotSeparator(),
-
           /// CITIES
           FutureBuilder(
               future: ZoneProtocols.fetchCountry(countryID: widget.countryID),
@@ -186,6 +213,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                 return DreamBox(
                   height: 50,
                   width: _bubbleWidth,
+                  margins: const EdgeInsets.only(bottom: 10),
                   verse: Verse(
                     text: '$_citiesCount Cities',
                     translate: false,
@@ -198,8 +226,33 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                   ),
                 );
 
-
               }
+          ),
+
+          /// ADD NEW CITY
+          DreamBox(
+            height: 50,
+            width: _bubbleWidth,
+            icon: Iconz.plus,
+            iconSizeFactor: 0.6,
+            verse: const Verse(
+              text: 'Add new City',
+              translate: false,
+              casing: Casing.upperCase,
+            ),
+
+            verseItalic: true,
+            onTap: _onAddNewCity,
+          ),
+
+          const DotSeparator(),
+
+          /// COUNTRY STAGE
+          ZoneStageSwitcherBubble(
+            zoneID: widget.countryID,
+            zoneName: Phrase.searchFirstPhraseByLang(phrases: _flag.phrases, langCode: 'en')?.value,
+            stageType: _stageType,
+            onSelectStageType: _onSelectStageType,
           ),
 
           const DotSeparator(),
