@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
-import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
@@ -7,18 +6,21 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class ZoneStageSwitcherBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ZoneStageSwitcherBubble({
-    @required this.countryID,
+    @required this.zoneID,
+    @required this.zoneName,
     @required this.stageType,
     @required this.onSelectStageType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String countryID;
+  final String zoneID;
+  final String zoneName;
   final StageType stageType;
   final ValueChanged<StageType> onSelectStageType;
   /// --------------------------------------------------------------------------
@@ -26,7 +28,6 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _bubbleWidth = BldrsAppBar.width(context);
-    final String _countryFlag = Flag.getCountryIcon(countryID);
 
     final double _buttonsBoxWidth = TileBubble.childWidth(context: context);
 
@@ -40,11 +41,19 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
     return TileBubble(
       bubbleWidth: _bubbleWidth,
       bubbleHeaderVM: BubbleHeaderVM(
-        leadingIcon: _countryFlag,
+        leadingIcon: Iconz.pyramid,
         leadingIconIsBubble: true,
         leadingIconBoxColor: Colorz.grey50,
-        headlineVerse: Verse.plain('Country Stage'),
+        headlineVerse: Verse.plain('$zoneName Stage'),
       ),
+      bulletPoints: <Verse>[
+
+        Verse.plain('HIDDEN : Zone is not visible to anyone'),
+        Verse.plain('INACTIVE : Zone is only visible to authors. when they [create a company] or [Create a Flyer]'),
+        Verse.plain('ACTIVE : Zone is visible only to zone users (authors) & (users),  zone gets activated when a company creates a flyer in this zone'),
+        Verse.plain('PUBLIC : Zone is visible to everyone, a Zone goes public when it reaches X number of (bzz * flyers / population)'),
+
+      ],
       child: SizedBox(
         width: _buttonsBoxWidth,
         height: 50,

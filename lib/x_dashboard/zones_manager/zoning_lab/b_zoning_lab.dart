@@ -835,36 +835,11 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// CREATE INITIAL CITIES STAGES
               WideButton(
-                verse: Verse.plain('Create initial cities Stages'),
-                isActive: false,
+                verse: Verse.plain('Create initial cities Stagess'),
+                // isActive: true,
                 onTap: () async {
 
-                  /*
-                  final List<String> _countriesIDs = Flag.getAllCountriesIDs();
-
-                  for (int i = 0; i < _countriesIDs.length; i++){
-
-                    final String countryID = _countriesIDs[i];
-                    final List<CityModel> _cities = await ZoneRealOps.readCountryCities(countryID: countryID);
-                    final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
-
-                    await Real.createDocInPath(
-                      pathWithoutDocName: 'zones/citiesLevels',
-                      docName: countryID,
-                      addDocIDToOutput: false,
-                      map: {
-                        'hidden': _citiesIDs,
-                        'inactive': <String>[],
-                        'active': <String>[],
-                        'public': <String>[],
-                      },
-                    );
-
-                    blog('## ${i+1} / ${_countriesIDs.length} - Country is good : $countryID');
-                  }
-
-
- */
+                  await CitiesStagesRealOps.createInitialCitiesStagesWithAllCitiesHidden();
 
                 },
               ),

@@ -1,14 +1,60 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:flutter/material.dart';
+/// => TAMAM
 class CitiesStagesRealOps {
   // -----------------------------------------------------------------------------
 
   const CitiesStagesRealOps();
 
+  // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> createInitialCitiesStagesWithAllCitiesHidden() async {
+
+    blog('kept for reference only : should never be used again');
+
+    /*
+    final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+
+    for (int i = 0; i < _countriesIDs.length; i++){
+
+      final String countryID = _countriesIDs[i];
+
+      blog('- reading cities for country $countryID');
+
+      final List<CityModel> _cities = await CityRealOps.readCountryCities(countryID: countryID);
+      final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
+
+      blog('- found ${_citiesIDs.length} cities');
+
+      await Real.createDocInPath(
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
+        docName: countryID,
+        addDocIDToOutput: false,
+        map: {
+          'hidden': _citiesIDs,
+          'inactive': <String>[],
+          'active': <String>[],
+          'public': <String>[],
+        },
+      );
+
+      blog('##### => ${i+1} / ${_countriesIDs.length} - Country is good : $countryID');
+    }
+
+     */
+  }
   // -----------------------------------------------------------------------------
 
   /// READ CITIES STAGES
@@ -21,7 +67,7 @@ class CitiesStagesRealOps {
     if (TextCheck.isEmpty(countryID) == false){
 
       final dynamic _dynamic = await Real.readPath(
-        path: '${RealColl.zones}/${RealDoc.zones_citiesStages}/$countryID',
+        path: '${RealColl.zones}/${RealDoc.zones_stagesCities}/$countryID',
       );
 
       final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
@@ -29,6 +75,41 @@ class CitiesStagesRealOps {
       );
 
       _output = ZoneStages.decipher(_map);
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ZoneStages> updateCityStage({
+    @required String cityID,
+    @required StageType newType,
+  }) async {
+
+    ZoneStages _output;
+
+    if (cityID != null && newType != null){
+
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+      final ZoneStages _citiesStages = await readCitiesStages(_countryID);
+
+      _output = ZoneStages.insertIDToZoneStages(
+        zoneStages: _citiesStages,
+        id: cityID,
+        newType: newType,
+      );
+
+      await Real.createDocInPath(
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
+        docName: _countryID,
+        addDocIDToOutput: false,
+        map: _output.toMap(),
+      );
 
     }
 
