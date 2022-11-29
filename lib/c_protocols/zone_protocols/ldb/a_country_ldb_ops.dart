@@ -9,7 +9,7 @@ class CountryLDBOps {
 
   // -----------------------------------------------------------------------------
 
-  /// CREATE / INSERT
+  /// CREATE / INSERT / UPDATE
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -44,15 +44,17 @@ class CountryLDBOps {
   }
   // -----------------------------------------------------------------------------
 
-  /// UPDATE
-
-  // --------------------
-  ///
-  // -----------------------------------------------------------------------------
-
   /// DELETE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteCountry(String countryID) async {
+
+    await LDBOps.deleteMap(
+      docName: LDBDoc.countries,
+      objectID: countryID,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 }

@@ -1,6 +1,9 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/fire/city_phrase_fire_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -17,7 +20,36 @@ class CityProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static Future<void> composeCity({
+    @required CityModel cityModel,
+  }) async {
+
+    if (cityModel != null){
+
+      await Future.wait(<Future>[
+
+        /// ADD CITY ID TO CITIES STAGES
+        CitiesStagesRealOps.updateCityStage(
+          cityID: cityModel.cityID,
+          newType: StageType.hidden,
+        ),
+
+        /// CREATE CITY MODEL - CITY FIRE PHRASES - INSERT IN LDB
+        renovateCity(
+          oldCity: null,
+          newCity: cityModel,
+        ),
+
+      ]);
+
+      await ZoneProtocols.refetchCountry(
+        countryID: cityModel.getCountryID(),
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// FETCH CITIES
@@ -202,12 +234,78 @@ class CityProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static Future<void> renovateCity({
+    @required CityModel oldCity,
+    @required CityModel newCity,
+  }) async {
+
+    if (CityModel.checkCitiesAreIdentical(oldCity, newCity) == false){
+
+      await Future.wait(<Future>[
+
+        /// UPDATE CITY IN REAL
+        CityRealOps.updateCity(
+          newCity: newCity,
+        ),
+
+        /// UPDATE CITY IN LDB
+        CityLDBOps.insertCity(newCity),
+
+        /// UPDATE CITY PHRASE IN FIRE
+        if (Phrase.checkPhrasesListsAreIdentical(
+            phrases1: oldCity?.phrases,
+            phrases2: newCity?.phrases
+        ) == false)
+        CityPhraseFireOps.updateCityPhrases(
+            cityModel: newCity
+        ),
+
+      ]);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// WIPE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipeCity({
+    @required CityModel cityModel,
+  }) async {
+
+    if (cityModel != null){
+
+      await Future.wait(<Future>[
+
+        /// STAGES
+        CitiesStagesRealOps.removeCityFromStages(
+          cityID: cityModel.cityID,
+        ),
+
+        /// MODEL
+        CityRealOps.deleteCity(
+          cityID: cityModel.cityID,
+        ),
+
+        /// FIRE PHRASES
+        CityPhraseFireOps.deleteCityPhrases(
+            cityModel: cityModel
+        ),
+
+        /// LDB
+        CityLDBOps.deleteCity(cityModel.cityID),
+
+      ]);
+
+      await ZoneProtocols.refetchCountry(
+        countryID: CityModel.getCountryIDFromCityID(cityModel.cityID),
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 }
