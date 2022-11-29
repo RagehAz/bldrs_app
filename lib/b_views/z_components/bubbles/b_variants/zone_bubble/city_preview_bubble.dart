@@ -37,11 +37,6 @@ class CityPreviewBubble extends StatelessWidget {
         langCode: 'en',
     );
 
-    final Phrase _nameAr = Phrase.searchFirstPhraseByLang(
-        phrases: cityModel.phrases,
-        langCode: 'ar',
-    );
-
     /// TASK : DO ME WHEN YOU HAVE TIME
     const bool _isCapital = false;
 

@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
@@ -67,6 +68,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onCountryTap(String countryID) async {
 
     if (mounted == true){
@@ -169,6 +171,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onSearchCountry(String val) async {
 
     TextCheck.triggerIsSearchingNotifier(
@@ -186,11 +189,17 @@ class _CountriesScreenState extends State<CountriesScreen> {
       _foundCountries.value = <Phrase>[];
 
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
-      _foundCountries.value = await _searchCountriesPhrasesByName(
+       final List<Phrase> _byName = await _searchCountriesPhrasesByName(
         context: context,
         lingoCode: TextCheck.concludeEnglishOrArabicLang(val),
         countryName: val,
       );
+
+       final List<Phrase> _byID = searchCountriesByISO3(
+         text: val,
+       );
+
+      _foundCountries.value = <Phrase>[..._byID, ..._byName];
 
       /// CLOSE LOADING
       await _triggerLoading(setTo: false);
@@ -199,6 +208,37 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  List<Phrase> searchCountriesByISO3({
+    @required String text,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    final bool _textIsEng = TextCheck.textIsEnglish(text?.trim());
+
+    if (_textIsEng == true){
+
+      for (final Flag flag in allFlags){
+
+        if (text == flag.id){
+
+          final Phrase _phrase = Phrase.searchFirstPhraseByLang(
+              phrases: flag.phrases,
+              langCode: 'en',
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<List<Phrase>> _searchCountriesPhrasesByName({
     @required BuildContext context,
     @required String countryName,
@@ -222,7 +262,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     return _cleaned;
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onBack() async {
 
     await Nav.goBack(
@@ -231,7 +272,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -284,5 +325,5 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

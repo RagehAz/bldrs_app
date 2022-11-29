@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -362,7 +363,7 @@ class Formers {
         }
 
         /// NUMBER FORMAT
-        _message ??= _numbersOnlyValidator(
+        _message ??= numbersOnlyValidator(
           context: context,
           text: TextMod.replaceVarTag(
             input: _phone,
@@ -881,7 +882,7 @@ class Formers {
 
     /// ONLY NUMBERS VALIDATION
     if (TextCheck.isEmpty(text) == false){
-      _message = _numbersOnlyValidator(
+      _message = numbersOnlyValidator(
         context: context,
         text: text,
       );
@@ -931,7 +932,7 @@ class Formers {
 
     /// ONLY NUMBERS VALIDATION
     if (TextCheck.isEmpty(text) == false){
-      _message = _numbersOnlyValidator(
+      _message = numbersOnlyValidator(
           context: context,
           text: text,
       );
@@ -1027,7 +1028,7 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _numbersOnlyValidator({
+  static String numbersOnlyValidator({
     @required BuildContext context,
     @required String text,
   }){
@@ -1074,6 +1075,49 @@ class Formers {
     /// WEBSITE IS EMPTY
     else {
       _message = 'phid_this_field_can_not_be_empty';
+    }
+
+    return _message;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GEO POINT VALIDATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String positionValidator({
+    @required BuildContext context,
+    @required String latOrLng,
+  }){
+    String _message;
+
+    if (TextCheck.isEmpty(latOrLng) == false){
+
+      _message = numbersOnlyValidator(
+        context: context,
+        text: latOrLng,
+      );
+
+      if (_message == null){
+
+        final double _double = Numeric.transformStringToDouble(latOrLng);
+
+        if (_double == null){
+          _message = 'phid_only_numbers_is_to_be_added';
+        }
+        else {
+
+          if (Atlas.checkCoordinateIsGood(_double) == true){
+            // nothing in my mind for you at this point
+          }
+          else {
+            _message = 'phid_latitude_must_be_between_minus_90_and_90';
+          }
+
+        }
+
+      }
+
     }
 
     return _message;
