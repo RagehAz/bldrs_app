@@ -99,7 +99,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
   /// DISTRICT STAGE TYPE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> _onSelectStageType(StageType type) async {
 
     if (_districtsStages != null){
@@ -143,10 +143,10 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
 
     if (_go == true){
 
-      // await ZoneProtocols.renovateDistrict(
-      //   newDistrict: newDistrict,
-      //   oldDistrict: _districtModel,
-      // );
+      await ZoneProtocols.renovateDistrict(
+        newDistrict: newDistrict,
+        oldDistrict: _districtModel,
+      );
 
     }
 
@@ -166,9 +166,9 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
 
     if (_go == true){
 
-      // await ZoneProtocols.wipeDistrict(
-      //   districtModel: _districtModel,
-      // );
+      await ZoneProtocols.wipeDistrict(
+        districtModel: _districtModel,
+      );
 
       await Nav.goBack(
         context: context,
@@ -246,7 +246,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
             width: _bubbleWidth,
             color: Colorz.bloodTest,
             verse: const Verse(
-              text: 'Delete city',
+              text: 'Delete District',
               translate: false,
               casing: Casing.upperCase,
             ),

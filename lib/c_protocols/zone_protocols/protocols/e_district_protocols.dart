@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/fire/district_phrase_fire_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_stages_real_ops.dart';
@@ -224,12 +226,78 @@ class DistrictProtocols {
   /// RENOVATE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
+  static Future<void> renovateDistrict({
+    @required DistrictModel newDistrict,
+    @required DistrictModel oldDistrict,
+  }) async {
+
+    if (DistrictModel.checkDistrictsAreIdentical(oldDistrict, newDistrict) == false){
+
+      await Future.wait(<Future>[
+
+        /// UPDATE DISTRICT IN REAL
+        DistrictRealOps.updateDistrict(
+          newDistrict: newDistrict,
+        ),
+
+        /// UPDATE DISTRICT IN LDB
+        DistrictLDBOps.insertDistrict(
+          districtModel: newDistrict,
+        ),
+
+        /// UPDATE DISTRICT PHRASE IN FIRE
+        if (Phrase.checkPhrasesListsAreIdentical(
+            phrases1: oldDistrict?.phrases,
+            phrases2: newDistrict?.phrases
+        ) == false)
+          DistrictPhraseFireOps.updateDistrictPhrases(
+              districtModel: newDistrict
+          ),
+
+      ]);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// WIPE
 
   // --------------------
-  ///
+  /// TASK : TEST ME
+  static Future<void> wipeDistrict({
+    @required DistrictModel districtModel,
+  }) async {
+
+    if (districtModel != null){
+
+      await Future.wait(<Future>[
+
+        /// STAGES
+        DistrictsStagesRealOps.removeDistrictFromStages(
+          districtID: districtModel.id,
+        ),
+
+        /// MODEL
+        DistrictRealOps.deleteDistrict(
+          districtID: districtModel.id,
+        ),
+
+        /// FIRE PHRASES
+        DistrictPhraseFireOps.deleteDistrictPhrases(
+            districtModel: districtModel
+        ),
+
+        /// LDB
+        DistrictLDBOps.deleteDistrict(
+          districtID: districtModel.id,
+        ),
+
+      ]);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 }
