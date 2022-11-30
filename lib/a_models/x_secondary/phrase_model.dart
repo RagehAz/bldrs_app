@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class Phrase {
   /// --------------------------------------------------------------------------
@@ -853,7 +853,7 @@ class Phrase {
     return _phrase;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByLangs({
     @required List<Phrase> phrases,
     @required List<String> langCodes,
@@ -864,18 +864,16 @@ class Phrase {
 
       for (final Phrase phrase in phrases){
 
-        if (
-        Stringer.checkStringsContainString(
+        final bool _contains = Stringer.checkStringsContainString(
           strings: langCodes,
           string: phrase.langCode,
-        ) == true
-        ){
+        );
+
+        if (_contains == true){
 
           _output.add(phrase);
 
         }
-
-
 
       }
 
@@ -1212,38 +1210,23 @@ class Phrase {
   /// INSERT
 
   // --------------------
-  /// TASK : TEST ME PROPERLY
+  /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrase({
     @required List<Phrase> phrases,
     @required Phrase phrase,
     @required bool overrideDuplicateID,
     String addLanguageCode,
   }){
+    final List<Phrase> _output = <Phrase>[...?phrases];
 
-    final List<Phrase> _output =
-    phrases == null ? <Phrase>[]
-        :
+    if (phrase != null){
 
-    phrases.isNotEmpty ? phrases
-        :
-    <Phrase>[];
-
-
-    Phrase _phraseToInsert = phrase;
-
-    if (TextCheck.isEmpty(addLanguageCode) == false){
-      _phraseToInsert = Phrase(
-        id: phrase.id,
-        value: phrase.value,
-        langCode: addLanguageCode,
-        trigram: phrase.trigram,
+      final Phrase _phraseToInsert = phrase.copyWith(
+        langCode: addLanguageCode ?? phrase.langCode,
       );
-    }
-
-    if (phrases != null && phrase != null){
 
       final bool _idIsTaken = checkPhrasesIncludeThisID(
-        phrases: phrases,
+        phrases: _output,
         id: phrase.id,
       );
 
@@ -1257,7 +1240,7 @@ class Phrase {
 
         if (overrideDuplicateID == true){
 
-          final int _existingPhraseIndex = phrases.indexWhere((ph) => ph.id == phrase.id);
+          final int _existingPhraseIndex = _output.indexWhere((ph) => ph.id == phrase.id);
           if (_existingPhraseIndex != -1){
             _output.removeAt(_existingPhraseIndex);
             _output.insert(_existingPhraseIndex, _phraseToInsert);
@@ -1269,19 +1252,10 @@ class Phrase {
 
     }
 
-    // blog('after adding one phrase : ${phrase.id} ,, this list is :-');
-    // blogPhrases(_output);
-
-    /// if (_output.isEmpty || _existingPhraseIndex == -1){
-    ///   return null;
-    /// }
-    /// else {
     return _output;
-    /// }
-
   }
   // --------------------
-  /// TASK : TEST ME PROPERLY
+  /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrases({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
@@ -1312,7 +1286,7 @@ class Phrase {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME PROPERLY
+  /// TESTED : WORKS PERFECT
   static List<Phrase> _combinePhrasesListsAndAllowDuplicateIDs({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
@@ -1345,7 +1319,7 @@ class Phrase {
     return cleanIdenticalPhrases(_output);
   }
   // --------------------
-  /// TASK : TEST ME PROPERLY
+  /// TESTED : WORKS PERFECT
   static List<Phrase> _addLangCodeToPhrases({
     @required String langCode,
     @required List<Phrase> phrases,
@@ -1372,7 +1346,7 @@ class Phrase {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME PROPERLY
+  /// TESTED : WORKS PERFECT
   static List<Phrase> _combinePhrasesWithoutDuplicateIDs({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
@@ -1380,12 +1354,7 @@ class Phrase {
     String addLanguageCode,
   }){
 
-    List<Phrase> _output = insertIn == null ? <Phrase>[]
-        :
-    insertIn.isNotEmpty ? insertIn
-        :
-    <Phrase>[]
-    ;
+    List<Phrase> _output = <Phrase>[...?insertIn];
 
     if (Mapper.checkCanLoopList(phrasesToInsert) == true){
 
@@ -1686,7 +1655,7 @@ class Phrase {
   /// TRIGRAMS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Phrase> addTrigramsToPhrases({
     @required List<Phrase> phrases,
   }){
