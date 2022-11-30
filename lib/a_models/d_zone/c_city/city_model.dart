@@ -136,7 +136,7 @@ class CityModel {
             decipherCity(
               map: map,
               fromJSON: fromJSON,
-              cityID: map['id'],
+              cityID: map['cityID'] ?? map['id'],
             )
         );
       }

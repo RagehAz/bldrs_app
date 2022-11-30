@@ -12,14 +12,12 @@ import 'package:flutter/material.dart';
 class ZoneStageSwitcherBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ZoneStageSwitcherBubble({
-    @required this.zoneID,
     @required this.zoneName,
     @required this.stageType,
     @required this.onSelectStageType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String zoneID;
   final String zoneName;
   final StageType stageType;
   final ValueChanged<StageType> onSelectStageType;

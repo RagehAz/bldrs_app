@@ -87,6 +87,10 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// COUNTRY STAGE TYPE
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSelectStageType(StageType type) async {
 
@@ -116,12 +120,18 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// COUNTRY CITIES
+
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> onGoToCitiesScreen({
     @required BuildContext context,
     @required CountryModel countryModel,
   }) async {
+
+    blog('go to cities screen');
 
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
@@ -130,7 +140,9 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
       ),
     );
 
-    if (_zone != null){
+    _zone?.blogZone(invoker: 'onGoToCitiesScreen');
+
+    if (_zone != null && _zone.cityID != null){
 
       final String _return = await Nav.goToNewScreen(
           context: context,
@@ -153,6 +165,10 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// ADD NEW CITY
+
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onAddNewCity() async {
@@ -249,7 +265,6 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
           /// COUNTRY STAGE
           ZoneStageSwitcherBubble(
-            zoneID: widget.countryID,
             zoneName: Phrase.searchFirstPhraseByLang(phrases: _flag.phrases, langCode: 'en')?.value,
             stageType: _stageType,
             onSelectStageType: _onSelectStageType,

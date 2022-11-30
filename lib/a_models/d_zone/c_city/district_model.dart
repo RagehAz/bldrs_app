@@ -18,6 +18,23 @@ class DistrictModel{
   final List<Phrase> phrases;
   // -----------------------------------------------------------------------------
 
+  /// CLONING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  DistrictModel copyWith({
+    String id,
+    List<Phrase> phrases,
+  }){
+
+    return DistrictModel(
+      id: id ?? this.id,
+      phrases: phrases ?? this.phrases,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// CYPHERS
 
   // --------------------
@@ -214,6 +231,20 @@ class DistrictModel{
   /// GETTERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getDistrictsIDs(List<DistrictModel> districts){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(districts) == true){
+
+      for (final DistrictModel district in districts){
+        _output.add(district.id);
+      }
+
+    }
+
+    return _output;
+  }
   /*
   static List<MapModel> getDistrictsNamesMapModels({
     @required BuildContext context,
@@ -406,6 +437,53 @@ class DistrictModel{
     }
 
     return _foundDistricts;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static DistrictModel replacePhraseInDistrictPhrases({
+    @required DistrictModel district,
+    @required Phrase phrase,
+  }){
+    DistrictModel _output = district;
+
+    if (phrase != null && _output?.phrases != null) {
+
+      final List<Phrase> _newPhrases = Phrase.replacePhraseByLangCode(
+        phrases: _output.phrases,
+        phrase: phrase,
+      );
+
+      _output = district.copyWith(phrases: _newPhrases);
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static DistrictModel removePhraseFromDistrictPhrases({
+    @required DistrictModel district,
+    @required String langCode,
+  }){
+    DistrictModel _output = district;
+
+    if (langCode != null && _output?.phrases != null) {
+
+      final List<Phrase> _newPhrases = Phrase.removePhraseByLangCode(
+        phrases: _output.phrases,
+        langCode: langCode,
+      );
+
+      _output = district.copyWith(
+          phrases: _newPhrases,
+      );
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

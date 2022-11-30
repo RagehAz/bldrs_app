@@ -18,144 +18,104 @@ class ZoneProtocols {
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
-  /// COMPOSE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const composeCity = CityProtocols.composeCity;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
-
-  /// FETCH ZONE
+  /// ZONE
 
   // --------------------
   /// TASK : TEST ME
   static const fetchZoneModelByGeoPoint = ZoneIDsProtocols.fetchZoneModelByGeoPoint;
+  /// TESTED : WORKS PERFECT
+  static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
-  /// FETCH COUNTRY
+  /// COUNTRY
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static const  fetchCountry = CountryProtocols.fetchCountry;
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const refetchCountry = CountryProtocols.refetchCountry;
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const  fetchCountries = CountryProtocols.fetchCountries;
+  // STAGES
+  /// TESTED : WORKS PERFECT
+  static const readCountriesStages = CountriesStagesRealOps.readCountriesStages;
+  /// TESTED : WORKS PERFECT
+  static const updateCountryStage = CountriesStagesRealOps.updateCountryStage;
+
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
-  /// FETCH CITY
+  /// CITY
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static const composeCity = CityProtocols.composeCity;
   /// TESTED : WORKS PERFECT
   static const fetchCity = CityProtocols.fetchCity;
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchCities = CityProtocols.fetchCities;
-  // -----------------------------------------------------------------------------
-
-  /// FETCH COUNTRY CITY
-
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchCitiesOfCountry = CityProtocols.fetchCitiesOfCountry;
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchCitiesOfCountryByIDs = CityProtocols.fetchCitiesOfCountryByIDs;
+  /// TESTED : WORKS PERFECT
+  static const renovateCity = CityProtocols.renovateCity;
+  /// TESTED : WORKS PERFECT
+  static const wipeCity = CityProtocols.wipeCity;
+  // STAGES
+  /// TESTED : WORKS PERFECT
+  static const readCitiesStages = CitiesStagesRealOps.readCitiesStages;
+  /// TESTED : WORKS PERFECT
+  static const updateCityStage = CitiesStagesRealOps.updateCityStage;
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
-  /// FETCH DISTRICT
+  /// DISTRICTS
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchDistrict = DistrictProtocols.fetchDistrict;
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchDistricts = DistrictProtocols.fetchDistricts;
-  // -----------------------------------------------------------------------------
-
-  /// FETCH CITY DISTRICTS
-
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchDistrictsOfCity = DistrictProtocols.fetchDistrictsOfCity;
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchDistrictsOfCityByIDs = DistrictProtocols.fetchDistrictsOfCityByIDs;
-  // -----------------------------------------------------------------------------
-
-  /// FETCH COUNTRY DISTRICTS
-
-  // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchDistrictsOfCountry = DistrictProtocols.fetchDistrictsOfCountry;
-  // -----------------------------------------------------------------------------
-
-  /// READ ZONE STAGES
-
-  // --------------------
   /// TESTED : WORKS PERFECT
-  static const readCountriesStages = CountriesStagesRealOps.readCountriesStages;
-  // --------------------
+  // static const renovateDistrict = DistrictProtocols.renovateDistrict;
   /// TESTED : WORKS PERFECT
-  static const readCitiesStages = CitiesStagesRealOps.readCitiesStages;
-  // --------------------
-  /// TASK : TEST ME
+  // static const wipeDistrict = DistrictProtocols.wipeDistrict;
+  // STAGES
+  /// TESTED : WORKS PERFECT
   static const readDistrictsStages = DistrictsStagesRealOps.readDistrictsStages;
+  /// TESTED : WORKS PERFECT
+  static const updateDistrictStage = DistrictsStagesRealOps.updateDistrictStage;
+  /// TESTED : WORKS PERFECT
+  static const resetDistrictsStages = DistrictsStagesRealOps.resetDistrictsStages;
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
-  /// FETCH CONTINENT
+  /// CONTINENTS
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static const readAllContinents = ContinentJsonOps.readAllContinents;
   // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+  // -----------------------------------------------------------------------------
 
-  /// READ CURRENCIES
+  /// CURRENCIES
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchCurrencies = CurrencyJsonOps.readAllCurrencies;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
-
-  /// RENOVATE ZONE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const renovateCity = CityProtocols.renovateCity;
-  // -----------------------------------------------------------------------------
-
-  /// UPDATE STAGES
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const updateCountryStage = CountriesStagesRealOps.updateCountryStage;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const updateCityStage = CitiesStagesRealOps.updateCityStage;
-  // --------------------
-  /// TASK : TEST ME
-  // static const updateDistrictStage = DistrictsStagesRealOps.updateDistrictStage;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
-
-  /// WIPE ZONE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const wipeCity = CityProtocols.wipeCity;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  // static const wipeDistrict = DistrictProtocols.wipeDistrict;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -165,7 +125,6 @@ class ZoneProtocols {
   // --------------------
   /// TASK : WRITE ME
   static const searchPlanetCountriesByID = ZoneSearchOps.searchPlanetCountriesByID;
-  // --------------------
   /// TASK : WRITE ME
   static const searchPlanetCountriesByName = ZoneSearchOps.searchPlanetCountriesByName;
   // -----------------------------------------------------------------------------
@@ -175,7 +134,6 @@ class ZoneProtocols {
   // --------------------
   /// TASK : WRITE ME
   static const searchPlanetCitiesByID = ZoneSearchOps.searchPlanetCitiesByID;
-  // --------------------
   /// TASK : WRITE ME
   static const searchPlanetCitiesByName = ZoneSearchOps.searchPlanetCitiesByName;
   // -----------------------------------------------------------------------------
@@ -185,7 +143,6 @@ class ZoneProtocols {
   // --------------------
   /// TASK : WRITE ME
   static const searchCountryCitiesByID = ZoneSearchOps.searchCountryCitiesByID;
-  // --------------------
   /// TASK : WRITE ME
   static const searchCountryCitiesByName = ZoneSearchOps.searchCountryCitiesByName;
   // -----------------------------------------------------------------------------
@@ -195,7 +152,6 @@ class ZoneProtocols {
   // --------------------
   /// TASK : WRITE ME
   static const searchPlanetDistrictsByID = ZoneSearchOps.searchPlanetDistrictsByID;
-  // --------------------
   /// TASK : WRITE ME
   static const searchPlanetDistrictsByName = ZoneSearchOps.searchPlanetDistrictsByName;
   // -----------------------------------------------------------------------------
@@ -205,10 +161,8 @@ class ZoneProtocols {
   // --------------------
   /// TASK : WRITE ME
   static const searchCityDistrictsByID = ZoneSearchOps.searchCityDistrictsByID;
-  // --------------------
   /// TASK : WRITE ME
   static const searchCityDistrictsByName = ZoneSearchOps.searchCityDistrictsByName;
-  // -----------------------------------------------------------------------------
   /// TASK : TEST ME : DO WE NEED THIS ??
   static const fetchCityByName = ZoneSearchOps.fetchCityByName;
   // -----------------------------------------------------------------------------

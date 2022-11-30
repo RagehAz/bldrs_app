@@ -106,10 +106,10 @@ class ZoneStages {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
-    'hidden': hidden,
-    'inactive': inactive,
-    'active': active,
-    'public': public,
+    'hidden': Stringer.sortAlphabetically2(hidden),
+    'inactive': Stringer.sortAlphabetically2(inactive),
+    'active': Stringer.sortAlphabetically2(active),
+    'public': Stringer.sortAlphabetically2(public),
     };
   }
   // --------------------

@@ -101,7 +101,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// LOAD
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> _loadCities() async {
 
     /// COMPLETE CURRENT ZONE
@@ -238,7 +238,9 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCityTap(String cityID) async {
+  Future<void> _onCitySelected(String cityID) async {
+
+    blog('_onCityTap : cityID : $cityID');
 
     if (mounted == true){
       Keyboard.closeKeyboard(context);
@@ -250,6 +252,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         cityID: cityID,
       ),
     );
+
+    _zoneWithCity?.blogZone(invoker: '_onCityTap zone with city');
 
     final bool _cityHasDistricts = Mapper.checkCanLoopList(_zoneWithCity?.cityModel?.districts);
 
@@ -376,7 +380,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
               return CitiesScreenSearchView(
                 loading: _loading,
                 foundCities: _foundCities,
-                onCityTap: _onCityTap,
+                onCityTap: _onCitySelected,
               );
 
             }
@@ -385,7 +389,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
             else {
 
               return CitiesScreenBrowseView(
-                onCityChanged: _onCityTap,
+                onCityTap: _onCitySelected,
                 countryCities: _countryCities,
               );
 
