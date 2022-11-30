@@ -15,7 +15,9 @@ class CityLDBOps{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertCity(CityModel city) async {
+  static Future<void> insertCity({
+    @required CityModel city,
+  }) async {
 
     await LDBOps.insertMap(
       // allowDuplicateIDs: false, DEFAULT
@@ -29,7 +31,9 @@ class CityLDBOps{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertCities(List<CityModel> cities) async {
+  static Future<void> insertCities({
+    @required List<CityModel> cities,
+  }) async {
 
     if (Mapper.checkCanLoopList(cities) == true){
 
@@ -51,7 +55,9 @@ class CityLDBOps{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityModel> readCity(String cityID) async {
+  static Future<CityModel> readCity({
+    @required String cityID,
+  }) async {
 
     final Map<String, Object> _map = await LDBOps.searchFirstMap(
       docName: LDBDoc.cities,
@@ -97,7 +103,9 @@ class CityLDBOps{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteCity(String cityID) async {
+  static Future<void> deleteCity({
+    @required String cityID,
+  }) async {
 
     await LDBOps.deleteMap(
         objectID: cityID,

@@ -95,7 +95,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   /// LOAD
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> loadDistricts() async {
 
     /// COMPLETE CURRENT ZONE
@@ -126,7 +126,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   /// SEARCH
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onSearchDistrict(String inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
@@ -161,7 +161,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   /// NAV
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onDistrictTap(String districtID) async {
 
     if (mounted == true){
@@ -183,7 +183,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onBack() async {
     await Nav.goBack(
       context: context,

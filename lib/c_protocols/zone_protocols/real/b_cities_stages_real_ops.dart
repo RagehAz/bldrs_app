@@ -18,6 +18,25 @@ class CitiesStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<void> _uploadDCitiesStages({
+    @required String countryID,
+    @required ZoneStages citiesStages,
+  }) async {
+
+    if (citiesStages != null && countryID != null){
+
+      await Real.createDocInPath(
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
+        docName: countryID,
+        addDocIDToOutput: false,
+        map: citiesStages.toMap(),
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> createInitialCitiesStagesWithAllCitiesHidden() async {
 
     blog('kept for reference only : should never be used again');
@@ -106,11 +125,9 @@ class CitiesStagesRealOps {
         newType: newType,
       );
 
-      await Real.createDocInPath(
-        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
-        docName: _countryID,
-        addDocIDToOutput: false,
-        map: _output.toMap(),
+      await _uploadDCitiesStages(
+        countryID: _countryID,
+        citiesStages: _output,
       );
 
     }
@@ -130,21 +147,24 @@ class CitiesStagesRealOps {
     if (cityID != null){
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
       final ZoneStages _citiesStages = await readCitiesStages(
         countryID: _countryID,
       );
 
-      final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
-        zoneStages: _citiesStages,
-        id: cityID,
-      );
+      if (_citiesStages != null){
 
-      await Real.createDocInPath(
-        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
-        docName: _countryID,
-        addDocIDToOutput: false,
-        map: _new.toMap(),
-      );
+        final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
+          zoneStages: _citiesStages,
+          id: cityID,
+        );
+
+        await _uploadDCitiesStages(
+          countryID: _countryID,
+          citiesStages: _new,
+        );
+
+      }
 
     }
 

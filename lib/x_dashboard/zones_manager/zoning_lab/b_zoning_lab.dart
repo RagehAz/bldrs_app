@@ -420,7 +420,9 @@ class _ZoningLabState extends State<ZoningLab> {
                   final List<CityModel> _cities = await CityRealOps.readCountryCities(
                     countryID: 'egy',
                   );
-                  await CityLDBOps.insertCities(_cities);
+                  await CityLDBOps.insertCities(
+                    cities: _cities,
+                  );
 
                   await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
 

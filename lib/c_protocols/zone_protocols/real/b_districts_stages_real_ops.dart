@@ -19,6 +19,27 @@ class DistrictsStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<void> _uploadDistrictsStages({
+    @required String cityID,
+    @required ZoneStages districtsStages,
+  }) async {
+
+    if (districtsStages != null && cityID != null){
+
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+      await Real.createDocInPath(
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districtsStages}/$_countryID',
+        docName: cityID,
+        addDocIDToOutput: false,
+        map: districtsStages.toMap(),
+      );
+
+    }
+
+}
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<ZoneStages> resetDistrictsStages({
     @required String cityID,
   }) async {
@@ -37,10 +58,8 @@ class DistrictsStagesRealOps {
 
       else {
 
-        final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
         final List<String> _districtsIDs = DistrictModel.getDistrictsIDs(_districts);
-
         _stages = ZoneStages(
             hidden: _districtsIDs,
             inactive: null,
@@ -48,11 +67,9 @@ class DistrictsStagesRealOps {
             public: null
         );
 
-        await Real.createDocInPath(
-          pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districtsStages}/$_countryID',
-          docName: cityID,
-          addDocIDToOutput: false,
-          map: _stages.toMap(),
+        await _uploadDistrictsStages(
+          cityID: cityID,
+          districtsStages: _stages,
         );
 
       }
@@ -105,7 +122,6 @@ class DistrictsStagesRealOps {
 
     if (districtID != null && newType != null){
 
-      final String _countryID = DistrictModel.getCountryIDFromDistrictID(districtID);
       final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
 
       final ZoneStages _districtsStages = await readDistrictsStages(
@@ -118,16 +134,50 @@ class DistrictsStagesRealOps {
         newType: newType,
       );
 
-      await Real.createDocInPath(
-        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districtsStages}/$_countryID',
-        docName: _cityID,
-        addDocIDToOutput: false,
-        map: _output.toMap(),
+      await _uploadDistrictsStages(
+        cityID: _cityID,
+        districtsStages: _output,
       );
 
     }
 
     return _output;
+  }
+
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> removeDistrictFromStages({
+    @required String districtID,
+  }) async {
+
+    if (districtID != null){
+
+      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
+
+      final ZoneStages _districtsStages = await readDistrictsStages(
+        cityID: _cityID,
+      );
+
+      if (_districtsStages != null){
+
+        final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
+          zoneStages: _districtsStages,
+          id: districtID,
+        );
+
+        await _uploadDistrictsStages(
+          cityID: _cityID,
+          districtsStages: _new,
+        );
+
+      }
+
+    }
+
   }
   // -----------------------------------------------------------------------------
   void f(){}
