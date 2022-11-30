@@ -98,6 +98,16 @@ class ZoneStages {
     StageType.active,
     StageType.public,
   ];
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static ZoneStages emptyStages(){
+    return const ZoneStages(
+      hidden: [],
+      inactive: [],
+      active: [],
+      public: [],
+    );
+  }
   // --------------------------------------------------------------------------
 
     /// CYPHERS

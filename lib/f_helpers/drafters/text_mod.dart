@@ -41,6 +41,25 @@ class TextMod {
 
     return _output;
   }
+  // --------------------
+  /// TASK TEST ME
+  static String idifyString(String text){
+    String _output;
+
+    if (TextCheck.isEmpty(text) == false){
+
+      _output = TextMod.modifyAllCharactersWith(
+        characterToReplace: ' ',
+        replacement: '_',
+        input: text.trim().toLowerCase(),
+      );
+
+      _output = fixCountryName(_output);
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// TEXT TAGS MODIFIER
