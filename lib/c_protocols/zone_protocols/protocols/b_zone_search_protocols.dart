@@ -5,6 +5,8 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -195,7 +197,7 @@ class ZoneSearchOps {
       /// B - when trial 1 fails
       if (_city == null){
 
-        List<CityModel> _foundCities = await CityLDBOps.searchCitiesByName(
+        List<CityModel> _foundCities = await ZoneSearchOps.searchLDBCitiesByName(
           cityName: cityName,
           langCode: langCode,
         );
@@ -373,5 +375,32 @@ class ZoneSearchOps {
 
     return _cities;
   }
+  // -----------------------------------------------------------------------------
+
+  /// OLD LDB SEARCH
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<CityModel>> searchLDBCitiesByName({
+    @required String cityName,
+    @required String langCode,
+  }) async {
+
+    final List<Map<String, dynamic>> _foundMaps = await LDBOps.searchLDBDocTrigram(
+      searchValue: cityName,
+      docName: LDBDoc.cities,
+      lingoCode: langCode,
+    );
+
+    final List<CityModel> _foundCities = CityModel.decipherCities(
+      maps: _foundMaps,
+
+      fromJSON: true,
+    );
+
+    return _foundCities;
+  }
+  // --------------------
+  void f(){}
   // -----------------------------------------------------------------------------
 }

@@ -259,7 +259,7 @@ class PhraseProtocols {
       _phrases = Phrase.insertPhrases(
         insertIn: _phrases,
         phrasesToInsert: _found,
-        forceUpdate: true,
+        overrideDuplicateID: true,
         allowDuplicateIDs: true,
       );
 

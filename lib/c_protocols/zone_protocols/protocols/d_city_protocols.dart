@@ -9,7 +9,7 @@ import 'package:bldrs/c_protocols/zone_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class CityProtocols {
   // -----------------------------------------------------------------------------
 
@@ -91,7 +91,7 @@ class CityProtocols {
     return _cityModel;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCities({
     @required List<String> citiesIDs,
     ValueChanged<CityModel> onCityRead,
@@ -133,58 +133,31 @@ class CityProtocols {
   /// FETCH COUNTRY CITIES
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<CityModel>> fetchCitiesOfCountryByStage({
+  /// TESTED : WORKS PERFECT
+  static Future<List<CityModel>> fetchCitiesOfCountry({
     @required String countryID,
     /// If CITY STAGE is null, then all cities will be returned
-    StageType cityStage,
+    StageType cityStageType,
   }) async {
     List<CityModel> _output = <CityModel>[];
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      /// SHOULD FETCH ALL CITIES
-      if (cityStage == null){
-        _output = await fetchCitiesFromAllOfCountry(countryID: countryID);
-      }
+      final ZoneStages _citiesStages = await CitiesStagesRealOps.readCitiesStages(
+        countryID: countryID,
+      );
 
-      /// SHOULD FETCH ONLY CITIES OF THIS STAGE
-      else {
-
-        final ZoneStages _citiesIDs = await CitiesStagesRealOps.readCitiesStages(countryID);
-
-        _output = await fetchCitiesFromSomeOfCountry(
-          citiesIDsOfThisCountry: _citiesIDs?.getIDsByStage(cityStage),
-        );
-
-      }
+      _output = await fetchCitiesOfCountryByIDs(
+        citiesIDsOfThisCountry: _citiesStages?.getIDsByStage(cityStageType),
+      );
 
     }
 
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<CityModel>> fetchCitiesFromAllOfCountry({
-    @required String countryID,
-  }) async {
-    List<CityModel> _output = <CityModel>[];
-
-    if (TextCheck.isEmpty(countryID) == false){
-
-      _output = await CityRealOps.readCountryCities(countryID: countryID);
-
-      if (Mapper.checkCanLoopList(_output) == true){
-        await CityLDBOps.insertCities(_output);
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<List<CityModel>> fetchCitiesFromSomeOfCountry({
+  /// TESTED : WORKS PERFECT
+  static Future<List<CityModel>> fetchCitiesOfCountryByIDs({
     @required List<String> citiesIDsOfThisCountry,
   }) async {
     List<CityModel> _output = <CityModel>[];

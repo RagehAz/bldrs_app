@@ -70,18 +70,9 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // ----------------------------------------
-        /// COMPLETE CURRENT ZONE
-        _currentZone.value = await ZoneProtocols.completeZoneModel(
-          context: context,
-          incompleteZoneModel: _currentZone.value,
-        );
 
-        final List<DistrictModel> _districts = _currentZone.value.cityModel.districts;
-        final List<DistrictModel> _ordered = DistrictModel.sortDistrictsAlphabetically(
-          context: context,
-          districts: _districts,
-        );
-        _cityDistricts.value = _ordered;
+        await loadDistricts();
+
         // ----------------------------------------
         await _triggerLoading(setTo: false);
       });
@@ -100,27 +91,42 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> _onDistrictTap(String districtID) async {
+
+  /// LOAD
+
+  // --------------------
+  ///
+  Future<void> loadDistricts() async {
+
+    /// COMPLETE CURRENT ZONE
+    _currentZone.value = await ZoneProtocols.completeZoneModel(
+      context: context,
+      incompleteZoneModel: _currentZone.value,
+    );
+
+    final List<DistrictModel> _fetchedDistricts = await ZoneProtocols.fetchDistrictsOfCity(
+      cityID: _currentZone.value.cityID,
+      districtStageType: null, // TASK : SHOOF KEDA HENA
+    );
 
     if (mounted == true){
-      Keyboard.closeKeyboard(context);
+
+      final List<DistrictModel> _ordered = DistrictModel.sortDistrictsAlphabetically(
+        context: context,
+        districts: _fetchedDistricts,
+      );
+
+      _cityDistricts.value = <DistrictModel>[..._ordered];
+
     }
 
-    final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
-      context: context,
-      incompleteZoneModel: _currentZone.value.copyWith(
-        districtID: districtID,
-      ),
-    );
-
-    await Nav.goBack(
-      context: context,
-      invoker: 'SelectDistrictScreen',
-      passedData: _zoneWithDistrict,
-    );
-
   }
+  // -----------------------------------------------------------------------------
+
+  /// SEARCH
+
   // --------------------
+  ///
   Future<void> _onSearchDistrict(String inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
@@ -150,7 +156,34 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// NAV
+
   // --------------------
+  ///
+  Future<void> _onDistrictTap(String districtID) async {
+
+    if (mounted == true){
+      Keyboard.closeKeyboard(context);
+    }
+
+    final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
+      context: context,
+      incompleteZoneModel: _currentZone.value.copyWith(
+        districtID: districtID,
+      ),
+    );
+
+    await Nav.goBack(
+      context: context,
+      invoker: 'SelectDistrictScreen',
+      passedData: _zoneWithDistrict,
+    );
+
+  }
+  // --------------------
+  ///
   Future<void> _onBack() async {
     await Nav.goBack(
       context: context,

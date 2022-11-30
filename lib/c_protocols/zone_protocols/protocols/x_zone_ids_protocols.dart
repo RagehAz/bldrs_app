@@ -48,7 +48,7 @@ class ZoneIDsProtocols {
         final String _countryISO2 = _mark.isoCountryCode;
         final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
 
-        final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesOfCountryByStage(
+        final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesOfCountry(
           countryID: _countryID,
         );
 

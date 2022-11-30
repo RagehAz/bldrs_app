@@ -347,7 +347,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
           keyboardTextInputType: TextInputType.number,
           pasteFunction: () async {
 
-            String _text = await TextMod.paste();
+            final String _text = await TextMod.paste();
             _populationController.text = _text;
             // _text = TextMod.fixSearchText(_text);
             // _text = TextMod.fixCountryName(_text);

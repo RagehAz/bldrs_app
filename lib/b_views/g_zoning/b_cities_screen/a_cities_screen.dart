@@ -75,43 +75,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // ----------------------------------------
-        /// COMPLETE CURRENT ZONE
-        _currentZone.value = await ZoneProtocols.completeZoneModel(
-          context: context,
-          incompleteZoneModel: _currentZone.value,
-        );
 
-        List<CityModel> _growingList = <CityModel>[];
-        final List<CityModel> _fetchedCities = await ZoneProtocols.fetchCities(
-          citiesIDs: _currentZone.value.countryModel?.citiesIDs?.getAllIDs(),
-          onCityRead: (CityModel city) async {
-
-            if (mounted == true){
-
-              _growingList = CityModel.addCityToCities(
-                cities: _countryCities.value,
-                city: city,
-              );
-
-              final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
-                context: context,
-                cities: _growingList,
-              );
-
-              _countryCities.value = <CityModel>[..._ordered];
-
-            }
-
-          },
-        );
-
-        if (mounted == true){
-          final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
-            context: context,
-            cities: _fetchedCities,
-          );
-          _countryCities.value = <CityModel>[..._ordered];
-        }
+        await _loadCities();
 
         // ----------------------------------------
         await _triggerLoading(setTo: false);
@@ -132,6 +97,147 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// LOAD
+
+  // --------------------
+  /// TASK : TEST ME
+  Future<void> _loadCities() async {
+
+    /// COMPLETE CURRENT ZONE
+    _currentZone.value = await ZoneProtocols.completeZoneModel(
+      context: context,
+      incompleteZoneModel: _currentZone.value,
+    );
+
+    final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
+      countryID: widget.country.id,
+      // cityStage: null, /// TASK : SHOOF KEDA HENA
+    );
+
+    if (mounted == true){
+
+        final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
+          context: context,
+          cities: _cities,
+        );
+
+        setNotifier(
+            notifier: _countryCities,
+            mounted: mounted,
+            value: <CityModel>[..._ordered],
+        );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT : KEPT FOR REFERENCE
+  /*
+  Future<void> _oldLoadCities() async {
+
+    /// COMPLETE CURRENT ZONE
+    _currentZone.value = await ZoneProtocols.completeZoneModel(
+      context: context,
+      incompleteZoneModel: _currentZone.value,
+    );
+
+    List<CityModel> _growingList = <CityModel>[];
+    final List<CityModel> _fetchedCities = await ZoneProtocols.fetchCities(
+      citiesIDs: _currentZone.value.countryModel?.citiesIDs?.getAllIDs(),
+      onCityRead: (CityModel city) async {
+
+        if (mounted == true){
+
+          _growingList = CityModel.addCityToCities(
+            cities: _countryCities.value,
+            city: city,
+          );
+
+          final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
+            context: context,
+            cities: _growingList,
+          );
+
+          _countryCities.value = <CityModel>[..._ordered];
+
+        }
+
+      },
+    );
+
+    if (mounted == true){
+      final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
+        context: context,
+        cities: _fetchedCities,
+      );
+      _countryCities.value = <CityModel>[..._ordered];
+    }
+
+  }
+   */
+  // -----------------------------------------------------------------------------
+
+  /// SEARCH
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onSearchCity(String inputText) async {
+
+    TextCheck.triggerIsSearchingNotifier(
+        text: inputText,
+        isSearching: _isSearching
+    );
+
+    /// WHILE SEARCHING
+    if (_isSearching.value == true){
+
+      /// START LOADING
+      await _triggerLoading(setTo: true);
+
+      /// CLEAR PREVIOUS SEARCH RESULTS
+      _foundCities.value = <CityModel>[];
+
+      /// SEARCH COUNTRIES FROM LOCAL PHRASES
+      _foundCities.value = await searchCitiesByName(
+        context: context,
+        input: TextMod.fixCountryName(inputText),
+      );
+
+      /// CLOSE LOADING
+      await _triggerLoading(setTo: false);
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<CityModel>> searchCitiesByName({
+    @required BuildContext context,
+    @required String input,
+  }) async {
+
+    blog('searchCitiesByName : input : $input');
+
+    /// SEARCH SELECTED COUNTRY CITIES
+    final List<CityModel> _searchResult = ZoneSearchOps.searchCitiesByName(
+      context: context,
+      sourceCities: _countryCities.value,
+      inputText: input,
+    );
+
+    CityModel.blogCities(_searchResult,);
+
+    /// SET FOUND CITIES
+    return _searchResult;
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// NAV
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onCityTap(String cityID) async {
 
     if (mounted == true){
@@ -189,56 +295,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
   }
   // --------------------
-  Future<void> _onSearchCity(String inputText) async {
-
-    TextCheck.triggerIsSearchingNotifier(
-        text: inputText,
-        isSearching: _isSearching
-    );
-
-    /// WHILE SEARCHING
-    if (_isSearching.value == true){
-
-      /// START LOADING
-      await _triggerLoading(setTo: true);
-
-      /// CLEAR PREVIOUS SEARCH RESULTS
-      _foundCities.value = <CityModel>[];
-
-      /// SEARCH COUNTRIES FROM LOCAL PHRASES
-      _foundCities.value = await searchCitiesByName(
-        context: context,
-        input: TextMod.fixCountryName(inputText),
-      );
-
-      /// CLOSE LOADING
-      await _triggerLoading(setTo: false);
-
-    }
-
-  }
-  // --------------------
-  Future<List<CityModel>> searchCitiesByName({
-    @required BuildContext context,
-    @required String input,
-  }) async {
-
-    blog('searchCitiesByName : input : $input');
-
-    /// SEARCH SELECTED COUNTRY CITIES
-    final List<CityModel> _searchResult = ZoneSearchOps.searchCitiesByName(
-      context: context,
-      sourceCities: _countryCities.value,
-      inputText: input,
-    );
-
-    CityModel.blogCities(_searchResult,);
-
-    /// SET FOUND CITIES
-    return _searchResult;
-
-  }
-  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onBack() async {
 
     await Nav.goBack(

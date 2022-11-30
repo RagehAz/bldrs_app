@@ -60,44 +60,38 @@ class ZoneProtocols {
   /// FETCH COUNTRY CITY
 
   // --------------------
-  /// TASK : TEST ME
-  static const fetchCitiesOfCountryByStage = CityProtocols.fetchCitiesOfCountryByStage;
+  /// TESTED : WORKS PERFECT
+  static const fetchCitiesOfCountry = CityProtocols.fetchCitiesOfCountry;
   // --------------------
-  /// TASK : TEST ME
-  static const fetchCitiesFromAllOfCountry = CityProtocols.fetchCitiesFromAllOfCountry;
-  // --------------------
-  /// TASK : TEST ME
-  static const fetchCitiesFromSomeOfCountry = CityProtocols.fetchCitiesFromSomeOfCountry;
+  /// TESTED : WORKS PERFECT
+  static const fetchCitiesOfCountryByIDs = CityProtocols.fetchCitiesOfCountryByIDs;
   // -----------------------------------------------------------------------------
 
   /// FETCH DISTRICT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const fetchDistrict = DistrictProtocols.fetchDistrict;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const fetchDistricts = DistrictProtocols.fetchDistricts;
   // -----------------------------------------------------------------------------
 
   /// FETCH CITY DISTRICTS
 
   // --------------------
-  /// TASK : TEST ME
-  static const fetchCityDistrictsByStage = DistrictProtocols.fetchCityDistrictsByStage;
+  /// TESTED : WORKS PERFECT
+  static const fetchDistrictsOfCity = DistrictProtocols.fetchDistrictsOfCity;
   // --------------------
-  /// TASK : TEST ME
-  static const fetchDistrictsFromAllOfCity = DistrictProtocols.fetchDistrictsFromAllOfCity;
-  // --------------------
-  /// TASK : TEST ME
-  static const fetchDistrictsFromSomeOfCity = DistrictProtocols.fetchDistrictsFromSomeOfCity;
+  /// TESTED : WORKS PERFECT
+  static const fetchDistrictsOfCityByIDs = DistrictProtocols.fetchDistrictsOfCityByIDs;
   // -----------------------------------------------------------------------------
 
   /// FETCH COUNTRY DISTRICTS
 
   // --------------------
-  /// TASK : TEST ME
-  static const fetchCountryDistricts = DistrictProtocols.fetchDistrictsFromAllOfCountryOneByOne;
+  /// TESTED : WORKS PERFECT
+  static const fetchDistrictsOfCountry = DistrictProtocols.fetchDistrictsOfCountry;
   // -----------------------------------------------------------------------------
 
   /// READ ZONE STAGES
@@ -159,6 +153,9 @@ class ZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const wipeCity = CityProtocols.wipeCity;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  // static const wipeDistrict = DistrictProtocols.wipeDistrict;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
