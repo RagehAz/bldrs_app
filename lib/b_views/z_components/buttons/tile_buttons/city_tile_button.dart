@@ -8,12 +8,12 @@ class WideCityButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const WideCityButton({
     @required this.city,
-    @required this.onTap,
+    @required this.onSingleTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final CityModel city;
-  final ValueChanged<String> onTap;
+  final Function onSingleTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class WideCityButton extends StatelessWidget {
       verseScaleFactor: 0.8,
       color: Colorz.white10,
       // textDirection: superTextDirection(context),
-      onTap: () => onTap(city.cityID),
+      onTap: onSingleTap,
     );
     // --------------------
   }
