@@ -1,11 +1,10 @@
-
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class DistrictPhraseFireOps {
   // -----------------------------------------------------------------------------
 
@@ -16,12 +15,12 @@ class DistrictPhraseFireOps {
   /// CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> createDistrictPhrases({
     @required DistrictModel districtModel,
   }) async {
 
-    if (districtModel == null){
+    if (districtModel != null){
 
       final String _countryID = DistrictModel.getCountryIDFromDistrictID(districtModel.id);
       final String _cityID = DistrictModel.getCityIDFromDistrictID(districtModel.id);
@@ -31,6 +30,8 @@ class DistrictPhraseFireOps {
         ...List.generate(districtModel.phrases.length, (index){
 
           final Phrase _phrase = districtModel.phrases[index];
+
+          _phrase.blogPhrase(invoker: 'fuck you');
 
           return Fire.createNamedDoc(
             collName: FireColl.phrases_districts,
@@ -66,7 +67,7 @@ class DistrictPhraseFireOps {
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDistrictPhrases({
     @required DistrictModel districtModel,
   }) async {
@@ -77,12 +78,12 @@ class DistrictPhraseFireOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDistrictPhrases({
     @required DistrictModel districtModel,
   }) async {
 
-    if (districtModel == null){
+    if (districtModel != null){
 
       await Future.wait(<Future>[
 
@@ -92,7 +93,10 @@ class DistrictPhraseFireOps {
 
           return Fire.deleteDoc(
             collName: FireColl.phrases_districts,
-            docName: '${districtModel.id}+${_phrase.langCode}',
+            docName: DistrictModel.getDistrictPhraseDocName( //'${districtModel.id}+${_phrase.langCode}'
+                districtID: districtModel.id,
+                langCode: _phrase.langCode,
+            ),
           );
 
         }),
@@ -102,5 +106,5 @@ class DistrictPhraseFireOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
