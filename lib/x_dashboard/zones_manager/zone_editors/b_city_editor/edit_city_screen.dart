@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/city_preview_bubble.dart';
@@ -18,6 +19,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/city_editor_bubble.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/edit_district_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +39,7 @@ class EditCityScreen extends StatefulWidget {
 class _EditCityScreenState extends State<EditCityScreen> {
   // -----------------------------------------------------------------------------
   ZoneStages _citiesStages;
-  StageType _stageType;
+  StageType _cityStageType;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -69,7 +71,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
         setState(() {
           _citiesStages = _stages;
-          _stageType = _stages.getStageTypeByID(widget.zoneModel.cityID);
+          _cityStageType = _stages.getStageTypeByID(widget.zoneModel.cityID);
         });
 
         await _triggerLoading(setTo: false);
@@ -86,6 +88,10 @@ class _EditCityScreenState extends State<EditCityScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// CITY STAGE TYPE
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSelectStageType(StageType type) async {
 
@@ -107,7 +113,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
         setState(() {
           _citiesStages = _newStages;
-          _stageType = type;
+          _cityStageType = type;
         });
 
       }
@@ -115,12 +121,67 @@ class _EditCityScreenState extends State<EditCityScreen> {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// CITY DISTRICTS STAGES RESET
+
   // --------------------
-  ///
+  Future<void> onResetDistrictsStages() async {
+
+    final bool _go = await Dialogs.confirmProceed(
+      context: context,
+      invertButtons: true,
+    );
+
+    if (_go == true){
+
+      await ZoneProtocols.resetDistrictsStages(
+        cityID: widget.zoneModel.cityID,
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SELECT CITY DISTRICT
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> onGoToDistrictsScreen({
     @required BuildContext context,
     @required CityModel cityModel,
   }) async {
+
+    final ZoneModel _zone = await Nav.goToNewScreen(
+      context: context,
+      screen: DistrictsScreen(
+        country: widget.zoneModel.countryModel,
+        city: cityModel,
+      ),
+    );
+
+    if (_zone != null){
+
+      final String _return = await Nav.goToNewScreen(
+        context: context,
+        screen: EditDistrictScreen(
+          zoneModel: _zone,
+        ),
+      );
+
+      if (_return == 'districtIsDeleted'){
+
+        setState(() {});
+
+        await Dialogs.showSuccessDialog(
+          context: context,
+          firstLine: Verse.plain('City is Deleted'),
+        );
+
+      }
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -173,6 +234,8 @@ class _EditCityScreenState extends State<EditCityScreen> {
     }
 
   }
+
+
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -181,11 +244,11 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
     final double _bubbleWidth = BldrsAppBar.width(context);
 
-    final List<Phrase> _namesWithoutEnglishName = <Phrase>[..._city.phrases];
+    final List<Phrase> _namesWithoutEnglishName = <Phrase>[...?_city?.phrases];
     _namesWithoutEnglishName.removeWhere((Phrase phrase) => phrase.langCode == 'en');
 
     return MainLayout(
-      pageTitleVerse: Verse.plain(_city.cityID),
+      pageTitleVerse: Verse.plain('City : ( ${_city?.cityID} )'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       layoutWidget: ListView(
@@ -194,6 +257,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
         children: <Widget>[
 
           /// CITY PREVIEW BUBBLE
+          if (_city != null)
           CityPreviewBubble(
             cityModel: _city,
           ),
@@ -203,7 +267,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
           /// DISTRICTS BUTTON
           FutureBuilder(
               future: ZoneProtocols.fetchDistrictsOfCity(
-                cityID: _city.cityID,
+                cityID: _city?.cityID,
               ),
               builder: (_, AsyncSnapshot<List<DistrictModel>> snap){
 
@@ -233,10 +297,12 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
           /// CITY STAGE
           ZoneStageSwitcherBubble(
-            zoneID: _city.getCountryID(),
-            zoneName: Phrase.searchFirstPhraseByLang(phrases: _city.phrases, langCode: 'en')?.value,
-            stageType: _stageType,
+            stageType: _cityStageType,
             onSelectStageType: _onSelectStageType,
+            zoneName: Phrase.searchFirstPhraseByLang(
+                phrases: _city?.phrases,
+                langCode: 'en',
+            )?.value,
           ),
 
           const DotSeparator(),
@@ -265,6 +331,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
           const DotSeparator(),
 
           /// CITY EDITOR BUBBLE
+          if (_city != null)
           CityEditorBubble(
             cityModel: _city,
             onSync: _onUpdateCity,
@@ -282,6 +349,21 @@ class _EditCityScreenState extends State<EditCityScreen> {
             ),
             verseItalic: true,
             onTap: () => onDeleteCity(),
+          ),
+
+          /// RESET CITY DISTRICTS STAGES
+          DreamBox(
+            height: 50,
+            width: _bubbleWidth,
+            color: Colorz.bloodTest,
+            verse: Verse(
+              text: 'Reset Districts Stages of ${_city?.cityID}',
+              translate: false,
+              casing: Casing.upperCase,
+            ),
+            verseScaleFactor: 0.6,
+            verseItalic: true,
+            onTap: () => onResetDistrictsStages(),
           ),
 
           // /// CHAIN USAGE

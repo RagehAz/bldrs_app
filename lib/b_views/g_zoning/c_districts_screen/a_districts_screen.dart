@@ -106,7 +106,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
     final List<DistrictModel> _fetchedDistricts = await ZoneProtocols.fetchDistrictsOfCity(
       cityID: _currentZone.value.cityID,
-      districtStageType: null, // TASK : SHOOF KEDA HENA
+      // districtStageType: null, // TASK : SHOOF KEDA HENA
     );
 
     if (mounted == true){

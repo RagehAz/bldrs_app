@@ -257,13 +257,15 @@ class Stringer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> sortAlphabetically2(List<String> inputList) {
-    // List<String> _outputList = <String>[];
+    List<String> _output = <String>[];
 
-    inputList.sort((String a, String b) => a.compareTo(b));
+    if (Mapper.checkCanLoopList(inputList) == true) {
+      inputList.sort((String a, String b) => a.compareTo(b));
+      _output = <String>[...inputList];
+    }
 
-    return inputList;
+    return _output;
   }
-
   // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS

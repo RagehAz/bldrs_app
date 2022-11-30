@@ -16,7 +16,7 @@ class CitiesScreenSearchView extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueChanged<String> onCityTap;
+  final Function(String cityID) onCityTap;
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<CityModel>> foundCities;
   /// --------------------------------------------------------------------------
@@ -55,11 +55,11 @@ class CitiesScreenSearchView extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: (_, int index) {
 
-                        final CityModel input = foundCities[index];
+                        final CityModel _city = foundCities[index];
 
                         return WideCityButton(
-                          city: input,
-                          onTap: onCityTap,
+                          city: _city,
+                          onSingleTap: () => onCityTap(_city.cityID),
                         );
 
                       }

@@ -7,17 +7,18 @@ class CitiesScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CitiesScreenBrowseView({
     @required this.countryCities,
-    @required this.onCityChanged,
+    @required this.onCityTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<CityModel>> countryCities;
-  final ValueChanged<String> onCityChanged;
+  final Function(String cityID) onCityTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
+      key: const ValueKey<String>('CitiesScreenBrowseView'),
       valueListenable: countryCities,
       builder: (_, List<CityModel> cities, Widget child){
 
@@ -32,7 +33,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
 
             return WideCityButton(
               city: _city,
-              onTap: onCityChanged,
+              onSingleTap: () => onCityTap(_city.cityID),
             );
 
           },

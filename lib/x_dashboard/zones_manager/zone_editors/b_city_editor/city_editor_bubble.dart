@@ -59,7 +59,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
   void initState() {
 
     _draftCity = widget.cityModel;
-    _populationController.text = _draftCity.population.toString();
+    _populationController.text = _draftCity?.population?.toString();
     _initializePositionControllers();
 
     super.initState();
@@ -94,7 +94,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  List<String> _getNonUserLangCodes(){
+  List<String> _getNonUsedLangCodes(){
     final List<String> _existingLangCodes = Phrase.getLangCodes(_draftCity.phrases);
     final List<String> _langCodes = <String>[...Localizer.langCodes];
     for (final String _existing in _existingLangCodes) {
@@ -106,7 +106,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
   /// TESTED : WORKS PERFECT
   Future<void> _onAddNewPhrase() async {
 
-   final List<String> _possibleLangs = _getNonUserLangCodes();
+   final List<String> _possibleLangs = _getNonUsedLangCodes();
 
     await BottomDialog.showButtonsBottomDialog(
       context: context,
@@ -188,7 +188,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
   /// TESTED : WORKS PERFECT
   void _initializePositionControllers(){
 
-    if (widget.cityModel.position != null){
+    if (widget.cityModel?.position != null){
       _latController.text = _draftCity.position?.latitude?.toString();
       _lngController.text = _draftCity.position?.longitude?.toString();
     }
