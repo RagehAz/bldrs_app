@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -277,7 +278,7 @@ Future<void> createDistrictsStages({
     );
 
     await Real.createDocInPath(
-      pathWithoutDocName: 'zones/districtsLevels/$countryID',
+      pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districtsStages}/$countryID',
       docName: city.cityID,
       addDocIDToOutput: false,
       map: _lvl.toMap(),
