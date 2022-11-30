@@ -25,7 +25,7 @@ class CityPreviewBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryID = cityModel.getCountryID();
+    final String _countryID = cityModel?.getCountryID();
 
     final Phrase _countryNameEn = Flag.getCountryPhrase(
       countryID: _countryID,
@@ -33,7 +33,7 @@ class CityPreviewBubble extends StatelessWidget {
     );
 
     final Phrase _nameEn = Phrase.searchFirstPhraseByLang(
-        phrases: cityModel.phrases,
+        phrases: cityModel?.phrases,
         langCode: 'en',
     );
 
@@ -44,10 +44,10 @@ class CityPreviewBubble extends StatelessWidget {
       flags: allFlags,
       countryID: _countryID,
     );
-    final String _countryPop = Numeric.formatNumToCounterCaliber(context, _flag.population);
-    final String _cityPop = Numeric.formatNumToCounterCaliber(context, cityModel.population);
+    final String _countryPop = Numeric.formatNumToCounterCaliber(context, _flag?.population);
+    final String _cityPop = Numeric.formatNumToCounterCaliber(context, cityModel?.population);
     final String _percentage = Numeric.formatNumToSeparatedKilos(
-      number: (cityModel.population / _flag.population) * 100,
+      number: (cityModel?.population?? 0 / _flag?.population ?? 0) * 100,
       fractions: 1,
     );
     final String _populationLine = '$_cityPop / $_countryPop = $_percentage% of ${_countryNameEn.value} live here';
