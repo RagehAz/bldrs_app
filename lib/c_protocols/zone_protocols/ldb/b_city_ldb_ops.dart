@@ -3,7 +3,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class CityLDBOps{
   // -----------------------------------------------------------------------------
 
@@ -90,27 +90,6 @@ class CityLDBOps{
     }
 
     return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<List<CityModel>> searchCitiesByName({
-    @required String cityName,
-    @required String langCode,
-  }) async {
-
-    final List<Map<String, dynamic>> _foundMaps = await LDBOps.searchLDBDocTrigram(
-      searchValue: cityName,
-      docName: LDBDoc.cities,
-      lingoCode: langCode,
-    );
-
-    final List<CityModel> _foundCities = CityModel.decipherCities(
-      maps: _foundMaps,
-
-      fromJSON: true,
-    );
-
-    return _foundCities;
   }
   // -----------------------------------------------------------------------------
 

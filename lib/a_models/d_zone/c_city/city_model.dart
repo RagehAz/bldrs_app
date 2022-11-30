@@ -337,14 +337,14 @@ class CityModel {
   /// TESTED : WORKS PERFECT
   static void blogCities(List<CityModel> cities){
 
-    if (Mapper.checkCanLoopList(cities)){
-
+    if (Mapper.checkCanLoopList(cities) == true){
       for (final CityModel city in cities){
-
         city.blogCity();
-
       }
+    }
 
+    else {
+      blog('blogCities : NO CITIES TO BLOG');
     }
 
   }

@@ -59,7 +59,9 @@ class CitiesStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> readCitiesStages(String countryID) async {
+  static Future<ZoneStages> readCitiesStages({
+    @required String countryID,
+  }) async {
     ZoneStages _output;
 
     if (TextCheck.isEmpty(countryID) == false){
@@ -94,7 +96,9 @@ class CitiesStagesRealOps {
     if (cityID != null && newType != null){
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final ZoneStages _citiesStages = await readCitiesStages(_countryID);
+      final ZoneStages _citiesStages = await readCitiesStages(
+        countryID: _countryID,
+      );
 
       _output = ZoneStages.insertIDToZoneStages(
         zoneStages: _citiesStages,
@@ -126,7 +130,9 @@ class CitiesStagesRealOps {
     if (cityID != null){
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final ZoneStages _citiesStages = await readCitiesStages(_countryID);
+      final ZoneStages _citiesStages = await readCitiesStages(
+        countryID: _countryID,
+      );
 
       final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
         zoneStages: _citiesStages,

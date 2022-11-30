@@ -1,14 +1,13 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/d_city_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class DistrictProtocols {
   // -----------------------------------------------------------------------------
 
@@ -25,7 +24,7 @@ class DistrictProtocols {
   /// FETCH DISTRICTS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DistrictModel> fetchDistrict({
     @required String districtID,
   }) async {
@@ -62,7 +61,7 @@ class DistrictProtocols {
     return _districtModel;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<DistrictModel>> fetchDistricts({
     @required List<String> districtsIDs,
     ValueChanged<DistrictModel> onDistrictRead,
@@ -103,55 +102,26 @@ class DistrictProtocols {
   /// FETCH CITY DISTRICTS
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<DistrictModel>> fetchCityDistrictsByStage({
+  /// TESTED : WORKS PERFECT
+  static Future<List<DistrictModel>> fetchDistrictsOfCity({
     @required String cityID,
-    /// If cityStage is null, then all cities will be returned
+    /// If DISTRICT STAGE TYPE is null, then all cities will be returned
     StageType districtStageType,
   }) async {
     List<DistrictModel> _output = <DistrictModel>[];
 
     if (TextCheck.isEmpty(cityID) == false){
 
-      /// SHOULD FETCH ALL DISTRICTS
-      if (districtStageType == null){
-        _output = await fetchDistrictsFromAllOfCity(cityID: cityID);
-      }
-
-      /// SHOULD FETCH ONLY DISTRICTS OF THIS STAGE
-      else {
-
-        final ZoneStages _districtsIDs = await DistrictsStagesRealOps.readDistrictsStages(
-          cityID: cityID,
-        );
-
-        _output = await fetchDistrictsFromSomeOfCity(
-          districtsIDsOfThisCity: _districtsIDs?.getIDsByStage(districtStageType),
-        );
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<List<DistrictModel>> fetchDistrictsFromAllOfCity({
-    @required String cityID,
-  }) async {
-    List<DistrictModel> _output = <DistrictModel>[];
-
-    if (TextCheck.isEmpty(cityID) == false){
-
-      _output = await DistrictRealOps.readCityDistricts(
+      final ZoneStages _districtsStages = await DistrictsStagesRealOps.readDistrictsStages(
         cityID: cityID,
       );
 
-      if (Mapper.checkCanLoopList(_output) == true){
-        await DistrictLDBOps.insertDistricts(
-          districts: _output,
+      if (_districtsStages != null){
+
+        _output = await fetchDistrictsOfCityByIDs(
+          districtsIDsOfThisCity: _districtsStages?.getIDsByStage(districtStageType),
         );
+
       }
 
     }
@@ -159,8 +129,8 @@ class DistrictProtocols {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<DistrictModel>> fetchDistrictsFromSomeOfCity({
+  /// TESTED : WORKS PERFECT
+  static Future<List<DistrictModel>> fetchDistrictsOfCityByIDs({
     @required List<String> districtsIDsOfThisCity,
   }) async {
     List<DistrictModel> _output = <DistrictModel>[];
@@ -212,22 +182,29 @@ class DistrictProtocols {
   /// FETCH COUNTRY DISTRICTS
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<DistrictModel>> fetchDistrictsFromAllOfCountryOneByOne(String countryID) async {
+  /// TESTED : WORKS PERFECT
+  static Future<List<DistrictModel>> fetchDistrictsOfCountry({
+    @required String countryID,
+    StageType citiesStage,
+    StageType districtsStage,
+  }) async {
     final List<DistrictModel> _output = <DistrictModel>[];
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final List<CityModel> _countryCities = await CityProtocols.fetchCitiesFromAllOfCountry(
+      final ZoneStages _citiesStages = await ZoneProtocols.readCitiesStages(
         countryID: countryID,
       );
 
-      if (Mapper.checkCanLoopList(_countryCities) == true){
+      if (_citiesStages != null){
 
-        for (final CityModel city in _countryCities){
+        final List<String> _citiesIDs = _citiesStages.getIDsByStage(citiesStage);
 
-          final List<DistrictModel> _cityDistricts = await fetchDistrictsFromAllOfCity(
-            cityID: city.cityID,
+        for (final String cityID in _citiesIDs){
+
+          final List<DistrictModel> _cityDistricts = await fetchDistrictsOfCity(
+            cityID: cityID,
+            districtStageType: districtsStage,
           );
 
           if (Mapper.checkCanLoopList(_cityDistricts) == true){
