@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
@@ -778,6 +779,64 @@ class Real {
     return FirebaseDatabase.instance.ref().update(updates);
   }
  */
+  // -----------------------------------------------------------------------------
+
+  /// CLONE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> cloneColl({
+    @required String oldCollName, // collName/docName/node/mapName
+    @required String newCollName, // newCollName
+  }) async {
+
+    final Object _object = await readPath(path: oldCollName);
+
+    if (_object != null){
+
+      // ( remove collName )=> docName/node/mapName
+      String _newPath = TextMod.removeTextBeforeFirstSpecialCharacter(oldCollName, '/');
+      // ( remove mapName )=> docName/node
+      _newPath = TextMod.removeTextAfterLastSpecialCharacter(_newPath, '/');
+      // ( add newCollName )=> newCollName/docName/node
+      _newPath = '$newCollName/$_newPath';
+
+      // mapName
+      // final String _mapName = TextMod.removeTextBeforeLastSpecialCharacter(oldCollName, '/');
+
+      final DatabaseReference _ref = getRefByPath(
+        path: newCollName,
+      );
+
+      await tryAndCatch(functions: () async {
+        await _ref.set(_object);
+      });
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> clonePath({
+    @required String oldPath,
+    @required String newPath,
+  }) async {
+
+    final Object _object = await readPath(path: oldPath);
+
+    if (_object != null){
+
+      final DatabaseReference _ref = getRefByPath(
+        path: newPath,
+      );
+
+      await tryAndCatch(functions: () async {
+        await _ref.set(_object);
+      });
+
+    }
+
+    }
   // -----------------------------------------------------------------------------
 
   /// BLOG

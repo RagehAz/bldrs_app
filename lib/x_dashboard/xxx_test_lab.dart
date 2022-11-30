@@ -18,6 +18,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -57,54 +58,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
+    await Real.clonePath(
+        oldPath: 'zones/countriesLevels',
+        newPath: 'zones/stagesCountries',
+    );
 
-
-    // /----------------
-    // final bool _go = await Dialogs.confirmProceed(context: context);
-    //
-    // if (_go == true){
-    //
-    //   final List<FlyerModel> _allModels = await ExoticMethods.readAllFlyers(limit: 100);
-    //
-    //   for (final FlyerModel model in _allModels){
-    //
-    //     for (final SlideModel slide in model.slides){
-    //
-    //       // final PicModel _picModel = await PicProtocols.fetchPic(slide.picPath);
-    //       // final Dimensions _dims = await PicModel.getDimensions(_picModel.bytes);
-    //       //
-    //       // await Fire.updateDocField(
-    //       //   collName: FireColl.flyers,
-    //       //   docName: model.id,
-    //       //   field: 'slides.${slide.slideIndex}.dimensions',
-    //       //   input: _dims.toMap(),
-    //       // );
-    //       //
-    //       // await Fire.updateDocField(
-    //       //   collName: FireColl.flyers,
-    //       //   docName: model.id,
-    //       //   field: 'slides.${slide.slideIndex}.picFit',
-    //       //   input: Dimensions.cipherBoxFit(BoxFit.cover),
-    //       // );
-    //       //
-    //       // await Fire.deleteDocField(
-    //       //   collName: FireColl.flyers,
-    //       //   docName: model.id,
-    //       //   field: 'slides.${slide.slideIndex}.imageSize',
-    //       // );
-    //       //
-    //       // await Fire.deleteDocField(
-    //       //   collName: FireColl.flyers,
-    //       //   docName: model.id,
-    //       //   field: 'slides.${slide.slideIndex}.boxFit',
-    //       // );
-    //
-    //     }
-    //
-    //   }
-    //
-    // }
-    //
+    blog('doneeee');
 
     }
   // -------------------------------------------------
