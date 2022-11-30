@@ -35,6 +35,7 @@ Future<void> goToCountrySelectionScreen({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> goToCitySelectionScreen({
   @required BuildContext context,
   @required ValueNotifier<ZoneModel> zone,

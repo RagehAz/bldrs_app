@@ -13,10 +13,10 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/currency_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
@@ -37,12 +37,10 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
-import 'package:bldrs/x_dashboard/zones_manager/zoning_lab/zones_initial_creators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
@@ -434,6 +432,8 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('LDB READ cities'),
                 onTap: () async {
 
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+
                   final List<CityModel> _cities = await CityLDBOps.readCities(
                     citiesIDs: [
                       'egy+kafr_el_sheikh',
@@ -447,6 +447,29 @@ class _ZoningLabState extends State<ZoningLab> {
 
                 },
               ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// FETCH
+              WideButton(
+                verse: Verse.plain('fetch Cities Of Country By Stagee'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+
+                  final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
+                    countryID: 'egy',
+                    // cityStageType: StageType.public,
+                  );
+
+                  CityModel.blogCities(_cities);
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+
+                },
+              ),
+
 
             ],
           ),
@@ -748,6 +771,7 @@ class _ZoningLabState extends State<ZoningLab> {
               /// FIX DISTRICTS PHRASES
               WideButton(
                 verse: Verse.plain('Fix egy districts phrases in FIRE'),
+                isActive: false,
                 color: Colorz.bloodTest,
                 onTap: () async {
 
@@ -755,7 +779,9 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   const String _countryID = 'sau';
 
-                  final List<DistrictModel> _districts = await ZoneProtocols.fetchCountryDistricts(_countryID);
+                  final List<DistrictModel> _districts = await ZoneProtocols.fetchDistrictsOfCountry(
+                    countryID: _countryID,
+                  );
 
                   blog('read ${_districts.length} districts');
 
@@ -814,6 +840,106 @@ class _ZoningLabState extends State<ZoningLab> {
               //   },
               // ),
 
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// FETCH DISTRICT
+              WideButton(
+                verse: Verse.plain('FETCH DISTRICT'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                  final DistrictModel _district = await ZoneProtocols.fetchDistrict(
+                    districtID: null,// 'egy+alexandria+victoriaXXXXX',
+                  );
+
+                  _district?.blogDistrict();
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                },
+              ),
+
+              /// FETCH DISTRICTS
+              WideButton(
+                verse: Verse.plain('FETCH multiple DISTRICTs'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                  final List<DistrictModel> _districts = await ZoneProtocols.fetchDistricts(
+                    districtsIDs: null,
+                    // [
+                      // 'egy+alexandria+victoria',
+                      // 'egy+alexandria+bulkly',
+                    // ],
+                    onDistrictRead: (DistrictModel district) {
+                      district.blogDistrict();
+                    },
+                  );
+
+                  blog('fetched : ${_districts?.length} districts');
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                },
+              ),
+
+              /// FETCH DISTRICTS BY STAGE
+              WideButton(
+                verse: Verse.plain('FETCH CITY DISTRICTS BY STAGE'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                  blog('fetched should get all');
+
+                  final List<DistrictModel> _districts = await ZoneProtocols.fetchDistrictsOfCity(
+                    cityID: 'egy+alexandria',
+                    // districtStageType: StageType.active,
+                  );
+
+                  // egy+alexandria+miamy
+                  // egy+alexandria+king_mariout
+
+                  DistrictModel.blogDistricts(_districts);
+
+                  blog('fetched : ${_districts?.length} districts');
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// FETCH COUNTRY DISTRICTS
+              WideButton(
+                verse: Verse.plain('FETCH CITY DISTRICTS BY STAGE'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                  blog('fetched should get all');
+
+                  final List<DistrictModel> _districts = await ZoneProtocols.fetchDistrictsOfCountry(
+                    countryID: 'egy',
+                    citiesStage: StageType.inactive,
+                    districtsStage: StageType.active,
+                  );
+
+                  DistrictModel.blogDistricts(_districts);
+
+                  blog('fetched : ${_districts?.length} districts');
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+
+                },
+              ),
+
+              const Horizon(),
 
             ],
           ),
@@ -853,7 +979,10 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   for (final String countryID in _countriesIDs){
 
-                    final ZoneStages _lvl = await CitiesStagesRealOps.readCitiesStages(countryID);
+                    final ZoneStages _lvl = await CitiesStagesRealOps.readCitiesStages(
+                      countryID: countryID,
+                    );
+
                     _lvl?.blogStages();
 
                     if (_lvl == null){
@@ -1016,7 +1145,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   const String _countryID = 'sau';
 
-                  final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByStage(
+                  final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
                     countryID: _countryID,
                   );
 
@@ -1109,96 +1238,97 @@ class _ZoningLabState extends State<ZoningLab> {
               /// FIX CITIES IDS
               WideButton(
                 verse: Verse.plain('FIX CITIES IDS AND CREATE FIRE PHRASES'),
+                isActive: false,
                 onTap: () async {
 
-               final List<String> _countriesIDs = Flag.getAllCountriesIDs();
-               _countriesIDs.remove('egy');
-
-               for (int i = 0; i < _countriesIDs.length; i++){
-
-                 final String countryID = _countriesIDs[i];
-
-                 final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesFromAllOfCountry(
-                   countryID: countryID,
-                 );
-
-                 for (int i = 0; i < _countryCities.length; i++){
-
-                   final CityModel city = _countryCities[i];
-                   final String _oldID = city.cityID;
-                   String _newCityID = _oldID;
-                   final bool _isAlreadyNewID = TextCheck.stringContainsSubString(string: _oldID, subString: '+');
-
-                   if (_isAlreadyNewID == true){
-                     _newCityID = _oldID;
-                   }
-
-                   else {
-
-                     final String _cityPortion = TextMod.removeTextBeforeFirstSpecialCharacter(_oldID, '_');
-                     _newCityID = CityModel.createCityID(
-                       countryID: countryID,
-                       cityEnName: _cityPortion,
-                     );
-
-                     await Future.wait(<Future>[
-
-                       /// TAMAM : FIRE CITY PHRASES
-                       createCityPhrases(
-                         countryID: countryID,
-                         city: city.copyWith(cityID: _newCityID,),
-                         newCItyID: _newCityID,
-                       ),
-
-                       /// TAMAM : CREATE NEW REAL CITY MODELS
-                       createNewCityModel(
-                         countryID: countryID,
-                         city: city.copyWith(cityID: _newCityID,),
-                         newCityID: _newCityID,
-                       ),
-
-                       /// TAMAM : REMOVE OLD REAL CITY MODEL
-                       removeOldCityModel(
-                         countryID: countryID,
-                         oldCityID: _oldID,
-                       ),
-
-                       /// TAMAM : CREATE OLD MODEL BACKUP
-                       createCityBackup(
-                         countryID: countryID,
-                         city: city.copyWith(cityID: _newCityID,),
-                       ),
-
-                       /// TAMAM FIRE DISTRICTS PHRASES
-                       createDistrictPhrasesModelsAndEverything(
-                         countryID: countryID,
-                         city: city.copyWith(cityID: _newCityID,),
-                       ),
-
-                       /// TAMAM : DISTRICTS STAGES
-                       createDistrictsStages(
-                         countryID: countryID,
-                         city: city.copyWith(cityID: _newCityID,),
-                       ),
-
-
-                     ])
-                         .then((value) => blog(
-                         '##      ======= >>>>>>> ${i+1} / ${_countryCities.length} : DONE : $_newCityID'
-                     )
-                     );
-
-
-                   }
-
-                 }
-
-
-                 blog('#######      ================ >>>>>>> $i / ${_countriesIDs.length} : DONE : $countryID');
-
-                 unawaited(Dialogs.showSuccessDialog(context: context, firstLine: Verse.plain('$i / ${_countriesIDs.length} : countryID')),);
-
-               }
+               // final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+               // _countriesIDs.remove('egy');
+               //
+               // for (int i = 0; i < _countriesIDs.length; i++){
+               //
+               //   final String countryID = _countriesIDs[i];
+               //
+               //   final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesFromAllOfCountry(
+               //     countryID: countryID,
+               //   );
+               //
+               //   for (int i = 0; i < _countryCities.length; i++){
+               //
+               //     final CityModel city = _countryCities[i];
+               //     final String _oldID = city.cityID;
+               //     String _newCityID = _oldID;
+               //     final bool _isAlreadyNewID = TextCheck.stringContainsSubString(string: _oldID, subString: '+');
+               //
+               //     if (_isAlreadyNewID == true){
+               //       _newCityID = _oldID;
+               //     }
+               //
+               //     else {
+               //
+               //       final String _cityPortion = TextMod.removeTextBeforeFirstSpecialCharacter(_oldID, '_');
+               //       _newCityID = CityModel.createCityID(
+               //         countryID: countryID,
+               //         cityEnName: _cityPortion,
+               //       );
+               //
+               //       await Future.wait(<Future>[
+               //
+               //         /// TAMAM : FIRE CITY PHRASES
+               //         createCityPhrases(
+               //           countryID: countryID,
+               //           city: city.copyWith(cityID: _newCityID,),
+               //           newCItyID: _newCityID,
+               //         ),
+               //
+               //         /// TAMAM : CREATE NEW REAL CITY MODELS
+               //         createNewCityModel(
+               //           countryID: countryID,
+               //           city: city.copyWith(cityID: _newCityID,),
+               //           newCityID: _newCityID,
+               //         ),
+               //
+               //         /// TAMAM : REMOVE OLD REAL CITY MODEL
+               //         removeOldCityModel(
+               //           countryID: countryID,
+               //           oldCityID: _oldID,
+               //         ),
+               //
+               //         /// TAMAM : CREATE OLD MODEL BACKUP
+               //         createCityBackup(
+               //           countryID: countryID,
+               //           city: city.copyWith(cityID: _newCityID,),
+               //         ),
+               //
+               //         /// TAMAM FIRE DISTRICTS PHRASES
+               //         createDistrictPhrasesModelsAndEverything(
+               //           countryID: countryID,
+               //           city: city.copyWith(cityID: _newCityID,),
+               //         ),
+               //
+               //         /// TAMAM : DISTRICTS STAGES
+               //         createDistrictsStages(
+               //           countryID: countryID,
+               //           city: city.copyWith(cityID: _newCityID,),
+               //         ),
+               //
+               //
+               //       ])
+               //           .then((value) => blog(
+               //           '##      ======= >>>>>>> ${i+1} / ${_countryCities.length} : DONE : $_newCityID'
+               //       )
+               //       );
+               //
+               //
+               //     }
+               //
+               //   }
+               //
+               //
+               //   blog('#######      ================ >>>>>>> $i / ${_countriesIDs.length} : DONE : $countryID');
+               //
+               //   unawaited(Dialogs.showSuccessDialog(context: context, firstLine: Verse.plain('$i / ${_countriesIDs.length} : countryID')),);
+               //
+               // }
 
                 },
               ),

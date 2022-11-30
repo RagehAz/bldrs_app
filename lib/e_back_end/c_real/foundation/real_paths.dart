@@ -160,7 +160,7 @@
   |     |     | - active    : <List<String>> "countriesIDs"
   |     |     | - public    : <List<String>> "countriesIDs"
   |     |
-  |     | - citiesLevels
+  |     | - stagesCities
   |     |     | - {countryID}
   |     |     |       | - hidden    : <List<String>> "citiesIDs"
   |     |     |       | - inactive  : <List<String>> "citiesIDs"
