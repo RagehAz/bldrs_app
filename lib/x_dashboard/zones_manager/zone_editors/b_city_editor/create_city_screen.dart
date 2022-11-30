@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/city_editor_bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,8 @@ class CreateCityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _cityID = '$countryID+$cityName'.toLowerCase();
+    final String _cityNameIdified = TextMod.idifyString(cityName);
+    final String _cityID = '$countryID+$_cityNameIdified';
 
     final CityModel _initialCity = CityModel(
       cityID: _cityID,

@@ -77,6 +77,8 @@ class ZoneProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static const composeDistrict = DistrictProtocols.composeDistrict;
+  /// TESTED : WORKS PERFECT
   static const fetchDistrict = DistrictProtocols.fetchDistrict;
   /// TESTED : WORKS PERFECT
   static const fetchDistricts = DistrictProtocols.fetchDistricts;
@@ -89,7 +91,7 @@ class ZoneProtocols {
   /// TESTED : WORKS PERFECT
   static const renovateDistrict = DistrictProtocols.renovateDistrict;
   /// TESTED : WORKS PERFECT
-  // static const wipeDistrict = DistrictProtocols.wipeDistrict;
+  static const wipeDistrict = DistrictProtocols.wipeDistrict;
   // STAGES
   /// TESTED : WORKS PERFECT
   static const readDistrictsStages = DistrictsStagesRealOps.readDistrictsStages;
@@ -97,8 +99,6 @@ class ZoneProtocols {
   static const updateDistrictStage = DistrictsStagesRealOps.updateDistrictStage;
   /// TESTED : WORKS PERFECT
   static const resetDistrictsStages = DistrictsStagesRealOps.resetDistrictsStages;
-  /// TASK : WRITE ME
-  static const wipeDistrict = DistrictProtocols.wipeDistrict;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
