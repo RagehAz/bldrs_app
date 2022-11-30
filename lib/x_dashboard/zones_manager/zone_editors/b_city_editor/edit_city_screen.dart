@@ -63,7 +63,9 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final ZoneStages _stages = await ZoneProtocols.readCitiesStages(widget.zoneModel.countryID);
+        final ZoneStages _stages = await ZoneProtocols.readCitiesStages(
+          countryID: widget.zoneModel.countryID,
+        );
 
         setState(() {
           _citiesStages = _stages;
@@ -200,7 +202,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
           /// DISTRICTS BUTTON
           FutureBuilder(
-              future: ZoneProtocols.fetchCityDistrictsByStage(
+              future: ZoneProtocols.fetchDistrictsOfCity(
                 cityID: _city.cityID,
               ),
               builder: (_, AsyncSnapshot<List<DistrictModel>> snap){

@@ -199,7 +199,14 @@ class _CountriesScreenState extends State<CountriesScreen> {
          text: val,
        );
 
-      _foundCountries.value = <Phrase>[..._byID, ..._byName];
+      // _foundCountries.value = <Phrase>[..._byID, ..._byName];
+
+      _foundCountries.value = Phrase.insertPhrases(
+        insertIn: _byName,
+        phrasesToInsert: _byID,
+        overrideDuplicateID: true,
+        allowDuplicateIDs: false,
+      );
 
       /// CLOSE LOADING
       await _triggerLoading(setTo: false);

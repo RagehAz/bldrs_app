@@ -1212,11 +1212,11 @@ class Phrase {
   /// INSERT
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME PROPERLY
   static List<Phrase> insertPhrase({
     @required List<Phrase> phrases,
     @required Phrase phrase,
-    @required bool forceUpdateDuplicate,
+    @required bool overrideDuplicateID,
     String addLanguageCode,
   }){
 
@@ -1229,7 +1229,6 @@ class Phrase {
     <Phrase>[];
 
 
-    int _existingPhraseIndex;
     Phrase _phraseToInsert = phrase;
 
     if (TextCheck.isEmpty(addLanguageCode) == false){
@@ -1248,16 +1247,19 @@ class Phrase {
         id: phrase.id,
       );
 
+      /// PHRASES DO NOT HAVE THIS ID
       if (_idIsTaken == false){
         _output.add(_phraseToInsert);
       }
 
+      /// PHRASE HAS THIS ID
       else {
 
-        if (forceUpdateDuplicate == true){
+        if (overrideDuplicateID == true){
 
-          _existingPhraseIndex = phrases.indexWhere((ph) => ph.id == phrase.id);
+          final int _existingPhraseIndex = phrases.indexWhere((ph) => ph.id == phrase.id);
           if (_existingPhraseIndex != -1){
+            _output.removeAt(_existingPhraseIndex);
             _output.insert(_existingPhraseIndex, _phraseToInsert);
           }
 
@@ -1279,11 +1281,11 @@ class Phrase {
 
   }
   // --------------------
-  /// TASK :DOES NOT WORK GOOD THIS BITCH
+  /// TASK : TEST ME PROPERLY
   static List<Phrase> insertPhrases({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
-    @required bool forceUpdate,
+    @required bool overrideDuplicateID,
     String addLanguageCode,
     bool allowDuplicateIDs,
   }){
@@ -1302,7 +1304,7 @@ class Phrase {
       _output = _combinePhrasesWithoutDuplicateIDs(
         phrasesToInsert: phrasesToInsert,
         insertIn: insertIn,
-        forceUpdate: forceUpdate,
+        overrideDuplicateID: overrideDuplicateID,
         addLanguageCode: addLanguageCode,
       );
     }
@@ -1310,7 +1312,7 @@ class Phrase {
     return _output;
   }
   // --------------------
-  /// TASK :DOES NOT WORK GOOD THIS BITCH
+  /// TASK : TEST ME PROPERLY
   static List<Phrase> _combinePhrasesListsAndAllowDuplicateIDs({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
@@ -1343,7 +1345,7 @@ class Phrase {
     return cleanIdenticalPhrases(_output);
   }
   // --------------------
-  /// TASK :DOES NOT WORK GOOD THIS BITCH
+  /// TASK : TEST ME PROPERLY
   static List<Phrase> _addLangCodeToPhrases({
     @required String langCode,
     @required List<Phrase> phrases,
@@ -1370,11 +1372,11 @@ class Phrase {
     return _output;
   }
   // --------------------
-  /// TASK :DOES NOT WORK GOOD THIS BITCH
+  /// TASK : TEST ME PROPERLY
   static List<Phrase> _combinePhrasesWithoutDuplicateIDs({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
-    @required bool forceUpdate,
+    @required bool overrideDuplicateID,
     String addLanguageCode,
   }){
 
@@ -1392,7 +1394,7 @@ class Phrase {
         _output = insertPhrase(
           phrases: _output,
           phrase: phrase,
-          forceUpdateDuplicate: forceUpdate,
+          overrideDuplicateID: overrideDuplicateID,
           addLanguageCode: addLanguageCode,
         );
 
