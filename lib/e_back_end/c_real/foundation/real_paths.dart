@@ -154,7 +154,7 @@
   |
   | - zones
   |     |
-  |     | - countriesLevels
+  |     | - stagesCountries
   |     |     | - hidden    : <List<String>> "countriesIDs"
   |     |     | - inactive  : <List<String>> "countriesIDs"
   |     |     | - active    : <List<String>> "countriesIDs"
@@ -282,9 +282,9 @@ class RealDoc {
   // -----------------------------------------------------------------------------
   /// ZONES LEVELS
   // --------------------
-  static const String zones_countriesStages = 'countriesLevels';
+  static const String zones_countriesStages = 'stagesCountries';
   static const String zones_stagesCities = 'stagesCities';
-  static const String zones_districtsStages = 'districtsLevels';
+  static const String zones_districtsStages = 'stagesDistricts';
   static const String zones_cities = 'cities';
   static const String zones_districts = 'districts';
   // -----------------------------------------------------------------------------
