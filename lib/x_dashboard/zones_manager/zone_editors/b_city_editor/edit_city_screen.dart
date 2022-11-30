@@ -130,6 +130,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
   /// CITY DISTRICTS STAGES RESET
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> onResetDistrictsStages() async {
 
     final bool _go = await Dialogs.confirmProceed(
