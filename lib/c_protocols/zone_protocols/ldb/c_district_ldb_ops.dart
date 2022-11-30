@@ -11,7 +11,7 @@ class DistrictLDBOps {
 
   // -----------------------------------------------------------------------------
 
-  /// CREATE / INSERT
+  /// CREATE / INSERT / UPDATE
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -117,11 +117,21 @@ class DistrictLDBOps {
    */
   // -----------------------------------------------------------------------------
 
-  /// UPDATE
+  /// DELETE
 
   // --------------------
-  ///
-  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteDistrict({
+    @required String districtID,
+  }) async {
+
+    await LDBOps.deleteMap(
+      objectID: districtID,
+      docName: LDBDoc.districts,
+    );
+
+  }
+// -----------------------------------------------------------------------------
 
   /// DELETE
 
