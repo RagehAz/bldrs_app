@@ -223,7 +223,9 @@ class ZoneSearchOps {
           }
 
           /// C-2 - if firebase returned results
-          await CityLDBOps.insertCities(_foundCities);
+          await CityLDBOps.insertCities(
+            cities: _foundCities,
+          );
 
         }
 

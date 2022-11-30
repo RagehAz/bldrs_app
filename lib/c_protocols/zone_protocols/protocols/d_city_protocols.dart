@@ -60,7 +60,9 @@ class CityProtocols {
     @required String cityID,
   }) async {
 
-    CityModel _cityModel = await CityLDBOps.readCity(cityID);
+    CityModel _cityModel = await CityLDBOps.readCity(
+      cityID: cityID,
+    );
 
     if (_cityModel != null){
       // blog('fetchCity : ($cityID) CityModel FOUND in LDB');
@@ -78,7 +80,9 @@ class CityProtocols {
       if (_cityModel != null){
         // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
 
-        await CityLDBOps.insertCity(_cityModel);
+        await CityLDBOps.insertCity(
+          city: _cityModel,
+        );
 
       }
 
@@ -192,8 +196,13 @@ class CityProtocols {
         );
 
         if (Mapper.checkCanLoopList(_remainingCities) == true){
-          await CityLDBOps.insertCities(_remainingCities);
+
+          await CityLDBOps.insertCities(
+            cities: _remainingCities,
+          );
+
           _output.addAll(_remainingCities);
+
         }
 
       }
@@ -223,7 +232,9 @@ class CityProtocols {
         ),
 
         /// UPDATE CITY IN LDB
-        CityLDBOps.insertCity(newCity),
+        CityLDBOps.insertCity(
+          city: newCity,
+        ),
 
         /// UPDATE CITY PHRASE IN FIRE
         if (Phrase.checkPhrasesListsAreIdentical(
@@ -269,7 +280,9 @@ class CityProtocols {
         ),
 
         /// LDB
-        CityLDBOps.deleteCity(cityModel.cityID),
+        CityLDBOps.deleteCity(
+          cityID: cityModel.cityID,
+        ),
 
       ]);
 

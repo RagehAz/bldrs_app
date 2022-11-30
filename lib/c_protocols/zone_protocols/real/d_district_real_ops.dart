@@ -13,6 +13,62 @@ class DistrictRealOps {
 
   // -----------------------------------------------------------------------------
 
+  /// DISTRICT PATH
+
+  // --------------------
+  /// TASK : WORKS PERFECT
+  static String _getDistrictPath({
+    @required String districtID,
+    @required bool withDocName,
+  }){
+    String _output;
+
+    if (districtID != null){
+
+      final String _countryID = DistrictModel.getCountryIDFromDistrictID(districtID);
+      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
+
+      if (withDocName == true){
+        _output = '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$_cityID/$districtID';
+      }
+
+      else {
+        _output = '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$_cityID';
+      }
+
+    }
+    return _output;
+  }
+  // --------------------
+  /// TASK : WORKS PERFECT
+  static String _getCityDistrictsPath({
+    @required String cityID,
+  }){
+    String _output;
+
+    if (cityID != null){
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+      _output = '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$cityID';
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : WORKS PERFECT
+  static String _getCountryDistrictsPath({
+    @required String countryID,
+  }){
+    String _output;
+
+    if (countryID != null){
+      _output = '${RealColl.zones}/${RealDoc.zones_districts}/$countryID';
+    }
+
+    return _output;
+  }
+
+  // -----------------------------------------------------------------------------
+
   /// CREATE DISTRICT
 
   // --------------------
@@ -21,16 +77,10 @@ class DistrictRealOps {
     @required DistrictModel district,
   }) async {
 
-    /// TASK : ASSERT THAT DISTRICT ID IS CORRECT AND HAS TWO + +
-    /// TASK : ASSERT THAT MAP HAS NO 'id' FIELD
-
     if (district != null){
 
-      final String _countryID = DistrictModel.getCountryIDFromDistrictID(district.id);
-      final String _cityID = DistrictModel.getCityIDFromDistrictID(district.id);
-
       await Real.createDocInPath(
-          pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$_cityID',
+          pathWithoutDocName: _getDistrictPath(districtID: district.id, withDocName: false),
           docName: district.id,
           addDocIDToOutput: false,
           map: district.toMap(
@@ -55,11 +105,8 @@ class DistrictRealOps {
 
     if (TextCheck.isEmpty(districtID) == false){
 
-      final String _countryID  = DistrictModel.getCountryIDFromDistrictID(districtID);
-      final String _cityID     = DistrictModel.getCityIDFromDistrictID(districtID);
-
       final Object _districtMap = await Real.readPath(
-        path: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$_cityID/$districtID',
+        path: _getDistrictPath(districtID: districtID, withDocName: true),
       );
 
       final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
@@ -118,10 +165,9 @@ class DistrictRealOps {
   @required String cityID,
   }) async {
 
-    final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
     final Object _objects = await Real.readPath(
-      path: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/$cityID',
+      path: _getCityDistrictsPath(cityID: cityID),
     );
 
     final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
@@ -142,7 +188,7 @@ class DistrictRealOps {
     if (TextCheck.isEmpty(countryID) == false){
 
       final Object object = await Real.readPath(
-          path: '${RealColl.zones}/${RealDoc.zones_districts}/$countryID'
+          path: _getCountryDistrictsPath(countryID: countryID),
       );
 
       if (object != null){
@@ -181,4 +227,37 @@ class DistrictRealOps {
     return _output;
   }
   // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateDistrict({
+    @required DistrictModel newDistrict,
+  }) async {
+
+    await createDistrict(district: newDistrict);
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDistrict({
+    @required String districtID,
+  }) async {
+
+    if (districtID != null){
+
+      await Real.deletePath(
+        pathWithDocName: _getDistrictPath(districtID: districtID, withDocName: true),
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  void f(){}
 }
