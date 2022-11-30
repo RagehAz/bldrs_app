@@ -16,7 +16,7 @@ class DistrictRealOps {
   /// DISTRICT PATH
 
   // --------------------
-  /// TASK : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static String _getDistrictPath({
     @required String districtID,
     @required bool withDocName,
@@ -40,7 +40,7 @@ class DistrictRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static String _getCityDistrictsPath({
     @required String cityID,
   }){
@@ -54,7 +54,7 @@ class DistrictRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : WORKS PERFECT
+  /// TESTED : WORKS PERFECT
   static String _getCountryDistrictsPath({
     @required String countryID,
   }){
@@ -244,7 +244,7 @@ class DistrictRealOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDistrict({
     @required String districtID,
   }) async {
@@ -259,5 +259,4 @@ class DistrictRealOps {
 
   }
   // -----------------------------------------------------------------------------
-  void f(){}
 }

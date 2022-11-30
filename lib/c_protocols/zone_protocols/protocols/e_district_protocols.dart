@@ -20,7 +20,34 @@ class DistrictProtocols {
   /// COMPOSE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  static Future<void> composeDistrict({
+    @required BuildContext context,
+    @required DistrictModel districtModel,
+  }) async {
+
+    if (districtModel != null){
+
+      await Future.wait(<Future>[
+
+        /// ADD CITY ID TO CITIES STAGES
+        DistrictsStagesRealOps.updateDistrictStage(
+          context: context,
+          districtID: districtModel.id,
+          newType: StageType.hidden,
+        ),
+
+        /// CREATE CITY MODEL - CITY FIRE PHRASES - INSERT IN LDB
+        renovateDistrict(
+          oldDistrict: null,
+          newDistrict: districtModel,
+        ),
+
+      ]);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// FETCH DISTRICTS
@@ -226,7 +253,7 @@ class DistrictProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> renovateDistrict({
     @required DistrictModel newDistrict,
     @required DistrictModel oldDistrict,
@@ -265,7 +292,7 @@ class DistrictProtocols {
   /// WIPE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeDistrict({
     @required DistrictModel districtModel,
   }) async {

@@ -114,6 +114,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
       if (_go == true){
 
         final ZoneStages _newStages = await ZoneProtocols.updateDistrictStage(
+          context: context,
           districtID: widget.zoneModel.districtID,
           newType: type,
         );
@@ -133,7 +134,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
   /// UPDATE DISTRICT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> _onUpdateDistrict(DistrictModel newDistrict) async {
 
     final bool _go = await Dialogs.confirmProceed(
@@ -156,7 +157,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
   /// DELETE CITY
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> onDeleteDistrict() async {
 
     final bool _go = await Dialogs.confirmProceed(

@@ -1,6 +1,9 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -10,9 +13,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class DistrictsStagesRealOps {
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const DistrictsStagesRealOps();
+
   // -----------------------------------------------------------------------------
 
   /// COMPOSE / RESET
@@ -114,6 +118,7 @@ class DistrictsStagesRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneStages> updateDistrictStage({
+    @required BuildContext context,
     @required String districtID,
     @required StageType newType,
   }) async {
@@ -124,32 +129,63 @@ class DistrictsStagesRealOps {
 
       final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
 
-      final ZoneStages _districtsStages = await readDistrictsStages(
+      ZoneStages _districtsStages = await readDistrictsStages(
         cityID: _cityID,
       );
 
-      _output = ZoneStages.insertIDToZoneStages(
-        zoneStages: _districtsStages,
-        id: districtID,
-        newType: newType,
-      );
+      /// DISTRICTS STAGES MIGHT BE NULL IF NO DISTRICTS ARE THERE YET,,
+      if (_districtsStages == null){
 
-      await _uploadDistrictsStages(
-        cityID: _cityID,
-        districtsStages: _output,
-      );
+        final List<DistrictModel> _districts = await ZoneProtocols.fetchDistrictsOfCity(
+          cityID: _cityID,
+        );
+
+        if (Mapper.checkCanLoopList(_districts) == true){
+
+          await Dialogs.errorDialog(
+            context: context,
+            titleVerse: Verse.plain('Something is seriously going wrong here'),
+            bodyVerse: Verse.plain('District stages have not been updated,,, take FUCKING care !'),
+          );
+
+        }
+        else {
+
+          _districtsStages = ZoneStages.emptyStages();
+
+        }
+
+      }
+
+      if (_districtsStages != null){
+
+        // _districtsStages.blogStages();
+
+        _output = ZoneStages.insertIDToZoneStages(
+          zoneStages: _districtsStages,
+          id: districtID,
+          newType: newType,
+        );
+
+        // _output.blogStages();
+
+        await _uploadDistrictsStages(
+          cityID: _cityID,
+          districtsStages: _output,
+        );
+
+      }
 
     }
 
     return _output;
   }
-
   // -----------------------------------------------------------------------------
 
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> removeDistrictFromStages({
     @required String districtID,
   }) async {
@@ -179,7 +215,5 @@ class DistrictsStagesRealOps {
     }
 
   }
-  // -----------------------------------------------------------------------------
-  void f(){}
   // -----------------------------------------------------------------------------
 }

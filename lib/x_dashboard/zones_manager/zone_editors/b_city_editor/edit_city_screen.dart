@@ -13,12 +13,16 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/city_editor_bubble.dart';
+import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/create_district_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/edit_district_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:flutter/material.dart';
@@ -234,8 +238,32 @@ class _EditCityScreenState extends State<EditCityScreen> {
     }
 
   }
+  // -----------------------------------------------------------------------------
 
+  /// ADD NEW DISTRICT
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onAddNewDistrict() async {
+
+    final String _districtNameEn = await KeyboardScreen.goToKeyboardScreen(
+      context: context,
+      screenTitleVerse: Verse.plain('Add New District en Name without countryID or city ID'),
+    );
+
+    if (TextCheck.isEmpty(_districtNameEn?.trim()) == false){
+
+      await Nav.goToNewScreen(
+        context: context,
+        screen: CreateDistrictScreen(
+          cityID: widget.zoneModel.cityID,
+          districtName: _districtNameEn,
+        ),
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -291,6 +319,21 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
 
               }
+          ),
+
+          /// ADD NEW DISTRICT
+          DreamBox(
+            height: 50,
+            width: _bubbleWidth,
+            icon: Iconz.plus,
+            iconSizeFactor: 0.6,
+            verse: const Verse(
+              text: 'Add new District',
+              translate: false,
+              casing: Casing.upperCase,
+            ),
+            verseItalic: true,
+            onTap: _onAddNewDistrict,
           ),
 
           const DotSeparator(),
