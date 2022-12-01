@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/super_tool_tip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class DataStrip extends StatelessWidget {
     this.isPercent = false,
     this.highlightText,
     this.tooTipVerse,
+    this.height = 50,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,9 +35,10 @@ class DataStrip extends StatelessWidget {
   final bool isPercent;
   final ValueNotifier<dynamic> highlightText;
   final Verse tooTipVerse;
+  final double height;
   /// --------------------------------------------------------------------------
   static const double verticalMargin = 2.5;
-  static const double height = 50;
+  // static const double height = 50;
   // -----------------------------------------------------------------------------
   static Future<void> onStripTap({
     @required BuildContext context,
@@ -91,47 +94,74 @@ class DataStrip extends StatelessWidget {
 
               SuperToolTip(
                 verse: tooTipVerse,
-                child: DreamBox(
+                child: Container(
                   height: height,
                   width: _rowWidth * 0.2,
-                  verse: Verse(
-                    text: dataKey,
-                    translate: false,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: Borderers.constantCornersAll10,
                   ),
-                  verseShadow: false,
-                  verseMaxLines: 2,
-                  verseScaleFactor: 0.6,
-                  bubble: false,
-                  color: color,
-                  verseWeight: VerseWeight.thin,
-                  onTap: onKeyTap ?? () => onStripTap(
-                    context: context,
-                    dataValue: dataValue,
+                  child: ClipRRect(
+                    borderRadius: Borderers.constantCornersAll10,
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: DreamBox(
+                        height: height,
+                        verse: Verse(
+                          text: dataKey,
+                          translate: false,
+                        ),
+                        verseShadow: false,
+                        verseScaleFactor: 0.6,
+                        bubble: false,
+                        color: color,
+                        verseWeight: VerseWeight.thin,
+                        verseHighlight: highlightText,
+                        onTap: onKeyTap ?? () => onStripTap(
+                          context: context,
+                          dataValue: dataValue,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
 
-              DreamBox(
+              Container(
                 height: height,
                 width: _rowWidth * 0.79,
-                verse: Verse(
-                  text: dataValue.toString(),
-                  translate: false,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: Borderers.constantCornersAll10,
                 ),
-                verseShadow: false,
-                verseMaxLines: 2,
-                verseScaleFactor: 0.6,
-                bubble: false,
-                color: color,
-                verseWeight: VerseWeight.thin,
-                verseCentered: false,
-                onTap: onValueTap ?? () => onStripTap(
-                  context: context,
-                  dataValue: dataValue,
+                child: ClipRRect(
+                  borderRadius: Borderers.constantCornersAll10,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child:  DreamBox(
+                      height: height,
+                      verse: Verse(
+                        text: dataValue.toString(),
+                        translate: false,
+                      ),
+                      verseShadow: false,
+                      verseMaxLines: 1,
+                      verseScaleFactor: 0.6,
+                      bubble: false,
+                      color: color,
+                      verseWeight: VerseWeight.thin,
+                      verseCentered: false,
+                      verseHighlight: highlightText,
+                      onTap: onValueTap ?? () => onStripTap(
+                        context: context,
+                        dataValue: dataValue,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-
-
 
             ],
           ),

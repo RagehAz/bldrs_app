@@ -1,20 +1,16 @@
 import 'dart:async';
-import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
-import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -189,13 +185,11 @@ class _CountriesScreenState extends State<CountriesScreen> {
       _foundCountries.value = <Phrase>[];
 
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
-       final List<Phrase> _byName = await _searchCountriesPhrasesByName(
-        context: context,
-        lingoCode: TextCheck.concludeEnglishOrArabicLang(val),
-        countryName: val,
+       final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
+        text: val,
       );
 
-       final List<Phrase> _byID = searchCountriesByISO3(
+       final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
          text: val,
        );
 
@@ -213,61 +207,6 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     }
 
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  List<Phrase> searchCountriesByISO3({
-    @required String text,
-  }){
-    final List<Phrase> _output = <Phrase>[];
-
-    final bool _textIsEng = TextCheck.textIsEnglish(text?.trim());
-
-    if (_textIsEng == true){
-
-      for (final Flag flag in allFlags){
-
-        if (text == flag.id){
-
-          final Phrase _phrase = Phrase.searchFirstPhraseByLang(
-              phrases: flag.phrases,
-              langCode: 'en',
-          );
-
-          _output.add(_phrase);
-
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<List<Phrase>> _searchCountriesPhrasesByName({
-    @required BuildContext context,
-    @required String countryName,
-    @required String lingoCode
-  }) async {
-
-    List<Phrase> _phrases = <Phrase>[];
-
-    final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
-      docName: LDBDoc.countriesPhrases,
-      lingCode: lingoCode,
-      searchValue: countryName,
-    );
-    if (Mapper.checkCanLoopList(_maps) == true){
-      _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
-    }
-
-    final List<Phrase> _cleaned = Phrase.cleanDuplicateIDs(
-      phrases: _phrases,
-    );
-
-    return _cleaned;
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
