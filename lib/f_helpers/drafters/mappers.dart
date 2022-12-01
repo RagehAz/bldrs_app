@@ -1176,10 +1176,14 @@ class Mapper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMaps(List<Map<dynamic, dynamic>> maps, {String invoker}) {
-    if (checkCanLoopList(maps)) {
+    if (checkCanLoopList(maps) == true) {
       for (final Map<dynamic, dynamic> map in maps) {
         blogMap(map, invoker: invoker);
       }
+    }
+
+    else {
+      blog('No maps to blog ( $invoker )');
     }
   }
   // --------------------

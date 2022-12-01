@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
@@ -12,18 +11,79 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class ZoneSearchOps {
   // -----------------------------------------------------------------------------
 
   const ZoneSearchOps();
 
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+  // -----------------------------------------------------------------------------
+
+  /// COSMIC SEARCH
+
+  // --------------------
+  /// I GUESS NO NEED FOR THIS GODZILLA
+  static Future<List<Phrase>> searchTheCosmos({
+    @required String text,
+  }) async {
+
+    final List<Phrase> _countriesByIDs = ZoneProtocols.searchCountriesByIDFromAllFlags(
+      text: text,
+    );
+
+    List<Phrase> _countriesByName;
+    List<Phrase> _citiesByID;
+    List<Phrase> _citiesByName;
+    List<Phrase> _districtsByID;
+    List<Phrase> _districtsByName;
+
+    await Future.wait(<Future>[
+
+      /// COUNTRIES BY NAME
+      ZoneProtocols.searchCountriesByNameFromLDBFlags(
+        text: text,
+      ).then((value) => _countriesByName = value),
+
+      /// CITIES BY ID
+      ZoneProtocols.searchCitiesOfPlanetByIDFromFire(
+        text: text,
+      ).then((value) => _citiesByID = value),
+
+      /// CITIES BY NAME
+      ZoneProtocols.searchCitiesOfPlanetByNameFromFire(
+        text: text,
+      ).then((value) => _citiesByName = value),
+
+      /// DISTRICTS BY ID
+      ZoneProtocols.searchDistrictsOfPlanetByIDFromFire(
+        text: text,
+      ).then((value) => _districtsByID = value),
+
+      /// DISTRICTS BY NAME
+      ZoneProtocols.searchDistrictOfPlanetByNameFromFire(
+        text: text,
+      ).then((value) => _districtsByName = value),
+
+    ]);
+
+    return <Phrase>[
+      ...?_countriesByIDs,
+      ...?_countriesByName,
+      ...?_citiesByID,
+      ...?_citiesByName,
+      ...?_districtsByID,
+      ...?_districtsByName,
+    ];
+  }
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
   /// COUNTRIES OF PLANET
@@ -72,7 +132,7 @@ class ZoneSearchOps {
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
-      _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
+      _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps,);
     }
 
     final List<Phrase> _cleaned = Phrase.cleanDuplicateIDs(
@@ -81,6 +141,8 @@ class ZoneSearchOps {
 
     return _cleaned;
   }
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
   /// CITIES OF PLANET
@@ -107,7 +169,7 @@ class ZoneSearchOps {
       addDocSnapshotToEachMap: true,
     );
 
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
@@ -133,7 +195,7 @@ class ZoneSearchOps {
       addDocSnapshotToEachMap: true,
     );
 
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
@@ -165,7 +227,7 @@ class ZoneSearchOps {
       addDocSnapshotToEachMap: true,
     );
 
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
@@ -193,7 +255,7 @@ class ZoneSearchOps {
       addDocSnapshotToEachMap: true,
     );
 
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
@@ -278,65 +340,11 @@ class ZoneSearchOps {
   }
   // -----------------------------------------------------------------------------
 
-  /// DISTRICTS OF PLANET
+  /// CITY SEARCH FETCH
 
   // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchDistrictsOfPlanetByIDFromFire({
-    @required String districtID,
-  }) async {
-    return null;
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchDistrictOfPlanetByNameFromFire({
-    @required String text,
-  }) async {
-    return null;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// DISTRICTS OF COUNTRY
-
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchDistrictsOfCountryByIDFromFire({
-    @required String text,
-  }) async {
-    return null;
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchDistrictsOfCountryByNameFromFire({
-    @required String text,
-  }) async {
-    return null;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// DISTRICTS OF CITY
-
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchDistrictsOfCityByIDFromFire({
-    @required String text,
-  }) async {
-    return null;
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchDistrictsOfCityByNameFromFire({
-    @required String text,
-  }) async {
-    return null;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// OLD AND DEPRECATED : TASK : DELETE WHEN TAMAM
-
-  // --------------------
-  /// DEPRECATED
-  static Future<CityModel> fetchCityByName({
+  /// TESTED : WORKS PERFECT
+  static Future<CityModel> searchFetchCityByName({
     @required BuildContext context,
     @required String cityName,
     @required String langCode,
@@ -350,7 +358,7 @@ class ZoneSearchOps {
       /// A - trial 1 : search by generated cityID
       if (countryID != null){
 
-        final String _cityID = CityModel.oldCreateCityID(
+        final String _cityID = CityModel.createCityID(
           countryID: countryID,
           cityEnName: cityName,
         );
@@ -364,7 +372,7 @@ class ZoneSearchOps {
       /// B - when trial 1 fails
       if (_city == null){
 
-        List<CityModel> _foundCities = await ZoneSearchOps.searchLDBCitiesByName(
+        List<CityModel> _foundCities = await _searchLDBCitiesByName(
           cityName: cityName,
           langCode: langCode,
         );
@@ -374,7 +382,7 @@ class ZoneSearchOps {
 
           /// C-1 - trial 3 if countryID is not available
           if (countryID == null){
-            _foundCities = await oldFireSearchCitiesByCityName(
+            _foundCities = await _fetchCitiesByCityName(
               cityName: cityName,
               lingoCode: langCode,
             );
@@ -382,7 +390,7 @@ class ZoneSearchOps {
 
           /// C-1 - trial 3 if countryID is available
           else {
-            _foundCities = await oldSearchCitiesByCityNameAndCountryID(
+            _foundCities = await _fetchCitiesOfCountryByCityName(
               cityName: cityName,
               countryID: countryID,
               lingoCode: langCode,
@@ -428,129 +436,68 @@ class ZoneSearchOps {
 
     return _city;
   }
-  // -----------------------------------------------------------------------------
-
-  /// OLD FIRE SEARCH : TASK : DELETE WHEN TAMAM
-
   // --------------------
-    /// DEPRECATED
-  /*
-  Future<List<CountryModel>> countriesModelsByCountryNameX({
-    @required String countryName,
-    @required String lingoCode
-  }) async {
-
-    List<CountryModel> _countries = <CountryModel>[];
-
-    if (countryName != null && countryName.isNotEmpty) {
-
-      final List<Map<String, dynamic>> _result = await Search.subCollectionMapsByFieldValue(
-        collName: FireColl.zones,
-        docName: FireDoc.zones_countries,
-        subCollName: FireSubColl.zones_countries_countries,
-        field: 'phrases.$lingoCode.trigram',
-        compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
-          input: TextMod.fixCountryName(countryName),
-          numberOfChars: Standards.maxTrigramLength,
-        ),
-        valueIs: FireComparison.arrayContains,
-      );
-
-      if (Mapper.checkCanLoopList(_result)) {
-        _countries = CountryModel.decipherCountriesMaps(
-          maps: _result,
-        );
-      }
-
-    }
-
-    return _countries;
-  }
-   */
-  // --------------------
-  /// DEPRECATED
-  static Future<List<CityModel>> oldFireSearchCitiesByCityName({
+  /// TESTED : WORKS PERFECT
+  static Future<List<CityModel>> _fetchCitiesByCityName({
     @required String cityName,
     @required String lingoCode,
   }) async {
 
-    final List<CityModel> _cities = <CityModel>[];
+    List<CityModel> _cities = <CityModel>[];
 
-    // if (cityName != null && cityName.isNotEmpty) {
-    //
-    //   final List<Map<String, dynamic>> _result = await Search.subCollectionMapsByFieldValue(
-    //     collName: FireColl.zones,
-    //     docName: FireDoc.zones_cities,
-    //     subCollName: FireSubColl.zones_cities_cities,
-    //     field: 'names.$lingoCode.trigram',
-    //     compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
-    //       input: TextMod.fixCountryName(cityName),
-    //       numberOfChars: Standards.maxTrigramLength,
-    //     ),
-    //     valueIs: FireComparison.arrayContains,
-    //   );
-    //
-    //   if (Mapper.checkCanLoopList(_result) == true) {
-    //     _cities = CityModel.decipherCitiesMaps(
-    //       maps: _result,
-    //       fromJSON: false,
-    //
-    //     );
-    //   }
-    // }
+    if (cityName != null && cityName.isNotEmpty) {
+
+      final List<Phrase> _phrases = await searchCitiesOfPlanetByNameFromFire(
+        text: cityName,
+        // limit: 10,
+      );
+
+      if (Mapper.checkCanLoopList(_phrases) == true) {
+
+        final List<String> _citiesIDs = Phrase.getPhrasesIDs(_phrases);
+
+        _cities = await ZoneProtocols.fetchCities(
+          citiesIDs: _citiesIDs,
+        );
+
+      }
+    }
 
     return _cities;
   }
-// --------------------
-  /// DEPRECATED
-  static Future<List<CityModel>> oldSearchCitiesByCityNameAndCountryID({
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<CityModel>> _fetchCitiesOfCountryByCityName({
     @required String cityName,
     @required String countryID,
     @required String lingoCode,
   }) async {
+    List<CityModel> _cities = <CityModel>[];
 
-    final List<CityModel> _cities = <CityModel>[];
+    if (cityName != null && cityName.isNotEmpty) {
 
-    await tryAndCatch(
-        invoker: 'mapsByTwoValuesEqualTo',
-        functions: () async {
+      final List<Phrase> _phrases = await searchCitiesOfCountryByNameFromFire(
+        text: cityName,
+        countryID: countryID,
+        // limit: 10,
+      );
 
-          // final CollectionReference<Object> _collRef = Fire.getSubCollectionRef(
-          //   collName: FireColl.zones,
-          //   docName: FireDoc.zones_cities,
-          //   subCollName: FireSubColl.zones_cities_cities,
-          // );
-          //
-          // final String _searchValue =
-          // TextMod.removeAllCharactersAfterNumberOfCharacters(
-          //   input: TextMod.fixCountryName(cityName),
-          //   numberOfChars: Standards.maxTrigramLength,
-          // );
-          //
-          // final QuerySnapshot<Object> _collectionSnapshot = await _collRef
-          //     .where('countryID', isEqualTo: countryID)
-          //     .where('names.$lingoCode.trigram', arrayContains: _searchValue)
-          //     .get();
-          //
-          // final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
-          //   querySnapshot: _collectionSnapshot,
-          //   addDocsIDs: false,
-          //   addDocSnapshotToEachMap: false,
-          // );
-          //
-          // _cities = CityModel.decipherCitiesMaps(maps: _maps, fromJSON: false);
+      if (Mapper.checkCanLoopList(_phrases) == true) {
 
-        });
+        final List<String> _citiesIDs = Phrase.getPhrasesIDs(_phrases);
+
+        _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
+          citiesIDsOfThisCountry: _citiesIDs,
+        );
+
+      }
+    }
 
     return _cities;
   }
-  // -----------------------------------------------------------------------------
-
-  /// OLD LDB SEARCH
-
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<CityModel>> searchLDBCitiesByName({
+  /// TESTED : WORKS PERFECT
+  static Future<List<CityModel>> _searchLDBCitiesByName({
     @required String cityName,
     @required String langCode,
   }) async {
@@ -558,18 +505,202 @@ class ZoneSearchOps {
     final List<Map<String, dynamic>> _foundMaps = await LDBOps.searchLDBDocTrigram(
       searchValue: cityName,
       docName: LDBDoc.cities,
-      lingoCode: langCode,
+      langCode: langCode,
     );
 
     final List<CityModel> _foundCities = CityModel.decipherCities(
       maps: _foundMaps,
-
       fromJSON: true,
+      fromLDB: true,
     );
 
     return _foundCities;
   }
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF PLANET
+
   // --------------------
-  void f(){}
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchDistrictsOfPlanetByIDFromFire({
+    @required String text,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchDistrictOfPlanetByNameFromFire({
+    @required String text,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF COUNTRY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT : NO NEED REALLY
+  static Future<List<Phrase>> searchDistrictsOfCountryByIDFromFire({
+    @required String text,
+    @required String countryID,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
+          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchDistrictsOfCountryByNameFromFire({
+    @required String text,
+    @required String countryID,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
+          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF CITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT : NO NEED REALLY
+  static Future<List<Phrase>> searchDistrictsOfCityByIDFromFire({
+    @required String text,
+    @required String cityID,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: _countryID),
+          FireFinder(field: 'cityID', comparison: FireComparison.equalTo, value: cityID),
+          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchDistrictsOfCityByNameFromFire({
+    @required String text,
+    @required String cityID,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: _countryID),
+          FireFinder(field: 'cityID', comparison: FireComparison.equalTo, value: cityID),
+          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
+  }
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 }

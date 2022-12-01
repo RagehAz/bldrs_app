@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -9,7 +10,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
 
 class ZoneSearchingTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -105,6 +105,21 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
     // final List<Map<String, dynamic>> _citiesOfCountryByID = await _searchCountryCitiesByIDFromFire(text);
     // final List<Map<String, dynamic>> _citiesOfCountryByName = await _searchCountryCitiesByNameFromFire(text);
 
+    /// DISTRICTS OF PLANET
+    // final List<Map<String, dynamic>> _districtsOfPlanetByID = await _searchDistrictsOfPlanetByIDFromFire(text);
+    // final List<Map<String, dynamic>> _districtsOfPlanetByName = await _searchDistrictOfPlanetByNameFromFire(text);
+    /// DISTRICTS OF COUNTRY
+    // final List<Map<String, dynamic>> _districtsOfCountryByID = await _searchDistrictsOfCountryByIDFromFire(text);
+    // final List<Map<String, dynamic>> _districtsOfCountryByName = await _searchDistrictsOfCountryByNameFromFire(text);
+    /// DISTRICTS OF CITY
+    // final List<Map<String, dynamic>> _districtsOfCityByID = await _searchDistrictsOfCityByIDFromFire(text);
+    // final List<Map<String, dynamic>> _districtsOfCityByName = await _searchDistrictsOfCityByNameFromFire(text);
+
+    // final List<CityModel> _cities = await ZoneSearchOps.searchLDBCitiesByName(
+    //   cityName: text,
+    //   langCode: 'en',
+    // );
+
     final List<Map<String, dynamic>> _found = [
       /// COUNTRIES
       // ...?_countriesByID,
@@ -115,12 +130,18 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       /// CITIES OF COUNTRY
       // ...?_citiesOfCountryByID,
       // ...?_citiesOfCountryByName,
+
       /// DISTRICTS OF PLANET
-
+      //  ...?_districtsOfPlanetByID,
+      //  ...?_districtsOfPlanetByName,
       /// DISTRICTS OF COUNTRY
-
+      // ...?_districtsOfCountryByID,
+      // ...?_districtsOfCountryByName,
       /// DISTRICTS OF CITY
+      // ...?_districtsOfCityByID,
+      // ...?_districtsOfCityByName,
 
+      // ...?CityModel.cipherCities(cities: _cities, toJSON: true, toLDB: true),
     ];
 
     setState(() {
@@ -130,7 +151,79 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
     await _triggerLoading(setTo: false);
 
   }
+  // -----------------------------------------------------------------------------
 
+  /// DISTRICTS OF CITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchDistrictsOfCityByIDFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchDistrictsOfCityByIDFromFire(
+      text: text,
+      cityID: 'egy+alexandria',
+    );
+
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
+  }
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchDistrictsOfCityByNameFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchDistrictsOfCityByNameFromFire(
+      text: text,
+      cityID: 'egy+alexandria',
+    );
+
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF COUNTRY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchDistrictsOfCountryByIDFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchDistrictsOfCountryByIDFromFire(
+      text: text,
+      countryID: 'egy',
+    );
+
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
+  }
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchDistrictsOfCountryByNameFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchDistrictsOfCountryByNameFromFire(
+      text: text,
+      countryID: 'egy',
+    );
+
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF PLANET
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchDistrictsOfPlanetByIDFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchDistrictsOfPlanetByIDFromFire(
+      text: text,
+    );
+
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
+  }
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchDistrictOfPlanetByNameFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchDistrictOfPlanetByNameFromFire(
+      text: text,
+    );
+
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
+  }
   // -----------------------------------------------------------------------------
 
   /// CITIES OF PLANET
@@ -144,9 +237,8 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       countryID: 'egy',
     );
 
-    return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
   }
-  // --------------------
   /// TESTED : WORKS PERFECT
   Future<List<Map<String, dynamic>>> _searchCountryCitiesByIDFromFire(String text) async {
 
@@ -155,7 +247,7 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       countryID: 'egy',
     );
 
-    return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
   }
   // -----------------------------------------------------------------------------
 
@@ -169,9 +261,8 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       text: text,
     );
 
-    return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
   }
-  // --------------------
   /// TESTED : WORKS PERFECT
   Future<List<Map<String, dynamic>>> _searchCitiesOfPlanetByIDFromFire(String text) async {
 
@@ -179,7 +270,7 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       text: text,
     );
 
-    return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
   }
   // -----------------------------------------------------------------------------
 
@@ -193,10 +284,9 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       text: text,
     );
 
-    return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
+    return Phrase.cipherMixedLangPhrasesToMaps(phrases: _phrases,);
 
   }
-  // --------------------
   /// TESTED : WORKS PERFECT
   Future<List<Map<String, dynamic>>> _searchCountriesByIDFromAllFlags(String text) async {
 
@@ -204,7 +294,7 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       text: text,
     );
 
-    return Phrase.cipherMixedLangPhrases(
+    return Phrase.cipherMixedLangPhrasesToMaps(
       phrases: _phrases,
       // includeTrigrams: true,
     );

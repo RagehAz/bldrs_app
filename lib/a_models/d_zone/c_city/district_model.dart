@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -320,7 +321,7 @@ class DistrictModel{
   /// PHRASES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : DEPRECATED : SHOULD DELETE THIS AND ALL ITS CONSEQUENCES
   static String getTranslatedDistrictNameFromCity({
     @required BuildContext context,
     @required CityModel city,
@@ -350,19 +351,18 @@ class DistrictModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getTranslatedDistrictNameFromDistrict({
+  static String translateDistirct({
     @required BuildContext context,
     @required DistrictModel district,
+    String langCode,
   }){
 
-    final Phrase _districtName = Phrase.searchFirstPhraseByCurrentLang(
-      context: context,
+    final Phrase _districtName = Phrase.searchFirstPhraseByLang(
+      langCode: langCode ?? Localizer.getCurrentLangCode(context),
       phrases: district?.phrases,
     );
 
-    final String _nameString = _districtName?.value;
-
-    return _nameString;
+    return _districtName?.value;
 
   }
   // --------------------
@@ -535,12 +535,12 @@ class DistrictModel{
 
       _output.sort((DistrictModel a, DistrictModel b){
 
-        final String _nameA = DistrictModel.getTranslatedDistrictNameFromDistrict(
+        final String _nameA = DistrictModel.translateDistirct(
           context: context,
           district: a,
         );
 
-        final String _nameB = DistrictModel.getTranslatedDistrictNameFromDistrict(
+        final String _nameB = DistrictModel.translateDistirct(
           context: context,
           district: b,
         );

@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/ip/zone_ip_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -207,7 +206,9 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
   /// USER ZONE IS NOT DEFINED
   else {
 
-    final ZoneModel _zoneByIP = await ZoneIPOps.getZoneByIP(context);
+    final ZoneModel _zoneByIP = await ZoneProtocols.getZoneByIP(
+      context: context,
+    );
 
     await zoneProvider.fetchSetCurrentCompleteZone(
       context: context,
