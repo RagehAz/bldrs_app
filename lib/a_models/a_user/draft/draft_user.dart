@@ -384,7 +384,7 @@ class DraftUser {
       'device': device?.toMap(),
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
-      'followedBzzIDs': followedBzz ?? <String>[],
+      'followedBzzIDs': followedBzz?.toMap(),
       'appState' : appState.toMap(),
       'hasNewPic' : hasNewPic,
     };
