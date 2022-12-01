@@ -65,8 +65,8 @@ class Rest {
     @required BuildContext context,
     @required String rawLink,
     @required bool showErrorDialog,
+    @required String invoker,
     Map<String, String> headers,
-    String invoker = '',
     int timeoutSeconds = 10,
   }) async {
 

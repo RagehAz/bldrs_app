@@ -261,7 +261,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     _zoneWithCity?.blogZone(invoker: '_onCityTap zone with city');
 
     /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
-    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages.getIDsByStage(null)) == true;
+    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByStage(null)) == true;
 
     /// IF SELECTING COUNTY AND CITY ONLY
     if (widget.selectCountryAndCityOnly == true || _cityHasDistricts == false){

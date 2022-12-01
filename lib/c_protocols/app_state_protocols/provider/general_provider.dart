@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/real/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
@@ -10,8 +11,6 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
@@ -46,17 +45,12 @@ class GeneralProvider extends ChangeNotifier {
 
     else {
 
-      final Map<String, dynamic> _appStateMap = await Fire.readDoc(
-        collName: FireColl.admin,
-        docName: FireDoc.admin_appState,
-      );
-
-      _appState = AppState.fromMap(_appStateMap);
+      _appState = await AppStateRealOps.readGlobalAppState();
 
       if (_appState != null){
         await LDBOps.insertMap(
           docName: LDBDoc.appState,
-          input: _appStateMap,
+          input: _appState.toMap(),
         );
       }
 
@@ -92,7 +86,7 @@ class GeneralProvider extends ChangeNotifier {
     }
 
     else {
-      _model = await AppControlsFireOps.readAppControls();
+      _model = await AppControlsRealOps.readAppControls();
 
       if (_model != null){
         await LDBOps.insertMap(

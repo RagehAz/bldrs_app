@@ -6,12 +6,14 @@ import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/fire/app_state_fire_ops.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/real/app_state_real_ops.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/versioning/app_version.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -206,14 +208,14 @@ Future<void> _initializeAppState(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true){
 
-    final AppState _globalState = await AppStateFireOps.readGlobalAppState();
+    final AppState _globalState = await AppStateRealOps.readGlobalAppState();
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final AppState _userState = _usersProvider?.myUserModel?.appState;
 
     if (_userState != null && _globalState != null){
 
-      final String _detectedAppVersion = await AppStateFireOps.getAppVersion();
-      final bool _userAppNeedUpdate = AppStateFireOps.appVersionNeedUpdate(
+      final String _detectedAppVersion = await AppVersion.getAppVersion();
+      final bool _userAppNeedUpdate = AppVersion.appVersionNeedUpdate(
           globalVersion: _globalState.appVersion,
           userVersion: _detectedAppVersion
       );
@@ -282,7 +284,7 @@ Future<void> _initializeAppState(BuildContext context) async {
         );
 
         if (_appStateNeedUpdate == true){
-          await AppStateFireOps.updateUserAppState(
+          await UserFireOps.updateUserAppState(
             userID: _usersProvider.myUserModel.id,
             newAppState: _userAppState,
           );
