@@ -69,7 +69,7 @@ ZoneModel getZoneModel({
     countryID: countryID,
   );
 
-  final String _cityName = CityModel.getTranslatedCityNameFromCity(
+  final String _cityName = CityModel.translateCity(
     context: context,
     city: cityModel,
   );

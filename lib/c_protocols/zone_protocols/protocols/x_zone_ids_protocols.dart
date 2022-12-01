@@ -25,7 +25,7 @@ class ZoneIDsProtocols {
   /// FETCH
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel> fetchZoneModelByGeoPoint({
     @required BuildContext context,
     @required GeoPoint geoPoint
@@ -93,7 +93,9 @@ class ZoneIDsProtocols {
             );
           }
 
-          _foundCity = _foundCities?.first;
+          if (Mapper.checkCanLoopList(_foundCities) == true){
+            _foundCity = _foundCities.first;
+          }
 
         }
 
@@ -113,7 +115,7 @@ class ZoneIDsProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : DIRSTRICT NAME NEED TO BE FIXED,,, AND NO DISTRICTS ARE IN CITY MODEL ANYMORE
   static Future<ZoneModel> completeZoneModel({
     @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
@@ -151,10 +153,11 @@ class ZoneIDsProtocols {
       if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
         // superPhrase(context, _zone.countryID);
-        final String _countryName = Flag.getCountryNameByCurrentLang(
+        final String _countryName = ZoneProtocols.translateCountry(
           context: context,
           countryID: incompleteZoneModel.countryID,
-        );
+        )?.text;
+
         _output = _output.copyWith(
           countryName: _countryName,
         );
@@ -164,16 +167,17 @@ class ZoneIDsProtocols {
       if (TextCheck.isEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
 
         // superPhrase(context, _zone.cityID);
-        final String _cityName = CityModel.getTranslatedCityNameFromCity(
+        final String _cityName = ZoneProtocols.translateCity(
           context: context,
-          city: _output.cityModel,
-        );
+          cityModel: _output.cityModel,
+        )?.text;
+
         _output = _output.copyWith(
           cityName: _cityName,
         );
       }
 
-      /// DISTRICT NAME
+      /// TASK : DISTRICT NAME DOES NOT WORK LIKE THIS
       if (TextCheck.isEmpty(incompleteZoneModel.districtName) == true || incompleteZoneModel.districtName == '...'){
         final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
           context: context,

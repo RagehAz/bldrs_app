@@ -194,7 +194,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final String _cityName = CityModel.getTranslatedCityNameFromCity(
+    final String _cityName = CityModel.translateCity(
       context: context,
       city: widget.city,
     );

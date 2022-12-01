@@ -18,7 +18,7 @@ class WideDistrictButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _districtNameValue = DistrictModel.getTranslatedDistrictNameFromDistrict(
+    final String _districtNameValue = DistrictModel.translateDistirct(
         context: context,
         district: district,
     );

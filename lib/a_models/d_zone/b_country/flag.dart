@@ -366,7 +366,7 @@ class Flag {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getCountryName({
+  static String translateCountry({
     @required String countryID,
     @required String langCode,
   }){
@@ -385,7 +385,7 @@ class Flag {
     @required String countryID,
   }){
 
-    return Flag.getCountryName(
+    return Flag.translateCountry(
       langCode: Localizer.getCurrentLangCode(context),
       countryID: countryID,
     );

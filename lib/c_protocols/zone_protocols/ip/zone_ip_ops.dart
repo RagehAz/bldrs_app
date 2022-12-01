@@ -27,7 +27,10 @@ class ZoneIPOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> getZoneByIP(BuildContext context) async {
+  static Future<ZoneModel> getZoneByIP({
+    @required BuildContext context
+  }) async {
+
     /// trial 1
     ZoneModel _zone = await _getZoneByIP_ipApi(context: context);
 
@@ -61,7 +64,7 @@ class ZoneIPOps {
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> _getZoneByIP_ipApi({
     @required BuildContext context
-  }) async {
+  }) async  {
 
     /// NOTE : this is limited and needs paid subscription
 
@@ -74,7 +77,6 @@ class ZoneIPOps {
         invoker: 'get Country by IP',
         functions: () async {
 
-          // final http.Response _response = await http.get(_uri);
           final Response _response = await Rest.get(
             context: context,
             rawLink: _url,
@@ -110,7 +112,7 @@ class ZoneIPOps {
                       langCode: 'en',
                     );
 
-                    _cityID = CityModel.oldCreateCityID(
+                    _cityID = CityModel.createCityID(
                         countryID: _country?.id,
                         cityEnName: _cityName
                     );

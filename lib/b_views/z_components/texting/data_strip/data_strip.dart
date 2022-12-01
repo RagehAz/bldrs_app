@@ -147,7 +147,6 @@ class DataStrip extends StatelessWidget {
                         translate: false,
                       ),
                       verseShadow: false,
-                      verseMaxLines: 1,
                       verseScaleFactor: 0.6,
                       bubble: false,
                       color: color,

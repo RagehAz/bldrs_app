@@ -18,7 +18,7 @@ class WideCityButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _cityNameValue = CityModel.getTranslatedCityNameFromCity(
+    final String _cityNameValue = CityModel.translateCity(
         context: context,
         city: city,
     );
