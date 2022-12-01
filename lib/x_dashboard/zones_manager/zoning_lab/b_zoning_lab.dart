@@ -1145,35 +1145,35 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Create initial Districts'),
                 onTap: () async {
 
-                  const String _countryID = 'sau';
-
-                  final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
-                    countryID: _countryID,
-                  );
-
-                  for (final CityModel cityModel in _cities){
-
-                    final List<DistrictModel> _districts = cityModel.districts;
-
-                    for (final DistrictModel district in _districts){
-
-                      blog('${cityModel.cityID} : ${district.id}');
-
-                      final String _districtID = district.id;
-
-                      await Real.createDocInPath(
-                          pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/${cityModel.cityID}',
-                          docName: _districtID,
-                          addDocIDToOutput: false,
-                          map: district.toMap(
-                              toJSON: true,
-                              toLDB: false,
-                          ),
-                      );
-
-                    }
-
-                  }
+                  // const String _countryID = 'sau';
+                  //
+                  // final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
+                  //   countryID: _countryID,
+                  // );
+                  //
+                  // for (final CityModel cityModel in _cities){
+                  //
+                  //   final List<DistrictModel> _districts = cityModel.districts;
+                  //
+                  //   for (final DistrictModel district in _districts){
+                  //
+                  //     blog('${cityModel.cityID} : ${district.id}');
+                  //
+                  //     final String _districtID = district.id;
+                  //
+                  //     await Real.createDocInPath(
+                  //         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districts}/$_countryID/${cityModel.cityID}',
+                  //         docName: _districtID,
+                  //         addDocIDToOutput: false,
+                  //         map: district.toMap(
+                  //             toJSON: true,
+                  //             toLDB: false,
+                  //         ),
+                  //     );
+                  //
+                  //   }
+                  //
+                  // }
 
                 },
               ),

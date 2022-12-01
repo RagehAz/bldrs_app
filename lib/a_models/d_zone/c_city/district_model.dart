@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -321,7 +320,8 @@ class DistrictModel{
   /// PHRASES
 
   // --------------------
-  /// TASK : DEPRECATED : SHOULD DELETE THIS AND ALL ITS CONSEQUENCES
+  /// TASK : DEPRECATED : SHOULD DELETE THIS AND ALL ITS CONSEQUENCEs
+  /*
   static String getTranslatedDistrictNameFromCity({
     @required BuildContext context,
     @required CityModel city,
@@ -349,6 +349,7 @@ class DistrictModel{
 
     return _districtName;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static String translateDistirct({

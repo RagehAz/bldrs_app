@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -14,14 +13,14 @@ class CityModel {
   /// --------------------------------------------------------------------------
   const CityModel({
     this.cityID,
-    this.districts,
+    // this.districts,
     this.population,
     this.position,
     this.phrases,
   });
   /// --------------------------------------------------------------------------
   final String cityID;
-  final List<DistrictModel> districts;
+  // final List<DistrictModel> districts;
   final int population;
   final GeoPoint position;
   final List<Phrase> phrases;
@@ -33,14 +32,14 @@ class CityModel {
   /// TESTED : WORKS PERFECT
   CityModel copyWith({
     String cityID,
-    List<DistrictModel> districts,
+    // List<DistrictModel> districts,
     int population,
     GeoPoint position,
     List<Phrase> phrases,
   }) {
     return CityModel(
       cityID: cityID ?? this.cityID,
-      districts: districts ?? this.districts,
+      // districts: districts ?? this.districts,
       population: population ?? this.population,
       position: position ?? this.position,
       phrases: phrases ?? this.phrases,
@@ -148,7 +147,7 @@ class CityModel {
 
       _city = CityModel(
         cityID: cityID,
-        districts: DistrictModel.oldDecipherDistrictsOneMap(map['districts']),
+        // districts: DistrictModel.oldDecipherDistrictsOneMap(map['districts']),
         population: map['population'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON,),
         phrases: _phrases,
@@ -358,7 +357,7 @@ class CityModel {
     blog('population : $population');
     blog('position : $position');
     Phrase.blogPhrases(phrases);
-    DistrictModel.blogDistricts(districts);
+    // DistrictModel.blogDistricts(districts);
 
     blog('CITY - PRINT --------------------------------------- END');
   }
@@ -566,7 +565,7 @@ class CityModel {
 
         if (
             city1.cityID == city2.cityID &&
-            DistrictModel.checkDistrictsListsAreIdentical(city1.districts, city2.districts) == true &&
+            // DistrictModel.checkDistrictsListsAreIdentical(city1.districts, city2.districts) == true &&
             city1.population == city2.population &&
             Atlas.checkPointsAreIdentical(point1: city1.position, point2: city2.position) == true &&
             Phrase.checkPhrasesListsAreIdentical(phrases1: city1.phrases, phrases2: city2.phrases) == true
@@ -611,7 +610,7 @@ class CityModel {
   @override
   int get hashCode =>
       cityID.hashCode^
-      districts.hashCode^
+      // districts.hashCode^
       population.hashCode^
       position.hashCode^
       phrases.hashCode;

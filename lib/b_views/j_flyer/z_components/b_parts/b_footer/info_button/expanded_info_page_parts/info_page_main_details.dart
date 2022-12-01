@@ -113,7 +113,7 @@ class InfoPageMainDetails extends StatelessWidget {
                 context: context,
                 zone: _zone,
               )),
-              icon: _zone?.flag ?? Iconz.target,
+              icon: _zone?.icon ?? Iconz.target,
             );
 
           },
