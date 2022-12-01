@@ -1,12 +1,12 @@
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/x_dashboard/app_controls/xx_app_controls_model.dart';
 import 'package:flutter/cupertino.dart';
 
-class AppControlsFireOps{
+class AppControlsRealOps{
   // -----------------------------------------------------------------------------
 
-  const AppControlsFireOps();
+  const AppControlsRealOps();
 
   // -----------------------------------------------------------------------------
 
@@ -19,11 +19,12 @@ class AppControlsFireOps{
   /// READ
 
   // --------------------
+  /// TASK : TEST ME
   static Future<AppControlsModel> readAppControls() async {
 
-    final Map<String, dynamic> _map = await Fire.readDoc(
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appControls,
+    final Map<String, dynamic> _map = await Real.readDoc(
+      collName: RealColl.app,
+      docName: RealDoc.app_appControls,
     );
 
     final AppControlsModel _model = AppControlsModel.decipherAppControlsModel(_map);
@@ -35,14 +36,15 @@ class AppControlsFireOps{
   /// UPDATE
 
   // --------------------
+  /// TASK : TEST ME
   static Future<void> updateAppControls({
     @required AppControlsModel newAppControlsModel,
   }) async {
 
-    await Fire.updateDoc(
-      collName: FireColl.admin,
-      docName: FireDoc.admin_appControls,
-      input: newAppControlsModel.toMap(),
+    await Real.updateDoc(
+      collName: RealColl.app,
+      docName: RealDoc.app_appControls,
+      map: newAppControlsModel.toMap(),
     );
 
   }
@@ -51,4 +53,6 @@ class AppControlsFireOps{
   /// DELETE
 
   // --------------------
+
+  // -----------------------------------------------------------------------------
 }

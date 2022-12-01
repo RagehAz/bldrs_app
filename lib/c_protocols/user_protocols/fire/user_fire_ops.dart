@@ -10,6 +10,8 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:flutter/material.dart';
 
 class UserFireOps {
   // -----------------------------------------------------------------------------
@@ -152,6 +154,25 @@ class UserFireOps {
 
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE USER APP STATE
+
+  // --------------------
+  /// TESTED : WORKS PERFECTLY
+  static Future<void> updateUserAppState({
+    @required AppState newAppState,
+    @required String userID
+  }) async {
+
+    await Fire.updateDocField(
+      collName: FireColl.users,
+      docName: userID,
+      field: 'appState',
+      input: newAppState.toMap(),
+    );
+
   }
   // -----------------------------------------------------------------------------
 

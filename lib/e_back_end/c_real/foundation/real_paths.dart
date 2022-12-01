@@ -261,6 +261,9 @@ class RealColl {
   // --------------------
   static const String zones = 'zones';
   // -----------------------------------------------------------------------------
+  /// APP
+  // --------------------
+  static const String app = 'app';
 }
 
 class RealDoc {
@@ -268,6 +271,11 @@ class RealDoc {
 
   const RealDoc();
 
+  // -----------------------------------------------------------------------------
+  /// APP STATE
+  // --------------------
+  static const String app_globalAppState = 'globalAppState';
+  static const String app_appControls = 'appControls';
   // -----------------------------------------------------------------------------
   /// PICKERS
   // --------------------

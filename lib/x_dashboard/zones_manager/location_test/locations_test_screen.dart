@@ -90,7 +90,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _getCurrentUserLocation() async {
 
     unawaited(_triggerLoading(setTo: true));
@@ -123,7 +123,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     unawaited(_triggerLoading(setTo: false));
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _getPositionFromMap() async {
 
     unawaited(_triggerLoading(setTo: true));
@@ -146,7 +146,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     unawaited(_triggerLoading(setTo: false));
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _getCountryData({
     @required GeoPoint geoPoint
   }) async {
@@ -216,7 +216,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onSearchZoneByIP() async {
 
     final ZoneModel _zone = await ZoneProtocols.getZoneByIP(

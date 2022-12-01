@@ -81,6 +81,7 @@ class ZoneIPOps {
             context: context,
             rawLink: _url,
             showErrorDialog: false,
+            invoker: '_getZoneByIP_ipApi',
           );
 
           /// RECEIVED DATA
@@ -124,12 +125,12 @@ class ZoneIPOps {
               }
             }
 
-            blog('response body is : ${_response.body}');
+            blog('_getZoneByIP_ipApi : found data : response body is : ${_response.body}');
           }
 
           /// NO DATA RECEIVED
           else {
-            blog('response is : ${_response.body}');
+            blog('_getZoneByIP_ipApi : no data : response is : ${_response.body}');
           }
 
         }
@@ -162,7 +163,7 @@ class ZoneIPOps {
             context: context,
             rawLink: _url,
             showErrorDialog: false,
-
+            invoker: '_getZoneByIP_ipRegistry',
           );
 
           /// RECEIVED DATA
