@@ -96,24 +96,24 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
     await _triggerLoading(setTo: true);
 
     /// COUNTRIES
-    // final List<Map<String, dynamic>> _countriesByID = await _searchCountriesByIDFromAllFlags(text);
-    // final List<Map<String, dynamic>> _countriesByName = await _searchCountriesByNameFromLDBFlags(text);
+    final List<Map<String, dynamic>> _countriesByID = await _searchCountriesByIDFromAllFlags(text);
+    final List<Map<String, dynamic>> _countriesByName = await _searchCountriesByNameFromLDBFlags(text);
     /// CITIES OF PLANET
-    // final List<Map<String, dynamic>> _citiesOfPlanetByID = await _searchCitiesOfPlanetByIDFromFire(text);
-    // final List<Map<String, dynamic>> _citiesOfPlanetByName = await _searchCitiesOfPlanetByNameFromFire(text);
+    final List<Map<String, dynamic>> _citiesOfPlanetByID = await _searchCitiesOfPlanetByIDFromFire(text);
+    final List<Map<String, dynamic>> _citiesOfPlanetByName = await _searchCitiesOfPlanetByNameFromFire(text);
     /// CITIES OF COUNTRY
-    // final List<Map<String, dynamic>> _citiesOfCountryByID = await _searchCountryCitiesByIDFromFire(text);
-    // final List<Map<String, dynamic>> _citiesOfCountryByName = await _searchCountryCitiesByNameFromFire(text);
+    final List<Map<String, dynamic>> _citiesOfCountryByID = await _searchCountryCitiesByIDFromFire(text);
+    final List<Map<String, dynamic>> _citiesOfCountryByName = await _searchCountryCitiesByNameFromFire(text);
 
     /// DISTRICTS OF PLANET
-    // final List<Map<String, dynamic>> _districtsOfPlanetByID = await _searchDistrictsOfPlanetByIDFromFire(text);
-    // final List<Map<String, dynamic>> _districtsOfPlanetByName = await _searchDistrictOfPlanetByNameFromFire(text);
+    final List<Map<String, dynamic>> _districtsOfPlanetByID = await _searchDistrictsOfPlanetByIDFromFire(text);
+    final List<Map<String, dynamic>> _districtsOfPlanetByName = await _searchDistrictOfPlanetByNameFromFire(text);
     /// DISTRICTS OF COUNTRY
-    // final List<Map<String, dynamic>> _districtsOfCountryByID = await _searchDistrictsOfCountryByIDFromFire(text);
-    // final List<Map<String, dynamic>> _districtsOfCountryByName = await _searchDistrictsOfCountryByNameFromFire(text);
+    final List<Map<String, dynamic>> _districtsOfCountryByID = await _searchDistrictsOfCountryByIDFromFire(text);
+    final List<Map<String, dynamic>> _districtsOfCountryByName = await _searchDistrictsOfCountryByNameFromFire(text);
     /// DISTRICTS OF CITY
-    // final List<Map<String, dynamic>> _districtsOfCityByID = await _searchDistrictsOfCityByIDFromFire(text);
-    // final List<Map<String, dynamic>> _districtsOfCityByName = await _searchDistrictsOfCityByNameFromFire(text);
+    final List<Map<String, dynamic>> _districtsOfCityByID = await _searchDistrictsOfCityByIDFromFire(text);
+    final List<Map<String, dynamic>> _districtsOfCityByName = await _searchDistrictsOfCityByNameFromFire(text);
 
     // final List<CityModel> _cities = await ZoneSearchOps.searchLDBCitiesByName(
     //   cityName: text,
@@ -122,24 +122,24 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
 
     final List<Map<String, dynamic>> _found = [
       /// COUNTRIES
-      // ...?_countriesByID,
-      // ...?_countriesByName,
+      ...?_countriesByID,
+      ...?_countriesByName,
       /// CITIES OF PLANET
-      // ...?_citiesOfPlanetByID,
-      // ...?_citiesOfPlanetByName,
+      ...?_citiesOfPlanetByID,
+      ...?_citiesOfPlanetByName,
       /// CITIES OF COUNTRY
-      // ...?_citiesOfCountryByID,
-      // ...?_citiesOfCountryByName,
+      ...?_citiesOfCountryByID,
+      ...?_citiesOfCountryByName,
 
       /// DISTRICTS OF PLANET
-      //  ...?_districtsOfPlanetByID,
-      //  ...?_districtsOfPlanetByName,
+       ...?_districtsOfPlanetByID,
+       ...?_districtsOfPlanetByName,
       /// DISTRICTS OF COUNTRY
-      // ...?_districtsOfCountryByID,
-      // ...?_districtsOfCountryByName,
+      ...?_districtsOfCountryByID,
+      ...?_districtsOfCountryByName,
       /// DISTRICTS OF CITY
-      // ...?_districtsOfCityByID,
-      // ...?_districtsOfCityByName,
+      ...?_districtsOfCityByID,
+      ...?_districtsOfCityByName,
 
       // ...?CityModel.cipherCities(cities: _cities, toJSON: true, toLDB: true),
     ];

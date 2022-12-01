@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
+import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
@@ -92,6 +93,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
       /// A - WHEN SEQUENCE IS SELECTING (COUNTRY + CITY) ONLY
       if (widget.selectCountryAndCityOnly == true) {
 
+        _zone?.blogZone(invoker: '_onCountryTap : going to cities screen');
+
         /// C - GO SELECT CITY
         final ZoneModel _zoneWithCity = await Nav.goToNewScreen(
             context: context,
@@ -101,9 +104,12 @@ class _CountriesScreenState extends State<CountriesScreen> {
             )
         );
 
+        _zoneWithCity?.blogZone(invoker: '_onCountryTap : returned from cities screen');
+
         /// IF SETTING CURRENT ZONE
         if (widget.settingCurrentZone == true){
 
+          blog('setting current zone', invoker: '_onCountryTap');
           await setCurrentZone(
             context: context,
             zone: _zoneWithCity ?? _zone,
@@ -140,8 +146,9 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
         final ZoneModel _zoneWithCityAndDistrict = await Nav.goToNewScreen(
             context: context,
-            screen: CitiesScreen(
+            screen: DistrictsScreen(
               country: _zone.countryModel,
+              city: _zone.cityModel,
               // selectCountryAndCityOnly: false,
             )
         );

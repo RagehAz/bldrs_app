@@ -186,35 +186,40 @@ Future<void> _initializeUserZone(BuildContext context) async {
 Future<void> _initializeCurrentZone(BuildContext context) async {
   // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
-  final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-    context: context,
-    listen: false,
-  );
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-  /// USER ZONE IS DEFINED
-  if (_myUserModel?.zone != null && AuthModel.userIsSignedIn() == true){
+  if (_zoneProvider.currentZone == null){
 
-    await zoneProvider.fetchSetCurrentCompleteZone(
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
-      zone: _myUserModel.zone,
-      notify: true,
+      listen: false,
     );
 
-  }
+    /// USER ZONE IS DEFINED
+    if (_myUserModel?.zone != null && AuthModel.userIsSignedIn() == true){
 
-  /// USER ZONE IS NOT DEFINED
-  else {
+      await _zoneProvider.fetchSetCurrentCompleteZone(
+        context: context,
+        zone: _myUserModel.zone,
+        notify: true,
+      );
 
-    final ZoneModel _zoneByIP = await ZoneProtocols.getZoneByIP(
-      context: context,
-    );
+    }
 
-    await zoneProvider.fetchSetCurrentCompleteZone(
-      context: context,
-      zone: _zoneByIP,
-      notify: true,
-    );
+    /// USER ZONE IS NOT DEFINED
+    else {
+
+      final ZoneModel _zoneByIP = await ZoneProtocols.getZoneByIP(
+        context: context,
+      );
+
+      await _zoneProvider.fetchSetCurrentCompleteZone(
+        context: context,
+        zone: _zoneByIP,
+        notify: true,
+      );
+
+    }
 
   }
 
