@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_stages_real_op
 import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/translator/zone_translato.dart';
-
+/// => TAMAM
 class ZoneProtocols {
   // -----------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ class ZoneProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static const fetchZoneModelByGeoPoint = ZoneIDsProtocols.fetchZoneModelByGeoPoint;
-  /// TASK : TEST ME : DISTRICT MODEL AND DISTRICT NAME ISSUE
+  /// TESTED : WORKS PERFECT
   static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
   /// TESTED : WORKS PERFECT
   static const getZoneByIP = ZoneIPOps.getZoneByIP;

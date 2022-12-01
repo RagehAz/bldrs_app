@@ -160,7 +160,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
                 final String _cityName = zoneModel?.cityName;
                 final String _countryName = zoneModel?.countryName;
-                final String _flag = zoneModel?.flag;
+                final String _flag = zoneModel?.icon;
 
                 final Verse _verse = zoneModel == null ?
                 const Verse(

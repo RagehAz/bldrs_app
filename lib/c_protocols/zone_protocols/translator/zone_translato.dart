@@ -21,15 +21,21 @@ class ZoneTranslator {
     @required String countryID,
     String langCode,
   }) {
+    Verse _output;
 
-    return Verse(
-      text: Flag.translateCountry(
-        countryID: countryID,
-        langCode: langCode ?? Localizer.getCurrentLangCode(context),
-      ),
-      translate: false,
-    );
+    if (countryID != null){
 
+      _output = Verse(
+        text: Flag.translateCountry(
+          countryID: countryID,
+          langCode: langCode ?? Localizer.getCurrentLangCode(context),
+        ),
+        translate: false,
+      );
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -42,16 +48,20 @@ class ZoneTranslator {
     @required CityModel cityModel,
     String langCode,
   }) {
+    Verse _output;
 
-    return Verse(
-      text: CityModel.translateCity(
-        context: context,
-        city: cityModel,
-        langCode: langCode,
-      ),
-      translate: false,
-    );
+    if (cityModel != null){
+      _output = Verse(
+        text: CityModel.translateCity(
+          context: context,
+          city: cityModel,
+          langCode: langCode,
+        ),
+        translate: false,
+      );
+    }
 
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -64,16 +74,20 @@ class ZoneTranslator {
     @required DistrictModel districtModel,
     String langCode,
   }) {
+    Verse _output;
 
-    return Verse(
-      text: DistrictModel.translateDistirct(
-        context: context,
-        district: districtModel,
-        langCode: langCode,
-      ),
-      translate: false,
-    );
+    if (districtModel != null){
+      _output = Verse(
+        text: DistrictModel.translateDistirct(
+          context: context,
+          district: districtModel,
+          langCode: langCode,
+        ),
+        translate: false,
+      );
+    }
 
+    return _output;
   }
   // -----------------------------------------------------------------------------
 }

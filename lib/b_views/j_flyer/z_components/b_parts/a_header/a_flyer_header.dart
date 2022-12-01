@@ -297,7 +297,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                       text: widget.bzModel.name,
                       translate: false,
                     ),
-                    secondLine: ZoneModel.translateZoneString(
+                    secondLine: ZoneModel.generateInZoneVerse(
                       context: context,
                       zoneModel: widget.bzModel.zone,
                     ),

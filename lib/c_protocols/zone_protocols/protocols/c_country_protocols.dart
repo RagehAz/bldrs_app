@@ -25,30 +25,37 @@ class CountryProtocols {
     @required String countryID,
   }) async {
 
-    CountryModel _countryModel = await CountryLDBOps.readCountry(countryID);
+    CountryModel _countryModel;
 
-    if (_countryModel != null){
-      // blog('fetchCountry : ($countryID) CountryModel FOUND in LDB');
-    }
+    if (countryID != null){
 
-    else {
-
-      _countryModel = await CountryRealOps.readCountry(
-        countryID: countryID,
-      );
+      CountryModel _countryModel = await CountryLDBOps.readCountry(countryID);
 
       if (_countryModel != null){
-        // blog('fetchCountry : ($countryID) CountryModel FOUND in FIRESTORE and inserted in LDB');
+        // blog('fetchCountry : ($countryID) CountryModel FOUND in LDB');
+      }
 
-        await CountryLDBOps.insertCountry(_countryModel);
+      else {
+
+        _countryModel = await CountryRealOps.readCountry(
+          countryID: countryID,
+        );
+
+        if (_countryModel != null){
+          // blog('fetchCountry : ($countryID) CountryModel FOUND in FIRESTORE and inserted in LDB');
+
+          await CountryLDBOps.insertCountry(_countryModel);
+
+        }
 
       }
 
-    }
+      // if (_countryModel == null){
+      //   blog('fetchCountry : ($countryID) CountryModel NOT FOUND');
+      // }
 
-    // if (_countryModel == null){
-    //   blog('fetchCountry : ($countryID) CountryModel NOT FOUND');
-    // }
+
+    }
 
     return _countryModel;
   }

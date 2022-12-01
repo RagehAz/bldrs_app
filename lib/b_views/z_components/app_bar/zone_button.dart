@@ -33,7 +33,7 @@ class ZoneButton extends StatelessWidget {
     final ZoneModel _currentZone = _buttonZone(context);
     // --------------------
     final String _countryName = _currentZone?.countryName;
-    final String _countryFlag = _currentZone?.flag;
+    final String _countryFlag = _currentZone?.icon;
     final String _cityName = _currentZone?.cityName;
     final String _districtName = _currentZone?.districtName;
     // --------------------

@@ -61,7 +61,7 @@ class BzLabel extends StatelessWidget {
           /// BZ LOCALE
           SuperVerse(
             width: _bzLabelWidth,
-            verse: ZoneModel.translateZoneString(
+            verse: ZoneModel.generateInZoneVerse(
               context: context,
               zoneModel: bzModel?.zone,
             ),
