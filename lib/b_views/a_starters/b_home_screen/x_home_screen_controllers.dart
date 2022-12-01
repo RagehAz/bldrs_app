@@ -45,7 +45,7 @@ List<NavModel> generateMainNavModels({
   @required UserModel userModel,
 }){
 
-  final String _countryFlag = currentZone?.flag;
+  final String _countryFlag = currentZone?.icon;
 
   return <NavModel>[
 

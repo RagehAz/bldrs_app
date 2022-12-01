@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
-
+/// => TAMAM
 class ZoneIDsProtocols {
   // -----------------------------------------------------------------------------
 
@@ -115,7 +115,7 @@ class ZoneIDsProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TASK : DIRSTRICT NAME NEED TO BE FIXED,,, AND NO DISTRICTS ARE IN CITY MODEL ANYMORE
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel> completeZoneModel({
     @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
@@ -128,7 +128,7 @@ class ZoneIDsProtocols {
 
     if (incompleteZoneModel != null){
 
-      /// BZ COUNTRY
+      /// COUNTRY MODEL
       if (incompleteZoneModel.countryModel == null){
         final CountryModel _bzCountry = await ZoneProtocols.fetchCountry(
           countryID: incompleteZoneModel.countryID,
@@ -138,7 +138,7 @@ class ZoneIDsProtocols {
         );
       }
 
-      /// BZ CITY
+      /// CITY MODEL
       if (incompleteZoneModel.cityModel == null){
         final CityModel _bzCity = await ZoneProtocols.fetchCity(
           cityID: incompleteZoneModel.cityID,
@@ -149,50 +149,65 @@ class ZoneIDsProtocols {
 
       }
 
+      /// DISTRICT MODEL
+      if (incompleteZoneModel.districtModel == null){
+        final DistrictModel _districtModel = await ZoneProtocols.fetchDistrict(
+          districtID: incompleteZoneModel.districtID,
+        );
+        _output = _output.copyWith(
+          districtModel: _districtModel,
+        );
+      }
+
       /// COUNTRY NAME
       if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
-        // superPhrase(context, _zone.countryID);
         final String _countryName = ZoneProtocols.translateCountry(
           context: context,
           countryID: incompleteZoneModel.countryID,
+          // langCode:
         )?.text;
 
         _output = _output.copyWith(
           countryName: _countryName,
         );
+
       }
 
       /// CITY NAME
       if (TextCheck.isEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
 
-        // superPhrase(context, _zone.cityID);
         final String _cityName = ZoneProtocols.translateCity(
           context: context,
           cityModel: _output.cityModel,
+          // langCode:
         )?.text;
 
         _output = _output.copyWith(
           cityName: _cityName,
         );
+
       }
 
-      /// TASK : DISTRICT NAME DOES NOT WORK LIKE THIS
+      /// DISTRICT NAME
       if (TextCheck.isEmpty(incompleteZoneModel.districtName) == true || incompleteZoneModel.districtName == '...'){
-        final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+
+        final String _districtName = DistrictModel.translateDistirct(
           context: context,
-          city: _output.cityModel,
-          districtID: incompleteZoneModel.districtID,
+          district: _output.districtModel,
+          // langCode:
         );
+
         _output = _output.copyWith(
           districtName: _districtName,
         );
+
       }
 
       /// FLAG
-      if (TextCheck.isEmpty(incompleteZoneModel.flag) == true || incompleteZoneModel.flag == Iconz.dvBlankSVG){
+      if (TextCheck.isEmpty(incompleteZoneModel.icon) == true || incompleteZoneModel.icon == Iconz.dvBlankSVG){
         _output = _output.copyWith(
-          flag: Flag.getCountryIcon(incompleteZoneModel.countryID),
+          icon: Flag.getCountryIcon(incompleteZoneModel.countryID),
         );
       }
 

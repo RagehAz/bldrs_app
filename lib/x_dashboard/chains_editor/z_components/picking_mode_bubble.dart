@@ -256,7 +256,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
           width: Bubble.clearWidth(context),
           headerViewModel: BubbleHeaderVM(
             headlineVerse: _onlyCityChains == true ?
-            ZoneModel.translateZoneString(context: context, zoneModel: _zone)
+            ZoneModel.generateInZoneVerse(context: context, zoneModel: _zone)
                 :
             Verse.threeDots(),
             headerWidth: Bubble.clearWidth(context) - 20,

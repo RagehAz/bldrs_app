@@ -10,7 +10,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class ZoneModel {
   /// --------------------------------------------------------------------------
@@ -23,7 +23,8 @@ class ZoneModel {
     this.districtName,
     this.countryModel,
     this.cityModel,
-    this.flag,
+    this.districtModel,
+    this.icon,
   });
   /// --------------------------------------------------------------------------
   final String countryID;
@@ -34,7 +35,8 @@ class ZoneModel {
   final String districtName;
   final CountryModel countryModel;
   final CityModel cityModel;
-  final String flag;
+  final DistrictModel districtModel;
+  final String icon;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -74,7 +76,8 @@ class ZoneModel {
     String districtName,
     CountryModel countryModel,
     CityModel cityModel,
-    String flag,
+    DistrictModel districtModel,
+    String icon,
   }){
     return ZoneModel(
       countryID: countryID ?? this.countryID,
@@ -85,7 +88,8 @@ class ZoneModel {
       districtName: districtName ?? this.districtName,
       countryModel: countryModel ?? this.countryModel,
       cityModel: cityModel ?? this.cityModel,
-      flag: flag ?? this.flag,
+      districtModel: districtModel ?? this.districtModel,
+      icon: icon ?? this.icon,
     );
   }
   // --------------------
@@ -99,7 +103,8 @@ class ZoneModel {
     bool districtName = false,
     bool countryModel = false,
     bool cityModel = false,
-    bool flag = false,
+    bool districtModel = false,
+    bool icon = false,
   }){
     return ZoneModel(
       countryID: countryID == true ? null : this.countryID,
@@ -110,7 +115,8 @@ class ZoneModel {
       districtName: districtName == true ? null : this.districtName,
       countryModel: countryModel == true ? null : this.countryModel,
       cityModel: cityModel == true ? null : this.cityModel,
-      flag: flag == true ? null : this.flag,
+      districtModel: districtModel == true ? null : this.districtModel,
+      icon: icon == true ? null : this.icon,
     );
   }
   // -----------------------------------------------------------------------------
@@ -129,14 +135,20 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel decipherZone(Map<String, dynamic> map) {
-    final ZoneModel _zone = map == null ? null :
-    ZoneModel(
-      countryID: map['countryID'],
-      cityID: map['cityID'],
-      districtID: map['districtID'],
-    );
 
-    return _zone;
+
+    if (map == null){
+      return null;
+    }
+
+    else {
+      return ZoneModel(
+        countryID: map['countryID'],
+        cityID: map['cityID'],
+        districtID: map['districtID'],
+      );
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -146,6 +158,7 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel decipherZoneString(String zoneString) {
+
     final String _countryID = decipherZoneStringToCountryID(zoneString);
     final String _cityID = decipherZoneStringToCityID(zoneString);
     final String _districtID = decipherZoneStringToDistrictID(zoneString);
@@ -159,22 +172,18 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String decipherZoneStringToCountryID(String zoneString) {
-    final String _countryID = TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
-    return _countryID;
+    return TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String decipherZoneStringToCityID(String zoneString) {
     final String _cityAndDistrict = TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
-    final String _cityID = TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
-    return _cityID;
+    return TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String decipherZoneStringToDistrictID(String zoneString) {
-    final String _districtID =
-    TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
-    return _districtID;
+    return TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
   }
   // -----------------------------------------------------------------------------
 
@@ -195,7 +204,7 @@ class ZoneModel {
     else if (zone1 != null && zone2 != null){
 
       if (
-      zone1.countryID == zone2.countryID &&
+          zone1.countryID == zone2.countryID &&
           zone1.cityID == zone2.cityID &&
           zone1.districtID == zone2.districtID &&
           zone1.countryName == zone2.countryName &&
@@ -203,7 +212,8 @@ class ZoneModel {
           zone1.districtName == zone2.districtName &&
           CountryModel.checkCountriesAreIdentical(zone1.countryModel, zone2.countryModel) == true &&
           CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == true &&
-          zone1.flag == zone2.flag
+          DistrictModel.checkDistrictsAreIdentical(zone1.districtModel, zone2.districtModel) == true &&
+          zone1.icon == zone2.icon
       ){
         _identical = true;
       }
@@ -225,49 +235,27 @@ class ZoneModel {
     @required ZoneModel zone1,
     @required ZoneModel zone2,
   }) {
-    bool _zonesAreIdentical = true;
+    bool _zonesAreIdentical = false;
 
-    if (zone1 == null && zone2 == null){
+    if (
+        zone1?.countryID    == zone2?.countryID &&
+        zone1?.cityID       == zone2?.cityID &&
+        zone1?.districtID   == zone2?.districtID
+    ){
       _zonesAreIdentical = true;
     }
-
-    else {
-
-      if (zone1 != null && zone2 != null){
-
-        if (zone1.countryID != zone2.countryID) {
-          _zonesAreIdentical = false;
-        }
-
-        else if (zone1.cityID != zone2.cityID) {
-          _zonesAreIdentical = false;
-        }
-
-        else if (zone1.districtID != zone2.districtID) {
-          _zonesAreIdentical = false;
-        }
-
-        else {
-          _zonesAreIdentical = true;
-        }
-
-      }
-      else {
-        _zonesAreIdentical = false;
-      }
-
-    }
-
 
     return _zonesAreIdentical;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   bool isNotEmpty() {
     final bool _isEmpty = TextCheck.isEmpty(countryID) == false;
     final bool _isNotEmpty = !_isEmpty;
     return _isNotEmpty;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool zoneHasAllIDs(ZoneModel zone) {
     final bool _hasAllIDs = zone != null &&
         zone.countryID != null &&
@@ -276,6 +264,7 @@ class ZoneModel {
     return _hasAllIDs;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkZoneHasCountryAndCityIDs(ZoneModel zone){
     final bool _has = zone != null &&
         zone.countryID != null &&
@@ -293,7 +282,7 @@ class ZoneModel {
 
     blog('IDs [ $districtID - $cityID - $countryID ]');
     blog('names [ $districtName - $cityName - $countryName ]');
-    blog('models [ cityModelExists : ${cityModel != null} - countryModelExists : ${countryModel != null} ]');
+    blog('models [ districtModelExists: ${districtModel != null} / cityModelExists : ${cityModel != null} / countryModelExists : ${countryModel != null} ]');
 
     blog('$invoker ------------------------------- END');
   }
@@ -345,7 +334,10 @@ class ZoneModel {
       if (CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == false){
         blog('cityModels are not Identical');
       }
-      if (zone1.flag != zone2.flag){
+      if (DistrictModel.checkDistrictsAreIdentical(zone1.districtModel, zone2.districtModel) == false){
+        blog('districtModels are not Identical');
+      }
+      if (zone1.icon != zone2.icon){
         blog('flags are not Identical');
       }
 
@@ -372,7 +364,7 @@ class ZoneModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse translateZoneString ({
+  static Verse generateInZoneVerse ({
     @required BuildContext context,
     @required ZoneModel zoneModel,
     bool showCity = true,
@@ -405,12 +397,11 @@ class ZoneModel {
 
           _text = '$_inn $_cityName, $_countryName';
 
-          if (showDistrict == true && zoneModel.districtID != null){
+          if (showDistrict == true && zoneModel.districtModel != null){
 
-            final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-              context: context,
-              city: zoneModel.cityModel,
-              districtID: zoneModel.districtID,
+            final String _districtName = DistrictModel.translateDistirct(
+                context: context,
+                district: zoneModel.districtModel,
             );
 
             _text = '$_inn $_districtName, $_cityName, $_countryName';
@@ -503,6 +494,7 @@ class ZoneModel {
       districtName.hashCode ^
       countryModel.hashCode ^
       cityModel.hashCode ^
-      flag.hashCode;
+      districtModel.hashCode ^
+      icon.hashCode;
   // -----------------------------------------------------------------------------
 }

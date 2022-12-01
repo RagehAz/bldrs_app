@@ -1,11 +1,8 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -133,7 +130,7 @@ Future<void> createCityBackup({
 }
 
 // ------------------------------------o
-
+/*
 Future<void> createDistrictPhrasesModelsAndEverything({
   @required String countryID,
   @required CityModel city,
@@ -256,8 +253,10 @@ Future<void> _createDistrictPhrase({
 
 }
 
+ */
 // ------------------------------------o
 
+/*
 Future<void> createDistrictsStages({
   @required String countryID,
   @required CityModel city,
@@ -291,4 +290,5 @@ Future<void> createDistrictsStages({
 
 }
 
+ */
 // ------------------------------------o

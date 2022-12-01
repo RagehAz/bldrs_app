@@ -59,37 +59,42 @@ class CityProtocols {
   static Future<CityModel> fetchCity({
     @required String cityID,
   }) async {
+    CityModel _cityModel;
 
-    CityModel _cityModel = await CityLDBOps.readCity(
-      cityID: cityID,
-    );
+    if (cityID != null){
 
-    if (_cityModel != null){
-      // blog('fetchCity : ($cityID) CityModel FOUND in LDB');
-    }
-
-    else {
-
-      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-
-      _cityModel = await CityRealOps.readCity(
-        countryID: _countryID,
+      CityModel _cityModel = await CityLDBOps.readCity(
         cityID: cityID,
       );
 
       if (_cityModel != null){
-        // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
+        // blog('fetchCity : ($cityID) CityModel FOUND in LDB');
+      }
 
-        await CityLDBOps.insertCity(
-          city: _cityModel,
+      else {
+
+        final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+        _cityModel = await CityRealOps.readCity(
+          countryID: _countryID,
+          cityID: cityID,
         );
+
+        if (_cityModel != null){
+          // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
+
+          await CityLDBOps.insertCity(
+            city: _cityModel,
+          );
+
+        }
 
       }
 
-    }
+      if (_cityModel == null){
+        // blog('fetchCity : ($cityID) CityModel NOT FOUND');
+      }
 
-    if (_cityModel == null){
-      // blog('fetchCity : ($cityID) CityModel NOT FOUND');
     }
 
     return _cityModel;

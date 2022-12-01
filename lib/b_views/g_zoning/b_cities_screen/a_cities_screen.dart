@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
@@ -253,9 +254,14 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       ),
     );
 
+    final ZoneStages _cityDistrictsStages = await ZoneProtocols.readDistrictsStages(
+      cityID: cityID,
+    );
+
     _zoneWithCity?.blogZone(invoker: '_onCityTap zone with city');
 
-    final bool _cityHasDistricts = Mapper.checkCanLoopList(_zoneWithCity?.cityModel?.districts);
+    /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
+    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages.getIDsByStage(null)) == true;
 
     /// IF SELECTING COUNTY AND CITY ONLY
     if (widget.selectCountryAndCityOnly == true || _cityHasDistricts == false){
