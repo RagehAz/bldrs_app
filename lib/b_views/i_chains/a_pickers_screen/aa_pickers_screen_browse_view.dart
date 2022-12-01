@@ -80,7 +80,7 @@ class PickersScreenBrowseView extends StatelessWidget {
 
     // ---------------------
     final String _icon = onlyUseCityChains == true ?
-    _zone.flag
+    _zone.icon
         :
     Iconz.info;
     // ---------------------

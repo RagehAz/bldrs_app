@@ -1139,7 +1139,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
         final String _dd_month_yyy_device = Timers.translate_dd_month_yyyy(context: context, time: _now);
         final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(context: context, time: _now);
 
-        Verse _zoneLine = ZoneModel.translateZoneString(
+        Verse _zoneLine = ZoneModel.generateInZoneVerse(
             context: context,
             zoneModel: ZoneProvider.proGetCurrentZone(context: context, listen: false),
         );

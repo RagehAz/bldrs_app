@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
@@ -53,6 +54,7 @@ class ZoneSelectionBubble extends StatefulWidget {
 class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier<ZoneModel>(null);
+  bool _cityHasDistricts = false;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -89,6 +91,9 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
           context: context,
           incompleteZoneModel: _selectedZone.value,
         );
+
+        await _checkCityHasDistricts();
+
         // ----------------------------------
         await _triggerLoading(setTo: false);
         // ----------------------------------
@@ -122,6 +127,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     super.didUpdateWidget(oldWidget);
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onCountryButtonTap({
     @required BuildContext context
   }) async {
@@ -155,6 +161,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onCityButtonTap({
     @required BuildContext context
   }) async {
@@ -183,6 +190,8 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
           incompleteZoneModel: _zone,
         );
 
+        await _checkCityHasDistricts();
+
         widget.onZoneChanged(_selectedZone.value);
 
         // if (Mapper.checkCanLoopList(_selectedZone.value?.cityModel?.districts) == true){
@@ -195,6 +204,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onDistrictButtonTap({
     @required BuildContext context,
   }) async {
@@ -228,6 +238,34 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
         widget.onZoneChanged(_selectedZone.value);
 
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  Future<void> _checkCityHasDistricts() async {
+
+    final List<DistrictModel> _cityDistricts = await ZoneProtocols.fetchDistrictsOfCity(
+      cityID: _selectedZone.value.cityID,
+    );
+
+    /// CITY HAS DISTRICTS
+    if (Mapper.checkCanLoopList(_cityDistricts) == true){
+      if (mounted && _cityHasDistricts != true){
+        setState(() {
+          _cityHasDistricts = true;
+        });
+      }
+    }
+
+    /// CITY HAS NO DISTRICTS
+    else {
+      if (mounted && _cityHasDistricts != false){
+        setState(() {
+          _cityHasDistricts = false;
+        });
       }
 
     }
@@ -280,7 +318,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                         text: zone?.countryName,
                         translate: false,
                       ),
-                      icon: zone?.flag,
+                      icon: zone?.icon,
                       onTap: () => _onCountryButtonTap(context: context),
                       loading: loading,
                     ),
@@ -310,7 +348,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     &&
                     widget.selectCountryIDOnly == false
                     &&
-                    Mapper.checkCanLoopList(zone?.cityModel?.districts) == true
+                    _cityHasDistricts == true
                     )
                       ZoneSelectionButton(
                         title: const Verse(

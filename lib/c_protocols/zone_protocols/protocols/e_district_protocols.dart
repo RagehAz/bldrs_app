@@ -57,34 +57,39 @@ class DistrictProtocols {
   static Future<DistrictModel> fetchDistrict({
     @required String districtID,
   }) async {
+    DistrictModel _districtModel;
 
-    DistrictModel _districtModel = await DistrictLDBOps.readDistrict(
-      districtID: districtID,
-    );
+    if (districtID != null){
 
-    if (_districtModel != null){
-      // blog('fetchCity : ($cityID) CityModel FOUND in LDB');
-    }
-
-    else {
-
-      _districtModel = await DistrictRealOps.readDistrict(
+      DistrictModel _districtModel = await DistrictLDBOps.readDistrict(
         districtID: districtID,
       );
 
       if (_districtModel != null){
-        // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
+        // blog('fetchCity : ($cityID) CityModel FOUND in LDB');
+      }
 
-        await DistrictLDBOps.insertDistrict(
-          districtModel: _districtModel,
+      else {
+
+        _districtModel = await DistrictRealOps.readDistrict(
+          districtID: districtID,
         );
+
+        if (_districtModel != null){
+          // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
+
+          await DistrictLDBOps.insertDistrict(
+            districtModel: _districtModel,
+          );
+
+        }
 
       }
 
-    }
+      if (_districtModel == null){
+        // blog('fetchCity : ($cityID) CityModel NOT FOUND');
+      }
 
-    if (_districtModel == null){
-      // blog('fetchCity : ($cityID) CityModel NOT FOUND');
     }
 
     return _districtModel;
