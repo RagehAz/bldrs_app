@@ -130,7 +130,7 @@ class ZoneProtocols {
   static const searchCountriesByNameFromLDBFlags = ZoneSearchOps.searchCountriesByNameFromLDBFlags;
   // -----------------------------------------------------------------------------
 
-  /// SEARCH CITIES
+  /// SEARCH CITIES OF PLANET
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -139,31 +139,43 @@ class ZoneProtocols {
   static const searchCitiesOfPlanetByNameFromFire = ZoneSearchOps.searchCitiesOfPlanetByNameFromFire;
   // -----------------------------------------------------------------------------
 
-  /// SEARCH COUNTRY CITIES
+  /// SEARCH CITIES OF COUNTRY
 
   // --------------------
-  /// TASK : WRITE ME
-  static const searchCountryCitiesByID = ZoneSearchOps.searchCountryCitiesByID;
-  /// TASK : WRITE ME
-  static const searchCountryCitiesByName = ZoneSearchOps.searchCountryCitiesByName;
+  /// TESTED : WORKS PERFECT
+  static const searchCountryCitiesByIDFromFire = ZoneSearchOps.searchCitiesOfCountryByIDFromFire;
+  /// TESTED : WORKS PERFECT
+  static const searchCountryCitiesByNameFromFire = ZoneSearchOps.searchCitiesOfCountryByNameFromFire;
   // -----------------------------------------------------------------------------
 
-  /// SEARCH PLANET DISTRICTS
+  /// SEARCH DISTRICTS OF PLANET
 
   // --------------------
   /// TASK : WRITE ME
-  static const searchPlanetDistrictsByID = ZoneSearchOps.searchPlanetDistrictsByID;
+  static const searchDistrictsOfPlanetByIDFromFire = ZoneSearchOps.searchDistrictsOfPlanetByIDFromFire;
   /// TASK : WRITE ME
-  static const searchPlanetDistrictsByName = ZoneSearchOps.searchPlanetDistrictsByName;
+  static const searchDistrictOfPlanetByNameFromFire = ZoneSearchOps.searchDistrictOfPlanetByNameFromFire;
   // -----------------------------------------------------------------------------
 
-  /// SEARCH CITY DISTRICTS
+  /// SEARCH DISTRICTS OF COUNTRY
 
   // --------------------
   /// TASK : WRITE ME
-  static const searchCityDistrictsByID = ZoneSearchOps.searchCityDistrictsByID;
+  static const searchDistrictsOfCountryByIDFromFire = ZoneSearchOps.searchDistrictsOfCountryByIDFromFire;
   /// TASK : WRITE ME
-  static const searchCityDistrictsByName = ZoneSearchOps.searchCityDistrictsByName;
+  static const searchDistrictsOfCountryByNameFromFire = ZoneSearchOps.searchDistrictsOfCountryByNameFromFire;
+  // -----------------------------------------------------------------------------
+
+  /// SEARCH DISTRICTS OF CITY
+
+  // --------------------
+  /// TASK : WRITE ME
+  static const searchDistrictsOfCityByIDFromFire = ZoneSearchOps.searchDistrictsOfCityByIDFromFire;
+  /// TASK : WRITE ME
+  static const searchDistrictsOfCityByNameFromFire = ZoneSearchOps.searchDistrictsOfCityByNameFromFire;
+  // -----------------------------------------------------------------------------
+  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+  // -----------------------------------------------------------------------------
   /// TASK : TEST ME : DO WE NEED THIS ??
   static const fetchCityByName = ZoneSearchOps.fetchCityByName;
   // -----------------------------------------------------------------------------
