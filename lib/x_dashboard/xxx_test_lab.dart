@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -13,12 +14,15 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -26,6 +30,8 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_signed_in_button.dart';
@@ -58,12 +64,23 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    await Real.clonePath(
-        oldPath: 'zones/countriesLevels',
-        newPath: 'zones/stagesCountries',
-    );
 
-    blog('doneeee');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
   // -------------------------------------------------
