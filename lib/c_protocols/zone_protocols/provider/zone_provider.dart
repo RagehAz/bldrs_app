@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -134,6 +135,11 @@ class ZoneProvider extends ChangeNotifier {
     @required ZoneModel zone,
     @required bool notify,
   }){
+
+    blog('setCurrentZone START : zone = $zone');
+
+    zone?.blogZone(invoker: 'setCurrentZone');
+
     _currentZone = zone;
     if (notify == true){
       notifyListeners();

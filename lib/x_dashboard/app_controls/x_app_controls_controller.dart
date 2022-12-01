@@ -18,7 +18,7 @@ Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
     showOnlyVerifiedFlyersInHomeWall: value,
   );
 
-  await AppControlsFireOps.updateAppControls(
+  await AppControlsRealOps.updateAppControls(
     newAppControlsModel: appControlsModel.value,
   );
 
