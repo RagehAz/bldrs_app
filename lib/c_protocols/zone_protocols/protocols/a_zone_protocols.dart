@@ -121,22 +121,22 @@ class ZoneProtocols {
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
-  /// SEARCH PLANET COUNTRIES
+  /// SEARCH COUNTRIES
 
   // --------------------
-  /// TASK : WRITE ME
-  static const searchPlanetCountriesByID = ZoneSearchOps.searchPlanetCountriesByID;
-  /// TASK : WRITE ME
-  static const searchPlanetCountriesByName = ZoneSearchOps.searchPlanetCountriesByName;
+  /// TESTED : WORKS PERFECT
+  static const searchCountriesByIDFromAllFlags = ZoneSearchOps.searchCountriesByIDFromAllFlags;
+  /// TESTED : WORKS PERFECT
+  static const searchCountriesByNameFromLDBFlags = ZoneSearchOps.searchCountriesByNameFromLDBFlags;
   // -----------------------------------------------------------------------------
 
-  /// SEARCH PLANET CITIES
+  /// SEARCH CITIES
 
   // --------------------
-  /// TASK : WRITE ME
-  static const searchPlanetCitiesByID = ZoneSearchOps.searchPlanetCitiesByID;
-  /// TASK : WRITE ME
-  static const searchPlanetCitiesByName = ZoneSearchOps.searchPlanetCitiesByName;
+  /// TESTED : WORKS PERFECT
+  static const searchCitiesOfPlanetByIDFromFire = ZoneSearchOps.searchCitiesOfPlanetByIDFromFire;
+  /// TESTED : WORKS PERFECT
+  static const searchCitiesOfPlanetByNameFromFire = ZoneSearchOps.searchCitiesOfPlanetByNameFromFire;
   // -----------------------------------------------------------------------------
 
   /// SEARCH COUNTRY CITIES

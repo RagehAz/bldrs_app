@@ -57,7 +57,7 @@ class ZoneIDsProtocols {
         if (Mapper.checkCanLoopList(_countryCities) == true) {
 
           /// by subAdministrativeArea
-          List<CityModel> _foundCities = ZoneSearchOps.searchCitiesByName(
+          List<CityModel> _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
             context: context,
             sourceCities: _countryCities,
             inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
@@ -69,7 +69,7 @@ class ZoneIDsProtocols {
 
           /// by administrativeArea
           if (Mapper.checkCanLoopList(_foundCities) == false) {
-            _foundCities = ZoneSearchOps.searchCitiesByName(
+            _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
               context: context,
               sourceCities: _countryCities,
               inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
@@ -82,7 +82,7 @@ class ZoneIDsProtocols {
 
           /// by locality
           if (Mapper.checkCanLoopList(_foundCities) == false) {
-            _foundCities = ZoneSearchOps.searchCitiesByName(
+            _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
               context: context,
               sourceCities: _countryCities,
               inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
