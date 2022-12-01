@@ -650,7 +650,7 @@ class Dialogs {
             ...List<Widget>.generate(cities.length, (int index) {
 
               final CityModel _foundCity = cities[index];
-              final String _foundCityName = CityModel.getTranslatedCityNameFromCity(
+              final String _foundCityName = CityModel.translateCity(
                 context: context,
                 city: _foundCity,
               );

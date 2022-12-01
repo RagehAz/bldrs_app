@@ -158,16 +158,18 @@ class LDBOps {
 
   }
   // --------------------
-  /// deprecated
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> searchLDBDocTrigram({
     @required dynamic searchValue,
     @required String docName,
-    @required String lingoCode,
+    @required String langCode,
   }) async {
+
+    /// NOTE : REQUIRES ( Phrase.cipherMixedLangPhrasesToMap ) cipher for 'phrases' field
 
     final List<Map<String, dynamic>> _result = await Sembast.search(
       fieldToSortBy: LDBDoc.getPrimaryKey(docName),
-      searchField: 'phrases.$lingoCode.trigram',
+      searchField: 'phrases.$langCode.trigram',
       fieldIsList: true,
       searchValue: TextMod.fixCountryName(searchValue),
       docName: docName,

@@ -24,9 +24,9 @@ import 'package:location/location.dart';
 /// AuthorPic key 1
 /// AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI
 // -----------------------------------------------------------------------------
-class GoogleMapScreen extends StatefulWidget {
+class FlyerMapScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const GoogleMapScreen({
+  const FlyerMapScreen({
     @required this.flyerBoxWidth,
     this.geoPoint, // = const PlaceLocation(latitude: 37.43296265331129, longitude: -122.08832357078792),
     this.isSelecting = false,
@@ -38,11 +38,11 @@ class GoogleMapScreen extends StatefulWidget {
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------
   @override
-  _GoogleMapScreenState createState() => _GoogleMapScreenState();
+  _FlyerMapScreenState createState() => _FlyerMapScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _GoogleMapScreenState extends State<GoogleMapScreen> {
+class _FlyerMapScreenState extends State<FlyerMapScreen> {
   // -----------------------------------------------------------------------------
   LatLng _pickedLocation;
   BitmapDescriptor customMarker;

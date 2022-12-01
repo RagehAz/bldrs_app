@@ -1,24 +1,21 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/backend_lab/location_test/google_map_screen.dart';
+import 'package:bldrs/x_dashboard/zones_manager/location_test/google_map_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -32,18 +29,26 @@ class LocationsTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _LocationsTestScreenState createState() => _LocationsTestScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _LocationsTestScreenState extends State<LocationsTestScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+  final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
+  // --------------------
+  GeoPoint _point;
+  // --------------------
+  String _countryID;
+  // CountryModel _countryModel;
+  CityModel _cityModel;
+  // --------------------
   /// List<int> _list = <int>[1,2,3,4,5,6,7,8];
   /// int _loops = 0;
   /// Color _color = Colorz.BloodTest;
   /// SuperFlyer _flyer;
   /// bool _thing;
-// -----------------------------------------------------------------------------
-  ScrollController _scrollController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -55,20 +60,13 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       value: setTo,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
+
     super.initState();
-    _scrollController = ScrollController();
   }
-// -----------------------------------------------------------------------------
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    _loading.dispose();
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -84,8 +82,15 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
-  GeoPoint _point;
+  // --------------------
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  ///
   Future<void> _getCurrentUserLocation() async {
 
     unawaited(_triggerLoading(setTo: true));
@@ -117,7 +122,8 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     unawaited(_triggerLoading(setTo: false));
   }
-// -------------------------------------------------
+  // --------------------
+  ///
   Future<void> _getPositionFromMap() async {
 
     unawaited(_triggerLoading(setTo: true));
@@ -139,10 +145,8 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     unawaited(_triggerLoading(setTo: false));
   }
-// -----------------------------------------------------------------------------
-  String _countryID;
-  CountryModel _countryModel;
-  CityModel _cityModel;
+  // --------------------
+  ///
   Future<void> _getCountryData({
     @required GeoPoint geoPoint
   }) async {
@@ -154,9 +158,9 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     if (_zoneModel != null) {
 
-      final CountryModel _country = await ZoneProtocols.fetchCountry(
-          countryID: _zoneModel.countryID
-      );
+      // final CountryModel _country = await ZoneProtocols.fetchCountry(
+      //     countryID: _zoneModel.countryID
+      // );
 
       final CityModel _city = await ZoneProtocols.fetchCity(
         cityID: _zoneModel.cityID,
@@ -164,86 +168,99 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
       setState(() {
         _countryID = _zoneModel.countryID;
-        _countryModel = _country;
+        // _countryModel = _country;
         _cityModel = _city;
       });
     }
   }
-// -----------------------------------------------------------------------------
-  final GlobalKey globalKey = GlobalKey();
-// -----------------------------------------------------------------------------
+  // --------------------
+  ///
+  Future<void> _onSearch(String text) async {
+
+    //
+    // final CityModel _result = await ZoneProtocols.fetchCityByName(
+    //     context: context,
+    //     cityName: val,
+    //     langCode: 'en',
+    //   countryID: _countryID
+    // );
+    //
+    // if (_result != null) {
+    //
+    //   final String _cityCountryID = _result.getCountryID();
+    //
+    //   final CountryModel _country = await ZoneProtocols.fetchCountry(
+    //       countryID: _cityCountryID,
+    //   );
+    //
+    //   setState(() {
+    //     _countryModel = _country;
+    //     _countryID = _cityCountryID;
+    //     _cityModel = _result;
+    //   });
+    //
+    //   _result.blogCity();
+    // }
+    //
+    // else {
+    //   await TopDialog.showTopDialog(
+    //       context: context,
+    //       firstVerse: Verse.plain('No city found'),
+    //   );
+    // }
+
+  }
+  // --------------------
+  ///
+  Future<void> _onSearchCancelled() async {
+
+  }
+  // --------------------
+  ///
+  Future<void> _onSearchZoneByIP() async {
+
+    final ZoneModel _zone = await ZoneProtocols.getZoneByIP(
+        context: context,
+    );
+
+    blog('done');
+    _zone?.blogZone();
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-    // final double _screenWidth = Scale.superScreenWidth(context);
-    // final double _screenHeight = Scale.superScreenHeight(context);
-// -----------------------------------------------------------------------------
 
     return MainLayout(
-      appBarType: AppBarType.basic,
+      appBarType: AppBarType.search,
       pyramidsAreOn: true,
       // loading: _loading,
-      appBarRowWidgets: const <Widget>[],
+      onSearchSubmit: _onSearch,
+      onSearchChanged: _onSearch,
+      onSearchCancelled: _onSearchCancelled,
+      searchHintVerse: Verse.plain('Search Planet Earth'),
+      searchController: _searchController,
+
+      appBarRowWidgets: <Widget>[
+
+        const Expander(),
+
+        /// SELECTED COUNTRY
+        FlagBox(
+          size: 40,
+          countryID: _countryID,
+        ),
+
+      ],
       layoutWidget: Center(
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),
+            padding: Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
             controller: _scrollController,
             children: <Widget>[
 
-              const Stratosphere(),
-
-              Container(
-                color: Colorz.white10,
-                child: SearchBar(
-                  globalKey: globalKey,
-                    appBarType: AppBarType.basic,
-                  // onSearchChanged: (String val) async {blog(val);},
-                    onSearchSubmit: (String val) async {
-
-                    blog('you need to select a country before you can search cities by name');
-
-                      //
-                      // final CityModel _result = await ZoneProtocols.fetchCityByName(
-                      //     context: context,
-                      //     cityName: val,
-                      //     langCode: 'en',
-                      //   countryID: _countryID
-                      // );
-                      //
-                      // if (_result != null) {
-                      //
-                      //   final String _cityCountryID = _result.getCountryID();
-                      //
-                      //   final CountryModel _country = await ZoneProtocols.fetchCountry(
-                      //       countryID: _cityCountryID,
-                      //   );
-                      //
-                      //   setState(() {
-                      //     _countryModel = _country;
-                      //     _countryID = _cityCountryID;
-                      //     _cityModel = _result;
-                      //   });
-                      //
-                      //   _result.blogCity();
-                      // }
-                      //
-                      // else {
-                      //   await TopDialog.showTopDialog(
-                      //       context: context,
-                      //       firstVerse: Verse.plain('No city found'),
-                      //   );
-                      // }
-
-                    },
-                    searchIconIsOn: false),
-              ),
-
-              FlagBox(
-                  size: 50,
-                  countryID: _countryID,
-              ),
-
+              /// GET CURRENT LOCATION
               WideButton(
                 verse: Verse.plain('Get Current Location'),
                 icon: _countryID == null ?
@@ -257,6 +274,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 },
               ),
 
+              /// GET POSITION FROM MAP
               WideButton(
                 verse: Verse.plain('Get Position from Map'),
                 icon: _countryID == null ?
@@ -269,34 +287,71 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 },
               ),
 
-              DataStripWithHeadline(
-                dataKey: 'geo point',
-                dataValue: 'LAT : ${_point?.latitude} : LNG : ${_point?.longitude}',
+              /// SEARCH ZONE BY IP
+              WideButton(
+                verse: Verse.plain('Search zone by IP'),
+                icon: Iconz.redAlert,
+                onTap: _onSearchZoneByIP,
               ),
 
-              DataStripWithHeadline(
-                dataKey: 'ID',
+              /// GEO POINT
+              DataStrip(
+                height: 30,
+                withHeadline: true,
+                dataKey: 'GeoPoint',
+                dataValue: 'LAT : ${Numeric.roundFractions(_point?.latitude, 2)} : LNG : ${Numeric.roundFractions(_point?.longitude, 2)}',
+              ),
+
+              /// COUNTRY ID
+              DataStrip(
+                height: 30,
+                withHeadline: true,
+                dataKey: 'countryID',
                 dataValue: _countryID,
               ),
 
-              DataStripWithHeadline(
+              /// COUNTRY NAME EN
+              DataStrip(
+                height: 30,
+                withHeadline: true,
                 dataKey: 'Country Name (EN)',
-                dataValue: xPhrase( context, _countryModel?.id),
+                dataValue: ZoneProtocols.translateCountry(
+                  context: context,
+                  countryID: _countryID,
+                  langCode: 'en',
+                )?.text,
               ),
 
-              DataStripWithHeadline(
+              /// COUNTRY NAME AR
+              DataStrip(
+                height: 30,
+                withHeadline: true,
                 dataKey: 'Country Name (AR)',
-                dataValue: xPhrase( context, _countryModel?.id),
+                dataValue: ZoneProtocols.translateCountry(
+                  context: context,
+                  countryID: _countryID,
+                  langCode: 'ar',
+                )?.text,
               ),
 
-              DataStripWithHeadline(
+              /// CITY ID
+              DataStrip(
+                height: 30,
+                withHeadline: true,
                   dataKey: 'City ID',
                   dataValue: _cityModel?.cityID,
               ),
 
-              DataStripWithHeadline(
+              /// CITY NAME EN
+              DataStrip(
+                height: 30,
+                withHeadline: true,
                 dataKey: 'City Name (EN)',
-                dataValue: xPhrase( context, _cityModel?.cityID),
+                dataValue: ZoneProtocols.translateCity(
+                  context: context,
+                  cityModel: _cityModel,
+                  langCode: 'en',
+                )?.text,
               ),
 
             ],
@@ -304,6 +359,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         ),
       ),
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }

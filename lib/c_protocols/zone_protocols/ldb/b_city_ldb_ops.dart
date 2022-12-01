@@ -70,6 +70,7 @@ class CityLDBOps{
       map: _map,
       fromJSON: true,
       cityID: cityID,
+      fromLDB: true,
     );
 
     return _city;
@@ -91,6 +92,7 @@ class CityLDBOps{
       _output = CityModel.decipherCities(
         maps: _maps,
         fromJSON: true,
+        fromLDB: true,
       );
 
     }

@@ -439,7 +439,7 @@ class Numeric {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double roundFractions(double value, int fractions) {
-    final String _roundedAsString = value.toStringAsFixed(fractions);
+    final String _roundedAsString = value?.toStringAsFixed(fractions);
     return transformStringToDouble(_roundedAsString);
   }
   // --------------------

@@ -3,7 +3,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
-import 'package:bldrs/x_dashboard/backend_lab/location_test/locations_test_screen.dart';
 import 'package:flutter/material.dart';
 
 class SpecializedLabs extends StatelessWidget {
@@ -20,9 +19,9 @@ class SpecializedLabs extends StatelessWidget {
 
       /// LOCATION TEST SCREEN
       DashButtonModel(
-        verse:  'Locations Test screen',
-        icon: Iconz.locationPin,
-        screen: LocationsTestScreen(),
+        verse:  'Something',
+        icon: Iconz.xSmall,
+        screen: SizedBox(),
       ),
 
     ];

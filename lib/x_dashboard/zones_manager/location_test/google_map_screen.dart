@@ -38,7 +38,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   // --------------------
   CountryModel _countryModel;
   // --------------------
-  GoogleMapController _googleMapController;
+  final Completer<GoogleMapController> _controller = Completer();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -54,8 +54,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   @override
   void initState() {
     super.initState();
-    _geoPoint = const GeoPoint(
-        30.0778, 31.2852); //widget.geoPoint ?? Atlas.dummyPosition();
+
+    _geoPoint = const GeoPoint(30.0778, 31.2852); //widget.geoPoint ?? Atlas.dummyPosition();
   }
   // --------------------
   bool _isInit = true;
@@ -78,7 +78,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   // --------------------
   @override
   void dispose() {
-    _googleMapController.dispose();
     _loading.dispose();
     super.dispose();
   }
@@ -220,15 +219,18 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                   'long tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
             },
             onMapCreated: (GoogleMapController googleMapController) {
-              googleMapController = _googleMapController;
+              _controller.complete(googleMapController);
             },
             onTap: (LatLng latLng) {
+
               if (widget.isSelecting == true) {
                 _selectLocation(latLng: latLng);
-              } else {
-                blog(
-                    'on tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
               }
+
+              else {
+                blog('on tap is tapped on : LAT : ${latLng.latitude} : LNG : ${latLng.longitude}');
+              }
+
             },
           ),
 
