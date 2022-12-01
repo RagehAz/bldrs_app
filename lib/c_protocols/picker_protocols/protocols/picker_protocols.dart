@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/picker_protocols/real/picker_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class PickerProtocols {
   // -----------------------------------------------------------------------------
 
