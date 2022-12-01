@@ -1,3 +1,4 @@
+import 'package:bldrs/c_protocols/zone_protocols/ip/zone_ip_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/continent_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/currency_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/b_zone_search_protocols.dart';
@@ -8,6 +9,7 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/x_zone_ids_protocols.
 import 'package:bldrs/c_protocols/zone_protocols/real/a_countries_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_cities_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/b_districts_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/translator/zone_translato.dart';
 
 class ZoneProtocols {
   // -----------------------------------------------------------------------------
@@ -21,10 +23,12 @@ class ZoneProtocols {
   /// ZONE
 
   // --------------------
-  /// TASK : TEST ME
-  static const fetchZoneModelByGeoPoint = ZoneIDsProtocols.fetchZoneModelByGeoPoint;
   /// TESTED : WORKS PERFECT
+  static const fetchZoneModelByGeoPoint = ZoneIDsProtocols.fetchZoneModelByGeoPoint;
+  /// TASK : TEST ME : DISTRICT MODEL AND DISTRICT NAME ISSUE
   static const completeZoneModel = ZoneIDsProtocols.completeZoneModel;
+  /// TESTED : WORKS PERFECT
+  static const getZoneByIP = ZoneIPOps.getZoneByIP;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -54,6 +58,8 @@ class ZoneProtocols {
   static const composeCity = CityProtocols.composeCity;
   /// TESTED : WORKS PERFECT
   static const fetchCity = CityProtocols.fetchCity;
+  /// TESTED : WORKS PERFECT
+  static const fetchCityByName = ZoneSearchOps.searchFetchCityByName;
   /// TESTED : WORKS PERFECT
   static const fetchCities = CityProtocols.fetchCities;
   /// TESTED : WORKS PERFECT
@@ -121,6 +127,12 @@ class ZoneProtocols {
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
+  /// COSMIC COUNTRIES
+
+  // --------------------
+  static const searchTheCosmos = ZoneSearchOps.searchTheCosmos;
+  // -----------------------------------------------------------------------------
+
   /// SEARCH COUNTRIES
 
   // --------------------
@@ -151,33 +163,41 @@ class ZoneProtocols {
   /// SEARCH DISTRICTS OF PLANET
 
   // --------------------
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   static const searchDistrictsOfPlanetByIDFromFire = ZoneSearchOps.searchDistrictsOfPlanetByIDFromFire;
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   static const searchDistrictOfPlanetByNameFromFire = ZoneSearchOps.searchDistrictOfPlanetByNameFromFire;
   // -----------------------------------------------------------------------------
 
   /// SEARCH DISTRICTS OF COUNTRY
 
   // --------------------
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   static const searchDistrictsOfCountryByIDFromFire = ZoneSearchOps.searchDistrictsOfCountryByIDFromFire;
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   static const searchDistrictsOfCountryByNameFromFire = ZoneSearchOps.searchDistrictsOfCountryByNameFromFire;
   // -----------------------------------------------------------------------------
 
   /// SEARCH DISTRICTS OF CITY
 
   // --------------------
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   static const searchDistrictsOfCityByIDFromFire = ZoneSearchOps.searchDistrictsOfCityByIDFromFire;
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   static const searchDistrictsOfCityByNameFromFire = ZoneSearchOps.searchDistrictsOfCityByNameFromFire;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
-  /// TASK : TEST ME : DO WE NEED THIS ??
-  static const fetchCityByName = ZoneSearchOps.fetchCityByName;
+
+  /// TRANSLATIONS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const translateCountry = ZoneTranslator.translateCountry;
+  /// TESTED : WORKS PERFECT
+  static const translateCity = ZoneTranslator.translateCity;
+  /// TESTED : WORKS PERFECT
+  static const translateDistrict = ZoneTranslator.translateDistrict;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------

@@ -302,7 +302,83 @@ class Phrase {
   }
   // -----------------------------------------------------------------------------
 
-  /// MIXED LANGS CYPHER
+  /// MIXED LANGS SINGLE MAP CYPHER
+
+  // --------------------
+  /// MIXED LANGS SINGLE MAP LOOKS LIKE THIS:
+  /// {
+  ///  'langCode_1': {
+  ///     'id': id, <----- duplicate ID
+  ///     'langCode': en, <----- different lang code
+  ///     'value': valueEN,
+  ///     'trigram': trigramEN,
+  ///  },
+  ///  'langCode_2': {
+  ///     'id': id, <----- duplicate ID
+  ///     'langCode': en, <----- different lang code
+  ///     'value': valueAR,
+  ///     'trigram': trigramAR,
+  ///  },
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cipherMixedLangPhrasesToMap({
+    @required List<Phrase> phrases,
+  }){
+    Map<String, dynamic> _output = {};
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+
+        _output = Mapper.insertPairInMap(
+          map: _output,
+          key: phrase.langCode,
+          value: phrase.toDefaultMap(
+            includeID: true,
+            includeLangCode: true,
+            includeTrigram: true,
+          ),
+        );
+
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> decipherMixedLangPhrasesFromMap({
+    @required Map<String, dynamic> map,
+  }){
+    final List<Phrase> _phrases = <Phrase>[];
+
+    if (map != null){
+
+      final List<String> _keys = map.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String langCode in _keys){
+
+          final Map<String, dynamic> _defaultPhraseMap = map[langCode];
+
+          _phrases.add(decipherPhraseDefaultMap(
+              id: _defaultPhraseMap['id'],
+              map: _defaultPhraseMap,
+          ));
+
+        }
+
+      }
+
+    }
+
+    return _phrases;
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// MIXED LANGS MAPS CYPHER
 
   // --------------------
   /// MIXED LANGS LOOKS LIKE THIS:
@@ -320,7 +396,7 @@ class Phrase {
   /// }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, dynamic>> cipherMixedLangPhrases({
+  static List<Map<String, dynamic>> cipherMixedLangPhrasesToMaps({
     @required List<Phrase> phrases,
     bool includeTrigrams = true,
   }){
@@ -354,8 +430,8 @@ class Phrase {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Phrase> decipherMixedLangPhrases({
-    @required List<Map<String, dynamic>> maps,
+  static List<Phrase> decipherMixedLangPhrasesFromMaps({
+    @required List<dynamic> maps,
   }){
     final List<Phrase> _phrases = <Phrase>[];
 

@@ -63,6 +63,7 @@ class CityRealOps {
         map: _map,
         fromJSON: true,
         cityID: cityID,
+        fromLDB: false,
       );
 
     }
@@ -125,6 +126,7 @@ class CityRealOps {
     return CityModel.decipherCities(
       maps: _maps,
       fromJSON: true,
+      fromLDB: false,
     );
 
   }

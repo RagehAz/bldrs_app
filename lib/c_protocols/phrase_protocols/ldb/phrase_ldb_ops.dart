@@ -21,7 +21,7 @@ class PhraseLDBOps {
 
     if (Mapper.checkCanLoopList(mixedLangsPhrases) == true){
 
-      final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrases(
+      final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrasesToMaps(
         phrases: mixedLangsPhrases,
       );
 
@@ -43,7 +43,7 @@ class PhraseLDBOps {
     if (Mapper.checkCanLoopList(countriesMixedLangsPhrases) == true){
 
       await LDBOps.insertMaps(
-        inputs: Phrase.cipherMixedLangPhrases(phrases: countriesMixedLangsPhrases),
+        inputs: Phrase.cipherMixedLangPhrasesToMaps(phrases: countriesMixedLangsPhrases),
         docName: LDBDoc.countriesPhrases,
         allowDuplicateIDs: true,
       );
@@ -67,7 +67,7 @@ class PhraseLDBOps {
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _mainPhrases = Phrase.decipherMixedLangPhrases(
+      _mainPhrases = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
       );
 
@@ -83,7 +83,7 @@ class PhraseLDBOps {
       docName: LDBDoc.countriesPhrases,
     );
 
-    final List<Phrase> _countriesMixedLangPhrases = Phrase.decipherMixedLangPhrases(
+    final List<Phrase> _countriesMixedLangPhrases = Phrase.decipherMixedLangPhrasesFromMaps(
       maps: _maps,
     );
 
@@ -106,7 +106,7 @@ class PhraseLDBOps {
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _output = Phrase.decipherMixedLangPhrases(
+      _output = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
       );
 

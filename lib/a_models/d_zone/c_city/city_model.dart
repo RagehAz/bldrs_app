@@ -5,6 +5,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -63,15 +64,41 @@ class CityModel {
       'phrases' : Phrase.cipherPhrasesToLangsMap(phrases),
     };
 
+    /// TO LDB
     if (toLDB == true){
+
+      /// INSERT PHRASES
       _map = Mapper.insertMapInMap(
         baseMap: _map,
         insert: {
-          'cityID': cityID,
+          'phrases': Phrase.cipherMixedLangPhrasesToMap(
+            phrases: phrases,
+            // includeTrigrams: true, // DEFAULT
+          ),
         },
       );
+
+      /// INSERT CITY ID
+      _map = Mapper.insertMapInMap(
+        baseMap: _map,
+        insert: {'cityID': cityID,},
+      );
+
+
     }
 
+    /// TO FIRESTORE
+    else {
+
+      /// INSERT PHRASES
+      _map = Mapper.insertMapInMap(
+        baseMap: _map,
+        insert: {
+          'phrases': Phrase.cipherPhrasesToLangsMap(phrases),
+        },
+      );
+
+    }
 
     return _map;
   }
@@ -107,16 +134,24 @@ class CityModel {
     @required Map<String, dynamic> map,
     @required String cityID,
     @required bool fromJSON,
+    @required bool fromLDB,
   }) {
     CityModel _city;
 
     if (map != null) {
+
+      final List<Phrase> _phrases =
+          fromLDB == true ?
+          Phrase.decipherMixedLangPhrasesFromMap(map: map['phrases'])
+          :
+          Phrase.decipherPhrasesLangsMap(langsMap: map['phrases'], phid: cityID,);
+
       _city = CityModel(
         cityID: cityID,
         districts: DistrictModel.oldDecipherDistrictsOneMap(map['districts']),
         population: map['population'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON,),
-        phrases: Phrase.decipherPhrasesLangsMap(langsMap: map['phrases'], phid: cityID,),
+        phrases: _phrases,
       );
     }
 
@@ -127,6 +162,7 @@ class CityModel {
   static List<CityModel> decipherCities({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
+    @required bool fromLDB,
   }) {
     final List<CityModel> _cities = <CityModel>[];
 
@@ -137,6 +173,7 @@ class CityModel {
               map: map,
               fromJSON: fromJSON,
               cityID: map['cityID'] ?? map['id'],
+              fromLDB: fromLDB,
             )
         );
       }
@@ -295,26 +332,18 @@ class CityModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getTranslatedCityNameFromCity({
+  static String translateCity({
     @required BuildContext context,
     @required CityModel city,
+    String langCode,
   }) {
-    String _cityName;
 
-    if (city != null) {
+    final Phrase _phrase = Phrase.searchFirstPhraseByLang(
+        langCode: langCode ?? Localizer.getCurrentLangCode(context),
+        phrases: city?.phrases
+    );
 
-      final Phrase _phrase = Phrase.searchFirstPhraseByCurrentLang(
-          context: context,
-          phrases: city.phrases
-      );
-
-      if (_phrase != null){
-        _cityName = _phrase.value;
-      }
-
-    }
-
-    return _cityName;
+    return _phrase?.value;
   }
   // -----------------------------------------------------------------------------
 
@@ -350,23 +379,8 @@ class CityModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// MAR2A3A
+  /// IDs
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String oldCreateCityID({
-    @required String countryID,
-    @required String cityEnName,
-  }) {
-    String _cityID;
-
-    if (countryID != null && cityEnName != null){
-      final String _fixedCityEnName = TextMod.fixCountryName(cityEnName);
-      _cityID = '${countryID}_$_fixedCityEnName';
-    }
-
-    return _cityID;
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String createCityID({
@@ -376,7 +390,8 @@ class CityModel {
     String _output;
 
     if (TextCheck.isEmpty(countryID) == false && TextCheck.isEmpty(cityEnName) == false){
-      _output = '$countryID+$cityEnName';
+      final String _fixedCityEnName = TextMod.fixCountryName(cityEnName);
+      _output = '$countryID+$_fixedCityEnName';
     }
 
     return _output;
@@ -433,12 +448,12 @@ class CityModel {
 
       _output.sort((CityModel a, CityModel b){
 
-        final String _nameA = CityModel.getTranslatedCityNameFromCity(
+        final String _nameA = CityModel.translateCity(
           context: context,
           city: a,
         );
 
-        final String _nameB = CityModel.getTranslatedCityNameFromCity(
+        final String _nameB = CityModel.translateCity(
           context: context,
           city: b,
         );
