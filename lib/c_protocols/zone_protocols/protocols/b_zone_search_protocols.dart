@@ -142,14 +142,60 @@ class ZoneSearchOps {
   /// CITIES OR COUNTRY
 
   // --------------------
-  /// TASK : WRITE ME
-  static Future<List<CityModel>> searchCountryCitiesByID(String cityID) async {
-    return null;
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchCitiesOfCountryByIDFromFire({
+    @required String text,
+    @required String countryID,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
+          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
   // --------------------
-  /// TASK : WRITE ME
-  static Future<List<CityModel>> searchCountryCitiesByName(String name) async {
-    return null;
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchCitiesOfCountryByNameFromFire({
+    @required String text,
+    @required String countryID,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
+          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
   // -----------------------------------------------------------------------------
 
@@ -230,19 +276,40 @@ class ZoneSearchOps {
 
     return _foundCities;
   }
-
   // -----------------------------------------------------------------------------
 
   /// DISTRICTS OF PLANET
 
   // --------------------
   /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchPlanetDistrictsByID(String districtID) async {
+  static Future<List<DistrictModel>> searchDistrictsOfPlanetByIDFromFire({
+    @required String districtID,
+  }) async {
     return null;
   }
   // --------------------
   /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchPlanetDistrictsByName(String name) async {
+  static Future<List<DistrictModel>> searchDistrictOfPlanetByNameFromFire({
+    @required String text,
+  }) async {
+    return null;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF COUNTRY
+
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<DistrictModel>> searchDistrictsOfCountryByIDFromFire({
+    @required String text,
+  }) async {
+    return null;
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<DistrictModel>> searchDistrictsOfCountryByNameFromFire({
+    @required String text,
+  }) async {
     return null;
   }
   // -----------------------------------------------------------------------------
@@ -251,19 +318,22 @@ class ZoneSearchOps {
 
   // --------------------
   /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchCityDistrictsByID(String districtID) async {
+  static Future<List<DistrictModel>> searchDistrictsOfCityByIDFromFire({
+    @required String text,
+  }) async {
     return null;
   }
   // --------------------
   /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchCityDistrictsByName(String name) async {
+  static Future<List<DistrictModel>> searchDistrictsOfCityByNameFromFire({
+    @required String text,
+  }) async {
     return null;
   }
   // -----------------------------------------------------------------------------
 
   /// OLD AND DEPRECATED : TASK : DELETE WHEN TAMAM
 
-  // --------------------
   // --------------------
   /// DEPRECATED
   static Future<CityModel> fetchCityByName({
