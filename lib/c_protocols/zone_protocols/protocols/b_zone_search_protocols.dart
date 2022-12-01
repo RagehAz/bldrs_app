@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
@@ -5,12 +6,17 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
+import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ZoneSearchOps {
@@ -20,35 +26,120 @@ class ZoneSearchOps {
 
   // -----------------------------------------------------------------------------
 
-  /// PLANET COUNTRIES
+  /// COUNTRIES OF PLANET
 
   // --------------------
-  /// TASK : WRITE ME
-  static List<Flag> searchPlanetCountriesByID(String countryID){
-    return null;
+  /// TESTED : WORKS PERFECT
+  static List<Phrase> searchCountriesByIDFromAllFlags({
+    @required String text,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    final bool _textIsEng = TextCheck.textIsEnglish(text?.trim());
+
+    if (_textIsEng == true){
+
+      for (final Flag flag in allFlags){
+
+        if (text == flag.id){
+
+          final Phrase _phrase = Phrase.searchFirstPhraseByLang(
+            phrases: flag.phrases,
+            langCode: 'en',
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
-  /// TASK : WRITE ME
-  static List<Flag> searchPlanetCountriesByName(String name){
-    return null;
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchCountriesByNameFromLDBFlags({
+    @required String text,
+  }) async {
+    List<Phrase> _phrases = <Phrase>[];
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
+      docName: LDBDoc.countriesPhrases,
+      lingCode: TextCheck.concludeEnglishOrArabicLang(text),
+      searchValue: text,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+      _phrases = Phrase.decipherMixedLangPhrases(maps: _maps,);
+    }
+
+    final List<Phrase> _cleaned = Phrase.cleanDuplicateIDs(
+      phrases: _phrases,
+    );
+
+    return _cleaned;
   }
   // -----------------------------------------------------------------------------
 
-  /// PLANET CITIES
+  /// CITIES OF PLANET
 
   // --------------------
-  /// TASK : WRITE ME
-  static Future<List<CityModel>> searchPlanetCitiesByID(String cityID) async {
-    return null;
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchCitiesOfPlanetByIDFromFire({
+    @required String text,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
   // --------------------
-  /// TASK : WRITE ME
-  static Future<List<CityModel>> searchPlanetCitiesByName(String name) async {
-    return null;
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> searchCitiesOfPlanetByNameFromFire({
+    @required String text,
+    int limit = 10,
+    QueryDocumentSnapshot<Object> startAfter,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+      queryModel: FireQueryModel(
+        // idFieldName: 'id', // DEFAULT
+        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
+        ],
+      ),
+      startAfter: startAfter,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrases(maps: _maps);
+
+    return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
   // -----------------------------------------------------------------------------
 
-  /// COUNTRY CITIES
+  /// CITIES OR COUNTRY
 
   // --------------------
   /// TASK : WRITE ME
@@ -62,39 +153,11 @@ class ZoneSearchOps {
   }
   // -----------------------------------------------------------------------------
 
-  /// PLANET DISTRICTS
-
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchPlanetDistrictsByID(String districtID) async {
-    return null;
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchPlanetDistrictsByName(String name) async {
-    return null;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CITY DISTRICTS
-
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchCityDistrictsByID(String districtID) async {
-    return null;
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<DistrictModel>> searchCityDistrictsByName(String name) async {
-    return null;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// OLD AND DEPRECATED : TASK : DELETE WHEN TAMAM
+  /// CITIES OF LIST
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<CityModel> searchCitiesByName({
+  static List<CityModel> searchCitiesByNameFromCities({
     @required BuildContext context,
     @required List<CityModel> sourceCities,
     @required String inputText,
@@ -167,6 +230,40 @@ class ZoneSearchOps {
 
     return _foundCities;
   }
+
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF PLANET
+
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<DistrictModel>> searchPlanetDistrictsByID(String districtID) async {
+    return null;
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<DistrictModel>> searchPlanetDistrictsByName(String name) async {
+    return null;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISTRICTS OF CITY
+
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<DistrictModel>> searchCityDistrictsByID(String districtID) async {
+    return null;
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<DistrictModel>> searchCityDistrictsByName(String name) async {
+    return null;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OLD AND DEPRECATED : TASK : DELETE WHEN TAMAM
+
+  // --------------------
   // --------------------
   /// DEPRECATED
   static Future<CityModel> fetchCityByName({
