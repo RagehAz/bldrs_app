@@ -74,12 +74,6 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSearchSubmit(String text) async {
-    // blog('_onSearchSubmit : $text');
-    await _onSearchChanged(text);
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   Future<void> _onSearchCancelled() async {
     blog('_onSearchCancelled');
     _searchController.clear();
@@ -88,37 +82,87 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
     });
   }
   // --------------------
-  /// TESTER
+  /// TESTED : WORKS PERFECT
+  Future<void> _onSearchSubmit(String text) async {
+    // blog('_onSearchSubmit : $text');
+    await _onSearchChanged(text);
+  }
+  // -----------------------------------------------------------------------------
+
+  ///  ==> TESTER
   Future<void> _onSearchChanged(String text) async {
     blog('_onSearchChanged : $text');
 
     await _triggerLoading(setTo: true);
 
     /// COUNTRIES
-    final List<Map<String, dynamic>> _planetCountriesByID = await _searchCountriesByIDFromAllFlags(text);
-    final List<Map<String, dynamic>> _planetCountriesByName = await _searchCountriesByNameFromLDBFlags(text);
-    /// CITIES
-    final List<Map<String, dynamic>> _planetCitiesByID = await _searchCitiesOfPlanetByIDFromFire(text);
-    final List<Map<String, dynamic>> _planetCitiesByName = await _searchCitiesOfPlanetByNameFromFire(text);
+    // final List<Map<String, dynamic>> _countriesByID = await _searchCountriesByIDFromAllFlags(text);
+    // final List<Map<String, dynamic>> _countriesByName = await _searchCountriesByNameFromLDBFlags(text);
+    /// CITIES OF PLANET
+    // final List<Map<String, dynamic>> _citiesOfPlanetByID = await _searchCitiesOfPlanetByIDFromFire(text);
+    // final List<Map<String, dynamic>> _citiesOfPlanetByName = await _searchCitiesOfPlanetByNameFromFire(text);
+    /// CITIES OF COUNTRY
+    // final List<Map<String, dynamic>> _citiesOfCountryByID = await _searchCountryCitiesByIDFromFire(text);
+    // final List<Map<String, dynamic>> _citiesOfCountryByName = await _searchCountryCitiesByNameFromFire(text);
+
+    final List<Map<String, dynamic>> _found = [
+      /// COUNTRIES
+      // ...?_countriesByID,
+      // ...?_countriesByName,
+      /// CITIES OF PLANET
+      // ...?_citiesOfPlanetByID,
+      // ...?_citiesOfPlanetByName,
+      /// CITIES OF COUNTRY
+      // ...?_citiesOfCountryByID,
+      // ...?_citiesOfCountryByName,
+      /// DISTRICTS OF PLANET
+
+      /// DISTRICTS OF COUNTRY
+
+      /// DISTRICTS OF CITY
+
+    ];
 
     setState(() {
-      _maps = [
-        /// COUNTRIES
-        ...?_planetCountriesByID,
-        ...?_planetCountriesByName,
-        /// CITIES
-        ...?_planetCitiesByID,
-        ...?_planetCitiesByName,
-
-        /// DISTRICTS
-
-      ];
+      _maps = Mapper.cleanDuplicateMaps(maps: _found);
     });
 
     await _triggerLoading(setTo: false);
 
   }
+
+  // -----------------------------------------------------------------------------
+
+  /// CITIES OF PLANET
+
   // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchCountryCitiesByNameFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchCountryCitiesByNameFromFire(
+      text: text,
+      countryID: 'egy',
+    );
+
+    return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<List<Map<String, dynamic>>> _searchCountryCitiesByIDFromFire(String text) async {
+
+    final List<Phrase> _phrases = await ZoneProtocols.searchCountryCitiesByIDFromFire(
+      text: text,
+      countryID: 'egy',
+    );
+
+    return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CITIES OF PLANET
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<List<Map<String, dynamic>>> _searchCitiesOfPlanetByNameFromFire(String text) async {
 
     final List<Phrase> _phrases = await ZoneProtocols.searchCitiesOfPlanetByNameFromFire(
@@ -137,6 +181,10 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
 
     return Phrase.cipherMixedLangPhrases(phrases: _phrases,);
   }
+  // -----------------------------------------------------------------------------
+
+  /// COUNTRIES
+
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<List<Map<String, dynamic>>> _searchCountriesByNameFromLDBFlags(String text) async {
