@@ -12,7 +12,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class UserFireOps {
   // -----------------------------------------------------------------------------
 
@@ -68,7 +68,7 @@ class UserFireOps {
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> updateUser({
     @required UserModel oldUser,
     @required UserModel newUser,
@@ -210,8 +210,8 @@ class UserFireOps {
   // --------------------
 }
 
+/// DEPRECATED : KEPT FOR REFERENCE
 /*
-/// DEPRECATED
   /// auth change user stream
   Stream<UserModel> streamInitialUser() {
 
