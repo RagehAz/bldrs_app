@@ -16,7 +16,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/x_dashboard/app_controls/xx_app_controls_model.dart';
-import 'package:bldrs/x_dashboard/app_controls/xxx_app_controls_fire_ops.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/real/app_controls_real_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +32,10 @@ class GeneralProvider extends ChangeNotifier {
     @required BuildContext context,
     @required bool assignToUser,
   }) async {
+
+    /// NOTE : NOT USED EXCEPT WHILE CREATING A NEW USER
+    /// BECAUSE ( readGlobalAppState ) IS USED IN APP INITIALIZATION
+    /// AS YOU NEED TO READ IT FRESHLY EVERYTIME YOU START THE APP
 
     AppState _appState;
 
@@ -70,6 +74,7 @@ class GeneralProvider extends ChangeNotifier {
   /// APP CONTROLS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<AppControlsModel> fetchAppControls({
     @required BuildContext context,
   }) async {
