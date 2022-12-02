@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -183,7 +184,10 @@ Future<void> _onSelectCountryAsNoteSender({
   @required PartyType senderType,
 }) async {
 
-  final ZoneModel _zoneModel = await controlSelectCountryOnly(context);
+  final ZoneModel _zoneModel = await controlSelectCountryOnly(
+    context: context,
+    zoneViewingEvent: ZoneViewingEvent.admin, // so can select any country
+  );
 
   final bool _newSelection =_zoneModel != null;
   if (_newSelection == true){

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -62,11 +63,15 @@ Future<void> setCurrentZone({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
+Future<ZoneModel> controlSelectCountryOnly({
+  @required BuildContext context,
+  @required ZoneViewingEvent zoneViewingEvent,
+}) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
-      screen: const CountriesScreen(
+      screen: CountriesScreen(
+        zoneViewingEvent: zoneViewingEvent,
         selectCountryIDOnly: true,
       )
   );
@@ -75,11 +80,15 @@ Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<ZoneModel> controlSelectCountryAndCityOnly(BuildContext context) async {
+Future<ZoneModel> controlSelectCountryAndCityOnly({
+  @required BuildContext context,
+  @required ZoneViewingEvent zoneViewingEvent,
+}) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
     context: context,
-    screen: const CountriesScreen(
+    screen: CountriesScreen(
+      zoneViewingEvent: zoneViewingEvent,
       selectCountryAndCityOnly: true,
 
     ),

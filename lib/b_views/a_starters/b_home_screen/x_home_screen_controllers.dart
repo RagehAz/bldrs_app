@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
@@ -143,6 +144,7 @@ List<NavModel> generateMainNavModels({
       id: NavModel.getMainNavIDString(navID: MainNavModel.zone),
       icon: _countryFlag,
       screen: const CountriesScreen(
+        zoneViewingEvent: ZoneViewingEvent.homeView,
         selectCountryAndCityOnly: true,
         settingCurrentZone: true,
       ),
