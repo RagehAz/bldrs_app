@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -46,7 +47,10 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
   // -----------------------------------------------------------------------------
   Future<void> _onSelectCityTap() async {
 
-    final ZoneModel _zone = await controlSelectCountryAndCityOnly(context);
+    final ZoneModel _zone = await controlSelectCountryAndCityOnly(
+      context: context,
+      zoneViewingEvent: ZoneViewingEvent.flyerPromotion,
+    );
 
     if (_zone?.countryID != null && _zone?.cityID != null){
 

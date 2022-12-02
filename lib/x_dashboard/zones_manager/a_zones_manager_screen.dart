@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
@@ -31,6 +32,7 @@ class ZonesManagerScreen extends StatelessWidget {
         /// ZONE BUTTON
         ZoneButton(
           onTap: () => goToCountrySelectionScreen(
+            zoneViewingEvent: ZoneViewingEvent.admin,
             context: context,
           ),
         ),

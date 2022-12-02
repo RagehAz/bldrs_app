@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
@@ -20,12 +21,14 @@ import 'package:flutter/material.dart';
 class CountriesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CountriesScreen({
+    @required this.zoneViewingEvent,
     this.selectCountryIDOnly = false,
     this.selectCountryAndCityOnly = false,
     this.settingCurrentZone = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final ZoneViewingEvent zoneViewingEvent;
   final bool selectCountryIDOnly;
   final bool selectCountryAndCityOnly;
   final bool settingCurrentZone;
@@ -39,6 +42,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null);
+  List<String> _countriesIDs = <String>[];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -55,6 +59,32 @@ class _CountriesScreenState extends State<CountriesScreen> {
   void initState() {
     super.initState();
 
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      _triggerLoading(setTo: true).then((_) async {
+
+        final ZoneStages _countriesStages = await ZoneProtocols.readCountriesStages();
+
+        if (mounted) {
+          setState(() {
+            _countriesIDs = _countriesStages.getIDsByViewingEvent(
+                context: context,
+                event: widget.zoneViewingEvent,
+            );
+          });
+        }
+
+        await _triggerLoading(setTo: false);
+      });
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
   }
   // --------------------
   @override
@@ -266,6 +296,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
             else {
 
               return CountriesScreenBrowseView(
+                countriesIDs: _countriesIDs,
                 onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
@@ -24,6 +25,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   const ZoneSelectionBubble({
     @required this.currentZone,
     @required this.onZoneChanged,
+    @required this.zoneViewingEvent,
     this.titleVerse,
     this.bulletPoints,
     this.translateBullets = true,
@@ -45,6 +47,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   final bool selectCountryAndCityOnly;
   final bool selectCountryIDOnly;
   final bool isRequired;
+  final ZoneViewingEvent zoneViewingEvent;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -137,6 +140,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
       screen: CountriesScreen(
+        zoneViewingEvent: widget.zoneViewingEvent,
         selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
         selectCountryIDOnly: widget.selectCountryIDOnly,
       ),

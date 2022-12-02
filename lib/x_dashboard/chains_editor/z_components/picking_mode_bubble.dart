@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
@@ -67,6 +68,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
       final ZoneModel _selectedZone = await Nav.goToNewScreen(
         context: context,
         screen: const CountriesScreen(
+          zoneViewingEvent: ZoneViewingEvent.admin,
           selectCountryAndCityOnly: true,
           // selectCountryIDOnly: false,
           // settingCurrentZone: false,

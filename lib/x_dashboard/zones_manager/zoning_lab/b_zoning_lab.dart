@@ -118,7 +118,9 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   final ZoneModel _zone = await Nav.goToNewScreen(
                     context: context,
-                    screen: const CountriesScreen(),
+                    screen: const CountriesScreen(
+                      zoneViewingEvent: ZoneViewingEvent.admin,
+                    ),
                   );
 
                   _zone?.blogZone(invoker: 'ZONE BY ONE BUTTON');
@@ -142,6 +144,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// ZONE BUBBLE
               ZoneSelectionBubble(
+                zoneViewingEvent: ZoneViewingEvent.admin,
                 currentZone: _bubbleZone,
                 titleVerse:  const Verse(
                   text: 'Zoning test',
