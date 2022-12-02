@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
@@ -13,11 +14,13 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> goToCountrySelectionScreen({
   @required BuildContext context,
+  @required ZoneViewingEvent zoneViewingEvent,
 }) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
     context: context,
-    screen: const CountriesScreen(
+    screen: CountriesScreen(
+      zoneViewingEvent: zoneViewingEvent,
       selectCountryIDOnly: true,
     ),
   );

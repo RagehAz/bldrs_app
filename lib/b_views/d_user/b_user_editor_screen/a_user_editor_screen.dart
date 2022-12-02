@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -409,6 +410,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// ZONE
                 ZoneSelectionBubble(
                   currentZone: draft?.zone,
+                  zoneViewingEvent: ZoneViewingEvent.userEditor,
                   onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
                     selectedZone: zoneModel,
                     draft: _draftUser,
