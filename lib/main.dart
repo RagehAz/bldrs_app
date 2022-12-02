@@ -1,32 +1,3 @@
-/*0
-
- ->
- toom
- lamoon
- 2erfa may7oona
- zeet looz 7elw
- ->
-
-1 - zeet argan
-2 - zeet looz 7elw
-3 - zeet gooz el hend
-
-tomaya mahroosa
-nos lamoona
-2erfa mat7oona
-
-- for tarteeb
-ma3la2et zeet zatoon
-zeet 5ardal
-
- */
-
-// siliconValleyBank.COM
-//
-// accountantsOnAir.com
-//
-// dalware
-
 import 'dart:async';
 
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
@@ -61,7 +32,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+/*
 
+  siliconValleyBank.com
+
+  accountantsOnAir.com
+
+  dalware
+
+ */
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
   /*
