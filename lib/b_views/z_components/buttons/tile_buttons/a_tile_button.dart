@@ -15,6 +15,7 @@ class TileButton extends StatelessWidget {
     this.secondLine,
     this.iconSizeFactor = 1,
     this.margins,
+    this.isActive = true,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class TileButton extends StatelessWidget {
   final String icon;
   final double iconSizeFactor;
   final dynamic margins;
+  final bool isActive;
   // -----------------------------------------------------------------------------
   static const double defaultHeight = 40;
   // -----------------------------------------------------------------------------
@@ -35,6 +37,7 @@ class TileButton extends StatelessWidget {
 
     return DreamBox(
       width: width,
+      isDeactivated: !isActive,
       height: height ?? defaultHeight,
       icon: icon,
       verse: verse,

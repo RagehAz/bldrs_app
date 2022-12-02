@@ -9,6 +9,7 @@ class CountryTileButton extends StatelessWidget {
   const CountryTileButton({
     @required this.onTap,
     @required this.countryID,
+    @required this.isActive,
     this.width,
     this.height,
     Key key
@@ -18,11 +19,13 @@ class CountryTileButton extends StatelessWidget {
   final String countryID;
   final double width;
   final double height;
+  final bool isActive;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return TileButton(
+      isActive: isActive,
       height: height,
       width: width ?? Bubble.clearWidth(context),
       icon: Flag.getCountryIcon(countryID),
