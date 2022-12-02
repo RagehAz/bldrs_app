@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/tile_buttons/country_tile_but
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,14 @@ class SelectCountryScreenSearchView extends StatelessWidget {
     @required this.onCountryTap,
     @required this.loading,
     @required this.foundCountries,
+    @required this.shownCountriesIDs,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<Phrase>> foundCountries;
+  final List<String> shownCountriesIDs;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -58,6 +61,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
 
                         return CountryTileButton(
                           countryID: _countryPhrase.id,
+                          isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryPhrase.id),
                           onTap: () => onCountryTap(_countryPhrase.id),
                         );
 

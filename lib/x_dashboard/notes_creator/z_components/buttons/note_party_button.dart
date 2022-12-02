@@ -77,6 +77,7 @@ class NotePartyButton extends StatelessWidget {
     else if (type == PartyType.country){
 
       return CountryTileButton(
+        isActive: true,
         width: width,
         height: height,
         countryID: id,
