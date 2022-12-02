@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -42,7 +44,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null);
-  List<String> _countriesIDs = <String>[];
+  List<String> _shownCountriesIDs = <String>[];
+  List<String> _notShownCountriesIDs = <String>[];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -70,12 +73,20 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
         final ZoneStages _countriesStages = await ZoneProtocols.readCountriesStages();
 
+        final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
+          context: context,
+          event: widget.zoneViewingEvent,
+        );
+
+        final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+            removeFrom: Flag.getAllCountriesIDs(),
+            removeThis: _shownIDs,
+        );
+
         if (mounted) {
           setState(() {
-            _countriesIDs = _countriesStages.getIDsByViewingEvent(
-                context: context,
-                event: widget.zoneViewingEvent,
-            );
+            _shownCountriesIDs = _shownIDs;
+            _notShownCountriesIDs = _notShownIDs;
           });
         }
 
@@ -287,6 +298,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
               return SelectCountryScreenSearchView(
                 loading: _loading,
                 foundCountries: _foundCountries,
+                shownCountriesIDs: _shownCountriesIDs,
                 onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
 
@@ -296,7 +308,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
             else {
 
               return CountriesScreenBrowseView(
-                countriesIDs: _countriesIDs,
+                shownCountriesIDs: _shownCountriesIDs,
+                notShownCountriesIDs: _notShownCountriesIDs,
                 onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
 
