@@ -276,6 +276,7 @@ class RealDoc {
   // --------------------
   static const String app_globalAppState = 'globalAppState';
   static const String app_appControls = 'appControls';
+  static const String app_tests = 'tests';
   // -----------------------------------------------------------------------------
   /// PICKERS
   // --------------------

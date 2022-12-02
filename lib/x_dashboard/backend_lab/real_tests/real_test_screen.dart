@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/c_real/real_models/real_query_model.dart';
 import 'package:bldrs/e_back_end/c_real/widgets/real_coll_paginator.dart';
 import 'package:bldrs/e_back_end/c_real/widgets/real_coll_streamer.dart';
@@ -39,7 +40,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    const String _collName = 'colors';
+    const String _collName = '${RealColl.app}/${RealDoc.app_tests}/colors';
     const String _dummyDocName = 'colorID';
 
     return MainLayout(
@@ -49,7 +50,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
       appBarRowWidgets: <Widget>[
 
         RealDocStreamer(
-          collName: 'colors',
+          collName: _collName,
           docName: 'colorID',
           builder: (_, Map<String, dynamic> map){
 
@@ -210,7 +211,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             height: Scale.screenHeight(context),
             child: RealCollPaginator(
                 realQueryModel: const RealQueryModel(
-                    path: 'colors/'
+                    path: _collName
                 ),
                 scrollController: _scrollController,
                 builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
@@ -248,7 +249,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             width: Scale.screenWidth(context) * 0.5,
             height: Scale.screenHeight(context),
             child: RealCollStreamer(
-                collName: 'colors',
+                collName: _collName,
                 builder: (_, List<Map<String, dynamic>> maps){
 
                   return ListView(
