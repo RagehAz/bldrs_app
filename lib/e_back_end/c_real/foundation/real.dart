@@ -822,7 +822,11 @@ class Real {
     @required String newPath,
   }) async {
 
+    blog('1 - clonePath : START');
+
     final Object _object = await readPath(path: oldPath);
+
+    blog('2 - clonePath : GOT OBJECT : ( ${_object != null} )');
 
     if (_object != null){
 
@@ -830,13 +834,22 @@ class Real {
         path: newPath,
       );
 
-      await tryAndCatch(functions: () async {
-        await _ref.set(_object);
+      blog('3 - clonePath : GOT REF : ( $_ref )');
+
+      await tryAndCatch(
+          invoker: 'clonePath',
+          functions: () async {
+
+            await _ref.set(_object);
+
+            blog('4 - clonePath : OBJECT IS SET IN NEW PATH');
+
       });
 
     }
 
-    }
+    blog('5 - clonePath : END');
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOG
