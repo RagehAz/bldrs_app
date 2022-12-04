@@ -9,11 +9,13 @@ class WideCityButton extends StatelessWidget {
   const WideCityButton({
     @required this.city,
     @required this.onSingleTap,
+    @required this.isActive,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final CityModel city;
   final Function onSingleTap;
+  final bool isActive;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class WideCityButton extends StatelessWidget {
     // --------------------
     return DreamBox(
       height: 40,
+      isDeactivated: !isActive,
       width: Bubble.clearWidth(context) - 10,
       iconSizeFactor: 0.8,
       verse: Verse.plain(_cityNameValue),

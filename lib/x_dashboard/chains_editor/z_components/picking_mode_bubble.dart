@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -69,7 +70,8 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         context: context,
         screen: const CountriesScreen(
           zoneViewingEvent: ZoneViewingEvent.admin,
-          selectCountryAndCityOnly: true,
+          depth: ZoneDepth.district,
+          // selectCountryAndCityOnly: true,
           // selectCountryIDOnly: false,
           // settingCurrentZone: false,
         ),

@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
-import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
@@ -143,9 +143,17 @@ List<NavModel> generateMainNavModels({
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.zone),
       icon: _countryFlag,
-      screen: const CountriesScreen(
+      // screen: const CountriesScreen(
+      //   zoneViewingEvent: ZoneViewingEvent.homeView,
+      //   depth: ZoneDepth.district,
+      //   settingCurrentZone: true,
+      //
+      //   // selectCountryAndCityOnly: true,
+      // ),
+      screen: () => ZoneSelection.goBringAZone(
+        context: context,
+        depth: ZoneDepth.district,
         zoneViewingEvent: ZoneViewingEvent.homeView,
-        selectCountryAndCityOnly: true,
         settingCurrentZone: true,
       ),
       iconSizeFactor: 1,
@@ -196,11 +204,18 @@ Future<void> onNavigate({
       await _navModel.onNavigate();
     }
 
-    await Nav.goToNewScreen(
-      context: context,
-      screen: _navModel.screen,
-      transitionType: PageTransitionType.fade,
-    );
+    if ( _navModel.screen is Function){
+      await _navModel.screen();
+    }
+
+    else {
+      await Nav.goToNewScreen(
+        context: context,
+        screen: _navModel.screen,
+        transitionType: PageTransitionType.fade,
+      );
+    }
+
 
     progressBarModel.value = ProgressBarModel.emptyModel();
     isExpanded.value = false;

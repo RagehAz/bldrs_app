@@ -2,672 +2,303 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
+import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
+import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// -----------------------------------------------------------------------------
 
-/// SET CURRENT ZONE
+/*
+  ------------------------------------------------------------------
+  ZoneDepth is COUNTRY
+  -> goToCountriesScreen
+       | => goBack * 1 (pass null)
+       | -> onCountryTap -> goBack * 1 => (pass zoneWithCountryID)
+  ------------------------------------------------------------------
+  ZoneDepth is CITY
+  -> goToCountriesScreen
+       | => goBack * 1 (pass null)
+       | -> onCountryTap -> goToCitiesScreen
+                               | => goBack * 1 (pass null)
+                               | => onCityTap -> goBack * 2 => (pass zoneWithCountryIDAndCityID)
+  ------------------------------------------------------------------
+  ZoneDepth is DISTRICT
+  -> goToCountriesScreen
+       | => goBack * 1 (pass null)
+       | -> onCountryTap -> goToCitiesScreen
+                               | => goBack * 1 (pass null)
+                               | => onCityTap -> goToDistrictsScreen
+                                                    | => goBack * 1 (pass null)
+                                                    | => onDistrictTap -> goBack * 3 => (pass zoneWithCountryIDAndCityIDAndDistrictID)
+  ------------------------------------------------------------------
+ */
 
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> setCurrentZone({
-  @required BuildContext context,
-  @required ZoneModel zone,
-}) async {
-
-  if (zone != null && zone.countryID != null){
-
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingVerse: const Verse(
-        text: 'phid_loading',
-        translate: true,
-      ),
-    ));
-
-    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    /// SET ZONE
-    zoneProvider.setCurrentZone(
-      zone: zone,
-      notify: false,
-    );
-    /// SET CURRENCY
-    zoneProvider.getSetCurrentCurrency(
-      zone: zone,
-      notify: true,
-    );
-
-    /// SET CHAINS
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    await _chainsProvider.reInitializeCityChains(context);
-
-    await WaitDialog.closeWaitDialog(context);
-
-    await Nav.pushHomeAndRemoveAllBelow(
-        context: context,
-        invoker: 'SelectCountryScreen._onCountryTap'
-    );
-
-  }
-
+enum ZoneDepth {
+  country,
+  city,
+  district,
 }
-// -----------------------------------------------------------------------------
 
-/// MAIN ZONING NAVIGATORS
+class ZoneSelection {
+  // -----------------------------------------------------------------------------
 
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<ZoneModel> controlSelectCountryOnly({
-  @required BuildContext context,
-  @required ZoneViewingEvent zoneViewingEvent,
-}) async {
+  const ZoneSelection();
 
-  final ZoneModel _zone = await Nav.goToNewScreen(
+  // -----------------------------------------------------------------------------
+
+  /// ZONE SELECTION MAIN CONTROLLER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ZoneModel> goBringAZone({
+    @required BuildContext context,
+    @required ZoneDepth depth,
+    @required bool settingCurrentZone,
+    @required ZoneViewingEvent zoneViewingEvent,
+  }) async {
+
+    final ZoneModel _output = await goToCountriesScreen(
+      context: context,
+      zoneViewingEvent: zoneViewingEvent,
+      depth: depth,
+    );
+
+    if (settingCurrentZone == true && _output != null){
+      await setCurrentZone(
+        context: context,
+        zone: _output,
+      );
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ZoneModel> goToCountriesScreen({
+    @required BuildContext context,
+    @required ZoneViewingEvent zoneViewingEvent,
+    @required ZoneDepth depth,
+  }) async {
+
+    final ZoneModel _zoneWithCountryID = await Nav.goToNewScreen(
       context: context,
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
-        selectCountryIDOnly: true,
-      )
-  );
-
-  return _zone;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<ZoneModel> controlSelectCountryAndCityOnly({
-  @required BuildContext context,
-  @required ZoneViewingEvent zoneViewingEvent,
-}) async {
-
-  final ZoneModel _zone = await Nav.goToNewScreen(
-    context: context,
-    screen: CountriesScreen(
-      zoneViewingEvent: zoneViewingEvent,
-      selectCountryAndCityOnly: true,
-
-    ),
-
-  );
-
-  return _zone;
-}
-// -----------------------------------------------------------------------------
-/*
-Future<ZoneModel> controlSelectZone(BuildContext context) async {
-}
- */
-// -----------------------------------------------------------------------------
-
-/// COUNTRY CONTROLLERS
-
-// --------------------
-/*
-Future<void> controlCountryOnTap({
-  @required BuildContext context,
-  @required String countryID,
-  @required bool selectCountryIDOnly,
-  @required bool selectCountryAndCityOnly,
-}) async {
-
-  // blog('controlCountryOnTap : countryID : $countryID : selectCountryIDOnly : $selectCountryIDOnly : selectCountryAndCityOnly : $selectCountryAndCityOnly');
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-
-  /// A - WHEN  SEQUENCE IS SELECTING (COUNTRY) ONLY
-  if (selectCountryIDOnly){
-
-    /// B - DEFINE ZONE WITH COUNTRY ID ONLY
-    final ZoneModel _zone = ZoneModel(
-      countryID: countryID,
+        depth: depth,
+      ),
     );
 
-    /// C - TAMAM
-    await Nav.goBack(context, passedData: _zone);
+    if (_zoneWithCountryID?.countryID != null){
+      return _zoneWithCountryID;
+    }
 
-    _zoneProvider.clearAllSearchesAndSelections(
-      notify: true,
-    );
+    else {
+      return null;
+    }
 
   }
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onSelectCountry({
+    @required BuildContext context,
+    @required String countryID,
+    @required ZoneDepth depth,
+    @required ZoneViewingEvent zoneViewingEvent,
+  }) async {
 
+    Keyboard.closeKeyboard(context);
 
-  else {
+    /// COMPLETE ZONE
+    final ZoneModel _zoneWithCountry = await ZoneProtocols.completeZoneModel(
+      context: context,
+      incompleteZoneModel: ZoneModel(
+        countryID: countryID,
+      ),
+    );
 
-    /// A - WHEN SEQUENCE IS SELECTING (COUNTRY + CITY) ONLY
-    if (selectCountryAndCityOnly) {
+    /// Go back (1 step) + pass zone with countryID
+    if (depth == ZoneDepth.country){
 
-      /// B - FETCH COUNTRY MODEL
-      final CountryModel _country= await _zoneProvider.fetchCountryByID(
-          context: context,
-          countryID: countryID,
+      await Nav.goBack(
+        context: context,
+        invoker: 'onSelectCountry',
+        passedData: _zoneWithCountry,
       );
-
-      /// C - GO SELECT CITY
-      final String _cityID = await Nav.goToNewScreen(
-          context: context,
-          screen: SelectCityScreen(
-            country: _country,
-            selectCountryAndCityOnly: selectCountryAndCityOnly,
-          )
-      );
-
-      /// D - IF CITY IS SELECTED
-      if (_cityID != null){
-
-        /// D.1 DEFINE ZONE WITH COUNTRY AND CITY
-        final ZoneModel _zone = ZoneModel(
-          countryID: countryID,
-          cityID: _cityID,
-        );
-
-        _zoneProvider.clearAllSearchesAndSelections(
-          notify: true,
-        );
-        _searchProvider.closeAllZoneSearches(
-          notify: true,
-        );
-
-        /// D.2 GO BACK
-        Nav.goBack(context, passedData: _zone);
-
-
-      }
-
-      /// D - IF CITY IS NOT SELECTED
-      else {
-        // ??
-      }
 
     }
 
-    /// A - WHEN SEQUENCE SELECTING (COUNTRY + CITY + DISTRICT)
+    /// Go to Cities Screen
     else {
 
-      final CountryModel _country = await _zoneProvider.fetchCountryByID(
+      final ZoneModel _zoneWithCity = await Nav.goToNewScreen(
           context: context,
-          countryID: countryID
-      );
-
-      await Nav.goToNewScreen(
-          context: context,
-          screen: SelectCityScreen(
-              country: _country
+          screen: CitiesScreen(
+            zoneViewingEvent: zoneViewingEvent,
+            countryID: countryID,
+            depth: depth,
           )
       );
 
+      /// SECOND CITY SELECTION BACK / THIRD DISTRICT SELECTION BACK
+      if (_zoneWithCity?.cityID != null || _zoneWithCity?.districtID != null){
+
+        await Nav.goBack(
+          context: context,
+          invoker: 'onSelectCountry.AFTER CITY SELECTION',
+          passedData: _zoneWithCity,
+        );
+
+      }
+
     }
 
+
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onSelectCity({
+    @required BuildContext context,
+    @required String cityID,
+    @required ZoneDepth depth,
+    @required ZoneViewingEvent zoneViewingEvent,
+  }) async {
 
-}
-// --------------------
-Future<void> controlCountrySearch({
-  @required BuildContext context,
-  @required String searchText,
-}) async {
+    Keyboard.closeKeyboard(context);
 
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
-  final bool _isSearchingCountry = _searchProvider.isSearchingCountry;
-
-  _searchProvider.triggerIsSearchingAfterMaxTextLength(
-    searchModel: SearchingModel.country,
-    isSearching: _isSearchingCountry,
-    setIsSearchingTo: true,
-    text: searchText,
-  );
-
-  if (_searchProvider.isSearchingCountry == true) {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-    _uiProvider.triggerLoading(
-      setLoadingTo: true,
-      callerName: 'controlCountrySearch',
-      notify: true,
-    );
-    _zoneProvider.clearSearchedCountries(
-      notify: false,
-    );
-
-    // final List<ZoneModel> _countries = searchCountriesByNames(
-    //   text: searchText,
-    // );
-
-    await _zoneProvider.searchSetCountriesByName(
+    /// COMPLETE ZONE
+    final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
       context: context,
-      input: TextMod.fixCountryName(searchText),
-      notify: true,
+      incompleteZoneModel: ZoneModel(
+        countryID: CityModel.getCountryIDFromCityID(cityID),
+        cityID: cityID,
+      ),
     );
 
-    _uiProvider.triggerLoading(
-      setLoadingTo: false,
-      callerName: 'controlCountrySearch',
-      notify: true,
-    );
-
-  }
-
-}
-// --------------------
-void controlCountryScreenOnBack(BuildContext context,){
-
-  Nav.goBack(context);
-
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-
-  /// CLOSE SEARCH
-  _searchProvider.triggerIsSearching(
-    searchingModel: SearchingModel.country,
-    setIsSearchingTo: false,
-    notify: false,
-  );
-
-  /// CLOSE SEARCH
-  _searchProvider.triggerIsSearching(
-    searchingModel: SearchingModel.city,
-    setIsSearchingTo: false,
-    notify: false,
-  );
-
-  /// CLOSE SEARCH
-  _searchProvider.triggerIsSearching(
-    searchingModel: SearchingModel.district,
-    setIsSearchingTo: false,
-    notify: true,
-  );
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-  _zoneProvider.clearSearchedCountries(
-    notify: false,
-  );
-
-  _zoneProvider.clearSelectedCountryCities(
-    notify: false,
-  );
-  _zoneProvider.clearSearchedCities(
-    notify: false,
-  );
-
-  _zoneProvider.clearSelectedCityDistricts(
-    notify: false,
-  );
-  _zoneProvider.clearSearchedDistricts(
-    notify: true,
-  );
-
-
-}
- */
-// -----------------------------------------------------------------------------
-
-/// CITY CONTROLLERS
-
-// --------------------
-/*
-Future<void> initializeSelectCityScreen({
-  @required BuildContext context,
-  @required CountryModel countryModel,
-}) async {
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
-  _uiProvider.triggerLoading(
-    setLoadingTo: true,
-    callerName: 'initializeSelectCityScreen',
-    notify: true,
-  );
-
-  await _zoneProvider.fetchSetSelectedCountryCities(
-    context: context,
-    countryModel: countryModel,
-    notify: true,
-  );
-
-  _uiProvider.triggerLoading(
-    setLoadingTo: false,
-    callerName: 'initializeSelectCityScreen',
-    notify: true,
-  );
-
-}
-// --------------------
-Future<void> controlCityOnTap({
-  @required BuildContext context,
-  @required bool selectCountryAndCityOnly,
-  @required String cityID,
-  @required CountryModel country,
-  @required bool settingCurrentZone,
-}) async {
-
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-    /// A - WHEN SELECTING (COUNTRY AND CITY) ONLY
-  if (selectCountryAndCityOnly){
-
-    _uiProvider.triggerLoading(
-      setLoadingTo: false,
-      callerName: 'controlCityOnTap',
-      notify: true,
-    );
-    _searchProvider.triggerIsSearching(
-      searchingModel: SearchingModel.city,
-      setIsSearchingTo: false,
-      notify: true,
-    );
-
-    _zoneProvider.clearAllSearchesAndSelections(
-      notify: true,
-    );
-
-    Nav.goBack(context, passedData: cityID);
-
-  }
-
-  else {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final List<CityModel> _selectedCountryCities = _zoneProvider.selectedCountryCities;
-
-    final CityModel _city = CityModel.getCityFromCities(
-      cities: _selectedCountryCities,
+    /// CHECK CITY HAS DISTRICTS
+    final ZoneStages _cityDistrictsStages = await ZoneProtocols.readDistrictsStages(
       cityID: cityID,
     );
 
-    /// WHEN CITY HAS DISTRICTS
-    if (Mapper.checkCanLoopList(_city.districts)) {
+    /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
+    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByStage(null)) == true;
 
-      await Nav.goToNewScreen(
-          context: context,
-          screen: SelectDistrictScreen(
-            city: _city,
-            country: country,
-            settingCurrentZone: settingCurrentZone,
-          )
+    /// Go back (2 steps) + pass zone with countryID & cityID
+    if (depth == ZoneDepth.city || _cityHasDistricts == false){
+
+      /// FIRST CITY SELECTION BACK
+      await Nav.goBack(
+        context: context,
+        invoker: 'onSelectCountry',
+        passedData: _zoneWithCity,
       );
 
     }
 
-    /// WHEN CITY HAS NO DISTRICTS
+    /// Go to Districts Screen
     else {
 
-      final ZoneModel _zone = ZoneModel(
-        countryID: _city.countryID,
-        cityID: _city.cityID,
-      );
-      _zone.blogZone(invoker: 'SELECTED ZONE');
-
-      /// WHEN SEQUENCE IS TO SET CURRENT ZONE
-      if (settingCurrentZone == true){
-
-        final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-        await _zoneProvider.fetchSetCurrentCompleteZone(
+      final ZoneModel _zoneWithDistrict = await Nav.goToNewScreen(
           context: context,
-          zone: _zone,
-          notify: true,
-        );
+          screen: DistrictsScreen(
+            zoneViewingEvent: zoneViewingEvent,
+            country: _zoneWithCity.countryModel,
+            city: _zoneWithCity.cityModel,
+          )
+      );
 
-        final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-        // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
+        /// SECOND DISTRICT SELECTION BACK
+      if (_zoneWithDistrict?.districtID != null){
 
-        await _flyersProvider.paginateWallFlyers(
-          // context: context,
-          // section: _keywordsProvider.currentSection,
-          // kw: _keywordsProvider.currentKeyword,
-          context
+        await Nav.goBack(
+          context: context,
+          invoker: 'onSelectCountry.AFTER DISTRICT SELECTION',
+          passedData: _zoneWithDistrict,
         );
 
       }
 
-      _uiProvider.triggerLoading(
-        setLoadingTo: false,
-        callerName: 'controlCityOnTap',
-        notify: true,
-      );
-      _searchProvider.triggerIsSearching(
-        searchingModel: SearchingModel.city,
-        setIsSearchingTo: false,
-        notify: false,
-      );
-
-      _zoneProvider.clearAllSearchesAndSelections(
-        notify: true,
-      );
-      _searchProvider.closeAllZoneSearches(
-        notify: true,
-      );
-
-      Nav.goBackToHomeScreen(context);
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onSelectDistrict({
+    @required BuildContext context,
+    @required String districtID,
+  }) async {
 
+    Keyboard.closeKeyboard(context);
 
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> controlCitySearch({
-  @required BuildContext context,
-  @required String searchText,
-}) async {
-
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  final bool _isSearchingCity = _searchProvider.isSearchingCity;
-
-  _searchProvider.triggerIsSearchingAfterMaxTextLength(
-    text: searchText,
-    searchModel: SearchingModel.city,
-    isSearching: _isSearchingCity,
-    setIsSearchingTo: true,
-  );
-
-  if (_searchProvider.isSearchingCity == true) {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-    await _zoneProvider.searchSetCitiesByName(
+    /// COMPLETE ZONE
+    final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
       context: context,
-      input: TextMod.fixCountryName(searchText),
-      notify: true,
+      incompleteZoneModel: ZoneModel(
+        countryID: DistrictModel.getCountryIDFromDistrictID(districtID),
+        cityID: DistrictModel.getCityIDFromDistrictID(districtID),
+        districtID: districtID,
+      ),
+    );
+
+    /// Go back (3 steps) + pass zone with countryID & cityID & districtID
+    await Nav.goBack(
+      context: context,
+      invoker: 'onSelectCountry.AFTER DISTRICT SELECTION',
+      passedData: _zoneWithDistrict,
     );
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> setCurrentZone({
+    @required BuildContext context,
+    @required ZoneModel zone,
+  }) async {
 
-}
-// --------------------
-void controlCityScreenOnBack(BuildContext context){
+    if (zone != null && zone.countryID != null){
 
-  Nav.goBack(context);
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingVerse: const Verse(
+          text: 'phid_loading',
+          translate: true,
+        ),
+      ));
 
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+      final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+      /// SET ZONE
+      zoneProvider.setCurrentZone(
+        zone: zone,
+        notify: false,
+      );
+      /// SET CURRENCY
+      zoneProvider.getSetCurrentCurrency(
+        zone: zone,
+        notify: true,
+      );
 
-  /// CLOSE SEARCH
-  _searchProvider.triggerIsSearching(
-    searchingModel: SearchingModel.city,
-    setIsSearchingTo: false,
-    notify: false,
-  );
+      /// SET CHAINS
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      await _chainsProvider.reInitializeCityChains(context);
 
-  /// CLOSE SEARCH
-  _searchProvider.triggerIsSearching(
-    searchingModel: SearchingModel.district,
-    setIsSearchingTo: false,
-    notify: true,
-  );
+      await WaitDialog.closeWaitDialog(context);
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+      await Nav.pushHomeAndRemoveAllBelow(
+          context: context,
+          invoker: 'SelectCountryScreen._onCountryTap'
+      );
 
-  _zoneProvider.clearSelectedCountryCities(
-    notify: false,
-  );
-  _zoneProvider.clearSearchedCities(
-    notify: false,
-  );
-
-  _zoneProvider.clearSelectedCityDistricts(
-    notify: false,
-  );
-  _zoneProvider.clearSearchedDistricts(
-    notify: true,
-  );
-
-}
- */
-// -----------------------------------------------------------------------------
-
-/// DISTRICT CONTROLLERS
-
-// --------------------
-/*
-Future<void> initializeSelectDistrictScreen({
-  @required BuildContext context,
-  @required CityModel cityModel,
-}) async {
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
-  _uiProvider.triggerLoading(
-    setLoadingTo: true,
-    callerName: 'initializeSelectDistrictScreen',
-    notify: true,
-  );
-
-  _zoneProvider.setSelectedCityDistricts(
-    districts: cityModel.districts,
-    notify: true,
-  );
-
-  _uiProvider.triggerLoading(
-    setLoadingTo: false,
-    callerName: 'initializeSelectDistrictScreen',
-    notify: true,
-  );
-
-}
-// --------------------
-Future<void> controlDistrictOnTap({
-  @required BuildContext context,
-  @required String districtID,
-  @required CityModel cityModel,
-  @required bool settingCurrentZone,
-}) async {
-
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-  final ZoneModel _zone = ZoneModel(
-    countryID: cityModel.countryID,
-    cityID: cityModel.cityID,
-    districtID: districtID,
-  );
-
-
-  _zone.blogZone(invoker: 'SELECTED ZONE');
-
-  /// WHEN SEQUENCE IS TO SET CURRENT ZONE
-  if (settingCurrentZone == true){
-
-    await _zoneProvider.fetchSetCurrentCompleteZone(
-      context: context,
-      zone: _zone,
-      notify: true,
-    );
-
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
-
-    await _flyersProvider.paginateWallFlyers(
-      // context: context,
-      // section: _keywordsProvider.currentSection,
-      // kw: _keywordsProvider.currentKeyword,
-      context
-    );
+    }
 
   }
-
-  _uiProvider.triggerLoading(
-    setLoadingTo: false,
-    callerName: 'controlDistrictOnTap',
-    notify: true,
-  );
-
-  _searchProvider.closeAllZoneSearches(
-    notify: true,
-  );
-  _zoneProvider.clearAllSearchesAndSelections(
-    notify: true,
-  );
-
-  Nav.goBackToHomeScreen(context);
-
+  // -----------------------------------------------------------------------------
 }
-// --------------------
-Future<void> controlDistrictSearch({
-  @required BuildContext context,
-  @required String searchText,
-}) async {
-
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  final bool _isSearchingDistrict = _searchProvider.isSearchingDistrict;
-
-  _searchProvider.triggerIsSearchingAfterMaxTextLength(
-    text: searchText,
-    searchModel: SearchingModel.district,
-    isSearching: _isSearchingDistrict,
-    setIsSearchingTo: true,
-  );
-
-  if (_searchProvider.isSearchingDistrict == true) {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-    _zoneProvider.searchSetDistrictsByName(
-      context: context,
-      textInput: TextMod.fixCountryName(searchText),
-      notify: true,
-    );
-
-  }
-
-
-}
-// --------------------
-void controlDistrictScreenOnBack(BuildContext context){
-
-  Nav.goBack(context);
-
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-
-  /// CLOSE SEARCH
-  _searchProvider.triggerIsSearching(
-    searchingModel: SearchingModel.district,
-    setIsSearchingTo: false,
-    notify: true,
-  );
-
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-  _zoneProvider.clearSelectedCityDistricts(
-    notify: false,
-  );
-  _zoneProvider.clearSearchedDistricts(
-    notify: true,
-  );
-
-}
- */
-// -----------------------------------------------------------------------------

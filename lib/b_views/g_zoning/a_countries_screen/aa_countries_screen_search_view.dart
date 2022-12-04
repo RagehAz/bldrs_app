@@ -1,5 +1,6 @@
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/country_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -15,6 +16,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
     @required this.loading,
     @required this.foundCountries,
     @required this.shownCountriesIDs,
+    @required this.countriesCensus,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +24,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<Phrase>> foundCountries;
   final List<String> shownCountriesIDs;
+  final List<CensusModel> countriesCensus;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,9 +62,15 @@ class SelectCountryScreenSearchView extends StatelessWidget {
 
                         final Phrase _countryPhrase = foundCountries[index];
 
+                        final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+                          censuses: countriesCensus,
+                          censusID: _countryPhrase.id,
+                        );
+
                         return CountryTileButton(
                           countryID: _countryPhrase.id,
                           isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryPhrase.id),
+                          censusModel: _census,
                           onTap: () => onCountryTap(_countryPhrase.id),
                         );
 

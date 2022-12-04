@@ -1,8 +1,9 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/city_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +14,14 @@ class CitiesScreenSearchView extends StatelessWidget {
     @required this.onCityTap,
     @required this.loading,
     @required this.foundCities,
+    @required this.shownCitiesIDs,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function(String cityID) onCityTap;
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<CityModel>> foundCities;
+  final List<String> shownCitiesIDs;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -57,8 +60,13 @@ class CitiesScreenSearchView extends StatelessWidget {
 
                         final CityModel _city = foundCities[index];
 
+                        final bool _isActive = Stringer.checkStringsContainString(
+                          strings: shownCitiesIDs,
+                          string: _city.cityID,
+                        );
                         return WideCityButton(
                           city: _city,
+                          isActive: _isActive,
                           onSingleTap: () => onCityTap(_city.cityID),
                         );
 

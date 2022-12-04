@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/country_preview_bubble.dart';
@@ -136,7 +137,9 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
       screen: CitiesScreen(
-        country: countryModel,
+        zoneViewingEvent: ZoneViewingEvent.admin,
+        countryID: countryModel?.id,
+        depth: ZoneDepth.district,
       ),
     );
 

@@ -31,7 +31,7 @@ class NavModel {
   final String id;
   final Verse titleVerse;
   final String icon;
-  final Widget screen;
+  final dynamic screen;
   final Function onNavigate;
   final Color iconColor;
   final double iconSizeFactor;

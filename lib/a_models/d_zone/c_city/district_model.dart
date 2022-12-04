@@ -315,6 +315,33 @@ class DistrictModel{
     assert(districtID != null && langCode != null, 'districtID and langCode must not be null');
     return '$districtID+$langCode';
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<DistrictModel> getDistrictsFromDistrictsByIDs({
+  @required List<DistrictModel> districtsModels,
+    @required List<String> districtsIDs,
+  }){
+    final List<DistrictModel> _output = [];
+
+    if (Mapper.checkCanLoopList(districtsModels) == true && Mapper.checkCanLoopList(districtsIDs) == true){
+
+      for (final DistrictModel district in districtsModels){
+
+        final bool _isInList = Stringer.checkStringsContainString(
+          strings: districtsIDs,
+          string: district.id,
+        );
+
+        if (_isInList == true){
+          _output.add(district);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// PHRASES

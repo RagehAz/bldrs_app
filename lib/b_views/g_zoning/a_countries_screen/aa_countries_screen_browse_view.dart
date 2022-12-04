@@ -1,6 +1,8 @@
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/country_tile_button.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
+import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class CountriesScreenBrowseView extends StatelessWidget {
@@ -9,6 +11,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
     @required this.onCountryTap,
     @required this.shownCountriesIDs,
     @required this.notShownCountriesIDs,
+    @required this.countriesCensus,
     this.padding,
     Key key
   }) : super(key: key);
@@ -17,6 +20,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   final EdgeInsets padding;
   final List<String> shownCountriesIDs;
   final List<String> notShownCountriesIDs;
+  final List<CensusModel> countriesCensus;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -26,18 +30,20 @@ class CountriesScreenBrowseView extends StatelessWidget {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: _countriesList.length,
-      padding: padding ?? const EdgeInsets.only(
-          top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
-          bottom: Ratioz.horizon
-      ),
-      shrinkWrap: true,
+      padding: padding ?? Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
       itemBuilder: (_, int index) {
 
         final String _countryID = _countriesList[index];
 
+        final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+          censuses: countriesCensus,
+          censusID: _countryID,
+        );
+
         return CountryTileButton(
           countryID: _countryID,
           isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryID),
+          censusModel: _census,
           onTap: () => onCountryTap(_countryID),
         );
 
