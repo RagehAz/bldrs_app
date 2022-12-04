@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/tile_buttons/district_tile_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/zone_buttons/district_tile_button.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 

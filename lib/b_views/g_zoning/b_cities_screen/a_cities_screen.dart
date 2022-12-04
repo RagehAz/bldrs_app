@@ -1,22 +1,21 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_view.dart';
-import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/b_zone_search_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -27,13 +26,16 @@ import 'package:flutter/material.dart';
 class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CitiesScreen({
-    this.country,
-    this.selectCountryAndCityOnly = false,
+    @required this.zoneViewingEvent,
+    @required this.depth,
+    @required this.countryID,
+
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final CountryModel country;
-  final bool selectCountryAndCityOnly;
+  final ZoneViewingEvent zoneViewingEvent;
+  final ZoneDepth depth;
+  final String countryID;
   /// --------------------------------------------------------------------------
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
@@ -46,6 +48,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
   final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
+  List<String> _shownCitiesIDs = <String>[];
+  ZoneStages _stages;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -63,8 +67,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     super.initState();
 
     final ZoneModel _initialZone = ZoneModel(
-      countryID: widget.country?.id,
-      countryModel: widget.country,
+      countryID: widget.countryID,
     );
     _currentZone = ValueNotifier<ZoneModel>(_initialZone);
   }
@@ -105,29 +108,68 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _loadCities() async {
 
-    /// COMPLETE CURRENT ZONE
-    _currentZone.value = await ZoneProtocols.completeZoneModel(
-      context: context,
-      incompleteZoneModel: _currentZone.value,
-    );
+    if (widget.countryID != null){
 
-    final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
-      countryID: widget.country.id,
-      // cityStage: null, /// TASK : SHOOF KEDA HENA
-    );
+      /// COMPLETE CURRENT ZONE
+      _currentZone.value = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: _currentZone.value,
+      );
 
-    if (mounted == true){
+      final ZoneStages _citiesStages = await ZoneProtocols.readCitiesStages(
+        countryID: widget.countryID,
+      );
 
-        final List<CityModel> _ordered = CityModel.sortCitiesAlphabetically(
+      final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
+        citiesIDsOfThisCountry: _citiesStages.getAllIDs(),
+      );
+
+      if (mounted == true){
+
+        /// SHOWN CITIES IDS
+        final List<String> _shownIDs = _citiesStages.getIDsByViewingEvent(
           context: context,
-          cities: _cities,
+          event: widget.zoneViewingEvent,
         );
+        /// SHOWN CITIES MODELS
+        final List<CityModel> _shownCities = CityModel.getCitiesFromCitiesByIDs(
+          citiesModels: _cities,
+          citiesIDs: _shownIDs,
+        );
+
+        /// NOT SHOWN CITIES IDS
+        final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+          removeFrom: CityModel.getCitiesIDs(_cities),
+          removeThis: _shownIDs,
+        );
+        /// NOT SHOWN CITIES MODELS
+        final List<CityModel> _notShownCities = CityModel.getCitiesFromCitiesByIDs(
+          citiesModels: _cities,
+          citiesIDs: _notShownIDs,
+        );
+
+        final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
+          context: context,
+          cities: _shownCities,
+        );
+        final List<CityModel> _orderedNotShownCities = CityModel.sortCitiesAlphabetically(
+          context: context,
+          cities: _notShownCities,
+        );
+
+        setState(() {
+          _shownCitiesIDs = _shownIDs;
+          _stages = _citiesStages;
+        });
 
         setNotifier(
-            notifier: _countryCities,
-            mounted: mounted,
-            value: <CityModel>[..._ordered],
+          notifier: _countryCities,
+          mounted: mounted,
+          value: <CityModel>[..._orderedShownCities, ..._orderedNotShownCities],
         );
+
+
+      }
 
     }
 
@@ -241,71 +283,80 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onCitySelected(String cityID) async {
 
-    blog('_onCityTap : cityID : $cityID');
-
-    if (mounted == true){
-      Keyboard.closeKeyboard(context);
-    }
-
-    final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
-      context: context,
-      incompleteZoneModel: _currentZone.value.copyWith(
-        cityID: cityID,
-      ),
-    );
-
-    final ZoneStages _cityDistrictsStages = await ZoneProtocols.readDistrictsStages(
-      cityID: cityID,
-    );
-
-    _zoneWithCity?.blogZone(invoker: '_onCityTap zone with city');
-
-    /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
-    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByStage(null)) == true;
-
-    /// IF SELECTING COUNTY AND CITY ONLY
-    if (widget.selectCountryAndCityOnly == true || _cityHasDistricts == false){
-      await Nav.goBack(
+    await ZoneSelection.onSelectCity(
         context: context,
-        invoker: '_onCityTap',
-        passedData: _zoneWithCity,
-      );
-    }
+        cityID: cityID,
+        depth: widget.depth,
+        zoneViewingEvent: widget.zoneViewingEvent,
+    );
 
-    /// IF SELECTING COUNTRY AND CITY AND DISTRICT
-    else {
-
-      final ZoneModel _zoneWithDistrict = await Nav.goToNewScreen(
-          context: context,
-          screen: DistrictsScreen(
-            country: _zoneWithCity.countryModel,
-            city: _zoneWithCity.cityModel,
-          )
-      );
-
-      /// WHEN NO DISTRICT SELECTED
-      if (_zoneWithDistrict == null){
-        await Nav.goBack(
-          context: context,
-          invoker: '_onCityTap',
-          passedData: _zoneWithCity,
-        );
-      }
-
-      /// WHEN A DISTRICT IS SELECTED
-      else {
-        await Nav.goBack(
-          context: context,
-          invoker: '_onCityTap',
-          passedData: _zoneWithDistrict,
-        );
-      }
-
-    }
+    // blog('_onCityTap : cityID : $cityID');
+    //
+    // if (mounted == true){
+    //   Keyboard.closeKeyboard(context);
+    // }
+    //
+    // final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
+    //   context: context,
+    //   incompleteZoneModel: _currentZone.value.copyWith(
+    //     cityID: cityID,
+    //   ),
+    // );
+    //
+    // final ZoneStages _cityDistrictsStages = await ZoneProtocols.readDistrictsStages(
+    //   cityID: cityID,
+    // );
+    //
+    // _zoneWithCity?.blogZone(invoker: '_onCityTap zone with city');
+    //
+    // /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
+    // final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByStage(null)) == true;
+    //
+    // /// IF SELECTING COUNTY AND CITY ONLY
+    // if (widget.selectCountryAndCityOnly == true || _cityHasDistricts == false){
+    //   await Nav.goBack(
+    //     context: context,
+    //     invoker: '_onCityTap',
+    //     passedData: _zoneWithCity,
+    //   );
+    // }
+    //
+    // /// IF SELECTING COUNTRY AND CITY AND DISTRICT
+    // else {
+    //
+    //   final ZoneModel _zoneWithDistrict = await Nav.goToNewScreen(
+    //       context: context,
+    //       screen: DistrictsScreen(
+    //         zoneViewingEvent: widget.zoneViewingEvent,
+    //         country: _zoneWithCity.countryModel,
+    //         city: _zoneWithCity.cityModel,
+    //       )
+    //   );
+    //
+    //   /// WHEN NO DISTRICT SELECTED
+    //   if (_zoneWithDistrict == null){
+    //     await Nav.goBack(
+    //       context: context,
+    //       invoker: '_onCityTap',
+    //       passedData: _zoneWithCity,
+    //     );
+    //   }
+    //
+    //   /// WHEN A DISTRICT IS SELECTED
+    //   else {
+    //     await Nav.goBack(
+    //       context: context,
+    //       invoker: '_onCityTap',
+    //       passedData: _zoneWithDistrict,
+    //     );
+    //   }
+    //
+    // }
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   Future<void> _onBack() async {
 
     await Nav.goBack(
@@ -314,13 +365,14 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     );
 
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final String _countryName = Flag.getCountryNameByCurrentLang(
       context: context,
-      countryID: widget.country?.id,
+      countryID: widget.countryID,
     );
 
     return MainLayout(
@@ -334,9 +386,12 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         translate: true,
       ),
       pyramidsAreOn: true,
-      onBack: _onBack,
+      onBack: () => Nav.goBack(
+        context: context,
+        invoker: 'SelectCityScreen',
+      ),
       searchHintVerse: Verse(
-        text: '${xPhrase( context, 'phid_search_cities_of')} $_countryName',
+        text: '${xPhrase( context, 'phid_search_cities_of')} ${_countryName ?? '...'}',
         translate: false,
       ),
       loading: _loading,
@@ -345,7 +400,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         const Expander(),
 
         /// LOADING COUNTER
-        if (Mapper.checkCanLoopList(widget.country?.citiesIDs?.getAllIDs()) == true)
+        if (Mapper.checkCanLoopList(_stages?.getAllIDs()) == true)
           ValueListenableBuilder(
               valueListenable: _loading,
               builder: (_, bool isLoading, Widget child){
@@ -356,7 +411,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                     builder: (_, List<CityModel> cities, Widget child){
 
                       return SuperVerse(
-                        verse: Verse.plain('${cities.length} / ${widget.country.citiesIDs.getAllIDs().length}'),
+                        verse: Verse.plain('${cities.length} / ${_stages?.getAllIDs()?.length ?? '-'}'),
                         weight: VerseWeight.thin,
                         size: 1,
                         margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),
@@ -387,6 +442,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 loading: _loading,
                 foundCities: _foundCities,
                 onCityTap: _onCitySelected,
+                shownCitiesIDs: _shownCitiesIDs,
               );
 
             }
@@ -397,6 +453,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
               return CitiesScreenBrowseView(
                 onCityTap: _onCitySelected,
                 countryCities: _countryCities,
+                shownCitiesIDs: _shownCitiesIDs,
               );
 
             }

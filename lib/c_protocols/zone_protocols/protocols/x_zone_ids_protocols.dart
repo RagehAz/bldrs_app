@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/zone_protocols/protocols/b_zone_search_protoco
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -135,13 +134,13 @@ class ZoneIDsProtocols {
       /// COUNTRY MODEL
       if (incompleteZoneModel.countryModel == null){
 
-        blog('completeZoneModel : country model is null');
+        // blog('completeZoneModel : country model is null');
 
         final CountryModel _bzCountry = await ZoneProtocols.fetchCountry(
           countryID: incompleteZoneModel.countryID,
         );
 
-        blog('completeZoneModel : got country model : $_bzCountry');
+        // blog('completeZoneModel : got country model : $_bzCountry');
 
         _output = _output.copyWith(
           countryModel: _bzCountry,

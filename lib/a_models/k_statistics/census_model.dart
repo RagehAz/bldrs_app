@@ -6,12 +6,14 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CensusModel {
   /// --------------------------------------------------------------------------
   CensusModel({
+    @required this.id,
     @required this.totalUsers,
     @required this.totalBzz,
     @required this.totalAuthors,
@@ -67,6 +69,7 @@ class CensusModel {
     @required this.callsSuppliers,
   });
   // --------------------------------------------------------------------------
+  final String id;
   /// TOTALS
   final int totalUsers;
   final int totalBzz;
@@ -137,6 +140,7 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   CensusModel copyWith({
+    String id,
     int totalUsers,
     int totalBzz,
     int totalAuthors,
@@ -193,6 +197,7 @@ class CensusModel {
   }){
 
     return CensusModel(
+      id: id ?? this.id,
       totalUsers: totalUsers ?? this.totalUsers,
       totalBzz: totalBzz ?? this.totalBzz,
       totalAuthors: totalAuthors ?? this.totalAuthors,
@@ -255,8 +260,11 @@ class CensusModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap(){
-    return {
+  Map<String, dynamic> toMap({
+    @required bool toLDB,
+  }){
+
+    Map<String, dynamic> _map = {
       'totalUsers': totalUsers,
       'totalBzz': totalBzz,
       'totalAuthors': totalAuthors,
@@ -311,6 +319,38 @@ class CensusModel {
       'callsManufacturers': callsManufacturers,
       'callsSuppliers': callsSuppliers,
     };
+
+    if (toLDB == true){
+
+      _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'id',
+          value: id,
+      );
+
+    }
+
+    return _map;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  List<Map<String, dynamic>> cipherCensuses({
+    @required List<CensusModel> censuses,
+    @required bool toLDB,
+  }){
+    final List<Map<String, dynamic>> _output = [];
+
+    if (Mapper.checkCanLoopList(censuses) == true){
+
+      for (final CensusModel _census in censuses){
+
+        _output.add(_census.toMap(toLDB: toLDB));
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -320,6 +360,7 @@ class CensusModel {
     if (map != null){
 
       _output = CensusModel(
+        id: map['id'],
         totalUsers: map['totalUsers'],
         totalBzz: map['totalBzz'],
         totalAuthors: map['totalAuthors'],
@@ -374,6 +415,21 @@ class CensusModel {
         callsManufacturers: map['callsManufacturers'],
         callsSuppliers: map['callsSuppliers'],
       );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static List<CensusModel> decipherCensuses(List<Map<String, dynamic>> maps){
+    final List<CensusModel> _output = <CensusModel>[];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      for (final Map<String, dynamic> _map in maps){
+        _output.add(decipher(_map));
+      }
 
     }
 
@@ -457,6 +513,7 @@ class CensusModel {
   /// TESTED : WORKS PERFECT
   static CensusModel createEmptyModel(){
     return CensusModel(
+      id: null,
       totalUsers: 0,
       totalBzz: 0,
       totalAuthors: 0,
@@ -772,7 +829,9 @@ class CensusModel {
     if (input != null){
 
       _output = {};
-      final Map<String, dynamic> _fullMap = createEmptyModel().toMap();
+      final Map<String, dynamic> _fullMap = createEmptyModel().toMap(
+        toLDB: false, // this is not used for LDB but only for REAL DB
+      );
       final List<String> _allKeys = _fullMap.keys.toList();
 
       for (final String _key in _allKeys){
@@ -1009,4 +1068,136 @@ class CensusModel {
     return _shouldUpdate;
   }
   // -----------------------------------------------------------------------------
+
+  /// LIST GETTERS
+
+  // --------------------
+  static CensusModel getCensusFromCensusesByID({
+    @required List<CensusModel> censuses,
+    @required String censusID,
+  }){
+    CensusModel _output;
+
+    if (Mapper.checkCanLoopList(censuses) == true && censusID != null){
+
+      _output = censuses.firstWhere((census) => census.id == censusID, orElse: () => null);
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOG
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void blogCensus(){
+
+    blog(' ====> CENSUS MODEL : BLOG CENSUS : ID : $id');
+
+    blog(
+      'totalUsers: $totalUsers | '
+      'totalBzz: $totalBzz | '
+      'totalAuthors: $totalAuthors | '
+      'totalFlyers: $totalFlyers | '
+      'totalSlides: $totalSlides'
+    );
+
+    blog(
+      'bzSectionRealEstate: $bzSectionRealEstate | '
+      'bzSectionConstruction: $bzSectionConstruction | '
+      'bzSectionSupplies: $bzSectionSupplies |'
+    );
+
+    blog(
+      'bzTypeDeveloper: $bzTypeDeveloper | '
+      'bzTypeBroker: $bzTypeBroker | '
+      'bzTypeDesigner: $bzTypeDesigner | '
+      'bzTypeContractor: $bzTypeContractor | '
+      'bzTypeArtisan: $bzTypeArtisan | '
+      'bzTypeManufacturer: $bzTypeManufacturer | '
+      'bzTypeSupplier: $bzTypeSupplier |'
+    );
+
+    blog(
+      'bzFormIndividual: $bzFormIndividual | '
+      'bzFormCompany: $bzFormCompany | '
+    );
+
+    blog(
+      'bzAccountTypeStandard: $bzAccountTypeStandard | '
+      'bzAccountTypePro: $bzAccountTypePro | '
+      'bzAccountTypeMaster: $bzAccountTypeMaster | '
+    );
+
+    blog(
+      'flyerTypeGeneral: $flyerTypeGeneral | '
+      'flyerTypeProperty: $flyerTypeProperty | '
+      'flyerTypeDesign: $flyerTypeDesign | '
+      'flyerTypeProduct: $flyerTypeProduct | '
+      'flyerTypeUndertaking: $flyerTypeUndertaking | '
+      'flyerTypeTrade: $flyerTypeTrade | '
+      'flyerTypeEquipment: $flyerTypeEquipment |'
+    );
+
+    blog(
+      'needTypeSeekProperty: $needTypeSeekProperty | '
+      'needTypePlanConstruction: $needTypePlanConstruction | '
+      'needTypeFinishConstruction: $needTypeFinishConstruction | '
+      'needTypeFurnish: $needTypeFurnish | '
+      'needTypeOfferProperty : $needTypeOfferProperty |'
+    );
+
+    blog(
+      'savesGeneral: $savesGeneral | '
+      'savesProperties: $savesProperties | '
+      'savesDesigns: $savesDesigns | '
+      'savesUndertakings: $savesUndertakings | '
+      'savesTrades: $savesTrades | '
+      'savesProducts: $savesProducts | '
+      'savesEquipments: $savesEquipments'
+    );
+
+    blog(
+      'followsDevelopers: $followsDevelopers | '
+      'followsBrokers: $followsBrokers | '
+      'followsDesigners: $followsDesigners | '
+      'followsContractors: $followsContractors | '
+      'followsArtisans: $followsArtisans | '
+      'followsManufacturers: $followsManufacturers | '
+      'followsSuppliers: $followsSuppliers'
+    );
+
+
+    blog(
+      'callsDevelopers: $callsDevelopers | '
+      'callsBrokers: $callsBrokers | '
+      'callsDesigners: $callsDesigners | '
+      'callsContractors: $callsContractors | '
+      'callsArtisans: $callsArtisans | '
+      'callsManufacturers: $callsManufacturers | '
+      'callsSuppliers: $callsSuppliers'
+    );
+
+    blog(' =====================================> CETUS MODEL : BLOG CENSUS : END');
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogCensuses({
+    @required List<CensusModel> censuses,
+  }){
+    if (Mapper.checkCanLoopList(censuses) == true){
+      for (final CensusModel census in censuses) {
+        census.blogCensus();
+      }
+    }
+
+    else {
+      blog('CENSUS LIST IS EMPTY');
+    }
+  }
+  // -----------------------------------------------------------------------------
+  void f(){}
 }

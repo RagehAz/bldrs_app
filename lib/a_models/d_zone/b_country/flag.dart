@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -392,7 +393,7 @@ class Flag {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<Phrase> createAllCountriesPhrasesForLDB({
     @required List<String> langCodes,
   }){
@@ -415,7 +416,40 @@ class Flag {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
 
+  /// SORTING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> sortCountriesNamesAlphabetically({
+    @required BuildContext context,
+    @required List<String> countriesIDs,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(countriesIDs) == true){
+
+      final List<String> _allIDsSorted = getAllCountriesIDsSortedByName(context);
+
+      for (final String sortedID in _allIDsSorted){
+
+        final bool _isInList = Stringer.checkStringsContainString(
+            strings: countriesIDs,
+            string: sortedID,
+        );
+
+        if (_isInList == true){
+          _output.add(sortedID);
+        }
+
+      }
+
+    }
+
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOG

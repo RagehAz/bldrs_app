@@ -47,9 +47,11 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
   // -----------------------------------------------------------------------------
   Future<void> _onSelectCityTap() async {
 
-    final ZoneModel _zone = await controlSelectCountryAndCityOnly(
+    final ZoneModel _zone = await ZoneSelection.goBringAZone(
       context: context,
+      depth: ZoneDepth.district,
       zoneViewingEvent: ZoneViewingEvent.flyerPromotion,
+      settingCurrentZone: false,
     );
 
     if (_zone?.countryID != null && _zone?.cityID != null){
