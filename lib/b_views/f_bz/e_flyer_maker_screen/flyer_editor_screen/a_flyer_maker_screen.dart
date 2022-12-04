@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/flyer_poste
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author_switcher/show_author_switch_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/a_specs_selector_bubble.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pdf_bubble/pdf_selection_bubble.dart';
@@ -377,6 +378,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                   /// ZONE SELECTOR
                   ZoneSelectionBubble(
                     zoneViewingEvent: ZoneViewingEvent.flyerEditor,
+                    depth: ZoneDepth.city,
                     titleVerse: const Verse(
                       text: 'phid_flyer_target_city',
                       translate: true,

@@ -1,19 +1,17 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
-import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
-import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -24,16 +22,12 @@ class CountriesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CountriesScreen({
     @required this.zoneViewingEvent,
-    this.selectCountryIDOnly = false,
-    this.selectCountryAndCityOnly = false,
-    this.settingCurrentZone = false,
+    @required this.depth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ZoneViewingEvent zoneViewingEvent;
-  final bool selectCountryIDOnly;
-  final bool selectCountryAndCityOnly;
-  final bool settingCurrentZone;
+  final ZoneDepth depth;
   /// --------------------------------------------------------------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
@@ -44,8 +38,11 @@ class _CountriesScreenState extends State<CountriesScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null);
+  // --------------------
   List<String> _shownCountriesIDs = <String>[];
   List<String> _notShownCountriesIDs = <String>[];
+  // --------------------
+  List<CensusModel> _census;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -61,7 +58,6 @@ class _CountriesScreenState extends State<CountriesScreen> {
   @override
   void initState() {
     super.initState();
-
   }
   // --------------------
   bool _isInit = true;
@@ -71,24 +67,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final ZoneStages _countriesStages = await ZoneProtocols.readCountriesStages();
-
-        final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
-          context: context,
-          event: widget.zoneViewingEvent,
-        );
-
-        final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
-            removeFrom: Flag.getAllCountriesIDs(),
-            removeThis: _shownIDs,
-        );
-
-        if (mounted) {
-          setState(() {
-            _shownCountriesIDs = _shownIDs;
-            _notShownCountriesIDs = _notShownIDs;
-          });
-        }
+        await _loadCountries();
 
         await _triggerLoading(setTo: false);
       });
@@ -106,114 +85,55 @@ class _CountriesScreenState extends State<CountriesScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// LOADING
+
+  // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCountryTap(String countryID) async {
+  Future<void> _loadCountries() async {
 
-    if (mounted == true){
-      Keyboard.closeKeyboard(context);
-    }
+    /// COUNTRIES STAGES
+    final ZoneStages _countriesStages = await ZoneProtocols.readCountriesStages();
 
-    final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
+    /// SHOWN IDS
+    final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
       context: context,
-      incompleteZoneModel: ZoneModel(
-        countryID: countryID,
-      ),
+      event: widget.zoneViewingEvent,
     );
 
-    /// A - WHEN  SEQUENCE IS SELECTING (COUNTRY) ONLY
-    if (widget.selectCountryIDOnly){
-      await Nav.goBack(
-        context: context,
-        invoker: '_onCountryTap',
-        passedData: _zone,
-      );
-    }
+    /// NOT SHOWN IDS
+    final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+      removeFrom: Flag.getAllCountriesIDs(),
+      removeThis: _shownIDs,
+    );
 
-    else {
+    /// CENSUS
+    final List<CensusModel> _countriesCensuses = await CensusRealOps.readCountriesCensus();
 
-      /// A - WHEN SEQUENCE IS SELECTING (COUNTRY + CITY) ONLY
-      if (widget.selectCountryAndCityOnly == true) {
+    if (mounted) {
+      setState(() {
 
-        _zone?.blogZone(invoker: '_onCountryTap : going to cities screen');
-
-        /// C - GO SELECT CITY
-        final ZoneModel _zoneWithCity = await Nav.goToNewScreen(
-            context: context,
-            screen: CitiesScreen(
-              country: _zone.countryModel,
-              selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
-            )
+        _shownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
+          context: context,
+          countriesIDs: _shownIDs,
         );
 
-        _zoneWithCity?.blogZone(invoker: '_onCountryTap : returned from cities screen');
-
-        /// IF SETTING CURRENT ZONE
-        if (widget.settingCurrentZone == true){
-
-          blog('setting current zone', invoker: '_onCountryTap');
-          await setCurrentZone(
-            context: context,
-            zone: _zoneWithCity ?? _zone,
-          );
-
-        }
-
-        /// IF RETURNING THE ZONE
-        else {
-
-          if (_zoneWithCity == null){
-            await Nav.goBack(
-              context: context,
-              invoker: '_onCountryTap',
-              passedData: _zone,
-            );
-          }
-
-          else {
-            await Nav.goBack(
-              context: context,
-              invoker: '_onCountryTap',
-              passedData: _zoneWithCity,
-            );
-          }
-
-        }
-
-
-      }
-
-      /// A - WHEN SEQUENCE SELECTING (COUNTRY + CITY + DISTRICT)
-      else {
-
-        final ZoneModel _zoneWithCityAndDistrict = await Nav.goToNewScreen(
-            context: context,
-            screen: DistrictsScreen(
-              country: _zone.countryModel,
-              city: _zone.cityModel,
-              // selectCountryAndCityOnly: false,
-            )
+        _notShownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
+          context: context,
+          countriesIDs: _notShownIDs,
         );
 
-        if (_zoneWithCityAndDistrict == null){
-          await Nav.goBack(
-            context: context,
-            invoker: '_onCountryTap',
-            passedData: _zone,
-          );
-        }
-        else {
-          await Nav.goBack(
-            invoker: '_onCountryTap',
-            context: context,
-            passedData: _zoneWithCityAndDistrict,
-          );
-        }
+        _census = _countriesCensuses;
 
-      }
-
+      });
     }
+
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// SEARCH
+
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSearchCountry(String val) async {
@@ -257,15 +177,155 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   }
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _onBack() async {
 
-    await Nav.goBack(
-      context: context,
-      invoker: 'SelectCountryScreen',
+  /// NAVIGATION
+
+  // --------------------
+  /// TASK : TEST ME
+  Future<void> _onCountryTap(String countryID) async {
+
+    await ZoneSelection.onSelectCountry(
+        context: context,
+        countryID: countryID,
+        depth: widget.depth,
+        zoneViewingEvent: widget.zoneViewingEvent,
     );
 
+    /*
+    if (mounted == true){
+      Keyboard.closeKeyboard(context);
+    }
+
+    final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
+      context: context,
+      incompleteZoneModel: ZoneModel(
+        countryID: countryID,
+      ),
+    );
+
+    /// SELECTING (COUNTRY) ONLY
+    if (widget.selectCountryIDOnly == true){
+      await _goBack(zone: _zone);
+    }
+
+    /// SELECTING (COUNTRY + CITY) ONLY
+    else if (widget.selectCountryAndCityOnly == true) {
+
+      await _navigationWhileSelectingCountryAndCityOnly(
+        zone: _zone,
+      );
+
+    }
+
+    /// SELECTING (COUNTRY + CITY + DISTRICT)
+    else {
+
+      await _navigationWhileSelectingCountryAndCityAndDistrict(
+        zone: _zone,
+      );
+
+      blog('finished _navigationWhileSelectingCountryAndCityAndDistrict');
+
+    }
+
+
+     */
   }
+  // -----------------------------------------------------------------------------
+  /// DEPRECATED
+  // -----------------------------------------------------------------------------
+  // /// TESTED : WORKS PERFECT
+  // Future<void> _goBack({
+  //   ZoneModel zone,
+  // }) async {
+  //
+  //   await Nav.goBack(
+  //     context: context,
+  //     invoker: 'SelectCountryScreen',
+  //     passedData: zone,
+  //   );
+  //
+  // }
+  // -----------------------------------------------------------------------------
+  //
+  // / NAVIGATION WHILE SELECTING (COUNTRY + CITY) ONLY
+  //
+  // --------------------
+  // /// TESTED : WORKS PERFECT
+  // Future<void> _navigationWhileSelectingCountryAndCityOnly({
+  //   @required ZoneModel zone,
+  // }) async {
+  //
+  //   /// GO SELECT CITY
+  //   final ZoneModel _zoneWithCity = await _goBringACity(zone: zone);
+  //
+  //   /// EXIT
+  //   await _goBack(zone: _zoneWithCity ?? zone);
+  //
+  // }
+  // --------------------
+  // /// TESTED : WORKS PERFECT
+  // Future<ZoneModel> _goBringACity({
+  //   @required ZoneModel zone,
+  // }) async {
+  //   final ZoneModel _zoneWithCity = await Nav.goToNewScreen(
+  //       context: context,
+  //       screen: CitiesScreen(
+  //         zoneViewingEvent: widget.zoneViewingEvent,
+  //         country: zone.countryModel,
+  //         selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+  //       )
+  //   );
+  //   return _zoneWithCity;
+  // }
+  // -----------------------------------------------------------------------------
+  //
+  // / NAVIGATION WHILE SELECTING (COUNTRY + CITY + DISTRICT) ONLY
+  //
+  // --------------------
+  // /// TESTED : WORKS PERFECT
+  // Future<void> _navigationWhileSelectingCountryAndCityAndDistrict({
+  //   @required ZoneModel zone,
+  // }) async {
+  //
+  //   blog('_navigationWhileSelectingCountryAndCityAndDistrict : START');
+  //
+  //   /// GO SELECT CITY
+  //   final ZoneModel _zoneWithCity = await _goBringACity(zone: zone);
+  //
+  //   if (_zoneWithCity?.cityID != null){
+  //
+  //     /// GO SELECT DISTRICT
+  //     final ZoneModel _zoneWithCityAndDistrict = await _goBringADistrict(
+  //       zone: _zoneWithCity,
+  //     );
+  //
+  //     if (_zoneWithCityAndDistrict.districtID != null){
+  //       await _goBack(zone: _zoneWithCityAndDistrict ?? _zoneWithCity ?? zone);
+  //     }
+  //
+  //   }
+  //
+  // }
+  // --------------------
+  // /// TESTED : WORKS PERFECT
+  // Future<ZoneModel> _goBringADistrict({
+  //   @required ZoneModel zone,
+  // }) async {
+  //
+  //   final ZoneModel _zoneWithCityAndDistrict = await Nav.goToNewScreen(
+  //       context: context,
+  //       screen: DistrictsScreen(
+  //         zoneViewingEvent: widget.zoneViewingEvent,
+  //         country: zone.countryModel,
+  //         city: zone.cityModel,
+  //       )
+  //   );
+  //
+  //   return _zoneWithCityAndDistrict;
+  // }
+  // -----------------------------------------------------------------------------
+  ///
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -281,7 +341,10 @@ class _CountriesScreenState extends State<CountriesScreen> {
         translate: true,
       ),
       pyramidsAreOn: true,
-      onBack: _onBack,
+      onBack: () => Nav.goBack(
+        context: context,
+        invoker: 'SelectCountryScreen.BACK with null',
+      ),
       searchHintVerse: const Verse(
         text: 'phid_search_countries',
         translate: true,
@@ -299,6 +362,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 loading: _loading,
                 foundCountries: _foundCountries,
                 shownCountriesIDs: _shownCountriesIDs,
+                countriesCensus: _census,
                 onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
 
@@ -310,6 +374,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
               return CountriesScreenBrowseView(
                 shownCountriesIDs: _shownCountriesIDs,
                 notShownCountriesIDs: _notShownCountriesIDs,
+                countriesCensus: _census,
                 onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
 

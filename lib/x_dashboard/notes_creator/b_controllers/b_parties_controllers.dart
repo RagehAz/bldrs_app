@@ -184,9 +184,11 @@ Future<void> _onSelectCountryAsNoteSender({
   @required PartyType senderType,
 }) async {
 
-  final ZoneModel _zoneModel = await controlSelectCountryOnly(
+  final ZoneModel _zoneModel = await ZoneSelection.goBringAZone(
     context: context,
     zoneViewingEvent: ZoneViewingEvent.admin, // so can select any country
+    settingCurrentZone: false,
+    depth: ZoneDepth.district,
   );
 
   final bool _newSelection =_zoneModel != null;

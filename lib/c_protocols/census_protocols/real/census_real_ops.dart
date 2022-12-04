@@ -11,6 +11,56 @@ class CensusRealOps {
   const CensusRealOps();
 
   // -----------------------------------------------------------------------------
+
+  /// READ
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<CensusModel>> readCountriesCensus() async {
+
+    List<CensusModel> _output = [];
+
+    final Object _objects = await Real.readPath(
+        path: '${RealColl.statistics}/${RealDoc.statistics_countries}',
+    );
+
+    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+      ihlmoo: _objects,
+      // addChildrenIDs: true, // DEFAULT
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      _output = CensusModel.decipherCensuses(_maps);
+
+    }
+
+    CensusModel.blogCensuses(
+      censuses: _output,
+    );
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<CensusModel>> readCitiesCensus({
+    @required String countryID,
+  }) async {
+
+
+  }
+  // --------------------
+  /// TASK : WRITE ME
+  static Future<List<CensusModel>> readDistrictsCensus({
+    @required String cityID,
+  }) async {
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateAllCensus({
     @required Map<String, dynamic> map,

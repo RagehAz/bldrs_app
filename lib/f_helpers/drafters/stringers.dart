@@ -146,7 +146,7 @@ class Stringer {
         );
 
         if (_canRemove == true){
-          blog('removeStringsFromStrings : removing : $string');
+          // blog('removeStringsFromStrings : removing : $string');
         }
         else {
           _output.add(string);
