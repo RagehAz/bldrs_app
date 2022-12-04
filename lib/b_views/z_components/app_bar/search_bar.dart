@@ -98,7 +98,7 @@ class _SearchBarState extends State<SearchBar> {
       // color: Colorz.bloodTest,
       alignment: Alignment.center, //Aligners.superTopAlignment(context),
       child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
           /// STARTING SPACER
