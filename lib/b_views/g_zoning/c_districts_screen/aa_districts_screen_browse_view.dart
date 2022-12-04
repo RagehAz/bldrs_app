@@ -31,6 +31,7 @@ class DistrictsScreenBrowseView extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
 
         final DistrictModel _district = districts[index];
+
         final CensusModel _census = CensusModel.getCensusFromCensusesByID(
           censuses: censusModels,
           censusID: _district.id,
