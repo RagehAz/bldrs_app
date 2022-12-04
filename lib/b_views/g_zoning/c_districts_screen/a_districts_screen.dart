@@ -1,15 +1,17 @@
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_search_view.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -19,6 +21,7 @@ import 'package:flutter/material.dart';
 class DistrictsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const DistrictsScreen({
+    @required this.zoneViewingEvent,
     @required this.country,
     @required this.city,
     Key key,
@@ -26,6 +29,7 @@ class DistrictsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final CityModel city;
+  final ZoneViewingEvent zoneViewingEvent;
   /// --------------------------------------------------------------------------
   @override
   State<DistrictsScreen> createState() => _DistrictsScreenState();
@@ -104,19 +108,49 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       incompleteZoneModel: _currentZone.value,
     );
 
-    final List<DistrictModel> _fetchedDistricts = await ZoneProtocols.fetchDistrictsOfCity(
-      cityID: _currentZone.value.cityID,
-      // districtStageType: null, // TASK : SHOOF KEDA HENA
+    final ZoneStages _districtsStages = await ZoneProtocols.readDistrictsStages(
+      cityID: widget.city.cityID,
+    );
+
+    final List<DistrictModel> _fetchedDistricts = await ZoneProtocols.fetchDistrictsOfCityByIDs(
+      districtsIDsOfThisCity: _districtsStages.getAllIDs(),
     );
 
     if (mounted == true){
 
-      final List<DistrictModel> _ordered = DistrictModel.sortDistrictsAlphabetically(
+      /// SHOWN DISTRICTS IDS
+      final List<String> _shownIDs = _districtsStages.getIDsByViewingEvent(
         context: context,
-        districts: _fetchedDistricts,
+        event: widget.zoneViewingEvent,
+      );
+      /// SHOWN DISTRICTS MODELS
+      final List<DistrictModel> _shownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
+        districtsModels: _fetchedDistricts,
+        districtsIDs: _shownIDs,
       );
 
-      _cityDistricts.value = <DistrictModel>[..._ordered];
+      /// NOT SHOWN DISTRICTS IDS
+      final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+        removeFrom: DistrictModel.getDistrictsIDs(_fetchedDistricts),
+        removeThis: _shownIDs,
+      );
+      /// NOT SHOWN DISTRICTS MODELS
+      final List<DistrictModel> _notShownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
+        districtsModels: _fetchedDistricts,
+        districtsIDs: _notShownIDs,
+      );
+
+
+      final List<DistrictModel> _orderedShownDistricts = DistrictModel.sortDistrictsAlphabetically(
+        context: context,
+        districts: _shownDistricts,
+      );
+      final List<DistrictModel> _orderedNotShownDistricts = DistrictModel.sortDistrictsAlphabetically(
+        context: context,
+        districts: _notShownDistricts,
+      );
+
+      _cityDistricts.value = <DistrictModel>[..._orderedShownDistricts, ..._orderedNotShownDistricts];
 
     }
 
@@ -164,32 +198,39 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onDistrictTap(String districtID) async {
 
-    if (mounted == true){
-      Keyboard.closeKeyboard(context);
-    }
-
-    final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
+    await ZoneSelection.onSelectDistrict(
       context: context,
-      incompleteZoneModel: _currentZone.value.copyWith(
-        districtID: districtID,
-      ),
+      districtID: districtID,
     );
 
-    await Nav.goBack(
-      context: context,
-      invoker: 'SelectDistrictScreen',
-      passedData: _zoneWithDistrict,
-    );
+    // if (mounted == true){
+    //   Keyboard.closeKeyboard(context);
+    // }
+    //
+    // final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
+    //   context: context,
+    //   incompleteZoneModel: _currentZone.value.copyWith(
+    //     districtID: districtID,
+    //   ),
+    // );
+    //
+    // await Nav.goBack(
+    //   context: context,
+    //   invoker: 'SelectDistrictScreen',
+    //   passedData: _zoneWithDistrict,
+    // );
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   Future<void> _onBack() async {
     await Nav.goBack(
       context: context,
       invoker: 'SelectDistrictScreen',
     );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -210,7 +251,10 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
         translate: true,
       ),
       pyramidsAreOn: true,
-      onBack: _onBack,
+      onBack: () => Nav.goBack(
+        context: context,
+        invoker: 'SelectDistrictScreen',
+      ),
       searchHintVerse: Verse(
         text: '${xPhrase( context, 'phid_search_districts_of')} $_cityName',
         translate: false,

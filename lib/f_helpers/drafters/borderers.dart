@@ -15,6 +15,7 @@ class Borderers {
   // --------------------
   static const BorderRadius constantCornersAll5 = BorderRadius.all(Radius.circular(5));
   static const BorderRadius constantCornersAll10 = BorderRadius.all(Radius.circular(10));
+  static const BorderRadius constantCornersAll12 = BorderRadius.all(Radius.circular(12));
   static const BorderRadius constantCornersAll15 = BorderRadius.all(Radius.circular(15));
   static const BorderRadius constantCornersAll20 = BorderRadius.all(Radius.circular(20));
   // -----------------------------------------------------------------------------

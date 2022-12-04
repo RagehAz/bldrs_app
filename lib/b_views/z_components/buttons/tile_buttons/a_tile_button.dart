@@ -38,6 +38,7 @@ class TileButton extends StatelessWidget {
     return DreamBox(
       width: width,
       isDeactivated: !isActive,
+      // greyscale: !isActive,
       height: height ?? defaultHeight,
       icon: icon,
       verse: verse,

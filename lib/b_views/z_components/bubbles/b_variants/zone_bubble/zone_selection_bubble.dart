@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -26,13 +27,14 @@ class ZoneSelectionBubble extends StatefulWidget {
     @required this.currentZone,
     @required this.onZoneChanged,
     @required this.zoneViewingEvent,
+    @required this.depth,
     this.titleVerse,
     this.bulletPoints,
     this.translateBullets = true,
     this.validator,
     this.autoValidate = true,
-    this.selectCountryAndCityOnly = true,
-    this.selectCountryIDOnly = false,
+    // this.selectCountryAndCityOnly = true,
+    // this.selectCountryIDOnly = false,
     this.isRequired = true,
     Key key,
   }) : super(key: key);
@@ -44,8 +46,9 @@ class ZoneSelectionBubble extends StatefulWidget {
   final bool translateBullets;
   final String Function() validator;
   final bool autoValidate;
-  final bool selectCountryAndCityOnly;
-  final bool selectCountryIDOnly;
+  final ZoneDepth depth;
+  // final bool selectCountryAndCityOnly;
+  // final bool selectCountryIDOnly;
   final bool isRequired;
   final ZoneViewingEvent zoneViewingEvent;
   /// --------------------------------------------------------------------------
@@ -141,8 +144,9 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       context: context,
       screen: CountriesScreen(
         zoneViewingEvent: widget.zoneViewingEvent,
-        selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
-        selectCountryIDOnly: widget.selectCountryIDOnly,
+        depth: widget.depth,
+        // selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+        // selectCountryIDOnly: widget.selectCountryIDOnly,
       ),
     );
 
@@ -177,8 +181,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       final ZoneModel _zone = await Nav.goToNewScreen(
           context: context,
           screen: CitiesScreen(
-            country: _selectedZone.value.countryModel,
-            selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+            zoneViewingEvent: widget.zoneViewingEvent,
+            depth: widget.depth,
+            countryID: _selectedZone.value.countryID,
+            // country: _selectedZone.value.countryModel,
+            // selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
           )
       );
 
@@ -220,6 +227,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       final ZoneModel _zone = await Nav.goToNewScreen(
         context: context,
         screen: DistrictsScreen(
+          zoneViewingEvent: widget.zoneViewingEvent,
           country: _selectedZone.value.countryModel,
           city: _selectedZone.value.cityModel,
         ),
@@ -328,11 +336,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     ),
 
                     /// City BUTTON
-                    if (
-                    widget.selectCountryAndCityOnly == true
-                    ||
-                    widget.selectCountryIDOnly == false
-                    )
+                    if (widget.depth == ZoneDepth.city || widget.depth == ZoneDepth.district)
                     ZoneSelectionButton(
                       title: const Verse(
                         text: 'phid_city',
@@ -347,13 +351,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     ),
 
                     /// DISTRICT BUTTON
-                    if (
-                    widget.selectCountryAndCityOnly == false
-                    &&
-                    widget.selectCountryIDOnly == false
-                    &&
-                    _cityHasDistricts == true
-                    )
+                    if (widget.depth == ZoneDepth.district && _cityHasDistricts == true)
                       ZoneSelectionButton(
                         title: const Verse(
                           text: 'phid_district',

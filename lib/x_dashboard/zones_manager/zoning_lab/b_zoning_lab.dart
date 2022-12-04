@@ -11,6 +11,7 @@ import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -120,6 +121,7 @@ class _ZoningLabState extends State<ZoningLab> {
                     context: context,
                     screen: const CountriesScreen(
                       zoneViewingEvent: ZoneViewingEvent.admin,
+                      depth: ZoneDepth.district,
                     ),
                   );
 
@@ -145,6 +147,7 @@ class _ZoningLabState extends State<ZoningLab> {
               /// ZONE BUBBLE
               ZoneSelectionBubble(
                 zoneViewingEvent: ZoneViewingEvent.admin,
+                depth: ZoneDepth.district,
                 currentZone: _bubbleZone,
                 titleVerse:  const Verse(
                   text: 'Zoning test',

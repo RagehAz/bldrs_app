@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -304,13 +305,40 @@ class CityModel {
     @required String cityID,
   }) {
     CityModel _city;
-    if (Mapper.checkCanLoopList(cities)) {
+    if (Mapper.checkCanLoopList(cities) == true) {
       _city = cities.firstWhere((CityModel city) => city.cityID == cityID,
           orElse: () => null);
     }
     return _city;
   }
    */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<CityModel> getCitiesFromCitiesByIDs({
+    @required List<CityModel> citiesModels,
+    @required List<String> citiesIDs,
+  }){
+    final List<CityModel> _output = [];
+
+    if (Mapper.checkCanLoopList(citiesModels) == true && Mapper.checkCanLoopList(citiesIDs) == true){
+
+      for (final CityModel city in citiesModels){
+
+        final bool _isInList = Stringer.checkStringsContainString(
+            strings: citiesIDs,
+            string: city.cityID,
+        );
+
+        if (_isInList == true){
+          _output.add(city);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getCitiesIDs(List<CityModel> cities) {

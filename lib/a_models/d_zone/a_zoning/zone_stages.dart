@@ -257,7 +257,7 @@ class ZoneStages {
   /// VIEWING EVENT CONCLUDERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
     @required BuildContext context,
     @required ZoneViewingEvent event,
@@ -269,7 +269,7 @@ class ZoneStages {
 
     else {
 
-      final StageType _minStage = _concludeLowestZoneStageOnViewingEvent(
+      final StageType _minStage = _concludeLowestStageOnViewingEvent(
         context: context,
         event: event,
       );
@@ -284,7 +284,7 @@ class ZoneStages {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StageType _concludeLowestZoneStageOnViewingEvent({
+  static StageType _concludeLowestStageOnViewingEvent({
     @required BuildContext context,
     @required ZoneViewingEvent event,
   }){
@@ -296,11 +296,14 @@ class ZoneStages {
     if (_userIsAuthor == true){
 
       switch(event){
-        case ZoneViewingEvent.homeView        : return StageType.active;    break; /// = if active : will show bzz : if public : will show flyers
+        /// = if active : will show bzz : if public : will show flyers
+        case ZoneViewingEvent.homeView        : return StageType.active;    break;
         case ZoneViewingEvent.userEditor      : return StageType.inactive;  break;
         case ZoneViewingEvent.bzEditor        : return StageType.inactive;  break;
-        case ZoneViewingEvent.flyerEditor     : return StageType.active;    break; /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
-        case ZoneViewingEvent.flyerPromotion  : return StageType.active;    break; /// flyer can be promoted in active or public zones  only
+        /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
+        case ZoneViewingEvent.flyerEditor     : return StageType.active;    break;
+        /// flyer can be promoted in active or public zones  only
+        case ZoneViewingEvent.flyerPromotion  : return StageType.active;    break;
         default: return null; break;
       }
 
@@ -310,11 +313,14 @@ class ZoneStages {
     else {
 
       switch(event){
-        case ZoneViewingEvent.homeView        : return StageType.active;    break; /// = if active : will show bzz : if public : will show flyers
+        /// = if active : will show bzz : if public : will show flyers
+        case ZoneViewingEvent.homeView        : return StageType.active;    break;
         case ZoneViewingEvent.userEditor      : return StageType.inactive;  break;
         case ZoneViewingEvent.bzEditor        : return StageType.inactive;  break;
-        case ZoneViewingEvent.flyerEditor     : return null;                break; /// USER DOES NOT PUBLISH FLYERS
-        case ZoneViewingEvent.flyerPromotion  : return null;                break; /// normal user does not promote flyers
+        /// USER DOES NOT PUBLISH FLYERS
+        case ZoneViewingEvent.flyerEditor     : return null;                break;
+        /// normal user does not promote flyers
+        case ZoneViewingEvent.flyerPromotion  : return null;                break;
         default: return null; break;
       }
 
@@ -322,7 +328,7 @@ class ZoneStages {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   List<String> _getIDsFromMinStageToMax({
     @required StageType minStage,
   }){
