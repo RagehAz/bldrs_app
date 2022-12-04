@@ -101,7 +101,7 @@ class MyBzScreen extends StatelessWidget {
                     image: _bzModel.logoPath,
                     isVerified: _bzModel.isVerified,
                     margins: const EdgeInsets.symmetric(horizontal: 5),
-                    corners: BldrsAppBar.corners, // was corners - 5
+                    corners: BldrsAppBar.clearCorners,
                   ),
 
                 ],

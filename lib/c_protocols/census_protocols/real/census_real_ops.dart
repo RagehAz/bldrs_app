@@ -39,7 +39,7 @@ class CensusRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> readCitiesOfCountryCensus({
     @required String countryID,
   }) async {
@@ -65,7 +65,7 @@ class CensusRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> readDistrictsOfCityCensus({
     @required String cityID,
   }) async {
