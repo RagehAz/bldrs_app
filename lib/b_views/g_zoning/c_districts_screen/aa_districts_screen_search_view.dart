@@ -1,8 +1,10 @@
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/district_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +15,16 @@ class DistrictsScreenSearchView extends StatelessWidget {
     @required this.onDistrictTap,
     @required this.loading,
     @required this.foundDistricts,
+    @required this.censusModels,
+    @required this.shownDistrictsIDs,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onDistrictTap;
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<DistrictModel>> foundDistricts;
+  final List<CensusModel> censusModels;
+  final List<String> shownDistrictsIDs;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -53,11 +59,23 @@ class DistrictsScreenSearchView extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: (_, int index) {
 
-                        final DistrictModel input = foundDistricts[index];
+                        final DistrictModel _districtModel = foundDistricts[index];
+
+                        final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+                          censuses: censusModels,
+                          censusID: _districtModel.id,
+                        );
+
+                        final bool _isActive = Stringer.checkStringsContainString(
+                          strings: shownDistrictsIDs,
+                          string: _districtModel.id,
+                        );
 
                         return WideDistrictButton(
-                          district: input,
+                          district: _districtModel,
                           onTap: onDistrictTap,
+                          censusModel: _census,
+                          isActive: _isActive,
                         );
 
                       }

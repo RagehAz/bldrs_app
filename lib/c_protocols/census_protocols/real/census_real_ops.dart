@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -16,7 +17,7 @@ class CensusRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<CensusModel>> readCountriesCensus() async {
+  static Future<List<CensusModel>> readAllCountriesCensus() async {
 
     List<CensusModel> _output = [];
 
@@ -35,26 +36,61 @@ class CensusRealOps {
 
     }
 
-    CensusModel.blogCensuses(
-      censuses: _output,
-    );
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> readCitiesOfCountryCensus({
+    @required String countryID,
+  }) async {
+    List<CensusModel> _output = <CensusModel>[];
+
+    if (countryID != null){
+
+      final Object _objects = await Real.readPath(
+        path: '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID',
+      );
+
+      final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+        ihlmoo: _objects,
+        // addChildrenIDs: true, // DEFAULT
+      );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+        _output = CensusModel.decipherCensuses(_maps);
+      }
+
+    }
 
     return _output;
   }
   // --------------------
-  /// TASK : WRITE ME
-  static Future<List<CensusModel>> readCitiesCensus({
-    @required String countryID,
-  }) async {
-
-
-  }
-  // --------------------
-  /// TASK : WRITE ME
-  static Future<List<CensusModel>> readDistrictsCensus({
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> readDistrictsOfCityCensus({
     @required String cityID,
   }) async {
+    List<CensusModel> _output = <CensusModel>[];
 
+    if (cityID != null){
+
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+      final Object _objects = await Real.readPath(
+        path: '${RealColl.statistics}/${RealDoc.statistics_districts}/$_countryID/$cityID',
+      );
+
+      final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+        ihlmoo: _objects,
+        // addChildrenIDs: true, // DEFAULT
+      );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+        _output = CensusModel.decipherCensuses(_maps);
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -90,18 +126,18 @@ class CensusRealOps {
         ),
 
         /// UPDATE CITY
-        if (zoneModel.cityID != null)
+        if (zoneModel.countryID != null && zoneModel.cityID != null)
           Real.updateDoc(
           collName: RealColl.statistics,
-          docName: '${RealDoc.statistics_cities}/${zoneModel.cityID}',
+          docName: '${RealDoc.statistics_cities}/${zoneModel.countryID}/${zoneModel.cityID}',
           map: _map,
         ),
 
         /// UPDATE DISTRICT
-        if (zoneModel.districtID != null)
+        if (zoneModel.countryID != null && zoneModel.cityID != null && zoneModel.districtID != null)
           Real.updateDoc(
             collName: RealColl.statistics,
-            docName: '${RealDoc.statistics_districts}/${zoneModel.districtID}',
+            docName: '${RealDoc.statistics_districts}/${zoneModel.countryID}/${zoneModel.cityID}/${zoneModel.districtID}',
             map: _map,
           ),
 
