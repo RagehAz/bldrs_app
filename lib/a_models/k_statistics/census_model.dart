@@ -333,7 +333,7 @@ class CensusModel {
     return _map;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// not tested
   List<Map<String, dynamic>> cipherCensuses({
     @required List<CensusModel> censuses,
     @required bool toLDB,
@@ -421,7 +421,7 @@ class CensusModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<CensusModel> decipherCensuses(List<Map<String, dynamic>> maps){
     final List<CensusModel> _output = <CensusModel>[];
 

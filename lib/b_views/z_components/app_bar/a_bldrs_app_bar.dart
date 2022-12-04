@@ -237,10 +237,15 @@ class BldrsAppBar extends StatelessWidget {
           SizedBox(
             width: _abWidth,
             height: _abHeight,
-            // color: Colorz.BabyBlueSmoke,
+            // color: Colorz.red50,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+
+                const SizedBox(
+                  width: 5,
+                  height: 5,
+                ),
 
                 /// BACK / SEARCH / SECTION / ZONE
                 Row(
@@ -316,6 +321,12 @@ class BldrsAppBar extends StatelessWidget {
 
                   ],
                 ),
+
+                if (appBarType == AppBarType.search)
+                  const SizedBox(
+                    width: 5,
+                    height: 5,
+                  ),
 
                 /// SEARCH BAR,
                 if (appBarType == AppBarType.search)
