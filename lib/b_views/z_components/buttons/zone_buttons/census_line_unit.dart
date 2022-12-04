@@ -1,11 +1,12 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class CensusMiniLine extends StatelessWidget {
+class CensusLineUnit extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const CensusMiniLine({
+  const CensusLineUnit({
     @required this.width,
     @required this.number,
     @required this.icon,
@@ -25,8 +26,8 @@ class CensusMiniLine extends StatelessWidget {
       height: height,
       width: width,
       icon: icon,
+      color: Colorz.white10,
       iconSizeFactor: 0.6,
-      verseCentered: false,
       verseWeight: VerseWeight.thin,
       bubble: false,
       verse: Verse.plain(Numeric.formatNumToCounterCaliber(context, number)),

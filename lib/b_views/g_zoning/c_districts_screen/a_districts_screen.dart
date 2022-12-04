@@ -3,12 +3,14 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -42,6 +44,9 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   final ValueNotifier<List<DistrictModel>> _cityDistricts = ValueNotifier<List<DistrictModel>>(<DistrictModel>[]);
   final ValueNotifier<List<DistrictModel>> _foundDistricts = ValueNotifier<List<DistrictModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
+  // --------------------
+  List<CensusModel> _censusModels = [];
+  List<String> _shownDistrictsIDs = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -151,6 +156,16 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       );
 
       _cityDistricts.value = <DistrictModel>[..._orderedShownDistricts, ..._orderedNotShownDistricts];
+
+
+      final List<CensusModel> _districtsCensus = await CensusRealOps.readDistrictsOfCityCensus(
+          cityID: widget.city.cityID,
+      );
+
+      setState(() {
+        _shownDistrictsIDs = _shownIDs;
+        _censusModels = _districtsCensus;
+      });
 
     }
 
@@ -272,6 +287,8 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                 loading: _loading,
                 foundDistricts: _foundDistricts,
                 onDistrictTap: _onDistrictTap,
+                censusModels: _censusModels,
+                shownDistrictsIDs: _shownDistrictsIDs,
               );
 
             }
@@ -287,6 +304,8 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                     return DistrictsScreenBrowseView(
                       onDistrictChanged: _onDistrictTap,
                       districts: districts,
+                      censusModels: _censusModels,
+                      shownDistrictsIDs: _shownDistrictsIDs,
                     );
 
                   },
