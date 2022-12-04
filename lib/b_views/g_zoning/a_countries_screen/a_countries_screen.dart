@@ -42,7 +42,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   List<String> _shownCountriesIDs = <String>[];
   List<String> _notShownCountriesIDs = <String>[];
   // --------------------
-  List<CensusModel> _census;
+  List<CensusModel> _censuses;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -108,7 +108,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
 
     /// CENSUS
-    final List<CensusModel> _countriesCensuses = await CensusRealOps.readCountriesCensus();
+    final List<CensusModel> _countriesCensuses = await CensusRealOps.readAllCountriesCensus();
 
     if (mounted) {
       setState(() {
@@ -123,7 +123,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
           countriesIDs: _notShownIDs,
         );
 
-        _census = _countriesCensuses;
+        _censuses = _countriesCensuses;
 
       });
     }
@@ -362,7 +362,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 loading: _loading,
                 foundCountries: _foundCountries,
                 shownCountriesIDs: _shownCountriesIDs,
-                countriesCensus: _census,
+                countriesCensus: _censuses,
                 onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
 
@@ -374,7 +374,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
               return CountriesScreenBrowseView(
                 shownCountriesIDs: _shownCountriesIDs,
                 notShownCountriesIDs: _notShownCountriesIDs,
-                countriesCensus: _census,
+                countriesCensus: _censuses,
                 onCountryTap: (String countryID) => _onCountryTap(countryID),
               );
 
