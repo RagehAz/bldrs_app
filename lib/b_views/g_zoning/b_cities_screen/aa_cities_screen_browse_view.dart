@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -10,12 +11,14 @@ class CitiesScreenBrowseView extends StatelessWidget {
     @required this.countryCities,
     @required this.onCityTap,
     @required this.shownCitiesIDs,
+    @required this.citiesCensuses,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<CityModel>> countryCities;
   final Function(String cityID) onCityTap;
   final List<String> shownCitiesIDs;
+  final List<CensusModel> citiesCensuses;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,9 +41,16 @@ class CitiesScreenBrowseView extends StatelessWidget {
                 string: _city.cityID,
             );
 
+            final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+              censuses: citiesCensuses,
+              censusID: _city.cityID,
+            );
+
+
             return WideCityButton(
               city: _city,
               isActive: _isActive,
+              censusModel: _census,
               onSingleTap: () => onCityTap(_city.cityID),
             );
 

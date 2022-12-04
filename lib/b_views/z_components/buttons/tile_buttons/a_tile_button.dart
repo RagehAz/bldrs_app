@@ -16,6 +16,7 @@ class TileButton extends StatelessWidget {
     this.iconSizeFactor = 1,
     this.margins,
     this.isActive = true,
+    this.corners,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class TileButton extends StatelessWidget {
   final double iconSizeFactor;
   final dynamic margins;
   final bool isActive;
+  final dynamic corners;
   // -----------------------------------------------------------------------------
   static const double defaultHeight = 40;
   // -----------------------------------------------------------------------------
@@ -54,6 +56,7 @@ class TileButton extends StatelessWidget {
           margins: margins ?? const EdgeInsets.symmetric(vertical: 5),
       ),
       iconSizeFactor: iconSizeFactor,
+      corners: corners,
     );
 
   }

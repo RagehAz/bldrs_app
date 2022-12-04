@@ -18,8 +18,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -64,11 +62,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
 
 
-
-    await Real.clonePath(
-        oldPath: 'colors',
-        newPath: 'app/${RealDoc.app_tests}/colors',
-    );
+    //
+    // await Real.clonePath(
+    //     oldPath: 'statistics/cities/kwt+al_jahra',
+    //     newPath: 'statistics/cities/kwt/kwt+al_jahra',
+    // );
 
 
 

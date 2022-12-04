@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/b_zone_search_protocols.dart';
@@ -50,6 +52,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   ValueNotifier<ZoneModel> _currentZone;
   List<String> _shownCitiesIDs = <String>[];
   ZoneStages _stages;
+  // --------------------
+  List<CensusModel> _censuses;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -157,9 +161,16 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           cities: _notShownCities,
         );
 
+        final List<CensusModel> _citiesCensuses = await CensusRealOps.readCitiesOfCountryCensus(
+            countryID: widget.countryID,
+        );
+
         setState(() {
           _shownCitiesIDs = _shownIDs;
           _stages = _citiesStages;
+
+          _censuses = _citiesCensuses;
+
         });
 
         setNotifier(
@@ -443,6 +454,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 foundCities: _foundCities,
                 onCityTap: _onCitySelected,
                 shownCitiesIDs: _shownCitiesIDs,
+                citiesCensuses: _censuses,
               );
 
             }
@@ -454,6 +466,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 onCityTap: _onCitySelected,
                 countryCities: _countryCities,
                 shownCitiesIDs: _shownCitiesIDs,
+                citiesCensuses: _censuses,
               );
 
             }

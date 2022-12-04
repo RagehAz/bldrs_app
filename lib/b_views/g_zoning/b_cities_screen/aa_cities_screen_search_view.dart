@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -15,6 +16,7 @@ class CitiesScreenSearchView extends StatelessWidget {
     @required this.loading,
     @required this.foundCities,
     @required this.shownCitiesIDs,
+    @required this.citiesCensuses,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +24,7 @@ class CitiesScreenSearchView extends StatelessWidget {
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<CityModel>> foundCities;
   final List<String> shownCitiesIDs;
+  final List<CensusModel> citiesCensuses;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -64,9 +67,16 @@ class CitiesScreenSearchView extends StatelessWidget {
                           strings: shownCitiesIDs,
                           string: _city.cityID,
                         );
+
+                        final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+                          censuses: citiesCensuses,
+                          censusID: _city.cityID,
+                        );
+
                         return WideCityButton(
                           city: _city,
                           isActive: _isActive,
+                          censusModel: _census,
                           onSingleTap: () => onCityTap(_city.cityID),
                         );
 
