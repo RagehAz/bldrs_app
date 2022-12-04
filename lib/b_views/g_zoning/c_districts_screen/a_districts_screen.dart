@@ -296,20 +296,19 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
             /// NOT SEARCHING
             else {
 
-              return
-                ValueListenableBuilder(
-                  valueListenable: _cityDistricts,
-                  builder: (_, List<DistrictModel> districts, Widget child){
+              return ValueListenableBuilder(
+                valueListenable: _cityDistricts,
+                builder: (_, List<DistrictModel> districts, Widget child){
 
-                    return DistrictsScreenBrowseView(
-                      onDistrictChanged: _onDistrictTap,
-                      districts: districts,
-                      censusModels: _censusModels,
-                      shownDistrictsIDs: _shownDistrictsIDs,
-                    );
+                  return DistrictsScreenBrowseView(
+                    onDistrictChanged: _onDistrictTap,
+                    districts: districts,
+                    censusModels: _censusModels,
+                    shownDistrictsIDs: _shownDistrictsIDs,
+                  );
 
-                  },
-                );
+                },
+              );
 
             }
 
