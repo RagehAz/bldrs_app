@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/d_district_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/modelling/d_district_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -145,7 +145,7 @@ class DistrictsStagesRealOps {
           await Dialogs.errorDialog(
             context: context,
             titleVerse: Verse.plain('Something is seriously going wrong here'),
-            bodyVerse: Verse.plain('District stages have not been updated,,, take FUCKING care !'),
+            bodyVerse: Verse.plain('District stages have not been updated,,, take care !'),
           );
 
         }

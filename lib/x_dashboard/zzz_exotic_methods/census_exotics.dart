@@ -21,7 +21,7 @@ class ExoticCensus {
 
   // --------------------
   static const String _realDocName = 'app/all_censuses';
-
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateAllCensusForDBCountOps({
     @required Map<String, dynamic> map,
@@ -72,7 +72,7 @@ class ExoticCensus {
 
   }
   // -----------------------------------------------------------------------------
-
+  /// WORKS GOOD
   static Future<void> scanEntireDatabaseToCreateCensuses() async {
 
     /// SUPER FUCKING DANGEROUS
@@ -131,5 +131,5 @@ class ExoticCensus {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }
