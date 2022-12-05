@@ -422,7 +422,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // -----------------------------------------------------------------------------
 }
 
-/// TASK : NEED TO PUT THESE STATEMENTS FOR BZZ
+/// PLAN : NEED TO PUT THESE STATEMENTS FOR BZZ
 ///  - NO SUBSCRIPTION FEES
 ///  - NO SALES COMMISSION
 ///  - SHARE YOUR WORK AND YOUR SOCIAL MEDIA LINKS

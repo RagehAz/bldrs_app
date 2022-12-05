@@ -399,7 +399,7 @@ class ZoneModel {
 
           if (showDistrict == true && zoneModel.districtModel != null){
 
-            final String _districtName = DistrictModel.translateDistirct(
+            final String _districtName = DistrictModel.translateDistrict(
                 context: context,
                 district: zoneModel.districtModel,
             );

@@ -680,7 +680,7 @@ class Chain {
 
   }
   // --------------------
-  /// TASK : IN DEVELOPMENT WILL CONTINUE LATER
+  /// TESTED : WORKS PERFECT
   static void blogChainsDifferences({
     @required List<Chain> chains1,
     @required List<Chain> chains2,
@@ -1586,9 +1586,9 @@ class Chain {
   // -----------------------------------------------------------------------------
 }
 
+/// DEPRECATED
 /*
   // --------------------
-  /// TASK DEPRECATED
   static Map<String, dynamic> cipherBigChainK({
     @required Chain chainK,
   }){
@@ -1628,7 +1628,7 @@ class Chain {
     return _map;
   }
   // --------------------
-  /// TASK DEPRECATED
+  /// DEPRECATED
   static Chain decipherBigChainK({
     @required Map<String, dynamic> bigChainKMap,
   }) {
@@ -1657,7 +1657,7 @@ class Chain {
     return _bigChainK;
   }
   // --------------------
-  /// TASK DEPRECATED
+  /// DEPRECATED
   static Map<String, dynamic> cipherBigChainS({
     @required Chain chainS,
   }){

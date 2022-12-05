@@ -97,7 +97,9 @@ class BigMac {
 
     if (_bigMac == null) {
       /// TASK : hagilak
-    } else {
+    }
+
+    else {
       _bigMacLocalPriceInUSD = localPriceToDollar(
         localPrice: _bigMac.localPrice,
         toDollarRate: _bigMac.toDollarRate,
