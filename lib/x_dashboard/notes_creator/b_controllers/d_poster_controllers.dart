@@ -232,6 +232,7 @@ Future<void> _onAddImageURLToPoster({
     context: context,
     keyboardModel: KeyboardModel.standardModel().copyWith(
       validator: (String text) => Formers.webSiteValidator(
+          context: context,
           website: text
       ),
     ),

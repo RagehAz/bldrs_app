@@ -30,7 +30,7 @@ class IsConnectedButton extends StatelessWidget {
                 //
                 // await _onConnectivityChanged(_connected);
 
-                TopDialog.showUnawaitedTopDialog(
+                await TopDialog.showTopDialog(
                   context: context,
                   firstVerse: const Verse(text: 'phid_hello_there', translate: true),
                   secondVerse: const Verse(

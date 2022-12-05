@@ -117,10 +117,10 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
   Future<PicModel> _createPicModel(Uint8List bytes) async {
 
     final PicModel _picModel = PicModel(
-      path: 'flyers/{flyerID}/poster',
+      path: 'flyers/{flyerID}/poster', // TASK : WTF IS THIS ?
       bytes: bytes,
       meta: PicMetaModel(
-          ownersIDs: ['{ownerID}'],
+          ownersIDs: const ['{ownerID}'],  // TASK : WTF IS THIS ?
           dimensions: await Dimensions.superDimensions(bytes),
     ),
     );

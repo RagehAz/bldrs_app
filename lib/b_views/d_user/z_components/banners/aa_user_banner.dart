@@ -98,7 +98,10 @@ class UserBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(userModel);
+    final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
+      context: context,
+      userModel: userModel,
+    );
     final String _userName = userModel?.name ?? 'phid_unknown_bldr';
     // --------------------
     final Function _onTap = _thereAreMissingFields == false ?

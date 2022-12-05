@@ -46,6 +46,7 @@ class GenderBubble extends StatelessWidget {
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
         validator: () => Formers.genderValidator(
+          context: context,
           gender: draftUser?.gender,
           canValidate: canValidate,
         ),
@@ -108,6 +109,7 @@ class GenderBubble extends StatelessWidget {
         SuperValidator(
           width: Bubble.clearWidth(context),
           validator: () => Formers.genderValidator(
+            context: context,
             gender: draftUser?.gender,
             canValidate: canValidate,
           ),

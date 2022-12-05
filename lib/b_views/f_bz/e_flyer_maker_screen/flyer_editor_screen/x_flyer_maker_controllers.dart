@@ -451,7 +451,7 @@ Future<bool> _preFlyerUpdateCheck({
       if (_isValid == false){
 
         if (draft.value.headline.text.length < Standards.flyerHeadlineMinLength){
-          TopDialog.showUnawaitedTopDialog(
+          await TopDialog.showTopDialog(
             context: context,
             firstVerse: const Verse(
               pseudo: 'Flyer headline can not be less than ${Standards.flyerHeadlineMinLength} characters long',

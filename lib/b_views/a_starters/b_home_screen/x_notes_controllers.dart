@@ -204,7 +204,10 @@ bool _checkNoteDotIsOn({
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
-  final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(_userModel);
+  final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
+    context: context,
+    userModel: _userModel,
+  );
 
 
   bool _isOn = false;

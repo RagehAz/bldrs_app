@@ -323,6 +323,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     // selectCountryAndCityOnly: true,
                     // selectCountryIDOnly: false,
                     validator: () => Formers.zoneValidator(
+                      context: context,
                       zoneModel: userModel.zone,
                       selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,
