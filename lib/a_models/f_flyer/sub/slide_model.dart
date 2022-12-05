@@ -13,7 +13,7 @@ import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class SlideModel {
   /// --------------------------------------------------------------------------
@@ -375,7 +375,8 @@ class SlideModel {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// NOT USED
+  /*
   static Future<List<File>> getImageFilesFromPublishedSlides(List<SlideModel> slides) async {
     final List<File> _files = <File>[];
 
@@ -389,6 +390,7 @@ class SlideModel {
 
     return _files;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getSlidePicsPaths(List<SlideModel> slides){
@@ -405,35 +407,8 @@ class SlideModel {
     return _paths;
   }
   // --------------------
+  /// NOT USED
   /*
-  static Future<List<Asset>> getImageAssetsFromPublishedSlides(List<SlideModel> slides) async {
-    final List<Asset> _assets = <Asset>[];
-
-    if (Mapper.checkCanLoopList(slides)) {
-      for (final SlideModel slide in slides) {
-        final File _file = await Imagers.getFileFromURL(slide.pic);
-        final ImageSize imageSize = await ImageSize.superImageSize(_file);
-
-        final Asset _asset = Asset(
-          // identifier
-          '${slide.slideIndex}',
-          // _name
-          slide.pic.toString(),
-          // _originalWidth
-          imageSize.width.toInt(),
-          // _originalHeight
-          imageSize.height.toInt(),
-        ); //await Imagers.urlToAsset(slide.picture); /// TASK : URL to Asset needed here if possible
-
-        _assets.add(_asset);
-      }
-    }
-
-    return _assets;
-  }
-   */
-  // --------------------
-  /// TASK : TEST ME
   static List<BoxFit> getSlidesBoxFits(List<SlideModel> slides) {
     final List<BoxFit> _boxFits = <BoxFit>[];
 
@@ -451,8 +426,10 @@ class SlideModel {
 
     return _boxFits;
   }
+   */
   // --------------------
-  /// TASK : TEST ME
+  /// NOT USED
+  /*
   static List<SlideModel> getSlidesFromSlidesByFlyerID(List<SlideModel> allSlides, String flyerID) {
     final List<SlideModel> _foundSlides = <SlideModel>[];
 
@@ -469,29 +446,13 @@ class SlideModel {
 
     return _foundSlides;
   }
-  // -----------------------------------------------------------------------------
-
-  /// VISIBILITY LISTS
-
-  // --------------------
-  /// TASK : TEST ME
-  static List<bool> createVisibilityListFromSlides(List<SlideModel> slides) {
-    final List<bool> _visibilityList = <bool>[];
-
-    if (Mapper.checkCanLoopList(slides)) {
-      for (int i = 0; i < slides.length; i++) {
-        _visibilityList.add(true);
-      }
-    }
-
-    return _visibilityList;
-  }
+   */
   // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static SlideModel dummySlide() {
     return SlideModel(
       slideIndex: 0,
@@ -510,7 +471,7 @@ class SlideModel {
   /// SORTING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<SlideModel> sortSlidesByIndexes(List<SlideModel> slides){
 
     if (Mapper.checkCanLoopList(slides) == true){

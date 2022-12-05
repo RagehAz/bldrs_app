@@ -30,7 +30,7 @@ enum AuditState{
   suspended,
   pending,
 }
-
+/// TAMAM
 @immutable
 class FlyerModel {
   /// --------------------------------------------------------------------------
@@ -72,7 +72,7 @@ class FlyerModel {
   final String authorID;
   final String bzID;
   final GeoPoint position;
-  final List<SlideModel> slides; // TASK : only 10 max slides per flyer
+  final List<SlideModel> slides;
   final List<SpecModel> specs;
   final List<PublishTime> times;
   final bool priceTagIsOn;
@@ -144,7 +144,7 @@ class FlyerModel {
   /// FLYER CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -198,7 +198,7 @@ class FlyerModel {
     return _maps;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static FlyerModel decipherFlyer({
     @required dynamic map,
     @required bool fromJSON,
@@ -630,7 +630,8 @@ class FlyerModel {
   }
    */
   // --------------------
-  /// TASK : why ?
+  /// NOT USED
+  /*
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
     int _totalFlyers = 0;
 
@@ -640,8 +641,9 @@ class FlyerModel {
 
     return _totalFlyers;
   }
+   */
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static int getNumberOfFlyersSlides(List<FlyerModel> flyers){
     int _count = 0;
 
@@ -691,14 +693,14 @@ class FlyerModel {
     return _flyerIDs;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<FlyerModel> filterFlyersByFlyerType({
     @required List<FlyerModel> flyers,
     @required FlyerType flyerType,
   }){
     final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
-    if(Mapper.checkCanLoopList(flyers)){
+    if(Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
         if (flyer.flyerType == flyerType){
@@ -756,6 +758,7 @@ class FlyerModel {
     return _hasTheID;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerModel> replaceFlyerInFlyers({
     @required List<FlyerModel> flyers,
     @required FlyerModel flyerToReplace,

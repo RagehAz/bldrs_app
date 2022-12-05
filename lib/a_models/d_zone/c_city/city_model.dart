@@ -222,11 +222,6 @@ class CityModel {
       return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '+');
     }
 
-    /// OLD IDS : TASK : DELETE WHEN ALL CITIES ARE DONE AND LAUNCH READY
-    else if (TextCheck.stringContainsSubString(string: cityID, subString: '_') == true){
-      return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '_');
-    }
-
     /// SOMETHING IS WRONG
     else {
       return null;
