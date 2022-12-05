@@ -242,7 +242,11 @@ class BldrsAppBar extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
 
-                if (appBarType == AppBarType.search)
+                if (
+                    appBarType == AppBarType.search ||
+                    appBarType == AppBarType.main ||
+                    appBarType == AppBarType.basic
+                )
                   const SizedBox(
                   width: 5,
                   height: 5,
