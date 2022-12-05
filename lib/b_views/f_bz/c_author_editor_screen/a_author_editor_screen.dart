@@ -272,7 +272,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
                     // autoValidate: true,
                     validator: (String text) => Formers.personNameValidator(
-                      name: authorModel.name,
+                        context: context,
+                        name: authorModel.name,
                       canValidate: _canValidate
                     ),
 
@@ -301,6 +302,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
                     initialText: authorModel.title,
                     validator: (String text) => Formers.jobTitleValidator(
+                        context: context,
                         jobTitle: authorModel.title,
                         canValidate: _canValidate
                     ),
@@ -372,6 +374,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
                     canPaste: false,
                     validator: (String text) => Formers.contactsEmailValidator(
+                        context: context,
                         contacts: authorModel.contacts,
                         canValidate: _canValidate
                     ),

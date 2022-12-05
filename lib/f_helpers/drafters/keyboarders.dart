@@ -212,17 +212,6 @@ class Keyboard {
     );
 
     if (awaitTheDialog == false){
-      TopDialog.showUnawaitedTopDialog(
-        context: context,
-        firstVerse: const Verse(
-          text: 'phid_copied_to_clipboard',
-          translate: true,
-        ),
-        secondVerse: Verse.plain(copy),
-        milliseconds: milliseconds,
-      );
-    }
-    else {
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
@@ -234,7 +223,17 @@ class Keyboard {
       );
     }
 
-
+    else {
+      await TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          text: 'phid_copied_to_clipboard',
+          translate: true,
+        ),
+        secondVerse: Verse.plain(copy),
+        milliseconds: milliseconds,
+      );
+    }
 
     blog('copied to clipboard : $copy');
   }

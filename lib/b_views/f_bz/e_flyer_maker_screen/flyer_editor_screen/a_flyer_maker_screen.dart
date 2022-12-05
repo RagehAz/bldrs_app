@@ -273,6 +273,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     keyboardTextInputType: TextInputType.multiline,
                     initialText: _draft?.description,
                     validator: (String text) => Formers.paragraphValidator(
+                      context: context,
                       text: _draft?.description,
                       canValidate: _canValidate,
                     ),
@@ -407,6 +408,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       zone: zone,
                     ),
                     validator: () => Formers.zoneValidator(
+                      context: context,
                       zoneModel: _draft?.zone,
                       selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,
