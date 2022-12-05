@@ -48,7 +48,6 @@ class BzAuthorsBubble extends StatelessWidget {
 
         }),
 
-
       ],
     );
     // --------------------

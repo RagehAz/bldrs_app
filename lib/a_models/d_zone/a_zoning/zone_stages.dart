@@ -50,18 +50,24 @@ import 'package:flutter/material.dart';
 ///   - User zone and User Need Zone are the same
 // --------------------------------------------------------------------------
 
+/*
+
+HIDDEN -> VISIBLE -> ACTIVE -> PUBLIC
+
+ */
+
 enum StageType {
   /// LVL 1 - SWITCHED OFF - CAN NOT BE USED - IS HIDDEN,
-  hidden,
+  hidden, // => has no bzz
 
   /// LVL 2 - INACTIVE - NOT YET USED - HAS NO FLYERS
-  inactive,
+  inactive, // has bzz but no flyers
 
   /// LVL 3 - ACTIVE - USED - HAS FLYERS
-  active,
+  active, // has flyers
 
   /// LVL 4 - PUBLIC - CAN BE USED BY ANYONE
-  public,
+  public, // has plenty of flyers
 }
 
 /// ZONE VIEWING EVENT TYPE
