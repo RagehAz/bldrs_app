@@ -212,12 +212,12 @@ class PhraseProvider extends ChangeNotifier {
     String _translation;
 
     if (
-    _mainPhrases != null
+        _mainPhrases != null
         &&
         Mapper.checkCanLoopList(_mainPhrases) == true
     ){
 
-      final Phrase _phrase = _mainPhrases.singleWhere(
+      final Phrase _phrase = _mainPhrases.firstWhere(
               (phrase) => phrase.id == id,
           orElse: ()=> null
       );

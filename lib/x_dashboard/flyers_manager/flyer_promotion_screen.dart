@@ -81,7 +81,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
     if (_zone == null || _zone.countryID == null || _zone.cityID == null){
 
-      TopDialog.showUnawaitedTopDialog(
+      await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
           text: 'phid_select_promotion_target_city',

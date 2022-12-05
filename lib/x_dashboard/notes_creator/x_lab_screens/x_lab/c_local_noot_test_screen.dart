@@ -259,7 +259,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
         bytes: _bytes,
         meta: PicMetaModel(
           dimensions: _dimensions,
-          ownersIDs: [],
+          ownersIDs: const [],
         ),
       );
 

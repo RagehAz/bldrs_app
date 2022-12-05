@@ -98,7 +98,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
 
         /// SHOW CONNECTED DIALOG
         if (isConnected == true){
-          TopDialog.showUnawaitedTopDialog(
+          await TopDialog.showTopDialog(
             context: context,
             firstVerse: const Verse(
               text: 'phid_connected',
@@ -110,7 +110,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         }
         /// SHOW DISCONNECTED DIALOG
         else {
-          TopDialog.showUnawaitedTopDialog(
+          await TopDialog.showTopDialog(
             context: context,
             firstVerse: const Verse(
               text: 'phid_disconnected',

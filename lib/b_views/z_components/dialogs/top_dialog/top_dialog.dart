@@ -203,7 +203,8 @@ class TopDialog extends StatelessWidget {
     ).show(context);
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// BUG THE SHIT OUT OF LIFE
+  /*
   static void showUnawaitedTopDialog({
     @required BuildContext context,
     @required Verse firstVerse,
@@ -225,6 +226,7 @@ class TopDialog extends StatelessWidget {
     ));
 
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

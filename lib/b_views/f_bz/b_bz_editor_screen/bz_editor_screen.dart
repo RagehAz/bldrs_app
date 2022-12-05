@@ -227,9 +227,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   selectedButtonsPhids: <String>[_selectedBzSectionPhid],
                   bulletPoints: const <Verse>[
                     Verse(text: 'phid_select_only_one_section', translate: true,),
-                    Verse(text: 'phid_bz_section_selection_info', translate: true,),
+                    // Verse(text: 'phid_bz_section_selection_info', translate: true,),
                   ],
                   validator: () => Formers.bzSectionValidator(
+                      context: context,
                       selectedSection: draft?.bzSection,
                       canValidate: draft?.canValidate
                   ),
@@ -254,8 +255,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     Verse(text: 'phid_select_bz_type', translate: true,),
                   ],
                   validator: () => Formers.bzTypeValidator(
-                      selectedTypes: draft?.bzTypes,
-                      canValidate: draft?.canValidate,
+                    context: context,
+                    selectedTypes: draft?.bzTypes,
+                    canValidate: draft?.canValidate,
                   ),
                   onButtonTap: (int index) => onChangeBzType(
                     context: context,
@@ -279,6 +281,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     Verse(text: 'phid_bz_form_company_description', translate: true,),
                   ],
                   validator: () => Formers.bzFormValidator(
+                    context: context,
                     bzForm: draft?.bzForm,
                     canValidate: draft?.canValidate,
                   ),
@@ -304,6 +307,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                   // autoValidate: true,
                   validator: () => Formers.picValidator(
+                    context: context,
                     pic: draft?.logoPicModel,
                     canValidate: draft?.canValidate,
                   ),
@@ -338,6 +342,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                   // autoValidate: true,
                   validator: (String text) => Formers.companyNameValidator(
+                    context: context,
                     companyName: draft?.name,
                     canValidate: draft?.canValidate,
                   ),
@@ -366,6 +371,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                   // autoValidate: true,
                   validator: (String text) => Formers.bzAboutValidator(
+                    context: context,
                     bzAbout: draft?.about,
                     canValidate: draft?.canValidate,
                   ),
@@ -440,6 +446,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsEmailValidator(
+                    context: context,
                     contacts: draft?.contacts,
                     canValidate: draft?.canValidate,
                   ),
@@ -473,6 +480,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   // canPaste: true,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsWebsiteValidator(
+                    context: context,
                     contacts: draft?.contacts,
                     canValidate: draft?.canValidate,
                   ),
@@ -523,6 +531,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     // selectCountryAndCityOnly: true,
                     // selectCountryIDOnly: false,
                     validator: () => Formers.zoneValidator(
+                      context: context,
                       zoneModel: draft?.zone,
                       selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,

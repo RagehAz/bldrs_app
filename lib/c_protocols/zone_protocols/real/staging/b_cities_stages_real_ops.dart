@@ -67,7 +67,7 @@ class CitiesStagesRealOps {
         },
       );
 
-      blog('##### => ${i+1} / ${_countriesIDs.length} - Country is good : $countryID');
+      blog('# # # # # => ${i+1} / ${_countriesIDs.length} - Country is good : $countryID');
     }
 
      */

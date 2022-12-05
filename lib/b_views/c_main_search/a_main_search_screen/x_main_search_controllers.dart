@@ -338,7 +338,7 @@ Future<void> _handleSearchResult({
       notify: true,
     );
 
-    TopDialog.showUnawaitedTopDialog(
+    await TopDialog.showTopDialog(
       context: context,
       firstVerse: const Verse(
         text: 'phid_no_result_found',

@@ -232,6 +232,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     mounted: mounted,
                   ),
                   validator: () => Formers.picValidator(
+                    context: context,
                     pic: draft?.picModel,
                     canValidate: _canValidate,
                   ),
@@ -270,6 +271,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.personNameValidator(
+                    context: context,
                     name: text,
                     canValidate: _canValidate,
                   ),
@@ -298,6 +300,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.jobTitleValidator(
+                    context: context,
                     jobTitle: text,
                     canValidate: _canValidate,
                   ),
@@ -326,6 +329,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     draft: _draftUser,
                   ),
                   validator: (String text) => Formers.companyNameValidator(
+                    context: context,
                     companyName: text,
                     canValidate: _canValidate,
                   ),
@@ -401,6 +405,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   canPaste: false,
                   // autoValidate: true,
                   validator: (String text) => Formers.contactsEmailValidator(
+                    context: context,
                     contacts: draft?.contacts,
                     canValidate: _canValidate,
                   ),
@@ -420,6 +425,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // selectCountryIDOnly: false,
                   depth: ZoneDepth.district,
                   validator: () => Formers.zoneValidator(
+                    context: context,
                     zoneModel: draft?.zone,
                     selectCountryAndCityOnly: true,
                     selectCountryIDOnly: false,

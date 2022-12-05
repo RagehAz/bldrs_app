@@ -22,7 +22,7 @@ Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
     newAppControlsModel: appControlsModel.value,
   );
 
-  TopDialog.showUnawaitedTopDialog(
+  await TopDialog.showTopDialog(
     context: context,
     firstVerse: Verse.plain('showOnlyVerifiedFlyersInHomeWall updated to : $value'),
     color: Colorz.green255,
