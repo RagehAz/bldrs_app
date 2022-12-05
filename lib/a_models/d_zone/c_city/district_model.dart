@@ -347,39 +347,8 @@ class DistrictModel{
   /// PHRASES
 
   // --------------------
-  /// TASK : DEPRECATED : SHOULD DELETE THIS AND ALL ITS CONSEQUENCEs
-  /*
-  static String getTranslatedDistrictNameFromCity({
-    @required BuildContext context,
-    @required CityModel city,
-    @required String districtID
-  }){
-    String _districtName;
-
-    if (city != null && districtID != null){
-
-      final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
-        districts: city.districts,
-        districtID: districtID,
-      );
-
-      final Phrase _phrase = Phrase.searchFirstPhraseByCurrentLang(
-        context: context,
-        phrases: _district?.phrases,
-      );
-
-      if (_phrase != null){
-        _districtName = _phrase.value;
-      }
-
-    }
-
-    return _districtName;
-  }
-   */
-  // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateDistirct({
+  static String translateDistrict({
     @required BuildContext context,
     @required DistrictModel district,
     String langCode,
@@ -563,12 +532,12 @@ class DistrictModel{
 
       _output.sort((DistrictModel a, DistrictModel b){
 
-        final String _nameA = DistrictModel.translateDistirct(
+        final String _nameA = DistrictModel.translateDistrict(
           context: context,
           district: a,
         );
 
-        final String _nameB = DistrictModel.translateDistirct(
+        final String _nameB = DistrictModel.translateDistrict(
           context: context,
           district: b,
         );

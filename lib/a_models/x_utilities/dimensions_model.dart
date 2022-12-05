@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class Dimensions {
   /// --------------------------------------------------------------------------
@@ -205,7 +205,7 @@ class Dimensions {
   /// CONCLUDERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static double concludeHeightByDimensions({
     @required double width,
     @required double graphicWidth,
@@ -251,6 +251,7 @@ class Dimensions {
   }
    */
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BoxFit concludeBoxFit({
     @required double picWidth,
     @required double picHeight,

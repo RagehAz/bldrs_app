@@ -78,7 +78,7 @@ class ZoneTranslator {
 
     if (districtModel != null){
       _output = Verse(
-        text: DistrictModel.translateDistirct(
+        text: DistrictModel.translateDistrict(
           context: context,
           district: districtModel,
           langCode: langCode,

@@ -16,7 +16,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// INITIALIZATION
@@ -158,7 +158,7 @@ Future<void> _initializeUserBzz({
 /// ZONE INITIALIZATIONS
 
 // --------------------
-/// TASK : USER MODEL SHOULD HAVE COMPLETE ZONE MODEL BY THIS POINT
+/// TESTED : WORKS PERFECT
 Future<void> _initializeUserZone(BuildContext context) async {
   // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 

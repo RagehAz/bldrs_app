@@ -182,8 +182,6 @@ class _HomeScreenState extends State<HomeScreen> {
       final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
       final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
 
-      /// TASK MAIN NAV MODELS SHOULD BE PLACED IN PROVIDER TO LISTEN TO REBUILDS WHEN DELETING A BZ
-      /// TASK : IT SHOULD WORK NOW AS WE PUT THE PRO GETTERS OUTSIDE THE BELOW METHOD
       final List<NavModel> _navModels = generateMainNavModels(
         context: context,
         userModel: _userModel,
@@ -222,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             /// PYRAMIDS NAVIGATOR
-            /// TASK : SHOULD LISTEN TO NAV MODELS IN A PROVIDER,, AND SHOULD PUT THE SELECTOR DEEPTER INSIDE SUPER PYRAMIDS
+            /// PLAN : SHOULD LISTEN TO NAV MODELS IN A PROVIDER,, AND SHOULD PUT THE SELECTOR DEEPTER INSIDE SUPER PYRAMIDS
             SuperPyramids(
               isExpanded: _isExpanded,
               onExpansion: onTriggerExpansion,
