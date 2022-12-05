@@ -89,7 +89,7 @@ List<NavModel> generateMainNavModels({
       iconSizeFactor: userModel?.picPath == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
       canShow: AuthModel.userIsSignedIn() == true,
-      forceRedDot: userModel == null || Formers.checkUserHasMissingFields(userModel),
+      forceRedDot: userModel == null || Formers.checkUserHasMissingFields(userModel: userModel, context: context),
     ),
 
     /// SAVED FLYERS

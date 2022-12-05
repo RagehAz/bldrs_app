@@ -19,6 +19,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 // ---------------------------------------------------------------------------
@@ -651,7 +652,7 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
     context: context,
     draggable: true,
     titleVerse: const Verse(text: 'Phids Pending Translation', translate: false),
-    builder: (_, Function setState){
+    builder: (BuildContext xxx, Function setState){
 
       final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
 
@@ -692,17 +693,21 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
                   },
                   onValueTap: () async {
 
-                    await Keyboard.copyToClipboard(
-                      context: context,
-                      copy: _phid,
-                      milliseconds: 100,
-                      awaitTheDialog: true,
-                    );
+                    await Future.delayed(const Duration(milliseconds: 200), () async {
 
-                    await Nav.goBack(
-                      context: context,
-                      invoker: 'showPhidsPendingTranslationDialog',
-                    );
+                      await Keyboard.copyToClipboard(
+                        context: xxx,
+                        copy: _phid,
+                        milliseconds: 100,
+                        awaitTheDialog: true,
+                      );
+
+                      await Nav.goBack(
+                        context: xxx,
+                        invoker: 'showPhidsPendingTranslationDialog',
+                      );
+
+                    });
 
                   },
                 );

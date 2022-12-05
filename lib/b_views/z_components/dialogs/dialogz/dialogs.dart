@@ -474,6 +474,7 @@ class Dialogs {
         passwordController: _password,
         showPasswordOnly: true,
         passwordValidator: (String text) => Formers.passwordValidator(
+          context: context,
           password: _password.text,
           canValidate: true,
         ),

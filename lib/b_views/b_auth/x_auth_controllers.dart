@@ -204,7 +204,10 @@ Future<void> _controlAuthResult({
 
     if (authModel.firstTimer == true){
 
-      final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(authModel?.userModel);
+      final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
+        context: context,
+        userModel: authModel?.userModel,
+      );
 
       if (_thereAreMissingFields == true){
         await _goToUserEditorForFirstTime(

@@ -289,13 +289,11 @@ Future<void> onCallTap({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: Verse(
-          text: '##${bzModel.name} has no available contact',
+        titleVerse: const Verse(
+          text: 'phid_no_contacts_available',
           translate: true,
-          variables: bzModel.name,
         ),
         bodyVerse: const Verse(
-          pseudo: 'A reminder notification for the business will be sent to request updating their phone number',
           text: 'phid_reminder_will_be_sent_to_bz_for_phone',
           translate: true,
         ),
@@ -313,13 +311,11 @@ Future<void> onCallTap({
 
       await Dialogs.bzContactsDialog(
           context: context,
-          titleVerse: Verse(
-            text: '##Contact ${bzModel.name}',
+          titleVerse: const Verse(
+            text: 'phid_contact_directly',
             translate: true,
-            variables: bzModel.name,
           ),
           bodyVerse: const Verse(
-            pseudo: 'Select an Author to contact',
             text: 'phid_select_author_to_contact',
             translate: true,
           ),
