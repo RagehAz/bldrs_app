@@ -5,8 +5,8 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-
-/// TASK : DO IMMUTABLE AND OVERRIDES THING
+/// => TAMAM
+@immutable
 class PicMetaModel {
   // -----------------------------------------------------------------------------
   const PicMetaModel({
@@ -203,5 +203,66 @@ class PicMetaModel {
     blog('BLOGGING FULL META DATA ------------------------------- END');
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkMetaDatasAreIdentical({
+  @required PicMetaModel meta1,
+  @required PicMetaModel meta2,
+  }){
+    bool _output = false;
+
+    if (meta1 == null && meta2 == null){
+      _output = true;
+    }
+
+    else if (meta1 != null && meta2 != null){
+
+      if (
+          Mapper.checkListsAreIdentical(list1: meta1.ownersIDs, list2: meta2.ownersIDs) == true
+              &&
+          Dimensions.checkDimensionsAreIdentical(dim1: meta1.dimensions, dim2: meta2.dimensions) == true
+      ){
+        _output = true;
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+  /// OVERRIDES
+
+  // --------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+  // --------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is PicMetaModel){
+      _areIdentical = checkMetaDatasAreIdentical(
+        meta1: this,
+        meta2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      ownersIDs.hashCode^
+      dimensions.hashCode;
   // -----------------------------------------------------------------------------
 }

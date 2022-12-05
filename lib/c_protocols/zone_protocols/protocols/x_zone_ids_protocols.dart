@@ -201,7 +201,7 @@ class ZoneIDsProtocols {
       /// DISTRICT NAME
       if (TextCheck.isEmpty(incompleteZoneModel.districtName) == true || incompleteZoneModel.districtName == '...'){
 
-        final String _districtName = DistrictModel.translateDistirct(
+        final String _districtName = DistrictModel.translateDistrict(
           context: context,
           district: _output.districtModel,
           // langCode:
