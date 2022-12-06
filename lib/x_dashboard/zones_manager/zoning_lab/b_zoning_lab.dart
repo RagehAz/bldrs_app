@@ -32,7 +32,6 @@ import 'package:bldrs/c_protocols/zone_protocols/real/modelling/d_district_real_
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -658,22 +657,6 @@ class _ZoningLabState extends State<ZoningLab> {
               /// SEPARATOR
               const SeparatorLine(),
 
-              /// READ DISTRICTS STAGES
-              WideButton(
-                verse: Verse.plain('GET DISTRICTS STAGES'),
-                onTap: () async {
-
-                  final ZoneStages _districts = await DistrictsStagesRealOps.readDistrictsStages(
-                    cityID: 'egy+alexandria',
-                  );
-                  _districts?.blogStages();
-
-                },
-              ),
-
-              /// SEPARATOR
-              const SeparatorLine(),
-
               /// READ CITY DISTRICTS
               WideButton(
                 verse: Verse.plain('READ CITY DISTRICTS'),
@@ -934,8 +917,8 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   final List<DistrictModel> _districts = await ZoneProtocols.fetchDistrictsOfCountry(
                     countryID: 'egy',
-                    citiesStage: StageType.inactive,
-                    districtsStage: StageType.active,
+                    citiesStage: StageType.bzzStage,
+                    districtsStage: StageType.flyersStage,
                   );
 
                   DistrictModel.blogDistricts(_districts);
@@ -948,6 +931,58 @@ class _ZoningLabState extends State<ZoningLab> {
               ),
 
               const Horizon(),
+
+            ],
+          ),
+        ),
+
+        /// COUNTRIES STAGES
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Countries Stages'),
+              ),
+
+              /// CREATE INITIAL COUNTRIES STAGES
+              WideButton(
+                verse: Verse.plain('Create initial Countries Stages'),
+                // isActive: true,
+                onTap: () async {
+
+                  await CountriesStagesRealOps.createInitialCountriesStages();
+
+                },
+              ),
+
+              /// READ COUNTRIES STAGES
+              WideButton(
+                verse: Verse.plain('Read Countries STAGES'),
+                onTap: () async {
+
+                  final ZoneStages _lvl = await CountriesStagesRealOps.readCountriesStages();
+                  _lvl.blogStages();
+
+                  final List<String> _countriesIDs = ZoneStages(
+                    emptyStageIDs: _lvl.emptyStageIDs,
+                    bzzStageIDs: _lvl.bzzStageIDs,
+                    flyersStageIDs: null,
+                    publicStageIDs: const [],
+                  ).getAllIDs();
+
+                  Stringer.blogStrings(strings: _countriesIDs, invoker: '');
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
 
             ],
           ),
@@ -969,11 +1004,11 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// CREATE INITIAL CITIES STAGES
               WideButton(
-                verse: Verse.plain('Create initial cities Stagess'),
+                verse: Verse.plain('Create initial cities Stages'),
                 // isActive: true,
                 onTap: () async {
 
-                  await CitiesStagesRealOps.createInitialCitiesStagesWithAllCitiesHidden();
+                  await CitiesStagesRealOps.createInitialCitiesStagesWithAllCitiesEmpty();
 
                 },
               ),
@@ -1009,7 +1044,7 @@ class _ZoningLabState extends State<ZoningLab> {
           ),
         ),
 
-        /// COUNTRIES STAGES
+        /// DISTRICTS STAGES
         PageBubble(
           screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
           appBarType: _appBarType,
@@ -1020,74 +1055,32 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// HEADLINE
               SuperHeadline(
-                verse: Verse.plain('Countries Stages'),
+                verse: Verse.plain('Districts Stages'),
               ),
 
-              /// CREATE INITIAL COUNTRIES STAGES
+              /// CREATE INITIAL DISTRICTS STAGES
               WideButton(
-                verse: Verse.plain('Create initial Countries Stages'),
-                isActive: false,
+                verse: Verse.plain('Create initial Districts Stages'),
+                // isActive: true,
                 onTap: () async {
 
-                  const List<Flag> _iso3s = allFlags;
-
-                  final List<String> hidden = [];
-                  final List<String> inactive = [];
-
-                  for (final Flag iso3 in _iso3s){
-
-                    if (
-                    iso3.id == 'egy' ||
-                        iso3.id == 'sau' ||
-                        iso3.id == 'kwt' ||
-                        iso3.id == 'and' ||
-                        iso3.id == 'are' ||
-                        iso3.id == 'bhr'
-                    ){
-                      inactive.add(iso3.id);
-                    }
-
-                    else {
-                      hidden.add(iso3.id);
-                    }
-
-                  }
-
-                  final ZoneStages _lvl = ZoneStages(
-                    hidden: hidden,
-                    inactive: inactive,
-                    active: const [],
-                    public: const [],
-                  );
-
-                  _lvl.blogStages();
-
-                  await Real.createDocInPath(
-                    pathWithoutDocName: 'zones',
-                    docName: RealDoc.zones_countriesStages,
-                    addDocIDToOutput: false,
-                    map: _lvl.toMap(),
-                  );
+                  await DistrictsStagesRealOps.createInitialDistrictsStagesWithAllDistrictsEmpty();
 
                 },
               ),
 
-              /// READ COUNTRIES STAGES
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// READ DISTRICTS STAGES
               WideButton(
-                verse: Verse.plain('Read Countries STAGES'),
+                verse: Verse.plain('GET DISTRICTS STAGES'),
                 onTap: () async {
 
-                  final ZoneStages _lvl = await CountriesStagesRealOps.readCountriesStages();
-                  _lvl.blogStages();
-
-                  final List<String> _countriesIDs = ZoneStages(
-                    hidden: _lvl.hidden,
-                    inactive: _lvl.inactive,
-                    active: null,
-                    public: const [],
-                  ).getAllIDs();
-
-                  Stringer.blogStrings(strings: _countriesIDs, invoker: '');
+                  final ZoneStages _districts = await DistrictsStagesRealOps.readDistrictsStages(
+                    cityID: 'egy+alexandria',
+                  );
+                  _districts?.blogStages();
 
                 },
               ),

@@ -34,7 +34,7 @@ class DistrictProtocols {
         DistrictsStagesRealOps.updateDistrictStage(
           context: context,
           districtID: districtModel.id,
-          newType: StageType.hidden,
+          newType: StageType.emptyStage,
         ),
 
         /// CREATE CITY MODEL - CITY FIRE PHRASES - INSERT IN LDB

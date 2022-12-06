@@ -56,18 +56,20 @@ HIDDEN -> VISIBLE -> ACTIVE -> PUBLIC
 
  */
 
+/// X Flyers is minimum number of flyers for zone to go to flyers stage
+/// Y BZZ is minimum number of bzz for zone to go to bzz stage
 enum StageType {
-  /// LVL 1 - SWITCHED OFF - CAN NOT BE USED - IS HIDDEN,
-  hidden, // => has no bzz
+  /// LVL 1 - ZONE IS EMPTY : no users - no bzz - no flyers
+  emptyStage,
 
-  /// LVL 2 - INACTIVE - NOT YET USED - HAS NO FLYERS
-  inactive, // has bzz but no flyers
+  /// LVL 2 - ZONE HAS A BZ : has some users and less than X flyers
+  bzzStage,
 
-  /// LVL 3 - ACTIVE - USED - HAS FLYERS
-  active, // has flyers
+  /// LVL 3 - ZONE HAS MORE THAN X FLYERS
+  flyersStage,
 
-  /// LVL 4 - PUBLIC - CAN BE USED BY ANYONE
-  public, // has plenty of flyers
+  /// LVL 4 - ZONE HAS MORE THAN X FLYERS AND Y BZZ
+  publicStage,
 }
 
 /// ZONE VIEWING EVENT TYPE
@@ -86,35 +88,35 @@ enum ZoneViewingEvent {
 class ZoneStages {
   // --------------------------------------------------------------------------
   const ZoneStages({
-    @required this.hidden,
-    @required this.inactive,
-    @required this.active,
-    @required this.public,
+    @required this.emptyStageIDs,
+    @required this.bzzStageIDs,
+    @required this.flyersStageIDs,
+    @required this.publicStageIDs,
   });
   // --------------------------------------------------------------------------
-  final List<String> hidden;
-  final List<String> inactive;
-  final List<String> active;
-  final List<String> public;
+  final List<String> emptyStageIDs;
+  final List<String> bzzStageIDs;
+  final List<String> flyersStageIDs;
+  final List<String> publicStageIDs;
   // --------------------------------------------------------------------------
 
   /// CONSTANTS
 
   // --------------------
   static const List<StageType> zoneStagesList = <StageType>[
-    StageType.hidden,
-    StageType.inactive,
-    StageType.active,
-    StageType.public,
+    StageType.emptyStage,
+    StageType.bzzStage,
+    StageType.flyersStage,
+    StageType.publicStage,
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneStages emptyStages(){
     return const ZoneStages(
-      hidden: [],
-      inactive: [],
-      active: [],
-      public: [],
+      emptyStageIDs: [],
+      bzzStageIDs: [],
+      flyersStageIDs: [],
+      publicStageIDs: [],
     );
   }
   // --------------------------------------------------------------------------
@@ -125,10 +127,10 @@ class ZoneStages {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
-    'hidden': Stringer.sortAlphabetically2(hidden),
-    'inactive': Stringer.sortAlphabetically2(inactive),
-    'active': Stringer.sortAlphabetically2(active),
-    'public': Stringer.sortAlphabetically2(public),
+    '1_empty_stage': Stringer.sortAlphabetically2(emptyStageIDs),
+    '2_bzz_stage': Stringer.sortAlphabetically2(bzzStageIDs),
+    '3_flyers_stage': Stringer.sortAlphabetically2(flyersStageIDs),
+    '4_public_stage': Stringer.sortAlphabetically2(publicStageIDs),
     };
   }
   // --------------------
@@ -139,10 +141,10 @@ class ZoneStages {
     if (map != null){
 
       _output = ZoneStages(
-        hidden: Stringer.getStringsFromDynamics(dynamics: map['hidden']),
-        inactive: Stringer.getStringsFromDynamics(dynamics: map['inactive']),
-        active: Stringer.getStringsFromDynamics(dynamics: map['active']),
-        public: Stringer.getStringsFromDynamics(dynamics: map['public']),
+        emptyStageIDs: Stringer.getStringsFromDynamics(dynamics: map['1_empty_stage']),
+        bzzStageIDs: Stringer.getStringsFromDynamics(dynamics: map['2_bzz_stage']),
+        flyersStageIDs: Stringer.getStringsFromDynamics(dynamics: map['3_flyers_stage']),
+        publicStageIDs: Stringer.getStringsFromDynamics(dynamics: map['4_public_stage']),
       );
 
     }
@@ -154,10 +156,10 @@ class ZoneStages {
   static String cipherStageType(StageType type){
 
     switch (type) {
-      case StageType.hidden:    return 'hidden';    break;
-      case StageType.inactive:  return 'inactive';  break;
-      case StageType.active:    return 'active';    break;
-      case StageType.public:    return 'public';    break;
+      case StageType.emptyStage:     return '1_empty';     break;
+      case StageType.bzzStage:       return '2_bzz';       break;
+      case StageType.flyersStage:    return '3_flyers';    break;
+      case StageType.publicStage:    return '4_public';    break;
       default: return null;
     }
 
@@ -167,10 +169,10 @@ class ZoneStages {
   static StageType decipherStageType(String type){
 
       switch (type) {
-        case 'hidden':    return StageType.hidden;    break;
-        case 'inactive':  return StageType.inactive;  break;
-        case 'active':    return StageType.active;    break;
-        case 'public':    return StageType.public;    break;
+        case '1_empty':    return StageType.emptyStage;    break;
+        case '2_bzz':      return StageType.bzzStage;      break;
+        case '3_flyers':   return StageType.flyersStage;   break;
+        case '4_public':   return StageType.publicStage;   break;
         default: return null;
       }
 
@@ -178,16 +180,16 @@ class ZoneStages {
   // --------------------
   /// TESTED : WORKS PERFECT
   ZoneStages copyWith({
-    List<String> hidden,
-    List<String> inactive,
-    List<String> active,
-    List<String> public,
+    List<String> emptyStageIDs,
+    List<String> bzzStageIDs,
+    List<String> flyersStageIDs,
+    List<String> publicStageIDs,
   }) {
     return ZoneStages(
-      hidden: hidden ?? this.hidden,
-      inactive: inactive ?? this.inactive,
-      active: active ?? this.active,
-      public: public ?? this.public,
+      emptyStageIDs: emptyStageIDs ?? this.emptyStageIDs,
+      bzzStageIDs: bzzStageIDs ?? this.bzzStageIDs,
+      flyersStageIDs: flyersStageIDs ?? this.flyersStageIDs,
+      publicStageIDs: publicStageIDs ?? this.publicStageIDs,
     );
   }
   // --------------------
@@ -201,10 +203,10 @@ class ZoneStages {
     if (this != null && newList != null && type != null){
 
       _output = _output.copyWith(
-        hidden:    type == StageType.hidden    ? newList : _output.hidden,
-        inactive:  type == StageType.inactive  ? newList : _output.inactive,
-        active:    type == StageType.active    ? newList : _output.active,
-        public:    type == StageType.public    ? newList : _output.public,
+        emptyStageIDs:    type == StageType.emptyStage    ? newList : _output.emptyStageIDs,
+        bzzStageIDs:      type == StageType.bzzStage      ? newList : _output.bzzStageIDs,
+        flyersStageIDs:   type == StageType.flyersStage   ? newList : _output.flyersStageIDs,
+        publicStageIDs:   type == StageType.publicStage   ? newList : _output.publicStageIDs,
       );
 
     }
@@ -219,20 +221,20 @@ class ZoneStages {
   /// TESTED : WORKS PERFECT
   List<String> getAllIDs(){
     return <String>[
-      ...?hidden,
-      ...?inactive,
-      ...?active,
-      ...?public,
+      ...?emptyStageIDs,
+      ...?bzzStageIDs,
+      ...?flyersStageIDs,
+      ...?publicStageIDs,
     ];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> getIDsByStage(StageType stageType){
     switch (stageType) {
-      case StageType.hidden:    return hidden;    break;
-      case StageType.inactive:  return inactive;  break;
-      case StageType.active:    return active;    break;
-      case StageType.public:    return public;    break;
+      case StageType.emptyStage:    return emptyStageIDs;   break;
+      case StageType.bzzStage:      return bzzStageIDs;     break;
+      case StageType.flyersStage:   return flyersStageIDs;  break;
+      case StageType.publicStage:   return publicStageIDs;  break;
       default: return getAllIDs();
     }
   }
@@ -240,17 +242,17 @@ class ZoneStages {
   /// TESTED : WORKS PERFECT
   StageType getStageTypeByID(String id){
 
-    if (checkHasID(id: id, zoneStageType: StageType.hidden) == true){
-      return StageType.hidden;
+    if (checkHasID(id: id, zoneStageType: StageType.emptyStage) == true){
+      return StageType.emptyStage;
     }
-    else if (checkHasID(id: id, zoneStageType: StageType.inactive) == true){
-      return StageType.inactive;
+    else if (checkHasID(id: id, zoneStageType: StageType.bzzStage) == true){
+      return StageType.bzzStage;
     }
-    else if (checkHasID(id: id, zoneStageType: StageType.active) == true){
-      return StageType.active;
+    else if (checkHasID(id: id, zoneStageType: StageType.flyersStage) == true){
+      return StageType.flyersStage;
     }
-    else if (checkHasID(id: id, zoneStageType: StageType.public) == true){
-      return StageType.public;
+    else if (checkHasID(id: id, zoneStageType: StageType.publicStage) == true){
+      return StageType.publicStage;
     }
     else {
       return null;
@@ -302,13 +304,13 @@ class ZoneStages {
 
       switch(event){
         /// = if active : will show bzz : if public : will show flyers
-        case ZoneViewingEvent.homeView        : return StageType.active;    break;
-        case ZoneViewingEvent.userEditor      : return StageType.hidden;    break;
-        case ZoneViewingEvent.bzEditor        : return StageType.hidden;  break;
+        case ZoneViewingEvent.homeView        : return StageType.flyersStage;    break;
+        case ZoneViewingEvent.userEditor      : return StageType.emptyStage;    break;
+        case ZoneViewingEvent.bzEditor        : return StageType.emptyStage;    break;
         /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
-        case ZoneViewingEvent.flyerEditor     : return StageType.active;    break;
+        case ZoneViewingEvent.flyerEditor     : return StageType.bzzStage;    break;
         /// flyer can be promoted in active or public zones  only
-        case ZoneViewingEvent.flyerPromotion  : return StageType.active;    break;
+        case ZoneViewingEvent.flyerPromotion  : return StageType.flyersStage;    break;
         default: return null; break;
       }
 
@@ -319,9 +321,9 @@ class ZoneStages {
 
       switch(event){
         /// = if active : will show bzz : if public : will show flyers
-        case ZoneViewingEvent.homeView        : return StageType.active;    break;
-        case ZoneViewingEvent.userEditor      : return StageType.hidden;    break;
-        case ZoneViewingEvent.bzEditor        : return StageType.hidden ;  break;
+        case ZoneViewingEvent.homeView        : return StageType.flyersStage;    break;
+        case ZoneViewingEvent.userEditor      : return StageType.emptyStage;    break;
+        case ZoneViewingEvent.bzEditor        : return StageType.emptyStage ;   break;
         /// USER DOES NOT PUBLISH FLYERS
         case ZoneViewingEvent.flyerEditor     : return null;                break;
         /// normal user does not promote flyers
@@ -340,10 +342,10 @@ class ZoneStages {
     List<String> _output = <String>[];
 
     switch(minStage){
-      case StageType.hidden:    _output = getAllIDs();                                  break;
-      case StageType.inactive:  _output.addAll([...?inactive, ...?active, ...?public]); break;
-      case StageType.active:    _output.addAll([...?active, ...?public]);               break;
-      case StageType.public:    _output.addAll(public);                                 break;
+      case StageType.emptyStage:    _output = getAllIDs();                                                  break;
+      case StageType.bzzStage:  _output.addAll([...?bzzStageIDs, ...?flyersStageIDs, ...?publicStageIDs]);  break;
+      case StageType.flyersStage:    _output.addAll([...?flyersStageIDs, ...?publicStageIDs]);              break;
+      case StageType.publicStage:    _output.addAll(publicStageIDs);                                        break;
       default: break;
     }
 
@@ -474,10 +476,10 @@ class ZoneStages {
 
     else if (stage1 != null && stage2 != null) {
       if (
-          Mapper.checkListsAreIdentical(list1: stage1.hidden, list2: stage2.hidden) == true &&
-          Mapper.checkListsAreIdentical(list1: stage1.inactive, list2: stage2.inactive) == true &&
-          Mapper.checkListsAreIdentical(list1: stage1.active, list2: stage2.active) == true &&
-          Mapper.checkListsAreIdentical(list1: stage1.public, list2: stage2.public) == true
+          Mapper.checkListsAreIdentical(list1: stage1.emptyStageIDs, list2: stage2.emptyStageIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: stage1.bzzStageIDs, list2: stage2.bzzStageIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: stage1.flyersStageIDs, list2: stage2.flyersStageIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: stage1.publicStageIDs, list2: stage2.publicStageIDs) == true
       ) {
         _identical = true;
       }
@@ -488,10 +490,10 @@ class ZoneStages {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogStages(){
-    blog('hidden : ${hidden.length} : $hidden');
-    blog('inactive : ${inactive.length} : $inactive');
-    blog('active : ${active.length} : $active');
-    blog('public : ${public.length} : $public');
+    blog('emptyStage : ${emptyStageIDs.length} : $emptyStageIDs');
+    blog('bzzStage : ${bzzStageIDs.length} : $bzzStageIDs');
+    blog('flyerStage : ${flyersStageIDs.length} : $flyersStageIDs');
+    blog('publicStage : ${publicStageIDs.length} : $publicStageIDs');
   }
   // -----------------------------------------------------------------------------
 
@@ -523,9 +525,9 @@ class ZoneStages {
   // --------------------
   @override
   int get hashCode =>
-      hidden.hashCode^
-      inactive.hashCode^
-      active.hashCode^
-      public.hashCode;
+      emptyStageIDs.hashCode^
+      bzzStageIDs.hashCode^
+      flyersStageIDs.hashCode^
+      publicStageIDs.hashCode;
   // -----------------------------------------------------------------------------
 }

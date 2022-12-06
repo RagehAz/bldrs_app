@@ -32,7 +32,7 @@ class CityProtocols {
         /// ADD CITY ID TO CITIES STAGES
         CitiesStagesRealOps.updateCityStage(
           cityID: cityModel.cityID,
-          newType: StageType.hidden,
+          newType: StageType.emptyStage,
         ),
 
         /// CREATE CITY MODEL - CITY FIRE PHRASES - INSERT IN LDB
