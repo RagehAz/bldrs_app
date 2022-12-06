@@ -88,9 +88,9 @@ class _SearchBarState extends State<SearchBar> {
     const double _padding = Ratioz.appBarPadding;
     final double _searchButtonWidth = widget.searchIconIsOn == true ? 40 : 0;
     const double _searchButtonHeight = 40;
-    final int _numberOFPaddings = widget.searchIconIsOn == true ? 5 : 2;
+    final int _numberOFPaddings = widget.searchIconIsOn == true ? 4 : 2;
     // _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3;
-    final double _textFieldWidth = _appBarClearWidth - (_searchButtonWidth*2) - _padding * _numberOFPaddings;
+    final double _textFieldWidth = _appBarClearWidth - (_searchButtonWidth*2) - (_padding * _numberOFPaddings);
     // --------------------
     return Container(
       width: _appBarClearWidth,

@@ -1,3 +1,5 @@
+// ignore_for_file: invariant_booleans
+
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
@@ -165,13 +167,13 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
             countryID: widget.countryID,
         );
 
-        setState(() {
-          _shownCitiesIDs = _shownIDs;
-          _stages = _citiesStages;
-
-          _censuses = _citiesCensuses;
-
-        });
+        if (mounted == true){
+          setState(() {
+            _shownCitiesIDs = _shownIDs;
+            _stages = _citiesStages;
+            _censuses = _citiesCensuses;
+          });
+        }
 
         setNotifier(
           notifier: _countryCities,
@@ -455,6 +457,9 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 onCityTap: _onCitySelected,
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
+                onDeactivatedCityTap: (String cityID){
+                  blog('onDeactivatedCityTap : searchView : cityID : $cityID');
+                },
               );
 
             }
@@ -467,6 +472,10 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 countryCities: _countryCities,
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
+                onDeactivatedCityTap: (String cityID){
+                  blog('onDeactivatedCityTap : browseView : cityID : $cityID');
+                },
+
               );
 
             }

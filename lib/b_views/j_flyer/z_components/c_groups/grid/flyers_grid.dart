@@ -165,7 +165,7 @@ class FlyersGrid extends StatelessWidget {
 
                     return FutureFlyer(
                       flyerID: _flyerID,
-                      heroPath: heroPath,
+                      heroPath: '$heroPath/$_flyerID',
                       flyerBoxWidth: _gridSlotWidth,
                       isSelected: FlyerModel.flyersContainThisID(
                         flyers: selectedFlyers,
@@ -186,7 +186,7 @@ class FlyersGrid extends StatelessWidget {
                     return FlyerSelectionStack(
                       flyerModel: _flyer,
                       flyerBoxWidth: _gridSlotWidth,
-                      heroPath: heroPath,
+                      heroPath: '$heroPath/${_flyer.id}',
                       onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
                       onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
                       isSelected: FlyerModel.flyersContainThisID(

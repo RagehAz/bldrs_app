@@ -303,8 +303,8 @@ class ZoneStages {
       switch(event){
         /// = if active : will show bzz : if public : will show flyers
         case ZoneViewingEvent.homeView        : return StageType.active;    break;
-        case ZoneViewingEvent.userEditor      : return StageType.inactive;  break;
-        case ZoneViewingEvent.bzEditor        : return StageType.inactive;  break;
+        case ZoneViewingEvent.userEditor      : return StageType.hidden;    break;
+        case ZoneViewingEvent.bzEditor        : return StageType.hidden;  break;
         /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
         case ZoneViewingEvent.flyerEditor     : return StageType.active;    break;
         /// flyer can be promoted in active or public zones  only
@@ -320,8 +320,8 @@ class ZoneStages {
       switch(event){
         /// = if active : will show bzz : if public : will show flyers
         case ZoneViewingEvent.homeView        : return StageType.active;    break;
-        case ZoneViewingEvent.userEditor      : return StageType.inactive;  break;
-        case ZoneViewingEvent.bzEditor        : return StageType.inactive;  break;
+        case ZoneViewingEvent.userEditor      : return StageType.hidden;    break;
+        case ZoneViewingEvent.bzEditor        : return StageType.hidden ;  break;
         /// USER DOES NOT PUBLISH FLYERS
         case ZoneViewingEvent.flyerEditor     : return null;                break;
         /// normal user does not promote flyers
