@@ -114,7 +114,6 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
       if (_go == true){
 
         final ZoneStages _newStages = await ZoneProtocols.updateDistrictStage(
-          context: context,
           districtID: widget.zoneModel.districtID,
           newType: type,
         );
