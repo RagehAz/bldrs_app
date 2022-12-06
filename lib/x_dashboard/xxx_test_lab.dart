@@ -15,13 +15,11 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/staging/x_zone_stage_modifiers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -68,14 +66,16 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
-      context: context,
-      bzID: _user.myBzzIDs.first,
-    );
+    // final BzModel _bzModel = await BzProtocols.fetchBz(
+    //   context: context,
+    //   bzID: _user.myBzzIDs.first,
+    // );
+    //
+    // await ZoneLeveller.levelUpZonesOnComposeBzFromHiddenToInactive(
+    //     bzModel: _bzModel,
+    // );
 
-    await ZoneStageLeveller.levelUpZonesOnComposeBzFromHiddenToInactive(
-        bzModel: _bzModel,
-    );
+    _user?.zone?.blogZoneIDs();
 
     }
   // -------------------------------------------------
