@@ -248,9 +248,9 @@ class BldrsAppBar extends StatelessWidget {
                     appBarType == AppBarType.basic
                 )
                   const SizedBox(
-                  width: 5,
-                  height: 5,
-                ),
+                    width: 5,
+                    height: 5,
+                  ),
 
                 /// BACK / SEARCH / SECTION / ZONE
                 Row(

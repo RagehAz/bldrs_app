@@ -63,7 +63,7 @@ class ZoneButton extends StatelessWidget {
         height: 40,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.all(5),
-        margin: const EdgeInsets.all(Ratioz.appBarMargin * 0.5),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
               Radius.circular(Ratioz.appBarButtonCorner),

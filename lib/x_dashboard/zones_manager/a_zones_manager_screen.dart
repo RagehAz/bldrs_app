@@ -8,6 +8,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/zones_manager/location_test/locations_test_screen.dart';
+import 'package:bldrs/x_dashboard/zones_manager/staging_test/staging_test_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/x_zones_manager_controller.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zoning_lab/b_zoning_lab.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zoning_lab/zone_searching_test_screen.dart';
@@ -51,6 +52,7 @@ class ZonesManagerScreen extends StatelessWidget {
           },
         ),
 
+
         /// LOCATION TEST
         PyramidFloatingButton(
           icon: Iconz.locationPin,
@@ -69,6 +71,17 @@ class ZonesManagerScreen extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const ZoningLab(),
+            );
+          },
+        ),
+
+        /// STAGING TEST
+        PyramidFloatingButton(
+          icon: Iconz.dotPyramid,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const StagingTestScreen(),
             );
           },
         ),

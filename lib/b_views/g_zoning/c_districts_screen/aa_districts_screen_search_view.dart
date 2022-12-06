@@ -17,6 +17,7 @@ class DistrictsScreenSearchView extends StatelessWidget {
     @required this.foundDistricts,
     @required this.censusModels,
     @required this.shownDistrictsIDs,
+    @required this.onDeactivatedDistrictTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class DistrictsScreenSearchView extends StatelessWidget {
   final ValueNotifier<List<DistrictModel>> foundDistricts;
   final List<CensusModel> censusModels;
   final List<String> shownDistrictsIDs;
+  final ValueChanged<String> onDeactivatedDistrictTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -76,6 +78,7 @@ class DistrictsScreenSearchView extends StatelessWidget {
                           onTap: onDistrictTap,
                           censusModel: _census,
                           isActive: _isActive,
+                          onDeactivatedTap: onDeactivatedDistrictTap,
                         );
 
                       }

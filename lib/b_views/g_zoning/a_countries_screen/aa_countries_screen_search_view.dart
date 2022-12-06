@@ -13,6 +13,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SelectCountryScreenSearchView({
     @required this.onCountryTap,
+    @required this.onDeactivatedCountryTap,
     @required this.loading,
     @required this.foundCountries,
     @required this.shownCountriesIDs,
@@ -21,6 +22,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
+  final ValueChanged<String> onDeactivatedCountryTap;
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<Phrase>> foundCountries;
   final List<String> shownCountriesIDs;
@@ -72,6 +74,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
                           isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryPhrase.id),
                           censusModel: _census,
                           onTap: () => onCountryTap(_countryPhrase.id),
+                          onDeactivatedTap: () => onDeactivatedCountryTap(_countryPhrase.id),
                         );
 
                       }
