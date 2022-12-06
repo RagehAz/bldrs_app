@@ -5,7 +5,7 @@ import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/cupertino.dart';
-/// => TAMAM
+
 class CensusRealOps {
   // -----------------------------------------------------------------------------
 
@@ -15,6 +15,35 @@ class CensusRealOps {
 
   /// READ
 
+  // --------------------
+  /// TASK : TEST ME
+  static Future<CensusModel> readCountryCensus({
+    @required String countryID,
+  }) async {
+    CensusModel _output;
+
+    if (countryID != null){
+
+      final Object _object = await Real.readPath(
+          path: '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID'
+      );
+
+      if (_object != null){
+
+        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+          ihlmoo: _object,
+        );
+
+        if (_map != null){
+          _output = CensusModel.decipher(_map);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> readAllCountriesCensus() async {
