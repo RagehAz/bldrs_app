@@ -13,6 +13,7 @@ class CountryTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CountryTileButton({
     @required this.onTap,
+    @required this.onDeactivatedTap,
     @required this.countryID,
     @required this.isActive,
     this.width,
@@ -22,6 +23,7 @@ class CountryTileButton extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
+  final Function onDeactivatedTap;
   final String countryID;
   final double width;
   final double height;
@@ -59,6 +61,7 @@ class CountryTileButton extends StatelessWidget {
 
     return ZoneButtonBox(
       onTap: onTap,
+      onDeactivatedTap: onDeactivatedTap,
       isActive: isActive,
       columnChildren: <Widget>[
 
@@ -71,10 +74,11 @@ class CountryTileButton extends StatelessWidget {
             verse: Verse.plain(Flag.getCountryNameByCurrentLang(context: context, countryID: countryID)),
             color: Colorz.nothing,
             margins: EdgeInsets.zero,
-            corners: BorderRadius.zero,
+            // corners: BorderRadius.zero,
           ),
 
         /// CENSUS LINE
+          if (isActive == true)
           CensusLine(
             width: width ?? _buttonWidth,
             censusModel: censusModel,

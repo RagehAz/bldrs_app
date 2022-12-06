@@ -251,6 +251,8 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
           countryID: _countryID,
         ),
 
+        const SizedBox(width: 5),
+
       ],
       layoutWidget: Center(
         child: MaxBounceNavigator(

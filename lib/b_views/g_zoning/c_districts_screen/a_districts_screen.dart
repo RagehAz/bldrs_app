@@ -289,6 +289,9 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                 onDistrictTap: _onDistrictTap,
                 censusModels: _censusModels,
                 shownDistrictsIDs: _shownDistrictsIDs,
+                onDeactivatedDistrictTap: (String districtID){
+                  blog('onDeactivatedDistrictTap : browse View : districtID: $districtID');
+                },
               );
 
             }
@@ -305,6 +308,9 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                     districts: districts,
                     censusModels: _censusModels,
                     shownDistrictsIDs: _shownDistrictsIDs,
+                    onDeactivatedDistrictTap: (String districtID){
+                      blog('onDeactivatedDistrictTap : browse View : districtID: $districtID');
+                    },
                   );
 
                 },

@@ -13,12 +13,14 @@ class WideCityButton extends StatelessWidget {
     @required this.onSingleTap,
     @required this.isActive,
     @required this.censusModel,
+    @required this.onDeactivatedTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final CityModel city;
   final Function onSingleTap;
   final bool isActive;
+  final Function onDeactivatedTap;
   final CensusModel censusModel;
   /// --------------------------------------------------------------------------
   @override
@@ -31,6 +33,7 @@ class WideCityButton extends StatelessWidget {
     // --------------------
     return ZoneButtonBox(
       onTap: onSingleTap,
+      onDeactivatedTap: onDeactivatedTap,
       isActive: isActive,
       columnChildren: <Widget>[
 
