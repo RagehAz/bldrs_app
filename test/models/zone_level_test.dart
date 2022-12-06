@@ -4,10 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 void main(){
 
   const ZoneStages _zoneLevel = ZoneStages(
-    hidden: ['1', '2', '3'],
-    inactive: ['4', '5', '6'],
-    active: ['7', '8', '9'],
-    public: ['10', '11', '12'],
+    emptyStageIDs: ['1', '2', '3'],
+    bzzStageIDs: ['4', '5', '6'],
+    flyersStageIDs: ['7', '8', '9'],
+    publicStageIDs: ['10', '11', '12'],
   );
 
   // -----------------------------------------------------------------------------
@@ -15,14 +15,14 @@ void main(){
 
       final ZoneStages _new = _zoneLevel.copyListWith(
         newList: ['1', '2', '3', '4'],
-        type: StageType.hidden,
+        type: StageType.emptyStage,
       );
 
       const ZoneStages _shouldBe =  ZoneStages(
-        hidden: ['1', '2', '3', '4'],
-        inactive: ['4', '5', '6'],
-        active: ['7', '8', '9'],
-        public: ['10', '11', '12'],
+        emptyStageIDs: ['1', '2', '3', '4'],
+        bzzStageIDs: ['4', '5', '6'],
+        flyersStageIDs: ['7', '8', '9'],
+        publicStageIDs: ['10', '11', '12'],
       );
 
       expect(_new, _shouldBe);
@@ -34,24 +34,24 @@ void main(){
 
     ZoneStages _new = _zoneLevel.copyListWith(
       newList: ['xxx'],
-      type: StageType.hidden,
+      type: StageType.emptyStage,
     );
 
     _new = _new.copyListWith(
       newList: null,
-      type: StageType.active,
+      type: StageType.flyersStage,
     );
 
     _new = _new.copyListWith(
       newList: [],
-      type: StageType.public,
+      type: StageType.publicStage,
     );
 
     const ZoneStages _shouldBe =  ZoneStages(
-      hidden: ['xxx'],
-      inactive: ['4', '5', '6'],
-      active: ['7', '8', '9'],
-      public: [],
+      emptyStageIDs: ['xxx'],
+      bzzStageIDs: ['4', '5', '6'],
+      flyersStageIDs: ['7', '8', '9'],
+      publicStageIDs: [],
     );
 
     expect(_new, _shouldBe);
@@ -61,7 +61,7 @@ void main(){
   // ---------------------------
   test('getIDsByLevel', () {
 
-    const StageType _type = StageType.hidden;
+    const StageType _type = StageType.emptyStage;
 
     final List<String> _list = _zoneLevel.getIDsByStage(_type);
 
@@ -78,7 +78,7 @@ void main(){
   test('getLevelTypeByID', () {
 
     final StageType _type = _zoneLevel.getStageTypeByID('11');
-    expect(_type, StageType.public);
+    expect(_type, StageType.publicStage);
 
     final StageType _type2 = _zoneLevel.getStageTypeByID(null);
     expect(_type2, null);
@@ -87,7 +87,7 @@ void main(){
     expect(_type3, null);
 
     final StageType _type4 = _zoneLevel.getStageTypeByID('2');
-    expect(_type4, StageType.hidden);
+    expect(_type4, StageType.emptyStage);
 
   });
   // ---------------------------
@@ -98,11 +98,11 @@ void main(){
     );
     final bool _has1InHidden = _zoneLevel.checkHasID(
       id: '1',
-      zoneStageType: StageType.hidden,
+      zoneStageType: StageType.emptyStage,
     );
     final bool _has1InActive = _zoneLevel.checkHasID(
       id: '1',
-      zoneStageType: StageType.active,
+      zoneStageType: StageType.flyersStage,
     );
 
     final bool _has15 = _zoneLevel.checkHasID(
@@ -110,7 +110,7 @@ void main(){
     );
     final bool _has15InHidden = _zoneLevel.checkHasID(
       id: '15',
-      zoneStageType: StageType.hidden,
+      zoneStageType: StageType.emptyStage,
     );
 
     expect(_has1, true);
@@ -130,10 +130,10 @@ void main(){
       zoneStages: _zoneLevel,
     );
     const ZoneStages _shouldBe = ZoneStages(
-      hidden: ['1', '2', '3'],
-      inactive: ['4', '5', '6'],
-      active: ['7', '8', '9'],
-      public: ['10', '11', '12'],
+      emptyStageIDs: ['1', '2', '3'],
+      bzzStageIDs: ['4', '5', '6'],
+      flyersStageIDs: ['7', '8', '9'],
+      publicStageIDs: ['10', '11', '12'],
     );
     expect(_new, _shouldBe);
 
@@ -148,10 +148,10 @@ void main(){
     );
 
     const ZoneStages _shouldBe2 = ZoneStages(
-      hidden: ['2', '3'],
-      inactive: ['4', '5', '6'],
-      active: ['7', '9'],
-      public: ['10', '11', '12'],
+      emptyStageIDs: ['2', '3'],
+      bzzStageIDs: ['4', '5', '6'],
+      flyersStageIDs: ['7', '9'],
+      publicStageIDs: ['10', '11', '12'],
     );
     expect(_new2, _shouldBe2);
 
@@ -161,15 +161,15 @@ void main(){
 
     final ZoneStages _new = ZoneStages.insertIDToZoneStages(
       id: 'XX',
-      newType: StageType.active,
+      newType: StageType.flyersStage,
       zoneStages: _zoneLevel,
     );
 
     const ZoneStages _shouldBe = ZoneStages(
-      hidden: ['1', '2', '3'],
-      inactive: ['4', '5', '6'],
-      active: ['7', '8', '9', 'XX'],
-      public: ['10', '11', '12'],
+      emptyStageIDs: ['1', '2', '3'],
+      bzzStageIDs: ['4', '5', '6'],
+      flyersStageIDs: ['7', '8', '9', 'XX'],
+      publicStageIDs: ['10', '11', '12'],
     );
 
     expect(_new, _shouldBe);
@@ -181,15 +181,15 @@ void main(){
 
     final ZoneStages _new = ZoneStages.insertIDToZoneStages(
       id: '9',
-      newType: StageType.active,
+      newType: StageType.flyersStage,
       zoneStages: _zoneLevel,
     );
 
     const ZoneStages _shouldBe = ZoneStages(
-      hidden: ['1', '2', '3'],
-      inactive: ['4', '5', '6'],
-      active: ['7', '8', '9',],
-      public: ['10', '11', '12'],
+      emptyStageIDs: ['1', '2', '3'],
+      bzzStageIDs: ['4', '5', '6'],
+      flyersStageIDs: ['7', '8', '9',],
+      publicStageIDs: ['10', '11', '12'],
     );
 
     expect(_new, _shouldBe);
@@ -201,15 +201,15 @@ void main(){
 
     final ZoneStages _new = ZoneStages.insertIDToZoneStages(
       id: '9',
-      newType: StageType.inactive,
+      newType: StageType.bzzStage,
       zoneStages: _zoneLevel,
     );
 
     const ZoneStages _shouldBe = ZoneStages(
-      hidden: ['1', '2', '3'],
-      inactive: ['4', '5', '6', '9'],
-      active: ['7', '8',],
-      public: ['10', '11', '12'],
+      emptyStageIDs: ['1', '2', '3'],
+      bzzStageIDs: ['4', '5', '6', '9'],
+      flyersStageIDs: ['7', '8',],
+      publicStageIDs: ['10', '11', '12'],
     );
 
     expect(_new, _shouldBe);

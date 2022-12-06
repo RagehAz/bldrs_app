@@ -22,6 +22,69 @@ class DistrictsStagesRealOps {
   /// COMPOSE / RESET
 
   // --------------------
+  /// TESTED : WORKS PERFECT : LEFT FOR REFERENCE ONLY
+  static Future<void> createInitialDistrictsStagesWithAllDistrictsEmpty() async {
+
+    blog('kept for reference only : should never be used again');
+
+    /*
+
+    final List<String> _countriesIDs = Flag.getAllCountriesIDs();
+
+    for (int i = 0; i < _countriesIDs.length; i++){
+
+      final String countryID = _countriesIDs[i];
+
+      blog('- reading districts for country $countryID');
+
+      final List<DistrictModel> _countyDistricts = await DistrictRealOps.readCountryDistricts(countryID);
+
+      if (Mapper.checkCanLoopList(_countyDistricts) == true){
+
+        final List<CityModel> _cities = await CityRealOps.readCountryCities(countryID: countryID);
+
+        for (final CityModel city in _cities){
+
+          final List<DistrictModel> _cityDistricts = await DistrictRealOps.readCityDistricts(cityID: city.cityID);
+
+          if (Mapper.checkCanLoopList(_cityDistricts) == true){
+
+            final List<String> _districtsIDs = DistrictModel.getDistrictsIDs(_cityDistricts);
+
+            blog('- found ${_districtsIDs.length} districts for city ${city.cityID}');
+
+            await Real.createDocInPath(
+              pathWithoutDocName: '${RealColl.zones}/stages_districts/$countryID',
+              docName: city.cityID,
+              addDocIDToOutput: false,
+              map: {
+                '1_empty_stage': _districtsIDs,
+                '2_bzz_stage': <String>[],
+                '3_flyers_stage': <String>[],
+                '4_public_stage': <String>[],
+              },
+            );
+
+
+          }
+
+        }
+
+
+      }
+
+      else {
+        blog('- not districts found for $countryID');
+      }
+
+      blog('# # # # # => ${i+1} / ${_countriesIDs.length} - Country is good : $countryID');
+
+    }
+
+    */
+
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _uploadDistrictsStages({
     @required String cityID,
@@ -33,7 +96,7 @@ class DistrictsStagesRealOps {
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
       await Real.createDocInPath(
-        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_districtsStages}/$_countryID',
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_districts}/$_countryID',
         docName: cityID,
         addDocIDToOutput: false,
         map: districtsStages.toMap(),
@@ -65,10 +128,10 @@ class DistrictsStagesRealOps {
 
         final List<String> _districtsIDs = DistrictModel.getDistrictsIDs(_districts);
         _stages = ZoneStages(
-            hidden: _districtsIDs,
-            inactive: null,
-            active: null,
-            public: null
+            emptyStageIDs: _districtsIDs,
+            bzzStageIDs: null,
+            flyersStageIDs: null,
+            publicStageIDs: null
         );
 
         await _uploadDistrictsStages(
@@ -98,7 +161,7 @@ class DistrictsStagesRealOps {
       final String countryID = CityModel.getCountryIDFromCityID(cityID);
 
       final dynamic _dynamic = await Real.readPath(
-        path: '${RealColl.zones}/${RealDoc.zones_districtsStages}/$countryID/$cityID',
+        path: '${RealColl.zones}/${RealDoc.zones_stages_districts}/$countryID/$cityID',
       );
 
       final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(

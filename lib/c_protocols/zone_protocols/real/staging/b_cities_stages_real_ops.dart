@@ -26,7 +26,7 @@ class CitiesStagesRealOps {
     if (citiesStages != null && countryID != null){
 
       await Real.createDocInPath(
-        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
+        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_cities}',
         docName: countryID,
         addDocIDToOutput: false,
         map: citiesStages.toMap(),
@@ -37,7 +37,7 @@ class CitiesStagesRealOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> createInitialCitiesStagesWithAllCitiesHidden() async {
+  static Future<void> createInitialCitiesStagesWithAllCitiesEmpty() async {
 
     blog('kept for reference only : should never be used again');
 
@@ -56,21 +56,22 @@ class CitiesStagesRealOps {
       blog('- found ${_citiesIDs.length} cities');
 
       await Real.createDocInPath(
-        pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stagesCities}',
+        pathWithoutDocName: '${RealColl.zones}/stages_cities',
         docName: countryID,
         addDocIDToOutput: false,
         map: {
-          'hidden': _citiesIDs,
-          'inactive': <String>[],
-          'active': <String>[],
-          'public': <String>[],
+          '1_empty_stage': _citiesIDs,
+          '2_bzz_stage': <String>[],
+          '3_flyers_stage': <String>[],
+          '4_public_stage': <String>[],
         },
       );
 
       blog('# # # # # => ${i+1} / ${_countriesIDs.length} - Country is good : $countryID');
     }
 
-     */
+    */
+
   }
   // -----------------------------------------------------------------------------
 
@@ -86,7 +87,7 @@ class CitiesStagesRealOps {
     if (TextCheck.isEmpty(countryID) == false){
 
       final dynamic _dynamic = await Real.readPath(
-        path: '${RealColl.zones}/${RealDoc.zones_stagesCities}/$countryID',
+        path: '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID',
       );
 
       final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
