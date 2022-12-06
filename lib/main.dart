@@ -41,12 +41,6 @@ http://mhiptv.com:8888
 
   MAKKAR TALK
 
-  - do you have a plann for the next 5 years?
-  - do you like to have a plan for the next 5 years ?
-
-  - i want to exit egyptian economic zone
-  - i want to escape taxation
-  - i would fancy moving to USA
   - it would be nice if you would like to contribute in Bldrs
       - contribution form
         - as ambassador
