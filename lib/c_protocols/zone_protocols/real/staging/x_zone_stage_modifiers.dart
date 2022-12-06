@@ -36,7 +36,7 @@ class ZoneStageLeveller {
       blog('countryStage : $_countryStage | cityStage : $_cityStage | districtStage : $_districtStage');
 
       /// LEVEL UP COUNTRY
-      if (_countryStage == StageType.hidden){
+      if (_countryStage == StageType.emptyStage){
 
       }
 

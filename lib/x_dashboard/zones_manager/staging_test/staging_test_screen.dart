@@ -135,7 +135,7 @@ class _StagingTestScreenState extends State<StagingTestScreen> {
                   crossAxisCount: 14,
                   mainAxisSpacing: 2,
                   crossAxisSpacing: 2,
-                  childAspectRatio: 1,
+                  // childAspectRatio: 1,
                   // mainAxisExtent: PageBubble.width(context),
                 ),
                 itemCount: _countries.length,
