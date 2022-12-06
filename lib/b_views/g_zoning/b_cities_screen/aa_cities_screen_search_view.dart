@@ -13,6 +13,7 @@ class CitiesScreenSearchView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CitiesScreenSearchView({
     @required this.onCityTap,
+    @required this.onDeactivatedCityTap,
     @required this.loading,
     @required this.foundCities,
     @required this.shownCitiesIDs,
@@ -21,6 +22,7 @@ class CitiesScreenSearchView extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function(String cityID) onCityTap;
+  final Function(String cityID) onDeactivatedCityTap;
   final ValueNotifier<bool> loading;
   final ValueNotifier<List<CityModel>> foundCities;
   final List<String> shownCitiesIDs;
@@ -78,6 +80,7 @@ class CitiesScreenSearchView extends StatelessWidget {
                           isActive: _isActive,
                           censusModel: _census,
                           onSingleTap: () => onCityTap(_city.cityID),
+                          onDeactivatedTap: () => onDeactivatedCityTap(_city.cityID),
                         );
 
                       }

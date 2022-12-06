@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/buttons/tile_buttons/user_tile_button
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -82,6 +83,9 @@ class NotePartyButton extends StatelessWidget {
         height: height,
         countryID: id,
         onTap: onTap,
+        onDeactivatedTap: (){
+          blog('CountryTileButton.onDeactivatedTap');
+        },
       );
 
     }

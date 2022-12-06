@@ -12,11 +12,13 @@ class CitiesScreenBrowseView extends StatelessWidget {
     @required this.onCityTap,
     @required this.shownCitiesIDs,
     @required this.citiesCensuses,
+    @required this.onDeactivatedCityTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<CityModel>> countryCities;
   final Function(String cityID) onCityTap;
+  final Function(String cityID) onDeactivatedCityTap;
   final List<String> shownCitiesIDs;
   final List<CensusModel> citiesCensuses;
   /// --------------------------------------------------------------------------
@@ -52,6 +54,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
               isActive: _isActive,
               censusModel: _census,
               onSingleTap: () => onCityTap(_city.cityID),
+              onDeactivatedTap: () => onDeactivatedCityTap(_city.cityID),
             );
 
           },

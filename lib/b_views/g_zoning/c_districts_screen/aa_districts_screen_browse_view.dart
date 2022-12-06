@@ -12,12 +12,14 @@ class DistrictsScreenBrowseView extends StatelessWidget {
     @required this.shownDistrictsIDs,
     @required this.onDistrictChanged,
     @required this.censusModels,
+    @required this.onDeactivatedDistrictTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<DistrictModel> districts;
   final List<String> shownDistrictsIDs;
   final ValueChanged<String> onDistrictChanged;
+  final ValueChanged<String> onDeactivatedDistrictTap;
   final List<CensusModel> censusModels;
   /// --------------------------------------------------------------------------
   @override
@@ -47,6 +49,7 @@ class DistrictsScreenBrowseView extends StatelessWidget {
           onTap: onDistrictChanged,
           censusModel: _census,
           isActive: _isActive,
+          onDeactivatedTap: onDeactivatedDistrictTap,
         );
 
       },

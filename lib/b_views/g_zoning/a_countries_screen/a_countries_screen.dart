@@ -363,7 +363,10 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 foundCountries: _foundCountries,
                 shownCountriesIDs: _shownCountriesIDs,
                 countriesCensus: _censuses,
-                onCountryTap: (String countryID) => _onCountryTap(countryID),
+                onCountryTap: _onCountryTap,
+                onDeactivatedCountryTap: (String countryID){
+                  blog('onDeactivatedCountryTap : search view : $countryID');
+                },
               );
 
             }
@@ -375,7 +378,10 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 shownCountriesIDs: _shownCountriesIDs,
                 notShownCountriesIDs: _notShownCountriesIDs,
                 countriesCensus: _censuses,
-                onCountryTap: (String countryID) => _onCountryTap(countryID),
+                onCountryTap: _onCountryTap,
+                onDeactivatedCountryTap: (String countryID){
+                  blog('onDeactivatedCountryTap : browse view : $countryID');
+                },
               );
 
             }

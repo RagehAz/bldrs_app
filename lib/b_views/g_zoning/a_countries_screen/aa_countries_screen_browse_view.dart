@@ -9,6 +9,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CountriesScreenBrowseView({
     @required this.onCountryTap,
+    @required this.onDeactivatedCountryTap,
     @required this.shownCountriesIDs,
     @required this.notShownCountriesIDs,
     @required this.countriesCensus,
@@ -17,6 +18,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
+  final ValueChanged<String> onDeactivatedCountryTap;
   final EdgeInsets padding;
   final List<String> shownCountriesIDs;
   final List<String> notShownCountriesIDs;
@@ -45,6 +47,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
           isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryID),
           censusModel: _census,
           onTap: () => onCountryTap(_countryID),
+          onDeactivatedTap: () => onDeactivatedCountryTap(_countryID),
         );
 
       },
