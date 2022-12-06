@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -26,6 +27,69 @@ class CensusRealOps {
 
       final Object _object = await Real.readPath(
           path: '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID'
+      );
+
+      if (_object != null){
+
+        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+          ihlmoo: _object,
+        );
+
+        if (_map != null){
+          _output = CensusModel.decipher(_map);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<CensusModel> readCityCensus({
+    @required String cityID,
+  }) async {
+    CensusModel _output;
+
+    if (cityID != null){
+
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+
+      final Object _object = await Real.readPath(
+          path: '${RealColl.statistics}/${RealDoc.statistics_countries}/$_countryID/$cityID',
+      );
+
+      if (_object != null){
+
+        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+          ihlmoo: _object,
+        );
+
+        if (_map != null){
+          _output = CensusModel.decipher(_map);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<CensusModel> readDistrictCensus({
+    @required String districtID,
+  }) async {
+    CensusModel _output;
+
+    if (districtID != null){
+
+      final String _countryID = DistrictModel.getCountryIDFromDistrictID(districtID);
+      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
+
+      final Object _object = await Real.readPath(
+        path: '${RealColl.statistics}/${RealDoc.statistics_countries}/$_countryID/$_cityID/$districtID',
       );
 
       if (_object != null){

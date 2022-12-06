@@ -10,6 +10,7 @@ import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class DistrictsStagesRealOps {
@@ -181,7 +182,6 @@ class DistrictsStagesRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneStages> updateDistrictStage({
-    @required BuildContext context,
     @required String districtID,
     @required StageType newType,
   }) async {
@@ -206,7 +206,7 @@ class DistrictsStagesRealOps {
         if (Mapper.checkCanLoopList(_districts) == true){
 
           await Dialogs.errorDialog(
-            context: context,
+            context: BldrsAppStarter.navigatorKey.currentContext,
             titleVerse: Verse.plain('Something is seriously going wrong here'),
             bodyVerse: Verse.plain('District stages have not been updated,,, take care !'),
           );

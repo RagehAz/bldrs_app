@@ -1,13 +1,13 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/c_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/staging/a_countries_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/staging/b_cities_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/staging/b_districts_stages_real_ops.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -44,57 +44,26 @@ when to level up a zone
 */
 
 
-class ZoneStageLeveller {
+class ZoneLeveller {
+    // -----------------------------------------------------------------------------
+
+  const ZoneLeveller();
 
   // -----------------------------------------------------------------------------
-
-  const ZoneStageLeveller();
-
+  static const int minBzzToGoFromEmptyToBzzStage = 0;
+  static const int minFlyersToGoFromBzzToFlyersStage = 100;
+  static const int minFlyersToGoFromFlyersToPublicStage = 500;
   // -----------------------------------------------------------------------------
-  static Future<void> levelUpZonesOnComposeBzFromHiddenToInactive({
-    @required BzModel bzModel,
-  }) async {
 
-    /// NOTE : WHEN BZ IS COMPOSED
-    /// ALL BZ ZONES SHOULD BECOME INACTIVE
+  /// LEVELLERS
 
-    if (bzModel != null){
-
-      final ZoneStages _countriesStage = await CountriesStagesRealOps.readCountriesStages();
-      final ZoneStages _citiesStage = await CitiesStagesRealOps.readCitiesStages(
-        countryID: bzModel.zone.countryID,
-      );
-      final ZoneStages _districtsStage = await DistrictsStagesRealOps.readDistrictsStages(
-        cityID: bzModel.zone.cityID,
-      );
-
-      final StageType _countryStage = _countriesStage?.getStageTypeByID(bzModel.zone.countryID);
-      final StageType _cityStage = _citiesStage?.getStageTypeByID(bzModel.zone.cityID);
-      final StageType _districtStage = _districtsStage?.getStageTypeByID(bzModel.zone.districtID);
-
-      blog('countryStage : $_countryStage | cityStage : $_cityStage | districtStage : $_districtStage');
-
-      /// LEVEL UP COUNTRY
-      if (_countryStage == StageType.emptyStage){
-
-      }
-
-      /// LEVEL UP CITY
-
-      /// LEVEL UP DISTRICT
-
-    }
-
-    else {
-      blog('fromHiddenToInactiveOnComposeBz : no bzModel given here');
-    }
-
-  }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TASK : TEST ME
   static Future<void> levelUpZone({
     @required ZoneModel zoneModel,
   }) async {
 
+    /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
 
     if (zoneModel != null){
 
@@ -118,40 +87,65 @@ class ZoneStageLeveller {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static Future<void> _levelUpCountry({
-    @required String countryID
+    @required String countryID,
   }) async {
+
+    /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
 
     if (countryID != null){
 
       final ZoneStages _countriesStage = await CountriesStagesRealOps.readCountriesStages();
-
       final StageType _countryStageType = _countriesStage?.getStageTypeByID(countryID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
-      if (_countryStageType != StageType.publicStage){
+      if (_countryStageType != null && _countryStageType != StageType.publicStage){
 
         final CensusModel _countryCensus = await CensusRealOps.readCountryCensus(
-            countryID: countryID
+            countryID: countryID,
         );
 
-        /// WHEN IS EMPTY STAGE
-        if (_countryStageType == StageType.emptyStage){
+        if (_countryCensus != null){
+          // -------------------->
+          /// WHEN IS EMPTY STAGE
+          if (_countryStageType == StageType.emptyStage){
 
+            /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
+            if (_shouldLevelEmptyToBzzStage(_countryCensus) == true){
+              await ZoneProtocols.updateCountryStage(
+                countryID: countryID,
+                newType: StageType.bzzStage,
+              );
+            }
+
+          }
+          // -------------------->
+          /// WHEN IS BZZ STAGE
+          else if (_countryStageType == StageType.bzzStage){
+
+            if (_shouldLevelBzzToFlyersStage(_countryCensus) == true){
+              await ZoneProtocols.updateCountryStage(
+                countryID: countryID,
+                newType: StageType.flyersStage,
+              );
+            }
+
+          }
+          // -------------------->
+          /// WHEN IS FLYERS STAGE
+          else if (_countryStageType == StageType.flyersStage){
+
+            if (_shouldLevelFlyersToPublicStage(_countryCensus) == true){
+              await ZoneProtocols.updateCountryStage(
+                countryID: countryID,
+                newType: StageType.publicStage,
+              );
+            }
+
+          }
+          // -------------------->
         }
-
-        /// WHEN IS BZZ STAGE
-        else if (_countryStageType == StageType.bzzStage){
-
-        }
-
-        /// WHEN IS FLYERS STAGE
-        else if (_countryStageType == StageType.flyersStage){
-
-        }
-
-
-
 
       }
 
@@ -159,9 +153,70 @@ class ZoneStageLeveller {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static Future<void> _levelUpCity({
-    @required String cityID
+    @required String cityID,
   }) async {
+
+    /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
+
+    if (cityID != null){
+
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+      final ZoneStages _citiesStages = await CitiesStagesRealOps.readCitiesStages(countryID: _countryID);
+      final StageType _cityStageType = _citiesStages?.getStageTypeByID(cityID);
+
+      /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
+      if (_cityStageType != null && _cityStageType != StageType.publicStage){
+
+        final CensusModel _cityCensus = await CensusRealOps.readCityCensus(
+          cityID: cityID,
+        );
+
+        if (_cityCensus != null){
+          // -------------------->
+          /// WHEN IS EMPTY STAGE
+          if (_cityStageType == StageType.emptyStage){
+
+            /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
+            if (_shouldLevelEmptyToBzzStage(_cityCensus) == true){
+              await ZoneProtocols.updateCityStage(
+                cityID: cityID,
+                newType: StageType.bzzStage,
+              );
+            }
+
+          }
+          // -------------------->
+          /// WHEN IS BZZ STAGE
+          else if (_cityStageType == StageType.bzzStage){
+
+            if (_shouldLevelBzzToFlyersStage(_cityCensus) == true){
+              await ZoneProtocols.updateCityStage(
+                cityID: cityID,
+                newType: StageType.flyersStage,
+              );
+            }
+
+          }
+          // -------------------->
+          /// WHEN IS FLYERS STAGE
+          else if (_cityStageType == StageType.flyersStage){
+
+            if (_shouldLevelFlyersToPublicStage(_cityCensus) == true){
+              await ZoneProtocols.updateCityStage(
+                cityID: cityID,
+                newType: StageType.publicStage,
+              );
+            }
+
+          }
+          // -------------------->
+        }
+
+      }
+
+    }
 
   }
   // --------------------
@@ -169,17 +224,118 @@ class ZoneStageLeveller {
     @required String districtID,
   }) async {
 
+    /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
+
+    if (districtID != null){
+
+      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
+      final ZoneStages _districtsStages = await DistrictsStagesRealOps.readDistrictsStages(cityID: _cityID);
+      final StageType _districtStageType = _districtsStages?.getStageTypeByID(districtID);
+
+      /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
+      if (_districtStageType != null && _districtStageType != StageType.publicStage){
+
+        final CensusModel _districtCensus = await CensusRealOps.readDistrictCensus(
+          districtID: districtID,
+        );
+
+        if (_districtCensus != null){
+          // -------------------->
+          /// WHEN IS EMPTY STAGE
+          if (_districtStageType == StageType.emptyStage){
+
+            /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
+            if (_shouldLevelEmptyToBzzStage(_districtCensus) == true){
+              await ZoneProtocols.updateDistrictStage(
+                districtID: districtID,
+                newType: StageType.bzzStage,
+              );
+            }
+
+          }
+          // -------------------->
+          /// WHEN IS BZZ STAGE
+          else if (_districtStageType == StageType.bzzStage){
+
+            if (_shouldLevelBzzToFlyersStage(_districtCensus) == true){
+              await ZoneProtocols.updateDistrictStage(
+                districtID: districtID,
+                newType: StageType.flyersStage,
+              );
+            }
+
+          }
+          // -------------------->
+          /// WHEN IS FLYERS STAGE
+          else if (_districtStageType == StageType.flyersStage){
+
+            if (_shouldLevelFlyersToPublicStage(_districtCensus) == true){
+              await ZoneProtocols.updateDistrictStage(
+                districtID: districtID,
+                newType: StageType.publicStage,
+              );
+            }
+
+          }
+          // -------------------->
+        }
+
+      }
+
+    }
+
   }
   // -----------------------------------------------------------------------------
-  static bool shouldLevelEmptyStageToBzzStage(){
+
+  /// CHECKERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static bool _shouldLevelEmptyToBzzStage(CensusModel census){
+
+    if (
+        census != null &&
+        census.totalBzz > minBzzToGoFromEmptyToBzzStage
+    ){
+      return true;
+    }
+
+    else {
+      return false;
+    }
 
   }
-  static bool shouldLevelBzzStageToFlyersStage(){
+  // --------------------
+  /// TASK : TEST ME
+  static bool _shouldLevelBzzToFlyersStage(CensusModel census){
+
+    if (
+        census != null &&
+        census.totalFlyers >= minFlyersToGoFromBzzToFlyersStage
+    ){
+      return true;
+    }
+
+    else {
+      return false;
+    }
 
   }
-  static bool shouldLevelFlyersStageToPublicStage(){
+  // --------------------
+  /// TASK : TEST ME
+  static bool _shouldLevelFlyersToPublicStage(CensusModel census){
+
+    if (
+        census != null &&
+        census.totalFlyers >= minFlyersToGoFromFlyersToPublicStage
+    ){
+      return true;
+    }
+
+    else {
+      return false;
+    }
 
   }
   // -----------------------------------------------------------------------------
-  void f(){}
 }
