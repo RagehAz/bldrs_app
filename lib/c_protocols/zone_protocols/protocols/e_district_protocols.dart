@@ -32,7 +32,6 @@ class DistrictProtocols {
 
         /// ADD CITY ID TO CITIES STAGES
         DistrictsStagesRealOps.updateDistrictStage(
-          context: context,
           districtID: districtModel.id,
           newType: StageType.emptyStage,
         ),
