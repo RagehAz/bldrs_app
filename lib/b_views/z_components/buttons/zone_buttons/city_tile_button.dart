@@ -50,10 +50,10 @@ class WideCityButton extends StatelessWidget {
         ),
 
         /// CENSUS LINE
-        if (isActive == true)
         CensusLine(
           censusModel: censusModel,
           hasFlagSpace: false,
+          isActive: isActive,
         ),
 
       ],

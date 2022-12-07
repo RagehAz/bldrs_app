@@ -43,7 +43,14 @@ class TheBoxOfDreamBox extends StatelessWidget {
                   height: height,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: inActiveMode == true ? Colorz.white10 : boxColor,
+                      color:
+                      boxColor == Colorz.nothing ? Colorz.nothing
+                          :
+                      inActiveMode == true ?
+                      Colorz.white10
+                          :
+                      boxColor,
+
                       // borderRadius: cornersAsBorderRadius,
                       // boxShadow: const <BoxShadow>[
                         // CustomBoxShadow(
