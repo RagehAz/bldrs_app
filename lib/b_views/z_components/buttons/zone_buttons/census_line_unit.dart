@@ -10,6 +10,7 @@ class CensusLineUnit extends StatelessWidget {
     @required this.width,
     @required this.number,
     @required this.icon,
+    @required this.isActive,
     this.height = 30,
     Key key
   }) : super(key: key);
@@ -18,11 +19,13 @@ class CensusLineUnit extends StatelessWidget {
   final double width;
   final int number;
   final String icon;
+  final bool isActive;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return DreamBox(
+      isDeactivated: !isActive,
       height: height,
       width: width,
       icon: icon,

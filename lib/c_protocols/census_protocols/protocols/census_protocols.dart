@@ -24,7 +24,7 @@ class CensusProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TASK : NEED TO SCAN SAVES - FOLLOWS - CALLS
+  /// TESTED : WORKS PERFECT
   static Future<void> scanAllDBAndCreateInitialCensuses({
     @required BuildContext context,
   }) async {

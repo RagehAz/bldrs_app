@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -368,17 +369,16 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
   }
   // --------------------
-  /// DEPRECATED
-  /*
-  Future<void> _onBack() async {
+  /// TESTED : WORKS PERFECT
+  Future<void> _onDeactivatedDistrictTap(String cityID) async {
 
-    await Nav.goBack(
+    blog('onDeactivatedCityTap : browseView : cityID : $cityID');
+
+    await Dialogs.zoneIsNotAvailable(
       context: context,
-      invoker: 'SelectCityScreen',
     );
 
   }
-   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -457,9 +457,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 onCityTap: _onCitySelected,
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
-                onDeactivatedCityTap: (String cityID){
-                  blog('onDeactivatedCityTap : searchView : cityID : $cityID');
-                },
+                onDeactivatedCityTap: _onDeactivatedDistrictTap,
               );
 
             }
@@ -472,9 +470,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 countryCities: _countryCities,
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
-                onDeactivatedCityTap: (String cityID){
-                  blog('onDeactivatedCityTap : browseView : cityID : $cityID');
-                },
+                onDeactivatedCityTap: _onDeactivatedDistrictTap,
 
               );
 

@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/aa_countries_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -181,7 +182,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   /// NAVIGATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> _onCountryTap(String countryID) async {
 
     await ZoneSelection.onSelectCountry(
@@ -191,141 +192,18 @@ class _CountriesScreenState extends State<CountriesScreen> {
         zoneViewingEvent: widget.zoneViewingEvent,
     );
 
-    /*
-    if (mounted == true){
-      Keyboard.closeKeyboard(context);
-    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onDeactivatedCountryTap(String countryID) async {
 
-    final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
+    blog('onDeactivatedCountryTap : browse view : $countryID');
+
+    await Dialogs.zoneIsNotAvailable(
       context: context,
-      incompleteZoneModel: ZoneModel(
-        countryID: countryID,
-      ),
     );
 
-    /// SELECTING (COUNTRY) ONLY
-    if (widget.selectCountryIDOnly == true){
-      await _goBack(zone: _zone);
-    }
-
-    /// SELECTING (COUNTRY + CITY) ONLY
-    else if (widget.selectCountryAndCityOnly == true) {
-
-      await _navigationWhileSelectingCountryAndCityOnly(
-        zone: _zone,
-      );
-
-    }
-
-    /// SELECTING (COUNTRY + CITY + DISTRICT)
-    else {
-
-      await _navigationWhileSelectingCountryAndCityAndDistrict(
-        zone: _zone,
-      );
-
-      blog('finished _navigationWhileSelectingCountryAndCityAndDistrict');
-
-    }
-
-
-     */
   }
-  // -----------------------------------------------------------------------------
-  /// DEPRECATED
-  // -----------------------------------------------------------------------------
-  // /// TESTED : WORKS PERFECT
-  // Future<void> _goBack({
-  //   ZoneModel zone,
-  // }) async {
-  //
-  //   await Nav.goBack(
-  //     context: context,
-  //     invoker: 'SelectCountryScreen',
-  //     passedData: zone,
-  //   );
-  //
-  // }
-  // -----------------------------------------------------------------------------
-  //
-  // / NAVIGATION WHILE SELECTING (COUNTRY + CITY) ONLY
-  //
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // Future<void> _navigationWhileSelectingCountryAndCityOnly({
-  //   @required ZoneModel zone,
-  // }) async {
-  //
-  //   /// GO SELECT CITY
-  //   final ZoneModel _zoneWithCity = await _goBringACity(zone: zone);
-  //
-  //   /// EXIT
-  //   await _goBack(zone: _zoneWithCity ?? zone);
-  //
-  // }
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // Future<ZoneModel> _goBringACity({
-  //   @required ZoneModel zone,
-  // }) async {
-  //   final ZoneModel _zoneWithCity = await Nav.goToNewScreen(
-  //       context: context,
-  //       screen: CitiesScreen(
-  //         zoneViewingEvent: widget.zoneViewingEvent,
-  //         country: zone.countryModel,
-  //         selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
-  //       )
-  //   );
-  //   return _zoneWithCity;
-  // }
-  // -----------------------------------------------------------------------------
-  //
-  // / NAVIGATION WHILE SELECTING (COUNTRY + CITY + DISTRICT) ONLY
-  //
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // Future<void> _navigationWhileSelectingCountryAndCityAndDistrict({
-  //   @required ZoneModel zone,
-  // }) async {
-  //
-  //   blog('_navigationWhileSelectingCountryAndCityAndDistrict : START');
-  //
-  //   /// GO SELECT CITY
-  //   final ZoneModel _zoneWithCity = await _goBringACity(zone: zone);
-  //
-  //   if (_zoneWithCity?.cityID != null){
-  //
-  //     /// GO SELECT DISTRICT
-  //     final ZoneModel _zoneWithCityAndDistrict = await _goBringADistrict(
-  //       zone: _zoneWithCity,
-  //     );
-  //
-  //     if (_zoneWithCityAndDistrict.districtID != null){
-  //       await _goBack(zone: _zoneWithCityAndDistrict ?? _zoneWithCity ?? zone);
-  //     }
-  //
-  //   }
-  //
-  // }
-  // --------------------
-  // /// TESTED : WORKS PERFECT
-  // Future<ZoneModel> _goBringADistrict({
-  //   @required ZoneModel zone,
-  // }) async {
-  //
-  //   final ZoneModel _zoneWithCityAndDistrict = await Nav.goToNewScreen(
-  //       context: context,
-  //       screen: DistrictsScreen(
-  //         zoneViewingEvent: widget.zoneViewingEvent,
-  //         country: zone.countryModel,
-  //         city: zone.cityModel,
-  //       )
-  //   );
-  //
-  //   return _zoneWithCityAndDistrict;
-  // }
-  // -----------------------------------------------------------------------------
-  ///
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -364,9 +242,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 shownCountriesIDs: _shownCountriesIDs,
                 countriesCensus: _censuses,
                 onCountryTap: _onCountryTap,
-                onDeactivatedCountryTap: (String countryID){
-                  blog('onDeactivatedCountryTap : search view : $countryID');
-                },
+                onDeactivatedCountryTap: _onDeactivatedCountryTap,
               );
 
             }
@@ -379,9 +255,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 notShownCountriesIDs: _notShownCountriesIDs,
                 countriesCensus: _censuses,
                 onCountryTap: _onCountryTap,
-                onDeactivatedCountryTap: (String countryID){
-                  blog('onDeactivatedCountryTap : browse view : $countryID');
-                },
+                onDeactivatedCountryTap: _onDeactivatedCountryTap,
               );
 
             }
