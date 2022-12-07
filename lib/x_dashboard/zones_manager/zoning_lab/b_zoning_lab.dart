@@ -1421,6 +1421,29 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Census'),
               ),
 
+              /// READ PLANET CENSUS
+              WideButton(
+                verse: Verse.plain('Read Planet Census'),
+                onTap: () async {
+
+                  final CensusModel _countryCensus = await CensusRealOps.readPlanetCensus();
+                  _countryCensus.blogCensus();
+
+                },
+              ),
+
+
+              /// READ COUNTRY CENSUS
+              WideButton(
+                verse: Verse.plain('READ ALL COUNTRIES CENSUSES'),
+                onTap: () async {
+
+                  final List<CensusModel> _censuses = await CensusRealOps.readAllCountriesCensus();
+                  CensusModel.blogCensuses(censuses: _censuses);
+
+                },
+              ),
+
               /// READ COUNTRY CENSUS
               WideButton(
                 verse: Verse.plain('Read Country Census'),
@@ -1432,6 +1455,58 @@ class _ZoningLabState extends State<ZoningLab> {
 
                 },
               ),
+
+              /// READ CITIES CENSUSES
+              WideButton(
+                verse: Verse.plain('READ CITIES CENSUSES'),
+                onTap: () async {
+
+                  final List<CensusModel> _censuses = await CensusRealOps.readCitiesOfCountryCensus(countryID: 'egy');
+                  CensusModel.blogCensuses(censuses: _censuses);
+
+                },
+              ),
+
+              /// READ CITY CENSUS
+              WideButton(
+                verse: Verse.plain('Read City Census'),
+                onTap: () async {
+
+                  final CensusModel _cityCensus = await CensusRealOps.readCityCensus(cityID: 'egy+cairo');
+                  _cityCensus.blogCensus();
+
+                },
+              ),
+
+              /// READ DISTRICTS CENSUSES
+              WideButton(
+                verse: Verse.plain('READ DISTRICTS CENSUSES'),
+                onTap: () async {
+
+                  final List<CensusModel> _censuses = await CensusRealOps.readDistrictsOfCityCensus(
+                    cityID: 'egy+cairo',
+                  );
+                  CensusModel.blogCensuses(censuses: _censuses);
+
+                },
+              ),
+
+              /// READ DISTRICT CENSUS
+              WideButton(
+                verse: Verse.plain('Read District Census'),
+                onTap: () async {
+
+                  final CensusModel _districtCensus = await CensusRealOps.readDistrictCensus(districtID: 'egy+cairo+giza');
+                  _districtCensus?.blogCensus();
+
+                  if (_districtCensus == null){
+                    blog('NULL');
+                  }
+
+                },
+              ),
+
+
 
 
               /// SEPARATOR

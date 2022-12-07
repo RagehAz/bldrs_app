@@ -299,7 +299,6 @@ class RenovateUserProtocols {
           /// CENSUS SAVE FLYER
           CensusProtocols.onSaveFlyer(
               flyerModel: flyerModel,
-              userModel: _newUser,
               isSaving: true,
           ),
 
@@ -332,7 +331,6 @@ class RenovateUserProtocols {
           /// CENSUS SAVE FLYER
           CensusProtocols.onSaveFlyer(
             flyerModel: flyerModel,
-            userModel: _newUser,
             isSaving: false,
           ),
 
