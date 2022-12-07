@@ -354,13 +354,17 @@ class CensusModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CensusModel decipher(Map<String, dynamic> map){
+  static CensusModel decipher({
+    @required Map<String, dynamic> map,
+    @required String id,
+  }){
+
     CensusModel _output;
 
     if (map != null){
 
       _output = CensusModel(
-        id: map['id'],
+        id: map['id'] ?? id,
         totalUsers: map['totalUsers'],
         totalBzz: map['totalBzz'],
         totalAuthors: map['totalAuthors'],
@@ -428,7 +432,10 @@ class CensusModel {
     if (Mapper.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> _map in maps){
-        _output.add(decipher(_map));
+        _output.add(decipher(
+          map: _map,
+          id: _map['id'],
+        ));
       }
 
     }
