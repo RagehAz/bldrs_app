@@ -17,6 +17,7 @@ class TileButton extends StatelessWidget {
     this.margins,
     this.isActive = true,
     this.corners,
+    this.verseCentered = false,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -31,6 +32,7 @@ class TileButton extends StatelessWidget {
   final dynamic margins;
   final bool isActive;
   final dynamic corners;
+  final bool verseCentered;
   // -----------------------------------------------------------------------------
   static const double defaultHeight = 40;
   // -----------------------------------------------------------------------------
@@ -44,7 +46,7 @@ class TileButton extends StatelessWidget {
       height: height ?? defaultHeight,
       icon: icon,
       verse: verse,
-      verseCentered: false,
+      verseCentered: verseCentered,
       secondLine: secondLine,
       secondLineScaleFactor: 1.2,
       verseScaleFactor: 0.7,

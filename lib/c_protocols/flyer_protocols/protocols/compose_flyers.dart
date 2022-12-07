@@ -18,6 +18,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/staging/x_zone_stage_modifiers.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -110,6 +111,10 @@ class ComposeFlyerProtocols {
           CensusProtocols.onComposeFlyer(_flyerToPublish),
 
         ]);
+
+        await ZoneLeveller.levelUpZone(
+            zoneModel: _flyerToPublish.zone,
+        );
 
       }
 

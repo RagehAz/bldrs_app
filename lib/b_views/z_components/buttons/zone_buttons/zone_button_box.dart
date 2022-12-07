@@ -34,7 +34,7 @@ class ZoneButtonBox extends StatelessWidget {
           child: Container(
             width: _buttonWidth,
             decoration: BoxDecoration(
-              color: isActive == true ? Colorz.white10 : Colorz.nothing,
+              color: isActive == true ? Colorz.white20 : Colorz.white10,
               borderRadius: Borderers.constantCornersAll12,
             ),
             child: Column(

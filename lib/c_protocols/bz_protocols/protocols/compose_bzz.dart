@@ -16,6 +16,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/staging/x_zone_stage_modifiers.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -97,6 +98,10 @@ class ComposeBzProtocols {
       ),
 
     ]);
+
+    await ZoneLeveller.levelUpZone(
+        zoneModel: _bzModel.zone,
+    );
 
     /// CLOSE WAIT DIALOG
     await WaitDialog.closeWaitDialog(context);

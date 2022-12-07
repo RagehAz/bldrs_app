@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_browse_view.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_search_view.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -117,55 +118,59 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       cityID: widget.city.cityID,
     );
 
-    final List<DistrictModel> _fetchedDistricts = await ZoneProtocols.fetchDistrictsOfCityByIDs(
-      districtsIDsOfThisCity: _districtsStages.getAllIDs(),
-    );
+    if (_districtsStages != null){
 
-    if (mounted == true){
-
-      /// SHOWN DISTRICTS IDS
-      final List<String> _shownIDs = _districtsStages.getIDsByViewingEvent(
-        context: context,
-        event: widget.zoneViewingEvent,
-      );
-      /// SHOWN DISTRICTS MODELS
-      final List<DistrictModel> _shownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
-        districtsModels: _fetchedDistricts,
-        districtsIDs: _shownIDs,
+      final List<DistrictModel> _fetchedDistricts = await ZoneProtocols.fetchDistrictsOfCityByIDs(
+        districtsIDsOfThisCity: _districtsStages.getAllIDs(),
       );
 
-      /// NOT SHOWN DISTRICTS IDS
-      final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
-        removeFrom: DistrictModel.getDistrictsIDs(_fetchedDistricts),
-        removeThis: _shownIDs,
-      );
-      /// NOT SHOWN DISTRICTS MODELS
-      final List<DistrictModel> _notShownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
-        districtsModels: _fetchedDistricts,
-        districtsIDs: _notShownIDs,
-      );
+      if (mounted == true){
+
+        /// SHOWN DISTRICTS IDS
+        final List<String> _shownIDs = _districtsStages.getIDsByViewingEvent(
+          context: context,
+          event: widget.zoneViewingEvent,
+        );
+        /// SHOWN DISTRICTS MODELS
+        final List<DistrictModel> _shownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
+          districtsModels: _fetchedDistricts,
+          districtsIDs: _shownIDs,
+        );
+
+        /// NOT SHOWN DISTRICTS IDS
+        final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+          removeFrom: DistrictModel.getDistrictsIDs(_fetchedDistricts),
+          removeThis: _shownIDs,
+        );
+        /// NOT SHOWN DISTRICTS MODELS
+        final List<DistrictModel> _notShownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
+          districtsModels: _fetchedDistricts,
+          districtsIDs: _notShownIDs,
+        );
 
 
-      final List<DistrictModel> _orderedShownDistricts = DistrictModel.sortDistrictsAlphabetically(
-        context: context,
-        districts: _shownDistricts,
-      );
-      final List<DistrictModel> _orderedNotShownDistricts = DistrictModel.sortDistrictsAlphabetically(
-        context: context,
-        districts: _notShownDistricts,
-      );
+        final List<DistrictModel> _orderedShownDistricts = DistrictModel.sortDistrictsAlphabetically(
+          context: context,
+          districts: _shownDistricts,
+        );
+        final List<DistrictModel> _orderedNotShownDistricts = DistrictModel.sortDistrictsAlphabetically(
+          context: context,
+          districts: _notShownDistricts,
+        );
 
-      _cityDistricts.value = <DistrictModel>[..._orderedShownDistricts, ..._orderedNotShownDistricts];
+        _cityDistricts.value = <DistrictModel>[..._orderedShownDistricts, ..._orderedNotShownDistricts];
 
 
-      final List<CensusModel> _districtsCensus = await CensusRealOps.readDistrictsOfCityCensus(
+        final List<CensusModel> _districtsCensus = await CensusRealOps.readDistrictsOfCityCensus(
           cityID: widget.city.cityID,
-      );
+        );
 
-      setState(() {
-        _shownDistrictsIDs = _shownIDs;
-        _censusModels = _districtsCensus;
-      });
+        setState(() {
+          _shownDistrictsIDs = _shownIDs;
+          _censusModels = _districtsCensus;
+        });
+
+      }
 
     }
 
@@ -237,6 +242,16 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onDeactivatedDistrictTap(String districtID) async {
+    blog('onDeactivatedDistrictTap : browse View : districtID: $districtID');
+
+    await Dialogs.zoneIsNotAvailable(
+      context: context,
+    );
+
+  }
+  // --------------------
   /// DEPRECATED
   /*
   Future<void> _onBack() async {
@@ -289,9 +304,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                 onDistrictTap: _onDistrictTap,
                 censusModels: _censusModels,
                 shownDistrictsIDs: _shownDistrictsIDs,
-                onDeactivatedDistrictTap: (String districtID){
-                  blog('onDeactivatedDistrictTap : browse View : districtID: $districtID');
-                },
+                onDeactivatedDistrictTap: _onDeactivatedDistrictTap,
               );
 
             }
@@ -308,9 +321,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                     districts: districts,
                     censusModels: _censusModels,
                     shownDistrictsIDs: _shownDistrictsIDs,
-                    onDeactivatedDistrictTap: (String districtID){
-                      blog('onDeactivatedDistrictTap : browse View : districtID: $districtID');
-                    },
+                    onDeactivatedDistrictTap: _onDeactivatedDistrictTap,
                   );
 
                 },

@@ -11,6 +11,7 @@ class CensusLine extends StatelessWidget {
   const CensusLine({
     @required this.censusModel,
     @required this.hasFlagSpace,
+    @required this.isActive,
     this.width,
     Key key
   }) : super(key: key);
@@ -18,6 +19,7 @@ class CensusLine extends StatelessWidget {
   final CensusModel censusModel;
   final bool hasFlagSpace;
   final double width;
+  final bool isActive;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({
@@ -78,6 +80,7 @@ class CensusLine extends StatelessWidget {
               width: _censusUnitBoxWidth,
               icon: Iconz.normalUser,
               number: censusModel.totalUsers,
+              isActive: isActive,
             ),
 
             /// BZZ
@@ -85,6 +88,7 @@ class CensusLine extends StatelessWidget {
               width: _censusUnitBoxWidth,
               icon: Iconz.bz,
               number: censusModel.totalBzz,
+              isActive: isActive,
             ),
 
             /// FLYERS
@@ -92,6 +96,7 @@ class CensusLine extends StatelessWidget {
               width: _censusUnitBoxWidth,
               icon: Iconz.flyer,
               number: censusModel.totalFlyers,
+              isActive: isActive,
             ),
 
           ],

@@ -208,7 +208,7 @@ class Formers {
     if (canValidate == true){
 
       if (TextCheck.isEmpty(companyName) == true){
-        _message = Verse.transBake(context, 'phid_enter_company_name');
+        _message = Verse.transBake(context, 'phid_enter_business_name');
       }
 
       else {
