@@ -4,7 +4,7 @@ import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/cupertino.dart';
-
+/// => TAMAM
 class CensusRealOps {
   // -----------------------------------------------------------------------------
 
@@ -192,7 +192,7 @@ class CensusRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> readDistrictCensus({
     @required String districtID,
   }) async {
@@ -228,7 +228,7 @@ class CensusRealOps {
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateAllCensus({
     @required Map<String, dynamic> map,
     @required ZoneModel zoneModel,
