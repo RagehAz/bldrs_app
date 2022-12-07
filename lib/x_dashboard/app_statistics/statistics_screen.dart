@@ -48,7 +48,10 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
         // initialData: null,
         builder: (BuildContext context,  Map<String, dynamic> map) {
 
-          final CensusModel _censusModel = CensusModel.decipher(map);
+          final CensusModel _censusModel = CensusModel.decipher(
+            map: map,
+            id: 'planet',
+          );
 
           return ListView(
             physics: const BouncingScrollPhysics(),

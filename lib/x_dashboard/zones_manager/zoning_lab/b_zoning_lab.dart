@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
+import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
@@ -19,6 +20,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
+import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/currency_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
@@ -1396,6 +1398,40 @@ class _ZoningLabState extends State<ZoningLab> {
                 },
               ),
 
+
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
+          ),
+        ),
+
+        /// CENSUS
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Census'),
+              ),
+
+              /// READ COUNTRY CENSUS
+              WideButton(
+                verse: Verse.plain('Read Country Census'),
+                onTap: () async {
+
+                  final CensusModel _countryCensus = await CensusRealOps.readCountryCensus(countryID: 'egy');
+
+                  _countryCensus.blogCensus();
+
+                },
+              ),
 
 
               /// SEPARATOR
