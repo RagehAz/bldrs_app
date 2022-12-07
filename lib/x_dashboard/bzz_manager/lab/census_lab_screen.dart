@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
@@ -11,8 +12,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
-// ignore_for_file: avoid_print
-
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';

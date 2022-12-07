@@ -683,6 +683,25 @@ class Dialogs {
 
     return _city;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> zoneIsNotAvailable({
+    @required BuildContext context,
+  }) async {
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_zone_is_not_available',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_zone_is_not_available_body',
+        translate: true,
+      ),
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// USERS DIALOGS

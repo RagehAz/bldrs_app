@@ -58,7 +58,6 @@ class CountryTileButton extends StatelessWidget {
 
     final double _buttonWidth = Bubble.bubbleWidth(context);
 
-
     return ZoneButtonBox(
       onTap: onTap,
       onDeactivatedTap: onDeactivatedTap,
@@ -74,15 +73,17 @@ class CountryTileButton extends StatelessWidget {
             verse: Verse.plain(Flag.getCountryNameByCurrentLang(context: context, countryID: countryID)),
             color: Colorz.nothing,
             margins: EdgeInsets.zero,
+            verseCentered: true,
             // corners: BorderRadius.zero,
           ),
 
         /// CENSUS LINE
-          if (isActive == true)
+        //   if (isActive == true)
           CensusLine(
             width: width ?? _buttonWidth,
             censusModel: censusModel,
             hasFlagSpace: true,
+            isActive: isActive,
           ),
 
       ],
