@@ -35,7 +35,7 @@ import 'package:bldrs/x_dashboard/zones_manager/a_zones_manager_screen.dart';
 import 'package:bldrs/x_dashboard/currency_manager/a_currency_manager_screen.dart';
 import 'package:bldrs/x_dashboard/flyers_manager/all_flyers_screen.dart';
 import 'package:bldrs/x_dashboard/flyers_auditor/a_flyers_auditor_screen.dart';
-import 'package:bldrs/x_dashboard/app_statistics/statistics_screen.dart';
+import 'package:bldrs/x_dashboard/census_manager/statistics_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/a_ui_manager_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/app_controls/a_app_controls_manager.dart';

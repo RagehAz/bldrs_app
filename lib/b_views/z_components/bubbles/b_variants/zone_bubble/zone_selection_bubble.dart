@@ -19,6 +19,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class ZoneSelectionBubble extends StatefulWidget {
@@ -330,7 +331,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                         text: zone?.countryName,
                         translate: false,
                       ),
-                      icon: zone?.icon,
+                      icon: zone?.icon ?? Iconz.circleDot,
                       onTap: () => _onCountryButtonTap(context: context),
                       loading: loading,
                     ),
