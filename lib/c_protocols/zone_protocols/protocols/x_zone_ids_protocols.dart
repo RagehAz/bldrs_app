@@ -122,14 +122,14 @@ class ZoneIDsProtocols {
   }) async {
 
     assert(incompleteZoneModel != null, 'incompleteZoneModel is null');
-    assert(incompleteZoneModel.countryID != null, 'incompleteZoneModel.countryID is null');
+    // assert(incompleteZoneModel.countryID != null, 'incompleteZoneModel.countryID is null');
 
     /// incomplete zone model is what only has (countryID - cityID - districtID)
     /// complete zone model is that has all IDs  Models and Names initialized
 
     ZoneModel _output = incompleteZoneModel;
 
-    if (incompleteZoneModel != null){
+    if (incompleteZoneModel != null && incompleteZoneModel.countryID != null){
 
       /// COUNTRY MODEL
       if (incompleteZoneModel.countryModel == null){

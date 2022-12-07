@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/all_flags_list.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
-import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
@@ -20,17 +19,16 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
-import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/json/currency_json_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/ldb/c_district_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/modelling/b_city_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/real/modelling/d_district_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/staging/a_countries_stages_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/staging/b_cities_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/modelling/b_city_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/real/staging/b_districts_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/modelling/d_district_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
@@ -243,6 +241,39 @@ class _ZoningLabState extends State<ZoningLab> {
                   Continent.blogContinents(_continents);
 
                   blog('end');
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
+          ),
+        ),
+
+        /// FLAGS
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Flag'),
+              ),
+
+              /// CREATE FLAGS
+              WideButton(
+                verse: Verse.plain('Create Flags'),
+                onTap: () async {
+
+                  const List<Flag> _iso3s = allFlags;
+
+                  Flag.blogFlags(_iso3s);
+
                 },
               ),
 
@@ -1094,39 +1125,6 @@ class _ZoningLabState extends State<ZoningLab> {
           ),
         ),
 
-        /// FLAGS
-        PageBubble(
-          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
-          appBarType: _appBarType,
-          color: Colorz.white20,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
-
-              /// HEADLINE
-              SuperHeadline(
-                verse: Verse.plain('Flag'),
-              ),
-
-              /// CREATE FLAGS
-              WideButton(
-                verse: Verse.plain('Create Flags'),
-                onTap: () async {
-
-                  const List<Flag> _iso3s = allFlags;
-
-                  Flag.blogFlags(_iso3s);
-
-                },
-              ),
-
-              /// SEPARATOR
-              const SeparatorLine(),
-
-            ],
-          ),
-        ),
-
         /// PLAY GROUND
         PageBubble(
           screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
@@ -1407,114 +1405,6 @@ class _ZoningLabState extends State<ZoningLab> {
           ),
         ),
 
-        /// CENSUS
-        PageBubble(
-          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
-          appBarType: _appBarType,
-          color: Colorz.white20,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
-
-              /// HEADLINE
-              SuperHeadline(
-                verse: Verse.plain('Census'),
-              ),
-
-              /// READ PLANET CENSUS
-              WideButton(
-                verse: Verse.plain('Read Planet Census'),
-                onTap: () async {
-
-                  final CensusModel _countryCensus = await CensusRealOps.readPlanetCensus();
-                  _countryCensus.blogCensus();
-
-                },
-              ),
-
-
-              /// READ COUNTRY CENSUS
-              WideButton(
-                verse: Verse.plain('READ ALL COUNTRIES CENSUSES'),
-                onTap: () async {
-
-                  final List<CensusModel> _censuses = await CensusRealOps.readAllCountriesCensus();
-                  CensusModel.blogCensuses(censuses: _censuses);
-
-                },
-              ),
-
-              /// READ COUNTRY CENSUS
-              WideButton(
-                verse: Verse.plain('Read Country Census'),
-                onTap: () async {
-
-                  final CensusModel _countryCensus = await CensusRealOps.readCountryCensus(countryID: 'egy');
-
-                  _countryCensus.blogCensus();
-
-                },
-              ),
-
-              /// READ CITIES CENSUSES
-              WideButton(
-                verse: Verse.plain('READ CITIES CENSUSES'),
-                onTap: () async {
-
-                  final List<CensusModel> _censuses = await CensusRealOps.readCitiesOfCountryCensus(countryID: 'egy');
-                  CensusModel.blogCensuses(censuses: _censuses);
-
-                },
-              ),
-
-              /// READ CITY CENSUS
-              WideButton(
-                verse: Verse.plain('Read City Census'),
-                onTap: () async {
-
-                  final CensusModel _cityCensus = await CensusRealOps.readCityCensus(cityID: 'egy+cairo');
-                  _cityCensus.blogCensus();
-
-                },
-              ),
-
-              /// READ DISTRICTS CENSUSES
-              WideButton(
-                verse: Verse.plain('READ DISTRICTS CENSUSES'),
-                onTap: () async {
-
-                  final List<CensusModel> _censuses = await CensusRealOps.readDistrictsOfCityCensus(
-                    cityID: 'egy+cairo',
-                  );
-                  CensusModel.blogCensuses(censuses: _censuses);
-
-                },
-              ),
-
-              /// READ DISTRICT CENSUS
-              WideButton(
-                verse: Verse.plain('Read District Census'),
-                onTap: () async {
-
-                  final CensusModel _districtCensus = await CensusRealOps.readDistrictCensus(districtID: 'egy+cairo+giza');
-                  _districtCensus?.blogCensus();
-
-                  if (_districtCensus == null){
-                    blog('NULL');
-                  }
-
-                },
-              ),
-
-
-
-
-              /// SEPARATOR
-              const SeparatorLine(),
-
-            ],
-          ),
-        ),
 
       ],
     );
