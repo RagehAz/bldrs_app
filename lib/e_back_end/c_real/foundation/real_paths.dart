@@ -314,6 +314,7 @@ class RealPath{
   /// CENSUS / PLANET
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static const String getCensusPathOfPlanet = '${RealColl.statistics}/${RealDoc.statistics_planet}';
   // -----------------------------------------------------------------------------
 

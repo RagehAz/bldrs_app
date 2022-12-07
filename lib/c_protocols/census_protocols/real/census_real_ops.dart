@@ -12,10 +12,63 @@ class CensusRealOps {
 
   // -----------------------------------------------------------------------------
 
-  /// READ
+  /// READ PLANET CENSUS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<CensusModel> readPlanetCensus() async {
+    CensusModel _output;
+
+    final Object _object = await Real.readPath(
+      path: RealPath.getCensusPathOfPlanet,
+    );
+
+    if (_object != null){
+
+      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        ihlmoo: _object,
+      );
+
+      if (_map != null){
+        _output = CensusModel.decipher(
+          map: _map,
+          id: 'planet',
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ COUNTRY / COUNTRIES CENSUS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<CensusModel>> readAllCountriesCensus() async {
+
+    List<CensusModel> _output = [];
+
+    final Object _objects = await Real.readPath(
+      path: RealPath.getCensusesPathOfAllCountries(),
+    );
+
+    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+      ihlmoo: _objects,
+      // addChildrenIDs: true, // DEFAULT
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      _output = CensusModel.decipherCensuses(_maps);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> readCountryCensus({
     @required String countryID,
   }) async {
@@ -46,8 +99,38 @@ class CensusRealOps {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// READ CITY / CITIES CENSUS
+
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<List<CensusModel>> readCitiesOfCountryCensus({
+    @required String countryID,
+  }) async {
+    List<CensusModel> _output = <CensusModel>[];
+
+    if (countryID != null){
+
+      final Object _objects = await Real.readPath(
+        path: RealPath.getCensusesPathOfCities(countryID: countryID),
+      );
+
+      final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+        ihlmoo: _objects,
+        // addChildrenIDs: true, // DEFAULT
+      );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+        _output = CensusModel.decipherCensuses(_maps);
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> readCityCensus({
     @required String cityID,
   }) async {
@@ -72,6 +155,36 @@ class CensusRealOps {
           );
         }
 
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ DISTRICT / DISTRICTS CENSUS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<CensusModel>> readDistrictsOfCityCensus({
+    @required String cityID,
+  }) async {
+    List<CensusModel> _output = <CensusModel>[];
+
+    if (cityID != null){
+
+      final Object _objects = await Real.readPath(
+        path: RealPath.getCensusesPathOfDistricts(cityID: cityID),
+      );
+
+      final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
+        ihlmoo: _objects,
+        // addChildrenIDs: true, // DEFAULT
+      );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+        _output = CensusModel.decipherCensuses(_maps);
       }
 
     }
@@ -104,81 +217,6 @@ class CensusRealOps {
           );
         }
 
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<CensusModel>> readAllCountriesCensus() async {
-
-    List<CensusModel> _output = [];
-
-    final Object _objects = await Real.readPath(
-        path: RealPath.getCensusesPathOfAllCountries(),
-    );
-
-    final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
-      ihlmoo: _objects,
-      // addChildrenIDs: true, // DEFAULT
-    );
-
-    if (Mapper.checkCanLoopList(_maps) == true){
-
-      _output = CensusModel.decipherCensuses(_maps);
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<CensusModel>> readCitiesOfCountryCensus({
-    @required String countryID,
-  }) async {
-    List<CensusModel> _output = <CensusModel>[];
-
-    if (countryID != null){
-
-      final Object _objects = await Real.readPath(
-        path: RealPath.getCensusesPathOfCities(countryID: countryID),
-      );
-
-      final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
-        ihlmoo: _objects,
-        // addChildrenIDs: true, // DEFAULT
-      );
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-        _output = CensusModel.decipherCensuses(_maps);
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<CensusModel>> readDistrictsOfCityCensus({
-    @required String cityID,
-  }) async {
-    List<CensusModel> _output = <CensusModel>[];
-
-    if (cityID != null){
-
-      final Object _objects = await Real.readPath(
-        path: RealPath.getCensusesPathOfDistricts(cityID: cityID),
-      );
-
-      final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
-        ihlmoo: _objects,
-        // addChildrenIDs: true, // DEFAULT
-      );
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-        _output = CensusModel.decipherCensuses(_maps);
       }
 
     }
