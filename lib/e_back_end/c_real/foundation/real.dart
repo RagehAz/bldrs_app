@@ -573,6 +573,37 @@ class Real {
 
   }
   // --------------------
+  /// TASK : TEST ME
+  static Future<void> updatePath({
+    @required String path,
+    @required Map<String, dynamic> map,
+  }) async {
+
+    if (path != null && map != null){
+
+      final String _pathWithoutDocName = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+      final String _docName = TextMod.removeTextBeforeLastSpecialCharacter(path, '/');
+
+      if (
+          TextCheck.isEmpty(_pathWithoutDocName) == false
+          &&
+          TextCheck.isEmpty(_docName) == false
+      ){
+
+        await createDocInPath(
+          pathWithoutDocName: _pathWithoutDocName,
+          docName: _docName,
+          addDocIDToOutput: false,
+          map: map,
+        );
+
+      }
+
+    }
+
+
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required String collName,

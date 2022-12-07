@@ -197,6 +197,10 @@
 
  */
 
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
+import 'package:flutter/material.dart';
+
 class RealColl {
   // -----------------------------------------------------------------------------
 
@@ -297,4 +301,115 @@ class RealDoc {
   static const String zones_cities = 'cities';
   static const String zones_districts = 'districts';
   // -----------------------------------------------------------------------------
+  void f(){}
+}
+
+class RealPath{
+  // -----------------------------------------------------------------------------
+
+  const RealPath();
+
+  // -----------------------------------------------------------------------------
+
+  /// CENSUS / PLANET
+
+  // --------------------
+  static const String getCensusPathOfPlanet = '${RealColl.statistics}/${RealDoc.statistics_planet}';
+  // -----------------------------------------------------------------------------
+
+  /// CENSUS / COUNTRIES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getCensusesPathOfAllCountries(){
+    return '${RealColl.statistics}/${RealDoc.statistics_countries}';
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getCensusPathOfCountry({
+    @required String countryID,
+  }){
+
+    if (countryID == null){
+      return null;
+    }
+    else {
+      return '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID';
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CENSUS / CITIES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getCensusesPathOfCities({
+    @required String countryID,
+  }){
+
+    if (countryID == null){
+      return null;
+    }
+
+    else {
+      return '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID';
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getCensusPathOfCity({
+    @required String cityID,
+  }){
+
+    if (cityID == null){
+      return null;
+    }
+
+    else {
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+      return '${RealColl.statistics}/${RealDoc.statistics_cities}/$_countryID/$cityID';
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CENSUS / DISTRICTS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getCensusesPathOfDistricts({
+    @required String cityID,
+  }){
+
+    if (cityID == null){
+      return null;
+    }
+
+    else {
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+      return '${RealColl.statistics}/${RealDoc.statistics_districts}/$_countryID/$cityID';
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getCensusPathOfDistrict({
+    @required String districtID,
+  }){
+
+    if (districtID == null){
+      return null;
+    }
+
+    else {
+      final String _countryID = DistrictModel.getCountryIDFromDistrictID(districtID);
+      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
+      return '${RealColl.statistics}/${RealDoc.statistics_districts}/$_countryID/$_cityID/$districtID';
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  void f(){}
 }
