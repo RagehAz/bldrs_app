@@ -615,6 +615,7 @@ class CensusModel {
   static Map<String, dynamic> createFollowCensusMap({
     @required BzModel bzModel,
     @required bool isIncrementing,
+    int count = 1,
   }){
     Map<String, dynamic> _map = {};
 
@@ -622,7 +623,7 @@ class CensusModel {
 
       if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
 
-        final int _increment = isIncrementing ? 1 : -1;
+        final int _increment = isIncrementing ? count : -count;
 
         for (final BzType bzType in bzModel.bzTypes){
           _map = Mapper.insertPairInMap(
@@ -649,11 +650,12 @@ class CensusModel {
   static Map<String, dynamic> createFlyerSaveCensusMap({
     @required FlyerModel flyerModel,
     @required bool isIncrementing,
+    int count = 1,
   }){
 
     assert(flyerModel != null, 'flyerModel is null');
 
-    final int _increment = isIncrementing ? 1 : -1;
+    final int _increment = isIncrementing ? count : -count;
 
     final Map<String, dynamic> _map = {};
 
@@ -726,6 +728,7 @@ class CensusModel {
   static Map<String, dynamic> createCallCensusMap({
     @required BzModel bzModel,
     @required bool isIncrementing, // WILL ALWAYS BE TRUE
+    int count = 1,
   }){
     Map<String, dynamic> _map = {};
 
@@ -733,7 +736,7 @@ class CensusModel {
 
       if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
 
-        final int _increment = isIncrementing ? 1 : -1;
+        final int _increment = isIncrementing ? count : -count;
 
         for (final BzType bzType in bzModel.bzTypes){
 
