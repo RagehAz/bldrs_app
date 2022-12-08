@@ -3,9 +3,9 @@ import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/location/location_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/b_zone_search_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -121,7 +121,7 @@ class ZoneIDsProtocols {
     @required ZoneModel incompleteZoneModel,
   }) async {
 
-    assert(incompleteZoneModel != null, 'incompleteZoneModel is null');
+    // assert(incompleteZoneModel != null, 'incompleteZoneModel is null');
     // assert(incompleteZoneModel.countryID != null, 'incompleteZoneModel.countryID is null');
 
     /// incomplete zone model is what only has (countryID - cityID - districtID)
