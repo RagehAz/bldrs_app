@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/ldb/a_country_ldb_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/modelling/a_country_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/a_country_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/a_country_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

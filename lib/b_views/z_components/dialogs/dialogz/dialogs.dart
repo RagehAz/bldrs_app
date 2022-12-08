@@ -72,9 +72,7 @@ class Dialogs {
     );
 
   }
-
-
-  // -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
   /// NOTICE
 
@@ -953,7 +951,7 @@ class Dialogs {
   }
 
   // --------------------
-  /// T
+  /// TESTED : WORKS PERFECT
   static Future<bool> slideDialog({
     @required BuildContext context,
     @required SlideModel slideModel,
@@ -996,6 +994,5 @@ class Dialogs {
     return _result;
 
   }
-
 // -----------------------------------------------------------------------------
 }
