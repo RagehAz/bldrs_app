@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
@@ -24,7 +24,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class Formers {
   // -----------------------------------------------------------------------------
 
@@ -471,7 +471,7 @@ class Formers {
     return _message;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String paragraphValidator({
     @required BuildContext context,
     @required String text,
@@ -656,7 +656,7 @@ class Formers {
     return _message;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String pdfValidator({
     @required BuildContext context,
     @required PDFModel pdfModel,

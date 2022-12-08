@@ -3,11 +3,11 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/c_protocols/census_protocols/real/census_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/staging/a_countries_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/staging/b_cities_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/real/staging/b_districts_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/a_countries_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_cities_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_districts_stages_real_ops.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -20,30 +20,21 @@ when to level up a zone
     => when a user create a new bz on the zone
     => Census.totalBzzCount = 1
 
-  - emptyStage <--- bzzStage
-    => Census.totalBzzCount = 0
-
   --------------------------------------
 
   - bzzStage ---> flyersStage
     => Census.totalFlyersCount >= 100
-
-  - bzzStage <--- flyersStage
-    => Census.totalFlyersCount = 0
 
   --------------------------------------
 
   - flyersStage ---> publicStage
     => Census.totalFlyersCount >= 500
 
-  - flyersStage <--- publicStage
-    => Census.totalFlyersCount < 500
-
   --------------------------------------
 
 */
 
-
+/// => TAMAM
 class ZoneLeveller {
     // -----------------------------------------------------------------------------
 
@@ -58,7 +49,7 @@ class ZoneLeveller {
   /// LEVELLERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> levelUpZone({
     @required ZoneModel zoneModel,
   }) async {
@@ -87,7 +78,7 @@ class ZoneLeveller {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCountry({
     @required String countryID,
   }) async {
@@ -153,7 +144,7 @@ class ZoneLeveller {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCity({
     @required String cityID,
   }) async {
@@ -220,6 +211,7 @@ class ZoneLeveller {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _levelUpDistrict({
     @required String districtID,
   }) async {
@@ -290,7 +282,7 @@ class ZoneLeveller {
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool _shouldLevelEmptyToBzzStage(CensusModel census){
 
     if (
@@ -306,7 +298,7 @@ class ZoneLeveller {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool _shouldLevelBzzToFlyersStage(CensusModel census){
 
     if (
@@ -322,7 +314,7 @@ class ZoneLeveller {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool _shouldLevelFlyersToPublicStage(CensusModel census){
 
     if (
