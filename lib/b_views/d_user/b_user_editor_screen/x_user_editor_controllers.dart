@@ -79,7 +79,7 @@ Future<void> loadUserEditorLastSession({
 }) async {
 
   final DraftUser _lastSessionDraft = await UserLDBOps.loadEditorSession(
-    userID: draft.value.id,
+    userID: draft.value?.id,
   );
 
   if (_lastSessionDraft != null){

@@ -2,26 +2,36 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
 
+/// LEARN : https://firebase.google.com/docs/app-check/flutter/debug-provider
+/// TO IMPLEMENT ON IOS AND SEE IF IT WORKS
+///
 class AppCheck {
   // -----------------------------------------------------------------------------
 
   const AppCheck();
 
   // -----------------------------------------------------------------------------
+  /// 8 DEC 2020 : THIS IS THE APP CHECK SECRET : 6fcf8317-e136-4d7f-9078-a34a24ce79b6
+  /// AT THE START OF ANY NEW EMULATOR : SEARCH PRINTED LOG FOR THIS LINE TO GET THE NEW SECRET:-
+  /*
+  Enter this debug secret into the allow list in the Firebase Console for your project
+  */
   /// WILL COME TO YOU LATER
   static Future<void> preInitialize() async {
 
+    /// TRIAL ONE
     // blog('AppCheck INITIALIZATION START');
     await FirebaseAppCheck.instance.activate(
-      // webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-      webRecaptchaSiteKey: Standards.recaptchaSiteKey,
-      androidProvider: kDebugMode ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+      webRecaptchaSiteKey: Standards.recaptchaSiteKey, // 'recaptcha-v3-site-key'
+      androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
     );
     // blog('AppCheck INITIALIZATION END');
+
+
   }
   // --------------------------------------------
   ///
-  static Future<String> getToken() async {
+  static Future<String> getAppCheckToken() async {
     final String appCheckToken = await FirebaseAppCheck.instance.getToken();
     return appCheckToken;
   }

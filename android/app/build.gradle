@@ -67,6 +67,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3'
 //    implementation 'com.google.firebase:firebase-analytics'
+    // USED FOR APP CHECK SHIT
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    /// USED FOR APP CHECK FUCK
+    implementation 'com.google.firebase:firebase-appcheck-playintegrity'
 }
 
 apply plugin: 'com.google.gms.google-services'

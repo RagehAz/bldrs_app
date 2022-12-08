@@ -19,6 +19,8 @@ class CountryTileButton extends StatelessWidget {
     this.width,
     this.height,
     this.censusModel,
+    this.verse,
+    this.verseCentered = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +31,8 @@ class CountryTileButton extends StatelessWidget {
   final double height;
   final bool isActive;
   final CensusModel censusModel;
+  final Verse verse;
+  final bool verseCentered;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({
@@ -70,10 +74,10 @@ class CountryTileButton extends StatelessWidget {
             height: height,
             width: width ?? _buttonWidth,
             icon: Flag.getCountryIcon(countryID),
-            verse: Verse.plain(Flag.getCountryNameByCurrentLang(context: context, countryID: countryID)),
+            verse: verse ?? Verse.plain(Flag.getCountryNameByCurrentLang(context: context, countryID: countryID)),
             color: Colorz.nothing,
             margins: EdgeInsets.zero,
-            verseCentered: true,
+            verseCentered: verseCentered,
             // corners: BorderRadius.zero,
           ),
 

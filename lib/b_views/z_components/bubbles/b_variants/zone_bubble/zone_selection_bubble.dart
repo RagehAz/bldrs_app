@@ -12,8 +12,8 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_poi
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
-import 'package:bldrs/c_protocols/zone_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/provider/zone_provider.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -261,7 +261,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   Future<void> _checkCityHasDistricts() async {
 
     final List<DistrictModel> _cityDistricts = await ZoneProtocols.fetchDistrictsOfCity(
-      cityID: _selectedZone.value.cityID,
+      cityID: _selectedZone.value?.cityID,
     );
 
     /// CITY HAS DISTRICTS
