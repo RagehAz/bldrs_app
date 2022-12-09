@@ -32,7 +32,8 @@ class LDBDoc {
       case LDBDoc.countries: return 'id';
       case LDBDoc.cities: return 'cityID';
       case LDBDoc.districts: return 'id';
-      // -------------
+      case LDBDoc.staging: return 'id';
+    // -------------
       /// PHRASES
       case LDBDoc.mainPhrases: return 'id';
       case LDBDoc.countriesPhrases: return 'id';
@@ -75,6 +76,7 @@ class LDBDoc {
   static const String countries = 'countries';
   static const String cities = 'cities';
   static const String districts = 'districts';
+  static const String staging = 'staging';
   // --------------------
   /// PHRASES
   // all docs include mixed lang phrases with extra primary key of "id_langCodo"
@@ -115,6 +117,7 @@ class LDBDoc {
     countries,
     cities,
     districts,
+    staging,
 
     Verse(text: 'Phrases', translate: false),
     mainPhrases,

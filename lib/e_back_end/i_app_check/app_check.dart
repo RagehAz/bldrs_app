@@ -11,7 +11,8 @@ class AppCheck {
   const AppCheck();
 
   // -----------------------------------------------------------------------------
-  /// 8 DEC 2020 : THIS IS THE APP CHECK SECRET : 6fcf8317-e136-4d7f-9078-a34a24ce79b6
+  /// 8 DEC 2020 : THIS IS THE APP CHECK SECRET : 6dc38317-d40c-489a-9b46-13257524fab7
+  ///                                          ->
   /// AT THE START OF ANY NEW EMULATOR : SEARCH PRINTED LOG FOR THIS LINE TO GET THE NEW SECRET:-
   /*
   Enter this debug secret into the allow list in the Firebase Console for your project

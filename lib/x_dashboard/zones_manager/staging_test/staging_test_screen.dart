@@ -24,7 +24,7 @@ class StagingTestScreen extends StatefulWidget {
 
 class _StagingTestScreenState extends State<StagingTestScreen> {
 
-  ZoneStages _countriesStages;
+  Staging _countriesStages;
   StageType _stageType;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -50,7 +50,7 @@ class _StagingTestScreenState extends State<StagingTestScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final ZoneStages _countriesStagesRead = await ZoneProtocols.readCountriesStages();
+        final Staging _countriesStagesRead = await ZoneProtocols.readCountriesStaging();
 
         setState(() {
           _countriesStages = _countriesStagesRead;
@@ -73,7 +73,7 @@ class _StagingTestScreenState extends State<StagingTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _countries = _countriesStages.getIDsByStage(_stageType);
+    final List<String> _countries = _countriesStages.getIDsByType(_stageType);
 
     final double _clearWidth = Bubble.bubbleWidth(context);
 
@@ -94,19 +94,19 @@ class _StagingTestScreenState extends State<StagingTestScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
 
-                ...List.generate(ZoneStages.zoneStagesList.length, (index){
+                ...List.generate(Staging.zoneStagesList.length, (index){
 
-                  final StageType _type = ZoneStages.zoneStagesList[index];
+                  final StageType _type = Staging.zoneStagesList[index];
                   final bool _isSelected = _stageType == _type;
 
                   return DreamBox(
                     height: 50,
                     width: Scale.getUniformRowItemWidth(
                         context: context,
-                        numberOfItems: ZoneStages.zoneStagesList.length,
+                        numberOfItems: Staging.zoneStagesList.length,
                         boxWidth: _clearWidth,
                     ),
-                    verse: Verse.plain(ZoneStages.cipherStageType(_type)),
+                    verse: Verse.plain(Staging.cipherStageType(_type)),
                     verseScaleFactor: 0.7,
                     color: _isSelected == true ? Colorz.yellow255 : null,
                     onTap: (){

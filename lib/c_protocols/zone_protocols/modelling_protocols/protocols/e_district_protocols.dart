@@ -31,7 +31,7 @@ class DistrictProtocols {
       await Future.wait(<Future>[
 
         /// ADD CITY ID TO CITIES STAGES
-        DistrictsStagesRealOps.updateDistrictStage(
+        DistrictsStagesRealOps.updateDistrictStageType(
           districtID: districtModel.id,
           newType: StageType.emptyStage,
         ),
@@ -145,14 +145,14 @@ class DistrictProtocols {
 
     if (TextCheck.isEmpty(cityID) == false){
 
-      final ZoneStages _districtsStages = await DistrictsStagesRealOps.readDistrictsStages(
+      final Staging _districtsStages = await DistrictsStagesRealOps.readDistrictsStaging(
         cityID: cityID,
       );
 
       if (_districtsStages != null){
 
         _output = await fetchDistrictsOfCityByIDs(
-          districtsIDsOfThisCity: _districtsStages?.getIDsByStage(districtStageType),
+          districtsIDsOfThisCity: _districtsStages?.getIDsByType(districtStageType),
         );
 
       }
@@ -225,13 +225,13 @@ class DistrictProtocols {
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final ZoneStages _citiesStages = await ZoneProtocols.readCitiesStages(
+      final Staging _citiesStages = await ZoneProtocols.readCitiesStaging(
         countryID: countryID,
       );
 
       if (_citiesStages != null){
 
-        final List<String> _citiesIDs = _citiesStages.getIDsByStage(citiesStage);
+        final List<String> _citiesIDs = _citiesStages.getIDsByType(citiesStage);
 
         for (final String cityID in _citiesIDs){
 
