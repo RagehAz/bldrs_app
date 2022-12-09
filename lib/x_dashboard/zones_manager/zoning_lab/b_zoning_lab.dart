@@ -1161,7 +1161,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 // isActive: true,
                 onTap: () async {
 
-                  final Staging _staging = await StagingLDBOps.readStaging(id: 'countries');
+                  final Staging _staging = await StagingLDBOps.readStaging(id: Staging.countriesStagingId);
                   _staging?.blogStaging();
 
                 }
@@ -1174,7 +1174,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   onTap: () async {
 
                     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
-                    await StagingLDBOps.deleteStaging(id: 'countries');
+                    await StagingLDBOps.deleteStaging(id: Staging.countriesStagingId);
                     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   }
@@ -1187,7 +1187,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   onTap: () async {
 
                     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
-                    await StagingLDBOps.deleteStagings(ids: ['countries']);
+                    await StagingLDBOps.deleteStagings(ids: [Staging.countriesStagingId]);
                     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   }

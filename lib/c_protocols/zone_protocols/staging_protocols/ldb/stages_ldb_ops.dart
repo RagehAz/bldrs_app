@@ -21,7 +21,7 @@ class StagingLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.staging,
-      input: staging.toMap(
+      input: staging?.toMap(
         toLDB: true,
       ),
     );
