@@ -94,7 +94,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   Future<void> _loadCountries() async {
 
     /// COUNTRIES STAGES
-    final ZoneStages _countriesStages = await ZoneProtocols.readCountriesStages();
+    final Staging _countriesStages = await ZoneProtocols.readCountriesStaging();
 
     /// SHOWN IDS
     final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(

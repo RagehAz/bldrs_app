@@ -30,7 +30,7 @@ class CityProtocols {
       await Future.wait(<Future>[
 
         /// ADD CITY ID TO CITIES STAGES
-        CitiesStagesRealOps.updateCityStage(
+        CitiesStagesRealOps.updateCityStageType(
           cityID: cityModel.cityID,
           newType: StageType.emptyStage,
         ),
@@ -152,12 +152,12 @@ class CityProtocols {
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final ZoneStages _citiesStages = await CitiesStagesRealOps.readCitiesStages(
+      final Staging _citiesStages = await CitiesStagesRealOps.readCitiesStaging(
         countryID: countryID,
       );
 
       _output = await fetchCitiesOfCountryByIDs(
-        citiesIDsOfThisCountry: _citiesStages?.getIDsByStage(cityStageType),
+        citiesIDsOfThisCountry: _citiesStages?.getIDsByType(cityStageType),
       );
 
     }

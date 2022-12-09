@@ -35,7 +35,7 @@ class EditDistrictScreen extends StatefulWidget {
 
 class _EditDistrictScreenState extends State<EditDistrictScreen> {
   // -----------------------------------------------------------------------------
-  ZoneStages _districtsStages;
+  Staging _districtsStages;
   StageType _districtStageType;
   DistrictModel _districtModel;
   // -----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final ZoneStages _stages = await ZoneProtocols.readDistrictsStages(
+        final Staging _stages = await ZoneProtocols.readDistrictsStaging(
           cityID: widget.zoneModel.cityID,
         );
 
@@ -75,7 +75,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
 
           setState(() {
             _districtsStages = _stages;
-            _districtStageType = _stages.getStageTypeByID(widget.zoneModel.districtID);
+            _districtStageType = _stages.getTypeByID(widget.zoneModel.districtID);
             _districtModel = _district;
           });
 
@@ -113,7 +113,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
 
       if (_go == true){
 
-        final ZoneStages _newStages = await ZoneProtocols.updateDistrictStage(
+        final Staging _newStages = await ZoneProtocols.updateDistrictStageType(
           districtID: widget.zoneModel.districtID,
           newType: type,
         );

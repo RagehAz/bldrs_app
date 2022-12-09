@@ -59,9 +59,9 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
 
-            ...List.generate(ZoneStages.zoneStagesList.length, (index){
+            ...List.generate(Staging.zoneStagesList.length, (index){
 
-              final StageType _type = ZoneStages.zoneStagesList[index];
+              final StageType _type = Staging.zoneStagesList[index];
               final bool _isSelected = stageType == _type;
 
               return DreamBox(
@@ -72,7 +72,7 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
                 color: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
                 verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                 verse: Verse(
-                  text: ZoneStages.cipherStageType(_type),
+                  text: Staging.cipherStageType(_type),
                   translate: false,
                   casing: Casing.capitalizeFirstChar,
                 ),

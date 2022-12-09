@@ -20,7 +20,7 @@ class CitiesStagesRealOps {
   /// TESTED : WORKS PERFECT
   static Future<void> _uploadDCitiesStages({
     @required String countryID,
-    @required ZoneStages citiesStages,
+    @required Staging citiesStages,
   }) async {
 
     if (citiesStages != null && countryID != null){
@@ -29,7 +29,9 @@ class CitiesStagesRealOps {
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_cities}',
         docName: countryID,
         addDocIDToOutput: false,
-        map: citiesStages.toMap(),
+        map: citiesStages.toMap(
+          toLDB: false,
+        ),
       );
 
     }
@@ -79,10 +81,10 @@ class CitiesStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> readCitiesStages({
+  static Future<Staging> readCitiesStaging({
     @required String countryID,
   }) async {
-    ZoneStages _output;
+    Staging _output;
 
     if (TextCheck.isEmpty(countryID) == false){
 
@@ -94,7 +96,10 @@ class CitiesStagesRealOps {
         ihlmoo: _dynamic,
       );
 
-      _output = ZoneStages.decipher(_map);
+      _output = Staging.decipher(
+        map: _map,
+        id: countryID,
+      );
 
     }
 
@@ -106,22 +111,22 @@ class CitiesStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> updateCityStage({
+  static Future<Staging> updateCityStageType({
     @required String cityID,
     @required StageType newType,
   }) async {
 
-    ZoneStages _output;
+    Staging _output;
 
     if (cityID != null && newType != null){
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final ZoneStages _citiesStages = await readCitiesStages(
+      final Staging _citiesStages = await readCitiesStaging(
         countryID: _countryID,
       );
 
-      _output = ZoneStages.insertIDToZoneStages(
-        zoneStages: _citiesStages,
+      _output = Staging.insertIDToStaging(
+        staging: _citiesStages,
         id: cityID,
         newType: newType,
       );
@@ -149,14 +154,14 @@ class CitiesStagesRealOps {
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
-      final ZoneStages _citiesStages = await readCitiesStages(
+      final Staging _citiesStages = await readCitiesStaging(
         countryID: _countryID,
       );
 
       if (_citiesStages != null){
 
-        final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
-          zoneStages: _citiesStages,
+        final Staging _new = Staging.removeIDFromStaging(
+          staging: _citiesStages,
           id: cityID,
         );
 
