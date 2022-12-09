@@ -35,10 +35,10 @@ when to level up a zone
 */
 
 /// => TAMAM
-class ZoneLeveller {
+class StagingLeveller {
     // -----------------------------------------------------------------------------
 
-  const ZoneLeveller();
+  const StagingLeveller();
 
   // -----------------------------------------------------------------------------
   static const int minBzzToGoFromEmptyToBzzStage = 0;
