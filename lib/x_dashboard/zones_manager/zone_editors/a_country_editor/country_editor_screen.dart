@@ -41,7 +41,7 @@ class CountryEditorScreen extends StatefulWidget {
 
 class _CountryEditorScreenState extends State<CountryEditorScreen> {
   // -----------------------------------------------------------------------------
-  ZoneStages _countriesStages;
+  Staging _countriesStages;
   StageType _stageType;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -67,11 +67,11 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final ZoneStages _stages = await ZoneProtocols.readCountriesStages();
+        final Staging _stages = await ZoneProtocols.readCountriesStaging();
 
         setState(() {
           _countriesStages = _stages;
-          _stageType = _stages.getStageTypeByID(widget.countryID);
+          _stageType = _stages.getTypeByID(widget.countryID);
         });
 
         await _triggerLoading(setTo: false);
@@ -106,7 +106,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
       if (_go == true){
 
-        final ZoneStages _newStages = await ZoneProtocols.updateCountryStage(
+        final Staging _newStages = await ZoneProtocols.updateCountryStageType(
           countryID: widget.countryID,
           newType: type,
         );

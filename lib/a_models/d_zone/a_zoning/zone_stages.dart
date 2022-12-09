@@ -85,15 +85,17 @@ enum ZoneViewingEvent {
 // --------------------------------------------------------------------------
 /// => TAMAM
 @immutable
-class ZoneStages {
+class Staging {
   // --------------------------------------------------------------------------
-  const ZoneStages({
+  const Staging({
+    @required this.id,
     @required this.emptyStageIDs,
     @required this.bzzStageIDs,
     @required this.flyersStageIDs,
     @required this.publicStageIDs,
   });
   // --------------------------------------------------------------------------
+  final String id;
   final List<String> emptyStageIDs;
   final List<String> bzzStageIDs;
   final List<String> flyersStageIDs;
@@ -111,8 +113,9 @@ class ZoneStages {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneStages emptyStages(){
-    return const ZoneStages(
+  static Staging emptyStaging(){
+    return const Staging(
+      id: 'emptyStaging',
       emptyStageIDs: [],
       bzzStageIDs: [],
       flyersStageIDs: [],
@@ -125,22 +128,39 @@ class ZoneStages {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap(){
-    return {
-    '1_empty_stage': Stringer.sortAlphabetically2(emptyStageIDs),
-    '2_bzz_stage': Stringer.sortAlphabetically2(bzzStageIDs),
-    '3_flyers_stage': Stringer.sortAlphabetically2(flyersStageIDs),
-    '4_public_stage': Stringer.sortAlphabetically2(publicStageIDs),
+  Map<String, dynamic> toMap({
+    @required bool toLDB,
+  }){
+
+    Map<String, dynamic> _map = {
+      '1_empty_stage': Stringer.sortAlphabetically2(emptyStageIDs),
+      '2_bzz_stage': Stringer.sortAlphabetically2(bzzStageIDs),
+      '3_flyers_stage': Stringer.sortAlphabetically2(flyersStageIDs),
+      '4_public_stage': Stringer.sortAlphabetically2(publicStageIDs),
     };
+
+    if (toLDB) {
+      _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'id',
+          value: id,
+      );
+    }
+
+    return _map;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneStages decipher(Map<String, dynamic> map){
-    ZoneStages _output;
+  static Staging decipher({
+    @required Map<String, dynamic> map,
+    @required String id,
+  }){
+    Staging _output;
 
     if (map != null){
 
-      _output = ZoneStages(
+      _output = Staging(
+        id: map['id'] ?? id,
         emptyStageIDs: Stringer.getStringsFromDynamics(dynamics: map['1_empty_stage']),
         bzzStageIDs: Stringer.getStringsFromDynamics(dynamics: map['2_bzz_stage']),
         flyersStageIDs: Stringer.getStringsFromDynamics(dynamics: map['3_flyers_stage']),
@@ -179,13 +199,15 @@ class ZoneStages {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  ZoneStages copyWith({
+  Staging copyWith({
+    String id,
     List<String> emptyStageIDs,
     List<String> bzzStageIDs,
     List<String> flyersStageIDs,
     List<String> publicStageIDs,
   }) {
-    return ZoneStages(
+    return Staging(
+      id: id ?? this.id,
       emptyStageIDs: emptyStageIDs ?? this.emptyStageIDs,
       bzzStageIDs: bzzStageIDs ?? this.bzzStageIDs,
       flyersStageIDs: flyersStageIDs ?? this.flyersStageIDs,
@@ -194,11 +216,11 @@ class ZoneStages {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  ZoneStages copyListWith({
+  Staging copyListWith({
     @required List<String> newList,
     @required StageType type,
   }){
-    ZoneStages _output = this;
+    Staging _output = this;
 
     if (this != null && newList != null && type != null){
 
@@ -229,7 +251,7 @@ class ZoneStages {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  List<String> getIDsByStage(StageType stageType){
+  List<String> getIDsByType(StageType stageType){
     switch (stageType) {
       case StageType.emptyStage:    return emptyStageIDs;   break;
       case StageType.bzzStage:      return bzzStageIDs;     break;
@@ -240,7 +262,7 @@ class ZoneStages {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  StageType getStageTypeByID(String id){
+  StageType getTypeByID(String id){
 
     if (checkHasID(id: id, zoneStageType: StageType.emptyStage) == true){
       return StageType.emptyStage;
@@ -357,20 +379,20 @@ class ZoneStages {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneStages removeIDFromZoneStage({
+  static Staging removeIDFromStaging({
     @required String id,
-    @required ZoneStages zoneStages,
+    @required Staging staging,
   }){
-    ZoneStages _output = zoneStages;
+    Staging _output = staging;
 
-    if (zoneStages != null && id != null){
+    if (staging != null && id != null){
 
-      final bool _idExists = zoneStages.checkHasID(id: id);
+      final bool _idExists = staging.checkHasID(id: id);
 
       if (_idExists == true){
 
-        final StageType _type = zoneStages.getStageTypeByID(id);
-        final List<String> _oldList = zoneStages.getIDsByStage(_type);
+        final StageType _type = staging.getTypeByID(id);
+        final List<String> _oldList = staging.getIDsByType(_type);
 
         final List<String> _newList = Stringer.removeStringsFromStrings(
             removeFrom: _oldList,
@@ -390,26 +412,26 @@ class ZoneStages {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneStages insertIDToZoneStages({
+  static Staging insertIDToStaging({
     @required String id,
     @required StageType newType,
-    @required ZoneStages zoneStages,
+    @required Staging staging,
   }){
-    ZoneStages _output = zoneStages;
+    Staging _output = staging;
 
-    if (zoneStages != null && id != null){
+    if (staging != null && id != null){
 
 
-      final bool _idExists = zoneStages.checkHasID(id: id);
+      final bool _idExists = staging.checkHasID(id: id);
 
 
       if (_idExists == true){
 
         // print('5 _output : $_output');
 
-        _output = removeIDFromZoneStage(
+        _output = removeIDFromStaging(
           id: id,
-          zoneStages: _output,
+          staging: _output,
         );
 
         // print('6 _output : $_output');
@@ -417,7 +439,7 @@ class ZoneStages {
       }
 
 
-      final List<String> _oldList = zoneStages.getIDsByStage(newType);
+      final List<String> _oldList = staging.getIDsByType(newType);
 
       final List<String> _newList = Stringer.addStringToListIfDoesNotContainIt(
           strings: _oldList,
@@ -455,7 +477,7 @@ class ZoneStages {
     /// CHECK SPECIFIC STAGE
     else {
       return Stringer.checkStringsContainString(
-          strings: getIDsByStage(zoneStageType),
+          strings: getIDsByType(zoneStageType),
           string: id
       );
     }
@@ -467,19 +489,19 @@ class ZoneStages {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkStagesAreIdentical(ZoneStages stage1, ZoneStages stage2){
+  static bool checkStagingsAreIdentical(Staging staging1, Staging staging2){
     bool _identical = false;
 
-    if (stage1 == null && stage2 == null){
+    if (staging1 == null && staging2 == null){
       _identical = true;
     }
 
-    else if (stage1 != null && stage2 != null) {
+    else if (staging1 != null && staging2 != null) {
       if (
-          Mapper.checkListsAreIdentical(list1: stage1.emptyStageIDs, list2: stage2.emptyStageIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: stage1.bzzStageIDs, list2: stage2.bzzStageIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: stage1.flyersStageIDs, list2: stage2.flyersStageIDs) == true &&
-          Mapper.checkListsAreIdentical(list1: stage1.publicStageIDs, list2: stage2.publicStageIDs) == true
+          Mapper.checkListsAreIdentical(list1: staging1.emptyStageIDs, list2: staging2.emptyStageIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: staging1.bzzStageIDs, list2: staging2.bzzStageIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: staging1.flyersStageIDs, list2: staging2.flyersStageIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: staging1.publicStageIDs, list2: staging2.publicStageIDs) == true
       ) {
         _identical = true;
       }
@@ -489,7 +511,7 @@ class ZoneStages {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogStages(){
+  void blogStaging(){
     blog('emptyStage : ${emptyStageIDs.length} : $emptyStageIDs');
     blog('bzzStage : ${bzzStageIDs.length} : $bzzStageIDs');
     blog('flyerStage : ${flyersStageIDs.length} : $flyersStageIDs');
@@ -513,8 +535,8 @@ class ZoneStages {
     }
 
     bool _areIdentical = false;
-    if (other is ZoneStages){
-      _areIdentical = checkStagesAreIdentical(
+    if (other is Staging){
+      _areIdentical = checkStagingsAreIdentical(
         this,
         other,
       );

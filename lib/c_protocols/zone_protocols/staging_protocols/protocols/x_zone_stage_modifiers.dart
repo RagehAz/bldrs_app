@@ -87,8 +87,8 @@ class ZoneLeveller {
 
     if (countryID != null){
 
-      final ZoneStages _countriesStage = await CountriesStagesRealOps.readCountriesStages();
-      final StageType _countryStageType = _countriesStage?.getStageTypeByID(countryID);
+      final Staging _countriesStage = await CountriesStagesRealOps.readCountriesStaging();
+      final StageType _countryStageType = _countriesStage?.getTypeByID(countryID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
       if (_countryStageType != null && _countryStageType != StageType.publicStage){
@@ -104,7 +104,7 @@ class ZoneLeveller {
 
             /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
             if (_shouldLevelEmptyToBzzStage(_countryCensus) == true){
-              await ZoneProtocols.updateCountryStage(
+              await ZoneProtocols.updateCountryStageType(
                 countryID: countryID,
                 newType: StageType.bzzStage,
               );
@@ -116,7 +116,7 @@ class ZoneLeveller {
           else if (_countryStageType == StageType.bzzStage){
 
             if (_shouldLevelBzzToFlyersStage(_countryCensus) == true){
-              await ZoneProtocols.updateCountryStage(
+              await ZoneProtocols.updateCountryStageType(
                 countryID: countryID,
                 newType: StageType.flyersStage,
               );
@@ -128,7 +128,7 @@ class ZoneLeveller {
           else if (_countryStageType == StageType.flyersStage){
 
             if (_shouldLevelFlyersToPublicStage(_countryCensus) == true){
-              await ZoneProtocols.updateCountryStage(
+              await ZoneProtocols.updateCountryStageType(
                 countryID: countryID,
                 newType: StageType.publicStage,
               );
@@ -154,8 +154,8 @@ class ZoneLeveller {
     if (cityID != null){
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final ZoneStages _citiesStages = await CitiesStagesRealOps.readCitiesStages(countryID: _countryID);
-      final StageType _cityStageType = _citiesStages?.getStageTypeByID(cityID);
+      final Staging _citiesStages = await CitiesStagesRealOps.readCitiesStaging(countryID: _countryID);
+      final StageType _cityStageType = _citiesStages?.getTypeByID(cityID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
       if (_cityStageType != null && _cityStageType != StageType.publicStage){
@@ -171,7 +171,7 @@ class ZoneLeveller {
 
             /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
             if (_shouldLevelEmptyToBzzStage(_cityCensus) == true){
-              await ZoneProtocols.updateCityStage(
+              await ZoneProtocols.updateCityStageType(
                 cityID: cityID,
                 newType: StageType.bzzStage,
               );
@@ -183,7 +183,7 @@ class ZoneLeveller {
           else if (_cityStageType == StageType.bzzStage){
 
             if (_shouldLevelBzzToFlyersStage(_cityCensus) == true){
-              await ZoneProtocols.updateCityStage(
+              await ZoneProtocols.updateCityStageType(
                 cityID: cityID,
                 newType: StageType.flyersStage,
               );
@@ -195,7 +195,7 @@ class ZoneLeveller {
           else if (_cityStageType == StageType.flyersStage){
 
             if (_shouldLevelFlyersToPublicStage(_cityCensus) == true){
-              await ZoneProtocols.updateCityStage(
+              await ZoneProtocols.updateCityStageType(
                 cityID: cityID,
                 newType: StageType.publicStage,
               );
@@ -221,8 +221,8 @@ class ZoneLeveller {
     if (districtID != null){
 
       final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
-      final ZoneStages _districtsStages = await DistrictsStagesRealOps.readDistrictsStages(cityID: _cityID);
-      final StageType _districtStageType = _districtsStages?.getStageTypeByID(districtID);
+      final Staging _districtsStages = await DistrictsStagesRealOps.readDistrictsStaging(cityID: _cityID);
+      final StageType _districtStageType = _districtsStages?.getTypeByID(districtID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
       if (_districtStageType != null && _districtStageType != StageType.publicStage){
@@ -238,7 +238,7 @@ class ZoneLeveller {
 
             /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
             if (_shouldLevelEmptyToBzzStage(_districtCensus) == true){
-              await ZoneProtocols.updateDistrictStage(
+              await ZoneProtocols.updateDistrictStageType(
                 districtID: districtID,
                 newType: StageType.bzzStage,
               );
@@ -250,7 +250,7 @@ class ZoneLeveller {
           else if (_districtStageType == StageType.bzzStage){
 
             if (_shouldLevelBzzToFlyersStage(_districtCensus) == true){
-              await ZoneProtocols.updateDistrictStage(
+              await ZoneProtocols.updateDistrictStageType(
                 districtID: districtID,
                 newType: StageType.flyersStage,
               );
@@ -262,7 +262,7 @@ class ZoneLeveller {
           else if (_districtStageType == StageType.flyersStage){
 
             if (_shouldLevelFlyersToPublicStage(_districtCensus) == true){
-              await ZoneProtocols.updateDistrictStage(
+              await ZoneProtocols.updateDistrictStageType(
                 districtID: districtID,
                 newType: StageType.publicStage,
               );

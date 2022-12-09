@@ -13,7 +13,7 @@ class CountryModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final ZoneStages citiesIDs;
+  final Staging citiesIDs;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -22,7 +22,7 @@ class CountryModel {
   /// TESTED : WORKS PERFECT
   CountryModel copyWith({
     String id,
-    ZoneStages citiesIDs,
+    Staging citiesIDs,
   }){
     return CountryModel(
       id: id ?? this.id,
@@ -35,10 +35,14 @@ class CountryModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({
+    @required bool toLDB,
+  }) {
     return <String, dynamic>{
       'id': id,
-      'citiesIDs': citiesIDs?.toMap(),
+      'citiesIDs': citiesIDs?.toMap(
+        toLDB: toLDB,
+      ),
     };
   }
   // --------------------
@@ -52,7 +56,10 @@ class CountryModel {
 
       _countryModel = CountryModel(
         id: map['id'],
-        citiesIDs: ZoneStages.decipher(map['citiesIDs']),
+        citiesIDs: Staging.decipher(
+          id: map['id'],
+          map: map['citiesIDs'],
+        ),
       );
     }
 
@@ -87,7 +94,7 @@ class CountryModel {
     blog('$invoker ------------------------------------------- START');
 
     blog('  id : $id');
-    citiesIDs?.blogStages();
+    citiesIDs?.blogStaging();
 
     blog('$invoker ------------------------------------------- END');
   }
@@ -137,7 +144,7 @@ class CountryModel {
     else if (country1 != null && country2 != null) {
       if (
           country1.id == country2.id &&
-          ZoneStages.checkStagesAreIdentical(country1.citiesIDs, country2.citiesIDs) == true
+          Staging.checkStagingsAreIdentical(country1.citiesIDs, country2.citiesIDs) == true
       ) {
         _identical = true;
       }

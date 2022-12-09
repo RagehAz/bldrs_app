@@ -114,7 +114,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       incompleteZoneModel: _currentZone.value,
     );
 
-    final ZoneStages _districtsStages = await ZoneProtocols.readDistrictsStages(
+    final Staging _districtsStages = await ZoneProtocols.readDistrictsStaging(
       cityID: widget.city.cityID,
     );
 
