@@ -42,7 +42,7 @@ class EditCityScreen extends StatefulWidget {
 
 class _EditCityScreenState extends State<EditCityScreen> {
   // -----------------------------------------------------------------------------
-  ZoneStages _citiesStages;
+  Staging _citiesStages;
   StageType _cityStageType;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -69,13 +69,13 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final ZoneStages _stages = await ZoneProtocols.readCitiesStages(
+        final Staging _stages = await ZoneProtocols.readCitiesStaging(
           countryID: widget.zoneModel.countryID,
         );
 
         setState(() {
           _citiesStages = _stages;
-          _cityStageType = _stages.getStageTypeByID(widget.zoneModel.cityID);
+          _cityStageType = _stages.getTypeByID(widget.zoneModel.cityID);
         });
 
         await _triggerLoading(setTo: false);
@@ -110,7 +110,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
       if (_go == true){
 
-        final ZoneStages _newStages = await ZoneProtocols.updateCityStage(
+        final Staging _newStages = await ZoneProtocols.updateCityStageType(
           cityID: widget.zoneModel.cityID,
           newType: type,
         );
@@ -140,7 +140,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
     if (_go == true){
 
-      await ZoneProtocols.resetDistrictsStages(
+      await ZoneProtocols.resetDistrictsStaging(
         cityID: widget.zoneModel.cityID,
       );
 

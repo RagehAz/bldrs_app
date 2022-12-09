@@ -89,7 +89,7 @@ class DistrictsStagesRealOps {
   /// TESTED : WORKS PERFECT
   static Future<void> _uploadDistrictsStages({
     @required String cityID,
-    @required ZoneStages districtsStages,
+    @required Staging districtsStages,
   }) async {
 
     if (districtsStages != null && cityID != null){
@@ -100,7 +100,9 @@ class DistrictsStagesRealOps {
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_districts}/$_countryID',
         docName: cityID,
         addDocIDToOutput: false,
-        map: districtsStages.toMap(),
+        map: districtsStages.toMap(
+          toLDB: false,
+        ),
       );
 
     }
@@ -108,11 +110,11 @@ class DistrictsStagesRealOps {
 }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> resetDistrictsStages({
+  static Future<Staging> resetDistrictsStaging({
     @required String cityID,
   }) async {
 
-    ZoneStages _stages;
+    Staging _stages;
 
     if (cityID != null){
 
@@ -128,7 +130,8 @@ class DistrictsStagesRealOps {
 
 
         final List<String> _districtsIDs = DistrictModel.getDistrictsIDs(_districts);
-        _stages = ZoneStages(
+        _stages = Staging(
+            id: cityID,
             emptyStageIDs: _districtsIDs,
             bzzStageIDs: null,
             flyersStageIDs: null,
@@ -152,10 +155,10 @@ class DistrictsStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> readDistrictsStages({
+  static Future<Staging> readDistrictsStaging({
     @required String cityID,
   }) async {
-    ZoneStages _output;
+    Staging _output;
 
     if (TextCheck.isEmpty(cityID) == false){
 
@@ -169,7 +172,10 @@ class DistrictsStagesRealOps {
         ihlmoo: _dynamic,
       );
 
-      _output = ZoneStages.decipher(_map);
+      _output = Staging.decipher(
+        id: cityID,
+        map: _map,
+      );
 
     }
 
@@ -181,18 +187,18 @@ class DistrictsStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> updateDistrictStage({
+  static Future<Staging> updateDistrictStageType({
     @required String districtID,
     @required StageType newType,
   }) async {
 
-    ZoneStages _output;
+    Staging _output;
 
     if (districtID != null && newType != null){
 
       final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
 
-      ZoneStages _districtsStages = await readDistrictsStages(
+      Staging _districtsStages = await readDistrictsStaging(
         cityID: _cityID,
       );
 
@@ -214,7 +220,7 @@ class DistrictsStagesRealOps {
         }
         else {
 
-          _districtsStages = ZoneStages.emptyStages();
+          _districtsStages = Staging.emptyStaging();
 
         }
 
@@ -224,8 +230,8 @@ class DistrictsStagesRealOps {
 
         // _districtsStages.blogStages();
 
-        _output = ZoneStages.insertIDToZoneStages(
-          zoneStages: _districtsStages,
+        _output = Staging.insertIDToStaging(
+          staging: _districtsStages,
           id: districtID,
           newType: newType,
         );
@@ -257,14 +263,14 @@ class DistrictsStagesRealOps {
 
       final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
 
-      final ZoneStages _districtsStages = await readDistrictsStages(
+      final Staging _districtsStages = await readDistrictsStaging(
         cityID: _cityID,
       );
 
       if (_districtsStages != null){
 
-        final ZoneStages _new = ZoneStages.removeIDFromZoneStage(
-          zoneStages: _districtsStages,
+        final Staging _new = Staging.removeIDFromStaging(
+          staging: _districtsStages,
           id: districtID,
         );
 

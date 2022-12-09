@@ -71,7 +71,7 @@ class CountriesStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> readCountriesStages() async {
+  static Future<Staging> readCountriesStaging() async {
 
     final dynamic _dynamic = await Real.readPath(
       path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
@@ -81,7 +81,11 @@ class CountriesStagesRealOps {
       ihlmoo: _dynamic,
     );
 
-    return ZoneStages.decipher(_map);
+    return Staging.decipher(
+      map: _map,
+      id: 'countries',
+    );
+
   }
   // -----------------------------------------------------------------------------
 
@@ -89,19 +93,19 @@ class CountriesStagesRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneStages> updateCountryStage({
+  static Future<Staging> updateCountryStageType({
     @required String countryID,
     @required StageType newType,
   }) async {
 
-    ZoneStages _output;
+    Staging _output;
 
     if (countryID != null && newType != null){
 
-      final ZoneStages _countriesStages = await readCountriesStages();
+      final Staging _countriesStages = await readCountriesStaging();
 
-      _output = ZoneStages.insertIDToZoneStages(
-        zoneStages: _countriesStages,
+      _output = Staging.insertIDToStaging(
+        staging: _countriesStages,
         id: countryID,
         newType: newType,
       );
@@ -110,7 +114,9 @@ class CountriesStagesRealOps {
         pathWithoutDocName: RealColl.zones,
         docName: RealDoc.zones_stages_countries,
         addDocIDToOutput: false,
-        map: _output.toMap(),
+        map: _output.toMap(
+          toLDB: false,
+        ),
       );
 
     }

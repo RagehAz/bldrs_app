@@ -34,6 +34,17 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 /*
 
+tech
+15'900 Dirhams
+650 establishment fees
+3500 processing / 2 years
+
+free zone
+17900 dirhams
+2200 establishment fees
+2500 professional fees
+ = 150'000 EGP
+
 malak2817
 
 28 17 90 3030

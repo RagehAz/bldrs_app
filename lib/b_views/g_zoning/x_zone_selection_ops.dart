@@ -185,12 +185,12 @@ class ZoneSelection {
     );
 
     /// CHECK CITY HAS DISTRICTS
-    final ZoneStages _cityDistrictsStages = await ZoneProtocols.readDistrictsStages(
+    final Staging _cityDistrictsStages = await ZoneProtocols.readDistrictsStaging(
       cityID: cityID,
     );
 
     /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
-    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByStage(null)) == true;
+    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByType(null)) == true;
 
     /// Go back (2 steps) + pass zone with countryID & cityID
     if (depth == ZoneDepth.city || _cityHasDistricts == false){

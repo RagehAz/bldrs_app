@@ -53,7 +53,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
   List<String> _shownCitiesIDs = <String>[];
-  ZoneStages _stages;
+  Staging _stages;
   // --------------------
   List<CensusModel> _censuses;
   // -----------------------------------------------------------------------------
@@ -122,7 +122,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         incompleteZoneModel: _currentZone.value,
       );
 
-      final ZoneStages _citiesStages = await ZoneProtocols.readCitiesStages(
+      final Staging _citiesStages = await ZoneProtocols.readCitiesStaging(
         countryID: widget.countryID,
       );
 

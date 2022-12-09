@@ -545,7 +545,7 @@ class Numeric {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double degreeToRadian(double degree){
+  static double  degreeToRadian(double degree){
     /// remember that dart starts from angle 0 on the right,, rotates clockWise when
     /// incrementing the angle degree,, while rotates counter clockwise when decrementing
     /// the angle degree.

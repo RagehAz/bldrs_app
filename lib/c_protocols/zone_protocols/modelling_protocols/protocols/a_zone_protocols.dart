@@ -48,9 +48,9 @@ class ZoneProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const readCountriesStages = CountriesStagesRealOps.readCountriesStages;
+  static const readCountriesStaging = CountriesStagesRealOps.readCountriesStaging;
   /// TESTED : WORKS PERFECT
-  static const updateCountryStage = CountriesStagesRealOps.updateCountryStage;
+  static const updateCountryStageType = CountriesStagesRealOps.updateCountryStageType;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -80,9 +80,9 @@ class ZoneProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const readCitiesStages = CitiesStagesRealOps.readCitiesStages;
+  static const readCitiesStaging = CitiesStagesRealOps.readCitiesStaging;
   /// TESTED : WORKS PERFECT
-  static const updateCityStage = CitiesStagesRealOps.updateCityStage;
+  static const updateCityStageType = CitiesStagesRealOps.updateCityStageType;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -112,11 +112,11 @@ class ZoneProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static const readDistrictsStages = DistrictsStagesRealOps.readDistrictsStages;
+  static const readDistrictsStaging = DistrictsStagesRealOps.readDistrictsStaging;
   /// TESTED : WORKS PERFECT
-  static const updateDistrictStage = DistrictsStagesRealOps.updateDistrictStage;
+  static const updateDistrictStageType = DistrictsStagesRealOps.updateDistrictStageType;
   /// TESTED : WORKS PERFECT
-  static const resetDistrictsStages = DistrictsStagesRealOps.resetDistrictsStages;
+  static const resetDistrictsStaging = DistrictsStagesRealOps.resetDistrictsStaging;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
