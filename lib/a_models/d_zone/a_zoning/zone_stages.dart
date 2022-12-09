@@ -105,6 +105,8 @@ class Staging {
   /// CONSTANTS
 
   // --------------------
+  static const String countriesStagingId = 'countries';
+
   static const List<StageType> zoneStagesList = <StageType>[
     StageType.emptyStage,
     StageType.bzzStage,
