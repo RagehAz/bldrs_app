@@ -16,6 +16,8 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -67,7 +69,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final Staging _stages = await ZoneProtocols.readCountriesStaging();
+        final Staging _stages = await StagingProtocols.fetchCountriesStaging();
 
         setState(() {
           _countriesStages = _stages;
@@ -106,9 +108,10 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
 
       if (_go == true){
 
-        final Staging _newStages = await ZoneProtocols.updateCountryStageType(
+        final Staging _newStages = await StagingLeveller.changeCountryStageType(
           countryID: widget.countryID,
           newType: type,
+          oldCountriesStaging: _countriesStages,
         );
 
         setState(() {

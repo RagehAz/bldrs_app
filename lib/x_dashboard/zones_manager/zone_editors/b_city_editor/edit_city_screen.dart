@@ -15,6 +15,8 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -69,7 +71,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final Staging _stages = await ZoneProtocols.readCitiesStaging(
+        final Staging _stages = await StagingProtocols.fetchCitiesStaging(
           countryID: widget.zoneModel.countryID,
         );
 
@@ -110,7 +112,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
       if (_go == true){
 
-        final Staging _newStages = await ZoneProtocols.updateCityStageType(
+        final Staging _newStages = await StagingLeveller.changeCityStageType(
           cityID: widget.zoneModel.cityID,
           newType: type,
         );
@@ -140,7 +142,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
 
     if (_go == true){
 
-      await ZoneProtocols.resetDistrictsStaging(
+      await StagingProtocols.resetDistrictsStaging(
         cityID: widget.zoneModel.cityID,
       );
 

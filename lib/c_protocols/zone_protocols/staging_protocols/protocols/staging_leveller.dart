@@ -3,11 +3,13 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/a_countries_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_cities_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_districts_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 /*
@@ -87,7 +89,7 @@ class StagingLeveller {
 
     if (countryID != null){
 
-      final Staging _countriesStage = await CountriesStagesRealOps.readCountriesStaging();
+      final Staging _countriesStage = await StagingProtocols.refetchCountiesStaging();
       final StageType _countryStageType = _countriesStage?.getTypeByID(countryID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
@@ -104,7 +106,8 @@ class StagingLeveller {
 
             /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
             if (_shouldLevelEmptyToBzzStage(_countryCensus) == true){
-              await ZoneProtocols.updateCountryStageType(
+              await changeCountryStageType(
+                oldCountriesStaging: _countriesStage,
                 countryID: countryID,
                 newType: StageType.bzzStage,
               );
@@ -116,7 +119,8 @@ class StagingLeveller {
           else if (_countryStageType == StageType.bzzStage){
 
             if (_shouldLevelBzzToFlyersStage(_countryCensus) == true){
-              await ZoneProtocols.updateCountryStageType(
+              await changeCountryStageType(
+                oldCountriesStaging: _countriesStage,
                 countryID: countryID,
                 newType: StageType.flyersStage,
               );
@@ -128,7 +132,8 @@ class StagingLeveller {
           else if (_countryStageType == StageType.flyersStage){
 
             if (_shouldLevelFlyersToPublicStage(_countryCensus) == true){
-              await ZoneProtocols.updateCountryStageType(
+              await changeCountryStageType(
+                oldCountriesStaging: _countriesStage,
                 countryID: countryID,
                 newType: StageType.publicStage,
               );
@@ -145,6 +150,32 @@ class StagingLeveller {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<Staging> changeCountryStageType({
+    @required String countryID,
+    @required StageType newType,
+    @required Staging oldCountriesStaging,
+  }) async {
+
+    Staging _output;
+
+    if (countryID != null && newType != null && oldCountriesStaging != null){
+
+      _output = Staging.insertIDToStaging(
+        staging: oldCountriesStaging,
+        id: countryID,
+        newType: newType,
+      );
+
+      await StagingProtocols.renovateCountriesStaging(
+        newStaging: _output,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCity({
     @required String cityID,
   }) async {
@@ -154,7 +185,9 @@ class StagingLeveller {
     if (cityID != null){
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final Staging _citiesStages = await CitiesStagesRealOps.readCitiesStaging(countryID: _countryID);
+      final Staging _citiesStages = await StagingProtocols.refetchCitiesStaging(
+          countryID: _countryID,
+      );
       final StageType _cityStageType = _citiesStages?.getTypeByID(cityID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
@@ -171,7 +204,7 @@ class StagingLeveller {
 
             /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
             if (_shouldLevelEmptyToBzzStage(_cityCensus) == true){
-              await ZoneProtocols.updateCityStageType(
+              await changeCityStageType(
                 cityID: cityID,
                 newType: StageType.bzzStage,
               );
@@ -183,7 +216,7 @@ class StagingLeveller {
           else if (_cityStageType == StageType.bzzStage){
 
             if (_shouldLevelBzzToFlyersStage(_cityCensus) == true){
-              await ZoneProtocols.updateCityStageType(
+              await changeCityStageType(
                 cityID: cityID,
                 newType: StageType.flyersStage,
               );
@@ -195,7 +228,7 @@ class StagingLeveller {
           else if (_cityStageType == StageType.flyersStage){
 
             if (_shouldLevelFlyersToPublicStage(_cityCensus) == true){
-              await ZoneProtocols.updateCityStageType(
+              await changeCityStageType(
                 cityID: cityID,
                 newType: StageType.publicStage,
               );
@@ -212,6 +245,40 @@ class StagingLeveller {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<Staging> changeCityStageType({
+    @required String cityID,
+    @required StageType newType,
+  }) async {
+
+    Staging _output;
+
+    if (cityID != null && newType != null){
+
+      final Staging _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
+          countryID: CityModel.getCountryIDFromCityID(cityID),
+      );
+
+      if (_oldCitiesStaging != null){
+
+        _output = Staging.insertIDToStaging(
+          staging: _oldCitiesStaging,
+          id: cityID,
+          newType: newType,
+        );
+
+        await StagingProtocols.renovateCitiesStaging(
+          newStaging: _output,
+        );
+
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _levelUpDistrict({
     @required String districtID,
   }) async {
@@ -221,7 +288,9 @@ class StagingLeveller {
     if (districtID != null){
 
       final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
-      final Staging _districtsStages = await DistrictsStagesRealOps.readDistrictsStaging(cityID: _cityID);
+      final Staging _districtsStages = await StagingProtocols.refetchDistrictsStaging(
+          cityID: _cityID,
+      );
       final StageType _districtStageType = _districtsStages?.getTypeByID(districtID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
@@ -238,7 +307,7 @@ class StagingLeveller {
 
             /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
             if (_shouldLevelEmptyToBzzStage(_districtCensus) == true){
-              await ZoneProtocols.updateDistrictStageType(
+              await changeDistrictStageType(
                 districtID: districtID,
                 newType: StageType.bzzStage,
               );
@@ -250,7 +319,7 @@ class StagingLeveller {
           else if (_districtStageType == StageType.bzzStage){
 
             if (_shouldLevelBzzToFlyersStage(_districtCensus) == true){
-              await ZoneProtocols.updateDistrictStageType(
+              await changeDistrictStageType(
                 districtID: districtID,
                 newType: StageType.flyersStage,
               );
@@ -262,7 +331,7 @@ class StagingLeveller {
           else if (_districtStageType == StageType.flyersStage){
 
             if (_shouldLevelFlyersToPublicStage(_districtCensus) == true){
-              await ZoneProtocols.updateDistrictStageType(
+              await changeDistrictStageType(
                 districtID: districtID,
                 newType: StageType.publicStage,
               );
@@ -276,6 +345,68 @@ class StagingLeveller {
 
     }
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Staging> changeDistrictStageType({
+    @required String districtID,
+    @required StageType newType,
+  }) async {
+
+    Staging _output;
+
+    if (districtID != null && newType != null){
+
+      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
+
+      _output = await StagingProtocols.fetchDistrictsStaging(
+          cityID: _cityID,
+      );
+
+      /// DISTRICTS STAGES MIGHT BE NULL IF NO DISTRICTS ARE THERE YET,,
+      if (_output == null){
+
+        final List<DistrictModel> _districts = await ZoneProtocols.fetchDistrictsOfCity(
+          cityID: _cityID,
+        );
+
+        if (Mapper.checkCanLoopList(_districts) == true){
+
+          await Dialogs.errorDialog(
+            context: BldrsAppStarter.navigatorKey.currentContext,
+            titleVerse: Verse.plain('Something is seriously going wrong here'),
+            bodyVerse: Verse.plain('District stages have not been updated,,, take care !'),
+          );
+
+        }
+
+        else {
+          _output = Staging.emptyStaging();
+        }
+
+      }
+
+      if (_output != null){
+
+        // _districtsStages.blogStages();
+
+        _output = Staging.insertIDToStaging(
+          staging: _output,
+          id: districtID,
+          newType: newType,
+        );
+
+        // _output.blogStages();
+
+        await StagingProtocols.renovateDistrictsStaging(
+          newStaging: _output,
+        );
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -330,4 +461,5 @@ class StagingLeveller {
 
   }
   // -----------------------------------------------------------------------------
+  void f(){}
 }
