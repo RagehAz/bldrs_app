@@ -213,7 +213,7 @@ class LDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteMaps ({
     @required List<String> ids,
     @required String docName,

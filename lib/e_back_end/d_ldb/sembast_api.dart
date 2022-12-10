@@ -590,7 +590,7 @@ class Sembast  {
           finder: _finder,
         );
 
-        // blog('Sembast : deleteMap : $docName : $_primaryKey : $objectID');
+        blog('Sembast : deleteMap : $docName : $_primaryKey : $objectID');
 
       }
 

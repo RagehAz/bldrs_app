@@ -22,7 +22,7 @@ class CensusProtocols {
   /// FETCH PLANET CENSUS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> fetchPlanetCensus() async {
 
     CensusModel _output = await CensusLDBOps.readCensus(
@@ -50,7 +50,7 @@ class CensusProtocols {
   /// FETCH COUNTRIES CENSUSES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> fetchCountriesCensusesByIDs({
     @required List<String> countriesIDs,
   }) async {
@@ -80,7 +80,7 @@ class CensusProtocols {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> refetchAllAvailableCountriesCensuses() async {
 
     final List<CensusModel> _output = await CensusRealOps.readAllCountriesCensuses();
@@ -100,7 +100,7 @@ class CensusProtocols {
   /// FETCH COUNTRY CENSUS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> fetchCountryCensus({
     @required String countryID,
   }) async {
@@ -133,7 +133,7 @@ class CensusProtocols {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> refetchCountryCensus({
     @required String countryID,
   }) async {
@@ -268,14 +268,115 @@ class CensusProtocols {
   /// FETCH DISTRICTS CENSUSES
 
   // --------------------
-  static Future<CensusModel> fetchDistrictsOfCityCensuses() async {
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> fetchDistrictsCensuses({
+    @required List<String> districtsIDs,
+  }) async {
+    final List<CensusModel> _output = <CensusModel>[];
 
+    if (Mapper.checkCanLoopList(districtsIDs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(districtsIDs.length, (index){
+
+          return fetchDistrictCensus(
+            districtID: districtsIDs[index],
+          ).then((CensusModel census){
+
+            if (census != null){
+              _output.add(census);
+            }
+
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    return _output;
   }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> refetchAllAvailableDistrictsOfCityCensuses({
+    @required String cityID,
+  }) async {
+    List<CensusModel> _output = <CensusModel>[];
 
-  static Future<CensusModel> fetchDistrictCensus() async {
+    if (cityID != null){
 
+      _output = await CensusRealOps.readDistrictsOfCityCensus(
+          cityID: cityID
+      );
+
+      if (Mapper.checkCanLoopList(_output) == true){
+
+        await CensusLDBOps.insertCensuses(
+            censuses: _output,
+        );
+
+      }
+
+    }
+
+    return _output;
   }
+  // -----------------------------------------------------------------------------
 
+  /// FETCH DISTRICT CENSUS
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<CensusModel> fetchDistrictCensus({
+    @required String districtID,
+  }) async {
+    CensusModel _output;
+
+    if (districtID != null){
+
+      _output = await CensusLDBOps.readCensus(
+          id: districtID,
+      );
+
+      if (_output == null){
+
+        _output = await CensusRealOps.readDistrictCensus(
+            districtID: districtID
+        );
+
+        if (_output != null){
+          await CensusLDBOps.insertCensus(
+              census: _output,
+          );
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<CensusModel> refetchDistrictCensus({
+    @required String districtID,
+  }) async {
+    CensusModel _output;
+
+    if (districtID != null){
+
+      await CensusLDBOps.deleteCensus(id: districtID);
+
+      _output = await fetchDistrictCensus(
+          districtID: districtID
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// RENOVATE

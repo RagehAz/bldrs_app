@@ -11,17 +11,17 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -96,7 +96,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
     CensusModel _output;
 
     if (_zone == null){
-      _output = await CensusRealOps.readPlanetCensus();
+      _output = await CensusProtocols.fetchPlanetCensus();
     }
 
     else {
@@ -106,15 +106,15 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
       }
 
       else if (_zoneDepth == ZoneDepth.country){
-        _output = await CensusRealOps.readCountryCensus(countryID: _zone.countryID);
+        _output = await CensusProtocols.fetchCountryCensus(countryID: _zone.countryID);
       }
 
       else if (_zoneDepth == ZoneDepth.city){
-        _output = await CensusRealOps.readCityCensus(cityID: _zone.cityID);
+        _output = await CensusProtocols.fetchCityCensus(cityID: _zone.cityID);
       }
 
       else if (_zoneDepth == ZoneDepth.district){
-        _output = await CensusRealOps.readDistrictCensus(districtID: _zone.districtID);
+        _output = await CensusProtocols.fetchDistrictCensus(districtID: _zone.districtID);
       }
 
 
