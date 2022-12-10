@@ -2,7 +2,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/compose_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/fetch_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/renovate_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/wipe_users.dart';
-
+/// => TAMAM
 class UserProtocols {
   // -----------------------------------------------------------------------------
 
@@ -62,7 +62,7 @@ class UserProtocols {
   /// WIPE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const wipeUser = WipeUserProtocols.wipeMyUser;
   // -----------------------------------------------------------------------------
 }
