@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -110,7 +110,9 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
 
     /// CENSUS
-    final List<CensusModel> _countriesCensuses = await CensusRealOps.readAllCountriesCensuses();
+    final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
+        countriesIDs: [...?_shownIDs, ...?_notShownIDs],
+    );
 
     if (mounted) {
       setState(() {

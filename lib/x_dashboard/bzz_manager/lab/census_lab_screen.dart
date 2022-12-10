@@ -6,10 +6,14 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.d
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -156,7 +160,6 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
             ],
           ),
         ),
-
 
         /// CENSUS TESTING
         PageBubble(
@@ -481,6 +484,111 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   await CensusListener.scanAllDBAndCreateInitialCensuses(
                     context: context,
                   );
+
+                },
+              ),
+
+              // -----------------------------------
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+            ],
+          ),
+        ),
+
+        /// CENSUS PROTOCOLS
+        PageBubble(
+          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+          appBarType: _appBarType,
+          color: Colorz.white20,
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            children: <Widget>[
+
+              /// HEADLINE
+              SuperHeadline(
+                verse: Verse.plain('Census Protocols'),
+              ),
+
+              // -----------------------------------
+
+              /// ON FETCH PLANET CENSUS
+              WideButton(
+                verse: Verse.plain('FETCH planet census'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                  final CensusModel _census = await CensusProtocols.fetchPlanetCensus();
+                  _census.blogCensus();
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              // -----------------------------------
+
+              /// FETCH COUNTRIES CENSUSES
+              WideButton(
+                verse: Verse.plain('FETCH Countries censuses by IDs'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                  final List<CensusModel> _censuses = await CensusProtocols.fetchCountriesCensusesByIDs(
+                      countriesIDs: ['egy', 'kwt'],
+                  );
+                  CensusModel.blogCensuses(censuses: _censuses);
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+
+
+                },
+              ),
+
+              /// REFETCH COUNTRIES CENSUSES
+              WideButton(
+                verse: Verse.plain('REFETCH all available Countries censuses by IDs'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                  final List<CensusModel> _censuses = await CensusProtocols.refetchAllAvailableCountriesCensuses();
+                  CensusModel.blogCensuses(censuses: _censuses);
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+
+
+                },
+              ),
+
+
+              /// REFETCH COUNTRY CENSUSES
+              WideButton(
+                verse: Verse.plain('REFETCH Country Census'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                  await CensusProtocols.refetchCountryCensus(countryID: 'egy');
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// DELETE MAPS SEMBAST OP
+              WideButton(
+                verse: Verse.plain('SEMBAST DELETE MAPs'),
+                onTap: () async {
+
+                  await LDBOps.deleteMaps(
+                      ids: ['egy', 'kwt'],
+                      docName: LDBDoc.census,
+                  );
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 
                 },
               ),
