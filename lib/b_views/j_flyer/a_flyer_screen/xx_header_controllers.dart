@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -337,7 +337,7 @@ Future<void> onCallTap({
               ),
 
               /// CENSUS
-              CensusProtocols.onCallBz(
+              CensusListener.onCallBz(
                 bzModel: bzModel,
               ),
 
