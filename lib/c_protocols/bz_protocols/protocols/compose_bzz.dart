@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -89,7 +89,7 @@ class ComposeBzProtocols {
       ),
 
       /// CENSUS
-      CensusProtocols.onComposeBz(_bzModel),
+      CensusListener.onComposeBz(_bzModel),
 
       /// ADD NEW BZ LOCALLY
       _addMyNewCreatedBzLocally(

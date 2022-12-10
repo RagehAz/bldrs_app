@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -292,7 +292,7 @@ class WipeUserProtocols {
       ),
 
       /// UPDATE USER CENSUS
-      CensusProtocols.onWipeUser(userModel),
+      CensusListener.onWipeUser(userModel),
 
     ]);
 

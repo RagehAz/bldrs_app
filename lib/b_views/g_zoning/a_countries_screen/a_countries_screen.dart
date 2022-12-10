@@ -110,7 +110,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
 
     /// CENSUS
-    final List<CensusModel> _countriesCensuses = await CensusRealOps.readAllCountriesCensus();
+    final List<CensusModel> _countriesCensuses = await CensusRealOps.readAllCountriesCensuses();
 
     if (mounted) {
       setState(() {

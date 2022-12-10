@@ -270,6 +270,7 @@ class LDBOps {
     bool cities = true,
     bool districts = true,
     bool staging = true,
+    bool census = true,
     /// PHRASES
     bool mainPhrases = true,
     bool countriesPhrases = true,
@@ -298,6 +299,7 @@ class LDBOps {
     /// CHAINS
     if (bldrsChains == true) {_docs.add(LDBDoc.bldrsChains);}
     if (pickers == true) {_docs.add(LDBDoc.pickers);}
+    if (census == true) {_docs.add(LDBDoc.census);}
     /// ZONES
     if (countries == true) {_docs.add(LDBDoc.countries);}
     if (cities == true) {_docs.add(LDBDoc.cities);}

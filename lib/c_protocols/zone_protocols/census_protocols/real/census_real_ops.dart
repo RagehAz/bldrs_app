@@ -46,7 +46,7 @@ class CensusRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<CensusModel>> readAllCountriesCensus() async {
+  static Future<List<CensusModel>> readAllCountriesCensuses() async {
 
     List<CensusModel> _output = [];
 
