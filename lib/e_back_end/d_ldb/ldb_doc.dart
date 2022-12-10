@@ -1,5 +1,19 @@
-
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+
+/*
+
+WHEN YOU ADD NEW LDB DOC
+
+1. add ldbDoc name as static const String in below (DOCS) section
+2. add in getPrimaryKey()
+3. add in <String>[allDocs]
+4. add in LDBOps.wipeOutEntireLDB()
+          &
+          logo_screen_controller._dailyRefreshLDB()
+          &
+          logo_screen_controller._refreshUserDeviceModel()
+
+ */
 
 class LDBDoc {
   // -----------------------------------------------------------------------------
@@ -33,6 +47,7 @@ class LDBDoc {
       case LDBDoc.cities: return 'cityID';
       case LDBDoc.districts: return 'id';
       case LDBDoc.staging: return 'id';
+      case LDBDoc.census: return 'id';
     // -------------
       /// PHRASES
       case LDBDoc.mainPhrases: return 'id';
@@ -77,6 +92,7 @@ class LDBDoc {
   static const String cities = 'cities';
   static const String districts = 'districts';
   static const String staging = 'staging';
+  static const String census = 'census';
   // --------------------
   /// PHRASES
   // all docs include mixed lang phrases with extra primary key of "id_langCodo"
@@ -118,6 +134,7 @@ class LDBDoc {
     cities,
     districts,
     staging,
+    census,
 
     Verse(text: 'Phrases', translate: false),
     mainPhrases,

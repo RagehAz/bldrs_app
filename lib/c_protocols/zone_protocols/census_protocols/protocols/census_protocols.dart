@@ -1,19 +1,11 @@
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
-import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/ldb/census_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
-import 'package:flutter/cupertino.dart';
-/// => TAMAM
+import 'package:flutter/material.dart';
+
 class CensusProtocols {
   // -----------------------------------------------------------------------------
 
@@ -24,385 +16,276 @@ class CensusProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> scanAllDBAndCreateInitialCensuses({
-    @required BuildContext context,
-  }) async {
 
-    final bool _go = await Dialogs.confirmProceed(
-      context: context,
-      titleVerse: Verse.plain('This is Dangerous !'),
-      bodyVerse: Verse.plain('This will read all Users - All Bzz - All Flyers and create a Census for each of them'),
-      invertButtons: true,
+  // -----------------------------------------------------------------------------
+
+  /// FETCH PLANET CENSUS
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<CensusModel> fetchPlanetCensus() async {
+
+    CensusModel _output = await CensusLDBOps.readCensus(
+        id: RealDoc.statistics_planet,
     );
 
-    if (_go == true){
+    if (_output == null){
 
-      /// ALL USERS
-      await ExoticMethods.readAllUserModels(
-        limit: 900,
-        onRead: (int index, UserModel _userModel) async {
+      _output = await CensusRealOps.readPlanetCensus();
 
-          await CensusProtocols.onComposeUser(_userModel);
-          blog('DONE : $index : UserModel: ${_userModel.name}');
+      if (_output != null){
 
-        },
-      );
-
-      /// ALL BZZ
-      await ExoticMethods.readAllBzzModels(
-        limit: 900,
-        onRead: (int i, BzModel _bzModel) async {
-
-          blog('DONE : $i : BzModel: ${_bzModel.name}');
-          await CensusProtocols.onComposeBz(_bzModel);
-
-          final BzCounterModel _bzCounter = await BzRecordRealOps.readBzCounters(
-              bzID: _bzModel.id,
+          await CensusLDBOps.insertCensus(
+              census: _output,
           );
 
-          if (_bzCounter != null){
-            await Future.wait(<Future>[
-
-              if (_bzCounter?.calls != null && _bzCounter.calls > 0)
-                onCallBz(
-                  bzModel: _bzModel,
-                  count: _bzCounter.calls,
-                ),
-
-              if (_bzCounter?.follows != null && _bzCounter.follows > 0)
-                onFollowBz(
-                  bzModel: _bzModel,
-                  isFollowing: true,
-                  count: _bzCounter.follows,
-                ),
-
-            ]);
-          }
-
-        },
-      );
-
-      /// ALL FLYERS
-      await ExoticMethods.readAllFlyers(
-        limit: 1000,
-        onRead: (int index, FlyerModel _flyerModel) async {
-
-          blog('DONE : $index : FlyerModel: ${_flyerModel.id}');
-          await CensusProtocols.onComposeFlyer(_flyerModel);
-
-          final FlyerCounterModel _flyerCounter = await FlyerRecordRealOps.readFlyerCounters(
-              flyerID: _flyerModel.id,
-          );
-
-          if (_flyerCounter != null){
-
-            await onSaveFlyer(
-              flyerModel: _flyerModel,
-              isSaving: true,
-              count: _flyerCounter.saves,
-            );
-
-          }
-
-
-        },
-      );
+      }
 
     }
 
-
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
-  /// USER CENSUS
+  /// FETCH COUNTRIES CENSUSES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onComposeUser(UserModel userModel) async {
-
-    assert(userModel != null, 'userModel is null');
-
-    /// INCREMENT USER CENSUS
-    await CensusRealOps.updateAllCensus(
-      zoneModel: userModel.zone,
-      map: CensusModel.createUserCensusMap(
-        userModel: userModel,
-        isIncrementing: true,
-      ),
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onRenovateUser({
-    @required UserModel newUser,
-    @required UserModel oldUser,
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> fetchCountriesCensusesByIDs({
+    @required List<String> countriesIDs,
   }) async {
+    final List<CensusModel> _output = [];
 
-    assert(newUser != null, 'newUser is null');
-    assert(oldUser != null, 'oldUser is null');
-
-    final bool _shouldUpdateCensus = CensusModel.checkShouldUpdateUserCensus(
-        oldUser: oldUser,
-        newUser: newUser,
-    );
-
-    if (_shouldUpdateCensus == true){
+    if (Mapper.checkCanLoopList(countriesIDs) == true){
 
       await Future.wait(<Future>[
 
-        /// DECREMENT OLD USER CENSUS
-        CensusRealOps.updateAllCensus(
-          zoneModel: oldUser.zone,
-          map: CensusModel.createUserCensusMap(
-            userModel: oldUser,
-            isIncrementing: false,
-          ),
-        ),
+        ...List.generate(countriesIDs.length, (index){
 
-        /// INCREMENT NEW USER CENSUS
-        CensusRealOps.updateAllCensus(
-          zoneModel: newUser.zone,
-          map: CensusModel.createUserCensusMap(
-            userModel: newUser,
-            isIncrementing: true,
-          ),
-        ),
+          return fetchCountryCensus(
+              countryID: countriesIDs[index],
+          ).then((CensusModel census){
+
+            if (census != null){
+              _output.add(census);
+            }
+          });
+
+        }),
 
       ]);
 
     }
 
+    return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onWipeUser(UserModel userModel) async {
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> refetchAllAvailableCountriesCensuses() async {
 
-    assert(userModel != null, 'userModel is null');
+    final List<CensusModel> _output = await CensusRealOps.readAllCountriesCensuses();
 
-    /// DECREMENT USER CENSUS
-    await CensusRealOps.updateAllCensus(
-      zoneModel: userModel.zone,
-      map: CensusModel.createUserCensusMap(
-        userModel: userModel,
-        isIncrementing: false,
-      ),
-    );
+    if (Mapper.checkCanLoopList(_output) == true){
 
+      await CensusLDBOps.insertCensuses(
+        censuses: _output,
+      );
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
-  /// BZ CENSUS
+  /// FETCH COUNTRY CENSUS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onComposeBz(BzModel bzModel) async {
-
-    assert(bzModel != null, 'bzModel is null');
-
-    /// INCREMENT USER CENSUS
-    await CensusRealOps.updateAllCensus(
-      zoneModel: bzModel.zone,
-      map: CensusModel.createBzCensusMap(
-        bzModel: bzModel,
-        isIncrementing: true,
-      ),
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onRenovateBz({
-    @required BzModel newBz,
-    @required BzModel oldBz,
+  /// TASK : TEST ME
+  static Future<CensusModel> fetchCountryCensus({
+    @required String countryID,
   }) async {
+    CensusModel _output;
 
-    assert(newBz != null, 'newBz is null');
-    assert(oldBz != null, 'oldBz is null');
+    if (countryID != null){
 
-    await Future.wait(<Future>[
+      _output = await CensusLDBOps.readCensus(
+          id: countryID,
+      );
 
-      /// DECREMENT BZ CENSUS
-      CensusRealOps.updateAllCensus(
-        zoneModel: oldBz.zone,
-        map: CensusModel.createBzCensusMap(
-          bzModel: oldBz,
-          isIncrementing: false,
-        ),
-      ),
+      if (_output == null){
 
-      /// INCREMENT BZ CENSUS
-      CensusRealOps.updateAllCensus(
-        zoneModel: newBz.zone,
-        map: CensusModel.createBzCensusMap(
-          bzModel: newBz,
-          isIncrementing: true,
-        ),
-      ),
+        _output = await CensusRealOps.readCountryCensus(
+            countryID: countryID,
+        );
 
-    ]);
+        if (_output != null){
 
+          await CensusLDBOps.insertCensus(
+            census: _output,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onWipeBz(BzModel bzModel) async {
+  /// TASK : TEST ME
+  static Future<CensusModel> refetchCountryCensus({
+    @required String countryID,
+  }) async {
+    CensusModel _output;
 
-    assert(bzModel != null, 'bzModel is null');
+    if (countryID != null){
 
-    final Map<String, dynamic> _censusMap = CensusModel.createBzCensusMap(
-      bzModel: bzModel,
-      isIncrementing: false,
-    );
+      await CensusLDBOps.deleteCensus(id: countryID);
 
-    final Map<String, dynamic> _callsMap = await CensusModel.createCallsWipeMap(bzModel);
+      _output = await fetchCountryCensus(
+          countryID: countryID,
+      );
 
-    final Map<String, dynamic> _mergedMap = Mapper.insertMapInMap(
-        baseMap: _censusMap,
-        insert: _callsMap,
-    );
+    }
 
-    /// DECREMENT BZ CENSUS
-    await CensusRealOps.updateAllCensus(
-      zoneModel: bzModel.zone,
-      map: _mergedMap,
-    );
-
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
-  /// FLYER CENSUS
+  /// FETCH CITIES CENSUSES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onComposeFlyer(FlyerModel flyerModel) async {
-
-    assert(flyerModel != null, 'flyerModel is null');
-
-    /// INCREMENT FLYER CENSUS
-    await CensusRealOps.updateAllCensus(
-      zoneModel: flyerModel.zone,
-      map: CensusModel.createFlyerCensusMap(
-        flyerModel: flyerModel,
-        isIncrementing: true,
-      ),
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onRenovateFlyer({
-    @required FlyerModel oldFlyer,
-    @required FlyerModel newFlyer,
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> fetchCitiesCensuses({
+    @required List<String> citiesIDs,
   }) async {
+    final List<CensusModel> _output = <CensusModel>[];
 
-    assert(oldFlyer != null, 'oldFlyer is null');
-    assert(newFlyer != null, 'newFlyer is null');
+    if (Mapper.checkCanLoopList(citiesIDs) == true){
 
-    await Future.wait(<Future>[
+      await Future.wait(<Future>[
 
-      /// DECREMENT FLYER CENSUS
-      CensusRealOps.updateAllCensus(
-        zoneModel: oldFlyer.zone,
-        map: CensusModel.createFlyerCensusMap(
-          flyerModel: oldFlyer,
-          isIncrementing: false,
-        ),
-      ),
+        ...List.generate(citiesIDs.length, (index){
 
-      /// INCREMENT FLYER CENSUS
-      CensusRealOps.updateAllCensus(
-        zoneModel: newFlyer.zone,
-        map: CensusModel.createFlyerCensusMap(
-          flyerModel: newFlyer,
-          isIncrementing: true,
-        ),
-      ),
+          return fetchCityCensus(
+              cityID: citiesIDs[index],
+          ).then((CensusModel census){
 
-    ]);
+            if (census != null){
+              _output.add(census);
+            }
 
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onWipeFlyer(FlyerModel flyerModel) async {
+  /// TASK : TEST ME
+  static Future<List<CensusModel>> refetchAllAvailableCitiesOfCountryCensuses({
+    @required String countryID,
+  }) async {
+    List<CensusModel> _output = [];
 
-    assert(flyerModel != null, 'flyerModel is null');
+    if (countryID != null){
 
-    /// DECREMENT FLYER CENSUS
-    await CensusRealOps.updateAllCensus(
-      zoneModel: flyerModel.zone,
-      map: CensusModel.createFlyerCensusMap(
-        flyerModel: flyerModel,
-        isIncrementing: false,
-      ),
-    );
+      _output = await CensusRealOps.readCitiesOfCountryCensus(
+          countryID: countryID,
+      );
 
+      if (Mapper.checkCanLoopList(_output) == true){
+
+        await CensusLDBOps.insertCensuses(
+            censuses: _output,
+        );
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
-  /// ENGAGEMENT CENSUS
+  /// FETCH CITY CENSUS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onCallBz({
-    @required BzModel bzModel,
-    int count = 1,
+  /// TASK : TEST ME
+  static Future<CensusModel> fetchCityCensus({
+    @required String cityID,
   }) async {
+    CensusModel _output;
 
-    assert(bzModel != null, 'bzModel is null');
+    if (cityID != null){
 
-    await CensusRealOps.updateAllCensus(
-      zoneModel: bzModel.zone,
-      map: CensusModel.createCallCensusMap(
-        bzModel: bzModel,
-        isIncrementing: true,
-        count: count,
-      ),
-    );
+      _output = await CensusLDBOps.readCensus(id: cityID);
 
+      if (_output == null){
 
+        _output = await CensusRealOps.readCityCensus(
+            cityID: cityID,
+        );
+
+        if (_output != null){
+
+          await CensusLDBOps.insertCensus(
+              census: _output,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onFollowBz({
-    @required BzModel bzModel,
-    @required bool isFollowing,
-    int count = 1,
+  /// TASK : TEST ME
+  static Future<CensusModel> refetchCityCensus({
+    @required String cityID,
   }) async {
+    CensusModel _output;
 
-    assert(bzModel != null, 'bzModel is null');
+    if (cityID != null){
 
-    await CensusRealOps.updateAllCensus(
-      zoneModel: bzModel.zone, // should be bz zone to be wiped with bz wipe
-      map: CensusModel.createFollowCensusMap(
-        bzModel: bzModel,
-        isIncrementing: isFollowing,
-        count: count,
-      ),
-    );
+      await CensusLDBOps.deleteCensus(id: cityID);
 
+      _output = await fetchCityCensus(cityID: cityID);
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FETCH DISTRICTS CENSUSES
+
+  // --------------------
+  static Future<CensusModel> fetchDistrictsOfCityCensuses() async {
 
   }
+
+  static Future<CensusModel> fetchDistrictCensus() async {
+
+  }
+
+  // -----------------------------------------------------------------------------
+
+  /// RENOVATE
+
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onSaveFlyer({
-    @required FlyerModel flyerModel,
-    @required bool isSaving,
-    int count = 1,
+  static Future<void> renovateZoneCensuses({
+    @required ZoneModel zoneModel,
   }) async {
-
-    assert(flyerModel != null, 'flyerModel is null');
-
-    await CensusRealOps.updateAllCensus(
-      zoneModel: flyerModel.zone, // should be user zone to delete it on wipe user protocols
-      map: CensusModel.createFlyerSaveCensusMap(
-        flyerModel: flyerModel,
-        isIncrementing: isSaving,
-        count: count,
-      ),
-    );
-
 
   }
   // -----------------------------------------------------------------------------
+  void f(){}
 }

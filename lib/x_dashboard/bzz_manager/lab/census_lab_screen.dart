@@ -21,7 +21,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 
@@ -82,7 +82,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                 verse: Verse.plain('READ ALL COUNTRIES CENSUSES'),
                 onTap: () async {
 
-                  final List<CensusModel> _censuses = await CensusRealOps.readAllCountriesCensus();
+                  final List<CensusModel> _censuses = await CensusRealOps.readAllCountriesCensuses();
                   CensusModel.blogCensuses(censuses: _censuses);
 
                 },
@@ -184,7 +184,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     listen: false,
                   );
 
-                  await CensusProtocols.onComposeUser(_userModel);
+                  await CensusListener.onComposeUser(_userModel);
 
                 },
               ),
@@ -209,7 +209,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     ),
                   );
 
-                  await CensusProtocols.onRenovateUser(
+                  await CensusListener.onRenovateUser(
                     oldUser: _oldUser,
                     newUser: _newUser,
                   );
@@ -245,7 +245,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                       ),
                     );
 
-                    await CensusProtocols.onWipeUser(_newUser);
+                    await CensusListener.onWipeUser(_newUser);
 
 
                   }
@@ -274,7 +274,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   );
 
                   if (_bzModel != null){
-                    await CensusProtocols.onComposeBz(_bzModel);
+                    await CensusListener.onComposeBz(_bzModel);
                   }
 
                 },
@@ -296,7 +296,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   );
 
                   if (_bzModel != null){
-                    await CensusProtocols.onRenovateBz(
+                    await CensusListener.onRenovateBz(
                       oldBz: _bzModel,
                       newBz: _bzModel.copyWith(
                         bzTypes: <BzType>[
@@ -340,7 +340,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     );
 
                     if (_bzModel != null){
-                      await CensusProtocols.onWipeBz(_bzModel.copyWith(
+                      await CensusListener.onWipeBz(_bzModel.copyWith(
                         bzTypes: <BzType>[
                           BzType.broker,
                         ],
@@ -382,7 +382,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   );
 
                   if (_flyerModel != null){
-                    await CensusProtocols.onComposeFlyer(_flyerModel);
+                    await CensusListener.onComposeFlyer(_flyerModel);
                   }
 
                 },
@@ -408,7 +408,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
 
                   if (_flyerModel != null){
 
-                    await CensusProtocols.onRenovateFlyer(
+                    await CensusListener.onRenovateFlyer(
                       oldFlyer: _flyerModel,
                       newFlyer: _flyerModel.copyWith(
                         zone: _flyerModel.zone.copyWith(
@@ -452,7 +452,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     );
 
                     if (_flyerModel != null){
-                      await CensusProtocols.onWipeFlyer(_flyerModel.copyWith(
+                      await CensusListener.onWipeFlyer(_flyerModel.copyWith(
                         zone: _flyerModel.zone.copyWith(
                           countryID: 'alb',
                           cityID: 'alb+erseke',
@@ -478,7 +478,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                 color: Colorz.bloodTest,
                 onTap: () async {
 
-                  await CensusProtocols.scanAllDBAndCreateInitialCensuses(
+                  await CensusListener.scanAllDBAndCreateInitialCensuses(
                     context: context,
                   );
 
