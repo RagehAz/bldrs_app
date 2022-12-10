@@ -410,25 +410,35 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
     UserProtocols.refreshUserDeviceModel(context: context),
 
     LDBOps.wipeOutEntireLDB(
+      /// MAIN
       // flyers: true,
       // bzz: true,
       // users: true,
+      authModel: false,
+      // notes: true, // not sure why
+      pics: false,
+      pdfs: false,
+      /// CHAIN
       bldrsChains: false,
       pickers: false,
+      /// ZONES
       countries: false,
       cities: false,
-      // notes: true,
+      districts: false,
+      staging: false,
+      /// PHRASES
       mainPhrases: false,
       countriesPhrases: false,
-      appState: false,
-      appControls: false,
-      authModel: false,
-      userEditor: false,
-      bzEditor: false,
-      authorEditor: false,
-      flyerMaker: false,
-      reviewEditor: false,
-      theLastWipe: false,
+      /// EDITORS
+      userEditor: false, // keep this for user to find later anytime
+      bzEditor: false, // keep this as well
+      authorEditor: false, // keep
+      flyerMaker: false, // keep
+      reviewEditor: false, // keep
+      /// SETTINGS
+      theLastWipe: false, // no need to wipe
+      appState: false, // no need to wipe
+      appControls: false, // no need to wipe
     ),
 
   ]);
@@ -447,28 +457,36 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
 
   if (_shouldRefresh == true){
 
-    // blog('_dailyRefreshLDB : IT HAS BEEN A DAY : and will refresh wipe the LDB');
-
     await LDBOps.wipeOutEntireLDB(
+      /// MAIN
       // flyers: true,
       // bzz: true,
       // users: true,
-      bldrsChains: false,
-      pickers: false,
-      countries: false,
-      cities: false,
-      // notes: true,
+      authModel: false, // need my authModel to prevent re-auth everyday
+      notes: false, // I do not think we need to refresh notes everyday
+      pics: false, // I do not think we need to refresh pics everyday
+      pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
+      /// CHAIN
+      bldrsChains: false, // keep the chains man, if chains updated - appState protocols handles this
+      pickers: false, // same as chains
+      /// ZONES
+      // countries: true, // countries include staging info, so lets refresh that daily
+      cities: false, // cities do not change often
+      districts: false, // districts do not change frequently
+      // staging: true, // staging info changes frequently
+      /// PHRASES
       mainPhrases: false,
       countriesPhrases: false,
-      appState: false,
-      appControls: false,
-      authModel: false,
-      userEditor: false,
-      bzEditor: false,
-      authorEditor: false,
-      flyerMaker: false,
-      reviewEditor: false,
-      theLastWipe: false,
+      /// EDITORS
+      userEditor: false, // keep this for user to find later anytime
+      bzEditor: false, // keep this as well
+      authorEditor: false, // keep
+      flyerMaker: false, // keep
+      reviewEditor: false, // keep
+      /// SETTINGS
+      theLastWipe: false, // no need to wipe
+      appState: false, // no need to wipe
+      appControls: false, // no need to wipe
     );
 
   }

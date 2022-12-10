@@ -254,48 +254,68 @@ class LDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeOutEntireLDB({
+    /// MAIN
     bool flyers = true,
     bool bzz = true,
     bool users = true,
+    bool authModel = true,
+    bool notes = true,
+    bool pics = true,
+    bool pdfs = true,
+    /// CHAINS
     bool bldrsChains = true,
     bool pickers = true,
+    /// ZONES
     bool countries = true,
     bool cities = true,
-    bool notes = true,
+    bool districts = true,
+    bool staging = true,
+    /// PHRASES
     bool mainPhrases = true,
     bool countriesPhrases = true,
-    bool appState = true,
-    bool appControls = true,
-    bool authModel = true,
+    /// EDITORS
     bool userEditor = true,
     bool bzEditor = true,
     bool authorEditor = true,
     bool flyerMaker = true,
     bool reviewEditor = true,
+    /// SETTINGS
     bool theLastWipe = true,
+    bool appState = true,
+    bool appControls = true,
   }) async {
 
     final List<String> _docs = <String>[];
 
+    /// MAIN
     if (flyers == true) {_docs.add(LDBDoc.flyers);}
     if (bzz == true) {_docs.add(LDBDoc.bzz);}
     if (users == true) {_docs.add(LDBDoc.users);}
+    if (authModel == true) {_docs.add(LDBDoc.authModel);}
+    if (notes == true) {_docs.add(LDBDoc.notes);}
+    if (pics == true) {_docs.add(LDBDoc.pics);}
+    if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
+    /// CHAINS
     if (bldrsChains == true) {_docs.add(LDBDoc.bldrsChains);}
     if (pickers == true) {_docs.add(LDBDoc.pickers);}
+    /// ZONES
     if (countries == true) {_docs.add(LDBDoc.countries);}
     if (cities == true) {_docs.add(LDBDoc.cities);}
-    if (notes == true) {_docs.add(LDBDoc.notes);}
+    if (districts == true) {_docs.add(LDBDoc.districts);}
+    if (staging == true) {_docs.add(LDBDoc.staging);}
+    /// PHRASES
     if (mainPhrases == true) {_docs.add(LDBDoc.mainPhrases);}
     if (countriesPhrases == true) {_docs.add(LDBDoc.countriesPhrases);}
-    if (appState == true) {_docs.add(LDBDoc.appState);}
-    if (appControls == true) {_docs.add(LDBDoc.appControls);}
-    if (authModel == true) {_docs.add(LDBDoc.authModel);}
+    /// EDITORS
     if (userEditor == true) {_docs.add(LDBDoc.userEditor);}
     if (bzEditor == true) {_docs.add(LDBDoc.bzEditor);}
     if (authorEditor == true) {_docs.add(LDBDoc.authorEditor);}
     if (flyerMaker == true) {_docs.add(LDBDoc.flyerMaker);}
     if (reviewEditor == true) {_docs.add(LDBDoc.reviewEditor);}
+    /// SETTINGS
     if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
+    if (appState == true) {_docs.add(LDBDoc.appState);}
+    if (appControls == true) {_docs.add(LDBDoc.appControls);}
 
     await Future.wait(<Future>[
       ...List.generate(_docs.length, (index){

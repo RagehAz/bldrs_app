@@ -4,7 +4,8 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/fire/city_phrase_fire_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/b_city_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_cities_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -30,7 +31,7 @@ class CityProtocols {
       await Future.wait(<Future>[
 
         /// ADD CITY ID TO CITIES STAGES
-        CitiesStagesRealOps.updateCityStageType(
+        StagingLeveller.changeCityStageType(
           cityID: cityModel.cityID,
           newType: StageType.emptyStage,
         ),
@@ -152,7 +153,7 @@ class CityProtocols {
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final Staging _citiesStages = await CitiesStagesRealOps.readCitiesStaging(
+      final Staging _citiesStages = await StagingProtocols.fetchCitiesStaging(
         countryID: countryID,
       );
 
@@ -267,10 +268,11 @@ class CityProtocols {
 
     if (cityModel != null){
 
+
       await Future.wait(<Future>[
 
         /// STAGES
-        CitiesStagesRealOps.removeCityFromStages(
+        StagingProtocols.removeCityFromStages(
           cityID: cityModel.cityID,
         ),
 

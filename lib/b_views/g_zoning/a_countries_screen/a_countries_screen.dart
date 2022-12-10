@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -94,7 +95,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   Future<void> _loadCountries() async {
 
     /// COUNTRIES STAGES
-    final Staging _countriesStages = await ZoneProtocols.readCountriesStaging();
+    final Staging _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
     /// SHOWN IDS
     final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
