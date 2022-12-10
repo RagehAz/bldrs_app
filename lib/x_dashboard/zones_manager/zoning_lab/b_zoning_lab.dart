@@ -27,9 +27,8 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/b_city_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/ldb/stages_ldb_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/a_countries_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_cities_stages_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_districts_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/staging_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
@@ -990,7 +989,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 // isActive: true,
                 onTap: () async {
 
-                  await CountriesStagesRealOps.createInitialCountriesStages();
+                  await StagingRealOps.createInitialCountriesStages();
 
                 },
               ),
@@ -1000,7 +999,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 verse: Verse.plain('Read Countries STAGES'),
                 onTap: () async {
 
-                  final Staging _staging = await CountriesStagesRealOps.readCountriesStaging();
+                  final Staging _staging = await StagingRealOps.readCountriesStaging();
                   _staging.blogStaging();
 
                   final List<String> _countriesIDs = Staging(
@@ -1015,6 +1014,34 @@ class _ZoningLabState extends State<ZoningLab> {
 
                 },
               ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// FETCH COUNTRIES STAGING
+              WideButton(
+                verse: Verse.plain('FETCH countries Staging'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                  await StagingProtocols.fetchCountriesStaging();
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+
+                },
+              ),
+
+              /// RE-FETCH COUNTRIES STAGING
+              WideButton(
+                verse: Verse.plain('RE-FETCH countries Staging'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                  await StagingProtocols.refetchCountiesStaging();
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+
+                },
+              ),
+
 
               /// SEPARATOR
               const SeparatorLine(),
@@ -1043,7 +1070,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 // isActive: true,
                 onTap: () async {
 
-                  await CitiesStagesRealOps.createInitialCitiesStagesWithAllCitiesEmpty();
+                  await StagingRealOps.createInitialCitiesStagesWithAllCitiesEmpty();
 
                 },
               ),
@@ -1057,7 +1084,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                   for (final String countryID in _countriesIDs){
 
-                    final Staging _lvl = await CitiesStagesRealOps.readCitiesStaging(
+                    final Staging _lvl = await StagingRealOps.readCitiesStaging(
                       countryID: countryID,
                     );
 
@@ -1068,6 +1095,33 @@ class _ZoningLabState extends State<ZoningLab> {
                     }
 
                   }
+
+                },
+              ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// FETCH CITIES STAGING
+              WideButton(
+                verse: Verse.plain('FETCH Cities Staging'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                  await StagingProtocols.fetchCitiesStaging(countryID: 'kwt');
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+
+                },
+              ),
+
+              /// RE-FETCH CITIES STAGING
+              WideButton(
+                verse: Verse.plain('re-FETCH Cities Staging'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                  await StagingProtocols.refetchCitiesStaging(countryID: 'kwt');
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
 
                 },
               ),
@@ -1099,7 +1153,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 // isActive: true,
                 onTap: () async {
 
-                  await DistrictsStagesRealOps.createInitialDistrictsStagesWithAllDistrictsEmpty();
+                  await StagingRealOps.createInitialDistrictsStagesWithAllDistrictsEmpty();
 
                 },
               ),
@@ -1109,16 +1163,44 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// READ DISTRICTS STAGES
               WideButton(
-                verse: Verse.plain('GET DISTRICTS STAGES'),
+                verse: Verse.plain('READ DISTRICTS STAGES'),
                 onTap: () async {
 
-                  final Staging _districts = await DistrictsStagesRealOps.readDistrictsStaging(
+                  final Staging _districts = await StagingRealOps.readDistrictsStaging(
                     cityID: 'egy+alexandria',
                   );
                   _districts?.blogStaging();
 
                 },
               ),
+
+              /// SEPARATOR
+              const SeparatorLine(),
+
+              /// FETCH DISTRICTS STAGING
+              WideButton(
+                verse: Verse.plain('FETCH DISTRICTS Staging'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                  await StagingProtocols.fetchDistrictsStaging(cityID: 'egy+cairo');
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+
+                },
+              ),
+
+              /// RE-FETCH DISTRICTS STAGING
+              WideButton(
+                verse: Verse.plain('re-FETCH DISTRICTS Staging'),
+                onTap: () async {
+
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                  await StagingProtocols.refetchDistrictsStaging(cityID: 'egy+cairo');
+                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+
+                },
+              ),
+
 
               /// SEPARATOR
               const SeparatorLine(),
@@ -1148,7 +1230,7 @@ class _ZoningLabState extends State<ZoningLab> {
                 onTap: () async {
 
                   await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
-                  final Staging _staging = await ZoneProtocols.readCountriesStaging();
+                  final Staging _staging = await StagingRealOps.readCountriesStaging();
                   await StagingLDBOps.insertStaging(staging: _staging);
                   await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
 

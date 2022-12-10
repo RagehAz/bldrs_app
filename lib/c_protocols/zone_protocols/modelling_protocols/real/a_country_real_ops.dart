@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/b_cities_stages_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CountryRealOps {
@@ -19,7 +19,7 @@ class CountryRealOps {
   }) async {
     CountryModel _output;
 
-    final Staging _citiesIDs = await CitiesStagesRealOps.readCitiesStaging(
+    final Staging _citiesIDs = await StagingProtocols.fetchCitiesStaging(
       countryID: countryID,
     );
 
