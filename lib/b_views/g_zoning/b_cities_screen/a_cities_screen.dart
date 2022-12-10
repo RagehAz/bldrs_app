@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
@@ -139,9 +139,12 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           event: widget.zoneViewingEvent,
         );
         /// SHOWN CITIES MODELS
-        final List<CityModel> _shownCities = CityModel.getCitiesFromCitiesByIDs(
-          citiesModels: _cities,
-          citiesIDs: _shownIDs,
+        final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
+          context: context,
+          cities: CityModel.getCitiesFromCitiesByIDs(
+            citiesModels: _cities,
+            citiesIDs: _shownIDs,
+          ),
         );
 
         /// NOT SHOWN CITIES IDS
@@ -150,22 +153,18 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           removeThis: _shownIDs,
         );
         /// NOT SHOWN CITIES MODELS
-        final List<CityModel> _notShownCities = CityModel.getCitiesFromCitiesByIDs(
-          citiesModels: _cities,
-          citiesIDs: _notShownIDs,
-        );
-
-        final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
-          context: context,
-          cities: _shownCities,
-        );
         final List<CityModel> _orderedNotShownCities = CityModel.sortCitiesAlphabetically(
           context: context,
-          cities: _notShownCities,
+          cities: CityModel.getCitiesFromCitiesByIDs(
+            citiesModels: _cities,
+            citiesIDs: _notShownIDs,
+          ),
         );
 
-        final List<CensusModel> _citiesCensuses = await CensusRealOps.readCitiesOfCountryCensus(
-            countryID: widget.countryID,
+
+
+        final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
+            citiesIDs: <String>[...?_shownIDs, ...?_notShownIDs]
         );
 
         if (mounted == true){

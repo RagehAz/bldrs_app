@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -133,9 +133,12 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
           event: widget.zoneViewingEvent,
         );
         /// SHOWN DISTRICTS MODELS
-        final List<DistrictModel> _shownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
-          districtsModels: _fetchedDistricts,
-          districtsIDs: _shownIDs,
+        final List<DistrictModel> _orderedShownDistricts = DistrictModel.sortDistrictsAlphabetically(
+          context: context,
+          districts: DistrictModel.getDistrictsFromDistrictsByIDs(
+            districtsModels: _fetchedDistricts,
+            districtsIDs: _shownIDs,
+          ),
         );
 
         /// NOT SHOWN DISTRICTS IDS
@@ -144,26 +147,19 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
           removeThis: _shownIDs,
         );
         /// NOT SHOWN DISTRICTS MODELS
-        final List<DistrictModel> _notShownDistricts = DistrictModel.getDistrictsFromDistrictsByIDs(
-          districtsModels: _fetchedDistricts,
-          districtsIDs: _notShownIDs,
-        );
-
-
-        final List<DistrictModel> _orderedShownDistricts = DistrictModel.sortDistrictsAlphabetically(
-          context: context,
-          districts: _shownDistricts,
-        );
         final List<DistrictModel> _orderedNotShownDistricts = DistrictModel.sortDistrictsAlphabetically(
           context: context,
-          districts: _notShownDistricts,
+          districts: DistrictModel.getDistrictsFromDistrictsByIDs(
+            districtsModels: _fetchedDistricts,
+            districtsIDs: _notShownIDs,
+          ),
         );
+
 
         _cityDistricts.value = <DistrictModel>[..._orderedShownDistricts, ..._orderedNotShownDistricts];
 
-
-        final List<CensusModel> _districtsCensus = await CensusRealOps.readDistrictsOfCityCensus(
-          cityID: widget.city.cityID,
+        final List<CensusModel> _districtsCensus = await CensusProtocols.fetchDistrictsCensuses(
+          districtsIDs:  <String>[...?_shownIDs, ...?_notShownIDs],
         );
 
         setState(() {
