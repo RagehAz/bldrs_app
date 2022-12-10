@@ -334,7 +334,7 @@ class CensusModel {
   }
   // --------------------
   /// not tested
-  List<Map<String, dynamic>> cipherCensuses({
+  static List<Map<String, dynamic>> cipherCensuses({
     @required List<CensusModel> censuses,
     @required bool toLDB,
   }){

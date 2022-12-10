@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -78,7 +78,7 @@ class RenovateUserProtocols {
         await Future.wait(<Future>[
 
           /// UPDATE CENSUS
-          CensusProtocols.onRenovateUser(
+          CensusListener.onRenovateUser(
               newUser: _output,
               oldUser: _oldUser,
           ),
@@ -214,7 +214,7 @@ class RenovateUserProtocols {
           oldUser: _oldUser,
         ),
 
-        CensusProtocols.onFollowBz(
+        CensusListener.onFollowBz(
             bzModel: bzToFollow,
             isFollowing: true
         ),
@@ -244,7 +244,7 @@ class RenovateUserProtocols {
           oldUser: _oldUser,
         ),
 
-        CensusProtocols.onFollowBz(
+        CensusListener.onFollowBz(
             bzModel: bzToFollow,
             isFollowing: false
         ),
@@ -297,7 +297,7 @@ class RenovateUserProtocols {
           ),
 
           /// CENSUS SAVE FLYER
-          CensusProtocols.onSaveFlyer(
+          CensusListener.onSaveFlyer(
               flyerModel: flyerModel,
               isSaving: true,
           ),
@@ -329,7 +329,7 @@ class RenovateUserProtocols {
           ),
 
           /// CENSUS SAVE FLYER
-          CensusProtocols.onSaveFlyer(
+          CensusListener.onSaveFlyer(
             flyerModel: flyerModel,
             isSaving: false,
           ),

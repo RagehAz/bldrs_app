@@ -188,7 +188,7 @@ class StagingProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> renovateCountriesStaging({
     @required Staging newStaging,
   }) async {
@@ -213,7 +213,7 @@ class StagingProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovateCitiesStaging({
     @required Staging newStaging,
   }) async {
@@ -238,7 +238,7 @@ class StagingProtocols {
 
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static Future<void> renovateDistrictsStaging({
     @required Staging newStaging,
   }) async {
@@ -267,7 +267,7 @@ class StagingProtocols {
   /// WIPE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> removeCityFromStages({
     @required String cityID,
   }) async {
@@ -297,7 +297,7 @@ class StagingProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> removeDistrictFromStages({
     @required String districtID,
   }) async {

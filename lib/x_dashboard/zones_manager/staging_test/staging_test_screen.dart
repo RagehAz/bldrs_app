@@ -73,7 +73,7 @@ class _StagingTestScreenState extends State<StagingTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _countries = _countriesStages.getIDsByType(_stageType);
+    final List<String> _countries = _countriesStages?.getIDsByType(_stageType);
 
     final double _clearWidth = Bubble.bubbleWidth(context);
 
