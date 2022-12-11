@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -50,12 +51,12 @@ Future<void> onSelectPhidInPickerScreen({
 }) async {
 
   picker?.blogPicker();
-  blog('onSelectPhidInPickerScreen : phid : $phid : isMultipleSelectionMode : $isMultipleSelectionMode');
+  blog('onSelectPhidInPickerScreen : phid : ${Phider.removeIndexFromPhid(phid: phid)} : isMultipleSelectionMode : $isMultipleSelectionMode');
 
   if (isMultipleSelectionMode == true){
     await _insertPhidToSelectedSpecs(
       context: context,
-      phid: phid,
+      phid: Phider.removeIndexFromPhid(phid: phid),
       picker: picker,
       selectedSpecs: selectedSpecsNotifier,
     );
@@ -64,7 +65,7 @@ Future<void> onSelectPhidInPickerScreen({
   else {
     await onGoBackFromPickerScreen(
       context: context,
-      phidToPassBack: phid,
+      phidToPassBack: Phider.removeIndexFromPhid(phid: phid),
       isMultipleSelectionMode: isMultipleSelectionMode,
       specsToPassBack: selectedSpecsNotifier.value,
     );
