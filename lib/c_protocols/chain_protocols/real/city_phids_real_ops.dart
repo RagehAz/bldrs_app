@@ -25,7 +25,7 @@ class CityPhidsRealOps {
     if (cityID != null){
 
       final Map<String, dynamic> _map = await Real.readDoc(
-        collName: RealColl.chainsUsage,
+        collName: RealColl.citiesPhids,
         docName: cityID,
       );
 
@@ -60,7 +60,7 @@ class CityPhidsRealOps {
 
       await Real.incrementDocFields(
         context: context,
-        collName: RealColl.chainsUsage,
+        collName: RealColl.citiesPhids,
         docName: flyerModel.zone.cityID,
         mapOfFieldsAndNumbers: _cityPhidsToAdd.toMap(),
         isIncrementing: isIncrementing,
@@ -184,7 +184,7 @@ class CityPhidsRealOps {
         /// INCREMENT VALUES OPS
         await Real.incrementDocFields(
           context: context,
-          collName: RealColl.chainsUsage,
+          collName: RealColl.citiesPhids,
           docName: flyerModel.zone.cityID,
           mapOfFieldsAndNumbers: _mapOfFieldsAndNumbers,
           isIncrementing: true,

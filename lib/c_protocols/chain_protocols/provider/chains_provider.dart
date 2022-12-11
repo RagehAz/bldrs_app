@@ -465,7 +465,7 @@ class ChainsProvider extends ChangeNotifier {
   FlyerType _wallFlyerType;
   String _wallPhid;
   // --------------------
-  FlyerType get wallFlyerType => _wallFlyerType ?? FlyerType.design;
+  FlyerType get wallFlyerType => _wallFlyerType;
   String get wallPhid => _wallPhid;
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -486,21 +486,15 @@ class ChainsProvider extends ChangeNotifier {
     return _chainsProvider.wallPhid;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   Future<void> changeHomeWallFlyerType({
     @required BuildContext context,
     @required FlyerType flyerType,
     @required String phid,
     @required bool notify,
   }) async {
-    blog('Changing section to $flyerType');
 
-    // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    //
-    // await _flyersProvider.paginateWallFlyers(
-    //   context: context,
-    //   listenToZoneChange: false,
-    // );
+    blog('Changing section to $flyerType');
 
     _setWallFlyerAndPhid(
       flyerType: flyerType,

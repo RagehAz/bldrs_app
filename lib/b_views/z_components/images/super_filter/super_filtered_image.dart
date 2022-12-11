@@ -47,7 +47,7 @@ class SuperFilteredImage extends StatefulWidget {
 
       final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
 
-      blog('processImage : filterModel : ${filterModel.id} : matrixes : ${filterModel.matrixes}');
+      // blog('processImage : filterModel : ${filterModel.id} : matrixes : ${filterModel.matrixes}');
 
       final List<double> _combinedMatrix = ImageFilterModel.combineMatrixes(
         matrixes: filterModel.matrixes,

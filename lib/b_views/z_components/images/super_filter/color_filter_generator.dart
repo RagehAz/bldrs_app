@@ -28,7 +28,7 @@ class ImageFilterModel {
 
     List<double> _colorMatrix;
 
-    blog('combineMatrixes : input are : ${matrixes.length} matrixes ');
+    // blog('combineMatrixes : input are : ${matrixes.length} matrixes ');
 
     if (Mapper.checkCanLoopList(matrixes) == true){
 
@@ -58,11 +58,11 @@ class ImageFilterModel {
         );
       }
 
-      _colorMatrix = List<double>.from(result.flatten.sublist(0, 20));
+      // _colorMatrix =
+      return List<double>.from(result.flatten.sublist(0, 20));
+      // blog('combineMatrixes : output is : $_colorMatrix');
+      // return _colorMatrix;
 
-      blog('combineMatrixes : output is : $_colorMatrix');
-
-      return _colorMatrix;
     }
 
     else {
