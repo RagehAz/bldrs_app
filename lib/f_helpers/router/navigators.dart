@@ -161,7 +161,8 @@ class Nav {
 
       if (addPostFrameCallback == true){
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.pop(context, passedData);
+          final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+          Navigator.pop(_context, passedData);
         });
       }
 
