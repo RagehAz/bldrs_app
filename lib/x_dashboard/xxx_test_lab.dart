@@ -57,9 +57,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    // final String _appCheckToken = await AppCheck.getAppCheckToken();
-    // blog('appCheckToken: $_appCheckToken : kDebugMode : $kDebugMode');
-
 
     }
   // -------------------------------------------------
