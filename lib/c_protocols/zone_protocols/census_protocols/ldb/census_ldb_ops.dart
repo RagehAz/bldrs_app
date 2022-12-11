@@ -1,11 +1,9 @@
-
-
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class CensusLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -16,7 +14,7 @@ class CensusLDBOps {
   /// INSERT / CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> insertCensus({
     @required CensusModel census,
   }) async {
@@ -32,7 +30,7 @@ class CensusLDBOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> insertCensuses({
     @required List<CensusModel> censuses,
   }) async {
@@ -57,7 +55,7 @@ class CensusLDBOps {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> readCensus({
     @required String id,
   }) async {
@@ -88,7 +86,7 @@ class CensusLDBOps {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteCensus({
     @required String id,
   }) async {

@@ -14,7 +14,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -163,7 +162,6 @@ class ZoneSelection {
 
     }
 
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -190,11 +188,13 @@ class ZoneSelection {
       cityID: cityID,
     );
 
-    /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
-    final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByType(null)) == true;
+    final bool _districtsAreSelectable = Staging.checkStagingHasSelectableZones(
+      staging: _cityDistrictsStages,
+      zoneViewingEvent: zoneViewingEvent,
+    );
 
     /// Go back (2 steps) + pass zone with countryID & cityID
-    if (depth == ZoneDepth.city || _cityHasDistricts == false){
+    if (depth == ZoneDepth.city || _districtsAreSelectable == false){
 
       /// FIRST CITY SELECTION BACK
       await Nav.goBack(

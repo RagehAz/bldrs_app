@@ -1,5 +1,4 @@
 // ignore_for_file: invariant_booleans
-
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
@@ -57,6 +56,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   Staging _stages;
   // --------------------
   List<CensusModel> _censuses;
+  CensusModel _countryCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -135,7 +135,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
         /// SHOWN CITIES IDS
         final List<String> _shownIDs = _citiesStages.getIDsByViewingEvent(
-          context: context,
           event: widget.zoneViewingEvent,
         );
         /// SHOWN CITIES MODELS
@@ -161,10 +160,11 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           ),
         );
 
-
-
         final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
             citiesIDs: <String>[...?_shownIDs, ...?_notShownIDs]
+        );
+        final CensusModel _censusOfCountry = await CensusProtocols.fetchCountryCensus(
+            countryID: widget.countryID,
         );
 
         if (mounted == true){
@@ -172,6 +172,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
             _shownCitiesIDs = _shownIDs;
             _stages = _citiesStages;
             _censuses = _citiesCensuses;
+            _countryCensus = _censusOfCountry;
           });
         }
 
@@ -303,69 +304,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         zoneViewingEvent: widget.zoneViewingEvent,
     );
 
-    // blog('_onCityTap : cityID : $cityID');
-    //
-    // if (mounted == true){
-    //   Keyboard.closeKeyboard(context);
-    // }
-    //
-    // final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
-    //   context: context,
-    //   incompleteZoneModel: _currentZone.value.copyWith(
-    //     cityID: cityID,
-    //   ),
-    // );
-    //
-    // final ZoneStages _cityDistrictsStages = await ZoneProtocols.readDistrictsStages(
-    //   cityID: cityID,
-    // );
-    //
-    // _zoneWithCity?.blogZone(invoker: '_onCityTap zone with city');
-    //
-    // /// TASK : CHECK WHICH STAGE SHOULD BE READ HERE
-    // final bool _cityHasDistricts = Mapper.checkCanLoopList(_cityDistrictsStages?.getIDsByStage(null)) == true;
-    //
-    // /// IF SELECTING COUNTY AND CITY ONLY
-    // if (widget.selectCountryAndCityOnly == true || _cityHasDistricts == false){
-    //   await Nav.goBack(
-    //     context: context,
-    //     invoker: '_onCityTap',
-    //     passedData: _zoneWithCity,
-    //   );
-    // }
-    //
-    // /// IF SELECTING COUNTRY AND CITY AND DISTRICT
-    // else {
-    //
-    //   final ZoneModel _zoneWithDistrict = await Nav.goToNewScreen(
-    //       context: context,
-    //       screen: DistrictsScreen(
-    //         zoneViewingEvent: widget.zoneViewingEvent,
-    //         country: _zoneWithCity.countryModel,
-    //         city: _zoneWithCity.cityModel,
-    //       )
-    //   );
-    //
-    //   /// WHEN NO DISTRICT SELECTED
-    //   if (_zoneWithDistrict == null){
-    //     await Nav.goBack(
-    //       context: context,
-    //       invoker: '_onCityTap',
-    //       passedData: _zoneWithCity,
-    //     );
-    //   }
-    //
-    //   /// WHEN A DISTRICT IS SELECTED
-    //   else {
-    //     await Nav.goBack(
-    //       context: context,
-    //       invoker: '_onCityTap',
-    //       passedData: _zoneWithDistrict,
-    //     );
-    //   }
-    //
-    // }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -375,6 +313,22 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
     await Dialogs.zoneIsNotAvailable(
       context: context,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onTapAllCities() async {
+
+    await Nav.goBack(
+      context: context,
+    );
+
+    await ZoneSelection.onSelectCountry(
+        context: context,
+        countryID: widget.countryID,
+        depth: ZoneDepth.country,
+        zoneViewingEvent: widget.zoneViewingEvent,
     );
 
   }
@@ -470,7 +424,11 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
                 onDeactivatedCityTap: _onDeactivatedDistrictTap,
-                countryCensus: null, // TASK : GET COUNTRY CENSUS HERE,, OR DIRECTLY INSIDE
+                countryCensus: _countryCensus,
+                onTapAllCities: _onTapAllCities,
+                showAllCitiesButton: Staging.checkMayShowViewAllZonesButton(
+                  zoneViewingEvent: widget.zoneViewingEvent,
+                ),
               );
 
             }

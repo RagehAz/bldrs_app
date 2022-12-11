@@ -14,6 +14,7 @@ class WideCityButton extends StatelessWidget {
     @required this.isActive,
     @required this.censusModel,
     @required this.onDeactivatedTap,
+    this.verse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class WideCityButton extends StatelessWidget {
   final bool isActive;
   final Function onDeactivatedTap;
   final CensusModel censusModel;
+  final Verse verse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class WideCityButton extends StatelessWidget {
           isDeactivated: !isActive,
           width: Bubble.bubbleWidth(context),
           iconSizeFactor: 0.8,
-          verse: Verse.plain(_cityNameValue),
+          verse: verse ?? Verse.plain(_cityNameValue),
           bubble: false,
           verseScaleFactor: 0.8,
           // textDirection: superTextDirection(context),
