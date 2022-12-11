@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -66,9 +70,23 @@ class DynamicLinks {
 
     blog('initDynamicLinks : starting to listen to onLink');
 
-    _dynamicLinks.onLink.listen((PendingDynamicLinkData dynamicLinkData) {
+    _dynamicLinks.onLink.listen((PendingDynamicLinkData dynamicLinkData) async {
 
       // Navigator.pushNamed(context, dynamicLinkData.link.path);
+
+      final String _link = dynamicLinkData.link?.path;
+
+      await Dialogs.centerNotice(
+          context: context,
+          verse: Verse.plain('onLink : $_link, and can navigate baby'),
+      );
+
+      final String _userID = TextMod.removeTextBeforeLastSpecialCharacter(_link, '=');
+
+      await Nav.jumpToUserPreviewScreen(
+          context: context,
+          userID: _userID,
+      );
 
       blogPendingDynamicLinkData(dynamicLinkData);
 
@@ -145,11 +163,16 @@ class DynamicLinks {
   // --------------------
   /// TESTED : ...
   static Future<Uri> createDynamicLink({
+    @required String title,
+    String description,
+    String urlOrPath,
     bool isShortLink = true,
   }) async {
 
+    final String _picURL = await FCM.getNootPicURLIfNotURL(urlOrPath);
+
     final DynamicLinkParameters _params = DynamicLinkParameters(
-      link: Uri.parse('https://www.nasa.gov/'),
+      link: Uri.parse('https://bldrs.page.link/flyer=${AuthFireOps.superUserID()}'),
       uriPrefix: Standards.dynamicLinksPrefix,
       androidParameters: const AndroidParameters(
         packageName: Standards.androidPackageName,
@@ -173,9 +196,9 @@ class DynamicLinks {
         term: 'Term is term',
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
-        title: 'Example shit',
-        description: 'Yall yel3an kos ommak',
-        imageUrl: Uri.parse(Standards.ragehImageURL),
+        title: title,
+        description: description,
+        imageUrl: Uri.parse(_picURL),
       ),
     );
 

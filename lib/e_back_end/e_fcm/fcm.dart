@@ -266,8 +266,8 @@ class FCM {
     List<String> buttonsTexts,
   }) async {
 
-    final String _largeIconURL = await _getNootPicURLIfNotURL(largeIconURL);
-    final String _posterURL = await _getNootPicURLIfNotURL(posterURL);
+    final String _largeIconURL = await getNootPicURLIfNotURL(largeIconURL);
+    final String _posterURL = await getNootPicURLIfNotURL(posterURL);
 
     await tryAndCatch(
       invoker: 'pushGlobalNotification',
@@ -299,7 +299,7 @@ class FCM {
   }
   // --------------------
   ///
-  static Future<String> _getNootPicURLIfNotURL(String urlOrPath) async {
+  static Future<String> getNootPicURLIfNotURL(String urlOrPath) async {
     String _url;
 
     if (TextCheck.isEmpty(urlOrPath) == false){
