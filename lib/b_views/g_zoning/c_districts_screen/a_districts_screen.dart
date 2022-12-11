@@ -47,7 +47,8 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   final ValueNotifier<List<DistrictModel>> _foundDistricts = ValueNotifier<List<DistrictModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
   // --------------------
-  List<CensusModel> _censusModels = [];
+  List<CensusModel> _districtsCensuses = [];
+  CensusModel _cityCensus;
   List<String> _shownDistrictsIDs = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -129,7 +130,6 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
         /// SHOWN DISTRICTS IDS
         final List<String> _shownIDs = _districtsStages.getIDsByViewingEvent(
-          context: context,
           event: widget.zoneViewingEvent,
         );
         /// SHOWN DISTRICTS MODELS
@@ -162,9 +162,14 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
           districtsIDs:  <String>[...?_shownIDs, ...?_notShownIDs],
         );
 
+        final CensusModel _theCityCensus = await CensusProtocols.fetchCityCensus(
+            cityID: widget.city.cityID,
+        );
+
         setState(() {
           _shownDistrictsIDs = _shownIDs;
-          _censusModels = _districtsCensus;
+          _districtsCensuses = _districtsCensus;
+          _cityCensus = _theCityCensus;
         });
 
       }
@@ -220,23 +225,6 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       districtID: districtID,
     );
 
-    // if (mounted == true){
-    //   Keyboard.closeKeyboard(context);
-    // }
-    //
-    // final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
-    //   context: context,
-    //   incompleteZoneModel: _currentZone.value.copyWith(
-    //     districtID: districtID,
-    //   ),
-    // );
-    //
-    // await Nav.goBack(
-    //   context: context,
-    //   invoker: 'SelectDistrictScreen',
-    //   passedData: _zoneWithDistrict,
-    // );
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -249,15 +237,21 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
   }
   // --------------------
-  /// DEPRECATED
-  /*
-  Future<void> _onBack() async {
+  /// TESTED : WORKS PERFECT
+  Future<void> _onTapAllDistricts() async {
+
     await Nav.goBack(
       context: context,
-      invoker: 'SelectDistrictScreen',
     );
+
+    await ZoneSelection.onSelectCity(
+        context: context,
+        cityID: widget.city.cityID,
+        depth: ZoneDepth.city,
+        zoneViewingEvent: widget.zoneViewingEvent,
+    );
+
   }
-   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -299,14 +293,14 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                 loading: _loading,
                 foundDistricts: _foundDistricts,
                 onDistrictTap: _onDistrictTap,
-                censusModels: _censusModels,
+                censusModels: _districtsCensuses,
                 shownDistrictsIDs: _shownDistrictsIDs,
                 onDeactivatedDistrictTap: _onDeactivatedDistrictTap,
               );
 
             }
 
-            /// NOT SEARCHING
+            /// WHILE BROWSING
             else {
 
               return ValueListenableBuilder(
@@ -316,9 +310,15 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
                   return DistrictsScreenBrowseView(
                     onDistrictChanged: _onDistrictTap,
                     districts: districts,
-                    censusModels: _censusModels,
+                    censusModels: _districtsCensuses,
                     shownDistrictsIDs: _shownDistrictsIDs,
                     onDeactivatedDistrictTap: _onDeactivatedDistrictTap,
+                    cityCensus: _cityCensus,
+                    onTapAllDistricts: _onTapAllDistricts,
+                    showAllDistrictsButton: Staging.checkMayShowViewAllZonesButton(
+                        zoneViewingEvent: widget.zoneViewingEvent,
+                    ),
+                    cityModel: widget.city,
                   );
 
                 },
