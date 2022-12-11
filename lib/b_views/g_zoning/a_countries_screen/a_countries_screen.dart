@@ -99,7 +99,6 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     /// SHOWN IDS
     final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
-      context: context,
       event: widget.zoneViewingEvent,
     );
 

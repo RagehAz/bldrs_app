@@ -18,6 +18,8 @@ class CitiesScreenBrowseView extends StatelessWidget {
     @required this.citiesCensuses,
     @required this.onDeactivatedCityTap,
     @required this.countryCensus,
+    @required this.onTapAllCities,
+    @required this.showAllCitiesButton,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +29,8 @@ class CitiesScreenBrowseView extends StatelessWidget {
   final List<String> shownCitiesIDs;
   final List<CensusModel> citiesCensuses;
   final CensusModel countryCensus;
+  final Function onTapAllCities;
+  final bool showAllCitiesButton;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
       builder: (_, List<CityModel> cities, Widget child){
 
         if (Mapper.checkCanLoopList(cities) == false){
-          return const SizedBox.shrink();
+          return const SizedBox();
         }
 
         else {
@@ -50,33 +54,37 @@ class CitiesScreenBrowseView extends StatelessWidget {
             padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2, bottom: Ratioz.horizon),
             itemBuilder: (BuildContext context, int index) {
 
+              /// ALL CITIES BUTTON
               if (index == 0){
 
-                final String _countryID = CityModel.getCountryIDFromCityID(cities.first.cityID);
+                if (showAllCitiesButton == false){
+                  return const SizedBox();
+                }
 
-                return CountryTileButton(
-                  verse: const Verse(
-                    text: 'phid_view_all_cities',
-                    translate: true,
-                  ),
-                  verseCentered: false,
-                  countryID: _countryID,
-                  isActive: true,
-                  censusModel: countryCensus,
-                  onTap: (){
-                    blog('onTap : CountryTileButton : $_countryID');
-                  },
-                  onDeactivatedTap: (){
-                    blog(
-                            'onDeactivatedTap : for country : $_countryID '
-                            'in CitiesScreenBrowseView, very weird, '
-                            'should not happen'
+                else {
+                  final String _countryID = CityModel.getCountryIDFromCityID(cities.first.cityID);
+                  return CountryTileButton(
+                    verse: const Verse(
+                      text: 'phid_view_all_cities',
+                      translate: true,
+                    ),
+                    countryID: _countryID,
+                    isActive: true,
+                    censusModel: countryCensus,
+                    onTap: onTapAllCities,
+                    onDeactivatedTap: (){
+                      blog(
+                          'onDeactivatedTap : for country : $_countryID '
+                              'in CitiesScreenBrowseView, very weird, '
+                              'should not happen'
                       );
-                  },
-                );
+                    },
+                  );
+                }
 
               }
 
+              /// CITIES BUTTONS
               else {
 
                 final CityModel _city = cities[index - 1];
