@@ -104,8 +104,8 @@ class ChainSplitter extends StatelessWidget {
       final String _path = ChainPathConverter.fixPathFormatting('$previousPath/$_phid/');
 
       final bool _isSelected = Stringer.checkStringsContainString(
-        strings: selectedPhids,
-        string: _phid,
+        strings: Phider.removePhidsIndexes(selectedPhids),
+        string: Phider.removeIndexFromPhid(phid: _phid),
       );
 
       return PhidButton(

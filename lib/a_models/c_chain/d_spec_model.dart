@@ -414,7 +414,7 @@ class SpecModel {
     if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
       _result = specs
           .where(
-            (SpecModel spec) => spec.pickerChainID == pickerChainID,
+            (SpecModel spec) => Phider.removeIndexFromPhid(phid: spec.pickerChainID) == Phider.removeIndexFromPhid(phid: pickerChainID),
       )
           .toList();
     }

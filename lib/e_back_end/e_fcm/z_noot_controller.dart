@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
