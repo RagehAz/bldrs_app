@@ -3,6 +3,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 // --------------------------------------------------------------------------
 
@@ -290,7 +291,6 @@ class Staging {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
-    @required BuildContext context,
     @required ZoneViewingEvent event,
   }){
 
@@ -301,7 +301,6 @@ class Staging {
     else {
 
       final StageType _minStage = _concludeLowestStageOnViewingEvent(
-        context: context,
         event: event,
       );
 
@@ -316,11 +315,13 @@ class Staging {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StageType _concludeLowestStageOnViewingEvent({
-    @required BuildContext context,
     @required ZoneViewingEvent event,
   }){
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+        context: BldrsAppStarter.navigatorKey.currentContext,
+        listen: false,
+    );
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(_user);
 
     /// AUTHOR
@@ -484,6 +485,55 @@ class Staging {
       );
     }
 
+  }
+  // ---------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkAllZonesAreInEmptyStage(Staging staging){
+    bool _output;
+
+    if (staging != null){
+
+      final List<String> _allIDs = staging.getAllIDs();
+      final List<String> _emptyStageIDs = staging.getIDsByType(StageType.emptyStage);
+
+      _output = Mapper.checkListsAreIdentical(
+          list1: _allIDs,
+          list2: _emptyStageIDs,
+      );
+
+
+    }
+
+    blog('checkAllZonesAreInEmptyStage : _output : $_output');
+
+    return _output;
+  }
+  // ---------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkStagingHasSelectableZones({
+    @required Staging staging,
+    @required ZoneViewingEvent zoneViewingEvent,
+  }){
+    bool _output = false;
+
+    if (staging != null && zoneViewingEvent != null){
+
+      final List<String> _ids = staging.getIDsByViewingEvent(
+        event: zoneViewingEvent,
+      );
+
+      _output = Mapper.checkCanLoopList(_ids);
+
+    }
+
+    return _output;
+  }
+  // ---------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkMayShowViewAllZonesButton({
+    @required ZoneViewingEvent zoneViewingEvent,
+  }){
+    return zoneViewingEvent == ZoneViewingEvent.homeView;
   }
   // -----------------------------------------------------------------------------
 
