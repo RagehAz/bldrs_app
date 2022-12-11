@@ -25,6 +25,7 @@ import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_scree
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
 import 'package:bldrs/x_dashboard/backend_lab/backend_lab_home.dart';
+import 'package:bldrs/x_dashboard/hashtag_manager/hashtag_manager_screen.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
 import 'package:bldrs/x_dashboard/chains_editor/a_chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/a_pickers_manager_screen.dart';
@@ -120,8 +121,12 @@ class DashBoardHomeScreen extends StatelessWidget {
         icon: Iconz.more,
         screen: SpecPickerManager(),
       ),
-      /// EMPTY
-      null,
+      /// HASHTAG
+      DashButtonModel(
+        verse:  'HashTag\nManager',
+        icon: Iconz.hashtag,
+        screen: HashTagManager(),
+      ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// USERS MANAGER
       DashButtonModel(
