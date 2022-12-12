@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TextFieldBubble({
-    @required this.headerViewModel,
+    @required this.bubbleHeaderVM,
     @required this.appBarType,
     // this.titleVerse,
     // this.fieldIsRequired = false,
@@ -62,7 +62,7 @@ class TextFieldBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
 
-  final BubbleHeaderVM headerViewModel;
+  final BubbleHeaderVM bubbleHeaderVM;
 
   // final Verse titleVerse;
   // final bool fieldIsRequired;
@@ -183,7 +183,7 @@ class TextFieldBubble extends StatelessWidget {
             keepEmbeddedBubbleColor: true,
           ),
         ),
-      headerViewModel: headerViewModel.copyWith(
+      headerViewModel: bubbleHeaderVM.copyWith(
         headerWidth: _bubbleWidth - 20,
       ),
         // headerViewModel: BubbleHeaderVM(
@@ -231,7 +231,7 @@ class TextFieldBubble extends StatelessWidget {
                   SuperTextField(
                     appBarType: appBarType,
                     globalKey: formKey,
-                    titleVerse: headerViewModel.headlineVerse,
+                    titleVerse: bubbleHeaderVM.headlineVerse,
                     width: fieldWidth,
                     isFormField: isFormField,
                     textDirection: textDirection,

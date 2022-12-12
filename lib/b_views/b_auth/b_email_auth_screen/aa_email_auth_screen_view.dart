@@ -98,7 +98,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// ENTER E-MAIL
               TextFieldBubble(
-                headerViewModel: const BubbleHeaderVM(
+                bubbleHeaderVM: const BubbleHeaderVM(
                   redDot: true,
                   headlineVerse: Verse(
                     text: 'phid_emailAddress',

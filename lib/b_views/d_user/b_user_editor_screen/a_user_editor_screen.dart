@@ -251,7 +251,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// NAME
                 TextFieldBubble(
                   key: const ValueKey<String>('name'),
-                  headerViewModel: const BubbleHeaderVM(
+                  bubbleHeaderVM: const BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: 'phid_name',
                       translate: true,
@@ -280,7 +280,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// JOB TITLE
                 TextFieldBubble(
                   key: const ValueKey<String>('title'),
-                  headerViewModel: const BubbleHeaderVM(
+                  bubbleHeaderVM: const BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: 'phid_occupation',
                       translate: true,
@@ -309,7 +309,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// COMPANY NAME
                 TextFieldBubble(
                   key: const ValueKey<String>('company'),
-                  headerViewModel: const BubbleHeaderVM(
+                  bubbleHeaderVM: const BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: 'phid_companyName',
                       translate: true,

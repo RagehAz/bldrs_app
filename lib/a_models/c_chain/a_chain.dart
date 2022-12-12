@@ -132,7 +132,7 @@ class Chain {
       );
 
       _bldrsChains = ChainPathConverter.createChainsFromPaths(
-        paths: _paths,
+        paths: Phider.removePathsIndexes(_paths),
       );
 
     }

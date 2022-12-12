@@ -421,7 +421,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                 /// TITLE
                 TextFieldBubble(
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: Verse.plain('Title'),
                   ),
                   bubbleWidth: _clearWidth,
@@ -449,7 +449,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                 /// BODY
                 TextFieldBubble(
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: Verse.plain('Body'),
                   ),
                   bubbleWidth: _clearWidth,

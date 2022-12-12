@@ -42,8 +42,10 @@ class KeywordsBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final double _width = Bubble.bubbleWidth(context, bubbleWidthOverride: bubbleWidth);
+
     /// the keyword bottom bubble corner when set in flyer info page
-    final double _bottomPadding = FlyerDim.footerBoxBottomCornerValue(bubbleWidth)
+    final double _bottomPadding = FlyerDim.footerBoxBottomCornerValue(_width)
                                   -
                                   Ratioz.appBarPadding
                                   -
@@ -57,12 +59,12 @@ class KeywordsBubble extends StatelessWidget {
       headerViewModel: BubbleHeaderVM(
         headlineVerse: titleVerse,
       ),
-      width: bubbleWidth,
+      width: _width,
       onBubbleTap: passKeywordOnTap == true ? null : onTap,
       columnChildren: <Widget>[
 
         /// STRINGS
-        if (Mapper.checkCanLoopList(phids))
+        if (Mapper.checkCanLoopList(phids) == true)
           Wrap(
             children: <Widget>[
 

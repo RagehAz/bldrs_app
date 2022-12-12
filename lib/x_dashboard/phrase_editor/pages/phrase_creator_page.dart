@@ -56,7 +56,7 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ID
           TextFieldBubble(
             formKey: globalKey,
-            headerViewModel: BubbleHeaderVM(
+            bubbleHeaderVM: BubbleHeaderVM(
               headlineVerse: const Verse(
                 text: 'Key',
                 translate: false,
@@ -108,7 +108,7 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ENGLISH
           TextFieldBubble(
             formKey: globalKey,
-            headerViewModel: BubbleHeaderVM(
+            bubbleHeaderVM: BubbleHeaderVM(
               headlineVerse: const Verse(
                 text: 'English',
                 translate: false,
@@ -138,7 +138,7 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ARABIC
           TextFieldBubble(
             formKey: globalKey,
-            headerViewModel: BubbleHeaderVM(
+            bubbleHeaderVM: BubbleHeaderVM(
               headlineVerse: const Verse(
                 text: 'عربي',
                 translate: false,
