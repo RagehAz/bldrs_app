@@ -489,4 +489,57 @@ class FlyerTyper{
     equipmentChainID,
   ];
   // -----------------------------------------------------------------------------
+
+  /// HASHTAGS
+
+  // --------------------
+  static List<String> getHashGroupsIDsByFlyerType(FlyerType flyerType){
+
+    switch (flyerType){
+      case FlyerType.general      :
+        return <String>[
+
+        ]; break;
+    // --------------------
+      case FlyerType.property     :
+        return <String>[
+          'phid_k_flyer_type_property',
+          'phid_s_sub_ppt_feat_indoor',
+          'phid_s_sub_ppt_feat_finishing',
+          'phid_s_propertyView',
+          'phid_s_sub_ppt_feat_services',
+          'phid_s_sub_ppt_feat_amenities',
+    ]; break;
+    // --------------------
+      case FlyerType.design       :
+        return <String>[
+
+        ]; break;
+    // --------------------
+      case FlyerType.undertaking  :
+        return <String>[
+
+        ]; break;
+    // --------------------
+      case FlyerType.trade        :
+        return <String>[
+
+        ]; break;
+    // --------------------
+      case FlyerType.product      :
+        return <String>[
+
+        ]; break;
+    // --------------------
+      case FlyerType.equipment    :
+        return <String>[
+
+        ]; break;
+    // --------------------
+      default: return <String>[];
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  void f(){}
 }

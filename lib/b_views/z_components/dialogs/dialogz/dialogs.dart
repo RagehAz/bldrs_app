@@ -539,7 +539,7 @@ class Dialogs {
 
                 TextFieldBubble(
                   formKey: _keyboardModel.globalKey,
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: _keyboardModel.titleVerse,
                   ),
                   appBarType: AppBarType.non,

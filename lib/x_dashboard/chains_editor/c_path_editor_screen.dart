@@ -379,7 +379,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
               /// TEXT FIELD
               TextFieldBubble(
                 focusNode: _keyboardModel.focusNode,
-                headerViewModel: BubbleHeaderVM(
+                bubbleHeaderVM: BubbleHeaderVM(
                   headlineVerse: _keyboardModel.titleVerse
                 ),
                 formKey: _keyboardModel.globalKey,

@@ -150,7 +150,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 const Stratosphere(bigAppBar: true),
 
                 TextFieldBubble(
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: Verse.plain('AAA'),
                   ),
                   appBarType: _appBarType,
@@ -179,7 +179,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 TextFieldBubble(
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: Verse.plain('BBB'),
                   ),
                   appBarType: _appBarType,
@@ -199,7 +199,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 TextFieldBubble(
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: Verse.plain('CCC'),
                   ),
                   appBarType: _appBarType,
@@ -218,7 +218,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 ),
 
                 TextFieldBubble(
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: Verse.plain('DDD'),
                   ),
                   appBarType: _appBarType,

@@ -104,15 +104,19 @@ class Sliders {
   // }
   */
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> slideTo({
-    @required PageController controller,
+    @required PageController pageController,
     @required int toIndex,
+    Duration duration = Ratioz.duration1000ms,
+    Curve curve = Curves.easeInOutCirc,
   }) async {
 
-    // if (slidingController.positions.length > 0 && slidingController.position.extentAfter == 0.0) {
-    await controller.animateToPage(toIndex,
-        duration: Ratioz.duration1000ms, curve: Curves.easeInOutCirc);
-    // }
+    if (pageController != null && toIndex != null) {
+      await pageController.animateToPage(toIndex,
+          duration: duration, curve: curve
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -173,7 +177,7 @@ class Sliders {
     }
     else if (_direction == SwipeDirection.freeze){
       await slideTo(
-          controller: slidingController,
+          pageController: slidingController,
           toIndex: currentSlide
       );
     }

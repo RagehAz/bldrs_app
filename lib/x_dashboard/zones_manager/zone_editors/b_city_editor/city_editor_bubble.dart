@@ -272,7 +272,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
 
           return TextFieldBubble(
             bubbleWidth: _clearWidth,
-            headerViewModel: BubbleHeaderVM(
+            bubbleHeaderVM: BubbleHeaderVM(
               headlineVerse: Verse.plain('Name ( ${_phrase.langCode} )'),
               leadingIcon: Iconz.xSmall,
               leadingIconIsBubble: true,
@@ -335,7 +335,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
         /// POPULATION
         TextFieldBubble(
           bubbleWidth: _clearWidth,
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
               headlineVerse: Verse.plain('Population'),
               leadingIcon: Iconz.users,
               leadingIconIsBubble: true,
@@ -372,7 +372,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
             /// LAT
             TextFieldBubble(
               bubbleWidth: _halfWidth,
-              headerViewModel: BubbleHeaderVM(
+              bubbleHeaderVM: BubbleHeaderVM(
                 headlineVerse: Verse.plain('LAT'),
                 leadingIcon: Iconz.locationPin,
                 leadingIconIsBubble: true,
@@ -399,7 +399,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
             /// LNG
             TextFieldBubble(
               bubbleWidth: _halfWidth,
-              headerViewModel: BubbleHeaderVM(
+              bubbleHeaderVM: BubbleHeaderVM(
                 headlineVerse: Verse.plain('LNG'),
                 leadingIcon: Iconz.locationPin,
                 leadingIconIsBubble: true,

@@ -286,7 +286,7 @@ class Flag {
         countryID: countryID,
       );
 
-      _output = _flag.icon;
+      _output = _flag?.icon;
 
     }
 
