@@ -164,7 +164,7 @@ class _DistrictEditorBubbleState extends State<DistrictEditorBubble> {
 
             return TextFieldBubble(
               bubbleWidth: _clearWidth,
-              headerViewModel: BubbleHeaderVM(
+              bubbleHeaderVM: BubbleHeaderVM(
                   headlineVerse: Verse.plain('Name ( ${_phrase.langCode} )'),
                   leadingIcon: Iconz.xSmall,
                   leadingIconIsBubble: true,

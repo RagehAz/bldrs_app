@@ -25,6 +25,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
 
+/*
+
+Egyptian Salary for 3 years of experience
+rate 1 : 25000 EGP / Month / 20 days / 8 hours = 156 EGP/hour
+but should increase rate for freelance jobs
+
+/// INTERNATIONAL EGYPTIAN COMPETITIVE RATE "less than 40$ per hour"
+rate 2 : min 18$ - max 30$ = 450 - 750 EGP/hour => can not be used locally with local contracts
+
+/// DURATION REQUIRED TO CREATE THE CODE FOR THE FIRST TIME
+initial build & learning duration : 34 days * 10 hours = 340 hours
+
+/// EXPECTED DURATION REQUIRED TO INSTALL THE CODE ON NEW PROJECT
+expected implementation duration : 100 hours
+
+/// CONCLUDED PRICE FOR THE ENTIRE JOB
+total : 156 EGP/HOUR * 100 hours = 15600 EGP
+
+ */
+
 class FCM {
   // -----------------------------------------------------------------------------
 

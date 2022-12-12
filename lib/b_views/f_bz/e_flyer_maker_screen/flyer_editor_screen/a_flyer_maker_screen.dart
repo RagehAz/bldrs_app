@@ -218,7 +218,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                   /// FLYER HEADLINE
                   TextFieldBubble(
                     key: const ValueKey<String>('flyer_headline_text_field'),
-                    headerViewModel: const BubbleHeaderVM(
+                    bubbleHeaderVM: const BubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'phid_flyer_headline',
                         translate: true,
@@ -257,7 +257,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     //
                     //   });
                     // },
-                    headerViewModel: const BubbleHeaderVM(
+                    bubbleHeaderVM: const BubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'phid_flyer_description',
                         translate: true,

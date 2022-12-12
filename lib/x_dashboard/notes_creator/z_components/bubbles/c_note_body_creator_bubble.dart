@@ -23,7 +23,7 @@ class NoteBodyCreatorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TextFieldBubble(
-      headerViewModel: BubbleHeaderVM(
+      bubbleHeaderVM: BubbleHeaderVM(
         headlineVerse: Verse.plain('Note Body'),
         leadingIcon: Iconz.bxDesignsOff,
         leadingIconSizeFactor: 0.8,

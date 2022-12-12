@@ -49,7 +49,6 @@ class DashBoardLayout extends StatelessWidget {
           ...appBarWidgets,
 
       ],
-
       layoutWidget: ListView(
         physics: scrollable ?
         const BouncingScrollPhysics()

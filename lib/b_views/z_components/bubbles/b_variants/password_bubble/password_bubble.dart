@@ -42,7 +42,7 @@ class PasswordBubbles extends StatelessWidget {
 
         /// PASSWORD
         TextFieldBubble(
-          headerViewModel: const BubbleHeaderVM(
+          bubbleHeaderVM: const BubbleHeaderVM(
             headlineVerse: Verse(text: 'phid_password', translate: true),
             redDot: true,
 
@@ -78,7 +78,7 @@ class PasswordBubbles extends StatelessWidget {
         /// CONFIRM PASSWORD
         if (showPasswordOnly == false)
           TextFieldBubble(
-            headerViewModel: const BubbleHeaderVM(
+            bubbleHeaderVM: const BubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_confirmPassword',
                 translate: true,

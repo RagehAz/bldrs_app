@@ -244,7 +244,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   /// NAME
                   TextFieldBubble(
                     key: const ValueKey<String>('name'),
-                    headerViewModel: const BubbleHeaderVM(
+                    bubbleHeaderVM: const BubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'phid_author_name',
                         translate: true,
@@ -282,7 +282,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   /// TITLE
                   TextFieldBubble(
                     formKey: _formKey,
-                    headerViewModel: const BubbleHeaderVM(
+                    bubbleHeaderVM: const BubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'phid_job_title',
                         translate: true,

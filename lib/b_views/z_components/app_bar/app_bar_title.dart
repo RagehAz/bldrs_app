@@ -96,7 +96,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
         margin: 0,
         shadow: true,
         italic: true,
-        maxLines: 2,
+        // maxLines: 1,
         centered: false,
         scaleFactor: 0.9,
       );
