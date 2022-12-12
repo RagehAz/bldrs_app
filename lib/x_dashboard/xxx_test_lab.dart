@@ -18,6 +18,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -57,6 +58,32 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
+    await Real.createDocInPath(
+        pathWithoutDocName: 'app/tests/hashGroups',
+        docName: 'designs',
+        addDocIDToOutput: false,
+        map: {
+          'groups': [
+            {
+              'designType': ['1', '2', '3'],
+            },
+            {
+              'designForm': ['4', '5', '6'],
+            },
+            {
+              'spaceType': ['7', '8', '9'],
+            },
+          ],
+        }
+    );
+
+    final Object _object = await Real.readPath(
+      path: 'app/tests/hashGroups/group',
+    );
+
+    final Map<String, dynamic> map = Mapper.getMapFromIHLMOO(ihlmoo: _object);
+
+    Mapper.blogMap(map);
 
     }
   // -------------------------------------------------

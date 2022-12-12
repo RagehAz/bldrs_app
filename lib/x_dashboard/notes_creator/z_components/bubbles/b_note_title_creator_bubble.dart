@@ -26,7 +26,7 @@ class NoteTitleCreatorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TextFieldBubble(
-      headerViewModel: BubbleHeaderVM(
+      bubbleHeaderVM: BubbleHeaderVM(
         leadingIcon: Iconz.bxDesignsOff,
         leadingIconSizeFactor: 0.8,
         leadingIconBoxColor: titleController.text.isEmpty == true ? Colorz.grey50 : Colorz.green255,

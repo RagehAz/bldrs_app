@@ -1,5 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -617,6 +618,52 @@ class Stringer {
     blog('blogStringsListsDifferences : END');
 
     return _blogLog;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// HASHTAGS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> findHashtags({
+    @required String text,
+    bool considerDash = true,
+    bool removeHash = false,
+  }){
+    final List<String> _output = <String>[];
+
+    if (TextCheck.isEmpty(text) == false){
+
+      String _rawExp;
+      /// CONSIDER DASH
+      if (considerDash == true){
+        _rawExp = r'\B#[\w-]+';
+      }
+      /// IGNORE DASH
+      else {
+        _rawExp = r'\B#\w\w+';
+      }
+
+      final RegExp exp = RegExp(_rawExp);
+      exp.allMatches(text).forEach((match){
+
+        final String _match = match.group(0);
+
+        /// REMOVE HASH
+        if (removeHash == true){
+          _output.add(TextMod.removeTextBeforeFirstSpecialCharacter(_match, '#'));
+        }
+
+        /// KEEP HASH
+        else {
+          _output.add(_match);
+        }
+
+      });
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 }

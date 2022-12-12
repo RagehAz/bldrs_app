@@ -119,7 +119,7 @@ class ChainSplitter extends StatelessWidget {
         onPhidDoubleTap: () => onPhidDoubleTap(_path, _phid),
         onPhidLongTap: () => onPhidLongTap(_path, _phid),
         // inverseAlignment: ,
-        // margins: ,
+        margins: const EdgeInsets.only(bottom: 5),
         // isDisabled: ,
         // xIsOn: ,
       );

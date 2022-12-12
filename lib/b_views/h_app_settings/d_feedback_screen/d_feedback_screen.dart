@@ -166,7 +166,7 @@ class _FeedBackState extends State<FeedBack> {
 
           TextFieldBubble(
             appBarType: AppBarType.basic,
-            headerViewModel: const BubbleHeaderVM(
+            bubbleHeaderVM: const BubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_feedback',
                 translate: true,

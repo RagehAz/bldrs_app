@@ -89,7 +89,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
-              headerViewModel: BubbleHeaderVM(
+              bubbleHeaderVM: BubbleHeaderVM(
                 headlineVerse: Verse.plain('Set Min value'),
                 leadingIcon: Iconz.plus,
                 onLeadingIconTap: () {
@@ -108,7 +108,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
-              headerViewModel: BubbleHeaderVM(
+              bubbleHeaderVM: BubbleHeaderVM(
                 headlineVerse: Verse.plain('Set Max value'),
                 leadingIcon: Iconz.plus,
                 onLeadingIconTap: () {
@@ -127,7 +127,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
-              headerViewModel: BubbleHeaderVM(
+              bubbleHeaderVM: BubbleHeaderVM(
                 headlineVerse: Verse.plain('Set divisions'),
                 leadingIcon: Iconz.plus,
                 onLeadingIconTap: () {

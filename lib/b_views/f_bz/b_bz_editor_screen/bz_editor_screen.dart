@@ -321,7 +321,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// BZ NAME
                 TextFieldBubble(
                   formKey: draft?.formKey,
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: _companyNameBubbleTitle,
                       translate: true,
@@ -354,7 +354,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 /// BZ ABOUT
                 TextFieldBubble(
                   formKey: draft?.formKey,
-                  headerViewModel: const BubbleHeaderVM(
+                  bubbleHeaderVM: const BubbleHeaderVM(
                     headlineVerse: Verse(
                       text: 'phid_about',
                       translate: true,
