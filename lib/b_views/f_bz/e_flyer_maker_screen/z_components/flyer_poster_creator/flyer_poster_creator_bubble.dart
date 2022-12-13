@@ -24,7 +24,7 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(
+      bubbleHeaderVM: const BubbleHeaderVM(
           headlineVerse: Verse(
             text: 'phid_flyer_url_poster',
             translate: true,

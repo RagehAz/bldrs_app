@@ -46,7 +46,7 @@ class DashboardUserButton extends StatelessWidget {
       verseScaleFactor: 0.6,
       verseCentered: false,
       secondLineScaleFactor: 0.9,
-      margins: Scale.superMargins(margins: margins),
+      margins: Scale.superMargins(margin: margins),
       onTap: onTap,
     );
 

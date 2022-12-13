@@ -328,7 +328,7 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
               final List<String> _keys = _map.keys.toList();
 
               return Bubble(
-                headerViewModel: BubbleHeaderVM(
+                bubbleHeaderVM: BubbleHeaderVM(
                   headlineVerse: Verse.plain(index.toString()),
                 ),
                 columnChildren: <Widget>[

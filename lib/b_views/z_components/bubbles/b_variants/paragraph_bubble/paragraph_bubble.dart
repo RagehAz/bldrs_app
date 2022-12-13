@@ -103,10 +103,10 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     );
 
     return Bubble(
-        headerViewModel: widget.headerViewModel,
+        bubbleHeaderVM: widget.headerViewModel,
         key: widget.key,
         width: widget.bubbleWidth,
-        margins: widget.margins,
+        margin: widget.margins,
         corners: widget.corners,
         childrenCentered: widget.centered,
         bubbleColor: widget.bubbleColor,
@@ -119,7 +119,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
           /// PARAGRAPH TEXT
           if (widget.paragraph != null && widget.paragraph.text != '')
             Padding(
-              padding: Scale.superMargins(margins: widget.margins),
+              padding: Scale.superMargins(margin: widget.margins),
               child: SuperVerse(
                 verse: widget.paragraph,
                 maxLines: _maxLines,

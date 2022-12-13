@@ -11,6 +11,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/phrase_editor/z_components/google_translate_bubble.dart';
 import 'package:flutter/material.dart';
 
 class PhraseCreatorPage extends StatelessWidget {
@@ -103,7 +104,11 @@ class PhraseCreatorPage extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(width: 10, height: 10,),
+          const SizedBox(width: 10, height: 5,),
+
+          GoogleTranslateBubble(
+            enController: enController,
+          ),
 
           /// ENGLISH
           TextFieldBubble(
@@ -133,7 +138,7 @@ class PhraseCreatorPage extends StatelessWidget {
             },
           ),
 
-          const SizedBox(width: 10, height: 10,),
+          const SizedBox(width: 10, height: 5,),
 
           /// ARABIC
           TextFieldBubble(
@@ -160,7 +165,8 @@ class PhraseCreatorPage extends StatelessWidget {
             keyboardTextInputAction: TextInputAction.done,
           ),
 
-          const SizedBox(width: 10, height: 10,),
+          const SizedBox(width: 10, height: 5,),
+
 
           Align(
             alignment: Aligners.superInverseCenterAlignment(context),

@@ -205,7 +205,7 @@ class DreamBox extends StatelessWidget {
       key: const ValueKey<String>('Dream_box_the_box'),
       inActiveMode: isDeactivated,
       opacity: opacity,
-      boxMargins: Scale.superMargins(margins: margins),
+      boxMargins: Scale.superMargins(margin: margins),
       width: width,
       height: height,
       boxColor: boxColor(

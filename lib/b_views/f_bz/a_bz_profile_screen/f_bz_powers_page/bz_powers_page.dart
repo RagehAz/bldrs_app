@@ -27,7 +27,7 @@ class BzPowersPage extends StatelessWidget {
       children: <Widget>[
 
         Bubble(
-          headerViewModel: const BubbleHeaderVM(
+          bubbleHeaderVM: const BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_get_more_slides',
               translate: true,
@@ -48,7 +48,7 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         const Bubble(
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_get_more_ankhs',
               translate: true,
@@ -60,7 +60,7 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         const Bubble(
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_get_pro_account',
               translate: true,
@@ -72,7 +72,7 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         const Bubble(
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_get_master_account',
               translate: true,
@@ -84,7 +84,7 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         const Bubble(
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_boost_flyer',
               translate: true,
@@ -96,7 +96,7 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         const Bubble(
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_create_ad',
               translate: true,
@@ -108,7 +108,7 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         const Bubble(
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_sponsor_bldrs_in_ur_city',
               translate: true,
@@ -120,7 +120,7 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         Bubble(
-          headerViewModel: const BubbleHeaderVM(
+          bubbleHeaderVM: const BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_get_marketing_material',
               translate: true,

@@ -38,7 +38,7 @@ class UserNeedsBanner extends StatelessWidget {
 
     return Bubble(
       width: BldrsAppBar.width(context),
-      headerViewModel: BubbleHeaderVM(
+      bubbleHeaderVM: BubbleHeaderVM(
           hasMoreButton: true,
           onMoreButtonTap: editorMode == true ? () => onGoToNeedsEditorScreen(context) : null,
       ),

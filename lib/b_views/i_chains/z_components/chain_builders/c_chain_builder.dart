@@ -43,6 +43,7 @@ class ChainBuilder extends StatelessWidget {
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
     this.level = 0,
+    this.isCollapsable = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -76,6 +77,7 @@ class ChainBuilder extends StatelessWidget {
   final ValueChanged<String> onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseCityChains;
+  final bool isCollapsable;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -105,6 +107,7 @@ class ChainBuilder extends StatelessWidget {
         onTileLongTap: () => onTileLongTap(_cleanedPath, chain.id),
         onTileTap: (bool isExpanded) => onTileTap(_cleanedPath, chain.id),
         onTileDoubleTap: () => onTileDoubleTap(_cleanedPath, chain.id),
+        isCollapsable: isCollapsable,
         child: ChainSplitter(
           width: _sonWidth,
           previousPath: '$previousPath/${chain.id}',
@@ -122,6 +125,7 @@ class ChainBuilder extends StatelessWidget {
           onlyUseCityChains: onlyUseCityChains,
           zone: zone,
           onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
+          isCollapsable: isCollapsable,
         ),
       ),
     );

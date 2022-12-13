@@ -12,24 +12,24 @@ class Bubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Bubble({
     @required this.columnChildren,
-    @required this.headerViewModel,
+    @required this.bubbleHeaderVM,
     this.childrenCentered = false,
     this.bubbleColor = Colorz.white10,
     this.width,
     this.onBubbleTap,
-    this.margins,
+    this.margin,
     this.corners,
     this.areTopCentered = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Widget> columnChildren;
-  final BubbleHeaderVM headerViewModel;
+  final BubbleHeaderVM bubbleHeaderVM;
   final bool childrenCentered;
   final Color bubbleColor;
   final double width;
   final Function onBubbleTap;
-  final dynamic margins;
+  final dynamic margin;
   final dynamic corners;
   final bool areTopCentered;
   // -----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class Bubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final EdgeInsets _bubbleMargins = margins == null ? EdgeInsets.zero : Scale.superMargins(margins: margins);
+    final EdgeInsets _bubbleMargins = margin == null ? EdgeInsets.zero : Scale.superMargins(margin: margin);
     // --------------------
     final double _bubbleWidth = bubbleWidth(context, bubbleWidthOverride: width);
     // --------------------
@@ -101,7 +101,7 @@ class Bubble extends StatelessWidget {
       width: width,
       childrenCentered: childrenCentered,
       columnChildren: columnChildren,
-      headerViewModel: headerViewModel,
+      headerViewModel: bubbleHeaderVM,
     );
     // --------------------
     return Center(

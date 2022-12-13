@@ -98,26 +98,26 @@ class Scale {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static EdgeInsets superMargins({dynamic margins}) {
+  static EdgeInsets superMargins({dynamic margin}) {
 
-    if (margins == null || margins == 0){
+    if (margin == null || margin == 0){
       return EdgeInsets.zero;
     }
 
-    else if (margins.runtimeType == double){
-      return EdgeInsets.all(margins);
+    else if (margin.runtimeType == double){
+      return EdgeInsets.all(margin);
     }
 
-    else if (margins.runtimeType == int){
-      return EdgeInsets.all(margins.toDouble());
+    else if (margin.runtimeType == int){
+      return EdgeInsets.all(margin.toDouble());
     }
 
-    else if (margins.runtimeType == EdgeInsets){
-      return margins;
+    else if (margin.runtimeType == EdgeInsets){
+      return margin;
     }
 
     else {
-      return margins;
+      return margin;
     }
 
   }
