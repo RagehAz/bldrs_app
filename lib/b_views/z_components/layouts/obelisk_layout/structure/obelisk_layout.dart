@@ -91,12 +91,20 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     if (Mapper.checkCanLoopList(widget.navModels) == true){
 
-      _isExpanded.value = widget.initiallyExpanded;
+      setNotifier(
+          notifier: _isExpanded,
+          mounted: mounted,
+          value: widget.initiallyExpanded,
+      );
 
-      _progressBarModel.value = ProgressBarModel(
-        swipeDirection: SwipeDirection.next,
-        index: widget.initialIndex,
-        numberOfStrips: widget.navModels.length,
+      setNotifier(
+          notifier: _progressBarModel,
+          mounted: mounted,
+          value: ProgressBarModel(
+            swipeDirection: SwipeDirection.next,
+            index: widget.initialIndex,
+            numberOfStrips: widget.navModels.length,
+          ),
       );
 
       // blog('should go now to tab : ${widget.initialIndex}');
@@ -120,8 +128,11 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           progressBarModel: _progressBarModel,
         );
 
-        _pageTitleVerse.notifier.value = widget.navModels[_progressBarModel.value.index].titleVerse.text;
-
+        setNotifier(
+          notifier: _pageTitleVerse.notifier,
+          mounted: mounted,
+          value: widget.navModels[_progressBarModel.value.index].titleVerse.text,
+        );
 
       });
 
@@ -187,9 +198,13 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
   // --------------------
   void onTriggerExpansion(){
-    _isExpanded.value = !_isExpanded.value;
+    setNotifier(
+        notifier: _isExpanded,
+        mounted: mounted,
+        value: !_isExpanded.value
+    );
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// PAGE TITLE
   Verse _pageTitleVerse;
   // -----------------------------------------------------------------------------
