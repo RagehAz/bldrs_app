@@ -197,7 +197,6 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
     }
 
   }
-
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -260,6 +259,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
                             // crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
 
+                              /// TOP ARROW
                               DreamBox(
                                 height: 35,
                                 width: 35,

@@ -57,7 +57,7 @@ class DreamBoxTapLayer extends StatelessWidget {
       /// CAN TAP
       if (onTap != null){
         await Future.delayed(
-            const Duration(milliseconds: 200,),
+            const Duration(milliseconds: 50,),
                 () async { onTap(); }
         );
       }
