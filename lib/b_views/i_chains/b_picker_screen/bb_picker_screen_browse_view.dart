@@ -130,6 +130,7 @@ class PickerScreenBrowseView extends StatelessWidget {
               searchText: searchText,
               onExportSpecs: onExportSpecs,
               onPhidTap: onPhidTap,
+              isCollapsable: true,
             );
 
           },

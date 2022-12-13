@@ -103,10 +103,10 @@ class AuthorCard extends StatelessWidget {
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
     // --------------------
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(),
+      bubbleHeaderVM: const BubbleHeaderVM(),
       width: _bubbleWidth,
       corners: bubbleCornerValue(),
-      margins: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
+      margin: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
       columnChildren: <Widget>[
 
         Row(

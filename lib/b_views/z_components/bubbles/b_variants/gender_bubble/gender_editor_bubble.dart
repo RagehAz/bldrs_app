@@ -51,7 +51,7 @@ class GenderBubble extends StatelessWidget {
           canValidate: canValidate,
         ),
       ),
-      headerViewModel: const BubbleHeaderVM(
+      bubbleHeaderVM: const BubbleHeaderVM(
         headlineVerse: Verse(text: 'phid_gender', translate: true),
         redDot: true,
       ),

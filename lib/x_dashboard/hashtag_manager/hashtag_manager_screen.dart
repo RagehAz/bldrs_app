@@ -149,7 +149,7 @@ class _HashTagManagerState extends State<HashTagManager> {
           // bubbleColor: bubbleColor,
           // margins: margins,
           // corners: corners,
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse.plain('Found hashtags'),
           ),
           columnChildren: <Widget>[

@@ -76,7 +76,7 @@ class TileBubble extends StatelessWidget {
     final double _clearWidth = Bubble.clearWidth(context, bubbleWidthOverride: _bubbleWidth);
 
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(),
+      bubbleHeaderVM: const BubbleHeaderVM(),
       width: _bubbleWidth,
       onBubbleTap: onTileTap,
       bubbleColor: Formers.validatorBubbleColor(

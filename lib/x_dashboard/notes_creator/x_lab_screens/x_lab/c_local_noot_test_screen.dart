@@ -358,7 +358,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
               blog('something changed in this form');
             },
             child: Bubble(
-              headerViewModel: BubbleHeaderVM(
+              bubbleHeaderVM: BubbleHeaderVM(
                 headlineVerse: Verse.plain('Send $_notificationTypeString Notification'),
               ),
               columnChildren: <Widget>[

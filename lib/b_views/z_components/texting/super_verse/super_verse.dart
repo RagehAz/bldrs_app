@@ -590,7 +590,7 @@ class _SuperVerseBox extends StatelessWidget {
       onDoubleTap: onDoubleTap,
       child: Container(
         width: width,
-        margin: Scale.superMargins(margins: margin),
+        margin: Scale.superMargins(margin: margin),
         child: Row(
           mainAxisAlignment: _getMainAxisAlignment(centered: centered,),
           crossAxisAlignment: _getCrossAxisAlignment(

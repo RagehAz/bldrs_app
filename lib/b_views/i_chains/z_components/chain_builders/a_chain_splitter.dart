@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/b_chains_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/c_chain_builder.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
+import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/i_chains/z_components/pickers/data_creator_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
@@ -43,6 +43,7 @@ class ChainSplitter extends StatelessWidget {
     @required this.zone,
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
+    @required this.isCollapsable,
     this.onDataCreatorKeyboardSubmitted,
     this.previousPath = '',
     this.level = 0,
@@ -66,6 +67,7 @@ class ChainSplitter extends StatelessWidget {
   final ValueChanged<String> onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseCityChains;
+  final bool isCollapsable;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Verse createSecondLineVerse(ChainSecondLinesType type, String phid, {int index}){
@@ -145,6 +147,7 @@ class ChainSplitter extends StatelessWidget {
         zone: zone,
         onlyUseCityChains: onlyUseCityChains,
         isMultipleSelectionMode: isMultipleSelectionMode,
+        isCollapsable: isCollapsable,
       );
     }
     // --------------------
@@ -185,6 +188,7 @@ class ChainSplitter extends StatelessWidget {
         zone: zone,
         onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
 
+        isCollapsable: isCollapsable,
         // deactivated: ,
         // expansionColor: ,
         // initialColor: ,
@@ -223,6 +227,7 @@ class ChainSplitter extends StatelessWidget {
         zone: zone,
         onKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
         isMultipleSelectionMode: isMultipleSelectionMode,
+        isCollapsable: isCollapsable,
       );
     }
     // --------------------
@@ -246,6 +251,7 @@ class ChainSplitter extends StatelessWidget {
         onlyUseCityChains: onlyUseCityChains,
         zone: zone,
         onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
+        isCollapsable: isCollapsable,
       );
 
     }

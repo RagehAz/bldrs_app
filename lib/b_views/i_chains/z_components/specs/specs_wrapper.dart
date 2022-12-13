@@ -113,7 +113,7 @@ class SpecsWrapper extends StatelessWidget {
     // --------------------
     return Container(
       width: boxWidth,
-      padding: Scale.superMargins(margins: padding),
+      padding: Scale.superMargins(margin: padding),
       child: Wrap(
         spacing: Ratioz.appBarPadding,
         children: <Widget>[

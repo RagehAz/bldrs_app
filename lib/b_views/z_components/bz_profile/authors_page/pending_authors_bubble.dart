@@ -27,7 +27,7 @@ class PendingAuthorsBubble extends StatelessWidget {
     if (Mapper.checkCanLoopList(_bzModel.pendingAuthors) == true){
 
       return Bubble(
-        headerViewModel: const BubbleHeaderVM(
+        bubbleHeaderVM: const BubbleHeaderVM(
           headlineVerse: Verse(
             text: 'phid_pending_invitation_requests',
             translate: true,

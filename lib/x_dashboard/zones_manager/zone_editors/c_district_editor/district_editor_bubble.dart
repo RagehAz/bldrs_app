@@ -148,7 +148,7 @@ class _DistrictEditorBubbleState extends State<DistrictEditorBubble> {
     final bool _identical = DistrictModel.checkDistrictsAreIdentical(_draftDistrict, widget.districtModel);
 
     return Bubble(
-      headerViewModel: BubbleHeaderVM(
+      bubbleHeaderVM: BubbleHeaderVM(
         headlineVerse: Verse.plain('Edit ${_draftDistrict?.id}'),
         leadingIcon: Iconz.reload,
         leadingIconSizeFactor: 0.7,

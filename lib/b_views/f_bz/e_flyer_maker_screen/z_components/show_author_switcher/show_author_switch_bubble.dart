@@ -22,7 +22,7 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
-      headerViewModel: BubbleHeaderVM(
+      bubbleHeaderVM: BubbleHeaderVM(
           headlineVerse: const Verse(
             text: 'phid_show_author_on_flyer',
             translate: true,

@@ -14,6 +14,10 @@ class Sliders {
   const Sliders();
 
   // -----------------------------------------------------------------------------
+
+  /// SLIDE TO
+
+  // --------------------
   static Future<int> slideToNextAndGetNewIndex({
     @required PageController slidingController,
     @required int numberOfSlides,
@@ -34,7 +38,7 @@ class Sliders {
       return currentSlide + 1;
     }
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<int> slideToBackAndGetNewIndex({
     @required PageController pageController,
     @required int currentSlide
@@ -56,7 +60,7 @@ class Sliders {
       return currentSlide - 1;
     }
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> slideToNext({
     @required PageController pageController,
     @required int numberOfSlides,
@@ -69,7 +73,7 @@ class Sliders {
     );
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> slideToBackFrom({
     @required PageController pageController,
     @required int currentSlide,
@@ -89,7 +93,7 @@ class Sliders {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// never used
   /*
   //   Future<void> snapToBack(PageController slidingController, int currentSlide) async {
@@ -103,9 +107,9 @@ class Sliders {
   //   }
   // }
   */
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> slideTo({
+  static Future<void> slideToIndex({
     @required PageController pageController,
     @required int toIndex,
     Duration duration = Ratioz.duration1000ms,
@@ -119,7 +123,26 @@ class Sliders {
     }
 
   }
+  // --------------------
+  static Future<void> slideToOffset({
+  @required ScrollController scrollController,
+    @required double offset,
+    Duration duration = Ratioz.duration1000ms,
+    Curve curve = Curves.easeInOutCirc,
+}) async {
+
+    if (scrollController != null && offset != null) {
+      await scrollController.animateTo(offset,
+          duration: duration, curve: curve
+      );
+    }
+
+  }
   // -----------------------------------------------------------------------------
+
+  /// SNAP TO
+
+  // --------------------
   static void snapTo({
     @required PageController pageController,
     @required int currentSlide
@@ -131,6 +154,10 @@ class Sliders {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// CONCLUDERS
+
+  // --------------------
   static SwipeDirection slidingDecision(int numberOfSlides, int currentSlide) {
 
     if (numberOfSlides == 0){
@@ -150,7 +177,7 @@ class Sliders {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> slidingAction({
     @required PageController slidingController,
     @required int numberOfSlides,
@@ -176,7 +203,7 @@ class Sliders {
       );
     }
     else if (_direction == SwipeDirection.freeze){
-      await slideTo(
+      await slideToIndex(
           pageController: slidingController,
           toIndex: currentSlide
       );

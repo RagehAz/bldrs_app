@@ -55,7 +55,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
     );
 
     return Bubble(
-        headerViewModel: BubbleHeaderVM(
+        bubbleHeaderVM: BubbleHeaderVM(
           headlineVerse: widget.titleVerse,
           redDot: widget.fieldIsRequired,
         ),
