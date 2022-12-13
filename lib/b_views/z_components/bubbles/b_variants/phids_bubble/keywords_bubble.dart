@@ -3,7 +3,10 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/add_keywords_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +26,8 @@ class KeywordsBubble extends StatelessWidget {
     this.margins,
     this.corners,
     this.passKeywordOnTap = false,
+    this.maxLines,
+    this.scrollController,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +43,27 @@ class KeywordsBubble extends StatelessWidget {
   final dynamic corners;
   final bool passKeywordOnTap;
   final bool addButtonIsOn;
+  final int maxLines;
+  final ScrollController scrollController;
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static double getLineHeightWithItsPadding(){
+    return PhidButton.getHeight() + Ratioz.appBarPadding;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getMaxWrapHeight({
+    @required int maxLines,
+  }){
+    if (maxLines == null){
+      return 0;
+    }
+    else {
+      final double _lineHeight = getLineHeightWithItsPadding();
+      /// GETS TOTAL LINES HEIGHT + HALF LINE HEIGHT TO SHOW USER THAT ITS SCROLLABLE
+      return (_lineHeight * maxLines) + (_lineHeight * 0.5);
+    }
+  }
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -65,26 +91,56 @@ class KeywordsBubble extends StatelessWidget {
 
         /// STRINGS
         if (Mapper.checkCanLoopList(phids) == true)
-          Wrap(
-            children: <Widget>[
+          Container(
+            width: Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth),
+            constraints: maxLines == null ? null : BoxConstraints(
+              maxHeight: getMaxWrapHeight(maxLines: maxLines),
+            ),
+            decoration: BoxDecoration(
+              color: Colorz.white10,
+              borderRadius: DreamBox.boxCorners,
+            ),
+            child: Scroller(
+              controller: scrollController,
+              isOn: maxLines != null,
+              child: ClipRRect(
+                borderRadius: DreamBox.boxCorners,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  controller: scrollController,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: PhidButton.getHeight(),
+                    ),
+                    child: Wrap(
+                      children: <Widget>[
 
-              ...List<Widget>.generate(phids?.length, (int index) {
+                        ...List<Widget>.generate(phids?.length, (int index) {
 
-                final String _phid = phids[index];
+                          final String _phid = phids[index];
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                  child: PhidButton(
-                    phid: _phid,
-                    onPhidTap: passKeywordOnTap == true ?
-                        () => onKeywordTap(_phid)
-                        :
-                    null,
+                          return Padding(
+                            padding: Scale.superInsets(
+                              context: context,
+                              enRight: Ratioz.appBarPadding,
+                              bottom: Ratioz.appBarPadding,
+                            ),
+                            child: PhidButton(
+                              phid: _phid,
+                              onPhidTap: passKeywordOnTap == true ?
+                                  () => onKeywordTap(_phid)
+                                  :
+                              null,
+                            ),
+                          );
+                        }),
+
+                      ],
+                    ),
                   ),
-                );
-              }),
-
-            ],
+                ),
+              ),
+            ),
           ),
 
         if (phids != null && phids.isEmpty && addButtonIsOn == true)
