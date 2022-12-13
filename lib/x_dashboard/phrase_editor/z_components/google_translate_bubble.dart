@@ -1,12 +1,10 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/e_back_end/f_cloud/google_translator.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/the_golden_scroll.dart';
 import 'package:flutter/material.dart';
 
 class GoogleTranslateBubble extends StatefulWidget {
@@ -111,13 +109,9 @@ class _GoogleTranslateBubbleState extends State<GoogleTranslateBubble> {
 
             builder: (_, String value, Widget child){
 
-              return SuperVerse(
-                verse: Verse.plain(value),
-                labelColor: Colorz.black255,
-                onTap: () => Keyboard.copyToClipboard(
-                    context: context,
-                    copy: value,
-                ),
+              return GoldenScroll(
+                  headline: 'translation',
+                  text: value,
               );
 
             }

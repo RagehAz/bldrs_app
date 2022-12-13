@@ -46,7 +46,7 @@ class NonCollapsableTile extends StatelessWidget {
         headlineVerse: Verse(
           text: firstHeadline?.text,
           translate: firstHeadline?.translate,
-          notifier: searchText,
+          // notifier: searchText,
         ),
         leadingIcon: icon,
         leadingIconSizeFactor: iconSizeFactor,
