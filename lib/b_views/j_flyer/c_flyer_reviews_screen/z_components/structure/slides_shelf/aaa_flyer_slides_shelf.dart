@@ -9,16 +9,18 @@ class FlyerSlidesShelf extends StatelessWidget {
   const FlyerSlidesShelf({
     @required this.flyerModel,
     this.shelfHeight = 120,
+    this.shelfWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final double shelfHeight;
+  final double shelfWidth;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenWidth = shelfWidth ?? Scale.screenWidth(context);
     final double _flyerBoxHeight = shelfHeight;
     final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight);
     // --------------------
