@@ -309,7 +309,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                   bubbleColor: Formers.validatorBubbleColor(
                     validator: _validator,
                   ),
-                  headerViewModel: BubbleHeaderVM(
+                  bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: widget.titleVerse ?? const Verse(
                       text: 'phid_location',
                       translate: true,

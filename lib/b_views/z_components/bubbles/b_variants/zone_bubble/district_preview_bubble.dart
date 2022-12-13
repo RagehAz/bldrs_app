@@ -40,7 +40,7 @@ class DistrictPreviewBubble extends StatelessWidget {
 
 
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(),
+      bubbleHeaderVM: const BubbleHeaderVM(),
       bubbleColor: Colorz.white20,
       childrenCentered: true,
       columnChildren: <Widget>[

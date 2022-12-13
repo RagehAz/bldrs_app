@@ -28,7 +28,7 @@ class SuperTextFieldBox extends StatelessWidget {
       return Container(
         key: const ValueKey<String>('SuperTextFieldBox'),
         width: width,
-        margin: Scale.superMargins(margins: margins),
+        margin: Scale.superMargins(margin: margins),
         decoration: BoxDecoration(
           borderRadius: Borderers.cornerAll(context, corners),
         ),

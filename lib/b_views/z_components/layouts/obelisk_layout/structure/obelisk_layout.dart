@@ -20,6 +20,7 @@ class ObeliskLayout extends StatefulWidget {
     this.initiallyExpanded = false,
     this.initialIndex = 0,
     this.onBack,
+    this.appBarType = AppBarType.basic,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class ObeliskLayout extends StatefulWidget {
   final int initialIndex;
   final Function onBack;
   final bool canGoBack;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -182,7 +184,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     return MainLayout(
       skyType: SkyType.black,
-      appBarType: AppBarType.basic,
+      appBarType: widget.appBarType,
       pageTitleVerse: _pageTitleVerse,
       loading: ValueNotifier(false),
       progressBarModel: _progressBarModel,

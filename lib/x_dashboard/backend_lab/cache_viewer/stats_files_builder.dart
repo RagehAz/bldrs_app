@@ -44,7 +44,7 @@ class StatsFilesBuilder extends StatelessWidget {
             final String _modeString = _stat.modeString();
             // ---
             return Bubble(
-              headerViewModel: const BubbleHeaderVM(),
+              bubbleHeaderVM: const BubbleHeaderVM(),
               columnChildren: <Widget>[
 
                 /// TYPE

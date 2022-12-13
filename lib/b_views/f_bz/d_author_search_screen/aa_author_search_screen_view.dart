@@ -45,14 +45,14 @@ class AuthorSearchScreenView extends StatelessWidget {
         ValueListenableBuilder(
             valueListenable: isSearching,
             child: Bubble(
-              headerViewModel: const BubbleHeaderVM(
+              bubbleHeaderVM: const BubbleHeaderVM(
                 headlineVerse: Verse(
                   text: 'phid_share_invitation_link',
                   translate: true,
                 ),
               ),
               width: Bubble.bubbleWidth(context),
-              margins: Scale.constantHorizontal10,
+              margin: Scale.constantHorizontal10,
               columnChildren: <Widget>[
 
                 SizedBox(

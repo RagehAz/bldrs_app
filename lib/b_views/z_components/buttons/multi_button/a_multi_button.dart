@@ -39,7 +39,7 @@ class MultiButton extends StatelessWidget {
       return DreamBox(
         width: width,
         height: height,
-        margins: Scale.superMargins(margins: margins),
+        margins: Scale.superMargins(margin: margins),
         color: color,
       );
     }
@@ -50,7 +50,7 @@ class MultiButton extends StatelessWidget {
         child: Container(
           width: width,
           height: height,
-          margin: Scale.superMargins(margins: margins),
+          margin: Scale.superMargins(margin: margins),
           child: Stack(
             // alignment: Aligners.superCenterAlignment(context),
             children: <Widget>[

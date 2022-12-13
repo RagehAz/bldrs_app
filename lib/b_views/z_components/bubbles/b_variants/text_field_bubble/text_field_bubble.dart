@@ -183,7 +183,7 @@ class TextFieldBubble extends StatelessWidget {
             keepEmbeddedBubbleColor: true,
           ),
         ),
-      headerViewModel: bubbleHeaderVM.copyWith(
+      bubbleHeaderVM: bubbleHeaderVM.copyWith(
         headerWidth: _bubbleWidth - 20,
       ),
         // headerViewModel: BubbleHeaderVM(

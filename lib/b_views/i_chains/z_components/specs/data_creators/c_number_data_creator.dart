@@ -96,7 +96,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
       bubbleColor: Formers.validatorBubbleColor(
         validator: () => _validator(_textController.text),
       ),
-      headerViewModel: const BubbleHeaderVM(
+      bubbleHeaderVM: const BubbleHeaderVM(
         headlineVerse: Verse(
           text: 'phid_add_with_dots',
           translate: true,

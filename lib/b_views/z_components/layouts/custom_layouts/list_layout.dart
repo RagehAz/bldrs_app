@@ -88,7 +88,7 @@ class ListLayout extends StatelessWidget {
             width: _screenWidth,
             height: _bubbleHeight,
             child: Bubble(
-              headerViewModel: const BubbleHeaderVM(
+              bubbleHeaderVM: const BubbleHeaderVM(
                 centered: true,
               ),
               childrenCentered: true,

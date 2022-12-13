@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
+import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
@@ -117,7 +117,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
       min: 0.35,
       absorbPointer: !_flyerTypesExist,
       child: Bubble(
-        headerViewModel: BubbleHeaderVM(
+        bubbleHeaderVM: BubbleHeaderVM(
           headlineVerse: widget.headlineVerse,
         ),
         width: Bubble.bubbleWidth(context),
@@ -165,7 +165,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                         /// PHIDS
                         Bubble(
                           width: _phidsZoneWidth,
-                          headerViewModel: BubbleHeaderVM(
+                          bubbleHeaderVM: BubbleHeaderVM(
                             headlineVerse: Verse(
                               text: FlyerTyper.getFlyerTypePhid(flyerType: _flyerType),
                               translate: true,

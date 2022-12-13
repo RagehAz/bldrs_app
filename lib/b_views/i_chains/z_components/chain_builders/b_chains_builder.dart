@@ -25,6 +25,7 @@ class ChainsBuilder extends StatelessWidget {
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
     @required this.onDataCreatorKeyboardSubmitted,
+    @required this.isCollapsable,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -44,6 +45,7 @@ class ChainsBuilder extends StatelessWidget {
   final Function onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseCityChains;
+  final bool isCollapsable;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -88,6 +90,7 @@ class ChainsBuilder extends StatelessWidget {
                 right: Ratioz.appBarPadding,
               ),
               child: ChainSplitter(
+                isCollapsable: isCollapsable,
                 previousPath: previousPath,
                 chainOrChainsOrSonOrSons: son,
                 width: _sonWidth,

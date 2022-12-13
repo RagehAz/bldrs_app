@@ -158,7 +158,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
   Widget build(BuildContext context) {
 
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(
+      bubbleHeaderVM: const BubbleHeaderVM(
         headlineVerse: Verse(
           text: 'Picking mode',
           translate: false,
@@ -170,7 +170,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         /// SELECT FLYER TYPE
         Bubble(
           width: Bubble.clearWidth(context),
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: const Verse(
               text: 'Flyer Types',
               translate: false,
@@ -178,7 +178,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
             headerWidth: Bubble.clearWidth(context) - 20,
           ),
           // bubbleColor: Colorz.white10,
-          margins: 0,
+          margin: 0,
           columnChildren: <Widget>[
             SizedBox(
               width: Bubble.clearWidth(context) - 20,
@@ -222,7 +222,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         /// SWITCH CITY CHAIN ONLY - ALL BLDRS CHAINS
         Bubble(
           width: Bubble.clearWidth(context),
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
               headlineVerse: const Verse(
                 text: 'City Chains Only',
                 translate: false,
@@ -233,14 +233,14 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
               onSwitchTap: _onSwitchShowCityChainsOnly,
           ),
           // bubbleColor: Colorz.white10,
-          margins: const EdgeInsets.only(top: 5),
+          margin: const EdgeInsets.only(top: 5),
           columnChildren: const <Widget>[],
         ),
 
         /// SWITCH MULTIPLE SELECTION - SINGLE SELECTION
         Bubble(
           width: Bubble.clearWidth(context),
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
               headlineVerse: const Verse(
                 text: 'Multiple Selection mode',
                 translate: false,
@@ -251,14 +251,14 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
               onSwitchTap: _onSwitchMultipleSelectionMode
           ),
           // bubbleColor: Colorz.white10,
-          margins: const EdgeInsets.only(top: 5),
+          margin: const EdgeInsets.only(top: 5),
           columnChildren: const <Widget>[],
         ),
 
         /// ZONE SELECTION
         Bubble(
           width: Bubble.clearWidth(context),
-          headerViewModel: BubbleHeaderVM(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: _onlyCityChains == true ?
             ZoneModel.generateInZoneVerse(context: context, zoneModel: _zone)
                 :
@@ -267,7 +267,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
             leadingIcon: _onlyCityChains == true ? Flag.getCountryIcon(_zone.countryID) : Iconz.earth,
           ),
           bubbleColor: _onlyCityChains == true ? Colorz.white10 : Colorz.black50,
-          margins: const EdgeInsets.only(top: 5),
+          margin: const EdgeInsets.only(top: 5),
           onBubbleTap: _onSelectNewZone,
           columnChildren: const <Widget>[],
         ),

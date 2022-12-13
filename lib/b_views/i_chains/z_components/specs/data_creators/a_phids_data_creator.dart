@@ -21,6 +21,7 @@ class PhidsDataCreator extends StatelessWidget {
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
     @required this.onDataCreatorKeyboardSubmitted,
+    @required this.isCollapsable,
     this.width,
     Key key
   }) : super(key: key);
@@ -35,6 +36,7 @@ class PhidsDataCreator extends StatelessWidget {
   final ValueChanged<String> onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseCityChains;
+  final bool isCollapsable;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,7 @@ class PhidsDataCreator extends StatelessWidget {
         onlyUseCityChains: onlyUseCityChains,
         zone: zone,
         onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
+        isCollapsable: isCollapsable,
       ),
     );
     // --------------------
