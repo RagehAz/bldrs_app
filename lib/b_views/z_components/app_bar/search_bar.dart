@@ -150,6 +150,7 @@ class _SearchBarState extends State<SearchBar> {
           SuperTextField(
             appBarType: widget.appBarType,
             globalKey: globalKey,
+            autofocus: false,
             titleVerse: const Verse(
               text: 'phid_search',
               translate: true,
