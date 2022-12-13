@@ -53,7 +53,7 @@ class CityPreviewBubble extends StatelessWidget {
     final String _populationLine = '$_cityPop / $_countryPop = $_percentage% of ${_countryNameEn.value} live here';
 
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(),
+      bubbleHeaderVM: const BubbleHeaderVM(),
       bubbleColor: Colorz.white20,
       childrenCentered: true,
       columnChildren: <Widget>[

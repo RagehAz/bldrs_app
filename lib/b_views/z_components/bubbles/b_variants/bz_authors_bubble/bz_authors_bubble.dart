@@ -20,7 +20,7 @@ class BzAuthorsBubble extends StatelessWidget {
     // --------------------
     return Bubble(
       width: BldrsAppBar.width(context),
-      headerViewModel: const BubbleHeaderVM(
+      bubbleHeaderVM: const BubbleHeaderVM(
         headlineVerse: Verse(
           text: 'phid_team',
           translate: true,

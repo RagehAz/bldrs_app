@@ -114,7 +114,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
               ),
             ),
             width: Bubble.bubbleWidth(context),
-            headerViewModel: const BubbleHeaderVM(
+            bubbleHeaderVM: const BubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_pdf_attachment',
                 translate: true,

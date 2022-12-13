@@ -190,6 +190,7 @@ class PickersScreenSearchView extends StatelessWidget {
                              */
 
                             },
+                            isCollapsable: true,
                           );
                         }
 

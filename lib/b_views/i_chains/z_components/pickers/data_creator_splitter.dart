@@ -27,6 +27,7 @@ class DataCreatorSplitter extends StatelessWidget {
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
     @required this.onKeyboardSubmitted,
+    @required this.isCollapsable,
     this.width,
     Key key
   }) : super(key: key);
@@ -43,6 +44,7 @@ class DataCreatorSplitter extends StatelessWidget {
   final ValueChanged<String> onKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseCityChains;
+  final bool isCollapsable;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -122,6 +124,7 @@ class DataCreatorSplitter extends StatelessWidget {
         onlyUseCityChains: onlyUseCityChains,
         zone: zone,
         onDataCreatorKeyboardSubmitted: onKeyboardSubmitted,
+        isCollapsable: isCollapsable,
       );
 
     }

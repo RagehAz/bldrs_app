@@ -113,12 +113,12 @@ class NoteCard extends StatelessWidget {
       redDotIsOn: noteModel?.seen != true,
       shrinkChild: true,
       child: Bubble(
-        headerViewModel: const BubbleHeaderVM(
+        bubbleHeaderVM: const BubbleHeaderVM(
           centered: true,
         ),
         width: _bubbleWidth,
         childrenCentered: true,
-        margins: const EdgeInsets.only(
+        margin: const EdgeInsets.only(
             // horizontal: Ratioz.appBarMargin,
             bottom: Ratioz.appBarMargin,
         ),

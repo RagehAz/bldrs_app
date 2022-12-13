@@ -20,7 +20,7 @@ class InfoPageParagraph extends StatelessWidget {
     return Center(
       key: const ValueKey<String>('InfoPageParagraph'),
       child: Bubble(
-        headerViewModel: const BubbleHeaderVM(),
+        bubbleHeaderVM: const BubbleHeaderVM(),
         width: pageWidth,
         // padding: const EdgeInsets.symmetric(horizontal: 5),
         columnChildren: <Widget>[

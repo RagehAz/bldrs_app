@@ -55,7 +55,7 @@ class TileButton extends StatelessWidget {
       color: color,
       onTap: onTap,
       margins: Scale.superMargins(
-          margins: margins ?? const EdgeInsets.symmetric(vertical: 5),
+          margin: margins ?? const EdgeInsets.symmetric(vertical: 5),
       ),
       iconSizeFactor: iconSizeFactor,
       corners: corners,

@@ -132,7 +132,7 @@ class AboutBzBubbles extends StatelessWidget {
         /// SCOPE
         if (Mapper.checkCanLoopList(bzModel?.scope) == true)
           Bubble(
-            headerViewModel: const BubbleHeaderVM(
+            bubbleHeaderVM: const BubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_scopeOfServices',
                 translate: true,

@@ -183,7 +183,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                   /// NEED TYPE SELECTION
                   Bubble(
-                      headerViewModel: const BubbleHeaderVM(),
+                      bubbleHeaderVM: const BubbleHeaderVM(),
                       childrenCentered: true,
                       columnChildren: <Widget>[
 
@@ -228,7 +228,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                           return Bubble(
                             width: Bubble.clearWidth(context),
                             bubbleColor: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
-                            headerViewModel: const BubbleHeaderVM(),
+                            bubbleHeaderVM: const BubbleHeaderVM(),
                             onBubbleTap: (){
 
                               _userModel.value = _userModel.value.copyWith(

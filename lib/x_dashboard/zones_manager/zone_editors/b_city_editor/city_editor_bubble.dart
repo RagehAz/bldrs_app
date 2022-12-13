@@ -256,7 +256,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
     final bool _identical = CityModel.checkCitiesAreIdentical(_draftCity, widget.cityModel);
 
     return Bubble(
-      headerViewModel: BubbleHeaderVM(
+      bubbleHeaderVM: BubbleHeaderVM(
         headlineVerse: Verse.plain('Edit ${_draftCity.cityID}'),
         leadingIcon: Iconz.reload,
         leadingIconSizeFactor: 0.7,

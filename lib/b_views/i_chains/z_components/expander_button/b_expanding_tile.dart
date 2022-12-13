@@ -1,13 +1,14 @@
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/bb_collapsed_tile.dart';
+import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_non_collabsable_tile.dart';
+import 'package:bldrs/b_views/i_chains/z_components/expander_button/d_collapsable_tile.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ExpandingTile extends StatefulWidget {
+class ExpandingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ExpandingTile({
     @required this.firstHeadline,
@@ -29,6 +30,7 @@ class ExpandingTile extends StatefulWidget {
     this.searchText,
     this.onTileLongTap,
     this.onTileDoubleTap,
+    this.isCollapsable = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -51,25 +53,47 @@ class ExpandingTile extends StatefulWidget {
   final ValueChanged<bool> onTileTap;
   final Function onTileLongTap;
   final Function onTileDoubleTap;
-  /// --------------------------------------------------------------------------
-  static const double collapsedTileHeight = 50;
-  static const double buttonVerticalPadding = Ratioz.appBarPadding;
-  static const double titleBoxHeight = 25;
-  static const double arrowBoxSize = collapsedTileHeight;
-  static const double collapsedGroupHeight =
-      ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2)
-          +
-          Ratioz.appBarMargin;
-  static const double cornersValue = Ratioz.appBarCorner;
+  final bool isCollapsable;
+  // -----------------------------------------------------------------------------
+
+  /// COLORS
+
+  // --------------------
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.white30;
   // --------------------
-  static BorderRadius borders = BldrsAppBar.corners;
-  // --------------------
-  static double calculateButtonExtent() {
-    return collapsedTileHeight + buttonVerticalPadding;
+  /// TESTED : WORKS PERFECT
+  static ColorTween getTileColorTween({
+    @required Color collapsedColor,
+    @required Color expansionColor,
+  }){
+    return ColorTween(
+      begin: getCollapsedColor(collapsedColor: collapsedColor),
+      end: getExpandedColor(expansionColor: expansionColor),
+    );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Color getExpandedColor({
+    @required Color expansionColor,
+  }){
+    return expansionColor ?? ExpandingTile.expandedColor;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Color getCollapsedColor({
+    @required Color collapsedColor,
+  }){
+    return collapsedColor ?? ExpandingTile.collapsedColor;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ICONS - ARROWS
+
+  // --------------------
+  static const double arrowBoxSize = collapsedTileHeight;
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static double calculateTitleIconSize({
     @required String icon,
     @required double collapsedHeight
@@ -81,7 +105,12 @@ class ExpandingTile extends StatefulWidget {
 
     return _iconSize;
   }
+  // -----------------------------------------------------------------------------
+
+  /// WIDTH
+
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double calculateTitleBoxWidth({
     @required double tileWidth,
     @required String icon,
@@ -98,315 +127,160 @@ class ExpandingTile extends StatefulWidget {
 
     return _titleZoneWidth;
   }
+  // -----------------------------------------------------------------------------
+
+  /// HEIGHT
+
   // --------------------
-  static int numberOfButtons({
-    @required List<String> keywordsIDs,
-  }) {
-    return keywordsIDs.length;
+  static const double collapsedTileHeight = 40;
+  static const double buttonVerticalPadding = Ratioz.appBarPadding;
+  static const double titleBoxHeight = 25;
+  static const double collapsedGroupHeight = (Ratioz.appBarCorner + Ratioz.appBarMargin) * 2;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getCollapsedHeight({
+    double collapsedHeight,
+  }){
+    return collapsedHeight ?? ExpandingTile.collapsedGroupHeight;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double calculateMaxHeight({
     @required List<String> keywordsIDs,
   }) {
 
-    final int _totalNumberOfButtons = numberOfButtons(
+    final int _totalNumberOfButtons = getNumberOfButtons(
       keywordsIDs: keywordsIDs,
     );
 
-    final double _maxHeight =
+            /// keywords heights
+    return  ((collapsedTileHeight + buttonVerticalPadding) * _totalNumberOfButtons) +
+            /// subGroups titles boxes heights
+            titleBoxHeight +
+            /// bottom padding
+            0;
 
-    /// keywords heights
-    ((collapsedTileHeight + buttonVerticalPadding) *
-        _totalNumberOfButtons) +
-
-        /// subGroups titles boxes heights
-        titleBoxHeight +
-
-        /// bottom padding
-        0;
-
-    return _maxHeight;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double calculateButtonsTotalHeight({
     @required List<String> keywordsIDs,
   }) {
-    final double _totalButtonsHeight =
-        (collapsedTileHeight + buttonVerticalPadding)
-            *
-            numberOfButtons(keywordsIDs: keywordsIDs);
 
-    return _totalButtonsHeight;
-  }
-  // -----------------------------------------------------------------------------
-  @override
-  ExpandingTileState createState() => ExpandingTileState();
-// -----------------------------------------------------------------------------
-}
-
-class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderStateMixin {
-  // -----------------------------------------------------------------------------
-  AnimationController _controller;
-  CurvedAnimation _easeInAnimation;
-  ColorTween _borderColor;
-  ColorTween _headlineColorTween;
-  ColorTween _tileColorTween;
-  // ColorTween _subtitleLabelColorTween;
-  // BorderRadiusTween _borderRadius;
-  Animation<double> _arrowTurns;
-  // --------------------
-  final ValueNotifier<bool> _isExpanded = ValueNotifier<bool>(false);
-  // --------------------
-  static const Duration _expansionDuration = Duration(milliseconds: 200);
-  // -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-    // ---
-    _controller = AnimationController(
-      duration: _expansionDuration,
-      vsync: this,
-    );
-    // ---
-    _easeInAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
-    // ---
-    _borderColor = ColorTween();
-    _borderColor.end = Colorz.green255;
-    // ---
-    _headlineColorTween = ColorTween(
-      begin: Colorz.white255,
-      end: Colorz.white255,
-    );
-    // ---
-    _tileColorTween = ColorTween(
-      begin: widget.initialColor ?? ExpandingTile.collapsedColor,
-      end: widget.expansionColor ?? ExpandingTile.expandedColor,
-    );
-    // ---
-    /*
-     _subtitleLabelColorTween = ColorTween(
-       begin: Colorz.white10,
-       end: Colorz.white10,
-     );
-     _borderRadius = BorderRadiusTween();
-     */
-    // ---
-    _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
-    // ---
-    _isExpanded.value = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-
-    if (_isExpanded.value == true) {
-      _controller.value = 1.0;
+    if (Mapper.checkCanLoopList(keywordsIDs) == true){
+      return 0;
     }
-    // ---
-  }
-  // --------------------
-  @override
-  void dispose() {
-    _controller.dispose();
-    _easeInAnimation.dispose();
-
-    // blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
-    _isExpanded.dispose();
-
-    super.dispose();
-  }
-
-  @override
-  void didUpdateWidget(covariant ExpandingTile oldWidget) {
-
-    if (
-        oldWidget.width != widget.width ||
-        oldWidget.collapsedHeight != widget.collapsedHeight ||
-        oldWidget.maxHeight != widget.maxHeight ||
-        oldWidget.scrollable != widget.scrollable ||
-        oldWidget.icon != widget.icon ||
-        oldWidget.iconSizeFactor != widget.iconSizeFactor ||
-        oldWidget.initiallyExpanded != widget.initiallyExpanded ||
-        oldWidget.firstHeadline?.text != widget.firstHeadline?.text ||
-        oldWidget.secondHeadline?.text != widget.secondHeadline?.text ||
-        oldWidget.initialColor != widget.initialColor ||
-        oldWidget.expansionColor != widget.expansionColor ||
-        oldWidget.corners != widget.corners ||
-        // oldWidget.child != widget.child ||
-        oldWidget.isDisabled != widget.isDisabled ||
-        oldWidget.margin != widget.margin
-        // oldWidget.searchText != widget.searchText
-    ){
-      if (
-          oldWidget.initialColor != widget.initialColor ||
-          oldWidget.expansionColor != widget.expansionColor
-      ){
-        _tileColorTween = ColorTween(
-          begin: widget.initialColor ?? ExpandingTile.collapsedColor,
-          end: widget.expansionColor ?? ExpandingTile.expandedColor,
-        );
-      }
-
-      setState(() {});
-    }
-
-    super.didUpdateWidget(oldWidget);
-  }
-  // -----------------------------------------------------------------------------
-  void _toggleExpansion() {
-
-
-    /// WHEN CAN EXPAND
-    if (widget.isDisabled == false) {
-      _setExpanded(!_isExpanded.value);
-    }
-
-    /// WHEN CAN NOT EXPAND IN INACTIVE MODE
     else {
-      if (widget.onTileTap != null) {
-        widget.onTileTap(_isExpanded.value);
-      }
+      return  (collapsedTileHeight + buttonVerticalPadding)
+              *
+              getNumberOfButtons(keywordsIDs: keywordsIDs);
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// CORNERS
+
   // --------------------
-  void _setExpanded(bool isExpanded) {
+  static const double cornersValue = Ratioz.appBarCorner;
+  static BorderRadius borders = BldrsAppBar.corners;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getCorners({
+    double corners,
+  }){
 
-    setNotifier(
-      notifier: _isExpanded,
-      mounted: mounted,
-      value: isExpanded,
-      onFinish: () async {
+    if (corners == null) {
+      return ExpandingTile.cornersValue;
+    }
 
-        /// SAVE STATE
-        if (mounted == true){
-          PageStorage.of(context)?.writeState(context, _isExpanded.value);
-        }
-
-        /// PASS ON TILE TAP
-        if (widget.onTileTap != null) {
-          widget.onTileTap(_isExpanded.value);
-        }
-
-        /// ANIMATE FORWARD
-        if (isExpanded == true) {
-          await _controller.forward();
-        }
-        /// ANIMATE BACKWARDS
-        else {
-          await _controller.reverse().then<void>((dynamic value) {});
-        }
-
-        },
-    );
+    else {
+      return corners;
+    }
 
   }
   // -----------------------------------------------------------------------------
+
+  /// MARGIN
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static EdgeInsets getMargins({
+    dynamic margin,
+  }){
+
+    if (margin == null){
+      return const EdgeInsets.only(bottom: 10);
+    }
+    else {
+      return Scale.superMargins(margin: margin);
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// COUNTS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static int getNumberOfButtons({
+    @required List<String> keywordsIDs,
+  }) {
+    return keywordsIDs?.length ?? 0;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double calculateButtonExtent() {
+    return collapsedTileHeight + buttonVerticalPadding;
+  }
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    ///------------------------------------------------------------o
-    // _borderRadius = BorderRadiusTween(
-    //   begin: BorderRadius.circular(Ratioz.appBarCorner - 5),
-    //   end: BorderRadius.circular(Ratioz.appBarCorner - 5),
-    // );
-    ///------------------------------------------------------------o
-    // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
-    final double _bottomStripHeight =
-    widget.collapsedHeight == null ? ExpandingTile.collapsedGroupHeight * 0.75
-        :
-    widget.collapsedHeight * 0.75;
-    ///------------------------------------------------------------o
-    return Container(
-      key: widget.key,
-      // height: widget.height,
-      width: widget.width,
-      alignment: Alignment.topCenter,
-      margin: widget.margin,
-      child: AnimatedBuilder(
-        key: const ValueKey<String>('ExpandingTile_AnimatedBuilder'),
-        animation: _controller.view,
-        builder: (BuildContext context, Widget expansionColumn) {
 
-          final Color _headlineColor = _headlineColorTween.evaluate(_easeInAnimation);
-          final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
+    if (isCollapsable == true){
+      return CollapsableTile(
+        key: const ValueKey('CollapsableTile'),
+        firstHeadline: firstHeadline,
+        width: width,
+        secondHeadline: secondHeadline,
+        collapsedHeight: collapsedHeight,
+        maxHeight: maxHeight,
+        scrollable: scrollable,
+        icon: icon,
+        iconSizeFactor: iconSizeFactor,
+        onTileTap: onTileTap,
+        initiallyExpanded: initiallyExpanded,
+        initialColor: initialColor,
+        expansionColor: expansionColor,
+        corners: corners,
+        isDisabled: isDisabled,
+        margin: margin,
+        searchText: searchText,
+        onTileLongTap: onTileLongTap,
+        onTileDoubleTap: onTileDoubleTap,
+        child: child,
+      );
+    }
 
-          return CollapsedTile(
-            tileWidth: widget.width,
-            marginIsOn: false,
-            collapsedHeight: widget.collapsedHeight ?? ExpandingTile.collapsedGroupHeight,
-            tileColor: _tileColor,
-            corners: widget.corners ?? ExpandingTile.cornersValue,
-            firstHeadline: widget.firstHeadline,
-            secondHeadline: widget.secondHeadline,
-            icon: widget.icon,
-            iconSizeFactor: widget.iconSizeFactor,
-            arrowColor: _headlineColor,
-            arrowTurns: _arrowTurns,
-            expandableHeightFactorAnimationValue: _easeInAnimation.value,
-            iconCorners: ExpandingTile.cornersValue,
-            searchText: widget.searchText,
-            onTileTap: _toggleExpansion,
-            onTileLongTap: widget.onTileLongTap,
-            onTileDoubleTap: widget.onTileDoubleTap,
-            child: expansionColumn,
-          );
-        },
+    else {
+      return NonCollapsableTile(
+        key: const ValueKey('NonCollapsableTile'),
+        firstHeadline: firstHeadline,
+        width: width,
+        secondHeadline: secondHeadline,
+        icon: icon,
+        iconSizeFactor: iconSizeFactor,
+        onTileTap: onTileTap,
+        expansionColor: expansionColor,
+        corners: corners,
+        margin: margin,
+        searchText: searchText,
+        onTileLongTap: onTileLongTap,
+        onTileDoubleTap: onTileDoubleTap,
+        child: child,
+      );
+    }
 
-        /// EXPANSION COLUMN
-        child: ValueListenableBuilder(
-          key: const ValueKey<String>('ExpandingTile_expansion_column'),
-          valueListenable: _isExpanded,
-          builder: (_, bool isExpanded, Widget columnAndChildren){
-
-            final bool _closed = isExpanded == false && _controller.isDismissed == true;
-
-            /// NOTHING WHEN COLLAPSED
-            if (_closed == true){
-              return const SizedBox();
-            }
-
-            /// CHILDREN WHEN EXPANDED
-            else {
-
-              /// COLUMN AND CHILDREN
-              return columnAndChildren;
-            }
-
-          },
-          child: Column(
-            key: const ValueKey<String>('ExpandingTile_columnAndChildren'),
-            children: <Widget>[
-
-              /// EXTERNAL CHILD
-              SizedBox(
-                width: widget.width,
-                child: widget.child,
-              ),
-
-              /// BOTTOM ARROW
-              GestureDetector(
-                key: const ValueKey<String>('ExpandingTile_bottom_arrow'),
-                onTap: _toggleExpansion,
-                child: Container(
-                  width: widget.width,
-                  height: _bottomStripHeight,
-                  alignment: Alignment.center,
-                  child: DreamBox(
-                    width: _bottomStripHeight,
-                    height: _bottomStripHeight,
-                    icon: Iconz.arrowUp,
-                    iconSizeFactor: _bottomStripHeight * 0.5 / 100,
-                    bubble: false,
-                  ),
-
-                ),
-              ),
-
-            ],
-          ),
-        ),
-      ),
-    );
-    // --------------------
   }
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

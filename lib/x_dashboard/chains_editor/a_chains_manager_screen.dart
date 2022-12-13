@@ -83,7 +83,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// GO TO CHAINS EDITOR SCREEN
         Bubble(
-          headerViewModel: const BubbleHeaderVM(
+          bubbleHeaderVM: const BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'Editing mode',
               translate: false,
@@ -144,7 +144,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// TESTING METHODS
         Bubble(
-          headerViewModel: const BubbleHeaderVM(
+          bubbleHeaderVM: const BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'Testers',
               translate: false,

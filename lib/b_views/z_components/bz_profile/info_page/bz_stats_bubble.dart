@@ -94,7 +94,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
           final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel?.id);
 
           return Bubble(
-            headerViewModel: const BubbleHeaderVM(
+            bubbleHeaderVM: const BubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_stats',
                 translate: true,

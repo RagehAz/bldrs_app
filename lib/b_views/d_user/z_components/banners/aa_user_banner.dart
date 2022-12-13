@@ -112,7 +112,7 @@ class UserBanner extends StatelessWidget {
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(userModel);
     // --------------------
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(),
+      bubbleHeaderVM: const BubbleHeaderVM(),
       childrenCentered: true,
       onBubbleTap: _onTap,
       columnChildren: <Widget>[
