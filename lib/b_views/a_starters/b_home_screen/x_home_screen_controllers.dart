@@ -212,7 +212,7 @@ Future<void> onNavigate({
       await Nav.goToNewScreen(
         context: context,
         screen: _navModel.screen,
-        transitionType: PageTransitionType.fade,
+        pageTransitionType: PageTransitionType.fade,
       );
     }
 
@@ -255,7 +255,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
   final dynamic result = await Nav.goToNewScreen(
     context: context,
-    transitionType: Nav.superHorizontalTransition(context),
+    pageTransitionType: Nav.superHorizontalTransition(context),
     screen: PickersScreen(
       flyerTypeFilter: null,
       onlyUseCityChains: true,

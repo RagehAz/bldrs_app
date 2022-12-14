@@ -331,10 +331,20 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   /// TESTED : WORKS PERFECT
   Future<void> _onBack() async {
 
-    await Nav.goBack(
-      context: context,
-      passedData: _selectedPhidsNotifier.value,
-    );
+    /// MULTIPLE SELECTION MODE
+    if (widget.multipleSelectionMode == true){
+      await Nav.goBack(
+        context: context,
+        passedData: _selectedPhidsNotifier.value,
+      );
+    }
+
+    /// SINGLE SELECTION MODE
+    else {
+      await Nav.goBack(
+        context: context,
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------

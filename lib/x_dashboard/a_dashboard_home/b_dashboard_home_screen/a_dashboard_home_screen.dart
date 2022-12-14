@@ -56,7 +56,7 @@ Future<void> onPyramidAdminDoubleTap(BuildContext context) async {
 
     final bool _result = await Nav.goToNewScreen(
       context: context,
-      transitionType: PageTransitionType.fade,
+      pageTransitionType: PageTransitionType.fade,
       screen: const LockScreen(),
     );
 

@@ -31,7 +31,7 @@ class DashButton extends StatelessWidget {
           await Nav.goToNewScreen(
             context: context,
             screen: dashButtonModel.screen,
-            transitionType: dashButtonModel.transitionType,
+            pageTransitionType: dashButtonModel.transitionType,
           );
         }
 

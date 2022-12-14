@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -14,10 +15,12 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/hashtag_manager/city_hashtags_screen.dart';
+import 'package:bldrs/x_dashboard/hashtag_manager/flyer_type_sexy_selector.dart';
 import 'package:bldrs/x_dashboard/hashtag_manager/phids_picker_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HashTagManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -237,13 +240,34 @@ class _HashTagManagerState extends State<HashTagManager> {
                 context: context,
                 screen: const PhidsPickerScreen(
                   // selectedPhids: _selectedPhids,
-                  // multipleSelectionMode: false,
+                  multipleSelectionMode: false,
                 )
             );
 
+            blog('just got back baby: $phid');
+
+            // Stringer.blogStrings(
+            //   strings: [phid],
+            //   invoker: 'just got back baby',
+            // );
+
+          },
+        ),
+
+        /// SHOW SEXY LIST
+        WideButton(
+          verse: Verse.plain('SHOW SEXY LIST'),
+          onTap: () async {
+
+            final FlyerType flyerType = await Nav.goToNewScreen(
+                context: context,
+                pageTransitionType: PageTransitionType.leftToRight,
+                screen: const FlyerTypeSexySelector(),
+            );
+
             Stringer.blogStrings(
-              strings: [phid],
-              invoker: 'just got back baby',
+              strings: [flyerType?.name],
+              invoker: 'selected a flyer type',
             );
 
           },

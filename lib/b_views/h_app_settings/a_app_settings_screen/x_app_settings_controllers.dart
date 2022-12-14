@@ -31,7 +31,7 @@ import 'package:provider/provider.dart';
 Future<void> onChangeAppLanguageTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
-    transitionType: PageTransitionType.fade,
+    pageTransitionType: PageTransitionType.fade,
     screen: const AppLangsScreen(),
   );
 }
@@ -44,7 +44,7 @@ Future<void> onChangeAppLanguageTap(BuildContext context) async {
 Future<void> onAboutBldrsTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
-    transitionType: PageTransitionType.fade,
+    pageTransitionType: PageTransitionType.fade,
     screen: const AboutBldrsScreen(),
   );
 }
@@ -53,7 +53,7 @@ Future<void> onAboutBldrsTap(BuildContext context) async {
 Future<void> onFeedbackTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
-    transitionType: PageTransitionType.fade,
+    pageTransitionType: PageTransitionType.fade,
     screen: const FeedBack(),
   );
 }
@@ -62,7 +62,7 @@ Future<void> onFeedbackTap(BuildContext context) async {
 Future<void> onTermsAndRegulationsTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
-    transitionType: PageTransitionType.fade,
+    pageTransitionType: PageTransitionType.fade,
     screen: const TermsScreen(),
   );
 }

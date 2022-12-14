@@ -14,6 +14,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/ui_manager/go_back_widget_test.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
@@ -79,9 +80,14 @@ class MyBzScreen extends StatelessWidget {
               return ObeliskLayout(
                 initiallyExpanded: true,
                 canGoBack: true,
-                onBack: (){
+                onBack: () async {
 
                   _bzzPro.clearMyActiveBz(notify: false);
+
+                  await Nav.goBack(
+                    context: context,
+                    invoker: 'ObeliskLayout.onBack',
+                  );
 
                 },
                 initialIndex: BzTabber.getBzTabIndex(initialTab),
