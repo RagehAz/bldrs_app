@@ -1,40 +1,64 @@
-import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';
+import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/hashtag_manager/city_hashtags_screen.dart';
-import 'package:bldrs/x_dashboard/hashtag_manager/hashtag_picker_screen.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
+import 'package:bldrs/x_dashboard/hashtag_manager/hashtags_builder_page.dart';
 import 'package:flutter/material.dart';
 
-class HashTagManager extends StatefulWidget {
-  /// --------------------------------------------------------------------------
-  const HashTagManager({
+class PhidsPickerScreen extends StatefulWidget {
+  // -----------------------------------------------------------------------------
+  const PhidsPickerScreen({
+    this.selectedPhids,
+    this.multipleSelectionMode = false,
+    this.flyerModel,
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final List<String> selectedPhids;
+  /// RETURNS <String>[] if is multiple selection mode, and returns String if not
+  final bool multipleSelectionMode;
+  /// SHOWS flyer in the corner widget maximizer showing selected keywords,
+  final FlyerModel flyerModel;
+  // -----------------------------------------------------------------------------
   @override
-  _HashTagManagerState createState() => _HashTagManagerState();
-/// --------------------------------------------------------------------------
+  _TheStatefulScreenState createState() => _TheStatefulScreenState();
+  // -----------------------------------------------------------------------------
 }
 
-class _HashTagManagerState extends State<HashTagManager> {
+class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  final TextEditingController _textController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  List<String> _hashtags = <String>[];
+  TabController _tabBarController;
+  final TextEditingController _searchController = TextEditingController();
+  final GlobalKey _globalKey = GlobalKey();
+  // --------------------
+  List<Chain> _bldrsChains;
+  // --------------------
+  List<Chain> _chains;
+  List<NavModel> _navModels = [];
+  final ValueNotifier<List<String>> _selectedPhidsNotifier = ValueNotifier<List<String>>([]);
+  final ScrollController _selectedPhidsScrollController = ScrollController();
+  // --------------------
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier([]);
+  final ValueNotifier<bool> _isSearching = ValueNotifier(false);
+  final ValueNotifier<String> _searchText = ValueNotifier('');
+  List<String> _allPhids = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -50,6 +74,48 @@ class _HashTagManagerState extends State<HashTagManager> {
   @override
   void initState() {
     super.initState();
+
+    // ------------------------------
+    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
+      context: context,
+      onlyUseCityChains: false,
+      listen: false,
+    );
+    // ------------------------------
+
+    // Chain.blogChains(_chain.sons);
+
+    // Stringer.blogStrings(strings: _hashGroups, invoker: 'fu');
+
+
+    final List<Chain> _chainsByFlyerType = Chain.getChainsFromChainsByIDs(
+      allChains: _allChains,
+      phids: FlyerTyper.getHashGroupsIDsByFlyerType(FlyerType.property),
+    );
+
+    setState(() {
+      _bldrsChains = _allChains;
+      _chains = _chainsByFlyerType;
+      _allPhids = Chain.getOnlyPhidsSonsFromChains(
+          chains: _chains,
+      );
+    });
+
+    _tabBarController = TabController(
+        vsync: this,
+        animationDuration: const Duration(milliseconds: 300),
+        length: _chains.length,
+        // initialIndex: 0,
+    );
+
+    setNotifier(
+        notifier: _selectedPhidsNotifier,
+        mounted: mounted,
+        value: widget.selectedPhids ?? <String>[],
+    );
+
+    _generateNavModels();
+
   }
   // --------------------
   bool _isInit = true;
@@ -72,187 +138,323 @@ class _HashTagManagerState extends State<HashTagManager> {
   @override
   void dispose() {
     _loading.dispose();
+    _tabBarController.dispose();
+    _searchController.dispose();
+    _selectedPhidsNotifier.dispose();
+    _selectedPhidsScrollController.dispose();
+
+    _foundChains.dispose();
+    _isSearching.dispose();
+    _searchText.dispose();
+
     super.dispose();
   }
+  // -----------------------------------------------------------------------------
+
+  /// NAV MODELS
+
   // --------------------
-  void scanHashtags(){
+  /// TESTED : WORKS PERFECT
+  void _generateNavModels(){
 
-    blog('should scan hashtags');
+    final List<NavModel> _output = [];
 
-    final List<String> _foundHashtags = Stringer.findHashtags(
-      text: _textController.text,
-    );
+    for (final Chain _chain in _chains){
+
+      final NavModel _navModel = NavModel(
+        id: _chain.id,
+        titleVerse: Verse(text: _chain.id, translate: true),
+        icon: ChainsProvider.proGetPhidIcon(context: context, son: _chain.id),
+        iconSizeFactor: 1,
+        screen: HashtagsBuilderPage(
+          chain: _chain,
+          searchText: _searchText,
+          selectedPhidsNotifier: _selectedPhidsNotifier,
+          onPhidTap: (String path, String phid) => _onPhidTap(
+            path: path,
+            phid: phid,
+            autoScroll: true,
+          ),
+        ),
+      );
+
+      _output.add(_navModel);
+
+    }
 
     setState(() {
-      _hashtags = _foundHashtags;
+      _navModels = _output;
     });
 
   }
-  // --------------------
-  String _hashtagValidator(String text){
+  // -----------------------------------------------------------------------------
 
-    final bool _hashHashTag = TextCheck.stringContainsSubString(
-      string: text,
-      subString: '#',
+  /// SEARCH
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onSearchSubmit(String text) async {
+
+    await onChainsSearchChanged(
+      context: context,
+      text: text,
+      chains: _chains,
+      foundChains: _foundChains,
+      isSearching: _isSearching,
+      phidsOfAllPickers: _allPhids,
+      searchText: _searchText,
     );
-    if (_hashHashTag == true){
-      return null;
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onSearchCancelled() async {
+
+    _foundChains.value = [];
+    _isSearching.value = false;
+    _searchText.value = '';
+    _searchController.text = '';
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SELECTION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onPhidTap({
+    @required String path,
+    @required String phid,
+    @required bool autoScroll,
+  }) async {
+
+    /// MULTIPLE SELECTION MODE
+    if (widget.multipleSelectionMode == true){
+      await _multipleSelectionModeTap(
+        phid: phid,
+        path: path,
+        autoScroll: autoScroll,
+      );
     }
+
+    /// SINGLE SELECTION MODE
     else {
-      return 'text should include a Hashtag (#)';
+      await _singleSelectionModeTap(
+        phid: phid,
+      );
     }
+
+  }
+  // --------------------
+  ///
+  Future<void> _singleSelectionModeTap({
+  @required String phid,
+}) async {
+
+    await Nav.goBack(
+      context: context,
+      passedData: phid,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _multipleSelectionModeTap({
+    @required String path,
+    @required String phid,
+    @required bool autoScroll,
+  }) async {
+
+    final List<String> _selectedPhids = Stringer.addOrRemoveStringToStrings(
+      strings: _selectedPhidsNotifier.value,
+      string: phid,
+    );
+
+    final int _oldLength = _selectedPhidsNotifier.value.length;
+    final int _newLength = _selectedPhids.length;
+    final int _selectedPhidIndex = _selectedPhidsNotifier.value.indexOf(phid);
+
+    _selectedPhidsNotifier.value = _selectedPhids;
+
+    if (autoScroll == true){
+      await _onScrollSelectedPhids(
+        newLength: _newLength,
+        oldLength: _oldLength,
+        selectedPhidIndex: _selectedPhidIndex,
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED : FAIR ENOUGH
+  Future<void> _onScrollSelectedPhids({
+    @required int oldLength,
+    @required int newLength,
+    @required int selectedPhidIndex,
+  }) async {
+
+    if (_isSearching.value == false){
+
+      final bool _shouldGoToEnd = newLength > oldLength;
+
+      if (_shouldGoToEnd == true){
+        await Sliders.slideToOffset(
+          scrollController: _selectedPhidsScrollController,
+          offset: _selectedPhidsScrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200),
+        );
+      }
+
+      else {
+
+        final double _lineHeight = PhidsBubble.getLineHeightWithItsPadding();
+        /// a line usually takes 2 words
+        final int _expectedLine = (selectedPhidIndex / 2).ceil() - 1;
+        final double _expectedOffset = _lineHeight * _expectedLine;
+
+        await Sliders.slideToOffset(
+          scrollController: _selectedPhidsScrollController,
+          offset: _expectedOffset,
+          duration: const Duration(milliseconds: 200),
+        );
+
+      }
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SELECTION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onBack() async {
+
+    await Nav.goBack(
+      context: context,
+      passedData: _selectedPhidsNotifier.value,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    return DashBoardLayout(
-      loading: _loading,
-      listWidgets: <Widget>[
 
-        /// TEXT FIELD
-        Form(
-          key: _formKey,
-          child: TextFieldBubble(
-            formKey: _formKey,
-            isFormField: true,
-            bubbleHeaderVM: BubbleHeaderVM(
-              headlineVerse: Verse.plain('add Hashtag'),
-            ),
-            appBarType: AppBarType.non,
-            textController: _textController,
-            bubbleColor: Colorz.blue125,
-            // autoValidate: true,
-            validator: _hashtagValidator,
-            onTextChanged: (String text){
-              scanHashtags();
-            },
-          ),
-        ),
+    return ObeliskLayout(
+      globalKey: _globalKey,
+      navModels: _navModels,
+      canGoBack: true,
+      initiallyExpanded: true,
+      appBarType: AppBarType.search,
+      searchController: _searchController,
+      onSearchSubmit: _onSearchSubmit,
+      onSearchCancelled: _onSearchCancelled,
+      onSearchChanged: _onSearchSubmit,
+      isSearching: _isSearching,
+      onBack: _onBack,
+      searchHintVerse: const Verse(
+        text: 'phid_search',
+        translate: true,
+      ),
+      appBarRowWidgets: <Widget>[
 
-        /// TEXT PREVIEW
-        ValueListenableBuilder(
-          valueListenable: _textController,
-          builder: (_, TextEditingValue value, Widget child){
+        const Expander(),
 
-            return SuperVerse(
-              verse: Verse.plain(value.text),
-              labelColor: Colorz.black255,
-              size: 3,
-            );
-
+        AppBarButton(
+          verse: Verse.plain('blogChains'),
+          onTap: (){
+            Chain.blogChains(_bldrsChains);
           },
         ),
-
-        Bubble(
-          key: const ValueKey<String>('KeywordsBubble'),
-          // bubbleColor: bubbleColor,
-          // margins: margins,
-          // corners: corners,
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse.plain('Found hashtags'),
-          ),
-          columnChildren: <Widget>[
-
-            /// STRINGS
-            if (Mapper.checkCanLoopList(_hashtags) == true)
-              Wrap(
-                children: <Widget>[
-
-                  ...List<Widget>.generate(_hashtags?.length, (int index) {
-
-                    final String _phid = _hashtags[index];
-
-                    return SuperVerse(
-                      verse: Verse.plain(_phid),
-                      labelColor: Colorz.black255,
-                      size: 3,
-                    );
-                  }),
-
-                ],
-              ),
-
-
-          ],
-        ),
-
-        /// CITY HASHTAGS SCREEN
-        WideButton(
-          verse: Verse.plain('City Hashtag Screen'),
-          onTap: () async {
-            await Nav.goToNewScreen(context: context, screen: const CityHashtagsScreen());
-          },
-        ),
-
-        /// SELECT MULTIPLE PHIDS
-        WideButton(
-          verse: Verse.plain('SELECT MULTIPLE PHIDS'),
-          onTap: () async {
-
-            final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
-
-            final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
-              context: context,
-              flyerID: _userModel.savedFlyers.all.first,
-            );
-
-            const List<String> _selectedPhids = <String>[
-              'phid_k_pt_factory',
-              'phid_k_pt_clinic',
-              'phid_s_view_lagoon',
-              'phid_s_view_garden',
-              'phid_s_view_hill',
-              'phid_s_view_back',
-              'phid_s_view_sideStreet',
-              'phid_s_view_river',
-              'phid_s_view_pool',
-              'phid_k_pt_hospital',
-              'phid_k_pt_sharedRoom',
-            ];
-
-            final List<String> _phids = await Nav.goToNewScreen(
-                context: context,
-                screen: PhidsPickerScreen(
-                  flyerModel: _flyerModel,
-                  selectedPhids: _selectedPhids,
-                  multipleSelectionMode: true,
-                )
-            );
-
-            Stringer.blogStrings(
-                strings: _phids,
-                invoker: 'just got back baby',
-            );
-
-          },
-        ),
-
-        /// SELECT SINGLE PHID
-        WideButton(
-          verse: Verse.plain('SELECT SINGLE PHIDS'),
-          onTap: () async {
-
-            final String phid = await Nav.goToNewScreen(
-                context: context,
-                screen: const PhidsPickerScreen(
-                  // selectedPhids: _selectedPhids,
-                  // multipleSelectionMode: false,
-                )
-            );
-
-            Stringer.blogStrings(
-              strings: [phid],
-              invoker: 'just got back baby',
-            );
-
-          },
-        ),
-
 
       ],
+      /// SEARCH VIEW
+      searchView: SizedBox(
+        width: Scale.screenWidth(context),
+        height: Scale.screenHeight(context),
+        child: ValueListenableBuilder(
+          valueListenable: _foundChains,
+          builder: (BuildContext context, List<Chain> foundChains, Widget child) {
+
+            if (Mapper.checkCanLoopList(foundChains) == true){
+              return HashtagsBuilderPage(
+                chain: Chain(
+                  id: 'foundChains',
+                  sons: foundChains,
+                ),
+                searchText: _searchText,
+                selectedPhidsNotifier: _selectedPhidsNotifier,
+                onPhidTap: (String path, String phid) => _onPhidTap(
+                  path: path,
+                  phid: phid,
+                  autoScroll: true,
+                ),              );
+            }
+
+            else {
+              return const NoResultFound();
+            }
+
+
+          },
+        ),
+      ),
+
+      /// CORNER SELECTED PHIDS
+      abovePyramidsChild: widget.multipleSelectionMode == false ?
+      const SizedBox()
+          :
+      CornerWidgetMaximizer(
+        maxWidth: BldrsAppBar.width(context),
+        minWidth: 170,
+        childWidth: BldrsAppBar.width(context),
+
+        /// FLYER SHELF IN SELECTED PHIDS PANEL
+        topChild: widget.flyerModel == null ?
+        const SizedBox()
+            :
+        FlyerSlidesShelf(
+          flyerModel: widget.flyerModel,
+          shelfWidth: BldrsAppBar.clearWidth(context),
+        ),
+
+        /// SELECTED PHIDS PANEL
+        child: ValueListenableBuilder(
+          valueListenable: _selectedPhidsNotifier,
+          builder: (BuildContext context, List<String> selectedPhids, Widget child) {
+
+            final String _selectedKeywords = Verse.transBake(context, 'phid_selected_keywords');
+
+            final Verse _verse = Verse(
+              text: '(${selectedPhids.length}) $_selectedKeywords',
+              translate: false,
+            );
+
+            return PhidsBubble(
+              bubbleColor: Colorz.white10,
+              selectedWords: selectedPhids,
+              passPhidOnTap: true,
+              titleVerse: _verse,
+              phids: selectedPhids,
+              addButtonIsOn: false,
+              bubbleWidth: BldrsAppBar.width(context),
+              maxLines: 3,
+              scrollController: _selectedPhidsScrollController,
+              onPhidTap: (String phid) => _onPhidTap(
+                path: null,
+                phid: phid,
+                autoScroll: false,
+              ),
+            );
+
+          },
+        ),
+
+      ),
+
     );
-    // --------------------
+
   }
 // -----------------------------------------------------------------------------
 }
