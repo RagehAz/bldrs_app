@@ -518,6 +518,10 @@ class FlyerTyper{
         return _flyerCreatorChainsIDs(flyerType,);
         break;
 
+      case ViewingEvent.bzEditor :
+        return _bzCreatorChainsIDs(flyerType,);
+        break;
+
       default: return  null;
     }
 
@@ -645,6 +649,53 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static List<String> _bzCreatorChainsIDs(FlyerType flyerType){
+
+    switch (flyerType){
+      case FlyerType.general      :
+        return <String>[]; break;
+    // --------------------
+      case FlyerType.property     :
+        return <String>[
+          'phid_k_flyer_type_property',
+          'phid_s_propertyLicense',
+        ]; break;
+    // --------------------
+      case FlyerType.design       :
+        return <String>[
+          'phid_k_flyer_type_design',
+          'phid_s_propertyLicense',
+        ]; break;
+    // --------------------
+      case FlyerType.undertaking  :
+        return <String>[
+          'phid_s_propertyLicense',
+        ]; break;
+    // --------------------
+      case FlyerType.trade        :
+        return <String>[
+          'phid_k_flyer_type_trades',
+        ]; break;
+    // --------------------
+      case FlyerType.product      :
+        return <String>[
+          'phid_k_flyer_type_product',
+        ]; break;
+    // --------------------
+      case FlyerType.equipment    :
+        return <String>[
+          'phid_k_flyer_type_equipment',
+        ]; break;
+    // --------------------
+      default: return <String>[];
+    }
+
+
+  }
+  // --------------------
+  /// NOT USED
+  /*
+  /// TESTED : WORKS PERFECT
   static List<String> getChainsIDsPerBzType({
     @required BzType bzType,
   }){
@@ -696,5 +747,6 @@ class FlyerTyper{
 
 
   }
+   */
   // -----------------------------------------------------------------------------
 }
