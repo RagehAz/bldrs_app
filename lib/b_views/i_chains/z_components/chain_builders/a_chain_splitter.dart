@@ -16,7 +16,6 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +56,7 @@ class ChainSplitter extends StatelessWidget {
   final double width;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
-  final ValueNotifier<dynamic> searchText;
+  final ValueNotifier<String> searchText;
   final ChainSecondLinesType secondLinesType;
   final Function(String path, String phid) onPhidTap;
   final Function(String path, String phid) onPhidDoubleTap;
@@ -178,9 +177,9 @@ class ChainSplitter extends StatelessWidget {
         onPhidDoubleTap: onPhidDoubleTap,
         onPhidLongTap: onPhidLongTap,
 
-        onTileTap: (String path, String phid){blog('ChainSplitter : onTileTap : $path : $phid');},
-        onTileDoubleTap: (String path, String phid){blog('ChainSplitter : onTileDoubleTap : $path : $phid');},
-        onTileLongTap: (String path, String phid){blog('ChainSplitter : onTileLongTap : $path : $phid');},
+        onTileTap: null, //(String path, String phid){blog('ChainSplitter : onTileTap : $path : $phid');},
+        onTileDoubleTap: null, //(String path, String phid){blog('ChainSplitter : onTileDoubleTap : $path : $phid');},
+        onTileLongTap: null, //(String path, String phid){blog('ChainSplitter : onTileLongTap : $path : $phid');},
 
         onExportSpecs: onExportSpecs,
         isMultipleSelectionMode: isMultipleSelectionMode,

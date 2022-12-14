@@ -34,7 +34,7 @@ class NoteDismissibleTriggerBubble extends StatelessWidget {
     return WidgetFader(
       fadeType: note.sendFCM == true ? FadeType.stillAtMax : FadeType.stillAtMin,
       min: 0.2,
-      absorbPointer: !note.sendFCM,
+      ignorePointer: !note.sendFCM,
       child: TileBubble(
         bubbleHeaderVM: BubbleHeaderVM(
           headlineVerse: Verse.plain('Notification is Dismissible'),

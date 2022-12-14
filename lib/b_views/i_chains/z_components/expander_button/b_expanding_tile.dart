@@ -49,7 +49,7 @@ class ExpandingTile extends StatelessWidget {
   final Widget child;
   final bool isDisabled;
   final EdgeInsets margin;
-  final ValueNotifier<dynamic> searchText;
+  final ValueNotifier<String> searchText;
   final ValueChanged<bool> onTileTap;
   final Function onTileLongTap;
   final Function onTileDoubleTap;

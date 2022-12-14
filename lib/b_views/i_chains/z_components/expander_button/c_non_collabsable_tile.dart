@@ -30,7 +30,7 @@ class NonCollapsableTile extends StatelessWidget {
   final Color expansionColor;
   final double corners;
   final Widget child;
-  final ValueNotifier<dynamic> searchText;
+  final ValueNotifier<String> searchText;
   final ValueChanged<bool> onTileTap;
   final Function onTileLongTap;
   final Function onTileDoubleTap;
@@ -46,7 +46,7 @@ class NonCollapsableTile extends StatelessWidget {
         headlineVerse: Verse(
           text: firstHeadline?.text,
           translate: firstHeadline?.translate,
-          // notifier: searchText,
+          notifier: searchText,
         ),
         leadingIcon: icon,
         leadingIconSizeFactor: iconSizeFactor,
@@ -54,7 +54,7 @@ class NonCollapsableTile extends StatelessWidget {
       ),
       corners: ExpandingTile.getCorners(corners: corners),
       margin: ExpandingTile.getMargins(margin: margin),
-      onBubbleTap: () => onTileTap(true),
+      // onBubbleTap: null, //() => onTileTap(true),
       childrenCentered: true,
       // areTopCentered: true,
       columnChildren: <Widget>[

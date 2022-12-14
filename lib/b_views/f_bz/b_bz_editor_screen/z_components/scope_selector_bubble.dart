@@ -115,7 +115,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
     return WidgetFader(
       fadeType: _flyerTypesExist == true ? FadeType.stillAtMax : FadeType.stillAtMin,
       min: 0.35,
-      absorbPointer: !_flyerTypesExist,
+      ignorePointer: !_flyerTypesExist,
       child: Bubble(
         bubbleHeaderVM: BubbleHeaderVM(
           headlineVerse: widget.headlineVerse,

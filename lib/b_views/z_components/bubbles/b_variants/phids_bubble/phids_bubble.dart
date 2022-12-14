@@ -11,21 +11,21 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class KeywordsBubble extends StatelessWidget {
+class PhidsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const KeywordsBubble({
+  const PhidsBubble({
     @required this.titleVerse,
     @required this.phids,
     @required this.selectedWords,
     @required this.addButtonIsOn,
-    @required this.onKeywordTap,
+    @required this.onPhidTap,
     this.verseSize = 2,
     this.onTap,
     this.bubbleColor = Colorz.white20,
     this.bubbleWidth,
     this.margins,
     this.corners,
-    this.passKeywordOnTap = false,
+    this.passPhidOnTap = false,
     this.maxLines,
     this.scrollController,
     Key key,
@@ -35,13 +35,13 @@ class KeywordsBubble extends StatelessWidget {
   final List<String> phids;
   final int verseSize;
   final Function onTap;
-  final ValueChanged<String> onKeywordTap;
+  final ValueChanged<String> onPhidTap;
   final Color bubbleColor;
   final List<dynamic> selectedWords;
   final double bubbleWidth;
   final dynamic margins;
   final dynamic corners;
-  final bool passKeywordOnTap;
+  final bool passPhidOnTap;
   final bool addButtonIsOn;
   final int maxLines;
   final ScrollController scrollController;
@@ -86,7 +86,7 @@ class KeywordsBubble extends StatelessWidget {
         headlineVerse: titleVerse,
       ),
       width: _width,
-      onBubbleTap: passKeywordOnTap == true ? null : onTap,
+      onBubbleTap: passPhidOnTap == true ? null : onTap,
       columnChildren: <Widget>[
 
         /// STRINGS
@@ -127,8 +127,8 @@ class KeywordsBubble extends StatelessWidget {
                             ),
                             child: PhidButton(
                               phid: _phid,
-                              onPhidTap: passKeywordOnTap == true ?
-                                  () => onKeywordTap(_phid)
+                              onPhidTap: passPhidOnTap == true ?
+                                  () => onPhidTap(_phid)
                                   :
                               null,
                             ),
@@ -145,7 +145,7 @@ class KeywordsBubble extends StatelessWidget {
 
         if (phids != null && phids.isEmpty && addButtonIsOn == true)
           AddKeywordsButton(
-            onTap: passKeywordOnTap == true ? null : onTap,
+            onTap: passPhidOnTap == true ? null : onTap,
           ),
 
         Container(

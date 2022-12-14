@@ -33,7 +33,7 @@ class PhidButton extends StatelessWidget {
   final bool isDisabled;
   final bool xIsOn;
   final dynamic margins;
-  final ValueNotifier<dynamic> searchText;
+  final ValueNotifier<String> searchText;
   final bool inverseAlignment;
   final Verse secondLine;
   final Function onPhidTap;
