@@ -28,7 +28,7 @@ class CountriesScreen extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ZoneViewingEvent zoneViewingEvent;
+  final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   /// --------------------------------------------------------------------------
   @override

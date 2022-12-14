@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -14,7 +13,8 @@ import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_scree
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
-import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
+import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/floating_flyer_type_selector.dart';
+import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
@@ -153,7 +153,7 @@ List<NavModel> generateMainNavModels({
       screen: () => ZoneSelection.goBringAZone(
         context: context,
         depth: ZoneDepth.district,
-        zoneViewingEvent: ZoneViewingEvent.homeView,
+        zoneViewingEvent: ViewingEvent.homeView,
         settingCurrentZone: true,
       ),
       iconSizeFactor: 1,
@@ -253,33 +253,37 @@ Future<void> onRefreshHomeWall(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<void> onSectionButtonTap(BuildContext context) async {
 
-  final dynamic result = await Nav.goToNewScreen(
+  final FlyerType flyerType = await Nav.goToNewScreen(
     context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context),
-    screen: PickersScreen(
-      flyerTypeFilter: null,
-      onlyUseCityChains: true,
-      isMultipleSelectionMode: false,
-      // onlyChainKSelection: false,
-      pageTitleVerse: const Verse(
-        text: 'phid_browse_flyers_by_keyword',
-        translate: true,
-      ),
-      zone: ZoneProvider.proGetCurrentZone(
-        context: context,
-        listen: false,
-      ),
-    ),
+    pageTransitionType: Nav.superHorizontalTransition(context, inverse: true),
+    screen: const FloatingFlyerTypeSelector(),
   );
 
-  if (result != null && result is String){
+  if (flyerType != null){
 
-    await _setActivePhidK(
-      context: context,
-      phidK: result,
+    final String phid = await Nav.goToNewScreen(
+        context: context,
+        pageTransitionType: PageTransitionType.leftToRight,
+        screen: PhidsPickerScreen(
+          chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+            context: context,
+            flyerType: flyerType,
+            event: ViewingEvent.homeView,
+          ),
+        ),
     );
 
+    if (phid != null){
+
+      await _setActivePhidK(
+        context: context,
+        phidK: phid,
+        flyerType: flyerType,
+      );
+
+    }
   }
+
 
 }
 // --------------------
@@ -287,24 +291,24 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 Future<void> _setActivePhidK({
   @required BuildContext context,
   @required String phidK,
+  @required FlyerType flyerType,
 }) async {
 
   const bool deactivated = false;
 
-  final List<Chain> allChains = ChainsProvider.proGetBldrsChains(
-      context: context,
-      onlyUseCityChains: false,
-      listen: false
-  );
-
-  final String _chainID = Chain.getRootChainIDOfPhid(
-    allChains: allChains,
-    phid: phidK,
-  );
-
-  final FlyerType _flyerType = FlyerTyper.concludeFlyerTypeByChainID(
-    chainID: _chainID,
-  );
+  /// WORKS GOOD : BUT DEPRECATED
+  // final List<Chain> allChains = ChainsProvider.proGetBldrsChains(
+  //     context: context,
+  //     onlyUseCityChains: false,
+  //     listen: false
+  // );
+  // final String _chainID = Chain.getRootChainIDOfPhid(
+  //   allChains: allChains,
+  //   phid: phidK,
+  // );
+  // final FlyerType flyerType = FlyerTyper.concludeFlyerTypeByChainID(
+  //   chainID: _chainID,
+  // );
 
   /// A - if section is not active * if user is author or not
   if (deactivated == true) {
@@ -313,7 +317,7 @@ Future<void> _setActivePhidK({
     final String _currentCityID = _zoneProvider.currentZone.cityID;
 
     final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
-        flyerType: _flyerType
+        flyerType: flyerType
     );
 
     await CenterDialog.showCenterDialog(
@@ -369,7 +373,7 @@ Future<void> _setActivePhidK({
     final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
     await _keywordsProvider.changeHomeWallFlyerType(
       context: context,
-      flyerType: _flyerType,
+      flyerType: flyerType,
       phid: phidK,
       notify: true,
     );

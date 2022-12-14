@@ -163,7 +163,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
       screen: DistrictsScreen(
-        zoneViewingEvent: ZoneViewingEvent.admin,
+        zoneViewingEvent: ViewingEvent.admin,
         country: widget.zoneModel.countryModel,
         city: cityModel,
       ),

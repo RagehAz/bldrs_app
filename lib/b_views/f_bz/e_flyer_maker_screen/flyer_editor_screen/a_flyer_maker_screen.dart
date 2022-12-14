@@ -378,7 +378,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
                   /// ZONE SELECTOR
                   ZoneSelectionBubble(
-                    zoneViewingEvent: ZoneViewingEvent.flyerEditor,
+                    zoneViewingEvent: ViewingEvent.flyerEditor,
                     depth: ZoneDepth.city,
                     titleVerse: const Verse(
                       text: 'phid_flyer_target_city',

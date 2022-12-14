@@ -64,7 +64,7 @@ class ZoneSelection {
     @required BuildContext context,
     @required ZoneDepth depth,
     @required bool settingCurrentZone,
-    @required ZoneViewingEvent zoneViewingEvent,
+    @required ViewingEvent zoneViewingEvent,
   }) async {
 
     final ZoneModel _output = await goToCountriesScreen(
@@ -86,7 +86,7 @@ class ZoneSelection {
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> goToCountriesScreen({
     @required BuildContext context,
-    @required ZoneViewingEvent zoneViewingEvent,
+    @required ViewingEvent zoneViewingEvent,
     @required ZoneDepth depth,
   }) async {
 
@@ -113,7 +113,7 @@ class ZoneSelection {
     @required BuildContext context,
     @required String countryID,
     @required ZoneDepth depth,
-    @required ZoneViewingEvent zoneViewingEvent,
+    @required ViewingEvent zoneViewingEvent,
   }) async {
 
     Keyboard.closeKeyboard(context);
@@ -169,7 +169,7 @@ class ZoneSelection {
     @required BuildContext context,
     @required String cityID,
     @required ZoneDepth depth,
-    @required ZoneViewingEvent zoneViewingEvent,
+    @required ViewingEvent zoneViewingEvent,
   }) async {
 
     Keyboard.closeKeyboard(context);

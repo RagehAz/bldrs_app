@@ -1,8 +1,12 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +27,7 @@ class FlyerTyper{
 
   // -----------------------------------------------------------------------------
   static const List<FlyerType> flyerTypesList = <FlyerType>[
-    FlyerType.general,
+    // FlyerType.general,
     FlyerType.property,
     FlyerType.design,
     FlyerType.undertaking,
@@ -97,7 +101,7 @@ class FlyerTyper{
 
   // --------------------
   static const List<FlyerType> savedFlyersTabs = <FlyerType>[
-    FlyerType.general,
+    // FlyerType.general,
     FlyerType.property,
     FlyerType.design,
     FlyerType.undertaking,
@@ -475,7 +479,7 @@ class FlyerTyper{
   // --------------------
   static const String propertyChainID =     'phid_k_flyer_type_property';
   static const String designChainID =       'phid_k_flyer_type_design';
-  static const String undertakingChainID =  'phid_k_flyer_type_undertaking';
+  static const String undertakingChainID =  'phid_s_propertyLicense';
   static const String tradesChainID =       'phid_k_flyer_type_trades';
   static const String productChainID =      'phid_k_flyer_type_product';
   static const String equipmentChainID =    'phid_k_flyer_type_equipment';
@@ -490,56 +494,207 @@ class FlyerTyper{
   ];
   // -----------------------------------------------------------------------------
 
-  /// HASHTAGS
+  /// CHAINS IDS COMPOSITIONS
 
   // --------------------
-  static List<String> getHashGroupsIDsByFlyerType(FlyerType flyerType){
+  /// TESTED : WORKS PERFECT
+  static List<String> getChainsIDsPerViewingEvent({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+    @required ViewingEvent event,
+  }){
+
+    switch(event){
+
+      case ViewingEvent.admin :
+        return _allChainsIDs(context: context, flyerType: flyerType,);
+        break;
+
+      case ViewingEvent.homeView :
+        return _homeWallChainsIDs(flyerType);
+        break;
+
+      case ViewingEvent.flyerEditor :
+        return _flyerCreatorChainsIDs(flyerType,);
+        break;
+
+      default: return  null;
+    }
+
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _allChainsIDs({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+  }){
+    final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
+      context: context,
+      flyerType: flyerType,
+      listen: false,
+      sort: true,
+    );
+
+    final List<String> _chainsIDs = PickerModel.getPickersChainsIDs(_pickers);
+
+    Stringer.blogStrings(strings: _chainsIDs, invoker: 'chains IDs for : ($flyerType)');
+
+    return _chainsIDs;
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _homeWallChainsIDs(FlyerType flyerType){
+
+    List<String> _output = [];
+
+    String _parentChainID;
+
+    switch (flyerType){
+      // case FlyerType.general      : return <String>[]; break;
+    // --------------------
+      case FlyerType.property     : _parentChainID = propertyChainID; break;
+    // --------------------
+      case FlyerType.design       : _parentChainID = designChainID; break;
+    // --------------------
+      case FlyerType.undertaking  : _parentChainID = undertakingChainID; break;
+    // --------------------
+      case FlyerType.trade        : _parentChainID = tradesChainID; break;
+    // --------------------
+      case FlyerType.product      : _parentChainID = productChainID; break;
+    // --------------------
+      case FlyerType.equipment    : _parentChainID = equipmentChainID; break;
+    // --------------------
+      default: return null;
+    }
+
+    if (_parentChainID != null){
+      _output = [_parentChainID];
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> _flyerCreatorChainsIDs(FlyerType flyerType){
 
     switch (flyerType){
       case FlyerType.general      :
-        return <String>[
-
-        ]; break;
+        return <String>[]; break;
     // --------------------
       case FlyerType.property     :
         return <String>[
           'phid_k_flyer_type_property',
+          'phid_s_propertyForm',
+          'phid_s_propertyLicense',
+          'phid_s_contractType',
+          'phid_s_paymentMethod',
+          'phid_s_group_space_type',
+          'phid_s_propertyView',
           'phid_s_sub_ppt_feat_indoor',
           'phid_s_sub_ppt_feat_finishing',
-          'phid_s_propertyView',
-          'phid_s_sub_ppt_feat_services',
+          'phid_s_propertyDecorationStyle',
+          'phid_s_sub_ppt_feat_compound',
           'phid_s_sub_ppt_feat_amenities',
-    ]; break;
+          'phid_s_sub_ppt_feat_services',
+        ]; break;
     // --------------------
       case FlyerType.design       :
         return <String>[
-
+          'phid_k_flyer_type_design',
+          'phid_s_group_space_type',
+          'phid_s_style',
+          'phid_s_propertyForm',
+          'phid_s_propertyLicense',
         ]; break;
     // --------------------
       case FlyerType.undertaking  :
         return <String>[
-
+          'phid_s_propertyLicense',
+          'phid_s_propertyForm',
+          'phid_s_group_space_type',
+          'phid_k_flyer_type_trades',
+          'phid_k_flyer_type_product',
         ]; break;
     // --------------------
       case FlyerType.trade        :
         return <String>[
-
+          'phid_k_flyer_type_trades',
+          // 'phid_s_constructionActivityMeasurementMethod',
         ]; break;
     // --------------------
       case FlyerType.product      :
         return <String>[
-
+          'phid_k_flyer_type_product',
+          'phid_s_contractType',
+          'phid_s_paymentMethod',
         ]; break;
     // --------------------
       case FlyerType.equipment    :
         return <String>[
-
+          'phid_k_flyer_type_equipment',
+          'phid_s_contractType',
+          'phid_s_paymentMethod',
         ]; break;
     // --------------------
       default: return <String>[];
     }
 
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getChainsIDsPerBzType({
+    @required BzType bzType,
+  }){
+
+    switch (bzType){
+    // --------------------
+      case BzType.developer     :
+        return <String>[
+          'phid_k_flyer_type_property',
+          'phid_s_propertyLicense',
+        ]; break;
+    // --------------------
+      case BzType.broker     :
+        return <String>[
+          'phid_k_flyer_type_property',
+          'phid_s_propertyLicense',
+        ]; break;
+    // --------------------
+      case BzType.designer     :
+        return <String>[
+          'phid_k_flyer_type_design',
+          'phid_s_propertyLicense',
+        ]; break;
+    // --------------------
+      case BzType.contractor     :
+        return <String>[
+          'phid_s_propertyLicense',
+        ]; break;
+    // --------------------
+      case BzType.artisan        :
+        return <String>[
+          'phid_k_flyer_type_trades',
+        ]; break;
+    // --------------------
+      case BzType.supplier      :
+        return <String>[
+          'phid_k_flyer_type_product',
+          'phid_k_flyer_type_equipment',
+        ]; break;
+    // --------------------
+      case BzType.manufacturer      :
+        return <String>[
+          'phid_k_flyer_type_product',
+          'phid_k_flyer_type_equipment',
+        ]; break;
+    // --------------------
+      default: return <String>[];
+    }
+
+
   }
   // -----------------------------------------------------------------------------
-  void f(){}
 }

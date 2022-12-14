@@ -119,7 +119,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   final ZoneModel _zone = await Nav.goToNewScreen(
                     context: context,
                     screen: const CountriesScreen(
-                      zoneViewingEvent: ZoneViewingEvent.admin,
+                      zoneViewingEvent: ViewingEvent.admin,
                       depth: ZoneDepth.district,
                     ),
                   );
@@ -145,7 +145,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
               /// ZONE BUBBLE
               ZoneSelectionBubble(
-                zoneViewingEvent: ZoneViewingEvent.admin,
+                zoneViewingEvent: ViewingEvent.admin,
                 depth: ZoneDepth.district,
                 currentZone: _bubbleZone,
                 titleVerse:  const Verse(
