@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -25,7 +23,7 @@ import 'package:flutter/material.dart';
 class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const PhidsPickerScreen({
-    @required this.flyerType,
+    @required this.chainsIDs,
     this.selectedPhids,
     this.multipleSelectionMode = false,
     this.flyerModel,
@@ -38,7 +36,7 @@ class PhidsPickerScreen extends StatefulWidget {
   /// SHOWS flyer in the corner widget maximizer showing selected keywords,
   final FlyerModel flyerModel;
 
-  final FlyerType flyerType;
+  final List<String> chainsIDs;
   // -----------------------------------------------------------------------------
   @override
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
@@ -50,8 +48,6 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   TabController _tabBarController;
   final TextEditingController _searchController = TextEditingController();
   final GlobalKey _globalKey = GlobalKey();
-  // --------------------
-  List<Chain> _bldrsChains;
   // --------------------
   List<Chain> _chains;
   List<NavModel> _navModels = [];
@@ -78,31 +74,34 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   void initState() {
     super.initState();
 
-    // ------------------------------
     final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
       context: context,
       onlyUseCityChains: false,
       listen: false,
     );
-    // ------------------------------
 
-    // Chain.blogChains(_chain.sons);
-
-    // Stringer.blogStrings(strings: _hashGroups, invoker: 'fu');
-
-
-    final List<Chain> _chainsByFlyerType = Chain.getChainsFromChainsByIDs(
+    final List<Chain> _chainsByIDs = Chain.getChainsFromChainsByIDs(
       allChains: _allChains,
-      phids: FlyerTyper.getHashGroupsIDsByFlyerType(widget.flyerType),
+      phids: widget.chainsIDs,
     );
 
-    setState(() {
-      _bldrsChains = _allChains;
-      _chains = _chainsByFlyerType;
+    // setState(() {
+
+      if (
+          _chainsByIDs?.length == 1
+          &&
+          Chain.checkIsChains(_chainsByIDs.first.sons) == true
+      ){
+        _chains = _chainsByIDs.first.sons;
+      }
+      else {
+        _chains = _chainsByIDs;
+      }
+
       _allPhids = Chain.getOnlyPhidsSonsFromChains(
           chains: _chains,
       );
-    });
+    // });
 
     _tabBarController = TabController(
         vsync: this,
@@ -370,18 +369,18 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         text: 'phid_search',
         translate: true,
       ),
-      appBarRowWidgets: <Widget>[
-
-        const Expander(),
-
-        AppBarButton(
-          verse: Verse.plain('blogChains'),
-          onTap: (){
-            Chain.blogChains(_bldrsChains);
-          },
-        ),
-
-      ],
+      // appBarRowWidgets: <Widget>[
+      //
+      //   const Expander(),
+      //
+      //   AppBarButton(
+      //     verse: Verse.plain('blogChains'),
+      //     onTap: (){
+      //       Chain.blogChains(_bldrsChains);
+      //     },
+      //   ),
+      //
+      // ],
       /// SEARCH VIEW
       searchView: SizedBox(
         width: Scale.screenWidth(context),

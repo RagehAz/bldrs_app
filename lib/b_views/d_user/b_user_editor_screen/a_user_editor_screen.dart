@@ -416,7 +416,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 /// ZONE
                 ZoneSelectionBubble(
                   currentZone: draft?.zone,
-                  zoneViewingEvent: ZoneViewingEvent.userEditor,
+                  zoneViewingEvent: ViewingEvent.userEditor,
                   onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
                     selectedZone: zoneModel,
                     draft: _draftUser,

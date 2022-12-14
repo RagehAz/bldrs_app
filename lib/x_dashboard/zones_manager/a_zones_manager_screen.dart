@@ -33,7 +33,7 @@ class ZonesManagerScreen extends StatelessWidget {
         /// ZONE BUTTON
         ZoneButton(
           onTap: () => goToCountrySelectionScreen(
-            zoneViewingEvent: ZoneViewingEvent.admin,
+            zoneViewingEvent: ViewingEvent.admin,
             context: context,
           ),
         ),
