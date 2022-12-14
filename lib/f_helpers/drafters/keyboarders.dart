@@ -201,7 +201,6 @@ class Keyboard {
   static Future<void> copyToClipboard({
     @required BuildContext context,
     @required String copy,
-    bool awaitTheDialog = false,
     int milliseconds,
   }) async {
 
@@ -211,19 +210,7 @@ class Keyboard {
         )
     );
 
-    if (awaitTheDialog == false){
-      await TopDialog.showTopDialog(
-        context: context,
-        firstVerse: const Verse(
-          text: 'phid_copied_to_clipboard',
-          translate: true,
-        ),
-        secondVerse: Verse.plain(copy),
-        milliseconds: milliseconds,
-      );
-    }
-
-    else {
+    if (milliseconds != 0){
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(

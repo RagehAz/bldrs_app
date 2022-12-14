@@ -11,7 +11,9 @@ import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -37,7 +39,9 @@ class TopDialog extends StatelessWidget {
     final Flushbar _flushbar = _key?.currentWidget;
 
     if (_flushbar?.isDismissed() == false){
-      await _flushbar.dismiss();
+      SchedulerBinding.instance.addPostFrameCallback((_) async {
+        await _flushbar.dismiss();
+      });
     }
 
   }
@@ -53,13 +57,15 @@ class TopDialog extends StatelessWidget {
     int milliseconds = 5000,
   }) async {
 
-    await closeTopDialog(context);
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
 
-    final double _screenWidth = Scale.screenWidth(context);
-    final double _bubbleWidth = BldrsAppBar.width(context);
+    await closeTopDialog(_context);
+
+    final double _screenWidth = Scale.screenWidth(_context);
+    final double _bubbleWidth = BldrsAppBar.width(_context);
 
     await Flushbar(
-      key: UiProvider.proGetTopDialogKey(context: context, listen: false),
+      key: UiProvider.proGetTopDialogKey(context: _context, listen: false),
 
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       // dismissDirection: FlushbarDismissDirection.VERTICAL,
@@ -102,7 +108,7 @@ class TopDialog extends StatelessWidget {
       titleText: Container(
         width: _bubbleWidth,
         constraints: BoxConstraints(
-          minHeight: BldrsAppBar.height(context, AppBarType.basic) - 5,
+          minHeight: BldrsAppBar.height(_context, AppBarType.basic) - 5,
         ),
         decoration: const BoxDecoration(
           // color: Colorz.Black255,
@@ -161,7 +167,7 @@ class TopDialog extends StatelessWidget {
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar) {
 
-        closeTopDialog(context);
+        closeTopDialog(_context);
         // blog('on tap : flushbar : ${flushbar.onTap}');
 
       },
@@ -200,7 +206,7 @@ class TopDialog extends StatelessWidget {
       shouldIconPulse: false,
       // positionOffset: 0,
       // userInputForm: ,
-    ).show(context);
+    ).show(_context);
   }
   // --------------------
   /// BUG THE SHIT OUT OF LIFE
