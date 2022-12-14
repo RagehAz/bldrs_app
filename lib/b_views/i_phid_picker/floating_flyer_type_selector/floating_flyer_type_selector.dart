@@ -1,33 +1,31 @@
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
+import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animated_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/hashtag_manager/animated_bar.dart';
+import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
-class FlyerTypeSexySelector extends StatefulWidget {
+class FloatingFlyerTypeSelector extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyerTypeSexySelector({
+  const FloatingFlyerTypeSelector({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _FlyerTypeSexySelectorState createState() => _FlyerTypeSexySelectorState();
+  _FloatingFlyerTypeSelectorState createState() => _FloatingFlyerTypeSelectorState();
 /// --------------------------------------------------------------------------
 }
 
-class _FlyerTypeSexySelectorState extends State<FlyerTypeSexySelector> with TickerProviderStateMixin {
-
-  List<CurvedAnimation> _linesControllers;
+class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> with TickerProviderStateMixin {
+  // -----------------------------------------------------------------------------
+  List<CurvedAnimation> _linesControllers = <CurvedAnimation>[];
   AnimationController _logoAniController;
-  List<Map<String, dynamic>> _linesMap;
+  List<Map<String, dynamic>> _linesMap = <Map<String, dynamic>>[];
   final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
-
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -124,6 +122,21 @@ class _FlyerTypeSexySelectorState extends State<FlyerTypeSexySelector> with Tick
     return _animations;
   }
   // -----------------------------------------------------------------------------
+  Future<void> _exit({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+  }) async {
+
+    blog('TAPPED ON $flyerType');
+
+    await _logoAniController.reverse();
+    await Nav.goBack(
+      context: context,
+      passedData: flyerType,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -131,44 +144,43 @@ class _FlyerTypeSexySelectorState extends State<FlyerTypeSexySelector> with Tick
       child: Material(
         color: Colorz.nothing,
         child: GestureDetector(
-          onTap: () => Nav.goBack(context: context),
-          child: Container(
-            width: Scale.screenWidth(context),
-            height: Scale.screenHeight(context),
-            color: Colorz.black50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-
-                ...List.generate(_linesControllers.length, (index){
-
-                  final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMap[index]['verse']);
-                  final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
-                  final String _translation = Verse.transBake(context, _phid);
-
-                  return AnimatedBar(
-                    curvedAnimation: _linesControllers[index],
-                    tween: _tween,
-                    text: _translation,
-                    verseColor: _linesMap[index]['color'],
-                    onTap: () async {
-
-                      blog('TAPPED ON ${_linesMap[index]['verse']} n');
-
-                      await _logoAniController.reverse();
-                      await Nav.goBack(
-                        context: context,
-                        passedData: _flyerType,
-                      );
-
-                    },
-                    icon: Iconz.bxDesignsOn,
-                  );
-                })
-
-              ],
-
+          onTap: () => _exit(
+              context: context,
+              flyerType: null,
             ),
+          child: DismissiblePage(
+            onDismissed: () => Nav.goBack(
+                context: context,
+              ),
+            direction: DismissiblePageDismissDirection.endToStart,
+            startingOpacity: 0.5,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                  ...List.generate(_linesControllers.length, (index){
+
+                    final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMap[index]['verse']);
+                    final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
+                    final String _translation = Verse.transBake(context, _phid);
+
+                    return AnimatedBar(
+                      curvedAnimation: _linesControllers[index],
+                      tween: _tween,
+                      text: _translation,
+                      verseColor: _linesMap[index]['color'],
+                      onTap: () => _exit(
+                        context: context,
+                        flyerType: _flyerType,
+                      ),
+                      icon: FlyerTyper.flyerTypeIcon(flyerType: _flyerType, isOn: true),
+                    );
+
+                  }),
+
+                ],
+
+              ),
           ),
         ),
       ),

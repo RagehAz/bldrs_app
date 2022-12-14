@@ -74,7 +74,7 @@ enum StageType {
 }
 
 /// ZONE VIEWING EVENT TYPE
-enum ZoneViewingEvent {
+enum ViewingEvent {
   homeView,
   userEditor,
   bzEditor,
@@ -291,10 +291,10 @@ class Staging {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
-    @required ZoneViewingEvent event,
+    @required ViewingEvent event,
   }){
 
-    if (event == ZoneViewingEvent.admin){
+    if (event == ViewingEvent.admin){
       return getAllIDs();
     }
 
@@ -315,7 +315,7 @@ class Staging {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StageType _concludeLowestStageOnViewingEvent({
-    @required ZoneViewingEvent event,
+    @required ViewingEvent event,
   }){
 
     final UserModel _user = UsersProvider.proGetMyUserModel(
@@ -329,13 +329,13 @@ class Staging {
 
       switch(event){
         /// = if active : will show bzz : if public : will show flyers
-        case ZoneViewingEvent.homeView        : return StageType.flyersStage;    break;
-        case ZoneViewingEvent.userEditor      : return StageType.emptyStage;    break;
-        case ZoneViewingEvent.bzEditor        : return StageType.emptyStage;    break;
+        case ViewingEvent.homeView        : return StageType.flyersStage;    break;
+        case ViewingEvent.userEditor      : return StageType.emptyStage;    break;
+        case ViewingEvent.bzEditor        : return StageType.emptyStage;    break;
         /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
-        case ZoneViewingEvent.flyerEditor     : return StageType.bzzStage;    break;
+        case ViewingEvent.flyerEditor     : return StageType.bzzStage;    break;
         /// flyer can be promoted in active or public zones  only
-        case ZoneViewingEvent.flyerPromotion  : return StageType.flyersStage;    break;
+        case ViewingEvent.flyerPromotion  : return StageType.flyersStage;    break;
         default: return null; break;
       }
 
@@ -346,13 +346,13 @@ class Staging {
 
       switch(event){
         /// = if active : will show bzz : if public : will show flyers
-        case ZoneViewingEvent.homeView        : return StageType.flyersStage;    break;
-        case ZoneViewingEvent.userEditor      : return StageType.emptyStage;    break;
-        case ZoneViewingEvent.bzEditor        : return StageType.emptyStage ;   break;
+        case ViewingEvent.homeView        : return StageType.flyersStage;    break;
+        case ViewingEvent.userEditor      : return StageType.emptyStage;    break;
+        case ViewingEvent.bzEditor        : return StageType.emptyStage ;   break;
         /// USER DOES NOT PUBLISH FLYERS
-        case ZoneViewingEvent.flyerEditor     : return null;                break;
+        case ViewingEvent.flyerEditor     : return null;                break;
         /// normal user does not promote flyers
-        case ZoneViewingEvent.flyerPromotion  : return null;                break;
+        case ViewingEvent.flyerPromotion  : return null;                break;
         default: return null; break;
       }
 
@@ -512,7 +512,7 @@ class Staging {
   /// TESTED : WORKS PERFECT
   static bool checkStagingHasSelectableZones({
     @required Staging staging,
-    @required ZoneViewingEvent zoneViewingEvent,
+    @required ViewingEvent zoneViewingEvent,
   }){
     bool _output = false;
 
@@ -531,9 +531,9 @@ class Staging {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static bool checkMayShowViewAllZonesButton({
-    @required ZoneViewingEvent zoneViewingEvent,
+    @required ViewingEvent zoneViewingEvent,
   }){
-    return zoneViewingEvent == ZoneViewingEvent.homeView;
+    return zoneViewingEvent == ViewingEvent.homeView;
   }
   // -----------------------------------------------------------------------------
 

@@ -51,7 +51,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   // final bool selectCountryAndCityOnly;
   // final bool selectCountryIDOnly;
   final bool isRequired;
-  final ZoneViewingEvent zoneViewingEvent;
+  final ViewingEvent zoneViewingEvent;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();

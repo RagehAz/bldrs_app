@@ -37,7 +37,7 @@ class CitiesScreen extends StatefulWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ZoneViewingEvent zoneViewingEvent;
+  final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   final String countryID;
   /// --------------------------------------------------------------------------

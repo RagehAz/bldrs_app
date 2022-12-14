@@ -50,7 +50,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
     final ZoneModel _zone = await ZoneSelection.goBringAZone(
       context: context,
       depth: ZoneDepth.district,
-      zoneViewingEvent: ZoneViewingEvent.flyerPromotion,
+      zoneViewingEvent: ViewingEvent.flyerPromotion,
       settingCurrentZone: false,
     );
 

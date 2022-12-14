@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> goToCountrySelectionScreen({
   @required BuildContext context,
-  @required ZoneViewingEvent zoneViewingEvent,
+  @required ViewingEvent zoneViewingEvent,
 }) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
@@ -44,7 +44,7 @@ Future<void> goToCitySelectionScreen({
   @required BuildContext context,
   @required ValueNotifier<ZoneModel> zone,
   @required PageController pageController,
-  @required ZoneViewingEvent zoneViewingEvent,
+  @required ViewingEvent zoneViewingEvent,
 }) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
