@@ -65,11 +65,20 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   void initState() {
     super.initState();
 
-    _pageTitleVerse = Verse(
-      text: widget.navModels[0].titleVerse.text,
-      translate: widget.navModels[0].titleVerse.translate,
-      notifier: ValueNotifier(widget.navModels[0].titleVerse.text),
-    );
+    if (Mapper.checkCanLoopList(widget.navModels) == true){
+      _pageTitleVerse = Verse(
+        text: widget.navModels[0].titleVerse.text,
+        translate: widget.navModels[0].titleVerse.translate,
+        notifier: ValueNotifier(widget.navModels[0].titleVerse.text),
+      );
+    }
+    else {
+      _pageTitleVerse = const Verse(
+        text: 'phid_keywords',
+        translate: true,
+      );
+    }
+
 
     _initializeTabs();
 
@@ -80,7 +89,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     _isExpanded.dispose();
     _tabController.dispose();
     _progressBarModel.dispose();
-    _pageTitleVerse.notifier.dispose();
+    _pageTitleVerse.notifier?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -94,8 +103,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   /// TESTED : WORKS PERFECT
   void _initializeTabs(){
 
-    if (Mapper.checkCanLoopList(widget.navModels) == true){
-
       setNotifier(
           notifier: _isExpanded,
           mounted: mounted,
@@ -108,14 +115,14 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           value: ProgressBarModel(
             swipeDirection: SwipeDirection.next,
             index: widget.initialIndex,
-            numberOfStrips: widget.navModels.length,
+            numberOfStrips: widget.navModels.length ?? 1,
           ),
       );
 
       // blog('should go now to tab : ${widget.initialIndex}');
       _tabController = TabController(
         vsync: this,
-        length: widget.navModels.length,
+        length: widget.navModels.length ?? 1,
         initialIndex: widget.initialIndex,
         animationDuration: const Duration(milliseconds: 250),
       );
@@ -141,7 +148,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
       });
 
-    }
 
   }
   // --------------------

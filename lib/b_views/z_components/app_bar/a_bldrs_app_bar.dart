@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBar({
-    @required this.globalKey,
+    this.globalKey,
     this.appBarType,
     this.onBack,
     this.pageTitleVerse,

@@ -25,6 +25,7 @@ import 'package:flutter/material.dart';
 class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const PhidsPickerScreen({
+    @required this.flyerType,
     this.selectedPhids,
     this.multipleSelectionMode = false,
     this.flyerModel,
@@ -36,6 +37,8 @@ class PhidsPickerScreen extends StatefulWidget {
   final bool multipleSelectionMode;
   /// SHOWS flyer in the corner widget maximizer showing selected keywords,
   final FlyerModel flyerModel;
+
+  final FlyerType flyerType;
   // -----------------------------------------------------------------------------
   @override
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
@@ -90,7 +93,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final List<Chain> _chainsByFlyerType = Chain.getChainsFromChainsByIDs(
       allChains: _allChains,
-      phids: FlyerTyper.getHashGroupsIDsByFlyerType(FlyerType.property),
+      phids: FlyerTyper.getHashGroupsIDsByFlyerType(widget.flyerType),
     );
 
     setState(() {
@@ -104,7 +107,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     _tabBarController = TabController(
         vsync: this,
         animationDuration: const Duration(milliseconds: 300),
-        length: _chains.length,
+        length: _chains.length ?? 1,
         // initialIndex: 0,
     );
 

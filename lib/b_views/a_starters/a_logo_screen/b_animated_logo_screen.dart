@@ -39,13 +39,13 @@ class AnimatedLogoScreen extends StatefulWidget {
   static Map<String, dynamic> createBeat({
     @required double start, // in milliseconds
     @required double duration,// in milliseconds
-    @required String verse,
+    @required String text,
     Color color = Colorz.white255,
   }){
     return {
       'first' : getBeatRatio(start),
       'second' : getBeatRatio(start + duration),
-      'verse': verse,
+      'verse': text,
       'color' : color,
     };
   }
@@ -73,16 +73,16 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
 
     _linesMap = <Map<String, dynamic>>[
-      AnimatedLogoScreen.createBeat(start: 1900, duration: 200,   verse: xPhrase(context, 'phid_search'), color: Colorz.white200),  // 1
-      AnimatedLogoScreen.createBeat(start: 2800, duration: 200,   verse: xPhrase(context, 'phid_connect'), color: Colorz.white200), // 5
-      AnimatedLogoScreen.createBeat(start: 2700, duration: 200,   verse: xPhrase(context, 'phid_ask'), color: Colorz.white200), // 4
-      AnimatedLogoScreen.createBeat(start: 2350, duration: 450,   verse: xPhrase(context, 'phid_answer'), color: Colorz.white200), // 3
-      AnimatedLogoScreen.createBeat(start: 2000, duration: 450,   verse: xPhrase(context, 'phid_grow'), color: Colorz.white200), // 2
-      AnimatedLogoScreen.createBeat(start: 4700,  duration: 300,  verse: xPhrase(context, 'phid_on'), color: Colorz.white200), // 6
-      AnimatedLogoScreen.createBeat(start: 5550,  duration: 1000, verse: xPhrase(context, 'phid_bldrsFullName'), color: Colorz.yellow255), // 10
-      AnimatedLogoScreen.createBeat(start: 4800,  duration: 300,  verse: '- ${xPhrase(context, 'phid_designers')}'), // 7
-      AnimatedLogoScreen.createBeat(start: 5150,  duration: 300,  verse: '- ${xPhrase(context, 'phid_contractors')}'), // 8
-      AnimatedLogoScreen.createBeat(start: 5450,  duration: 300,  verse: '- ${xPhrase(context, 'phid_artisans')}'), // 9
+      AnimatedLogoScreen.createBeat(start: 1900, duration: 200,   text: xPhrase(context, 'phid_search'), color: Colorz.white200),  // 1
+      AnimatedLogoScreen.createBeat(start: 2800, duration: 200,   text: xPhrase(context, 'phid_connect'), color: Colorz.white200), // 5
+      AnimatedLogoScreen.createBeat(start: 2700, duration: 200,   text: xPhrase(context, 'phid_ask'), color: Colorz.white200), // 4
+      AnimatedLogoScreen.createBeat(start: 2350, duration: 450,   text: xPhrase(context, 'phid_answer'), color: Colorz.white200), // 3
+      AnimatedLogoScreen.createBeat(start: 2000, duration: 450,   text: xPhrase(context, 'phid_grow'), color: Colorz.white200), // 2
+      AnimatedLogoScreen.createBeat(start: 4700,  duration: 300,  text: xPhrase(context, 'phid_on'), color: Colorz.white200), // 6
+      AnimatedLogoScreen.createBeat(start: 5550,  duration: 1000, text: xPhrase(context, 'phid_bldrsFullName'), color: Colorz.yellow255), // 10
+      AnimatedLogoScreen.createBeat(start: 4800,  duration: 300,  text: '- ${xPhrase(context, 'phid_designers')}'), // 7
+      AnimatedLogoScreen.createBeat(start: 5150,  duration: 300,  text: '- ${xPhrase(context, 'phid_contractors')}'), // 8
+      AnimatedLogoScreen.createBeat(start: 5450,  duration: 300,  text: '- ${xPhrase(context, 'phid_artisans')}'), // 9
     ];
 
     _initializeAnimationControllers();
