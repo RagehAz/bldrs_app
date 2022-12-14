@@ -8,11 +8,15 @@ class PhidsViewer extends StatelessWidget {
   const PhidsViewer({
     @required this.phids,
     @required this.pageWidth,
+    this.onPhidTap,
+    this.onPhidLongTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<String> phids;
   final double pageWidth;
+  final Function(String phid) onPhidTap;
+  final Function(String phid) onPhidLongTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -34,12 +38,14 @@ class PhidsViewer extends StatelessWidget {
           if (phids?.isNotEmpty)
           ...List<Widget>.generate(phids?.length, (int index) {
 
-            final String _keywordID = phids[index];
+            final String _phid = phids[index];
 
             return PhidButton(
-              phid: _keywordID,
+              phid: _phid,
               color: Colorz.white50,
               inverseAlignment: false,
+              onPhidTap: () => onPhidTap(_phid),
+              onPhidLongTap: () => onPhidLongTap(_phid),
             );
           }
           ),

@@ -14,6 +14,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
@@ -693,19 +694,27 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
                   },
                   onValueTap: () async {
 
-                    await Future.delayed(const Duration(milliseconds: 200), () async {
+                    blog('1. aho starting');
+
+                    await Future.delayed(const Duration(milliseconds: 300), () async {
+
+                      blog('2. waited 300 ms');
 
                       await Keyboard.copyToClipboard(
                         context: xxx,
                         copy: _phid,
-                        milliseconds: 100,
-                        awaitTheDialog: true,
+                        milliseconds: 0,
                       );
+
+                      blog('3. copied shit to clipboard');
 
                       await Nav.goBack(
                         context: xxx,
                         invoker: 'showPhidsPendingTranslationDialog',
+                        addPostFrameCallback: true,
                       );
+
+                      blog('4.went back');
 
                     });
 

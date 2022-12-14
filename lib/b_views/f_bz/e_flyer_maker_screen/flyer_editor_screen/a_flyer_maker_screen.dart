@@ -1,15 +1,14 @@
-import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/flyer_poster_creator/flyer_poster_creator_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author_switcher/show_author_switch_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/a_specs_selector_bubble.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/b_phids_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
@@ -182,20 +181,20 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
           valueListenable: _draftNotifier,
           builder: (_, DraftFlyer _draft, Widget child){
 
-            final List<String> _bzTypeTranslation = BzTyper.getBzTypesPhids(
-                context: context,
-                bzTypes: _draft?.bzModel?.bzTypes
-            );
-            final List<FlyerType> _allowableTypes = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
-              bzTypes: _draft?.bzModel?.bzTypes
-            );
-            final List<Verse> _flyerTypesTranslation = Verse.createVerses(
-              strings: FlyerTyper.translateFlyerTypes(
-                context: context,
-                flyerTypes: _allowableTypes,
-              ),
-              translate: false,
-            );
+            // final List<String> _bzTypeTranslation = BzTyper.getBzTypesPhids(
+            //     context: context,
+            //     bzTypes: _draft?.bzModel?.bzTypes
+            // );
+            // final List<FlyerType> _allowableTypes = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
+            //   bzTypes: _draft?.bzModel?.bzTypes
+            // );
+            // final List<Verse> _flyerTypesTranslation = Verse.createVerses(
+            //   strings: FlyerTyper.translateFlyerTypes(
+            //     context: context,
+            //     flyerTypes: _allowableTypes,
+            //   ),
+            //   translate: false,
+            // );
 
             return Form(
               key: _draft?.formKey,
@@ -292,22 +291,22 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       text: 'phid_flyer_type',
                       translate: true,
                     ),
-                    bulletPoints: <Verse>[
+                    // bulletPoints: <Verse>[
 
-                      Verse(
-                        text: '##Business accounts of types '
-                            '${_bzTypeTranslation.toString()} can publish '
-                            '${_flyerTypesTranslation.toString()} flyers.',
-                        translate: true,
-                        variables: [_bzTypeTranslation.toString(), _flyerTypesTranslation.toString()],
-                      ),
+                      // Verse(
+                      //   text: '##Business accounts of types '
+                      //       '${_bzTypeTranslation.toString()} can publish '
+                      //       '${_flyerTypesTranslation.toString()} flyers.',
+                      //   translate: true,
+                      //   variables: [_bzTypeTranslation.toString(), _flyerTypesTranslation.toString()],
+                      // ),
+                      //
+                      // const Verse(
+                      //   text: '##Each Flyer Should have one flyer type',
+                      //   translate: true,
+                      // ),
 
-                      const Verse(
-                        text: '##Each Flyer Should have one flyer type',
-                        translate: true,
-                      ),
-
-                    ],
+                    // ],
                     buttonsVerses: Verse.createVerses(
                       strings: FlyerTyper.translateFlyerTypes(
                         context: context,
@@ -346,8 +345,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     ),
                   ),
 
-                  /// SPECS SELECTOR
-                  SpecsSelectorBubble(
+                  /// PHIDS
+                  PhidsSelectorBubble(
                     bzModel: _draft?.bzModel,
                     draft: _draft,
                     draftNotifier: _draftNotifier,
