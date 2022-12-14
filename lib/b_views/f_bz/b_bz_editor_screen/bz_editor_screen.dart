@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -502,11 +503,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(
                       bzTypes: draft?.bzTypes
                   ),
-                  selectedSpecs: draft?.scopeSpecs,
+                  selectedSpecs: SpecModel.generateSpecsByPhids(
+                    context: context,
+                    phids: draft.scope,
+                  ),
                   bulletPoints: const <Verse>[
                     Verse(
-                      pseudo: 'Select at least 1 keyword to help search engines show your content in its dedicated place',
-                      text: '##Select at least 1 keyword to help search engines show your content in its dedicated place',
+                      text: 'phid_select_atleast_one_scope_phid',
                       translate: true,
                     )
                   ],

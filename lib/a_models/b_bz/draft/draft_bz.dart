@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -43,7 +42,6 @@ class DraftBz {
     @required this.bzForm,
     @required this.inactiveBzForms,
     @required this.scope,
-    @required this.scopeSpecs,
     @required this.logoPicModel,
     @required this.hasNewLogo,
     @required this.canPickImage,
@@ -78,7 +76,6 @@ class DraftBz {
   final BzForm bzForm;
   final List<BzForm> inactiveBzForms;
   final List<String> scope;
-  final List<SpecModel> scopeSpecs;
   final PicModel logoPicModel;
   final bool hasNewLogo;
   final bool canPickImage;
@@ -185,7 +182,6 @@ class DraftBz {
       bzForm: null,
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes([]),
       scope: const [],
-      scopeSpecs: const [],
       logoPicModel: null,
       hasNewLogo: false,
       canPickImage: true,
@@ -242,10 +238,7 @@ class DraftBz {
       bzForm: bzModel.bzForm,
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(bzModel.bzTypes),
       scope: bzModel.scope,
-      scopeSpecs: SpecModel.generateSpecsByPhids(
-        context: context,
-        phids: bzModel.scope,
-      ),
+
       logoPicModel: await PicProtocols.fetchPic(Storage.generateBzLogoPath(bzModel.id)),
       hasNewLogo: false,
       canPickImage: true,
@@ -296,7 +289,7 @@ class DraftBz {
       name: draft.name,
       trigram: Stringer.createTrigram(input: draft.name),
       logoPath: draft.logoPicModel.path,
-      scope: SpecModel.getSpecsIDs(draft.scopeSpecs),
+      scope: draft.scope,
       zone: draft.zone,
       about: draft.about,
       position: draft.position,
@@ -342,7 +335,6 @@ class DraftBz {
       'bzForm': BzTyper.cipherBzForm(bzForm),
       'inactiveBzForms': BzTyper.cipherBzForms(inactiveBzForms),
       'scope': scope,
-      'scopeSpecs': SpecModel.cipherSpecs(scopeSpecs),
       'logoPicModel': PicModel.cipherToLDB(logoPicModel),
       'hasNewLogo': hasNewLogo,
       'canPickImage': canPickImage,
@@ -393,10 +385,6 @@ class DraftBz {
       bzForm: BzTyper.decipherBzForm(map['bzForm']),
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(_bzTypes),
       scope: _scope,
-      scopeSpecs: SpecModel.generateSpecsByPhids(
-        context: context,
-        phids: _scope,
-      ),
       logoPicModel: PicModel.decipherFromLDB(map['logoPicModel']),
       hasNewLogo: map['hasNewLogo'],
       canPickImage: true,
@@ -439,7 +427,6 @@ class DraftBz {
     BzForm bzForm,
     List<BzForm> inactiveBzForms,
     List<String> scope,
-    List<SpecModel> scopeSpecs,
     PicModel logoPicModel,
     bool hasNewLogo,
     bool canPickImage,
@@ -474,7 +461,6 @@ class DraftBz {
       bzForm: bzForm ?? this.bzForm,
       inactiveBzForms: inactiveBzForms ?? this.inactiveBzForms,
       scope: scope ?? this.scope,
-      scopeSpecs: scopeSpecs ?? this.scopeSpecs,
       logoPicModel: logoPicModel ?? this.logoPicModel,
       hasNewLogo: hasNewLogo ?? this.hasNewLogo,
       canPickImage: canPickImage ?? this.canPickImage,
@@ -512,7 +498,6 @@ class DraftBz {
     bool bzForm = false,
     bool inactiveBzForms = false,
     bool scope = false,
-    bool scopeSpecs = false,
     bool logoPicModel = false,
     bool hasNewLogo = false,
     bool canPickImage = false,
@@ -547,7 +532,6 @@ class DraftBz {
       bzForm: bzForm == true ? null : this.bzForm,
       inactiveBzForms: inactiveBzForms == true ? [] : this.inactiveBzForms,
       scope: scope == true ? [] : this.scope,
-      scopeSpecs: scopeSpecs == true ? [] : this.scopeSpecs,
       logoPicModel: logoPicModel == true ? null : this.logoPicModel,
       hasNewLogo: hasNewLogo == true ? null : this.hasNewLogo,
       canPickImage: canPickImage == true ? null : this.canPickImage,
@@ -660,7 +644,6 @@ class DraftBz {
     blog('bzForm : ${BzTyper.cipherBzForm(bzForm)}');
     blog('inactiveBzForms : ${BzTyper.cipherBzForms(inactiveBzForms)}');
     blog('scope : $scope');
-    SpecModel.blogSpecs(scopeSpecs);
     logoPicModel?.blogPic(invoker: 'DraftBz');
     blog('hasNewLogo : $hasNewLogo');
     blog('canPickImage : $canPickImage');
@@ -716,7 +699,6 @@ class DraftBz {
           draft1.bzForm == draft2.bzForm &&
           Mapper.checkListsAreIdentical(list1: draft1.inactiveBzForms, list2: draft2.inactiveBzForms) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.scope, list2: draft2.scope) == true &&
-          SpecModel.checkSpecsListsAreIdentical(draft1.scopeSpecs, draft2.scopeSpecs) == true &&
           PicModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&
@@ -787,7 +769,6 @@ class DraftBz {
       bzForm.hashCode^
       inactiveBzForms.hashCode^
       scope.hashCode^
-      scopeSpecs.hashCode^
       logoPicModel.hashCode^
       hasNewLogo.hashCode^
       canPickImage.hashCode^

@@ -262,15 +262,15 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   if (flyerType != null){
 
     final String phid = await Nav.goToNewScreen(
-        context: context,
-        pageTransitionType: PageTransitionType.leftToRight,
-        screen: PhidsPickerScreen(
-          chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
-            context: context,
-            flyerType: flyerType,
-            event: ViewingEvent.homeView,
-          ),
+      context: context,
+      pageTransitionType: Nav.superHorizontalTransition(context),
+      screen: PhidsPickerScreen(
+        chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+          context: context,
+          flyerType: flyerType,
+          event: ViewingEvent.homeView,
         ),
+      ),
     );
 
     if (phid != null){
