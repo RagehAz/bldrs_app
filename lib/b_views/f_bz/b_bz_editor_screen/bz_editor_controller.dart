@@ -394,7 +394,7 @@ Future<void> onChangeBzScope({
 
   final List<SpecModel> _result = await Nav.goToNewScreen(
     context: context,
-    transitionType: Nav.superHorizontalTransition(context),
+    pageTransitionType: Nav.superHorizontalTransition(context),
     screen: PickersScreen(
       flyerTypeFilter: flyerType,
       onlyUseCityChains: false,

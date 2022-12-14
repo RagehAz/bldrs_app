@@ -94,7 +94,7 @@ Future<void> onGoToNoteTemplatesScreen({
   final NoteModel _templateNote = await Nav.goToNewScreen(
     context: context,
     screen: const ImportTemplateNoteScreen(),
-    transitionType: PageTransitionType.rightToLeft,
+    pageTransitionType: PageTransitionType.rightToLeft,
   );
 
   if (_templateNote != null){
