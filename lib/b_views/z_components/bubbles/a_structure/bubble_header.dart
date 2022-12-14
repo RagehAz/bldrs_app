@@ -172,6 +172,7 @@ class BubbleHeader extends StatelessWidget {
               centered: viewModel.centered,
               redDot: viewModel.redDot,
               margin: const EdgeInsets.only(bottom: verseBottomMargin),
+              highlight: viewModel.headlineVerse?.notifier,
             ),
           ),
 

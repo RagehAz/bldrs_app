@@ -185,9 +185,9 @@ class _HashTagManagerState extends State<HashTagManager> {
           },
         ),
 
-        /// HASHTAG PICKER SCREEN
+        /// SELECT MULTIPLE PHIDS
         WideButton(
-          verse: Verse.plain('Hashtag picker screen'),
+          verse: Verse.plain('SELECT MULTIPLE PHIDS'),
           onTap: () async {
 
             final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
@@ -197,14 +197,58 @@ class _HashTagManagerState extends State<HashTagManager> {
               flyerID: _userModel.savedFlyers.all.first,
             );
 
-            await Nav.goToNewScreen(
+            const List<String> _selectedPhids = <String>[
+              'phid_k_pt_factory',
+              'phid_k_pt_clinic',
+              'phid_s_view_lagoon',
+              'phid_s_view_garden',
+              'phid_s_view_hill',
+              'phid_s_view_back',
+              'phid_s_view_sideStreet',
+              'phid_s_view_river',
+              'phid_s_view_pool',
+              'phid_k_pt_hospital',
+              'phid_k_pt_sharedRoom',
+            ];
+
+            final List<String> _phids = await Nav.goToNewScreen(
                 context: context,
-                screen: HashtagPickerScreen(
+                screen: PhidsPickerScreen(
                   flyerModel: _flyerModel,
+                  selectedPhids: _selectedPhids,
+                  multipleSelectionMode: true,
                 )
             );
+
+            Stringer.blogStrings(
+                strings: _phids,
+                invoker: 'just got back baby',
+            );
+
           },
         ),
+
+        /// SELECT SINGLE PHID
+        WideButton(
+          verse: Verse.plain('SELECT SINGLE PHIDS'),
+          onTap: () async {
+
+            final String phid = await Nav.goToNewScreen(
+                context: context,
+                screen: const PhidsPickerScreen(
+                  // selectedPhids: _selectedPhids,
+                  // multipleSelectionMode: false,
+                )
+            );
+
+            Stringer.blogStrings(
+              strings: [phid],
+              invoker: 'just got back baby',
+            );
+
+          },
+        ),
+
 
       ],
     );

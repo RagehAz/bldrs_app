@@ -47,6 +47,30 @@ class ChainsBuilder extends StatelessWidget {
   final bool onlyUseCityChains;
   final bool isCollapsable;
   /// --------------------------------------------------------------------------
+  static double getBottomMargin({
+    @required BuildContext context,
+    @required bool isCollapsable,
+    @required int level,
+  }){
+
+    if (isCollapsable == true) {
+
+      if (level == 0){
+        return Ratioz.appBarPadding + MediaQuery.of(context).viewInsets.bottom;
+      }
+
+      else {
+        return Ratioz.appBarPadding;
+      }
+
+    }
+
+    else {
+      return Ratioz.appBarPadding;
+    }
+
+  }
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -61,10 +85,11 @@ class ChainsBuilder extends StatelessWidget {
 
     else {
 
-      final double _bottomMargin = level == 0 ?
-      Ratioz.appBarPadding + MediaQuery.of(context).viewInsets.bottom
-          :
-      Ratioz.appBarPadding;
+      final double _bottomMargin = getBottomMargin(
+        context: context,
+        isCollapsable: isCollapsable,
+        level: level,
+      );
 
       return SizedBox(
         key: const ValueKey<String>('ChainsBuilder'),

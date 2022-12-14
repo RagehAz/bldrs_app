@@ -29,6 +29,8 @@ class ObeliskLayout extends StatefulWidget {
     this.onSearchSubmit,
     this.globalKey,
     this.abovePyramidsChild,
+    this.searchView,
+    this.isSearching,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -47,6 +49,8 @@ class ObeliskLayout extends StatefulWidget {
   final ValueChanged<String> onSearchSubmit;
   final GlobalKey globalKey;
   final Widget abovePyramidsChild;
+  final Widget searchView;
+  final ValueNotifier<bool> isSearching;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -87,6 +91,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   /// PROGRESS BAR MODEL : ( INDEX - SWIPE DIRECTION - NUMBER OF SLIDES )
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _initializeTabs(){
 
     if (Mapper.checkCanLoopList(widget.navModels) == true){
@@ -140,6 +145,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void onChangeTabIndexWhileAnimation({
     @required BuildContext context,
     @required TabController tabController,
@@ -197,6 +203,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   // --------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
   // --------------------
+  /// TESTED : WORKS PERFECT
   void onTriggerExpansion(){
     setNotifier(
         notifier: _isExpanded,
@@ -208,8 +215,50 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   /// PAGE TITLE
   Verse _pageTitleVerse;
   // -----------------------------------------------------------------------------
+
+  /// NAVIGATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onBack() async {
+
+    /// WHEN PYRAMIDS EXPANDED
+    if (_isExpanded.value == true){
+      _isExpanded.value = false;
+    }
+
+    /// WHEN PYRAMIDS COLLAPSED
+    else {
+
+      /// ON BACK IS NOT DEFINED
+      if (widget.onBack == null){
+        await Nav.goBack(
+          context: context,
+          invoker: 'ObeliskLayout.onBack',
+        );
+      }
+
+      /// BACK IS DEFINED
+      else {
+        await widget.onBack();
+      }
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final Widget _normalView = _NormalView(
+      progressBarModel: _progressBarModel,
+      isExpanded: _isExpanded,
+      navModels: widget.navModels,
+      onRowTap: onRowTap,
+      onTriggerExpansion: onTriggerExpansion,
+      tabController: _tabController,
+      abovePyramidsChild: widget.abovePyramidsChild,
+    );
 
     return MainLayout(
       globalKey: widget.globalKey,
@@ -225,66 +274,93 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       onSearchChanged: widget.onSearchChanged,
       onSearchSubmit: widget.onSearchSubmit,
       onSearchCancelled: widget.onSearchCancelled,
-      onBack: () async {
+      onBack: _onBack,
+      layoutWidget: widget.searchView == null || widget.isSearching == null?
+      _normalView
+          :
+          ValueListenableBuilder(
+            valueListenable: widget.isSearching,
+            child: _normalView,
+            builder: (_, bool isSearching, Widget normalView){
 
-        if (_isExpanded.value == false){
-          if (widget.onBack != null){
-            await widget.onBack();
-          }
-          await Nav.goBack(
-            context: context,
-            invoker: 'ObeliskLayout.onBack',
-          );
+              if (isSearching == true){
+                return widget.searchView;
+              }
 
-        }
-        else {
-          _isExpanded.value = false;
-        }
+              else {
+                return normalView;
+              }
 
-      },
-      layoutWidget: Stack(
-        children: <Widget>[
-
-          /// VIEWS
-          ObeliskLayoutView(
-            tabController: _tabController,
-            children: NavModel.getScreens(widget.navModels),
+            },
           ),
 
-          /// PYRAMIDS NAVIGATOR
-          SuperPyramids(
-            isExpanded: _isExpanded,
-            onExpansion: onTriggerExpansion,
-            onRowTap: onRowTap,
-            progressBarModel: _progressBarModel,
-            navModels: widget.navModels,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class _NormalView extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _NormalView({
+    @required this.tabController,
+    @required this.navModels,
+    @required this.isExpanded,
+    @required this.onTriggerExpansion,
+    @required this.onRowTap,
+    @required this.progressBarModel,
+    @required this.abovePyramidsChild,
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
+  final TabController tabController;
+  final List<NavModel> navModels;
+  final ValueNotifier<bool> isExpanded;
+  final Function onTriggerExpansion;
+  final ValueChanged<int> onRowTap;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final Widget abovePyramidsChild;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Stack(
+      children: <Widget>[
+
+        /// VIEWS
+        ObeliskLayoutView(
+          tabController: tabController,
+          children: NavModel.getScreens(navModels),
+        ),
+
+        /// PYRAMIDS NAVIGATOR
+        SuperPyramids(
+          isExpanded: isExpanded,
+          onExpansion: onTriggerExpansion,
+          onRowTap: onRowTap,
+          progressBarModel: progressBarModel,
+          navModels: navModels,
+        ),
+
+        /// ABOVE PYRAMIDS CHILD
+        if (abovePyramidsChild != null)
+          ValueListenableBuilder(
+            valueListenable: isExpanded,
+            builder: (_, bool _isExpanded, Widget child){
+
+              return WidgetFader(
+                fadeType: _isExpanded == true ? FadeType.fadeOut : FadeType.fadeIn,
+                curve: _isExpanded == true ? Curves.easeInExpo : Curves.elasticInOut,
+                duration: Duration(milliseconds: _isExpanded == true ? 50 : 800),
+                ignorePointer: _isExpanded,
+                child: child,
+              );
+
+            },
+            child: abovePyramidsChild,
           ),
 
-          /// ABOVE PYRAMIDS CHILD
-          if (widget.abovePyramidsChild != null)
-            ValueListenableBuilder(
-              valueListenable: _isExpanded,
-              builder: (_, bool isExpanded, Widget child){
-
-                if (isExpanded == true){
-                  return const SizedBox();
-                }
-
-                else {
-                  return WidgetFader(
-                    fadeType: FadeType.fadeIn,
-                    curve: Curves.elasticInOut,
-                    duration: const Duration(milliseconds: 800),
-                    child: child,
-                  );
-                }
-
-              },
-              child: widget.abovePyramidsChild,
-            ),
-
-        ],
-      ),
+      ],
     );
 
   }
