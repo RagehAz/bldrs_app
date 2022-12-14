@@ -30,6 +30,26 @@ class AnimatedLogoScreen extends StatefulWidget {
   @override
   State<AnimatedLogoScreen> createState() => _AnimatedLogoScreenState();
   /// --------------------------------------------------------------------------
+  static const double trackLength = 8775; // milli seconds
+  /// --------------------------------------------------------------------------
+  static double getBeatRatio(double milliSecond){
+    return milliSecond / trackLength;
+  }
+  // --------------------
+  static Map<String, dynamic> createBeat({
+    @required double start, // in milliseconds
+    @required double duration,// in milliseconds
+    @required String verse,
+    Color color = Colorz.white255,
+  }){
+    return {
+      'first' : getBeatRatio(start),
+      'second' : getBeatRatio(start + duration),
+      'verse': verse,
+      'color' : color,
+    };
+  }
+
 }
 
 class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProviderStateMixin {
@@ -46,26 +66,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   }
   // -----------------------------------------------------------------------------
   List<Map<String, dynamic>> _linesMap;
-  // --------------------
-  static const double _trackLength = 8775; // milli seconds
-  // --------------------
-  double _toRatio(double milliSecond){
-    return milliSecond / _trackLength;
-  }
-  // --------------------
-  Map<String, dynamic> _beat({
-    @required double start, // in milliseconds
-    @required double duration,// in milliseconds
-    @required String verse,
-    Color color = Colorz.white255,
-  }){
-    return {
-      'first' : _toRatio(start),
-      'second' : _toRatio(start + duration),
-      'verse': verse,
-      'color' : color,
-    };
-  }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -73,17 +73,16 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
 
     _linesMap = <Map<String, dynamic>>[
-      _beat(start: 1900, duration: 200,   verse: xPhrase(context, 'phid_search'), color: Colorz.white200),  // 1
-      _beat(start: 2800, duration: 200,   verse: xPhrase(context, 'phid_connect'), color: Colorz.white200), // 5
-      _beat(start: 2700, duration: 200,   verse: xPhrase(context, 'phid_ask'), color: Colorz.white200), // 4
-      _beat(start: 2350, duration: 450,   verse: xPhrase(context, 'phid_answer'), color: Colorz.white200), // 3
-      _beat(start: 2000, duration: 450,   verse: xPhrase(context, 'phid_grow'), color: Colorz.white200), // 2
-
-      _beat(start: 4700,  duration: 300,  verse: xPhrase(context, 'phid_on'), color: Colorz.white200), // 6
-      _beat(start: 5550,  duration: 1000, verse: xPhrase(context, 'phid_bldrsFullName'), color: Colorz.yellow255), // 10
-      _beat(start: 4800,  duration: 300,  verse: '- ${xPhrase(context, 'phid_designers')}'), // 7
-      _beat(start: 5150,  duration: 300,  verse: '- ${xPhrase(context, 'phid_contractors')}'), // 8
-      _beat(start: 5450,  duration: 300,  verse: '- ${xPhrase(context, 'phid_artisans')}'), // 9
+      AnimatedLogoScreen.createBeat(start: 1900, duration: 200,   verse: xPhrase(context, 'phid_search'), color: Colorz.white200),  // 1
+      AnimatedLogoScreen.createBeat(start: 2800, duration: 200,   verse: xPhrase(context, 'phid_connect'), color: Colorz.white200), // 5
+      AnimatedLogoScreen.createBeat(start: 2700, duration: 200,   verse: xPhrase(context, 'phid_ask'), color: Colorz.white200), // 4
+      AnimatedLogoScreen.createBeat(start: 2350, duration: 450,   verse: xPhrase(context, 'phid_answer'), color: Colorz.white200), // 3
+      AnimatedLogoScreen.createBeat(start: 2000, duration: 450,   verse: xPhrase(context, 'phid_grow'), color: Colorz.white200), // 2
+      AnimatedLogoScreen.createBeat(start: 4700,  duration: 300,  verse: xPhrase(context, 'phid_on'), color: Colorz.white200), // 6
+      AnimatedLogoScreen.createBeat(start: 5550,  duration: 1000, verse: xPhrase(context, 'phid_bldrsFullName'), color: Colorz.yellow255), // 10
+      AnimatedLogoScreen.createBeat(start: 4800,  duration: 300,  verse: '- ${xPhrase(context, 'phid_designers')}'), // 7
+      AnimatedLogoScreen.createBeat(start: 5150,  duration: 300,  verse: '- ${xPhrase(context, 'phid_contractors')}'), // 8
+      AnimatedLogoScreen.createBeat(start: 5450,  duration: 300,  verse: '- ${xPhrase(context, 'phid_artisans')}'), // 9
     ];
 
     _initializeAnimationControllers();
@@ -166,13 +165,13 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
     _logoCurvedAnimation = CurvedAnimation(
       parent: _logoAniController,
-      curve:  Interval(_toRatio(600), _toRatio(1800), curve: Curves.easeInOutExpo,),
+      curve:  Interval(AnimatedLogoScreen.getBeatRatio(600), AnimatedLogoScreen.getBeatRatio(1800), curve: Curves.easeInOutExpo,),
 
     );
 
     _sloganCurvedAnimation = CurvedAnimation(
       parent: _logoAniController,
-      curve: Interval(_toRatio(3200), _toRatio(4500), curve: Curves.easeInOutExpo,),
+      curve: Interval(AnimatedLogoScreen.getBeatRatio(3200), AnimatedLogoScreen.getBeatRatio(4500), curve: Curves.easeInOutExpo,),
     );
 
     _linesControllers = _initializedLinesAnimations();
