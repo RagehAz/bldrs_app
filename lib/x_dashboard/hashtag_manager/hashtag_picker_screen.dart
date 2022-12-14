@@ -2,36 +2,47 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/keywords_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/hashtag_manager/hashtags_builder_page.dart';
 import 'package:flutter/material.dart';
 
-class HashtagPickerScreen extends StatefulWidget {
-  /// --------------------------------------------------------------------------
-  const HashtagPickerScreen({
-    @required this.flyerModel,
+class PhidsPickerScreen extends StatefulWidget {
+  // -----------------------------------------------------------------------------
+  const PhidsPickerScreen({
+    this.selectedPhids,
+    this.multipleSelectionMode = false,
+    this.flyerModel,
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final List<String> selectedPhids;
+  /// RETURNS <String>[] if is multiple selection mode, and returns String if not
+  final bool multipleSelectionMode;
+  /// SHOWS flyer in the corner widget maximizer showing selected keywords,
   final FlyerModel flyerModel;
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
-/// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
-class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTickerProviderStateMixin {
+class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   TabController _tabBarController;
   final TextEditingController _searchController = TextEditingController();
@@ -43,6 +54,11 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
   List<NavModel> _navModels = [];
   final ValueNotifier<List<String>> _selectedPhidsNotifier = ValueNotifier<List<String>>([]);
   final ScrollController _selectedPhidsScrollController = ScrollController();
+  // --------------------
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier([]);
+  final ValueNotifier<bool> _isSearching = ValueNotifier(false);
+  final ValueNotifier<String> _searchText = ValueNotifier('');
+  List<String> _allPhids = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -80,6 +96,9 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
     setState(() {
       _bldrsChains = _allChains;
       _chains = _chainsByFlyerType;
+      _allPhids = Chain.getOnlyPhidsSonsFromChains(
+          chains: _chains,
+      );
     });
 
     _tabBarController = TabController(
@@ -87,6 +106,12 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
         animationDuration: const Duration(milliseconds: 300),
         length: _chains.length,
         // initialIndex: 0,
+    );
+
+    setNotifier(
+        notifier: _selectedPhidsNotifier,
+        mounted: mounted,
+        value: widget.selectedPhids ?? <String>[],
     );
 
     _generateNavModels();
@@ -117,6 +142,11 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
     _searchController.dispose();
     _selectedPhidsNotifier.dispose();
     _selectedPhidsScrollController.dispose();
+
+    _foundChains.dispose();
+    _isSearching.dispose();
+    _searchText.dispose();
+
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -138,9 +168,13 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
         iconSizeFactor: 1,
         screen: HashtagsBuilderPage(
           chain: _chain,
-          searchText: _searchController,
-          onPhidTap: _onPhidTap,
+          searchText: _searchText,
           selectedPhidsNotifier: _selectedPhidsNotifier,
+          onPhidTap: (String path, String phid) => _onPhidTap(
+            path: path,
+            phid: phid,
+            autoScroll: true,
+          ),
         ),
       );
 
@@ -158,15 +192,28 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
   /// SEARCH
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onSearchSubmit(String text) async {
 
-  }
-  // --------------------
-  Future<void> _onSearchChanged(String text) async {
+    await onChainsSearchChanged(
+      context: context,
+      text: text,
+      chains: _chains,
+      foundChains: _foundChains,
+      isSearching: _isSearching,
+      phidsOfAllPickers: _allPhids,
+      searchText: _searchText,
+    );
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onSearchCancelled() async {
+
+    _foundChains.value = [];
+    _isSearching.value = false;
+    _searchText.value = '';
+    _searchController.text = '';
 
   }
   // -----------------------------------------------------------------------------
@@ -175,11 +222,52 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onPhidTap(String path, String phid) async {
+  Future<void> _onPhidTap({
+    @required String path,
+    @required String phid,
+    @required bool autoScroll,
+  }) async {
+
+    /// MULTIPLE SELECTION MODE
+    if (widget.multipleSelectionMode == true){
+      await _multipleSelectionModeTap(
+        phid: phid,
+        path: path,
+        autoScroll: autoScroll,
+      );
+    }
+
+    /// SINGLE SELECTION MODE
+    else {
+      await _singleSelectionModeTap(
+        phid: phid,
+      );
+    }
+
+  }
+  // --------------------
+  ///
+  Future<void> _singleSelectionModeTap({
+  @required String phid,
+}) async {
+
+    await Nav.goBack(
+      context: context,
+      passedData: phid,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _multipleSelectionModeTap({
+    @required String path,
+    @required String phid,
+    @required bool autoScroll,
+  }) async {
 
     final List<String> _selectedPhids = Stringer.addOrRemoveStringToStrings(
-        strings: _selectedPhidsNotifier.value,
-        string: phid,
+      strings: _selectedPhidsNotifier.value,
+      string: phid,
     );
 
     final int _oldLength = _selectedPhidsNotifier.value.length;
@@ -188,57 +276,66 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
 
     _selectedPhidsNotifier.value = _selectedPhids;
 
-    await _onScrollSelectedPhids(
-      newLength: _newLength,
-      oldLength: _oldLength,
-      selectedPhidIndex: _selectedPhidIndex,
-    );
+    if (autoScroll == true){
+      await _onScrollSelectedPhids(
+        newLength: _newLength,
+        oldLength: _oldLength,
+        selectedPhidIndex: _selectedPhidIndex,
+      );
+    }
 
   }
   // --------------------
-  ///
+  /// TESTED : FAIR ENOUGH
   Future<void> _onScrollSelectedPhids({
     @required int oldLength,
     @required int newLength,
     @required int selectedPhidIndex,
   }) async {
 
-    final bool _shouldGoToEnd = newLength > oldLength;
+    if (_isSearching.value == false){
 
-    if (_shouldGoToEnd == true){
-      await Sliders.slideToOffset(
-        scrollController: _selectedPhidsScrollController,
-        offset: _selectedPhidsScrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 200),
-      );
-    }
-    else {
+      final bool _shouldGoToEnd = newLength > oldLength;
 
-      /*
+      if (_shouldGoToEnd == true){
+        await Sliders.slideToOffset(
+          scrollController: _selectedPhidsScrollController,
+          offset: _selectedPhidsScrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200),
+        );
+      }
 
-      index => line
-      0 , 1 = 1,1 => 0 / 2 = 0 : 1 / 2 = 0.5
-      2 , 3 = 2,2
-      4 , 5 = 3,3
-      6 , 7 = 4,4 => 6 / 2 = 3 : 7 / 2 = 3.5
+      else {
 
-      so
+        final double _lineHeight = PhidsBubble.getLineHeightWithItsPadding();
+        /// a line usually takes 2 words
+        final int _expectedLine = (selectedPhidIndex / 2).ceil() - 1;
+        final double _expectedOffset = _lineHeight * _expectedLine;
 
+        await Sliders.slideToOffset(
+          scrollController: _selectedPhidsScrollController,
+          offset: _expectedOffset,
+          duration: const Duration(milliseconds: 200),
+        );
 
-       */
-
-      final double _lineHeight = KeywordsBubble.getLineHeightWithItsPadding();
-      /// a line usually takes 2 words
-      final int _expectedLine = (selectedPhidIndex / 2).ceil() - 1;
-      final double _expectedOffset = _lineHeight * _expectedLine;
-
-      await Sliders.slideToOffset(
-        scrollController: _selectedPhidsScrollController,
-        offset: _expectedOffset,
-        duration: const Duration(milliseconds: 200),
-      );
+      }
 
     }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SELECTION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onBack() async {
+
+    await Nav.goBack(
+      context: context,
+      passedData: _selectedPhidsNotifier.value,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -253,7 +350,9 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,
       onSearchCancelled: _onSearchCancelled,
-      onSearchChanged: _onSearchChanged,
+      onSearchChanged: _onSearchSubmit,
+      isSearching: _isSearching,
+      onBack: _onBack,
       searchHintVerse: const Verse(
         text: 'phid_search',
         translate: true,
@@ -270,14 +369,57 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
         ),
 
       ],
-      abovePyramidsChild: CornerWidgetMaximizer(
+      /// SEARCH VIEW
+      searchView: SizedBox(
+        width: Scale.screenWidth(context),
+        height: Scale.screenHeight(context),
+        child: ValueListenableBuilder(
+          valueListenable: _foundChains,
+          builder: (BuildContext context, List<Chain> foundChains, Widget child) {
+
+            if (Mapper.checkCanLoopList(foundChains) == true){
+              return HashtagsBuilderPage(
+                chain: Chain(
+                  id: 'foundChains',
+                  sons: foundChains,
+                ),
+                searchText: _searchText,
+                selectedPhidsNotifier: _selectedPhidsNotifier,
+                onPhidTap: (String path, String phid) => _onPhidTap(
+                  path: path,
+                  phid: phid,
+                  autoScroll: true,
+                ),              );
+            }
+
+            else {
+              return const NoResultFound();
+            }
+
+
+          },
+        ),
+      ),
+
+      /// CORNER SELECTED PHIDS
+      abovePyramidsChild: widget.multipleSelectionMode == false ?
+      const SizedBox()
+          :
+      CornerWidgetMaximizer(
         maxWidth: BldrsAppBar.width(context),
         minWidth: 170,
         childWidth: BldrsAppBar.width(context),
-        topChild: FlyerSlidesShelf(
+
+        /// FLYER SHELF IN SELECTED PHIDS PANEL
+        topChild: widget.flyerModel == null ?
+        const SizedBox()
+            :
+        FlyerSlidesShelf(
           flyerModel: widget.flyerModel,
           shelfWidth: BldrsAppBar.clearWidth(context),
         ),
+
+        /// SELECTED PHIDS PANEL
         child: ValueListenableBuilder(
           valueListenable: _selectedPhidsNotifier,
           builder: (BuildContext context, List<String> selectedPhids, Widget child) {
@@ -289,22 +431,28 @@ class _TheStatefulScreenState extends State<HashtagPickerScreen> with SingleTick
               translate: false,
             );
 
-            return KeywordsBubble(
+            return PhidsBubble(
               bubbleColor: Colorz.white10,
               selectedWords: selectedPhids,
-              onKeywordTap: (String phid) => _onPhidTap(null, phid),
-              passKeywordOnTap: true,
+              passPhidOnTap: true,
               titleVerse: _verse,
               phids: selectedPhids,
               addButtonIsOn: false,
               bubbleWidth: BldrsAppBar.width(context),
               maxLines: 3,
               scrollController: _selectedPhidsScrollController,
+              onPhidTap: (String phid) => _onPhidTap(
+                path: null,
+                phid: phid,
+                autoScroll: false,
+              ),
             );
 
           },
         ),
+
       ),
+
     );
 
   }

@@ -36,7 +36,7 @@ class PosterCreatorBubble extends StatelessWidget {
     return WidgetFader(
       fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.2,
-      absorbPointer: isDeactivated == true,
+      ignorePointer: isDeactivated == true,
       child: TileBubble(
         bubbleHeaderVM: BubbleHeaderVM(
           headlineVerse: const Verse(

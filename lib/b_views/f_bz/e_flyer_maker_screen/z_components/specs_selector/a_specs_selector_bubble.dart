@@ -35,7 +35,7 @@ class SpecsSelectorBubble extends StatelessWidget {
     return WidgetFader(
       fadeType: draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.35,
-      absorbPointer: draft.flyerType == null,
+      ignorePointer: draft.flyerType == null,
       child: Bubble(
         bubbleHeaderVM: const BubbleHeaderVM(
           headlineVerse: Verse(
