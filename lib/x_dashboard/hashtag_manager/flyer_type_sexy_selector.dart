@@ -4,7 +4,10 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/hashtag_manager/animated_bar.dart';
 import 'package:flutter/material.dart';
 
 class FlyerTypeSexySelector extends StatefulWidget {
@@ -49,9 +52,9 @@ class _FlyerTypeSexySelectorState extends State<FlyerTypeSexySelector> with Tick
         final FlyerType _flyerType = FlyerTyper.flyerTypesList[index];
 
         return AnimatedLogoScreen.createBeat(
-          verse: Verse.transBake(context, FlyerTyper.getFlyerTypePhid(flyerType: _flyerType)),
-          start: 100.0 + (index * 40),
-          duration: 100,
+          text: FlyerTyper.cipherFlyerType(_flyerType),
+          start: index * 150.0,
+          duration: 300,
           color: Colorz.white200,
         );
 
@@ -62,8 +65,13 @@ class _FlyerTypeSexySelectorState extends State<FlyerTypeSexySelector> with Tick
 
     /// LOGO CONTROLLERS
     _logoAniController = AnimationController(
-        duration: const Duration(milliseconds: 8500),
-        vsync: this
+      duration: Duration(milliseconds: FlyerTyper.flyerTypesList.length * 300 + 150),
+      reverseDuration: Duration(milliseconds: FlyerTyper.flyerTypesList.length * 200 + 150),
+      vsync: this,
+      // animationBehavior: AnimationBehavior.preserve,
+      // lowerBound: 0,
+      // upperBound: 1,
+      value: 0,
     );
 
     _linesControllers = _initializedLinesAnimations();
@@ -107,7 +115,8 @@ class _FlyerTypeSexySelectorState extends State<FlyerTypeSexySelector> with Tick
     for (final Map<String, dynamic> map in _linesMap){
       final CurvedAnimation _curvedAni = CurvedAnimation(
         parent: _logoAniController,
-        curve: Interval(map['first'], map['second'], curve: Curves.easeInOutExpo,),
+        curve: Interval(map['first'], map['second'], curve: Curves.easeOut,),
+        reverseCurve: Interval(map['first'], map['second'], curve: Curves.easeOut,),
       );
       _animations.add(_curvedAni);
     }
@@ -118,31 +127,53 @@ class _FlyerTypeSexySelectorState extends State<FlyerTypeSexySelector> with Tick
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return Material(
-      color: Colorz.nothing,
-      child: Container(
-        width: Scale.screenWidth(context),
-        height: Scale.screenHeight(context),
-        color: Colorz.bloodTest,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+    return SafeArea(
+      child: Material(
+        color: Colorz.nothing,
+        child: GestureDetector(
+          onTap: () => Nav.goBack(context: context),
+          child: Container(
+            width: Scale.screenWidth(context),
+            height: Scale.screenHeight(context),
+            color: Colorz.black50,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
 
-            ...List.generate(_linesControllers.length, (index){
-              return AnimatedLine(
-                curvedAnimation: _linesControllers[index],
-                tween: _tween,
-                verse: _linesMap[index]['verse'],
-                verseColor: _linesMap[index]['color'],
-              );
-            })
+                ...List.generate(_linesControllers.length, (index){
 
-          ],
+                  final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMap[index]['verse']);
+                  final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
+                  final String _translation = Verse.transBake(context, _phid);
 
+                  return AnimatedBar(
+                    curvedAnimation: _linesControllers[index],
+                    tween: _tween,
+                    text: _translation,
+                    verseColor: _linesMap[index]['color'],
+                    onTap: () async {
+
+                      blog('TAPPED ON ${_linesMap[index]['verse']} n');
+
+                      await _logoAniController.reverse();
+                      await Nav.goBack(
+                        context: context,
+                        passedData: _flyerType,
+                      );
+
+                    },
+                    icon: Iconz.bxDesignsOn,
+                  );
+                })
+
+              ],
+
+            ),
+          ),
         ),
       ),
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

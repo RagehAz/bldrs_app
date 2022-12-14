@@ -14,7 +14,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/hashtag_manager/city_hashtags_screen.dart';
 import 'package:bldrs/x_dashboard/hashtag_manager/flyer_type_sexy_selector.dart';
 import 'package:bldrs/x_dashboard/hashtag_manager/phids_picker_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
@@ -180,14 +179,6 @@ class _HashTagManagerState extends State<HashTagManager> {
           ],
         ),
 
-        /// CITY HASHTAGS SCREEN
-        WideButton(
-          verse: Verse.plain('City Hashtag Screen'),
-          onTap: () async {
-            await Nav.goToNewScreen(context: context, screen: const CityHashtagsScreen());
-          },
-        ),
-
         /// SELECT MULTIPLE PHIDS
         WideButton(
           verse: Verse.plain('SELECT MULTIPLE PHIDS'),
@@ -220,6 +211,7 @@ class _HashTagManagerState extends State<HashTagManager> {
                   flyerModel: _flyerModel,
                   selectedPhids: _selectedPhids,
                   multipleSelectionMode: true,
+                  flyerType: FlyerType.property,
                 )
             );
 
@@ -233,14 +225,15 @@ class _HashTagManagerState extends State<HashTagManager> {
 
         /// SELECT SINGLE PHID
         WideButton(
-          verse: Verse.plain('SELECT SINGLE PHIDS'),
+          verse: Verse.plain('SELECT SINGLE PHID'),
           onTap: () async {
 
             final String phid = await Nav.goToNewScreen(
                 context: context,
                 screen: const PhidsPickerScreen(
                   // selectedPhids: _selectedPhids,
-                  multipleSelectionMode: false,
+                  // multipleSelectionMode: false,
+                  flyerType: FlyerType.property,
                 )
             );
 
@@ -265,10 +258,26 @@ class _HashTagManagerState extends State<HashTagManager> {
                 screen: const FlyerTypeSexySelector(),
             );
 
-            Stringer.blogStrings(
-              strings: [flyerType?.name],
-              invoker: 'selected a flyer type',
-            );
+            if (flyerType != null){
+
+              final String phid = await Nav.goToNewScreen(
+                  context: context,
+                  pageTransitionType: PageTransitionType.leftToRight,
+                  screen: PhidsPickerScreen(
+                    // selectedPhids: _selectedPhids,
+                    // multipleSelectionMode: false,
+                    flyerType: flyerType,
+                  )
+              );
+
+              Stringer.blogStrings(
+                strings: [phid],
+                invoker: 'THE SEXY PHID IS : $phid',
+              );
+
+            }
+
+
 
           },
         ),
