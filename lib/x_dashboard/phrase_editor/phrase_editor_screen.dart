@@ -88,8 +88,18 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
 
         final List<Phrase> _mixedPhrases = await PhraseLDBOps.readMainPhrases();
         final List<Phrase> _sorted = Phrase.sortPhrasesByIDAndLang(phrases: _mixedPhrases);
-        _initialMixedPhrases.value = _sorted;
-        _tempMixedPhrases.value = _sorted;
+
+        setNotifier(
+            notifier: _initialMixedPhrases,
+            mounted: mounted,
+            value: _sorted,
+        );
+
+        setNotifier(
+            notifier: _tempMixedPhrases,
+            mounted: mounted,
+            value: _sorted,
+        );
 
         await prepareFastPhidCreation(
           context: context,
