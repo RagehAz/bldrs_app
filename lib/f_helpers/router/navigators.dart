@@ -267,17 +267,24 @@ class Nav {
 
     /// NOTE: IMAGINE OPENING AN ENGLISH BOOK => NEXT PAGE COMES FROM RIGHT TO LEFT
 
+    /// LEFT TO RIGHT (EN)
     if (TextDir.checkAppIsLeftToRight(context) == true){
+
       return inverse == false ?
+      /// NORMAL : <--- RIGHT TO LEFT (LIKE A BOOK)
       PageTransitionType.rightToLeftWithFade
           :
+      /// INVERSE : ---> LEFT TO RIGHT
       PageTransitionType.leftToRightWithFade;
     }
 
+    /// RIGHT TO LEFT (AR)
     else {
       return inverse == false ?
+      /// NORMAL : ---> LEFT TO RIGHT (LIKE A BOOK)
       PageTransitionType.leftToRightWithFade
           :
+      /// INVERSE : <--- RIGHT TO LEFT
       PageTransitionType.rightToLeftWithFade;
     }
 

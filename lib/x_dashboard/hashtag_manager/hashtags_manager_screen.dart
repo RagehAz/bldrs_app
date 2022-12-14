@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
@@ -14,8 +15,8 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/hashtag_manager/flyer_type_sexy_selector.dart';
-import 'package:bldrs/x_dashboard/hashtag_manager/phids_picker_screen.dart';
+import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/floating_flyer_type_selector.dart';
+import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -91,18 +92,22 @@ class _HashTagManagerState extends State<HashTagManager> {
 
   }
   // --------------------
+
   String _hashtagValidator(String text){
 
     final bool _hashHashTag = TextCheck.stringContainsSubString(
       string: text,
       subString: '#',
     );
+
     if (_hashHashTag == true){
       return null;
     }
+
     else {
       return 'text should include a Hashtag (#)';
     }
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -211,7 +216,11 @@ class _HashTagManagerState extends State<HashTagManager> {
                   flyerModel: _flyerModel,
                   selectedPhids: _selectedPhids,
                   multipleSelectionMode: true,
-                  flyerType: FlyerType.property,
+                  chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+                    context: context,
+                    flyerType: FlyerType.property,
+                    event: ViewingEvent.homeView,
+                  ),
                 )
             );
 
@@ -230,10 +239,14 @@ class _HashTagManagerState extends State<HashTagManager> {
 
             final String phid = await Nav.goToNewScreen(
                 context: context,
-                screen: const PhidsPickerScreen(
+                screen: PhidsPickerScreen(
                   // selectedPhids: _selectedPhids,
                   // multipleSelectionMode: false,
-                  flyerType: FlyerType.property,
+                  chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+                    context: context,
+                    flyerType: FlyerType.property,
+                    event: ViewingEvent.homeView,
+                  ),
                 )
             );
 
@@ -255,7 +268,7 @@ class _HashTagManagerState extends State<HashTagManager> {
             final FlyerType flyerType = await Nav.goToNewScreen(
                 context: context,
                 pageTransitionType: PageTransitionType.leftToRight,
-                screen: const FlyerTypeSexySelector(),
+                screen: const FloatingFlyerTypeSelector(),
             );
 
             if (flyerType != null){
@@ -266,7 +279,11 @@ class _HashTagManagerState extends State<HashTagManager> {
                   screen: PhidsPickerScreen(
                     // selectedPhids: _selectedPhids,
                     // multipleSelectionMode: false,
-                    flyerType: flyerType,
+                    chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+                      context: context,
+                      flyerType: FlyerType.property,
+                      event: ViewingEvent.homeView,
+                    ),
                   )
               );
 

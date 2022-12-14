@@ -300,7 +300,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                   /// SPECIFIC ZONE
                   ZoneSelectionBubble(
-                    zoneViewingEvent: ZoneViewingEvent.userEditor,
+                    zoneViewingEvent: ViewingEvent.userEditor,
                     titleVerse: const Verse(
                       text: 'phid_zone',
                       translate: true,

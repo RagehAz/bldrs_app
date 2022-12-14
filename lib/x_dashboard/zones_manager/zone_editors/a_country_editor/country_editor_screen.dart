@@ -140,7 +140,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
       screen: CitiesScreen(
-        zoneViewingEvent: ZoneViewingEvent.admin,
+        zoneViewingEvent: ViewingEvent.admin,
         countryID: countryModel?.id,
         depth: ZoneDepth.district,
       ),

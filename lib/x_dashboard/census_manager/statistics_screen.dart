@@ -243,7 +243,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
             /// ZONE BUBBLE
             ZoneSelectionBubble(
-              zoneViewingEvent: ZoneViewingEvent.admin,
+              zoneViewingEvent: ViewingEvent.admin,
               depth: ZoneDepth.district,
               currentZone: _zone ?? const ZoneModel(
                 countryID: null,

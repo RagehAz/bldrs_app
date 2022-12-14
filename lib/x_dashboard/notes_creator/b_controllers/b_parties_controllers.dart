@@ -186,7 +186,7 @@ Future<void> _onSelectCountryAsNoteSender({
 
   final ZoneModel _zoneModel = await ZoneSelection.goBringAZone(
     context: context,
-    zoneViewingEvent: ZoneViewingEvent.admin, // so can select any country
+    zoneViewingEvent: ViewingEvent.admin, // so can select any country
     settingCurrentZone: false,
     depth: ZoneDepth.district,
   );

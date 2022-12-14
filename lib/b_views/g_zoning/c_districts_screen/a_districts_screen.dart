@@ -33,7 +33,7 @@ class DistrictsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final CityModel city;
-  final ZoneViewingEvent zoneViewingEvent;
+  final ViewingEvent zoneViewingEvent;
   /// --------------------------------------------------------------------------
   @override
   State<DistrictsScreen> createState() => _DistrictsScreenState();

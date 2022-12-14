@@ -521,7 +521,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                 /// BZ ZONE
                 ZoneSelectionBubble(
-                    zoneViewingEvent: ZoneViewingEvent.bzEditor,
+                    zoneViewingEvent: ViewingEvent.bzEditor,
                     titleVerse: const Verse(
                       text: 'phid_hqCity',
                       translate: true,

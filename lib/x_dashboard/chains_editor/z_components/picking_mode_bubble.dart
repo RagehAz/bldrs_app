@@ -69,7 +69,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
       final ZoneModel _selectedZone = await Nav.goToNewScreen(
         context: context,
         screen: const CountriesScreen(
-          zoneViewingEvent: ZoneViewingEvent.admin,
+          zoneViewingEvent: ViewingEvent.admin,
           depth: ZoneDepth.district,
           // selectCountryAndCityOnly: true,
           // selectCountryIDOnly: false,
