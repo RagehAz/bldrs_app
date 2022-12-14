@@ -102,7 +102,7 @@ class RenovateBzProtocols {
         unawaited(
             Nav.goToNewScreen(
               context: context,
-              transitionType: PageTransitionType.fade,
+              pageTransitionType: PageTransitionType.fade,
               screen: const MyBzScreen(
                 initialTab: BzTab.about,
               ),

@@ -117,7 +117,7 @@ Future<void> onGoToPickerScreen({
 
   final dynamic _result = await Nav.goToNewScreen(
     context: context,
-    transitionType: Nav.superHorizontalTransition(context),
+    pageTransitionType: Nav.superHorizontalTransition(context),
     screen: PickerScreen(
       picker: picker,
       selectedSpecs: selectedSpecsNotifier,
