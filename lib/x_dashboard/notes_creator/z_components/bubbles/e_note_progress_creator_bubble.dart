@@ -41,7 +41,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
     return WidgetFader(
       fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.2,
-      absorbPointer: isDeactivated,
+      ignorePointer: isDeactivated,
       child: TileBubble(
         bubbleHeaderVM: BubbleHeaderVM(
           leadingIcon: Iconz.reload,

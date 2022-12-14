@@ -19,7 +19,7 @@ class WidgetFader extends StatefulWidget {
     this.min = 0,
     this.duration,
     this.curve = Curves.easeInOut,
-    this.absorbPointer = false,
+    this.ignorePointer = false,
     this.builder,
     Key key
   }) : super(key: key);
@@ -30,7 +30,7 @@ class WidgetFader extends StatefulWidget {
   final double min;
   final Duration duration;
   final Curve curve;
-  final bool absorbPointer;
+  final bool ignorePointer;
   final Widget Function(double, Widget) builder;
   /// --------------------------------------------------------------------------
   @override
@@ -116,8 +116,8 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
 
     _animate();
 
-    return AbsorbPointer(
-        absorbing: widget.absorbPointer,
+    return IgnorePointer(
+        ignoring: widget.ignorePointer,
         child:
 
         widget.builder == null ?

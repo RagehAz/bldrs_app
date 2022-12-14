@@ -24,7 +24,7 @@ class NoteChannelSelectorBubble extends StatelessWidget {
     return WidgetFader(
       fadeType: note.sendFCM == true ? FadeType.stillAtMax : FadeType.stillAtMin,
       min: 0.2,
-      absorbPointer: !note.sendFCM,
+      ignorePointer: !note.sendFCM,
       // child: ExpandingTile(
       //   width: _bubbleWidth,
       //   isDisabled: !note.sendFCM,

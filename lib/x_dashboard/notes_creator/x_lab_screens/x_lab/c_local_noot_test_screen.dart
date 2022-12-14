@@ -577,7 +577,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 WidgetFader(
                   fadeType: _posterIsOn == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                   min: 0.35,
-                  absorbPointer: !_posterIsOn,
+                  ignorePointer: !_posterIsOn,
                   child: TileBubble(
                     bubbleWidth: Bubble.clearWidth(context),
                     bubbleHeaderVM: BubbleHeaderVM(
@@ -920,7 +920,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 WidgetFader(
                   fadeType: isGlobal == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                   min: 0.35,
-                  absorbPointer: !isGlobal,
+                  ignorePointer: !isGlobal,
                   child: TileBubble(
                     bubbleWidth: Bubble.clearWidth(context),
                     bubbleHeaderVM: const BubbleHeaderVM(
