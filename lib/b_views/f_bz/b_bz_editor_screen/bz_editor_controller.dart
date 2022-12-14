@@ -4,13 +4,13 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
+import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -203,7 +203,7 @@ Future<void> onChangeBzSection({
 
   bool _canContinue = true;
 
-  if (Mapper.checkCanLoopList(draftNotifier.value.scopeSpecs) == true){
+  if (Mapper.checkCanLoopList(draftNotifier.value.scope) == true){
     _canContinue = await _resetScopeDialog(context);
   }
 
@@ -219,7 +219,6 @@ Future<void> onChangeBzSection({
       inactiveBzTypes: _generatedInactiveBzTypes,
       inactiveBzForms: [],
       bzTypes: [],
-      scopeSpecs: [],
       scope: [],
     );
 
@@ -227,7 +226,6 @@ Future<void> onChangeBzSection({
       bzForm: true,
       inactiveBzForms: true,
       bzTypes: true,
-      scopeSpecs: true,
       scope: true,
     );
 
@@ -246,7 +244,7 @@ Future<void> onChangeBzType({
 
   bool _canContinue = true;
 
-  if (Mapper.checkCanLoopList(draftNotifier.value.scopeSpecs) == true){
+  if (Mapper.checkCanLoopList(draftNotifier.value.scope) == true){
     _canContinue = await _resetScopeDialog(context);
   }
 
@@ -281,7 +279,6 @@ Future<void> onChangeBzType({
     _newDraft = _newDraft.nullifyField(
       bzForm: true,
       scope: true,
-      scopeSpecs: true,
     );
 
     draftNotifier.value = _newDraft;
@@ -392,27 +389,23 @@ Future<void> onChangeBzScope({
 
   Keyboard.closeKeyboard(context);
 
-  final List<SpecModel> _result = await Nav.goToNewScreen(
+  final List<String> _phids = await Nav.goToNewScreen(
     context: context,
     pageTransitionType: Nav.superHorizontalTransition(context),
-    screen: PickersScreen(
-      flyerTypeFilter: flyerType,
-      onlyUseCityChains: false,
-      isMultipleSelectionMode: true,
-      pageTitleVerse: const Verse(
-        text: 'phid_select_keywords',
-        translate: true,
+    screen: PhidsPickerScreen(
+      multipleSelectionMode: true,
+      selectedPhids: draftNotifier.value.scope,
+      chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+        context: context,
+        flyerType: flyerType,
+        event: ViewingEvent.bzEditor,
       ),
-      selectedSpecs: draftNotifier.value.scopeSpecs,
-      onlyChainKSelection: true,
-      zone: draftNotifier.value.zone,
     ),
   );
 
-  if (_result != null){
+  if (Mapper.checkCanLoopList(_phids) == true){
     draftNotifier.value = draftNotifier.value.copyWith(
-      scopeSpecs: _result,
-      scope: SpecModel.getSpecsIDs(_result),
+      scope: _phids,
     );
   }
 
