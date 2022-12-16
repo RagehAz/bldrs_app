@@ -36,13 +36,10 @@ class GoogleAds {
   static GoogleAds get instance => _singleton;
   // -----------------------------------------------------------------------------
 
-  /// INSTANCE
+  /// MODE
 
   // --------------------
-  // /// CONNECTIVITY SINGLETON
-  // Connectivity _connectivity;
-  // Connectivity get connectivity => _connectivity ??= Connectivity();
-  // static Connectivity getConnectivity() => DeviceChecker.instance.connectivity;
+  static const bool  _testMode = true;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZERS
@@ -73,7 +70,7 @@ class GoogleAds {
 
     final BannerAd _myBanner = BannerAd(
       adUnitId: getBannerAdUnitId(
-        testMode: true,
+        testMode: _testMode,
       ),
       size: adSize,
       request: _createAdRequest(),
@@ -148,6 +145,74 @@ class GoogleAds {
   }
   // -----------------------------------------------------------------------------
 
+  /// NATIVE ADS
+
+  // --------------------
+  /// NOT YET USED : WTF IS THIS
+  /*
+  static NativeAd createNativeAd(){
+
+    final NativeAd myNative = NativeAd(
+      adUnitId: getBannerAdUnitId(
+        testMode: _testMode,
+      ),
+      factoryId: 'adFactoryExample',
+      request: _createAdRequest(),
+      listener: createNativeAdListener(),
+    );
+    return myNative;
+  }
+  // --------------------
+  static NativeAdListener createNativeAdListener(){
+
+    return NativeAdListener(
+      /// Called when an ad is successfully received.
+      onAdLoaded: (Ad ad){
+        blogAd(ad: ad, invoker: 'onAdLoaded',);
+      },
+
+      /// Called when an ad request failed.
+      onAdFailedToLoad: (Ad ad, LoadAdError error) async {
+        // Dispose the ad here to free resources.
+        await disposeAd(ad);
+        blogAd(ad: ad, invoker: 'onAdFailedToLoad',);
+        blogLoadAdError(error: error, invoker: 'onAdFailedToLoad',);
+      },
+
+      /// Called when an ad opens an overlay that covers the screen.
+      onAdOpened: (Ad ad){
+        blogAd(ad: ad, invoker: 'onAdOpened',);
+      },
+
+      /// Called when an ad removes an overlay that covers the screen.
+      onAdClosed: (Ad ad){
+        blogAd(ad: ad, invoker: 'onAdClosed',);
+      },
+
+      /// Called when an impression occurs on the ad.
+      onAdImpression: (Ad ad){
+        blogAd(ad: ad, invoker: 'onAdImpression',);
+      },
+
+      onPaidEvent: (Ad ad, double valueMicros, PrecisionType precision, String currencyCode) {
+        blog('valueMicros : $valueMicros : precision : $precision : currencyCode : $currencyCode : invoker: onPaidEvent',);
+        blogAd(ad: ad, invoker: 'onPaidEvent',);
+      },
+
+      onAdWillDismissScreen: (Ad ad) {
+        blogAd(ad: ad, invoker: 'onAdWillDismissScreen',);
+      },
+
+      onAdClicked: (Ad ad) {
+        blogAd(ad: ad, invoker: 'onAdClicked',);
+      },
+
+    );
+
+  }
+   */
+  // -----------------------------------------------------------------------------
+
   /// UNIT ID
 
   // --------------------
@@ -208,6 +273,23 @@ class GoogleAds {
   /// DIMENSIONS
 
   // --------------------
+  /// NOT USED I GUESS
+  /*
+  static AdSize createCustomAdSize({
+    @required BuildContext context,
+    @required AdFormat adFormat,
+    @required double adScreenWidth,
+  }){
+
+
+    //
+    // return AdSize(
+    //   width: _screenDims.width.toInt(),
+    //   height: _screenDims.height.toInt(),
+    // );
+
+  }
+   */
   /// NOT USED I GUESS
   /*
   /// TESTED : WORKS PERFECT
@@ -284,5 +366,4 @@ class GoogleAds {
 
   }
   // -----------------------------------------------------------------------------
-  void f(){}
 }
