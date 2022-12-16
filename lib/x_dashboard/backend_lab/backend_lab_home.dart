@@ -9,6 +9,7 @@ import 'package:bldrs/x_dashboard/backend_lab/deck_model_tested.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/fire_storage_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
+import 'package:bldrs/x_dashboard/backend_lab/google_ads_test/google_ads_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_test_screen.dart';
@@ -204,6 +205,21 @@ class BackendLabHome extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const DeckModelTester(),
+            );
+          },
+        ),
+
+        const DotSeparator(),
+        // ---------------------------------------------------
+
+        /// DECK MODEL
+        WideButton(
+          verse: Verse.plain('Google ads test'),
+          icon: Iconz.flyerCollection,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const GoogleAdsTestScreen(),
             );
           },
         ),

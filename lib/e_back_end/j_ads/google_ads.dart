@@ -1,8 +1,18 @@
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+
+enum AdFormat {
+appOpen,
+banner,
+interstitial,
+interstitialVideo,
+rewarded,
+rewardedInterstitial,
+nativeAdvanced,
+nativeAdvancedVideo,
+}
 
 class GoogleAds {
 
@@ -76,7 +86,7 @@ class GoogleAds {
   }
   // --------------------
   /// TASK : TEST ME
-  static createBannerAdListener(){
+  static BannerAdListener createBannerAdListener(){
 
     return BannerAdListener(
       /// Called when an ad is successfully received.
@@ -134,7 +144,7 @@ class GoogleAds {
   }){
 
     if (testMode == true || kDebugMode == true){
-      return _getTestUnitID();
+      return _getTestUnitID(AdFormat.banner);
     }
 
     else {
@@ -144,7 +154,20 @@ class GoogleAds {
   }
   // --------------------
   ///
-  static String _getTestUnitID(){
+  static String _getTestUnitID(AdFormat adFormat){
+
+    /// ANDROID TEST UNIT IDS
+    switch (adFormat){
+      case AdFormat.appOpen	              : return 'ca-app-pub-3940256099942544/3419835294'; break;
+      case AdFormat.banner	              : return 'ca-app-pub-3940256099942544/6300978111'; break;
+      case AdFormat.interstitial	        : return 'ca-app-pub-3940256099942544/1033173712'; break;
+      case AdFormat.interstitialVideo	    : return 'ca-app-pub-3940256099942544/8691691433'; break;
+      case AdFormat.rewarded	            : return 'ca-app-pub-3940256099942544/5224354917'; break;
+      case AdFormat.rewardedInterstitial	: return 'ca-app-pub-3940256099942544/5354046379'; break;
+      case AdFormat.nativeAdvanced	      : return 'ca-app-pub-3940256099942544/2247696110'; break;
+      case AdFormat.nativeAdvancedVideo	  : return 'ca-app-pub-3940256099942544/1044960115'; break;
+      default : return null;
+    }
 
   }
   // --------------------
@@ -202,8 +225,8 @@ class GoogleAds {
       blog('responseInfo.responseId                : ${responseInfo?.responseId}');
       blog('responseInfo.mediationAdapterClassName : ${responseInfo?.mediationAdapterClassName}');
       blog('responseInfo.adapterResponses          : ${responseInfo?.adapterResponses}');
-      blog('responseInfo.loadedAdapterResponseInfo : ${responseInfo?.loadedAdapterResponseInfo}');
-      blog('responseInfo.responseExtras            : ${responseInfo?.responseExtras}');
+      // blog('responseInfo.loadedAdapterResponseInfo : ${responseInfo?.loadedAdapterResponseInfo}');
+      // blog('responseInfo.responseExtras            : ${responseInfo?.responseExtras}');
     }
 
   }

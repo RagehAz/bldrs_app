@@ -88,7 +88,7 @@ class CropperPages extends StatelessWidget {
                   child: Crop(
                     image: originalBytezz[index],
                     controller: controllers[index],
-                    onCropped: (Uint8List image) async {
+                    onCropped: (dynamic image) async {
                       croppedImages.value[index] = image;
                     },
                     aspectRatio: aspectRatio,
