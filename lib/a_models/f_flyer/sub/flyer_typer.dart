@@ -478,7 +478,7 @@ class FlyerTyper{
 
   // --------------------
   static const String propertyChainID =     'phid_k_flyer_type_property';
-  static const String designChainID =       'phid_k_flyer_type_design';
+  static const String designChainID =       'phid_s_group_dz_type';
   static const String undertakingChainID =  'phid_s_propertyLicense';
   static const String tradesChainID =       'phid_k_flyer_type_trades';
   static const String productChainID =      'phid_k_flyer_type_product';
