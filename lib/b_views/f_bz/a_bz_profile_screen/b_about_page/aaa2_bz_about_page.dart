@@ -19,6 +19,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/x_dashboard/backend_lab/google_ads_test/google_ad.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -103,6 +104,8 @@ class AboutBzBubbles extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
+
+        const GoogleAdRectangleBanner(),
 
         /// BZ BANNER
         BzBanner(
