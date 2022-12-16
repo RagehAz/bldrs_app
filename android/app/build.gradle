@@ -71,6 +71,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     /// USED FOR APP CHECK FUCK
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
+    implementation 'com.google.android.gms:play-services-ads:21.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
