@@ -21,7 +21,6 @@ import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
-import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -96,7 +95,7 @@ Future<void> main() async {
     AppCheck.preInitialize(),
 
     /// GOOGLE ADS
-    GoogleAds.initialize(),
+    // GoogleAds.initialize(),
 
   ]);
   /// --------------------
