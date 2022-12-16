@@ -1,7 +1,9 @@
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,50 @@ enum SearchingModel{
 
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
+  // -----------------------------------------------------------------------------
+
+  /// --- SCREEN DIMENSIONS
+
+  // --------------------
+  Dimensions _screenDims;
+  Dimensions get screenDims => _screenDims;
+  // --------------------
+  ///
+  static Dimensions proGetScreenDimensions({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    return _uiProvider.screenDims;
+  }
+  // --------------------
+  ///
+  static void proSetScreenDimensions({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider.getSetScreenDimensions(
+      context: context,
+      notify: notify,
+    );
+  }
+  // --------------------
+  ///
+  void getSetScreenDimensions({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    _screenDims = Dimensions(
+        width: Scale.screenWidth(context),
+        height: Scale.screenHeight(context)
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// --- LOCAL ASSETS

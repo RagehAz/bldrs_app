@@ -21,6 +21,7 @@ import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
+import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -32,6 +33,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+
+/// until you upgrade to null safety code,, run these
+// dart --no-sound-null-safety run
+// flutter run --no-sound-null-safety
+
 /*
 
 tech
@@ -95,7 +101,7 @@ Future<void> main() async {
     AppCheck.preInitialize(),
 
     /// GOOGLE ADS
-    // GoogleAds.initialize(),
+    GoogleAds.initialize(),
 
   ]);
   /// --------------------

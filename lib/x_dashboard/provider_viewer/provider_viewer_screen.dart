@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -443,6 +444,15 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
                 text: 'UI',
                 translate: false,
               ),
+            ),
+
+            /// SCREEN DIMENSIONS
+            ProviderTestButton(
+              title: 'uiProvider.screenDims',
+              value: _uiProvider.screenDims,
+              onTap: (){
+                _uiProvider?.screenDims?.blogDimensions(invoker: 'ProviderViewerTestScreen');
+              },
             ),
 
             /// BASIC PHRASES
