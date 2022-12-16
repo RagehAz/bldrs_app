@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
@@ -764,3 +766,25 @@ class Nav {
    */
   // -----------------------------------------------------------------------------
 }
+
+// Future<void> _showDialog(BuildCOntext context) async {
+//
+//   await showDialog(
+//     context: context,
+//     builder: (context){
+//       return AlertDialog();
+//     },
+//   );
+//
+// }
+//
+// Future<bool> contact (BuildContext context) async {
+//
+//   unawaited(_showDialog);
+//
+//   await Future.delayed(const Duration(seconds: 5), () async {
+//     // nav.pop();
+//   });
+//
+//   return true;
+// }

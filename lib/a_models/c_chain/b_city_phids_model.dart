@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -105,6 +107,55 @@ class CityPhidsModel {
 
     return _maps;
   }
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<MapModel> createPhidsMapModelsFromKeywords({
+    @required List<String> keywords,
+  }){
+    List<MapModel> _maps = <MapModel>[];
+
+    if (Mapper.checkCanLoopList(keywords) == true){
+
+      for (final String phid in keywords){
+
+        final MapModel _existingMapWithThisKey = MapModel.getModelByKey(
+          models: _maps,
+          key: phid,
+        );
+
+        /// THIS KEY IS NEW : ADD NEW MAP MODEL TO THE LIST
+        if (_existingMapWithThisKey == null){
+
+          final MapModel _mapModel = MapModel(
+            key: phid,
+            value: 1,
+          );
+
+          _maps.add(_mapModel);
+
+        }
+
+        /// KEY EXISTS ALREADY : INCREMENT VALUE
+        else {
+
+          final MapModel _updatedMap = _existingMapWithThisKey.copyWith(
+            value: _existingMapWithThisKey.value + 1,
+          );
+
+          _maps = MapModel.replaceMapModel(
+            mapModels: _maps,
+            mapModel: _updatedMap,
+          );
+
+        }
+
+      }
+
+    }
+
+    return _maps;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static CityPhidsModel createCityPhidModelFromFlyer({
@@ -116,8 +167,8 @@ class CityPhidsModel {
 
       _cityChain = CityPhidsModel(
         cityID: flyerModel.zone.cityID,
-        phidsMapModels: createPhidsMapModelsFromSpecs(
-          specs: flyerModel.specs,
+        phidsMapModels: createPhidsMapModelsFromKeywords(
+          keywords: flyerModel.keywordsIDs,
         ),
       );
 
@@ -159,6 +210,66 @@ class CityPhidsModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<FlyerType> getFlyerTypesByCityPhids({
+    @required CityPhidsModel cityPhidsModel,
+    @required List<Chain> bldrsChains,
+  }){
+    final List<FlyerType> _output = <FlyerType>[];
+
+    if (Mapper.checkCanLoopList(bldrsChains) == true){
+
+      final List<String> _phids = getPhidsFromCityPhidsModel(
+        cityPhidsModel: cityPhidsModel,
+      );
+
+      if (Mapper.checkCanLoopList(_phids) == true){
+
+        for (final String phid in _phids){
+
+          final FlyerType _flyerType = getFlyerTypeByPhid(
+            phid: phid,
+            bldrsChains: bldrsChains,
+          );
+
+          if (_output.contains(_flyerType) == false){
+            _output.add(_flyerType);
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static FlyerType getFlyerTypeByPhid({
+    @required String phid,
+    @required List<Chain> bldrsChains,
+  }){
+    FlyerType _output;
+
+    if (phid != null && bldrsChains != null){
+
+      final String _rootChainID = Chain.getRootChainIDOfPhid(
+          allChains: bldrsChains,
+          phid: phid
+      );
+
+      _output = FlyerTyper.concludeFlyerTypeByChainID(
+        chainID: _rootChainID,
+      );
+
+      blog('root chain id is ($_rootChainID) : flyerType : ($_output) : for this phid ($phid)');
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -193,8 +304,8 @@ class CityPhidsModel {
 
     return _output;
   }
-// -------------------------------------
-  ///
+  // --------------------
+  /// TASK : TEST ME
   static List<Chain> removeUnusedPhidsFromBldrsChainsForThisCity({
     @required List<Chain> bldrsChains,
     @required CityPhidsModel currentCityPhidsModel,
@@ -216,6 +327,7 @@ class CityPhidsModel {
   /// CHECKERS
 
   // --------------------
+  /// TASK : TEST ME
   static bool checkCityPhidsAreIdentical({
     @required CityPhidsModel cityPhids1,
     @required CityPhidsModel cityPhids2,
