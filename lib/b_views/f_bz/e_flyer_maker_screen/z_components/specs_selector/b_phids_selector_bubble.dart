@@ -38,9 +38,9 @@ class PhidsSelectorBubble extends StatelessWidget {
 
     return WidgetFader(
       key: const ValueKey('PhidsSelectorBubble'),
-      fadeType: draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
+      fadeType: draft?.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.35,
-      ignorePointer: draft.flyerType == null,
+      ignorePointer: draft?.flyerType == null,
       child: Bubble(
         bubbleHeaderVM: const BubbleHeaderVM(
           headlineVerse: Verse(
