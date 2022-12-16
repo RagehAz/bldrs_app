@@ -26,7 +26,7 @@ class UiProvider extends ChangeNotifier {
   Dimensions _screenDims;
   Dimensions get screenDims => _screenDims;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Dimensions proGetScreenDimensions({
     @required BuildContext context,
     @required bool listen,
@@ -35,7 +35,7 @@ class UiProvider extends ChangeNotifier {
     return _uiProvider.screenDims;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void proSetScreenDimensions({
     @required BuildContext context,
     @required bool notify,
@@ -47,7 +47,7 @@ class UiProvider extends ChangeNotifier {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void getSetScreenDimensions({
     @required BuildContext context,
     @required bool notify,
