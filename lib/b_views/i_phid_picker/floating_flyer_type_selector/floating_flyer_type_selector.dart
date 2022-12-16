@@ -1,7 +1,10 @@
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animated_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -42,10 +45,24 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   void initState() {
     super.initState();
 
+      final CityPhidsModel _cityPhidsModel = ChainsProvider.proGetCityPhids(
+          context: context,
+          listen: false,
+      );
+      final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
+          context: context,
+          onlyUseCityChains: true,
+          listen: false,
+      );
+
+      final List<FlyerType> _flyerTypes = CityPhidsModel.getFlyerTypesByCityPhids(
+          cityPhidsModel: _cityPhidsModel,
+          bldrsChains: _bldrsChains,
+      );
+
     _linesMap = <Map<String, dynamic>>[
 
-
-      ...List.generate(FlyerTyper.flyerTypesList.length, (index){
+      ...List.generate(_flyerTypes.length, (index){
 
         final FlyerType _flyerType = FlyerTyper.flyerTypesList[index];
 

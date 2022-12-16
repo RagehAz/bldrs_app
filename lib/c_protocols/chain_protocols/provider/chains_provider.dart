@@ -318,6 +318,15 @@ class ChainsProvider extends ChangeNotifier {
   CityPhidsModel get cityPhidsModel => _cityPhidsModel;
   // --------------------
   /// TESTED : WORKS PERFECT
+  static CityPhidsModel proGetCityPhids({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
+    return _chainsProvider.cityPhidsModel;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _readSetCityPhidsModel({
     @required BuildContext context,
     @required bool notify,
@@ -495,11 +504,6 @@ class ChainsProvider extends ChangeNotifier {
   }) async {
 
     // blog('Changing section to $flyerType');
-
-    superFuckingWallPhidInverseFlyerTypeConcluderMethod(
-      context: context,
-      phid: phid,
-    );
 
     _setWallFlyerAndPhid(
       flyerType: flyerType,
@@ -950,29 +954,4 @@ class ChainsProvider extends ChangeNotifier {
  */
 
 
-void superFuckingWallPhidInverseFlyerTypeConcluderMethod({
-  @required BuildContext context,
-  @required String phid,
-}){
-  if (phid != null){
 
-    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
-      context: context,
-      listen: false,
-      onlyUseCityChains: false,
-    );
-
-    final String _rootChainID = Chain.getRootChainIDOfPhid(
-        allChains: _allChains,
-        phid: phid
-    );
-
-    final FlyerType _flyerType = FlyerTyper.concludeFlyerTypeByChainID(
-      chainID: _rootChainID,
-    );
-
-    blog('root chain id is ($_rootChainID) : flyerType : ($_flyerType) : for this phid ($phid)');
-
-  }
-
-}
