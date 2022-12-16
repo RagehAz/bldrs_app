@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
@@ -54,26 +55,33 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
         },
 
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: TextDir.checkAppIsLeftToRight(context) ?
-        CrossAxisAlignment.start
-            :
-        CrossAxisAlignment.end,
-        children: <Widget>[
+      child: SizedBox(
+        // color: Colorz.white20,
+        height: Obelisk.gotContentsScrollableHeight(
+          context: context,
+          navModels: navModels,
+        ),
+        child: Column(
+          mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+          crossAxisAlignment: TextDir.checkAppIsLeftToRight(context) ?
+          CrossAxisAlignment.start
+              :
+          CrossAxisAlignment.end,
+          children: <Widget>[
 
-          ...List.generate(navModels.length, (index){
+            ...List.generate(navModels.length, (index){
 
-            return ObeliskVerse(
-              onTap: () => onRowTap(index),
-              progressBarModel: progressBarModel,
-              navModelIndex: index,
-              navModel: navModels[index],
-            );
+              return ObeliskVerse(
+                onTap: () => onRowTap(index),
+                progressBarModel: progressBarModel,
+                navModelIndex: index,
+                navModel: navModels[index],
+              );
 
-          }),
+            }),
 
-        ],
+          ],
+        ),
       ),
     );
 
