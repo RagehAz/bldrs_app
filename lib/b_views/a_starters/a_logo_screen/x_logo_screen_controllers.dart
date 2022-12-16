@@ -37,6 +37,11 @@ Future<void> initializeLogoScreen({
 
   // blog('1 - initializeLogoScreen : START');
 
+  UiProvider.proSetScreenDimensions(
+    context: context,
+    notify: true,
+  );
+
   /// USER MODEL
   await _initializeUserModel(context);
 

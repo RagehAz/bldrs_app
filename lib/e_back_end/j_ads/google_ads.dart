@@ -4,14 +4,23 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 
 enum AdFormat {
-appOpen,
-banner,
-interstitial,
-interstitialVideo,
-rewarded,
-rewardedInterstitial,
-nativeAdvanced,
-nativeAdvancedVideo,
+  appOpen,
+  banner,
+  interstitial,
+  interstitialVideo,
+  rewarded,
+  rewardedInterstitial,
+  nativeAdvanced,
+  nativeAdvancedVideo,
+}
+
+enum AdSizeConstant {
+  banner,
+  largeBanner,
+  mediumRectangle,
+  fullBanner,
+  leaderboard,
+  smartBanner,
 }
 
 class GoogleAds {
@@ -48,6 +57,7 @@ class GoogleAds {
   /// DISPOSING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> disposeAd(Ad ad) async {
     await ad?.dispose();
   }
@@ -56,13 +66,16 @@ class GoogleAds {
   /// CREATION
 
   // --------------------
-  static BannerAd createBannerAd(){
+  /// TESTED : WORKS PERFECT
+  static BannerAd createBannerAd({
+    @required AdSize adSize,
+  }){
 
     final BannerAd _myBanner = BannerAd(
       adUnitId: getBannerAdUnitId(
         testMode: true,
       ),
-      size: AdSize.banner,
+      size: adSize,
       request: _createAdRequest(),
       listener: createBannerAdListener(),
     );
@@ -85,7 +98,7 @@ class GoogleAds {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static BannerAdListener createBannerAdListener(){
 
     return BannerAdListener(
@@ -153,7 +166,7 @@ class GoogleAds {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String _getTestUnitID(AdFormat adFormat){
 
     /// ANDROID TEST UNIT IDS
@@ -190,7 +203,29 @@ class GoogleAds {
 
 
   }
+  // -----------------------------------------------------------------------------
 
+  /// DIMENSIONS
+
+  // --------------------
+  /// NOT USED I GUESS
+  /*
+  /// TESTED : WORKS PERFECT
+  static AdSize getAdSize(AdSizeConstant con){
+
+    switch (con){
+      case AdSizeConstant.banner :          return AdSize.banner; break;
+      case AdSizeConstant.largeBanner :     return AdSize.largeBanner; break;
+      case AdSizeConstant.mediumRectangle : return AdSize.mediumRectangle; break;
+      case AdSizeConstant.fullBanner :      return AdSize.fullBanner; break;
+      case AdSizeConstant.leaderboard :     return AdSize.leaderboard; break;
+      // case AdSizeConstant.smartBanner :  return AdSize.; break;
+      default : return null;
+    }
+
+  }
+
+   */
   // -----------------------------------------------------------------------------
 
   /// BLOGGING
