@@ -8,7 +8,6 @@ import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/app_controls/xx_app_controls_model.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -45,7 +44,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
   final AppControlsModel appControls = GeneralProvider.proGerAppControls(context);
 
-  blog('homeWallFlyersPaginationQuery() flyerType: $flyerType : appControls?.showOnlyVerifiedFlyersInHomeWall: ${appControls?.showOnlyVerifiedFlyersInHomeWall}');
+  // blog('homeWallFlyersPaginationQuery() flyerType: $flyerType : appControls?.showOnlyVerifiedFlyersInHomeWall: ${appControls?.showOnlyVerifiedFlyersInHomeWall}');
 
   return FireQueryModel(
     collRef: Fire.getSuperCollRef(
