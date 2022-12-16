@@ -33,9 +33,9 @@ class ObeliskIconsBuilder extends StatelessWidget{
           duration: const Duration(milliseconds: 250),
           curve: isBig == true ? Curves.ease : Curves.easeInExpo,
           width: isBig == true ? Obelisk.circleWidth : 0,
-          height: Obelisk.getBoxMaxHeight(
-            isBig: true,
-            numberOfButtons: NavModel.getNumberOfButtons(navModels),
+          height: Obelisk.gotContentsScrollableHeight(
+            context: context,
+            navModels: navModels,
           ),
           alignment: Alignment.bottomLeft,
           child: xChild,
@@ -45,10 +45,11 @@ class ObeliskIconsBuilder extends StatelessWidget{
 
       child: ListView(
         scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.zero,
         children: <Widget>[
 
           Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
