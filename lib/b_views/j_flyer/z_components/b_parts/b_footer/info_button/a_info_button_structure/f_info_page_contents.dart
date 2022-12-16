@@ -158,7 +158,7 @@ class InfoPageContents extends StatelessWidget {
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     verse: const Verse(
-                      text: 'phid_flyer_keywords',
+                      text: 'phid_keywords',
                       translate: true,
                     ),
                   ),
