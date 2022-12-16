@@ -153,46 +153,59 @@ class Obelisk extends StatelessWidget {
       key: const ValueKey<String>('Obelisk'),
       left: Ratioz.appBarMargin,
       bottom: Ratioz.appBarMargin,
-      child: SizedBox(
-        height: getMaxHeight(context),
-        // color: Colorz.bloodTest,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.zero,
-          child: Row(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: stuffAlignment(isCross: true),
-            children: <Widget>[
+      child: ValueListenableBuilder(
+        valueListenable: isExpanded,
+        child: SizedBox(
+          height: getMaxHeight(context),
+          // color: Colorz.bloodTest,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: stuffAlignment(isCross: true),
+              children: <Widget>[
 
-              /// ICONS
-              if (TextDir.checkAppIsLeftToRight(context) == true)
-                ObeliskIconsBuilder(
+                /// ICONS
+                if (TextDir.checkAppIsLeftToRight(context) == true)
+                  ObeliskIconsBuilder(
+                    isExpanded: isExpanded,
+                    navModels: navModels,
+                    progressBarModel: progressBarModel,
+                    onRowTap: onRowTap,
+                  ),
+
+                /// TEXTS
+                ObeliskVersesBuilder(
                   isExpanded: isExpanded,
                   navModels: navModels,
                   progressBarModel: progressBarModel,
                   onRowTap: onRowTap,
                 ),
 
-              /// TEXTS
-              ObeliskVersesBuilder(
-                isExpanded: isExpanded,
-                navModels: navModels,
-                progressBarModel: progressBarModel,
-                onRowTap: onRowTap,
-              ),
+                /// ICONS
+                if (TextDir.checkAppIsLeftToRight(context) == false)
+                  ObeliskIconsBuilder(
+                    isExpanded: isExpanded,
+                    navModels: navModels,
+                    progressBarModel: progressBarModel,
+                    onRowTap: onRowTap,
+                  ),
 
-              /// ICONS
-              if (TextDir.checkAppIsLeftToRight(context) == false)
-                ObeliskIconsBuilder(
-                  isExpanded: isExpanded,
-                  navModels: navModels,
-                  progressBarModel: progressBarModel,
-                  onRowTap: onRowTap,
-                ),
-
-            ],
+              ],
+            ),
           ),
         ),
+        builder: (_, bool expanded, Widget child){
+
+          final bool _ignore = expanded == null || expanded == true ? false : true;
+
+          return IgnorePointer(
+            ignoring: _ignore,
+            child: child,
+          );
+
+        },
       ),
     );
 

@@ -65,7 +65,7 @@ class PhidsSelectorBubble extends StatelessWidget {
               valueListenable: draftNotifier,
               builder: (_, DraftFlyer draft, Widget child){
 
-                if (Mapper.checkCanLoopList(draft.keywordsIDs) == true){
+                if (Mapper.checkCanLoopList(draft?.keywordsIDs) == true){
                   return PhidsViewer(
                     pageWidth: Bubble.clearWidth(context),
                     phids: draft.keywordsIDs,
@@ -95,7 +95,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           DreamBox(
             height: PhidButton.getHeight(),
             verse: Verse(
-              text: Mapper.checkCanLoopList(draft.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
+              text: Mapper.checkCanLoopList(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
               translate: true,
             ),
             bubble: false,

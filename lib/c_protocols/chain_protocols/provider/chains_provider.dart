@@ -494,7 +494,12 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    blog('Changing section to $flyerType');
+    // blog('Changing section to $flyerType');
+
+    superFuckingWallPhidInverseFlyerTypeConcluderMethod(
+      context: context,
+      phid: phid,
+    );
 
     _setWallFlyerAndPhid(
       flyerType: flyerType,
@@ -512,6 +517,9 @@ class ChainsProvider extends ChangeNotifier {
   }){
     _wallFlyerType = flyerType;
     _wallPhid = phid;
+
+
+
     if (notify == true){
       notifyListeners();
     }
@@ -940,3 +948,31 @@ class ChainsProvider extends ChangeNotifier {
   }
 
  */
+
+
+void superFuckingWallPhidInverseFlyerTypeConcluderMethod({
+  @required BuildContext context,
+  @required String phid,
+}){
+  if (phid != null){
+
+    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
+      context: context,
+      listen: false,
+      onlyUseCityChains: false,
+    );
+
+    final String _rootChainID = Chain.getRootChainIDOfPhid(
+        allChains: _allChains,
+        phid: phid
+    );
+
+    final FlyerType _flyerType = FlyerTyper.concludeFlyerTypeByChainID(
+      chainID: _rootChainID,
+    );
+
+    blog('root chain id is ($_rootChainID) : flyerType : ($_flyerType) : for this phid ($phid)');
+
+  }
+
+}
