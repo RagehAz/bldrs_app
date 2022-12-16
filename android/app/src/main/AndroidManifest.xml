@@ -105,6 +105,8 @@
 <!--                 android:stopWithTask="true"-->
 <!--                 android:foregroundServiceType=AllServiceTypesThatYouChosen-->
 <!--        />-->
-
+        <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-1416346029613600~1351124048"/>
     </application>
 </manifest>
