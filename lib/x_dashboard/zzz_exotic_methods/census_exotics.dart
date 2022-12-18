@@ -30,7 +30,9 @@ class ExoticCensus {
 
     if (map != null && zoneModel != null){
 
-      Map<String, dynamic> _map = Mapper.cleanNullPairs(map);
+      Map<String, dynamic> _map = Mapper.cleanNullPairs(
+        map: map,
+      );
       _map = CensusModel.completeMapForIncrementation(_map);
 
       await Future.wait(<Future>[

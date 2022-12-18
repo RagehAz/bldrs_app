@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class CityPhidsRealOps {
   // -----------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ class CityPhidsRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> incrementFlyerCityChainUsage({
+  static Future<void> incrementFlyerCityPhids({
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required bool isIncrementing,
@@ -62,7 +62,7 @@ class CityPhidsRealOps {
         context: context,
         collName: RealColl.citiesPhids,
         docName: flyerModel.zone.cityID,
-        mapOfFieldsAndNumbers: _cityPhidsToAdd.toMap(),
+        incrementationMap: _cityPhidsToAdd.toMap(),
         isIncrementing: isIncrementing,
       );
 
@@ -70,8 +70,8 @@ class CityPhidsRealOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> incrementFlyersCityChainUsage({
+  /// TESTED : WORKS PERFECT
+  static Future<void> incrementFlyersCitiesPhids({
     @required BuildContext context,
     @required List<FlyerModel> flyersModels,
     @required bool isIncrementing,
@@ -81,7 +81,7 @@ class CityPhidsRealOps {
 
       await Future.wait(<Future>[
 
-        ...List.generate(flyersModels.length, (index) => incrementFlyerCityChainUsage(
+        ...List.generate(flyersModels.length, (index) => incrementFlyerCityPhids(
           context: context,
           flyerModel: flyersModels[index],
           isIncrementing: isIncrementing,
@@ -93,8 +93,8 @@ class CityPhidsRealOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> updateFlyerCityChainUsage({
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateFlyerCityPhidsUsage({
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required FlyerModel oldFlyer,
@@ -102,94 +102,42 @@ class CityPhidsRealOps {
 
     if (flyerModel != null && oldFlyer != null){
 
-      final List<SpecModel> _oldSpecs = SpecModel.getChainKSpecs(oldFlyer.specs);
-      final List<SpecModel> _newSpecs = SpecModel.getChainKSpecs(flyerModel.specs);
+      final List<String> _oldPhids = oldFlyer.keywordsIDs;
+      final List<String> _newPhids = flyerModel.keywordsIDs;
 
-      final bool _areIdentical = SpecModel.checkSpecsListsAreIdentical(_oldSpecs, _newSpecs);
+      final bool _areIdentical = Mapper.checkListsAreIdentical(
+          list1: _oldPhids,
+          list2: _newPhids,
+      );
 
       if (_areIdentical == false){
 
-        /// GET REMOVED SPECS
-        final List<SpecModel> _removedSpecs = <SpecModel>[];
-        for (final SpecModel _oldSpec in _oldSpecs){
-          final bool _isInNew = SpecModel.checkSpecsContainThisSpec(
-              specs: _newSpecs,
-              spec: _oldSpec,
-          );
+        /// GET REMOVED PHIDS
+        final List<String> _removedPhids = Stringer.getRemovedStrings(
+            oldStrings: _oldPhids,
+            newStrings: _newPhids
+        );
 
-          /// STILL THERE IN THE NEW LIST => DO NOT DELETE
-          if (_isInNew == true){
-            // DO NOTHING
-          }
-          /// WAS IN OLD LIST BUT NOW REMOVED FROM NEW => SHOULD BE REMOVED
-          else {
-            _removedSpecs.add(_oldSpec);
-          }
+        /// GET NEW PHIDS
+        final List<String> _addedPhids = Stringer.getAddedStrings(
+            oldStrings: _oldPhids,
+            newStrings: _newPhids
+        );
 
-        }
-
-        /// GET NEW SPECS
-        final List<SpecModel> _addedSpecs = <SpecModel>[];
-        for (final SpecModel _newSpec in _newSpecs){
-          final bool _isInNew = SpecModel.checkSpecsContainThisSpec(
-            specs: _oldSpecs,
-            spec: _newSpec,
-          );
-
-          /// NEW SPEC IS IN OLD SPECS => ITS NOT A NEW
-          if (_isInNew == true){
-            // DO NOTHING
-          }
-          /// NEW SPEC WAS NOT IN OLD LIST => SHOULD BE ADDED
-          else {
-            _addedSpecs.add(_newSpec);
-          }
-
-        }
-
-        /// CREATE UPDATED MAP
-        Map<String, dynamic> _mapOfFieldsAndNumbers = {};
-
-        /// ADD REMOVED SPECS WITH DECREMENT VALUES
-        for (final SpecModel specToRemove in _removedSpecs){
-          _mapOfFieldsAndNumbers = Mapper.insertPairInMap(
-            map: _mapOfFieldsAndNumbers,
-            key: specToRemove.value,
-            value: _mapOfFieldsAndNumbers[specToRemove.value] == null ? -1 : _mapOfFieldsAndNumbers[specToRemove.value] -1,
-            overrideExisting: true,
-          );
-        }
-
-        /// ADD ADDED SPECS WITH INCREMENT VALUES
-        for (final SpecModel specToRemove in _removedSpecs){
-          _mapOfFieldsAndNumbers = Mapper.insertPairInMap(
-            map: _mapOfFieldsAndNumbers,
-            key: specToRemove.value,
-            value: _mapOfFieldsAndNumbers[specToRemove.value] == null ? 1 : _mapOfFieldsAndNumbers[specToRemove.value] +1,
-            overrideExisting: true,
-          );
-        }
-
-        /// REMOVE POTENTIAL ZERO VALUES PAIRS
-        final List<String> _keys = _mapOfFieldsAndNumbers.keys.toList();
-        for (final String _key in _keys){
-          if (_mapOfFieldsAndNumbers[_key] == 0){
-            _mapOfFieldsAndNumbers[_key] = null;
-          }
-        }
-
-        /// CLEAR POTENTIAL NULL VALUES
-        _mapOfFieldsAndNumbers = Mapper.cleanNullPairs(_mapOfFieldsAndNumbers);
+        /// CREATE INCREMENTATION MAP
+        final Map<String, dynamic> _incrementationMap = CityPhidsModel.createIncrementationMap(
+            removedPhids: _removedPhids,
+            addedPhids: _addedPhids,
+        );
 
         /// INCREMENT VALUES OPS
         await Real.incrementDocFields(
           context: context,
           collName: RealColl.citiesPhids,
           docName: flyerModel.zone.cityID,
-          mapOfFieldsAndNumbers: _mapOfFieldsAndNumbers,
+          incrementationMap: _incrementationMap,
           isIncrementing: true,
         );
-
 
       }
 
