@@ -159,12 +159,14 @@ class _FlyerState extends State<Flyer> {
         valueListenable: _bzModel,
         builder: (_, BzModel bzModel, Widget child){
 
+          blog('flyer : _heroPath : $_heroPath : widget.screenName : ${widget.screenName}');
+
           return FlyerHero(
             flyerModel: _flyerModel,
             bzModel: bzModel,
             canBuildBigFlyer: false,
             flyerBoxWidth: widget.flyerBoxWidth,
-            heroTag: _heroPath,
+            heroPath: _heroPath,
             invoker: 'Flyer',
           );
 

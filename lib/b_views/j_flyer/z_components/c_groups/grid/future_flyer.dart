@@ -10,7 +10,7 @@ class FutureFlyer extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const FutureFlyer({
     @required this.flyerID,
-    @required this.heroPath,
+    @required this.screenName,
     @required this.flyerBoxWidth,
     this.isSelected = false,
     this.onFlyerNotFound,
@@ -20,7 +20,7 @@ class FutureFlyer extends StatefulWidget {
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final String flyerID;
-  final String heroPath;
+  final String screenName;
   final double flyerBoxWidth;
   final bool isSelected;
   final ValueChanged<FlyerModel> onSelectFlyer;
@@ -95,7 +95,7 @@ class _FutureFlyerState extends State<FutureFlyer> {
     return FlyerSelectionStack(
       flyerModel: _flyerModel,
       flyerBoxWidth: widget.flyerBoxWidth,
-      heroPath: widget.heroPath,
+      screenName: widget.screenName,
       onSelectFlyer: widget.onSelectFlyer == null ? null : () => widget.onSelectFlyer(_flyerModel),
       onFlyerOptionsTap: widget.onFlyerOptionsTap == null ? null : () => widget.onFlyerOptionsTap(_flyerModel),
       isSelected: widget.isSelected,

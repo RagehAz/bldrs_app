@@ -90,6 +90,16 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
         valueListenable: widget.progressBarModel,
           builder: (_, ProgressBarModel progModel, Widget gallerySlide){
 
+          final int _count =
+              /// keep one strip even if null
+          progModel?.numberOfStrips  == null ? 1
+              :
+              /// when only one strip : add the fake box to activate horizontal hero swipe
+          progModel?.numberOfStrips  == 1 ? 2
+              :
+              /// when one than 1 slide, do it normally
+          progModel?.numberOfStrips;
+
             return HorizontalBouncer(
               numberOfSlides: progModel?.numberOfStrips,
               controller: widget.horizontalController,
@@ -101,7 +111,7 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
                 // clipBehavior: Clip.antiAlias,
                 // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
                 onPageChanged: (int i) => widget.onSwipeSlide(i),
-                itemCount: progModel?.numberOfStrips ?? 0 + 1,
+                itemCount: _count + 1,
                 itemBuilder: (_, int index){
 
                   /// WHEN AT FLYER REAL SLIDES

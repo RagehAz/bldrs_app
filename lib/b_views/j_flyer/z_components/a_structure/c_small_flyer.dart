@@ -82,7 +82,7 @@ class SmallFlyer extends StatelessWidget {
             flyerModel: flyerModel,
             bzModel: bzModel,
             flyerBoxWidth: flyerBoxWidth,
-            heroTag: heroTag,
+            heroPath: heroTag,
           )
       );
 
