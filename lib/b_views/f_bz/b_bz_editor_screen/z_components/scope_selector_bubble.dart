@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -179,6 +180,12 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                               PhidsViewer(
                                 pageWidth: _phidsZoneWidth,
                                 phids: _phids,
+                                onPhidTap: (String phid){
+                                  blog('scopeSelectorBubble : onPhidTap : phid: $phid');
+                                },
+                                onPhidLongTap: (String phid){
+                                  blog('scopeSelectorBubble : onPhidLongTap : phid: $phid');
+                                },
                               ),
 
                             /// ADD SPECS BUTTON

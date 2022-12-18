@@ -176,6 +176,46 @@ class CityPhidsModel {
 
     return _cityChain;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> createIncrementationMap({
+    @required List<String> removedPhids,
+    @required List<String> addedPhids,
+  }){
+    Map<String, dynamic> _incrementationMap = {};
+
+      /// ADD REMOVED SPECS WITH DECREMENT VALUES
+    if (Mapper.checkCanLoopList(removedPhids) == true){
+      for (final String phidToRemove in removedPhids){
+        _incrementationMap = Mapper.insertPairInMap(
+          map: _incrementationMap,
+          key: phidToRemove,
+          value: _incrementationMap[phidToRemove] == null ? -1 : _incrementationMap[phidToRemove] -1,
+          overrideExisting: true,
+        );
+      }
+    }
+
+    /// ADD ADDED SPECS WITH INCREMENT VALUES
+    if (Mapper.checkCanLoopList(addedPhids) == true){
+      for (final String phidToAdd in addedPhids){
+        _incrementationMap = Mapper.insertPairInMap(
+          map: _incrementationMap,
+          key: phidToAdd,
+          value: _incrementationMap[phidToAdd] == null ? 1 : _incrementationMap[phidToAdd] +1,
+          overrideExisting: true,
+        );
+      }
+    }
+
+    /// REMOVE POTENTIAL ZERO VALUES PAIRS
+    _incrementationMap = Mapper.cleanZeroValuesPairs(map: _incrementationMap,);
+
+    /// CLEAR POTENTIAL NULL VALUES
+    _incrementationMap = Mapper.cleanNullPairs(map: _incrementationMap,);
+
+    return _incrementationMap;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGING

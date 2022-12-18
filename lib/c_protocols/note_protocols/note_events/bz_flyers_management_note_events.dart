@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class NoteEventsOfBzFlyersManagement {
   // -----------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ class NoteEventsOfBzFlyersManagement {
   /// SENDERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerUpdateNoteToItsBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -83,8 +83,8 @@ class NoteEventsOfBzFlyersManagement {
         receiverID: bzID,
         receiverType: PartyType.bz,
       ),
-      title: 'Flyer has been verified',
-      body: 'This Flyer is now public to be seen and searched by all users',
+      title: '##Flyer has been verified',
+      body: '##This Flyer is now public to be seen and searched by all users',
       sentTime: DateTime.now(),
       function: NoteFunProtocols.createFlyerRefetchTrigger(
         flyerID: flyerID,

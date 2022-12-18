@@ -101,7 +101,7 @@ class ComposeFlyerProtocols {
           ),
 
           /// INCREMENT CITY FLYER CHAIN USAGE
-          CityPhidsRealOps.incrementFlyerCityChainUsage(
+          CityPhidsRealOps.incrementFlyerCityPhids(
               context: context,
               flyerModel: _flyerToPublish,
               isIncrementing: true

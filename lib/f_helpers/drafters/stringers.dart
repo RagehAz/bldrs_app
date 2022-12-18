@@ -621,6 +621,66 @@ class Stringer {
   }
   // -----------------------------------------------------------------------------
 
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getAddedStrings({
+    @required List<String> oldStrings,
+    @required List<String> newStrings,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(newStrings) == true){
+
+      for (int i = 0; i < newStrings.length; i++){
+        final String _string = newStrings[i];
+        final bool _oldStringsContains = checkStringsContainString(
+          strings: oldStrings,
+          string: _string,
+        );
+
+        if (_oldStringsContains == false){
+          _output.add(_string);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getRemovedStrings({
+    @required List<String> oldStrings,
+    @required List<String> newStrings,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(oldStrings) == true){
+
+      for (int i = 0; i < oldStrings.length; i++){
+
+        final String _string = oldStrings[i];
+
+        final bool _newStringsContains = checkStringsContainString(
+          strings: newStrings,
+          string: _string,
+        );
+
+        if (_newStringsContains == false){
+          _output.add(_string);
+        }
+
+      }
+
+    }
+
+      return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// HASHTAGS
 
   // --------------------

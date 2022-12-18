@@ -561,10 +561,13 @@ class Mapper {
     @required String fieldKey,
   }) {
     Map<String, Object> _output = {};
+    _output = insertMapInMap(
+        baseMap: _output,
+        insert: map,
+    );
 
     if (map != null && fieldKey != null){
-      map.removeWhere((key, value) => key == fieldKey);
-      _output = insertMapInMap(baseMap: _output, insert: map);
+      _output.removeWhere((key, value) => key == fieldKey);
     }
 
     return _output;
@@ -729,7 +732,9 @@ class Mapper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cleanNullPairs(Map<String, dynamic> map){
+  static Map<String, dynamic> cleanNullPairs({
+    @required Map<String, dynamic> map,
+  }){
     Map<String, dynamic> _output;
 
     if (map != null){
@@ -742,7 +747,9 @@ class Mapper {
         if (map[key] != null){
 
           if (map[key] is Map<String, dynamic>){
-            final Map<String, dynamic> _sub = cleanNullPairs(map[key]);
+            final Map<String, dynamic> _sub = cleanNullPairs(
+               map: map[key],
+            );
             _output = insertPairInMap(
               map: _output,
               key: key,
@@ -778,6 +785,33 @@ class Mapper {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cleanZeroValuesPairs({
+    @required Map<String, dynamic> map,
+  }){
+    Map<String, dynamic> _output = map;
+
+    final List<String> _keys = _output?.keys?.toList();
+
+    if (checkCanLoopList(_keys) == true){
+
+      /// LOOP IN KEYS
+      for (final String _key in _keys){
+        ///  WHEN VALUE OF THIS KEY IS ZERO
+        if (_output[_key] == 0){
+          /// REMOVE THIS PAIR
+          _output = removePair(
+              map: _output,
+              fieldKey: _key,
+          );
+        }
+      }
+
+    }
+
+    return _output;
+}
   // -----------------------------------------------------------------------------
 
   /// DYNAMIC LISTS CHECKERS
