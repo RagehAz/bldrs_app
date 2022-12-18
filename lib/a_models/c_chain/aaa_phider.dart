@@ -547,7 +547,7 @@ class Phider {
   static bool checkVerseIsTemp(String text){
     final String _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
       input: text,
-      numberOfChars: 2, //'##'
+      numberOfChars: 2, //'( # # )'
     );
     return _temp == '##';
   }

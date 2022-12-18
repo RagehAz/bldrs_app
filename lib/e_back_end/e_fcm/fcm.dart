@@ -696,7 +696,7 @@ class FCM {
         // await CenterDialog.showCenterDialog(
         //     context: context,
         //     titleVerse: const Verse(
-        //       text: '##Notifications are temporarily suspended',
+        //       text: '#!#Notifications are temporarily suspended',
         //       translate: true,
         //     ),
         //     onOk: (){

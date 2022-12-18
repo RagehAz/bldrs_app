@@ -272,13 +272,12 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: Verse(
-      text: '##You can not remove ${authorModel.name}',
+      text: '${Verse.transBake(context, 'phid_you_cant_remove')} ${authorModel.name}',
       translate: true,
       variables: authorModel.name,
     ),
     bodyVerse: const Verse(
-      text: '##Only Account Admins can remove other team members,\n'
-          'however you can remove only yourself from this business account',
+      text: 'phid_only_admins_can_remove_other_authors',
       translate: true,
     ),
   );
@@ -317,9 +316,8 @@ Future<void> _removeAuthorWhoHasFlyers({
       unawaited(WaitDialog.showWaitDialog(
         context: context,
         loadingVerse: Verse(
-          text: '##Removing ${authorModel.name}',
-          translate: true,
-          variables: authorModel.name,
+          text: '${Verse.transBake(context, 'phid_removing')} ${authorModel.name}',
+          translate: false,
         ),
       ));
     }
@@ -400,16 +398,14 @@ Future<bool> _showDeleteAllAuthorFlyers({
       translate: true,
     ),
     bodyVerse: Verse(
-      text: '##${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
-      translate: true,
-      variables: [authorModel.flyersIDs.length, authorModel.name],
+      text: '${authorModel.flyersIDs.length} ${Verse.transBake(context, 'flyers_will_be_permanently_deleted')}',
+      translate: false,
     ),
     height: 400,
     boolDialog: true,
     confirmButtonVerse: Verse(
-      text: '##Delete All Flyers And Remove ${authorModel.name}',
-      translate: true,
-      variables: authorModel.name,
+      text: '${Verse.transBake(context, 'delete_flyers_and_remove')} ${authorModel.name}',
+      translate: false,
     ),
     child: Container(
       width: CenterDialog.getWidth(context),
@@ -480,10 +476,9 @@ Future<void> _showAuthorRemovalConfirmationDialog({
 
   unawaited(TopDialog.showTopDialog(
     context: BldrsAppStarter.navigatorKey.currentContext,
-    firstVerse: Verse(
-      text: '##${deletedAuthor.name} has been removed from the team of ${bzModel.name}',
+    firstVerse: const Verse(
+      text: 'phid_author_and_flyers_have_been_removed',
       translate: true,
-      variables: [deletedAuthor.name, bzModel.name]
     ),
     color: Colorz.green255,
     textColor: Colorz.white255,
@@ -521,14 +516,12 @@ Future<void> _onShowCanNotEditAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: Verse(
-      text: '##You can not Edit ${authorModel.name}',
-      translate: true,
-      variables: authorModel.name,
+      text: '${Verse.transBake(context, 'phid_you_cant_edit')} ${authorModel.name}',
+      translate: false,
     ),
     bodyVerse: Verse(
-      text: '##Only ${authorModel.name} can edit his Author detail',
-      translate: true,
-      variables: authorModel.name,
+      text: '${authorModel.name} ${Verse.transBake(context, 'phid_is_only_who_can_edit_his_account')}',
+      translate: false,
     ),
   );
 

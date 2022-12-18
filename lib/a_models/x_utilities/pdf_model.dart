@@ -206,6 +206,7 @@ class PDFModel {
   /// TRANSLATIONS
 
   // --------------------
+  /// TASK : TEST ME
   static Verse getSizeLine({
     @required BuildContext context,
     @required bool sizeLimitReached,
@@ -235,10 +236,7 @@ class PDFModel {
 
     }
 
-
-
   }
-
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

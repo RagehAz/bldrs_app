@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -248,8 +249,8 @@ class NoteEventsOfBzTeamManagement {
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
       ),
-      title: '##${userModel.name} has tried to contact you',
-      body: '##Please update your Business contacts info to allow customers to reach you',
+      title: '${userModel.name} ${Verse.transBake(context, 'has_tried_to_contact_you')}',
+      body: Verse.transBake(context, 'phid_update_your_contacts'),
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzGeneralNews,
