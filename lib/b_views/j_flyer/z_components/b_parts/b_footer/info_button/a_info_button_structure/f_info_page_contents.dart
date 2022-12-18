@@ -167,6 +167,12 @@ class InfoPageContents extends StatelessWidget {
                   PhidsViewer(
                     pageWidth: _pageWidth,
                     phids: flyerModel.keywordsIDs,
+                    onPhidTap: (String phid){
+                      blog('info page contents : onPhidTap : phid: $phid');
+                    },
+                    onPhidLongTap: (String phid){
+                      blog('info page contents : onPhidLongTap : phid: $phid');
+                    },
                   ),
                 /// KEYWORDS LINE
                 if (flyerModel.keywordsIDs?.isNotEmpty == true)

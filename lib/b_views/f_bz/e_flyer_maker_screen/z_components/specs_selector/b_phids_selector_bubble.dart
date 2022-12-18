@@ -81,6 +81,10 @@ class PhidsSelectorBubble extends StatelessWidget {
                       );
 
                     },
+                    onPhidTap: (String phid){
+                      blog('phidSelectorBubble : onPhidTap : phid: $phid');
+                    },
+
                   );
                 }
 

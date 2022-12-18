@@ -86,20 +86,20 @@ class Real {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> _createPathValueMapFromFieldsAndNumbers({
-    @required Map<String, dynamic> fieldsAndNumbers,
+  static Map<String, dynamic> _createPathValueMapFromIncrementationMap({
+    @required Map<String, dynamic> incrementationMap,
     @required bool isIncrementing,
   }){
 
     Map<String, dynamic> _output = {};
 
-    final List<String> _keys = fieldsAndNumbers.keys.toList();
+    final List<String> _keys = incrementationMap.keys.toList();
 
     if (Mapper.checkCanLoopList(_keys) == true){
 
       for (final String key in _keys){
 
-        int _incrementationValue = fieldsAndNumbers[key];
+        int _incrementationValue = incrementationMap[key];
         if (isIncrementing == false){
           _incrementationValue = -_incrementationValue;
         }
@@ -673,19 +673,19 @@ class Real {
     @required BuildContext context,
     @required String collName,
     @required String docName,
-    @required Map<String, dynamic> mapOfFieldsAndNumbers,
+    @required Map<String, dynamic> incrementationMap,
     @required bool isIncrementing,
   }) async {
 
-    if (mapOfFieldsAndNumbers != null){
+    if (incrementationMap != null){
 
       final DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName,
       );
 
-      final Map<String, dynamic> _updatesMap = _createPathValueMapFromFieldsAndNumbers(
-        fieldsAndNumbers: mapOfFieldsAndNumbers,
+      final Map<String, dynamic> _updatesMap = _createPathValueMapFromIncrementationMap(
+        incrementationMap: incrementationMap,
         isIncrementing: isIncrementing,
       );
 
