@@ -201,7 +201,7 @@ class AboutBzBubbles extends StatelessWidget {
             scrollController: ScrollController(),
             flyersIDs: bzModel?.flyersIDs,
             topPadding: 0,
-            heroPath: 'BzAboutPageFlyersGrid',
+            screenName: 'BzAboutPageFlyersGrid',
           ),
 
         // const Horizon(),
