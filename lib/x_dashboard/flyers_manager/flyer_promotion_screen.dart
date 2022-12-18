@@ -175,7 +175,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
                 )
                     :
                 Verse(
-                  text: '##Promoting Flyer in\n$_cityName, $_countryName',
+                  text: '#!#Promoting Flyer in\n$_cityName, $_countryName',
                   translate: true,
                   variables: [_cityName, _countryName],
                 );

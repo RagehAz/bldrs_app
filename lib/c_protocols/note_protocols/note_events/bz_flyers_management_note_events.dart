@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -37,8 +38,8 @@ class NoteEventsOfBzFlyersManagement {
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
       ),
-      title: '##Flyer has been updated',
-      body: '##This Flyer has been updated',
+      title: Verse.transBake(context, 'phid_flyer_has_been_updated'),
+      body: '',
       sentTime: DateTime.now(),
       sendFCM: false,
       topic: TopicModel.bakeTopicID(
@@ -83,8 +84,8 @@ class NoteEventsOfBzFlyersManagement {
         receiverID: bzID,
         receiverType: PartyType.bz,
       ),
-      title: '##Flyer has been verified',
-      body: '##This Flyer is now public to be seen and searched by all users',
+      title: Verse.transBake(context, 'phid_flyer_has_been_verified'),
+      body: Verse.transBake(context, 'phid_flyer_is_public_now_and_can_be_seen'),
       sentTime: DateTime.now(),
       function: NoteFunProtocols.createFlyerRefetchTrigger(
         flyerID: flyerID,

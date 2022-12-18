@@ -117,7 +117,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Verse _getSearchHintVerse(BuildContext context){
 
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
@@ -125,14 +125,15 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
         listen: false,
     );
 
-    final String _countryName = _zone.countryName;
-    final String _cityName = _zone.cityName;
+    final String _countryName = _zone?.countryName ?? '';
+    final String _cityName = _zone?.cityName ?? '...';
 
-    final String _hintText = '##Search flyers in $_cityName, $_countryName';
+    final String _hintText =  '${Verse.transBake(context, 'phid_search_flyers_in')} '
+                              '$_cityName, $_countryName';
+
     return Verse(
       text: _hintText,
-      translate: true,
-      variables: [_cityName, _countryName],
+      translate: false,
     );
 
   }
