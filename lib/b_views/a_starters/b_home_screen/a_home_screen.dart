@@ -207,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (loading == true) {
                   return const FlyersGrid(
                     isLoadingGrid: true,
-                    heroPath: 'Home_Screen_Flyers_Loading_Grid',
+                    screenName: 'Home_Screen_Flyers_Loading_Grid',
                   );
                 }
 

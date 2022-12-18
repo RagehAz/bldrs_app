@@ -105,7 +105,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
               gridWidth: _screenWidth,
               gridHeight: _screenHeight,
               scrollController: _scrollController,
-              heroPath: 'flyerAuditorScreenGrid',
+              screenName: 'flyerAuditorScreenGrid',
               isLoadingGrid: isLoading,
               onFlyerOptionsTap: (FlyerModel flyer) => onFlyerOptionsTap(
                 context: context,

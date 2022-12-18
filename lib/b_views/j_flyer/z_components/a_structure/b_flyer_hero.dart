@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/d_flight_flyer.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 enum FlightDirection{
@@ -17,7 +18,7 @@ class FlyerHero extends StatelessWidget {
     @required this.bzModel,
     @required this.flyerBoxWidth,
     @required this.canBuildBigFlyer,
-    @required this.heroTag,
+    @required this.heroPath,
     @required this.invoker,
     Key key
   }) : super(key: key);
@@ -26,7 +27,7 @@ class FlyerHero extends StatelessWidget {
   final BzModel bzModel;
   final bool canBuildBigFlyer;
   final double flyerBoxWidth;
-  final String heroTag;
+  final String heroPath;
   final String invoker;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -42,7 +43,7 @@ class FlyerHero extends StatelessWidget {
       flyerModel: flyerModel,
       bzModel: bzModel,
       flyerBoxWidth: flyerBoxWidth,
-      heroTag: heroTag,
+      heroTag: heroPath,
       flightDirection: flightDirection,
     );
 
@@ -51,9 +52,11 @@ class FlyerHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    blog('heroTag : $heroPath');
+
     return Hero(
       key: const ValueKey<String>('FlyerHero'),
-      tag: heroTag,
+      tag: heroPath,
       flightShuttleBuilder: buildFlight,
       transitionOnUserGestures: true,
       // createRectTween: (Rect x , Rect y){
@@ -74,7 +77,7 @@ class FlyerHero extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         bzModel: bzModel,
         flyerModel: flyerModel,
-        heroTag: heroTag,
+        heroTag: heroPath,
         canBuildBigFlyer: canBuildBigFlyer,
         flightTweenValue: 1,
         // flightDirection: FlightDirection.non,
