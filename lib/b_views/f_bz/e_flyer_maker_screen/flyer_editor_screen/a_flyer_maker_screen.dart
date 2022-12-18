@@ -294,7 +294,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     // bulletPoints: <Verse>[
 
                       // Verse(
-                      //   text: '##Business accounts of types '
+                      //   text: '#!# Business accounts of types '
                       //       '${_bzTypeTranslation.toString()} can publish '
                       //       '${_flyerTypesTranslation.toString()} flyers.',
                       //   translate: true,
@@ -302,7 +302,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       // ),
                       //
                       // const Verse(
-                      //   text: '##Each Flyer Should have one flyer type',
+                      //   text: '#!# Each Flyer Should have one flyer type',
                       //   translate: true,
                       // ),
 

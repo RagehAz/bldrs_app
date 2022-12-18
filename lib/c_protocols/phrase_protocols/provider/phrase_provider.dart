@@ -369,7 +369,7 @@ String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
   final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
   _phraseProvider.addToUsedXPhrases(id);
 
-  /// THE ## VERSES
+  /// THE ( # # ) VERSES
   if (Verse.checkPendingAssigningPhid(id) == true){
     return null;
   }

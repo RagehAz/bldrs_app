@@ -125,7 +125,7 @@ class TargetCard extends StatelessWidget {
                 width: _bubbleClearWidth,
                 height: 70,
                 verse: Verse(
-                  text: '##CLAIM ${target.reward.slides} Slides ',
+                  text: '#!# CLAIM ${target.reward.slides} Slides ',
                   translate: true,
                   variables: target.reward.slides,
                 ),

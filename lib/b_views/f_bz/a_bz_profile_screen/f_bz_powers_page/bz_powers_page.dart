@@ -128,10 +128,9 @@ class BzPowersPage extends StatelessWidget {
           ),
           columnChildren: <Widget>[
 
-            /// PLAN : TRANSLATE THIS
             // SuperVerse.dotVerse(
             //   verse: const Verse(
-            //     text: 'Download Your custom Bldr online banner',
+            //     text: '#!# Download Your custom Bldr online banner',
             //     translate: true,
             //   )
             // ),
@@ -149,7 +148,7 @@ class BzPowersPage extends StatelessWidget {
 
             SuperVerse.dotVerse(
               verse: const Verse(
-                text: '##Download "Find us on Bldrs.net" printable banner',
+                text: '#!# Download "Find us on Bldrs.net" printable banner',
                 translate: true,
               ),
             ),
@@ -171,7 +170,7 @@ class BzPowersPage extends StatelessWidget {
 
             SuperVerse.dotVerse(
               verse: const Verse(
-                text: '##Use Bldrs.net graphics to customize your own materials',
+                text: '#!# Use Bldrs.net graphics to customize your own materials',
                 translate: true,
               ),
             ),
