@@ -96,7 +96,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
           flyerBoxWidth: Scale.screenWidth(context),
           flyerModel: widget.flyerModel,
           bzModel: widget.bzModel,
-          heroTag: 'FlyerPreviewScreen',
+          heroPath: 'FlyerPreviewScreen',
         ),
       ),
     );

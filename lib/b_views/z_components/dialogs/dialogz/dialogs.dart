@@ -900,7 +900,7 @@ class Dialogs {
           gridHeight: _gridHeight,
           topPadding: 0,
           numberOfColumnsOrRows: 1,
-          heroPath: 'flyersDialogGrid',
+          screenName: 'flyersDialogGrid',
         ),
       ),
 

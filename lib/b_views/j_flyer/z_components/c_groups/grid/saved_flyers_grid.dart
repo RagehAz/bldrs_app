@@ -26,7 +26,7 @@ class SavedFlyersGrid extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(flyersIDs) == true){
       return FlyersGrid(
-        heroPath: 'SavedFlyersGrid',
+        screenName: 'SavedFlyersGrid',
         scrollController: scrollController,
         onSelectFlyer: onSelectFlyer,
         selectedFlyers: selectedFlyers,

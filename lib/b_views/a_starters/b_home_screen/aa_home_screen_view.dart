@@ -33,7 +33,7 @@ class HomeFlyersGrid extends StatelessWidget {
             gridWidth: Scale.screenWidth(context),
             gridHeight: Scale.screenHeight(context),
             flyers: _wallFlyers,
-            heroPath: 'userHomeScreen',
+            screenName: 'userHomeScreen',
             // isLoadingGrid: isLoading,
           ),
         );

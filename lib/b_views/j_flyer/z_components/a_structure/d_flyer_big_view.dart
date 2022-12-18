@@ -16,14 +16,14 @@ class FlyerBigView extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.heroTag,
+    @required this.heroPath,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final BzModel bzModel;
   final double flyerBoxWidth;
-  final String heroTag;
+  final String heroPath;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
 
@@ -50,7 +50,7 @@ class FlyerBigView extends StatelessWidget {
         type: MaterialType.transparency,
 
         child: FlyerHero(
-          heroTag: heroTag,
+          heroPath: heroPath,
           flyerModel: flyerModel,
           bzModel: bzModel,
           flyerBoxWidth: Scale.screenWidth(context),

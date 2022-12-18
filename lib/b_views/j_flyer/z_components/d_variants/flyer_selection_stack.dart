@@ -19,7 +19,7 @@ class FlyerSelectionStack extends StatelessWidget {
     @required this.onSelectFlyer,
     @required this.onFlyerOptionsTap,
     @required this.flyerBoxWidth,
-    @required this.heroPath,
+    @required this.screenName,
     @required this.isSelected,
     Key key
   }) : super(key: key);
@@ -28,7 +28,7 @@ class FlyerSelectionStack extends StatelessWidget {
   final Function onFlyerOptionsTap;
   final FlyerModel flyerModel;
   final double flyerBoxWidth;
-  final String heroPath;
+  final String screenName;
   final bool isSelected;
   /// --------------------------------------------------------------------------
   @override
@@ -52,7 +52,7 @@ class FlyerSelectionStack extends StatelessWidget {
             // key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
             flyerModel: flyerModel,
             flyerBoxWidth: flyerBoxWidth,
-            screenName: heroPath,
+            screenName: screenName,
           ),
         ),
 
