@@ -164,16 +164,16 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateButtonsTotalHeight({
-    @required List<String> keywordsIDs,
+    @required List<String> phids,
   }) {
 
-    if (Mapper.checkCanLoopList(keywordsIDs) == true){
+    if (Mapper.checkCanLoopList(phids) == true){
       return 0;
     }
     else {
       return  (collapsedTileHeight + buttonVerticalPadding)
               *
-              getNumberOfButtons(keywordsIDs: keywordsIDs);
+              getNumberOfButtons(keywordsIDs: phids);
     }
 
   }

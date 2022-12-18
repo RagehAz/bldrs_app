@@ -314,23 +314,31 @@ Future<void> _setActivePhidK({
   if (deactivated == true) {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final String _currentCityID = _zoneProvider.currentZone.cityID;
+    final String _cityName = _zoneProvider.currentZone.cityName;
 
     final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: flyerType
     );
 
+    final String _title = '${Verse.transBake(context, 'phid_flyers_of')} '
+                          '${Verse.transBake(context, _flyerTypePhid)} '
+                          '${Verse.transBake(context, 'phid_are_not_available')} '
+                          '${Verse.transBake(context, 'phid_inn')} '
+                          '$_cityName';
+
+
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse(
-          text: '##Section "$_flyerTypePhid" is\nTemporarily closed in $_currentCityID',
-          translate: true,
-          variables: [_flyerTypePhid, _currentCityID]
+          text: _title,
+          translate: false,
       ),
-      bodyVerse: Verse(
-        text: '##The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
+      bodyVerse: const Verse(
+        pseudo: 'The Bldrs in this city are adding flyers everyday to'
+                ' properly present their markets.'
+                '\nplease hold for couple of days and come back again.',
+        text: 'phid_businesses_are_still_adding_flyers',
         translate: true,
-        variables: _currentCityID,
       ),
       height: 400,
       child: Row(
