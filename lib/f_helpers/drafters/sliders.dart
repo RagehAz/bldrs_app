@@ -124,6 +124,7 @@ class Sliders {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> slideToOffset({
   @required ScrollController scrollController,
     @required double offset,
@@ -132,9 +133,15 @@ class Sliders {
 }) async {
 
     if (scrollController != null && offset != null) {
-      await scrollController.animateTo(offset,
-          duration: duration, curve: curve
-      );
+
+      if (scrollController.hasClients == true && scrollController.offset != offset) {
+
+        await scrollController.animateTo(offset,
+            duration: duration, curve: curve
+        );
+
+      }
+
     }
 
   }
