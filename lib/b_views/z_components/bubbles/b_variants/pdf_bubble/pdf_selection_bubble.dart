@@ -14,6 +14,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
@@ -159,9 +160,11 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                     if (pdfModel.sizeMB != null)
                     SuperVerse(
-                      verse: Verse(
-                        text: '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdfModel.sizeMB} Mb / 3 Mb',
-                        translate: true,
+                      verse: PDFModel.getSizeLine(
+                        context: context,
+                        size: pdfModel.sizeMB,
+                        maxSize: Standards.maxFileSizeLimit,
+                        sizeLimitReached: _sizeLimitReached,
                       ),
                       italic: true,
                       color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,

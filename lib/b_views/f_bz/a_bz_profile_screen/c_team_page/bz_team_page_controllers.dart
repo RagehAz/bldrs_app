@@ -211,14 +211,12 @@ Future<void> onDeleteAuthorFromBz({
     _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse(
-        text: '##Remove ${authorModel.name} ?',
-        translate: true,
-        variables: authorModel.name,
+        text: '${Verse.transBake(context, 'phid_remove')} ${authorModel.name} ?',
+        translate: false,
       ),
       bodyVerse: Verse(
-        text: '##${authorModel.name} and all his published flyers will be deleted as well',
-        translate: true,
-        variables: authorModel.name,
+        text: '${authorModel.name} ${Verse.transBake(context, 'phid_and_all_his_flyers_will_be_deleted_as_well')}',
+        translate: false,
       ),
       boolDialog: true,
     );

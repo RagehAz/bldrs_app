@@ -505,7 +505,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   ),
                   selectedSpecs: SpecModel.generateSpecsByPhids(
                     context: context,
-                    phids: draft.scope,
+                    phids: draft?.scope,
                   ),
                   bulletPoints: const <Verse>[
                     Verse(

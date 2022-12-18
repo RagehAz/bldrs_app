@@ -114,7 +114,7 @@ class Standards {
   /// FILE SIZES
 
   // --------------------
-  static const double maxFileSizeLimit = 3; // in Mb
+  static const int maxFileSizeLimit = 3; // in Mb
   // -----------------------------------------------------------------------------
 
 
