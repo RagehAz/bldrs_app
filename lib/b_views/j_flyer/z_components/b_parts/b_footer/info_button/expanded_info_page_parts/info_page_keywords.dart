@@ -8,8 +8,8 @@ class PhidsViewer extends StatelessWidget {
   const PhidsViewer({
     @required this.phids,
     @required this.pageWidth,
-    this.onPhidTap,
-    this.onPhidLongTap,
+    @required this.onPhidTap,
+    @required this.onPhidLongTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

@@ -239,7 +239,9 @@ String pathOfSubDoc({
     Function onSuccess,
   }) async {
 
-      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(input);
+      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(
+        map: input,
+      );
 
       if (_upload != null){
 
@@ -276,7 +278,9 @@ String pathOfSubDoc({
     Function onSuccess,
   }) async {
 
-      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(input);
+      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(
+        map: input,
+      );
 
       if (_upload != null){
 

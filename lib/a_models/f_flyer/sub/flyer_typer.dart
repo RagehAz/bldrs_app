@@ -525,7 +525,6 @@ class FlyerTyper{
       default: return  null;
     }
 
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT

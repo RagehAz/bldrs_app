@@ -28,122 +28,46 @@ class NoteEvent {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> sendAuthorshipInvitationNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required UserModel userModelToSendTo,
-  }) => NoteEventsOfAuthorship.sendAuthorshipInvitationNote(
-    context: context,
-    bzModel: bzModel,
-    userModelToSendTo: userModelToSendTo,
-  );
+  static const sendAuthorshipInvitationNote = NoteEventsOfAuthorship.sendAuthorshipInvitationNote;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorshipCancellationNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required UserModel userModelToSendTo,
-  }) => NoteEventsOfAuthorship.sendAuthorshipCancellationNote(
-      context: context,
-      bzModel: bzModel,
-      userModelToSendTo: userModelToSendTo
-  );
+  static const sendAuthorshipCancellationNote = NoteEventsOfAuthorship.sendAuthorshipCancellationNote;
   // -----------------------------------------------------------------------------
 
   /// AUTHORSHIP RESPONSES
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorshipAcceptanceNote({
-    @required BuildContext context,
-    @required String bzID,
-  }) => NoteEventsOfAuthorship.sendAuthorshipAcceptanceNote(
-    context: context,
-    bzID: bzID,
-  );
+  static const sendAuthorshipAcceptanceNote = NoteEventsOfAuthorship.sendAuthorshipAcceptanceNote;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorshipDeclinationsNote({
-    @required BuildContext context,
-    @required String bzID,
-  }) => NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote(
-    context: context,
-    bzID: bzID,
-  );
+  static const sendAuthorshipDeclinationsNote = NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote;
   // -----------------------------------------------------------------------------
 
   /// Bz Team Management
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> sendAuthorRoleChangeNote({
-    @required BuildContext context,
-    @required String bzID,
-    @required AuthorModel author,
-  }) => NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote(
-    context: context,
-    bzID: bzID,
-    author: author,
-  );
+  static const sendAuthorRoleChangeNote = NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote;
   // --------------------
   /// TASK : TEST ME
-  static Future<void> sendAuthorDeletionNotes({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
-    @required bool sendToUserAuthorExitNote,
-  }) => NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes(
-    context: context,
-    bzModel: bzModel,
-    deletedAuthor: deletedAuthor,
-    sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-  );
+  static const sendAuthorDeletionNotes = NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes;
   // --------------------
   /// TASK : TEST ME
-  static Future<void> sendBzDeletionNoteToAllAuthors({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required bool includeMyself,
-  }) => NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors(
-    context: context,
-    bzModel: bzModel,
-    includeMyself: includeMyself,
-  );
+  static const sendBzDeletionNoteToAllAuthors = NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors;
   // --------------------
   /// TASK : TEST ME
-  static Future<void> sendNoBzContactAvailableNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-  }) => NoteEventsOfBzTeamManagement.sendNoBzContactAvailableNote(
-    context: context,
-    bzModel: bzModel,
-  );
+  static const  sendNoBzContactAvailableNote = NoteEventsOfBzTeamManagement.sendNoBzContactAvailableNote;
   // -----------------------------------------------------------------------------
 
   /// Bz Flyers Management
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> sendFlyerUpdateNoteToItsBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String flyerID,
-  }) => NoteEventsOfBzFlyersManagement.sendFlyerUpdateNoteToItsBz(
-    context: context,
-    bzModel: bzModel,
-    flyerID: flyerID,
-  );
+  /// TESTED : WORKS PERFECT
+  static const sendFlyerUpdateNoteToItsBz = NoteEventsOfBzFlyersManagement.sendFlyerUpdateNoteToItsBz;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> sendFlyerIsVerifiedNoteToBz({
-    @required BuildContext context,
-    @required String flyerID,
-    @required String bzID,
-  }) => NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz(
-    context: context,
-    flyerID: flyerID,
-    bzID: bzID,
-  );
+  static const sendFlyerIsVerifiedNoteToBz = NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz;
   // -----------------------------------------------------------------------------
 
   /// PROFILE DELETION
