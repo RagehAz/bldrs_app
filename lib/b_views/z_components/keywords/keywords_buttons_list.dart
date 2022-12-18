@@ -6,47 +6,60 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class KeywordsButtonsList extends StatelessWidget {
+class PhidsButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const KeywordsButtonsList({
+  const PhidsButtonsList({
     @required this.buttonWidth,
-    @required this.keywordsIDs,
-    @required this.onKeywordTap,
+    @required this.phids,
+    @required this.onPhidTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double buttonWidth;
-  final List<String> keywordsIDs;
-  final Function onKeywordTap;
+  final List<String> phids;
+  final Function onPhidTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
     return Container(
       width: buttonWidth,
-      height: ExpandingTile.calculateButtonsTotalHeight(keywordsIDs: keywordsIDs),
+      height: ExpandingTile.collapsedTileHeight * phids.length,
       margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+      color: Colorz.bloodTest,
       child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: keywordsIDs.length,
+        // physics: const NeverScrollableScrollPhysics(),
+        itemCount: phids.length,
         itemExtent: ExpandingTile.collapsedTileHeight + Ratioz.appBarPadding,
-        shrinkWrap: true,
+        // shrinkWrap: false,
         // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
-        itemBuilder: (BuildContext ctx, int keyIndex) {
+        itemBuilder: (BuildContext ctx, int index) {
 
-          final String _keywordID = keywordsIDs[keyIndex];
-          final String _icon = _keywordsProvider.getPhidIcon(context: context, son: _keywordID);
-          final String _keywordName = _keywordID;
-          const String _keywordNameArabic = '##keyword name but in arabic';//Phrase.getPhraseByLangFromPhrases(phrases: _keywordID.names, langCode: 'ar')?.value;
+          final String _phid = phids[index];
+
+          final String _icon = _chainsProvider.getPhidIcon(
+              context: context,
+              son: _phid,
+          );
+
+          final String _enName = _chainsProvider.translatePhid(
+            phid: _phid,
+            langCode: 'en',
+          );
+
+          final String _arName = _chainsProvider.translatePhid(
+            phid: _phid,
+            langCode: 'ar',
+          );
 
           return DreamBox(
             height: ExpandingTile.collapsedTileHeight,
             width: buttonWidth - (Ratioz.appBarMargin * 2),
             icon: _icon,
-            verse: Verse.plain(_keywordName),
-            secondLine: Verse.plain(_keywordNameArabic),
+            verse: Verse.plain(_enName),
+            secondLine: Verse.plain(_arName),
             verseScaleFactor: 0.7,
             verseCentered: false,
             bubble: false,
@@ -55,7 +68,7 @@ class KeywordsButtonsList extends StatelessWidget {
                 bottom: ExpandingTile.buttonVerticalPadding
             ),
             onTap: () async {
-              await onKeywordTap(_keywordID);
+              await onPhidTap(_phid);
             },
           );
 

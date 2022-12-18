@@ -141,13 +141,14 @@ class WipeBzProtocols {
     blog('WipeBzProtocols._deleteAllBzFlyersOps : START');
 
     if (showWaitDialog == true){
+
+      final String _text =  '${Verse.transBake(context, 'phid_deleting')} '
+                            '${bzModel.flyersIDs.length} '
+                            '${Verse.transBake(context, 'phid_flyers')}';
+
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: Verse(
-          text: '##Deleting ${bzModel.flyersIDs.length} Flyers',
-          translate: true,
-          variables: bzModel.flyersIDs.length,
-        ),
+        loadingVerse: Verse.plain(_text),
       ));
     }
 

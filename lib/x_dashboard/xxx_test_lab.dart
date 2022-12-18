@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -516,6 +518,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                     }
                 ),
 
+                PhidsButtonsList(
+                  phids: Chain.getOnlyPhidsSonsFromChains(chains: _chainsProvider.bldrsChains),
+                  buttonWidth: _fieldWidth,
+                  onPhidTap: (String phid){
+                    blog('phid is : $phid');
+                  },
+                ),
 
                 /// HASH VERSE
                 // ValueListenableBuilder(

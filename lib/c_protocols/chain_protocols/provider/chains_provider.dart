@@ -427,6 +427,21 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  String translatePhid({
+    @required String phid,
+    @required String langCode,
+  }){
+
+    final Phrase _phrase = Phrase.searchPhraseByIDAndLangCode(
+      phrases: _chainsPhrases,
+      langCode: langCode,
+      phid: phid,
+    );
+
+    return _phrase?.value;
+  }
   // -----------------------------------------------------------------------------
 
   /// CITY CHAINS PHRASES

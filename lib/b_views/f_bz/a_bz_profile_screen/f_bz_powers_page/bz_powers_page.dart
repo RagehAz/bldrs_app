@@ -1,11 +1,9 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -19,15 +17,15 @@ class BzPowersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
+    // final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
     return ListView(
       physics: const BouncingScrollPhysics(),
       padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
-        Bubble(
-          bubbleHeaderVM: const BubbleHeaderVM(
+        const Bubble(
+          bubbleHeaderVM: BubbleHeaderVM(
             headlineVerse: Verse(
               text: 'phid_get_more_slides',
               translate: true,
@@ -35,13 +33,15 @@ class BzPowersPage extends StatelessWidget {
           ),
           columnChildren: <Widget>[
 
-            SuperVerse(
-              verse: Verse(
-                text: '##${_bzModel.name} has got 500 slides left',
-                translate: true,
-                variables: [_bzModel.name, 500],
-              )
-            ),
+            // SuperVerse(
+            //   verse: Verse(
+            /// PLAN : TRANSLATE THIS LINE
+            //     text: '${_bzModel.name} has got 500 slides left',
+            //     translate: true,
+            //     variables: [_bzModel.name, 500],
+            //   )
+            // ),
+
           ],
         ),
 
@@ -128,12 +128,13 @@ class BzPowersPage extends StatelessWidget {
           ),
           columnChildren: <Widget>[
 
-            SuperVerse.dotVerse(
-              verse: const Verse(
-                text: '##Download Your custom Bldr online banner',
-                translate: true,
-              )
-            ),
+            /// PLAN : TRANSLATE THIS
+            // SuperVerse.dotVerse(
+            //   verse: const Verse(
+            //     text: 'Download Your custom Bldr online banner',
+            //     translate: true,
+            //   )
+            // ),
 
             Container(
               width: Bubble.clearWidth(context),
