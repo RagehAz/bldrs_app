@@ -19,10 +19,10 @@ class RemainingSlidesCounter extends StatelessWidget {
     return DreamBox(
       height: Ratioz.appBarButtonSize,
       // width: Ratioz.appBarButtonSize * 1.3,
-      verse: const Verse(
-        text: '##$_numberOfSlides slides',
-        translate: true,
-        variables: _numberOfSlides,
+      verse: Verse(
+          text: '$_numberOfSlides '
+                '${Verse.transBake(context, 'phid_slides')}',
+          translate: false
       ),
       verseItalic: true,
       verseMaxLines: 2,
@@ -44,7 +44,7 @@ class RemainingSlidesCounter extends StatelessWidget {
             translate: true,
           ),
           bodyVerse: const Verse(
-            pseudo: "##You don't have any more slides to add\nWould you wish to get more slides ?",
+            pseudo: "You don't have any more slides to add\nWould you wish to get more slides ?",
             text: 'phid_no_slides_left_description',
             translate: true,
           ),

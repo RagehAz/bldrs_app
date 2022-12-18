@@ -55,7 +55,7 @@ class RenovateBzProtocols {
         unawaited(WaitDialog.showWaitDialog(
           context: context,
           loadingVerse: const Verse(
-            text: 'phid_updating_bz_account',
+            text: 'phid_bz_section_selection_info',
             translate: true,
           ),
         ));

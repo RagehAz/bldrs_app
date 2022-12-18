@@ -1472,7 +1472,7 @@ class _ZoningLabState extends State<ZoningLab> {
                //
                //       ])
                //           .then((value) => blog(
-               //           '##      ======= >>>>>>> ${i+1} / ${_countryCities.length} : DONE : $_newCityID'
+               //           '#-#      ======= >>>>>>> ${i+1} / ${_countryCities.length} : DONE : $_newCityID'
                //       )
                //       );
                //
@@ -1482,7 +1482,7 @@ class _ZoningLabState extends State<ZoningLab> {
                //   }
                //
                //
-               //   blog('#######      ================ >>>>>>> $i / ${_countriesIDs.length} : DONE : $countryID');
+               //   blog('#-#-#-#-#-#-#      ================ >>>>>>> $i / ${_countriesIDs.length} : DONE : $countryID');
                //
                //   unawaited(Dialogs.showSuccessDialog(context: context, firstLine: Verse.plain('$i / ${_countriesIDs.length} : countryID')),);
                //
@@ -1541,11 +1541,11 @@ class _ZoningLabState extends State<ZoningLab> {
                     // -----------------
 
                     if (_countryIsGood == true){
-                      blog('## 000 - Country is good : $countryID');
+                      blog('#-# 000 - Country is good : $countryID');
                     }
 
                     else {
-                      blog('## xxx! - COUNTRY : $countryID : IS BAD : has old cities IDs, take a fucking note');
+                      blog('#-# xxx! - COUNTRY : $countryID : IS BAD : has old cities IDs, take a fucking note');
                     }
 
                   }

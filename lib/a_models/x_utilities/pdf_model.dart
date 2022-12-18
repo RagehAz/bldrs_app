@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -200,6 +201,44 @@ class PDFModel {
     blog('PDFModel: name : $name : path : $path : size : $sizeMB : '
         'bytes : ${bytes?.length} bytes : ownersIDs : $ownersIDs');
   }
+  // -----------------------------------------------------------------------------
+
+  /// TRANSLATIONS
+
+  // --------------------
+  static Verse getSizeLine({
+    @required BuildContext context,
+    @required bool sizeLimitReached,
+    @required double size,
+    @required int maxSize,
+  }){
+
+    // Mb / 3 Mb
+    final String _mb = Verse.transBake(context, 'phid_mb');
+
+    if (sizeLimitReached == true){
+
+      return Verse(
+        text: '${Verse.transBake(context, 'phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
+        translate: true,
+      );
+
+    }
+
+    else {
+
+      return Verse(
+        text: '${Verse.transBake(context, 'phid_file_size')} : $size$_mb / $maxSize $_mb',
+        translate: true,
+      );
+
+
+    }
+
+
+
+  }
+
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
