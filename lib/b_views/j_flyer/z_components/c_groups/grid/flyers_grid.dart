@@ -164,6 +164,7 @@ class FlyersGrid extends StatelessWidget {
                     final String _flyerID = flyersIDs[_flyerIndex];
 
                     return FutureFlyer(
+                      key: ValueKey<String>('FutureFlyer:flyerID:$_flyerID'),
                       flyerID: _flyerID,
                       heroPath: '$heroPath/$_flyerID',
                       flyerBoxWidth: _gridSlotWidth,
@@ -184,6 +185,7 @@ class FlyersGrid extends StatelessWidget {
                     final FlyerModel _flyer =  flyers[_flyerIndex];
 
                     return FlyerSelectionStack(
+                      key: ValueKey<String>('FlyerSelectionStack:flyerID:${_flyer?.id}'),
                       flyerModel: _flyer,
                       flyerBoxWidth: _gridSlotWidth,
                       heroPath: '$heroPath/${_flyer.id}',
