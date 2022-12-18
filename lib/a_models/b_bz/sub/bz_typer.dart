@@ -267,7 +267,7 @@ class BzTyper {
         bzType == BzType.artisan ?      'phid_tradesmanship' :
         bzType == BzType.manufacturer ? 'phid_manufacturing' :
         bzType == BzType.supplier ?     'phid_supplying' :
-        '##Builders';
+        'phid_bldrs';
     }
 
     /// NOT NOUN
@@ -280,10 +280,10 @@ class BzTyper {
           bzType == BzType.broker ?       'phid_realEstateBrokers' :
           bzType == BzType.designer ?     'phid_designers' :
           bzType == BzType.contractor ?   'phid_contractors' :
-          bzType == BzType.artisan ?      'phid_tradesmanship' :
+          bzType == BzType.artisan ?      'phid_artisans' :
           bzType == BzType.manufacturer ? 'phid_manufacturers' :
-          bzType == BzType.supplier ?     'phid_supplier' :
-          '##Builders';
+          bzType == BzType.supplier ?     'phid_suppliers' :
+          'phid_bldrs';
       }
 
       /// SINGLE
@@ -293,10 +293,10 @@ class BzTyper {
           bzType == BzType.broker ?       'phid_realEstateBroker' :
           bzType == BzType.designer ?     'phid_designer' :
           bzType == BzType.contractor ?   'phid_contractor' :
-          bzType == BzType.artisan ?      'phid_tradesmanship' :
+          bzType == BzType.artisan ?      'phid_artisan' :
           bzType == BzType.manufacturer ? 'phid_manufacturer' :
-          bzType == BzType.supplier ?     'phid_suppliers' :
-          '##Builder';
+          bzType == BzType.supplier ?     'phid_supplier' :
+          'phid_bldr';
       }
 
     }

@@ -647,7 +647,6 @@ class Formers {
     if (canValidate == true){
 
       if (draft?.flyerType == null){
-        /// '##Select The flyer type to help people find it'
         _message = Verse.transBake(context, 'phid_select_flyer_type_to_help_classification');
       }
 
