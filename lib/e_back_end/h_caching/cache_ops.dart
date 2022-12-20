@@ -84,7 +84,7 @@ class CacheOps {
     blog('wipeCaches : CLEANING ALL CACHES');
 
     await Future.wait(<Future>[
-      CacheOps.clearTempDirectoryCache(),
+      // CacheOps.clearTempDirectoryCache(),
       // CacheOps.clearAppDocsDirectory(), // this closes LDB
       CacheOps.clearCacheByManager(),
     ]);

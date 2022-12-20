@@ -64,9 +64,11 @@ class _FutureFlyerState extends State<FutureFlyer> {
         );
 
         if (_flyer != null) {
-          setState(() {
-            _flyerModel = _flyer;
-          });
+          if (mounted == true){
+            setState(() {
+              _flyerModel = _flyer;
+            });
+          }
         }
 
         else {

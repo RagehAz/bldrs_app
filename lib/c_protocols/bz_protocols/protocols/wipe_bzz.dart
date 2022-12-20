@@ -17,7 +17,6 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
@@ -50,8 +49,8 @@ class WipeBzProtocols {
       unawaited(WaitDialog.showWaitDialog(
         context: context,
         loadingVerse: Verse(
-          text: '${xPhrase(context, 'phid_deleting')} ${bzModel.name}',
-          translate: true,
+          text: '${Verse.transBake(context, 'phid_deleting')} ${bzModel.name}',
+          translate: false,
           variables: bzModel.name,
         ),
       ));

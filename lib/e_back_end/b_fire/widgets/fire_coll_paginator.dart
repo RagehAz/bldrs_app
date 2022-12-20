@@ -247,7 +247,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       }
 
       else {
-        _canKeepReading.value = false;
+        setNotifier(
+            notifier: _canKeepReading,
+            mounted: mounted,
+            value: false
+        );
       }
 
     }

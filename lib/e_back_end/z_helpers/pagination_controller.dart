@@ -170,6 +170,7 @@ class PaginationController {
       _setStartAfter(
         startAfter: startAfter,
         paginatorMaps: _combinedMaps,
+        mounted: mounted,
       );
 
     }
@@ -224,6 +225,7 @@ class PaginationController {
       _setStartAfter(
         startAfter: controller.startAfter,
         paginatorMaps: controller.paginatorMaps.value,
+        mounted: mounted,
       );
 
     }
@@ -284,6 +286,7 @@ class PaginationController {
       _setStartAfter(
         startAfter: startAfter,
         paginatorMaps: paginatorMaps.value,
+        mounted: mounted,
       );
 
     }
@@ -345,14 +348,25 @@ class PaginationController {
   static void _setStartAfter({
     @required ValueNotifier<dynamic> startAfter,
     @required List<Map<String, dynamic>> paginatorMaps,
+    @required bool mounted,
   }){
 
     if (Mapper.checkCanLoopList(paginatorMaps) == true){
-      startAfter.value = paginatorMaps?.last['docSnapshot'] ?? paginatorMaps.last;
+
+      setNotifier(
+          notifier: startAfter,
+          mounted: mounted,
+          value: paginatorMaps?.last['docSnapshot'] ?? paginatorMaps.last
+      );
+
     }
 
     else {
-      startAfter.value = null;
+      setNotifier(
+          notifier: startAfter,
+          mounted: mounted,
+          value: null,
+      );
     }
 
   }
@@ -428,6 +442,7 @@ class PaginationController {
     _setStartAfter(
       startAfter: controller.startAfter,
       paginatorMaps: maps,
+      mounted: mounted,
     );
 
   }
