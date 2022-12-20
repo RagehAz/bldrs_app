@@ -52,18 +52,9 @@ free zone
  = 150'000 EGP
 
 malak2817
-
 28 17 90 3030
 http://mhiptv.com:8888
 
-  MAKKAR TALK
-
-  - it would be nice if you would like to contribute in Bldrs
-      - contribution form
-        - as ambassador
-        - as investor
-        - as fund raiser
-        -
 
   siliconValleyBank.com
 
