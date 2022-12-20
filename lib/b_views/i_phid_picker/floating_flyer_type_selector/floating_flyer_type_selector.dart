@@ -49,6 +49,9 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
           context: context,
           listen: false,
       );
+
+      _cityPhidsModel?.blogCityPhidsModel(invoker: 'floating shit');
+
       final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
           context: context,
           onlyUseCityChains: true,
