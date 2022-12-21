@@ -19,6 +19,7 @@ Future<void> onSearchUsers({
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<bool> loading,
   @required List<String> userIDsToExclude,
+  @required bool mounted,
 }) async {
 
   blog('starting onSearchUsers : text : $text');
@@ -26,11 +27,12 @@ Future<void> onSearchUsers({
   TextCheck.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
+    mounted: mounted,
   );
 
   if (isSearching.value == true){
 
-    loading.value = true;
+    setNotifier(notifier: loading, mounted: mounted, value: true);
 
     final String _fixedText = TextMod.fixSearchText(text);
 
@@ -40,14 +42,14 @@ Future<void> onSearchUsers({
       userIDsToExclude: userIDsToExclude,
     );
 
-    foundUsers.value = _users;
+    setNotifier(notifier: foundUsers, mounted: mounted, value: _users);
 
     UserModel.blogUsersModels(
       invoker: 'onSearchUsers : text : $_fixedText',
       usersModels: _users,
     );
 
-    loading.value = false;
+    setNotifier(notifier: loading, mounted: mounted, value: false);
 
   }
 

@@ -14,6 +14,7 @@ class UsersPage extends StatelessWidget {
     @required this.scrollController,
     @required this.pageController,
     @required this.selectedUser,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class UsersPage extends StatelessWidget {
   final ScrollController scrollController;
   final PageController pageController;
   final ValueNotifier<UserModel> selectedUser;
+  final bool mounted;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class UsersPage extends StatelessWidget {
                   userModel: users[index],
                   pageController: pageController,
                   selectedUserModel: selectedUser,
+                  mounted: mounted,
                 ),
               );
 

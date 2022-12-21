@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,11 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
       }
     }
 
-      _canNavigate.value = false;
+    setNotifier(
+        notifier: _canNavigate,
+        mounted: mounted,
+        value: false,
+    );
 
   }
   // --------------------

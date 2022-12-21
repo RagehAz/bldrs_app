@@ -111,6 +111,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 context: context,
                 flyerModel: flyer,
                 controller: _paginatorController,
+                mounted: mounted,
               ),
             );
 

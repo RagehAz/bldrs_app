@@ -1,6 +1,7 @@
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBarModel {
@@ -52,6 +53,7 @@ class ProgressBarModel {
     @required BuildContext context,
     @required int newIndex,
     @required ValueNotifier<ProgressBarModel> progressBarModel,
+    @required bool mounted,
   }){
 
     /// A - if Keyboard is active
@@ -61,6 +63,7 @@ class ProgressBarModel {
         context: context,
         progressBarModel: progressBarModel,
         newIndex: newIndex,
+        mounted: mounted,
         // syncFocusScope: true,
       );
 
@@ -73,6 +76,7 @@ class ProgressBarModel {
         progressBarModel: progressBarModel,
         newIndex: newIndex,
         syncFocusScope: false,
+        mounted: mounted,
       );
     }
 
@@ -83,6 +87,7 @@ class ProgressBarModel {
     @required BuildContext context,
     @required ValueNotifier<ProgressBarModel> progressBarModel,
     @required int newIndex,
+    @required bool mounted,
     bool syncFocusScope = true,
     int numberOfPages,
   }){
@@ -102,10 +107,14 @@ class ProgressBarModel {
 
     }
 
-    progressBarModel.value = progressBarModel.value.copyWith(
-      swipeDirection: _direction,
-      index: newIndex,
-      numberOfStrips: numberOfPages,
+    setNotifier(
+        notifier: progressBarModel,
+        mounted: mounted,
+        value: progressBarModel.value.copyWith(
+          swipeDirection: _direction,
+          index: newIndex,
+          numberOfStrips: numberOfPages,
+        ),
     );
 
   }

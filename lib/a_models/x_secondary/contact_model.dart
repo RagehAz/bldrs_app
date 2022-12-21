@@ -805,7 +805,7 @@ class ContactModel {
     if (contact1 != null && contact2 != null){
 
       if (
-      contact1.value == contact2.value &&
+          contact1.value  == contact2.value &&
           contact1.type == contact2.type &&
           contact1?.controller?.text == contact2?.controller?.text
       ){

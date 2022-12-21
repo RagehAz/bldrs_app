@@ -32,6 +32,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.filterModel,
     @required this.appBarType,
     @required this.globalKey,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,6 +44,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<ImageFilterModel> filterModel;
   final AppBarType appBarType;
   final GlobalKey globalKey;
+  final bool mounted;
   // --------------------
   ///
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
@@ -110,6 +112,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                   flyerBoxHeight: _flyerBoxHeight,
                   slide: _slide,
                   isTransforming: isTransforming,
+                  mounted: mounted,
                 ),
 
                 /// SLIDE SHADOW
@@ -174,6 +177,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                   onChanged: (String text) => onSlideHeadlineChanged(
                                     draftSlide: draftSlide,
                                     text: text,
+                                    mounted: mounted,
                                   ),
                                   textWeight: VerseWeight.bold,
                                   textShadow: true,

@@ -95,6 +95,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       isSearching: _isSearching,
       foundCurrencies: _foundCurrencies,
       pageController: _pageController,
+      mounted: mounted,
     );
   }
   // --------------------
@@ -145,8 +146,14 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       pyramidsAreOn: true,
       skyType: SkyType.black,
       onSearchCancelled: (){
+
         // _searchController.text = '';
-        _isSearching.value = false;
+        setNotifier(
+            notifier: _isSearching,
+            mounted: mounted,
+            value: false,
+        );
+
       },
       layoutWidget: ValueListenableBuilder(
         valueListenable: _isSearching,
@@ -318,7 +325,13 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                                 translate: true,
                               ),
                               onTap: (){
-                                _showAllCurrencies.value = !_showAllCurrencies.value;
+
+                                setNotifier(
+                                    notifier: _showAllCurrencies,
+                                    mounted: mounted,
+                                    value: !_showAllCurrencies.value
+                                );
+
                               },
                             );
                           }

@@ -26,6 +26,7 @@ Future<void> onFlyerOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required PaginationController controller,
+  @required bool mounted,
 }) async {
   // ---------
   flyerModel.blogFlyer();
@@ -93,6 +94,7 @@ Future<void> onFlyerOptionsTap({
                     context: context,
                     flyerModel: flyerModel,
                     controller: controller,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -114,6 +116,7 @@ Future<void> onFlyerOptionsTap({
                     context: context,
                     flyerModel: flyerModel,
                     controller: controller,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -130,6 +133,7 @@ Future<void> onFlyerOptionsTap({
                     context: context,
                     bzID: flyerModel.bzID,
                     controller: controller,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -152,6 +156,7 @@ Future<void> _verifyFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required PaginationController controller,
+  @required bool mounted,
 }) async {
 
   /// CLOSE NAV DIALOG
@@ -172,7 +177,10 @@ Future<void> _verifyFlyer({
     );
 
     /// REMOVE FROM LOCAL PAGINATOR FLYERS
-    controller.deleteMapByID(id: flyerModel.id);
+    controller.deleteMapByID(
+      id: flyerModel.id,
+      mounted: mounted,
+    );
 
   }
 
@@ -193,6 +201,7 @@ Future<void> _verifyBz({
   @required BuildContext context,
   @required String bzID,
   @required PaginationController controller,
+  @required bool mounted,
 }) async {
 
   final bool _canDelete = await Dialogs.confirmProceed(
@@ -210,6 +219,7 @@ Future<void> _verifyBz({
 
     controller.removeMapsByIDs(
       ids: FlyerModel.getFlyersIDsFromFlyers(_verifiedFlyers),
+      mounted: mounted,
     );
 
   }
@@ -239,6 +249,7 @@ Future<void> _deleteFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required PaginationController controller,
+  @required bool mounted,
 }) async {
 
   final bool _canDelete = await Dialogs.confirmProceed(
@@ -261,7 +272,10 @@ Future<void> _deleteFlyer({
     );
 
     /// UPDATE PAGINATOR
-    controller.deleteMapByID(id: flyerModel.id);
+    controller.deleteMapByID(
+      id: flyerModel.id,
+      mounted: mounted,
+    );
 
   }
 

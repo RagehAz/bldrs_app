@@ -23,6 +23,7 @@ Future<void> onChainsSearchChanged({
   @required ValueNotifier<String> searchText,
   @required List<String> phidsOfAllPickers,
   @required List<Chain> chains,
+  @required bool mounted,
 }) async {
 
   blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
@@ -30,6 +31,7 @@ Future<void> onChainsSearchChanged({
   TextCheck.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
+    mounted: mounted,
     onResume: () => onSearchChains(
       context: context,
       foundChains: foundChains,
@@ -38,9 +40,11 @@ Future<void> onChainsSearchChanged({
       text: text,
       phidsOfAllPickers: phidsOfAllPickers,
       chains: chains,
+      mounted: mounted,
     ),
     onSwitchOff: () => _clearSearchResult(
       foundChains: foundChains,
+      mounted: mounted,
     ),
   );
 
@@ -59,9 +63,10 @@ Future<void> onSearchChains({
   @required ValueNotifier<String> searchText,
   @required List<String> phidsOfAllPickers,
   @required List<Chain> chains,
+  @required bool mounted,
 }) async {
 
-  searchText.value = text;
+  setNotifier(notifier: searchText, mounted: mounted, value: text);
 
   final List<String> _phids = await _searchKeywordsPhrases(
     text: text,
@@ -101,6 +106,7 @@ Future<void> onSearchChains({
     context: context,
     foundChainsResult: ChainPathConverter.createChainsFromPaths(paths: _combinedPaths),
     foundChainsNotifier: foundChains,
+    mounted: mounted,
   );
 
 }
@@ -234,19 +240,28 @@ Future<void> _setFoundResults({
   @required BuildContext context,
   @required ValueNotifier<List<Chain>> foundChainsNotifier,
   @required List<Chain> foundChainsResult,
+  @required bool mounted,
 }) async {
 
   /// found results
   if (Mapper.checkCanLoopList(foundChainsResult) == true) {
 
-    foundChainsNotifier.value = foundChainsResult;
+    setNotifier(
+        notifier: foundChainsNotifier,
+        mounted: mounted,
+        value: foundChainsResult,
+    );
 
   }
 
   /// did not find results
   else {
 
-    foundChainsNotifier.value = <Chain>[];
+    setNotifier(
+        notifier: foundChainsNotifier,
+        mounted: mounted,
+        value: <Chain>[],
+    );
 
   }
 
@@ -259,9 +274,14 @@ Future<void> _setFoundResults({
 /// TESTED : WORKS PERFECT
 void _clearSearchResult({
   @required ValueNotifier<List<Chain>> foundChains,
+  @required bool mounted,
 }){
 
-  foundChains.value = <Chain>[];
+  setNotifier(
+      notifier: foundChains,
+      mounted: mounted,
+      value: <Chain>[],
+  );
 
 }
 // -----------------------------------------------------------------------------

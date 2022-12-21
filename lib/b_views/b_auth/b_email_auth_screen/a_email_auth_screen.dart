@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class EmailAuthScreen extends StatefulWidget {
@@ -59,7 +60,13 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // -----------------------------------------------------------------------------
   void _switchSignIn() {
     _formKey.currentState.reset();
-    _isSigningIn.value = !_isSigningIn.value;
+
+    setNotifier(
+        notifier: _isSigningIn,
+        mounted: mounted,
+        value: !_isSigningIn.value,
+    );
+
   }
   // --------------------
   Future<void> _onSignin() async {

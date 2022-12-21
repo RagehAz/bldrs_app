@@ -175,7 +175,8 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
                           onNoteOptionsTap: () => onNoteTap(
                             context: context,
                             note: _noteModel,
-                            loading: _loading
+                            loading: _loading,
+                            mounted: mounted,
                           ),
                           onCardTap: () => _noteModel.blogNoteModel(
                               invoker: 'Notes viewer'

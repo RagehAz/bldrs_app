@@ -90,7 +90,7 @@ class _StreamingTestState extends State<StreamingTest> {
     blog('streamed map new :-');
     Mapper.blogMap(newMaw);
 
-    // _localMaps.value = newMaps;
+    // _localMaps.value  = newMaps;
 
     // final bool _result = await CenterDialog.showCenterDialog(
     //   context: context,
@@ -100,7 +100,7 @@ class _StreamingTestState extends State<StreamingTest> {
     // );
     //
     // if (_result == true){
-    //   _localMaps.value = newMaps;
+    //   _localMaps.value  = newMaps;
     //   unawaited(
     //     TopDialog.showTopDialog(
     //       context: context,

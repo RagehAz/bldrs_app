@@ -24,6 +24,7 @@ class Fire{
   /// TESTED : WORKS PERFECT
   static Future<void> initializeFirestore({
     @required ValueNotifier<String> fireError,
+    @required bool mounted,
   }) async {
 
     await tryAndCatch(
@@ -40,7 +41,9 @@ class Fire{
 
         },
         onError: (String error) {
-          fireError.value = error;
+
+          setNotifier(notifier: fireError, mounted: mounted, value: error);
+
         });
 
   }

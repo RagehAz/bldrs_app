@@ -23,6 +23,7 @@ class PhrasesViewerPage extends StatelessWidget {
     @required this.idTextController,
     @required this.searchController,
     @required this.tempMixedPhrases,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +39,7 @@ class PhrasesViewerPage extends StatelessWidget {
   final TextEditingController idTextController;
   final TextEditingController searchController;
   final ValueNotifier<List<Phrase>> tempMixedPhrases;
+  final bool mounted;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -63,6 +65,7 @@ class PhrasesViewerPage extends StatelessWidget {
         context: context,
         phid: phid,
         tempMixedPhrases: tempMixedPhrases,
+        mounted: mounted,
       );
     }
     // --------------------

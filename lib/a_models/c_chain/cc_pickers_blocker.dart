@@ -114,15 +114,15 @@ class PickersBlocker {
     }
     else if (blocker1 != null && blocker2 != null){
 
+      final bool _blockersAreIdentical = Mapper.checkListsAreIdentical(
+        list1: blocker1.pickersIDsToBlock,
+        list2: blocker2.pickersIDsToBlock,
+      );
+
       if (
-
-      blocker1.value == blocker2.value &&
-
-          Mapper.checkListsAreIdentical(
-            list1: blocker1.pickersIDsToBlock,
-            list2: blocker2.pickersIDsToBlock,
-          ) == true
-
+          blocker1.value  == blocker2.value
+          &&
+          _blockersAreIdentical == true
       ){
         _areIdentical = true;
       }

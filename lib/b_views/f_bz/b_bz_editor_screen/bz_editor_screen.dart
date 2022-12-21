@@ -88,16 +88,24 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           await loadBzEditorLastSession(
             context: context,
             draftNotifier: draftNotifier,
+            mounted: mounted,
           );
         }
         // -----------------------------
         if (widget.validateOnStartup == true){
-          triggerCanValidateDraftBz(draftNotifier: draftNotifier, setTo: true,);
+          triggerCanValidateDraftBz(
+            draftNotifier: draftNotifier,
+            setTo: true,
+            mounted: mounted,
+          );
           Formers.validateForm(draftNotifier.value.formKey);
         }
         // -----------------------------
         if (mounted == true){
-          draftNotifier.addListener(() => saveBzEditorSession(draftNotifier));
+          draftNotifier.addListener(() => saveBzEditorSession(
+            draftNotifier: draftNotifier,
+            mounted: mounted,
+          ));
         }
         // -------------------------------
         await _triggerLoading(setTo: false);
@@ -159,6 +167,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           context: context,
           draftNotifier: draftNotifier,
           oldBz: widget.bzModel,
+          mounted: mounted,
         ),
       ),
       appBarRowWidgets: [
@@ -239,6 +248,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     context: context,
                     index: index,
                     draftNotifier: draftNotifier,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -264,6 +274,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     context: context,
                     index: index,
                     draftNotifier: draftNotifier,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -289,6 +300,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                   onButtonTap: (int index) => onChangeBzForm(
                     index: index,
                     draftNotifier: draftNotifier,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -316,6 +328,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     context: context,
                     draftNotifier: draftNotifier,
                     imagePickerType: imagePickerType,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -348,7 +361,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     canValidate: draft?.canValidate,
                   ),
                   onTextChanged: (String text){
-                    draftNotifier.value = draft?.copyWith(name: text,);
+
+                    setNotifier(
+                        notifier: draftNotifier,
+                        mounted: mounted,
+                        value: draft?.copyWith(name: text,),
+                    );
+
                   },
                 ),
 
@@ -377,9 +396,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     canValidate: draft?.canValidate,
                   ),
                   onTextChanged: (String text){
-                    draftNotifier.value = draft?.copyWith(
-                      about: text,
+
+                    setNotifier(
+                        notifier: draftNotifier,
+                        mounted: mounted,
+                        value: draft?.copyWith(
+                          about: text,
+                        ),
                     );
+
                   },
                 ),
 
@@ -419,6 +444,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     contactType: ContactType.phone,
                     value: text,
                     draftNotifier: draftNotifier,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -455,6 +481,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     contactType: ContactType.email,
                     value: text,
                     draftNotifier: draftNotifier,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -489,6 +516,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     contactType: ContactType.website,
                     value: text,
                     draftNotifier: draftNotifier,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -514,9 +542,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                     )
                   ],
                   onAddScope: (FlyerType flyerType) => onChangeBzScope(
-                      context: context,
-                      draftNotifier: draftNotifier,
-                      flyerType: flyerType,
+                    context: context,
+                    draftNotifier: draftNotifier,
+                    flyerType: flyerType,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -541,7 +570,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       canValidate: draft?.canValidate,
                     ),
                     onZoneChanged: (ZoneModel zone){
-                      draftNotifier.value = draft?.copyWith(zone: zone,);
+
+                      setNotifier(
+                          notifier: draftNotifier,
+                          mounted: mounted,
+                          value: draft?.copyWith(zone: zone,),
+                      );
+
                     }
                     ),
 

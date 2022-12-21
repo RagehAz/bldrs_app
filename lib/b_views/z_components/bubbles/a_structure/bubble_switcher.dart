@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
   void initState() {
     super.initState();
 
-    _isOn.value = widget.switchIsOn;
+    setNotifier(notifier: _isOn, mounted: mounted, value: widget.switchIsOn);
 
   }
   // --------------------
@@ -49,7 +50,7 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
 
     if (oldWidget.switchIsOn != widget.switchIsOn){
 
-      _isOn.value = widget.switchIsOn;
+      setNotifier(notifier: _isOn, mounted: mounted, value: widget.switchIsOn);
 
     }
 
@@ -75,7 +76,7 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
               value: isOn,
               onChanged: (bool val){
 
-                _isOn.value = val;
+                setNotifier(notifier: _isOn, mounted: mounted, value: val);
 
                 if (widget.onSwitch != null){
                   widget.onSwitch(val);

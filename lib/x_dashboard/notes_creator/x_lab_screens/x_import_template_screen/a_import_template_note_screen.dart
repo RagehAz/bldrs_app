@@ -52,10 +52,14 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
   void initState() {
     super.initState();
 
-    _progressBarModel.value = const ProgressBarModel(
-        swipeDirection: SwipeDirection.freeze,
-        index: 0,
-        numberOfStrips: 2,
+    setNotifier(
+        notifier: _progressBarModel,
+        mounted: mounted,
+        value: const ProgressBarModel(
+          swipeDirection: SwipeDirection.freeze,
+          index: 0,
+          numberOfStrips: 2,
+        ),
     );
 
   }
@@ -70,7 +74,13 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
         final List<NoteModel> _ldbNotes = await NoteLDBOps.readAllNotes(context);
 
         if (Mapper.checkCanLoopList(_ldbNotes) == true){
-          _ldbRecentNotes.value = _ldbNotes;
+
+          setNotifier(
+              notifier: _ldbRecentNotes,
+              mounted: mounted,
+              value: _ldbNotes,
+          );
+
         }
 
         /// ---------------------------------------------------------0
@@ -108,7 +118,13 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
 
             final List<NoteModel> _ldbNotes = await NoteLDBOps.readAllNotes(context);
             if (Mapper.checkCanLoopList(_ldbNotes) == true){
-              _ldbRecentNotes.value = _ldbNotes;
+
+              setNotifier(
+                  notifier: _ldbRecentNotes,
+                  mounted: mounted,
+                  value: _ldbNotes,
+              );
+
             }
 
             },
@@ -119,9 +135,10 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
       layoutWidget: PageView(
         controller: _pageController,
         onPageChanged: (int index) => ProgressBarModel.onSwipe(
-            context: context,
-            newIndex: index,
-            progressBarModel: _progressBarModel,
+          context: context,
+          newIndex: index,
+          progressBarModel: _progressBarModel,
+          mounted: mounted,
         ),
         physics: const BouncingScrollPhysics(),
         children: <Widget>[

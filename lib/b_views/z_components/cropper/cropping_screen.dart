@@ -66,7 +66,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
   void initState() {
     super.initState();
 
-    _croppedBytezz.value = widget.bytezz;
+    setNotifier(notifier: _croppedBytezz, mounted: mounted, value: widget.bytezz);
 
     _initializeControllers();
     _statuses.addListener(() async {
@@ -170,6 +170,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
             originalBytezz: widget.bytezz,
             pageController: _pageController,
             statuses: _statuses,
+            mounted: mounted,
           ),
 
           /// CROPPER FOOTER
@@ -186,7 +187,8 @@ class _CroppingScreenState extends State<CroppingScreen> {
             },
             onImageTap: (int index) async {
 
-              _currentImageIndex.value = index;
+              setNotifier(notifier: _currentImageIndex, mounted: mounted, value: index);
+
               await _pageController.animateToPage(index,
                 duration: Ratioz.durationFading200,
                 curve: Curves.easeInOut,

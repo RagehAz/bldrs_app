@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/chains_editor/z_components/chain_tree_viewer/c_chain_tree_strip.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,13 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
   @override
   void initState() {
     super.initState();
-    _expanded.value = widget.initiallyExpanded;
+
+    setNotifier(
+        notifier: _expanded,
+        mounted: mounted,
+        value: widget.initiallyExpanded,
+    );
+
   }
   // --------------------
   @override
@@ -47,7 +54,11 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
   }
   // -----------------------------------------------------------------------------
   void _triggerExpansion(){
-    _expanded.value = !_expanded.value;
+    setNotifier(
+        notifier: _expanded,
+        mounted: mounted,
+        value: !_expanded.value,
+    );
   }
   // -----------------------------------------------------------------------------
   @override

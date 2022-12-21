@@ -167,7 +167,9 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     await Future.delayed(const Duration(milliseconds: 200), (){
 
-      _paginationController.clear();
+      _paginationController.clear(
+        mounted: mounted,
+      );
 
       setState(() {
         showNotes = true;
@@ -229,9 +231,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
                   noteModel: _note,
                   isDraftNote: false,
                   onNoteOptionsTap: () => onShowNoteOptions(
-                      context: context,
-                      noteModel: _note,
-                      paginationController: _paginationController,
+                    context: context,
+                    noteModel: _note,
+                    paginationController: _paginationController,
+                    mounted: mounted,
                   ),
                   onCardTap: _onNoteTap(_note),
                 );

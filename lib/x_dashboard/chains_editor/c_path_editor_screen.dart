@@ -17,6 +17,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
@@ -214,10 +215,10 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
     if (_keyboardModel.validator != null){
 
       if (_keyboardModel.validator(_controller.text) == null){
-        _canSubmit.value = true;
+        setNotifier(notifier: _canSubmit, mounted: mounted, value: true);
       }
       else {
-        _canSubmit.value = false;
+        setNotifier(notifier: _canSubmit, mounted: mounted, value: false);
       }
 
     }

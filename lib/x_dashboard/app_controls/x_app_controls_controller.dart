@@ -11,11 +11,17 @@ Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
   @required BuildContext context,
   @required ValueNotifier<AppControlsModel> appControlsModel,
   @required bool value,
+  @required bool mounted,
 }) async {
 
   blog('switch switchWallFlyersAuditState');
-  appControlsModel.value = appControlsModel.value.copyWith(
-    showOnlyVerifiedFlyersInHomeWall: value,
+
+  setNotifier(
+      notifier: appControlsModel,
+      mounted: mounted,
+      value: appControlsModel.value.copyWith(
+        showOnlyVerifiedFlyersInHomeWall: value,
+      ),
   );
 
   await AppControlsRealOps.updateGlobalAppControls(

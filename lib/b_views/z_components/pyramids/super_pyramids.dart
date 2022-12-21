@@ -13,6 +13,7 @@ class SuperPyramids extends StatelessWidget {
     @required this.onExpansion,
     @required this.isExpanded,
     @required this.navModels,
+    @required this.mounted,
     this.isYellow = false,
     Key key
   }) : super(key: key);
@@ -23,6 +24,7 @@ class SuperPyramids extends StatelessWidget {
   final ValueChanged<int> onRowTap;
   final List<NavModel> navModels;
   final bool isYellow;
+  final bool mounted;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class SuperPyramids extends StatelessWidget {
         ObeliskPyramids(
           isExpanded: isExpanded,
           isYellow: isYellow,
+          mounted: mounted,
         ),
 
       ],

@@ -121,7 +121,8 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
     if (bytes != null){
 
-      _loading.value = true;
+      setNotifier(notifier: _loading, mounted: mounted, value: true);
+
       stopWatchController.start();
 
       final File _filed = await Filers.getFileFromUint8List(uInt8List: bytes, fileName: 'bitch');
@@ -139,15 +140,14 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         imgImage = _imgImage;
         // _ldbBase64 = _base64FromLDB;
         // _ldbInts = _ldbIntsFromLDB;
-
         _imageSize = _size;
       });
 
-      _loading.value = false;
+      setNotifier(notifier: _loading, mounted: mounted, value: false);
+
       stopWatchController.pause();
 
     }
-
 
   }
   // --------------------
@@ -158,7 +158,6 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       uiImage = null;
       imgImage = null;
       _ldbBase64 = null;
-
       _imageSize = null;
       isLoading = false;
     });

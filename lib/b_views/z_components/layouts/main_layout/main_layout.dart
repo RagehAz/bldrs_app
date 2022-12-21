@@ -9,6 +9,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -92,6 +93,7 @@ class MainLayout extends StatelessWidget {
     @required TextEditingController controller,
     @required ValueNotifier<dynamic> foundResultNotifier,
     @required ValueNotifier<bool> isSearching,
+    @required bool mounted,
   }){
 
     Keyboard.closeKeyboard(context);
@@ -99,11 +101,19 @@ class MainLayout extends StatelessWidget {
       controller?.text = '';
 
     if (foundResultNotifier != null){
-      foundResultNotifier.value = null;
+      setNotifier(
+          notifier: foundResultNotifier,
+          mounted: mounted,
+          value: null
+      );
     }
 
     if (isSearching != null){
-      isSearching.value = false;
+      setNotifier(
+          notifier: isSearching,
+          mounted: mounted,
+          value: false
+      );
     }
 
   }

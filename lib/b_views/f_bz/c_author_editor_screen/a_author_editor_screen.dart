@@ -81,7 +81,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void initState() {
     super.initState();
 
-    _draftAuthor.value = widget.author;
+    setNotifier(notifier: _draftAuthor, mounted: mounted, value: widget.author);
 
   }
   // --------------------
@@ -237,6 +237,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         bzModel: widget.bzModel,
                         imagePickerType: imagePickerType,
                         canPickImage: _canPickImage,
+                        mounted: mounted,
                       ),
                     ),
                   ),
@@ -269,6 +270,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     onTextChanged: (String text) => onAuthorNameChanged(
                       tempAuthor: _draftAuthor,
                       text: text,
+                      mounted: mounted,
                     ),
                     // autoValidate: true,
                     validator: (String text) => Formers.personNameValidator(
@@ -299,6 +301,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     onTextChanged: (String text) => onAuthorTitleChanged(
                       text: text,
                       tempAuthor: _draftAuthor,
+                      mounted: mounted,
                     ),
                     initialText: authorModel.title,
                     validator: (String text) => Formers.jobTitleValidator(
@@ -335,6 +338,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       contactType: ContactType.phone,
                       value: text,
                       tempAuthor: _draftAuthor,
+                      mounted: mounted,
                     ),
                     validator: (String text) => Formers.contactsPhoneValidator(
                       contacts: authorModel.contacts,
@@ -371,6 +375,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       contactType: ContactType.email,
                       value: text,
                       tempAuthor: _draftAuthor,
+                      mounted: mounted,
                     ),
                     canPaste: false,
                     validator: (String text) => Formers.contactsEmailValidator(

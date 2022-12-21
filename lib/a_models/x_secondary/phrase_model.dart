@@ -970,7 +970,7 @@ class Phrase {
 
       for (final Phrase phrase in phrases){
 
-        if (phrase.value == value){
+        if (phrase.value  == value){
           _phrase = phrase;
           break;
         }
@@ -1135,9 +1135,9 @@ class Phrase {
       for (final Phrase secondPhrase in phrases){
 
         final bool _found =
-            firstPhrase?.id == secondPhrase?.id
+                firstPhrase?.id == secondPhrase?.id
                 &&
-                firstPhrase?.value == secondPhrase?.value
+                firstPhrase?.value  == secondPhrase?.value
                 &&
                 firstPhrase?.langCode == secondPhrase?.langCode;
 

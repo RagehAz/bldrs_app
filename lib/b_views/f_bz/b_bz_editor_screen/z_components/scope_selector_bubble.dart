@@ -247,7 +247,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                 //                 :
                 //             BzModel.getBzTypeIconOff(_bzType),
                 //             onTap: (){
-                //               _selectedBzType.value = _bzType;
+                //               _selectedBzType.value  = _bzType;
                 //             },
                 //           );
                 //

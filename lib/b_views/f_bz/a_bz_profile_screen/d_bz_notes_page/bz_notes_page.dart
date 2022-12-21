@@ -169,8 +169,8 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
     await Future.delayed(const Duration(milliseconds: 200), (){
 
-      _paginationController.paginatorMaps.value = [];
-      _paginationController.startAfter.value = null;
+      setNotifier(notifier: _paginationController.paginatorMaps, mounted: mounted, value: []);
+      setNotifier(notifier: _paginationController.startAfter, mounted: mounted, value: null);
 
       setState(() {
         showNotes = true;
