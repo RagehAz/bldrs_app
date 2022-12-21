@@ -1,9 +1,10 @@
 import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CityPhidsRealOps {
@@ -39,6 +40,28 @@ class CityPhidsRealOps {
     }
 
     return _cityChain;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<CityPhidsModel> readCityPhidsOfCurrentZone({
+    @required BuildContext context,
+  }) async {
+    CityPhidsModel _cityPhidCounters;
+
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: false,
+    );
+
+    if (_currentZone != null){
+
+      _cityPhidCounters = await CityPhidsRealOps.readCityPhids(
+        cityID: _currentZone.cityID,
+      );
+
+    }
+
+    return _cityPhidCounters;
   }
   // -----------------------------------------------------------------------------
 
@@ -94,7 +117,7 @@ class CityPhidsRealOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateFlyerCityPhidsUsage({
+  static Future<void> onRenovateFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required FlyerModel oldFlyer,
@@ -110,34 +133,53 @@ class CityPhidsRealOps {
           list2: _newPhids,
       );
 
-      if (_areIdentical == false){
+      final bool _zonesAreIdentical = ZoneModel.checkZonesIDsAreIdentical(
+          zone1: flyerModel.zone,
+          zone2: oldFlyer.zone,
+      );
 
-        /// GET REMOVED PHIDS
-        final List<String> _removedPhids = Stringer.getRemovedStrings(
-            oldStrings: _oldPhids,
-            newStrings: _newPhids
-        );
+      if (_areIdentical == false || _zonesAreIdentical == false){
 
-        /// GET NEW PHIDS
-        final List<String> _addedPhids = Stringer.getAddedStrings(
-            oldStrings: _oldPhids,
-            newStrings: _newPhids
-        );
-
-        /// CREATE INCREMENTATION MAP
-        final Map<String, dynamic> _incrementationMap = CityPhidsModel.createIncrementationMap(
-            removedPhids: _removedPhids,
-            addedPhids: _addedPhids,
-        );
-
-        /// INCREMENT VALUES OPS
-        await Real.incrementDocFields(
+        /// DECREMENT OLD PHIDS
+        await incrementFlyerCityPhids(
           context: context,
-          collName: RealColl.citiesPhids,
-          docName: flyerModel.zone.cityID,
-          incrementationMap: _incrementationMap,
+          flyerModel: oldFlyer,
+          isIncrementing: false,
+        );
+
+        /// INCREMENT NEW PHIDS
+        await incrementFlyerCityPhids(
+          context: context,
+          flyerModel: flyerModel,
           isIncrementing: true,
         );
+
+        // /// GET REMOVED PHIDS
+        // final List<String> _removedPhids = Stringer.getRemovedStrings(
+        //     oldStrings: _oldPhids,
+        //     newStrings: _newPhids
+        // );
+        //
+        // /// GET NEW PHIDS
+        // final List<String> _addedPhids = Stringer.getAddedStrings(
+        //     oldStrings: _oldPhids,
+        //     newStrings: _newPhids
+        // );
+        //
+        // /// CREATE INCREMENTATION MAP
+        // final Map<String, dynamic> _incrementationMap = CityPhidsModel.createIncrementationMap(
+        //     removedPhids: _removedPhids,
+        //     addedPhids: _addedPhids,
+        // );
+        //
+        // /// INCREMENT VALUES OPS
+        // await Real.incrementDocFields(
+        //   context: context,
+        //   collName: RealColl.citiesPhids,
+        //   docName: flyerModel.zone.cityID,
+        //   incrementationMap: _incrementationMap,
+        //   isIncrementing: true,
+        // );
 
       }
 

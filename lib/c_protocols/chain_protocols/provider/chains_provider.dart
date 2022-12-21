@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
+import 'package:bldrs/c_protocols/city_phids_protocols/real/city_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/protocols/picker_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -331,7 +332,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final CityPhidsModel _cityPhidsModel = await ChainProtocols.readCityPhidsOfCurrentZone(
+    final CityPhidsModel _cityPhidsModel = await CityPhidsRealOps.readCityPhidsOfCurrentZone(
       context: context,
     );
 
