@@ -103,10 +103,14 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     // ---
     _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
     // ---
-    _isExpanded.value = PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded;
-
-    if (_isExpanded.value == true) {
-      _controller.value = 1.0;
+    setNotifier(
+        notifier: _isExpanded,
+        mounted: mounted,
+        value: PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded,
+    );
+    // ---
+    if (_isExpanded.value  == true) {
+      _controller.value  = 1.0;
     }
     // ---
   }

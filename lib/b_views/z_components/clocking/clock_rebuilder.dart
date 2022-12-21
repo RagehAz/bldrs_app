@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 
@@ -46,10 +47,16 @@ class _ClockRebuilderState extends State<ClockRebuilder> {
       await Future.delayed(_duration, () async {
 
         if (mounted){
-          timeDifference.value = Timers.calculateTimeDifferenceInSeconds(
-              from: widget.startTime,
-              to: DateTime.now(),
+
+          setNotifier(
+              notifier: timeDifference,
+              mounted: mounted,
+              value: Timers.calculateTimeDifferenceInSeconds(
+                from: widget.startTime,
+                to: DateTime.now(),
+              ),
           );
+
           await startClockRebuilder();
         }
 

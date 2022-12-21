@@ -121,7 +121,7 @@ void setNotifier({
 
           if (addPostFrameCallBack == true){
             WidgetsBinding.instance.addPostFrameCallback((_){
-              notifier.value = value;
+              notifier.value  = value;
               if(onFinish != null){
                 onFinish();
               }
@@ -129,7 +129,7 @@ void setNotifier({
           }
 
           else {
-            notifier.value = value;
+            notifier.value  = value;
             if(onFinish != null){
               onFinish();
             }

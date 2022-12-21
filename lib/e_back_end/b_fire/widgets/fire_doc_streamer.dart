@@ -82,14 +82,12 @@ class FireDocStreamer extends StatefulWidget {
 class _FireDocStreamerState extends State<FireDocStreamer> {
   // -----------------------------------------------------------------------------
   Stream<DocumentSnapshot<Object>> _stream;
-  ValueNotifier<Map<String, dynamic>> _oldMap;
+  final ValueNotifier<Map<String, dynamic>> _oldMap = ValueNotifier<Map<String, dynamic>>(null);
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
-    _oldMap = ValueNotifier<Map<String, dynamic>>(null);
 
     _stream = Fire.streamDoc(
       collName: widget.collName,
@@ -102,19 +100,16 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
       stream: _stream,
       oldMap: _oldMap.value,
       mounted: mounted,
-      onChange:
-      widget.onDataChanged == null ? null
-          :
-          (Map<String, dynamic> oldMap, Map<String, dynamic> newMap){
-
-        if (mounted == true){
-          widget.onDataChanged(context, oldMap, newMap);
-          _oldMap.value = oldMap;
-        }
-
-        },
+      onChange: widget.onDataChanged == null ? null : _onChanged,
     );
 
+  }
+  // --------------------
+  void _onChanged (Map<String, dynamic> oldMap, Map<String, dynamic> newMap){
+    if (mounted == true){
+      widget.onDataChanged(context, oldMap, newMap);
+      setNotifier(notifier: _oldMap, mounted: mounted, value: oldMap);
+    }
   }
   // --------------------
   @override

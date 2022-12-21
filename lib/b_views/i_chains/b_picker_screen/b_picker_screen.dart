@@ -62,7 +62,13 @@ class _PickerScreenState extends State<PickerScreen> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _tempSpecs.value = widget.selectedSpecs.value;
+
+    setNotifier(
+        notifier: _tempSpecs,
+        mounted: mounted,
+        value: widget.selectedSpecs.value,
+    );
+
     super.initState();
   }
   // --------------------
@@ -156,6 +162,7 @@ class _PickerScreenState extends State<PickerScreen> {
         controller: _searchController,
         foundResultNotifier: null,
         isSearching: null,
+        mounted: mounted,
       ),
       searchHintVerse: const Verse(text: 'phid_search_keywords', translate: true),
       // appBarBackButton: true,
@@ -197,9 +204,11 @@ class _PickerScreenState extends State<PickerScreen> {
             specs: specs,
             picker: widget.picker,
             selectedSpecs: _tempSpecs,
+            mounted: mounted,
           ),
           onPhidTap: (String path, String phid) => onSelectPhidInPickerScreen(
             context: context,
+            mounted: mounted,
             phid: phid,
             selectedSpecsNotifier: _tempSpecs,
             isMultipleSelectionMode: widget.isMultipleSelectionMode,

@@ -31,6 +31,7 @@ import 'package:flutter/material.dart';
 Future<void> loadFlyerMakerLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
+  @required bool mounted,
 }) async {
 
   final DraftFlyer _lastSessionDraft = await FlyerLDBOps.loadFlyerMakerSession(
@@ -57,12 +58,17 @@ Future<void> loadFlyerMakerLastSession({
       draft.value.headline.text = _lastSessionDraft.headline.text;
       _lastSessionDraft.headline.dispose();
 
-      draft.value = _lastSessionDraft.copyWith(
-        headlineNode: draft.value.headlineNode,
-        descriptionNode: draft.value.descriptionNode,
-        formKey: draft.value.formKey,
-        headline: draft.value.headline,
+      setNotifier(
+          notifier: draft,
+          mounted: mounted,
+          value: _lastSessionDraft.copyWith(
+            headlineNode: draft.value.headlineNode,
+            descriptionNode: draft.value.descriptionNode,
+            formKey: draft.value.formKey,
+            headline: draft.value.headline,
+          ),
       );
+
 
     }
 
@@ -122,12 +128,17 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 void onUpdateFlyerHeadline({
   @required ValueNotifier<DraftFlyer> draftNotifier,
   @required String text,
+  @required bool mounted,
 }){
 
-  draftNotifier.value = DraftFlyer.updateHeadline(
-    draft: draftNotifier.value,
-    newHeadline: text,
-    slideIndex: 0,
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: DraftFlyer.updateHeadline(
+        draft: draftNotifier.value,
+        newHeadline: text,
+        slideIndex: 0,
+      ),
   );
 
 }
@@ -136,10 +147,17 @@ void onUpdateFlyerHeadline({
 void onUpdateFlyerDescription({
   @required ValueNotifier<DraftFlyer> draftNotifier,
   @required String text,
+  @required bool mounted,
 }) {
-  draftNotifier.value = draftNotifier.value.copyWith(
-    description: text,
+
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        description: text,
+      ),
   );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -147,6 +165,7 @@ Future<void> onSelectFlyerType({
   @required BuildContext context,
   @required int index,
   @required ValueNotifier<DraftFlyer> draftNotifier,
+  @required bool mounted,
 }) async {
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
@@ -182,9 +201,14 @@ Future<void> onSelectFlyerType({
     }
 
     if (_canUpdate == true){
-      draftNotifier.value = draftNotifier.value.copyWith(
-        flyerType: _selectedFlyerType,
-        specs: <SpecModel>[],
+
+      setNotifier(
+          notifier: draftNotifier,
+          mounted: mounted,
+          value: draftNotifier.value.copyWith(
+            flyerType: _selectedFlyerType,
+            specs: <SpecModel>[],
+          ),
       );
 
     }
@@ -197,6 +221,7 @@ Future<void> onSelectFlyerType({
 Future<void> onAddSpecsToDraftTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
+  @required bool mounted,
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(
@@ -220,8 +245,12 @@ Future<void> onAddSpecsToDraftTap({
 
     SpecModel.blogSpecs(_receivedSpecs);
 
-    draft.value = draft.value.copyWith(
-      specs: _receivedSpecs,
+    setNotifier(
+        notifier: draft,
+        mounted: mounted,
+        value: draft.value.copyWith(
+          specs: _receivedSpecs,
+        ),
     );
 
   }
@@ -233,10 +262,15 @@ Future<void> onZoneChanged({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draftNotifier,
   @required ZoneModel zone,
+  @required bool mounted,
 }) async {
 
-  draftNotifier.value = draftNotifier.value.copyWith(
-    zone: zone,
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        zone: zone,
+      ),
   );
 
 }
@@ -245,10 +279,15 @@ Future<void> onZoneChanged({
 void onChangeFlyerPDF({
   @required PDFModel pdfModel,
   @required ValueNotifier<DraftFlyer> draftNotifier,
+  @required bool mounted,
 }){
 
-  draftNotifier.value = draftNotifier.value.copyWith(
-    pdfModel: pdfModel,
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        pdfModel: pdfModel,
+      ),
   );
 
 }
@@ -256,20 +295,32 @@ void onChangeFlyerPDF({
 /// TASK : TEST ME
 void onRemoveFlyerPDF({
   @required ValueNotifier<DraftFlyer> draftNotifier,
+  @required bool mounted,
 }){
-  draftNotifier.value = draftNotifier.value.nullifyField(
-    pdfModel: true,
+
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.nullifyField(
+        pdfModel: true,
+      ),
   );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSwitchFlyerShowsAuthor({
   @required ValueNotifier<DraftFlyer> draftNotifier,
   @required bool value,
+  @required bool mounted,
 }){
 
-  draftNotifier.value = draftNotifier.value.copyWith(
-    showsAuthor: value,
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        showsAuthor: value,
+      ),
   );
 
 }

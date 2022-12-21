@@ -101,6 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           await loadUserEditorLastSession(
             context: context,
             draft: _draftUser,
+            mounted: mounted,
             // userID: widget.userModel.id,
             // onFinish: widget.onFinish,
             // canGoBack: widget.canGoBack,
@@ -245,6 +246,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onTap: (Gender gender) => onChangeGender(
                     selectedGender: gender,
                     draft: _draftUser,
+                    mounted: mounted,
                   ),
                 ),
 
@@ -268,6 +270,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onTextChanged: (String text) => onUserNameChanged(
                     text: text,
                     draft: _draftUser,
+                    mounted: mounted,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.personNameValidator(
@@ -297,6 +300,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onTextChanged: (String text) => onUserJobTitleChanged(
                     draft: _draftUser,
                     text: text,
+                    mounted: mounted,
                   ),
                   // autoValidate: true,
                   validator: (String text) => Formers.jobTitleValidator(
@@ -327,6 +331,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onTextChanged: (String text) => onUserCompanyNameChanged(
                     text: text,
                     draft: _draftUser,
+                    mounted: mounted,
                   ),
                   validator: (String text) => Formers.companyNameValidator(
                     context: context,
@@ -363,6 +368,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     contactType: ContactType.phone,
                     value: text,
                     draft: _draftUser,
+                    mounted: mounted,
                   ),
                   canPaste: false,
                   // autoValidate: true,
@@ -401,6 +407,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     contactType: ContactType.email,
                     value: text,
                     draft: _draftUser,
+                    mounted: mounted,
                   ),
                   canPaste: false,
                   // autoValidate: true,
@@ -420,6 +427,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
                     selectedZone: zoneModel,
                     draft: _draftUser,
+                    mounted: mounted,
                   ),
                   // selectCountryAndCityOnly: true,
                   // selectCountryIDOnly: false,

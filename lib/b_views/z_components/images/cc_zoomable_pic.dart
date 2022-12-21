@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -55,13 +56,20 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
   }
   // -----------------------------------------------------------------------------
   Future<void> _resetZoom() async {
+
     final Animation<Matrix4> _reset = Matrix4Tween(
       begin: _transformationController.value,
       end: Matrix4.identity(),
     ).animate(_zoomAnimationController);
 
     _zoomAnimationController.addListener(() {
-      _transformationController.value = _reset.value;
+
+      setNotifier(
+          notifier: _transformationController,
+          mounted: mounted,
+          value: _reset.value,
+      );
+
     });
 
     _zoomAnimationController.reset();

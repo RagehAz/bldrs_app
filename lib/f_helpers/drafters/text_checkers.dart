@@ -1,5 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
@@ -490,6 +491,7 @@ class TextCheck {
   static void triggerIsSearchingNotifier({
     @required String text,
     @required ValueNotifier<bool> isSearching,
+    @required bool mounted,
     int minCharLimit = Standards.minSearchChar,
     Function onSwitchOff,
     Function onResume,
@@ -500,7 +502,7 @@ class TextCheck {
 
       /// ONLY SWITCH ON SEARCHING IF ITS NOT ALREADY ON
       if (isSearching.value != true){
-        isSearching.value = true;
+        setNotifier(notifier: isSearching, mounted: mounted, value: true);
       }
 
       /// SHOULD FIRE WITH EACH TEXT CHANGE WHILE SEARCHING
@@ -516,7 +518,7 @@ class TextCheck {
       /// ONLY SWITCH OFF SEARCHING IF ITS NOT ALREADY OFF
       if (isSearching.value != false){
 
-        isSearching.value = false;
+        setNotifier(notifier: isSearching, mounted: mounted, value: false);
 
         /// SHOULD FIRE ONCE ON SWITCHING ON EVENT
         if (onSwitchOff != null){

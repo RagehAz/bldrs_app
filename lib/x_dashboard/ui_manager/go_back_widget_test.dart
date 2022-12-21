@@ -44,7 +44,11 @@ class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
                   verse: Verse.plain(_text),
                   onTap: (){
 
-                    backWidgetIsOn.value = !backWidgetIsOn.value;
+                    setNotifier(
+                        notifier: backWidgetIsOn,
+                        mounted: mounted,
+                        value: !backWidgetIsOn.value,
+                    );
 
                   },
                 );

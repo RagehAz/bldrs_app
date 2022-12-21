@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_scr
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -19,9 +20,14 @@ Future<void> onSaveFlyer({
   @required FlyerModel flyerModel,
   @required ValueNotifier<bool> flyerIsSaved,
   @required int slideIndex,
+  @required bool mounted,
 }) async {
 
-  flyerIsSaved.value = !flyerIsSaved.value;
+  setNotifier(
+      notifier: flyerIsSaved,
+      mounted: mounted,
+      value: !flyerIsSaved.value,
+  );
 
   await UserProtocols.savingFlyerProtocol(
     context: context,

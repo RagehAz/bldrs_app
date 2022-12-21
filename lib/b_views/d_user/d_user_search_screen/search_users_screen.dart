@@ -82,7 +82,12 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       _triggerLoading(setTo: true).then((_) async {
 
         final List<UserModel> _history = await UserLDBOps.readAll();
-        _historyUsers.value = _history;
+
+        setNotifier(
+            notifier: _historyUsers,
+            mounted: mounted,
+            value: _history,
+        );
 
         await _triggerLoading(setTo: false);
       });
@@ -110,13 +115,19 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       foundUsers: _foundUsers,
       isSearching: _isSearching,
       userIDsToExclude: widget.userIDsToExcludeInSearch,
+      mounted: mounted,
     );
 
     final List<UserModel> _history = UserModel.addUniqueUsersToUsers(
       usersToGet: _historyUsers.value,
       usersToAdd: _foundUsers.value,
     );
-    _historyUsers.value = _history;
+
+    setNotifier(
+        notifier: _historyUsers,
+        mounted: mounted,
+        value: _history,
+    );
 
     await UserLDBOps.insertUsers(_history);
 
@@ -129,25 +140,42 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
       /// CAN SELECT MULTIPLE USERS
       if (widget.multipleSelection == true){
+
         final List<UserModel> _newList = UserModel.addOrRemoveUserToUsers(
           usersModels: _selectedUsers.value,
           userModel: userModel,
         );
-        _selectedUsers.value = _newList;
+
+        setNotifier(notifier: _selectedUsers, mounted: mounted, value: _newList);
+
       }
 
       /// CAN SELECT ONLY ONE USER
       else {
+
         final bool _isSelected = UserModel.checkUsersContainUser(
             usersModels: _selectedUsers.value,
             userModel: userModel
         );
 
         if (_isSelected == true){
-          _selectedUsers.value = null;
+
+          setNotifier(
+              notifier: _selectedUsers,
+              mounted: mounted,
+              value: null,
+          );
+
         }
+
         else {
-          _selectedUsers.value = <UserModel>[userModel];
+
+          setNotifier(
+              notifier: _selectedUsers,
+              mounted: mounted,
+              value:  <UserModel>[userModel],
+          );
+
         }
 
       }

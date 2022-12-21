@@ -35,7 +35,7 @@ void initializeUserEditorLocalVariables({
   @required ValueNotifier<UserModel> tempUser,
 }){
   
-  tempUser.value = oldUser;
+  tempUser.value  = oldUser;
 
 }
  */
@@ -72,6 +72,7 @@ Future<void> prepareUserForEditing({
 Future<void> loadUserEditorLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
+  @required bool mounted,
   // @required String userID,
   // @required bool reAuthBeforeConfirm,
   // @required bool canGoBack,
@@ -99,19 +100,23 @@ Future<void> loadUserEditorLastSession({
 
     if (_continue == true){
 
-      draft.value = _lastSessionDraft.copyWith(
-        nameController: draft.value.nameController,
-        titleController: draft.value.titleController,
-        companyController: draft.value.companyController,
-        emailController: draft.value.emailController,
-        phoneController: draft.value.phoneController,
-        nameNode: draft.value.nameNode,
-        titleNode: draft.value.titleNode,
-        companyNode: draft.value.companyNode,
-        emailNode: draft.value.emailNode,
-        phoneNode: draft.value.phoneNode,
-        formKey: draft.value.formKey,
-        canPickImage: true,
+      setNotifier(
+          notifier: draft,
+          mounted: mounted,
+          value: _lastSessionDraft.copyWith(
+            nameController: draft.value.nameController,
+            titleController: draft.value.titleController,
+            companyController: draft.value.companyController,
+            emailController: draft.value.emailController,
+            phoneController: draft.value.phoneController,
+            nameNode: draft.value.nameNode,
+            titleNode: draft.value.titleNode,
+            companyNode: draft.value.companyNode,
+            emailNode: draft.value.emailNode,
+            phoneNode: draft.value.phoneNode,
+            formKey: draft.value.formKey,
+            canPickImage: true,
+          ),
       );
 
       draft.value.nameController.text = _lastSessionDraft.name;
@@ -176,7 +181,7 @@ Future<void> takeUserPicture({
     /// IF DID NOT PIC ANY IMAGE
     if (_bytes == null) {
       blog('takeUserPicture : did not take user picture');
-      // picture.value = null;
+      // picture.value  = null;
       DraftUser.triggerCanPickImage(draftUser: draft, mounted: mounted, setTo: true,);
     }
 
@@ -184,17 +189,21 @@ Future<void> takeUserPicture({
     else {
       blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
 
-      draft.value = draft.value.copyWith(
-        picModel: PicModel(
-          bytes: _bytes,
-          path: Storage.generateUserPicPath(draft.value.id),
-          meta: PicMetaModel(
-            dimensions: await Dimensions.superDimensions(_bytes),
-            ownersIDs: [draft.value.id],
+      setNotifier(
+          notifier: draft,
+          mounted: mounted,
+          value: draft.value.copyWith(
+              picModel: PicModel(
+                bytes: _bytes,
+                path: Storage.generateUserPicPath(draft.value.id),
+                meta: PicMetaModel(
+                  dimensions: await Dimensions.superDimensions(_bytes),
+                  ownersIDs: [draft.value.id],
+                ),
+              ),
+              hasNewPic: true,
+              canPickImage: true
           ),
-        ),
-        hasNewPic: true,
-        canPickImage: true
       );
 
     }
@@ -207,21 +216,34 @@ Future<void> takeUserPicture({
 void onChangeGender({
   @required Gender selectedGender,
   @required ValueNotifier<DraftUser> draft,
+  @required bool mounted,
 }){
-  draft.value = draft.value.copyWith(
-    gender: selectedGender,
+
+  setNotifier(
+      notifier: draft,
+      mounted: mounted,
+      value: draft.value.copyWith(
+        gender: selectedGender,
+      )
   );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserNameChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
+  @required bool mounted,
 }){
 
-  draft.value = draft.value.copyWith(
-    name: text,
+  setNotifier(
+      notifier: draft,
+      mounted: mounted,
+      value: draft.value.copyWith(
+        name: text,
+      ),
   );
+
 
 }
 // --------------------
@@ -229,11 +251,17 @@ void onUserNameChanged({
 void onUserJobTitleChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
+  @required bool mounted,
 }){
 
-  draft.value = draft.value.copyWith(
-    title: text,
+  setNotifier(
+      notifier: draft,
+      mounted: mounted,
+      value: draft.value.copyWith(
+        title: text,
+      ),
   );
+
 
 }
 // --------------------
@@ -241,24 +269,33 @@ void onUserJobTitleChanged({
 void onUserCompanyNameChanged({
   @required ValueNotifier<DraftUser> draft,
   @required String text,
+  @required bool mounted,
 }){
-  draft.value = draft.value.copyWith(
-    company: text,
-  );
-}
 
+  setNotifier(
+      notifier: draft,
+      mounted: mounted,
+      value: draft.value.copyWith(
+        company: text,
+      ),
+  );
+
+}
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserZoneChanged({
   @required ZoneModel selectedZone,
   @required ValueNotifier<DraftUser> draft,
-}) {
+  @required bool mounted,
+}){
 
-  final DraftUser _updated = draft.value.copyWith(
-    zone: selectedZone,
+  setNotifier(
+      notifier: draft,
+      mounted: mounted,
+      value: draft.value.copyWith(
+        zone: selectedZone,
+      ),
   );
-
-  draft.value = _updated;
 
 }
 // --------------------
@@ -267,6 +304,7 @@ void onUserContactChanged({
   @required ValueNotifier<DraftUser> draft,
   @required ContactType contactType,
   @required String value,
+  @required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
@@ -277,8 +315,12 @@ void onUserContactChanged({
     ),
   );
 
-  draft.value = draft.value.copyWith(
-    contacts: _contacts,
+  setNotifier(
+      notifier: draft,
+      mounted: mounted,
+      value: draft.value.copyWith(
+        contacts: _contacts,
+      ),
   );
 
 }

@@ -90,7 +90,12 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       });
     }
 
-    _loading.value = false;
+    setNotifier(
+        notifier: _loading,
+        mounted: mounted,
+        value: false,
+    );
+
   }
   // --------------------
   List<BzModel> _searchedBzz = <BzModel>[];

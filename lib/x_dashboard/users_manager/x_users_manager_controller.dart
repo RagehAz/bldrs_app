@@ -21,6 +21,7 @@ Future<void> readMoreUsers({
   @required ValueNotifier<QueryDocumentSnapshot<Object>> lastSnapshot,
   @required ValueNotifier<List<UserModel>> usersModels,
   @required ScrollController scrollController,
+  @required bool mounted,
 }) async {
 
   final List<dynamic> _maps = await Fire.readCollectionDocs(
@@ -39,10 +40,19 @@ Future<void> readMoreUsers({
       fromJSON: false,
     );
 
+    setNotifier(
+        notifier: lastSnapshot,
+        mounted: mounted,
+        value: _maps[_maps.length - 1]['docSnapshot'],
+    );
 
-    lastSnapshot?.value = _maps[_maps.length - 1]['docSnapshot'];
     final List<UserModel> _newUsers = <UserModel>[...usersModels.value, ..._fetchedModel];
-    usersModels.value = _newUsers;
+
+    setNotifier(
+        notifier: usersModels,
+        mounted: mounted,
+        value: _newUsers,
+    );
 
 
     await Future<void>.delayed(const Duration(milliseconds: 400),
@@ -74,13 +84,20 @@ Future<void> onSelectUser({
   @required UserModel userModel,
   @required PageController pageController,
   @required ValueNotifier<UserModel> selectedUserModel,
+  @required bool mounted,
 }) async {
 
   userModel.blogUserModel(invoker: 'Dashboard onSelectUser');
 
-  selectedUserModel.value = await UserProtocols.completeUserZoneModels(
+  final UserModel _userModelWithCompleteZone = await UserProtocols.completeUserZoneModels(
     context: context,
     userModel: userModel,
+  );
+
+  setNotifier(
+      notifier: selectedUserModel,
+      mounted: mounted,
+      value: _userModelWithCompleteZone,
   );
 
   await Sliders.slideToNext(
@@ -222,7 +239,7 @@ Future<void> onDeleteUser({
   //         if (_userIndex != -1){
   //           final List<UserModel> _newUsers = <UserModel>[...usersModels.value];
   //           _newUsers.removeAt(_userIndex);
-  //           usersModels.value = _newUsers;
+  //           usersModels.value  = _newUsers;
   //         }
   //
   //         /// CLOSE WAITING
@@ -233,7 +250,7 @@ Future<void> onDeleteUser({
   //           currentSlide: 1,
   //         );
   //
-  //         selectedUserModel.value = null;
+  //         selectedUserModel.value  = null;
   //
   //       }
   //

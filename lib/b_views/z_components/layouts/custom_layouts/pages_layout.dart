@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class PagesLayout extends StatefulWidget {
@@ -70,11 +71,17 @@ class _PagesLayoutState extends State<PagesLayout> {
   }
   // --------------------
   void _initializeProgressBarModel() {
-    _progressBarModel.value = ProgressBarModel(
-      swipeDirection: SwipeDirection.freeze,
-      index: 0,
-      numberOfStrips: widget.pageBubbles.length,
+
+    setNotifier(
+        notifier: _progressBarModel,
+        mounted: mounted,
+        value: ProgressBarModel(
+          swipeDirection: SwipeDirection.freeze,
+          index: 0,
+          numberOfStrips: widget.pageBubbles.length,
+        ),
     );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -103,6 +110,7 @@ class _PagesLayoutState extends State<PagesLayout> {
             context: context,
             newIndex: index,
             progressBarModel: _progressBarModel,
+            mounted: mounted,
           ),
           children: <Widget>[
 

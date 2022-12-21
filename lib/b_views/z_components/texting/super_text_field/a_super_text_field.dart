@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/c_text_field
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -368,10 +369,13 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // _textLength = ValueNotifier(_controller.text.length);
     // _errors = ValueNotifier<List<String>>(_initializeErrors());
 
-
-    _textDirection.value = TextDir.autoSwitchTextDirection(
-      val: widget.textController?.text,
-      context: context,
+    setNotifier(
+        notifier: _textDirection,
+        mounted: mounted,
+        value: TextDir.autoSwitchTextDirection(
+          val: widget.textController?.text,
+          context: context,
+        ),
     );
 
   }
@@ -459,12 +463,12 @@ class _SuperTextFieldState extends State<SuperTextField> {
     //     if (_validatorError != null){
     //       _lastValidatorError = _validatorError;
     //       if (_errors.value.contains(_validatorError) == false){
-    //         _errors.value = <String>[_validatorError, ... _errors.value];
+    //         _errors.value  = <String>[_validatorError, ... _errors.value];
     //       }
     //     }
     //     /// WHEN NO ERROR FROM VALIDATOR
     //     else {
-    //       _errors.value = _removeLastValidatorErrorIfExisted();
+    //       _errors.value  = _removeLastValidatorErrorIfExisted();
     //     }
     //
     //   }
@@ -490,7 +494,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     //   void _updateTextLength(String val){
     //
     //     if (val != null){
-    //       _textLength.value = val.length;
+    //       _textLength.value  = val.length;
     //     }
     //
     //   }
@@ -502,7 +506,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     //
     //     if (textLength > widget.maxLength){
     //       if (_errors.value.contains(_error) == false){
-    //         _errors.value = <String>[..._list, _error];
+    //         _errors.value  = <String>[..._list, _error];
     //       }
     //     }
     //
@@ -510,7 +514,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     //       final int _index = _list.indexOf(_error);
     //       if (_index != -1){
     //         _list.removeAt(_index);
-    //         _errors.value = _list;
+    //         _errors.value  = _list;
     //       }
     //     }
     //
@@ -524,7 +528,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     //
     //     if (_rows.length > widget.maxLines){
     //       if (_errors.value.contains(_error) == false){
-    //         _errors.value = <String>[..._list, _error];
+    //         _errors.value  = <String>[..._list, _error];
     //       }
     //     }
     //
@@ -532,7 +536,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     //       final int _index = _list.indexOf(_error);
     //       if (_index != -1){
     //         _list.removeAt(_index);
-    //         _errors.value = _list;
+    //         _errors.value  = _list;
     //       }
     //     }
     //
@@ -563,10 +567,17 @@ class _SuperTextFieldState extends State<SuperTextField> {
   void _changeTextDirection(String val) {
     /// USE LIKE THIS :-
     /// onChanged: (val){_changeTextDirection();},
-    _textDirection.value = TextDir.autoSwitchTextDirection(
-      val: val,
-      context: context,
+
+    setNotifier(
+        notifier: _textDirection,
+        mounted: mounted,
+        value: TextDir.autoSwitchTextDirection(
+          val: val,
+          context: context,
+        ),
     );
+
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

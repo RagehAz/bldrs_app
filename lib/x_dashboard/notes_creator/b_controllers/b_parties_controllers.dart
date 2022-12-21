@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -61,6 +62,7 @@ Future<void> onSelectNoteSender({
   @required BuildContext context,
   @required PartyType senderType,
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }) async {
 
   final bool _continue = await _showEthicalConfirmationDialog(
@@ -77,6 +79,7 @@ Future<void> onSelectNoteSender({
         context: context,
         note: noteNotifier,
         senderType: senderType,
+        mounted: mounted,
       );
 
     }
@@ -87,6 +90,7 @@ Future<void> onSelectNoteSender({
         context: context,
         note: noteNotifier,
         senderType: senderType,
+        mounted: mounted,
       );
     }
 
@@ -96,6 +100,7 @@ Future<void> onSelectNoteSender({
         context: context,
         note: noteNotifier,
         senderType: senderType,
+        mounted: mounted,
       );
     }
 
@@ -104,6 +109,7 @@ Future<void> onSelectNoteSender({
         context: context,
         note: noteNotifier,
         senderType: senderType,
+        mounted: mounted,
       );
     }
   }
@@ -116,6 +122,7 @@ Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required PartyType senderType,
+  @required bool mounted,
 }) async {
 
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
@@ -133,12 +140,16 @@ Future<void> _onSelectUserAsNoteSender({
         :
     null;
 
-    note.value = note.value.copyWith(
-      parties: note.value.parties.copyWith(
-        senderID: _userModel.id,
-        senderImageURL: _userModel.picPath,
-        senderType: senderType,
-      ),
+    setNotifier(
+        notifier: note,
+        mounted: mounted,
+        value: note.value.copyWith(
+          parties: note.value.parties.copyWith(
+            senderID: _userModel.id,
+            senderImageURL: _userModel.picPath,
+            senderType: senderType,
+          ),
+        )
     );
 
   }
@@ -150,6 +161,7 @@ Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required PartyType senderType,
+  @required bool mounted,
 }) async {
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -165,12 +177,16 @@ Future<void> _onSelectBzAsNoteSender({
         :
     null;
 
-    note.value = note.value.copyWith(
-      parties: note.value.parties.copyWith(
-        senderID: _bzModel.id,
-        senderImageURL: _bzModel.logoPath,
-        senderType: senderType,
-      ),
+    setNotifier(
+        notifier: note,
+        mounted: mounted,
+        value: note.value.copyWith(
+          parties: note.value.parties.copyWith(
+            senderID: _bzModel.id,
+            senderImageURL: _bzModel.logoPath,
+            senderType: senderType,
+          ),
+        )
     );
 
   }
@@ -182,6 +198,7 @@ Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required PartyType senderType,
+  @required bool mounted,
 }) async {
 
   final ZoneModel _zoneModel = await ZoneSelection.goBringAZone(
@@ -198,12 +215,16 @@ Future<void> _onSelectCountryAsNoteSender({
       countryID: _zoneModel.countryID,
     );
 
-    note.value = note.value.copyWith(
-      parties: note.value.parties.copyWith(
-        senderID: _countryModel.id,
-        senderImageURL: Flag.getCountryIcon(_countryModel.id), /// TASK : THIS BRINGS LOCAL PATH,, ARE YOU SURE ? IT WANTS A URL MAN
-        senderType: senderType,
-      ),
+    setNotifier(
+        notifier: note,
+        mounted: mounted,
+        value: note.value.copyWith(
+          parties: note.value.parties.copyWith(
+            senderID: _countryModel.id,
+            senderImageURL: Flag.getCountryIcon(_countryModel.id), /// TASK : THIS BRINGS LOCAL PATH,, ARE YOU SURE ? IT WANTS A URL MAN
+            senderType: senderType,
+          ),
+        ),
     );
 
   }
@@ -215,14 +236,20 @@ Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
   @required PartyType senderType,
+  @required bool mounted,
 }) async {
 
-  note.value = note.value.copyWith(
-    parties: note.value.parties.copyWith(
-      senderID: NoteParties.bldrsSenderID,
-      senderImageURL: NoteParties.bldrsLogoStaticURL,
-      senderType: senderType,
-    ),
+
+  setNotifier(
+      notifier: note,
+      mounted: mounted,
+      value:  note.value.copyWith(
+        parties: note.value.parties.copyWith(
+          senderID: NoteParties.bldrsSenderID,
+          senderImageURL: NoteParties.bldrsLogoStaticURL,
+          senderType: senderType,
+        ),
+      )
   );
 
 }
@@ -237,6 +264,7 @@ Future<void> onSelectReceiverType({
   @required ValueNotifier<NoteModel> noteNotifier,
   @required PartyType selectedReceiverType,
   @required ValueNotifier<List<dynamic>> receiversModels,
+  @required bool mounted,
 }) async {
   List<dynamic> _models = [];
   bool _go = true;
@@ -262,10 +290,19 @@ Future<void> onSelectReceiverType({
   if (_go == true){
 
     if (_typeHasChanged == true){
-      receiversModels.value = [];
-      noteNotifier.value = noteNotifier.value.nullifyField(
-        topic: true,
+
+      setNotifier(
+          notifier: receiversModels,
+          mounted: mounted,
+          value: [],
       );
+
+      setNotifier(
+          notifier: noteNotifier,
+          mounted: mounted,
+          value: noteNotifier.value.nullifyField(topic: true),
+      );
+
     }
 
     /// IF USER
@@ -291,20 +328,29 @@ Future<void> onSelectReceiverType({
       clearReceivers(
         receiversModels: receiversModels,
         noteNotifier: noteNotifier,
+        mounted: mounted,
       );
 
     }
     /// WHEN SELECTED MODELS
     else {
 
-      noteNotifier.value = noteNotifier.value.copyWith(
-        parties: noteNotifier.value.parties.copyWith(
-          receiverType: selectedReceiverType,
-          receiverID: 'xxx',
-        ),
+      final NoteParties _newParties = noteNotifier.value.parties.copyWith(
+        receiverType: selectedReceiverType,
+        receiverID: 'xxx',
       );
 
-      receiversModels.value = _models;
+      setNotifier(
+          notifier: noteNotifier,
+          mounted: mounted,
+          value: _newParties,
+      );
+
+      setNotifier(
+          notifier: receiversModels,
+          mounted: mounted,
+          value: _models,
+      );
 
     }
 
@@ -369,16 +415,25 @@ Future<List<BzModel>> onSelectBzAsNoteReceiver({
 void clearReceivers({
   @required ValueNotifier<List<dynamic>> receiversModels,
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }){
 
-  noteNotifier.value = noteNotifier.value.copyWith(
-    parties: noteNotifier.value.parties.nullifyField(
-      receiverType: true,
-      receiverID: true,
-    ),
+  setNotifier(
+      notifier: noteNotifier,
+      mounted: mounted,
+      value: noteNotifier.value.copyWith(
+        parties: noteNotifier.value.parties.nullifyField(
+          receiverType: true,
+          receiverID: true,
+        ),
+      ),
   );
 
-  receiversModels.value = [];
+  setNotifier(
+      notifier: receiversModels,
+      mounted: mounted,
+      value: [],
+  );
 
 }
 // -----------------------------------------------------------------------------

@@ -94,7 +94,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             // );
             //
             // if (_review != null){
-            //   _paginationController.addMap.value = _review.toMap(
+            //   _paginationController.addMap.value  = _review.toMap(
             //     includeID: true,
             //     includeDocSnapshot: true,
             //     // toJSON: false,
@@ -229,23 +229,27 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                           reviewModel: _reviewModel,
                           paginationController: _paginationController,
                           bzID: widget.flyerModel.bzID,
+                          mounted: mounted,
                         ),
                         onBzReplyOverReview: () => onBzReply(
                           context: context,
                           reviewModel: _reviewModel,
                           paginationController: _paginationController,
                           bzID: widget.flyerModel.bzID,
+                          mounted: mounted,
                         ),
                         onReplyOptionsTap: () => onReplyOptions(
                           context: context,
                           reviewModel: _reviewModel,
                           paginationController: _paginationController,
+                          mounted: mounted,
                         ),
                         onReviewAgreeTap: () => onReviewAgree(
                           context: context,
                           isAgreed: _isAlreadyAgreed,
                           reviewModel: _reviewModel,
                           paginationController: _paginationController,
+                          mounted: mounted,
                         ),
                         onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
                           context: context,

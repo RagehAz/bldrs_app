@@ -205,18 +205,17 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       isSearching: _isSearching,
       phidsOfAllPickers: _allPhids,
       searchText: _searchText,
+      mounted: mounted,
     );
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSearchCancelled() async {
-
-    _foundChains.value = [];
-    _isSearching.value = false;
-    _searchText.value = '';
-    _searchController.text = '';
-
+    setNotifier(notifier: _foundChains, mounted: mounted, value: []);
+    setNotifier(notifier: _isSearching, mounted: mounted, value: false);
+    setNotifier(notifier: _searchText, mounted: mounted, value: '');
+    setNotifier(notifier: _searchController, mounted: mounted, value: '');
   }
   // -----------------------------------------------------------------------------
 
@@ -299,7 +298,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     @required int selectedPhidIndex,
   }) async {
 
-    if (_isSearching.value == false){
+    if (_isSearching.value  == false){
 
       final bool _shouldGoToEnd = newLength > oldLength;
 

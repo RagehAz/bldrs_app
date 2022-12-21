@@ -43,6 +43,7 @@ Future<void> onShowNoteOptions({
   @required BuildContext context,
   @required NoteModel noteModel,
   @required PaginationController paginationController,
+  @required bool mounted,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -69,6 +70,7 @@ Future<void> onShowNoteOptions({
                 context: context,
                 noteModel: noteModel,
                 paginationController: paginationController,
+                mounted: mounted,
               ),
           ),
 
@@ -84,6 +86,7 @@ Future<void> _wipeNote({
   @required BuildContext context,
   @required NoteModel noteModel,
   @required PaginationController paginationController,
+  @required bool mounted,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
@@ -99,6 +102,7 @@ Future<void> _wipeNote({
 
   paginationController.deleteMapByID(
     id: noteModel.id,
+    mounted: mounted,
   );
 
 }

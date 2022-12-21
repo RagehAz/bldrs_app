@@ -145,11 +145,15 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
       _triggerLoading(setTo: true).then((_) async {
 
         /// LOCALE
-        await Localizer.initializeLocale(_locale);
+        await Localizer.initializeLocale(
+          locale: _locale,
+          mounted: mounted,
+        );
 
         /// FIREBASE
         await Fire.initializeFirestore(
           fireError: _fireError,
+          mounted: mounted,
         );
 
         /// INITIALIZE NOOTS
@@ -214,7 +218,13 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
   // --------------------
   void _setLocale(Locale locale) {
-    _locale.value = locale;
+
+    setNotifier(
+        notifier: _locale,
+        mounted: mounted,
+        value: locale
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override

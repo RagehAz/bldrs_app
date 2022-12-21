@@ -62,6 +62,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
       foundUsers: _foundUsers,
       isSearching: _isSearching,
       userIDsToExclude: _bzAuthorsIDs,
+      mounted: mounted,
     );
 
   }

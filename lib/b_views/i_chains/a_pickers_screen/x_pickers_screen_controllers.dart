@@ -113,6 +113,7 @@ Future<void> onGoToPickerScreen({
   @required ValueNotifier<List<PickerModel>> refinedPickersNotifier,
   @required List<PickerModel> allPickers,
   @required ZoneModel zone,
+  @required bool mounted,
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(
@@ -140,6 +141,7 @@ Future<void> onGoToPickerScreen({
         refinedPickers: refinedPickersNotifier,
         sourcePickers: allPickers,
         specPickerResult: _result,
+        mounted: mounted,
       );
 
     }
@@ -165,6 +167,7 @@ void _updateSelectedSpecsAndRefinePickers({
   @required List<PickerModel> sourcePickers,
   @required ValueNotifier<List<PickerModel>> refinedPickers,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required bool mounted,
 }) {
 
   final Chain _specChain = ChainsProvider.proFindChainByID(
@@ -182,12 +185,20 @@ void _updateSelectedSpecsAndRefinePickers({
     if (ObjectCheck.objectIsListOfSpecs(specPickerResult)) {
       // Spec.printSpecs(_allSelectedSpecs);
 
-      selectedSpecs.value = specPickerResult;
+      setNotifier(
+          notifier: selectedSpecs,
+          mounted: mounted,
+          value: specPickerResult
+      );
 
-      refinedPickers.value = PickerModel.applyBlockersAndSort(
-        sourcePickers: sourcePickers,
-        selectedSpecs: specPickerResult,
-        sort: true,
+      setNotifier(
+          notifier: refinedPickers,
+          mounted: mounted,
+          value: PickerModel.applyBlockersAndSort(
+            sourcePickers: sourcePickers,
+            selectedSpecs: specPickerResult,
+            sort: true,
+          ),
       );
 
     }
@@ -211,6 +222,7 @@ void onRemoveSpecs({
   @required SpecModel valueSpec,
   @required SpecModel unitSpec,
   @required List<PickerModel> pickers,
+  @required bool mounted,
 }){
 
   blog('should remove these specs from the list');
@@ -227,16 +239,17 @@ void onRemoveSpecs({
   );
 
   if (_specsIncludeOtherSpecUsingThisUnit == false){
-
     _newList = SpecModel.removeSpecFromSpecs(
       specs: selectedSpecsNotifier.value,
       spec: unitSpec,
     );
-
   }
 
-
-  selectedSpecsNotifier.value = _newList;
+  setNotifier(
+      notifier: selectedSpecsNotifier,
+      mounted: mounted,
+      value: _newList
+  );
 
 }
 // --------------------
@@ -245,6 +258,7 @@ void onAddSpecs({
   @required List<SpecModel> specs,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required bool mounted,
 }) {
 
   final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
@@ -253,6 +267,12 @@ void onAddSpecs({
     canPickMany: picker.canPickMany,
   );
 
-  selectedSpecs.value = _updatedList;
+  setNotifier(
+      notifier: selectedSpecs,
+      mounted: mounted,
+      value: _updatedList
+  );
+
+
 }
 // -----------------------------------------------------------------------------

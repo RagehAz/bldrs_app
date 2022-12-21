@@ -138,9 +138,19 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
           ||
           _streamQueryChanged == true
       ){
-        _paginatorController.clear();
-        _canKeepReading.value = true;
+
+        _paginatorController.clear(
+          mounted: mounted,
+        );
+
+        setNotifier(
+            notifier: _canKeepReading,
+            mounted: mounted,
+            value: true,
+        );
+
         await _readMore();
+
       }
 
     });
@@ -227,7 +237,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     );
 
     /// CAN KEEP READING
-    if (_canKeepReading.value == true){
+    if (_canKeepReading.value  == true){
 
       final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
         queryModel: widget.paginationQuery,

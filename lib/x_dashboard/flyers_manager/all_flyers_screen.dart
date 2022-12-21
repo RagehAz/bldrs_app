@@ -103,6 +103,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 
                   _paginationController.deleteMapByID(
                     id: flyer.id,
+                    mounted: mounted,
                   );
 
                   unawaited(Dialogs.showSuccessDialog(
