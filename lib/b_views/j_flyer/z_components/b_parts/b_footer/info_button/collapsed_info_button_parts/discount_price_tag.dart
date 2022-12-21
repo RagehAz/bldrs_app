@@ -174,7 +174,7 @@ class DiscountPriceTag extends StatelessWidget {
                           children: <Widget>[
 
                             /// OLD PRICE
-                            SuperVerse.priceVerse(
+                            SuperVerse.versePrice(
                                 context: context,
                                 // currency: _currency,
                                 price: _oldPrice,
@@ -215,7 +215,7 @@ class DiscountPriceTag extends StatelessWidget {
                         padding: _paddings,
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
-                          child: SuperVerse.priceVerse(
+                          child: SuperVerse.versePrice(
                             context: context,
                             // currency: _currency,
                             price: _currentPrice,

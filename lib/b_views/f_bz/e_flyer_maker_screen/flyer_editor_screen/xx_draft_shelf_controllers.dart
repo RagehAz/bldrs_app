@@ -53,7 +53,7 @@ Future<void> onAddNewSlides({
   /// A - if can pick more images
   else {
 
-    if (draftFlyer.value.firstTimer == true){
+    // if (draftFlyer.value.firstTimer == true){
       await _addImagesForNewFlyer(
         context: context,
         mounted: mounted,
@@ -63,18 +63,18 @@ Future<void> onAddNewSlides({
         flyerWidth: flyerWidth,
         imagePickerType: imagePickerType,
       );
-    }
+    // }
 
-    else {
-      await _addImagesForExistingFlyer(
-        context: context,
-        mounted: mounted,
-        bzModel: bzModel,
-        scrollController: scrollController,
-        draftFlyer: draftFlyer,
-        flyerWidth: flyerWidth,
-      );
-    }
+    // else {
+    //   await addImagesForExistingFlyer(
+    //     context: context,
+    //     mounted: mounted,
+    //     bzModel: bzModel,
+    //     scrollController: scrollController,
+    //     draftFlyer: draftFlyer,
+    //     flyerWidth: flyerWidth,
+    //   );
+    // }
 
   }
 
@@ -182,7 +182,7 @@ Future<void> _addImagesForNewFlyer({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _addImagesForExistingFlyer({
+Future<void> addImagesForExistingFlyer({
   @required BuildContext context,
   @required BzModel bzModel,
   @required bool mounted,

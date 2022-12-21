@@ -1,6 +1,6 @@
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class StoragePathGenerator {
   // -----------------------------------------------------------------------------
 
@@ -74,6 +74,7 @@ class StoragePathGenerator {
   /// FLYER STORAGE PATHS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String generateFlyerSlidePath({
     @required String flyerID,
     @required int slideIndex,
@@ -91,6 +92,7 @@ class StoragePathGenerator {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String generateFlyerPosterPath(String flyerID){
 
     if (flyerID == null){
@@ -103,6 +105,7 @@ class StoragePathGenerator {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String generateFlyerPDFPath(String flyerID){
 
     if (flyerID == null){
