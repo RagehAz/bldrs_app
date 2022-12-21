@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
-import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
+import 'package:bldrs/c_protocols/city_phids_protocols/real/city_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -97,8 +97,8 @@ class RenovateFlyerProtocols {
         incrementThis: newDraft.draftSlides.length - oldFlyer.slides.length,
       ),
 
-      /// INCREMENT CITY PHIDS USAGE
-      CityPhidsRealOps.updateFlyerCityPhidsUsage(
+      /// INCREMENT CITY PHIDS
+      CityPhidsRealOps.onRenovateFlyer(
           context: context,
           flyerModel: _flyerToUpload,
           oldFlyer: oldFlyer,

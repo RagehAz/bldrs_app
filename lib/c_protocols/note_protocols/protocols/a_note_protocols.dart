@@ -775,5 +775,32 @@ class NoteProtocols {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> unsubscribeFromAllBzzTopics({
+    @required BuildContext context,
+    @required List<String> bzzIDs,
+    @required bool renovateUser,
+  }) async {
+
+    if (Mapper.checkCanLoopList(bzzIDs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(bzzIDs.length, (index) {
+
+          return unsubscribeFromAllBzTopics(
+            context: context,
+            bzID: bzzIDs[index],
+            renovateUser: renovateUser,
+          );
+
+        }),
+
+      ]);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 }

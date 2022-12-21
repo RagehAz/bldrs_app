@@ -276,6 +276,13 @@ class WipeUserProtocols {
 
     await Future.wait(<Future>[
 
+      /// UNSUBSCRIBE
+      NoteProtocols.unsubscribeFromAllBzzTopics(
+        renovateUser: false,
+        context: context,
+        bzzIDs: userModel.myBzzIDs,
+      ),
+
       /// WIPE NOTES
       NoteProtocols.wipeAllNotes(
         partyType: PartyType.user,
@@ -284,7 +291,6 @@ class WipeUserProtocols {
 
       /// WIPE USER PIC
       PicProtocols.wipePic(userModel.picPath),
-
 
       /// DELETE SEARCHES
       UserRecordRealOps.deleteAllUserRecords(
