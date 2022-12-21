@@ -221,6 +221,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
         AppBarButton(
           icon: Iconz.xLarge,
+          isDeactivated: _zone == null || _zone == null,
           verse: Verse.plain('Clear'),
           onTap: () async {
 

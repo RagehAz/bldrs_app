@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class PicModel {
   // -----------------------------------------------------------------------------
@@ -117,9 +117,12 @@ class PicModel {
     String invoker = '',
   }){
 
-    blog('=> $invoker :: path : $path : ${bytes.length} Bytes : '
-        '[ (${meta?.dimensions?.width})w x (${meta?.dimensions?.height})h ] : '
-        'owners : ${meta.ownersIDs}');
+    final double _mega = Filers.calculateSize(bytes?.length, FileSizeUnit.megaByte);
+    final double _kilo = Filers.calculateSize(bytes?.length, FileSizeUnit.kiloByte);
+
+    blog('=> $invoker :: path : $path : ${bytes?.length} Bytes | '
+        '[ (${meta?.dimensions?.width})w x (${meta?.dimensions?.height})h ] | '
+        'owners : ${meta.ownersIDs} | $_mega MB | $_kilo KB');
 
   }
   // -----------------------------------------------------------------------------
@@ -155,7 +158,7 @@ class PicModel {
     return _identical;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkPicsListsAreIdentical({
     @required List<PicModel> list1,
     @required List<PicModel> list2,
@@ -197,6 +200,8 @@ class PicModel {
       }
 
     }
+
+    blog('checkPicsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
 
     return _listsAreIdentical;
 

@@ -109,6 +109,11 @@ class CensusListener {
         },
       );
 
+      await Dialogs.centerNotice(
+          context: context,
+          verse: Verse.plain('DONE'),
+      );
+
     }
 
 

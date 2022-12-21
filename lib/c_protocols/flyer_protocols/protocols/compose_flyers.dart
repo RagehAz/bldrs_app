@@ -66,17 +66,20 @@ class ComposeFlyerProtocols {
         assert (_flyerToPublish != null, 'Flyer is null');
         assert (_flyerToPublish.id != null, 'Flyer ID is null');
 
+        /// CREATE FLYER POSTER
+        // NOTE : when this is put among the below methods in Future.wait,
+        // the pic does not get generated, and it works here out of the Future.wait
+        await createFlyerPoster(
+          context: context,
+          flyerID: flyerID,
+          draftFlyer: draftFlyer,
+        );
+
         await Future.wait(<Future>[
 
           /// UPDATE FLYER DOC
           FlyerFireOps.updateFlyerDoc(_flyerToPublish),
 
-          /// CREATE FLYER POSTER
-          createFlyerPoster(
-            context: context,
-            flyerID: flyerID,
-            draftFlyer: draftFlyer,
-          ),
 
           /// UPLOAD SLIDES PICS
           PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID.draftSlides)),
@@ -197,6 +200,8 @@ class ComposeFlyerProtocols {
     );
 
     await PicProtocols.composePic(_posterPicModel);
+
+    _posterPicModel.blogPic(invoker: 'createFlyerPoster : is done');
 
   }
   // -----------------------------------------------------------------------------
