@@ -56,23 +56,24 @@ class RenovateFlyerProtocols {
       toLDB: false,
     );
 
+    /// CHECK IF POSTER HAS CHANGED
     final bool _posterHasChanged = await DraftFlyer.checkPosterHasChanged(
         draft: newDraft,
         oldFlyer: oldFlyer,
     );
+    /// RENOVATE POSTER PIC
+    if (_posterHasChanged == true){
+      await ComposeFlyerProtocols.createFlyerPoster(
+          flyerID: oldFlyer.id,
+          context: context,
+          draftFlyer: newDraft
+      );
+    }
 
     await Future.wait(<Future>[
 
       /// RENOVATE SLIDES PICS
       PicProtocols.renovatePics(DraftSlide.getPicModels(newDraft.draftSlides)),
-
-      /// RENOVATE POSTER PIC
-      if (_posterHasChanged == true)
-        ComposeFlyerProtocols.createFlyerPoster(
-            flyerID: oldFlyer.id,
-            context: context,
-            draftFlyer: newDraft
-        ),
 
       /// WIPE UN-USED PICS
       _wipeUnusedSlidesPics(

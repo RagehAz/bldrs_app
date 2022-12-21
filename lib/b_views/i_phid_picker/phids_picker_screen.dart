@@ -276,7 +276,11 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     final int _newLength = _selectedPhids.length;
     final int _selectedPhidIndex = _selectedPhidsNotifier.value.indexOf(phid);
 
-    _selectedPhidsNotifier.value = _selectedPhids;
+    setNotifier(
+        notifier: _selectedPhidsNotifier,
+        mounted: mounted,
+        value: _selectedPhids
+    );
 
     if (autoScroll == true){
       await _onScrollSelectedPhids(
@@ -299,7 +303,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
       final bool _shouldGoToEnd = newLength > oldLength;
 
-      if (_shouldGoToEnd == true){
+      if (_shouldGoToEnd == true && _selectedPhidsScrollController.hasClients == true){
         await Sliders.slideToOffset(
           scrollController: _selectedPhidsScrollController,
           offset: _selectedPhidsScrollController.position.maxScrollExtent,

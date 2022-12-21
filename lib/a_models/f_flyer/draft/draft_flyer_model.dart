@@ -22,7 +22,7 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
-
+/// => TAMAM
 @immutable
 class DraftFlyer{
   /// --------------------------------------------------------------------------
@@ -820,7 +820,8 @@ class DraftFlyer{
         flyerModel: oldFlyer,
       );
 
-      _hasChanged = PicModel.checkPicsListsAreIdentical(
+      /// [identical = true] => [hasChanged = false] ya zaki
+      _hasChanged = !PicModel.checkPicsListsAreIdentical(
         list1: _draftPics,
         list2: _oldPics,
       );
