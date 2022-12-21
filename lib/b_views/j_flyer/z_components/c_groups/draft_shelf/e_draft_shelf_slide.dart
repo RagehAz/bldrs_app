@@ -114,8 +114,8 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                   SuperFilteredImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
-                    pic: widget.draftSlide.picModel.bytes,
-                    filterModel: widget.draftSlide.filter,
+                    pic: widget.draftSlide.picModel?.bytes,
+                    filterModel: widget.draftSlide?.filter,
                   ),
 
                 /// BLUR LAYER
@@ -154,8 +154,8 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       width: DraftShelfSlide.flyerBoxWidth - 10,
                       height: _flyerBoxHeight,
                       // bytes: widget.draftSlide.picModel.bytes,
-                      pic: widget.draftSlide.picModel.bytes,
-                      filterModel: widget.draftSlide.filter,
+                      pic: widget.draftSlide.picModel?.bytes,
+                      filterModel: widget.draftSlide?.filter,
                       boxFit: widget.draftSlide.picFit,
                     ),
                   ),

@@ -63,8 +63,12 @@ class SuperVerse extends StatelessWidget {
   final ValueNotifier<dynamic> highlight;
   final Color highlightColor;
   final Color shadowColor;
-  /// --------------------------------------------------------------------------
-  static Widget dotVerse({Verse verse}) {
+  // -----------------------------------------------------------------------------
+
+  /// READY VERSES
+
+  // --------------------
+  static Widget verseDot({Verse verse}) {
     return SuperVerse(
       verse: verse,
       scaleFactor: 0.9,
@@ -75,8 +79,21 @@ class SuperVerse extends StatelessWidget {
       centered: false,
     );
   }
-  // -----------------------------------------------------------------------------
-  static Widget priceVerse({
+  // --------------------
+  static Widget verseInfo({
+    @required Verse verse,
+  }){
+    return SuperVerse(
+      verse: verse,
+      // scaleFactor: 1,
+      italic: true,
+      weight: VerseWeight.thin,
+      centered: false,
+      size: 1,
+    );
+  }
+  // --------------------
+  static Widget versePrice({
     @required BuildContext context,
     @required double price,
     Color color,
@@ -124,76 +141,10 @@ class SuperVerse extends StatelessWidget {
       ],
     );
   }
-  // --------------------
-  static TextStyle createStyle({
-    @required BuildContext context,
-    Color color = Colorz.white255,
-    VerseWeight weight = VerseWeight.black,
-    bool italic = true,
-    int size = 2,
-    bool shadowIsOn = true,
-    Color shadowColor,
-    double scaleFactor = 1,
-    bool strikeThrough = false,
-  }) {
-    const double _verseHeight = 1.438; //1.48; // The sacred golden reverse engineered factor
-    const Color _boxColor = Colorz.nothing;
-    final String _verseFont = superVerseFont(context, weight);
-    final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
-    final double _scalingFactor = scaleFactor ?? 1;
-    final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
-    final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
-    final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
-    final FontWeight _verseWeight = superVerseWeight(weight);
+  // -----------------------------------------------------------------------------
 
-    /// --- SHADOWS -----------------------------------------------
-    // const double _shadowBlur = 0;
-    const double _shadowYOffset = 0;
-    final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
-    final double _secondShadowXOffset = -0.35 * _shadowXOffset;
+  /// SCALES
 
-    final Color _defaultLeftShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white200 : Colorz.black230;
-
-    final Color _leftShadow = shadowColor ?? _defaultLeftShadow;
-    final Color _rightShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white80 : Colorz.white20;
-
-    return TextStyle(
-        backgroundColor: _boxColor,
-        textBaseline: TextBaseline.alphabetic,
-
-        height: _verseHeight,
-        color: color,
-        fontFamily: _verseFont,
-        fontStyle: _verseStyle,
-        letterSpacing: _verseLetterSpacing,
-        wordSpacing: _verseWordSpacing,
-        fontSize: _verseSizeValue,
-        fontWeight: _verseWeight,
-        decoration: strikeThrough == true ? TextDecoration.lineThrough : null,
-        // decorationStyle: TextDecorationStyle.wavy,
-        decorationColor: Colorz.red255,
-        shadows: <Shadow>[
-
-          if (shadowIsOn == true)
-            Shadow(
-              color: _leftShadow,
-              offset: Offset(_shadowXOffset, _shadowYOffset),
-            ),
-
-          Shadow(
-            color: _rightShadow,
-            offset: Offset(_secondShadowXOffset, _shadowYOffset),
-          )
-
-        ]
-    );
-  }
-  // --------------------
-  static dynamic getTextAlign({
-    @required bool centered,
-  }) {
-    return centered == true ? TextAlign.center : TextAlign.start;
-  }
   // --------------------
   static double verseLabelHeight(int verseSize, double screenHeight) {
     return (verseSize == 0) ?
@@ -226,123 +177,22 @@ class SuperVerse extends StatelessWidget {
     screenHeight * Ratioz.fontSize1 * 1.42;
   }
   // --------------------
-  static double superVerseSizeValue(
-      BuildContext context,
-      int verseSize,
-      double scalingFactor
-      ) {
-    // double _screenHeight = Scale.superScreenHeight(context);
+  /// TESTED : ACCEPTED
+  static double superVerseRealHeight({
+    @required BuildContext context,
+    @required int size,
+    @required double sizeFactor,
+    @required bool hasLabelBox,
+  }) {
+    /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
+    final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
+    final double _sidePaddings = hasLabelBox == false ? 0 : _sidePaddingValues;
+    final double _verseHeight =
+        (superVerseSizeValue(context, size, sizeFactor) * 1.438)
+            +
+            (_sidePaddings * 0.25 * 0);
 
-    // double _verseSizeValue =
-    // (verseSize == 0) ? _screenHeight * Ratioz.fontSize0 * scalingFactor // -- 8 -- A77A
-    //     :
-    // (verseSize == 1) ? _screenHeight * Ratioz.fontSize1 * scalingFactor // -- 10 -- Nano
-    //     :
-    // (verseSize == 2) ? _screenHeight * Ratioz.fontSize2 * scalingFactor // -- 12 -- Micro
-    //     :
-    // (verseSize == 3) ? _screenHeight * Ratioz.fontSize3 * scalingFactor // -- 14 -- Mini
-    //     :
-    // (verseSize == 4) ? _screenHeight * Ratioz.fontSize4 * scalingFactor // -- 16 -- Medium
-    //     :
-    // (verseSize == 5) ? _screenHeight * Ratioz.fontSize5 * scalingFactor // -- 20 -- Macro
-    //     :
-    // (verseSize == 6) ? _screenHeight * Ratioz.fontSize6 * scalingFactor // -- 24 -- Big
-    //     :
-    // (verseSize == 7) ? _screenHeight * Ratioz.fontSize7 * scalingFactor // -- 28 -- Massive
-    //     :
-    // (verseSize == 8) ? _screenHeight * Ratioz.fontSize8 * scalingFactor // -- 28 -- Gigantic
-    //     :
-    // _screenHeight * Ratioz.fontSize1
-    // ;
-
-    final double _verseSizeValue =
-    (verseSize == 0) ? 8 * scalingFactor
-        :
-    (verseSize == 1) ? 12 * scalingFactor
-        :
-    (verseSize == 2) ? 16 * scalingFactor
-        :
-    (verseSize == 3) ? 20 * scalingFactor
-        :
-    (verseSize == 4) ? 24 * scalingFactor
-        :
-    (verseSize == 5) ? 28 * scalingFactor
-        :
-    (verseSize == 6) ? 32 * scalingFactor
-        :
-    (verseSize == 7) ? 36 * scalingFactor
-        :
-    (verseSize == 8) ? 40 * scalingFactor
-        :
-    12 * scalingFactor;
-
-    return _verseSizeValue;
-  }
-  // --------------------
-  static FontWeight superVerseWeight(VerseWeight weight) {
-    final FontWeight _verseWeight =
-    weight == VerseWeight.thin ? FontWeight.w100
-        :
-    weight == VerseWeight.regular ? FontWeight.w600
-        :
-    weight == VerseWeight.bold ? FontWeight.w100
-        :
-    weight == VerseWeight.black ? FontWeight.w600
-        :
-    FontWeight.w100;
-    return _verseWeight;
-  }
-  // --------------------
-  static String superVerseFont(BuildContext context, VerseWeight weight) {
-    final String _verseFont =
-    weight == VerseWeight.thin ? Words.bodyFont(context)
-        :
-    weight == VerseWeight.regular ? Words.bodyFont(context)
-        :
-    weight == VerseWeight.bold ? Words.headlineFont(context)
-        :
-    weight == VerseWeight.black ? Words.headlineFont(context)
-        :
-    Words.bodyFont(context);
-    return _verseFont;
-  }
-  // --------------------
-  static double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue) {
-    final double _verseLetterSpacing =
-    weight == VerseWeight.thin ? verseSizeValue * 0.035
-        :
-    weight == VerseWeight.regular ? verseSizeValue * 0.03
-        :
-    weight == VerseWeight.bold ? verseSizeValue * 0.05
-        :
-    weight == VerseWeight.black ? verseSizeValue * 0.07
-        :
-    verseSizeValue * 0;
-    return _verseLetterSpacing;
-  }
-  // --------------------
-  static double superVerseWordSpacing(double verseSize) {
-    final double _verseWordSpacing =
-    // weight == VerseWeight.thin ? verseSize * 0.1 :
-    // weight == VerseWeight.regular ? verseSize * 0.1 :
-    // weight == VerseWeight.bold ? verseSize * 0.1 :
-    // weight == VerseWeight.black ? verseSize * 0.1 :
-    verseSize * 0;
-    return _verseWordSpacing;
-  }
-  // --------------------
-  static double superVerseXOffset(VerseWeight weight, double verseSize) {
-    final double _shadowXOffset =
-    weight == VerseWeight.thin ? verseSize * -0.07
-        :
-    weight == VerseWeight.regular ? verseSize * -0.09
-        :
-    weight == VerseWeight.bold ? verseSize * -0.11
-        :
-    weight == VerseWeight.black ? verseSize * -0.12
-        :
-    verseSize * -0.06;
-    return _shadowXOffset;
+    return _verseHeight;
   }
   // --------------------
   static double superVerseLabelCornerValue(
@@ -418,24 +268,6 @@ class SuperVerse extends StatelessWidget {
     return _sidePaddingValues;
   }
   // --------------------
-  /// TESTED : ACCEPTED
-  static double superVerseRealHeight({
-    @required BuildContext context,
-    @required int size,
-    @required double sizeFactor,
-    @required bool hasLabelBox,
-  }) {
-    /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
-    final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
-    final double _sidePaddings = hasLabelBox == false ? 0 : _sidePaddingValues;
-    final double _verseHeight =
-        (superVerseSizeValue(context, size, sizeFactor) * 1.438)
-            +
-            (_sidePaddings * 0.25 * 0);
-
-    return _verseHeight;
-  }
-  // --------------------
   static double superVerseLabelMargin({
     @required BuildContext context,
     @required int verseSize,
@@ -447,6 +279,132 @@ class SuperVerse extends StatelessWidget {
     final double _superVerseLabelMargin = _sidePaddings * 0.25;
     return _superVerseLabelMargin;
   }
+  // -----------------------------------------------------------------------------
+
+  /// SIZING
+
+  // --------------------
+  static double superVerseSizeValue(
+      BuildContext context,
+      int verseSize,
+      double scalingFactor
+      ) {
+    // double _screenHeight = Scale.superScreenHeight(context);
+
+    // double _verseSizeValue =
+    // (verseSize == 0) ? _screenHeight * Ratioz.fontSize0 * scalingFactor // -- 8 -- A77A
+    //     :
+    // (verseSize == 1) ? _screenHeight * Ratioz.fontSize1 * scalingFactor // -- 10 -- Nano
+    //     :
+    // (verseSize == 2) ? _screenHeight * Ratioz.fontSize2 * scalingFactor // -- 12 -- Micro
+    //     :
+    // (verseSize == 3) ? _screenHeight * Ratioz.fontSize3 * scalingFactor // -- 14 -- Mini
+    //     :
+    // (verseSize == 4) ? _screenHeight * Ratioz.fontSize4 * scalingFactor // -- 16 -- Medium
+    //     :
+    // (verseSize == 5) ? _screenHeight * Ratioz.fontSize5 * scalingFactor // -- 20 -- Macro
+    //     :
+    // (verseSize == 6) ? _screenHeight * Ratioz.fontSize6 * scalingFactor // -- 24 -- Big
+    //     :
+    // (verseSize == 7) ? _screenHeight * Ratioz.fontSize7 * scalingFactor // -- 28 -- Massive
+    //     :
+    // (verseSize == 8) ? _screenHeight * Ratioz.fontSize8 * scalingFactor // -- 28 -- Gigantic
+    //     :
+    // _screenHeight * Ratioz.fontSize1
+    // ;
+
+    final double _verseSizeValue =
+    (verseSize == 0) ? 8 * scalingFactor
+        :
+    (verseSize == 1) ? 12 * scalingFactor
+        :
+    (verseSize == 2) ? 16 * scalingFactor
+        :
+    (verseSize == 3) ? 20 * scalingFactor
+        :
+    (verseSize == 4) ? 24 * scalingFactor
+        :
+    (verseSize == 5) ? 28 * scalingFactor
+        :
+    (verseSize == 6) ? 32 * scalingFactor
+        :
+    (verseSize == 7) ? 36 * scalingFactor
+        :
+    (verseSize == 8) ? 40 * scalingFactor
+        :
+    12 * scalingFactor;
+
+    return _verseSizeValue;
+  }
+
+  // -----------------------------------------------------------------------------
+
+  /// STYLING
+
+  // --------------------
+  static TextStyle createStyle({
+    @required BuildContext context,
+    Color color = Colorz.white255,
+    VerseWeight weight = VerseWeight.black,
+    bool italic = true,
+    int size = 2,
+    bool shadowIsOn = true,
+    Color shadowColor,
+    double scaleFactor = 1,
+    bool strikeThrough = false,
+  }) {
+    const double _verseHeight = 1.438; //1.48; // The sacred golden reverse engineered factor
+    const Color _boxColor = Colorz.nothing;
+    final String _verseFont = superVerseFont(context, weight);
+    final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
+    final double _scalingFactor = scaleFactor ?? 1;
+    final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+    final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
+    final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
+    final FontWeight _verseWeight = superVerseWeight(weight);
+
+    /// --- SHADOWS -----------------------------------------------
+    // const double _shadowBlur = 0;
+    const double _shadowYOffset = 0;
+    final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
+    final double _secondShadowXOffset = -0.35 * _shadowXOffset;
+
+    final Color _defaultLeftShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white200 : Colorz.black230;
+
+    final Color _leftShadow = shadowColor ?? _defaultLeftShadow;
+    final Color _rightShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white80 : Colorz.white20;
+
+    return TextStyle(
+        backgroundColor: _boxColor,
+        textBaseline: TextBaseline.alphabetic,
+
+        height: _verseHeight,
+        color: color,
+        fontFamily: _verseFont,
+        fontStyle: _verseStyle,
+        letterSpacing: _verseLetterSpacing,
+        wordSpacing: _verseWordSpacing,
+        fontSize: _verseSizeValue,
+        fontWeight: _verseWeight,
+        decoration: strikeThrough == true ? TextDecoration.lineThrough : null,
+        // decorationStyle: TextDecorationStyle.wavy,
+        decorationColor: Colorz.red255,
+        shadows: <Shadow>[
+
+          if (shadowIsOn == true)
+            Shadow(
+              color: _leftShadow,
+              offset: Offset(_shadowXOffset, _shadowYOffset),
+            ),
+
+          Shadow(
+            color: _rightShadow,
+            offset: Offset(_secondShadowXOffset, _shadowYOffset),
+          )
+
+        ]
+    );
+  }
   // --------------------
   static TextStyle superVerseDefaultStyle(BuildContext context) {
     return SuperVerse.createStyle(
@@ -457,6 +415,98 @@ class SuperVerse extends StatelessWidget {
       // size: 2,
       // shadow: true
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ALIGNMENT
+
+  // --------------------
+  static dynamic getTextAlign({
+    @required bool centered,
+  }) {
+    return centered == true ? TextAlign.center : TextAlign.start;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// WEIGHT
+
+  // --------------------
+  static FontWeight superVerseWeight(VerseWeight weight) {
+    final FontWeight _verseWeight =
+    weight == VerseWeight.thin ? FontWeight.w100
+        :
+    weight == VerseWeight.regular ? FontWeight.w600
+        :
+    weight == VerseWeight.bold ? FontWeight.w100
+        :
+    weight == VerseWeight.black ? FontWeight.w600
+        :
+    FontWeight.w100;
+    return _verseWeight;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FONT
+
+  // --------------------
+  static String superVerseFont(BuildContext context, VerseWeight weight) {
+    final String _verseFont =
+    weight == VerseWeight.thin ? Words.bodyFont(context)
+        :
+    weight == VerseWeight.regular ? Words.bodyFont(context)
+        :
+    weight == VerseWeight.bold ? Words.headlineFont(context)
+        :
+    weight == VerseWeight.black ? Words.headlineFont(context)
+        :
+    Words.bodyFont(context);
+    return _verseFont;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// LETTER SPACING
+
+  // --------------------
+  static double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue) {
+    final double _verseLetterSpacing =
+    weight == VerseWeight.thin ? verseSizeValue * 0.035
+        :
+    weight == VerseWeight.regular ? verseSizeValue * 0.03
+        :
+    weight == VerseWeight.bold ? verseSizeValue * 0.05
+        :
+    weight == VerseWeight.black ? verseSizeValue * 0.07
+        :
+    verseSizeValue * 0;
+    return _verseLetterSpacing;
+  }
+  // --------------------
+  static double superVerseWordSpacing(double verseSize) {
+    final double _verseWordSpacing =
+    // weight == VerseWeight.thin ? verseSize * 0.1 :
+    // weight == VerseWeight.regular ? verseSize * 0.1 :
+    // weight == VerseWeight.bold ? verseSize * 0.1 :
+    // weight == VerseWeight.black ? verseSize * 0.1 :
+    verseSize * 0;
+    return _verseWordSpacing;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SHADOW
+
+  // --------------------
+  static double superVerseXOffset(VerseWeight weight, double verseSize) {
+    final double _shadowXOffset =
+    weight == VerseWeight.thin ? verseSize * -0.07
+        :
+    weight == VerseWeight.regular ? verseSize * -0.09
+        :
+    weight == VerseWeight.bold ? verseSize * -0.11
+        :
+    weight == VerseWeight.black ? verseSize * -0.12
+        :
+    verseSize * -0.06;
+    return _shadowXOffset;
   }
   // -----------------------------------------------------------------------------
   @override
