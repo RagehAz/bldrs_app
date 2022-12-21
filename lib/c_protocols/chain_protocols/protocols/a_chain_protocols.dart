@@ -1,16 +1,12 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/real/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/ldb/chain_ldb_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/chain_real_ops.dart';
-import 'package:bldrs/c_protocols/chain_protocols/real/city_phids_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -69,28 +65,6 @@ class ChainProtocols {
     }
 
     return _chains;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<CityPhidsModel> readCityPhidsOfCurrentZone({
-    @required BuildContext context,
-  }) async {
-    CityPhidsModel _cityPhidCounters;
-
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
-      context: context,
-      listen: false,
-    );
-
-    if (_currentZone != null){
-
-      _cityPhidCounters = await CityPhidsRealOps.readCityPhids(
-        cityID: _currentZone.cityID,
-      );
-
-    }
-
-    return _cityPhidCounters;
   }
   // -----------------------------------------------------------------------------
 
