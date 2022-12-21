@@ -153,7 +153,6 @@ Future<bool> _preUploadCheckups({
       boolDialog: true,
     );
 
-
   }
 
   return _canContinue;

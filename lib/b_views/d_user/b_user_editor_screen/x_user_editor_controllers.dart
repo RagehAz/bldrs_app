@@ -448,18 +448,15 @@ Future<bool> _preConfirmCheckups({
 
   bool _canContinue = Formers.validateForm(draft.formKey);
 
-  // /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
-  // if (_canContinue == false){
-  //   await Formers.showUserMissingFieldsDialog(
-  //       context: context,
-  //       userModel: newUserModel
-  //   );
-  //
-  // }
-  //
-  // /// A - IF ALL REQUIRED FIELDS ARE VALID
+  /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
+  if (_canContinue == false){
+    await Formers.showUserMissingFieldsDialog(
+        context: context,
+        userModel: DraftUser.toUserModel(context: context, draft: draft),
+    );
+  }
 
-
+  /// A - IF ALL REQUIRED FIELDS ARE VALID
   if (_canContinue == true){
 
     final UserModel _oldUser = await UserProtocols.fetch(

@@ -272,11 +272,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     draft: _draftUser,
                     mounted: mounted,
                   ),
-                  // autoValidate: true,
+                  // autoValidate: false,
                   validator: (String text) => Formers.personNameValidator(
                     context: context,
                     name: text,
                     canValidate: _canValidate,
+                    // focusNode: draft?.nameNode,
                   ),
                 ),
 
@@ -302,11 +303,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     text: text,
                     mounted: mounted,
                   ),
-                  // autoValidate: true,
+                  // autoValidate: false,
                   validator: (String text) => Formers.jobTitleValidator(
                     context: context,
                     jobTitle: text,
                     canValidate: _canValidate,
+                    // focusNode: draft?.titleNode,
                   ),
                 ),
 
@@ -333,10 +335,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     draft: _draftUser,
                     mounted: mounted,
                   ),
+                  // autoValidate: false,
                   validator: (String text) => Formers.companyNameValidator(
                     context: context,
                     companyName: text,
                     canValidate: _canValidate,
+                    // focusNode: draft?.companyNode,
                   ),
                 ),
 
@@ -371,13 +375,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     mounted: mounted,
                   ),
                   canPaste: false,
-                  // autoValidate: true,
+                  // autoValidate: false,
                   validator: (String text) => Formers.contactsPhoneValidator(
                     contacts: draft?.contacts,
                     zoneModel: draft?.zone,
                     canValidate: _canValidate,
                     context: context,
                     isRequired: false,
+                    // focusNode: draft?.phoneNode,
                   ),
                 ),
 
@@ -410,11 +415,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     mounted: mounted,
                   ),
                   canPaste: false,
-                  // autoValidate: true,
+                  // autoValidate: false,
                   validator: (String text) => Formers.contactsEmailValidator(
                     context: context,
                     contacts: draft?.contacts,
                     canValidate: _canValidate,
+                    // focusNode: draft?.emailNode,
                   ),
                 ),
 
@@ -432,6 +438,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // selectCountryAndCityOnly: true,
                   // selectCountryIDOnly: false,
                   depth: ZoneDepth.district,
+                  // autoValidate: false,
                   validator: () => Formers.zoneValidator(
                     context: context,
                     zoneModel: draft?.zone,
