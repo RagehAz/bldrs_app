@@ -46,7 +46,13 @@ class _PDFScreenState extends State<PDFScreen> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _uInt8List.value = widget.pdf.bytes;
+
+    setNotifier(
+        notifier: _uInt8List,
+        mounted: mounted,
+        value: widget.pdf.bytes,
+    );
+
     super.initState();
   }
   // --------------------
@@ -165,6 +171,7 @@ class _PDFScreenState extends State<PDFScreen> {
                     progressBarModel: _progressBarModel,
                     newIndex: newIndex,
                     context: context,
+                    mounted: mounted,
                   );
                 },
                 onError: (dynamic error){
@@ -181,7 +188,7 @@ class _PDFScreenState extends State<PDFScreen> {
                 },
                 onViewCreated: (PDFViewController controller) async {
 
-                  _pdfController.value = controller;
+                  setNotifier(notifier: _pdfController, mounted: mounted, value: controller);
 
                   // final int _currentPage = await controller.getCurrentPage();
                   // final int _pageCount = await controller.getPageCount();

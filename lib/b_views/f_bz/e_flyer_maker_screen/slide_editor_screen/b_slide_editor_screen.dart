@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorScreen extends StatefulWidget {
@@ -52,14 +53,34 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
       ),
     );
 
-    _draftNotifier.value = _initialSlide;
-    _matrix.value = _initialSlide.matrix;
-    _filterModel.value = _initialSlide.filter ?? _allFilters[0];
+    setNotifier(
+        notifier: _draftNotifier,
+        mounted: mounted,
+        value: _initialSlide,
+    );
+
+    setNotifier(
+      notifier: _matrix,
+      mounted: mounted,
+      value: _initialSlide.matrix,
+    );
+
+    setNotifier(
+      notifier: _filterModel,
+      mounted: mounted,
+      value: _initialSlide.filter ?? _allFilters[0],
+    );
 
     _isTransforming.addListener(() async {
-      if (_isTransforming.value == true){
+      if (_isTransforming.value  == true){
         await Future.delayed(const Duration(seconds: 1), (){
-          _isTransforming.value = false;
+
+          setNotifier(
+              notifier: _isTransforming,
+              mounted: mounted,
+              value: false,
+          );
+
         });
       }
     });
@@ -98,9 +119,11 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             matrix: _matrix,
             filterModel: _filterModel,
             isTransforming: _isTransforming,
+            mounted: mounted,
             onSlideTap: () => onToggleFilter(
               draftNotifier: _draftNotifier,
               currentFilter: _filterModel,
+              mounted: mounted,
             ),
           ),
 
@@ -115,6 +138,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               draftNotifier: _draftNotifier,
               filter: _filterModel,
               matrix: _matrix,
+              mounted: mounted,
             ),
             onCrop: () => onCropSlide(
               context: context,
@@ -122,6 +146,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               filterNotifier: _filterModel,
               matrixNotifier: _matrix,
               bzID: widget.draftFlyer.value.bzID,
+              mounted: mounted,
             ),
             onConfirm: () => onConfirmSlideEdits(
               context: context,

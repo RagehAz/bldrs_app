@@ -46,6 +46,10 @@ class _FlyerFooterState extends State<FlyerFooter> {
   final ScrollController _reviewPageVerticalController = ScrollController();
   final TextEditingController _reviewTextController = TextEditingController();
   final ValueNotifier<FlyerCounterModel> _flyerCounter = ValueNotifier(null);
+  // --------------------
+  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
+  // --------------------
+  final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -105,12 +109,15 @@ class _FlyerFooterState extends State<FlyerFooter> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
-  // --------------------
   Future<void> onInfoButtonTap() async {
-    _infoButtonExpanded.value = !_infoButtonExpanded.value;
 
-    if(_infoButtonExpanded.value == false){
+    setNotifier(
+        notifier: _infoButtonExpanded,
+        mounted: mounted,
+        value: !_infoButtonExpanded.value,
+    );
+
+    if(_infoButtonExpanded.value  == false){
       unawaited(
           _infoPageVerticalController.animateTo(0,
             duration: const Duration(milliseconds: 100),
@@ -119,16 +126,25 @@ class _FlyerFooterState extends State<FlyerFooter> {
       );
 
       await Future.delayed(const Duration(milliseconds: 200), (){
-        _canShowConvertibleReviewButton.value = true;
+        setNotifier(
+            notifier: _canShowConvertibleReviewButton,
+            mounted: mounted,
+            value: true,
+        );
       });
+
     }
 
-    if (_infoButtonExpanded.value == true){
-      _canShowConvertibleReviewButton.value = false;
+    if (_infoButtonExpanded.value  == true){
+      setNotifier(
+        notifier: _canShowConvertibleReviewButton,
+        mounted: mounted,
+        value: false,
+      );
     }
 
     // /// LOAD FLYER COUNTERS
-    // if (_infoButtonExpanded.value == true && widget.tinyMode == false){
+    // if (_infoButtonExpanded.value  == true && widget.tinyMode == false){
     //
     //   _flyerCounter.value ??= await FlyerRecordOps.readFlyerCounters(
     //         context: context,
@@ -139,8 +155,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
     // }
 
   }
-  // --------------------
-  final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
   // --------------------
   bool _canShowInfoButtonChecker(InfoButtonType infoButtonType){
     bool _canShow = true;
@@ -246,5 +260,5 @@ class _FlyerFooterState extends State<FlyerFooter> {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

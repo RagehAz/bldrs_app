@@ -49,12 +49,14 @@ class PaginationController {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void clear(){
-    paginatorMaps.value = [];
-    replaceMap.value = null;
-    addMap.value = null;
-    deleteMap.value = null;
-    startAfter.value = null;
+  void clear({
+  @required bool mounted,
+}){
+    setNotifier(mounted: mounted, notifier: paginatorMaps, value: []);
+    setNotifier(mounted: mounted, notifier: replaceMap, value: null);
+    setNotifier(mounted: mounted, notifier: addMap, value: null);
+    setNotifier(mounted: mounted, notifier: deleteMap, value: null);
+    setNotifier(mounted: mounted, notifier: startAfter, value: null);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -235,9 +237,14 @@ class PaginationController {
   /// TESTED : WORKS PERFECT
   void replaceMapByID({
     @required Map<String, dynamic> map,
+    @required bool mounted,
   }){
 
-    replaceMap.value = map;
+    setNotifier(
+        notifier: replaceMap,
+        mounted: mounted,
+        value: map,
+    );
 
   }
   // --------------------------------
@@ -297,15 +304,20 @@ class PaginationController {
   /// TESTED : WORKS PERFECT
   void deleteMapByID({
     @required String id,
+    @required bool mounted,
     String idFieldName = 'id',
   }){
 
     if (id != null){
 
-      deleteMap.value = Mapper.getMapFromMapsByID(
-        maps: paginatorMaps.value,
-        id: id,
-        idFieldName: idFieldName,
+      setNotifier(
+          notifier: deleteMap,
+          mounted: mounted,
+          value: Mapper.getMapFromMapsByID(
+            maps: paginatorMaps.value,
+            id: id,
+            idFieldName: idFieldName,
+          ),
       );
 
     }
@@ -315,6 +327,7 @@ class PaginationController {
   /// TESTED : WORKS PERFECT
   void removeMapsByIDs({
     @required List<String> ids,
+    @required bool mounted,
     String idFieldName = 'id',
   }){
 
@@ -332,7 +345,12 @@ class PaginationController {
          );
        }
 
-        paginatorMaps.value = _maps;
+       setNotifier(
+           notifier: paginatorMaps,
+           mounted: mounted,
+           value: _maps,
+       );
+
 
       }
 

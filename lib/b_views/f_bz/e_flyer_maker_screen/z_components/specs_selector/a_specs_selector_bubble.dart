@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -11,7 +10,6 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +20,18 @@ class SpecsSelectorBubble extends StatelessWidget {
     @required this.draft,
     @required this.draftNotifier,
     @required this.bzModel,
+    @required this.onSpecTap,
+    @required this.onDeleteSpec,
+    @required this.onAddSpecsToDraft,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final DraftFlyer draft;
   final ValueNotifier<DraftFlyer> draftNotifier;
   final BzModel bzModel;
+  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap; // onAddSpecsToDraftTap
+  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
+  final Function onAddSpecsToDraft; // use this onAddSpecsToDraftTap
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,13 +63,8 @@ class SpecsSelectorBubble extends StatelessWidget {
           SpecsBuilder(
             pageWidth: Bubble.clearWidth(context),
             specs: draft.specs,
-            onSpecTap: ({SpecModel value, SpecModel unit}) => onAddSpecsToDraftTap(
-              context: context,
-              draft: draftNotifier,
-            ),
-            onDeleteSpec: ({SpecModel value, SpecModel unit}){
-              blog('SpecsSelectorBubble : value : ${value.value}');
-            },
+            onSpecTap: onSpecTap,
+            onDeleteSpec: onDeleteSpec,
           ),
 
           DreamBox(
@@ -81,10 +80,7 @@ class SpecsSelectorBubble extends StatelessWidget {
             icon: Iconz.plus,
             iconSizeFactor: 0.4,
             iconColor: Colorz.white20,
-            onTap: () => onAddSpecsToDraftTap(
-              context: context,
-              draft: draftNotifier,
-            ),
+            onTap: onAddSpecsToDraft,
           ),
 
         ],

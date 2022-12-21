@@ -53,8 +53,19 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   @override
   void initState() {
     super.initState();
-    _initialChains.value = Phider.sortChainsByIndexes(widget.chains);
-    _tempChains.value = _initialChains.value;
+
+    setNotifier(
+        notifier: _initialChains,
+        mounted: mounted,
+        value: Phider.sortChainsByIndexes(widget.chains),
+    );
+
+    setNotifier(
+        notifier: _tempChains,
+        mounted: mounted,
+        value: _initialChains.value,
+    );
+
   }
   // --------------------
   /*
@@ -93,11 +104,12 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   void _onSearch(String text){
 
     onSearchChainsByIDs(
-        text: text,
-        searchValue: ValueNotifier<String>(null),
-        isSearching: _isSearching,
-        tempChains: _tempChains.value,
-        foundChains: _foundChains,
+      text: text,
+      searchValue: ValueNotifier<String>(null),
+      isSearching: _isSearching,
+      tempChains: _tempChains.value,
+      foundChains: _foundChains,
+      mounted: mounted,
     );
 
   }
@@ -110,6 +122,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       phid: phid,
       tempChains: _tempChains,
       textController: _searchController,
+      mounted: mounted,
     );
   }
   // --------------------
@@ -125,6 +138,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       context: context,
       path: path,
       tempChains: _tempChains,
+      mounted: mounted,
     );
   }
   // --------------------
@@ -137,7 +151,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     int level,
   }) async {
 
-    if (_isSearching.value == true){
+    if (_isSearching.value  == true){
 
       await TopDialog.showTopDialog(
         context: context,
@@ -158,6 +172,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
         newIndex: newIndex,
         previousPath: previousPath,
         level: level,
+        mounted: mounted,
       );
 
     }
@@ -184,6 +199,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
         controller: _searchController,
         foundResultNotifier: _foundChains,
         isSearching: _isSearching,
+        mounted: mounted,
       ),
       onBack: () => onChainsEditorScreenGoBack(
         context: context,
@@ -226,6 +242,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                             context: context,
                             initialChains: _initialChains,
                             tempChains: _tempChains,
+                            mounted: mounted,
                           ),
                       ),
 
@@ -286,6 +303,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                           context: context,
                           initialChains: _initialChains,
                           editedChains: _tempChains.value,
+                          mounted: mounted,
                         ),
                       ),
 

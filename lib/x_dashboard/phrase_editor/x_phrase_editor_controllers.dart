@@ -39,6 +39,7 @@ Future<void> prepareFastPhidCreation({
   @required TextEditingController enTextController,
   @required PageController pageController,
   @required FocusNode enNode,
+  @required bool mounted,
 }) async {
 
   if (untranslatedVerse != null){
@@ -54,6 +55,7 @@ Future<void> prepareFastPhidCreation({
       allMixedPhrases: allMixedPhrases,
       context: context,
       pageController: pageController,
+      mounted: mounted,
     );
 
     await Sliders.slideToNext(
@@ -80,14 +82,16 @@ void onPhrasesSearchChanged({
   @required List<Phrase> allMixedPhrases,
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
   @required PageController pageController,
+  @required bool mounted,
 }){
 
   TextCheck.triggerIsSearchingNotifier(
     text: searchController.text,
     isSearching: isSearching,
+    mounted: mounted,
   );
 
-  if (isSearching.value == true){
+  if (isSearching.value  == true){
 
     onSearchPhrases(
       context: context,
@@ -96,6 +100,7 @@ void onPhrasesSearchChanged({
       mixedSearchResult: mixedSearchResult,
       searchController: searchController,
       pageController: pageController,
+      mounted: mounted,
     );
 
   }
@@ -110,9 +115,14 @@ void onPhrasesSearchSubmit({
   @required List<Phrase> allMixedPhrases,
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
   @required PageController pageController,
+  @required bool mounted,
 }){
 
-  isSearching.value = true;
+  setNotifier(
+      notifier: isSearching,
+      mounted: mounted,
+      value: true,
+  );
 
   onSearchPhrases(
     context: context,
@@ -121,6 +131,7 @@ void onPhrasesSearchSubmit({
     mixedSearchResult: mixedSearchResult,
     searchController: searchController,
     pageController: pageController,
+    mounted: mounted,
   );
 
 }
@@ -132,13 +143,14 @@ List<Phrase> onSearchPhrases({
   @required TextEditingController searchController,
   @required List<Phrase> phrasesToSearchIn,
   @required PageController pageController,
+  @required bool mounted,
   /// mixes between en & ar values in one list
   ValueNotifier<List<Phrase>> mixedSearchResult,
 }){
 
   List<Phrase> _foundPhrases = <Phrase>[];
 
-  if (isSearching.value == true){
+  if (isSearching.value  == true){
 
     // final List<Phrase> _enResults = Phrase.searchPhrases(
     //   phrases: enPhrase,
@@ -188,11 +200,11 @@ List<Phrase> onSearchPhrases({
   }
 
   if (mixedSearchResult != null){
-    if (isSearching.value == true){
-      mixedSearchResult.value = _foundPhrases;
+    if (isSearching.value  == true){
+      setNotifier(notifier: mixedSearchResult, mounted: mounted, value: _foundPhrases);
     }
     else {
-      mixedSearchResult.value = <Phrase>[];
+      setNotifier(notifier: mixedSearchResult, mounted: mounted, value: <Phrase>[]);
     }
   }
 
@@ -269,6 +281,7 @@ Future<void> onConfirmEditPhrase({
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
   @required TextEditingController searchController,
   @required ValueNotifier<bool> isSearching,
+  @required bool mounted,
 }) async {
 
   searchController.text = idTextController.text;
@@ -314,8 +327,11 @@ Future<void> onConfirmEditPhrase({
     // blog('deletePhidFromPhrases : inserted : id  ${updatedArPhrase.id} : '
     //     '${updatedArPhrase.value} : lang : ${updatedArPhrase.langCode}');
 
-
-    tempMixedPhrases.value = Phrase.sortPhrasesByIDAndLang(phrases: _output);
+    setNotifier(
+        notifier: tempMixedPhrases,
+        mounted: mounted,
+        value: Phrase.sortPhrasesByIDAndLang(phrases: _output),
+    );
 
     // blog(
     //     'added : ${updatedEnPhrase.value} : ${updatedArPhrase.value}\n'
@@ -338,6 +354,7 @@ Future<void> onConfirmEditPhrase({
       searchController: searchController,
       phrasesToSearchIn: tempMixedPhrases.value,
       mixedSearchResult: mixedSearchResult,
+      mounted: mounted,
     );
 
     await Dialogs.showSuccessDialog(
@@ -498,6 +515,7 @@ Future<void> onDeletePhrase({
   @required BuildContext context,
   @required String phid,
   @required ValueNotifier<List<Phrase>> tempMixedPhrases,
+  @required bool mounted,
 }) async {
 
   final bool _continue = await CenterDialog.showCenterDialog(
@@ -522,7 +540,12 @@ Future<void> onDeletePhrase({
 
     // blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH : BUT  ${_result.length} phrases in output');
 
-    tempMixedPhrases.value = _result;
+    setNotifier(
+        notifier: tempMixedPhrases,
+        mounted: mounted,
+        value: _result
+    );
+
     //     Phrase.symmetrizePhrases(
     //     phrasesToSymmetrize: _result,
     //     allMixedPhrases: tempMixedPhrases.value,
@@ -586,6 +609,7 @@ Future<void> onSyncPhrases({
   @required TextEditingController enTextController,
   @required TextEditingController arTextController,
   @required TextEditingController idTextController,
+  @required bool mounted,
 }) async {
 
   final bool _continue = await Dialogs.confirmProceed(context: context);
@@ -598,7 +622,11 @@ Future<void> onSyncPhrases({
       showWaitDialog: true,
     );
 
-    initialMixedPhrases.value = tempMixedPhrases.value;
+    setNotifier(
+      notifier: initialMixedPhrases,
+      mounted: mounted,
+      value: tempMixedPhrases.value,
+    );
 
     await _goBackToPhrasesPageAndResetControllers(
       pageController: pageController,

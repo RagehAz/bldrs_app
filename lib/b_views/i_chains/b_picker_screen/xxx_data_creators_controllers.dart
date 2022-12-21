@@ -35,6 +35,7 @@ void initializeCurrencyData({
   @required ValueNotifier<double> priceValue,
   @required DataCreator dataCreatorType,
   @required String initialCurrencyID,
+  @required bool mounted,
 }){
 
   /// INITIALIZE CURRENCY
@@ -43,13 +44,19 @@ void initializeCurrencyData({
     selectedCurrencyID: selectedCurrencyID,
     zone: zone,
     initialCurrencyID: initialCurrencyID,
+    mounted: mounted,
   );
 
   /// INITIALIZE PRICE VALUE
-  priceValue.value = _fixValueDataType(
-    value: initialValue?.value,
-    dataCreatorType: dataCreatorType,
+  setNotifier(
+      notifier: priceValue,
+      mounted: mounted,
+      value: _fixValueDataType(
+        value: initialValue?.value,
+        dataCreatorType: dataCreatorType,
+      ),
   );
+
   textController.text = priceValue.value?.toString() ?? '';
 
 }
@@ -60,6 +67,7 @@ void _initializeInitialCurrency({
   @required String initialCurrencyID,
   @required ZoneModel zone,
   @required ValueNotifier<String> selectedCurrencyID,
+  @required bool mounted,
 }){
 
   String _initialCurrencyID = initialCurrencyID;
@@ -78,7 +86,12 @@ void _initializeInitialCurrency({
 
   }
 
-  selectedCurrencyID.value = _initialCurrencyID;
+  setNotifier(
+      notifier: selectedCurrencyID,
+      mounted: mounted,
+      value: _initialCurrencyID,
+  );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -91,6 +104,7 @@ Future<void> onCurrencySelectorButtonTap({
   @required ValueNotifier<dynamic> specValue,
   @required PickerModel picker,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
+  @required bool mounted,
 }) async {
 
   final CurrencyModel _currency = await Nav.goToNewScreen(
@@ -102,7 +116,11 @@ Future<void> onCurrencySelectorButtonTap({
 
   if (_currency != null){
 
-    selectedCurrencyID.value = _currency.id;
+    setNotifier(
+        notifier: selectedCurrencyID,
+        mounted: mounted,
+        value: _currency.id,
+    );
 
     Formers.validateForm(formKey);
 
@@ -132,15 +150,18 @@ void initializeNumberData({
   @required ValueNotifier<dynamic> specValue,
   @required DataCreator dataCreatorType,
   @required String initialUnit,
+  @required bool mounted,
 }){
   // --------------------
-  specValue.value = _fixValueDataType(
-    value: initialValue?.value,
-    dataCreatorType: dataCreatorType,
+  setNotifier(
+      notifier: specValue,
+      mounted: mounted,
+      value: _fixValueDataType(
+        value: initialValue?.value,
+        dataCreatorType: dataCreatorType,
+      ),
   );
-
-  blog('a77aaaa :${specValue.value}');
-
+  // --------------------
   textController.text = specValue.value?.toString() ?? '';
 // --------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
@@ -152,6 +173,7 @@ void initializeNumberData({
     initialUnit: initialUnit,
     selectedUnitID: selectedUnitID,
     unitChain: _unitChain,
+    mounted: mounted,
   );
 // --------------------
 
@@ -162,6 +184,7 @@ void _initializeNumberUnit({
   @required String initialUnit,
   @required Chain unitChain,
   @required ValueNotifier<String> selectedUnitID,
+  @required bool mounted,
 }){
   String _initialUnit;
 
@@ -179,7 +202,12 @@ void _initializeNumberUnit({
 
   }
 
-  selectedUnitID.value = _initialUnit;
+  setNotifier(
+      notifier: selectedUnitID,
+      mounted: mounted,
+      value: _initialUnit,
+  );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -192,6 +220,7 @@ Future<void> onUnitSelectorButtonTap({
   @required DataCreator dataCreatorType,
   @required GlobalKey<FormState> formKey,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
+  @required bool mounted,
 }) async {
 // --------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
@@ -239,6 +268,7 @@ Future<void> onUnitSelectorButtonTap({
                       picker: picker,
                       selectedUnitID: selectedUnitID,
                       onExportSpecs: onExportSpecs,
+                      mounted: mounted,
                     );
 
                     await Nav.goBack(
@@ -274,11 +304,12 @@ void _onSelectUnit({
   @required DataCreator dataCreatorType,
   @required GlobalKey<FormState> formKey,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
+  @required bool mounted,
 }){
 
   blog('selected unit : $unitID');
 
-  selectedUnitID.value = unitID;
+  setNotifier(notifier: selectedUnitID, mounted: mounted, value: unitID);
 
   onDataCreatorKeyboardChanged(
     text: text,
@@ -288,6 +319,7 @@ void _onSelectUnit({
     picker: picker,
     selectedUnitID: selectedUnitID.value,
     onExportSpecs: onExportSpecs,
+    mounted: mounted,
   );
 
 }
@@ -305,6 +337,7 @@ void onDataCreatorKeyboardChanged({
   @required PickerModel picker,
   @required String selectedUnitID,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
+  @required bool mounted,
 }) {
 
   Formers.validateForm(formKey);
@@ -313,6 +346,7 @@ void onDataCreatorKeyboardChanged({
     text: text,
     dataCreatorType: dataCreatorType,
     specValue: specValue,
+    mounted: mounted,
   );
 
   _createSpecsFromLocalDataAndExport(
@@ -335,6 +369,7 @@ Future<void> onDataCreatorKeyboardSubmittedAnd({
   @required PickerModel picker,
   @required String selectedUnitID,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
+  @required bool mounted,
   ValueChanged<String> onKeyboardSubmitted,
 }) async {
 
@@ -346,6 +381,7 @@ Future<void> onDataCreatorKeyboardSubmittedAnd({
     picker: picker,
     selectedUnitID: selectedUnitID,
     onExportSpecs: onExportSpecs,
+    mounted: mounted,
   );
 
   Keyboard.closeKeyboard(context);
@@ -364,28 +400,39 @@ void _fixValueDataTypeAndSetValue({
   @required String text,
   @required DataCreator dataCreatorType,
   @required ValueNotifier<dynamic> specValue,
+  @required bool mounted,
 }){
   // NOTE : controller.text = '$_value'; => can not redefine controller, it bugs text field
 
   /// OLD WAY AND WORKS
   /// IF INT
   if (DataCreation.checkIsIntDataCreator(dataCreatorType) == true){
+
     final double _doubleFromString = Numeric.transformStringToDouble(text);
-    specValue.value = _doubleFromString.toInt();
+    setNotifier(notifier: specValue, mounted: mounted, value: _doubleFromString.toInt());
+
   }
 
   /// IF DOUBLE
   else if (DataCreation.checkIsDoubleDataCreator(dataCreatorType) == true){
-    specValue.value = Numeric.transformStringToDouble(text);
+    setNotifier(
+        notifier: specValue,
+        mounted: mounted,
+        value: Numeric.transformStringToDouble(text),
+    );
   }
 
   /// OTHERWISE
   else {
-    specValue.value = text;
+    setNotifier(
+        notifier: specValue,
+        mounted: mounted,
+        value: text,
+    );
   }
 
   /// TASK : TEST THIS
-  // specValue.value = _fixValueDataType(
+  // specValue.value  = _fixValueDataType(
   //   value: text,
   //   dataCreatorType: dataCreatorType,
   // );

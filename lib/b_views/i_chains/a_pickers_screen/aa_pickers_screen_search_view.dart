@@ -31,6 +31,7 @@ class PickersScreenSearchView extends StatelessWidget {
     @required this.isMultipleSelectionMode,
     @required this.refinedPickersNotifier,
     @required this.allPickers,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,6 +44,7 @@ class PickersScreenSearchView extends StatelessWidget {
   final bool onlyUseCityChains;
   final ValueNotifier<List<PickerModel>> refinedPickersNotifier;
   final List<PickerModel> allPickers;
+  final bool mounted;
 /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -122,6 +124,7 @@ class PickersScreenSearchView extends StatelessWidget {
                               unitSpec: unit,
                               pickers: allPickers,
                               selectedSpecsNotifier: selectedSpecsNotifier,
+                              mounted: mounted,
                             ),
                             onSelectedSpecTap: ({SpecModel value, SpecModel unit}){
                               blog('a 77 aaa ChainsPickingScreen : onSpecTap');
@@ -137,6 +140,7 @@ class PickersScreenSearchView extends StatelessWidget {
                               allPickers: allPickers,
                               picker: _picker,
                               refinedPickersNotifier: refinedPickersNotifier,
+                              mounted: mounted,
                             ),
                           );
                         }
@@ -157,6 +161,7 @@ class PickersScreenSearchView extends StatelessWidget {
                             /// ON PHID TAP => ADD PHID
                             onPhidTap: (String path, String phid) => onSelectPhidInPickerScreen(
                               context: context,
+                              mounted: mounted,
                               phid: phid,
                               isMultipleSelectionMode: isMultipleSelectionMode,
                               selectedSpecsNotifier: selectedSpecsNotifier,

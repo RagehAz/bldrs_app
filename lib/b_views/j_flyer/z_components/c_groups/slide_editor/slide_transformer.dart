@@ -16,6 +16,7 @@ class SlideTransformer extends StatelessWidget {
     @required this.flyerBoxHeight,
     @required this.slide,
     @required this.isTransforming,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class SlideTransformer extends StatelessWidget {
   final double flyerBoxHeight;
   final DraftSlide slide;
   final ValueNotifier<bool> isTransforming;
+  final bool mounted;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -44,13 +46,22 @@ class SlideTransformer extends StatelessWidget {
 
         if (_areTheSame == false){
 
-          matrix.value = Trinity.generateSlideMatrix(
-              matrix: m,
-              flyerBoxWidth: flyerBoxWidth,
-              flyerBoxHeight: flyerBoxHeight
+          setNotifier(
+              notifier: matrix,
+              mounted: mounted,
+              value: Trinity.generateSlideMatrix(
+                  matrix: m,
+                  flyerBoxWidth: flyerBoxWidth,
+                  flyerBoxHeight: flyerBoxHeight
+              ),
           );
 
-          isTransforming.value = true;
+          setNotifier(
+              notifier: isTransforming,
+              mounted: mounted,
+              value: true,
+          );
+
         }
 
       },

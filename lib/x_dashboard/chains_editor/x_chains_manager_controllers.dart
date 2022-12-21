@@ -119,6 +119,7 @@ Future<void> onSyncChain({
   @required BuildContext context,
   @required ValueNotifier<List<Chain>> initialChains,
   @required List<Chain> editedChains,
+  @required bool mounted,
 }) async {
 
   blog('onSyncChain : ---------------- START ');
@@ -137,7 +138,11 @@ Future<void> onSyncChain({
       editedChains: editedChains,
     );
 
-    initialChains.value = editedChains;
+    setNotifier(
+        notifier: initialChains,
+        mounted: mounted,
+        value: editedChains,
+    );
 
   }
 
@@ -221,6 +226,7 @@ Future<void> onChainsEditorPhidTap({
   @required String phid,
   @required ValueNotifier<List<Chain>> tempChains,
   @required TextEditingController textController,
+  @required bool mounted,
 }) async {
 
   final String _path = ChainPathConverter.fixPathFormatting(path);
@@ -294,6 +300,7 @@ Future<void> onChainsEditorPhidTap({
                 tempChains: tempChains,
                 path: _path,
                 phid: phid,
+                mounted: mounted,
               ),
             ),
 
@@ -308,6 +315,7 @@ Future<void> onChainsEditorPhidTap({
                 tempChains: tempChains,
                 path: _path,
                 phid: phid,
+                mounted: mounted,
               ),
             ),
 
@@ -342,6 +350,7 @@ Future<void> onAddNewPath ({
   @required BuildContext context,
   @required String path,
   @required ValueNotifier<List<Chain>> tempChains,
+  @required bool mounted,
 }) async {
 
   final String _path = ChainPathConverter.fixPathFormatting(path);
@@ -370,7 +379,12 @@ Future<void> onAddNewPath ({
 
     // blog('onAddNewPath : shoof keda chains have changed : $_areIdentical');
 
-    tempChains.value = _updated;
+
+    setNotifier(
+        notifier: tempChains,
+        mounted: mounted,
+        value: _updated
+    );
 
     await Dialogs.showSuccessDialog(
       context: context,
@@ -388,6 +402,7 @@ Future<void> onDeleteThePhid ({
   @required String phid,
   @required String path,
   @required ValueNotifier<List<Chain>> tempChains,
+  @required bool mounted,
 }) async {
 
   await Nav.goBack(
@@ -423,7 +438,11 @@ Future<void> onDeleteThePhid ({
       paths: _relatedPaths,
     );
 
-    tempChains.value = _updated;
+    setNotifier(
+        notifier: tempChains,
+        mounted: mounted,
+        value: _updated,
+    );
 
     await Dialogs.showSuccessDialog(
       context: context,
@@ -440,6 +459,7 @@ Future<void> onEditPhid({
   @required ValueNotifier<List<Chain>> tempChains,
   @required String phid,
   @required String path,
+  @required bool mounted,
 }) async {
 
   await Nav.goBack(context: context, invoker: 'onEditPhid');
@@ -473,7 +493,11 @@ Future<void> onEditPhid({
         pathToReplace: _typedPath,
       );
 
-      tempChains.value = _updated;
+      setNotifier(
+          notifier: tempChains,
+          mounted: mounted,
+          value: _updated,
+      );
 
       await Dialogs.showSuccessDialog(
         context: context,
@@ -495,6 +519,7 @@ void onReorderSon({
   @required int level,
   /// the list of objects built in list builder along with the selected phid
   @required List<dynamic> sons, // phid brothers
+  @required bool mounted,
 }){
 
   final dynamic son = sons[oldIndex];
@@ -547,7 +572,12 @@ void onReorderSon({
     );
     final List<Chain> _ordered = Phider.sortChainsByIndexes(_reChains);
 
-    tempChains.value = _ordered;
+    setNotifier(
+        notifier: tempChains,
+        mounted: mounted,
+        value: _ordered
+    );
+
 
   }
 
@@ -563,7 +593,12 @@ void onReorderSon({
     final List<Chain> _indexedBrothers = Phider.createChainsIndexes(_brothers);
 
     if (level == 0){
-      tempChains.value = Phider.sortChainsByIndexes(_indexedBrothers);
+      setNotifier(
+          notifier: tempChains,
+          mounted: mounted,
+          value: Phider.sortChainsByIndexes(_indexedBrothers),
+      );
+
     }
     else {
 
@@ -575,7 +610,11 @@ void onReorderSon({
           ),
       );
 
-      tempChains.value = Phider.sortChainsByIndexes(_chains);
+      setNotifier(
+          notifier: tempChains,
+          mounted: mounted,
+          value: Phider.sortChainsByIndexes(_chains),
+      );
 
     }
 
@@ -588,6 +627,7 @@ Future<void> onResetTempChains({
   @required BuildContext context,
   @required ValueNotifier<List<Chain>> tempChains,
   @required ValueNotifier<List<Chain>> initialChains,
+  @required bool mounted,
 }) async {
 
   final bool _result = await Dialogs.bottomBoolDialog(
@@ -599,7 +639,13 @@ Future<void> onResetTempChains({
   );
 
   if (_result == true){
-    tempChains.value = initialChains.value;
+
+    setNotifier(
+        notifier: tempChains,
+        mounted: mounted,
+        value: initialChains.value,
+    );
+
   }
 
 }
@@ -615,17 +661,18 @@ Future<void> onSearchChainsByIDs({
   @required ValueNotifier<bool> isSearching,
   @required List<Chain> tempChains,
   @required ValueNotifier<List<Chain>> foundChains,
+  @required bool mounted,
 }) async {
 
-  searchValue.value = text;
+  setNotifier(notifier: searchValue, mounted: mounted, value: text);
 
   TextCheck.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
-
+    mounted: mounted,
   );
 
-  if (isSearching.value == true){
+  if (isSearching.value  == true){
 
     final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
       chains: tempChains,
@@ -633,7 +680,7 @@ Future<void> onSearchChainsByIDs({
     );
 
     /// SET FOUND CHAINS AS SEARCH RESULT
-    foundChains.value = _foundPathsChains;
+    setNotifier(notifier: foundChains, mounted: mounted, value: _foundPathsChains);
 
   }
 

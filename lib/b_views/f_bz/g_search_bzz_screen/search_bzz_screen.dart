@@ -19,6 +19,7 @@ Future<void> onSearchBzz({
   @required ValueNotifier<List<BzModel>> historyBzz,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<bool> loading,
+  @required bool mounted,
   QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
@@ -27,14 +28,21 @@ Future<void> onSearchBzz({
   TextCheck.triggerIsSearchingNotifier(
       text: text,
       isSearching: isSearching,
+      mounted: mounted,
       onSwitchOff: (){
-        foundBzz.value = null;
+
+        setNotifier(
+            notifier: foundBzz,
+            mounted: mounted,
+            value: null,
+        );
+
       }
   );
 
-  if (isSearching.value == true){
+  if (isSearching.value  == true){
 
-    loading.value = true;
+    setNotifier(notifier: loading, mounted: mounted, value: true);
 
     final String _fixedText = TextMod.fixSearchText(text);
 
@@ -48,12 +56,11 @@ Future<void> onSearchBzz({
       bzz: foundBzz.value,
     );
 
-
-    foundBzz.value = _bzz;
-    loading.value = false;
+    setNotifier(notifier: foundBzz, mounted: mounted, value: _bzz);
+    setNotifier(notifier: loading, mounted: mounted, value: false);
 
     /// TASK SHOULD INSERT BZ TO BZZ
-    // historyBzz.value = BzModel.addOrRemoveBzToBzz(
+    // historyBzz.value  = BzModel.addOrRemoveBzToBzz(
     //     bzzModels: bzzModels,
     //     bzModel: bzModel
     // );
@@ -84,7 +91,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<List<BzModel>> _foundBzz = ValueNotifier(null);
   final ValueNotifier<List<BzModel>> _historyBzz = ValueNotifier(<BzModel>[]);
-  ValueNotifier<List<BzModel>> _selectedBzz;
+  final ValueNotifier<List<BzModel>> _selectedBzz = ValueNotifier(<BzModel>[]);
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -101,7 +108,13 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedBzz = ValueNotifier<List<BzModel>>(widget.selectedBzz);
+
+    setNotifier(
+        notifier: _selectedBzz,
+        mounted: mounted,
+        value: widget.selectedBzz,
+    );
+
   }
   // --------------------
   bool _isInit = true;
@@ -112,7 +125,12 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       _triggerLoading(setTo: true).then((_) async {
 
         final List<BzModel> _history = await BzLDBOps.readAll();
-        _historyBzz.value = _history;
+
+        setNotifier(
+            notifier: _historyBzz,
+            mounted: mounted,
+            value: _history,
+        );
 
         await _triggerLoading(setTo: false);
       });
@@ -140,6 +158,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       foundBzz: _foundBzz,
       isSearching: _isSearching,
       historyBzz: _historyBzz,
+      mounted: mounted,
     );
 
   }
@@ -155,7 +174,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
           bzzModels: _selectedBzz.value,
           bzModel: bzModel,
         );
-        _selectedBzz.value = _newList;
+        setNotifier(notifier: _selectedBzz, mounted: mounted, value: _newList);
       }
 
       /// CAN SELECT ONLY ONE USER
@@ -167,10 +186,10 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
         );
 
         if (_isSelected == true){
-          _selectedBzz.value = null;
+          setNotifier(notifier: _selectedBzz, mounted: mounted, value: null);
         }
         else {
-          _selectedBzz.value = <BzModel>[bzModel];
+          setNotifier(notifier: _selectedBzz, mounted: mounted, value: <BzModel>[bzModel]);
         }
       }
 

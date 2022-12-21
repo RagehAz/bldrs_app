@@ -66,8 +66,18 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        _initialSpecPickers.value = widget.specPickers;
-        _tempPickers.value = widget.specPickers;
+        setNotifier(
+            notifier: _initialSpecPickers,
+            mounted: mounted,
+            value: widget.specPickers,
+        );
+
+        setNotifier(
+            notifier: _tempPickers,
+            mounted: mounted,
+            value: widget.specPickers,
+        );
+
         final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockersAndSort(
           sourcePickers: widget.specPickers,
           sort: true,
@@ -76,7 +86,12 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
         // blog('_theRefinedPickers  : $_theRefinedPickers');
         // SpecPicker.blogSpecsPickers(_theRefinedPickers);
 
-        _refinedPickers.value = _theRefinedPickers;
+        setNotifier(
+            notifier: _refinedPickers,
+            mounted: mounted,
+            value: _theRefinedPickers,
+        );
+
 
         await _triggerLoading(setTo: false);
       });
@@ -131,7 +146,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       // searchController: _searchController,
       // onSearchCancelled: (){
       //   _searchController.text = '';
-      //   _isSearching.value = false;
+      //   _isSearching.value  = false;
       // },
       // onSearchChanged: (String text) => onPhrasesSearchChanged(
       //   isSearching: _isSearching,
@@ -173,6 +188,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                       initialPickers: _initialSpecPickers,
                       tempPickers :_tempPickers,
                       flyerType: widget.flyerType,
+                      mounted: mounted,
                     ),
                   );
 
@@ -217,10 +233,11 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                   }
 
                   onReorderPickers(
-                      oldIndex: oldIndex,
-                      newIndex: _newIndex,
-                      tempPickers: _tempPickers,
-                      refinedPickers: refinedPickers
+                    oldIndex: oldIndex,
+                    newIndex: _newIndex,
+                    tempPickers: _tempPickers,
+                    refinedPickers: refinedPickers,
+                    mounted: mounted,
                   );
 
                 },
@@ -240,6 +257,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                       onTap: () => onAddNewPickers(
                         context: context,
                         tempPickers: _tempPickers,
+                        mounted: mounted,
                       ),
                     );
                   }
@@ -263,6 +281,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                           context: context,
                           tempPickers: _tempPickers,
                           picker: _picker,
+                          mounted: mounted,
                         ),
                       );
 
@@ -275,6 +294,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                         picker: _picker,
                         tempPickers: _tempPickers,
                         flyerZone: ZoneProvider.proGetCurrentZone(context: context, listen: true),
+                        mounted: mounted,
                       );
                     }
 

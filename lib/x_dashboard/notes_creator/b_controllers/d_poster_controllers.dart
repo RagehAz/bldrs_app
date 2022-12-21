@@ -23,27 +23,38 @@ import 'package:flutter/material.dart';
 void onSwitchPoster({
   @required bool value,
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }){
 
   /// WAS OFF => NOW IS TRUE
   if (value == true){
 
-    noteNotifier.value = noteNotifier.value.copyWith(
-      poster: const PosterModel(
-        modelID: null,
-        path: null,
-        type: null,
-        // file: null,
-      ),
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          poster: const PosterModel(
+            modelID: null,
+            path: null,
+            type: null,
+            // file: null,
+          ),
+        ),
     );
 
   }
 
   /// WAS TRUE => NOW IS OFF
   else {
-    noteNotifier.value = noteNotifier.value.nullifyField(
-      poster: true,
+
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.nullifyField(
+          poster: true,
+        ),
     );
+
   }
 
 }
@@ -53,12 +64,14 @@ Future<void> onSelectPosterType({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
   @required PosterType posterType,
+  @required bool mounted,
 }) async {
 
   /// NO ATTACHMENT
   if (posterType == null){
     _onClearPoster(
       noteNotifier: noteNotifier,
+      mounted: mounted,
     );
   }
 
@@ -67,6 +80,7 @@ Future<void> onSelectPosterType({
     await _onAddBzToPoster(
       context: context,
       noteNotifier: noteNotifier,
+      mounted: mounted,
     );
   }
 
@@ -75,6 +89,7 @@ Future<void> onSelectPosterType({
     await _onAddFlyerToPoster(
       context: context,
       noteNotifier: noteNotifier,
+      mounted: mounted,
     );
   }
 
@@ -98,12 +113,14 @@ Future<void> onSelectPosterType({
     await _onAddImageURLToPoster(
       context: context,
       noteNotifier: noteNotifier,
+      mounted: mounted,
     );
   }
 
   else {
     _onClearPoster(
       noteNotifier: noteNotifier,
+      mounted: mounted,
     );
   }
 
@@ -113,6 +130,7 @@ Future<void> onSelectPosterType({
 Future<void> _onAddBzToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }) async {
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -122,13 +140,16 @@ Future<void> _onAddBzToPoster({
 
   if (Mapper.checkCanLoopList(_bzModels) == true){
 
-    noteNotifier.value = noteNotifier.value.copyWith(
-      poster: PosterModel(
-        type: PosterType.bz,
-        modelID: _bzModels.first.id,
-        path: null,
-      ),
-
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          poster: PosterModel(
+            type: PosterType.bz,
+            modelID: _bzModels.first.id,
+            path: null,
+          ),
+        ),
     );
 
   }
@@ -139,6 +160,7 @@ Future<void> _onAddBzToPoster({
 Future<void> _onAddFlyerToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }) async {
 
   final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
@@ -150,12 +172,16 @@ Future<void> _onAddFlyerToPoster({
 
   if (Mapper.checkCanLoopList(_selectedFlyers) == true){
 
-    noteNotifier.value = noteNotifier.value.copyWith(
-      poster: PosterModel(
-        type: PosterType.flyer,
-        modelID: _selectedFlyers.first.id,
-        path: null,
-      ),
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          poster: PosterModel(
+            type: PosterType.flyer,
+            modelID: _selectedFlyers.first.id,
+            path: null,
+          ),
+        ),
     );
 
   }
@@ -178,7 +204,7 @@ Future<void> _onAddGalleryImageToPoster({
   // );
   //
   // if (_bytes != null){
-  //   noteNotifier.value = noteNotifier.value.copyWith(
+  //   noteNotifier.value  = noteNotifier.value.copyWith(
   //     poster: PosterModel(
   //       type: PosterType.galleryImage,
   //       modelID: null,
@@ -209,7 +235,7 @@ Future<void> _onAddCameraImageToPoster({
   // );
   //
   // if (_fileModel != null){
-  //   noteNotifier.value = noteNotifier.value.copyWith(
+  //   noteNotifier.value  = noteNotifier.value.copyWith(
   //     poster: PosterModel(
   //       type: PosterType.cameraImage,
   //       picModel: _fileModel._bytes,
@@ -226,6 +252,7 @@ Future<void> _onAddCameraImageToPoster({
 Future<void> _onAddImageURLToPoster({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }) async {
 
   final String _url = await KeyboardScreen.goToKeyboardScreen(
@@ -239,15 +266,20 @@ Future<void> _onAddImageURLToPoster({
   );
 
   if (_url != null){
-    noteNotifier.value = noteNotifier.value.copyWith(
-      poster: PosterModel(
-        type: PosterType.url,
-        modelID: null,
-        path: _url,
-        // file: null,
-      ),
 
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          poster: PosterModel(
+            type: PosterType.url,
+            modelID: null,
+            path: _url,
+            // file: null,
+          ),
+        ),
     );
+
   }
 
 }
@@ -255,13 +287,18 @@ Future<void> _onAddImageURLToPoster({
 /// TESTED : WORKS PERFECT
 void _onClearPoster({
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }){
 
   final NoteModel _note = noteNotifier.value.nullifyField(
     poster: true,
   );
 
-  noteNotifier.value = _note;
+  setNotifier(
+      notifier: noteNotifier,
+      mounted: mounted,
+      value: _note,
+  );
 
 }
 // -----------------------------------------------------------------------------

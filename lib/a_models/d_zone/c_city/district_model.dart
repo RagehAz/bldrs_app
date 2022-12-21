@@ -364,7 +364,7 @@ class DistrictModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<DistrictModel> searchDistrictsByCurrentLingoName({
+  static List<DistrictModel> searchDistrictsByCurrentLangName({
     @required BuildContext context,
     @required List<DistrictModel> sourceDistricts,
     @required String inputText,

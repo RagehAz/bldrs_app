@@ -20,6 +20,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ import 'package:flutter/material.dart';
 Future<void> loadBzEditorLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
+  @required bool mounted,
 }) async {
 
   final DraftBz _lastSessionDraft = await BzLDBOps.loadBzEditorSession(
@@ -56,10 +58,15 @@ Future<void> loadBzEditorLastSession({
 
     if (_continue == true){
 
-      draftNotifier.value = DraftBz.reAttachNodes(
-        draftFromLDB: _lastSessionDraft,
-        draftWithNodes: draftNotifier.value,
+      setNotifier(
+          notifier: draftNotifier,
+          mounted: mounted,
+          value: DraftBz.reAttachNodes(
+            draftFromLDB: _lastSessionDraft,
+            draftWithNodes: draftNotifier.value,
+          ),
       );
+
 
     }
 
@@ -68,9 +75,16 @@ Future<void> loadBzEditorLastSession({
 }
 // --------------------
 /// TASK : TEST ME
-Future<void> saveBzEditorSession(ValueNotifier<DraftBz> draftNotifier) async {
+Future<void> saveBzEditorSession({
+  @required ValueNotifier<DraftBz> draftNotifier,
+  @required bool mounted,
+}) async {
 
-  triggerCanValidateDraftBz(draftNotifier: draftNotifier, setTo: true,);
+  triggerCanValidateDraftBz(
+    draftNotifier: draftNotifier,
+    setTo: true,
+    mounted: mounted,
+  );
 
   await BzLDBOps.saveBzEditorSession(
       draft: draftNotifier.value,
@@ -87,9 +101,15 @@ Future<void> onConfirmBzEdits({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
   @required BzModel oldBz,
+  @required bool mounted,
 }) async {
 
-  triggerCanValidateDraftBz(draftNotifier: draftNotifier, setTo: true,);
+  triggerCanValidateDraftBz(
+    draftNotifier: draftNotifier,
+    setTo: true,
+    mounted: mounted,
+  );
+
   Keyboard.closeKeyboard(context);
 
   final bool _canContinue = await _preUploadCheckups(
@@ -181,14 +201,20 @@ Future<void> _uploadDraftBz({
 void triggerCanValidateDraftBz({
   @required bool setTo,
   @required ValueNotifier<DraftBz> draftNotifier,
+  @required bool mounted,
 }){
 
   if (draftNotifier.value.canValidate == setTo){
     // nothing
   }
   else {
-    draftNotifier.value = draftNotifier.value.copyWith(
-      canValidate: setTo,
+
+    setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: draftNotifier.value.copyWith(
+          canValidate: setTo,
+        ),
     );
 
   }
@@ -199,6 +225,7 @@ Future<void> onChangeBzSection({
   @required BuildContext context,
   @required int index,
   @required ValueNotifier<DraftBz> draftNotifier,
+  @required bool mounted,
 }) async {
 
   bool _canContinue = true;
@@ -229,7 +256,11 @@ Future<void> onChangeBzSection({
       scope: true,
     );
 
-    draftNotifier.value = _newDraft;
+    setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: _newDraft
+    );
 
   }
 
@@ -240,6 +271,7 @@ Future<void> onChangeBzType({
   @required BuildContext context,
   @required int index,
   @required ValueNotifier<DraftBz> draftNotifier,
+  @required bool mounted,
 }) async {
 
   bool _canContinue = true;
@@ -281,7 +313,11 @@ Future<void> onChangeBzType({
       scope: true,
     );
 
-    draftNotifier.value = _newDraft;
+    setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: _newDraft
+    );
 
   }
 
@@ -291,10 +327,15 @@ Future<void> onChangeBzType({
 void onChangeBzForm({
   @required int index,
   @required ValueNotifier<DraftBz> draftNotifier,
+  @required bool mounted,
 }){
 
-  draftNotifier.value = draftNotifier.value.copyWith(
-    bzForm: BzTyper.bzFormsList[index],
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        bzForm: BzTyper.bzFormsList[index],
+      ),
   );
 
 }
@@ -304,11 +345,18 @@ Future<void> onChangeBzLogo({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
   @required PicMakerType imagePickerType,
+  @required bool mounted,
 }) async {
 
   if (draftNotifier.value.canPickImage == true) {
 
-    draftNotifier.value = draftNotifier.value.copyWith(canPickImage: false,);
+    setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: draftNotifier.value.copyWith(
+          canPickImage: false,
+        ),
+    );
 
     Uint8List _bytes;
 
@@ -332,7 +380,13 @@ Future<void> onChangeBzLogo({
 
     /// IF DID NOT PIC ANY IMAGE
     if (_bytes == null) {
-      draftNotifier.value = draftNotifier.value.copyWith(canPickImage: true,);
+
+      setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: draftNotifier.value.copyWith(canPickImage: true,),
+      );
+
     }
 
     /// IF PICKED AN IMAGE
@@ -340,17 +394,21 @@ Future<void> onChangeBzLogo({
 
       final String _path = draftNotifier.value.getLogoPath();
 
-      draftNotifier.value = draftNotifier.value.copyWith(
-        canPickImage: true,
-        hasNewLogo: true,
-        logoPicModel: PicModel(
-            bytes: _bytes,
-            path: _path,
-            meta: PicMetaModel(
-              dimensions: await Dimensions.superDimensions(_bytes),
-              ownersIDs: draftNotifier.value.getLogoOwners()
-            )
-        ),
+      setNotifier(
+          notifier: draftNotifier,
+          mounted: mounted,
+          value: draftNotifier.value.copyWith(
+            canPickImage: true,
+            hasNewLogo: true,
+            logoPicModel: PicModel(
+                bytes: _bytes,
+                path: _path,
+                meta: PicMetaModel(
+                    dimensions: await Dimensions.superDimensions(_bytes),
+                    ownersIDs: draftNotifier.value.getLogoOwners()
+                )
+            ),
+          ),
       );
 
     }
@@ -364,6 +422,7 @@ void onChangeBzContact({
   @required ValueNotifier<DraftBz> draftNotifier,
   @required ContactType contactType,
   @required String value,
+  @required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
@@ -374,8 +433,12 @@ void onChangeBzContact({
     ),
   );
 
-  draftNotifier.value = draftNotifier.value.copyWith(
-    contacts: _contacts,
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        contacts: _contacts,
+      ),
   );
 
 }
@@ -385,6 +448,7 @@ Future<void> onChangeBzScope({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
   @required FlyerType flyerType,
+  @required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard(context);
@@ -404,9 +468,15 @@ Future<void> onChangeBzScope({
   );
 
   if (Mapper.checkCanLoopList(_phids) == true){
-    draftNotifier.value = draftNotifier.value.copyWith(
-      scope: _phids,
+
+    setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: draftNotifier.value.copyWith(
+          scope: _phids,
+        ),
     );
+
   }
 
 }

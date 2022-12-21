@@ -269,8 +269,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       countryID: 'egy',
     );
 
-
-    _highlightedText.value = _phone;
+    setNotifier(notifier: _highlightedText, mounted: mounted, value: _phone);
   }
   // --------------------
   final ValueNotifier<dynamic> _thePic = ValueNotifier(null);
@@ -325,8 +324,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       authorName1: 'A7mad Fat7y 3ab el 3al فلوكس',
     );
 
-    _hashVerse.value = _showHash.value == true ? _output : _original;
-    _showHash.value = !_showHash.value;
+    setNotifier(notifier: _hashVerse, mounted: mounted, value: _showHash.value  == true ? _output : _original);
+    setNotifier(notifier: _showHash, mounted: mounted, value: !_showHash.value);
 
   }
   // -----------------------------------------------------------------------------
@@ -618,7 +617,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //   color: Colorz.green255,
                 //   verse:  'Rebuild the Fucker Bitch',
                 //   onTap: (){
-                //     _rebuildListPusher.value = _rebuildListPusher.value++;
+                //     _rebuildListPusher.value  = _rebuildListPusher.value++;
                 //   },
                 // ),
 

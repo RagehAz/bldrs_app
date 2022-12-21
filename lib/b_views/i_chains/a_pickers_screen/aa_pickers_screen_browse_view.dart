@@ -25,6 +25,7 @@ class PickersScreenBrowseView extends StatelessWidget {
     @required this.flyerTypes,
     @required this.isMultipleSelectionMode,
     @required this.zone,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,6 +35,7 @@ class PickersScreenBrowseView extends StatelessWidget {
   final List<FlyerType> flyerTypes;
   final bool isMultipleSelectionMode;
   final ZoneModel zone;
+  final bool mounted;
   // --------------------------------------------------------------------------
   /// CHAIN GROUPS ( PICKERS )  INSTRUCTIONS
   Verse _getInstructions(BuildContext context){
@@ -136,6 +138,7 @@ class PickersScreenBrowseView extends StatelessWidget {
                           allPickers: _refinedPickers,
                           picker: _picker,
                           refinedPickersNotifier: refinedPickersNotifier,
+                          mounted: mounted,
                         ),
 
                         /// TAPPING ON BLACK SPEC => NOTHING FOR NOW
@@ -151,6 +154,7 @@ class PickersScreenBrowseView extends StatelessWidget {
                           unitSpec: unit,
                           pickers: _refinedPickers,
                           selectedSpecsNotifier: selectedSpecsNotifier,
+                          mounted: mounted,
                         ),
 
                       );

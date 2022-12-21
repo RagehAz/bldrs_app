@@ -81,8 +81,19 @@ class Localizer {
   /// INITIALIZATION
 
   // --------------------
-  static Future<void> initializeLocale(ValueNotifier<Locale> locale) async {
-    locale.value = await Localizer.getLocaleFromSharedPref();
+  static Future<void> initializeLocale({
+    @required ValueNotifier<Locale> locale,
+    @required bool mounted,
+  }) async {
+
+    final Locale _locale = await Localizer.getLocaleFromSharedPref();
+
+    setNotifier(
+        notifier: locale,
+        mounted: mounted,
+        value: _locale,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/b_views/z_components/layouts/keep_alive_page.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class CropperPages extends StatelessWidget {
     @required this.statuses,
     @required this.croppedImages,
     @required this.controllers,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// -----------------------------------------------------------------------------
@@ -30,15 +32,25 @@ class CropperPages extends StatelessWidget {
   final ValueNotifier<List<CropStatus>> statuses;
   final ValueNotifier<List<Uint8List>> croppedImages;
   final List<CropController> controllers;
-  /// -----------------------------------------------------------------------------
+  final bool mounted;
+  // -----------------------------------------------------------------------------
+  ///
   void _updateCropStatus({
     @required int index,
     @required CropStatus status,
+    @required bool mounted,
   }){
     if (statuses.value[index] != status){
+
       final List<CropStatus> _list = <CropStatus>[...statuses.value];
       _list[index] = status;
-      statuses.value = _list;
+
+      setNotifier(
+          notifier: statuses,
+          mounted: mounted,
+          value: _list,
+      );
+
     }
   }
   /// -----------------------------------------------------------------------------
@@ -58,7 +70,13 @@ class CropperPages extends StatelessWidget {
           controller: pageController,
           itemCount: originalBytezz.length,
           onPageChanged: (int index){
-            currentImageIndex.value = index;
+
+            setNotifier(
+                notifier: currentImageIndex,
+                mounted: mounted,
+                value: index,
+            );
+
           },
           itemBuilder: (_, int index){
 
@@ -106,6 +124,7 @@ class CropperPages extends StatelessWidget {
                       _updateCropStatus(
                         index: index,
                         status: CropStatus.cropping,
+                        mounted: mounted,
                       );
 
                     },
@@ -114,6 +133,7 @@ class CropperPages extends StatelessWidget {
                       _updateCropStatus(
                         index: index,
                         status: status,
+                        mounted: mounted,
                       );
 
                     },

@@ -111,9 +111,15 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   Future<void> loadDistricts() async {
 
     /// COMPLETE CURRENT ZONE
-    _currentZone.value = await ZoneProtocols.completeZoneModel(
+    final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: _currentZone.value,
+    );
+
+    setNotifier(
+        notifier: _currentZone,
+        mounted: mounted,
+        value: _completeZone,
     );
 
     final Staging _districtsStages = await StagingProtocols.fetchDistrictsStaging(
@@ -155,8 +161,11 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
           ),
         );
 
-
-        _cityDistricts.value = <DistrictModel>[..._orderedShownDistricts, ..._orderedNotShownDistricts];
+        setNotifier(
+            notifier: _cityDistricts,
+            mounted: mounted,
+            value: <DistrictModel>[..._orderedShownDistricts, ..._orderedNotShownDistricts],
+        );
 
         final List<CensusModel> _districtsCensus = await CensusProtocols.fetchDistrictsCensuses(
           districtsIDs:  <String>[...?_shownIDs, ...?_notShownIDs],
@@ -186,24 +195,29 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
   Future<void> _onSearchDistrict(String inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
-        text: inputText,
-        isSearching: _isSearching
+      text: inputText,
+      isSearching: _isSearching,
+      mounted: mounted,
     );
 
     /// WHILE SEARCHING
-    if (_isSearching.value == true){
+    if (_isSearching.value  == true){
 
       /// START LOADING
       await _triggerLoading(setTo: true);
 
       /// CLEAR PREVIOUS SEARCH RESULTS
-      _foundDistricts.value = <DistrictModel>[];
+      setNotifier(notifier: _foundDistricts, mounted: mounted, value: <DistrictModel>[]);
 
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
-      _foundDistricts.value = DistrictModel.searchDistrictsByCurrentLingoName(
-        context: context,
-        sourceDistricts: _cityDistricts.value,
-        inputText: TextMod.fixCountryName(inputText),
+      setNotifier(
+          notifier: _foundDistricts,
+          mounted: mounted,
+          value: DistrictModel.searchDistrictsByCurrentLangName(
+            context: context,
+            sourceDistricts: _cityDistricts.value,
+            inputText: TextMod.fixCountryName(inputText),
+          ),
       );
 
       /// CLOSE LOADING

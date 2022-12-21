@@ -21,14 +21,16 @@ void onSearchCurrencies({
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<List<CurrencyModel>> foundCurrencies,
   @required PageController pageController,
+  @required bool mounted,
 }){
 
   TextCheck.triggerIsSearchingNotifier(
     text: searchController.text,
     isSearching: isSearching,
+    mounted: mounted,
   );
 
-  if (isSearching.value == true){
+  if (isSearching.value  == true){
 
     final List<CurrencyModel> _foundCurrencies = <CurrencyModel>[];
 
@@ -40,6 +42,7 @@ void onSearchCurrencies({
       phrasesToSearchIn: _phraseProvider.mainPhrases,
       isSearching: isSearching,
       pageController: pageController,
+      mounted: mounted,
     );
 
     Phrase.blogPhrases(_phrases);
@@ -83,11 +86,13 @@ void onSearchCurrencies({
 
       }
 
-
-
     }
 
-    foundCurrencies.value = _foundCurrencies;
+    setNotifier(
+        notifier: foundCurrencies,
+        mounted: mounted,
+        value: _foundCurrencies
+    );
 
   }
 

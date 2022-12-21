@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/b_phids_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pdf_bubble/pdf_selection_bubble.dart';
@@ -20,7 +21,11 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -94,6 +99,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         await loadFlyerMakerLastSession(
           context: context,
           draft: _draftNotifier,
+          mounted: mounted,
         );
         // -----------------------------
           if (widget.validateOnStartup == true){
@@ -235,6 +241,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     onTextChanged: (String text) => onUpdateFlyerHeadline(
                       draftNotifier: _draftNotifier,
                       text: text,
+                      mounted: mounted,
                     ),
                     textController: _draft?.headline,
                     validator: (String text) => Formers.flyerHeadlineValidator(
@@ -249,7 +256,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     key: const ValueKey<String>('bz_scope_bubble'),
                     // pasteFunction: () async {
                     //   final String _text = await TextMod.paste();
-                    //   _draftNotifier.value = _draft.copyWith(
+                    //   _draftNotifier.value  = _draft.copyWith(
                     //     description: _text,
                     //   );
                     //   setState(() {
@@ -279,6 +286,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     onTextChanged: (String text) => onUpdateFlyerDescription(
                       draftNotifier: _draftNotifier,
                       text: text,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -324,6 +332,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       context: context,
                       index: index,
                       draftNotifier: _draftNotifier,
+                      mounted: mounted,
                     ),
                     inactiveButtons: <Verse>[
                       ...Verse.createVerses(
@@ -350,6 +359,57 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     bzModel: _draft?.bzModel,
                     draft: _draft,
                     draftNotifier: _draftNotifier,
+                    onPhidTap: (String phid){
+                      blog('phidSelectorBubble : onPhidTap : phid: $phid');
+                    },
+                    onPhidLongTap: (String phid){
+
+                      final List<String> _newPhids = Stringer.addOrRemoveStringToStrings(
+                        strings: _draft.keywordsIDs,
+                        string: phid,
+                      );
+
+                      setNotifier(
+                        notifier: _draftNotifier,
+                        mounted: mounted,
+                        value: _draftNotifier.value.copyWith(
+                          keywordsIDs: _newPhids,
+                        ),
+                      );
+
+
+                    },
+                    onAdd: () async {
+
+                      Keyboard.closeKeyboard(context);
+
+                      final List<String> _phids = await Nav.goToNewScreen(
+                        context: context,
+                        pageTransitionType: Nav.superHorizontalTransition(context),
+                        screen: PhidsPickerScreen(
+                          multipleSelectionMode: true,
+                          selectedPhids: _draftNotifier.value.keywordsIDs,
+                          chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+                            context: context,
+                            flyerType: _draftNotifier.value.flyerType,
+                            event: ViewingEvent.flyerEditor,
+                          ),
+                        ),
+                      );
+
+                      if (Mapper.checkCanLoopList(_phids) == true){
+
+                        setNotifier(
+                          notifier: _draftNotifier,
+                          mounted: mounted,
+                          value: _draftNotifier.value.copyWith(
+                            keywordsIDs: _phids,
+                          ),
+                        );
+
+                      }
+
+                    },
                   ),
 
                   /// SEPARATOR
@@ -366,9 +426,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     onChangePDF: (PDFModel pdf) => onChangeFlyerPDF(
                       draftNotifier: _draftNotifier,
                       pdfModel: pdf,
+                      mounted: mounted,
                     ),
                     onDeletePDF: () => onRemoveFlyerPDF(
-                        draftNotifier: _draftNotifier
+                      draftNotifier: _draftNotifier,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -405,6 +467,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                       context: context,
                       draftNotifier: _draftNotifier,
                       zone: zone,
+                      mounted: mounted,
                     ),
                     validator: () => Formers.zoneValidator(
                       context: context,
@@ -425,6 +488,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     onSwitch: (bool value) => onSwitchFlyerShowsAuthor(
                       value: value,
                       draftNotifier: _draftNotifier,
+                      mounted: mounted,
                     ),
                   ),
 

@@ -100,10 +100,10 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
       );
     }
     else if (widget.fadeType == FadeType.stillAtMin){
-      _animationController.value = widget.min;
+      _animationController.value  = widget.min;
     }
     else if (widget.fadeType == FadeType.stillAtMax){
-      _animationController.value = widget.max;
+      _animationController.value  = widget.max;
     }
     else {
       await _animationController.forward(from: widget.min,);

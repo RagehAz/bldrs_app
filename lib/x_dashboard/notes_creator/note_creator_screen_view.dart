@@ -119,10 +119,12 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     onTriggerSendFCM: (bool val) => onSwitchSendFCM(
                       noteNotifier: _draftNote.noteNotifier,
                       value: val,
+                      mounted: mounted,
                     ),
                     onTriggerSendNote: (bool val) => onSwitchSendNote(
                       noteNotifier: _draftNote.noteNotifier,
                       value: val,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -134,12 +136,14 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                       context: context,
                       senderType: senderType,
                       noteNotifier: _draftNote.noteNotifier,
+                      mounted: mounted,
                     ),
                     onSelectReceiverType: (PartyType receiverType) => onSelectReceiverType(
                       context: context,
                       selectedReceiverType: receiverType,
                       noteNotifier: _draftNote.noteNotifier,
                       receiversModels: _draftNote.receiversModels,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -151,6 +155,7 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                       topic: topic,
                       partyType: widget.receiverType,
                       noteNotifier: _draftNote.noteNotifier,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -162,6 +167,7 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     onTextChanged: (String text) => onTitleChanged(
                       noteNotifier: _draftNote.noteNotifier,
                       text: text,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -172,6 +178,7 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     onTextChanged: (String text) => onBodyChanged(
                       noteNotifier: _draftNote.noteNotifier,
                       text: text,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -181,11 +188,13 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     onSwitchPoster: (bool value) => onSwitchPoster(
                       noteNotifier: _draftNote.noteNotifier,
                       value: value,
+                      mounted: mounted,
                     ),
                     onSelectPosterType: (PosterType posterType) => onSelectPosterType(
-                        context: context,
-                        posterType: posterType,
-                        noteNotifier: _draftNote.noteNotifier,
+                      context: context,
+                      posterType: posterType,
+                      noteNotifier: _draftNote.noteNotifier,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -195,17 +204,21 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     onSwitch: (bool value) => onSwitchNoteProgress(
                       value: value,
                       noteNotifier: _draftNote.noteNotifier,
+                      mounted: mounted,
                     ),
                     onTriggerLoading: () => onTriggerNoteLoading(
                       noteNotifier: _draftNote.noteNotifier,
+                      mounted: mounted,
                     ),
                     onIncrement: (int amount) => onIncrementNoteProgress(
                       noteNotifier: _draftNote.noteNotifier,
                       amount: amount,
+                      mounted: mounted,
                     ),
                     onDecrement: (int amount) => onDecrementNoteProgress(
                       noteNotifier: _draftNote.noteNotifier,
                       amount: amount,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -213,8 +226,9 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                   NoteButtonsCreatorBubble(
                     note: note,
                     onAddButton: (String phid) => onAddNoteButton(
-                        noteNotifier: _draftNote.noteNotifier,
-                        button: phid,
+                      noteNotifier: _draftNote.noteNotifier,
+                      button: phid,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -224,9 +238,11 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     onSelectTrigger: (TriggerModel trigger) => onAddTrigger(
                       noteNotifier: _draftNote.noteNotifier,
                       trigger: trigger,
+                      mounted: mounted,
                     ),
                     onRemoveTrigger: () => removeTrigger(
                       noteNotifier: _draftNote.noteNotifier,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -235,8 +251,9 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
                     isDismissible: note.dismissible,
                     note: note,
                     onSwitch: (bool value) => onSwitchIsDismissible(
-                        noteNotifier: _draftNote.noteNotifier,
-                        value: value,
+                      noteNotifier: _draftNote.noteNotifier,
+                      value: value,
+                      mounted: mounted,
                     ),
                   ),
 
@@ -260,10 +277,12 @@ class _NoteCreatorScreenViewState extends State<NoteCreatorScreenView> {
               ),
               onClearNote: () => clearNote(
                 draftNote: _draftNote,
+                mounted: mounted,
               ),
               onImportNote: () => onGoToNoteTemplatesScreen(
                 context: context,
                 draftNote: _draftNote,
+                mounted: mounted,
               ),
               onSendNote: () => onSendNote(
                 context: context,

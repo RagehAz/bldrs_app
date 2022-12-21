@@ -138,6 +138,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           context: context,
           newIndex: _tabController.index,
           progressBarModel: _progressBarModel,
+          mounted: mounted,
         );
 
         setNotifier(
@@ -194,6 +195,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       context: context,
       newIndex: index,
       progressBarModel: _progressBarModel,
+      mounted: mounted,
     );
 
     _tabController.animateTo(_progressBarModel.value.index,
@@ -230,7 +232,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     /// WHEN PYRAMIDS EXPANDED
     if (_isExpanded.value == true){
-      _isExpanded.value = false;
+      setNotifier(notifier: _isExpanded, mounted: mounted, value: false);
     }
 
     /// WHEN PYRAMIDS COLLAPSED
@@ -263,6 +265,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       onRowTap: onRowTap,
       onTriggerExpansion: onTriggerExpansion,
       tabController: _tabController,
+      mounted: mounted,
       abovePyramidsChild: widget.abovePyramidsChild,
     );
 
@@ -316,6 +319,7 @@ class _NormalView extends StatelessWidget {
     @required this.onRowTap,
     @required this.progressBarModel,
     @required this.abovePyramidsChild,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -326,6 +330,7 @@ class _NormalView extends StatelessWidget {
   final ValueChanged<int> onRowTap;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final Widget abovePyramidsChild;
+  final bool mounted;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -346,6 +351,7 @@ class _NormalView extends StatelessWidget {
           onRowTap: onRowTap,
           progressBarModel: progressBarModel,
           navModels: navModels,
+          mounted: mounted,
         ),
 
         /// ABOVE PYRAMIDS CHILD

@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -25,6 +26,7 @@ Future<void> onNoteTap({
   @required BuildContext context,
   @required NoteModel note,
   @required ValueNotifier<bool> loading,
+  @required bool mounted,
 }) async {
 
   final List<Widget> _buttons = <Widget>[
@@ -37,6 +39,7 @@ Future<void> onNoteTap({
         noteModel: note,
         // notes: allNotes,
         loading: loading,
+        mounted: mounted,
       ),
     ),
 
@@ -132,6 +135,7 @@ Future<void> onDeleteNote({
   @required NoteModel noteModel,
   // @required ValueNotifier<List<NoteModel>> notes,
   @required ValueNotifier<bool> loading,
+  @required bool mounted,
 }) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
@@ -147,13 +151,14 @@ Future<void> onDeleteNote({
       context: context,
       invoker: 'onDeleteNote',
     );
-    loading.value = true;
+
+    setNotifier(notifier: loading, mounted: mounted, value: true);
 
     await NoteProtocols.wipeNote(
       note: noteModel,
     );
 
-    loading.value = false;
+    setNotifier(notifier: loading, mounted: mounted, value: false);
 
     /// SHOW CONFIRMATION DIALOG
     await TopDialog.showTopDialog(

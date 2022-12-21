@@ -135,7 +135,13 @@ class _GallerySlideState extends State<GallerySlide> {
   }
   // --------------------
   void _addToBzFlyers(List<FlyerModel> flyers){
-    _loadedFlyers.value = <FlyerModel>[..._loadedFlyers.value, ...flyers];
+
+    setNotifier(
+        notifier: _loadedFlyers,
+        mounted: mounted,
+        value: <FlyerModel>[..._loadedFlyers.value, ...flyers],
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override

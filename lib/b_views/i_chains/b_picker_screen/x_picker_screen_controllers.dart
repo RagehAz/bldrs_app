@@ -48,6 +48,7 @@ Future<void> onSelectPhidInPickerScreen({
   @required bool isMultipleSelectionMode,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
+  @required bool mounted,
 }) async {
 
   picker?.blogPicker();
@@ -59,6 +60,7 @@ Future<void> onSelectPhidInPickerScreen({
       phid: Phider.removeIndexFromPhid(phid: phid),
       picker: picker,
       selectedSpecs: selectedSpecsNotifier,
+      mounted: mounted,
     );
   }
 
@@ -79,6 +81,7 @@ Future<void> _insertPhidToSelectedSpecs({
   @required String phid,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required bool mounted,
 }) async {
 
   if (picker != null && picker.chainID != null){
@@ -102,18 +105,30 @@ Future<void> _insertPhidToSelectedSpecs({
     if (_alreadySelected == true) {
       /// A1 - CAN PICK MANY
       if (picker.canPickMany == true) {
+
         final List<SpecModel> _specs = [...selectedSpecs.value];
         _specs.removeAt(_specIndex);
-        selectedSpecs.value = _specs;
+
+        setNotifier(
+            notifier: selectedSpecs,
+            mounted: mounted,
+            value: _specs,
+        );
 
         // _selectedSpecs.value.removeAt(_specIndex);
       }
 
       /// A2 - CAN NOT PICK MANY
       else {
+
         final List<SpecModel> _specs = [...selectedSpecs.value];
         _specs.removeAt(_specIndex);
-        selectedSpecs.value = _specs;
+
+        setNotifier(
+            notifier: selectedSpecs,
+            mounted: mounted,
+            value: _specs,
+        );
 
         // _selectedSpecs.value.removeAt(_specIndex);
 
@@ -125,7 +140,12 @@ Future<void> _insertPhidToSelectedSpecs({
       /// B1 - WHEN CAN PICK MANY
       if (picker.canPickMany == true) {
         final List<SpecModel> _specs = [...selectedSpecs.value, _spec];
-        selectedSpecs.value = _specs;
+
+        setNotifier(
+            notifier: selectedSpecs,
+            mounted: mounted,
+            value: _specs,
+        );
 
         // _selectedSpecs.value .add(_spec);
 
@@ -139,7 +159,13 @@ Future<void> _insertPhidToSelectedSpecs({
         /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
         if (_specIndex == -1) {
           final List<SpecModel> _specs = [...selectedSpecs.value, _spec];
-          selectedSpecs.value = _specs;
+
+          setNotifier(
+              notifier: selectedSpecs,
+              mounted: mounted,
+              value: _specs,
+          );
+
 
           // _selectedSpecs.value.add(_spec);
 
@@ -147,10 +173,17 @@ Future<void> _insertPhidToSelectedSpecs({
 
         /// C2 - WHEN A SPEC OF THIS KIND ALREADY EXISTS TO BE REPLACED
         else {
+
           final List<SpecModel> _specs = [...selectedSpecs.value];
           _specs.removeAt(_specIndex);
           _specs.add(_spec);
-          selectedSpecs.value = _specs;
+
+          setNotifier(
+              notifier: selectedSpecs,
+              mounted: mounted,
+              value: _specs,
+          );
+
 
           // _selectedSpecs.value.removeAt(_specIndex);
           // _selectedSpecs.value.add(_spec);

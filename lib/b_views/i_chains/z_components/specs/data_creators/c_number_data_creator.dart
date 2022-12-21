@@ -63,6 +63,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
       dataCreatorType: widget.dataCreatorType,
       specValue: _specValue,
       initialValue: widget.initialValue,
+      mounted: mounted
     );
 
   }
@@ -132,6 +133,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             selectedUnitID: _selectedUnitID,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
+            mounted: mounted,
           ),
           onKeyboardChanged: (String text) => onDataCreatorKeyboardChanged(
             formKey: _formKey,
@@ -141,6 +143,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             selectedUnitID: _selectedUnitID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
+            mounted: mounted,
           ),
           onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmittedAnd(
             context: context,
@@ -152,6 +155,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             selectedUnitID: _selectedUnitID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
+            mounted: mounted,
           ),
         ),
 

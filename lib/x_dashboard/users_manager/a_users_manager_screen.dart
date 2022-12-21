@@ -49,10 +49,14 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
   void initState() {
     super.initState();
 
-    _progressBarModel.value = const ProgressBarModel(
-      swipeDirection: SwipeDirection.freeze,
-      index: 0,
-      numberOfStrips: 2,
+    setNotifier(
+        notifier: _progressBarModel,
+        mounted: mounted,
+        value: const ProgressBarModel(
+          swipeDirection: SwipeDirection.freeze,
+          index: 0,
+          numberOfStrips: 2,
+        ),
     );
 
   }
@@ -69,6 +73,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
           usersModels: _usersModels,
           scrollController: _scrollController,
           lastSnapshot: _lastSnapshot,
+          mounted: mounted,
         );
         /// ---------------------------------------------------------0
         await _triggerLoading(setTo: false);
@@ -125,6 +130,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
                   usersModels: _usersModels,
                   lastSnapshot: _lastSnapshot,
                   scrollController: _scrollController,
+                  mounted: mounted,
                 ),
               );
 
@@ -140,6 +146,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
           context: context,
           newIndex: index,
           progressBarModel: _progressBarModel,
+          mounted: mounted,
         ),
         children: <Widget>[
 
@@ -150,6 +157,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
             scrollController: _scrollController,
             pageController: _pageController,
             usersModels: _usersModels,
+            mounted: mounted,
           ),
 
           /// SELECTED USER PAGE

@@ -11,11 +11,13 @@ class ObeliskPyramids extends StatelessWidget {
   const ObeliskPyramids({
     @required this.isExpanded,
     @required this.isYellow,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> isExpanded;
   final bool isYellow;
+  final bool mounted;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,13 +48,13 @@ class ObeliskPyramids extends StatelessWidget {
           blog('the userID : ${AuthFireOps.superUserID()}');
 
           /// TO OPEN PYRAMIDS
-          if (isExpanded.value == null || isExpanded.value == false){
-            isExpanded.value = true;
+          if (isExpanded.value  == null || isExpanded.value  == false){
+            setNotifier(notifier: isExpanded, mounted: mounted, value: true);
           }
 
           /// TO CLOSE PYRAMIDS
           else {
-            isExpanded.value = false;
+            setNotifier(notifier: isExpanded, mounted: mounted, value: false);
           }
 
           /// STOP FLASHING

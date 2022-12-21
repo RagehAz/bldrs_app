@@ -63,6 +63,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
       initialCurrencyID: widget.initialCurrencyID,
       priceValue: _priceValue,
       dataCreatorType: widget.dataCreatorType,
+      mounted: mounted,
     );
 
 
@@ -130,6 +131,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             zone: widget.zone,
             formKey: _formKey,
             selectedCurrencyID: _selectedCurrencyID,
+            mounted: mounted,
           ),
           onKeyboardChanged: (String text) => onDataCreatorKeyboardChanged(
             formKey: _formKey,
@@ -139,6 +141,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             selectedUnitID: _selectedCurrencyID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
+            mounted: mounted,
           ),
           onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmittedAnd(
             context: context,
@@ -150,6 +153,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             selectedUnitID: _selectedCurrencyID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
+            mounted: mounted,
           ),
         ),
 

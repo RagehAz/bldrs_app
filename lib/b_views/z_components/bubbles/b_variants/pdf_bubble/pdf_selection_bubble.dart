@@ -67,7 +67,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   @override
   void initState() {
     super.initState();
-    _pdfNotifier.value = widget.existingPDF;
+    setNotifier(notifier: _pdfNotifier, mounted: mounted, value: widget.existingPDF);
     _textController.text = widget.existingPDF?.name;
   }
   // --------------------
@@ -200,8 +200,12 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 textController: _textController,
                 onChanged: (String text){
 
-                  _pdfNotifier.value = _pdfNotifier.value.copyWith(
-                    name: _textController.text,
+                  setNotifier(
+                      notifier: _pdfNotifier,
+                      mounted: mounted,
+                      value: _pdfNotifier.value.copyWith(
+                        name: _textController.text,
+                      ),
                   );
 
                   widget.onChangePDF(_pdfNotifier.value);
@@ -309,8 +313,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       verseItalic: true,
                       margins: const EdgeInsets.only(top: 10, left: 10, right: 10),
                       onTap: () async {
-                        _pdfNotifier.value = null;
+
+                        setNotifier(notifier: _pdfNotifier, mounted: mounted, value: null);
                         widget.onDeletePDF();
+
                       },
                     ),
 
@@ -336,7 +342,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       if (_pdfModel != null){
 
                         _textController.text = _pdfModel.name;
-                        _pdfNotifier.value = _pdfModel;
+
+                        setNotifier(notifier: _pdfNotifier, mounted: mounted, value: _pdfModel);
 
                         widget.onChangePDF(_pdfNotifier.value);
 

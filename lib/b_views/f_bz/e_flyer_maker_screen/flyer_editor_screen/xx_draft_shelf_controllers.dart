@@ -38,8 +38,7 @@ Future<void> onAddNewSlides({
   @required double flyerWidth,
 }) async {
 
-  isLoading.value = true;
-
+  setNotifier(notifier: isLoading, mounted: mounted, value: true);
 
   final int _maxLength = Standards.getMaxSlidesCount(
     bzAccountType: bzModel.accountType,
@@ -78,7 +77,12 @@ Future<void> onAddNewSlides({
 
   }
 
-  isLoading.value = false;
+  setNotifier(
+      notifier: isLoading,
+      mounted: mounted,
+      value: false,
+  );
+
 
 }
 // --------------------
@@ -155,7 +159,11 @@ Future<void> _addImagesForNewFlyer({
         draftSlides: _combinedSlides,
       );
 
-      draftFlyer.value = _newDraft;
+      setNotifier(
+          notifier: draftFlyer,
+          mounted: mounted,
+          value: _newDraft,
+      );
 
       await Future.delayed(Ratioz.duration150ms,() async {
         await Scrollers.scrollTo(
@@ -223,6 +231,7 @@ Future<void> onSlideTap({
   @required BuildContext context,
   @required DraftSlide slide,
   @required ValueNotifier<DraftFlyer> draftFlyer,
+  @required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard(context);
@@ -242,8 +251,12 @@ Future<void> onSlideTap({
       draft: _result,
     );
 
-    draftFlyer.value = draftFlyer.value.copyWith(
-      draftSlides: _updatedSlides,
+    setNotifier(
+        notifier: draftFlyer,
+        mounted: mounted,
+        value: draftFlyer.value.copyWith(
+          draftSlides: _updatedSlides,
+        ),
     );
 
   }
@@ -255,6 +268,7 @@ Future<void> onDeleteSlide({
   @required BuildContext context,
   @required DraftSlide draftSlide,
   @required ValueNotifier<DraftFlyer> draftFlyer,
+  @required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard(context);
@@ -279,8 +293,12 @@ Future<void> onDeleteSlide({
       draft: draftSlide,
     );
 
-    draftFlyer.value = draftFlyer.value.copyWith(
-      draftSlides: _slides,
+    setNotifier(
+        notifier: draftFlyer,
+        mounted: mounted,
+        value: draftFlyer.value.copyWith(
+          draftSlides: _slides,
+        ),
     );
 
     _slide.uiImage.dispose();
@@ -363,15 +381,20 @@ void onFlyerHeadlineChanged({
   @required String text,
   @required GlobalKey<FormState> formKey,
   @required ValueNotifier<DraftFlyer> draftFlyer,
+  @required bool mounted,
 }){
 
   /// DO YOU NEED THIS ?
   formKey.currentState.validate();
 
-  draftFlyer.value = DraftFlyer.updateHeadline(
-    draft: draftFlyer.value,
-    newHeadline: text,
-    slideIndex: 0,
+  setNotifier(
+      notifier: draftFlyer,
+      mounted: mounted,
+      value: DraftFlyer.updateHeadline(
+        draft: draftFlyer.value,
+        newHeadline: text,
+        slideIndex: 0,
+      ),
   );
 
 }

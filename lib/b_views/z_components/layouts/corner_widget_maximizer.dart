@@ -188,12 +188,16 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
   Future<void> _animate() async {
 
     if (_scaleAnimation.value >= _getEndRatio()){
+
       await _animationController.reverse();
-      _isExpanded.value = false;
+      setNotifier(notifier: _isExpanded, mounted: mounted, value: false);
+
     }
     else {
+
       await _animationController.forward();
-      _isExpanded.value = true;
+      setNotifier(notifier: _isExpanded, mounted: mounted, value: true);
+
     }
 
   }

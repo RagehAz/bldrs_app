@@ -24,12 +24,14 @@ class PickerEditingTile extends StatelessWidget {
     @required this.picker,
     @required this.tempPickers,
     @required this.flyerZone,
+    @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final PickerModel picker;
   final ValueNotifier<List<PickerModel>> tempPickers;
   final ZoneModel flyerZone;
+  final bool mounted;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -67,9 +69,10 @@ class PickerEditingTile extends StatelessWidget {
                   ),
                 ),
                 onTap: () => onPickerChainIDTap(
-                    context: context,
-                    picker: picker,
-                    tempPickers: tempPickers
+                  context: context,
+                  picker: picker,
+                  tempPickers: tempPickers,
+                  mounted: mounted,
                 ),
               ),
 
@@ -86,10 +89,11 @@ class PickerEditingTile extends StatelessWidget {
                     ),
                     switchValue: picker.isRequired,
                     onSwitchTap: (bool value) => onSwitchIsRequired(
-                        newValue: value,
-                        context: context,
-                        picker: picker,
-                        tempPickers: tempPickers
+                      newValue: value,
+                      context: context,
+                      picker: picker,
+                      tempPickers: tempPickers,
+                      mounted: mounted,
                     ),
                   ),
                 ),
@@ -108,10 +112,11 @@ class PickerEditingTile extends StatelessWidget {
                     ),
                     switchValue: picker.canPickMany,
                     onSwitchTap: (bool value) => onSwitchCanPickMany(
-                        newValue: value,
-                        context: context,
-                        picker: picker,
-                        tempPickers: tempPickers
+                      newValue: value,
+                      context: context,
+                      picker: picker,
+                      tempPickers: tempPickers,
+                      mounted: mounted,
                     ),
                   ),
                 ),
@@ -135,9 +140,10 @@ class PickerEditingTile extends StatelessWidget {
                   ),
                 ),
                 onTap: () => onPickerUnitChainIDTap(
-                    context: context,
-                    picker: picker,
-                    tempPickers: tempPickers
+                  context: context,
+                  picker: picker,
+                  tempPickers: tempPickers,
+                  mounted: mounted,
                 ),
               ),
 
@@ -304,6 +310,7 @@ class PickerEditingTile extends StatelessWidget {
                         context: context,
                         tempPickers: tempPickers,
                         picker: picker,
+                        mounted: mounted,
                       ),
                       margins: 5,
                     ),
@@ -322,6 +329,7 @@ class PickerEditingTile extends StatelessWidget {
                         context: context,
                         tempPickers: tempPickers,
                         picker: picker,
+                        mounted: mounted,
                       ),
                       margins: 5,
                     ),

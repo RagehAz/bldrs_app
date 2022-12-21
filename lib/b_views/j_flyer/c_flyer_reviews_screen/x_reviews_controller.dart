@@ -149,9 +149,13 @@ Future<void> onSubmitReview({
           bzID: flyerModel.bzID,
         ).then((ReviewModel uploadedReview){
 
-          paginationController.addMap.value = uploadedReview.toMap(
-            includeID: true,
-            includeDocSnapshot: true,
+          setNotifier(
+              notifier: paginationController.addMap,
+              mounted: mounted,
+              value: uploadedReview.toMap(
+                includeID: true,
+                includeDocSnapshot: true,
+              ),
           );
 
           textController.text = '';
@@ -182,6 +186,7 @@ Future<void> onReviewAgree({
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required bool isAgreed,
+  @required bool mounted,
 }) async {
 
   /// USER IS NOT SIGNED IN
@@ -199,6 +204,7 @@ Future<void> onReviewAgree({
       );
 
       paginationController.replaceMapByID(
+        mounted: mounted,
         map: _uploaded.toMap(
           includeID: true,
           includeDocSnapshot: true,
@@ -221,6 +227,7 @@ Future<void> onReviewOptions({
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required String bzID,
+  @required bool mounted,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -251,6 +258,7 @@ Future<void> onReviewOptions({
                   context: context,
                   reviewModel: reviewModel,
                   paginationController: paginationController,
+                  mounted: mounted,
                 );
 
               }
@@ -277,6 +285,7 @@ Future<void> onReviewOptions({
                   reviewModel: reviewModel,
                   paginationController: paginationController,
                   bzID: bzID,
+                  mounted: mounted,
                 );
 
               }
@@ -294,6 +303,7 @@ Future<void> _onEditReview({
   @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
+  @required bool mounted,
 }) async {
 
   bool _isConfirmed = false;
@@ -333,18 +343,22 @@ Future<void> _onEditReview({
       reviewModel: _updated,
     );
 
-    paginationController.replaceMap.value = _updated.toMap(
-      includeID: true,
-      includeDocSnapshot: true,
+    setNotifier(
+        notifier: paginationController.replaceMap,
+        mounted: mounted,
+        value: _updated.toMap(
+          includeID: true,
+          includeDocSnapshot: true,
+        ),
     );
 
-    unawaited(TopDialog.showTopDialog(
+    await TopDialog.showTopDialog(
       context: context,
       firstVerse: const Verse(
         text: 'phid_review_has_been_updated',
         translate: true,
       ),
-    ));
+    );
 
   }
 
@@ -356,6 +370,7 @@ Future<void> _onDeleteReview({
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required String bzID,
+  @required bool mounted,
 }) async {
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
@@ -379,19 +394,23 @@ Future<void> _onDeleteReview({
       bzID: bzID,
     );
 
-    paginationController.deleteMap.value = reviewModel.toMap(
-      includeID: true,
-      includeDocSnapshot: true,
+    setNotifier(
+        notifier: paginationController.deleteMap,
+        mounted: mounted,
+        value: reviewModel.toMap(
+          includeID: true,
+          includeDocSnapshot: true,
+        ),
     );
 
-    unawaited(TopDialog.showTopDialog(
+    await TopDialog.showTopDialog(
       context: context,
       firstVerse: const Verse(
         pseudo: 'Review has been deleted successfully',
         text: 'phid_review_deleted_successfully',
         translate: true,
       ),
-    ));
+    );
 
   }
 
@@ -437,6 +456,7 @@ Future<void> onBzReply({
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required String bzID,
+  @required bool mounted,
 }) async {
 
   final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
@@ -489,9 +509,13 @@ Future<void> onBzReply({
         replyTime: DateTime.now(),
       );
 
-      paginationController.replaceMap.value = _updated.toMap(
-        includeID: true,
-        includeDocSnapshot: true,
+      setNotifier(
+          notifier: paginationController.replaceMap,
+          mounted: mounted,
+          value: _updated.toMap(
+            includeID: true,
+            includeDocSnapshot: true,
+          ),
       );
 
       await ReviewProtocols.composeReviewReply(
@@ -500,14 +524,14 @@ Future<void> onBzReply({
           bzID: bzID,
       );
 
-      unawaited(TopDialog.showTopDialog(
+      await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
           pseudo: 'Your reply has been posted',
           text: 'phid_your_reply_has_been_posted',
           translate: true,
         ),
-      ));
+      );
 
     }
 
@@ -520,6 +544,7 @@ Future<void> onReplyOptions({
   @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
+  @required bool mounted,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -546,6 +571,7 @@ Future<void> onReplyOptions({
                   context: context,
                   reviewModel: reviewModel,
                   paginationController: paginationController,
+                  mounted: mounted,
                 );
 
               }
@@ -567,6 +593,7 @@ Future<void> onReplyOptions({
                   context: context,
                   reviewModel: reviewModel,
                   paginationController: paginationController,
+                  mounted: mounted,
                 );
 
               }
@@ -584,6 +611,7 @@ Future<void> _onEditReply({
   @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
+  @required bool mounted,
 }) async {
 
   bool _isConfirmed = false;
@@ -624,18 +652,22 @@ Future<void> _onEditReply({
       reviewModel: _updated,
     );
 
-    paginationController.replaceMap.value = _updated.toMap(
-      includeID: true,
-      includeDocSnapshot: true,
+    setNotifier(
+        notifier: paginationController.replaceMap,
+        mounted: mounted,
+        value: _updated.toMap(
+          includeID: true,
+          includeDocSnapshot: true,
+        ),
     );
 
-    unawaited(TopDialog.showTopDialog(
+    await TopDialog.showTopDialog(
       context: context,
       firstVerse: const Verse(
         text: 'phid_reply_has_been_updated',
         translate: true,
       ),
-    ));
+    );
 
   }
 
@@ -647,6 +679,7 @@ Future<void> _onDeleteReply({
   @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
+  @required bool mounted,
 }) async {
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
@@ -682,19 +715,23 @@ Future<void> _onDeleteReply({
       reviewModel: _updated,
     );
 
-    paginationController.replaceMap.value = _updated.toMap(
-      includeID: true,
-      includeDocSnapshot: true,
+    setNotifier(
+      notifier: paginationController.replaceMap,
+      mounted: mounted,
+      value: _updated.toMap(
+        includeID: true,
+        includeDocSnapshot: true,
+      ),
     );
 
-    unawaited(TopDialog.showTopDialog(
+    await TopDialog.showTopDialog(
       context: context,
       firstVerse: const Verse(
         pseudo: 'Reply has been deleted',
         text: 'phid_reply_has_been_deleted',
         translate: true,
       ),
-    ));
+    );
 
   }
 

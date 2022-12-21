@@ -20,6 +20,16 @@ import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 
+/*
+
+    setNotifier(
+        notifier: notifier,
+        mounted: mounted,
+        value: value
+    );
+
+ */
+
 class FlyerPosterCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerPosterCreatorBubble({

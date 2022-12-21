@@ -27,6 +27,7 @@ Future<void> onSyncSpecPickers({
   @required ValueNotifier<List<PickerModel>> initialPickers,
   @required ValueNotifier<List<PickerModel>> tempPickers,
   @required FlyerType flyerType,
+  @required bool mounted,
 }) async {
 
   final bool _continue = await Dialogs.confirmProceed(context: context);
@@ -42,7 +43,11 @@ Future<void> onSyncSpecPickers({
       pickers: tempPickers.value,
     );
 
-    initialPickers.value = tempPickers.value;
+    setNotifier(
+        notifier: initialPickers,
+        mounted: mounted,
+        value: tempPickers.value,
+    );
 
     await Dialogs.showSuccessDialog(
       context: context,
@@ -90,6 +95,7 @@ void onReorderPickers({
   @required int newIndex,
   @required ValueNotifier<List<PickerModel>> tempPickers,
   @required List<PickerModel> refinedPickers,
+  @required bool mounted,
 }){
 
   final List<PickerModel> _pickers = <PickerModel>[...refinedPickers];
@@ -106,12 +112,14 @@ void onReorderPickers({
   // blog('after insert');
   PickerModel.blogIndexes(_pickers);
 
-  final List<PickerModel> _corrected = PickerModel.correctModelsIndexes(_pickers);
   // blog('after correction');
   // PickerModel.blogIndexes(_pickers);
 
-  tempPickers.value = _corrected;
-
+  setNotifier(
+      notifier: tempPickers,
+      mounted: mounted,
+      value: PickerModel.correctModelsIndexes(_pickers),
+  );
 
 }
 // --------------------
@@ -147,7 +155,7 @@ Future<void> onChangeGroupIDForAllItsPickers({
         newGroupName: _phid,
       );
 
-      tempPickers.value = _updated;
+      tempPickers.value  = _updated;
 
     }
 
@@ -201,7 +209,7 @@ Future<void> onChangeGroupIDForSinglePicker({
         groupID: _initialText,
       );
 
-      tempPickers.value = PickerModel.replacePicker(
+      tempPickers.value  = PickerModel.replacePicker(
           sourcePickers: tempPickers.value,
           pickerChainIDtoReplace: _picker.chainID,
           updatedPicker: _picker
@@ -219,6 +227,7 @@ Future<void> onPickerChainIDTap({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required bool mounted,
 }) async {
 
   String _initialText = picker.chainID;
@@ -263,10 +272,14 @@ Future<void> onPickerChainIDTap({
       chainID: _initialText,
     );
 
-    tempPickers.value = PickerModel.replacePicker(
-      sourcePickers: tempPickers.value,
-      pickerChainIDtoReplace: picker.chainID,
-      updatedPicker: _updated,
+    setNotifier(
+        notifier: tempPickers,
+        mounted: mounted,
+        value: PickerModel.replacePicker(
+          sourcePickers: tempPickers.value,
+          pickerChainIDtoReplace: picker.chainID,
+          updatedPicker: _updated,
+        ),
     );
 
   }
@@ -278,6 +291,7 @@ Future<void> onPickerUnitChainIDTap({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required bool mounted,
 }) async {
 
   String _initialText = picker.unitChainID;
@@ -304,11 +318,17 @@ Future<void> onPickerUnitChainIDTap({
       unitChainID: _initialText,
     );
 
-    tempPickers.value = PickerModel.replacePicker(
-      sourcePickers: tempPickers.value,
-      pickerChainIDtoReplace: picker.chainID,
-      updatedPicker: _updated,
+    setNotifier(
+        notifier: tempPickers,
+        mounted: mounted,
+        value: PickerModel.replacePicker(
+          sourcePickers: tempPickers.value,
+          pickerChainIDtoReplace: picker.chainID,
+          updatedPicker: _updated,
+        ),
     );
+
+
 
   }
 
@@ -321,6 +341,7 @@ Future<void> onSwitchIsRequired({
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
   @required bool newValue,
+  @required bool mounted,
 }) async {
 
   if (picker.isRequired != newValue){
@@ -329,10 +350,14 @@ Future<void> onSwitchIsRequired({
         isRequired: newValue
     );
 
-    tempPickers.value = PickerModel.replacePicker(
-      sourcePickers: tempPickers.value,
-      pickerChainIDtoReplace: picker.chainID,
-      updatedPicker: _updated,
+    setNotifier(
+        notifier: tempPickers,
+        mounted: mounted,
+        value: PickerModel.replacePicker(
+          sourcePickers: tempPickers.value,
+          pickerChainIDtoReplace: picker.chainID,
+          updatedPicker: _updated,
+        ),
     );
 
   }
@@ -345,6 +370,7 @@ Future<void> onSwitchCanPickMany({
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
   @required bool newValue,
+  @required bool mounted,
 }) async {
 
   if (picker.canPickMany != newValue){
@@ -353,11 +379,16 @@ Future<void> onSwitchCanPickMany({
         canPickMany: newValue
     );
 
-    tempPickers.value = PickerModel.replacePicker(
-      sourcePickers: tempPickers.value,
-      pickerChainIDtoReplace: picker.chainID,
-      updatedPicker: _updated,
+    setNotifier(
+        notifier: tempPickers,
+        mounted: mounted,
+        value: PickerModel.replacePicker(
+          sourcePickers: tempPickers.value,
+          pickerChainIDtoReplace: picker.chainID,
+          updatedPicker: _updated,
+        ),
     );
+
 
   }
 
@@ -371,6 +402,7 @@ Future<void> onSwitchCanPickMany({
 Future<void> onAddNewPickers({
   @required BuildContext context,
   @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required bool mounted,
 }) async {
 
   final String _phid = await pickAPhidFast(context);
@@ -411,7 +443,14 @@ Future<void> onAddNewPickers({
       }
       else {
         _updated.add(_newPicker);
-        tempPickers.value = _updated;
+
+        setNotifier(
+            notifier: tempPickers,
+            mounted: mounted,
+            value: _updated,
+        );
+
+
       }
 
 
@@ -426,6 +465,7 @@ Future<void> onDeletePicker({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required bool mounted,
 }) async {
 
   final bool _continue = await CenterDialog.showCenterDialog(
@@ -441,7 +481,12 @@ Future<void> onDeletePicker({
 
     _pickers.removeWhere((element) => element.chainID == picker.chainID);
 
-    tempPickers.value = _pickers;
+    setNotifier(
+        notifier: tempPickers,
+        mounted: mounted,
+        value: _pickers,
+    );
+
 
   }
 
@@ -452,6 +497,7 @@ Future<void> switchHeadline({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required bool mounted,
 }) async {
 
   final String _notice = picker.isHeadline == true ?
@@ -472,10 +518,14 @@ Future<void> switchHeadline({
       isHeadline: !picker.isHeadline,
     );
 
-    tempPickers.value = PickerModel.replacePicker(
-        sourcePickers: tempPickers.value,
-        pickerChainIDtoReplace: _picker.chainID,
-        updatedPicker: _picker
+    setNotifier(
+        notifier: tempPickers,
+        mounted: mounted,
+        value: PickerModel.replacePicker(
+            sourcePickers: tempPickers.value,
+            pickerChainIDtoReplace: _picker.chainID,
+            updatedPicker: _picker
+        ),
     );
 
   }
@@ -487,6 +537,7 @@ Future<void> onHeadlineTap({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required bool mounted,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -508,9 +559,10 @@ Future<void> onHeadlineTap({
               await Dialogs.closDialog(context);
 
               await switchHeadline(
-                  context: context,
-                  picker: picker,
-                  tempPickers: tempPickers
+                context: context,
+                picker: picker,
+                tempPickers: tempPickers,
+                mounted: mounted,
               );
 
             },
@@ -528,6 +580,7 @@ Future<void> onHeadlineTap({
                 context: context,
                 picker: picker,
                 tempPickers: tempPickers,
+                mounted: mounted,
               );
 
             },
@@ -545,6 +598,7 @@ Future<void> onHeadlineTap({
                 context: context,
                 picker: picker,
                 tempPickers: tempPickers,
+                mounted: mounted,
               );
 
             },

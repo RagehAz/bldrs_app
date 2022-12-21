@@ -52,8 +52,9 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
 
     blog('re-animating');
 
-    _animateSlide.value = false;
-    _animateSlide.value = true;
+    setNotifier(notifier: _animateSlide, mounted: mounted, value: false);
+    setNotifier(notifier: _animateSlide, mounted: mounted, value: true);
+
   }
   // -----------------------------------------------------------------------------
   @override
