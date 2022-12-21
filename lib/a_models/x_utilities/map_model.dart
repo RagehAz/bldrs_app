@@ -325,11 +325,10 @@ class MapModel{
     final List<MapModel> _output = mapModels ?? <MapModel>[];
 
     if (Mapper.checkCanLoopList(mapModels) == true && value != null){
-      _output.removeWhere((element) => element.value == value);
+      _output.removeWhere((element) => element.value  == value);
     }
 
     return _output;
-
   }
   // -----------------------------------------------------------------------------
 

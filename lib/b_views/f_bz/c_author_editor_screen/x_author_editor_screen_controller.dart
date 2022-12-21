@@ -152,11 +152,16 @@ Future<void> takeAuthorImage({
   @required BzModel bzModel,
   @required PicMakerType imagePickerType,
   @required ValueNotifier<bool> canPickImage,
+  @required bool mounted,
 }) async {
 
-  if (canPickImage.value == true) {
+  if (canPickImage.value  == true) {
 
-    canPickImage.value = false;
+    setNotifier(
+        notifier: canPickImage,
+        mounted: mounted,
+        value: false,
+    );
 
     Uint8List _bytes;
 
@@ -179,26 +184,42 @@ Future<void> takeAuthorImage({
 
     /// IF DID NOT PIC ANY IMAGE
     if (_bytes == null) {
-      canPickImage.value = true;
+
+      setNotifier(
+          notifier: canPickImage,
+          mounted: mounted,
+          value: true
+      );
+
     }
 
     /// IF PICKED AN IMAGE
     else {
-      author.value = author.value.copyWith(
-        picModel: PicModel(
-            bytes: _bytes,
-            path: Storage.generateAuthorPicPath(bzID: bzModel.id, authorID: author.value.userID),
-            meta: PicMetaModel(
-              ownersIDs: AuthorModel.getAuthorPicOwnersIDs(
+
+      setNotifier(
+          notifier: author,
+          mounted: mounted,
+          value: author.value.copyWith(
+            picModel: PicModel(
+              bytes: _bytes,
+              path: Storage.generateAuthorPicPath(bzID: bzModel.id, authorID: author.value.userID),
+              meta: PicMetaModel(
+                ownersIDs: AuthorModel.getAuthorPicOwnersIDs(
                   bzModel: bzModel,
                   authorModel: author.value,
+                ),
+                dimensions: await Dimensions.superDimensions(_bytes),
               ),
-              dimensions: await Dimensions.superDimensions(_bytes),
             ),
-        ),
+          ),
       );
 
-      canPickImage.value = true;
+      setNotifier(
+          notifier: canPickImage,
+          mounted: mounted,
+          value: true,
+      );
+
     }
 
   }
@@ -208,16 +229,21 @@ Future<void> takeAuthorImage({
 /// TESTED : WORKS PERFECT
 void onDeleteAuthorImage({
   @required ValueNotifier<AuthorModel> author,
+  @required bool mounted,
 }){
 
-  author.value = AuthorModel(
-    picPath: null,
-    title: author.value.title,
-    role: author.value.role,
-    contacts: author.value.contacts,
-    userID: author.value.userID,
-    name: author.value.name,
-    flyersIDs: author.value.flyersIDs,
+  setNotifier(
+    notifier: author,
+    mounted: mounted,
+    value: AuthorModel(
+      picPath: null,
+      title: author.value.title,
+      role: author.value.role,
+      contacts: author.value.contacts,
+      userID: author.value.userID,
+      name: author.value.name,
+      flyersIDs: author.value.flyersIDs,
+    ),
   );
 
 }
@@ -226,10 +252,15 @@ void onDeleteAuthorImage({
 void onAuthorNameChanged({
   @required ValueNotifier<AuthorModel> tempAuthor,
   @required String text,
+  @required bool mounted,
 }){
 
-  tempAuthor.value = tempAuthor.value.copyWith(
-    name: text,
+  setNotifier(
+      notifier: tempAuthor,
+      mounted: mounted,
+      value: tempAuthor.value.copyWith(
+        name: text,
+      ),
   );
 
 }
@@ -238,9 +269,15 @@ void onAuthorNameChanged({
 void onAuthorTitleChanged({
   @required ValueNotifier<AuthorModel> tempAuthor,
   @required String text,
+  @required bool mounted,
 }){
-  tempAuthor.value = tempAuthor.value.copyWith(
-    title: text,
+
+  setNotifier(
+      notifier: tempAuthor,
+      mounted: mounted,
+      value: tempAuthor.value.copyWith(
+        title: text,
+      ),
   );
 
 }
@@ -250,6 +287,7 @@ void onAuthorContactChanged({
   @required ValueNotifier<AuthorModel> tempAuthor,
   @required ContactType contactType,
   @required String value,
+  @required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
@@ -260,9 +298,14 @@ void onAuthorContactChanged({
     ),
   );
 
-  tempAuthor.value = tempAuthor.value.copyWith(
-    contacts: _contacts,
+  setNotifier(
+      notifier: tempAuthor,
+      mounted: mounted,
+      value: tempAuthor.value.copyWith(
+        contacts: _contacts,
+      ),
   );
+
 
 }
 // -----------------------------------------------------------------------------
@@ -339,6 +382,7 @@ Future<void> onChangeAuthorRoleOps({
   @required BuildContext context,
   @required ValueNotifier<AuthorRole> draftRole,
   @required AuthorModel oldAuthor,
+  @required bool mounted,
 }) async {
 
   if (draftRole.value != oldAuthor.role){
@@ -363,7 +407,11 @@ Future<void> onChangeAuthorRoleOps({
     );
 
     if (_result == false){
-      draftRole.value = oldAuthor.role;
+      setNotifier(
+          notifier: draftRole,
+          mounted: mounted,
+          value: oldAuthor.role
+      );
     }
 
     else {
@@ -422,6 +470,7 @@ Future<void> setAuthorRole({
   @required AuthorRole selectedRole,
   @required ValueNotifier<AuthorRole> tempRole,
   @required AuthorModel oldAuthor,
+  @required bool mounted,
 }) async {
 
   final bool _canChangeRole = await _checkCanChangeRole(
@@ -432,13 +481,17 @@ Future<void> setAuthorRole({
 
   if (_canChangeRole == true){
 
-    tempRole.value = selectedRole;
+    setNotifier(
+        notifier: tempRole,
+        mounted: mounted,
+        value: selectedRole,
+    );
 
     await onChangeAuthorRoleOps(
       context: context,
       draftRole: tempRole,
       oldAuthor: oldAuthor,
-
+      mounted: mounted,
     );
 
   }

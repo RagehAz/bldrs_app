@@ -85,8 +85,6 @@ class _PickersScreenState extends State<PickersScreen> {
     if (_bldrsChains != null){
       _initializeScreen(_bldrsChains);
     }
-
-    // ------------------------------
   }
   // --------------------
   @override
@@ -158,16 +156,24 @@ class _PickersScreenState extends State<PickersScreen> {
       }
 
       // ------------------------------
-      _selectedSpecs.value = widget.selectedSpecs ?? [];
+      setNotifier(
+          notifier: _selectedSpecs,
+          mounted: mounted,
+          value: widget.selectedSpecs ?? [],
+      );
       // ------------------------------
       setState(() {
         _allPickers = _pickers;
       });
-
-      _refinedPickers.value = PickerModel.applyBlockersAndSort(
-        sourcePickers: _pickers,
-        selectedSpecs: widget.selectedSpecs,
-        sort: true,
+      // ------------------------------
+      setNotifier(
+        notifier: _refinedPickers,
+        mounted: mounted,
+        value: PickerModel.applyBlockersAndSort(
+          sourcePickers: _pickers,
+          selectedSpecs: widget.selectedSpecs,
+          sort: true,
+        ),
       );
       // ------------------------------
       _generatePhidsFromAllPickers(_refinedPickers.value);
@@ -218,12 +224,15 @@ class _PickersScreenState extends State<PickersScreen> {
   }
   // --------------------
   List<Chain> _getBldrsChains (BuildContext ctx, ChainsProvider chainsPro){
+
     if (widget.onlyUseCityChains == true){
       return chainsPro.cityChains;
     }
+
     else {
       return chainsPro.bldrsChains;
     }
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -282,28 +291,31 @@ class _PickersScreenState extends State<PickersScreen> {
         },
       ),
       onSearchChanged: (String text) => onChainsSearchChanged(
-          text: text,
-          isSearching: _isSearching,
-          context: context,
-          foundChains: _foundChains,
-          searchText: _searchText,
-          phidsOfAllPickers: _phidsOfAllPickers,
-          chains: _pickersChains,
+        text: text,
+        isSearching: _isSearching,
+        context: context,
+        foundChains: _foundChains,
+        searchText: _searchText,
+        phidsOfAllPickers: _phidsOfAllPickers,
+        chains: _pickersChains,
+        mounted: mounted,
       ),
       onSearchSubmit: (String text) => onSearchChains(
-          text: text,
-          isSearching: _isSearching,
-          foundChains: _foundChains,
-          context: context,
-          searchText: _searchText,
-          phidsOfAllPickers: _phidsOfAllPickers,
-          chains: _pickersChains
+        text: text,
+        isSearching: _isSearching,
+        foundChains: _foundChains,
+        context: context,
+        searchText: _searchText,
+        phidsOfAllPickers: _phidsOfAllPickers,
+        chains: _pickersChains,
+        mounted: mounted,
       ),
       onSearchCancelled: () => MainLayout.onCancelSearch(
-          context: context,
-          controller: _searchTextController,
-          foundResultNotifier: _foundChains,
-          isSearching: _isSearching,
+        context: context,
+        controller: _searchTextController,
+        foundResultNotifier: _foundChains,
+        isSearching: _isSearching,
+        mounted: mounted,
       ),
       searchController: _searchTextController,
       searchHintVerse: const Verse(
@@ -367,6 +379,7 @@ class _PickersScreenState extends State<PickersScreen> {
                 isMultipleSelectionMode: widget.isMultipleSelectionMode,
                 refinedPickersNotifier: _refinedPickers,
                 allPickers: _allPickers,
+                mounted: mounted,
               );
 
             }
@@ -381,6 +394,7 @@ class _PickersScreenState extends State<PickersScreen> {
                 flyerTypes: [widget.flyerTypeFilter],
                 zone: widget.zone,
                 isMultipleSelectionMode: widget.isMultipleSelectionMode,
+                mounted: mounted,
               );
 
             }

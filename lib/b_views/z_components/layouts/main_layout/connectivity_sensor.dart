@@ -71,11 +71,18 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
     final bool _connected = await DeviceChecker.checkConnectivity();
 
     if (mounted == true) {
-      _isConnected.value = _connected;
-        _generalProvider.setConnectivity(
-          isConnected: _connected,
-          notify: true,
-        );
+
+      setNotifier(
+        notifier: _isConnected,
+        mounted: mounted,
+        value: _connected,
+      );
+
+      _generalProvider.setConnectivity(
+        isConnected: _connected,
+        notify: true,
+      );
+
     }
 
   }
@@ -86,7 +93,11 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
     if (mounted == true){
 
       /// ASSIGN LOCAL VALUE
-      _isConnected.value = isConnected;
+      setNotifier(
+          notifier: _isConnected,
+          mounted: mounted,
+          value: isConnected
+      );
 
       /// IF PROVIDER VALUE IS NOT UPDATED
       if (isConnected != _generalProvider.isConnected){

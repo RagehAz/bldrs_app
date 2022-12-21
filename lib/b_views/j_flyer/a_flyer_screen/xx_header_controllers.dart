@@ -14,6 +14,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,10 +40,10 @@ AnimationController initializeHeaderAnimationController({
   );
 
   // if (_headerIsExpanded == true) {
-  //   _headerAnimationController.value = 1.0;
+  //   _headerAnimationController.value  = 1.0;
   // }
   // else {
-  //   _headerAnimationController.value = 0;
+  //   _headerAnimationController.value  = 0;
   // }
 
   return _headerAnimationController;
@@ -59,11 +60,13 @@ Future<void> onTriggerHeader({
   @required ValueNotifier<bool> headerIsExpanded,
   @required ValueNotifier<double> progressBarOpacity,
   @required ValueNotifier<double> headerPageOpacity,
+  @required bool mounted,
 }) async {
 
   await _triggerProgressBarOpacity(
     context: context,
     progressBarOpacity: progressBarOpacity,
+    mounted: mounted,
   );
 
 
@@ -80,6 +83,7 @@ Future<void> onTriggerHeader({
     context: context,
     notify: false,
     headerIsExpanded: headerIsExpanded,
+    mounted: mounted,
   );
 
   /// HEADER FADING
@@ -87,6 +91,7 @@ Future<void> onTriggerHeader({
     context: context,
     notify: false,
     headerPageOpacity: headerPageOpacity,
+    mounted: mounted,
   );
 
   // blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
@@ -95,13 +100,14 @@ Future<void> onTriggerHeader({
 Future<void> readBzCounters({
   @required String bzID,
   @required ValueNotifier<BzCounterModel> bzCounters,
+  @required bool mounted,
 }) async {
 
   final BzCounterModel _bzCounters = await BzRecordRealOps.readBzCounters(
     bzID: bzID,
   );
 
-  bzCounters.value = _bzCounters;
+  setNotifier(notifier: bzCounters, mounted: mounted, value: _bzCounters);
 
 }
 // --------------------
@@ -109,6 +115,7 @@ Future<void> readBzCounters({
 Future<void> _triggerProgressBarOpacity({
   @required BuildContext context,
   @required ValueNotifier<double> progressBarOpacity,
+  @required bool mounted,
 }) async {
   /// progressBarOpacity is used because it has a slight delay after triggering header
   /// AND SO headerIsExpanded can not be used to hold the progress bar opacity value
@@ -116,14 +123,14 @@ Future<void> _triggerProgressBarOpacity({
   /// WHEN PROGRESS BAR IS VISIBLE
   if (progressBarOpacity.value == 1) {
     // blog('triggering _progressBarOpacity to 0');
-    progressBarOpacity.value = 0;
+    setNotifier(notifier: progressBarOpacity, mounted: mounted, value: 0);
   }
 
   /// WHEN PROGRESS BAR IS HIDDEN
   else {
     await Future<void>.delayed(Ratioz.durationFading210, () {
       // blog('triggering _progressBarOpacity to 1');
-      progressBarOpacity.value = 1;
+      setNotifier(notifier: progressBarOpacity, mounted: mounted, value: 1);
     });
   }
 
@@ -134,9 +141,14 @@ void _triggerHeaderExpansion({
   @required BuildContext context,
   @required bool notify,
   @required ValueNotifier<bool> headerIsExpanded,
+  @required bool mounted,
 }) {
 
-  headerIsExpanded.value = !headerIsExpanded.value;
+  setNotifier(
+      notifier: headerIsExpanded,
+      mounted: mounted,
+      value: !headerIsExpanded.value,
+  );
 
   /// TASK : MAYBE WILL REMOVE THIS
   PageStorage.of(context)?.writeState(context, headerIsExpanded.value);
@@ -148,6 +160,7 @@ void _triggerHeaderPageOpacity({
   @required BuildContext context,
   @required bool notify,
   @required ValueNotifier<double> headerPageOpacity,
+  @required bool mounted,
 }) {
 
   // blog('_headerPageOpacity = ${headerPageOpacity.value}');
@@ -156,12 +169,20 @@ void _triggerHeaderPageOpacity({
 
     /// WHEN PAGE IS VISIBLE
     if (headerPageOpacity.value == 1) {
-      headerPageOpacity.value = 0;
+      setNotifier(
+          notifier: headerPageOpacity,
+          mounted: mounted,
+          value: 0,
+      );
     }
 
     /// WHEN HEADER PAGE IS HIDDEN
     else {
-      headerPageOpacity.value = 1;
+      setNotifier(
+          notifier: headerPageOpacity,
+          mounted: mounted,
+          value: 1,
+      );
     }
 
   });
@@ -230,18 +251,22 @@ Future<void> onFollowTap({
   @required BuildContext context,
   @required BzModel bzModel,
   @required ValueNotifier<bool> followIsOn,
+  @required bool mounted,
 }) async {
 
   if (AuthModel.userIsSignedIn() == true){
 
-    followIsOn.value = !followIsOn.value;
+    setNotifier(
+        notifier: followIsOn,
+        mounted: mounted,
+        value: !followIsOn.value
+    );
 
     await UserProtocols.followingProtocol(
       context: context,
       bzToFollow: bzModel,
       followIsOn: followIsOn.value,
     );
-
 
   }
 

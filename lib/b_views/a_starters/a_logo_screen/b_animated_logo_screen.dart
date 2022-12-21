@@ -196,11 +196,11 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
   // --------------------
   Future<void> _startAnimationSequence() async {
-    // _isPlaying.value = true;
+    // _isPlaying.value  = true;
     // _restartControllers();
     unawaited(Sounder.playIntro());
     await _animateLogoLine();
-    // _isPlaying.value = false;
+    // _isPlaying.value  = false;
   }
   // --------------------
   Future<void> _animateLogoLine() async {
@@ -213,7 +213,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // --------------------
   /*
   void _restartControllers(){
-    _logoAniController.value = 0;
+    _logoAniController.value  = 0;
   }
   final ValueNotifier<bool> _isPlaying = ValueNotifier(false);
    */
@@ -398,7 +398,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           //           onTap: isPlaying ?
           //               /// when playing
           //               (){
-          //             _isPlaying.value = false;
+          //             _isPlaying.value  = false;
           //             _restartControllers();
           //             _logoAniController.stop();
           //           }

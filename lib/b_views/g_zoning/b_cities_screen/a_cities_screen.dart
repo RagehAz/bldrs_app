@@ -118,9 +118,15 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     if (widget.countryID != null){
 
       /// COMPLETE CURRENT ZONE
-      _currentZone.value = await ZoneProtocols.completeZoneModel(
+      final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
         context: context,
         incompleteZoneModel: _currentZone.value,
+      );
+
+      setNotifier(
+          notifier: _currentZone,
+          mounted: mounted,
+          value: _completedZone,
       );
 
       final Staging _citiesStages = await StagingProtocols.fetchCitiesStaging(
@@ -182,7 +188,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           value: <CityModel>[..._orderedShownCities, ..._orderedNotShownCities],
         );
 
-
       }
 
     }
@@ -194,7 +199,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   Future<void> _oldLoadCities() async {
 
     /// COMPLETE CURRENT ZONE
-    _currentZone.value = await ZoneProtocols.completeZoneModel(
+    _currentZone.value  = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: _currentZone.value,
     );
@@ -216,7 +221,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
             cities: _growingList,
           );
 
-          _countryCities.value = <CityModel>[..._ordered];
+          _countryCities.value  = <CityModel>[..._ordered];
 
         }
 
@@ -228,7 +233,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         context: context,
         cities: _fetchedCities,
       );
-      _countryCities.value = <CityModel>[..._ordered];
+      _countryCities.value  = <CityModel>[..._ordered];
     }
 
   }
@@ -242,23 +247,34 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   Future<void> _onSearchCity(String inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
-        text: inputText,
-        isSearching: _isSearching
+      text: inputText,
+      isSearching: _isSearching,
+      mounted: mounted,
     );
 
     /// WHILE SEARCHING
-    if (_isSearching.value == true){
+    if (_isSearching.value  == true){
 
       /// START LOADING
       await _triggerLoading(setTo: true);
 
       /// CLEAR PREVIOUS SEARCH RESULTS
-      _foundCities.value = <CityModel>[];
+      setNotifier(
+          notifier: _foundCities,
+          mounted: mounted,
+          value: <CityModel>[],
+      );
 
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
-      _foundCities.value = await searchCitiesByName(
+      final List<CityModel> _cities = await searchCitiesByName(
         context: context,
         input: TextMod.fixCountryName(inputText),
+      );
+
+      setNotifier(
+          notifier: _foundCities,
+          mounted: mounted,
+          value: _cities,
       );
 
       /// CLOSE LOADING

@@ -71,10 +71,14 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
   void initState() {
     super.initState();
 
-    _progressBarModel.value = const ProgressBarModel(
-      swipeDirection: SwipeDirection.freeze,
-      index: 0,
-      numberOfStrips: 2,
+    setNotifier(
+        notifier: _progressBarModel,
+        mounted: mounted,
+        value: const ProgressBarModel(
+          swipeDirection: SwipeDirection.freeze,
+          index: 0,
+          numberOfStrips: 2,
+        ),
     );
 
   }
@@ -112,11 +116,13 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
           idTextController: _idController,
           enTextController: _englishController,
           enNode: _enNode,
+          mounted: mounted,
         );
 
         setState(() {
           _phrasesCount = _mixedPhrases.length~/2;
         });
+
         await _triggerLoading(setTo: false);
       });
 
@@ -166,7 +172,13 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       progressBarModel: _progressBarModel,
       onSearchCancelled: (){
         _searchController.text = '';
-        _isSearching.value = false;
+
+        setNotifier(
+            notifier: _isSearching,
+            mounted: mounted,
+            value: false,
+        );
+
       },
       loading: _loading,
       onBack: () async {
@@ -198,6 +210,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         searchController: _searchController,
         pageController: _pageController,
         context: context,
+        mounted: mounted,
       ),
       onSearchSubmit: (String text) => onPhrasesSearchSubmit(
         isSearching: _isSearching,
@@ -206,6 +219,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         searchController: _searchController,
         pageController: _pageController,
         context: context,
+        mounted: mounted,
       ),
       onPaste: (String text) => onPhrasesSearchSubmit(
         isSearching: _isSearching,
@@ -214,6 +228,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         searchController: _searchController,
         pageController: _pageController,
         context: context,
+        mounted: mounted,
       ),
       appBarRowWidgets: <Widget>[
 
@@ -283,6 +298,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                       enTextController: _englishController,
                       arTextController: _arabicController,
                       pageController: _pageController,
+                      mounted: mounted,
                     ),
                   );
 
@@ -306,6 +322,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                 context: context,
                 newIndex: index,
                 progressBarModel: _progressBarModel,
+                mounted: mounted,
               ),
               physics: const BouncingScrollPhysics(),
               children: <Widget>[
@@ -322,6 +339,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   mixedSearchedPhrases: _mixedSearchedPhrases,
                   searchController: _searchController,
                   tempMixedPhrases: _tempMixedPhrases,
+                  mounted: mounted,
                 ),
 
                 /// PHRASE EDITOR PAGE
@@ -336,6 +354,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   globalKey: _globalKey,
                   onConfirmEdits: () => onConfirmEditPhrase(
                     context: context,
+                    mounted: mounted,
                     mixedSearchResult: _mixedSearchedPhrases,
                     pageController: _pageController,
                     arTextController: _arabicController,

@@ -11,10 +11,15 @@ import 'package:flutter/material.dart';
 void onSwitchSendNote({
   @required ValueNotifier<NoteModel> noteNotifier,
   @required bool value,
+  @required bool mounted,
 }){
 
-  noteNotifier.value = noteNotifier.value.copyWith(
-    sendNote: value,
+  setNotifier(
+      notifier: noteNotifier,
+      mounted: mounted,
+      value: noteNotifier.value.copyWith(
+        sendNote: value,
+      )
   );
 
 }
@@ -27,10 +32,15 @@ void onSwitchSendNote({
 void onSwitchSendFCM({
   @required ValueNotifier<NoteModel> noteNotifier,
   @required bool value,
+  @required bool mounted,
 }){
 
-  noteNotifier.value = noteNotifier.value.copyWith(
-    sendFCM: value,
+  setNotifier(
+      notifier: noteNotifier,
+      mounted: mounted,
+      value: noteNotifier.value.copyWith(
+        sendFCM: value,
+      ),
   );
 
 }
@@ -42,13 +52,19 @@ void onSwitchSendFCM({
 void onSwitchIsDismissible({
   @required ValueNotifier<NoteModel> noteNotifier,
   @required bool value,
+  @required bool mounted,
 }){
 
   blog('dismissible was : ${noteNotifier.value.dismissible} : ${noteNotifier.value.dismissible} : and should be $value');
 
-  noteNotifier.value = noteNotifier.value.copyWith(
-    dismissible: value,
+  setNotifier(
+      notifier: noteNotifier,
+      mounted: mounted,
+      value: noteNotifier.value.copyWith(
+        dismissible: value,
+      ),
   );
+
 
 }
 // -----------------------------------------------------------------------------

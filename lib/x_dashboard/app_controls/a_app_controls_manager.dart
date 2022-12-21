@@ -129,6 +129,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                       context: context,
                       value: val,
                       appControlsModel: _appControls,
+                      mounted: mounted,
                     ),
                   ),
                   bulletPoints: const <Verse>[

@@ -49,7 +49,7 @@ class InfoGraphic extends StatelessWidget {
           scale: 0.4,
         ),
 
-        // if (buttonIsExpanded.value = true)
+        // if (buttonIsExpanded.value  = true)
         ValueListenableBuilder(
             valueListenable: buttonIsExpanded,
             builder: (_, bool _buttonIsExpanded, Widget child){

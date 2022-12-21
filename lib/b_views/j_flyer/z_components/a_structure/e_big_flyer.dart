@@ -177,11 +177,19 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   void _initializations(){
 
-    _flyer.value = widget.flyerModel;
+    setNotifier(
+      notifier: _flyer,
+      mounted: mounted,
+      value: widget.flyerModel,
+    );
 
-    _flyerIsSaved.value = UserModel.checkFlyerIsSaved(
-      userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
-      flyerID: widget.flyerModel.id,
+    setNotifier(
+      notifier: _flyerIsSaved,
+      mounted: mounted,
+      value: UserModel.checkFlyerIsSaved(
+        userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
+        flyerID: widget.flyerModel.id,
+      ),
     );
 
     setNotifier(
@@ -326,17 +334,18 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       headerIsExpanded: _headerIsExpanded,
       progressBarOpacity: _progressBarOpacity,
       headerPageOpacity: _headerPageOpacity,
+      mounted: mounted,
     );
 
     final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
 
-    if (_headerIsExpanded.value == true && _tinyMode == false){
+    if (_headerIsExpanded.value  == true && _tinyMode == false){
       await readBzCounters(
         bzID: widget.bzModel.id,
         bzCounters: _bzCounters,
+        mounted: mounted,
       );
     }
-
 
   }
   // --------------------
@@ -345,6 +354,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       context: context,
       bzModel: widget.bzModel,
       followIsOn: _followIsOn,
+      mounted: mounted,
     );
   }
   // --------------------
@@ -373,6 +383,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       context: context,
       newIndex: index,
       progressBarModel: _progressBarModel,
+      mounted: mounted,
     );
 
     // blog('index has become ${widget.currentSlideIndex.value}');
@@ -442,12 +453,14 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
         await Future.wait(<Future>[
           _triggerAnimation(!_flyerIsSaved.value),
           onSaveFlyer(
-              context: context,
-              flyerModel: widget.flyerModel,
-              slideIndex: _progressBarModel.value.index,
-              flyerIsSaved: _flyerIsSaved
+            context: context,
+            flyerModel: widget.flyerModel,
+            slideIndex: _progressBarModel.value.index,
+            flyerIsSaved: _flyerIsSaved,
+            mounted: mounted,
           ),
         ]);
+
       }
 
     }
@@ -469,8 +482,8 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
     if (isSaved == true){
 
       /// 1 - GRAPHIC IS ALREADY OFF => SWITCH ON
-      _graphicIsOn.value = true;
-      _graphicOpacity.value = 1;
+      setNotifier(notifier: _graphicIsOn, mounted: mounted, value: true);
+      setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 1);
 
       // blog('-1 - _graphicIsOn => ${_graphicIsOn.value}');
 
@@ -480,14 +493,14 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       /// 3 - START FADE OUT AND WAIT FOR IT
       if (mounted){
-        _graphicOpacity.value = 0;
+        setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 0);
       }
       // blog('-3 - _graphicOpacity => ${_graphicOpacity.value}');
 
       /// 4 - WAIT FOR FADE THEN SWITCH OFF GRAPHIC
       await Future.delayed(const Duration(milliseconds: 220), (){
         if (mounted){
-          _graphicIsOn.value = false;
+          setNotifier(notifier: _graphicIsOn, mounted: mounted, value: false);
         }
         // blog('-4 - _graphicIsOn => ${_graphicIsOn.value}');
       });
@@ -495,7 +508,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       /// 5 - READY THE FADE FOR THE NEXT ANIMATION
       await Future.delayed(const Duration(milliseconds: 200), (){
         if (mounted){
-          _graphicOpacity.value = 1;
+          setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 1);
         }
       });
       // blog('-5 - _canStartFadeOut => ${_graphicOpacity.value}');
@@ -528,7 +541,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       //       curve: Curves.easeOut
       //   ));
       //
-      //   widget.progressBarModel.value = widget.progressBarModel.value.copyWith(
+      //   widget.progressBarModel.value  = widget.progressBarModel.value.copyWith(
       //     index: 0,
       //   );
       //

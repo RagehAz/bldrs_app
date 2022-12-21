@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -37,13 +38,30 @@ Future<void> onReset({
   @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,
+  @required bool mounted,
 }) async {
-  draftNotifier.value = originalDraft.copyWith(
-    matrix: Matrix4.identity(),
-    filter: ImageFilterModel.noFilter(),
+
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: originalDraft.copyWith(
+        matrix: Matrix4.identity(),
+        filter: ImageFilterModel.noFilter(),
+      )
   );
-  filter.value = ImageFilterModel.noFilter();
-  matrix.value = Matrix4.identity();
+
+  setNotifier(
+      notifier: filter,
+      mounted: mounted,
+      value: ImageFilterModel.noFilter(),
+  );
+
+  setNotifier(
+    notifier: matrix,
+    mounted: mounted,
+    value: Matrix4.identity(),
+  );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -53,6 +71,7 @@ Future<void> onCropSlide({
   @required ValueNotifier<ImageFilterModel> filterNotifier,
   @required ValueNotifier<Matrix4> matrixNotifier,
   @required String bzID,
+  @required bool mounted,
 }) async {
 
   final Uint8List _bytes = await PicMaker.cropPic(
@@ -63,11 +82,15 @@ Future<void> onCropSlide({
 
   if (_bytes != null){
 
-    draftNotifier.value = draftNotifier.value.copyWith(
-      midColor: await Colorizer.getAverageColor(_bytes),
-      picModel: draftNotifier.value.picModel.copyWith(
-        bytes: _bytes,
-      ),
+    setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: draftNotifier.value.copyWith(
+          midColor: await Colorizer.getAverageColor(_bytes),
+          picModel: draftNotifier.value.picModel.copyWith(
+            bytes: _bytes,
+          ),
+        ),
     );
 
   }
@@ -78,6 +101,7 @@ Future<void> onCropSlide({
 void onToggleFilter({
   @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> currentFilter,
+  @required bool mounted,
 }){
 
   /// --------------------------------------------- FOR TESTING START
@@ -98,7 +122,7 @@ void onToggleFilter({
   //     ColorFilterLayer.saturation(15),
   //   ],
   // );
-  // _filterModel.value = _fii;
+  // _filterModel.value  = _fii;
   /// --------------------------------------------- FOR TESTING END
 
   final ImageFilterModel _currentFilter = currentFilter.value;
@@ -111,20 +135,35 @@ void onToggleFilter({
     _filterIndex = 0;
   }
 
-  draftNotifier.value = draftNotifier.value.copyWith(
-    filter: _bldrsFilters[_filterIndex],
+  setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        filter: _bldrsFilters[_filterIndex],
+      ),
   );
-  currentFilter.value = _bldrsFilters[_filterIndex];
+
+  setNotifier(
+      notifier: currentFilter,
+      mounted: mounted,
+      value: _bldrsFilters[_filterIndex],
+  );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSlideHeadlineChanged({
   @required ValueNotifier<DraftSlide> draftSlide,
   @required String text,
+  @required bool mounted,
 }){
 
-  draftSlide.value = draftSlide.value.copyWith(
-    headline: text,
+  setNotifier(
+      notifier: draftSlide,
+      mounted: mounted,
+      value: draftSlide.value.copyWith(
+        headline: text,
+      ),
   );
 
 }

@@ -148,7 +148,13 @@ class _HomeScreenState extends State<HomeScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   void onTriggerExpansion(){
-    _isExpanded.value = !_isExpanded.value;
+
+    setNotifier(
+        notifier: _isExpanded,
+        mounted: mounted,
+        value: !_isExpanded.value,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -230,10 +236,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 models: _navModels,
                 progressBarModel: _progressBarModel,
                 isExpanded: _isExpanded,
+                mounted: mounted,
               ),
               progressBarModel: _progressBarModel,
               navModels: _navModels,
               isYellow: true,
+              mounted: mounted,
             ),
 
           ],

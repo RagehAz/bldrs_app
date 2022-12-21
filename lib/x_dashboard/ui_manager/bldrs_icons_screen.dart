@@ -10,6 +10,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -82,11 +83,12 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
   Future<void> _onSearchChanged(String text) async {
 
     TextCheck.triggerIsSearchingNotifier(
-        text: text,
-        isSearching: _isSearching
+      text: text,
+      isSearching: _isSearching,
+      mounted: mounted,
     );
 
-    if (_isSearching.value == true){
+    if (_isSearching.value  == true){
 
       final List<String> _foundIcons = <String>[];
 
@@ -101,8 +103,10 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
       }
 
       if (Mapper.checkCanLoopList(_foundIcons) == true){
-        _found.value = _foundIcons;
-        _textHighlight.value = text;
+
+        setNotifier(notifier: _found, mounted: mounted, value: _foundIcons);
+        setNotifier(notifier: _textHighlight, mounted: mounted, value: text);
+
       }
 
     }
@@ -113,9 +117,13 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
   Future<void> _onIconTap(String icon) async {
 
     if (widget.multipleSelection == true){
-      _selected.value = Stringer.addOrRemoveStringToStrings(
-          strings: _selected.value,
-          string: icon
+      setNotifier(
+          notifier: _selected,
+          mounted: mounted,
+          value: Stringer.addOrRemoveStringToStrings(
+              strings: _selected.value,
+              string: icon
+          ),
       );
     }
 
@@ -148,7 +156,7 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
     //             await Nav.goBack(context: context, invoker: 'BldrsIconsScreen.closeDialog');
     //
     //             if (widget.multipleSelection == true){
-    //               _selected.value = Stringer.addOrRemoveStringToStrings(
+    //               _selected.value  = Stringer.addOrRemoveStringToStrings(
     //                   strings: _selected.value,
     //                   string: icon
     //               );

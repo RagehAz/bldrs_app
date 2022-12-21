@@ -189,13 +189,19 @@ Future<void> onNavigate({
   @required ValueNotifier<ProgressBarModel> progressBarModel,
   @required BuildContext context,
   @required ValueNotifier<bool> isExpanded,
+  @required bool mounted,
 }) async {
 
   final NavModel _navModel = models[index];
 
-  progressBarModel.value = progressBarModel.value?.copyWith(
-    index: index,
+  setNotifier(
+      notifier: progressBarModel,
+      mounted: mounted,
+      value: progressBarModel.value?.copyWith(
+        index: index,
+      ),
   );
+
   // onTriggerExpansion();
 
   await Future.delayed(const Duration(milliseconds: 50), () async {
@@ -216,9 +222,8 @@ Future<void> onNavigate({
       );
     }
 
-
-    progressBarModel.value = ProgressBarModel.emptyModel();
-    isExpanded.value = false;
+    setNotifier(notifier: progressBarModel, mounted: mounted, value: ProgressBarModel.emptyModel());
+    setNotifier(notifier: isExpanded, mounted: mounted, value: false);
 
   });
 

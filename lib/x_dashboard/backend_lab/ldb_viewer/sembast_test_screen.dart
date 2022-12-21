@@ -120,7 +120,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
       _maps = _readMaps;
     });
 
-    _loading.value = false;
+    setNotifier(notifier: _loading, mounted: mounted, value: false);
 
   }
   // --------------------

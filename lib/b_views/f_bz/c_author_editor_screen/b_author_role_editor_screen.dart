@@ -83,6 +83,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
       oldAuthor: widget.authorModel,
       selectedRole: role,
       tempRole: _tempRole,
+      mounted: mounted,
     );
 
   }

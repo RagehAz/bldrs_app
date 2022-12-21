@@ -83,7 +83,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         listen: false,
     );
 
-    _selectedZone.value = _initialZone;
+    setNotifier(
+        notifier: _selectedZone,
+        mounted: mounted,
+        value: _initialZone,
+    );
 
   }
   // --------------------
@@ -93,17 +97,22 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     if (_isInit && mounted) {
 
       _triggerLoading(setTo: true).then((_) async {
-        // ----------------------------------
-        _selectedZone.value = await ZoneProtocols.completeZoneModel(
+        // --------------------
+        final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
           context: context,
           incompleteZoneModel: _selectedZone.value,
         );
-
+        // --------------------
+        setNotifier(
+            notifier: _selectedZone,
+            mounted: mounted,
+            value: _zone,
+        );
+        // --------------------
         await _checkCityHasDistricts();
-
-        // ----------------------------------
+        // --------------------
         await _triggerLoading(setTo: false);
-        // ----------------------------------
+        // --------------------
       });
 
     }
@@ -121,14 +130,21 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   @override
   void didUpdateWidget(covariant ZoneSelectionBubble oldWidget) {
 
-    if (
-    ZoneModel.checkZonesIDsAreIdentical(
+    final bool _zonesIdsAreIdentical = ZoneModel.checkZonesIDsAreIdentical(
       zone1: oldWidget.currentZone,
       zone2: widget.currentZone,
-    ) == false
-    ){
+    );
+
+    if (_zonesIdsAreIdentical == false){
+
       // widget.currentZone.blogZone(invoker: 'didUpdateWidget');
-      _selectedZone.value = widget.currentZone;
+
+      setNotifier(
+          notifier: _selectedZone,
+          mounted: mounted,
+          value: widget.currentZone,
+      );
+
     }
 
     super.didUpdateWidget(oldWidget);
@@ -157,9 +173,16 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     else {
 
       _zone.blogZone(invoker: 'received zone');
-      _selectedZone.value =  await ZoneProtocols.completeZoneModel(
+
+      final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
         context: context,
         incompleteZoneModel: _zone,
+      );
+
+      setNotifier(
+          notifier: _selectedZone,
+          mounted: mounted,
+          value: _completedZone,
       );
 
       widget.onZoneChanged(_selectedZone.value);
@@ -197,9 +220,16 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
       /// WHEN SELECTED A CITY
       else {
-        _selectedZone.value = await ZoneProtocols.completeZoneModel(
+
+        final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
           context: context,
           incompleteZoneModel: _zone,
+        );
+
+        setNotifier(
+            notifier: _selectedZone,
+            mounted: mounted,
+            value: _completedZone,
         );
 
         await _checkCityHasDistricts();
@@ -244,9 +274,15 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
         blog('got back with district : ${_zone.districtID}');
 
-        _selectedZone.value = await ZoneProtocols.completeZoneModel(
+        final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
           context: context,
           incompleteZoneModel: _zone,
+        );
+
+        setNotifier(
+            notifier: _selectedZone,
+            mounted: mounted,
+            value: _completedZone,
         );
 
         widget.onZoneChanged(_selectedZone.value);
@@ -392,11 +428,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 /*
   Future<void> _onSelectCountry(String countryID) async {
 
-    // _loading.value = true;
-    // _selectedCity.value = null;
-    // _selectedDistrict.value = null;
+    // _loading.value  = true;
+    // _selectedCity.value  = null;
+    // _selectedDistrict.value  = null;
 
-    _selectedZone.value =  await ZoneProvider.proFetchCompleteZoneModel(
+    _selectedZone.value  =  await ZoneProvider.proFetchCompleteZoneModel(
       context: context,
       incompleteZoneModel: ZoneModel(
         countryID: countryID,
@@ -406,17 +442,17 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     widget.onZoneChanged(_selectedZone.value);
     Nav.goBack(context);
 
-    _selectedCountry.value = await _zoneProvider.fetchCountryByID(
+    _selectedCountry.value  = await _zoneProvider.fetchCountryByID(
       context: context,
       countryID: countryID,
     );
 
-    // _selectedCountryCities.value = await _zoneProvider.fetchCitiesByIDs(
+    // _selectedCountryCities.value  = await _zoneProvider.fetchCitiesByIDs(
     //   context: context,
     //   citiesIDs: _selectedCountry.value?.citiesIDs,
     // );
 
-    // _isLoadingCities.value = false;
+    // _isLoadingCities.value  = false;
 
     await _onShowCitiesTap(context: context);
   }
@@ -425,9 +461,9 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 /*
   Future<void> _onSelectCity(String cityID) async {
 
-    // _isLoadingDistricts.value = true;
+    // _isLoadingDistricts.value  = true;
 
-    // _selectedDistrict.value = null;
+    // _selectedDistrict.value  = null;
 
     // _selectedZone = ZoneModel(
     //   countryID: _selectedZone.countryID,
@@ -438,12 +474,12 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     // widget.onZoneChanged(_selectedZone);
     // Nav.goBack(context);
 
-    // _selectedCity.value = await _zoneProvider.fetchCityByID(
+    // _selectedCity.value  = await _zoneProvider.fetchCityByID(
     //     context: context,
     //     cityID: cityID
     // );
 
-    // _isLoadingDistricts.value = false;
+    // _isLoadingDistricts.value  = false;
 
     // if (Mapper.checkCanLoopList(_selectedCity.value?.districts) == true){
     //   await _onShowDistricts(context: context);
@@ -460,7 +496,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     //     districtID: districtID
     // );
 
-    // _selectedDistrict.value = _district;
+    // _selectedDistrict.value  = _district;
 
     // _selectedZone = _selectedZone.copyWith(
     //   districtID: districtID,

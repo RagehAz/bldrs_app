@@ -17,6 +17,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -64,11 +65,15 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
         cityID: _zone.cityID,
       );
 
-      _selectedZone.value = ZoneModel(
-        countryID: _zone.countryID,
-        cityID: _zone.cityID,
-        countryName: xPhrase( context, _country.id),
-        cityName: xPhrase( context, _city.cityID),
+      setNotifier(
+          notifier: _selectedZone,
+          mounted: mounted,
+          value: ZoneModel(
+            countryID: _zone.countryID,
+            cityID: _zone.cityID,
+            countryName: xPhrase( context, _country.id),
+            cityName: xPhrase( context, _city.cityID),
+          ),
       );
 
     }

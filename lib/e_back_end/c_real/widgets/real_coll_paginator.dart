@@ -149,7 +149,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
         // Mapper.blogMap(map, invoker: 'RealCollPaginator.Real.streamPath');
 
         if (_isInit == false){
-          _paginatorController.addMap.value = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+          _paginatorController.addMap.value  = Mapper.getMapFromInternalHashLinkedMapObjectObject(
             internalHashLinkedMapObjectObject: map,
           );
         }
@@ -170,9 +170,9 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     );
 
     /// CAN KEEP READING
-    if (_canKeepReading.value == true){
+    if (_canKeepReading.value  == true){
 
-      // if (_paginatorController?.startAfter?.value == null){
+      // if (_paginatorController?.startAfter?.value  == null){
       //   blog('should read more : ${_paginatorController.paginatorMaps.value.length} maps');
       // }
       // else {
@@ -198,7 +198,14 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       }
 
       else {
-        _canKeepReading.value = false;
+
+        setNotifier(
+            notifier: _canKeepReading,
+            mounted: mounted,
+            value: false,
+        );
+
+
       }
 
     }

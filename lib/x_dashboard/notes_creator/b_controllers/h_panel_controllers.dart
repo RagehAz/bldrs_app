@@ -5,6 +5,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_import_template_screen/a_import_template_note_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
@@ -74,11 +75,24 @@ Future<void> onBlogNote({
 /// TESTED : WORKS PERFECT
 void clearNote({
   @required DraftNote draftNote,
+  @required bool mounted,
 }){
-  draftNote.noteNotifier.value = NoteModel.initialNoteForCreation;
+
+  setNotifier(
+      notifier: draftNote.noteNotifier,
+      mounted: mounted,
+      value: NoteModel.initialNoteForCreation,
+  );
+
+  setNotifier(
+      notifier: draftNote.receiversModels,
+      mounted: mounted,
+      value: [],
+  );
+
   draftNote.titleController.clear();
   draftNote.bodyController.clear();
-  draftNote.receiversModels.value = [];
+
 }
 // -----------------------------------------------------------------------------
 
@@ -89,6 +103,7 @@ void clearNote({
 Future<void> onGoToNoteTemplatesScreen({
   @required BuildContext context,
   @required DraftNote draftNote,
+  @required bool mounted,
 }) async {
 
   final NoteModel _templateNote = await Nav.goToNewScreen(
@@ -99,13 +114,15 @@ Future<void> onGoToNoteTemplatesScreen({
 
   if (_templateNote != null){
 
-    draftNote.receiversModels.value = await _getReceiversModelsByReceiversIDs(
+    final List<dynamic> _receiversModels = await _getReceiversModelsByReceiversIDs(
       context: context,
       receiversIDs: <String>[_templateNote.parties.receiverID],
       partyType: _templateNote.parties.receiverType,
     );
 
-    draftNote.noteNotifier.value = _templateNote;
+    setNotifier(notifier: draftNote.receiversModels, mounted: mounted, value: _receiversModels);
+    setNotifier(notifier: draftNote.noteNotifier, mounted: mounted, value: _templateNote);
+
     draftNote.titleController.text = _templateNote.title;
     draftNote.bodyController.text = _templateNote.body;
 

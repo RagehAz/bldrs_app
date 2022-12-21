@@ -21,6 +21,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -73,8 +74,11 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       );
     }
 
-
-    _userModel.value = _oldUser;
+    setNotifier(
+        notifier: _userModel,
+        mounted: mounted,
+        value: _oldUser,
+    );
 
   }
   // --------------------
@@ -231,10 +235,14 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                             bubbleHeaderVM: const BubbleHeaderVM(),
                             onBubbleTap: (){
 
-                              _userModel.value = _userModel.value.copyWith(
-                                need: _userModel.value.need.copyWith(
-                                  needType: _type,
-                                ),
+                              setNotifier(
+                                  notifier: _userModel,
+                                  mounted: mounted,
+                                  value: _userModel.value.copyWith(
+                                    need: _userModel.value.need.copyWith(
+                                      needType: _type,
+                                    ),
+                                  ),
                               );
 
                               },
@@ -285,10 +293,14 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     initialText: userModel.need?.notes,
                     onTextChanged: (String text){
 
-                      _userModel.value = _userModel.value.copyWith(
-                        need: _userModel.value.need.copyWith(
-                          notes: text,
-                        ),
+                      setNotifier(
+                          notifier: _userModel,
+                          mounted: mounted,
+                          value: _userModel.value.copyWith(
+                            need: _userModel.value.need.copyWith(
+                              notes: text,
+                            ),
+                          ),
                       );
 
                     },
@@ -315,8 +327,12 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                         incompleteZoneModel: zone,
                       );
 
-                      _userModel.value = _userModel.value.copyWith(
-                        zone: _completeZone,
+                      setNotifier(
+                          notifier: _userModel,
+                          mounted: mounted,
+                          value: _userModel.value.copyWith(
+                            zone: _completeZone,
+                          ),
                       );
 
                     },
@@ -365,7 +381,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       onlyChainKSelection: false,
                       onFinish: (List<SpecModel> specs) async {
                         if (specs != null){
-                          _need.value = _need.value.copyWith(
+                          _need.value  = _need.value.copyWith(
                             scope: SpecModel.getSpecsIDs(specs),
                           );
                         }

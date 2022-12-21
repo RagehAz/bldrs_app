@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 void onSwitchNoteProgress({
   @required bool value,
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }){
 
   blog('value : $value : ${noteNotifier.value.progress}');
@@ -18,8 +19,12 @@ void onSwitchNoteProgress({
   /// SWITCH ON
   if (value == true){
 
-    noteNotifier.value = noteNotifier.value.copyWith(
-      progress: 0,
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          progress: 0,
+        ),
     );
 
   }
@@ -27,8 +32,12 @@ void onSwitchNoteProgress({
   /// SWITCH OFF
   else {
 
-    noteNotifier.value = noteNotifier.value.nullifyField(
-      progress: true,
+    setNotifier(
+      notifier: noteNotifier,
+      mounted: mounted,
+      value: noteNotifier.value.nullifyField(
+        progress: true,
+      ),
     );
 
   }
@@ -38,20 +47,34 @@ void onSwitchNoteProgress({
 /// TESTED : WORKS PERFECT
 void onTriggerNoteLoading({
   @required ValueNotifier<NoteModel> noteNotifier,
+  @required bool mounted,
 }){
 
   /// IF IS LOADING
   if (noteNotifier.value.progress == -1){
-    noteNotifier.value = noteNotifier.value.copyWith(
-      progress: 0,
+
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          progress: 0,
+        ),
+
     );
+
   }
 
   /// IF IS NOT LOADING
   else {
-    noteNotifier.value = noteNotifier.value.copyWith(
-        progress: -1
+
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+            progress: -1
+        ),
     );
+
   }
 
 }
@@ -60,6 +83,7 @@ void onTriggerNoteLoading({
 void onIncrementNoteProgress({
   @required ValueNotifier<NoteModel> noteNotifier,
   @required int amount,
+  @required bool mounted,
 }){
 
   if (noteNotifier.value.progress < 100){
@@ -69,8 +93,12 @@ void onIncrementNoteProgress({
       _result = 100;
     }
 
-    noteNotifier.value = noteNotifier.value.copyWith(
-      progress: _result,
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          progress: _result,
+        ),
     );
 
   }
@@ -81,6 +109,7 @@ void onIncrementNoteProgress({
 void onDecrementNoteProgress({
   @required ValueNotifier<NoteModel> noteNotifier,
   @required int amount,
+  @required bool mounted,
 }){
   if (noteNotifier.value.progress > -1){
 
@@ -89,9 +118,14 @@ void onDecrementNoteProgress({
       _result = -1;
     }
 
-    noteNotifier.value = noteNotifier.value.copyWith(
-        progress: _result,
+    setNotifier(
+        notifier: noteNotifier,
+        mounted: mounted,
+        value: noteNotifier.value.copyWith(
+          progress: _result,
+        ),
     );
+
   }
 
 }
