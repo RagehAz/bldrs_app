@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_la
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -96,7 +96,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
       listen: true,
     );
 
-    return CenteredListLayout(
+    return FloatingLayout(
       skyType: SkyType.black,
       columnChildren: <Widget>[
 

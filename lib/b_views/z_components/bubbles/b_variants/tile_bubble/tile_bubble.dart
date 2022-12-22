@@ -172,10 +172,11 @@ class TileBubble extends StatelessWidget {
 
         if (validator != null)
           SuperValidator(
-          width: _clearWidth,
-          validator: validator,
-          autoValidate: autoValidate,
-        ),
+            width: _clearWidth,
+            validator: validator,
+            autoValidate: autoValidate,
+            focusNode: null,
+          ),
 
       ],
     );

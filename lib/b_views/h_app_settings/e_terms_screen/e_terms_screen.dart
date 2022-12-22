@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -25,7 +25,7 @@ class TermsScreen extends StatelessWidget {
       pyramidsAreOn: true,
       skyType: SkyType.non,
       pyramidType: PyramidType.crystalYellow,
-      layoutWidget: FloatingCenteredList(
+      layoutWidget: FloatingList(
         crossAxisAlignment: CrossAxisAlignment.start,
         columnChildren: <Widget>[
 

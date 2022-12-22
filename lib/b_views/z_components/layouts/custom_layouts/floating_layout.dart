@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
-class CenteredListLayout extends StatelessWidget {
+class FloatingLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const CenteredListLayout({
+  const FloatingLayout({
     @required this.columnChildren,
     this.skyType = SkyType.non,
     this.pyramidType = PyramidType.crystalYellow,
@@ -29,7 +29,7 @@ class CenteredListLayout extends StatelessWidget {
       pyramidType: pyramidType,
       skyType: skyType,
       pyramidsAreOn: true,
-      layoutWidget: FloatingCenteredList(
+      layoutWidget: FloatingList(
         columnChildren: columnChildren,
       ),
     );
@@ -38,9 +38,9 @@ class CenteredListLayout extends StatelessWidget {
 /// --------------------------------------------------------------------------
 }
 
-class FloatingCenteredList extends StatelessWidget {
+class FloatingList extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FloatingCenteredList({
+  const FloatingList({
     @required this.columnChildren,
     this.crossAxisAlignment,
     this.mainAxisAlignment,

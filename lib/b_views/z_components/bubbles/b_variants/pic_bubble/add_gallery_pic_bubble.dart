@@ -170,8 +170,8 @@ class AddImagePicBubble extends StatelessWidget {
               width: _bubbleClearWidth,
               validator: validator,
               // autoValidate: true,
+              focusNode: null,
             ),
-
         ]
     );
     // --------------------

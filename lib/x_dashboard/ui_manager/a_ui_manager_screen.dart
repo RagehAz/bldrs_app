@@ -1,11 +1,14 @@
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/animations_lab.dart';
 import 'package:bldrs/x_dashboard/ui_manager/balloon_types_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/dialog_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/nav_jumping_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_user_editor.dart';
 import 'package:bldrs/x_dashboard/ui_manager/poster_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_rage7.dart';
@@ -36,6 +39,11 @@ class UIManager extends StatelessWidget {
     return DashBoardLayout(
       pageTitle: 'UI Manager',
       listWidgets: <Widget>[
+
+        // ------------------------------------------------
+
+        /// GRAPHICS
+        SuperHeadline(verse: Verse.plain('Graphics'),),
 
         /// BLDRS ICONS
         WideButton(
@@ -79,6 +87,11 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        // ------------------------------------------------
+
+        /// ANIMATIONS
+        SuperHeadline(verse: Verse.plain('Animations'),),
+
         /// SUPER RAGE7
         WideButton(
           verse: Verse.plain('Super Rage7'),
@@ -121,6 +134,11 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        // ------------------------------------------------
+
+        /// IMAGES
+        SuperHeadline(verse: Verse.plain('Images'),),
+
         /// IMAGE TEST SCREEN
         WideButton(
           verse: Verse.plain('Images testing'),
@@ -134,6 +152,11 @@ class UIManager extends StatelessWidget {
 
           },
         ),
+
+        // ------------------------------------------------
+
+        /// SOUNDS
+        SuperHeadline(verse: Verse.plain('Sounds'),),
 
         /// SOUNDS TEST
         WideButton(
@@ -149,6 +172,11 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        // ------------------------------------------------
+
+        /// VIDEOS
+        SuperHeadline(verse: Verse.plain('Videos'),),
+
         /// VIDEO EDITOR
         WideButton(
           verse: Verse.plain('Video Player'),
@@ -158,6 +186,44 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const VideoPlayerScreen(),
+            );
+
+          },
+        ),
+
+        // ------------------------------------------------
+
+        /// TIME
+        SuperHeadline(verse: Verse.plain('Time'),),
+
+        /// STOP WATCH TEST
+        WideButton(
+          verse: Verse.plain('StopWatch test'),
+          icon: Iconz.clock,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const StopWatchTest(),
+            );
+
+          },
+        ),
+
+        // ------------------------------------------------
+
+        /// NAVIGATION
+        SuperHeadline(verse: Verse.plain('Navigation'),),
+
+        /// NAV JUMPING TEST
+        WideButton(
+          verse: Verse.plain('Nav Jumping test'),
+          icon: Iconz.arrowUp,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const NavJumpingTestScreen(),
             );
 
           },
@@ -176,6 +242,11 @@ class UIManager extends StatelessWidget {
 
           },
         ),
+
+        // ------------------------------------------------
+
+        /// COMPONENTS
+        SuperHeadline(verse: Verse.plain('Components'),),
 
         /// KEYBOARD FIELD TEST
         WideButton(
@@ -219,7 +290,7 @@ class UIManager extends StatelessWidget {
           },
         ),
 
-        /// STATIC FLYER TEST
+        /// POSTER TEST
         WideButton(
           verse: Verse.plain('Poster Test'),
           icon: Iconz.flyerCollection,
@@ -232,6 +303,7 @@ class UIManager extends StatelessWidget {
 
           },
         ),
+
         /// SLIDER TEST
         WideButton(
           verse: Verse.plain('Slider Test Screen'),
@@ -260,33 +332,33 @@ class UIManager extends StatelessWidget {
           },
         ),
 
-        /// STOP WATCH TEST
+        // ------------------------------------------------
+
+        /// NEW EDITORS
+        SuperHeadline(verse: Verse.plain('New Editors'),),
+
+        /// NEW USER EDITOR
         WideButton(
-          verse: Verse.plain('StopWatch test'),
-          icon: Iconz.clock,
+          verse: Verse.plain('New User Editor'),
+          icon: Iconz.users,
           onTap: () async {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: const StopWatchTest(),
+              screen: NewUserEditor(
+                canGoBack: true,
+                userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
+                onFinish: (){},
+                reAuthBeforeConfirm: false,
+                validateOnStartup: true,
+                checkLastSession: true,
+              ),
             );
 
           },
         ),
 
-        /// NAV JUMPING TEST
-        WideButton(
-          verse: Verse.plain('Nav Jumping test'),
-          icon: Iconz.arrowUp,
-          onTap: () async {
-
-            await Nav.goToNewScreen(
-              context: context,
-              screen: const NavJumpingTestScreen(),
-            );
-
-          },
-        ),
+        // ------------------------------------------------
 
         const Horizon(),
 
