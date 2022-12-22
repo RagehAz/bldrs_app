@@ -6,6 +6,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
+
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum VerseWeight {
@@ -40,6 +41,7 @@ class SuperVerse extends StatelessWidget {
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
+    this.textDirection = TextDirection.ltr,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -63,6 +65,7 @@ class SuperVerse extends StatelessWidget {
   final ValueNotifier<dynamic> highlight;
   final Color highlightColor;
   final Color shadowColor;
+  final TextDirection textDirection;
   // -----------------------------------------------------------------------------
 
   /// READY VERSES
@@ -567,6 +570,7 @@ class SuperVerse extends StatelessWidget {
             highlight: highlight,
             highlightColor: highlightColor,
             strikeThrough: strikeThrough,
+            textDirection: textDirection,
           ),
 
           if (redDot == true)
@@ -758,6 +762,7 @@ class _TheVerse extends StatelessWidget {
     this.strikeThrough = false,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
+    this.textDirection = TextDirection.ltr,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -775,6 +780,7 @@ class _TheVerse extends StatelessWidget {
   final bool strikeThrough;
   final Color highlightColor;
   final Color shadowColor;
+  final TextDirection textDirection;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static List<TextSpan> _generateTextSpans({
@@ -887,7 +893,8 @@ class _TheVerse extends StatelessWidget {
             maxLines: maxLines,
             textAlign: _textAlign,
             textScaleFactor: 1,
-            // textDirection: ,
+            textDirection: textDirection,
+            // locale: Localizer.getSupportedLocales()[1],
             style: SuperVerse.createStyle(
               context: context,
               color: color,
@@ -921,7 +928,7 @@ class _TheVerse extends StatelessWidget {
                   textAlign: _textAlign,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
-                  // textDirection: ,
+                  textDirection: textDirection,
                   // textScaleFactor: 1,
                   text: TextSpan(
                     style: _style,
