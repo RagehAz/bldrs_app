@@ -407,6 +407,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                       width: Bubble.clearWidth(context) - 20,
                       validator: _validator,
                       autoValidate: widget.autoValidate,
+                      focusNode: null,
                     ),
 
                   ]

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
@@ -31,7 +31,7 @@ class AppLangsScreen extends StatelessWidget {
     const List<Lang> _languagesModels = Lang.allLanguages;
     final List<MapModel> _languageMaps = Lang.getLingoNamesMapModels(_languagesModels);
     // --------------------
-    return CenteredListLayout(
+    return FloatingLayout(
       columnChildren: <Widget>[
 
         const DotSeparator(color: Colorz.yellow80,),
