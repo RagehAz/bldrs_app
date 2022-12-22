@@ -141,12 +141,7 @@ Future<bool> _preUploadCheckups({
   @required ScrollController scrollController,
 }) async {
 
-  bool _canContinue = false;
-
-  blog('canValidate : ${draftNotifier.value.canValidate}');
-
-  _canContinue = Formers.validateForm(draftNotifier.value.formKey);
-  blog('_canContinue : $_canContinue');
+  bool _canContinue = Formers.validateForm(draftNotifier.value.formKey);
 
   if (_canContinue == true){
 
@@ -166,7 +161,6 @@ Future<bool> _preUploadCheckups({
     await Sliders.slideToOffset(scrollController: scrollController, offset: 0);
   }
 
-  _canContinue = false;
   return _canContinue;
 }
 // --------------------

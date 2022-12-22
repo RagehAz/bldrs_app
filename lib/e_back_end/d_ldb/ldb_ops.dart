@@ -5,7 +5,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
@@ -132,10 +131,10 @@ class LDBOps {
   static Future<List<Map<String, Object>>> searchPhrasesDoc({
     @required dynamic searchValue,
     @required String docName,
-    @required String lingCode,
+    @required String langCode,
   }) async {
 
-    blog('receiving value : $searchValue');
+    // blog('receiving value : $searchValue');
 
     final List<Map<String, dynamic>> _result = await Sembast.searchArrays(
       searchValue: searchValue,
@@ -145,13 +144,13 @@ class LDBOps {
     );
 
     if (Mapper.checkCanLoopList(_result) == true){
-      blog('searchPhrases : found ${_result.length} phrases');
+      // blog('searchPhrases : found ${_result.length} phrases');
 
       return _result;
 
     }
     else {
-      blog('searchPhrases : did not find anything');
+      // blog('searchPhrases : did not find anything');
 
       return null;
     }

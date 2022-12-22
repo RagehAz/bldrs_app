@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -36,10 +37,20 @@ class NoteEventsOfBzTeamManagement {
 
     // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : START');
 
-    final String _authorRoleString = AuthorModel.getAuthorRolePhid(
+    final String _authorRolePhid = AuthorModel.getAuthorRolePhid(
       context: context,
       role:  author.role,
     );
+
+    final UserModel _userModel = await UserProtocols.fetch(
+        context: context,
+        userID: author.userID,
+    );
+    final String _langCode = _userModel.language;
+
+    final String _body =  '${author.name} '
+                          '${await transPhid(context, 'phid_has_new_role', _langCode)} '
+                          '${await transPhid(context, _authorRolePhid, _langCode)} ';
 
     final NoteModel _note = NoteModel(
       id: null,
@@ -50,8 +61,8 @@ class NoteEventsOfBzTeamManagement {
         receiverID: bzID,
         receiverType: PartyType.bz,
       ),
-      title: '##Team member Role changed',
-      body: '##The team role of "${author.name}" has been set to "$_authorRoleString"',
+      title: Verse.transBake(context, 'phid_member_role_changed'),
+      body: _body,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzTeamRolesUpdates,
@@ -82,6 +93,8 @@ class NoteEventsOfBzTeamManagement {
     @required bool sendToUserAuthorExitNote,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : START');
+
+    // final String _title = '';
 
     /// NOTE TO BZ
     final NoteModel _noteToBz = NoteModel(

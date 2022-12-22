@@ -28,13 +28,13 @@ class ProgressBarModel {
     SwipeDirection swipeDirection,
     int index,
     int numberOfStrips,
-    List<Color> progressColors,
+    List<Color> stripsColors,
   }){
     return ProgressBarModel(
       swipeDirection: swipeDirection ?? this.swipeDirection,
       index: index ?? this.index,
       numberOfStrips: numberOfStrips ?? this.numberOfStrips,
-      stripsColors: progressColors ?? this.stripsColors,
+      stripsColors: stripsColors ?? this.stripsColors,
     );
   }
   // --------------------------------------------------------------------------
