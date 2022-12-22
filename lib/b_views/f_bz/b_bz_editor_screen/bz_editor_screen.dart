@@ -49,7 +49,7 @@ class BzEditorScreen extends StatefulWidget {
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   final ValueNotifier<DraftBz> draftNotifier = ValueNotifier(null);
-  final FocusNode _aNode = FocusNode();
+  // final FocusNode _aNode = FocusNode();
   final ScrollController scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// LOADING

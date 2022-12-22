@@ -104,11 +104,46 @@ class PhraseLDBOps {
       fieldToSortBy: 'id',
     );
 
+    // Mapper.blogMaps(_maps);
+
     if (Mapper.checkCanLoopList(_maps) == true){
 
       _output = Phrase.decipherMixedLangPhrasesFromMaps(
         maps: _maps,
       );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///  TESTED : WORKS PERFECT
+  static Future<Phrase> searchPhraseByIDAndCode({
+    @required String phid,
+    @required String langCode,
+  }) async {
+    Phrase _output;
+
+    if (phid != null && langCode != null){
+
+      final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        ids: [phid],
+        docName: LDBDoc.mainPhrases,
+      );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+
+        final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(
+          maps: _maps,
+        );
+
+        _output = Phrase.searchFirstPhraseByLang(
+            phrases: _phrases,
+            langCode: langCode,
+        );
+
+      }
+
 
     }
 

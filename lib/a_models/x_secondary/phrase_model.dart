@@ -417,7 +417,10 @@ class Phrase {
         _map = Mapper.insertPairInMap(
           map: _map,
           key: 'primaryKey',//'id_langCode',
-          value: '${phrase.id}_${phrase.langCode}',
+          value: createPhraseLDBPrimaryKey(
+            phid: phrase.id,
+            langCode: phrase.langCode,
+          ),
         );
 
         _maps.add(_map);
@@ -427,6 +430,14 @@ class Phrase {
     }
 
     return _maps;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String createPhraseLDBPrimaryKey({
+    @required String phid,
+    @required String langCode,
+  }){
+    return '${phid}_$langCode';
   }
   // --------------------
   /// TESTED : WORKS PERFECT

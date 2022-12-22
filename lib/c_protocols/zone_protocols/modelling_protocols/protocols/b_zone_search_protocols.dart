@@ -13,7 +13,6 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -127,7 +126,7 @@ class ZoneSearchOps {
 
     final List<Map<String, dynamic>> _maps = await LDBOps.searchPhrasesDoc(
       docName: LDBDoc.countriesPhrases,
-      lingCode: TextCheck.concludeEnglishOrArabicLang(text),
+      langCode: TextCheck.concludeEnglishOrArabicLang(text),
       searchValue: text,
     );
 
@@ -407,7 +406,7 @@ class ZoneSearchOps {
         /// D - if firebase or LDB found any cities
         if (Mapper.checkCanLoopList(_foundCities) == true){
 
-          blog('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
+          // blog('aho fetchCityByName : _foundCities.length = ${_foundCities.length}');
 
           /// D-1 if only one city found
           if (_foundCities.length == 1){
