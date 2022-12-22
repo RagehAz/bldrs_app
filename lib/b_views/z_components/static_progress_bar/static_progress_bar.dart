@@ -17,6 +17,7 @@ class StaticProgressBar extends StatelessWidget {
     this.loading = true,
     this.margins,
     this.stripThicknessFactor = 1,
+    this.stripsColors,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class StaticProgressBar extends StatelessWidget {
   final SwipeDirection swipeDirection;
   final EdgeInsets margins;
   final double stripThicknessFactor;
+  final List<Color> stripsColors;
   /// --------------------------------------------------------------------------
   static bool canBuildStrips(int numberOfStrips) {
     bool _canBuild = false;
@@ -91,6 +93,7 @@ class StaticProgressBar extends StatelessWidget {
               slideIndex: index,
               swipeDirection: swipeDirection,
               margins: margins,
+              stripsColors: stripsColors,
             ),
           ),
       );

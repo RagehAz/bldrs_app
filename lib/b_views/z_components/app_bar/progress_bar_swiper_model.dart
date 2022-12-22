@@ -1,7 +1,9 @@
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBarModel {
@@ -10,11 +12,13 @@ class ProgressBarModel {
     @required this.swipeDirection,
     @required this.index,
     @required this.numberOfStrips,
+    this.stripsColors,
   });
   /// --------------------------------------------------------------------------
   final SwipeDirection swipeDirection;
   final int index;
   final int numberOfStrips;
+  final List<Color> stripsColors;
   // --------------------------------------------------------------------------
 
   /// CLONING
@@ -24,11 +28,13 @@ class ProgressBarModel {
     SwipeDirection swipeDirection,
     int index,
     int numberOfStrips,
+    List<Color> progressColors,
   }){
     return ProgressBarModel(
       swipeDirection: swipeDirection ?? this.swipeDirection,
       index: index ?? this.index,
       numberOfStrips: numberOfStrips ?? this.numberOfStrips,
+      stripsColors: progressColors ?? this.stripsColors,
     );
   }
   // --------------------------------------------------------------------------
@@ -41,6 +47,7 @@ class ProgressBarModel {
       index: 0,
       numberOfStrips: 1,
       swipeDirection: SwipeDirection.freeze,
+      stripsColors: <Color>[Colorz.white255],
     );
   }
   // --------------------------------------------------------------------------
@@ -119,4 +126,24 @@ class ProgressBarModel {
 
   }
   // --------------------------------------------------------------------------
+
+  static List<Color> generateColors({
+    @required int length,
+    @required List<Color> colors,
+  }){
+
+    if (Mapper.checkCanLoopList(colors) == true){
+      blog('generateColors : colors : $colors');
+      return colors;
+    }
+
+    else {
+      return List.generate(length, (index){
+        return Colorz.white255;
+      });
+    }
+
+  }
+  // --------------------------------------------------------------------------
+  void f(){}
 }
