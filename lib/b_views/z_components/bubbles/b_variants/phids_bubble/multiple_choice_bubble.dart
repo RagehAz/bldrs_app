@@ -24,6 +24,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     this.autoValidate = true,
     this.isRequired = true,
     this.wrapButtons = true,
+    this.focusNode,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,6 +38,7 @@ class MultipleChoiceBubble extends StatelessWidget {
   final bool autoValidate;
   final bool isRequired;
   final bool wrapButtons;
+  final FocusNode focusNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -77,6 +79,7 @@ class MultipleChoiceBubble extends StatelessWidget {
               width: Bubble.clearWidth(context) - 20,
               validator: validator,
               autoValidate: autoValidate,
+              focusNode: focusNode,
             ),
 
         ]

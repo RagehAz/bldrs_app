@@ -291,6 +291,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   pdfModel: pdfModel,
                   canValidate: widget.canValidate,
                 ),
+                focusNode: null,
                 // autoValidate: true,
               ),
 

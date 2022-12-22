@@ -114,6 +114,7 @@ class GenderBubble extends StatelessWidget {
             canValidate: canValidate,
           ),
           // autoValidate: true,
+          focusNode: null,
         ),
 
       ],

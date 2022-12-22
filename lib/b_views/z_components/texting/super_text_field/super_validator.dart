@@ -8,6 +8,7 @@ class SuperValidator extends StatelessWidget {
   const SuperValidator({
     @required this.width,
     @required this.validator,
+    @required this.focusNode,
     this.autoValidate = true,
     Key key
   }) : super(key: key);
@@ -15,6 +16,7 @@ class SuperValidator extends StatelessWidget {
   final double width;
   final String Function() validator;
   final bool autoValidate;
+  final FocusNode focusNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,8 @@ class SuperValidator extends StatelessWidget {
       child: SizedBox(
         width: width,
         child: TextFormField(
+
+          focusNode: focusNode,
 
           /// VALIDATION
           autovalidateMode: autoValidate == true ? AutovalidateMode.always : AutovalidateMode.disabled,
