@@ -61,6 +61,7 @@ class AppBarProgressBar extends StatelessWidget {
                   flyerBoxWidth: _abWidth,
                   margins: _margins,
                   stripThicknessFactor: 0.4,
+                  stripsColors: progressBarModel?.stripsColors,
                 );
 
               }

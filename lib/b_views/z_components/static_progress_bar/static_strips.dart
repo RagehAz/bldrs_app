@@ -1,7 +1,10 @@
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +17,7 @@ class StaticStrips extends StatelessWidget {
     this.barIsOn = true,
     this.slideIndex = 0,
     this.margins,
+    this.stripsColors,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,6 +27,7 @@ class StaticStrips extends StatelessWidget {
   final int slideIndex;
   final EdgeInsets margins;
   final SwipeDirection swipeDirection;
+  final List<Color> stripsColors;
   /// --------------------------------------------------------------------------
   int _getNumberOfWhiteStrips() {
     // -----------------------------------------o
@@ -125,6 +130,18 @@ class StaticStrips extends StatelessWidget {
     return _tween;
   }
   // -----------------------------------------------------------------------------
+  Color _stripColorOverride(int index){
+
+    if (Mapper.checkCanLoopList(stripsColors) == true){
+      return stripsColors[index];
+    }
+
+    else {
+      return FlyerColors.progressStripOnColor;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -174,7 +191,8 @@ class StaticStrips extends StatelessWidget {
                   stripWidth: _aStripLength,
                   numberOfSlides: numberOfStrips,
                   margins: margins,
-                  isWhite: false,
+                  isWhite: true,
+                  stripColor: _stripColorOverride(index).withAlpha(100),
                 );
               }
               ),
@@ -204,6 +222,7 @@ class StaticStrips extends StatelessWidget {
                           stripWidth: _tweenVal,
                           numberOfSlides: numberOfStrips,
                           isWhite: true,
+                          stripColor: _stripColorOverride(index),
                         );
                       }
 
@@ -214,6 +233,7 @@ class StaticStrips extends StatelessWidget {
                           stripWidth: _aStripLength,
                           numberOfSlides: numberOfStrips,
                           isWhite: true,
+                          stripColor: _stripColorOverride(index),
                         );
                       }
 

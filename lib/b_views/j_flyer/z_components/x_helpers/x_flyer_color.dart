@@ -166,8 +166,9 @@ class FlyerColors {
   static const Color progressStripLoadingColor = Colorz.yellow200;
   // --------------------
   static Color progressStripColor({
-    bool isWhite,
-    int numberOfSlides,
+    @required bool isWhite,
+    @required int numberOfSlides,
+    @required Color colorOverride,
   }) {
     final int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 
@@ -176,7 +177,7 @@ class FlyerColors {
         :
     _numberOfSlides == 0 ? progressStripOffColor
         :
-    progressStripOnColor;
+    colorOverride ?? progressStripOnColor;
 
     return _stripColor;
   }

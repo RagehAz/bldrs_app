@@ -1,43 +1,26 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
+import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/gender_bubble/gender_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
-import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
-import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/gender_bubble/gender_editor_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class NewUserEditor extends StatefulWidget {
@@ -208,6 +191,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
     // --------------------
     return PagesLayout(
       title: const Verse(text: 'phid_updateProfile', translate: true),
+      progressColors: const [Colorz.white255, Colorz.red255, Colorz.white255, Colorz.white255,],
       pageBubbles: <Widget>[
 
         /// PIC - GENDER
