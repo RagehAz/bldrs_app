@@ -10,6 +10,7 @@ class StaticStrip extends StatelessWidget {
     @required this.stripWidth,
     @required this.numberOfSlides,
     @required this.isWhite,
+    this.stripColor,
     this.margins,
     Key key,
   }) : super(key: key);
@@ -19,6 +20,7 @@ class StaticStrip extends StatelessWidget {
   final int numberOfSlides;
   final EdgeInsets margins;
   final bool isWhite;
+  final Color stripColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,9 @@ class StaticStrip extends StatelessWidget {
         height: _aStripThickness,
         decoration: BoxDecoration(
             color: FlyerColors.progressStripColor(
-                isWhite: isWhite,
-                numberOfSlides: numberOfSlides,
+              isWhite: isWhite,
+              numberOfSlides: numberOfSlides,
+              colorOverride: stripColor,
             ),
             borderRadius: Borderers.cornerAll(context, _stripCorner),
         ),

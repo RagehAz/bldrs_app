@@ -14,6 +14,7 @@ class PagesLayout extends StatefulWidget {
     this.pyramidButtons,
     this.appBarRowWidgets,
     this.title,
+    this.progressColors,
     Key key
   }) : super(key: key);
 
@@ -21,6 +22,7 @@ class PagesLayout extends StatefulWidget {
   final List<Widget> pyramidButtons;
   final List<Widget> appBarRowWidgets;
   final Verse title;
+  final List<Color> progressColors;
   /// --------------------------------------------------------------------------
   @override
   _PagesLayoutState createState() => _PagesLayoutState();
@@ -79,6 +81,10 @@ class _PagesLayoutState extends State<PagesLayout> {
           swipeDirection: SwipeDirection.freeze,
           index: 0,
           numberOfStrips: widget.pageBubbles.length,
+          stripsColors: ProgressBarModel.generateColors(
+            colors: widget.progressColors,
+            length: widget.pageBubbles.length,
+          ),
         ),
     );
 
