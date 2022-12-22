@@ -2,13 +2,12 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
-import 'package:bldrs/b_views/z_components/keywords/keywords_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -20,7 +19,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -60,34 +58,57 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    await Real.createDocInPath(
-        pathWithoutDocName: 'app/tests/hashGroups',
-        docName: 'designs',
-        addDocIDToOutput: false,
-        map: {
-          'groups': [
-            {
-              'designType': ['1', '2', '3'],
-            },
-            {
-              'designForm': ['4', '5', '6'],
-            },
-            {
-              'spaceType': ['7', '8', '9'],
-            },
-          ],
-        }
+    // await Real.createDocInPath(
+    //     pathWithoutDocName: 'app/tests/hashGroups',
+    //     docName: 'designs',
+    //     addDocIDToOutput: false,
+    //     map: {
+    //       'groups': [
+    //         {
+    //           'designType': ['1', '2', '3'],
+    //         },
+    //         {
+    //           'designForm': ['4', '5', '6'],
+    //         },
+    //         {
+    //           'spaceType': ['7', '8', '9'],
+    //         },
+    //       ],
+    //     }
+    // );
+    //
+    // final Object _object = await Real.readPath(
+    //   path: 'app/tests/hashGroups/group',
+    // );
+    //
+    // final Map<String, dynamic> map = Mapper.getMapFromIHLMOO(ihlmoo: _object);
+    //
+    // Mapper.blogMap(map);
+
+    final String _authorRolePhid = AuthorModel.getAuthorRolePhid(
+      context: context,
+      role:  AuthorRole.creator,
     );
 
-    final Object _object = await Real.readPath(
-      path: 'app/tests/hashGroups/group',
-    );
+    blog('kos ommmaal');
 
-    final Map<String, dynamic> map = Mapper.getMapFromIHLMOO(ihlmoo: _object);
+    const String _langCode = 'ar';
 
-    Mapper.blogMap(map);
+    final String _x = await transPhid(context, 'phid_inn', _langCode);
 
-    }
+    blog('a7aaaa : _x : $_x');
+
+    final String _body =  'Meshmesh\n'
+        '${await transPhid(context, 'phid_has_new_role', _langCode)} '
+        '${await transPhid(context, _authorRolePhid, _langCode)} ';
+
+    blog('_body : $_body');
+
+    setState(() {
+      _fuckingText = _body;
+    });
+
+  }
   // -------------------------------------------------
   /// ======================================================================[ ]
 
@@ -427,9 +448,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                   child: SuperVerse(
                     verse: Verse.plain(_fuckingText),
                     maxLines: 10,
-                    centered: false,
+                    // centered: true,
                     margin: 10,
                     highlight: _highlightedText,
+                    // textDirection: TextDirection.ltr,
                   ),
                 ),
 
@@ -517,13 +539,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                     }
                 ),
 
-                PhidsButtonsList(
-                  phids: Chain.getOnlyPhidsSonsFromChains(chains: _chainsProvider.bldrsChains),
-                  buttonWidth: _fieldWidth,
-                  onPhidTap: (String phid){
-                    blog('phid is : $phid');
-                  },
-                ),
+                // PhidsButtonsList(
+                //   phids: Chain.getOnlyPhidsSonsFromChains(chains: _chainsProvider.bldrsChains),
+                //   buttonWidth: _fieldWidth,
+                //   onPhidTap: (String phid){
+                //     blog('phid is : $phid');
+                //   },
+                // ),
 
                 /// HASH VERSE
                 // ValueListenableBuilder(
