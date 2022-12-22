@@ -215,6 +215,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
                     canValidate: _canValidate,
                     draftNotifier: _draftNotifier,
                     bzModel: _draft?.bzModel,
+                    focusNode: null, /// TASK : DO ME
                   ),
 
                   /// SEPARATOR
