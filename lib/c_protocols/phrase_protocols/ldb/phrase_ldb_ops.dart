@@ -3,7 +3,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class PhraseLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -154,6 +154,7 @@ class PhraseLDBOps {
   /// UPDATE
 
   // --------------------
+  ///  TESTED : WORKS PERFECT
   static Future<void> updateMainPhrases({
     @required List<Phrase> updatedMixedLangsPhrases,
   }) async {
@@ -170,6 +171,7 @@ class PhraseLDBOps {
 
   }
   // --------------------
+  ///  TESTED : WORKS PERFECT
   static Future<void> updateCountriesPhrases({
     @required List<Phrase> updatedCountriesMixedLangsPhrases,
   }) async {

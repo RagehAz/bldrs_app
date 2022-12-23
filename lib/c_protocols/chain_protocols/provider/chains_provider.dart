@@ -15,7 +15,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 class ChainsProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
@@ -251,7 +251,7 @@ class ChainsProvider extends ChangeNotifier {
   List<Chain> _chains;
   List<Chain> get bldrsChains => _chains;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<Chain> proGetBldrsChains({
     @required BuildContext context,
     @required bool onlyUseCityChains,
@@ -269,7 +269,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Chain proGetChainByID({
     @required BuildContext context,
     @required String chainID,
@@ -286,7 +286,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _fetchSetBldrsChains({
     @required bool notify,
   }) async {
@@ -300,7 +300,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void _setBldrsChains({
     @required List<Chain> chains,
     @required bool notify,
@@ -364,7 +364,7 @@ class ChainsProvider extends ChangeNotifier {
   List<Chain> _cityChains;
   List<Chain> get cityChains => _cityChains;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _refineSetCityChains({
     @required bool notify,
     @required List<Chain> chains,
@@ -382,7 +382,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void _setCityChains({
     @required bool notify,
     @required List<Chain> chains,
@@ -567,7 +567,7 @@ class ChainsProvider extends ChangeNotifier {
   static List<PickerModel> proGetAllPickers({
     @required BuildContext context,
     @required bool listen,
-}){
+  }){
 
     return proGetSortedPickersByFlyerTypes(
         context: context,
@@ -577,7 +577,8 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static PickerModel proGetPickerByChainID({
     @required BuildContext context,
     @required String chainID,
@@ -751,14 +752,14 @@ class ChainsProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------o
+  // -----------------------------------------------------------------------------o
 
 
   /// ~~~~~~~ FINDERS ~~~~~~~
 
 
-// -----------------------------------------------------------------------------o
-  ///
+  // -----------------------------------------------------------------------------o
+  /// TESTED : WORKS PERFECT
   Chain findChainByID({
     @required String chainID,
     bool onlyUseCityChains = false,
@@ -845,7 +846,7 @@ class ChainsProvider extends ChangeNotifier {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     return _chainsProvider.getPhidIcon(context: context, son: son);
   }
-// -----------------------------------------------------------------------------o
+  // -----------------------------------------------------------------------------o
 }
 
 Future<String> transPhid(BuildContext context, String phid, String langCode) async {

@@ -1,10 +1,9 @@
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class PagesLayout extends StatefulWidget {
@@ -14,24 +13,26 @@ class PagesLayout extends StatefulWidget {
     this.pyramidButtons,
     this.appBarRowWidgets,
     this.title,
-    this.progressColors,
+    this.progressBarModel,
+    this.confirmButtonModel,
     Key key
   }) : super(key: key);
-
+  // --------------------------------------------------------------------------
   final List<Widget> pageBubbles;
   final List<Widget> pyramidButtons;
   final List<Widget> appBarRowWidgets;
   final Verse title;
-  final List<Color> progressColors;
-  /// --------------------------------------------------------------------------
+  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ConfirmButtonModel confirmButtonModel;
+  // --------------------------------------------------------------------------
   @override
   _PagesLayoutState createState() => _PagesLayoutState();
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }
 
 class _PagesLayoutState extends State<PagesLayout> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  ValueNotifier<ProgressBarModel> _progressBarModel;
   final PageController _pageController = PageController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -59,7 +60,10 @@ class _PagesLayoutState extends State<PagesLayout> {
   void dispose() {
     _loading.dispose();
     _pageController.dispose();
-    _progressBarModel.dispose();
+
+    if (widget.progressBarModel == null){
+      _progressBarModel.dispose();
+    }
     super.dispose();
   }
   // --------------------
@@ -74,19 +78,17 @@ class _PagesLayoutState extends State<PagesLayout> {
   // --------------------
   void _initializeProgressBarModel() {
 
-    setNotifier(
-        notifier: _progressBarModel,
-        mounted: mounted,
-        value: ProgressBarModel(
-          swipeDirection: SwipeDirection.freeze,
-          index: 0,
+    if (widget.progressBarModel == null){
+
+      _progressBarModel = ValueNotifier(ProgressBarModel.initialModel(
           numberOfStrips: widget.pageBubbles.length,
-          stripsColors: ProgressBarModel.generateColors(
-            colors: widget.progressColors,
-            length: widget.pageBubbles.length,
-          ),
-        ),
-    );
+      ));
+
+    }
+
+    else {
+      _progressBarModel = widget.progressBarModel;
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -106,6 +108,7 @@ class _PagesLayoutState extends State<PagesLayout> {
       ),
       pyramidButtons: widget.pyramidButtons,
       appBarRowWidgets: widget.appBarRowWidgets,
+      confirmButtonModel: widget.confirmButtonModel,
       layoutWidget: SizedBox(
         width: Scale.screenWidth(context),
         height: Scale.screenHeight(context),

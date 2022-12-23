@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -39,7 +40,7 @@ class ConfirmButton extends StatelessWidget {
     final Widget _button = DreamBox(
       isDeactivated: confirmButtonModel.isDeactivated,
       height: 50,
-      width: confirmButtonModel.firstLine.text.length > 20 ? 200 : null,
+      width: BldrsAppBar.width(context),//confirmButtonModel.firstLine.text.length > 20 ? 200 : null,
       verseMaxLines: 2,
       color: Colorz.yellow255,
       verseColor: Colorz.black230,
