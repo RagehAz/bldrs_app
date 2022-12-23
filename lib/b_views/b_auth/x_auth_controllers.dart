@@ -1,19 +1,19 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_user_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -352,7 +352,7 @@ Future<void> _goToUserEditorForFirstTime({
 
   await Nav.goToNewScreen(
       context: context,
-      screen: EditProfileScreen(
+      screen: NewUserEditor(
         userModel: authModel.userModel,
         reAuthBeforeConfirm: false,
         canGoBack: false,

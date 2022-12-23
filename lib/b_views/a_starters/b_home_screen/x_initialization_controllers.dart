@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -14,6 +13,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_user_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -107,7 +107,7 @@ Future<void> _controlMissingFieldsCase({
 
   await Nav.goToNewScreen(
       context: context,
-      screen: EditProfileScreen(
+      screen: NewUserEditor(
         userModel: authModel?.userModel,
         reAuthBeforeConfirm: false,
         canGoBack: true,
