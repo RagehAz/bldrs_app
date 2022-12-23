@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
+///=> TAMAM
 class ProgressBarModel {
   /// --------------------------------------------------------------------------
   const ProgressBarModel({
@@ -24,6 +24,7 @@ class ProgressBarModel {
   /// CLONING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   ProgressBarModel copyWith({
     SwipeDirection swipeDirection,
     int index,
@@ -42,6 +43,24 @@ class ProgressBarModel {
   /// DUMMY
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static ProgressBarModel initialModel({
+    @required int numberOfStrips,
+  }){
+
+    return ProgressBarModel(
+      swipeDirection: SwipeDirection.freeze,
+      index: 0,
+      numberOfStrips: numberOfStrips,
+      stripsColors: ProgressBarModel.generateColors(
+        colors: null,
+        length: numberOfStrips,
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static ProgressBarModel emptyModel(){
     return const ProgressBarModel(
       index: 0,
@@ -127,6 +146,10 @@ class ProgressBarModel {
   }
   // --------------------------------------------------------------------------
 
+  /// STRIPS COLORS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Color> generateColors({
     @required int length,
     @required List<Color> colors,
@@ -144,6 +167,28 @@ class ProgressBarModel {
     }
 
   }
+  // --------------------
+  /// TASK : TEST ME
+  static void setStripColor({
+    @required int index,
+    @required Color color,
+    @required ValueNotifier<ProgressBarModel> notifier,
+    @required bool mounted,
+  }){
+
+    final List<Color> _stripsColors = <Color>[ ...?notifier.value.stripsColors];
+
+    _stripsColors.removeAt(index);
+    _stripsColors.insert(index, color);
+
+    setNotifier(
+      notifier: notifier,
+      mounted: mounted,
+      value: notifier.value.copyWith(
+        stripsColors: _stripsColors,
+      ),
+    );
+
+  }
   // --------------------------------------------------------------------------
-  void f(){}
 }

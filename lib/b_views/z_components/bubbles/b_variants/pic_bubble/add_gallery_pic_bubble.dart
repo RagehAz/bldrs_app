@@ -37,6 +37,7 @@ class AddImagePicBubble extends StatelessWidget {
     this.width,
     this.validator,
     this.autoValidate = true,
+    this.onPicLongTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -49,6 +50,7 @@ class AddImagePicBubble extends StatelessWidget {
   final String Function() validator;
   final GlobalKey<FormState> formKey;
   final bool autoValidate;
+  final Function onPicLongTap;
   /// --------------------------------------------------------------------------
   static BorderRadius getPicBorder ({
     @required BuildContext context,
@@ -127,6 +129,7 @@ class AddImagePicBubble extends StatelessWidget {
                     bubbleType: bubbleType,
                     onAddPic: onAddPicture,
                     picWidth: picWidth,
+                    onLongTap: onPicLongTap,
                   ),
 
                 ],
@@ -147,9 +150,10 @@ class AddImagePicBubble extends StatelessWidget {
                       icon: Iconz.phoneGallery,
                       iconSizeFactor: 0.6,
                       onTap: () => onAddPicture(PicMakerType.galleryImage),
+                      onLongTap: onPicLongTap,
                     ),
 
-                    /// DELETE pic
+                    /// CAMERA BUTTON
                     DreamBox(
                       width: btWidth,
                       height: btWidth,
@@ -172,6 +176,7 @@ class AddImagePicBubble extends StatelessWidget {
               // autoValidate: true,
               focusNode: null,
             ),
+
         ]
     );
     // --------------------
@@ -274,6 +279,7 @@ class _PlusIconLayer extends StatelessWidget {
     @required this.onAddPic,
     @required this.bubbleType,
     @required this.picWidth,
+    @required this.onLongTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -281,6 +287,7 @@ class _PlusIconLayer extends StatelessWidget {
   final ValueChanged<PicMakerType> onAddPic;
   final BubbleType bubbleType;
   final double picWidth;
+  final Function onLongTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -303,6 +310,7 @@ class _PlusIconLayer extends StatelessWidget {
         opacity: 0.9,
         iconColor: Colorz.white255,
         onTap: () => onAddPic(PicMakerType.galleryImage),
+        onLongTap: onLongTap,
       );
     }
 
