@@ -46,8 +46,9 @@ class NoteEventsOfBzTeamManagement {
         context: context,
         userID: author.userID,
     );
-    final String _langCode = _userModel.language;
+    final String _langCode = _userModel?.language ?? 'en';
 
+    /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
     final String _body =  '${author.name} '
                           '${await transPhid(context, 'phid_has_new_role', _langCode)} '
                           '${await transPhid(context, _authorRolePhid, _langCode)} ';

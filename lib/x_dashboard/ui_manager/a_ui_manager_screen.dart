@@ -351,7 +351,7 @@ class UIManager extends StatelessWidget {
                 onFinish: (){},
                 reAuthBeforeConfirm: false,
                 validateOnStartup: true,
-                checkLastSession: true,
+                // checkLastSession: true,
               ),
             );
 

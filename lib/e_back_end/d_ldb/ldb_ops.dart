@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class LDBOps {
   // -----------------------------------------------------------------------------
 
@@ -509,7 +509,7 @@ class LDBOps {
   /// LDB REFRESH - DAILY WIPE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkShouldRefreshLDB(BuildContext context) async {
     bool _shouldRefresh = true;
 
@@ -535,6 +535,8 @@ class LDBOps {
       )?.toDouble();
 
       _diff = Numeric.modulus(_diff);
+
+      // blog('checkShouldRefreshLDB : _diff : $_diff < ${Standards.dailyLDBWipeIntervalInHours} hrs = ${_diff < Standards.dailyLDBWipeIntervalInHours}');
 
       /// ONLY WHEN NOT EXCEEDED THE TIME SHOULD NOT REFRESH
       if (_diff != null && _diff < Standards.dailyLDBWipeIntervalInHours){

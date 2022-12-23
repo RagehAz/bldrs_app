@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -58,55 +57,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    // await Real.createDocInPath(
-    //     pathWithoutDocName: 'app/tests/hashGroups',
-    //     docName: 'designs',
-    //     addDocIDToOutput: false,
-    //     map: {
-    //       'groups': [
-    //         {
-    //           'designType': ['1', '2', '3'],
-    //         },
-    //         {
-    //           'designForm': ['4', '5', '6'],
-    //         },
-    //         {
-    //           'spaceType': ['7', '8', '9'],
-    //         },
-    //       ],
-    //     }
-    // );
-    //
-    // final Object _object = await Real.readPath(
-    //   path: 'app/tests/hashGroups/group',
-    // );
-    //
-    // final Map<String, dynamic> map = Mapper.getMapFromIHLMOO(ihlmoo: _object);
-    //
-    // Mapper.blogMap(map);
-
-    final String _authorRolePhid = AuthorModel.getAuthorRolePhid(
-      context: context,
-      role:  AuthorRole.creator,
-    );
-
-    blog('kos ommmaal');
-
-    const String _langCode = 'ar';
-
-    final String _x = await transPhid(context, 'phid_inn', _langCode);
-
-    blog('a7aaaa : _x : $_x');
-
-    final String _body =  'Meshmesh\n'
-        '${await transPhid(context, 'phid_has_new_role', _langCode)} '
-        '${await transPhid(context, _authorRolePhid, _langCode)} ';
-
-    blog('_body : $_body');
-
-    setState(() {
-      _fuckingText = _body;
-    });
 
   }
   // -------------------------------------------------
