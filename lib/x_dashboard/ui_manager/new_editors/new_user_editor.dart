@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_positional_boolean_parameters
-
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
@@ -51,7 +50,7 @@ class NewUserEditor extends StatefulWidget {
 }
 
 class _NewUserEditorState extends State<NewUserEditor> {
-
+  // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   ConfirmButtonModel _confirmButtonModel;
   // -----------------------------------------------------------------------------
@@ -169,6 +168,8 @@ class _NewUserEditorState extends State<NewUserEditor> {
   /// TESTED : WORKS PERFECT
   Future<void> _onConfirmTap() async {
 
+    blog('CONFIRM TAPPED');
+
     _switchOnValidation();
 
     await confirmEdits(
@@ -183,7 +184,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
 
   }
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void _stripsListener(){
 
     // -----------------
@@ -282,7 +283,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void setStripIsValid(int index, bool isValid){
     ProgressBarModel.setStripColor(
       notifier: _progressBarModel,
@@ -292,7 +293,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void _controlConfirmButton(){
 
     if (_progressBarModel.value.stripsColors.contains(Colors.red) == true){
@@ -303,10 +304,8 @@ class _NewUserEditorState extends State<NewUserEditor> {
     else {
       setState(() {
         _confirmButtonModel = ConfirmButtonModel(
-            firstLine: Verse.plain('Confirm'),
-            onTap: () async {
-
-            },
+          firstLine: const Verse(text: 'phid_updateProfile', translate: true),
+            onTap: _onConfirmTap,
         );
       });
     }

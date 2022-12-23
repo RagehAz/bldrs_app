@@ -15,7 +15,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -347,13 +346,19 @@ Future<void> confirmEdits({
   @required bool mounted,
 }) async {
 
+  blog('confirmEdits : STARTED');
+
   final DraftUser _draft = _bakeDraftTextControllers(draft.value);
+
+  blog('confirmEdits : _draft : ${_draft == null}');
 
   final bool _canContinue = await _preConfirmCheckups(
     context: context,
     draft: _draft,
     forceReAuthentication: forceReAuthentication,
   );
+
+  blog('confirmEdits : _canContinue : $_canContinue');
 
   if (_canContinue == true){
 
@@ -446,15 +451,17 @@ Future<bool> _preConfirmCheckups({
   @required bool forceReAuthentication,
 }) async {
 
-  bool _canContinue = Formers.validateForm(draft.formKey);
+  bool _canContinue = true;
 
-  /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
-  if (_canContinue == false){
-    await Formers.showUserMissingFieldsDialog(
-        context: context,
-        userModel: DraftUser.toUserModel(context: context, draft: draft),
-    );
-  }
+  // _canContinue = Formers.validateForm(draft.formKey);
+  //
+  // /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
+  // if (_canContinue == false){
+  //   await Formers.showUserMissingFieldsDialog(
+  //       context: context,
+  //       userModel: DraftUser.toUserModel(context: context, draft: draft),
+  //   );
+  // }
 
   /// A - IF ALL REQUIRED FIELDS ARE VALID
   if (_canContinue == true){
