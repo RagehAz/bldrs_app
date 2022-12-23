@@ -193,12 +193,12 @@ class _NewUserEditorState extends State<NewUserEditor> {
     final bool _picIsValid = Formers.picValidator(
         context: context,
         pic: _draftUser.value?.picModel,
-        canValidate: _canValidate,
+        canValidate: true,
     ) == null;
     final bool _genderIsValid = Formers.genderValidator(
         context: context,
         gender: _draftUser.value?.gender,
-        canValidate: _canValidate
+        canValidate: true,
     ) == null;
 
     if (_picIsValid == false || _genderIsValid == false){
@@ -214,17 +214,17 @@ class _NewUserEditorState extends State<NewUserEditor> {
     final bool _nameIsValid = Formers.personNameValidator(
         context: context,
         name: _draftUser.value?.name,
-        canValidate: _canValidate,
+        canValidate: true,
     ) == null;
     final bool _titleIsValid = Formers.jobTitleValidator(
         context: context,
         jobTitle: _draftUser.value?.title,
-        canValidate: _canValidate,
+        canValidate: true,
     ) == null;
     final bool _companyIsValid = Formers.companyNameValidator(
         context: context,
         companyName: _draftUser.value?.company,
-        canValidate: _canValidate,
+        canValidate: true,
     ) == null;
 
     if (_nameIsValid == false || _titleIsValid == false || _companyIsValid == false){
@@ -242,7 +242,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
       zoneModel: _draftUser.value?.zone,
       selectCountryAndCityOnly: true,
       selectCountryIDOnly: false,
-      canValidate: _canValidate,
+      canValidate: true,
     ) == null;
 
     if (_zoneIsValid == false){
@@ -258,7 +258,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
     final bool _phoneIsValid = Formers.contactsPhoneValidator(
       contacts: _draftUser.value?.contacts,
       zoneModel: _draftUser.value?.zone,
-      canValidate: _canValidate,
+      canValidate: true,
       context: context,
       isRequired: false,
       // focusNode: draft?.phoneNode,
@@ -266,7 +266,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
     final bool _emailIsValid = Formers.contactsEmailValidator(
       context: context,
       contacts: _draftUser.value?.contacts,
-      canValidate: _canValidate,
+      canValidate: true,
       // focusNode: draft?.emailNode,
     ) == null;
 
@@ -545,7 +545,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
                         text: 'phid_phone',
                         translate: true,
                       ),
-                      redDot: true,
+                      redDot: false,
                     ),
                     keyboardTextInputType: TextInputType.phone,
                     keyboardTextInputAction: TextInputAction.next,
