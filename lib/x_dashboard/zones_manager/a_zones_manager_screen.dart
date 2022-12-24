@@ -87,7 +87,7 @@ class ZonesManagerScreen extends StatelessWidget {
         ),
 
       ],
-      layoutWidget: Center(
+      child: Center(
         child: SuperVerse(
           verse: Verse.plain('Select a Zone'),
           size: 4,

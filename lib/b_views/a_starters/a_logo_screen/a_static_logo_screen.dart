@@ -102,7 +102,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
         );
 
       },
-      layoutWidget: LogoScreenView(
+      child: LogoScreenView(
         scaleController: _scaleController,
       ),
     );

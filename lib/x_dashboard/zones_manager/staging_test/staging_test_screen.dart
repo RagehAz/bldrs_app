@@ -81,8 +81,8 @@ class _StagingTestScreenState extends State<StagingTestScreen> {
       loading: _loading,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: Verse.plain('Staging Test'),
-      layoutWidget: ListView(
+      title: Verse.plain('Staging Test'),
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[

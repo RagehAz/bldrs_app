@@ -24,12 +24,12 @@ class FloatingLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitleVerse: titleVerse,
+      title: titleVerse,
       appBarType: AppBarType.basic,
       pyramidType: pyramidType,
       skyType: skyType,
       pyramidsAreOn: true,
-      layoutWidget: FloatingList(
+      child: FloatingList(
         columnChildren: columnChildren,
       ),
     );

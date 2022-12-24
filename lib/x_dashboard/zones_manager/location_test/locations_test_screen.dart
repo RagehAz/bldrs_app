@@ -254,7 +254,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         const SizedBox(width: 5),
 
       ],
-      layoutWidget: Center(
+      child: Center(
         child: MaxBounceNavigator(
           child: ListView(
             physics: const BouncingScrollPhysics(),

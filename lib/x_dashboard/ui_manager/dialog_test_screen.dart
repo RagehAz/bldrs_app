@@ -20,7 +20,7 @@ class DialogsTestScreen extends StatelessWidget {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'Notes',
         translate: false,
       ),
@@ -34,7 +34,7 @@ class DialogsTestScreen extends StatelessWidget {
         ),
 
       ],
-      layoutWidget: FloatingList(
+      child: FloatingList(
         columnChildren: [
 
           /// TOP DIALOG

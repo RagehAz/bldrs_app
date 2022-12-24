@@ -105,7 +105,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     return MainLayout(
       key: const ValueKey<String>('UsersManagerScreen'),
       // loading: _loading,
-      pageTitleVerse: Verse.plain('Users Manager'),
+      title: Verse.plain('Users Manager'),
       appBarType: AppBarType.search,
       skyType: SkyType.black,
       progressBarModel: _progressBarModel,
@@ -139,7 +139,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
       ],
 
-      layoutWidget: PageView(
+      child: PageView(
         physics: const BouncingScrollPhysics(),
         controller: _pageController,
         onPageChanged: (int index) => ProgressBarModel.onSwipe(

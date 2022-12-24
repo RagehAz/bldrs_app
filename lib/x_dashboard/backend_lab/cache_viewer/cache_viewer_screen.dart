@@ -120,7 +120,7 @@ class _CacheViewerScreenState extends State<CacheViewerScreen> {
         ),
 
       ],
-      layoutWidget: ValueListenableBuilder(
+      child: ValueListenableBuilder(
         valueListenable: _loading,
         builder: (_, bool isLoading, Widget child){
 

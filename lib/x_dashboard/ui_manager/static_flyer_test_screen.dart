@@ -139,7 +139,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
         ),
 
       ],
-      layoutWidget: Stack(
+      child: Stack(
         children: [
 
           Container(

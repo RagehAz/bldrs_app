@@ -363,7 +363,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       historyButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_selectCity',
         translate: true,
       ),
@@ -412,7 +412,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           ),
 
       ],
-      layoutWidget: Scroller(
+      child: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
           builder: (BuildContext context, bool isSearching, Widget child){

@@ -36,12 +36,12 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'Nav Jumping Test Screen',
         translate: false,
       ),
       skyType: SkyType.black,
-      layoutWidget: ListView(
+      child: ListView(
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
 

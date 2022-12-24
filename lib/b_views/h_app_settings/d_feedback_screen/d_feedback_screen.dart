@@ -121,13 +121,13 @@ class _FeedBackState extends State<FeedBack> {
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
       historyButtonIsOn: false,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_feedback',
         translate: true,
       ),
       skyType: SkyType.non,
       // loading: _loading,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[

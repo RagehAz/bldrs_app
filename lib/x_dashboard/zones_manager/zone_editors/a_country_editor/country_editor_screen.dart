@@ -209,10 +209,10 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     final double _bubbleWidth = BldrsAppBar.width(context);
 
     return MainLayout(
-      pageTitleVerse: Verse.plain(widget.countryID),
+      title: Verse.plain(widget.countryID),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[

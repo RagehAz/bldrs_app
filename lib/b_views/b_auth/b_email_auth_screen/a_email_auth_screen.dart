@@ -118,7 +118,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.non,
-      layoutWidget: EmailAuthScreenView(
+      child: EmailAuthScreenView(
         appBarType: AppBarType.non,
         formKey: _formKey,
         emailController: _emailController,

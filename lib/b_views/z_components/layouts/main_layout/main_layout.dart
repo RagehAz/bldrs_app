@@ -32,10 +32,10 @@ class MainLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MainLayout({
     this.appBarRowWidgets,
-    this.layoutWidget,
+    this.child,
     this.pyramidsAreOn = false,
     this.appBarType,
-    this.pageTitleVerse,
+    this.title,
     this.skyType = SkyType.night,
     this.onBack,
     this.canGoBack = true,
@@ -61,10 +61,10 @@ class MainLayout extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Widget> appBarRowWidgets;
-  final Widget layoutWidget;
+  final Widget child;
   final bool pyramidsAreOn;
   final AppBarType appBarType;
-  final Verse pageTitleVerse;
+  final Verse title;
   final SkyType skyType;
   final Function onBack;
   final bool canGoBack;
@@ -239,7 +239,7 @@ class MainLayout extends StatelessWidget {
                     skyType: skyType,
                     appBarType: appBarType,
                     appBarRowWidgets: appBarRowWidgets,
-                    pageTitleVerse: pageTitleVerse,
+                    pageTitleVerse: title,
                     onBack: () => _onBack(context),
                     loading: loading,
                     progressBarModel: progressBarModel,
@@ -257,7 +257,7 @@ class MainLayout extends StatelessWidget {
                     canGoBack: canGoBack,
                     onSearchCancelled: onSearchCancelled,
                     confirmButtonModel: confirmButtonModel,
-                    layoutWidget: layoutWidget,
+                    layoutWidget: child,
                   ),
 
                 ),

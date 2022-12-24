@@ -281,7 +281,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       historyButtonIsOn: false,
       onSearchSubmit: _onSearchDistrict,
       onSearchChanged: _onSearchDistrict,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_select_a_district',
         translate: true,
       ),
@@ -295,7 +295,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
         translate: false,
       ),
       loading: _loading,
-      layoutWidget: Scroller(
+      child: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
           builder: (BuildContext context, bool isSearching, Widget child){

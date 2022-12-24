@@ -83,12 +83,12 @@ class _StopWatchTestState extends State<StopWatchTest> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'Stop watch test Screen',
         translate: false,
       ),
       skyType: SkyType.black,
-      layoutWidget: FloatingList(
+      child: FloatingList(
         columnChildren: <Widget>[
 
           Container(

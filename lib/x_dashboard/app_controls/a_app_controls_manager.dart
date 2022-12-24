@@ -80,7 +80,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitleVerse: Verse.plain('App Controls'),
+      title: Verse.plain('App Controls'),
       pyramidsAreOn: true,
       loading: _loading,
       appBarRowWidgets: <Widget>[
@@ -96,7 +96,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
         ),
 
       ],
-      layoutWidget: ValueListenableBuilder(
+      child: ValueListenableBuilder(
         valueListenable: _appControls,
         builder: (_, AppControlsModel controls, Widget child){
 

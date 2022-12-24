@@ -78,8 +78,8 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
       // appBarBackButton: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: Verse.plain('Slider test'),
-      layoutWidget: Center(
+      title: Verse.plain('Slider test'),
+      child: Center(
         child: ListView(
           children: <Widget>[
 

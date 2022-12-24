@@ -112,7 +112,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
       pyramidsAreOn: true,
       // loading: _loading,
       appBarRowWidgets: const <Widget>[],
-      layoutWidget: Center(
+      child: Center(
         child: ListView(
           physics: const BouncingScrollPhysics(),
           controller: _scrollController,

@@ -238,7 +238,7 @@ class DashBoardHomeScreen extends StatelessWidget {
       boolDialog: true,
       invertButtons: true,
       confirmButtonVerse: const Verse(
-        text: 'Fuck it !',
+        text: 'Reboot !',
         translate: false,
       ),
     );
@@ -337,7 +337,7 @@ class DashBoardHomeScreen extends StatelessWidget {
         ),
 
       ],
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
