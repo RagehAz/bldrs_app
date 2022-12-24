@@ -205,10 +205,10 @@ Future<void> onDeleteUser({
   //       );
   //
   //       /// START WAITING
-  //       unawaited(WaitDialog.showWaitDialog(
+  //       WaitDialog.showUnawaitedWaitDialog(
   //         context: context,
   //         loadingVerse: Verse.plain('Deleting ${userModel.name} : ${userModel.id}'),
-  //       ));
+  //       );
   //
   //       /// DELETE firebase user : auth/userID
   //       final bool _firebaseSuccess = await AuthFireOps.deleteFirebaseUser(

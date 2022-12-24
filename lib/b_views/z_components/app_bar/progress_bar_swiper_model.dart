@@ -21,6 +21,14 @@ class ProgressBarModel {
   final List<Color> stripsColors;
   // --------------------------------------------------------------------------
 
+  /// CONSTANTS
+
+  // --------------------
+  static const Color errorStripColor = Colors.red;
+  static const Color goodStripColor = Colors.green;
+  static const Color defaultStripColor = Colorz.white255;
+  // --------------------------------------------------------------------------
+
   /// CLONING
 
   // --------------------
@@ -162,7 +170,7 @@ class ProgressBarModel {
 
     else {
       return List.generate(length, (index){
-        return Colorz.white255;
+        return defaultStripColor;
       });
     }
 

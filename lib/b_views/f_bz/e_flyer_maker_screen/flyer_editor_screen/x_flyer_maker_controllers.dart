@@ -547,13 +547,13 @@ Future<void> _publishFlyerOps({
   @required ValueNotifier<DraftFlyer> draft,
 }) async {
 
-  unawaited(WaitDialog.showWaitDialog(
+  WaitDialog.showUnawaitedWaitDialog(
     context: context,
     loadingVerse: const Verse(
       text: 'phid_uploading_flyer',
       translate: true,
     ),
-  ));
+  );
 
   await FlyerProtocols.composeFlyer(
     context: context,
@@ -571,13 +571,13 @@ Future<void> _updateFlyerOps({
   @required FlyerModel oldFlyer,
 }) async {
 
-  unawaited(WaitDialog.showWaitDialog(
+  WaitDialog.showUnawaitedWaitDialog(
     context: context,
     loadingVerse: const Verse(
       text: 'phid_uploading_flyer',
       translate: true,
     ),
-  ));
+  );
 
   final bool _imALoneAuthor = await AuthorModel.checkImALoneAuthor(
     context: context,

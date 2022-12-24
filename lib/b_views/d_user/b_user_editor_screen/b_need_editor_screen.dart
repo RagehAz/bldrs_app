@@ -119,9 +119,9 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
     if (_needsChanged == true){
 
-      unawaited(WaitDialog.showWaitDialog(
-        context: context,
-      ));
+      WaitDialog.showUnawaitedWaitDialog(
+        context: context
+      );
 
       final UserModel _newUser = _userModel.value.copyWith(
         need: _userModel.value.need.copyWith(

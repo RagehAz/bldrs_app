@@ -52,13 +52,13 @@ class RenovateBzProtocols {
 
       /// WAIT DIALOG
       if (showWaitDialog == true){
-        unawaited(WaitDialog.showWaitDialog(
+        WaitDialog.showUnawaitedWaitDialog(
           context: context,
           loadingVerse: const Verse(
             text: 'phid_bz_section_selection_info',
             translate: true,
           ),
-        ));
+        );
       }
 
       /// UPLOAD

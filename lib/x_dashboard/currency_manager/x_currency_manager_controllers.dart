@@ -13,7 +13,7 @@ Future<void> onBackupCurrencies(BuildContext context) async {
   //
   // if (_continue == true){
   //
-  //   unawaited(WaitDialog.showWaitDialog(context: context));
+  //   WaitDialog.showUnawaitedWaitDialog(context: context);
   //
   //   final Map<String, dynamic> _currenciesDoc = await Fire.readDoc(
   //     collName: FireColl.zones,
