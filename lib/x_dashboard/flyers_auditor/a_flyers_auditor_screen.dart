@@ -83,11 +83,11 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('Flyers Auditor'),
+      title: Verse.plain('Flyers Auditor'),
       appBarType: AppBarType.basic,
       loading: _loading,
       skyType: SkyType.black,
-      layoutWidget: FireCollPaginator(
+      child: FireCollPaginator(
         paginationQuery: flyerAuditingPaginationQuery(),
         scrollController: _scrollController,
         paginationController: _paginatorController,

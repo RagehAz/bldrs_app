@@ -147,12 +147,12 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_flyer-promotion',
         translate: true,
       ),
       appBarType: AppBarType.basic,
-      layoutWidget: Column(
+      child: Column(
         children: <Widget>[
 
           const Stratosphere(),

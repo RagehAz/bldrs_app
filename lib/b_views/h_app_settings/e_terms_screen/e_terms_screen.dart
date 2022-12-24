@@ -17,7 +17,7 @@ class TermsScreen extends StatelessWidget {
 
     return MainLayout(
       historyButtonIsOn: false,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_terms_and_conditions',
         translate: true,
       ),
@@ -25,7 +25,7 @@ class TermsScreen extends StatelessWidget {
       pyramidsAreOn: true,
       skyType: SkyType.non,
       pyramidType: PyramidType.crystalYellow,
-      layoutWidget: FloatingList(
+      child: FloatingList(
         crossAxisAlignment: CrossAxisAlignment.start,
         columnChildren: <Widget>[
 

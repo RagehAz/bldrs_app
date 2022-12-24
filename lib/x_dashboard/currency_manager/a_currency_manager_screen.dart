@@ -35,7 +35,7 @@ class CurrencyManagerScreen extends StatelessWidget {
     final double _currencyButtonWidth = _clearWidth - _numberZoneWidth;
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('Currencies'),
+      title: Verse.plain('Currencies'),
       pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
@@ -49,7 +49,7 @@ class CurrencyManagerScreen extends StatelessWidget {
         ),
 
       ],
-      layoutWidget: PageBubble(
+      child: PageBubble(
         screenHeightWithoutSafeArea: _screenHeight,
         appBarType: AppBarType.basic,
         color: Colorz.white20,

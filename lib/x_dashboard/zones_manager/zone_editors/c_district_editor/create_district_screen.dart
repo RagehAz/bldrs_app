@@ -39,10 +39,10 @@ class CreateDistrictScreen extends StatelessWidget {
     );
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('Create a new city ($districtName)'),
+      title: Verse.plain('Create a new city ($districtName)'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[

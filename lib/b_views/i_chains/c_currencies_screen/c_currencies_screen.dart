@@ -130,7 +130,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     _currentCurrency.blogCurrency();
     // --------------------
     return MainLayout(
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_select_currency',
         translate: true,
       ),
@@ -155,7 +155,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
         );
 
       },
-      layoutWidget: ValueListenableBuilder(
+      child: ValueListenableBuilder(
         valueListenable: _isSearching,
         builder: (_, bool isSearching, Widget child){
 

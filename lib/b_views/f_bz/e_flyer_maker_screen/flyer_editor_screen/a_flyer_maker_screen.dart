@@ -154,7 +154,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      pageTitleVerse: Verse(
+      title: Verse(
         text: widget.flyerToEdit == null ? 'phid_createFlyer' : 'phid_edit_flyer',
         translate: true,
       ),
@@ -183,7 +183,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         ),
 
       ],
-      layoutWidget: ValueListenableBuilder(
+      child: ValueListenableBuilder(
           valueListenable: _draftNotifier,
           builder: (_, DraftFlyer _draft, Widget child){
 

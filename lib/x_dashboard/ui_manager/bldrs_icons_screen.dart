@@ -187,7 +187,7 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      pageTitleVerse: Verse.plain('UI Manager'),
+      title: Verse.plain('UI Manager'),
       appBarType: AppBarType.search,
       onSearchChanged: _onSearchChanged,
       onBack: widget.multipleSelection == false ? null : () async {
@@ -199,7 +199,7 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
         );
 
       },
-      layoutWidget: Scroller(
+      child: Scroller(
 
         child: ValueListenableBuilder(
           valueListenable: _isSearching,

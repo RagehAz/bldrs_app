@@ -167,7 +167,7 @@ class _PickerScreenState extends State<PickerScreen> {
       searchHintVerse: const Verse(text: 'phid_search_keywords', translate: true),
       // appBarBackButton: true,
       skyType: SkyType.black,
-      pageTitleVerse: Verse(
+      title: Verse(
         text: _chainID,
         translate: true,
       ),
@@ -185,7 +185,7 @@ class _PickerScreenState extends State<PickerScreen> {
           phidToPassBack: null, /// onSelectPhidInPickerScreen() handles this
         ),
       ),
-      layoutWidget: PickerScreenBrowseView(
+      child: PickerScreenBrowseView(
           appBarType: _appBarType,
           picker: widget.picker,
           selectedSpecs: _tempSpecs,

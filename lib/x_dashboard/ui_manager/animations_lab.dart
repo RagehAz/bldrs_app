@@ -205,7 +205,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
           },
         ),
       ],
-      layoutWidget: ListView(
+      child: ListView(
         padding: const EdgeInsets.only(top: Ratioz.stratosphere),
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
@@ -496,7 +496,7 @@ class HeroMax extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainLayout(
       pyramidsAreOn: true,
-      layoutWidget: Center(
+      child: Center(
         child: SizedBox(
           width: 400,
           height: 300,

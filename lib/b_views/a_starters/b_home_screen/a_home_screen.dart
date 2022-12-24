@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
 
         },
-        layoutWidget: const LogoScreenView(),
+        child: const LogoScreenView(),
       );
     }
 
@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // navBarIsOn: false,
         appBarType: AppBarType.main,
         onBack: () => Nav.onLastGoBackInHomeScreen(context,),
-        layoutWidget: Stack(
+        child: Stack(
           children: <Widget>[
 
             /// PAGE CONTENTS

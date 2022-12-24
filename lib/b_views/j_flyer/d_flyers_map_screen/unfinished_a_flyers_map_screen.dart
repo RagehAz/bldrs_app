@@ -171,7 +171,7 @@ class _FlyerMapScreenState extends State<FlyerMapScreen> {
     // --------------------
     return MainLayout(
       skyType: SkyType.black,
-      layoutWidget: Stack(
+      child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
           SizedBox(

@@ -245,7 +245,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       //
       // },
       canGoBack: false,
-      layoutWidget: Stack(
+      child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
 

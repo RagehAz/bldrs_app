@@ -155,7 +155,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     // --------------------
     return MainLayout(
       appBarType: AppBarType.search,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_search',
         translate: true,
         casing: Casing.capitalizeFirstChar,
@@ -186,7 +186,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
         );
 
       },
-      layoutWidget: SearchScreenView(
+      child: SearchScreenView(
         scrollController: _scrollController,
       ),
 

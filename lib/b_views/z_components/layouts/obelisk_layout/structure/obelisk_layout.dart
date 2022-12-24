@@ -273,7 +273,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       globalKey: widget.globalKey,
       skyType: SkyType.black,
       appBarType: widget.appBarType,
-      pageTitleVerse: _pageTitleVerse,
+      title: _pageTitleVerse,
       loading: ValueNotifier(false),
       progressBarModel: _progressBarModel,
       canGoBack: widget.canGoBack,
@@ -284,7 +284,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       onSearchSubmit: widget.onSearchSubmit,
       onSearchCancelled: widget.onSearchCancelled,
       onBack: _onBack,
-      layoutWidget: widget.searchView == null || widget.isSearching == null?
+      child: widget.searchView == null || widget.isSearching == null?
       _normalView
           :
           ValueListenableBuilder(

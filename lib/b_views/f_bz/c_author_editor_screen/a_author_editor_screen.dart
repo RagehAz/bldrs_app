@@ -182,7 +182,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       pyramidsAreOn: true,
       historyButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_edit_author_details',
         translate: true,
       ),
@@ -202,9 +202,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       confirmButtonModel: ConfirmButtonModel(
         firstLine: const Verse(text: 'phid_confirm', translate: true),
         secondLine: const Verse(text: 'phid_update_author_details', translate: true),
+        isWide: true,
         onTap: () => _onConfirmTap(),
       ),
-      layoutWidget: Form(
+      child: Form(
         key: _formKey,
         child: ValueListenableBuilder(
           valueListenable: _draftAuthor,

@@ -147,7 +147,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_crop_images',
         translate: true,
       ),
@@ -155,7 +155,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
       // pyramidsAreOn: false,
       skyType: SkyType.black,
       loading: _loading,
-      layoutWidget: Column(
+      child: Column(
         children: <Widget>[
 
           const Stratosphere(),

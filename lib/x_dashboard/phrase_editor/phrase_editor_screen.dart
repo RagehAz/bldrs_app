@@ -166,7 +166,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       isInPhrasesScreen: true,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalBlue,
-      pageTitleVerse: Verse.plain('$_phrasesCount Phrases'),
+      title: Verse.plain('$_phrasesCount Phrases'),
       appBarType: AppBarType.search,
       searchController: _searchController,
       progressBarModel: _progressBarModel,
@@ -308,7 +308,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
             }),
 
       ],
-      layoutWidget: Container(
+      child: Container(
         width: Scale.screenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
         alignment: Alignment.topCenter,

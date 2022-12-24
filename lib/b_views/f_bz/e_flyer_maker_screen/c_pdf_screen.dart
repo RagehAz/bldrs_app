@@ -86,7 +86,7 @@ class _PDFScreenState extends State<PDFScreen> {
 
     return MainLayout(
       loading: _loading,
-      pageTitleVerse: Verse(
+      title: Verse(
         text: '${widget.pdf.name}.pdf',
         translate: false,
       ),
@@ -129,7 +129,7 @@ class _PDFScreenState extends State<PDFScreen> {
         // )
 
       ],
-      layoutWidget: PageBubble(
+      child: PageBubble(
         appBarType: AppBarType.basic,
         screenHeightWithoutSafeArea: Scale.superScreenHeightWithoutSafeArea(context),
         child: ValueListenableBuilder(

@@ -330,7 +330,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      pageTitleVerse: Verse.plain('Awesome notification test'),
+      title: Verse.plain('Awesome notification test'),
       loading: _loading,
       appBarRowWidgets: <Widget>[
 
@@ -346,7 +346,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
         ),
 
       ],
-      layoutWidget: ListView(
+      child: ListView(
         padding: Stratosphere.stratosphereSandwich,
         physics: const BouncingScrollPhysics(),
         children: <Widget>[

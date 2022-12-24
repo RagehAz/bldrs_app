@@ -307,7 +307,7 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
     final double _clearWidth = Bubble.clearWidth(context);
     // --------------------
     return MainLayout(
-      pageTitleVerse: Verse.plain('Zone Searching Test'),
+      title: Verse.plain('Zone Searching Test'),
       loading: _loading,
       appBarType: AppBarType.search,
       searchController: _searchController,
@@ -316,7 +316,7 @@ class _ZoneSearchingTestScreenState extends State<ZoneSearchingTestScreen> {
       onSearchChanged: _onSearchChanged,
       onSearchSubmit: _onSearchSubmit,
       pyramidsAreOn: true,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
         children: <Widget>[
