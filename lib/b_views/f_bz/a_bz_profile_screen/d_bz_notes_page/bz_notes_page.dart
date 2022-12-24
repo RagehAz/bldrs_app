@@ -156,11 +156,9 @@ class _BzNotesPageState extends State<BzNotesPage>{
         notify: true
     );
 
-    showWaitDialog(context,
-      verse: const Verse(
-        text: 'phid_reloading',
-        translate: true,
-      ),
+    pushWaitDialog(
+      context: context,
+      verse: const Verse(text: 'phid_reloading', translate: true,),
     );
 
     setState(() {

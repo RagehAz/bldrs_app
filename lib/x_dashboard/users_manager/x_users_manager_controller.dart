@@ -205,7 +205,7 @@ Future<void> onDeleteUser({
   //       );
   //
   //       /// START WAITING
-  //       WaitDialog.showUnawaitedWaitDialog(
+  //       pushWaitDialog(
   //         context: context,
   //         loadingVerse: Verse.plain('Deleting ${userModel.name} : ${userModel.id}'),
   //       );

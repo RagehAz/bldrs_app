@@ -28,9 +28,9 @@ class PickerProtocols {
     @required FlyerType flyerType,
   }) async {
 
-    WaitDialog.showUnawaitedWaitDialog(
+    pushWaitDialog(
       context: context,
-      loadingVerse: const Verse(text: 'Uploading ChainK to RealTime Database', translate: false),
+      verse: const Verse(text: 'Uploading ChainK to RealTime Database', translate: false),
     );
 
     await PickerRealOps.createPickers(
@@ -92,7 +92,7 @@ class PickerProtocols {
 
     if (Mapper.checkCanLoopList(pickers) == true){
 
-      WaitDialog.showUnawaitedWaitDialog(context: context,);
+      pushWaitDialog(context: context,);
 
       await Future.wait(<Future>[
 
@@ -130,7 +130,7 @@ class PickerProtocols {
     if (Mapper.checkCanLoopList(pickers) == true){
 
       if (showWaitDialog == true){
-        WaitDialog.showUnawaitedWaitDialog(context: context,);
+        pushWaitDialog(context: context,);
       }
 
       /// UPDATE PICKERS IN LDB

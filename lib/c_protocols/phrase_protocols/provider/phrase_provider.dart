@@ -34,14 +34,12 @@ class PhraseProvider extends ChangeNotifier {
       callerName: 'changeAppLang',
     );
 
-    unawaited(
-        WaitDialog.showWaitDialog(
-          context: context,
-          loadingVerse: const Verse(
-            text: 'phid_change_app_lang_description',
-            translate: true,
-          ),
-        )
+    pushWaitDialog(
+      context: context,
+      verse: const Verse(
+        text: 'phid_change_app_lang_description',
+        translate: true,
+      ),
     );
 
     await fetchSetCurrentLangAndAllPhrases(

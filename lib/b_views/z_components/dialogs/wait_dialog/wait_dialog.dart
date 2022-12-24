@@ -9,10 +9,15 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
-void showWaitDialog(BuildContext context, {Verse verse}){
+void pushWaitDialog({
+  @required BuildContext context,
+  Verse verse,
+  bool canManuallyGoBack = false,
+}){
   WaitDialog.showUnawaitedWaitDialog(
     context: context,
-    loadingVerse: verse,
+    verse: verse,
+    canManuallyGoBack: canManuallyGoBack,
   );
 }
 
@@ -31,24 +36,23 @@ class WaitDialog extends StatelessWidget {
   final bool canManuallyGoBack;
   final Verse loadingVerse;
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void showUnawaitedWaitDialog({
     @required BuildContext context,
     bool canManuallyGoBack = false,
-    Verse loadingVerse,
+    Verse verse,
   }) {
 
-    // WaitDialog.showUnawaitedWaitDialog
-    unawaited(showWaitDialog(
+    unawaited(_showWaitDialog(
       context: context,
-      loadingVerse: loadingVerse,
+      loadingVerse: verse,
       canManuallyGoBack: canManuallyGoBack,
     ));
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> showWaitDialog({
+  static Future<void> _showWaitDialog({
     @required BuildContext context,
     bool canManuallyGoBack = false,
     Verse loadingVerse,

@@ -96,9 +96,9 @@ Future<void> authByEmailSignIn({
 
   if (_allFieldsAreValid == true) {
 
-    WaitDialog.showUnawaitedWaitDialog(
+    pushWaitDialog(
       context: context,
-      loadingVerse: const Verse(
+      verse: const Verse(
         text: 'phid_signing_in',
         translate: true,
       ),
@@ -145,9 +145,9 @@ Future<void> authByEmailRegister({
 
   if (_allFieldsAreValid == true) {
 
-    WaitDialog.showUnawaitedWaitDialog(
+    pushWaitDialog(
       context: context,
-      loadingVerse: const Verse(
+      verse: const Verse(
         text: 'phid_creating_new_account',
         translate: true,
       ),
