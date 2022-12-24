@@ -245,9 +245,9 @@ class DashBoardHomeScreen extends StatelessWidget {
 
     if (_result == true){
 
-      WaitDialog.showUnawaitedWaitDialog(
+      pushWaitDialog(
         context: context,
-        loadingVerse: Verse.plain('Rebooting system'),
+        verse: Verse.plain('Rebooting system'),
       );
 
       await Future.wait(<Future>[

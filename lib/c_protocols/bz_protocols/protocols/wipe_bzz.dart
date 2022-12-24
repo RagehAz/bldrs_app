@@ -46,9 +46,9 @@ class WipeBzProtocols {
     blog('WipeBzProtocol.wipeBz : START');
 
     if (showWaitDialog == true){
-      WaitDialog.showUnawaitedWaitDialog(
+      pushWaitDialog(
         context: context,
-        loadingVerse: Verse(
+        verse: Verse(
           text: '${Verse.transBake(context, 'phid_deleting')} ${bzModel.name}',
           translate: false,
           variables: bzModel.name,
@@ -145,10 +145,11 @@ class WipeBzProtocols {
                             '${bzModel.flyersIDs.length} '
                             '${Verse.transBake(context, 'phid_flyers')}';
 
-      WaitDialog.showUnawaitedWaitDialog(
+      pushWaitDialog(
         context: context,
-        loadingVerse: Verse.plain(_text),
+        verse: Verse.plain(_text),
       );
+
     }
 
     /// DELETE BZ FLYERS

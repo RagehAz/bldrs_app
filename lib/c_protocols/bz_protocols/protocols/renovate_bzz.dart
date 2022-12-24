@@ -52,9 +52,9 @@ class RenovateBzProtocols {
 
       /// WAIT DIALOG
       if (showWaitDialog == true){
-        WaitDialog.showUnawaitedWaitDialog(
+        pushWaitDialog(
           context: context,
-          loadingVerse: const Verse(
+          verse: const Verse(
             text: 'phid_bz_section_selection_info',
             translate: true,
           ),

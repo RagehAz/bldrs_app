@@ -41,9 +41,9 @@ class ComposeBzProtocols {
     assert(newDraft.logoPicModel != null, 'logoPicModel is null');
 
     /// WAIT DIALOG
-    WaitDialog.showUnawaitedWaitDialog(
+    pushWaitDialog(
       context: context,
-      loadingVerse: const Verse(
+      verse: const Verse(
         text: 'phid_creating_new_bz_account',
         translate: true,
       ),

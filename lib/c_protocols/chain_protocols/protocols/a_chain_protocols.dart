@@ -26,9 +26,9 @@ class ChainProtocols {
     @required List<Chain> chains,
   }) async {
 
-    WaitDialog.showUnawaitedWaitDialog(
+    pushWaitDialog(
       context: context,
-      loadingVerse: Verse.plain('Uploading Bldrs Chains to RealTime Database'),
+      verse: Verse.plain('Uploading Bldrs Chains to RealTime Database'),
     );
 
     final List<Chain> _bldrsChains = await ChainRealOps.createBldrsChains(
@@ -79,7 +79,7 @@ class ChainProtocols {
 
     if (newChains != null){
 
-      WaitDialog.showUnawaitedWaitDialog(context: context,);
+      pushWaitDialog(context: context,);
 
       await Future.wait(<Future>[
 
@@ -113,7 +113,7 @@ class ChainProtocols {
     if (newChains != null){
 
       if (showWaitDialog == true){
-        WaitDialog.showUnawaitedWaitDialog(context: context,);
+        pushWaitDialog(context: context,);
       }
 
       /// UPDATE CHAIN S IN LDB

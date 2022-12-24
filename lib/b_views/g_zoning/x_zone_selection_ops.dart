@@ -267,9 +267,9 @@ class ZoneSelection {
 
     if (zone != null && zone.countryID != null){
 
-      WaitDialog.showUnawaitedWaitDialog(
+      pushWaitDialog(
         context: context,
-        loadingVerse: const Verse(
+        verse: const Verse(
           text: 'phid_loading',
           translate: true,
         ),

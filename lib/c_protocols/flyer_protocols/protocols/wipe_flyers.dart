@@ -44,9 +44,9 @@ class WipeFlyerProtocols {
     if (flyerModel != null){
 
       if (showWaitDialog == true){
-        WaitDialog.showUnawaitedWaitDialog(
+        pushWaitDialog(
           context: context,
-          loadingVerse: const Verse(
+          verse: const Verse(
             text: 'phid_deleting_flyer',
             translate: true,
           ),
@@ -179,9 +179,9 @@ class WipeFlyerProtocols {
     if (Mapper.checkCanLoopList(flyers) == true && bzModel != null){
 
       if (showWaitDialog == true){
-        WaitDialog.showUnawaitedWaitDialog(
+        pushWaitDialog(
           context: context,
-          loadingVerse: const Verse(
+          verse: const Verse(
             text: 'phid_deleting_flyers',
             translate: true,
           ),
