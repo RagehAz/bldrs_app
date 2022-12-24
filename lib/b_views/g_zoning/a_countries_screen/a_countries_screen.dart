@@ -223,7 +223,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       historyButtonIsOn: false,
       onSearchSubmit: _onSearchCountry,
       onSearchChanged: _onSearchCountry,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_select_a_country',
         translate: true,
       ),
@@ -237,7 +237,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         translate: true,
       ),
       loading: _loading,
-      layoutWidget: Scroller(
+      child: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
           builder: (BuildContext context, bool isSearching, Widget child){

@@ -79,7 +79,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('Notes Paginator Test'),
+      title: Verse.plain('Notes Paginator Test'),
       pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
@@ -107,7 +107,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
         ),
 
       ],
-      layoutWidget:
+      child:
 
       _receiverID == null ? const SizedBox()
           :

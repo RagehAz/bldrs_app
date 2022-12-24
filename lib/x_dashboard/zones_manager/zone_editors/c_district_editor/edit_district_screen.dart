@@ -190,10 +190,10 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
     _namesWithoutEnglishName.removeWhere((Phrase phrase) => phrase.langCode == 'en');
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('District ( ${_districtModel?.id} )'),
+      title: Verse.plain('District ( ${_districtModel?.id} )'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[

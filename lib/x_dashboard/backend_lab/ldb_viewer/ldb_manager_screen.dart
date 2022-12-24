@@ -35,7 +35,7 @@ class LDBViewersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('LDB viewers'),
+      title: Verse.plain('LDB viewers'),
       appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
 
@@ -55,7 +55,7 @@ class LDBViewersScreen extends StatelessWidget {
 
       ],
 
-      layoutWidget: SingleChildScrollView(
+      child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         child: Column(

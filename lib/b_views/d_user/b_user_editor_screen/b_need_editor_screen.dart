@@ -159,7 +159,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       pyramidsAreOn: true,
       historyButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_edit_needs',
         translate: true,
       ),
@@ -174,7 +174,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         ),
         onTap: () => onConfirmEditingNeed(),
       ),
-      layoutWidget: Form(
+      child: Form(
         key: _formKey,
         child: ValueListenableBuilder(
             valueListenable: _userModel,

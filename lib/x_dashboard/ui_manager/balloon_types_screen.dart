@@ -22,9 +22,9 @@ class BalloonTypesScreen extends StatelessWidget {
     const List<NeedType> _needTypes = NeedModel.needsTypes;
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('Balloon Types'),
+      title: Verse.plain('Balloon Types'),
       appBarType: AppBarType.basic,
-      layoutWidget: ListView(
+      child: ListView(
         padding: Stratosphere.stratosphereInsets,
         physics: const BouncingScrollPhysics(),
         children: <Widget>[

@@ -21,7 +21,7 @@ class BzPreviewScreen extends StatelessWidget {
     return MainLayout(
       skyType: SkyType.black,
       pyramidsAreOn: true,
-      pageTitleVerse: Verse(
+      title: Verse(
         text: bzModel?.name,
         translate: false,
       ),
@@ -44,7 +44,7 @@ class BzPreviewScreen extends StatelessWidget {
       //     ),
       //
       // ],
-      layoutWidget: BzAboutPage(
+      child: BzAboutPage(
         bzModel: bzModel,
         showGallery: true,
         showAuthors: true,

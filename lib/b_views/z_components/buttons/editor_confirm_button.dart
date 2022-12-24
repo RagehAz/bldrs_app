@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_returning_null
+
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
@@ -13,6 +15,7 @@ class ConfirmButtonModel{
     this.secondLine,
     this.isDeactivated = false,
     this.onSkipTap,
+    this.isWide = false,
   });
   /// --------------------------------------------------------------------------
   final Function onTap;
@@ -20,7 +23,26 @@ class ConfirmButtonModel{
   final Verse secondLine;
   final bool isDeactivated;
   final Function onSkipTap;
+  final bool isWide;
   /// --------------------------------------------------------------------------
+}
+
+double getWidth({
+  @required BuildContext context,
+  @required ConfirmButtonModel model,
+}){
+
+  if (model?.isWide == true){
+    return BldrsAppBar.width(context);
+  }
+
+  else if (model.firstLine.text.length > 20){
+    return 200;
+  }
+  else {
+    return null;
+  }
+
 }
 
 class ConfirmButton extends StatelessWidget {
@@ -40,7 +62,10 @@ class ConfirmButton extends StatelessWidget {
     final Widget _button = DreamBox(
       isDeactivated: confirmButtonModel.isDeactivated,
       height: 50,
-      width: BldrsAppBar.width(context),//confirmButtonModel.firstLine.text.length > 20 ? 200 : null,
+      width: getWidth(
+        context: context,
+        model: confirmButtonModel,
+      ),
       verseMaxLines: 2,
       color: Colorz.yellow255,
       verseColor: Colorz.black230,

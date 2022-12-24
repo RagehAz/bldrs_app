@@ -243,7 +243,7 @@ class _PickersScreenState extends State<PickersScreen> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.search,
-      pageTitleVerse: widget.pageTitleVerse,
+      title: widget.pageTitleVerse,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarRowWidgets: [
@@ -322,7 +322,7 @@ class _PickersScreenState extends State<PickersScreen> {
         text: 'phid_search_keywords',
         translate: true,
       ),
-      layoutWidget: Selector<ChainsProvider, List<Chain>>(
+      child: Selector<ChainsProvider, List<Chain>>(
         selector: _getBldrsChains,
         // child: ,
         // shouldRebuild: ,

@@ -184,7 +184,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
     return MainLayout(
       key: const ValueKey<String>('ChainsEditorScreen'),
-      pageTitleVerse: const Verse(text: 'Chains',translate: false),
+      title: const Verse(text: 'Chains',translate: false),
       appBarType: AppBarType.search,
       searchController: _searchController,
       searchHintVerse: const Verse(
@@ -316,7 +316,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
             }),
 
       ],
-      layoutWidget: Container(
+      child: Container(
         key: const ValueKey<String>('ChainsEditorScreenViews'),
         width: Scale.screenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),

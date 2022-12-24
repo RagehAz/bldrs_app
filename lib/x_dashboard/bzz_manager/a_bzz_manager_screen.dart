@@ -162,14 +162,14 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
-      pageTitleVerse: Verse.plain('${_bzzModels.length} Bzz Manager'),
+      title: Verse.plain('${_bzzModels.length} Bzz Manager'),
       loading: _loading,
       skyType: SkyType.black,
       searchController: _searchController,
       onSearchSubmit: (String val) => _onSearchChanged(val),
       historyButtonIsOn: false,
       onSearchChanged: (String val) => _onSearchChanged(val),
-      layoutWidget: PageBubble(
+      child: PageBubble(
         appBarType: AppBarType.search,
         screenHeightWithoutSafeArea: _screenHeight,
         color: Colorz.blue20,

@@ -566,7 +566,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         ),
         
       ],
-      layoutWidget: ValueListenableBuilder(
+      child: ValueListenableBuilder(
         valueListenable: _loading,
         builder: (_, bool isLoading, Widget child){
 

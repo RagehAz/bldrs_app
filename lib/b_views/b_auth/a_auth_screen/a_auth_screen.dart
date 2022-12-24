@@ -62,7 +62,7 @@ class _AuthScreenState extends State<AuthScreen> {
     return const MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
-      layoutWidget: AuthScreenView(),
+      child: AuthScreenView(),
     );
 
   }

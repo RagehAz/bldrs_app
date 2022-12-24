@@ -138,7 +138,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
     return MainLayout(
       appBarType: _appBarType,
       skyType: SkyType.black,
-      layoutWidget: Stack(
+      child: Stack(
         children: <Widget>[
 
           SingleChildScrollView(

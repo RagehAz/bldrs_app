@@ -152,7 +152,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       pyramidsAreOn: true,
       historyButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: Verse(
+      title: Verse(
         text: widget.bzModel == null ? 'phid_createBzAccount' : 'phid_edit_bz_info',
         translate: true,
       ),
@@ -185,7 +185,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         ),
 
       ],
-      layoutWidget: ValueListenableBuilder(
+      child: ValueListenableBuilder(
         valueListenable: draftNotifier,
         builder: (_, DraftBz draft, Widget child){
 

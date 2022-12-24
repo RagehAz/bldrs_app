@@ -46,10 +46,10 @@ class EmojiTestScreen extends StatelessWidget {
     final List<EmojiModel> _emojis = EmojiModel.allEmojis();
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('Emojis'),
+      title: Verse.plain('Emojis'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      layoutWidget: GridView.builder(
+      child: GridView.builder(
           itemCount: _emojis.length,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: 100),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

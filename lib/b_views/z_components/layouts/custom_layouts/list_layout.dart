@@ -56,10 +56,10 @@ class ListLayout extends StatelessWidget {
     return MainLayout(
       skyType: sky,
       appBarType: AppBarType.basic,
-      pageTitleVerse: pageTitleVerse,
+      title: pageTitleVerse,
       pyramidsAreOn: true,
       // appBarBackButton: true,
-      layoutWidget: Column(
+      child: Column(
         children: <Widget>[
 
           const Stratosphere(),

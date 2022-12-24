@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
@@ -52,186 +53,158 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
     final double _screenHeightWithoutSafeArea = Scale.superScreenHeightWithoutSafeArea(context);
     const AppBarType _appBarType = AppBarType.basic;
 
-    return PagesLayout(
+    return MainLayout(
+      pyramidsAreOn: true,
+      appBarType: AppBarType.basic,
       title: Verse.plain('Census Lab'),
-      pageBubbles: <Widget>[
+      skyType: SkyType.black,
+      onBack: () => Dialogs.goBackDialog(
+        context: context,
+        goBackOnConfirm: true,
+      ),
+      child: PagerBuilder(
+        pageBubbles: <Widget>[
 
-        /// READ CENSUSES
-        PageBubble(
-          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
-          appBarType: _appBarType,
-          color: Colorz.white20,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
+          /// READ CENSUSES
+          PageBubble(
+            screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+            appBarType: _appBarType,
+            color: Colorz.white20,
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
 
-              /// HEADLINE
-              SuperHeadline(
-                verse: Verse.plain('Read Censuses'),
-              ),
+                /// HEADLINE
+                SuperHeadline(
+                  verse: Verse.plain('Read Censuses'),
+                ),
 
-              /// READ PLANET CENSUS
-              WideButton(
-                verse: Verse.plain('Read Planet Census'),
-                onTap: () async {
+                /// READ PLANET CENSUS
+                WideButton(
+                  verse: Verse.plain('Read Planet Census'),
+                  onTap: () async {
 
-                  final CensusModel _countryCensus = await CensusRealOps.readPlanetCensus();
-                  _countryCensus.blogCensus();
+                    final CensusModel _countryCensus = await CensusRealOps.readPlanetCensus();
+                    _countryCensus.blogCensus();
 
-                },
-              ),
+                  },
+                ),
 
-              /// READ COUNTRY CENSUS
-              WideButton(
-                verse: Verse.plain('READ ALL COUNTRIES CENSUSES'),
-                onTap: () async {
+                /// READ COUNTRY CENSUS
+                WideButton(
+                  verse: Verse.plain('READ ALL COUNTRIES CENSUSES'),
+                  onTap: () async {
 
-                  final List<CensusModel> _censuses = await CensusRealOps.readAllCountriesCensuses();
-                  CensusModel.blogCensuses(censuses: _censuses);
+                    final List<CensusModel> _censuses = await CensusRealOps.readAllCountriesCensuses();
+                    CensusModel.blogCensuses(censuses: _censuses);
 
-                },
-              ),
+                  },
+                ),
 
-              /// READ COUNTRY CENSUS
-              WideButton(
-                verse: Verse.plain('Read Country Census'),
-                onTap: () async {
+                /// READ COUNTRY CENSUS
+                WideButton(
+                  verse: Verse.plain('Read Country Census'),
+                  onTap: () async {
 
-                  final CensusModel _countryCensus = await CensusRealOps.readCountryCensus(countryID: 'egy');
+                    final CensusModel _countryCensus = await CensusRealOps.readCountryCensus(countryID: 'egy');
 
-                  _countryCensus.blogCensus();
+                    _countryCensus.blogCensus();
 
-                },
-              ),
+                  },
+                ),
 
-              /// READ CITIES CENSUSES
-              WideButton(
-                verse: Verse.plain('READ CITIES CENSUSES'),
-                onTap: () async {
+                /// READ CITIES CENSUSES
+                WideButton(
+                  verse: Verse.plain('READ CITIES CENSUSES'),
+                  onTap: () async {
 
-                  final List<CensusModel> _censuses = await CensusRealOps.readCitiesOfCountryCensus(countryID: 'egy');
-                  CensusModel.blogCensuses(censuses: _censuses);
+                    final List<CensusModel> _censuses = await CensusRealOps.readCitiesOfCountryCensus(countryID: 'egy');
+                    CensusModel.blogCensuses(censuses: _censuses);
 
-                },
-              ),
+                  },
+                ),
 
-              /// READ CITY CENSUS
-              WideButton(
-                verse: Verse.plain('Read City Census'),
-                onTap: () async {
+                /// READ CITY CENSUS
+                WideButton(
+                  verse: Verse.plain('Read City Census'),
+                  onTap: () async {
 
-                  final CensusModel _cityCensus = await CensusRealOps.readCityCensus(cityID: 'egy+cairo');
-                  _cityCensus.blogCensus();
+                    final CensusModel _cityCensus = await CensusRealOps.readCityCensus(cityID: 'egy+cairo');
+                    _cityCensus.blogCensus();
 
-                },
-              ),
+                  },
+                ),
 
-              /// READ DISTRICTS CENSUSES
-              WideButton(
-                verse: Verse.plain('READ DISTRICTS CENSUSES'),
-                onTap: () async {
+                /// READ DISTRICTS CENSUSES
+                WideButton(
+                  verse: Verse.plain('READ DISTRICTS CENSUSES'),
+                  onTap: () async {
 
-                  final List<CensusModel> _censuses = await CensusRealOps.readDistrictsOfCityCensus(
-                    cityID: 'egy+cairo',
-                  );
-                  CensusModel.blogCensuses(censuses: _censuses);
+                    final List<CensusModel> _censuses = await CensusRealOps.readDistrictsOfCityCensus(
+                      cityID: 'egy+cairo',
+                    );
+                    CensusModel.blogCensuses(censuses: _censuses);
 
-                },
-              ),
+                  },
+                ),
 
-              /// READ DISTRICT CENSUS
-              WideButton(
-                verse: Verse.plain('Read District Census'),
-                onTap: () async {
+                /// READ DISTRICT CENSUS
+                WideButton(
+                  verse: Verse.plain('Read District Census'),
+                  onTap: () async {
 
-                  final CensusModel _districtCensus = await CensusRealOps.readDistrictCensus(districtID: 'egy+cairo+nasr_city');
-                  _districtCensus?.blogCensus();
+                    final CensusModel _districtCensus = await CensusRealOps.readDistrictCensus(districtID: 'egy+cairo+nasr_city');
+                    _districtCensus?.blogCensus();
 
-                  if (_districtCensus == null){
-                    blog('NULL');
-                  }
+                    if (_districtCensus == null){
+                      blog('NULL');
+                    }
 
-                },
-              ),
+                  },
+                ),
 
-              /// SEPARATOR
-              const SeparatorLine(),
+                /// SEPARATOR
+                const SeparatorLine(),
 
-            ],
+              ],
+            ),
           ),
-        ),
 
-        /// CENSUS TESTING
-        PageBubble(
-          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
-          appBarType: _appBarType,
-          color: Colorz.white20,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
+          /// CENSUS TESTING
+          PageBubble(
+            screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+            appBarType: _appBarType,
+            color: Colorz.white20,
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
 
-              /// HEADLINE
-              SuperHeadline(
-                verse: Verse.plain('Census testing'),
-              ),
+                /// HEADLINE
+                SuperHeadline(
+                  verse: Verse.plain('Census testing'),
+                ),
 
-              // -----------------------------------
+                // -----------------------------------
 
-              /// ON COMPOSE USER
-              WideButton(
-                verse: Verse.plain('1 - on Compose User'),
-                onTap: () async {
+                /// ON COMPOSE USER
+                WideButton(
+                  verse: Verse.plain('1 - on Compose User'),
+                  onTap: () async {
 
-                  final UserModel _userModel = UsersProvider.proGetMyUserModel(
-                    context: context,
-                    listen: false,
-                  );
+                    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+                      context: context,
+                      listen: false,
+                    );
 
-                  await CensusListener.onComposeUser(_userModel);
+                    await CensusListener.onComposeUser(_userModel);
 
-                },
-              ),
+                  },
+                ),
 
-              /// ON RENOVATE USER
-              WideButton(
-                verse: Verse.plain('2 - on Renovate User'),
-                onTap: () async {
-
-                  final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-                    context: context,
-                    listen: false,
-                  );
-
-                  final UserModel _newUser = _oldUser.copyWith(
-                    need: _oldUser.need.copyWith(
-                      needType: NeedType.furnish,
-                    ),
-                    zone: _oldUser.zone.copyWith(
-                      countryID: 'alb',
-                      cityID: 'alb+erseke',
-                    ),
-                  );
-
-                  await CensusListener.onRenovateUser(
-                    oldUser: _oldUser,
-                    newUser: _newUser,
-                  );
-
-                },
-              ),
-
-              /// ON WIPE USER
-              WideButton(
-                verse: Verse.plain('3 - on Wipe User'),
-                onTap: () async {
-
-                  final bool _go = await Dialogs.confirmProceed(
-                    titleVerse: Verse.plain('This wipes the renovated UserModel'),
-                    bodyVerse: Verse.plain('Did you renovate the user?, if yes ? proceed with this wipe'),
-                    context: context, invertButtons: true,
-                  );
-
-                  if (_go == true){
+                /// ON RENOVATE USER
+                WideButton(
+                  verse: Verse.plain('2 - on Renovate User'),
+                  onTap: () async {
 
                     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
                       context: context,
@@ -248,89 +221,59 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                       ),
                     );
 
-                    await CensusListener.onWipeUser(_newUser);
+                    await CensusListener.onRenovateUser(
+                      oldUser: _oldUser,
+                      newUser: _newUser,
+                    );
 
+                  },
+                ),
 
-                  }
+                /// ON WIPE USER
+                WideButton(
+                  verse: Verse.plain('3 - on Wipe User'),
+                  onTap: () async {
 
-                },
-              ),
+                    final bool _go = await Dialogs.confirmProceed(
+                      titleVerse: Verse.plain('This wipes the renovated UserModel'),
+                      bodyVerse: Verse.plain('Did you renovate the user?, if yes ? proceed with this wipe'),
+                      context: context, invertButtons: true,
+                    );
 
-              /// SEPARATOR
-              const DotSeparator(),
+                    if (_go == true){
 
-              // -----------------------------------
+                      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+                        context: context,
+                        listen: false,
+                      );
 
-              /// ON COMPOSE BZ
-              WideButton(
-                verse: Verse.plain('1 - on Compose Bz'),
-                onTap: () async {
-
-                  final UserModel _userModel = UsersProvider.proGetMyUserModel(
-                    context: context,
-                    listen: false,
-                  );
-
-                  final BzModel _bzModel = await BzProtocols.fetchBz(
-                    context: context,
-                    bzID: _userModel.myBzzIDs.first,
-                  );
-
-                  if (_bzModel != null){
-                    await CensusListener.onComposeBz(_bzModel);
-                  }
-
-                },
-              ),
-
-              /// ON RENOVATE BZ
-              WideButton(
-                verse: Verse.plain('2 - on Renovate Bz'),
-                onTap: () async {
-
-                  final UserModel _userModel = UsersProvider.proGetMyUserModel(
-                    context: context,
-                    listen: false,
-                  );
-
-                  final BzModel _bzModel = await BzProtocols.fetchBz(
-                    context: context,
-                    bzID: _userModel.myBzzIDs.first,
-                  );
-
-                  if (_bzModel != null){
-                    await CensusListener.onRenovateBz(
-                      oldBz: _bzModel,
-                      newBz: _bzModel.copyWith(
-                        bzTypes: <BzType>[
-                          BzType.broker,
-                        ],
-                        bzForm: BzForm.individual,
-                        accountType: BzAccountType.master,
-                        zone: _bzModel.zone.copyWith(
+                      final UserModel _newUser = _oldUser.copyWith(
+                        need: _oldUser.need.copyWith(
+                          needType: NeedType.furnish,
+                        ),
+                        zone: _oldUser.zone.copyWith(
                           countryID: 'alb',
                           cityID: 'alb+erseke',
                         ),
-                      ),
-                    );
-                  }
+                      );
 
-                },
-              ),
+                      await CensusListener.onWipeUser(_newUser);
 
-              /// ON WIPE BZ
-              WideButton(
-                verse: Verse.plain('3 - on Wipe Bz'),
-                onTap: () async {
 
-                  final bool _go = await Dialogs.confirmProceed(
-                      titleVerse: Verse.plain('This wipes the renovated BzModel'),
-                      bodyVerse: Verse.plain('Did you renovate the Bz?, if yes ? proceed with this wipe'),
-                      context: context,
-                      invertButtons: true
-                  );
+                    }
 
-                  if (_go == true){
+                  },
+                ),
+
+                /// SEPARATOR
+                const DotSeparator(),
+
+                // -----------------------------------
+
+                /// ON COMPOSE BZ
+                WideButton(
+                  verse: Verse.plain('1 - on Compose Bz'),
+                  onTap: () async {
 
                     final UserModel _userModel = UsersProvider.proGetMyUserModel(
                       context: context,
@@ -343,103 +286,99 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     );
 
                     if (_bzModel != null){
-                      await CensusListener.onWipeBz(_bzModel.copyWith(
-                        bzTypes: <BzType>[
-                          BzType.broker,
-                        ],
-                        bzForm: BzForm.individual,
-                        accountType: BzAccountType.master,
-                        zone: _bzModel.zone.copyWith(
-                          countryID: 'alb',
-                          cityID: 'alb+erseke',
-                        ),
-                      ));
+                      await CensusListener.onComposeBz(_bzModel);
                     }
 
-                  }
+                  },
+                ),
 
-                },
-              ),
+                /// ON RENOVATE BZ
+                WideButton(
+                  verse: Verse.plain('2 - on Renovate Bz'),
+                  onTap: () async {
 
-              /// SEPARATOR
-              const DotSeparator(),
-
-              // -----------------------------------
-
-              /// ON COMPOSE FLYER
-              WideButton(
-                verse: Verse.plain('1 - on Compose Flyer'),
-                onTap: () async {
-
-                  final UserModel _userModel = UsersProvider.proGetMyUserModel(
-                    context: context,
-                    listen: false,
-                  );
-                  final BzModel _bzModel = await BzProtocols.fetchBz(
-                    context: context,
-                    bzID: _userModel.myBzzIDs.first,
-                  );
-                  final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
-                    context: context,
-                    flyerID: _bzModel.flyersIDs.first,
-                  );
-
-                  if (_flyerModel != null){
-                    await CensusListener.onComposeFlyer(_flyerModel);
-                  }
-
-                },
-              ),
-
-              /// ON RENOVATE FLYER
-              WideButton(
-                verse: Verse.plain('2 - on Renovate Flyer'),
-                onTap: () async {
-
-                  final UserModel _userModel = UsersProvider.proGetMyUserModel(
-                    context: context,
-                    listen: false,
-                  );
-                  final BzModel _bzModel = await BzProtocols.fetchBz(
-                    context: context,
-                    bzID: _userModel.myBzzIDs.first,
-                  );
-                  final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
-                    context: context,
-                    flyerID: _bzModel.flyersIDs.first,
-                  );
-
-                  if (_flyerModel != null){
-
-                    await CensusListener.onRenovateFlyer(
-                      oldFlyer: _flyerModel,
-                      newFlyer: _flyerModel.copyWith(
-                        zone: _flyerModel.zone.copyWith(
-                          countryID: 'alb',
-                          cityID: 'alb+erseke',
-                        ),
-                        slides: [_flyerModel.slides[0], _flyerModel.slides[1]],
-                        flyerType: FlyerType.property,
-                      ),
-                    );
-                  }
-
-                },
-              ),
-
-              /// ON WIPE FLYER
-              WideButton(
-                verse: Verse.plain('3 - on Wipe Flyer'),
-                onTap: () async {
-
-                  final bool _go = await Dialogs.confirmProceed(
-                      titleVerse: Verse.plain('This wipes the renovated Flyer'),
-                      bodyVerse: Verse.plain('Did you renovate the Flyer?, if yes ? proceed with this wipe'),
+                    final UserModel _userModel = UsersProvider.proGetMyUserModel(
                       context: context,
-                      invertButtons: true
-                  );
+                      listen: false,
+                    );
 
-                  if (_go == true){
+                    final BzModel _bzModel = await BzProtocols.fetchBz(
+                      context: context,
+                      bzID: _userModel.myBzzIDs.first,
+                    );
+
+                    if (_bzModel != null){
+                      await CensusListener.onRenovateBz(
+                        oldBz: _bzModel,
+                        newBz: _bzModel.copyWith(
+                          bzTypes: <BzType>[
+                            BzType.broker,
+                          ],
+                          bzForm: BzForm.individual,
+                          accountType: BzAccountType.master,
+                          zone: _bzModel.zone.copyWith(
+                            countryID: 'alb',
+                            cityID: 'alb+erseke',
+                          ),
+                        ),
+                      );
+                    }
+
+                  },
+                ),
+
+                /// ON WIPE BZ
+                WideButton(
+                  verse: Verse.plain('3 - on Wipe Bz'),
+                  onTap: () async {
+
+                    final bool _go = await Dialogs.confirmProceed(
+                        titleVerse: Verse.plain('This wipes the renovated BzModel'),
+                        bodyVerse: Verse.plain('Did you renovate the Bz?, if yes ? proceed with this wipe'),
+                        context: context,
+                        invertButtons: true
+                    );
+
+                    if (_go == true){
+
+                      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+                        context: context,
+                        listen: false,
+                      );
+
+                      final BzModel _bzModel = await BzProtocols.fetchBz(
+                        context: context,
+                        bzID: _userModel.myBzzIDs.first,
+                      );
+
+                      if (_bzModel != null){
+                        await CensusListener.onWipeBz(_bzModel.copyWith(
+                          bzTypes: <BzType>[
+                            BzType.broker,
+                          ],
+                          bzForm: BzForm.individual,
+                          accountType: BzAccountType.master,
+                          zone: _bzModel.zone.copyWith(
+                            countryID: 'alb',
+                            cityID: 'alb+erseke',
+                          ),
+                        ));
+                      }
+
+                    }
+
+                  },
+                ),
+
+                /// SEPARATOR
+                const DotSeparator(),
+
+                // -----------------------------------
+
+                /// ON COMPOSE FLYER
+                WideButton(
+                  verse: Verse.plain('1 - on Compose Flyer'),
+                  onTap: () async {
 
                     final UserModel _userModel = UsersProvider.proGetMyUserModel(
                       context: context,
@@ -455,156 +394,227 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     );
 
                     if (_flyerModel != null){
-                      await CensusListener.onWipeFlyer(_flyerModel.copyWith(
-                        zone: _flyerModel.zone.copyWith(
-                          countryID: 'alb',
-                          cityID: 'alb+erseke',
-                        ),
-                        slides: [_flyerModel.slides[0], _flyerModel.slides[1]],
-                        flyerType: FlyerType.property,
-                      ));
+                      await CensusListener.onComposeFlyer(_flyerModel);
                     }
 
-                  }
+                  },
+                ),
 
-                },
-              ),
+                /// ON RENOVATE FLYER
+                WideButton(
+                  verse: Verse.plain('2 - on Renovate Flyer'),
+                  onTap: () async {
 
-              /// SEPARATOR
-              const DotSeparator(),
+                    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+                      context: context,
+                      listen: false,
+                    );
+                    final BzModel _bzModel = await BzProtocols.fetchBz(
+                      context: context,
+                      bzID: _userModel.myBzzIDs.first,
+                    );
+                    final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+                      context: context,
+                      flyerID: _bzModel.flyersIDs.first,
+                    );
 
-              // -----------------------------------
+                    if (_flyerModel != null){
 
-              /// CREATE INITIAL CENSUS
-              WideButton(
-                verse: Verse.plain('X - Create Initial Census'),
-                color: Colorz.bloodTest,
-                onTap: () async {
+                      await CensusListener.onRenovateFlyer(
+                        oldFlyer: _flyerModel,
+                        newFlyer: _flyerModel.copyWith(
+                          zone: _flyerModel.zone.copyWith(
+                            countryID: 'alb',
+                            cityID: 'alb+erseke',
+                          ),
+                          slides: [_flyerModel.slides[0], _flyerModel.slides[1]],
+                          flyerType: FlyerType.property,
+                        ),
+                      );
+                    }
 
-                  await CensusListener.scanAllDBAndCreateInitialCensuses(
-                    context: context,
-                  );
+                  },
+                ),
 
-                },
-              ),
+                /// ON WIPE FLYER
+                WideButton(
+                  verse: Verse.plain('3 - on Wipe Flyer'),
+                  onTap: () async {
 
-              // -----------------------------------
+                    final bool _go = await Dialogs.confirmProceed(
+                        titleVerse: Verse.plain('This wipes the renovated Flyer'),
+                        bodyVerse: Verse.plain('Did you renovate the Flyer?, if yes ? proceed with this wipe'),
+                        context: context,
+                        invertButtons: true
+                    );
 
-              /// SEPARATOR
-              const SeparatorLine(),
+                    if (_go == true){
 
-            ],
+                      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+                        context: context,
+                        listen: false,
+                      );
+                      final BzModel _bzModel = await BzProtocols.fetchBz(
+                        context: context,
+                        bzID: _userModel.myBzzIDs.first,
+                      );
+                      final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+                        context: context,
+                        flyerID: _bzModel.flyersIDs.first,
+                      );
+
+                      if (_flyerModel != null){
+                        await CensusListener.onWipeFlyer(_flyerModel.copyWith(
+                          zone: _flyerModel.zone.copyWith(
+                            countryID: 'alb',
+                            cityID: 'alb+erseke',
+                          ),
+                          slides: [_flyerModel.slides[0], _flyerModel.slides[1]],
+                          flyerType: FlyerType.property,
+                        ));
+                      }
+
+                    }
+
+                  },
+                ),
+
+                /// SEPARATOR
+                const DotSeparator(),
+
+                // -----------------------------------
+
+                /// CREATE INITIAL CENSUS
+                WideButton(
+                  verse: Verse.plain('X - Create Initial Census'),
+                  color: Colorz.bloodTest,
+                  onTap: () async {
+
+                    await CensusListener.scanAllDBAndCreateInitialCensuses(
+                      context: context,
+                    );
+
+                  },
+                ),
+
+                // -----------------------------------
+
+                /// SEPARATOR
+                const SeparatorLine(),
+
+              ],
+            ),
           ),
-        ),
 
-        /// CENSUS PROTOCOLS
-        PageBubble(
-          screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
-          appBarType: _appBarType,
-          color: Colorz.white20,
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
+          /// CENSUS PROTOCOLS
+          PageBubble(
+            screenHeightWithoutSafeArea: _screenHeightWithoutSafeArea,
+            appBarType: _appBarType,
+            color: Colorz.white20,
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+              children: <Widget>[
 
-              /// HEADLINE
-              SuperHeadline(
-                verse: Verse.plain('Census Protocols'),
-              ),
+                /// HEADLINE
+                SuperHeadline(
+                  verse: Verse.plain('Census Protocols'),
+                ),
 
-              // -----------------------------------
+                // -----------------------------------
 
-              /// ON FETCH PLANET CENSUS
-              WideButton(
-                verse: Verse.plain('FETCH planet census'),
-                onTap: () async {
+                /// ON FETCH PLANET CENSUS
+                WideButton(
+                  verse: Verse.plain('FETCH planet census'),
+                  onTap: () async {
 
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
-                  final CensusModel _census = await CensusProtocols.fetchPlanetCensus();
-                  _census.blogCensus();
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    final CensusModel _census = await CensusProtocols.fetchPlanetCensus();
+                    _census.blogCensus();
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 
 
-                },
-              ),
+                  },
+                ),
 
-              /// SEPARATOR
-              const SeparatorLine(),
+                /// SEPARATOR
+                const SeparatorLine(),
 
-              // -----------------------------------
+                // -----------------------------------
 
-              /// FETCH COUNTRIES CENSUSES
-              WideButton(
-                verse: Verse.plain('FETCH Countries censuses by IDs'),
-                onTap: () async {
+                /// FETCH COUNTRIES CENSUSES
+                WideButton(
+                  verse: Verse.plain('FETCH Countries censuses by IDs'),
+                  onTap: () async {
 
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
-                  final List<CensusModel> _censuses = await CensusProtocols.fetchCountriesCensusesByIDs(
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    final List<CensusModel> _censuses = await CensusProtocols.fetchCountriesCensusesByIDs(
                       countriesIDs: ['egy', 'kwt'],
-                  );
-                  CensusModel.blogCensuses(censuses: _censuses);
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    );
+                    CensusModel.blogCensuses(censuses: _censuses);
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 
 
-                },
-              ),
+                  },
+                ),
 
-              /// REFETCH COUNTRIES CENSUSES
-              WideButton(
-                verse: Verse.plain('REFETCH all available Countries censuses by IDs'),
-                onTap: () async {
+                /// REFETCH COUNTRIES CENSUSES
+                WideButton(
+                  verse: Verse.plain('REFETCH all available Countries censuses by IDs'),
+                  onTap: () async {
 
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
-                  final List<CensusModel> _censuses = await CensusProtocols.refetchAllAvailableCountriesCensuses();
-                  CensusModel.blogCensuses(censuses: _censuses);
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
-
-
-                },
-              ),
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    final List<CensusModel> _censuses = await CensusProtocols.refetchAllAvailableCountriesCensuses();
+                    CensusModel.blogCensuses(censuses: _censuses);
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 
 
-              /// REFETCH COUNTRY CENSUSES
-              WideButton(
-                verse: Verse.plain('REFETCH Country Census'),
-                onTap: () async {
-
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
-                  await CensusProtocols.refetchCountryCensus(countryID: 'egy');
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                  },
+                ),
 
 
-                },
-              ),
+                /// REFETCH COUNTRY CENSUSES
+                WideButton(
+                  verse: Verse.plain('REFETCH Country Census'),
+                  onTap: () async {
 
-              /// SEPARATOR
-              const SeparatorLine(),
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await CensusProtocols.refetchCountryCensus(countryID: 'egy');
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 
-              /// DELETE MAPS SEMBAST OP
-              WideButton(
-                verse: Verse.plain('SEMBAST DELETE MAPs'),
-                onTap: () async {
 
-                  await LDBOps.deleteMaps(
+                  },
+                ),
+
+                /// SEPARATOR
+                const SeparatorLine(),
+
+                /// DELETE MAPS SEMBAST OP
+                WideButton(
+                  verse: Verse.plain('SEMBAST DELETE MAPs'),
+                  onTap: () async {
+
+                    await LDBOps.deleteMaps(
                       ids: ['egy', 'kwt'],
                       docName: LDBDoc.census,
-                  );
-                  await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    );
+                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 
-                },
-              ),
+                  },
+                ),
 
-              // -----------------------------------
+                // -----------------------------------
 
-              /// SEPARATOR
-              const SeparatorLine(),
+                /// SEPARATOR
+                const SeparatorLine(),
 
-            ],
+              ],
+            ),
           ),
-        ),
 
 
 
-      ],
+        ],
+      ),
     );
 
   }

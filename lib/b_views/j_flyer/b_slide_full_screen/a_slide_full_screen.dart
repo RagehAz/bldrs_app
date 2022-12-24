@@ -27,13 +27,13 @@ class SlideFullScreen extends StatelessWidget {
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return MainLayout(
-      pageTitleVerse: title,
+      title: title,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidType: PyramidType.white,
       appBarRowWidgets: const <Widget>[],
-      layoutWidget: Container(
+      child: Container(
         width: _screenWidth,
         height: _screenHeight,
         // color: Colorz.Yellow50,

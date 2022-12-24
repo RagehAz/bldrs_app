@@ -33,7 +33,7 @@ class DashBoardLayout extends StatelessWidget {
       pyramidsAreOn: true,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitleVerse: Verse.plain(pageTitle),
+      title: Verse.plain(pageTitle),
       loading: loading,
       appBarRowWidgets: <Widget>[
 
@@ -49,7 +49,7 @@ class DashBoardLayout extends StatelessWidget {
           ...appBarWidgets,
 
       ],
-      layoutWidget: ListView(
+      child: ListView(
         physics: scrollable ?
         const BouncingScrollPhysics()
             :

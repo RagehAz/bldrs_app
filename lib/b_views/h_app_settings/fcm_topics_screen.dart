@@ -43,7 +43,7 @@ class FCMTopicsScreen extends StatelessWidget {
       skyType: SkyType.black,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitleVerse: _title,
+      title: _title,
       pyramidsAreOn: true,
       appBarRowWidgets: <Widget>[
 
@@ -61,7 +61,7 @@ class FCMTopicsScreen extends StatelessWidget {
         ),
 
       ],
-      layoutWidget:
+      child:
 
       partyType == PartyType.bz ?
       const BzFCMTopicsScreenView()

@@ -280,10 +280,10 @@ class _EditCityScreenState extends State<EditCityScreen> {
     _namesWithoutEnglishName.removeWhere((Phrase phrase) => phrase.langCode == 'en');
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('City : ( ${_city?.cityID} )'),
+      title: Verse.plain('City : ( ${_city?.cityID} )'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
