@@ -584,6 +584,30 @@ class Formers {
 
     return _message;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String bzScopeValidator({
+    @required BuildContext context,
+    @required List<String> scope,
+    @required bool canValidate,
+    FocusNode focusNode,
+  }){
+    String _message;
+
+    if (canValidate == true){
+      if (Mapper.checkCanLoopList(scope) == false){
+        _message = Verse.transBake(context, 'phid_select_bz_scope_to_describe');
+      }
+
+      /// FOCUS ON FIELD
+      if (_message != null){
+        Formers.focusOnNode(focusNode);
+      }
+
+    }
+
+    return _message;
+  }
   // -----------------------------------------------------------------------------
 
   /// FLYER VALIDATORS
