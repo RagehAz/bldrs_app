@@ -7,7 +7,9 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -22,6 +24,7 @@ class PhidsSelectorBubble extends StatelessWidget {
     @required this.onPhidTap,
     @required this.onPhidLongTap,
     @required this.onAdd,
+    @required this.canValidate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -31,6 +34,7 @@ class PhidsSelectorBubble extends StatelessWidget {
   final Function(String phid) onPhidTap;
   final Function(String phid) onPhidLongTap;
   final Function onAdd;
+  final bool canValidate;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -97,6 +101,18 @@ class PhidsSelectorBubble extends StatelessWidget {
             iconColor: Colorz.white20,
             onTap: onAdd,
           ),
+
+          /// VALIDATOR
+            SuperValidator(
+              width: Bubble.clearWidth(context) - 20,
+              // autoValidate: true,
+              focusNode: null,
+              validator: () => Formers.flyerPhidsValidator(
+                phids: draft.keywordsIDs,
+                context: context,
+                canValidate: canValidate,
+              ),
+            ),
 
         ],
       ),

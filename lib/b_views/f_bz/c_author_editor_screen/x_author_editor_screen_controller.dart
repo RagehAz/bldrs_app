@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -20,13 +19,15 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_author_editor.dart';
 import 'package:flutter/material.dart';
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// AUTHOR EDITOR INITIALIZATION
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> prepareAuthorPicForEditing({
   @required BuildContext context,
   @required ValueNotifier<AuthorModel> draftAuthor,
@@ -52,7 +53,7 @@ Future<void> prepareAuthorPicForEditing({
 /// LAST SESSION
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> loadAuthorEditorSession({
   @required BuildContext context,
   @required bool mounted,
@@ -89,7 +90,7 @@ Future<void> loadAuthorEditorSession({
       // -------------------------
       await Nav.replaceScreen(
         context: context,
-        screen: AuthorEditorScreen(
+        screen: NewAuthorEditor(
           bzModel: bzModel,
           author: _initialAuthor,
           checkLastSession: false,
@@ -103,7 +104,7 @@ Future<void> loadAuthorEditorSession({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> saveAuthorEditorSession({
   @required BuildContext context,
   @required AuthorModel oldAuthor,
@@ -145,7 +146,7 @@ Future<void> saveAuthorEditorSession({
 /// AUTHOR PROFILE EDITOR
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> takeAuthorImage({
   @required BuildContext context,
   @required ValueNotifier<AuthorModel> author,

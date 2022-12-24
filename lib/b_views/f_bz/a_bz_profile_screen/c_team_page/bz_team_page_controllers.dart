@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/b_author_role_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/a_author_search_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
@@ -26,6 +25,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/main.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_author_editor.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -499,7 +499,7 @@ Future<void> _onEditAuthor({
 
   await Nav.goToNewScreen(
     context: context,
-    screen: AuthorEditorScreen(
+    screen: NewAuthorEditor(
       author: authorModel,
       bzModel: bzModel,
     ),

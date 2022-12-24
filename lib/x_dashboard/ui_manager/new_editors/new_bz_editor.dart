@@ -775,6 +775,10 @@ class _NewBzEditorState extends State<NewBzEditor> {
                       ),
                     ),
 
+                    // const Horizon(
+                    //   heightFactor: 0,
+                    // ),
+
                   ],
                 ),
 

@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
+import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -16,7 +18,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -324,6 +328,66 @@ void onSwitchFlyerShowsAuthor({
   );
 
 }
+// --------------------
+/// TESTED : WORKS PERFECT
+void onFlyerPhidLongTap({
+  @required String phid,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
+  @required bool mounted,
+}){
+
+  final List<String> _newPhids = Stringer.addOrRemoveStringToStrings(
+    strings: draftNotifier.value.keywordsIDs,
+    string: phid,
+  );
+
+  setNotifier(
+    notifier: draftNotifier,
+    mounted: mounted,
+    value: draftNotifier.value.copyWith(
+      keywordsIDs: _newPhids,
+    ),
+  );
+
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onFlyerPhidTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyer> draftNotifier,
+  @required bool mounted,
+}) async {
+
+  Keyboard.closeKeyboard(context);
+
+  final List<String> _phids = await Nav.goToNewScreen(
+    context: context,
+    pageTransitionType: Nav.superHorizontalTransition(context),
+    screen: PhidsPickerScreen(
+      multipleSelectionMode: true,
+      selectedPhids: draftNotifier.value.keywordsIDs,
+      chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+        context: context,
+        flyerType: draftNotifier.value.flyerType,
+        event: ViewingEvent.flyerEditor,
+      ),
+    ),
+  );
+
+  if (Mapper.checkCanLoopList(_phids) == true){
+
+    setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: draftNotifier.value.copyWith(
+        keywordsIDs: _phids,
+      ),
+    );
+
+  }
+
+}
 // -----------------------------------------------------------------------------
 
 /// PUBLISHING FLYER
@@ -541,7 +605,7 @@ Future<bool> _preFlyerUpdateCheck({
 /// PUBLISHING
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> _publishFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
@@ -564,7 +628,7 @@ Future<void> _publishFlyerOps({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> _updateFlyerOps({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyer> draft,
