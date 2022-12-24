@@ -56,7 +56,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   ConfirmButtonModel _confirmButtonModel;
   // -----------------------------------------------------------------------------
-  bool _canValidate = false;
+  bool _canValidate = true;
   void _switchOnValidation(){
     if (mounted == true){
       if (_canValidate != true){
@@ -291,27 +291,28 @@ class _NewUserEditorState extends State<NewUserEditor> {
       notifier: _progressBarModel,
       mounted: mounted,
       index: index,
-      color: isValid == true ? Colors.green : Colors.red,
+      color: isValid == true ? ProgressBarModel.goodStripColor : ProgressBarModel.errorStripColor,
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   void _controlConfirmButton(){
 
-    if (_progressBarModel.value.stripsColors.contains(Colors.red) == true){
+    if (_progressBarModel.value.stripsColors.contains(ProgressBarModel.errorStripColor) == true){
       setState(() {
         _confirmButtonModel = null;
       });
     }
+
     else {
       setState(() {
         _confirmButtonModel = ConfirmButtonModel(
           firstLine: const Verse(text: 'phid_updateProfile', translate: true),
-            onTap: _onConfirmTap,
+          onTap: _onConfirmTap,
+          isWide: true,
         );
       });
     }
-
 
   }
   // -----------------------------------------------------------------------------

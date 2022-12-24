@@ -189,19 +189,19 @@ class UserFireOps {
       listen: false,
     );
 
-    await Future.wait(<Future>[
+    /// DELETE USER
+    await Fire.deleteDoc(
+      collName: FireColl.users,
+      docName: _userModel.id,
+    );
 
-      /// DELETE USER
-      Fire.deleteDoc(
-        collName: FireColl.users,
-        docName: _userModel.id,
-      ),
-      /// DELETE FIREBASE USER
-      AuthFireOps.deleteFirebaseUser(
-        userID: _userModel.id,
-      ),
+    blog('deleteMyUser : deleteDoc done');
 
-    ]);
+
+    /// DELETE FIREBASE USER
+    await AuthFireOps.deleteFirebaseUser(
+      userID: _userModel.id,
+    );
 
     blog('deleteMyUser : END');
 
@@ -209,20 +209,3 @@ class UserFireOps {
   }
   // --------------------
 }
-
-/// DEPRECATED : KEPT FOR REFERENCE
-/*
-  /// auth change user stream
-  Stream<UserModel> streamInitialUser() {
-
-    final FirebaseAuth _auth = FirebaseAuth?.instance;
-
-    return _auth
-        .authStateChanges()
-        .map((User user) => UserModel.initializeUserModelStreamFromUser());
-
-    //     .map(
-    //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet
-  }
-
- */

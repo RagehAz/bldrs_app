@@ -23,11 +23,13 @@ class AuthFireOps {
   const AuthFireOps();
 
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static User superFirebaseUser() {
     final User _user = FirebaseAuth.instance.currentUser;
     return _user;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String superUserID() {
     final String userID = superFirebaseUser()?.uid;
     return userID;
@@ -37,6 +39,7 @@ class AuthFireOps {
   /// DELETE FIREBASE USER
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> deleteFirebaseUser({
     @required String userID,
   }) async {
@@ -103,11 +106,15 @@ class AuthFireOps {
   /// AUTHENTICATORS
 
   // --------------------
-  /// SIGN IN BY EMAIL AND PASSWORD
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> signInByEmailAndPassword({
     @required String email,
     @required String password,
   }) async {
+    // -----------------------------
+
+    /// SIGN IN BY EMAIL AND PASSWORD
+
     // -----------------------------
     AuthModel _authModel = const AuthModel();
     UserCredential _userCredential;
@@ -157,13 +164,18 @@ class AuthFireOps {
     return _authModel;
   }
   // --------------------
-  /// REGISTER BY EMAIL AND PASSWORD
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> registerByEmailAndPassword({
     @required BuildContext context,
     @required ZoneModel currentZone,
     @required String email,
     @required String password,
   }) async {
+    // -----------------------------
+
+    /// REGISTER BY EMAIL AND PASSWORD
+
+    // -----------------------------
     UserCredential _userCredential;
     String _authError;
     // -----------------------------
@@ -419,6 +431,7 @@ class AuthFireOps {
   /// sign out
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> emailSignOutOps(BuildContext context) async {
 
     try {
@@ -430,12 +443,11 @@ class AuthFireOps {
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          pseudo: '#Trouble Signing out',
           text: 'phid_trouble_signing_out',
           translate: true,
         ),
         bodyVerse: Verse(
-          text: error.toString(),
+          text: error?.toString(),
           translate: false,
         ),
       );
@@ -443,8 +455,11 @@ class AuthFireOps {
 
   }
   // --------------------
-  /// google sign out
+  /// TASK : TEST ME
   static Future<bool> googleSignOutOps() async {
+
+    /// google sign out
+
 
     bool _isSignedIn = true;
 
@@ -473,6 +488,7 @@ class AuthFireOps {
     return _isSignedIn;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> signOut({
     @required BuildContext context,
     @required bool routeToLogoScreen,
@@ -497,7 +513,7 @@ class AuthFireOps {
   /// CHECKERS
 
   // --------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<bool> passwordIsCorrect({
     @required String password,
     @required String email,

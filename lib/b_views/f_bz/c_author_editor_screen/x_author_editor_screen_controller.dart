@@ -341,13 +341,13 @@ Future<void> onConfirmAuthorUpdates({
 
   if (_result == true){
 
-    unawaited(WaitDialog.showWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       context: context,
       loadingVerse: const Verse(
         text: 'phid_updating_author_profile',
         translate: true,
       ),
-    ));
+    );
 
     final AuthorModel _newAuthor = AuthorModel.bakeEditorVariablesToUpload(
       bzModel: oldBz,
@@ -416,13 +416,13 @@ Future<void> onChangeAuthorRoleOps({
 
     else {
 
-      unawaited(WaitDialog.showWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         context: context,
         loadingVerse: const Verse(
           text: 'phid_updating_author_profile',
           translate: true,
         ),
-      ));
+      );
 
       final BzModel _oldBz = BzzProvider.proGetActiveBzModel(
         context: context,

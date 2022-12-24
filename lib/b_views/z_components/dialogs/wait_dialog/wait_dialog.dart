@@ -10,10 +10,10 @@ import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 void showWaitDialog(BuildContext context, {Verse verse}){
-  unawaited(WaitDialog.showWaitDialog(
+  WaitDialog.showUnawaitedWaitDialog(
     context: context,
     loadingVerse: verse,
-  ));
+  );
 }
 
 void closeWaitDialog(BuildContext context){
@@ -38,7 +38,8 @@ class WaitDialog extends StatelessWidget {
     Verse loadingVerse,
   }) {
 
-    unawaited(WaitDialog.showWaitDialog(
+    // WaitDialog.showUnawaitedWaitDialog
+    unawaited(showWaitDialog(
       context: context,
       loadingVerse: loadingVerse,
       canManuallyGoBack: canManuallyGoBack,

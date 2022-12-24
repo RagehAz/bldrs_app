@@ -96,13 +96,13 @@ Future<void> authByEmailSignIn({
 
   if (_allFieldsAreValid == true) {
 
-    unawaited(WaitDialog.showWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       context: context,
       loadingVerse: const Verse(
         text: 'phid_signing_in',
         translate: true,
       ),
-    ));
+    );
 
     /// C - FIRE SIGN IN OPS
     _authModel = await AuthFireOps.signInByEmailAndPassword(
@@ -145,13 +145,13 @@ Future<void> authByEmailRegister({
 
   if (_allFieldsAreValid == true) {
 
-    unawaited(WaitDialog.showWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       context: context,
       loadingVerse: const Verse(
         text: 'phid_creating_new_account',
         translate: true,
       ),
-    ));
+    );
 
     /// C - START REGISTER OPS
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
