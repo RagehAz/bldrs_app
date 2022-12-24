@@ -189,9 +189,11 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     ) {
 
       unawaited(getUiImageFromDynamic(widget.pic).then((ui.Image uiImage){
-        setState(() {
-          _uiImage = uiImage;
-        });
+        if (mounted == true){
+          setState(() {
+            _uiImage = uiImage;
+          });
+        }
       }));
 
     }
