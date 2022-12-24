@@ -77,7 +77,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_add_author_to_the_team',
         translate: true,
       ),
@@ -91,7 +91,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
       onSearchSubmit: _onSearch,
       onSearchChanged: _onSearch,
       loading: _loading,
-      layoutWidget: AuthorSearchScreenView(
+      child: AuthorSearchScreenView(
         bzModel: _bzModel,
         foundUsers: _foundUsers,
         isSearching: _isSearching,

@@ -119,7 +119,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     final String _flyerTypeString = FlyerTyper.cipherFlyerType(widget.flyerType);
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('$_flyerTypeString Pickers Editor'),
+      title: Verse.plain('$_flyerTypeString Pickers Editor'),
       appBarType: AppBarType.search,
       loading: _loading,
       onBack: () async {
@@ -198,7 +198,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
             }),
 
       ],
-      layoutWidget: Container(
+      child: Container(
         width: Scale.screenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
         alignment: Alignment.topCenter,

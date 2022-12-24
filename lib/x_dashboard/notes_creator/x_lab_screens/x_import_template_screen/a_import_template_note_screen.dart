@@ -108,7 +108,7 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      pageTitleVerse: Verse.plain('Template notes'),
+      title: Verse.plain('Template notes'),
       loading: _loading,
       appBarRowWidgets: <Widget>[
         const Expander(),
@@ -132,7 +132,7 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
       ],
       skyType: SkyType.black,
       progressBarModel: _progressBarModel,
-      layoutWidget: PageView(
+      child: PageView(
         controller: _pageController,
         onPageChanged: (int index) => ProgressBarModel.onSwipe(
           context: context,

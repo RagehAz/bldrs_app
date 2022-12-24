@@ -199,7 +199,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidType: PyramidType.crystalYellow,
-      pageTitleVerse: const Verse(text: 'phid_statistics', translate: true),
+      title: const Verse(text: 'phid_statistics', translate: true),
       loading: _loading,
       pyramidButtons: <Widget>[
 
@@ -236,7 +236,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
         ),
 
       ],
-      layoutWidget: Scroller(
+      child: Scroller(
         child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: Stratosphere.stratosphereSandwich,

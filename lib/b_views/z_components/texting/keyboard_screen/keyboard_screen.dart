@@ -174,8 +174,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitleVerse: widget.screenTitleVerse,
-      layoutWidget: ValueListenableBuilder(
+      title: widget.screenTitleVerse,
+      child: ValueListenableBuilder(
         valueListenable: _canSubmit,
         builder: (_, bool canSubmit, Widget child){
 

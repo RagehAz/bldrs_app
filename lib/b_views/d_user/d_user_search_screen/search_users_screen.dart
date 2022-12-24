@@ -204,7 +204,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      pageTitleVerse: const Verse(text: 'phid_search_users', translate: true),
+      title: const Verse(text: 'phid_search_users', translate: true),
       searchHintVerse: const Verse(text: 'phid_search_users_hint', translate: true),
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
@@ -212,7 +212,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       onSearchChanged: _onSearch,
       loading: _loading,
       onBack: _onBack,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
 

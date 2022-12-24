@@ -376,7 +376,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
       ],
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         controller: _scrollController,
         children: <Widget>[

@@ -203,7 +203,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
         ),
 
       ],
-      layoutWidget: Row(
+      child: Row(
         children: <Widget>[
 
           SizedBox(

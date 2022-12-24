@@ -100,7 +100,7 @@ class TheStatelessScreen extends StatelessWidget {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: '',
         translate: false,
       ),
@@ -114,7 +114,7 @@ class TheStatelessScreen extends StatelessWidget {
         ),
 
       ],
-      layoutWidget: Container(),
+      child: Container(),
     );
     // --------------------
   }

@@ -25,7 +25,7 @@ class UserPreviewScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.black,
-      layoutWidget: PullToRefresh(
+      child: PullToRefresh(
         onRefresh: () async {
 
           final UserModel _userModel = await UserProtocols.refetch(

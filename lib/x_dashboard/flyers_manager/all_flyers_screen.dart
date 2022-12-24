@@ -138,10 +138,10 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: Verse.plain('All Flyers'),
+      title: Verse.plain('All Flyers'),
       appBarRowWidgets: const <Widget>[],
       // loading: _loading,
-      layoutWidget: FireCollPaginator(
+      child: FireCollPaginator(
         paginationQuery: allFlyersPaginationQuery(),
         paginationController: _paginationController,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){

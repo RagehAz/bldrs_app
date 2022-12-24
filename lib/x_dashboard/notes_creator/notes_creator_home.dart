@@ -20,7 +20,7 @@ class NotesCreatorScreen extends StatelessWidget {
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'Send Note to',
         translate: false,
       ),
@@ -40,7 +40,7 @@ class NotesCreatorScreen extends StatelessWidget {
         ),
 
       ],
-      layoutWidget: const NoteCreatorScreenView(
+      child: const NoteCreatorScreenView(
         receiverType: PartyType.user,
         toSingleParty: true,
       ),

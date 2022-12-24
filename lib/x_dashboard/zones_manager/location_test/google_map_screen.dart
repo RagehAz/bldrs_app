@@ -147,7 +147,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     const double _pinWidth = 30;
 
     return MainLayout(
-      pageTitleVerse: const Verse(
+      title: const Verse(
         text: 'phid_select_on_map',
         translate: true,
       ),
@@ -163,7 +163,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         // await null;
       },
       skyType: SkyType.black,
-      layoutWidget: Stack(
+      child: Stack(
         children: <Widget>[
 
           /// MAP

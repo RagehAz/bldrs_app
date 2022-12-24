@@ -19,8 +19,8 @@ class NoteRouteToScreen extends StatelessWidget {
 
     return MainLayout(
       pyramidsAreOn: true,
-      pageTitleVerse: Verse.plain('Note Route to Screen'),
-      layoutWidget: Column(
+      title: Verse.plain('Note Route to Screen'),
+      child: Column(
         children: <Widget>[
 
           const Stratosphere(),

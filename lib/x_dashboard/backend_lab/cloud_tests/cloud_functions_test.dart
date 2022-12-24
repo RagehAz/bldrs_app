@@ -86,9 +86,9 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.black,
-      pageTitleVerse: Verse.plain('Cloud Functions test'),
+      title: Verse.plain('Cloud Functions test'),
       appBarRowWidgets: const <Widget>[],
-      layoutWidget: Center(
+      child: Center(
         child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.only(top: Ratioz.stratosphere),

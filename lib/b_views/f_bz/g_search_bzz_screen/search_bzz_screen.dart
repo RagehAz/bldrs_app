@@ -217,7 +217,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      pageTitleVerse: const Verse(text: 'phid_search_bzz', translate: true),
+      title: const Verse(text: 'phid_search_bzz', translate: true),
       searchHintVerse: const Verse(text: 'phid_search_bzz_hint', translate: true),
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
@@ -225,7 +225,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       onSearchChanged: _onSearch,
       loading: _loading,
       onBack: _onBack,
-      layoutWidget: ListView(
+      child: ListView(
         children: <Widget>[
 
           const Stratosphere(bigAppBar: true),

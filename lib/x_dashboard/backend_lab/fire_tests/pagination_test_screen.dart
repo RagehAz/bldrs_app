@@ -104,12 +104,12 @@ class _PaginatorTestState extends State<PaginatorTest> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitleVerse: Verse.plain('pagination Test'),
+      title: Verse.plain('pagination Test'),
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidsAreOn: true,
       pyramidType: PyramidType.glass,
-      layoutWidget: ListView(
+      child: ListView(
         physics: const BouncingScrollPhysics(),
         controller: _scrollController,
         padding: Stratosphere.stratosphereInsets,
