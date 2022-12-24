@@ -22,6 +22,7 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// LANGUAGE
@@ -91,6 +92,7 @@ Future<void> onInviteFriendsTap(BuildContext context) async {
 /// CREATE NEW BZ ACCOUNT
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onCreateNewBzTap(BuildContext context) async {
 
   await Nav.goToNewScreen(
@@ -108,6 +110,7 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 /// SIGN OUT OPS
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSignOut(BuildContext context) async {
 
   /// CLEAR FLYERS

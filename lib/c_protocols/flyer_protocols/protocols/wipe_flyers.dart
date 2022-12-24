@@ -44,13 +44,13 @@ class WipeFlyerProtocols {
     if (flyerModel != null){
 
       if (showWaitDialog == true){
-        unawaited(WaitDialog.showWaitDialog(
+        WaitDialog.showUnawaitedWaitDialog(
           context: context,
           loadingVerse: const Verse(
             text: 'phid_deleting_flyer',
             translate: true,
           ),
-        ));
+        );
       }
 
       final BzModel _oldBz = await BzProtocols.fetchBz(
@@ -179,13 +179,13 @@ class WipeFlyerProtocols {
     if (Mapper.checkCanLoopList(flyers) == true && bzModel != null){
 
       if (showWaitDialog == true){
-        unawaited(WaitDialog.showWaitDialog(
+        WaitDialog.showUnawaitedWaitDialog(
           context: context,
           loadingVerse: const Verse(
             text: 'phid_deleting_flyers',
             translate: true,
           ),
-        ));
+        );
       }
 
       await Future.wait(<Future>[

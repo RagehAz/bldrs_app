@@ -368,13 +368,13 @@ Future<void> confirmEdits({
         value: true
     );
 
-    unawaited(WaitDialog.showWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       context: context,
       loadingVerse: const Verse(
         text: 'phid_updating_profile',
         translate: true,
       ),
-    ));
+    );
 
     final UserModel _userUploaded = await UserProtocols.renovate(
       context: context,
@@ -407,7 +407,7 @@ Future<void> confirmEdits({
       ),
     );
 
-    await UserLDBOps.wipeEditorSession(_userUploaded.id);
+    await UserLDBOps.wipeEditorSession(_userUploaded?.id);
 
     onFinish();
 

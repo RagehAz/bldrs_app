@@ -148,10 +148,10 @@ class PhraseProtocols {
     if (Mapper.checkCanLoopList(updatedMixedMainPhrases) == true){
 
       if (showWaitDialog == true){
-        unawaited(WaitDialog.showWaitDialog(
+        WaitDialog.showUnawaitedWaitDialog(
           context: context,
           loadingVerse: const Verse(text: 'Syncing', translate: false),
-        ));
+        );
       }
 
       final List<Phrase> _en = Phrase.searchPhrasesByLang(

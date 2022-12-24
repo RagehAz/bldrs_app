@@ -46,14 +46,14 @@ class WipeBzProtocols {
     blog('WipeBzProtocol.wipeBz : START');
 
     if (showWaitDialog == true){
-      unawaited(WaitDialog.showWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         context: context,
         loadingVerse: Verse(
           text: '${Verse.transBake(context, 'phid_deleting')} ${bzModel.name}',
           translate: false,
           variables: bzModel.name,
         ),
-      ));
+      );
     }
 
     await Future.wait(<Future>[
@@ -145,10 +145,10 @@ class WipeBzProtocols {
                             '${bzModel.flyersIDs.length} '
                             '${Verse.transBake(context, 'phid_flyers')}';
 
-      unawaited(WaitDialog.showWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         context: context,
         loadingVerse: Verse.plain(_text),
-      ));
+      );
     }
 
     /// DELETE BZ FLYERS

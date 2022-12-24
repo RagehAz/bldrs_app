@@ -166,12 +166,10 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
               verse: Verse.plain('realBypassUpdate'),
               onTap: () async {
 
-                unawaited(WaitDialog.showWaitDialog(
+                WaitDialog.showUnawaitedWaitDialog(
                   context: context,
                   loadingVerse: Verse.plain('Posting Http request aho'),
                   canManuallyGoBack: true,
-                ),
-
                 );
 
                 const String _link = 'https://e8da-197-133-201-44.ngrok.io/realBypassUpdate';

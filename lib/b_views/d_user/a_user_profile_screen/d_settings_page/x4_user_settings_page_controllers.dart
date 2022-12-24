@@ -117,6 +117,8 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
       showWaitDialog: true,
     );
 
+    blog('finished wipe user protocols');
+
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
@@ -133,6 +135,8 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
         translate: true,
       ),
     );
+
+    blog('finished center dialog');
 
     /// SIGN OUT OPS
     await onSignOut(context);

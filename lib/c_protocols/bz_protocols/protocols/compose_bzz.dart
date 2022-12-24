@@ -41,13 +41,13 @@ class ComposeBzProtocols {
     assert(newDraft.logoPicModel != null, 'logoPicModel is null');
 
     /// WAIT DIALOG
-    unawaited(WaitDialog.showWaitDialog(
+    WaitDialog.showUnawaitedWaitDialog(
       context: context,
       loadingVerse: const Verse(
         text: 'phid_creating_new_bz_account',
         translate: true,
       ),
-    ));
+    );
 
     /// CREATE BZ ID
     final String _bzID = await BzFireOps.createEmptyBzDocToGetBzID();

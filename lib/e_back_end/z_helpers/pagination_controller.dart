@@ -52,7 +52,7 @@ class PaginationController {
   void clear({
   @required bool mounted,
 }){
-    setNotifier(mounted: mounted, notifier: paginatorMaps, value: []);
+    setNotifier(mounted: mounted, notifier: paginatorMaps, value: <Map<String, dynamic>>[]);
     setNotifier(mounted: mounted, notifier: replaceMap, value: null);
     setNotifier(mounted: mounted, notifier: addMap, value: null);
     setNotifier(mounted: mounted, notifier: deleteMap, value: null);

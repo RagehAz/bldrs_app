@@ -42,13 +42,13 @@ class WipeUserProtocols {
 
     /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
     if (showWaitDialog == true){
-      unawaited(WaitDialog.showWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         context: context,
         loadingVerse: const Verse(
           text: 'phid_deleting_your_account',
           translate: true,
         ),
-      ));
+      );
     }
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
@@ -77,6 +77,8 @@ class WipeUserProtocols {
       );
 
     }
+
+    blog('WipeUserProtocols.wipeMyUserModel : should close wait dialog');
 
     /// CLOSE WAITING
     if (showWaitDialog == true){
@@ -317,7 +319,7 @@ class WipeUserProtocols {
     ]);
 
 
-    blog('UserProtocol._deleteNonAuthorUserProtocol : END');
+    blog('UserProtocol._deleteNonAuthorUserProtocol : ENDDDDD');
 
   }
   // -----------------------------------------------------------------------------
