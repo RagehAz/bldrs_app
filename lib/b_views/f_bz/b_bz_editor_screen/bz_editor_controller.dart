@@ -24,12 +24,13 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// LAST SESSION
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> loadBzEditorLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
@@ -74,7 +75,7 @@ Future<void> loadBzEditorLastSession({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> saveBzEditorSession({
   @required ValueNotifier<DraftBz> draftNotifier,
   @required bool mounted,
@@ -337,7 +338,7 @@ void onChangeBzForm({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> onChangeBzLogo({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
