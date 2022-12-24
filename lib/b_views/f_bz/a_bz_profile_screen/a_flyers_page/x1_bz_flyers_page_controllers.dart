@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/a_flyer_maker_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -19,6 +18,7 @@ import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_flyer_editor.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -136,7 +136,7 @@ Future<void> _onEditFlyerButtonTap({
 
   await Nav.goToNewScreen(
       context: context,
-      screen: FlyerMakerScreen(
+      screen: NewFlyerEditor(
         flyerToEdit: flyer,
         validateOnStartup: true,
       ),

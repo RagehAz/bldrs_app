@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/animations_lab.dart';
@@ -11,7 +13,9 @@ import 'package:bldrs/x_dashboard/ui_manager/balloon_types_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/dialog_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/nav_jumping_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_author_editor.dart';
 import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_bz_editor.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_flyer_editor.dart';
 import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_user_editor.dart';
 import 'package:bldrs/x_dashboard/ui_manager/poster_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
@@ -381,6 +385,59 @@ class UIManager extends StatelessWidget {
                 // checkLastSession: true,
                 validateOnStartup: true,
                 bzModel: _bzModel,
+              ),
+            );
+
+          },
+        ),
+
+        /// NEW AUTHOR EDITOR
+        WideButton(
+          verse: Verse.plain('New Author Editor'),
+          icon: Iconz.cleopatra,
+          onTap: () async {
+
+            final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+            final BzModel _bzModel = await BzProtocols.fetchBz(
+              context: context,
+              bzID: _user.myBzzIDs?.first,
+            );
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: NewAuthorEditor(
+                bzModel: _bzModel,
+                author: _bzModel.authors.first,
+              ),
+            );
+
+          },
+        ),
+
+        /// NEW FLYER EDITOR
+        WideButton(
+          verse: Verse.plain('New Flyer Editor'),
+          icon: Iconz.addFlyer,
+          onTap: () async {
+
+            final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+            final BzModel _bzModel = await BzProtocols.fetchBz(
+              context: context,
+              bzID: _user.myBzzIDs?.first,
+            );
+
+            final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+              context: context,
+              flyerID: _bzModel.flyersIDs.first
+            );
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: NewFlyerEditor(
+                flyerToEdit: _flyer,
+                validateOnStartup: false,
               ),
             );
 
