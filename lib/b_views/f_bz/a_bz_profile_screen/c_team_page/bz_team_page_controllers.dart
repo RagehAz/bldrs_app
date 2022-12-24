@@ -313,13 +313,13 @@ Future<void> _removeAuthorWhoHasFlyers({
   if (_result == true){
 
     if (showWaitDialog == true){
-      unawaited(WaitDialog.showWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         context: context,
         loadingVerse: Verse(
           text: '${Verse.transBake(context, 'phid_removing')} ${authorModel.name}',
           translate: false,
         ),
-      ));
+      );
     }
 
     /// DELETE ALL AUTHOR FLYERS EVERY WHERE THEN UPDATE BZ EVERYWHERE

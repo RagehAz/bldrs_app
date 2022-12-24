@@ -267,13 +267,13 @@ class ZoneSelection {
 
     if (zone != null && zone.countryID != null){
 
-      unawaited(WaitDialog.showWaitDialog(
+      WaitDialog.showUnawaitedWaitDialog(
         context: context,
         loadingVerse: const Verse(
           text: 'phid_loading',
           translate: true,
         ),
-      ));
+      );
 
       final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
       /// SET ZONE

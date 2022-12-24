@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/query_order_by.dart';
 export 'package:bldrs/e_back_end/b_fire/fire_models/query_order_by.dart';
-
+/// => TAMAM
 class Fire{
   // -----------------------------------------------------------------------------
 
@@ -273,7 +273,7 @@ String pathOfSubDoc({
 
     }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> _updateData({
     @required DocumentReference<Object> ref,
     @required Map<String, dynamic> input,
@@ -319,7 +319,7 @@ String pathOfSubDoc({
   /// CREATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<DocumentReference<Object>> createDoc({
     @required String collName,
     @required Map<String, dynamic> input,
@@ -361,7 +361,7 @@ String pathOfSubDoc({
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<DocumentReference<Object>> createNamedDoc({
     @required String collName,
     @required String docName,
@@ -728,7 +728,7 @@ String pathOfSubDoc({
     return _query.snapshots();
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Stream<DocumentSnapshot<Object>> streamDoc({
     @required String collName,
     @required String docName,
@@ -742,7 +742,7 @@ String pathOfSubDoc({
     return _docRef.snapshots();
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Stream<DocumentSnapshot<Object>> streamSubDoc({
     @required String collName,
     @required String docName,
@@ -796,7 +796,7 @@ String pathOfSubDoc({
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required String collName,
     @required String docName,
@@ -925,13 +925,13 @@ String pathOfSubDoc({
     );
   }
   // --------------------
-  /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAllCollectionDocs({
     @required BuildContext context,
     @required String collName,
   }) async {
 
-    /// TASK : deleting collection and all its docs, sub collections & sub docs require a cloud function
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
     //
     /// for now : this method loops 1000 times in a collection,
     /// each time reads 5 docs, and deletes them one by one,
@@ -991,11 +991,14 @@ String pathOfSubDoc({
 
   }
   // --------------------
-  /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteCollectionDocsByIDs({
     @required collName,
     @required List<String> docsIDs,
   }) async {
+
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+
 
     if (Mapper.checkCanLoopList(docsIDs) == true){
 
@@ -1012,7 +1015,7 @@ String pathOfSubDoc({
 
   }
   // --------------------
-  /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteSubCollection({
     @required BuildContext context,
     @required String collName,
@@ -1022,7 +1025,7 @@ String pathOfSubDoc({
     bool showAlertDialog = false,
   }) async {
 
-    /// TASK : deleting sub collection and all its sub docs require a cloud function
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
     //
     /// does the same deletion algorithm with [deleteAllCollectionDocs]
 
@@ -1086,7 +1089,7 @@ String pathOfSubDoc({
 
   }
   // --------------------
-  /// TASK : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteSubCollectionDocsBySubDocsIDs({
     @required collName,
     @required docName,
@@ -1094,6 +1097,8 @@ String pathOfSubDoc({
     @required List<String> subDocsIDs,
     @required Function onDeleteSubDoc,
   }) async {
+
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
 
     if (Mapper.checkCanLoopList(subDocsIDs) == true){
 
@@ -1146,7 +1151,7 @@ String pathOfSubDoc({
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteSubDocField({
     @required String collName,
     @required String docName,

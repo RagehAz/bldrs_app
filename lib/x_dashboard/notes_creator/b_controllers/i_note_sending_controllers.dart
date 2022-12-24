@@ -66,7 +66,7 @@ Future<void> onSendNote({
 
   if (_canSend == true){
 
-    unawaited(WaitDialog.showWaitDialog(context: context));
+    WaitDialog.showUnawaitedWaitDialog(context: context);
 
     /// IF ONE RECEIVER
     if (draftNote.receiversModels.value.length == 1){
