@@ -163,11 +163,33 @@ class _NewBzEditorState extends State<NewBzEditor> {
 
   }
   // -----------------------------------------------------------------------------
-  /// TASK : WRITE ME
+  /// TESTED : WORKS PERFECT
   void _stripsListener(){
 
     // -----------------
-    /// STRIP 1 : SECTION - TYPE - FORM
+    /// STRIP 1 : LOGO - NAME
+
+    final bool _logoIsValid = Formers.picValidator(
+      context: context,
+      pic: draftNotifier.value?.logoPicModel,
+      canValidate: true,
+    ) == null;
+    final bool _nameIsValid = Formers.companyNameValidator(
+      context: context,
+      companyName: draftNotifier.value?.name,
+      canValidate: true,
+    ) == null;
+
+    if (_logoIsValid == false || _nameIsValid == false){
+      setStripIsValid(0, false);
+    }
+    else {
+      setStripIsValid(0, true);
+    }
+
+
+    // -----------------
+    /// STRIP 2 : SECTION - TYPE - FORM
 
     final bool _sectionIsValid = Formers.bzSectionValidator(
       context: context,
@@ -186,27 +208,6 @@ class _NewBzEditorState extends State<NewBzEditor> {
     ) == null;
 
     if (_sectionIsValid == false || _typeIsValid == false || _formIsValid == false){
-      setStripIsValid(0, false);
-    }
-    else {
-      setStripIsValid(0, true);
-    }
-
-    // -----------------
-    /// STRIP 2 : LOGO - NAME
-
-    final bool _logoIsValid = Formers.picValidator(
-      context: context,
-      pic: draftNotifier.value?.logoPicModel,
-      canValidate: true,
-    ) == null;
-    final bool _nameIsValid = Formers.companyNameValidator(
-      context: context,
-      companyName: draftNotifier.value?.name,
-      canValidate: true,
-    ) == null;
-
-    if (_logoIsValid == false || _nameIsValid == false){
       setStripIsValid(1, false);
     }
     else {
@@ -393,6 +394,77 @@ class _NewBzEditorState extends State<NewBzEditor> {
               progressBarModel: _progressBarModel,
               pageBubbles: <Widget>[
 
+                /// LOGO - NAME
+                FloatingList(
+                  columnChildren: <Widget>[
+
+                    /// ADD LOGO
+                    AddImagePicBubble(
+                      key: const ValueKey<String>('add_logo_bubble'),
+                      picModel: draft?.logoPicModel,
+                      titleVerse: const Verse(
+                        text: 'phid_businessLogo',
+                        translate: true,
+                      ),
+                      redDot: true,
+                      bubbleType: BubbleType.bzLogo,
+
+                      // autoValidate: true,
+                      validator: () => Formers.picValidator(
+                        context: context,
+                        pic: draft?.logoPicModel,
+                        canValidate: draft?.canValidate,
+                      ),
+                      onAddPicture: (PicMakerType imagePickerType) => onChangeBzLogo(
+                        context: context,
+                        draftNotifier: draftNotifier,
+                        imagePickerType: imagePickerType,
+                        mounted: mounted,
+                      ),
+                    ),
+
+                    /// BZ NAME
+                    TextFieldBubble(
+                      formKey: draft?.formKey,
+                      bubbleHeaderVM: BubbleHeaderVM(
+                        headlineVerse: Verse(
+                          text: _companyNameBubbleTitle,
+                          translate: true,
+                        ),
+                        redDot: true,
+
+                      ),
+                      focusNode: draft?.nameNode,
+                      appBarType: AppBarType.basic,
+                      isFormField: true,
+                      key: const ValueKey('bzName'),
+                      counterIsOn: true,
+                      maxLength: 72,
+                      maxLines: 2,
+                      keyboardTextInputType: TextInputType.name,
+                      keyboardTextInputAction: TextInputAction.next,
+                      initialText: draft?.name,
+
+                      // autoValidate: true,
+                      validator: (String text) => Formers.companyNameValidator(
+                        context: context,
+                        companyName: draft?.name,
+                        canValidate: draft?.canValidate,
+                      ),
+                      onTextChanged: (String text){
+
+                        setNotifier(
+                          notifier: draftNotifier,
+                          mounted: mounted,
+                          value: draft?.copyWith(name: text,),
+                        );
+
+                      },
+                    ),
+
+                  ],
+                ),
+
                 /// SECTIONS - BZ TYPE - FORM
                 FloatingList(
                   columnChildren: <Widget>[
@@ -473,77 +545,6 @@ class _NewBzEditorState extends State<NewBzEditor> {
                         draftNotifier: draftNotifier,
                         mounted: mounted,
                       ),
-                    ),
-
-                  ],
-                ),
-
-                /// LOGO - NAME
-                FloatingList(
-                  columnChildren: <Widget>[
-
-                    /// ADD LOGO
-                    AddImagePicBubble(
-                      key: const ValueKey<String>('add_logo_bubble'),
-                      picModel: draft?.logoPicModel,
-                      titleVerse: const Verse(
-                        text: 'phid_businessLogo',
-                        translate: true,
-                      ),
-                      redDot: true,
-                      bubbleType: BubbleType.bzLogo,
-
-                      // autoValidate: true,
-                      validator: () => Formers.picValidator(
-                        context: context,
-                        pic: draft?.logoPicModel,
-                        canValidate: draft?.canValidate,
-                      ),
-                      onAddPicture: (PicMakerType imagePickerType) => onChangeBzLogo(
-                        context: context,
-                        draftNotifier: draftNotifier,
-                        imagePickerType: imagePickerType,
-                        mounted: mounted,
-                      ),
-                    ),
-
-                    /// BZ NAME
-                    TextFieldBubble(
-                      formKey: draft?.formKey,
-                      bubbleHeaderVM: BubbleHeaderVM(
-                        headlineVerse: Verse(
-                          text: _companyNameBubbleTitle,
-                          translate: true,
-                        ),
-                        redDot: true,
-
-                      ),
-                      focusNode: draft?.nameNode,
-                      appBarType: AppBarType.basic,
-                      isFormField: true,
-                      key: const ValueKey('bzName'),
-                      counterIsOn: true,
-                      maxLength: 72,
-                      maxLines: 2,
-                      keyboardTextInputType: TextInputType.name,
-                      keyboardTextInputAction: TextInputAction.next,
-                      initialText: draft?.name,
-
-                      // autoValidate: true,
-                      validator: (String text) => Formers.companyNameValidator(
-                        context: context,
-                        companyName: draft?.name,
-                        canValidate: draft?.canValidate,
-                      ),
-                      onTextChanged: (String text){
-
-                        setNotifier(
-                          notifier: draftNotifier,
-                          mounted: mounted,
-                          value: draft?.copyWith(name: text,),
-                        );
-
-                      },
                     ),
 
                   ],
@@ -786,5 +787,5 @@ class _NewBzEditorState extends State<NewBzEditor> {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
