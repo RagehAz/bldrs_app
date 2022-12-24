@@ -20,7 +20,6 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -103,7 +102,6 @@ Future<void> onConfirmBzEdits({
   @required ValueNotifier<DraftBz> draftNotifier,
   @required BzModel oldBz,
   @required bool mounted,
-  @required ScrollController scrollController,
 }) async {
 
   triggerCanValidateDraftBz(
@@ -117,7 +115,6 @@ Future<void> onConfirmBzEdits({
   final bool _canContinue = await _preUploadCheckups(
     context: context,
     draftNotifier: draftNotifier,
-    scrollController: scrollController,
   );
 
   if (_canContinue == true){
@@ -138,7 +135,6 @@ Future<void> onConfirmBzEdits({
 Future<bool> _preUploadCheckups({
   @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
-  @required ScrollController scrollController,
 }) async {
 
   bool _canContinue = Formers.validateForm(draftNotifier.value.formKey);
@@ -155,10 +151,6 @@ Future<bool> _preUploadCheckups({
       boolDialog: true,
     );
 
-  }
-
-  else {
-    await Sliders.slideToOffset(scrollController: scrollController, offset: 0);
   }
 
   return _canContinue;

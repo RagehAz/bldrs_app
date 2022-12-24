@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -23,6 +24,9 @@ class ScopeSelectorBubble extends StatefulWidget {
     @required this.onAddScope,
     @required this.bulletPoints,
     this.addButtonVerse,
+    this.validator,
+    this.autoValidate = true,
+    this.focusNode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,6 +36,9 @@ class ScopeSelectorBubble extends StatefulWidget {
   final ValueChanged<FlyerType> onAddScope;
   final List<Verse> bulletPoints;
   final Verse addButtonVerse;
+  final String Function() validator;
+  final bool autoValidate;
+  final FocusNode focusNode;
   /// --------------------------------------------------------------------------
   static const double typeButtonSize = 40;
   /// --------------------------------------------------------------------------
@@ -260,6 +267,15 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
               ],
             ),
           ),
+
+          /// VALIDATOR
+          if (widget.validator != null)
+            SuperValidator(
+              width: Bubble.clearWidth(context) - 20,
+              validator: widget.validator,
+              autoValidate: widget.autoValidate,
+              focusNode: widget.focusNode,
+            ),
 
         ],
       ),
