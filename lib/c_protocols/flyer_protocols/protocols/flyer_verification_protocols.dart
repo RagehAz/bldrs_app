@@ -36,7 +36,7 @@ class FlyerVerificationProtocols {
     if (flyerModel != null && flyerModel.auditState != AuditState.verified) {
 
       if (showWaitAndSuccessDialogs == true){
-        WaitDialog.showUnawaitedWaitDialog(context: context);
+        pushWaitDialog(context: context);
       }
 
       await Future.wait(<Future>[
@@ -100,7 +100,7 @@ class FlyerVerificationProtocols {
 
     if (bzID != null){
 
-      WaitDialog.showUnawaitedWaitDialog(context: context);
+      pushWaitDialog(context: context);
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
           context: context,

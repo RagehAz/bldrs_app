@@ -313,9 +313,9 @@ Future<void> _removeAuthorWhoHasFlyers({
   if (_result == true){
 
     if (showWaitDialog == true){
-      WaitDialog.showUnawaitedWaitDialog(
+      pushWaitDialog(
         context: context,
-        loadingVerse: Verse(
+        verse: Verse(
           text: '${Verse.transBake(context, 'phid_removing')} ${authorModel.name}',
           translate: false,
         ),

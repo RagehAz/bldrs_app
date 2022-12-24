@@ -148,9 +148,9 @@ class PhraseProtocols {
     if (Mapper.checkCanLoopList(updatedMixedMainPhrases) == true){
 
       if (showWaitDialog == true){
-        WaitDialog.showUnawaitedWaitDialog(
+        pushWaitDialog(
           context: context,
-          loadingVerse: const Verse(text: 'Syncing', translate: false),
+          verse: const Verse(text: 'Syncing', translate: false),
         );
       }
 

@@ -100,7 +100,7 @@ class _ChainsManagerState extends State<ChainsManager> {
               color: Colorz.blue80,
               onTap: () async {
 
-                WaitDialog.showUnawaitedWaitDialog(context: context,);
+                pushWaitDialog(context: context,);
 
                 List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
@@ -207,7 +207,7 @@ class _ChainsManagerState extends State<ChainsManager> {
               title:  'READ Bldrs Chain',
               onTap: () async {
 
-                WaitDialog.showUnawaitedWaitDialog(context: context,);
+                pushWaitDialog(context: context,);
 
                 final List<Chain> _bldrsChains = await ChainRealOps.readBldrsChains();
 
@@ -238,7 +238,7 @@ class _ChainsManagerState extends State<ChainsManager> {
               title:  'FETCH Bldrs Chains',
               onTap: () async {
 
-                WaitDialog.showUnawaitedWaitDialog(context: context);
+                pushWaitDialog(context: context);
 
                 final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
 

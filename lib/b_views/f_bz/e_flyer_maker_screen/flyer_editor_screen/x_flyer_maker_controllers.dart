@@ -547,9 +547,9 @@ Future<void> _publishFlyerOps({
   @required ValueNotifier<DraftFlyer> draft,
 }) async {
 
-  WaitDialog.showUnawaitedWaitDialog(
+  pushWaitDialog(
     context: context,
-    loadingVerse: const Verse(
+    verse: const Verse(
       text: 'phid_uploading_flyer',
       translate: true,
     ),
@@ -571,9 +571,9 @@ Future<void> _updateFlyerOps({
   @required FlyerModel oldFlyer,
 }) async {
 
-  WaitDialog.showUnawaitedWaitDialog(
+  pushWaitDialog(
     context: context,
-    loadingVerse: const Verse(
+    verse: const Verse(
       text: 'phid_uploading_flyer',
       translate: true,
     ),
