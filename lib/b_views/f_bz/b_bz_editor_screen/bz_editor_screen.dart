@@ -50,7 +50,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   // -----------------------------------------------------------------------------
   final ValueNotifier<DraftBz> draftNotifier = ValueNotifier(null);
   // final FocusNode _aNode = FocusNode();
-  final ScrollController scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -170,7 +169,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           draftNotifier: draftNotifier,
           oldBz: widget.bzModel,
           mounted: mounted,
-          scrollController: scrollController,
         ),
       ),
       appBarRowWidgets: [
@@ -226,7 +224,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
             child: ListView(
               physics: const BouncingScrollPhysics(),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              controller: scrollController,
               children: <Widget>[
 
                 const Stratosphere(),
