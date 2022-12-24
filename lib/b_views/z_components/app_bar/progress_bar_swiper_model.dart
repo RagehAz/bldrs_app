@@ -176,7 +176,7 @@ class ProgressBarModel {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static void setStripColor({
     @required int index,
     @required Color color,

@@ -263,7 +263,7 @@ class Formers {
       );
 
       if (_titleIsShort == true){
-        _message =  '${Verse.transBake(context, 'phid_name_should_be_longer_than')}'
+        _message =  '${Verse.transBake(context, 'phid_name_should_be_longer_than')} '
                     '${Standards.minJobTitleLength} '
                     '${Verse.transBake(context, 'phid_characters')}';
 
@@ -703,6 +703,30 @@ class Formers {
           _message = Verse.transBake(context, 'phid_bad_language_is_not_allowed');
         }
 
+      }
+
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String flyerPhidsValidator({
+    @required BuildContext context,
+    @required bool canValidate,
+    @required List<String> phids,
+    FocusNode focusNode,
+  }){
+    String _message;
+
+    if (canValidate == true){
+      if (Mapper.checkCanLoopList(phids) == false){
+        _message = Verse.transBake(context, 'phid_select_flyer_phids_to_filter');
+      }
+
+      /// FOCUS ON FIELD
+      if (_message != null){
+        Formers.focusOnNode(focusNode);
       }
 
     }
