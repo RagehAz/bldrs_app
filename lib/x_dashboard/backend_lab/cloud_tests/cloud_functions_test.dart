@@ -166,9 +166,9 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
               verse: Verse.plain('realBypassUpdate'),
               onTap: () async {
 
-                WaitDialog.showUnawaitedWaitDialog(
+                pushWaitDialog(
                   context: context,
-                  loadingVerse: Verse.plain('Posting Http request aho'),
+                  verse: Verse.plain('Posting Http request aho'),
                   canManuallyGoBack: true,
                 );
 

@@ -368,9 +368,9 @@ Future<void> confirmEdits({
         value: true
     );
 
-    WaitDialog.showUnawaitedWaitDialog(
+    pushWaitDialog(
       context: context,
-      loadingVerse: const Verse(
+      verse: const Verse(
         text: 'phid_updating_profile',
         translate: true,
       ),
