@@ -1,6 +1,9 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/animations_lab.dart';
@@ -8,6 +11,7 @@ import 'package:bldrs/x_dashboard/ui_manager/balloon_types_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/dialog_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/nav_jumping_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_bz_editor.dart';
 import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_user_editor.dart';
 import 'package:bldrs/x_dashboard/ui_manager/poster_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
@@ -352,6 +356,31 @@ class UIManager extends StatelessWidget {
                 reAuthBeforeConfirm: false,
                 validateOnStartup: true,
                 // checkLastSession: true,
+              ),
+            );
+
+          },
+        ),
+
+        /// NEW BZ EDITOR
+        WideButton(
+          verse: Verse.plain('New Bz Editor'),
+          icon: Iconz.bz,
+          onTap: () async {
+
+            final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+            final BzModel _bzModel = await BzProtocols.fetchBz(
+              context: context,
+              bzID: _user.myBzzIDs?.first,
+            );
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: NewBzEditor(
+                // checkLastSession: true,
+                validateOnStartup: true,
+                bzModel: _bzModel,
               ),
             );
 
