@@ -7,15 +7,14 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class NoteEventsOfAuthorship {
   // -----------------------------------------------------------------------------
 
@@ -35,14 +34,10 @@ class NoteEventsOfAuthorship {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : START');
 
-    final Phrase _title = await PhraseProtocols.fetchPhid(
-      phid: 'phid_authorship_note_title',
-      lang: userModelToSendTo.language ?? 'en',
-    );
-
-    final Phrase _body = await PhraseProtocols.fetchPhid(
-      phid: 'phid_authorship_note_body',
-      lang: userModelToSendTo.language ?? 'en',
+    final String _title = await transPhid(
+        context: context,
+        phid: 'phid_you_are_invited_to_become_author',
+        langCode: userModelToSendTo.language,
     );
 
     final NoteModel _note = NoteModel(
@@ -54,8 +49,8 @@ class NoteEventsOfAuthorship {
         receiverID: userModelToSendTo.id,
         receiverType: PartyType.user,
       ),
-      title: _title.value,
-      body: _body.value,
+      title: _title,
+      body: bzModel.name,
       sentTime: DateTime.now(),
       poll: const PollModel(
         buttons: PollModel.acceptDeclineButtons,
@@ -102,14 +97,10 @@ class NoteEventsOfAuthorship {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : START');
 
-    final Phrase _title = await PhraseProtocols.fetchPhid(
-      phid: 'phid_invitation_request_has_been_cancelled',
-      lang: userModelToSendTo.language ?? 'en',
-    );
-
-    final Phrase _body = await PhraseProtocols.fetchPhid(
-      phid: 'phid_invitation_request_had_expired',
-      lang: userModelToSendTo.language ?? 'en',
+    final String _title = await transPhid(
+        context: context,
+        phid: 'phid_membership_invitation_is_cancelled',
+        langCode: userModelToSendTo.language,
     );
 
     final NoteModel _note = NoteModel(
@@ -121,8 +112,8 @@ class NoteEventsOfAuthorship {
         receiverID: userModelToSendTo.id,
         receiverType: PartyType.user,
       ),
-      title: _title.value,
-      body: _body.value,
+      title: _title,
+      body: bzModel.name,
       sentTime: DateTime.now(),
       // poll: null,
       token: userModelToSendTo?.device?.token,
@@ -172,9 +163,11 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String _title = '##${senderModel.name} accepted The invitation request';
-
-    final String _body = '##${senderModel.name} has become a part of the team now.';
+    final String _title = await transPhid(
+        context: context,
+        phid: 'phid_membership_invitation_is_accepted',
+        langCode: senderModel.language,
+    );
 
     final NoteModel _note =  NoteModel(
       id: null,
@@ -186,7 +179,7 @@ class NoteEventsOfAuthorship {
         receiverType: PartyType.bz,
       ),
       title: _title,
-      body: _body,
+      body: senderModel.name,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzAuthorshipsInvitations,
@@ -223,9 +216,11 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String _title = '##${senderModel.name} declined The invitation request';
-
-    final String _body = '##${senderModel.name} was not added as a team member in this account';
+    final String _title = await transPhid(
+        context: context,
+        phid: 'phid_membership_invitation_is_declined',
+        langCode: senderModel.language,
+    );
 
     final NoteModel _note =  NoteModel(
       id: null,
@@ -237,7 +232,7 @@ class NoteEventsOfAuthorship {
         receiverType: PartyType.bz,
       ),
       title: _title,
-      body: _body,
+      body: senderModel.name,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzAuthorshipsInvitations,

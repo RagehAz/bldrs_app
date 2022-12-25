@@ -7,11 +7,13 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
@@ -50,13 +52,13 @@ class NoteEvent {
   /// TESTED : WORKS PERFECT
   static const sendAuthorRoleChangeNote = NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const sendAuthorDeletionNotes = NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const sendBzDeletionNoteToAllAuthors = NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const  sendNoBzContactAvailableNote = NoteEventsOfBzTeamManagement.sendNoBzContactAvailableNote;
   // -----------------------------------------------------------------------------
 
@@ -121,6 +123,12 @@ class NoteEvent {
       userModel: _myUserModel,
     );
 
+    final String _title = await transPhid(
+      context: context,
+      phid: 'phid_you_have_new_flyer_review',
+      langCode: _myUserModel?.language,
+    );
+
     final NoteModel _note = NoteModel(
       id: null,
       parties: NoteParties(
@@ -130,7 +138,7 @@ class NoteEvent {
         receiverID: bzID,
         receiverType: PartyType.bz,
       ),
-      title: '${_myUserModel.name} has written a review over your flyer',
+      title: _title,
       body: reviewModel.text,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
@@ -169,6 +177,17 @@ class NoteEvent {
         authorID: AuthFireOps.superUserID(),
     );
 
+    final UserModel _userModel = await UserProtocols.fetch(
+      context: context,
+      userID: _myAuthorModel.userID,
+    );
+
+    final String _title = await transPhid(
+      context: context,
+      phid: 'phid_you_have_new_flyer_review',
+      langCode: _userModel?.language,
+    );
+
     final NoteModel _note = NoteModel(
       id: null,
       parties: NoteParties(
@@ -178,7 +197,7 @@ class NoteEvent {
         receiverID: reviewModel.userID,
         receiverType: PartyType.user,
       ),
-      title: '${_myAuthorModel.name} replied on your flyer review',
+      title: _title,
       body: reviewModel.reply,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
@@ -215,6 +234,23 @@ class NoteEvent {
 
     assert(bzModel != null, 'bzModel is null');
 
+    final UserModel _userModel = await UserProtocols.fetch(
+      context: context,
+      userID: bzModel?.authors?.first?.userID,
+    );
+
+    final String _title = await transPhid(
+      context: context,
+      phid: 'phid_ur_bz_is_verified_now',
+      langCode: _userModel?.language,
+    );
+
+    final String _body = await transPhid(
+      context: context,
+      phid: 'phid_you_may_publish_without_verification',
+      langCode: _userModel?.language,
+    );
+
     final NoteModel _note = NoteModel(
       id: null,
       parties: NoteParties(
@@ -224,9 +260,8 @@ class NoteEvent {
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
       ),
-      title: 'Your business account has been verified',
-      body: 'You can now publish flyers directly without waiting its verification process, '
-          'Any flyer you or your team publish will be automatically verified',
+      title: _title,
+      body: _body,
       sentTime: DateTime.now(),
       function: NoteFunProtocols.createDeleteAllBzzFlyersLocally(
         bzID: bzModel.id,

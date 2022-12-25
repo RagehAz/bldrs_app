@@ -13,7 +13,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class PhraseProtocols {
   // -----------------------------------------------------------------------------
 
@@ -139,6 +139,7 @@ class PhraseProtocols {
   /// RENOVATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> renovateMainPhrases({
     @required BuildContext context,
     @required List<Phrase> updatedMixedMainPhrases,
@@ -193,6 +194,7 @@ class PhraseProtocols {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateMainPhrasesLocally({
     @required BuildContext context,
     @required List<Phrase> newMainPhrases,
@@ -218,6 +220,7 @@ class PhraseProtocols {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> reloadMainPhrases(BuildContext context) async {
 
     /// delete LDB phrases
@@ -327,7 +330,7 @@ class PhraseProtocols {
     return _phrases;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generatePhrasesFromChains({
     @required List<Chain> chains,
     @required BuildContext context,

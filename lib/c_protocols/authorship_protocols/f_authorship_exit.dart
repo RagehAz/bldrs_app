@@ -276,12 +276,10 @@ class AuthorshipExitProtocols {
       await Dialogs.bzBannerDialog(
         context: context,
         titleVerse: Verse(
-          text: '##${_bzModel.name} is no longer Available',
-          translate: true,
-          variables: _bzModel.name,
+          text: _bzModel.name,
+          translate: false,
         ),
         bodyVerse: const Verse(
-          pseudo: 'This Business account has been permanently deleted and can no longer be used',
           text: 'phid_bz_is_deleted_can_not_be_used',
           translate: true,
         ),

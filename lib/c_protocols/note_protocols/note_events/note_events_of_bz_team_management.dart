@@ -1,23 +1,22 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class NoteEventsOfBzTeamManagement {
   // -----------------------------------------------------------------------------
 
@@ -46,12 +45,27 @@ class NoteEventsOfBzTeamManagement {
         context: context,
         userID: author.userID,
     );
-    final String _langCode = _userModel?.language ?? 'en';
+
+    final String _title = await transPhid(
+        context: context,
+        phid: 'phid_member_role_changed',
+      langCode: _userModel?.language,
+    );
 
     /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
-    final String _body =  '${author.name} '
-                          '${await transPhid(context, 'phid_has_new_role', _langCode)} '
-                          '${await transPhid(context, _authorRolePhid, _langCode)} ';
+    final String _hasNewRole = await transPhid(
+        context: context,
+        phid: 'phid_has_new_role',
+        langCode: _userModel?.language,
+    );
+
+    final String _role = await transPhid(
+        context: context,
+        phid: _authorRolePhid,
+      langCode: _userModel?.language,
+    );
+
+    final String _body =  '${author.name}\n$_hasNewRole $_role';
 
     final NoteModel _note = NoteModel(
       id: null,
@@ -62,7 +76,7 @@ class NoteEventsOfBzTeamManagement {
         receiverID: bzID,
         receiverType: PartyType.bz,
       ),
-      title: Verse.transBake(context, 'phid_member_role_changed'),
+      title: _title,
       body: _body,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
@@ -86,7 +100,7 @@ class NoteEventsOfBzTeamManagement {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorDeletionNotes({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -95,7 +109,41 @@ class NoteEventsOfBzTeamManagement {
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : START');
 
-    // final String _title = '';
+    await _authorDeletionNoteToBz(
+      context: context,
+      bzModel: bzModel,
+      deletedAuthor: deletedAuthor,
+    );
+
+    /// NOTE TO DELETED AUTHOR
+    if (sendToUserAuthorExitNote == true){
+      await _authorDeletionNoteToUser(
+        context: context,
+        bzModel: bzModel,
+        deletedAuthor: deletedAuthor,
+      );
+    }
+
+    blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : END');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _authorDeletionNoteToBz({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required AuthorModel deletedAuthor,
+  }) async {
+
+    final UserModel _user = await UserProtocols.fetch(
+      context: context,
+      userID: deletedAuthor.userID,
+    );
+
+    final String _title = await transPhid(
+      context: context,
+      phid: 'phid_a_member_exited_the_team',
+      langCode: _user.language,
+    );
 
     /// NOTE TO BZ
     final NoteModel _noteToBz = NoteModel(
@@ -107,8 +155,8 @@ class NoteEventsOfBzTeamManagement {
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
       ),
-      title: '##${deletedAuthor.name} has left the team',
-      body: '##${deletedAuthor.name} is no longer part of ${bzModel.name} team',
+      title: _title,
+      body: deletedAuthor.name,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzTeamMembersExit,
@@ -127,46 +175,55 @@ class NoteEventsOfBzTeamManagement {
       note: _noteToBz,
     );
 
-    /// NOTE TO DELETED AUTHOR
-    if (sendToUserAuthorExitNote == true){
-
-      final UserModel _userModel = await UserProtocols.fetch(
-        context: context,
-        userID: deletedAuthor.userID,
-      );
-
-       final NoteModel _noteToUser = NoteModel(
-         id: null,
-         parties: NoteParties(
-           senderID: bzModel.id,
-           senderImageURL: bzModel.logoPath,
-           senderType: PartyType.bz,
-           receiverID: deletedAuthor.userID,
-           receiverType: PartyType.user,
-         ),
-         title: '##You have exited from ${bzModel.name} account',
-         body: '##You are no longer part of ${bzModel.name} team',
-         sentTime: DateTime.now(),
-         token: _userModel?.device?.token,
-         topic: TopicModel.userAuthorshipsInvitations,
-         navTo: const TriggerModel(
-           name: Routing.myUserNotesPage,
-           argument: null,
-           done: [],
-         ),
-       );
-
-      await NoteProtocols.composeToOneReceiver(
-        context: context,
-        note: _noteToUser,
-      );
-
-    }
-
-    blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<void> _authorDeletionNoteToUser({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required AuthorModel deletedAuthor,
+  }) async {
+
+    final UserModel _userModel = await UserProtocols.fetch(
+      context: context,
+      userID: deletedAuthor.userID,
+    );
+
+    final String _title = await transPhid(
+      context: context,
+      phid: 'phid_you_have_exited_bz',
+      langCode: _userModel.language,
+    );
+
+    final NoteModel _noteToUser = NoteModel(
+      id: null,
+      parties: NoteParties(
+        senderID: bzModel.id,
+        senderImageURL: bzModel.logoPath,
+        senderType: PartyType.bz,
+        receiverID: deletedAuthor.userID,
+        receiverType: PartyType.user,
+      ),
+      title: _title,
+      body: bzModel.name,
+      sentTime: DateTime.now(),
+      token: _userModel?.device?.token,
+      topic: TopicModel.userAuthorshipsInvitations,
+      navTo: const TriggerModel(
+        name: Routing.myUserNotesPage,
+        argument: null,
+        done: [],
+      ),
+    );
+
+    await NoteProtocols.composeToOneReceiver(
+      context: context,
+      note: _noteToUser,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -197,9 +254,15 @@ class NoteEventsOfBzTeamManagement {
 
             final AuthorModel author = _authors[index];
 
-            final UserModel _userModel = await UserProtocols.refetch(
+            final UserModel _userModel = await UserProtocols.fetch(
               context: context,
               userID: author.userID,
+            );
+
+            final String _title = await transPhid(
+              context: context,
+              phid: 'phid_bz_has_been_deleted',
+              langCode: _userModel.language,
             );
 
             final NoteModel _note = NoteModel(
@@ -211,8 +274,8 @@ class NoteEventsOfBzTeamManagement {
                 receiverID: author.userID,
                 receiverType: PartyType.user,
               ),
-              title: '##${_creator.name} has deleted "${bzModel.name}" business account',
-              body: '##All related data to "${bzModel.name}" business account have been permanently deleted',
+              title: _title,
+              body: bzModel.name,
               sentTime: DateTime.now(),
               token: _userModel?.device?.token,
               function: NoteFunProtocols.createDeleteBzLocallyTrigger(
@@ -242,7 +305,7 @@ class NoteEventsOfBzTeamManagement {
     blog('NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> sendNoBzContactAvailableNote({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -254,6 +317,21 @@ class NoteEventsOfBzTeamManagement {
       listen: false,
     );
 
+    final String _title = await transPhid(
+        context: context,
+        phid: 'has_tried_to_contact_you',
+      langCode: userModel?.language,
+    );
+
+    final String _hasTriedToContactYou = await transPhid(
+        context: context,
+        phid: 'has_tried_to_contact_you',
+        langCode: userModel?.language,
+    );
+
+    final String _body = '${userModel.name}\n'
+                          '$_hasTriedToContactYou';
+
     final NoteModel _note = NoteModel(
       id: 'x',
       parties: NoteParties(
@@ -263,8 +341,8 @@ class NoteEventsOfBzTeamManagement {
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
       ),
-      title: '${userModel.name} ${Verse.transBake(context, 'has_tried_to_contact_you')}',
-      body: Verse.transBake(context, 'phid_update_your_contacts'),
+      title: _title,
+      body: _body,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzGeneralNews,
