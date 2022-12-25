@@ -123,14 +123,14 @@ Future<void> _triggerProgressBarOpacity({
   /// WHEN PROGRESS BAR IS VISIBLE
   if (progressBarOpacity.value == 1) {
     // blog('triggering _progressBarOpacity to 0');
-    setNotifier(notifier: progressBarOpacity, mounted: mounted, value: 0);
+    setNotifier(notifier: progressBarOpacity, mounted: mounted, value: 0.0);
   }
 
   /// WHEN PROGRESS BAR IS HIDDEN
   else {
     await Future<void>.delayed(Ratioz.durationFading210, () {
       // blog('triggering _progressBarOpacity to 1');
-      setNotifier(notifier: progressBarOpacity, mounted: mounted, value: 1);
+      setNotifier(notifier: progressBarOpacity, mounted: mounted, value: 1.0);
     });
   }
 
@@ -172,7 +172,7 @@ void _triggerHeaderPageOpacity({
       setNotifier(
           notifier: headerPageOpacity,
           mounted: mounted,
-          value: 0,
+          value: 0.0,
       );
     }
 
@@ -181,7 +181,7 @@ void _triggerHeaderPageOpacity({
       setNotifier(
           notifier: headerPageOpacity,
           mounted: mounted,
-          value: 1,
+          value: 1.0,
       );
     }
 

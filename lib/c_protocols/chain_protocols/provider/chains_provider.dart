@@ -849,11 +849,20 @@ class ChainsProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------o
 }
 
-Future<String> transPhid(BuildContext context, String phid, String langCode) async {
+Future<String> transPhid({
+  @required BuildContext context,
+  @required String phid,
+  @required String langCode,
+}) async {
+
+  // final Phrase _phrase = await PhraseProtocols.fetchPhid(
+  //     phid: phid,
+  //     lang: langCode,
+  // );
 
   final Phrase _phrase = await PhraseLDBOps.searchPhraseByIDAndCode(
     phid: phid,
-    langCode: langCode,
+    langCode: langCode ?? 'en',
   );
 
   return _phrase?.value;
