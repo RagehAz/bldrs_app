@@ -330,7 +330,6 @@ Future<void> onConfirmAuthorUpdates({
     ),
     bodyVerse: const Verse(
       text: 'phid_confirm_author_edits_note',
-      pseudo: 'This will only update your details in this business account, and will not impact your personal profile',
       translate: true,
     ),
     boolDialog: true,
@@ -388,7 +387,7 @@ Future<void> onChangeAuthorRoleOps({
 
   if (draftRole.value != oldAuthor.role){
 
-    final String _role = AuthorModel.getAuthorRolePhid(
+    final String _rolePhid = AuthorModel.getAuthorRolePhid(
       context: context,
       role: draftRole.value,
     );
@@ -396,13 +395,15 @@ Future<void> onChangeAuthorRoleOps({
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_confirm_author_role',
+        text: 'phid_confirm_author_role_?',
         translate: true,
       ),
       bodyVerse: Verse(
-        text: '##This will set ${oldAuthor.name} as $_role',
-        translate: true,
-        variables: [oldAuthor.name, _role]
+        text: '${Verse.transBake(context, 'phid_this_will_change_the_role_of')}\n'
+              '${oldAuthor.name}\n'
+              '${Verse.transBake(context, 'phid_to')}'
+              '${Verse.transBake(context, _rolePhid)}',
+        translate: false,
       ),
       boolDialog: true,
     );
@@ -516,14 +517,8 @@ Future<bool> _checkCanChangeRole({
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          pseudo: 'Can Not Demote Account creator',
-          text: 'phid_cant_demote_creator',
+          text: 'phid_cant_change_member_role',
           translate: true,
-        ),
-        bodyVerse: Verse(
-          text: '##the Author Role of ${oldAuthor.name} can not be changed.',
-          translate: true,
-          variables: oldAuthor.name,
         ),
       );
 
@@ -540,7 +535,6 @@ Future<bool> _checkCanChangeRole({
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          pseudo: 'Only one account creator is allowed',
           text: 'phid_only_one_creator_allowed',
           translate: true,
         ),
