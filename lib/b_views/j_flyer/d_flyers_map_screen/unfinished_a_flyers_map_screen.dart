@@ -237,9 +237,8 @@ class _FlyerMapScreenState extends State<FlyerMapScreen> {
               child: DreamBox(
                 height: 60,
                 verse: Verse(
-                  text: '##Tap The Map\nto pin flyer on the map !',
-                  translate: true,
-                  pseudo: 'Tap The Map\nto pin flyer on the map !',
+                  text: '#!#Tap The Map\nto pin flyer on the map !',
+                  translate: false,
                 ),
                 verseWeight: VerseWeight.regular,
                 verseItalic: true,

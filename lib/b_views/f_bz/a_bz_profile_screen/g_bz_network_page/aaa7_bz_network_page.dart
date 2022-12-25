@@ -23,7 +23,7 @@ class BzNetworkPage extends StatelessWidget {
 
         SuperVerse(
           verse: Verse(
-            text: '##${_bzModel.name}\nNetwork\nPage',
+            text: '#!#${_bzModel.name}\nNetwork\nPage',
             translate: true,
             variables: _bzModel.name,
           ),
