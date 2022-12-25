@@ -276,10 +276,10 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
       translate: true,
       variables: authorModel.name,
     ),
-    bodyVerse: const Verse(
-      text: 'phid_only_admins_can_remove_other_authors',
-      translate: true,
-    ),
+    // bodyVerse: const Verse(
+    //   text: 'phid_only_admins_can_remove_other_authors',
+    //   translate: true,
+    // ),
   );
 
 }
@@ -516,7 +516,7 @@ Future<void> _onShowCanNotEditAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: Verse(
-      text: '${Verse.transBake(context, 'phid_you_cant_edit')} ${authorModel.name}',
+      text: '${Verse.transBake(context, 'phid_you_cant_edit')}\n${authorModel.name}',
       translate: false,
     ),
     bodyVerse: Verse(
@@ -562,15 +562,14 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      pseudo: 'You can not Change team member roles',
       text: 'phid_you_cant_change_team_roles',
       translate: true,
     ),
-    bodyVerse: const Verse(
-      pseudo: 'Only Account Admins can change the roles of other team members',
-      text: 'phid_only_admins_change_roles',
-      translate: true,
-    ),
+    // bodyVerse: const Verse(
+    //   pseudo: 'Only Account Admins can change the roles of other team members',
+    //   text: 'phid_only_admins_change_roles',
+    //   translate: true,
+    // ),
   );
 
 }
@@ -594,19 +593,17 @@ Future<void> onSendAuthorshipInvitation({
   /// USER CAN BE INVITED
   if (_canInviteUser == true){
 
+    final String _body =  '${selectedUser.name}\n'
+                          '${Verse.transBake(context, 'phid_will_be_invited_to_join')}\n'
+                          '${bzModel.name}';
+
     final bool _result = await Dialogs.userDialog(
       context: context,
-      titleVerse: const Verse(
-        text: 'phid_send_invitation_?',
-        translate: true,
-      ),
-      bodyVerse: Verse(
-          text: '##confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
-          translate: true,
-          variables: [selectedUser.name, bzModel.name]
-      ),
+      titleVerse: const Verse(text: 'phid_send_invitation_?', translate: true,),
+      bodyVerse: Verse(text: _body, translate: false,),
       userModel: selectedUser,
     );
+
 
     if (_result == true){
 
@@ -623,7 +620,7 @@ Future<void> onSendAuthorshipInvitation({
           translate: true,
         ),
         secondVerse: Verse(
-          text: '##Account authorship invitation has been sent to ${selectedUser.name} successfully',
+          text: 'phid_authorship_invitation_is_sent',
           translate: true,
           variables: selectedUser.name,
         ),
@@ -679,6 +676,9 @@ Future<void> onCancelSentAuthorshipInvitation({
       userID: userID,
     );
 
+    final String _body =  '${_receiverModel.name}\n'
+                          '${Verse.transBake(context, 'phid_will_be_notified')}';
+
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
@@ -686,9 +686,8 @@ Future<void> onCancelSentAuthorshipInvitation({
         translate: true,
       ),
       bodyVerse: Verse(
-        text: '##${_receiverModel.name} will be notified with cancelling this invitation',
+        text: _body,
         translate: true,
-        variables: _receiverModel.name,
       ),
       boolDialog: true,
       confirmButtonVerse: const Verse(
@@ -709,7 +708,6 @@ Future<void> onCancelSentAuthorshipInvitation({
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          pseudo: 'Invitation request has been cancelled',
           text: 'phid_invitation_is_cancelled',
           translate: true,
         ),

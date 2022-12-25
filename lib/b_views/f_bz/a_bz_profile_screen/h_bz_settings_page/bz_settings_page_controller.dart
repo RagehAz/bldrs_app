@@ -228,13 +228,13 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      pseudo: 'Can Not Delete This Account',
       text: 'phid_cant_delete_account',
       translate: true,
     ),
     bodyVerse: Verse(
-      text: '##Only $_creatorAuthorsString can delete this Account',
-      translate: true,
+      text: '$_creatorAuthorsString\n'
+            '${Verse.transBake(context, 'phid_is_only_who_can_delete_this_bz')}',
+      translate: false,
       variables: _creatorAuthorsString,
     ),
   );
