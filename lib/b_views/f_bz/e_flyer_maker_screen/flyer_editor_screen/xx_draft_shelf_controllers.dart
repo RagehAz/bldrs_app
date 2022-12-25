@@ -407,7 +407,10 @@ String flyerHeadlineValidator({
 
   /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
   if(val.length >= Standards.flyerHeadlineMaxLength){
-    return '##Only ${Standards.flyerHeadlineMaxLength} characters allowed for the flyer title';
+    final String _error = '${Verse.transBake(context, 'phid_headline_cant_be_more_than')}\n'
+                          '${Standards.flyerHeadlineMaxLength}';
+
+    return _error;
   }
 
   /// WHEN HEADLINE LENGTH IS OK
