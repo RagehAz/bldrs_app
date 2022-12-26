@@ -221,6 +221,7 @@ class _HashTagManagerState extends State<HashTagManager> {
                     flyerType: FlyerType.property,
                     event: ViewingEvent.homeView,
                   ),
+                  onlyUseCityChains: false,
                 )
             );
 
@@ -247,6 +248,7 @@ class _HashTagManagerState extends State<HashTagManager> {
                     flyerType: FlyerType.property,
                     event: ViewingEvent.homeView,
                   ),
+                  onlyUseCityChains: false,
                 )
             );
 
@@ -284,6 +286,7 @@ class _HashTagManagerState extends State<HashTagManager> {
                       flyerType: FlyerType.property,
                       event: ViewingEvent.homeView,
                     ),
+                    onlyUseCityChains: false,
                   )
               );
 
