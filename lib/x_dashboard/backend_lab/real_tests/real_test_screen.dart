@@ -12,7 +12,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
 import 'package:flutter/material.dart';
 

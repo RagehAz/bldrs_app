@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';

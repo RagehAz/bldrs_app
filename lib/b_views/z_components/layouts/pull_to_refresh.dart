@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:flutter/material.dart';
 
 class PullToRefresh extends StatelessWidget {

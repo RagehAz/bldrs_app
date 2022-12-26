@@ -6,7 +6,7 @@ import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

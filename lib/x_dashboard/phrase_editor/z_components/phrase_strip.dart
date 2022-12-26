@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 

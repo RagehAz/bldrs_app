@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 

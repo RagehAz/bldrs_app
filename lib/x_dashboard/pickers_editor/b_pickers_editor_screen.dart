@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/x_pickers_editor_controller.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/z_components/picker_editor.dart';

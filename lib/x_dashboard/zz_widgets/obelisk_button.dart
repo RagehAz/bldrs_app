@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:flutter/material.dart';
 
 class ObeliskButton extends StatelessWidget {

@@ -12,7 +12,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';

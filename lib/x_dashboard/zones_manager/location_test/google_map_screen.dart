@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
