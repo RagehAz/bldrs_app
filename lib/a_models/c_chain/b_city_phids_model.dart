@@ -107,7 +107,6 @@ class CityPhidsModel {
 
     return _maps;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> createPhidsMapModelsFromKeywords({
@@ -380,7 +379,7 @@ class CityPhidsModel {
     else if (cityPhids1 != null && cityPhids2 != null){
 
       if (
-      cityPhids1.cityID == cityPhids2.cityID &&
+          cityPhids1.cityID == cityPhids2.cityID &&
           MapModel.checkMapModelsListsAreIdentical(
             models1: cityPhids1.phidsMapModels,
             models2: cityPhids2.phidsMapModels,

@@ -63,11 +63,14 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
           bldrsChains: _bldrsChains,
       );
 
-    _linesMap = <Map<String, dynamic>>[
+      blog('_flyerTypes : $_flyerTypes');
 
+    _linesMap = <Map<String, dynamic>>[
       ...List.generate(_flyerTypes.length, (index){
 
-        final FlyerType _flyerType = FlyerTyper.flyerTypesList[index];
+        final FlyerType _flyerType = _flyerTypes[index];
+
+        blog('flyerType : $_flyerType');
 
         return AnimatedLogoScreen.createBeat(
           text: FlyerTyper.cipherFlyerType(_flyerType),
@@ -77,9 +80,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
         );
 
       }),
-
     ];
-
 
     /// LOGO CONTROLLERS
     _logoAniController = AnimationController(
