@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_bo
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 

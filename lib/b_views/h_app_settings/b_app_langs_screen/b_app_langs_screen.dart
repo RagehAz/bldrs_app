@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layou
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
