@@ -10,7 +10,8 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-// import 'package:crop_your_image/crop_your_image.dart';
+import 'package:crop_your_image/crop_your_image.dart';
+
 import 'package:flutter/material.dart';
 
 class CroppingScreen extends StatefulWidget {
