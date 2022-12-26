@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:flutter/material.dart';
 
 class BalloonComponents extends StatelessWidget {

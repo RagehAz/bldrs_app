@@ -21,13 +21,15 @@ dependencies:
   another_flushbar: ^1.10.26
   awesome_notifications: ^0.6.21
   bldrscolors:
-    path: packages/bldrscolors
+    git:
+      url: https://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@github.com/Bldrs-net/bldrscolors.git
+#    packages/bldrscolors
   clipboard: ^0.1.3
+#  crop_your_image: ^0.7.3
   cloud_firestore: ^4.0.3
   cloud_functions: ^4.0.3
   connectivity_plus: ^2.3.0
 #  contacts_service: ^0.6.3
-#  crop_your_image: ^0.7.3
   device_info_plus: ^7.0.1
   dismissible_page: ^0.7.3
   #  dio: ^4.0.1
@@ -91,6 +93,7 @@ dependencies:
   webview_flutter: ^3.0.0 # will delete
   wheel_chooser: ^1.0.0
   tree_view: ^0.0.6
+  crop_your_image: ^0.7.3
 
 dev_dependencies:
   flutter_test:
