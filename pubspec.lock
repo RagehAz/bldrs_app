@@ -60,9 +60,11 @@ packages:
   bldrscolors:
     dependency: "direct main"
     description:
-      path: "packages/bldrscolors"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: b69ca252dd4b23529942157e5d94d49ed36f26ea
+      url: "https://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@github.com/Bldrs-net/bldrscolors.git"
+    source: git
     version: "0.0.1"
   boolean_selector:
     dependency: transitive
@@ -232,6 +234,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.0"
+  crop_your_image:
+    dependency: "direct main"
+    description:
+      name: crop_your_image
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.7.3"
   cross_file:
     dependency: transitive
     description:

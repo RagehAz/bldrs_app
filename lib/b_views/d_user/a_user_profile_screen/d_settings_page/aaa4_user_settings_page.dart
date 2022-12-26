@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layou
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/x4_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 

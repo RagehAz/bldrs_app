@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrscolors/bldrscolors.dart';
 import 'package:flutter/material.dart';
 
 class PickerHeadlineTile extends StatelessWidget {
