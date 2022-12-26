@@ -462,6 +462,7 @@ Future<void> onChangeBzScope({
         flyerType: flyerType,
         event: ViewingEvent.bzEditor,
       ),
+      onlyUseCityChains: false,
     ),
   );
 

@@ -372,6 +372,7 @@ Future<void> onFlyerPhidTap({
         flyerType: draftNotifier.value.flyerType,
         event: ViewingEvent.flyerEditor,
       ),
+      onlyUseCityChains: false,
     ),
   );
 

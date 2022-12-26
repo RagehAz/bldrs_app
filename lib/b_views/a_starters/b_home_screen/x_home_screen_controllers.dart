@@ -275,6 +275,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
           flyerType: flyerType,
           event: ViewingEvent.homeView,
         ),
+        onlyUseCityChains: true,
       ),
     );
 

@@ -47,17 +47,17 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
-      bubbleHeaderVM: BubbleHeaderVM(
-          headlineVerse: const Verse(
+      bubbleHeaderVM: const BubbleHeaderVM(
+          headlineVerse: Verse(
             text: 'phid_flyer_url_poster',
             translate: true,
           ),
           // switchValue: true,//draft.showsAuthor,
-          hasSwitch: true,
-          onSwitchTap: (bool value) => testPoster(
-            context: context,
-            draft: draft,
-          ),
+          // hasSwitch: true,
+          // onSwitchTap: (bool value) => testPoster(
+          //   context: context,
+          //   draft: draft,
+          // ),
       ),
       width: Bubble.bubbleWidth(context),
       columnChildren: <Widget>[
