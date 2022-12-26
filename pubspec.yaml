@@ -25,7 +25,7 @@ dependencies:
   cloud_functions: ^4.0.3
   connectivity_plus: ^2.3.0
 #  contacts_service: ^0.6.3
-  crop_your_image: ^0.7.2
+#  crop_your_image: ^0.7.3
   device_info_plus: ^7.0.1
   dismissible_page: ^0.7.3
   #  dio: ^4.0.1
