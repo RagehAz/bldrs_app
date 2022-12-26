@@ -20,13 +20,13 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// EDITING
 
-
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> onAddNewSlides({
   @required BuildContext context,
   @required PicMakerType imagePickerType,
