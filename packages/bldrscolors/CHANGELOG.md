@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Bldrs colors class, includes all colors and a list of all of them
