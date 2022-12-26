@@ -32,7 +32,8 @@ class Standards {
   static const String recaptchaSiteKey = '6Lel0dUiAAAAAEsveTwOOHn5vy6YQgIupaSQyRhb';
   static const String recaptchaSecretKey = '6Lel0dUiAAAAAGr34tOOmo823XhChFZVds2wgY8K';
 
-
+  static const String TXT = 'google-site-verification=wxjFdASVfSXbvutUts55hGKlLCfazk2Tyv_TlG_vCv8';
+  static const String aRecord = '199.36.158.100';
   // --------------------
   static String getBldrsAppUpdateLink(BuildContext context){
 
