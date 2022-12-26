@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -42,11 +41,11 @@ class CensusLabScreen extends StatefulWidget {
 }
 
 class _CensusLabScreenState extends State<CensusLabScreen> {
-  // -----------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
 
-  ZoneModel _bubbleZone;
+  // ZoneModel _bubbleZone;
 
-  // -----------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -618,5 +617,5 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
 }
