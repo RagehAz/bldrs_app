@@ -2,7 +2,8 @@ import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_shadow_path.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/c_balloon_components.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class Balloona extends StatelessWidget {

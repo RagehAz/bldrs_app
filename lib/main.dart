@@ -27,18 +27,53 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrscolors/bldrscolors.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+/*
+git remote set-head origin https://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@github.com/Bldrs-net/bldrs.net.git
+git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
+git remote add origin https://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@github.com/Bldrs-net/bldrscolors.git
+git remote add origin https://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@github.com/Bldrs-net/bldrs_theme.git
+ */
+// ---------------------------------------------------------------------------
+/// TO CREATE A NEW PACKAGE
+/// 1. cd .. to go to directory
+/// 2. flutter create --template=package <package_name>
+/// 3. open the new created project in new window
+/// 4. clean lib file
+/// 5. clean tests file
+/// 6. create package files - move code - do magic
+/// 7. adjust pubscpec.yaml
+///   - description
+///   - environment: sdk: ">=2.10.5 <3.0.0"
+///   - homepage
+///   - add dependencies if any
+/// 8. write the exports in the lib file
+/// 9. attach github
+///   - go to https://github.com/orgs/Bldrs-net/repositories
+///   - create new repo
+///   - open terminal in project window, cd to project directory
+///   - copy git repo https link to pubscpec.yaml homepage field
+///   - git init
+///   - git remote add origin https://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@github.com/Bldrs-net/package_name.git
+///   - commit and push (git add ., git commit -m "first commit", git push -u origin master)
+///   - go to github and check if it worked
+/// 10. import package in bldrs project
+///   -    package_name:
+///     git:
+///       url: https://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@github.com/Bldrs-net/package_name.git
+///
+///
+// ---------------------------------------------------------------------------
 /// until you upgrade to null safety code,, run these
 // dart --no-sound-null-safety run
 // flutter run --no-sound-null-safety
-
+/// ---------------------------------------------------------------------------
 /*
 
 tech
@@ -64,6 +99,7 @@ http://mhiptv.com:8888
   dalware
 
  */
+/// ---------------------------------------------------------------------------
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
   /*

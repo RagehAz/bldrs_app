@@ -19,10 +19,11 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+
 import 'package:bldrs/x_dashboard/chains_editor/b_chain_editor_screen.dart';
 import 'package:bldrs/x_dashboard/chains_editor/c_path_editor_screen.dart';
 import 'package:bldrs/x_dashboard/chains_editor/z_components/chain_tree_viewer/b_chain_tree_viewer.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 

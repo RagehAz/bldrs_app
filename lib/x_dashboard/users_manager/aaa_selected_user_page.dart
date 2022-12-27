@@ -14,8 +14,9 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+
 import 'package:bldrs/x_dashboard/users_manager/x_users_manager_controller.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class SelectedUserPage extends StatelessWidget {

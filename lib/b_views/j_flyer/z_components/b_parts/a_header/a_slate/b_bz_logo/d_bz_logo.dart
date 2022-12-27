@@ -3,8 +3,9 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+
+
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BzLogo extends StatelessWidget {
