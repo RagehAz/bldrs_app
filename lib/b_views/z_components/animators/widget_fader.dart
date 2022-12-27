@@ -1,148 +1,239 @@
-import 'package:flutter/material.dart';
-
-enum FadeType{
-  fadeIn,
-  fadeOut,
-  repeatAndReverse,
-  repeatForwards,
-  stillAtMin,
-  stillAtMax,
-}
-
-/// TASK : TEST IF STILL AT MAX CAN BE STATLESS STATE WITHIN THIS WIDGET
-class WidgetFader extends StatefulWidget {
-  /// --------------------------------------------------------------------------
-  const WidgetFader({
-    @required this.fadeType,
-    this.child,
-    this.max = 1,
-    this.min = 0,
-    this.duration,
-    this.curve = Curves.easeInOut,
-    this.ignorePointer = false,
-    this.builder,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final Widget child;
-  final FadeType fadeType;
-  final double max;
-  final double min;
-  final Duration duration;
-  final Curve curve;
-  final bool ignorePointer;
-  final Widget Function(double, Widget) builder;
-  /// --------------------------------------------------------------------------
-  @override
-  _WidgetFaderState createState() => _WidgetFaderState();
-  /// --------------------------------------------------------------------------
-}
-
-class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStateMixin {
-  // -----------------------------------------------------------------------------
-  AnimationController _animationController;
-  // Animation<double> _opacityTween;
-  CurvedAnimation _animation;
-  // -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-
-    final Duration _duration = widget.duration ?? const Duration(seconds: 2);
-
-    _animationController = AnimationController(
-        reverseDuration: _duration,
-        duration: _duration,
-        lowerBound: widget.min,
-        upperBound: widget.max,
-        vsync: this
-    );
-
-    _animation = CurvedAnimation(
-      parent: _animationController,
-      curve: widget.curve,
-      reverseCurve: widget.curve,
-    );
-
-  }
-  // --------------------
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _animation.dispose();
-    super.dispose();
-  }
-  // -----------------------------------------------------------------------------
-  Future<void> _animate() async {
-
-    if (widget.fadeType == FadeType.fadeIn){
-      await _animationController.forward(
-        from: widget.min,
-      );
-    }
-    else if (widget.fadeType == FadeType.fadeOut){
-      await _animationController.reverse(from: widget.max);
-    }
-    else if (widget.fadeType == FadeType.repeatAndReverse){
-      await _animationController.repeat(
-        min: widget.min,
-        max: widget.max,
-        reverse: true,
-        period: widget.duration,
-      );
-    }
-    else if (widget.fadeType == FadeType.repeatForwards){
-      await _animationController.repeat(
-        min: widget.min,
-        max: widget.max,
-        reverse: false,
-        period: widget.duration,
-      );
-    }
-    else if (widget.fadeType == FadeType.stillAtMin){
-      _animationController.value  = widget.min;
-    }
-    else if (widget.fadeType == FadeType.stillAtMax){
-      _animationController.value  = widget.max;
-    }
-    else {
-      await _animationController.forward(from: widget.min,);
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    _animate();
-
-    return IgnorePointer(
-        ignoring: widget.ignorePointer,
-        child:
-
-        widget.builder == null ?
-
-        FadeTransition(
-          opacity: _animation,
-          child: widget.child,
-        )
-
-            :
-
-        AnimatedBuilder(
-            animation: _animation,
-            child: widget.child,
-            builder: (_, Widget child){
-
-              final double _value = _animation.value;
-
-              return widget.builder(_value, child);
-
-            }
-        )
-
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-}
+// import 'package:flutter/material.dart';
+//
+// enum FadeType{
+//   fadeIn,
+//   fadeOut,
+//   repeatAndReverse,
+//   repeatForwards,
+//   stillAtMin,
+//   stillAtMax,
+// }
+//
+// class WidgetFader extends StatelessWidget {
+//   /// --------------------------------------------------------------------------
+//   const WidgetFader({
+//     @required this.fadeType,
+//     this.child,
+//     this.max = 1,
+//     this.min = 0,
+//     this.duration,
+//     this.curve = Curves.easeInOut,
+//     this.ignorePointer = false,
+//     this.builder,
+//     Key key
+//   }) : super(key: key);
+//   /// --------------------------------------------------------------------------
+//   final Widget child;
+//   final FadeType fadeType;
+//   final double max;
+//   final double min;
+//   final Duration duration;
+//   final Curve curve;
+//   final bool ignorePointer;
+//   final Widget Function(double, Widget) builder;
+//   /// --------------------------------------------------------------------------
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     if (fadeType == FadeType.stillAtMin || fadeType == FadeType.stillAtMax) {
+//       return _StillFade(
+//         fadeType: fadeType,
+//         builder: builder,
+//         max: max,
+//         min: min,
+//         ignorePointer: ignorePointer,
+//         child: child,
+//       );
+//     }
+//
+//     else {
+//       return _AnimatedFade(
+//         fadeType: fadeType,
+//         builder: builder,
+//         max: max,
+//         min: min,
+//         duration: duration,
+//         curve: curve,
+//         ignorePointer: ignorePointer,
+//         child: child,
+//       );
+//     }
+//   }
+//   /// --------------------------------------------------------------------------
+// }
+//
+// class _AnimatedFade extends StatefulWidget {
+//   /// --------------------------------------------------------------------------
+//   const _AnimatedFade({
+//     @required this.fadeType,
+//     @required this.child,
+//     @required this.max,
+//     @required this.min,
+//     @required this.duration,
+//     @required this.curve,
+//     @required this.ignorePointer,
+//     @required this.builder,
+//     Key key
+//   }) : super(key: key);
+//   /// --------------------------------------------------------------------------
+//   final Widget child;
+//   final FadeType fadeType;
+//   final double max;
+//   final double min;
+//   final Duration duration;
+//   final Curve curve;
+//   final bool ignorePointer;
+//   final Widget Function(double, Widget) builder;
+//   /// --------------------------------------------------------------------------
+//   @override
+//   _AnimatedFadeState createState() => _AnimatedFadeState();
+//   /// --------------------------------------------------------------------------
+// }
+//
+// class _AnimatedFadeState extends State<_AnimatedFade> with SingleTickerProviderStateMixin {
+//   // -----------------------------------------------------------------------------
+//   AnimationController _animationController;
+//   // Animation<double> _opacityTween;
+//   CurvedAnimation _animation;
+//   // -----------------------------------------------------------------------------
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     final Duration _duration = widget.duration ?? const Duration(seconds: 2);
+//
+//     _animationController = AnimationController(
+//         reverseDuration: _duration,
+//         duration: _duration,
+//         lowerBound: widget.min,
+//         upperBound: widget.max,
+//         vsync: this
+//     );
+//
+//     _animation = CurvedAnimation(
+//       parent: _animationController,
+//       curve: widget.curve,
+//       reverseCurve: widget.curve,
+//     );
+//
+//   }
+//   // --------------------
+//   @override
+//   void dispose() {
+//     _animationController.dispose();
+//     _animation.dispose();
+//     super.dispose();
+//   }
+//   // -----------------------------------------------------------------------------
+//   Future<void> _animate() async {
+//
+//     if (widget.fadeType == FadeType.fadeIn){
+//       await _animationController.forward(
+//         from: widget.min,
+//       );
+//     }
+//     else if (widget.fadeType == FadeType.fadeOut){
+//       await _animationController.reverse(from: widget.max);
+//     }
+//     else if (widget.fadeType == FadeType.repeatAndReverse){
+//       await _animationController.repeat(
+//         min: widget.min,
+//         max: widget.max,
+//         reverse: true,
+//         period: widget.duration,
+//       );
+//     }
+//     else if (widget.fadeType == FadeType.repeatForwards){
+//       await _animationController.repeat(
+//         min: widget.min,
+//         max: widget.max,
+//         reverse: false,
+//         period: widget.duration,
+//       );
+//     }
+//     else if (widget.fadeType == FadeType.stillAtMin){
+//       _animationController.value  = widget.min;
+//     }
+//     else if (widget.fadeType == FadeType.stillAtMax){
+//       _animationController.value  = widget.max;
+//     }
+//     else {
+//       await _animationController.forward(from: widget.min,);
+//     }
+//
+//   }
+//   // -----------------------------------------------------------------------------
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     _animate();
+//
+//     return IgnorePointer(
+//         ignoring: widget.ignorePointer,
+//         child:
+//
+//         widget.builder == null ?
+//
+//         FadeTransition(
+//           opacity: _animation,
+//           child: widget.child,
+//         )
+//
+//             :
+//
+//         AnimatedBuilder(
+//             animation: _animation,
+//             child: widget.child,
+//             builder: (_, Widget child){
+//
+//               final double _value = _animation.value;
+//
+//               return widget.builder(_value, child);
+//
+//             }
+//         )
+//
+//     );
+//
+//   }
+//   // -----------------------------------------------------------------------------
+// }
+//
+// class _StillFade extends StatelessWidget {
+//   /// --------------------------------------------------------------------------
+//   const _StillFade({
+//     @required this.fadeType,
+//     @required this.builder,
+//     @required this.child,
+//     @required this.max,
+//     @required this.min,
+//     @required this.ignorePointer,
+//     Key key
+//   }) : super(key: key);
+//   /// --------------------------------------------------------------------------
+//   final Widget child;
+//   final FadeType fadeType;
+//   final double max;
+//   final double min;
+//   final bool ignorePointer;
+//   final Widget Function(double, Widget) builder;
+//   /// --------------------------------------------------------------------------
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     final double _opacity = fadeType == FadeType.stillAtMin ? min : max;
+//
+//     final Widget _child = builder == null ? child : builder(_opacity, child);
+//
+//     return IgnorePointer(
+//       ignoring: ignorePointer,
+//       child: Opacity(
+//         opacity: _opacity,
+//         child: _child,
+//       ),
+//     );
+//
+//   }
+//   /// --------------------------------------------------------------------------
+// }
+//

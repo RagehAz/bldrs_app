@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_back_end/a_rest/rest.dart';
+import 'package:rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';

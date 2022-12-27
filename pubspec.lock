@@ -1178,6 +1178,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.2.1"
+  rest:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "1b90165ccabb29c7716446af918b79f136ec1592"
+      url: "https://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@github.com/Bldrs-net/rest.git"
+    source: git
+    version: "0.0.1"
   rxdart:
     dependency: transitive
     description:
@@ -1547,6 +1556,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  widget_fader:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: e147d9ec6720c45460b0d8027619f180a94903e7
+      url: "https://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@github.com/Bldrs-net/widget_fader.git"
+    source: git
+    version: "0.0.1"
   win32:
     dependency: transitive
     description:
