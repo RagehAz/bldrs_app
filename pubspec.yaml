@@ -29,6 +29,9 @@ dependencies:
   widget_fader:
     git:
       url: https://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@github.com/Bldrs-net/widget_fader.git
+  super_image:
+    git:
+      url: https://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@github.com/Bldrs-net/super_image.git
 
   #  bldrs_ui:
 #    git:
