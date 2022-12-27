@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:super_image/super_image.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';

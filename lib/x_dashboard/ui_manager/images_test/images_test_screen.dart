@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:super_image/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
