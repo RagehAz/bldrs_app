@@ -23,7 +23,16 @@ dependencies:
   bldrs_theme:
     git:
       url: https://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@github.com/Bldrs-net/bldrs_theme.git
-#    packages/bldrscolors
+  rest:
+    git:
+      url: https://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@github.com/Bldrs-net/rest.git
+  widget_fader:
+    git:
+      url: https://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@github.com/Bldrs-net/widget_fader.git
+
+  #  bldrs_ui:
+#    git:
+#      url: https://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@github.com/Bldrs-net/bldrs_ui.git
   clipboard: ^0.1.3
 #  crop_your_image: ^0.7.3
   cloud_firestore: ^4.0.3
