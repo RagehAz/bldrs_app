@@ -39,7 +39,6 @@ git remote set-head origin https://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@gith
 git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
 git remote add origin https://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@github.com/Bldrs-net/bldrscolors.git
 git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
-
  */
 // ---------------------------------------------------------------------------
 /// TO CREATE A NEW PACKAGE
