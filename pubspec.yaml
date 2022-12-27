@@ -22,16 +22,16 @@ dependencies:
   awesome_notifications: ^0.6.21
   bldrs_theme:
     git:
-      url: https://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@github.com/Bldrs-net/bldrs_theme.git
+      url: https://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@github.com/Bldrs-net/bldrs_theme.git
   rest:
     git:
-      url: https://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@github.com/Bldrs-net/rest.git
+      url: https://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@github.com/Bldrs-net/rest.git
   widget_fader:
     git:
-      url: https://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@github.com/Bldrs-net/widget_fader.git
+      url: https://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@github.com/Bldrs-net/widget_fader.git
   super_image:
     git:
-      url: https://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@github.com/Bldrs-net/super_image.git
+      url: https://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@github.com/Bldrs-net/super_image.git
 
   #  bldrs_ui:
 #    git:
