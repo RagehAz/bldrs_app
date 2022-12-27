@@ -3,7 +3,8 @@ import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class CurrencyButton extends StatelessWidget {

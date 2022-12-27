@@ -25,10 +25,11 @@ import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/cens
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrscolors/bldrscolors.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+
+
 import 'package:bldrs/x_dashboard/bzz_manager/components/census_field_line.dart';
 import 'package:bldrs/x_dashboard/bzz_manager/lab/census_lab_screen.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatefulWidget {

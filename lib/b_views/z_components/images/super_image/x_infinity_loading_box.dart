@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class InfiniteLoadingBox extends StatelessWidget {

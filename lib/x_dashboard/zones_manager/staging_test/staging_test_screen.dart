@@ -8,7 +8,8 @@ import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/sta
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class StagingTestScreen extends StatefulWidget {

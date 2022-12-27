@@ -8,7 +8,8 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class MultipleChoiceBubble extends StatelessWidget {

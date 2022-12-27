@@ -3,7 +3,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class FlyerVerificationLayer extends StatelessWidget {

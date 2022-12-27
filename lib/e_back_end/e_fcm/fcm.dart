@@ -18,8 +18,9 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
