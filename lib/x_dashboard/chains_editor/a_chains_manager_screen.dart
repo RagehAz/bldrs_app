@@ -9,14 +9,15 @@ import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart'
 import 'package:bldrs/c_protocols/chain_protocols/real/chain_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrscolors/bldrscolors.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+
+
 import 'package:bldrs/x_dashboard/chains_editor/b_chain_editor_screen.dart';
 import 'package:bldrs/x_dashboard/chains_editor/x_chains_manager_controllers.dart';
 import 'package:bldrs/x_dashboard/chains_editor/z_components/picking_mode_bubble.dart';
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ChainsManager extends StatefulWidget {

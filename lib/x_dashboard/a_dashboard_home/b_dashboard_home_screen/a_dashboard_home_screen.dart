@@ -19,8 +19,8 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrscolors/bldrscolors.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+
+
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
@@ -42,6 +42,7 @@ import 'package:bldrs/x_dashboard/ui_manager/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/app_controls/a_app_controls_manager.dart';
 import 'package:bldrs/x_dashboard/notes_creator/notes_creator_home.dart';
 import 'package:bldrs/x_dashboard/xxx_test_lab.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 

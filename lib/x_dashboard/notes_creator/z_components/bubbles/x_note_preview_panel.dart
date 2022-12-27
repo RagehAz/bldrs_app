@@ -7,9 +7,10 @@ import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart'
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+
+
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_panel_button.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class NotePreviewPanel extends StatelessWidget {
