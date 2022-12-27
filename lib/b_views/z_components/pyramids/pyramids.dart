@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

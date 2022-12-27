@@ -54,6 +54,7 @@ git remote add origin https://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@github.co
 ///   - homepage
 ///   - add dependencies if any
 /// 8. write the exports in the lib file
+/// X. add lint rules in analysis.options
 /// 9. attach github
 ///   - go to https://github.com/orgs/Bldrs-net/repositories
 ///   - create new repo

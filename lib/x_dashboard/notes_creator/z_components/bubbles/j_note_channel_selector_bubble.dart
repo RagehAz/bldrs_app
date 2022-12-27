@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:widget_fader/widget_fader.dart';
 import 'package:flutter/material.dart';
 
 class NoteChannelSelectorBubble extends StatelessWidget {
