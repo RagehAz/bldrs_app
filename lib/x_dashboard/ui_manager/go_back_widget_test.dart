@@ -2,9 +2,10 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class GoBackWidgetTest extends StatefulWidget {

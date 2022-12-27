@@ -16,8 +16,9 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+
 import 'package:bldrs/x_dashboard/hashtag_manager/hashtags_builder_page.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PhidsPickerScreen extends StatefulWidget {

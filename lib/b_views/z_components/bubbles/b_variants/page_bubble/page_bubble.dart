@@ -4,8 +4,9 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PageBubble extends StatelessWidget {

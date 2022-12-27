@@ -13,8 +13,9 @@ import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PDFSelectionBubble extends StatefulWidget {

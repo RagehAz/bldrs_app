@@ -10,7 +10,8 @@ import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class AllFlyersScreen extends StatefulWidget {

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
-import 'package:bldrscolors/bldrscolors.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:flutter/material.dart';
 
 class DreamBoxTapLayer extends StatelessWidget {
