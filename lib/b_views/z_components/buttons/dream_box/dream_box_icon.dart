@@ -1,4 +1,4 @@
-import 'package:super_image/super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxIcon extends StatelessWidget {
