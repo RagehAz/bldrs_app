@@ -35,10 +35,16 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 /*
+
+token : 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
+
 git remote set-head origin https://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@github.com/Bldrs-net/bldrs.net.git
 git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
 git remote add origin https://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@github.com/Bldrs-net/bldrscolors.git
 git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
+
+git remote remove origin
+
  */
 // ---------------------------------------------------------------------------
 /// TO CREATE A NEW PACKAGE
@@ -76,6 +82,7 @@ git remote add origin https://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@github.co
 // flutter run --no-sound-null-safety
 /// ---------------------------------------------------------------------------
 /*
+
 
 tech
 15'900 Dirhams
