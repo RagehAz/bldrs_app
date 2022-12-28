@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
-import 'package:super_image/super_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
