@@ -46,19 +46,19 @@ class SuperTextScreen extends StatelessWidget {
 
               SuperText(
                 /// TEXT
-                text: '# @FUCK you |  x thing thing ',
+                text: 'fuck', //'# @FUCK you |  x thing thing ',
                 // highlight: ValueNotifier('FU'),
                 /// SCALES
-                boxWidth: 400,
-                boxHeight: 100,
-                lineHeight: 50,
+                // boxWidth: 300,
+                // boxHeight: 100,
+                // lineHeight: 100,
                 centered: false,
-                maxLines: 1,
+                maxLines: 50,
                 margin: 10,
                 // lineThickness: 2,
                 /// COLORS
                 textColor: Colorz.black150,
-                boxColor: Colorz.white20,
+                // boxColor: Colorz.white20,
                 // highlightColor: Colorz.black150,
                 // lineColor: Colorz.red255,
                 /// WEIGHT
@@ -69,8 +69,8 @@ class SuperTextScreen extends StatelessWidget {
                 // line: TextDecoration.underline,
                 // lineStyle: TextDecorationStyle.dotted,
                 /// DOTS
-                leadingDot: true,
-                redDot: true,
+                leadingDot: false,
+                // redDot: true,
                 /// GESTURES
                 onTap: () => blog('fuck you once'),
                 onDoubleTap: () => blog('fuck you twice'),
