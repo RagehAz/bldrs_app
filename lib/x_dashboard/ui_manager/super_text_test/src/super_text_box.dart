@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'super_text_helpers.dart';
 
@@ -11,7 +12,8 @@ class SuperTextBox extends StatelessWidget {
     @required this.redDot,
     @required this.children,
     @required this.onDoubleTap,
-    @required this.width,
+    @required this.boxWidth,
+    @required this.boxHeight,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,7 +24,8 @@ class SuperTextBox extends StatelessWidget {
   final bool redDot;
   final List<Widget> children;
   final Function onDoubleTap;
-  final double width;
+  final double boxWidth;
+  final double boxHeight;
   /// --------------------------------------------------------------------------
   static MainAxisAlignment _getMainAxisAlignment({
     @required bool centered,
@@ -42,7 +45,7 @@ class SuperTextBox extends StatelessWidget {
       CrossAxisAlignment.center
           :
       leadingDot == true ?
-      CrossAxisAlignment.start
+      CrossAxisAlignment.center
           :
       CrossAxisAlignment.center;
   }
@@ -54,17 +57,22 @@ class SuperTextBox extends StatelessWidget {
       key: const ValueKey<String>('SuperTextBox'),
       onTap: onTap,
       onDoubleTap: onDoubleTap,
-      child: Container(
-        width: width,
-        margin: superMargins(margin: margin),
-        child: Row(
-          mainAxisAlignment: _getMainAxisAlignment(centered: centered,),
-          crossAxisAlignment: _getCrossAxisAlignment(
-            leadingDot: leadingDot,
-            redDot: redDot,
+      child: Center(
+        child: Container(
+          width: boxWidth,
+          height: boxHeight,
+          margin: superMargins(margin: margin),
+          alignment: Alignment.center,
+          // color: Colorz.bloodTest,
+          child: Row(
+            mainAxisAlignment: _getMainAxisAlignment(centered: centered,),
+            crossAxisAlignment: _getCrossAxisAlignment(
+              leadingDot: leadingDot,
+              redDot: redDot,
+            ),
+            mainAxisSize: MainAxisSize.min,
+            children: children,
           ),
-          mainAxisSize: MainAxisSize.min,
-          children: children,
         ),
       ),
     );

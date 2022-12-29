@@ -15,10 +15,13 @@ class SuperText extends StatelessWidget {
     /// SCALES
     this.boxWidth,
     this.boxHeight,
-    this.lineHeight = 20,
+    this.lineHeight = 50,
     this.maxLines = 1,
     this.margin,
     this.lineThickness = 0.5,
+    /// SPACING
+    this.wordSpacing,
+    this.letterSpacing,
     /// COLORS
     this.textColor = Colorz.white255,
     this.boxColor,
@@ -55,6 +58,9 @@ class SuperText extends StatelessWidget {
   final int maxLines;
   final dynamic margin;
   final double lineThickness;
+  /// SPACING
+  final double wordSpacing;
+  final double letterSpacing;
   /// COLORS
   final Color textColor;
   final Color boxColor;
@@ -98,7 +104,8 @@ class SuperText extends StatelessWidget {
     else {
 
       return SuperTextBox(
-        width: boxWidth,
+        boxWidth: boxWidth,
+        boxHeight: boxHeight,
         onTap: onTap,
         margin: margin,
         centered: centered,
@@ -117,7 +124,7 @@ class SuperText extends StatelessWidget {
             text: text,
             maxLines: maxLines,
             centered: centered,
-            height: boxHeight,
+            lineHeight: lineHeight,
             labelColor: boxColor,
             highlight: highlight,
             highlightColor: highlightColor,
@@ -140,13 +147,13 @@ class SuperText extends StatelessWidget {
               /// WEIGHT
               fontWeight: weight,
               /// SPACING
-              // letterSpacing: letterSpacing,
-              // wordSpacing: wordSpacing,
+              letterSpacing: letterSpacing,
+              wordSpacing: wordSpacing,
               /// STYLE
               fontStyle: italic == true ? FontStyle.italic : FontStyle.normal,
-              // textBaseline: textBaseline,
+              textBaseline: TextBaseline.alphabetic,
               shadows: shadows,
-              // overflow: overflow,
+              overflow: TextOverflow.ellipsis,
               /// DECORATION
               decorationColor: lineColor,
               decoration: line,
