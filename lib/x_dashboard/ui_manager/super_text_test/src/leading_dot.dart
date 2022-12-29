@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class LeadingDot extends StatelessWidget {
@@ -30,7 +31,8 @@ class LeadingDot extends StatelessWidget {
 
     return Container(
       key: const ValueKey<String>('the_leading_dot'),
-      // padding: EdgeInsets.all(lineHeight),
+      padding: EdgeInsets.all(lineHeight * 0.2),
+      // color: Colorz.bloodTest,
       // margin: EdgeInsets.only(top: lineHeight),
       child: dot(
         dotSize: lineHeight * 0.3,
