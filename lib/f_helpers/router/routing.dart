@@ -10,7 +10,6 @@ import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/a_das
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_lab/d_noot_route_to_screen.dart';
 import 'package:flutter/material.dart';
 
-
 class Routing {
   // -----------------------------------------------------------------------------
 
@@ -67,7 +66,7 @@ class Routing {
 
     switch (settings.name) {
     // --------------------------
-    /// STATIC LOGO SCREEN
+    /// NOTIFICATION PAGE
       case '/notification-page':
         final ReceivedAction receivedAction = settings.arguments as ReceivedAction;
         return Nav.fadeToScreen(NoteRouteToScreen(
