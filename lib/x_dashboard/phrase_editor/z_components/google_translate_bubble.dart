@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
 import 'package:bldrs/x_dashboard/zz_widgets/the_golden_scroll.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class GoogleTranslateBubble extends StatefulWidget {
