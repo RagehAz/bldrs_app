@@ -766,25 +766,3 @@ class Nav {
    */
   // -----------------------------------------------------------------------------
 }
-
-// Future<void> _showDialog(BuildCOntext context) async {
-//
-//   await showDialog(
-//     context: context,
-//     builder: (context){
-//       return AlertDialog();
-//     },
-//   );
-//
-// }
-//
-// Future<bool> contact (BuildContext context) async {
-//
-//   unawaited(_showDialog);
-//
-//   await Future.delayed(const Duration(seconds: 5), () async {
-//     // nav.pop();
-//   });
-//
-//   return true;
-// }

@@ -460,7 +460,10 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
               title: 'uiProvider.localAssetsPaths',
               value: _uiProvider.localAssetsPaths,
               onTap: (){
-                blogStrings(_uiProvider.localAssetsPaths);
+                Stringer.blogStrings(
+                  strings: _uiProvider.localAssetsPaths,
+                  invoker: 'uiProvider.localAssetsPaths',
+                );
               },
             ),
 

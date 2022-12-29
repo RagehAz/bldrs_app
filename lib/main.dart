@@ -36,6 +36,8 @@ import 'package:provider/single_child_widget.dart';
 
 /*
 
+ssh git@github.com
+
 token : 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
 
 git remote set-head origin https://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@github.com/Bldrs-net/bldrs.net.git
@@ -427,6 +429,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // navigatorObservers: [],
               // onGenerateInitialRoutes: ,
               // onUnknownRoute: ,
+              // home: ,
               navigatorKey: BldrsAppStarter.navigatorKey,
               onGenerateRoute: Routing.allRoutes,
               initialRoute: Routing.staticLogoScreen,
