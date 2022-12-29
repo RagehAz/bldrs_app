@@ -24,7 +24,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/main.dart';
 import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_author_editor.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------

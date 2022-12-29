@@ -17,7 +17,7 @@ import 'package:bldrs/x_dashboard/chains_editor/z_components/picking_mode_bubble
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class ChainsManager extends StatefulWidget {

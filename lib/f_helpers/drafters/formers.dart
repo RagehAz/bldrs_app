@@ -22,7 +22,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

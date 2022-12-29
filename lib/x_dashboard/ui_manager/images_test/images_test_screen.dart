@@ -38,7 +38,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';

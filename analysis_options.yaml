@@ -4,7 +4,7 @@ linter:
     prefer_const_constructors: true
     prefer_const_declarations: true
     prefer_const_literals_to_create_immutables: true
-    always_use_package_imports: true
+    always_use_package_imports: false # need to allow relative imports for easier file migration
     avoid_returning_null_for_future: true
     avoid_web_libraries_in_flutter: true
     close_sinks: true

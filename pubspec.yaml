@@ -20,9 +20,9 @@ dependencies:
   animated_text_kit: ^4.2.1
   another_flushbar: ^1.10.26
   awesome_notifications: ^0.6.21
-  bldrs_theme:
-    git:
-      url: https://github.com/RagehAz/bldrs_theme.git
+#  bldrs_theme:
+#    git:
+#      url: https://github.com/RagehAz/bldrs_theme.git
   rest:
     git:
       url: https://github.com/RagehAz/rest.git
@@ -38,7 +38,7 @@ dependencies:
   #      url: https://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@github.com/Bldrs-net/bldrs_ui.git
 
   clipboard: ^0.1.3
-  crop_your_image: ^0.7.0
+#  crop_your_image: ^0.7.0
   cloud_firestore: ^4.0.3
   cloud_functions: ^4.0.3
   connectivity_plus: ^2.3.0

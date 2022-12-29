@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_b
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 
 
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class NoteProgressCreatorBubble extends StatelessWidget {

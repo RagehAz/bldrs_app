@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 
 
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/c_note_texts_controllers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class NoteTitleCreatorBubble extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sens
 
 
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class IsConnectedButton extends StatelessWidget {
