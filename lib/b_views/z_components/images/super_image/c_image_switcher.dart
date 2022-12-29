@@ -164,8 +164,6 @@ class ImageSwitcher extends StatelessWidget {
     /// SVG
     else if (ObjectCheck.objectIsSVG(pic) == true){
 
-      blog('SUPER IMAGE : SVG : $pic');
-
       return LocalAssetChecker(
         key: const ValueKey<String>('SuperImage_svg'),
         asset: pic,
