@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_split
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 import 'package:bldrs/x_dashboard/chains_editor/z_components/editing_chain_builders/a_editing_chain_splitter.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class EditingChainBuilder extends StatelessWidget {
