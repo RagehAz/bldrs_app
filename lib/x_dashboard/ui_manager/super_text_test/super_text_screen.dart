@@ -69,7 +69,7 @@ class SuperTextScreen extends StatelessWidget {
                 // line: TextDecoration.underline,
                 // lineStyle: TextDecorationStyle.dotted,
                 /// DOTS
-                leadingDot: false,
+                // leadingDot: false,
                 // redDot: true,
                 /// GESTURES
                 onTap: () => blog('fuck you once'),
