@@ -14,9 +14,6 @@ class TextBuilder extends StatelessWidget {
     this.labelColor,
     this.maxLines = 1,
     this.centered = true,
-    this.color = Colorz.white255,
-    this.shadow = false,
-    this.strikeThrough = false,
     this.highlightColor = Colorz.bloodTest,
     this.textDirection = TextDirection.ltr,
     Key key
@@ -29,9 +26,6 @@ class TextBuilder extends StatelessWidget {
   final ValueNotifier<dynamic> highlight;
   final int maxLines;
   final bool centered;
-  final Color color;
-  final bool shadow;
-  final bool strikeThrough;
   final Color highlightColor;
   final TextDirection textDirection;
   // --------------------------------------------------------------------------
@@ -108,17 +102,6 @@ class TextBuilder extends StatelessWidget {
       final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
       // --------------------
       final TextAlign _textAlign = SuperText.getTextAlign(centered: centered);
-      // --------------------
-      // final TextStyle _style = SuperText.createStyle(
-      //   context: context,
-      //   color: color,
-      //   weight: weight,
-      //   italic: italic,
-      //   size: size,
-      //   shadowIsOn: shadow,
-      //   height: hei,
-      //   strikeThrough: strikeThrough,
-      // );
       // --------------------
       return Flexible(
         key: const ValueKey<String>('a_verse'),
