@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class LeadingDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const LeadingDot({
-    @required this.dotSize,
+    @required this.lineHeight,
     @required this.color,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double dotSize;
+  final double lineHeight;
   final Color color;
   /// --------------------------------------------------------------------------
   static Widget dot({
@@ -30,10 +30,10 @@ class LeadingDot extends StatelessWidget {
 
     return Container(
       key: const ValueKey<String>('the_leading_dot'),
-      padding: EdgeInsets.all(dotSize),
-      margin: EdgeInsets.only(top: dotSize),
+      // padding: EdgeInsets.all(lineHeight),
+      // margin: EdgeInsets.only(top: lineHeight),
       child: dot(
-        dotSize: dotSize,
+        dotSize: lineHeight * 0.3,
         color: color,
       ),
     );
