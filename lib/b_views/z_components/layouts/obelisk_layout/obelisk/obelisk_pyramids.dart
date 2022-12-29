@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

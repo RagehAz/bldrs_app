@@ -17,7 +17,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_flyer_editor.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
