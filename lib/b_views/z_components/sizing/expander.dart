@@ -9,8 +9,8 @@ class Expander extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(),
+    return const Expanded(
+      child: SizedBox(),
     );
   }
   // -----------------------------------------------------------------------------
