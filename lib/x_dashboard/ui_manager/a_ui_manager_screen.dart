@@ -25,6 +25,7 @@ import 'package:bldrs/x_dashboard/ui_manager/keyboard_field_widget_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/reorder_list_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/static_flyer_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/super_text_test/super_text_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/video_player.dart';
 import 'package:bldrs/x_dashboard/ui_manager/slider_test.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
@@ -110,6 +111,20 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const SuperRage7Screen(),
+            );
+
+          },
+        ),
+
+        /// SUPER TEXT
+        WideButton(
+          verse: Verse.plain('Super Text Screen'),
+          icon: Iconz.language,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const SuperTextScreen(),
             );
 
           },
