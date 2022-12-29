@@ -11,61 +11,72 @@ class SuperText extends StatelessWidget {
   const SuperText({
     /// TEXT
     @required this.text,
+    this.highlight,
     /// SCALES
     this.boxWidth,
     this.boxHeight,
     this.lineHeight = 20,
+    this.maxLines = 1,
+    this.margin,
+    this.lineThickness = 0.5,
     /// COLORS
     this.textColor = Colorz.white255,
     this.boxColor,
+    this.highlightColor = Colorz.bloodTest,
+    this.lineColor,
     /// WEIGHT
     this.weight,
+    /// STYLE
+    this.font,
     this.italic = false,
-    this.shadow = false,
-    this.centered = true,
-    this.maxLines = 1,
-    this.margin,
-    // this.softWrap = true,
-    this.onTap,
-    this.onDoubleTap,
+    this.shadows,
+    this.line,
+    this.lineStyle = TextDecorationStyle.solid,
+    /// DOTS
     this.leadingDot = false,
     this.redDot = false,
-    this.strikeThrough = false,
-    this.highlight,
-    this.highlightColor = Colorz.bloodTest,
-    this.shadowColor,
+    /// DIRECTION
+    this.centered = true,
     this.textDirection = TextDirection.ltr,
-    this.style,
+    /// GESTURES
+    this.onTap,
+    this.onDoubleTap,
+    /// KEY
     Key key,
   }) : super(key: key);
   // --------------------------------------------------------------------------
   /// TEXT
   final String text;
+  final ValueNotifier<dynamic> highlight;
   /// SCALES
   final double boxWidth;
   final double boxHeight;
   final double lineHeight;
+  final int maxLines;
+  final dynamic margin;
+  final double lineThickness;
   /// COLORS
   final Color textColor;
   final Color boxColor;
+  final Color highlightColor;
+  final Color lineColor;
   /// WEIGHT
   final FontWeight weight;
+  /// STYLE
+  final String font;
   final bool italic;
-  final bool shadow;
-  final bool centered;
-  final int maxLines;
-  final dynamic margin;
-  // final bool softWrap;
-  final Function onTap;
-  final Function onDoubleTap;
+  final List<Shadow> shadows;
+  final TextDecoration line;
+  final TextDecorationStyle lineStyle;
+  /// DOTS
   final bool leadingDot;
   final bool redDot;
-  final bool strikeThrough;
-  final ValueNotifier<dynamic> highlight;
-  final Color highlightColor;
-  final Color shadowColor;
+  /// DIRECTION
+  final bool centered;
   final TextDirection textDirection;
-  final TextStyle style;
+  /// GESTURES
+  final Function onTap;
+  final Function onDoubleTap;
   // -----------------------------------------------------------------------------
 
   /// ALIGNMENT
@@ -86,10 +97,6 @@ class SuperText extends StatelessWidget {
 
     else {
 
-      // final double verseSizeValue = superVerseSizeValue(context, size, scaleFactor);
-      final double _labelHeight = boxHeight;
-      final double _dotSize = boxHeight * 0.3;
-
       return SuperTextBox(
         width: boxWidth,
         onTap: onTap,
@@ -102,35 +109,59 @@ class SuperText extends StatelessWidget {
 
           if (leadingDot == true)
             LeadingDot(
-              dotSize: _dotSize,
+              lineHeight: lineHeight,
               color: textColor,
             ),
 
           TextBuilder(
             text: text,
             maxLines: maxLines,
-            color: textColor,
             centered: centered,
             height: boxHeight,
             labelColor: boxColor,
-            shadow: shadow,
             highlight: highlight,
             highlightColor: highlightColor,
-            strikeThrough: strikeThrough,
             textDirection: textDirection,
             style: createTextStyle(
-              lineHeight: lineHeight,
+              /// DUNNO
+              // inherit: inherit,
+              // debugLabel: debugLabel,
+              // locale: locale,
+              // package: package,
+              /// FONT
+              fontFamily: font,
+              // fontFeatures: fontFeatures,
+              // fontFamilyFallback: fontFamilyFallback,
+              /// COLOR
               color: textColor,
+              // backgroundColor: backgroundColor, /// NO NEED
+              /// SIZE
+              lineHeight: lineHeight,
+              /// WEIGHT
               fontWeight: weight,
+              /// SPACING
+              // letterSpacing: letterSpacing,
+              // wordSpacing: wordSpacing,
+              /// STYLE
               fontStyle: italic == true ? FontStyle.italic : FontStyle.normal,
+              // textBaseline: textBaseline,
+              shadows: shadows,
+              // overflow: overflow,
+              /// DECORATION
+              decorationColor: lineColor,
+              decoration: line,
+              decorationStyle: lineStyle,
+              decorationThickness: lineThickness,
+              /// PAINTS
+              // foreground: foreground,
+              // background: background,
             ),
           ),
 
           if (redDot == true)
             RedDot(
-              labelHeight: _labelHeight,
+              lineHeight: lineHeight,
               labelColor: boxColor,
-              dotSize: _dotSize,
             ),
 
         ],
