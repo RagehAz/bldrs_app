@@ -34,7 +34,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+
+/// to run on web and be able to open on phone browser while testing
+// flutter run -d web-server --web-hostname 0.0.0.0
+// http://192.168.1.6:55600
+
+
+
 /*
+
+// steps to upload bldrsweb
+// 1 - flutter build web
+// 2 - firebase deploy
+//
 
 ssh git@github.com
 
