@@ -56,6 +56,25 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
+    // Future<FlyerModel> sortFirebaseFlyers() async {
+    //
+    //   await Fire.readCollectionDocs(
+    //       collName: 'flyers',
+    //     orderBy: const QueryOrderBy(
+    //       fieldName: 'prority', // high : 3, medium : 2, low : 1
+    //       descending: true,
+    //     ),
+    //     finders: <FireFinder>[
+    //
+    //       // FireFinder(
+    //       //   field: 'priority',
+    //       //   value: 'high',
+    //       // ),
+    //
+    //     ],
+    //   );
+    //
+    // }
 
   }
   // -------------------------------------------------
