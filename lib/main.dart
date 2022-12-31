@@ -33,83 +33,82 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-
+// ---------------------------------------------------------------------------
+/// to build clean ON IOS
 /*
-
-ios command
-
-to build clean
  flutter clean \
         && rm ios/Podfile.lock pubspec.lock \
         && rm -rf ios/Pods ios/Runner.xcworkspace \
         && flutter build ios --build-name=1.0.0 --build-number=1 --release --dart-define=MY_APP_ENV=prod
-
-
  */
-
+// ---------------------------------------------------------------------------
 /// to run on web and be able to open on phone browser while testing
+/*
 // flutter run -d web-server --web-hostname 0.0.0.0
 // http://192.168.1.6:55600
-
+ */
+// ---------------------------------------------------------------------------
+/// steps to DEPLOY bldr_sweb
 /*
-
-// steps to upload bldrsweb
 // 1 - flutter build web
 // 2 - firebase deploy
-//
-
-ssh git@github.com
-
+*/
+// ---------------------------------------------------------------------------
+/// GIT HUB TOKEN
+/*
 token : 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
-
+*/
+// ---------------------------------------------------------------------------
+/// GIT COMMANDS
+/*
 git remote set-head origin https://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@github.com/Bldrs-net/bldrs.net.git
 git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
 git remote add origin https://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@github.com/Bldrs-net/bldrscolors.git
 git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
 
 git remote remove origin
-
  */
 // ---------------------------------------------------------------------------
 /// TO CREATE A NEW PACKAGE
-/// 1. cd .. to go to directory
-/// 2. flutter create --template=package <package_name>
-/// 3. open the new created project in new window
-/// 4. clean lib file
-/// 5. clean tests file
-/// 6. create package files - move code - do magic
-/// 7. adjust pubscpec.yaml
-///   - description
-///   - environment: sdk: ">=2.10.5 <3.0.0"
-///   - homepage
-///   - add dependencies if any
-///   - add publish_to: none after version
-/// 8. write the exports in the lib file
-/// X. add lint rules in analysis.options
-/// 9. attach github
-///   - go to https://github.com/orgs/Bldrs-net/repositories
-///   - create new repo
-///   - open terminal in project window, cd to project directory
-///   - copy git repo https link to pubscpec.yaml homepage field
-///   - git init
-///   - git remote add origin https://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@github.com/Bldrs-net/package_name.git
-///   - commit and push (git add ., git commit -m "first commit", git push -u origin master)
-///   - go to github and check if it worked
-/// 10. import package in bldrs project
-///   -    package_name:
-///     git:
-///       url: https://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@github.com/Bldrs-net/package_name.git
-///
-///
+/*
+ 1. cd .. to go to directory
+ 2. flutter create --template=package <package_name>
+ 3. open the new created project in new window
+ 4. clean lib file
+ 5. clean tests file
+ 6. create package files - move code - do magic
+ 7. adjust pubscpec.yaml
+   - description
+   - environment: sdk: ">=2.10.5 <3.0.0"
+   - homepage
+   - add dependencies if any
+   - add publish_to: none after version
+ 8. write the exports in the lib file
+ X. add lint rules in analysis.options
+ 9. attach github
+   - go to https://github.com/orgs/Bldrs-net/repositories
+   - create new repo
+   - open terminal in project window, cd to project directory
+   - copy git repo https link to pubscpec.yaml homepage field
+   - git init
+   - git remote add origin https://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@github.com/Bldrs-net/package_name.git
+   - commit and push (git add ., git commit -m "first commit", git push -u origin master)
+   - go to github and check if it worked
+ 10. import package in bldrs project
+   -    package_name:
+     git:
+       url: https://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@github.com/Bldrs-net/package_name.git
+
+*/
 // ---------------------------------------------------------------------------
 /// until you upgrade to null safety code,, run these
-// dart --no-sound-null-safety run
-// flutter run --no-sound-null-safety
-/// ---------------------------------------------------------------------------
 /*
-
-
-tech
+  dart --no-sound-null-safety run
+  flutter run --no-sound-null-safety
+ */
+// ---------------------------------------------------------------------------
+/// INFO ABOUT ESTABLISHING COMPANY IN DUBAI FREE ZONE
+/*
 15'900 Dirhams
 650 establishment fees
 3500 processing / 2 years
@@ -119,20 +118,23 @@ free zone
 2200 establishment fees
 2500 professional fees
  = 150'000 EGP
-
+ */
+// ---------------------------------------------------------------------------
+/// INFO ABOUT ESTABLISHING A COMPANY IN USA
+/*
+  siliconValleyBank.com
+  accountantsOnAir.com
+  dalware
+ */
+// ---------------------------------------------------------------------------
+/// ip-tv credentials
+/*
 malak2817
 28 17 90 3030
 http://mhiptv.com:8888
-
-
-  siliconValleyBank.com
-
-  accountantsOnAir.com
-
-  dalware
-
  */
-/// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
   /*
@@ -169,6 +171,8 @@ Future<void> main() async {
   runApp(const BldrsAppStarter());
   /// -----------------------------------------------------------------------------
 }
+
+// ---------------------------------------------------------------------------
 
 class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -475,3 +479,5 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   }
   // -----------------------------------------------------------------------------
 }
+
+// ---------------------------------------------------------------------------
