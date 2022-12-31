@@ -33,7 +33,19 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-// this should be here
+
+/*
+
+ios command
+
+to build clean
+ flutter clean \
+        && rm ios/Podfile.lock pubspec.lock \
+        && rm -rf ios/Pods ios/Runner.xcworkspace \
+        && flutter build ios --build-name=1.0.0 --build-number=1 --release --dart-define=MY_APP_ENV=prod
+
+
+ */
 
 /// to run on web and be able to open on phone browser while testing
 // flutter run -d web-server --web-hostname 0.0.0.0
