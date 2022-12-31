@@ -1,14 +1,11 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 
 import 'package:flutter/material.dart';
 
@@ -168,18 +165,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
             alignment: Aligners.superInverseBottomAlignment(context),
             child: ConfirmButton(
               confirmButtonModel: confirmButtonModel,
-            ),
-          ),
-
-        /// --- IOS BACK BUTTON
-        if (pyramidsAreOn == false && DeviceChecker.deviceIsIOS() == true)
-          Positioned(
-            key: const ValueKey<String>('backAndSearchButton'),
-            bottom: 0,
-            left: 0,
-            child: BackAndSearchButton(
-              backAndSearchAction: BackAndSearchAction.goBack,
-              color: skyType == SkyType.black ? Colorz.yellow50 : Colorz.white20,
             ),
           ),
 
