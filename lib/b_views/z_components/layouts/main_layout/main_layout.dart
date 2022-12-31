@@ -203,74 +203,78 @@ class MainLayout extends StatelessWidget {
         onTap: (){
 
 
+
           Keyboard.closeKeyboard(context);
 
         },
-        child: SafeArea(
-          child: ConnectivitySensor(
-            child: Stack(
-              children: <Widget>[
+        child: Container(
+          color: _backgroundColor,
+          child: SafeArea(
+            child: ConnectivitySensor(
+              child: Stack(
+                children: <Widget>[
 
-                if (skyType == SkyType.non)
-                  Container(
-                    key: const ValueKey<String>('noSkyBackground'),
-                    width: Scale.screenWidth(context),
-                    height: Scale.screenHeight(context),
-                    color: _backgroundColor,
+                  if (skyType == SkyType.non)
+                    Container(
+                      key: const ValueKey<String>('noSkyBackground'),
+                      width: Scale.screenWidth(context),
+                      height: Scale.screenHeight(context),
+                      color: _backgroundColor,
+                    ),
+
+                  Scaffold(
+                    key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
+
+                    /// INSETS
+                    resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
+                    // resizeToAvoidBottomPadding: false,
+
+                    /// BACK GROUND COLOR
+                    backgroundColor: _backgroundColor,
+
+                    /// BOTTOM SHEET
+                    // bottomSheet: const KeyboardFloatingField(), /// removed it
+
+                    /// BODY CONTENT
+                    body: MainLayoutStackWidgets(
+                      key: const ValueKey<String>('mainStack'),
+                      globalKey: globalKey,
+                      alignment: Alignment.topCenter,
+                      skyType: skyType,
+                      appBarType: appBarType,
+                      appBarRowWidgets: appBarRowWidgets,
+                      pageTitleVerse: title,
+                      onBack: () => _onBack(context),
+                      loading: loading,
+                      progressBarModel: progressBarModel,
+                      appBarScrollController: appBarScrollController,
+                      sectionButtonIsOn: sectionButtonIsOn,
+                      searchController: searchController,
+                      onSearchSubmit: onSearchSubmit,
+                      onPaste: onPaste,
+                      historyButtonIsOn: historyButtonIsOn,
+                      onSearchChanged: onSearchChanged,
+                      pyramidsAreOn: pyramidsAreOn,
+                      searchHintVerse: searchHintVerse,
+                      pyramidType: pyramidType,
+                      onPyramidTap: onPyramidTap,
+                      canGoBack: canGoBack,
+                      onSearchCancelled: onSearchCancelled,
+                      confirmButtonModel: confirmButtonModel,
+                      layoutWidget: child,
+                    ),
+
                   ),
 
-                Scaffold(
-                  key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
-
-                  /// INSETS
-                  resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
-                  // resizeToAvoidBottomPadding: false,
-
-                  /// BACK GROUND COLOR
-                  backgroundColor: _backgroundColor,
-
-                  /// BOTTOM SHEET
-                  // bottomSheet: const KeyboardFloatingField(), /// removed it
-
-                  /// BODY CONTENT
-                  body: MainLayoutStackWidgets(
-                    key: const ValueKey<String>('mainStack'),
-                    globalKey: globalKey,
-                    alignment: Alignment.topCenter,
-                    skyType: skyType,
-                    appBarType: appBarType,
-                    appBarRowWidgets: appBarRowWidgets,
-                    pageTitleVerse: title,
-                    onBack: () => _onBack(context),
-                    loading: loading,
-                    progressBarModel: progressBarModel,
-                    appBarScrollController: appBarScrollController,
-                    sectionButtonIsOn: sectionButtonIsOn,
-                    searchController: searchController,
-                    onSearchSubmit: onSearchSubmit,
-                    onPaste: onPaste,
-                    historyButtonIsOn: historyButtonIsOn,
-                    onSearchChanged: onSearchChanged,
+                  if (UsersProvider.proGetMyUserModel(context: context, listen: true,)?.isAdmin == true)
+                  PyramidsAdminPanel(
+                    isInTransScreen: isInPhrasesScreen,
                     pyramidsAreOn: pyramidsAreOn,
-                    searchHintVerse: searchHintVerse,
-                    pyramidType: pyramidType,
-                    onPyramidTap: onPyramidTap,
-                    canGoBack: canGoBack,
-                    onSearchCancelled: onSearchCancelled,
-                    confirmButtonModel: confirmButtonModel,
-                    layoutWidget: child,
+                    pyramidButtons: pyramidButtons,
                   ),
 
-                ),
-
-                if (UsersProvider.proGetMyUserModel(context: context, listen: true,)?.isAdmin == true)
-                PyramidsAdminPanel(
-                  isInTransScreen: isInPhrasesScreen,
-                  pyramidsAreOn: pyramidsAreOn,
-                  pyramidButtons: pyramidButtons,
-                ),
-
-              ],
+                ],
+              ),
             ),
           ),
         ),
