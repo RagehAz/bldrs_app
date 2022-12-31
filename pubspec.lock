@@ -1167,7 +1167,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "1b90165ccabb29c7716446af918b79f136ec1592"
+      resolved-ref: "9fcb9fe33101fbaaf99dea66755fb85910c48b28"
       url: "https://github.com/RagehAz/rest.git"
     source: git
     version: "0.0.1"
@@ -1491,34 +1491,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2+7"
-  webview_flutter:
-    dependency: "direct main"
-    description:
-      name: webview_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.4"
-  webview_flutter_android:
-    dependency: transitive
-    description:
-      name: webview_flutter_android
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.10.4"
-  webview_flutter_platform_interface:
-    dependency: transitive
-    description:
-      name: webview_flutter_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.5"
-  webview_flutter_wkwebview:
-    dependency: transitive
-    description:
-      name: webview_flutter_wkwebview
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.9.5"
   wechat_assets_picker:
     dependency: "direct main"
     description:
@@ -1545,7 +1517,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e42b4ce8af6865ec21f68c7a78d571e7cede5085
+      resolved-ref: "23444821a81612a171a1f97b20164e73bccb7e0c"
       url: "https://github.com/RagehAz/widget_fader.git"
     source: git
     version: "0.0.1"
