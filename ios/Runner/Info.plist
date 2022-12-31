@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-1416346029613600~5098797361</string>
 	<key>CFBundleDisplayName</key>
 	<string>Bldrs App</string>
 	<key>CFBundleExecutable</key>
