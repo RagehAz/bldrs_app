@@ -7,7 +7,7 @@
 	<key>GADApplicationIdentifier</key>
     <string>ca-app-pub-1416346029613600~5098797361</string>
 	<key>CFBundleDisplayName</key>
-	<string>Bldrs App</string>
+	<string>Bldrs.net</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
