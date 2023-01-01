@@ -119,7 +119,7 @@ class RenovateUserProtocols {
     if (_modelsAreIdentical == false){
 
       AuthModel _authModel = await AuthLDBOps.readAuthModel();
-      _authModel = _authModel.copyWith(
+      _authModel = _authModel?.copyWith(
         userModel: newUser,
       );
 
@@ -167,7 +167,7 @@ class RenovateUserProtocols {
         incompleteZoneModel: userModel.zone,
       );
 
-      _output = userModel.copyWith(
+      _output = userModel?.copyWith(
         zone: _completeZoneModel,
       );
 
@@ -359,7 +359,7 @@ class RenovateUserProtocols {
     );
     final List<String> _userSubscribedTopics = _oldUser.fcmTopics;
 
-    final UserModel _newUser = _oldUser.copyWith(
+    final UserModel _newUser = _oldUser?.copyWith(
       fcmTopics: Stringer.addOrRemoveStringToStrings(
         strings: _userSubscribedTopics,
         string: topicID,
@@ -439,7 +439,7 @@ class RenovateUserProtocols {
             userID: _oldUser.id,
         );
 
-        _newUser = _newUser.copyWith(
+        _newUser = _newUser?.copyWith(
           device: _thisDevice,
         );
 
