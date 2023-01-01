@@ -1,10 +1,10 @@
-import 'package:widget_fader/widget_fader.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class ObeliskVersesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -29,13 +29,13 @@ class ObeliskVersesBuilder extends StatelessWidget {
       valueListenable: isExpanded,
       builder: (_, bool isBig, Widget xChild){
 
-        // blog('is Big is : $isBig');
-
           return WidgetFader(
             fadeType: isBig == null ? FadeType.stillAtMin : isBig == true ? FadeType.fadeIn : FadeType.fadeOut,
-            curve: isBig == true ? Curves.easeOutQuart : Curves.easeOutQuart,
+            curve: isBig == true ? Curves.easeOutQuart : Curves.easeOut,
             duration: const Duration(milliseconds: 200),
             builder: (double value, Widget child){
+
+              // blog('value is : $value : is Big is : $isBig');
 
               return Transform.scale(
                 scaleX: value,

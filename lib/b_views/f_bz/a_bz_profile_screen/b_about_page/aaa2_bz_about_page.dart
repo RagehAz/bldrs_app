@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -101,6 +102,16 @@ class AboutBzBubbles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double flyerBoxWidth = FlyerDim.flyerGridVerticalScrollFlyerBoxWidth(
+      numberOfColumns: 2,
+      gridZoneWidth: Scale.screenWidth(context),
+    );
+    final double _spacing = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
+    final double _flyerHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final int _numberOfFlyers = bzModel?.flyersIDs?.length ?? 0;
+    final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();
+
+
     return ListView(
       physics: const BouncingScrollPhysics(),
       padding: Stratosphere.stratosphereSandwich,
@@ -194,7 +205,6 @@ class AboutBzBubbles extends StatelessWidget {
             size: 4,
           ),
 
-        /// TASK : TEST PAGINATION OF BZ FLYERS IN BZ ABOUT PAGE REACHED FROM FOLLOWED BZ ON TAP
         /// BZ FLYERS
         if (showGallery == true)
           FlyersGrid(
@@ -202,6 +212,8 @@ class AboutBzBubbles extends StatelessWidget {
             flyersIDs: bzModel?.flyersIDs,
             topPadding: 0,
             screenName: 'BzAboutPageFlyersGrid',
+            gridHeight: _gridHeight,
+            scrollable: false,
           ),
 
         // const Horizon(),
