@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
 
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -43,30 +44,30 @@ class Sounder  {
   // --------------------
   /// TASK : BLOGS STUFF : NEEDS RELOOK
   static Future<void> playAssetSound(String asset) async {
-    // final AudioPlayer _audioPlayer = _getPlayer();
-    // await tryAndCatch(
-    //   invoker: 'playAssetSound',
-    //   functions: () async {
-        // await _audioPlayer.setAsset(asset);
-        // await _audioPlayer.play();
-    //   },
-    // );
+    final AudioPlayer _audioPlayer = _getPlayer();
+    await tryAndCatch(
+      invoker: 'playAssetSound',
+      functions: () async {
+        await _audioPlayer.setAsset(asset);
+        await _audioPlayer.play();
+      },
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> playButtonClick() async {
 
-    // const List<String> _sounds = <String>[
-    //   click_a,
-    //   click_b,
-    //   click_c,
-    // ];
-    //
-    // final int _index = Numeric.createRandomIndex(
-    //     listLength: _sounds.length,
-    // );
-    //
-    // await playAssetSound(_sounds[_index]);
+    const List<String> _sounds = <String>[
+      click_a,
+      click_b,
+      click_c,
+    ];
+
+    final int _index = Numeric.createRandomIndex(
+        listLength: _sounds.length,
+    );
+
+    await playAssetSound(_sounds[_index]);
 
   }
   // --------------------
