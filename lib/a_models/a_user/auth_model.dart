@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 enum AuthType {
@@ -197,13 +197,16 @@ class AuthModel {
     String authError,
     UserCredential userCredential,
     AuthCredential authCredential,
-    LoginResult facebookLoginResult,
+    // LoginResult facebookLoginResult,
     FacebookAuthCredential facebookAuthCredential,
     GoogleAuthProvider googleAuthProvider,
     GoogleSignIn googleSignIn,
     GoogleSignInAccount googleSignInAccount,
     GoogleSignInAuthentication googleSignInAuthentication,
   }){
+
+    // temp panadol until we re-do facebook auth
+    const dynamic facebookLoginResult = null;
 
     return AuthModel(
       userModel: userModel,
