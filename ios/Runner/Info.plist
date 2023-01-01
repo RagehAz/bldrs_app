@@ -6,6 +6,13 @@
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>GADApplicationIdentifier</key>
 		<string>ca-app-pub-1416346029613600~5098797361</string>
+		<key>NSAppTransportSecurity</key>
+        <dict>
+        	<key>NSAllowsArbitraryLoads</key>
+        	<true/>
+        </dict>
+        <key>NSPhotoLibraryUsageDescription</key>
+        <string>Bldrs.net requires access to device's photo library</string>
 		<key>CFBundleDisplayName</key>
 		<string>Bldrs.net</string>
 		<key>CFBundleExecutable</key>
