@@ -1,4 +1,4 @@
-import 'dart:developer';
+// import 'dart:developer';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -9,8 +9,9 @@ import 'package:flutter/material.dart';
 void blog(dynamic msg, {String invoker}){
 
   assert((){
+    // log(msg.toString());
     // ignore: avoid_print
-    log(msg.toString());
+    print(msg?.toString());
     return true;
   }(), '_');
 
