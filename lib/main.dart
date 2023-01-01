@@ -139,6 +139,9 @@ http://mhiptv.com:8888
 
 ->
 
+IRMessaging Remote Notifications proxy enabled, will swizzle remote notification receiver handlers. If you'd prefer to manually integrate Firebase Messaging, add "FirebaseAppDelegateProxyEnabled" to your Info.plist, and set it to NO.
+to ensure proper integration.
+
  */
 
 Future<void> main() async {
