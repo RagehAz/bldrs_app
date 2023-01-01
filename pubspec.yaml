@@ -112,23 +112,22 @@ dev_dependencies:
     sdk: flutter
   #  flutter_launcher_name: ^0.0.1
   lint: ^1.0.0
-  flutter_native_splash: ^2.2.16
+#  flutter_native_splash: ^2.2.16
 
-flutter_native_splash:
-  # -> run the following command in the terminal:
-  # -> flutter pub run flutter_native_splash:create
-
-  color: "#13244b"
-  #background_image: "assets/background.png"
-  image: assets/aw/bldrs_splash_image.png
-  # branding: assets/aw/aw_bldrs_app_icon.png
-  # branding_mode: bottom #bottomRight / bottomLeft / The default values is bottom
-  color_dark: "#13244b"
-  #background_image_dark: "assets/dark-background.png"
-
-  android: true
-  ios: true
-  web: false
+#flutter_native_splash:
+#  # -> run the following command in the terminal:
+#  # -> flutter pub run flutter_native_splash:create
+#
+#  color: "#13244b"
+#  #background_image: "assets/background.png"
+#  image: assets/aw/bldrs_splash_image.png
+#  # branding: assets/aw/aw_bldrs_app_icon.png
+#  # branding_mode: bottom #bottomRight / bottomLeft / The default values is bottom
+#  color_dark: "#13244b"
+#  #background_image_dark: "assets/dark-background.png"
+#  android: true
+#  ios: true
+#  web: false
 
 flutter_launcher_name:
   name: "Bldrs.net"

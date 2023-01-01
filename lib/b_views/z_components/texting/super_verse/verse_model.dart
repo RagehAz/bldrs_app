@@ -238,7 +238,7 @@ class Verse {
 
     if (verse != null && TextCheck.isEmpty(verse?.text) == false){
 
-      _output = verse?.translate == true ? verse.text.trim() : '.${verse?.text}';
+      _output = verse?.translate == true ? verse.text.trim() : verse?.text;
 
       if (verse?.translate == true){
 
@@ -261,7 +261,7 @@ class Verse {
 
             /// X PHRASE FOUND
             else {
-              _output = '.$_foundXPhrase'; // . : perfect and finished
+              _output = _foundXPhrase; // . : perfect and finished
             }
 
           }
