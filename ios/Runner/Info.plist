@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+	    <key>CFBundleDisplayName</key>
+    	<string>Bldrs.net</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>GADApplicationIdentifier</key>
@@ -13,8 +15,18 @@
         </dict>
         <key>NSPhotoLibraryUsageDescription</key>
         <string>Bldrs.net requires access to device's photo library</string>
-		<key>CFBundleDisplayName</key>
-		<string>Bldrs.net</string>
+        <key>NSPhotoLibraryAddUsageDescription</key>
+        <string>Bldrs.net requires access to add Images to your photos</string>
+        <key>NSCameraUsageDescription</key>
+        <string>Bldrs.net requires access to device's Camera</string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string>Bldrs.net requires access to your microphone</string>
+        <key>NSContactsUsageDescription</key>
+        <string>Bldrs.net requires access to your contacts</string>
+        <key>NSLocationAlwaysUsageDescription</key>
+        <string>Bldrs.net requires access to your Location</string>
+        <key>NSLocationWhenInUseUsageDescription</key>
+        <string>Bldrs.net requires access to your Location</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
