@@ -25,6 +25,7 @@ class FlyersGrid extends StatelessWidget {
     this.scrollDirection = Axis.vertical,
     this.isLoadingGrid = false,
     this.onFlyerNotFound,
+    this.scrollable = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,6 +46,7 @@ class FlyersGrid extends StatelessWidget {
   final Axis scrollDirection;
   final bool isLoadingGrid;
   final ValueChanged<String> onFlyerNotFound;
+  final bool scrollable;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
@@ -113,7 +115,7 @@ class FlyersGrid extends StatelessWidget {
         ),
         child: GridView.builder(
             controller: scrollController,
-            physics: const BouncingScrollPhysics(),
+            physics: scrollable == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
             padding: FlyerDim.flyerGridPadding(
               context: context,
               topPaddingValue: topPadding,
