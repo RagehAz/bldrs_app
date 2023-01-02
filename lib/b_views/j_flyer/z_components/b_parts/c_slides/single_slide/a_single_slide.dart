@@ -95,53 +95,69 @@ class SingleSlide extends StatelessWidget {
           ),
 
         /// ANIMATED SLIDE
-        FutureBuilder(
-          future: Floaters.getUint8ListFromUiImage(slideModel?.uiImage),
-          builder: (_, AsyncSnapshot<Uint8List> snap){
-
-            final Uint8List _bytes = snap?.data;
-
-            if (Streamer.connectionIsLoading(snap) == true || _bytes == null){
-
-              return SuperFilteredImage(
-                width: flyerBoxWidth,
-                height: flyerBoxHeight,
-                pic: slideModel?.uiImage,
-                filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
-                boxFit: slideModel?.picFit,
-              );
-
-            // return SlideImagePart(
-            //     key: const ValueKey<String>('SingleSlideImagePart'),
-            //     flyerBoxWidth: flyerBoxWidth,
-            //     flyerBoxHeight: flyerBoxHeight,
-            //     tinyMode: tinyMode,
-            //     slideModel: slideModel,//?.copyWith(midColor: Colorz.red255),
-            //     onSlideBackTap: onSlideBackTap,
-            //     onSlideNextTap: onSlideNextTap,
-            //     onDoubleTap: onDoubleTap,
-            //   );
-            }
-
-            else {
-              return AnimateWidgetToMatrix(
-                matrix: Trinity.renderSlideMatrix(
-                  matrix: slideModel?.matrix,
-                  flyerBoxWidth: flyerBoxWidth,
-                  flyerBoxHeight: flyerBoxHeight,
-                ),
-                child: SuperFilteredImage(
-                  width: flyerBoxWidth - 10,
-                  height: flyerBoxHeight,
-                  pic: slideModel?.uiImage,
-                  filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
-                  boxFit: slideModel?.picFit,
-                ),
-              );
-            }
-
-          },
+        AnimateWidgetToMatrix(
+          matrix: Trinity.renderSlideMatrix(
+            matrix: slideModel?.matrix,
+            flyerBoxWidth: flyerBoxWidth,
+            flyerBoxHeight: flyerBoxHeight,
+          ),
+          child: SuperFilteredImage(
+            width: flyerBoxWidth - 10,
+            height: flyerBoxHeight,
+            pic: slideModel?.uiImage,
+            filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
+            boxFit: slideModel?.picFit,
+          ),
         ),
+        // FutureBuilder(
+        //   future: Floaters.getUint8ListFromUiImage(slideModel?.uiImage),
+        //   builder: (_, AsyncSnapshot<Uint8List> snap){
+        //
+        //     final Uint8List _bytes = snap?.data;
+        //
+        //     if (Streamer.connectionIsLoading(snap) == true || _bytes == null){
+        //
+        //       return SuperFilteredImage(
+        //         width: flyerBoxWidth,
+        //         height: flyerBoxHeight,
+        //         pic: slideModel?.uiImage,
+        //         filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
+        //         boxFit: slideModel?.picFit,
+        //       );
+        //
+        //     // return SlideImagePart(
+        //     //     key: const ValueKey<String>('SingleSlideImagePart'),
+        //     //     flyerBoxWidth: flyerBoxWidth,
+        //     //     flyerBoxHeight: flyerBoxHeight,
+        //     //     tinyMode: tinyMode,
+        //     //     slideModel: slideModel,//?.copyWith(midColor: Colorz.red255),
+        //     //     onSlideBackTap: onSlideBackTap,
+        //     //     onSlideNextTap: onSlideNextTap,
+        //     //     onDoubleTap: onDoubleTap,
+        //     //   );
+        //     }
+        //
+        //     else {
+        //       return AnimateWidgetToMatrix(
+        //         matrix: Trinity.renderSlideMatrix(
+        //           matrix: slideModel?.matrix,
+        //           flyerBoxWidth: flyerBoxWidth,
+        //           flyerBoxHeight: flyerBoxHeight,
+        //         ),
+        //         child: SuperFilteredImage(
+        //           width: flyerBoxWidth - 10,
+        //           height: flyerBoxHeight,
+        //           pic: slideModel?.uiImage,
+        //           filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
+        //           boxFit: slideModel?.picFit,
+        //         ),
+        //       );
+        //     }
+        //
+        //   },
+        // ),
+
+        /// ----
 
         // /// STATIC IMAGE
         //   SlideImagePart(
