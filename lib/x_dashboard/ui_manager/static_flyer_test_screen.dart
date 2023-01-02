@@ -111,6 +111,8 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
 
     return MainLayout(
       loading: _loading,
+      canGoBack: true,
+      appBarType: AppBarType.basic,
       appBarRowWidgets: [
 
         AppBarButton(
