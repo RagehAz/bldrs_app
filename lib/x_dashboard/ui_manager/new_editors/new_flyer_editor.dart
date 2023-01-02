@@ -297,7 +297,7 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
     else {
       setState(() {
         _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(text: 'phid_updateProfile', translate: true),
+          firstLine: const Verse(text: 'phid_confirm_upload_flyer', translate: true),
           onTap: _onConfirmTap,
           isWide: true,
         );
