@@ -777,7 +777,7 @@ class Formers {
       bodyVerse: Verse(
         text: '${Verse.transBake(context, 'phid_required_fields')}'
               '\n$_missingFieldsString',
-        translate: true,
+        translate: false,
         variables: _missingFieldsString,
       ),
     );
