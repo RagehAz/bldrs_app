@@ -188,7 +188,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       mounted: mounted,
       value: UserModel.checkFlyerIsSaved(
         userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
-        flyerID: widget.flyerModel.id,
+        flyerID: widget.flyerModel?.id,
       ),
     );
 
@@ -236,7 +236,8 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   void _listenToHorizontalController(){
 
-    final int _numberOfSlide = widget.flyerModel.slides.length - 1;
+    final int _realSlidesLength = widget.flyerModel?.slides?.length ?? 1;
+    final int _numberOfSlide = _realSlidesLength - 1;
     final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
 
     final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
@@ -289,35 +290,39 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
     FlyerModel _imagified = widget.flyerModel;
 
-    await Future.wait(<Future>[
+    if (widget.flyerModel != null){
 
-      /// IMAGIFY REMAINING SLIDES
-      FlyerProtocols.imagifySlides(widget.flyerModel)
-          .then((FlyerModel flyer){
-        _imagified = _imagified.copyWith(
-          slides: flyer.slides,
-        );
-      }),
+      await Future.wait(<Future>[
 
-      /// IMAGIFY AUTHOR PIC
-      if (_imagified.showsAuthor == true)
-      FlyerProtocols.imagifyAuthorPic(widget.flyerModel)
-          .then((FlyerModel flyer){
-        _imagified = _imagified.copyWith(
-          authorImage: flyer.authorImage,
-        );
-      }),
+        /// IMAGIFY REMAINING SLIDES
+        FlyerProtocols.imagifySlides(widget.flyerModel)
+            .then((FlyerModel flyer){
+          _imagified = _imagified.copyWith(
+            slides: flyer.slides,
+          );
+        }),
 
-    ]);
+        /// IMAGIFY AUTHOR PIC
+        if (_imagified.showsAuthor == true)
+          FlyerProtocols.imagifyAuthorPic(widget.flyerModel)
+              .then((FlyerModel flyer){
+            _imagified = _imagified.copyWith(
+              authorImage: flyer.authorImage,
+            );
+          }),
 
-    assert(_imagified != null, 'received flyer with imagified slides is null');
-    assert(_imagified.slides[_imagified.slides.length - 1].uiImage != null, 'last slide uiImage is null');
+      ]);
 
-    setNotifier(
+      assert(_imagified != null, 'received flyer with imagified slides is null');
+      assert(_imagified.slides[_imagified.slides.length - 1].uiImage != null, 'last slide uiImage is null');
+
+      setNotifier(
         notifier: _flyer,
         mounted: mounted,
         value: _imagified,
-    );
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -392,7 +397,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   Future<void> _onSlideNextTap() async {
 
-    final int _lastIndex = widget.flyerModel.slides.length;
+    final int _lastIndex = widget.flyerModel?.slides?.length ?? 0;
 
     /// WHEN AT LAST INDEX
     if (_progressBarModel.value.index == _lastIndex){
@@ -407,7 +412,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
         slidingController: _horizontalSlidesController,
-        numberOfSlides: widget.flyerModel.slides.length + 1,
+        numberOfSlides: (widget.flyerModel?.slides?.length ?? 0) + 1,
         currentSlide: _progressBarModel.value.index,
       );
 

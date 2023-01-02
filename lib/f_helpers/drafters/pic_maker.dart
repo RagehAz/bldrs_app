@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -360,7 +361,7 @@ class PicMaker {
         // maximumRecordingDuration: const Duration(seconds: 15), // DEFAULT
 
         /// FORMAT
-        // imageFormatGroup: ImageFormatGroup.unknown, // DEFAULT
+        imageFormatGroup: DeviceChecker.deviceIsIOS() == true ? ImageFormatGroup.bgra8888 : ImageFormatGroup.jpeg, // DEFAULT
         // resolutionPreset: ResolutionPreset.max, // DEFAULT
 
         /// CAMERA
