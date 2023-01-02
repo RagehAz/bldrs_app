@@ -11,11 +11,7 @@
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7B026C7D2961543E00E032EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C7C2961543E00E032EC /* GoogleService-Info.plist */; };
-		7B026C83296154F600E032EC /* res_name_amy.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C7E296154F500E032EC /* res_name_amy.aiff */; };
-		7B026C84296154F600E032EC /* res_name_salli.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C7F296154F500E032EC /* res_name_salli.aiff */; };
-		7B026C85296154F600E032EC /* res_name_emma.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C80296154F600E032EC /* res_name_emma.aiff */; };
-		7B026C86296154F600E032EC /* res_name_nicole.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C81296154F600E032EC /* res_name_nicole.aiff */; };
-		7B026C87296154F600E032EC /* res_name_justina.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C82296154F600E032EC /* res_name_justina.aiff */; };
+		7B026C8A2961D66400E032EC /* res_name_salli.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C892961D66400E032EC /* res_name_salli.aiff */; };
 		8C057C6D4D12AD646227C7F8 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82D586A654268FD0BB66B3B /* Pods_Runner.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -45,12 +41,8 @@
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		7B026C7C2961543E00E032EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		7B026C7E296154F500E032EC /* res_name_amy.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = res_name_amy.aiff; sourceTree = "<group>"; };
-		7B026C7F296154F500E032EC /* res_name_salli.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = res_name_salli.aiff; sourceTree = "<group>"; };
-		7B026C80296154F600E032EC /* res_name_emma.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = res_name_emma.aiff; sourceTree = "<group>"; };
-		7B026C81296154F600E032EC /* res_name_nicole.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = res_name_nicole.aiff; sourceTree = "<group>"; };
-		7B026C82296154F600E032EC /* res_name_justina.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = res_name_justina.aiff; sourceTree = "<group>"; };
 		7B026C882961D18100E032EC /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		7B026C892961D66400E032EC /* res_name_salli.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = res_name_salli.aiff; path = ../../../../Desktop/Runner_backup/res_name_salli.aiff; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,12 +99,8 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				7B026C892961D66400E032EC /* res_name_salli.aiff */,
 				7B026C882961D18100E032EC /* Runner.entitlements */,
-				7B026C7E296154F500E032EC /* res_name_amy.aiff */,
-				7B026C80296154F600E032EC /* res_name_emma.aiff */,
-				7B026C82296154F600E032EC /* res_name_justina.aiff */,
-				7B026C81296154F600E032EC /* res_name_nicole.aiff */,
-				7B026C7F296154F500E032EC /* res_name_salli.aiff */,
 				7B026C7C2961543E00E032EC /* GoogleService-Info.plist */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -209,15 +197,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
-				7B026C83296154F600E032EC /* res_name_amy.aiff in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				7B026C7D2961543E00E032EC /* GoogleService-Info.plist in Resources */,
-				7B026C87296154F600E032EC /* res_name_justina.aiff in Resources */,
+				7B026C8A2961D66400E032EC /* res_name_salli.aiff in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
-				7B026C84296154F600E032EC /* res_name_salli.aiff in Resources */,
-				7B026C85296154F600E032EC /* res_name_emma.aiff in Resources */,
-				7B026C86296154F600E032EC /* res_name_nicole.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

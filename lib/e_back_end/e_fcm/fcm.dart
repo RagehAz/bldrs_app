@@ -160,23 +160,23 @@ class FCM {
     // blog('requestFCMPermission : START');
 
     // if (Platform.isIOS) {
-      // iosSubscription = FirebaseMessaging.instance.onIosSettingsRegistered.listen((data) {
-      //   _saveDeviceTokenToUserDocInFireStore();
-      // });
+    //   iosSubscription = FirebaseMessaging.instance.onIosSettingsRegistered.listen((data) {
+    //     _saveDeviceTokenToUserDocInFireStore();
+    //   });
 
-    //   // await FirebaseMessaging.instance
-    //   //     .setForegroundNotificationPresentationOptions(
-    //   //   alert: true,
-    //   //   badge: true,
-    //   //   sound: true,
-    //   // );
+      // await FirebaseMessaging.instance
+      //     .setForegroundNotificationPresentationOptions(
+      //   alert: true,
+      //   badge: true,
+      //   sound: true,
+      // );
 
     // }
 
     final NotificationSettings _settings = await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,
-      provisional: true,
+      provisional: false,
       sound: true,
       announcement: true,
       carPlay: true,

@@ -34,6 +34,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 // ---------------------------------------------------------------------------
+/// IOS PUSH NOTIFICATION STUFF
+/*
+  IOS TEAM ID : 6ADZTHNZN9
+  'bldrs push key' ID : PA59ZYRS79 // Services:Apple Push Notifications service (APNs), DeviceCheck
+ */
+// ---------------------------------------------------------------------------
 /// to build clean ON IOS
 /*
  flutter clean \
@@ -141,7 +147,7 @@ http://mhiptv.com:8888
 
 IRMessaging Remote Notifications proxy enabled, will swizzle remote notification receiver handlers. If you'd prefer to manually integrate Firebase Messaging, add "FirebaseAppDelegateProxyEnabled" to your Info.plist, and set it to NO.
 to ensure proper integration.
-
+d
  */
 
 Future<void> main() async {
