@@ -53,13 +53,13 @@ class AuthLDBOps {
         fromJSON: true,
       );
 
-      // blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.uid}');
+      blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.uid}');
 
     }
 
-    // else {
-    //   blog('AuthLDBOps : readAuthModel : no AuthModel found on LDB');
-    // }
+    else {
+      blog('AuthLDBOps : readAuthModel : no AuthModel found on LDB');
+    }
 
     return _authModel;
   }
