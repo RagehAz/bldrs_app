@@ -528,7 +528,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             await  _triggerLoading(setTo: true);
 
             FlyerModel _flyer = await FlyerProtocols.fetchFlyer(context: context, flyerID: '5VOZyFGDaY3WHfFKzzkH');
-            final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: _flyer.bzID);
+            final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: _flyer?.bzID);
             _flyer = await FlyerProtocols.imagifySlides(_flyer);
 
 
