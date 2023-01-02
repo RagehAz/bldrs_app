@@ -101,13 +101,14 @@ class _NewUserEditorState extends State<NewUserEditor> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
+        final DraftUser _newDraft = await DraftUser.createDraftUser(
+          context: context,
+          userModel: widget.userModel,
+        );
         setNotifier(
           notifier: _draftUser,
           mounted: mounted,
-          value: await DraftUser.createDraftUser(
-            context: context,
-            userModel: widget.userModel,
-          ),
+          value: _newDraft,
         );
         // -------------------------------
         if (widget.checkLastSession == true){
@@ -127,7 +128,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
         // -----------------------------
         if (widget.validateOnStartup == true){
           _switchOnValidation();
-          Formers.validateForm(_draftUser.value.formKey);
+          Formers.validateForm(_draftUser.value?.formKey);
         }
         // -----------------------------
         if (mounted == true){
@@ -146,8 +147,8 @@ class _NewUserEditorState extends State<NewUserEditor> {
   void dispose() {
 
     _loading.dispose();
-    _draftUser.value.dispose();
-    _draftUser.dispose();
+    _draftUser.value?.dispose();
+    _draftUser?.dispose();
 
     super.dispose();
   }

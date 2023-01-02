@@ -424,7 +424,16 @@ class RenovateUserProtocols {
         device2: _oldUser.device,
       );
 
-      if (_oldUser.device == null || _userIsUsingSameDevice == false){
+      final bool _shouldRefreshDevice = _oldUser.device == null || _userIsUsingSameDevice == false;
+
+      blog(
+          'refreshUserDeviceModel | '
+          '_userIsUsingSameDevice : $_userIsUsingSameDevice | '
+          '_oldUser.device : ${_oldUser.device} | '
+          '_shouldRefreshDevice : $_shouldRefreshDevice'
+      );
+
+      if (_shouldRefreshDevice == true){
 
         /// SHOULD REFETCH, and I will explain why
         /// user using device A renovated his user model and updated firebase
