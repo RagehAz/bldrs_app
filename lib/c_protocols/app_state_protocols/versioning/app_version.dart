@@ -26,6 +26,9 @@ class AppVersion {
     else if (DeviceChecker.deviceIsIOS() == true){
       return _packageInfo.buildNumber;
     }
+    else {
+      return _packageInfo.version;
+    }
   }
   // --------------------
   /// TESTED : WORKS PERFECTLY
@@ -102,4 +105,3 @@ class AppVersion {
   }
   // --------------------
 }
-
