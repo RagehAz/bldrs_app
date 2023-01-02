@@ -270,19 +270,23 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   // --------------------
   Future<void> _preparations() async {
 
-    unawaited(_imagifySlidesAndAuthorPic());
+    if (widget.flyerModel?.id  != null){
 
-    setNotifier(
-      notifier: _bzCounters,
-      mounted: mounted,
-      value: BzCounterModel.createInitialModel(widget.bzModel.id),
-    );
+      unawaited(_imagifySlidesAndAuthorPic());
 
-    setNotifier(
-      notifier: _followIsOn,
-      mounted: mounted,
-      value: checkFollowIsOn(context: context, bzModel: widget.bzModel,),
-    );
+      setNotifier(
+        notifier: _bzCounters,
+        mounted: mounted,
+        value: BzCounterModel.createInitialModel(widget.bzModel.id),
+      );
+
+      setNotifier(
+        notifier: _followIsOn,
+        mounted: mounted,
+        value: checkFollowIsOn(context: context, bzModel: widget.bzModel,),
+      );
+
+    }
 
   }
   // --------------------
