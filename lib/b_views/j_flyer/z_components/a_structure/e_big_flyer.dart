@@ -492,7 +492,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       /// 1 - GRAPHIC IS ALREADY OFF => SWITCH ON
       setNotifier(notifier: _graphicIsOn, mounted: mounted, value: true);
-      setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 1);
+      setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 1.0);
 
       // blog('-1 - _graphicIsOn => ${_graphicIsOn.value}');
 
@@ -502,7 +502,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       /// 3 - START FADE OUT AND WAIT FOR IT
       if (mounted){
-        setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 0);
+        setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 0.0);
       }
       // blog('-3 - _graphicOpacity => ${_graphicOpacity.value}');
 
@@ -517,7 +517,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       /// 5 - READY THE FADE FOR THE NEXT ANIMATION
       await Future.delayed(const Duration(milliseconds: 200), (){
         if (mounted){
-          setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 1);
+          setNotifier(notifier: _graphicOpacity, mounted: mounted, value: 1.0);
         }
       });
       // blog('-5 - _canStartFadeOut => ${_graphicOpacity.value}');
