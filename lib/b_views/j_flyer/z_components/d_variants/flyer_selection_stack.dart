@@ -45,6 +45,7 @@ class FlyerSelectionStack extends StatelessWidget {
       children: <Widget>[
 
         /// FLYER
+        if (flyerModel != null)
         AbsorbPointer(
           absorbing: _isSelectionMode,
           child: Flyer(
