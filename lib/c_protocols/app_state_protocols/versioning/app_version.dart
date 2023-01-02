@@ -1,3 +1,5 @@
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -18,7 +20,12 @@ class AppVersion {
   /// TESTED : WORKS PERFECTLY
   static Future<String> getAppVersion() async {
     final PackageInfo _packageInfo = await PackageInfo.fromPlatform();
-    return _packageInfo.version;
+    if (DeviceChecker.deviceIsAndroid() == true){
+      return _packageInfo.version;
+    }
+    else if (DeviceChecker.deviceIsIOS() == true){
+      return _packageInfo.buildNumber;
+    }
   }
   // --------------------
   /// TESTED : WORKS PERFECTLY
@@ -64,7 +71,35 @@ class AppVersion {
       }
     }
 
-    return _divisions;
+    return _fixDivisions(_divisions);
+  }
+  // --------------------
+  static List<int> _fixDivisions(List<int> divs){
+    List<int> _output = <int>[];
+
+    if (Mapper.checkCanLoopList(divs) == true){
+
+      if (divs.length == 3){
+        _output = divs;
+      }
+      else if (divs.length > 3){
+        _output = [divs[0], divs[1], divs[2]];
+      }
+      else {
+        _output = <int>[0,0,0];
+        for (int i = 0; i < divs.length; i++){
+          _output.removeAt(i);
+          _output.insert(i, divs[i]);
+        }
+      }
+
+    }
+    else {
+      _output = [0,0,0];
+    }
+
+    return _output;
   }
   // --------------------
 }
+
