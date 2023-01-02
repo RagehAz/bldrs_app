@@ -75,18 +75,26 @@ Future<void> _checkIfUserIsMissingFields({
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
-    final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
+    if (_authModel != null){
+
+      _authModel?.blogAuthModel(
+        invoker: '_checkIfUserIsMissingFields',
+      );
+
+      final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
         context: context,
         userModel: _authModel?.userModel,
-    );
-
-    /// MISSING FIELDS FOUND
-    if (_thereAreMissingFields == true){
-
-      await _controlMissingFieldsCase(
-        context: context,
-        authModel: _authModel,
       );
+
+      /// MISSING FIELDS FOUND
+      if (_thereAreMissingFields == true){
+
+        await _controlMissingFieldsCase(
+          context: context,
+          authModel: _authModel,
+        );
+
+      }
 
     }
 
