@@ -63,7 +63,6 @@
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		16AE31CE35C3860AF56AB4DF /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		1CB0102F67F68BA2A4113E69 /* Pods_ImageNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		239EB1BD10CC8DACE36DBC2D /* Pods-bldrs notification image.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bldrs notification image.release.xcconfig"; path = "Target Support Files/Pods-bldrs notification image/Pods-bldrs notification image.release.xcconfig"; sourceTree = "<group>"; };
 		3877E08A3974A60809252DE2 /* Pods-ImageNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.release.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.release.xcconfig"; sourceTree = "<group>"; };
 		3A58D1C878641A7A0985269E /* Pods-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
@@ -77,7 +76,6 @@
 		7B56AB9A296289AB009DCF51 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		7B56AB9C296289AB009DCF51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B56ABA42962945E009DCF51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/Runner_backup/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		82D69F474BEE263148BFDD4F /* Pods-bldrs notification image.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bldrs notification image.debug.xcconfig"; path = "Target Support Files/Pods-bldrs notification image/Pods-bldrs notification image.debug.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,7 +86,6 @@
 		BA9558D07E3EA314FAF6F714 /* Pods-ImageNotification.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.profile.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.profile.xcconfig"; sourceTree = "<group>"; };
 		D82D586A654268FD0BB66B3B /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA3EEC55CF27D02981C35F44 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
-		DC91C1DFE7FC92C33C11418C /* Pods-bldrs notification image.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bldrs notification image.profile.xcconfig"; path = "Target Support Files/Pods-bldrs notification image/Pods-bldrs notification image.profile.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,9 +184,6 @@
 				16AE31CE35C3860AF56AB4DF /* Pods-Runner.debug.xcconfig */,
 				03AD5E2A58E219FA0C94E9AB /* Pods-Runner.release.xcconfig */,
 				DA3EEC55CF27D02981C35F44 /* Pods-Runner.profile.xcconfig */,
-				82D69F474BEE263148BFDD4F /* Pods-bldrs notification image.debug.xcconfig */,
-				239EB1BD10CC8DACE36DBC2D /* Pods-bldrs notification image.release.xcconfig */,
-				DC91C1DFE7FC92C33C11418C /* Pods-bldrs notification image.profile.xcconfig */,
 				3A58D1C878641A7A0985269E /* Pods-ImageNotification.debug.xcconfig */,
 				3877E08A3974A60809252DE2 /* Pods-ImageNotification.release.xcconfig */,
 				BA9558D07E3EA314FAF6F714 /* Pods-ImageNotification.profile.xcconfig */,
