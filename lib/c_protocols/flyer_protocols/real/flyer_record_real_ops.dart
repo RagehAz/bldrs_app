@@ -78,9 +78,14 @@ class FlyerRecordRealOps {
     /// TASK : CAUTION : THIS METHOD WILL DUPLICATE RECORDS IN REAL DB IF LDB VIEWS DOX IS WIPED OUT
     /// WE WEEN A MORE SOLID WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS
     /// OR,, CHANGE THE NODE ID IN
-    if (AuthModel.userIsSignedIn() == true && flyerModel?.id != DraftFlyer.newDraftID){
+    if (
+        AuthModel.userIsSignedIn() == true &&
+        flyerModel?.id != DraftFlyer.newDraftID &&
+        flyerModel != null &&
+        index != null
+    ){
 
-      final int _numberOfSlides = flyerModel?.slides?.length;
+      final int _numberOfSlides = flyerModel?.slides?.length ?? 0;
 
       if (index < _numberOfSlides){
 
