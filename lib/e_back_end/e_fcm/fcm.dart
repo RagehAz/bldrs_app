@@ -481,7 +481,7 @@ class FCM {
       color: textColor,
 
       /// CAN TAP BUTTON ?
-      // enabled: true,
+      enabled: true, // On Android, deactivates the button. On iOS, the button disappear
       /// DISMISS NOTIFICATION ON BUTTON TAP
       // autoDismissible: true,
       /// MAKES TEXT RED

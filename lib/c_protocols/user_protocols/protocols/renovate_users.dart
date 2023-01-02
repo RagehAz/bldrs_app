@@ -429,7 +429,7 @@ class RenovateUserProtocols {
       blog(
           'refreshUserDeviceModel | '
           '_userIsUsingSameDevice : $_userIsUsingSameDevice | '
-          '_oldUser.device : ${_oldUser.device} | '
+          '_oldUser.device : ${_oldUser.device?.name} | '
           '_shouldRefreshDevice : $_shouldRefreshDevice'
       );
 

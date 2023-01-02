@@ -343,7 +343,9 @@ Future<void> onSelectReceiverType({
       setNotifier(
           notifier: noteNotifier,
           mounted: mounted,
-          value: _newParties,
+          value: noteNotifier.value.copyWith(
+            parties: _newParties,
+          ),
       );
 
       setNotifier(
