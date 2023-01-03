@@ -13,8 +13,7 @@
 		7B026C8A2961D66400E032EC /* res_name_salli.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 7B026C892961D66400E032EC /* res_name_salli.aiff */; };
 		7B56AB9B296289AB009DCF51 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B56AB9A296289AB009DCF51 /* NotificationService.m */; };
 		7B56AB9F296289AB009DCF51 /* ImageNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7B56AB97296289AB009DCF51 /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7B56ABA52962945E009DCF51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B56ABA42962945E009DCF51 /* GoogleService-Info.plist */; };
-		7B56ABA62962945E009DCF51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B56ABA42962945E009DCF51 /* GoogleService-Info.plist */; };
+		7BA579D829646F760010B714 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BA579D729646F760010B714 /* GoogleService-Info.plist */; };
 		8C057C6D4D12AD646227C7F8 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D82D586A654268FD0BB66B3B /* Pods_Runner.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -75,7 +74,7 @@
 		7B56AB99296289AB009DCF51 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		7B56AB9A296289AB009DCF51 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		7B56AB9C296289AB009DCF51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7B56ABA42962945E009DCF51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/Runner_backup/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7BA579D729646F760010B714 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/ios folder backup/Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,7 +152,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
-				7B56ABA42962945E009DCF51 /* GoogleService-Info.plist */,
+				7BA579D729646F760010B714 /* GoogleService-Info.plist */,
 				7B026C892961D66400E032EC /* res_name_salli.aiff */,
 				7B026C882961D18100E032EC /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
@@ -279,7 +278,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B56ABA62962945E009DCF51 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,7 +290,7 @@
 				7B026C8A2961D66400E032EC /* res_name_salli.aiff in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
-				7B56ABA52962945E009DCF51 /* GoogleService-Info.plist in Resources */,
+				7BA579D829646F760010B714 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
