@@ -31,7 +31,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  pod 'GoogleUtilities'
+#   pod 'GoogleUtilities'
 end
 
 post_install do |installer|
@@ -51,5 +51,5 @@ end
 target 'ImageNotification' do
   use_frameworks!
   pod 'Firebase/Messaging'
-  pod 'GoogleUtilities'
+#   pod 'GoogleUtilities'
 end
