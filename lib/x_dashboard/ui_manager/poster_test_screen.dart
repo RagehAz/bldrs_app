@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
@@ -17,6 +18,7 @@ import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -69,9 +71,11 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
+        final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
         FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
           context: context,
-          flyerID: 'tuKZixD2pEazLtyyALOV',
+          flyerID: _userModel.savedFlyers.all.first,
         );
 
         _flyerModel = await FlyerProtocols.imagifySlides(_flyerModel);
