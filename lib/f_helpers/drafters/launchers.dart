@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/link_model.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,15 @@ class Launcher {
       }
 
       else {
+
         blog('cant launch email');
+
+        await Keyboard.copyToClipboard(
+          context: context,
+          copy: email,
+          milliseconds: 3000,
+        );
+
       }
 
     }
