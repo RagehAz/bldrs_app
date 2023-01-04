@@ -52,7 +52,7 @@ class PDFProtocols {
         bytes: _platformFile.bytes,
         path: Storage.generateFlyerPDFPath(flyerID),
         name: _platformFile.name,
-        sizeMB: Filers.calculateSize(_platformFile.bytes.length, FileSizeUnit.megaByte),
+        sizeMB: Filers.calculateSize(_platformFile.bytes?.length, FileSizeUnit.megaByte),
         ownersIDs: await FlyerModel.generateFlyerOwners(context: context, bzID: bzID),
       );
     }

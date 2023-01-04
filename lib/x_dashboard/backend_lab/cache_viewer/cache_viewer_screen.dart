@@ -89,7 +89,7 @@ class _CacheViewerScreenState extends State<CacheViewerScreen> {
 
     return MainLayout(
       loading: _loading,
-      appBarType: AppBarType.scrollable,
+      appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
 
         /// SEPARATOR
