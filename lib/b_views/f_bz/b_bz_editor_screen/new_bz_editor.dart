@@ -25,6 +25,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layou
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -462,6 +463,10 @@ class _NewBzEditorState extends State<NewBzEditor> {
                       },
                     ),
 
+                    const Horizon(
+                      heightFactor: 0,
+                    ),
+
                   ],
                 ),
 
@@ -775,9 +780,9 @@ class _NewBzEditorState extends State<NewBzEditor> {
                       ),
                     ),
 
-                    // const Horizon(
-                    //   heightFactor: 0,
-                    // ),
+                    const Horizon(
+                      heightFactor: 0,
+                    ),
 
                   ],
                 ),

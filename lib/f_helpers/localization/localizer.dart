@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
@@ -10,7 +12,6 @@ import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 //
 // --- BEHOLD ---
@@ -108,10 +109,13 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Locale> getLocaleFromSharedPref() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final String _languageCode = _prefs.getString('languageCode') ?? Lang.englishLingo.code;
+    final String _langCode = await LDBOps.readField(
+      id: LDBDoc.langCode,
+      docName: LDBDoc.langCode,
+      fieldName: LDBDoc.langCode,
+    );
+    final String _languageCode = _langCode ?? Lang.englishLingo.code;
     return _concludeLocaleByLingoCode(_languageCode);
-//  await _prefs.setString(Language_Code, languageCode);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -230,8 +234,15 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Locale> setLocale(String languageCode) async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    await _prefs.setString('languageCode', languageCode);
+
+    await LDBOps.insertMap(
+        docName: LDBDoc.langCode,
+        input: {
+          'id': LDBDoc.langCode,
+          LDBDoc.langCode: languageCode,
+        },
+    );
+
     return _concludeLocaleByLingoCode(languageCode);
   }
   // --------------------

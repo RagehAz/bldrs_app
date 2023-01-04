@@ -445,6 +445,7 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
       theLastWipe: false, // no need to wipe
       appState: false, // no need to wipe
       appControls: false, // no need to wipe
+      langCode: false, // no need to wipe
     ),
 
   ]);
@@ -495,6 +496,7 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
       theLastWipe: false, // no need to wipe
       appState: false, // no need to wipe
       appControls: false, // no need to wipe
+      langCode: false, // no need to wipe
     );
 
   }

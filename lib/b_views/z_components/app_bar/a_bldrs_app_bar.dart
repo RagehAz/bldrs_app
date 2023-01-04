@@ -99,14 +99,8 @@ class BldrsAppBar extends StatelessWidget {
       else if (appBarType == AppBarType.main) {
         return false;
       }
-      else if (appBarType == AppBarType.intro) {
-        return false;
-      }
       else if (appBarType == AppBarType.search) {
         return true;
-      }
-      else if (appBarType == AppBarType.non) {
-        return false;
       }
       else {
         return false;
@@ -130,13 +124,7 @@ class BldrsAppBar extends StatelessWidget {
     else if (appBarType == AppBarType.main) {
       return true;
     }
-    else if (appBarType == AppBarType.intro) {
-      return false;
-    }
     else if (appBarType == AppBarType.search) {
-      return false;
-    }
-    else if (appBarType == AppBarType.non) {
       return false;
     }
     else {
@@ -162,13 +150,7 @@ class BldrsAppBar extends StatelessWidget {
     else if (appBarType == AppBarType.main) {
       return true;
     }
-    else if (appBarType == AppBarType.intro) {
-      return false;
-    }
     else if (appBarType == AppBarType.search) {
-      return false;
-    }
-    else if (appBarType == AppBarType.non) {
       return false;
     }
     else {
@@ -243,15 +225,7 @@ class BldrsAppBar extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
 
-                if (
-                    appBarType == AppBarType.search ||
-                    appBarType == AppBarType.main ||
-                    appBarType == AppBarType.basic
-                )
-                  const SizedBox(
-                    width: 5,
-                    height: 5,
-                  ),
+                  const SizedBox(width: 5, height: 5,),
 
                 /// BACK / SEARCH / SECTION / ZONE
                 Row(

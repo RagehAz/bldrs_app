@@ -500,6 +500,10 @@ class _NewAuthorEditorState extends State<NewAuthorEditor> {
                       ),
                     ),
 
+                    const Horizon(
+                      heightFactor: 0,
+                    ),
+
                   ],
                 ),
 

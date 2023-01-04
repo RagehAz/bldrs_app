@@ -53,6 +53,51 @@ class LDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
+  static dynamic readField({
+    @required String docName,
+    @required String id,
+    @required String fieldName,
+  }) async {
+
+    final Map<String, Object> map = await readMap(
+        docName: docName,
+        id: id
+    );
+
+    if (map == null){
+      return null;
+    }
+    else {
+      return map[fieldName];
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> readMap({
+    @required String docName,
+    @required String id,
+  }) async {
+
+    Map<String, dynamic> _output;
+
+    if (id != null && docName != null){
+
+      final List<Map<String, dynamic>> _maps = await readMaps(
+        docName: docName,
+        ids: <String>[id],
+      );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+        _output = _maps[0];
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readMaps({
     @required List<String> ids,
     @required String docName,
@@ -283,6 +328,7 @@ class LDBOps {
     bool theLastWipe = true,
     bool appState = true,
     bool appControls = true,
+    bool langCode = true,
   }) async {
 
     final List<String> _docs = <String>[];
@@ -317,6 +363,7 @@ class LDBOps {
     if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
     if (appState == true) {_docs.add(LDBDoc.appState);}
     if (appControls == true) {_docs.add(LDBDoc.appControls);}
+    if (langCode == true) {_docs.add(LDBDoc.langCode);}
 
     await Future.wait(<Future>[
       ...List.generate(_docs.length, (index){
