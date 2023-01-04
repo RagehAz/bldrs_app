@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/new_flyer_editor.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/new_user_editor.dart';
+import 'package:bldrs/x_dashboard/ui_manager/pdf_testing/pdf_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/poster_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_rage7.dart';
@@ -210,6 +211,25 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const VideoPlayerScreen(),
+            );
+
+          },
+        ),
+
+        // ------------------------------------------------
+
+        /// VIDEOS
+        SuperHeadline(verse: Verse.plain('PDF'),),
+
+        /// VIDEO EDITOR
+        WideButton(
+          verse: Verse.plain('PDF Tested'),
+          icon: Iconz.form,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const PDFTestingScreen(),
             );
 
           },
