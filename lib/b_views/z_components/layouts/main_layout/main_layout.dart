@@ -25,7 +25,6 @@ enum AppBarType {
   scrollable,
   main,
   search,
-  intro,
   non,
 }
 
@@ -202,12 +201,17 @@ class MainLayout extends StatelessWidget {
       child: GestureDetector(
         onTap: (){
 
-
-
           Keyboard.closeKeyboard(context);
 
         },
         child: SafeArea(
+          // key: ,
+          // bottom: ,
+          // left: ,
+          // maintainBottomViewPadding: ,
+          // minimum: ,
+          // right: ,
+          // top: ,
           child: ConnectivitySensor(
             child: Stack(
               children: <Widget>[

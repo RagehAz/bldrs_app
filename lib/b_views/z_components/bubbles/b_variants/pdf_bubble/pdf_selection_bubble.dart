@@ -158,7 +158,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       titleScaleFactor: 0.9,
                     ),
 
-
                     if (pdfModel.sizeMB != null)
                     SuperVerse(
                       verse: PDFModel.getSizeLine(

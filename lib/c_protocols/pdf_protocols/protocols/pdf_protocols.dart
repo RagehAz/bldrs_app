@@ -33,7 +33,7 @@ class PDFProtocols {
       type: FileType.custom,
       allowCompression: true,
       allowMultiple: false,
-      dialogTitle: Verse.transBake(context, 'phid_pick_pdf_file'),
+      dialogTitle: Verse.transBake(context, 'phid_select_a_pdf'),
       lockParentWindow: false,
       onFileLoading: (FilePickerStatus status){
         blog('status : ${status.name}');

@@ -64,6 +64,7 @@ class LDBDoc {
       case LDBDoc.theLastWipe: return 'id';
       case LDBDoc.appState: return 'id';
       case LDBDoc.appControls: return 'id';
+      case LDBDoc.langCode: return 'id';
       case 'test': return 'id';
       // -------------
       default: return 'id';
@@ -110,6 +111,7 @@ class LDBDoc {
   static const String appState = 'appState';
   static const String appControls = 'appControls';
   static const String theLastWipe = 'theLastWipe';
+  static const String langCode = 'langCode';
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST
@@ -151,6 +153,7 @@ class LDBDoc {
     theLastWipe,
     appState,
     appControls,
+    langCode,
 
   ];
 // -----------------------------------------------------------------------------

@@ -27,6 +27,7 @@ dependencies:
   #  exif: ^3.0.1
   #  flutter_swiper: ^1.1.6
   #  image_cropping: ^0.0.12
+  #  shared_preferences: ^2.0.8
   # ------------------------------------
   # NEED FIXING / FUTURE PLANS / NEED DEV
   #  crop_your_image: ^0.7.0
@@ -83,7 +84,6 @@ dependencies:
   screenshot: ^1.2.3
   sembast: ^3.1.1
   share: ^2.0.4
-  shared_preferences: ^2.0.8
   stop_watch_timer: ^1.5.0
   translator: ^0.1.7
   url_launcher: ^6.1.4

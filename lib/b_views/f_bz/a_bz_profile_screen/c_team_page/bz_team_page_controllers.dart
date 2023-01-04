@@ -23,7 +23,7 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs/x_dashboard/ui_manager/new_editors/new_author_editor.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

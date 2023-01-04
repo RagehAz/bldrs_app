@@ -43,7 +43,7 @@ class NewFlyerEditor extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _NewFlyerEditorState createState() => _NewFlyerEditorState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAliveClientMixin{
@@ -366,7 +366,7 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                       isFormField: true,
                       counterIsOn: true,
                       maxLength: 50,
-                      maxLines: 3,
+                      maxLines: 5,
                       keyboardTextInputType: TextInputType.multiline,
                       onTextChanged: (String text) => onUpdateFlyerHeadline(
                         draftNotifier: draftNotifier,
