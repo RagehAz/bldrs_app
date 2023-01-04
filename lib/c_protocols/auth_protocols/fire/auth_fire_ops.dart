@@ -1,6 +1,9 @@
-import 'dart:developer';
-
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'dart:developer';
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
+import 'package:flutter/material.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -12,10 +15,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter/material.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFireOps {
   // -----------------------------------------------------------------------------
@@ -456,6 +455,7 @@ class AuthFireOps {
   }
   // --------------------
   /// TASK : TEST ME
+  /*
   static Future<bool> googleSignOutOps() async {
 
     /// google sign out
@@ -487,6 +487,7 @@ class AuthFireOps {
 
     return _isSignedIn;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> signOut({
@@ -495,7 +496,7 @@ class AuthFireOps {
   }) async {
 
     blog('Signing out');
-    await googleSignOutOps();
+    // await googleSignOutOps();
     await emailSignOutOps(context);
     // Nav.goToRoute(context, Routez.Starting);
 

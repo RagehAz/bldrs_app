@@ -23,7 +23,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
+	<string>1.0.1</string>
+	<key>FIRMessagingAutoRegisterEnabledflag</key>
+	<true/>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-1416346029613600~5098797361</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -55,15 +59,15 @@
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>LaunchScreen.storyboard</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIStatusBarHidden</key>
 	<false/>
-	<key>FIRMessagingAutoRegisterEnabledflag</key>
-        <true/>
-    <key>FirebaseAppDelegateProxyEnabled</key>
-        <false/>
+		<key>FIRMessagingAutoRegisterEnabledflag</key>
+            <true/>
+        <key>FirebaseAppDelegateProxyEnabled</key>
+            <false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
