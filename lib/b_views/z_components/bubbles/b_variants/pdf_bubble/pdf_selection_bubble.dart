@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_title.dart
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -98,6 +99,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   @override
   Widget build(BuildContext context) {
 
+    blog('PDFSelectionBubble');
+
     return ValueListenableBuilder(
         valueListenable: _pdfNotifier,
         builder: (_, PDFModel pdfModel, Widget child){
@@ -125,6 +128,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
             columnChildren: <Widget>[
 
+              /// BULLET POINTS
               const BulletPoints(
                 bulletPoints: <Verse>[
                   Verse(
@@ -145,11 +149,13 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 ],
               ),
 
+              /// TITLE - SIZE - LOADING
               if (_bytesExist == true || _pathExists == true)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
 
+                    /// TITLE
                     const BubbleTitle(
                       titleVerse: Verse(
                         text: 'phid_pdf_file_name',
@@ -158,6 +164,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       titleScaleFactor: 0.9,
                     ),
 
+                    /// SIZE
                     if (pdfModel.sizeMB != null)
                     SuperVerse(
                       verse: PDFModel.getSizeLine(
@@ -172,6 +179,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       scaleFactor: 0.9,
                     ),
 
+                    /// LOADING
                     if (pdfModel.sizeMB == null)
                       Loading(
                         loading: true,
@@ -187,6 +195,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 ),
 
 
+                /// FILE NAME FIELD
                 if (_bytesExist == true || _pathExists == true)
               SuperTextField(
                 appBarType: widget.appBarType,
@@ -300,6 +309,45 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 // width: width: Bubble.clearWidth(context),
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
+
+                  /// VIEW FILE
+                  DreamBox(
+                    height: 50,
+                    verse: const Verse(
+                      text: 'phid_view',
+                      translate: true,
+                    ),
+                    verseScaleFactor: 0.6,
+                    verseWeight: VerseWeight.black,
+                    verseItalic: true,
+                    margins: const EdgeInsets.only(top: 10),
+                    onTap: () async {
+
+                      blog('should view the file now');
+
+                    },
+                  ),
+
+                  /// WTF
+                  DreamBox(
+                    height: 50,
+                    verse: const Verse(
+                      text: 'WTF',
+                      translate: false,
+                    ),
+                    verseScaleFactor: 0.6,
+                    verseWeight: VerseWeight.black,
+                    verseItalic: true,
+                    margins: const EdgeInsets.only(top: 10),
+                    onTap: () async {
+
+                      blog('wtf');
+
+                    },
+                  ),
+
+
+                  const Expander(),
 
                   /// DELETE PDF
                   if (_bytesExist == true || _pathExists == true)
