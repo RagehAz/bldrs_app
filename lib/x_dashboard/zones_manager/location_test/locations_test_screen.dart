@@ -13,14 +13,13 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-
-import 'package:bldrs/x_dashboard/zones_manager/location_test/google_map_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+// import 'package:bldrs/f_helpers/router/navigators.dart';
+// import 'package:bldrs/x_dashboard/zones_manager/location_test/google_map_screen.dart';
 
 class LocationsTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -129,20 +128,20 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     unawaited(_triggerLoading(setTo: true));
 
-    final GeoPoint _pickedPoint = await Nav.goToNewScreen(
-        context: context,
-        screen: const GoogleMapScreen(
-          isSelecting: true,
-        )
-    );
-
-    if (_pickedPoint != null) {
-      setState(() {
-        _point = _pickedPoint;
-      });
-
-      await _getCountryData(geoPoint: _point);
-    }
+    // final GeoPoint _pickedPoint = await Nav.goToNewScreen(
+    //     context: context,
+    //     screen: const GoogleMapScreen(
+    //       isSelecting: true,
+    //     )
+    // );
+    //
+    // if (_pickedPoint != null) {
+    //   setState(() {
+    //     _point = _pickedPoint;
+    //   });
+    //
+    //   await _getCountryData(geoPoint: _point);
+    // }
 
     unawaited(_triggerLoading(setTo: false));
   }

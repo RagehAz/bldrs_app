@@ -13,12 +13,12 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image/image.dart' as img;
+// import 'package:bldrs/f_helpers/theme/iconz.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Floaters {
   // -----------------------------------------------------------------------------
@@ -398,6 +398,7 @@ static img.Image decodeToImgImage({
 
   // --------------------
   /// TASK : TEST ME
+  /*
   static Future<BitmapDescriptor> getBitmapFromSVG({
     @required BuildContext context,
     @required String assetName,
@@ -426,8 +427,10 @@ static img.Image decodeToImgImage({
     final ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
+   */
   // --------------------
   /// TASK : TEST ME
+  /*
   static Future<BitmapDescriptor> getBitmapFromPNG({
     String pngPic = Iconz.flyerPinPNG,
   }) async {
@@ -435,6 +438,7 @@ static img.Image decodeToImgImage({
     await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, pngPic);
     return _marker;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// INTs : List<int>
