@@ -181,7 +181,7 @@ class DynamicLinks {
       ),
       iosParameters: const IOSParameters(
         bundleId: Standards.iosBundleID,
-        minimumVersion: '0',
+        minimumVersion: '1.0.1',
         // fallbackUrl: ,
         // appStoreId: ,
         // customScheme: ,

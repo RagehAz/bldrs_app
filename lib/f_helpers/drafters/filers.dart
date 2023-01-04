@@ -201,13 +201,15 @@ class Filers {
 
     double _size;
 
-      switch (unit){
-        case FileSizeUnit.byte:      _size = bytes.toDouble(); break;
-        case FileSizeUnit.kiloByte:  _size = bytes / 1024; break;
-        case FileSizeUnit.megaByte:  _size = bytes/ (1024 * 1024); break;
-        case FileSizeUnit.gigaByte:  _size = bytes/ (1024 * 1024 * 1024); break;
-        case FileSizeUnit.teraByte:  _size = bytes/ (1024 * 1024 * 1024 * 1024); break;
-        default:                     _size = bytes.toDouble(); break;
+      if (bytes != null){
+        switch (unit){
+          case FileSizeUnit.byte:      _size = bytes.toDouble(); break;
+          case FileSizeUnit.kiloByte:  _size = bytes / 1024; break;
+          case FileSizeUnit.megaByte:  _size = bytes/ (1024 * 1024); break;
+          case FileSizeUnit.gigaByte:  _size = bytes/ (1024 * 1024 * 1024); break;
+          case FileSizeUnit.teraByte:  _size = bytes/ (1024 * 1024 * 1024 * 1024); break;
+          default:                     _size = bytes.toDouble(); break;
+        }
       }
 
       return Numeric.roundFractions(_size, 2);
