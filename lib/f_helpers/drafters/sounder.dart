@@ -1,6 +1,5 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
-
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -46,7 +45,7 @@ class Sounder  {
   /// TESTED : WORKS PERFECT
   static Future<void> playAssetSound(String asset) async {
 
-    if (DeviceChecker.deviceIsAndroid() == true){
+    if (DeviceChecker.deviceIsAndroid() == true && asset != Sounder.bldrs_intro_wav){
       /// PLAN : ACTIVATE VOICES ON ANDROID LATER IN YOUR LIFE WHEN THINGS BECOME LITTLE HAPPIER
     }
     else {

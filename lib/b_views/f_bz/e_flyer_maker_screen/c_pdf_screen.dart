@@ -1,11 +1,9 @@
 import 'dart:typed_data';
-
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,7 @@ class PDFScreen extends StatefulWidget {
 class _PDFScreenState extends State<PDFScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<Uint8List> _uInt8List = ValueNotifier(null);
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(ProgressBarModel.emptyModel());
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);//ProgressBarModel.emptyModel());
   final ValueNotifier<PDFViewController> _pdfController = ValueNotifier<PDFViewController>(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -89,43 +87,6 @@ class _PDFScreenState extends State<PDFScreen> {
       ),
       appBarType: AppBarType.basic,
       progressBarModel: _progressBarModel,
-      appBarRowWidgets: const <Widget>[
-
-        Expander(),
-
-        // /// WORKS BUT LOOKS UGLY
-        // ValueListenableBuilder(
-        //     valueListenable: _pdfController,
-        //     builder: (_, PDFViewController controller, Widget child){
-        //
-        //       return Row(
-        //         children: <Widget>[
-        //
-        //           AppBarButton(
-        //             icon: Iconz.arrowLeft,
-        //             isDeactivated: controller == null,
-        //             onTap: (){
-        //               final int _pastIndex = _progressBarModel.value.index - 1;
-        //               controller.setPage(_pastIndex);
-        //             },
-        //           ),
-        //
-        //           AppBarButton(
-        //             icon: Iconz.arrowRight,
-        //             isDeactivated: controller == null,
-        //             onTap: (){
-        //               final int _nextIndex = _progressBarModel.value.index + 1;
-        //               controller.setPage(_nextIndex);
-        //             },
-        //           ),
-        //
-        //         ],
-        //       );
-        //
-        //     }
-        // )
-
-      ],
       child: PageBubble(
         appBarType: AppBarType.basic,
         screenHeightWithoutSafeArea: Scale.superScreenHeightWithoutSafeArea(context),
@@ -183,8 +144,24 @@ class _PDFScreenState extends State<PDFScreen> {
                 onLinkHandler: (String link){
                   blog('onLinkHandler : link : $link');
                 },
-                onRender: (int x){
-                  blog('onRender : x : $x');
+                onRender: (int pageCount){
+                  blog('onRender : x : $pageCount');
+
+                  if (
+                  // _progressBarModel.value.numberOfStrips == null &&
+                  pageCount != null && pageCount != 0
+                  ){
+
+                    setNotifier(
+                      notifier: _progressBarModel,
+                      mounted: mounted,
+                      value: ProgressBarModel.initialModel(
+                          numberOfStrips: pageCount,
+                      ),
+                    );
+
+                  }
+
                 },
                 onViewCreated: (PDFViewController controller) async {
 
@@ -192,18 +169,6 @@ class _PDFScreenState extends State<PDFScreen> {
                       notifier: _pdfController,
                       mounted: mounted,
                       value: controller,
-                  );
-
-                  final int _count = await _pdfController.value.getPageCount();
-                  final int _index = await _pdfController.value.getCurrentPage();
-
-                  setNotifier(
-                    notifier: _progressBarModel,
-                    mounted: mounted,
-                    value: ProgressBarModel.emptyModel().copyWith(
-                      numberOfStrips: _count,
-                      index: _index,
-                    ),
                   );
 
 
