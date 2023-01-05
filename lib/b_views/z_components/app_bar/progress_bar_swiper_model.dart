@@ -89,6 +89,7 @@ class ProgressBarModel {
     @required int newIndex,
     @required ValueNotifier<ProgressBarModel> progressBarModel,
     @required bool mounted,
+    int numberOfPages,
   }){
 
     /// A - if Keyboard is active
@@ -99,6 +100,7 @@ class ProgressBarModel {
         progressBarModel: progressBarModel,
         newIndex: newIndex,
         mounted: mounted,
+        numberOfPages: numberOfPages,
         // syncFocusScope: true,
       );
 
@@ -112,6 +114,7 @@ class ProgressBarModel {
         newIndex: newIndex,
         syncFocusScope: false,
         mounted: mounted,
+        numberOfPages: numberOfPages,
       );
     }
 

@@ -194,6 +194,10 @@ class BldrsAppBar extends StatelessWidget {
                                       backButtonIsOn: _backButtonIsOn
                                   );
     // --------------------
+    final double _scrollableSpaceWidth =  _screenWidth -
+                                          (2 * Ratioz.appBarMargin) -
+                                          _backButtonWidth -
+                                          Ratioz.appBarPadding;
     return Container(
       width: _abWidth,
       height: _abHeight,
@@ -265,10 +269,7 @@ class BldrsAppBar extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(Ratioz.appBarCorner - Ratioz.appBarPadding),
                         child: Container(
-                          width: _screenWidth -
-                              (2 * Ratioz.appBarMargin) -
-                              _backButtonWidth -
-                              Ratioz.appBarPadding,
+                          width: _scrollableSpaceWidth,
                           height: _abHeight - (2 * Ratioz.appBarPadding),
                           alignment: Alignment.center,
                           child: ListView(

@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_poi
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -281,30 +282,46 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 children: <Widget>[
 
                   /// VIEW FILE
-                  DreamBox(
-                    height: 50,
-                    verse: const Verse(
-                      text: 'phid_view',
-                      translate: true,
+                  if (_bytesExist == true || _pathExists == true)
+                    DreamBox(
+                      height: 50,
+                      verse: const Verse(
+                        text: 'phid_view',
+                        translate: true,
+                      ),
+                      verseScaleFactor: 0.6,
+                      verseWeight: VerseWeight.black,
+                      verseItalic: true,
+                      margins: const EdgeInsets.only(top: 10),
+                      onTap: () async {
+
+                        PDFModel _pdf = pdfModel;
+
+                        if (_pathExists == true){
+                          _pdf = await PDFProtocols.fetch(pdfModel?.path);
+                        }
+
+                        if (_pdf?.bytes == null){
+                          await Dialogs.topNotice(
+                              context: context,
+                              verse: const Verse(
+                                text: 'phid_can_not_open_file',
+                                translate: true,
+                              ),
+                          );
+                        }
+
+                        else {
+                          await Nav.goToNewScreen(
+                            context: context,
+                            screen: PDFScreen(
+                              pdf: pdfModel,
+                            ),
+                          );
+                        }
+
+                      },
                     ),
-                    verseScaleFactor: 0.6,
-                    verseWeight: VerseWeight.black,
-                    verseItalic: true,
-                    margins: const EdgeInsets.only(top: 10),
-                    onTap: () async {
-
-                      blog('should view the file now');
-
-                      await Nav.goToNewScreen(
-                        context: context,
-                        screen: PDFScreen(
-                          pdf: pdfModel,
-
-                        ),
-                      );
-
-                    },
-                  ),
 
                   const Expander(),
 
