@@ -29,6 +29,7 @@ import 'package:bldrs/x_dashboard/ui_manager/static_flyer_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_text_test/super_text_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/video_player.dart';
 import 'package:bldrs/x_dashboard/ui_manager/slider_test.dart';
+import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/zoomable_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
@@ -481,6 +482,24 @@ class UIManager extends StatelessWidget {
         ),
 
         // ------------------------------------------------
+
+        /// LAYOUTS
+        SuperHeadline(verse: Verse.plain('Layout'),),
+
+        /// ZOOMABLE LAYOUT
+        WideButton(
+          verse: Verse.plain('New Flyer Editor'),
+          icon: Iconz.addFlyer,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const ZoomableLayoutScreen(),
+            );
+
+          },
+        ),
+
 
         const Horizon(),
 
