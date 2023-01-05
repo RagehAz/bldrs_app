@@ -2,14 +2,15 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/zoomable_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,12 @@ class ZoomableLayoutScreen extends StatefulWidget {
 class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
   final TransformationController _transformationController = TransformationController();
-  AnimationController _zoomAnimationController;
+  AnimationController _animationController;
+  CurvedAnimation _animation;
+
+  final ScrollController _scrollController = ScrollController();
+
+  final ValueNotifier<bool> _isZoomed = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -44,18 +50,21 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
   void initState() {
     super.initState();
 
-    _zoomAnimationController = AnimationController(
+    _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000),
+      duration: _animationDuration,
     );
 
-    _transformationController.addListener(() {
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: _curve,
+      reverseCurve: _curve,
+    );
 
-      // final double _scale = _transformationController.value.getMaxScaleOnAxis();
-
-      Trinity.blogMatrix(_transformationController.value);
-
-    });
+    // _transformationController.addListener(() {
+    //   final double _scale = _transformationController.value.getMaxScaleOnAxis();
+    //   Trinity.blogMatrix(_transformationController.value);
+    // });
 
   }
   // --------------------
@@ -79,46 +88,97 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
   @override
   void dispose() {
     _loading.dispose();
+    _isZoomed.dispose();
+    _transformationController.dispose();
+    _animationController.dispose();
+    _animation.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /// TASK :
-  double _calculateMaxScale(){
+  static const int rowsCount = 2; // matrixes are only opted for 2 rows
+  static const Duration _animationDuration = Duration(milliseconds: 300);
+  static const Curve _curve = Curves.easeOutExpo;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  double _getFlyerBoxWidth(){
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
-
-    final double _flyerBoxWidth = FlyerDim.flyerGridFlyerBoxWidth(
+    return FlyerDim.flyerGridFlyerBoxWidth(
       context: context,
       scrollDirection: Axis.vertical,
-      numberOfColumnsOrRows: 2,
+      numberOfColumnsOrRows: rowsCount,
       gridWidth: _screenWidth,
       gridHeight: _screenHeight,
     );
-
-    final double _spacing = FlyerDim.flyerGridGridSpacingValue(_flyerBoxWidth);
-
-    final double _zoomableScreenWidth = _flyerBoxWidth + (_spacing * 2);
-
-    return _screenWidth / _zoomableScreenWidth;
   }
   // --------------------
-  /// TASK :
-  Matrix4 topLeftMatrix(){
+  /// TESTED : WORKS PERFECT
+  double _getFlyerBoxHeight(){
+    return FlyerDim.flyerHeightByFlyerWidth(context, _getFlyerBoxWidth());
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  double _getSpacing(){
+    final double _flyerBoxWidth = _getFlyerBoxWidth();
+    return FlyerDim.flyerGridGridSpacingValue(_flyerBoxWidth);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  double _getMaxZoomWidth(){
+    final double _flyerBoxWidth = _getFlyerBoxWidth();
+    final double _spacing = _getSpacing();
+    return _flyerBoxWidth + (_spacing * 2);
+  }
+  // --------------------
+  double _getVerticalOffset({
+    @required int rowIndex,
+  }){
+    return (_getFlyerBoxHeight() + _getSpacing()) * rowIndex;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  double _getVerticalTranslation({
+    @required int rowIndex,
+  }){
+    final double _scale = _calculateMaxScale();
+    const double _stratosphere = Stratosphere.smallAppBarStratosphere;
+    final double _scaledStratosphere = _stratosphere * _scale;
+    final double _rowOffset = _getVerticalOffset(rowIndex: rowIndex) * _scale;
+    return - ((_scaledStratosphere - _stratosphere) + _rowOffset);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  double _getRightColumnTranslation(){
+    final double _scale = _calculateMaxScale();
+    final double _flyerBoxWidth = _getFlyerBoxWidth();
+    final double _spacing = _getSpacing();
+    return - (_flyerBoxWidth + _spacing) * _scale;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  double _calculateMaxScale(){
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _maxZoomWidth = _getMaxZoomWidth();
+    return _screenWidth / _maxZoomWidth;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Matrix4 rightMatrix({
+    @required int rowIndex,
+  }){
 
-    // 1.9716981132075473 calculated and printed
-
-    final double _scaleX = 1.2; //_calculateMaxScale();
-    final double _scaleY = _scaleX;
-    final double _scale = _scaleX;
-
-    const double _transX =  0;//- Scale.screenWidth(context) * 0;
-    const double _transY = 0;
+    final double _scale = _calculateMaxScale();
+    final double _transX = _getRightColumnTranslation();
+    final double _transY =  _getVerticalTranslation(
+      rowIndex: rowIndex,
+    );
 
     final Float64List _list = Float64List.fromList(<double>[
-      _scaleX,  0,        0,    0,
-      0,        _scaleY,  0,    0,
-      0,        0,        0,    0,
-      _transX,  _transY,  0,    1/_scale,
+      _scale,  0,        0,        0,
+      0,        _scale,  0,        0,
+      0,        0,        _scale,  0,
+      _transX,  _transY,  0,       1,
     ]);
 
     return Matrix4.fromFloat64List(_list);
@@ -126,8 +186,52 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  Matrix4 leftMatrix({
+    @required int rowIndex,
+  }){
+
+    final double _scale = _calculateMaxScale();
+
+    const double _transX = 0;
+    final double _transY =  _getVerticalTranslation(
+      rowIndex: rowIndex,
+    );
+
+    final Float64List _list = Float64List.fromList(<double>[
+      _scale,  0,        0,        0,
+      0,        _scale,  0,        0,
+      0,        0,        _scale,  0,
+      _transX,  _transY,  0,       1,
+    ]);
+
+    return Matrix4.fromFloat64List(_list);
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _zoomRight({
+    @required int flyerIndex,
+  }) async {
+    await _zoomToMatrix(rightMatrix(rowIndex: flyerIndex ~/ 2));
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _zoomTopLeft({
+    @required int flyerIndex,
+  }) async {
+    await _zoomToMatrix(leftMatrix(rowIndex: flyerIndex ~/ 2));
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _reset() async {
     await _zoomToMatrix(Matrix4.identity());
+
+    setNotifier(
+        notifier: _isZoomed,
+        mounted: mounted,
+        value: false,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -136,48 +240,92 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
     final Animation<Matrix4> _reset = Matrix4Tween(
       begin: _transformationController.value,
       end: matrix,
-    ).animate(_zoomAnimationController);
+    ).animate(_animation);
 
-    _zoomAnimationController.addListener(() {
+    _animation.addListener(() {
       _transformationController.value = _reset.value;
     });
 
-    _zoomAnimationController.reset();
+    _animationController.reset();
 
-    await _zoomAnimationController.forward();
+    await _animationController.forward();
 
+    setNotifier(
+      notifier: _isZoomed,
+      mounted: mounted,
+      value: true,
+    );
 
   }
   // --------------------
+  Future<void> _scrollToRow({
+    @required int flyerIndex,
+  }) async {
+
+    final double _offset = _getVerticalOffset(rowIndex: flyerIndex ~/ 2);
+
+    await Sliders.slideToOffset(
+      scrollController: _scrollController,
+      offset: _offset,
+      duration: _animationDuration,
+      curve: _curve,
+    );
+
+  }
+  // --------------------
+  Future<void> _onFlyerTap(int index) async {
+
+    /// if index is odd number => go right
+    if(index.isOdd){
+      unawaited(_zoomRight(flyerIndex: 0));
+      unawaited(_scrollToRow(flyerIndex: index));
+    }
+
+    else {
+      unawaited(_zoomTopLeft(flyerIndex: 0));
+      unawaited(_scrollToRow(flyerIndex: index));
+    }
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
+    final double _flyerBoxWidth = _getFlyerBoxWidth();
+    final double _spacing = _getSpacing();
+    final double _maxScale =_calculateMaxScale();
 
-    final double _flyerBoxWidth = FlyerDim.flyerGridFlyerBoxWidth(
-        context: context,
-        scrollDirection: Axis.vertical,
-        numberOfColumnsOrRows: 2,
-        gridWidth: _screenWidth,
-        gridHeight: _screenHeight,
-    );
+    return MainLayout(
+      appBarType: AppBarType.basic,
+      appBarRowWidgets: [
 
-    final double _spacing = FlyerDim.flyerGridGridSpacingValue(_flyerBoxWidth);
+        AppBarButton(
+          verse: Verse.plain('Reset'),
+          onTap: () => _reset(),
+        ),
 
-    final double _zoomableScreenWidth = _flyerBoxWidth + (_spacing * 2);
+        AppBarButton(
+          verse: Verse.plain('Zoom Top Left'),
+          onTap: () => _zoomTopLeft(
+            flyerIndex: 0,
+          ),
+        ),
 
-    // zoomableScreenWidth * maxScale = screenWidth
-    final double _maxScale = _screenWidth / _zoomableScreenWidth;
+        AppBarButton(
+          verse: Verse.plain('Zoom Top Right'),
+          onTap: () => _zoomRight(
+            flyerIndex: 1
+          ),
+        ),
 
-    blog('maxScale : $_maxScale');
-
-    return Material(
-      color: Colorz.skyDarkBlue,
+      ],
       child: InteractiveViewer(
-        clipBehavior: Clip.hardEdge,
-        alignPanAxis: false,
-        boundaryMargin: EdgeInsets.zero,
+        transformationController: _transformationController,
+        // clipBehavior: Clip.hardEdge,
+        // alignPanAxis: false,
+        // boundaryMargin: EdgeInsets.zero,
         maxScale: _maxScale,
         minScale: 1,
         onInteractionEnd:(ScaleEndDetails details) {
@@ -190,50 +338,59 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
           blog('onInteractionUpdate : details');
           blog(details.toString());
         },
-        panEnabled: true,
-        scaleEnabled: true,
-        scaleFactor: 200.0,
-        transformationController: _transformationController,
-        child: Container(
+        panEnabled: false,
+        scaleEnabled: false,
+        // scaleFactor: 200.0, // Affects only pointer device scrolling, not pinch to zoom.
+        child: SizedBox(
           width: _screenWidth,
           height: _screenHeight,
-          color: Colorz.yellow200,
-          child: GridView.builder(
-              gridDelegate: FlyerDim.flyerGridDelegate(
-                flyerBoxWidth: _flyerBoxWidth,
-                numberOfColumnsOrRows: 2,
-                scrollDirection: Axis.vertical,
-              ),
-              padding: FlyerDim.flyerGridPadding(
-                context: context,
-                topPaddingValue: 10,
-                gridSpacingValue: _spacing,
-                isVertical: true,
-              ),
-              itemCount: 20,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (_, int index){
+          child: ValueListenableBuilder(
+            valueListenable: _isZoomed,
+            builder: (_, bool isZoomed, Widget child){
 
-                return FlyerBox(
+              return IgnorePointer(
+                ignoring: isZoomed,
+                child: child,
+              );
+
+            },
+
+            /// to avoid rebuilding the whole list
+            child: GridView.builder(
+                key: const ValueKey<String>('The_zoomable_grid'),
+                controller: _scrollController,
+                gridDelegate: FlyerDim.flyerGridDelegate(
                   flyerBoxWidth: _flyerBoxWidth,
-                  boxColor: Colorz.bloodTest,
-                  onTap: () async {
+                  numberOfColumnsOrRows: rowsCount,
+                  scrollDirection: Axis.vertical,
+                ),
+                padding: FlyerDim.flyerGridPadding(
+                  context: context,
+                  topPaddingValue: Stratosphere.smallAppBarStratosphere,
+                  gridSpacingValue: _spacing,
+                  isVertical: true,
+                ),
+                itemCount: 20,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (_, int index){
 
-                    await _reset();
+                  return FlyerBox(
+                    flyerBoxWidth: _flyerBoxWidth,
+                    boxColor: Colorz.bloodTest.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
+                    onTap: () => _onFlyerTap(index),
+                    stackWidgets: [
 
-                  },
-                  stackWidgets: [
+                      SuperVerse(
+                        verse: Verse.plain(index.toString()),
+                        margin: 20,
+                        labelColor: Colorz.black255,
+                      ),
 
-                    SuperVerse(
-                      verse: Verse.plain(index.toString()),
-                      margin: 20,
-                      labelColor: Colorz.black255,
-                    ),
+                    ],
+                  );
 
-                  ],
-                );
-
-              }
+                }
+            ),
           ),
         ),
       ),
