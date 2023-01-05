@@ -289,7 +289,9 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                         text: 'phid_view',
                         translate: true,
                       ),
-                      verseScaleFactor: 0.6,
+                      icon: Iconz.viewsIcon,
+                      iconSizeFactor: 0.4,
+                      verseScaleFactor: (1 / 0.4) * 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,
                       margins: const EdgeInsets.only(top: 10),
@@ -297,7 +299,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                         PDFModel _pdf = pdfModel;
 
-                        if (_pathExists == true){
+                        if (_bytesExist == true){
+                         // do nothing
+                        }
+                        else if (_pathExists == true){
                           _pdf = await PDFProtocols.fetch(pdfModel?.path);
                         }
 
