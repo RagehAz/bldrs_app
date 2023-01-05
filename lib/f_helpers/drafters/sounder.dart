@@ -45,14 +45,21 @@ class Sounder  {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> playAssetSound(String asset) async {
-    final AudioPlayer _audioPlayer = _getPlayer();
-    await tryAndCatch(
-      invoker: 'playAssetSound',
-      functions: () async {
-        await _audioPlayer.setAsset(asset);
-        await _audioPlayer.play();
-      },
-    );
+
+    if (DeviceChecker.deviceIsAndroid() == true){
+      /// PLAN : ACTIVATE VOICES ON ANDROID LATER IN YOUR LIFE WHEN THINGS BECOME LITTLE HAPPIER
+    }
+    else {
+      final AudioPlayer _audioPlayer = _getPlayer();
+      await tryAndCatch(
+        invoker: 'playAssetSound',
+        functions: () async {
+          await _audioPlayer.setAsset(asset);
+          await _audioPlayer.play();
+        },
+      );
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

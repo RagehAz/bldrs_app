@@ -693,17 +693,59 @@ class Formers {
       if (pdfModel != null){
 
         final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
-        final bool _nameHasBadWord = TextCheck.containsBadWords(text: pdfModel.name);
 
         if (_sizeLimitReached == true){
           _message =  '${Verse.transBake(context, 'phid_file_size_should_be_less_than')} '
                       '${Standards.maxFileSizeLimit} '
                       '${Verse.transBake(context, 'phid_mb')}';
         }
-        else if (_nameHasBadWord == true){
-          _message = Verse.transBake(context, 'phid_bad_language_is_not_allowed');
+
+        else {
+          _message = pdfNameValidator(
+            context: context,
+            canValidate: canValidate,
+            pdfModel: pdfModel,
+          );
         }
 
+      }
+
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String pdfNameValidator({
+    @required BuildContext context,
+    @required PDFModel pdfModel,
+    @required bool canValidate,
+  }){
+    String _message;
+
+    if (canValidate == true){
+
+      final bool _hasExtension = TextCheck.stringContainsSubString(
+        string: pdfModel.name,
+        subString: '.pdf',
+      );
+      final bool _hasDot = TextCheck.stringContainsSubString(
+        string: pdfModel.name,
+        subString: '.',
+      );
+      final bool _nameHasBadWord = TextCheck.containsBadWords(text: pdfModel.name);
+
+      if (_hasExtension == true){
+        _message =  '${Verse.transBake(context, 'phid_file_name_should_not_include_extension')}\n'
+            '${Verse.transBake(context, 'phid_remove_dot_pdf')}';
+      }
+
+      else if (_hasDot == true) {
+        _message =  Verse.transBake(context, 'phid_file_name_should_have_no_dots');
+      }
+
+      else if (_nameHasBadWord == true){
+        _message = Verse.transBake(context, 'phid_bad_language_is_not_allowed');
       }
 
     }
