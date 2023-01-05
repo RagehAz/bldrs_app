@@ -42,12 +42,23 @@ class PDFProtocols {
       allowedExtensions: <String>['pdf'],
       // initialDirectory:
       /// ??
-      // withData:
+      withData: true,
       // withReadStream:
     );
 
     if (result != null){
+
       final PlatformFile _platformFile = result.files.first;
+
+      blog('_platformFile name        : ${_platformFile?.name}');
+      blog('_platformFile size        : ${_platformFile?.size}');
+      blog('_platformFile path        : ${_platformFile?.path}');
+      blog('_platformFile bytes       : ${_platformFile?.bytes?.length} bytes');
+      blog('_platformFile extension   : ${_platformFile?.extension}');
+      blog('_platformFile identifier  : ${_platformFile?.identifier}');
+      blog('_platformFile identifier  : ${_platformFile?.identifier}');
+
+
       _output = PDFModel(
         bytes: _platformFile.bytes,
         path: Storage.generateFlyerPDFPath(flyerID),
@@ -55,6 +66,7 @@ class PDFProtocols {
         sizeMB: Filers.calculateSize(_platformFile.bytes?.length, FileSizeUnit.megaByte),
         ownersIDs: await FlyerModel.generateFlyerOwners(context: context, bzID: bzID),
       );
+
     }
 
     return _output;

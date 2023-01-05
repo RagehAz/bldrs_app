@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -8,13 +9,11 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -99,8 +98,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   @override
   Widget build(BuildContext context) {
 
-    blog('PDFSelectionBubble');
-
     return ValueListenableBuilder(
         valueListenable: _pdfNotifier,
         builder: (_, PDFModel pdfModel, Widget child){
@@ -181,19 +178,24 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                     /// LOADING
                     if (pdfModel.sizeMB == null)
-                      Loading(
-                        loading: true,
-                        size: SuperVerse.superVerseRealHeight(
-                            context: context,
-                            size: 2,
-                            sizeFactor: 0.9,
-                            hasLabelBox: false,
-                        ),
-                      )
+                      ValueListenableBuilder(
+                          valueListenable: _loading,
+                          builder: (_, bool loading, Widget child){
+
+                            return Loading(
+                              loading: loading,
+                              size: SuperVerse.superVerseRealHeight(
+                                context: context,
+                                size: 2,
+                                sizeFactor: 0.9,
+                                hasLabelBox: false,
+                              ),
+                            );
+
+                          }),
 
                   ],
                 ),
-
 
                 /// FILE NAME FIELD
                 if (_bytesExist == true || _pathExists == true)
@@ -202,7 +204,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 globalKey: globalKey,
                 width: Bubble.clearWidth(context),
                 titleVerse: const Verse(
-                  text: 'phid_file_name',
+                  text: 'phid_pdf_file_name',
                   translate: true,
                 ),
                 maxLines: 1,
@@ -223,31 +225,11 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 isFormField: true,
                 isFloatingField: true,
                 // autoValidate: true,
-                validator: (String text){
-
-                  final bool _hasExtension = TextCheck.stringContainsSubString(
-                    string: _textController.text,
-                    subString: '.pdf',
-                  );
-
-                  final bool _hasDot = TextCheck.stringContainsSubString(
-                    string: _textController.text,
-                    subString: '.',
-                  );
-
-                  blog('is valid : $_hasExtension');
-
-                  if (_hasExtension == true){
-                    return 'remove ( .pdf ) from file name';
-                  }
-
-                  else if (_hasDot == true) {
-                    return 'file name should not have any dots';
-                  }
-                  else {
-                    return null;
-                  }
-                },
+                validator: (String text) => Formers.pdfValidator(
+                  context: context,
+                  canValidate: true,
+                  pdfModel: pdfModel,
+                ),
               ),
 
               // /// FILE
@@ -292,18 +274,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
               //     },
               //   ),
 
-              /// VALIDATOR
-              SuperValidator(
-                width: Bubble.clearWidth(context),
-                validator: () => Formers.pdfValidator(
-                  context: context,
-                  pdfModel: pdfModel,
-                  canValidate: widget.canValidate,
-                ),
-                focusNode: null,
-                // autoValidate: true,
-              ),
-
               /// SELECTION BUTTON
               Row(
                 // width: width: Bubble.clearWidth(context),
@@ -325,27 +295,16 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                       blog('should view the file now');
 
-                    },
-                  ),
+                      await Nav.goToNewScreen(
+                        context: context,
+                        screen: PDFScreen(
+                          pdf: pdfModel,
 
-                  /// WTF
-                  DreamBox(
-                    height: 50,
-                    verse: const Verse(
-                      text: 'WTF',
-                      translate: false,
-                    ),
-                    verseScaleFactor: 0.6,
-                    verseWeight: VerseWeight.black,
-                    verseItalic: true,
-                    margins: const EdgeInsets.only(top: 10),
-                    onTap: () async {
-
-                      blog('wtf');
+                        ),
+                      );
 
                     },
                   ),
-
 
                   const Expander(),
 
@@ -382,6 +341,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     margins: const EdgeInsets.only(top: 10),
                     onTap: () async {
 
+                      await _triggerLoading(setTo: true);
+
                       final PDFModel _pdfModel = await PDFProtocols.pickPDF(
                         context: context,
                         flyerID: widget.flyerID,
@@ -397,6 +358,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                         widget.onChangePDF(_pdfNotifier.value);
 
                       }
+
+                      await _triggerLoading(setTo: false);
 
                     },
                   ),
