@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/sounder.dart';
 
 
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -105,7 +106,9 @@ class LockWheel extends StatelessWidget {
             /// SIZING
 
             // ------
-            onValueChanged: (dynamic value){
+            onValueChanged: (dynamic value) async {
+
+              await Sounder.playAssetSound(Sounder.zip_wav);
 
               final int _index = value;
               final String _selectedIcon = standardLockIcons[_index].key;
