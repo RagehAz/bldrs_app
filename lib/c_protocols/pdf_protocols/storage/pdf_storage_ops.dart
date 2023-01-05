@@ -71,7 +71,6 @@ class PDFStorageOps {
             value: 'cool',
           ),
           sizeMB: Numeric.transformStringToDouble(_meta.customMetadata['sizeMB']),
-
         );
 
       }

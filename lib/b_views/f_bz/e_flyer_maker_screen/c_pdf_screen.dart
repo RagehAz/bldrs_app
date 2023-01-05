@@ -34,7 +34,6 @@ class _PDFScreenState extends State<PDFScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  /*
   Future<void> _triggerLoading({@required bool setTo}) async {
     setNotifier(
       notifier: _loading,
@@ -42,7 +41,6 @@ class _PDFScreenState extends State<PDFScreen> {
       value: setTo,
     );
   }
-   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -61,11 +59,10 @@ class _PDFScreenState extends State<PDFScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      // _triggerLoading(setTo: true).then((_) async {
-      //
-      //
-      //   await _triggerLoading(setTo: false);
-      // });
+      _triggerLoading(setTo: true).then((_) async {
+
+        await _triggerLoading(setTo: false);
+      });
 
       _isInit = false;
     }
@@ -96,7 +93,7 @@ class _PDFScreenState extends State<PDFScreen> {
 
         Expander(),
 
-        /// WORKS BUT LOOKS UGLY
+        // /// WORKS BUT LOOKS UGLY
         // ValueListenableBuilder(
         //     valueListenable: _pdfController,
         //     builder: (_, PDFViewController controller, Widget child){
@@ -132,6 +129,9 @@ class _PDFScreenState extends State<PDFScreen> {
       child: PageBubble(
         appBarType: AppBarType.basic,
         screenHeightWithoutSafeArea: Scale.superScreenHeightWithoutSafeArea(context),
+
+        /// --------------------
+
         child: ValueListenableBuilder(
           valueListenable: _uInt8List,
           builder: (_, Uint8List data, Widget child){
@@ -155,7 +155,7 @@ class _PDFScreenState extends State<PDFScreen> {
                 autoSpacing: false,
                 // fitEachPage: true,
                 fitPolicy: FitPolicy.BOTH,
-                nightMode: true,
+                // nightMode: false,
                 swipeHorizontal: true,
 
                 /// INTERACTION
@@ -188,7 +188,24 @@ class _PDFScreenState extends State<PDFScreen> {
                 },
                 onViewCreated: (PDFViewController controller) async {
 
-                  setNotifier(notifier: _pdfController, mounted: mounted, value: controller);
+                  setNotifier(
+                      notifier: _pdfController,
+                      mounted: mounted,
+                      value: controller,
+                  );
+
+                  final int _count = await _pdfController.value.getPageCount();
+                  final int _index = await _pdfController.value.getCurrentPage();
+
+                  setNotifier(
+                    notifier: _progressBarModel,
+                    mounted: mounted,
+                    value: ProgressBarModel.emptyModel().copyWith(
+                      numberOfStrips: _count,
+                      index: _index,
+                    ),
+                  );
+
 
                   // final int _currentPage = await controller.getCurrentPage();
                   // final int _pageCount = await controller.getPageCount();
@@ -204,7 +221,44 @@ class _PDFScreenState extends State<PDFScreen> {
 
           },
         ),
-      ),
+
+        /// --------------------
+
+      //   child: PdfDocumentLoader.openData(
+      //     widget.pdf.bytes,
+      //     onError: (dynamic thing){
+      //
+      //       blog('onError : thing.runtimeType : ${thing.runtimeType} : thing : ${thing.toString()}');
+      //
+      //     },
+      //     // pageBuilder: ,
+      //     // pageNumber: ,
+      //     documentBuilder: (BuildContext context, PdfDocument pdfDocument, int pageCount){
+      //
+      //       return ListView.builder(
+      //         physics: const BouncingScrollPhysics(),
+      //         itemCount: pageCount,
+      //         itemBuilder: (_, int index){
+      //
+      //           return PdfPageView(
+      //             pdfDocument: pdfDocument,
+      //             pageNumber: index + 1,
+      //             // pageBuilder: (BuildContext context, PdfPageTextureBuilder textureBuilder, Size pageSize){
+      //             //     return Container(
+      //             //       height: pageSize.height,
+      //             //       width: pageSize.width,
+      //             //       color: Colorz.bloodTest,
+      //             //     );
+      //             // },
+      //           );
+      //
+      //         },
+      //       );
+      //
+      //     },
+      //
+      // ),
+    ),
     );
 
   }

@@ -29,7 +29,7 @@ class PDFModel {
   /// CLONING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   PDFModel copyWith({
     String name,
     String path,
@@ -46,7 +46,7 @@ class PDFModel {
     );
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   PDFModel nullifyField({
     bool name = false,
     bool path = false,
@@ -196,9 +196,9 @@ class PDFModel {
   /// BLOGGING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   void blogPDFModel({String invoker = ''}){
-    blog('PDFModel: name : $name : path : $path : size : $sizeMB : '
+    blog('PDFModel ($invoker) : name : $name : path : $path : size : $sizeMB : '
         'bytes : ${bytes?.length} bytes : ownersIDs : $ownersIDs');
   }
   // -----------------------------------------------------------------------------
@@ -206,7 +206,7 @@ class PDFModel {
   /// TRANSLATIONS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Verse getSizeLine({
     @required BuildContext context,
     @required bool sizeLimitReached,
@@ -221,7 +221,7 @@ class PDFModel {
 
       return Verse(
         text: '${Verse.transBake(context, 'phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
-        translate: true,
+        translate: false,
       );
 
     }
@@ -230,7 +230,7 @@ class PDFModel {
 
       return Verse(
         text: '${Verse.transBake(context, 'phid_file_size')} : $size$_mb / $maxSize $_mb',
-        translate: true,
+        translate: false,
       );
 
 
