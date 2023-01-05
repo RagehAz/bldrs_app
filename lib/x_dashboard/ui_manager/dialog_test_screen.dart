@@ -1,10 +1,13 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
@@ -75,6 +78,27 @@ class DialogsTestScreen extends StatelessWidget {
                 bodyVerse: Verse.plain('fuck the fucking mother fucking bitches'),
                 boolDialog: true,
                 invertButtons: true
+              );
+
+            },
+          ),
+
+          /// BOTTOM DIALOG
+          WideButton(
+            verse: Verse.plain('Bottom Dialog'),
+            onTap: () async {
+
+              await BottomDialog.showBottomDialog(
+                  context: context,
+                  draggable: true,
+                  titleVerse: Verse.plain('Bottom Dialog'),
+                  child: const Center(
+                    child: DreamBox(
+                      width: 200,
+                      height: 100,
+                      color: Colorz.bloodTest,
+                    ),
+                  ),
               );
 
             },
