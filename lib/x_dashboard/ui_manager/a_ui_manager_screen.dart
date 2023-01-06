@@ -1,42 +1,41 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/new_user_editor.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/new_flyer_editor.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/animations_lab.dart';
 import 'package:bldrs/x_dashboard/ui_manager/balloon_types_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/dialog_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/emojis_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/images_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/keyboard_field_widget_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/nav_jumping_test_screen.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/new_flyer_editor.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/new_user_editor.dart';
 import 'package:bldrs/x_dashboard/ui_manager/pdf_testing/pdf_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/poster_test_screen.dart';
-import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
-import 'package:bldrs/x_dashboard/ui_manager/super_rage7.dart';
-import 'package:bldrs/x_dashboard/ui_manager/go_back_widget_test.dart';
-import 'package:bldrs/x_dashboard/ui_manager/keyboard_field_widget_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/reorder_list_test.dart';
+import 'package:bldrs/x_dashboard/ui_manager/slider_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/static_flyer_test_screen.dart';
+import 'package:bldrs/x_dashboard/ui_manager/stop_watch_test.dart';
+import 'package:bldrs/x_dashboard/ui_manager/super_rage7.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_text_test/super_text_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/video_player.dart';
-import 'package:bldrs/x_dashboard/ui_manager/slider_test.dart';
-import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/zoomable_layout.dart';
+import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/packed_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-
-import 'package:bldrs/x_dashboard/ui_manager/emojis_screen.dart';
-import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class UIManager extends StatelessWidget {
@@ -494,7 +493,7 @@ class UIManager extends StatelessWidget {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: const ZoomableLayoutScreen(),
+              screen: const PackedZoomedLayout(),
             );
 
           },
