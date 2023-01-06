@@ -17,18 +17,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget.dart';
 
-class ZoomableLayoutScreen extends StatefulWidget {
+/// WORKS : DONT FUCK THIS UP
+class ZoomableLayoutScreenThatWorks extends StatefulWidget {
   // -----------------------------------------------------------------------------
-  const ZoomableLayoutScreen({
+  const ZoomableLayoutScreenThatWorks({
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   @override
-  State<ZoomableLayoutScreen> createState() => _ZoomableLayoutScreenState();
+  State<ZoomableLayoutScreenThatWorks> createState() => _ZoomableLayoutScreenThatWorksState();
   // -----------------------------------------------------------------------------
 }
 
-class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with SingleTickerProviderStateMixin{
+class _ZoomableLayoutScreenThatWorksState extends State<ZoomableLayoutScreenThatWorks>  with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
   final TransformationController _transformationController = TransformationController();
   AnimationController _animationController;
@@ -383,7 +384,7 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
                       Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
                         width: _getZoomedWidth(),
                         height: FlyerDim.flyerHeightByFlyerWidth(context, _getZoomedWidth()),
-                        margin: EdgeInsets.only(top: _zoomedTopPadding),
+                        margin: const EdgeInsets.only(top: _zoomedTopPadding),
                         alignment: Alignment.topCenter,
                         child: FlyerBox(
                           flyerBoxWidth:  _getZoomedWidth(),
@@ -412,7 +413,7 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
                           child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
                             width: _getZoomedWidth(),
                             height: FlyerDim.flyerHeightByFlyerWidth(context, _getZoomedWidth()),
-                            margin: EdgeInsets.only(top: _zoomedTopPadding),
+                            margin: const EdgeInsets.only(top: _zoomedTopPadding),
                             alignment: Alignment.topCenter,
                             child: FlyerBox(
                               flyerBoxWidth:  _getZoomedWidth(),
@@ -494,7 +495,7 @@ class _ZoomableLayoutScreenState extends State<ZoomableLayoutScreen>  with Singl
                       flyerBoxWidth: _flyerBoxWidth,
                       boxColor: Colorz.bloodTest.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
                       onTap: () => _onFlyerTap(index),
-                      stackWidgets: [
+                      stackWidgets: <Widget>[
 
                         SuperVerse(
                           verse: Verse.plain(index.toString()),
