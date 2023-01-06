@@ -41,10 +41,10 @@ class ZoomableGridController {
     double gridWidth,
     /// TOTAL HEIGHT OF THE GRID
     double gridHeight,
-    /// ITEM HEIGHT WIDTH WHEN ZOOMED IN
-    double bigItemWidth,
-    /// ITEM HEIGHT WHEN ZOOMED IN
-    double bigItemHeight,
+    /// ITEM HEIGHT WIDTH WHEN ZOOMED OUT
+    double smallItemWidth = 100,
+    /// ITEM HEIGHT WHEN ZOOMED OUT
+    double smallItemHeight = 100,
     /// TOP PADDING FOR SMALL ITEMS
     double topPaddingOnZoomedOut = 5,
     /// TOP PADDING FOR BIG ITEMS
@@ -67,9 +67,9 @@ class ZoomableGridController {
     _gridWidth = gridWidth;
     _gridHeight = gridHeight;
 
-    /// BIG ITEM DIMENSIONS
-    _bigItemWidth = bigItemWidth;
-    _bigItemHeight = bigItemHeight;
+    /// ITEM DIMENSIONS
+    _smallItemWidth = smallItemWidth;
+    _smallItemHeight = smallItemHeight;
 
     /// SPACING
     _spacingRatio = spacingRatio;
@@ -144,6 +144,27 @@ class ZoomableGridController {
   }
   // -----------------------------------------------------------------------------
 
+  /// GRID DELEGATE
+
+  // --------------------
+  SliverGridDelegate gridDelegate({
+    @required BuildContext context,
+  }){
+
+    final double _gridSpacingValue = getSpacing(context);
+
+    return SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisSpacing: _gridSpacingValue,
+      mainAxisSpacing: _gridSpacingValue,
+      childAspectRatio: _getItemAspectRatio(context),
+      crossAxisCount: _columnsCount,
+      mainAxisExtent: _smallItemHeight,
+    );
+
+  }
+
+  // -----------------------------------------------------------------------------
+
   /// SPACINGS
 
   // --------------------
@@ -152,11 +173,11 @@ class ZoomableGridController {
   // --------------------
   /// TASK : TEST ME
   double getSpacing(BuildContext context){
-    return getSmallItemWidth(context) * _spacingRatio;
+    return _smallItemWidth * _spacingRatio;
   }
   // -----------------------------------------------------------------------------
 
-  /// VERTICAL PADDINGS
+  /// PADDINGS
 
   // --------------------
   double _topPaddingOnZoomedOut; // was topPadding
@@ -169,27 +190,43 @@ class ZoomableGridController {
   /// TASK : TEST ME
   double getBottomPadding(BuildContext context){
     final double _gridHeight = getGridHeight(context);
-    return _gridHeight - _topPaddingOnZoomedOut - _getSmallItemHeight(context) - getSpacing(context) - 10;
+    return _gridHeight - _topPaddingOnZoomedOut - _smallItemHeight - getSpacing(context) - 10;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  EdgeInsets gridPadding({
+    @required BuildContext context,
+  }){
+
+    return Scale.superInsets(
+      context: context,
+      enLeft: getSpacing(context),
+      top: _topPaddingOnZoomedOut,
+      enRight: getSpacing(context),
+      bottom: getBottomPadding(context),
+    );
+
   }
   // -----------------------------------------------------------------------------
 
   /// BIG ITEM DIMENSIONS
 
   // --------------------
-  double _bigItemWidth;
-  double get bigItemWidth => _bigItemWidth;
+  double _smallItemWidth;
+  double get smallItemWidth => _smallItemWidth;
   // --------------------
-  double _bigItemHeight;
-  double get bigItemHeight => _bigItemHeight;
+  double _smallItemHeight;
+  double get smallItemHeight => _smallItemHeight;
   // --------------------
   /// TASK : TEST ME
   double getBigItemWidth(BuildContext context){
-    return _bigItemWidth ?? getGridWidth(context);
+      final double _scale = calculateMaxScale(context);
+      return _smallItemWidth * _scale;
   }
   // --------------------
   /// TASK : TEST ME
   double getBigItemHeight(BuildContext context){
-    return _bigItemHeight ?? getGridHeight(context);
+    return getBigItemWidth(context) / _getItemAspectRatio(context);
   }
   // -----------------------------------------------------------------------------
 
@@ -205,26 +242,26 @@ class ZoomableGridController {
   /// SMALL ITEM DIMENSIONS
 
   // --------------------
-  /// TASK : TEST ME
-  double getSmallItemWidth(BuildContext context){
-
-    final double _smallItemWidth =
-        getGridWidth(context) /
-            (
-                _columnsCount
-                + (_columnsCount * _spacingRatio)
-                + _spacingRatio
-            );
-
-
-    return _smallItemWidth;
-
-  }
+  // /// TASK : TEST ME
+  // double getSmallItemWidth(BuildContext context){
+  //
+  //   final double _smallItemWidth =
+  //       getGridWidth(context) /
+  //           (
+  //               _columnsCount
+  //               + (_columnsCount * _spacingRatio)
+  //               + _spacingRatio
+  //           );
+  //
+  //
+  //   return _smallItemWidth;
+  //
+  // }
   // --------------------
-  /// TASK : TEST ME
-  double _getSmallItemHeight(BuildContext context){
-    return getSmallItemWidth(context) / _getItemAspectRatio(context);
-  }
+  // /// TASK : TEST ME
+  // double getSmallItemHeight(BuildContext context){
+  //   return _smallItemWidth / _getItemAspectRatio(context);
+  // }
   // -----------------------------------------------------------------------------
 
   /// ZOOMING WIDTH
@@ -232,17 +269,16 @@ class ZoomableGridController {
   // --------------------
   /// TASK : TEST ME
   double _getZoomableWidth(BuildContext context){
-    final double _flyerBoxWidth = getSmallItemWidth(context);
     final double _spacing = getSpacing(context);
-    return _flyerBoxWidth + (_spacing * 2);
+    return _smallItemWidth + (_spacing * 2);
   }
   // --------------------
-  /// TASK : TEST ME
-  double getZoomedWidth(BuildContext context){
-    final double _flyerBoxWidth = getSmallItemWidth(context);
-    final double _scale = calculateMaxScale(context);
-    return _flyerBoxWidth * _scale;
-  }
+  // /// TASK : TEST ME
+  // double getZoomedWidth(BuildContext context){
+  //   final double _smallItemWidth = _smallItemWidth;
+  //   final double _scale = calculateMaxScale(context);
+  //   return _smallItemWidth * _scale;
+  // }
   // -----------------------------------------------------------------------------
 
   /// ANIMATION DURATIONS - CURVES
@@ -272,7 +308,7 @@ class ZoomableGridController {
 
     blog('_getRowOffset : rowIndex : $rowIndex');
 
-    return (_getSmallItemHeight(context) + getSpacing(context)) * rowIndex;
+    return (_smallItemHeight + getSpacing(context)) * rowIndex;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -298,15 +334,15 @@ class ZoomableGridController {
     @required BuildContext context,
   }){
     final double _scale = calculateMaxScale(context);
-    final double _flyerBoxWidth = getSmallItemWidth(context);
+    final double _flyerBoxWidth = _smallItemWidth;
     final double _spacing = getSpacing(context);
     return - (((_flyerBoxWidth + _spacing) * columnIndex) * _scale);
   }
   // --------------------
   /// TASK : TEST ME
   double calculateMaxScale(BuildContext context){
-    final double _maxZoomWidth = _getZoomableWidth(context);
-    return getGridWidth(context) / _maxZoomWidth;
+    final double _zoomableWidth = _getZoomableWidth(context);
+    return getGridWidth(context) / _zoomableWidth;
   }
   // -----------------------------------------------------------------------------
 
