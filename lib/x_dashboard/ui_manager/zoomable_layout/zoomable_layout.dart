@@ -357,156 +357,161 @@ class _ZoomableLayoutScreenThatWorksState extends State<ZoomableLayoutScreenThat
         //   ),
         // ),
       ],
-      child: ValueListenableBuilder(
-        valueListenable: _isZoomed,
-        builder: (_, bool isZoomed, Widget child){
+      child: Container(
+        width: _screenWidth,
+        height: _screenHeight,
+        alignment: Alignment.topCenter,
+        child: ValueListenableBuilder(
+          valueListenable: _isZoomed,
+          builder: (_, bool isZoomed, Widget child){
 
-          return Stack(
-            alignment: Alignment.topCenter,
-            children: <Widget>[
+            return Stack(
+              alignment: Alignment.topCenter,
+              children: <Widget>[
 
-              /// ZOOMABLE GRID
-              child,
+                /// ZOOMABLE GRID
+                child,
 
-              /// THE FLYER
-              if (isZoomed == true)
-              IgnorePointer(
-                ignoring: !isZoomed,
-                child: WidgetFader(
-                  fadeType: FadeType.fadeIn,
-                  duration: _bigFlyerFadeInDuration,
-                  curve: _bigFlyerFadeInCurve,
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-
-                      /// BACKGROUND BLACK FOOTPRINT
-                      Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
-                        width: _getZoomedWidth(),
-                        height: FlyerDim.flyerHeightByFlyerWidth(context, _getZoomedWidth()),
-                        margin: const EdgeInsets.only(top: _zoomedTopPadding),
+                /// THE FLYER
+                if (isZoomed == true)
+                  IgnorePointer(
+                    ignoring: !isZoomed,
+                    child: WidgetFader(
+                      fadeType: FadeType.fadeIn,
+                      duration: _bigFlyerFadeInDuration,
+                      curve: _bigFlyerFadeInCurve,
+                      child: Stack(
                         alignment: Alignment.topCenter,
-                        child: FlyerBox(
-                          flyerBoxWidth:  _getZoomedWidth(),
-                          boxColor: Colorz.black255,
-                        ),
-                      ),
+                        children: [
 
-                      /// BIG FLYER
-                      DismissiblePage(
-                        key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
-                        onDismissed: () => _onDismiss(),
-                        isFullScreen: false,
-                        dragSensitivity: .4,
-                        maxTransformValue: 4,
-                        minScale: 1,
-                        reverseDuration: Ratioz.duration150ms,
-                        /// BACKGROUND
-                        // startingOpacity: 1,
-                        backgroundColor: Colors.transparent,
-                        // dragStartBehavior: DragStartBehavior.start,
-                        // direction: DismissiblePageDismissDirection.vertical,
-
-                        child: Material(
-                          color: Colors.transparent,
-                          type: MaterialType.transparency,
-                          child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                          /// BACKGROUND BLACK FOOTPRINT
+                          Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
                             width: _getZoomedWidth(),
                             height: FlyerDim.flyerHeightByFlyerWidth(context, _getZoomedWidth()),
                             margin: const EdgeInsets.only(top: _zoomedTopPadding),
                             alignment: Alignment.topCenter,
                             child: FlyerBox(
                               flyerBoxWidth:  _getZoomedWidth(),
-                              boxColor: Colorz.blue80,
-                              stackWidgets: const [
-                                Loading(loading: true),
-                              ],
+                              boxColor: Colorz.black255,
                             ),
                           ),
-                        ),
+
+                          /// BIG FLYER
+                          DismissiblePage(
+                            key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
+                            onDismissed: () => _onDismiss(),
+                            isFullScreen: false,
+                            dragSensitivity: .4,
+                            maxTransformValue: 4,
+                            minScale: 1,
+                            reverseDuration: Ratioz.duration150ms,
+                            /// BACKGROUND
+                            // startingOpacity: 1,
+                            backgroundColor: Colors.transparent,
+                            // dragStartBehavior: DragStartBehavior.start,
+                            // direction: DismissiblePageDismissDirection.vertical,
+
+                            child: Material(
+                              color: Colors.transparent,
+                              type: MaterialType.transparency,
+                              child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                                width: _getZoomedWidth(),
+                                height: FlyerDim.flyerHeightByFlyerWidth(context, _getZoomedWidth()),
+                                margin: const EdgeInsets.only(top: _zoomedTopPadding),
+                                alignment: Alignment.topCenter,
+                                child: FlyerBox(
+                                  flyerBoxWidth:  _getZoomedWidth(),
+                                  boxColor: Colorz.blue80,
+                                  stackWidgets: const [
+                                    Loading(loading: true),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                        ],
+
                       ),
-
-                    ],
-
+                    ),
                   ),
-                ),
-              ),
 
-            ],
-          );
+              ],
+            );
 
-        },
-        child: InteractiveViewer(
-          transformationController: _transformationController,
-          maxScale: _maxScale,
-          minScale: 1,
-          panEnabled: false,
-          scaleEnabled: false,
-          // clipBehavior: Clip.hardEdge,
-          // alignPanAxis: false,
-          // boundaryMargin: EdgeInsets.zero,
-          // onInteractionEnd:(ScaleEndDetails details) {
-          //   blog('onInteractionEnd');
-          // },
-          // onInteractionStart: (ScaleStartDetails details){
-          //   blog('onInteractionStart');
-          // },
-          // onInteractionUpdate:(ScaleUpdateDetails details) {
-          //   blog('onInteractionUpdate : details');
-          //   blog(details.toString());
-          // },
-          // scaleFactor: 200.0, // Affects only pointer device scrolling, not pinch to zoom.
-          child: SizedBox(
-            width: _screenWidth,
-            height: _screenHeight,
-            child: ValueListenableBuilder(
-              valueListenable: _isZoomed,
-              builder: (_, bool isZoomed, Widget theGrid){
+          },
+          child: InteractiveViewer(
+            transformationController: _transformationController,
+            maxScale: _maxScale,
+            minScale: 1,
+            panEnabled: false,
+            scaleEnabled: false,
+            // clipBehavior: Clip.hardEdge,
+            // alignPanAxis: false,
+            // boundaryMargin: EdgeInsets.zero,
+            // onInteractionEnd:(ScaleEndDetails details) {
+            //   blog('onInteractionEnd');
+            // },
+            // onInteractionStart: (ScaleStartDetails details){
+            //   blog('onInteractionStart');
+            // },
+            // onInteractionUpdate:(ScaleUpdateDetails details) {
+            //   blog('onInteractionUpdate : details');
+            //   blog(details.toString());
+            // },
+            // scaleFactor: 200.0, // Affects only pointer device scrolling, not pinch to zoom.
+            child: SizedBox(
+              width: _screenWidth,
+              height: _screenHeight,
+              child: ValueListenableBuilder(
+                valueListenable: _isZoomed,
+                builder: (_, bool isZoomed, Widget theGrid){
 
-                /// THE GRID
-                return IgnorePointer(
-                  ignoring: isZoomed,
-                  child: theGrid,
-                );
+                  /// THE GRID
+                  return IgnorePointer(
+                    ignoring: isZoomed,
+                    child: theGrid,
+                  );
 
-              },
+                },
 
-              /// to avoid rebuilding the whole list
-              child: GridView.builder(
-                  key: const ValueKey<String>('The_zoomable_grid'),
-                  controller: _scrollController,
-                  gridDelegate: FlyerDim.flyerGridDelegate(
-                    flyerBoxWidth: _flyerBoxWidth,
-                    numberOfColumnsOrRows: rowsCount,
-                    scrollDirection: Axis.vertical,
-                  ),
-                  padding: FlyerDim.flyerGridPadding(
-                    context: context,
-                    topPaddingValue: _topPadding,
-                    gridSpacingValue: _spacing,
-                    isVertical: true,
-                    bottomPaddingValue: _getBottomPadding(),
-                  ),
-                  itemCount: 20,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (_, int index){
-
-                    return FlyerBox(
+                /// to avoid rebuilding the whole list
+                child: GridView.builder(
+                    key: const ValueKey<String>('The_zoomable_grid'),
+                    controller: _scrollController,
+                    gridDelegate: FlyerDim.flyerGridDelegate(
                       flyerBoxWidth: _flyerBoxWidth,
-                      boxColor: Colorz.bloodTest.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
-                      onTap: () => _onFlyerTap(index),
-                      stackWidgets: <Widget>[
+                      numberOfColumnsOrRows: rowsCount,
+                      scrollDirection: Axis.vertical,
+                    ),
+                    padding: FlyerDim.flyerGridPadding(
+                      context: context,
+                      topPaddingValue: _topPadding,
+                      gridSpacingValue: _spacing,
+                      isVertical: true,
+                      bottomPaddingValue: _getBottomPadding(),
+                    ),
+                    itemCount: 20,
+                    physics: const BouncingScrollPhysics(),
+                    itemBuilder: (_, int index){
 
-                        SuperVerse(
-                          verse: Verse.plain(index.toString()),
-                          margin: 20,
-                          labelColor: Colorz.black255,
-                        ),
+                      return FlyerBox(
+                        flyerBoxWidth: _flyerBoxWidth,
+                        boxColor: Colorz.bloodTest.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
+                        onTap: () => _onFlyerTap(index),
+                        stackWidgets: <Widget>[
 
-                      ],
-                    );
+                          SuperVerse(
+                            verse: Verse.plain(index.toString()),
+                            margin: 20,
+                            labelColor: Colorz.black255,
+                          ),
 
-                  }
+                        ],
+                      );
+
+                    }
+                ),
               ),
             ),
           ),

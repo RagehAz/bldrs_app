@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
+
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -10,6 +8,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget.dart';
+
 import 'zoomable_grid_controller.dart';
 
 class ZoomableGrid extends StatefulWidget {
@@ -56,8 +55,8 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
         vsync: this,
         gridWidth: widget.controller.gridWidth,
         gridHeight: widget.controller.gridHeight,
-        bigItemWidth: widget.controller.bigItemWidth,
-        bigItemHeight: widget.controller.bigItemHeight,
+        smallItemWidth: widget.controller.smallItemWidth,
+        smallItemHeight: widget.controller.smallItemHeight,
         topPaddingOnZoomedOut: widget.controller.topPaddingOnZoomedOut,
         topPaddingOnZoomedIn: widget.controller.topPaddingOnZoomedIn,
         spacingRatio: widget.controller.spacingRatio,
@@ -91,15 +90,16 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
   @override
   void dispose() {
 
-    if (widget.controller == null) {
-      _controller.dispose();
-    }
+      // widget.controller?.dispose();
+      _controller?.dispose();
+    // if (widget.controller == null) {
+    // }
 
     _loading.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onSmallItemTap(int index) async {
 
     await _controller.zoomIn(
@@ -110,7 +110,7 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onDismissBigItem() async {
     await _controller.zoomOut(
       mounted: mounted,
@@ -120,13 +120,20 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
   @override
   Widget build(BuildContext context) {
 
+    /// GRID DIMENSIONS
     final double _gridWidth = _controller.getGridWidth(context);
     final double _gridHeight = _controller.getGridHeight(context);
-    final double _smallItemWidth = _controller.getSmallItemWidth(context);
-    final double _spacing = _controller.getSpacing(context);
-    final double _maxScale = _controller.calculateMaxScale(context);
-    final double _zoomedWidth = _controller.getZoomedWidth(context);
-    final double _bottomPadding = _controller.getBottomPadding(context);
+    /// SPACINGS
+    // final double _spacing = _controller.getSpacing(context);
+    /// BIG ITEM DIMENSIONS
+    final double _bigItemWidth = _controller.getBigItemWidth(context);
+    final double _bigItemHeight = _controller.getBigItemHeight(context);
+    /// SMALL ITEM DIMENSIONS
+    final double _smallItemWidth = _controller.smallItemWidth;
+    final double _smallItemHeight = _controller.smallItemHeight;
+    /// VERTICAL PADDINGS
+    final EdgeInsets _topPaddingOnZoomedIn = EdgeInsets.only(top: _controller.topPaddingOnZoomedIn);
+    // final double _bottomPadding = _controller.getBottomPadding(context);
 
     return ValueListenableBuilder(
       valueListenable: _controller.isZoomed,
@@ -141,64 +148,69 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
 
             /// THE FLYER
             if (isZoomed == true)
-              IgnorePointer(
-                ignoring: !isZoomed,
-                child: WidgetFader(
-                  fadeType: FadeType.fadeIn,
-                  duration: _controller.zoomedItemFadeInDuration,
-                  curve: _controller.zoomedItemFadeInCurve,
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-
-                      /// BACKGROUND BLACK FOOTPRINT
-                      Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
-                        width: _zoomedWidth,
-                        height: FlyerDim.flyerHeightByFlyerWidth(context, _zoomedWidth),
-                        margin: EdgeInsets.only(top: _controller.topPaddingOnZoomedIn),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Opacity(
+                  opacity: 0.5,
+                  child: IgnorePointer(
+                    ignoring: !isZoomed,
+                    child: WidgetFader(
+                      fadeType: FadeType.fadeIn,
+                      duration: _controller.zoomedItemFadeInDuration,
+                      curve: _controller.zoomedItemFadeInCurve,
+                      child: Stack(
                         alignment: Alignment.topCenter,
-                        child: FlyerBox(
-                          flyerBoxWidth: _zoomedWidth,
-                          boxColor: Colorz.black255,
-                        ),
-                      ),
+                        children: [
 
-                      /// BIG FLYER
-                      DismissiblePage(
-                        key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
-                        onDismissed: () => _onDismissBigItem(),
-                        isFullScreen: false,
-                        dragSensitivity: .4,
-                        maxTransformValue: 4,
-                        minScale: 1,
-                        reverseDuration: Ratioz.duration150ms,
-                        /// BACKGROUND
-                        // startingOpacity: 1,
-                        backgroundColor: Colors.transparent,
-                        // dragStartBehavior: DragStartBehavior.start,
-                        // direction: DismissiblePageDismissDirection.vertical,
-
-                        child: Material(
-                          color: Colors.transparent,
-                          type: MaterialType.transparency,
-                          child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
-                            width: _controller.getBigItemWidth(context),
-                            height: _controller.getBigItemHeight(context),
-                            margin: EdgeInsets.only(top: _controller.topPaddingOnZoomedIn),
+                          /// BACKGROUND BLACK FOOTPRINT
+                          Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                            width: _bigItemWidth,
+                            height: _bigItemHeight,
+                            margin: _topPaddingOnZoomedIn,
                             alignment: Alignment.topCenter,
-                            child: FlyerBox(
-                              flyerBoxWidth: _zoomedWidth,
-                              boxColor: Colorz.blue80,
-                              stackWidgets: const [
-                                Loading(loading: true),
-                              ],
+                            child: Container(
+                              width: _bigItemWidth,
+                              height: _bigItemHeight,
+                              color: Colorz.black255,
                             ),
                           ),
-                        ),
+
+                          /// BIG FLYER
+                          DismissiblePage(
+                            key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
+                            onDismissed: () => _onDismissBigItem(),
+                            isFullScreen: false,
+                            dragSensitivity: .4,
+                            maxTransformValue: 4,
+                            minScale: 1,
+                            reverseDuration: Ratioz.duration150ms,
+                            /// BACKGROUND
+                            // startingOpacity: 1,
+                            backgroundColor: Colors.transparent,
+                            // dragStartBehavior: DragStartBehavior.start,
+                            // direction: DismissiblePageDismissDirection.vertical,
+
+                            child: Material(
+                              color: Colors.transparent,
+                              type: MaterialType.transparency,
+                              child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                                width: _bigItemWidth,
+                                height: _bigItemHeight,
+                                margin: _topPaddingOnZoomedIn,
+                                alignment: Alignment.topCenter,
+                                child: Container(
+                                  width: _bigItemWidth,
+                                  height: _bigItemHeight,
+                                  color: Colorz.blue80,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                        ],
+
                       ),
-
-                    ],
-
+                    ),
                   ),
                 ),
               ),
@@ -209,8 +221,8 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
       },
       child: InteractiveViewer(
         transformationController: _controller.transformationController,
-        maxScale: _maxScale,
-        minScale: 1,
+        // maxScale: _maxScale,
+        // minScale: 1,
         panEnabled: false,
         scaleEnabled: false,
         // clipBehavior: Clip.hardEdge,
@@ -246,35 +258,25 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
             child: GridView.builder(
                 key: const ValueKey<String>('The_zoomable_grid'),
                 controller: _controller.scrollController,
-                gridDelegate: FlyerDim.flyerGridDelegate(
-                  flyerBoxWidth: _smallItemWidth,
-                  numberOfColumnsOrRows: _controller.columnsCount,
-                  scrollDirection: Axis.vertical,
-                ),
-                padding: FlyerDim.flyerGridPadding(
-                  context: context,
-                  topPaddingValue: _controller.topPaddingOnZoomedOut,
-                  gridSpacingValue: _spacing,
-                  isVertical: true,
-                  bottomPaddingValue: _bottomPadding,
-                ),
+                gridDelegate: _controller.gridDelegate(context: context),
+                padding: _controller.gridPadding(context: context),
                 itemCount: 20,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (_, int index){
 
-                  return FlyerBox(
-                    flyerBoxWidth: _smallItemWidth,
-                    boxColor: Colorz.bloodTest.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
+                  return GestureDetector(
                     onTap: () => _onSmallItemTap(index),
-                    stackWidgets: <Widget>[
-
-                      SuperVerse(
+                    child: Container(
+                      width: _smallItemWidth,
+                      height: _smallItemHeight,
+                      color: Colorz.bloodTest.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
+                      alignment: Alignment.center,
+                      child: SuperVerse(
                         verse: Verse.plain(index.toString()),
                         margin: 20,
                         labelColor: Colorz.black255,
                       ),
-
-                    ],
+                    ),
                   );
 
                 }
