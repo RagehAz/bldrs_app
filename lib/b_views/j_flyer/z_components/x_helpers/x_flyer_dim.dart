@@ -1064,16 +1064,17 @@ class FlyerDim {
   static EdgeInsets flyerGridPadding({
     @required BuildContext context,
     @required double gridSpacingValue,
-    @required double topPaddingValue,
+    @required double topPaddingValue, /// when is vertical scrolling
     @required bool isVertical,
+    double bottomPaddingValue = Ratioz.horizon, /// when is vertical scrolling
   }){
 
     return Scale.superInsets(
       context: context,
       enLeft: gridSpacingValue,
       top: isVertical == true ? topPaddingValue : gridSpacingValue,
-      enRight: isVertical == true ? gridSpacingValue : Ratioz.horizon,
-      bottom: isVertical == true ? Ratioz.horizon : 0,
+      enRight: isVertical == true ? gridSpacingValue : bottomPaddingValue,
+      bottom: isVertical == true ? bottomPaddingValue : 0,
     );
 
   }
