@@ -14,6 +14,8 @@ class ZoomableGrid extends StatefulWidget {
     this.controller,
     this.bigItem,
     this.bigItemFootprint,
+    this.onZoomOutStart,
+    this.onZoomOutEnd,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -22,6 +24,8 @@ class ZoomableGrid extends StatefulWidget {
   final Widget bigItemFootprint;
   final Widget Function(int index) builder;
   final int itemCount;
+  final Function onZoomOutStart;
+  final Function onZoomOutEnd;
   // -----------------------------------------------------------------------------
   @override
   State<ZoomableGrid> createState() => _ZoomableGridState();
@@ -117,6 +121,8 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
   Future<void> _onDismissBigItem() async {
     await _controller.zoomOut(
       mounted: mounted,
+      onStart: widget.onZoomOutStart,
+      onEnd: widget.onZoomOutEnd,
     );
   }
   // -----------------------------------------------------------------------------
