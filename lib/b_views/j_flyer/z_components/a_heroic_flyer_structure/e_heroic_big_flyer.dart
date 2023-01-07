@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
@@ -27,9 +27,9 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class BigFlyer extends StatefulWidget {
+class HeroicBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const BigFlyer({
+  const HeroicBigFlyer({
     @required this.flyerModel, // will never be null at this point
     @required this.bzModel,
     @required this.heroPath,
@@ -45,11 +45,11 @@ class BigFlyer extends StatefulWidget {
   final bool canBuild;
   /// --------------------------------------------------------------------------
   @override
-  _BigFlyerState createState() => _BigFlyerState();
+  _HeroicBigFlyerState createState() => _HeroicBigFlyerState();
   /// --------------------------------------------------------------------------
 }
 
-class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
+class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   final ValueNotifier<FlyerModel> _flyer = ValueNotifier(null);
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
@@ -124,7 +124,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   }
   // --------------------
   @override
-  void didUpdateWidget(BigFlyer oldWidget) {
+  void didUpdateWidget(HeroicBigFlyer oldWidget) {
     if (oldWidget.canBuild != widget.canBuild){
       if (widget.canBuild == true){
         setState(() {

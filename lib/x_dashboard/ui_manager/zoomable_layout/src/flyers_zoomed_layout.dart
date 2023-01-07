@@ -1,12 +1,11 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_small_flyer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_big_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/e_heroic_big_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_list_flyer_structure/a_light_small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -116,7 +115,7 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
 
                   final BzModel _bzModel = snap.data;
 
-                  return BigFlyer(
+                  return HeroicBigFlyer(
                     flyerBoxWidth: _controller.getBigItemWidth(context),
                     flyerModel: flyerModel,
                     bzModel: _bzModel,
@@ -135,57 +134,31 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
 
           final String _flyerID = _flyersIDs[index];
 
-          return FutureBuilder(
-            future: FlyerProtocols.fetchFlyer(
-              context: context,
-              flyerID: _flyerID,
-            ),
-              builder: (_, AsyncSnapshot<FlyerModel> snap){
+          return LightSmallFlyer(
+            flyerID: _flyerID,
+            flyerBoxWidth: _controller.smallItemWidth,
+            // onMoreTap: (){blog('onMoreTap');},
+            onTap: (FlyerModel flyerModel, BzModel bzModel) async {
 
-              final FlyerModel _flyerModel = snap.data;
+              if (flyerModel != null){
 
-              return FutureBuilder(
-                future: BzProtocols.fetchBz(
+                setNotifier(
+                  notifier: _selectedFlyerModel,
+                  mounted: mounted,
+                  value: flyerModel,
+                );
+
+                await _controller.zoomIn(
                   context: context,
-                  bzID: _flyerModel?.bzID,
-                ),
-                builder: (_, AsyncSnapshot<BzModel> bzSnap){
+                  itemIndex: index,
+                  mounted: true,
+                  onStart: onZoomInStart,
+                  onEnd: onZoomInEnd,
+                );
 
-                  final BzModel _bzModel = bzSnap.data;
+              }
 
-                  return GestureDetector(
-                    onTap: () async {
-
-                      setNotifier(
-                          notifier: _selectedFlyerModel,
-                          mounted: mounted,
-                          value: _flyerModel,
-                      );
-
-                      await _controller.zoomIn(
-                        context: context,
-                        itemIndex: index,
-                        mounted: true,
-                        onStart: onZoomInStart,
-                        onEnd: onZoomInEnd,
-                      );
-
-                    },
-                    child: AbsorbPointer(
-                      child: SmallFlyer(
-                        flyerModel: _flyerModel,
-                        bzModel: _bzModel,
-                        flyerBoxWidth: _controller.smallItemWidth,
-                        heroTag: 'zoomedLayout$index',
-                        // canBuildBigFlyer: false,
-                      ),
-                    ),
-                  );
-
-                }
-              );
-
-              },
+            },
           );
 
         },
