@@ -4,9 +4,9 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/d_flyer_big_view.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_big_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_heroic_flyer_big_view.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/e_heroic_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
@@ -19,9 +19,9 @@ import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
-class SmallFlyer extends StatelessWidget {
+class HeroicSmallFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SmallFlyer({
+  const HeroicSmallFlyer({
     @required this.bzModel,
     @required this.flyerModel,
     @required this.flyerBoxWidth,
@@ -77,7 +77,7 @@ class SmallFlyer extends StatelessWidget {
       ));
 
       await context.pushTransparentRoute(
-          FlyerBigView(
+          HeroicFlyerBigView(
             key: const ValueKey<String>('Flyer_Full_Screen'),
             flyerModel: flyerModel,
             bzModel: bzModel,
@@ -187,7 +187,7 @@ class SmallFlyer extends StatelessWidget {
         */
         // ----------------------------------<<
         /// BIG FLYER
-        BigFlyer(
+        HeroicBigFlyer(
           heroPath: heroTag,
           flyerBoxWidth: flyerBoxWidth,
           flyerModel: flyerModel,

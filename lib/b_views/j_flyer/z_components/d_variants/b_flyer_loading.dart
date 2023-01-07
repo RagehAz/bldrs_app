@@ -12,6 +12,7 @@ class FlyerLoading extends StatelessWidget {
     @required this.animate,
     this.loadingColor = Colorz.white10,
     this.boxColor = Colorz.white20,
+    this.direction = Axis.horizontal,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -19,9 +20,42 @@ class FlyerLoading extends StatelessWidget {
   final Color loadingColor;
   final Color boxColor;
   final bool animate;
+  final Axis direction;
   /// --------------------------------------------------------------------------
+  int _getRotation(BuildContext context){
+
+    /// LEFT => RIGHT
+    if (TextDir.checkAppIsLeftToRight(context) == true){
+
+      if (direction == Axis.horizontal){
+        /// THING GOES RIGHT TO LEFT
+        return 2;
+      }
+      else {
+        ///
+        return 3;
+      }
+
+    }
+
+    /// RIGHT => LEFT
+    else {
+
+      if (direction == Axis.horizontal){
+        /// THING GOES LEFT TO RIGHT
+        return 0;
+      }
+      else {
+        return 3;
+      }
+
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
+
+
 
     /// NOTE : DO NOT REMOVE THE STACK : IT CENTERS THE FLYER BOX IN FLYERS GRID
     return Stack(
@@ -34,7 +68,7 @@ class FlyerLoading extends StatelessWidget {
 
             if (animate == true)
               RotatedBox(
-                quarterTurns: TextDir.checkAppIsLeftToRight(context) ? 2 : 0,
+                quarterTurns: _getRotation(context),
                 child: LinearProgressIndicator(
                   color: loadingColor,
                   backgroundColor: Colorz.nothing,

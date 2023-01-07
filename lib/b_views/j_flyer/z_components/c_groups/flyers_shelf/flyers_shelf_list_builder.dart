@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -103,7 +103,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
             onTap: widget.flyerOnTap == null ? null : () => widget.flyerOnTap(widget.flyers[_x]),
             child: AbsorbPointer(
                 absorbing: _absorbingFlyerTap(),
-                child: Flyer(
+                child: HeroicFlyer(
                   flyerBoxWidth: _flyerBoxWidth,
                   flyerModel: widget.flyers[_x],
                   screenName: 'FlyersShelfListBuilder',

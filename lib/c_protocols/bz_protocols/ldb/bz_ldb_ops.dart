@@ -22,6 +22,7 @@ class BzLDBOps {
     await LDBOps.insertMap(
       docName: LDBDoc.bzz,
       input: bzModel.toMap(toJSON: true),
+      allowDuplicateIDs: false,
     );
 
   }
