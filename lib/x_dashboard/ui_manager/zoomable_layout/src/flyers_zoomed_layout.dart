@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/e_heroic_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_list_flyer_structure/a_light_small_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_list_flyer_structure/b_light_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -28,7 +27,7 @@ class FlyersZoomedLayout extends StatefulWidget {
 
 class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<FlyerModel> _selectedFlyerModel = ValueNotifier<FlyerModel>(null);
+  final ValueNotifier<Map<String, dynamic>> _selectedModels = ValueNotifier(null);
   ZoomableGridController _controller;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -103,27 +102,34 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
         ),
 
         bigItem: ValueListenableBuilder(
-          valueListenable: _selectedFlyerModel,
-          builder: (_, FlyerModel flyerModel, Widget child){
+          valueListenable: _selectedModels,
+          builder: (_, Map<String, dynamic> maps, Widget child){
 
-            return FutureBuilder(
-                future: BzProtocols.fetchBz(
-                  context: context,
-                  bzID: flyerModel?.bzID,
-                ),
-                builder: (_, AsyncSnapshot<BzModel> snap){
+            final FlyerModel flyerModel = maps['flyerModel'];
+            final BzModel bzModel = maps['bzModel'];
 
-                  final BzModel _bzModel = snap.data;
+            return LightBigFlyer(
+              flyerBoxWidth: _controller.getBigItemWidth(context),
+              flyerModel: flyerModel,
+              bzModel: bzModel,
+              onHorizontalExit: () async {
 
-                  return HeroicBigFlyer(
-                    flyerBoxWidth: _controller.getBigItemWidth(context),
-                    flyerModel: flyerModel,
-                    bzModel: _bzModel,
-                    heroPath: 'zoomedLayout',
-                    canBuild: _bzModel != null,
-                  );
+                await _controller.zoomOut(
+                  mounted: true,
+                  onStart: onZoomOutStart,
+                  onEnd: onZoomOutEnd,
+                );
 
-                }
+                setNotifier(
+                  notifier: _selectedModels,
+                  mounted: mounted,
+                  value: {
+                    'flyerModel': null,
+                    'bzModel': null,
+                  },
+                );
+
+              },
             );
 
           },
@@ -143,9 +149,12 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
               if (flyerModel != null){
 
                 setNotifier(
-                  notifier: _selectedFlyerModel,
+                  notifier: _selectedModels,
                   mounted: mounted,
-                  value: flyerModel,
+                  value: {
+                    'flyerModel': flyerModel,
+                    'bzModel': bzModel,
+                  },
                 );
 
                 await _controller.zoomIn(

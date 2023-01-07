@@ -13,6 +13,7 @@ class HorizontalBouncer extends StatefulWidget {
     this.boxDistance,
     this.notificationListenerKey,
     this.canNavigate = true,
+    this.onNavigate,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class HorizontalBouncer extends StatefulWidget {
   final Key notificationListenerKey;
   final PageController controller;
   final bool canNavigate;
+  final Function onNavigate;
   /// --------------------------------------------------------------------------
   @override
   _HorizontalBouncerState createState() => _HorizontalBouncerState();
@@ -51,10 +53,18 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
       _numberOfTimesBack++;
       // blog('go back : _numberOfTimesBack : $_numberOfTimesBack');
       if (_numberOfTimesBack == 1){
-        await Nav.goBack(
-          context: context,
-          invoker: 'HorizontalBouncer.navigate',
-        );
+
+        if (widget.onNavigate == null){
+          await Nav.goBack(
+            context: context,
+            invoker: 'HorizontalBouncer.navigate',
+          );
+        }
+
+        else {
+          widget.onNavigate();
+        }
+
       }
     }
 

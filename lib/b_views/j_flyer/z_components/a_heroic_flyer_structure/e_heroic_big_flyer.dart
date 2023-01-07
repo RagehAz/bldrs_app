@@ -138,36 +138,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   @override
   void dispose() {
-
-    if (widget.canBuild == true){
-      /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
-      for (final SlideModel slide in _flyer.value.slides){
-        if (slide.slideIndex != 0){
-          blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
-          slide.uiImage?.dispose();
-        }
-      }
-      blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
-      _flyer.value.authorImage?.dispose();
-
-      _flyer.dispose();
-      _loading?.dispose();
-      _progressBarModel?.dispose();
-      _flyerIsSaved?.dispose();
-      _headerAnimationController?.dispose();
-      _headerScrollController?.dispose();
-      _savingAnimationController?.dispose();
-      _horizontalSlidesController?.dispose();
-      _footerPageController?.dispose();
-      _followIsOn?.dispose();
-      _progressBarOpacity?.dispose();
-      _headerIsExpanded?.dispose();
-      _headerPageOpacity?.dispose();
-      _graphicIsOn?.dispose();
-      _graphicOpacity?.dispose();
-      _bzCounters?.dispose();
-    }
-
+    _disposeBigFlyer();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -327,6 +298,44 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       );
 
     }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DISPOSING
+
+  // --------------------
+  void _disposeBigFlyer(){
+
+    if (widget.canBuild == true){
+      /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
+      for (final SlideModel slide in _flyer.value.slides){
+        if (slide.slideIndex != 0){
+          blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
+          slide.uiImage?.dispose();
+        }
+      }
+      blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
+      _flyer.value.authorImage?.dispose();
+
+      _flyer.dispose();
+      _loading?.dispose();
+      _progressBarModel?.dispose();
+      _flyerIsSaved?.dispose();
+      _headerAnimationController?.dispose();
+      _headerScrollController?.dispose();
+      _savingAnimationController?.dispose();
+      _horizontalSlidesController?.dispose();
+      _footerPageController?.dispose();
+      _followIsOn?.dispose();
+      _progressBarOpacity?.dispose();
+      _headerIsExpanded?.dispose();
+      _headerPageOpacity?.dispose();
+      _graphicIsOn?.dispose();
+      _graphicOpacity?.dispose();
+      _bzCounters?.dispose();
+    }
+
 
   }
   // -----------------------------------------------------------------------------

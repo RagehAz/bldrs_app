@@ -27,6 +27,7 @@ class SlidesBuilder extends StatefulWidget {
     @required this.progressBarModel,
     @required this.flightDirection,
     @required this.heroTag,
+    this.onHorizontalExit,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,6 +44,7 @@ class SlidesBuilder extends StatefulWidget {
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final String heroTag;
   final FlightDirection flightDirection;
+  final Function onHorizontalExit;
   /// --------------------------------------------------------------------------
   @override
   State<SlidesBuilder> createState() => _SlidesBuilderState();
@@ -100,10 +102,12 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
               /// when one than 1 slide, do it normally
           progModel?.numberOfStrips;
 
+
             return HorizontalBouncer(
               numberOfSlides: progModel?.numberOfStrips,
               controller: widget.horizontalController,
               canNavigate: _canNavigateOnBounce(),
+              onNavigate: widget.onHorizontalExit,
               child: PageView.builder(
                 key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
                 controller: widget.horizontalController,

@@ -179,7 +179,7 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
 
     return ValueListenableBuilder(
         valueListenable: _loading,
-        builder: (_, bool loading, Widget child){
+        builder: (_, bool loading, Widget smallFlyer){
 
           /// LOADING
           if (loading == true){
@@ -207,63 +207,62 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
             /// FLYER IS VIEWABLE
             else {
 
-              final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-                context: context,
-                listen: true,
-              );
-
-              return WidgetFader(
-                fadeType: FadeType.fadeIn,
-                duration: const Duration(milliseconds: 200),
-                child: FlyerBox(
-                  key: const ValueKey<String>('LightSmallFlyer'),
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                  onTap: () => widget.onTap(_flyerModel, _bzModel),
-                  stackWidgets: <Widget>[
-
-                    /// STATIC SINGLE SLIDE
-                    SingleSlide(
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
-                      slideModel: _flyerModel?.slides?.first,
-                      tinyMode: false,
-                      onSlideNextTap: null,
-                      onSlideBackTap: null,
-                      onDoubleTap: null,
-                    ),
-
-                    /// STATIC HEADER
-                    StaticHeader(
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      bzModel: _bzModel,
-                      bzImageLogo: _flyerModel?.bzLogoImage,
-                      authorID: _flyerModel?.authorID,
-                      flyerShowsAuthor: _flyerModel?.showsAuthor,
-                      // flightTweenValue: 1,
-                      // flightDirection: flightDirection,
-                      // onTap: ,
-                    ),
-
-                    /// STATIC FOOTER
-                    StaticFooter(
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      isSaved: UserModel.checkFlyerIsSaved(
-                        userModel: _myUserModel,
-                        flyerID: _flyerModel?.id,
-                      ),
-                      onMoreTap: widget.onMoreTap,
-                      flightTweenValue: 0,
-                    ),
-
-                  ],
-                ),
-              );
+              return smallFlyer;
 
             }
 
           }
 
-        }
+        },
+      child: WidgetFader(
+        fadeType: FadeType.fadeIn,
+        duration: const Duration(milliseconds: 200),
+        child: FlyerBox(
+          key: const ValueKey<String>('LightSmallFlyer'),
+          flyerBoxWidth: widget.flyerBoxWidth,
+          onTap: () => widget.onTap(_flyerModel, _bzModel),
+          stackWidgets: <Widget>[
+
+            /// STATIC SINGLE SLIDE
+            SingleSlide(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+              slideModel: _flyerModel?.slides?.first,
+              tinyMode: false,
+              onSlideNextTap: null,
+              onSlideBackTap: null,
+              onDoubleTap: null,
+            ),
+
+            /// STATIC HEADER
+            StaticHeader(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              bzModel: _bzModel,
+              bzImageLogo: _flyerModel?.bzLogoImage,
+              authorID: _flyerModel?.authorID,
+              flyerShowsAuthor: _flyerModel?.showsAuthor,
+              // flightTweenValue: 1,
+              // flightDirection: flightDirection,
+              // onTap: ,
+            ),
+
+            /// STATIC FOOTER
+            StaticFooter(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              isSaved: UserModel.checkFlyerIsSaved(
+                userModel: UsersProvider.proGetMyUserModel(
+                  context: context,
+                  listen: true,
+                ),
+                flyerID: _flyerModel?.id,
+              ),
+              onMoreTap: widget.onMoreTap,
+              flightTweenValue: 0,
+            ),
+
+          ],
+        ),
+      ),
     );
 
   }
