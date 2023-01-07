@@ -4,15 +4,10 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class ZoomableGridController {
   // --------------------------------------------------------------------------
-  ZoomableGridController(
-      // {
-      // this.gridWidth,
-      // this.gridHeight,
-      // }
-  );
+  ZoomableGridController();
   // --------------------
   final TransformationController _transformationController = TransformationController();
   TransformationController get transformationController => _transformationController;
@@ -147,6 +142,7 @@ class ZoomableGridController {
   /// GRID DELEGATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   SliverGridDelegate gridDelegate({
     @required BuildContext context,
   }){
@@ -162,7 +158,6 @@ class ZoomableGridController {
     );
 
   }
-
   // -----------------------------------------------------------------------------
 
   /// SPACINGS
@@ -171,7 +166,7 @@ class ZoomableGridController {
   double _spacingRatio;
   double get spacingRatio => _spacingRatio;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   double getSpacing(BuildContext context){
     return _smallItemWidth * _spacingRatio;
   }
@@ -184,16 +179,15 @@ class ZoomableGridController {
   double get topPaddingOnZoomedOut => _topPaddingOnZoomedOut;
   // --------------------
   double _topPaddingOnZoomedIn; // was zoomedTopPadding
-
   double get topPaddingOnZoomedIn => _topPaddingOnZoomedIn;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   double getBottomPadding(BuildContext context){
     final double _gridHeight = getGridHeight(context);
     return _gridHeight - _topPaddingOnZoomedOut - _smallItemHeight - getSpacing(context) - 10;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   EdgeInsets gridPadding({
     @required BuildContext context,
   }){
@@ -218,13 +212,13 @@ class ZoomableGridController {
   double _smallItemHeight;
   double get smallItemHeight => _smallItemHeight;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   double getBigItemWidth(BuildContext context){
       final double _scale = calculateMaxScale(context);
       return _smallItemWidth * _scale;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   double getBigItemHeight(BuildContext context){
     return getBigItemWidth(context) / _getItemAspectRatio(context);
   }
@@ -233,16 +227,17 @@ class ZoomableGridController {
   /// ASPECT RATIO
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   double _getItemAspectRatio(BuildContext context){
-    return getBigItemWidth(context) / getBigItemHeight(context);
+    return _smallItemWidth / _smallItemHeight;
   }
   // -----------------------------------------------------------------------------
 
   /// SMALL ITEM DIMENSIONS
 
   // --------------------
-  // /// TASK : TEST ME
+  /*
+  // ///
   // double getSmallItemWidth(BuildContext context){
   //
   //   final double _smallItemWidth =
@@ -258,27 +253,21 @@ class ZoomableGridController {
   //
   // }
   // --------------------
-  // /// TASK : TEST ME
+  // ///
   // double getSmallItemHeight(BuildContext context){
   //   return _smallItemWidth / _getItemAspectRatio(context);
   // }
+   */
   // -----------------------------------------------------------------------------
 
   /// ZOOMING WIDTH
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   double _getZoomableWidth(BuildContext context){
     final double _spacing = getSpacing(context);
     return _smallItemWidth + (_spacing * 2);
   }
-  // --------------------
-  // /// TASK : TEST ME
-  // double getZoomedWidth(BuildContext context){
-  //   final double _smallItemWidth = _smallItemWidth;
-  //   final double _scale = calculateMaxScale(context);
-  //   return _smallItemWidth * _scale;
-  // }
   // -----------------------------------------------------------------------------
 
   /// ANIMATION DURATIONS - CURVES
@@ -300,13 +289,13 @@ class ZoomableGridController {
   /// ZOOMING OFFSETS (MATRIX TRANSLATIONS)
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   double _getRowOffset({
     @required int rowIndex,
     @required BuildContext context,
   }){
 
-    blog('_getRowOffset : rowIndex : $rowIndex');
+    // blog('_getRowOffset : rowIndex : $rowIndex');
 
     return (_smallItemHeight + getSpacing(context)) * rowIndex;
   }
@@ -317,7 +306,7 @@ class ZoomableGridController {
     @required BuildContext context,
   }){
 
-    blog('_getVerticalZoomOffset : rowIndex : $rowIndex');
+    // blog('_getVerticalZoomOffset : rowIndex : $rowIndex');
     final double _scale = calculateMaxScale(context);
     final double _scaledTopPadding = _topPaddingOnZoomedOut * _scale;
     final double _rowOffset = _getRowOffset(
@@ -334,12 +323,11 @@ class ZoomableGridController {
     @required BuildContext context,
   }){
     final double _scale = calculateMaxScale(context);
-    final double _flyerBoxWidth = _smallItemWidth;
     final double _spacing = getSpacing(context);
-    return - (((_flyerBoxWidth + _spacing) * columnIndex) * _scale);
+    return - (((_smallItemWidth + _spacing) * columnIndex) * _scale);
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   double calculateMaxScale(BuildContext context){
     final double _zoomableWidth = _getZoomableWidth(context);
     return getGridWidth(context) / _zoomableWidth;
@@ -349,14 +337,14 @@ class ZoomableGridController {
   /// ZOOMING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> zoomIn({
     @required BuildContext context,
     @required int itemIndex,
     @required bool mounted,
   }) async {
 
-    blog('zoomIn : itemIndex ~/ rowsCount = ${itemIndex ~/ _columnsCount}');
+    // blog('zoomIn : itemIndex ~/ rowsCount = ${itemIndex ~/ _columnsCount}');
 
     unawaited(_scrollToRow(
         context: context,
@@ -388,7 +376,14 @@ class ZoomableGridController {
       value: false,
     );
 
-    await _zoomToMatrix(Matrix4.identity());
+    unawaited(_zoomToMatrix(Matrix4.identity()));
+
+    await Sliders.slideToOffset(
+      scrollController: _scrollController,
+      offset: _lastOffset,
+      duration: _zoomingDuration,
+      curve: _zoomingCurve,
+    );
 
   }
   // --------------------
@@ -410,20 +405,24 @@ class ZoomableGridController {
 
   }
   // --------------------
+  double _lastOffset = 0;
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _scrollToRow({
     @required BuildContext context,
     @required int itemIndex,
   }) async {
 
-    final double _offset = _getRowOffset(
+    final double _newOffset = _getRowOffset(
       context: context,
       rowIndex: itemIndex ~/ _columnsCount,
     );
 
+    _lastOffset = _scrollController.offset;
+
     await Sliders.slideToOffset(
       scrollController: _scrollController,
-      offset: _offset,
+      offset: _newOffset,
       duration: _zoomingDuration,
       curve: _zoomingCurve,
     );
@@ -461,6 +460,5 @@ class ZoomableGridController {
     return Matrix4.fromFloat64List(_list);
 
   }
-
   // -----------------------------------------------------------------------------
 }

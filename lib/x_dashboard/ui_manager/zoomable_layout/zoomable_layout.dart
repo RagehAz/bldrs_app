@@ -154,7 +154,7 @@ class _ZoomableLayoutScreenThatWorksState extends State<ZoomableLayoutScreenThat
     @required int rowIndex,
   }){
 
-    blog('_getRowOffset : rowIndex : $rowIndex');
+    // blog('_getRowOffset : rowIndex : $rowIndex');
 
     return (_getFlyerBoxHeight() + _getSpacing()) * rowIndex;
   }
@@ -163,7 +163,7 @@ class _ZoomableLayoutScreenThatWorksState extends State<ZoomableLayoutScreenThat
   double _getVerticalZoomOffset({
     @required int rowIndex,
   }){
-    blog('_getVerticalZoomOffset : rowIndex : $rowIndex');
+    // blog('_getVerticalZoomOffset : rowIndex : $rowIndex');
     final double _scale = _calculateMaxScale();
     final double _scaledTopPadding = _topPadding * _scale;
     final double _rowOffset = _getRowOffset(rowIndex: rowIndex) * _scale;
