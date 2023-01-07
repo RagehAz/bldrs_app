@@ -107,6 +107,7 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
+  /*
   Future<void> _onSmallItemTap(int index) async {
 
     await _controller.zoomIn(
@@ -116,6 +117,7 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
     );
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onDismissBigItem() async {
