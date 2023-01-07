@@ -56,6 +56,7 @@ class ZoomableGridController {
     Duration zoomedItemFadeInDuration = const Duration(milliseconds: 200),
     /// TOP WIDGET FADE IN CURVE
     Curve zoomedItemFadeInCurve = Curves.easeInOutCubic,
+
   }) {
 
     /// GRID DIMENSIONS
@@ -342,9 +343,15 @@ class ZoomableGridController {
     @required BuildContext context,
     @required int itemIndex,
     @required bool mounted,
+    Function onStart,
+    Function onEnd,
   }) async {
 
     // blog('zoomIn : itemIndex ~/ rowsCount = ${itemIndex ~/ _columnsCount}');
+
+    if (onStart != null){
+      await onStart();
+    }
 
     unawaited(_scrollToRow(
         context: context,
@@ -363,12 +370,22 @@ class ZoomableGridController {
       value: true,
     );
 
+    if (onEnd != null){
+      await onEnd();
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> zoomOut({
     @required bool mounted,
+    Function onStart,
+    Function onEnd,
   }) async {
+
+    if (onStart != null){
+      await onStart();
+    }
 
     setNotifier(
       notifier: _isZoomed,
@@ -384,6 +401,10 @@ class ZoomableGridController {
       duration: _zoomingDuration,
       curve: _zoomingCurve,
     );
+
+    if (onEnd != null){
+      await onEnd();
+    }
 
   }
   // --------------------
