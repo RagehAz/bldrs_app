@@ -1,24 +1,27 @@
 import 'dart:async';
-
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget.dart';
-
 import 'zoomable_grid_controller.dart';
 
 class ZoomableGrid extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const ZoomableGrid({
+    @required this.builder,
+    @required this.itemCount,
     this.controller,
+    this.bigItem,
+    this.bigItemFootprint,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final ZoomableGridController controller;
+  final Widget bigItem;
+  final Widget bigItemFootprint;
+  final Widget Function(int index) builder;
+  final int itemCount;
   // -----------------------------------------------------------------------------
   @override
   State<ZoomableGrid> createState() => _ZoomableGridState();
@@ -129,8 +132,8 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
     final double _bigItemWidth = _controller.getBigItemWidth(context);
     final double _bigItemHeight = _controller.getBigItemHeight(context);
     /// SMALL ITEM DIMENSIONS
-    final double _smallItemWidth = _controller.smallItemWidth;
-    final double _smallItemHeight = _controller.smallItemHeight;
+    // final double _smallItemWidth = _controller.smallItemWidth;
+    // final double _smallItemHeight = _controller.smallItemHeight;
     /// VERTICAL PADDINGS
     final EdgeInsets _topPaddingOnZoomedIn = EdgeInsets.only(top: _controller.topPaddingOnZoomedIn);
     // final double _bottomPadding = _controller.getBottomPadding(context);
@@ -146,71 +149,58 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
             /// ZOOMABLE GRID
             child,
 
-            /// THE FLYER
-            if (isZoomed == true)
-              Align(
-                alignment: Alignment.topCenter,
-                child: Opacity(
-                  opacity: 0.5,
-                  child: IgnorePointer(
-                    ignoring: !isZoomed,
-                    child: WidgetFader(
-                      fadeType: FadeType.fadeIn,
-                      duration: _controller.zoomedItemFadeInDuration,
-                      curve: _controller.zoomedItemFadeInCurve,
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
+            /// THE BIG ITEM ON TOP OF GRID AFTER ZOOMING IN
+            if (isZoomed == true && widget.bigItem != null)
+              IgnorePointer(
+                ignoring: !isZoomed,
+                child: WidgetFader(
+                  fadeType: FadeType.fadeIn,
+                  duration: _controller.zoomedItemFadeInDuration,
+                  curve: _controller.zoomedItemFadeInCurve,
+                  child: Stack (
+                    alignment: Alignment.topCenter,
+                    children: [
 
-                          /// BACKGROUND BLACK FOOTPRINT
-                          Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                      /// BACKGROUND BLACK FOOTPRINT
+                      if (widget.bigItemFootprint != null)
+                      Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                        width: _bigItemWidth,
+                        height: _bigItemHeight,
+                        margin: _topPaddingOnZoomedIn,
+                        alignment: Alignment.topCenter,
+                        child: widget.bigItemFootprint,
+                      ),
+
+                      /// BIG FLYER
+                      DismissiblePage(
+                        key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
+                        onDismissed: () => _onDismissBigItem(),
+                        isFullScreen: false,
+                        dragSensitivity: .4,
+                        maxTransformValue: 4,
+                        minScale: 1,
+                        reverseDuration: Ratioz.duration150ms,
+                        /// BACKGROUND
+                        // startingOpacity: 1,
+                        backgroundColor: Colors.transparent,
+                        // dragStartBehavior: DragStartBehavior.start,
+                        // direction: DismissiblePageDismissDirection.vertical,
+
+                        child: Material(
+                          color: Colors.transparent,
+                          type: MaterialType.transparency,
+                          child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
                             width: _bigItemWidth,
                             height: _bigItemHeight,
                             margin: _topPaddingOnZoomedIn,
                             alignment: Alignment.topCenter,
-                            child: Container(
-                              width: _bigItemWidth,
-                              height: _bigItemHeight,
-                              color: Colorz.black255,
-                            ),
+                            child: widget.bigItem,
                           ),
-
-                          /// BIG FLYER
-                          DismissiblePage(
-                            key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
-                            onDismissed: () => _onDismissBigItem(),
-                            isFullScreen: false,
-                            dragSensitivity: .4,
-                            maxTransformValue: 4,
-                            minScale: 1,
-                            reverseDuration: Ratioz.duration150ms,
-                            /// BACKGROUND
-                            // startingOpacity: 1,
-                            backgroundColor: Colors.transparent,
-                            // dragStartBehavior: DragStartBehavior.start,
-                            // direction: DismissiblePageDismissDirection.vertical,
-
-                            child: Material(
-                              color: Colors.transparent,
-                              type: MaterialType.transparency,
-                              child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
-                                width: _bigItemWidth,
-                                height: _bigItemHeight,
-                                margin: _topPaddingOnZoomedIn,
-                                alignment: Alignment.topCenter,
-                                child: Container(
-                                  width: _bigItemWidth,
-                                  height: _bigItemHeight,
-                                  color: Colorz.blue80,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                        ],
-
+                        ),
                       ),
-                    ),
+
+                    ],
+
                   ),
                 ),
               ),
@@ -260,24 +250,11 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
                 controller: _controller.scrollController,
                 gridDelegate: _controller.gridDelegate(context: context),
                 padding: _controller.gridPadding(context: context),
-                itemCount: 20,
+                itemCount: widget.itemCount,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (_, int index){
 
-                  return GestureDetector(
-                    onTap: () => _onSmallItemTap(index),
-                    child: Container(
-                      width: _smallItemWidth,
-                      height: _smallItemHeight,
-                      color: Colorz.bloodTest.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
-                      alignment: Alignment.center,
-                      child: SuperVerse(
-                        verse: Verse.plain(index.toString()),
-                        margin: 20,
-                        labelColor: Colorz.black255,
-                      ),
-                    ),
-                  );
+                  return widget.builder(index);
 
                 }
             ),
