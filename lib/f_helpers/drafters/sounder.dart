@@ -45,7 +45,10 @@ class Sounder  {
   /// TESTED : WORKS PERFECT
   static Future<void> playAssetSound(String asset) async {
 
-    if (DeviceChecker.deviceIsAndroid() == true && asset != Sounder.bldrs_intro_wav){
+    final bool _isAndroid = DeviceChecker.deviceIsAndroid();
+    final bool _isIntroSound = asset == Sounder.bldrs_intro_wav || asset == Sounder.bldrs_intro;
+
+    if (_isAndroid == true && _isIntroSound == false){
       /// PLAN : ACTIVATE VOICES ON ANDROID LATER IN YOUR LIFE WHEN THINGS BECOME LITTLE HAPPIER
     }
     else {
@@ -79,7 +82,15 @@ class Sounder  {
   }
   // --------------------
   static Future<void> playIntro() async {
-    unawaited(Sounder.playAssetSound(Sounder.bldrs_intro));
+
+    if (DeviceChecker.deviceIsAndroid() == true){
+      unawaited(Sounder.playAssetSound(Sounder.bldrs_intro_wav));
+    }
+
+    else {
+      unawaited(Sounder.playAssetSound(Sounder.bldrs_intro));
+    }
+
   }
   // -----------------------------------------------------------------------------
 
