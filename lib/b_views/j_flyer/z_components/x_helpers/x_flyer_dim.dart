@@ -1022,13 +1022,17 @@ class FlyerDim {
   static double flyerGridVerticalScrollFlyerBoxWidth({
     @required double gridZoneWidth,
     @required int numberOfColumns,
+    double spacingRatio,
   }){
+
+    final double _ratio = spacingRatio ?? _spacingRatio;
+
     final double _flyerBoxWidth =
         gridZoneWidth /
             (
                 numberOfColumns
-                    + (numberOfColumns * _spacingRatio)
-                    + _spacingRatio
+                    + (numberOfColumns * _ratio)
+                    + _ratio
             );
     return _flyerBoxWidth;
   }
@@ -1037,7 +1041,10 @@ class FlyerDim {
     @required BuildContext context,
     @required double gridZoneHeight,
     @required int numberOfRows,
+    double spacingRatio,
   }){
+
+    final double _ratio = spacingRatio ?? _spacingRatio;
 
     final double _flyerBoxWidth =
         gridZoneHeight
@@ -1045,7 +1052,7 @@ class FlyerDim {
         (
             (numberOfRows * _xFlyerBoxHeight)
             +
-            (numberOfRows * _spacingRatio) + _spacingRatio
+            (numberOfRows * _ratio) + _ratio
         );
 
     /// REVERSE MATH TEST
@@ -1106,6 +1113,7 @@ class FlyerDim {
     @required int numberOfColumnsOrRows,
     @required double gridWidth,
     @required double gridHeight,
+    double spacingRatio,
   }){
 
     if (scrollDirection == Axis.vertical){
@@ -1118,6 +1126,7 @@ class FlyerDim {
       return flyerGridVerticalScrollFlyerBoxWidth(
         numberOfColumns: numberOfColumnsOrRows,
         gridZoneWidth: _gridZoneWidth,
+        spacingRatio: spacingRatio,
       );
 
     }
@@ -1133,6 +1142,7 @@ class FlyerDim {
         context: context,
         numberOfRows: numberOfColumnsOrRows,
         gridZoneHeight: _gridZoneHeight,
+        spacingRatio: spacingRatio,
       );
 
     }
