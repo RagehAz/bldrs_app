@@ -55,6 +55,16 @@ class _TheStatefulScreenState extends State<TheStatefulScreen> {
     super.didChangeDependencies();
   }
   // --------------------
+  /*
+  @override
+  void didUpdateWidget(TheStatefulScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.thing != widget.thing) {
+      unawaited(_doStuff());
+    }
+  }
+   */
+  // --------------------
   @override
   void dispose() {
     _loading.dispose();
