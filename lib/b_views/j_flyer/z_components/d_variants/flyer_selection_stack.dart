@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_selection_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_verification_layer.dart';
@@ -48,7 +48,7 @@ class FlyerSelectionStack extends StatelessWidget {
         if (flyerModel != null)
         AbsorbPointer(
           absorbing: _isSelectionMode,
-          child: Flyer(
+          child: HeroicFlyer(
             // key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
             flyerModel: flyerModel,
             flyerBoxWidth: flyerBoxWidth,

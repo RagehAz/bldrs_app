@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +36,7 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
   ZoomableGridController _controller;
   // -----------------------------------------------------------------------------
   /// --- LOADING
+  /*
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({@required bool setTo}) async {
@@ -46,6 +46,7 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
       value: setTo,
     );
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -77,6 +78,7 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
 
   }
   // --------------------
+  /*
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -93,16 +95,14 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
     }
     super.didChangeDependencies();
   }
+   */
   // --------------------
   @override
   void dispose() {
 
-      // widget.controller?.dispose();
       _controller?.dispose();
-    // if (widget.controller == null) {
-    // }
 
-    _loading.dispose();
+    // _loading.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------

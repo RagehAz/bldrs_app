@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -98,7 +98,7 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
         tweenValue: _tweenValue,
     ));
     
-    final Widget _flyerWidget = Flyer(
+    final Widget _flyerWidget = HeroicFlyer(
       // key: const ValueKey<String>('FlyerHero_testthing'),
       flyerBoxWidth: _flyerBoxWidth,
       screenName: 'FlyerTestScreenWidgetthing',

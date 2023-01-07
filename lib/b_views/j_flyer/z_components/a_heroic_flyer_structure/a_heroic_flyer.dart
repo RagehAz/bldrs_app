@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -10,9 +9,9 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-class Flyer extends StatefulWidget {
+class HeroicFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const Flyer({
+  const HeroicFlyer({
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.screenName,
@@ -24,11 +23,11 @@ class Flyer extends StatefulWidget {
   final String screenName;
   /// --------------------------------------------------------------------------
   @override
-  _FlyerState createState() => _FlyerState();
+  _HeroicFlyerState createState() => _HeroicFlyerState();
   /// --------------------------------------------------------------------------
 }
 
-class _FlyerState extends State<Flyer> {
+class _HeroicFlyerState extends State<HeroicFlyer> {
   // -----------------------------------------------------------------------------
    final ValueNotifier<BzModel> _bzModel = ValueNotifier(null);
    FlyerModel _flyerModel;
@@ -87,7 +86,7 @@ class _FlyerState extends State<Flyer> {
   }
    // --------------------
    @override
-   void didUpdateWidget(Flyer oldWidget) {
+   void didUpdateWidget(HeroicFlyer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.flyerModel != widget.flyerModel) {
       unawaited(_preparations());
