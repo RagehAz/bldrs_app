@@ -18,6 +18,8 @@ class PackedZoomedLayout extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -49,9 +51,11 @@ class PackedZoomedLayout extends StatelessWidget {
 
           return GestureDetector(
             onTap: () => _controller.zoomIn(
-                context: context,
-                itemIndex: index,
-                mounted: true,
+              context: context,
+              itemIndex: index,
+              mounted: true,
+              onStart: onZoomInStart,
+              onEnd: onZoomInEnd,
             ),
             child: FlyerBox(
               flyerBoxWidth: _controller.smallItemWidth,
@@ -70,12 +74,28 @@ class PackedZoomedLayout extends StatelessWidget {
           );
 
         },
+        onZoomOutStart: onZoomOutStart,
+        onZoomOutEnd: onZoomOutEnd,
       ),
     );
 
   }
   /// --------------------------------------------------------------------------
 }
+
+Future<void> onZoomInStart() async {
+  blog('onZoomInStart');
+}
+Future<void> onZoomInEnd() async {
+  blog('onZoomInEnd');
+}
+Future<void> onZoomOutStart() async {
+  blog('onZoomOutStart');
+}
+Future<void> onZoomOutEnd() async {
+  blog('onZoomOutEnd');
+}
+
 
 ZoomableGridController initializeBldrsZoomableGridController({
   @required BuildContext context,
