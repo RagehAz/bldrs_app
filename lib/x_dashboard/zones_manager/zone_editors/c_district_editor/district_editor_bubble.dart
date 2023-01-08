@@ -10,10 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -85,7 +82,7 @@ class _DistrictEditorBubbleState extends State<DistrictEditorBubble> {
   /// TESTED : WORKS PERFECT
   List<String> _getNonUsedLangCodes(){
     final List<String> _existingLangCodes = Phrase.getLangCodes(_draftDistrict.phrases);
-    final List<String> _langCodes = <String>[...Localizer.langCodes];
+    final List<String> _langCodes = <String>[...BldrsThemeLangs.langCodes];
     for (final String _existing in _existingLangCodes) {
       _langCodes.remove(_existing);
     }

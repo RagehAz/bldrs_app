@@ -18,6 +18,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class HeroicSmallFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -67,7 +68,7 @@ class HeroicSmallFlyer extends StatelessWidget {
 
     if (flyerIsBigNow == false){
 
-      unawaited(Sounder.playAssetSound(Sounder.whip_high));
+      unawaited(Sounder.playAssetSound(BldrsThemeSounds.whip_high));
 
       // flyerModel.blogFlyer(invoker: '_openFullScreenFlyer');
 
