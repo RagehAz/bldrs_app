@@ -103,11 +103,11 @@ dependencies:
   super_image:
     git:
       url: https://github.com/RagehAz/super_image.git
-  # ------------------------------------
-  # MY UN-USED PACKAGES
   bldrs_theme:
     git:
       url: https://github.com/RagehAz/bldrs_theme.git
+  # ------------------------------------
+  # MY UN-USED PACKAGES
   #  bldrs_ui:
   #    git:
   #      url: https://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@github.com/Bldrs-net/bldrs_ui.git
@@ -134,55 +134,55 @@ dev_dependencies:
 #  ios: true
 #  web: false
   # ------------------------------------
-flutter_launcher_name:
-  name: "Bldrs.net"
+#flutter_launcher_name:
+#  name: "Bldrs.net"
   # ------------------------------------
-flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  remove_alpha_ios: true
-  image_path: "assets/aw/aw_bldrs_app_icon.png"
-  adaptive_icon_background: "assets/aw/aw_bldrs_app_icon.png"
-  adaptive_icon_foreground: "assets/aw/aw_bldrs_app_icon.png"
+#flutter_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  remove_alpha_ios: true
+#  image_path: "packages/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
+#  adaptive_icon_background: "packages/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
+#  adaptive_icon_foreground: "packages/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
 # --------------------------------------------------------------------------------
 flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/aw/
-    - assets/icons/
-    - assets/icons/keywords/
-    - assets/icons/specs/
-    - assets/icons/flags/
-    - assets/languages/
-    - assets/planet/
-    - assets/sounds/
+#    - assets/aw/
+#    - assets/icons/
+#    - assets/icons/keywords/
+#    - assets/icons/specs/
+#    - assets/icons/flags/
+#    - assets/languages/
+#    - assets/planet/
+#    - assets/sounds/
   # ------------------------------------
   fonts:
     - family: BldrsHeadlineFont
       fonts:
-        - asset: assets/fonts/bldrs_font_bold.ttf
+        - asset: packages/bldrs_theme/assets/fonts/bldrs_font_bold.ttf
 
     - family: BldrsBodyFont
       fonts:
-        - asset: assets/fonts/bldrs_font_regular.ttf
+        - asset: packages/bldrs_theme/assets/fonts/bldrs_font_regular.ttf
 
     - family: EnglishHeadline
       fonts:
-        - asset: assets/fonts/arabic/BldrsFont.ttf
+        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
 
     - family: EnglishBody
       fonts:
-        - asset: assets/fonts/english/Roboto_Thin.ttf
-        - asset: assets/fonts/english/Roboto_ThinItalic.ttf
+        - asset: packages/bldrs_theme/assets/fonts/english/Roboto_Thin.ttf
+        - asset: packages/bldrs_theme/assets/fonts/english/Roboto_ThinItalic.ttf
 
     - family: ArabicHeadline
       fonts:
-        - asset: assets/fonts/arabic/BldrsFont.ttf
+        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
 
     - family: ArabicBody
       fonts:
-        - asset: assets/fonts/arabic/Tajawal_Light.ttf
-        - asset: assets/fonts/arabic/Tajawal_Regular.ttf
-        - asset: assets/fonts/arabic/BldrsFont.ttf
+        - asset: packages/bldrs_theme/assets/fonts/arabic/Tajawal_Light.ttf
+        - asset: packages/bldrs_theme/assets/fonts/arabic/Tajawal_Regular.ttf
+        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
 # --------------------------------------------------------------------------------

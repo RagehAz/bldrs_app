@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class HeroicFlyerBigView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -27,7 +28,7 @@ class HeroicFlyerBigView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
 
-    unawaited(Sounder.playAssetSound(Sounder.whip_long));
+    unawaited(Sounder.playAssetSound(BldrsThemeSounds.whip_long));
 
     await Nav.goBack(
       context: context,
