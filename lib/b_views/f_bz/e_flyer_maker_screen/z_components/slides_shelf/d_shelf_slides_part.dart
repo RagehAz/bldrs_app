@@ -8,8 +8,9 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class ShelfSlidesPart extends StatelessWidget {
   /// --------------------------------------------------------------------------

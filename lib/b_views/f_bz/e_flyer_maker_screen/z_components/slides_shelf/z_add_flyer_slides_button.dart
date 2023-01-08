@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
 
 class AddSlidesButton extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
 
 class AuthScreenView extends StatelessWidget {

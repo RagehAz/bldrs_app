@@ -13,8 +13,9 @@ import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class SubmittedReviews extends StatefulWidget {
   /// --------------------------------------------------------------------------

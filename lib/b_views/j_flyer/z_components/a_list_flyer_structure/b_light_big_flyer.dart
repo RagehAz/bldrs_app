@@ -25,8 +25,9 @@ import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class LightBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------

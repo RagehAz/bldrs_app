@@ -3,8 +3,9 @@ import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class FlyerDim {
   /// --------------------------------------------------------------------------
