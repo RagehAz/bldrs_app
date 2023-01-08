@@ -362,7 +362,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ValueListenableBuilder(
             valueListenable: _thePic,
             builder: (_, dynamic pic, Widget child){
-              return SuperImage(
+              return OldSuperImage(
                 width: 40,
                 height: 40,
                 // scale: 1,
@@ -632,7 +632,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                             // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                             itemBuilder: (_, int index){
 
-                              return SuperImage(
+                              return OldSuperImage(
                                 width: 100,
                                 height: 100,
                                 // scale: 1,

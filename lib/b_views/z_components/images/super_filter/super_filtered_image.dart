@@ -226,7 +226,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   Widget build(BuildContext context) {
 
     if (_uiImage == null){
-      return SuperImage(
+      return OldSuperImage(
         width: widget.width,
         height: widget.height,
         pic: widget.pic,
@@ -237,7 +237,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     else {
       return SuperFilteredImage._createTree(
         matrixes: widget.filterModel?.matrixes,
-        child: SuperImage(
+        child: OldSuperImage(
           width: widget.width,
           height: widget.height,
           pic: _uiImage,

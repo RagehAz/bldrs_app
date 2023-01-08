@@ -93,7 +93,7 @@ class AuthorPic extends StatelessWidget {
               :
 
           /// WHEN IS NORMAL AUTHOR BUTTON
-          SuperImage(
+          OldSuperImage(
               width: size,
               height: size,
               corners: _authorPicBorders,

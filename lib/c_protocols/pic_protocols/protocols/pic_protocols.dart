@@ -107,8 +107,13 @@ class PicProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ui.Image> fetchPicUiImage(String path) async {
-    final PicModel _picModel = await PicProtocols.fetchPic(path);
-    final ui.Image _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
+    ui.Image _theImage;
+
+    if (path != null){
+      final PicModel _picModel = await PicProtocols.fetchPic(path);
+      _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
+    }
+
     return _theImage;
   }
   // --------------------
