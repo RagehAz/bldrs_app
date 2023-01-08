@@ -48,7 +48,7 @@ class BalloonComponents extends StatelessWidget {
                 Loading(loading: loading,)
                     :
                 _balloonColor == null ?
-                SuperImage(
+                OldSuperImage(
                   pic: pic,
                   width: balloonWidth,
                   height: balloonWidth,

@@ -331,7 +331,7 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
             valueListenable: _loading,
             builder: (_, bool loading, Widget child){
 
-              return SuperImage(
+              return OldSuperImage(
                 width: _posterWidth,
                 height: _posterHeight,
                 pic: _posterBytes,

@@ -78,7 +78,7 @@ class SlideImagePart extends StatelessWidget {
 
           /// IMAGE
           if (slideModel?.uiImage != null)
-          SuperImage(
+          OldSuperImage(
             pic: slideModel.uiImage ?? slideModel.picPath,
             fit: slideModel.picFit,
             width: flyerBoxWidth,

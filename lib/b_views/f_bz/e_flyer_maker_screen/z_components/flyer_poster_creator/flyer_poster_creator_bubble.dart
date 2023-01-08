@@ -123,7 +123,7 @@ Future<void> testPoster({
         ),
 
         /// POSTER
-        SuperImage(
+        OldSuperImage(
           pic: _bytes,
           height: _posterPicModel.meta.dimensions.height,
           width: _posterPicModel.meta.dimensions.width,
