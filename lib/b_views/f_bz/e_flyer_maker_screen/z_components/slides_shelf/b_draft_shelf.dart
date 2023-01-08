@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/xx_d
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 

@@ -1,5 +1,5 @@
 // import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
-// import 'package:bldrs/f_helpers/drafters/scalers.dart';
+// import 'package:scale/scale.dart';
 // 
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/f_helpers/drafters/aligners.dart';

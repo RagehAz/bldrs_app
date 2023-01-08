@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/c_main_search/a_main_search_screen/x_main_search_c
 import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

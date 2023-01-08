@@ -19,7 +19,8 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -396,7 +397,12 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                         verse: Verse.plain('${cities.length} / ${_stages?.getAllIDs()?.length ?? '-'}'),
                         weight: VerseWeight.thin,
                         size: 1,
-                        margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),
+                        margin: Scale.superInsets(
+                          context: context,
+                          appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                          bottom: 20,
+                          enRight: 10,
+                        ),
                         labelColor: Colorz.white20,
                         color: Colorz.yellow255,
                       );

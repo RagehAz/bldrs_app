@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dar
 import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 
 class HomeFlyersGrid extends StatelessWidget {

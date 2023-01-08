@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 

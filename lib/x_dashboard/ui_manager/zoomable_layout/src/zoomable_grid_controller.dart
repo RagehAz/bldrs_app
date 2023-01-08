@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -195,6 +196,7 @@ class ZoomableGridController {
 
     return Scale.superInsets(
       context: context,
+      appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
       enLeft: getSpacing(context),
       top: _topPaddingOnZoomedOut,
       enRight: getSpacing(context),
