@@ -3,7 +3,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -73,7 +74,11 @@ class CropperFooter extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: bytezz.length,
-                  padding: Scale.superInsets(context: context, enRight: _screenWidth * 0.5),
+                  padding: Scale.superInsets(
+                    context: context,
+                    appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                    enRight: _screenWidth * 0.5,
+                  ),
                   itemBuilder: (_, int index){
 
                     final bool _isSelected = imageIndex == index;
@@ -84,7 +89,11 @@ class CropperFooter extends StatelessWidget {
                         child: Container(
                           width: _miniImageWidth,
                           height: _miniImageHeight,
-                          margin: Scale.superInsets(context: context, enRight: 5),
+                          margin: Scale.superInsets(
+                            context: context,
+                            appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                            enRight: 5,
+                          ),
                           decoration: BoxDecoration(
                             color: _isSelected == true ? Colorz.white125 : Colorz.white50,
                             borderRadius: FlyerDim.flyerCorners(context, _miniImageWidth),

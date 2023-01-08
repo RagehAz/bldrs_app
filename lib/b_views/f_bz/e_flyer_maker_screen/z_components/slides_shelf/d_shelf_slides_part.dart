@@ -6,7 +6,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -60,6 +61,7 @@ class ShelfSlidesPart extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               padding: Scale.superInsets(
                 context: context,
+                appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
                 enRight: DraftShelfSlide.flyerBoxWidth * 0.5,
               ),
               children: <Widget>[

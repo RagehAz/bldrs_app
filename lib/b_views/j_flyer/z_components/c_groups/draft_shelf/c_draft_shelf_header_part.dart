@@ -7,7 +7,7 @@
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/aligners.dart';
 // import 'package:bldrs/f_helpers/drafters/mappers.dart';
-// import 'package:bldrs/f_helpers/drafters/scalers.dart';
+// import 'package:scale/scale.dart';
 //
 // 
 // import 'package:bldrs/f_helpers/theme/ratioz.dart';
