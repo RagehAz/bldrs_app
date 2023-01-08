@@ -129,7 +129,8 @@ class Iconizer {
 
     final String assets = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> _json = json.decode(assets);
-    final List<String> _keys = _json.keys.where((element) => element.startsWith('assets/')).toList();
+    // final List<String> _keys = _json.keys.where((element) => element.startsWith('assets/')).toList();
+    final List<String> _keys = _json.keys.toList();
 
     final List<String> _allAssetsPaths = <String>[];
     for (final String key in _keys){

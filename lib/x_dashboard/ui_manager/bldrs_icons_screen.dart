@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
@@ -16,6 +19,8 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 class BldrsIconsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -69,7 +74,7 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
   void initState() {
     super.initState();
     _icons = [
-      ...Iconz.allIconz(),
+      // ...Iconz.allIconz(),
       ...UiProvider.proGetLocalAssetsPaths(context),
     ];
   }
@@ -203,6 +208,59 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
         );
 
       },
+      appBarRowWidgets: [
+
+        const Expander(),
+
+        AppBarButton(
+          verse: Verse.plain('blog'),
+          onTap: () async {
+
+            Stringer.blogStrings(strings: _icons, invoker: 'BldrsIconsScreen.icons');
+
+          },
+        ),
+
+
+        AppBarButton(
+          icon: Iconz.lab,
+          onTap: () async {
+
+            // const String _path = 'packages/bldrs_theme/lib/assets';
+            // final String _thing = await rootBundle.loadStructuredData(_path, (String thing) async {
+            //   return thing;
+            // });
+
+            Future<List<String>> listAssets() async {
+              // Load the AssetManifest.json file
+              final String assetManifest = await rootBundle.loadString('AssetManifest.json');
+
+              // Parse the JSON string
+              final Map<String, dynamic> manifestMap = json.decode(assetManifest);
+
+              // Extract the list of assets
+              final List<String> assets = manifestMap.keys.toList();
+
+              return assets;
+            }
+
+            final List<String> _things = await listAssets();
+            // blog('thing is : $_things');
+
+            Stringer.blogStrings(strings: _things, invoker: 'BldrsIconsScreen.build');
+
+          },
+        ),
+
+        WebsafeSvg.asset(
+          'packages/bldrs_theme/lib/assets/icons/com_website.svg',
+          width: 20,
+          height: 20,
+          color: Colors.white,
+          // package: 'bldrs_theme',
+        ),
+
+      ],
       child: Scroller(
 
         child: ValueListenableBuilder(

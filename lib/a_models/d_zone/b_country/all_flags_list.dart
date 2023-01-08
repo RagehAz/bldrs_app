@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 /// AS WIDGETS USE (package: "bldrs_theme") no need to include
 /// packages/bldrs_theme/
 /// in the path
-const String _path = 'lib/assets/icons/flags';
+const String _path = 'packages/bldrs_theme/lib/assets/icons/flags';
 
 const List<Flag> allFlags = <Flag>[
 

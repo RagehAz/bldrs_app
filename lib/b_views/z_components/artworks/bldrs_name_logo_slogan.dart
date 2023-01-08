@@ -44,7 +44,7 @@ class LogoSlogan extends StatelessWidget {
           child: SizedBox.expand(
             child: WebsafeSvg.asset(Iconz.bldrsNameEn,
               fit: BoxFit.fitWidth,
-              package: Iconz.bldrsTheme,
+              // package: Iconz.bldrsTheme,
             ),
           ),
         ),

@@ -68,7 +68,7 @@ class FollowButton extends StatelessWidget {
                       width: _followIconSize,
                       child: WebsafeSvg.asset(Iconz.follow,
                           color: _followIconColor,
-                          package: Iconz.bldrsTheme,
+                          // package: Iconz.bldrsTheme,
                       ),
                     ),
 
