@@ -1,5 +1,5 @@
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-// import 'package:bldrs/f_helpers/drafters/scalers.dart';
+// import 'package:scale/scale.dart';
 // import 'package:flutter/material.dart';
 //
 // class FloatingLayout extends StatelessWidget {

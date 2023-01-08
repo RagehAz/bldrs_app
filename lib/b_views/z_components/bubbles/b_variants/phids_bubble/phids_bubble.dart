@@ -6,7 +6,8 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/add_k
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:scale/scale.dart';
 
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -123,6 +124,7 @@ class PhidsBubble extends StatelessWidget {
                           return Padding(
                             padding: Scale.superInsets(
                               context: context,
+                              appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
                               enRight: Ratioz.appBarPadding,
                               bottom: Ratioz.appBarPadding,
                             ),

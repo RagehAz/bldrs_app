@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';

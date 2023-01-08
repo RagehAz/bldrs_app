@@ -106,6 +106,9 @@ dependencies:
   bldrs_theme:
     git:
       url: https://github.com/RagehAz/bldrs_theme.git
+  scale:
+    git:
+      url: https://github.com/RagehAz/scale.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:

@@ -157,9 +157,7 @@ class SingleSlide extends StatelessWidget {
           },
         ),
 
-        /// ----
-
-        // /// STATIC IMAGE
+        /// STATIC IMAGE
         //   SlideImagePart(
         //     key: const ValueKey<String>('SingleSlideImagePart'),
         //     flyerBoxWidth: flyerBoxWidth,

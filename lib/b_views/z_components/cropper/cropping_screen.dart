@@ -6,7 +6,7 @@
 // import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 // // import 'package:bldrs/f_helpers/cropper/crop_your_image.dart';
 // import 'package:bldrs/f_helpers/drafters/mappers.dart';
-// import 'package:bldrs/f_helpers/drafters/scalers.dart';
+// import 'package:scale/scale.dart';
 // import 'package:bldrs/f_helpers/drafters/tracers.dart';
 // import 'package:bldrs/f_helpers/router/navigators.dart';
 // import 'package:bldrs/f_helpers/theme/ratioz.dart';

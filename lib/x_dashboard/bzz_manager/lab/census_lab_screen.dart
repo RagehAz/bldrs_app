@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/cens
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
