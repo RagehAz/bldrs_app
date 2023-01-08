@@ -156,13 +156,15 @@ class ImageSwitcher extends StatelessWidget {
           errorBuilder: _errorBuilder,
           scale: 1,
           gaplessPlayback: _gaplessPlayback,
-          package: Iconz.bldrsTheme,
+          // package: Iconz.bldrsTheme,
         ),
       );
     }
 
     /// SVG
     else if (ObjectCheck.objectIsSVG(pic) == true){
+
+      // return const SizedBox();
 
       return LocalAssetChecker(
         key: const ValueKey<String>('SuperImage_svg'),
@@ -173,7 +175,7 @@ class ImageSwitcher extends StatelessWidget {
           color: iconColor,
           width: width,
           height: height,
-          package: Iconz.bldrsTheme,
+          // package: Iconz.bldrsTheme,
         ),
       );
     }

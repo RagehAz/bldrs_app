@@ -57,7 +57,7 @@ class ChainSplitter extends StatelessWidget {
   final double width;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
-  final ValueNotifier<String> searchText;
+  final ValueNotifier<dynamic> searchText;
   final ChainSecondLinesType secondLinesType;
   final Function(String path, String phid) onPhidTap;
   final Function(String path, String phid) onPhidDoubleTap;

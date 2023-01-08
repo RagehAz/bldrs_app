@@ -49,7 +49,7 @@ class BzPgCounter extends StatelessWidget {
                 padding: EdgeInsets.all(iconMargin),
                 child: WebsafeSvg.asset(
                     icon,
-                    package: Iconz.bldrsTheme,
+                    // package: Iconz.bldrsTheme,
                 ),
               ),
             ),
