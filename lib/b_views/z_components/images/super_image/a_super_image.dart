@@ -2,9 +2,9 @@ import 'package:bldrs/b_views/z_components/images/super_image/b_super_image_box.
 import 'package:bldrs/b_views/z_components/images/super_image/c_image_switcher.dart';
 import 'package:flutter/material.dart';
 
-class SuperImage extends StatelessWidget {
+class OldSuperImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SuperImage({
+  const OldSuperImage({
     @required this.width,
     @required this.height,
     @required this.pic,

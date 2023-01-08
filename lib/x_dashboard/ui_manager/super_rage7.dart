@@ -43,7 +43,7 @@ class SuperRage7Screen extends StatelessWidget {
                 // blog('building : value : $value');
 
                 if (value < 0.5){
-                  return  const SuperImage(
+                  return  const OldSuperImage(
                     width: 250,
                     height: 250,
                     pic: Iconz.dvRageh2,
@@ -51,7 +51,7 @@ class SuperRage7Screen extends StatelessWidget {
                   );
                 }
                 else {
-                  return  const SuperImage(
+                  return  const OldSuperImage(
                     width: 250,
                     height: 250,
                     pic: Iconz.dvRageh,

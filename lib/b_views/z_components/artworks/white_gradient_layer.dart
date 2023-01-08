@@ -30,7 +30,7 @@ class GradientLayer extends StatelessWidget {
       width: width,
       height: height,
       // color: Colorz.BloodTest,
-      child: SuperImage(
+      child: OldSuperImage(
         pic: _gradient,
         width: width,
         height: height,

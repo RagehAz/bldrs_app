@@ -43,7 +43,7 @@ class InfoGraphic extends StatelessWidget {
       tinyMode: tinyMode,
       horizontalListViewChildren: <Widget>[
 
-        SuperImage(
+        OldSuperImage(
           pic: Iconz.info,
           width: _size,
           height: _size,

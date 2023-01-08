@@ -223,7 +223,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                 height: FlyerDim.flyerHeightByFlyerWidth(context, 100),
                 color: Colorz.bloodTest,
                 alignment: Alignment.center,
-                child: SuperImage(
+                child: OldSuperImage(
                   width: 100,
                   height: FlyerDim.flyerHeightByFlyerWidth(context, 100),
                   fit: BoxFit.fitWidth,
