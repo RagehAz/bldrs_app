@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_lab/a_notes_lab_home.dart';
 import 'package:bldrs/x_dashboard/notes_creator/note_creator_screen_view.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class NotesCreatorScreen extends StatelessWidget {

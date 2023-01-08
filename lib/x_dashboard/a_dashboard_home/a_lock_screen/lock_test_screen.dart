@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 
 
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_wheel.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class LockScreen extends StatefulWidget {
@@ -54,9 +54,9 @@ class _LockScreenState extends State<LockScreen> {
 
     final List<String> _selections = <String>[_a, _b, _c];
     const List<String> _correctCode = <String>[
-      'assets/icons/dv_rageh.svg',
-      'assets/icons/gi_views.svg',
-      'assets/icons/cont_africa.svg',
+      Iconz.dvRageh,
+      Iconz.viewsIcon,
+      Iconz.contAfrica,
     ];
 
     final bool _areTheSame = Mapper.checkListsAreIdentical(

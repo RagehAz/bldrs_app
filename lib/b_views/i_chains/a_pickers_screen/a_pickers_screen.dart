@@ -159,7 +159,7 @@ class _PickersScreenState extends State<PickersScreen> {
       setNotifier(
           notifier: _selectedSpecs,
           mounted: mounted,
-          value: widget.selectedSpecs ?? [],
+          value: widget.selectedSpecs ?? <SpecModel>[],
       );
       // ------------------------------
       setState(() {

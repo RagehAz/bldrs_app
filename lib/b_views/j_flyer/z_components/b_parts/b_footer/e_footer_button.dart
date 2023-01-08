@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -78,6 +78,7 @@ class FooterButton extends StatelessWidget {
                   child: WebsafeSvg.asset(
                     icon,
                       color: _iconAndVerseColor,
+                      package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,
                       // width: _buttonSize * 0.8,
                       // height: _buttonSize * 0.9 ,

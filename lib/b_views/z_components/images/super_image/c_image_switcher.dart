@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'dart:ui' as ui;
@@ -156,7 +156,7 @@ class ImageSwitcher extends StatelessWidget {
           errorBuilder: _errorBuilder,
           scale: 1,
           gaplessPlayback: _gaplessPlayback,
-          // package: 'bldrs_theme',
+          package: Iconz.bldrsTheme,
         ),
       );
     }
@@ -173,7 +173,7 @@ class ImageSwitcher extends StatelessWidget {
           color: iconColor,
           width: width,
           height: height,
-          // package: 'bldrs_theme',
+          package: Iconz.bldrsTheme,
         ),
       );
     }

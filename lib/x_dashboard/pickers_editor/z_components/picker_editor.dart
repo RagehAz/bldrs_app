@@ -16,7 +16,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/x_pickers_editor_controller.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PickerEditingTile extends StatelessWidget {

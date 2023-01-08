@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layou
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 

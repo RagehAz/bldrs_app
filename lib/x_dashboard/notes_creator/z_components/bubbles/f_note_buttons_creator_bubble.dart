@@ -10,7 +10,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 
 
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/g_buttons_controller.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class NoteButtonsCreatorBubble extends StatelessWidget {

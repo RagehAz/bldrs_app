@@ -33,7 +33,6 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -42,7 +41,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
@@ -53,7 +52,6 @@ import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:super_image/super_image.dart';
-import 'package:bldrs_theme/bldrs_theme.dart' as bldrs_iconz;
 
 class ImagesTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -582,9 +580,9 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
             blog('check Asset existssss');
 
-            const String _icon = bldrs_iconz.Iconz.play;
-            final bool _exists = await bldrs_iconz.Iconz.checkAssetExists(_icon);
-            final bool _exists2 = await bldrs_iconz.Iconz.checkAssetExists('lib/assets/icons/gi_play.svg');
+            const String _icon = Iconz.play;
+            final bool _exists = await Iconz.checkAssetExists(_icon);
+            final bool _exists2 = await Iconz.checkAssetExists('lib/assets/icons/gi_play.svg');
             blog('assetContent : assetsExists : $_exists : $_exists2');
 
             // const String _path = 'packages/bldrs_theme/lib/assets/icons/gi_play.svg';
@@ -623,9 +621,9 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         const SuperImage(
           width: 40,
           height: 40,
-          pic: bldrs_iconz.Iconz.play,
+          pic: Iconz.play,
           iconColor: Colorz.green80,
-          package: 'bldrs_theme',
+          package: Iconz.bldrsTheme,
         ),
 
       ],

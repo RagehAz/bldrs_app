@@ -18,7 +18,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_import_template_screen/x_note_templates.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/h_panel_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_party_button.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ImportTemplateNoteScreen extends StatefulWidget {
