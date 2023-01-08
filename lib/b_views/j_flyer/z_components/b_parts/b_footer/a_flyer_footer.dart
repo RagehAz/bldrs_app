@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFooter extends StatefulWidget {

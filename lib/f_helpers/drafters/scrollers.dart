@@ -1,8 +1,9 @@
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 enum SlidingDirection {
   next,

@@ -1,7 +1,7 @@
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 

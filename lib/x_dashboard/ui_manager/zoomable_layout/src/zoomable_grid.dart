@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget.dart';
 import 'zoomable_grid_controller.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class ZoomableGrid extends StatefulWidget {
   // -----------------------------------------------------------------------------

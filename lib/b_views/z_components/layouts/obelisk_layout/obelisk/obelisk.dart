@@ -6,8 +6,8 @@ import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class Obelisk extends StatelessWidget {
   /// --------------------------------------------------------------------------
