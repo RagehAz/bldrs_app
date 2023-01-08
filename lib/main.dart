@@ -27,7 +27,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

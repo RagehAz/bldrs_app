@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/c_mi
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/f_header_labels_tree.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/g_follow_and_call_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header//a_slate/f_right_spacer/h_header_right_spacer_part.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ConvertibleHeaderStripPart extends StatelessWidget {

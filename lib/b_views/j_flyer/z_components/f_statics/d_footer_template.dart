@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_but
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
 

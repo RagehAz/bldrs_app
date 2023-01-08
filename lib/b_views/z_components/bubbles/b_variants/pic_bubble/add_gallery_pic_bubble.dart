@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 enum BubbleType {

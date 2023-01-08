@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
 

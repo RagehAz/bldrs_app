@@ -3,12 +3,17 @@
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 
+/// AS WIDGETS USE (package: "bldrs_theme") no need to include
+/// packages/bldrs_theme/
+/// in the path
+const String _path = 'lib/assets/icons/flags';
+
 const List<Flag> allFlags = <Flag>[
 
   Flag(
     id: 'alb',
     iso2: 'AL',
-    icon: 'assets/icons/flags/flag_eu_s_albania.svg',
+    icon: '$_path/flag_eu_s_albania.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -31,7 +36,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'dza',
     iso2: 'DZ',
-    icon: 'assets/icons/flags/flag_af_n_algeria.svg',
+    icon: '$_path/flag_af_n_algeria.svg',
     region: 'Northern Africa',
     continent: 'Africa',
     language: 'en',
@@ -54,7 +59,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'asm',
     iso2: 'AS',
-    icon: 'assets/icons/flags/flag_oc_poly_american_samoa.svg',
+    icon: '$_path/flag_oc_poly_american_samoa.svg',
     region: 'Polynesia',
     continent: 'Oceania',
     language: 'en',
@@ -77,7 +82,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'and',
     iso2: 'AD',
-    icon: 'assets/icons/flags/flag_eu_s_andorra.svg',
+    icon: '$_path/flag_eu_s_andorra.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -100,7 +105,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ago',
     iso2: 'AO',
-    icon: 'assets/icons/flags/flag_af_m_angola.svg',
+    icon: '$_path/flag_af_m_angola.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -123,7 +128,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'atg',
     iso2: 'AG',
-    icon: 'assets/icons/flags/flag_na_cr_antigua_and_barbuda.svg',
+    icon: '$_path/flag_na_cr_antigua_and_barbuda.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -146,7 +151,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'arg',
     iso2: 'AR',
-    icon: 'assets/icons/flags/flag_sa_argentina.svg',
+    icon: '$_path/flag_sa_argentina.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -169,7 +174,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'arm',
     iso2: 'AM',
-    icon: 'assets/icons/flags/flag_as_w_armenia.svg',
+    icon: '$_path/flag_as_w_armenia.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -192,7 +197,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'abw',
     iso2: 'AW',
-    icon: 'assets/icons/flags/flag_na_cr_aruba.svg',
+    icon: '$_path/flag_na_cr_aruba.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -215,7 +220,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'aus',
     iso2: 'AU',
-    icon: 'assets/icons/flags/flag_az_flag_australia.svg',
+    icon: '$_path/flag_az_flag_australia.svg',
     region: 'Australia and New Zealand',
     continent: 'Oceania',
     language: 'en',
@@ -238,7 +243,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'aut',
     iso2: 'AT',
-    icon: 'assets/icons/flags/flag_eu_w_austria.svg',
+    icon: '$_path/flag_eu_w_austria.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -261,7 +266,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'aze',
     iso2: 'AZ',
-    icon: 'assets/icons/flags/flag_as_w_azerbaijan.svg',
+    icon: '$_path/flag_as_w_azerbaijan.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -284,7 +289,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bhs',
     iso2: 'BS',
-    icon: 'assets/icons/flags/flag_na_cr_bahamas.svg',
+    icon: '$_path/flag_na_cr_bahamas.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -307,7 +312,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bhr',
     iso2: 'BH',
-    icon: 'assets/icons/flags/flag_as_w_bahrain.svg',
+    icon: '$_path/flag_as_w_bahrain.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -330,7 +335,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bgd',
     iso2: 'BD',
-    icon: 'assets/icons/flags/flag_as_s_bangladesh.svg',
+    icon: '$_path/flag_as_s_bangladesh.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -353,7 +358,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'brb',
     iso2: 'BB',
-    icon: 'assets/icons/flags/flag_na_cr_barbados.svg',
+    icon: '$_path/flag_na_cr_barbados.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -376,7 +381,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'blr',
     iso2: 'BY',
-    icon: 'assets/icons/flags/flag_eu_e_belarus.svg',
+    icon: '$_path/flag_eu_e_belarus.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -399,7 +404,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bel',
     iso2: 'BE',
-    icon: 'assets/icons/flags/flag_eu_w_belgium.svg',
+    icon: '$_path/flag_eu_w_belgium.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -422,7 +427,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'blz',
     iso2: 'BZ',
-    icon: 'assets/icons/flags/flag_na_c_belize.svg',
+    icon: '$_path/flag_na_c_belize.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -445,7 +450,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ben',
     iso2: 'BJ',
-    icon: 'assets/icons/flags/flag_af_w_benin.svg',
+    icon: '$_path/flag_af_w_benin.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -468,7 +473,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bmu',
     iso2: 'BM',
-    icon: 'assets/icons/flags/flag_na_n_bermuda.svg',
+    icon: '$_path/flag_na_n_bermuda.svg',
     region: 'Northern America',
     continent: 'North America',
     language: 'en',
@@ -491,7 +496,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'btn',
     iso2: 'BT',
-    icon: 'assets/icons/flags/flag_as_s_bhutan.svg',
+    icon: '$_path/flag_as_s_bhutan.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -514,7 +519,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bol',
     iso2: 'BO',
-    icon: 'assets/icons/flags/flag_sa_bolivia.svg',
+    icon: '$_path/flag_sa_bolivia.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -537,7 +542,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bih',
     iso2: 'BA',
-    icon: 'assets/icons/flags/flag_eu_s_bosnia_and_herzegovina.svg',
+    icon: '$_path/flag_eu_s_bosnia_and_herzegovina.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -560,7 +565,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bwa',
     iso2: 'BW',
-    icon: 'assets/icons/flags/flag_af_s_botswana.svg',
+    icon: '$_path/flag_af_s_botswana.svg',
     region: 'Southern Africa',
     continent: 'Africa',
     language: 'en',
@@ -583,7 +588,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bra',
     iso2: 'BR',
-    icon: 'assets/icons/flags/flag_sa_brazil.svg',
+    icon: '$_path/flag_sa_brazil.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -606,7 +611,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'brn',
     iso2: 'BN',
-    icon: 'assets/icons/flags/flag_as_se_brunei.svg',
+    icon: '$_path/flag_as_se_brunei.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -629,7 +634,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bgr',
     iso2: 'BG',
-    icon: 'assets/icons/flags/flag_eu_e_bulgaria.svg',
+    icon: '$_path/flag_eu_e_bulgaria.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -652,7 +657,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bfa',
     iso2: 'BF',
-    icon: 'assets/icons/flags/flag_af_w_burkina_faso.svg',
+    icon: '$_path/flag_af_w_burkina_faso.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -675,7 +680,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'bdi',
     iso2: 'BI',
-    icon: 'assets/icons/flags/flag_af_w_burundi.svg',
+    icon: '$_path/flag_af_w_burundi.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -698,7 +703,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cpv',
     iso2: 'CV',
-    icon: 'assets/icons/flags/flag_af_w_cape_verde.svg',
+    icon: '$_path/flag_af_w_cape_verde.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -721,7 +726,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'khm',
     iso2: 'KH',
-    icon: 'assets/icons/flags/flag_as_se_cambodia.svg',
+    icon: '$_path/flag_as_se_cambodia.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -744,7 +749,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cmr',
     iso2: 'CM',
-    icon: 'assets/icons/flags/flag_af_m_cameroon.svg',
+    icon: '$_path/flag_af_m_cameroon.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -767,7 +772,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'can',
     iso2: 'CA',
-    icon: 'assets/icons/flags/flag_na_n_canada.svg',
+    icon: '$_path/flag_na_n_canada.svg',
     region: 'Northern America',
     continent: 'North America',
     language: 'en',
@@ -790,7 +795,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cym',
     iso2: 'KY',
-    icon: 'assets/icons/flags/flag_na_cr_cayman_islands.svg',
+    icon: '$_path/flag_na_cr_cayman_islands.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -813,7 +818,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'caf',
     iso2: 'CF',
-    icon: 'assets/icons/flags/flag_af_m_central_african_republic.svg',
+    icon: '$_path/flag_af_m_central_african_republic.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -836,7 +841,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tcd',
     iso2: 'TD',
-    icon: 'assets/icons/flags/flag_af_m_chad.svg',
+    icon: '$_path/flag_af_m_chad.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -859,7 +864,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'chl',
     iso2: 'CL',
-    icon: 'assets/icons/flags/flag_sa_chile.svg',
+    icon: '$_path/flag_sa_chile.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -882,7 +887,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'chn',
     iso2: 'CN',
-    icon: 'assets/icons/flags/flag_as_e_china.svg',
+    icon: '$_path/flag_as_e_china.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -905,7 +910,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'col',
     iso2: 'CO',
-    icon: 'assets/icons/flags/flag_sa_colombia.svg',
+    icon: '$_path/flag_sa_colombia.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -928,7 +933,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'com',
     iso2: 'KM',
-    icon: 'assets/icons/flags/flag_af_e_comoros.svg',
+    icon: '$_path/flag_af_e_comoros.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -951,7 +956,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cog',
     iso2: 'CG',
-    icon: 'assets/icons/flags/flag_af_m_congo.svg',
+    icon: '$_path/flag_af_m_congo.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -974,7 +979,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cod',
     iso2: 'CD',
-    icon: 'assets/icons/flags/flag_af_m_congo2.svg',
+    icon: '$_path/flag_af_m_congo2.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -997,7 +1002,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cok',
     iso2: 'CK',
-    icon: 'assets/icons/flags/flag_oc_poly_cook_islands.svg',
+    icon: '$_path/flag_oc_poly_cook_islands.svg',
     region: 'Polynesia',
     continent: 'Oceania',
     language: 'en',
@@ -1020,7 +1025,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cri',
     iso2: 'CR',
-    icon: 'assets/icons/flags/flag_sa_costa_rica.svg',
+    icon: '$_path/flag_sa_costa_rica.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -1043,7 +1048,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'civ',
     iso2: 'CI',
-    icon: 'assets/icons/flags/flag_af_w_cote_divoire.svg',
+    icon: '$_path/flag_af_w_cote_divoire.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -1066,7 +1071,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'hrv',
     iso2: 'HR',
-    icon: 'assets/icons/flags/flag_eu_s_croatia.svg',
+    icon: '$_path/flag_eu_s_croatia.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1089,7 +1094,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cub',
     iso2: 'CU',
-    icon: 'assets/icons/flags/flag_na_cr_cuba.svg',
+    icon: '$_path/flag_na_cr_cuba.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -1112,7 +1117,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cuw',
     iso2: 'CW',
-    icon: 'assets/icons/flags/flag_na_cr_curacao.svg',
+    icon: '$_path/flag_na_cr_curacao.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -1135,7 +1140,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cyp',
     iso2: 'CY',
-    icon: 'assets/icons/flags/flag_as_w_cyprus.svg',
+    icon: '$_path/flag_as_w_cyprus.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -1158,7 +1163,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'cze',
     iso2: 'CZ',
-    icon: 'assets/icons/flags/flag_eu_e_czech_republic.svg',
+    icon: '$_path/flag_eu_e_czech_republic.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1181,7 +1186,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'dnk',
     iso2: 'DK',
-    icon: 'assets/icons/flags/flag_eu_n_denmark.svg',
+    icon: '$_path/flag_eu_n_denmark.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1204,7 +1209,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'dji',
     iso2: 'DJ',
-    icon: 'assets/icons/flags/flag_af_e_djibouti.svg',
+    icon: '$_path/flag_af_e_djibouti.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -1227,7 +1232,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'dma',
     iso2: 'DM',
-    icon: 'assets/icons/flags/flag_na_cr_dominica.svg',
+    icon: '$_path/flag_na_cr_dominica.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -1250,7 +1255,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'dom',
     iso2: 'DO',
-    icon: 'assets/icons/flags/flag_na_cr_dominican_republic.svg',
+    icon: '$_path/flag_na_cr_dominican_republic.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -1273,7 +1278,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ecu',
     iso2: 'EC',
-    icon: 'assets/icons/flags/flag_sa_ecuador.svg',
+    icon: '$_path/flag_sa_ecuador.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -1296,7 +1301,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'egy',
     iso2: 'EG',
-    icon: 'assets/icons/flags/flag_af_n_egypt.svg',
+    icon: '$_path/flag_af_n_egypt.svg',
     region: 'Northern Africa',
     continent: 'Africa',
     language: 'en',
@@ -1319,7 +1324,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'slv',
     iso2: 'SV',
-    icon: 'assets/icons/flags/flag_na_c_el_salvador.svg',
+    icon: '$_path/flag_na_c_el_salvador.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -1342,7 +1347,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gnq',
     iso2: 'GQ',
-    icon: 'assets/icons/flags/flag_af_m_equatorial_guinea.svg',
+    icon: '$_path/flag_af_m_equatorial_guinea.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -1365,7 +1370,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'eri',
     iso2: 'ER',
-    icon: 'assets/icons/flags/flag_af_e_eritrea.svg',
+    icon: '$_path/flag_af_e_eritrea.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -1388,7 +1393,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'est',
     iso2: 'EE',
-    icon: 'assets/icons/flags/flag_eu_n_estonia.svg',
+    icon: '$_path/flag_eu_n_estonia.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1411,7 +1416,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'swz',
     iso2: 'SZ',
-    icon: 'assets/icons/flags/flag_af_s_swaziland.svg',
+    icon: '$_path/flag_af_s_swaziland.svg',
     region: 'Southern Africa',
     continent: 'Africa',
     language: 'en',
@@ -1434,7 +1439,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'eth',
     iso2: 'ET',
-    icon: 'assets/icons/flags/flag_af_e_ethiopia.svg',
+    icon: '$_path/flag_af_e_ethiopia.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -1457,7 +1462,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'flk',
     iso2: 'FK',
-    icon: 'assets/icons/flags/flag_sa_falkland_islands.svg',
+    icon: '$_path/flag_sa_falkland_islands.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -1480,7 +1485,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'fro',
     iso2: 'FO',
-    icon: 'assets/icons/flags/flag_eu_n_faroe_islands.svg',
+    icon: '$_path/flag_eu_n_faroe_islands.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1503,7 +1508,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'fji',
     iso2: 'FJ',
-    icon: 'assets/icons/flags/flag_oc_melan_fiji.svg',
+    icon: '$_path/flag_oc_melan_fiji.svg',
     region: 'Melanesia',
     continent: 'Oceania',
     language: 'en',
@@ -1526,7 +1531,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'fin',
     iso2: 'FI',
-    icon: 'assets/icons/flags/flag_eu_n_finland.svg',
+    icon: '$_path/flag_eu_n_finland.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1549,7 +1554,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'fra',
     iso2: 'FR',
-    icon: 'assets/icons/flags/flag_eu_w_france.svg',
+    icon: '$_path/flag_eu_w_france.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -1572,7 +1577,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'pyf',
     iso2: 'PF',
-    icon: 'assets/icons/flags/flag_oc_poly_french_polynesia.svg',
+    icon: '$_path/flag_oc_poly_french_polynesia.svg',
     region: 'Polynesia',
     continent: 'Oceania',
     language: 'en',
@@ -1595,7 +1600,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gab',
     iso2: 'GA',
-    icon: 'assets/icons/flags/flag_af_m_gabon.svg',
+    icon: '$_path/flag_af_m_gabon.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -1618,7 +1623,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gmb',
     iso2: 'GM',
-    icon: 'assets/icons/flags/flag_af_w_gambia.svg',
+    icon: '$_path/flag_af_w_gambia.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -1641,7 +1646,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'geo',
     iso2: 'GE',
-    icon: 'assets/icons/flags/flag_as_w_georgia.svg',
+    icon: '$_path/flag_as_w_georgia.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -1664,7 +1669,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'deu',
     iso2: 'DE',
-    icon: 'assets/icons/flags/flag_eu_w_germany.svg',
+    icon: '$_path/flag_eu_w_germany.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -1687,7 +1692,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gha',
     iso2: 'GH',
-    icon: 'assets/icons/flags/flag_af_w_ghana.svg',
+    icon: '$_path/flag_af_w_ghana.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -1710,7 +1715,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gib',
     iso2: 'GI',
-    icon: 'assets/icons/flags/flag_eu_s_gibraltar.svg',
+    icon: '$_path/flag_eu_s_gibraltar.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1733,7 +1738,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'grc',
     iso2: 'GR',
-    icon: 'assets/icons/flags/flag_eu_s_greece.svg',
+    icon: '$_path/flag_eu_s_greece.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1756,7 +1761,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'grl',
     iso2: 'GL',
-    icon: 'assets/icons/flags/flag_na_n_greenland.svg',
+    icon: '$_path/flag_na_n_greenland.svg',
     region: 'Northern America',
     continent: 'North America',
     language: 'en',
@@ -1779,7 +1784,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'grd',
     iso2: 'GD',
-    icon: 'assets/icons/flags/flag_na_cr_grenada.svg',
+    icon: '$_path/flag_na_cr_grenada.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -1802,7 +1807,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gum',
     iso2: 'GU',
-    icon: 'assets/icons/flags/flag_oc_micro_guam.svg',
+    icon: '$_path/flag_oc_micro_guam.svg',
     region: 'Micronesia',
     continent: 'Oceania',
     language: 'en',
@@ -1825,7 +1830,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gtm',
     iso2: 'GT',
-    icon: 'assets/icons/flags/flag_na_c_guatemala.svg',
+    icon: '$_path/flag_na_c_guatemala.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -1848,7 +1853,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gin',
     iso2: 'GN',
-    icon: 'assets/icons/flags/flag_af_w_guinea.svg',
+    icon: '$_path/flag_af_w_guinea.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -1871,7 +1876,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gnb',
     iso2: 'GW',
-    icon: 'assets/icons/flags/flag_af_w_guinea_bissau.svg',
+    icon: '$_path/flag_af_w_guinea_bissau.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -1894,7 +1899,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'guy',
     iso2: 'GY',
-    icon: 'assets/icons/flags/flag_sa_guyana.svg',
+    icon: '$_path/flag_sa_guyana.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -1917,7 +1922,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'hti',
     iso2: 'HT',
-    icon: 'assets/icons/flags/flag_na_cr_haiti.svg',
+    icon: '$_path/flag_na_cr_haiti.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -1940,7 +1945,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'vat',
     iso2: 'VA',
-    icon: 'assets/icons/flags/flag_eu_w_vatican_city.svg',
+    icon: '$_path/flag_eu_w_vatican_city.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -1963,7 +1968,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'hnd',
     iso2: 'HN',
-    icon: 'assets/icons/flags/flag_na_c_honduras.svg',
+    icon: '$_path/flag_na_c_honduras.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -1986,7 +1991,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'hkg',
     iso2: 'HK',
-    icon: 'assets/icons/flags/flag_as_e_hong_kong.svg',
+    icon: '$_path/flag_as_e_hong_kong.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2009,7 +2014,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'hun',
     iso2: 'HU',
-    icon: 'assets/icons/flags/flag_eu_e_hungary.svg',
+    icon: '$_path/flag_eu_e_hungary.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2032,7 +2037,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'isl',
     iso2: 'IS',
-    icon: 'assets/icons/flags/flag_eu_n_iceland.svg',
+    icon: '$_path/flag_eu_n_iceland.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2055,7 +2060,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ind',
     iso2: 'IN',
-    icon: 'assets/icons/flags/flag_as_s_india.svg',
+    icon: '$_path/flag_as_s_india.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2078,7 +2083,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'idn',
     iso2: 'ID',
-    icon: 'assets/icons/flags/flag_as_se_indonesia.svg',
+    icon: '$_path/flag_as_se_indonesia.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2101,7 +2106,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'irn',
     iso2: 'IR',
-    icon: 'assets/icons/flags/flag_as_s_iran.svg',
+    icon: '$_path/flag_as_s_iran.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2124,7 +2129,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'irq',
     iso2: 'IQ',
-    icon: 'assets/icons/flags/flag_as_w_iraq.svg',
+    icon: '$_path/flag_as_w_iraq.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -2147,7 +2152,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'irl',
     iso2: 'IE',
-    icon: 'assets/icons/flags/flag_eu_n_ireland.svg',
+    icon: '$_path/flag_eu_n_ireland.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2170,7 +2175,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'imn',
     iso2: 'IM',
-    icon: 'assets/icons/flags/flag_eu_n_isle_of_man.svg',
+    icon: '$_path/flag_eu_n_isle_of_man.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2193,7 +2198,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'isr',
     iso2: 'IL',
-    icon: 'assets/icons/flags/flag_as_w_israel.svg',
+    icon: '$_path/flag_as_w_israel.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -2216,7 +2221,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ita',
     iso2: 'IT',
-    icon: 'assets/icons/flags/flag_eu_s_italy.svg',
+    icon: '$_path/flag_eu_s_italy.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2239,7 +2244,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'jam',
     iso2: 'JM',
-    icon: 'assets/icons/flags/flag_na_cr_jamaica.svg',
+    icon: '$_path/flag_na_cr_jamaica.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -2262,7 +2267,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'jpn',
     iso2: 'JP',
-    icon: 'assets/icons/flags/flag_as_e_japan.svg',
+    icon: '$_path/flag_as_e_japan.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2285,7 +2290,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'jey',
     iso2: 'JE',
-    icon: 'assets/icons/flags/flag_eu_n_jersey.svg',
+    icon: '$_path/flag_eu_n_jersey.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2308,7 +2313,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'jor',
     iso2: 'JO',
-    icon: 'assets/icons/flags/flag_as_w_jordan.svg',
+    icon: '$_path/flag_as_w_jordan.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -2331,7 +2336,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'kaz',
     iso2: 'KZ',
-    icon: 'assets/icons/flags/flag_as_c_kazakhstan.svg',
+    icon: '$_path/flag_as_c_kazakhstan.svg',
     region: 'Central Asia',
     continent: 'Asia',
     language: 'en',
@@ -2354,7 +2359,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ken',
     iso2: 'KE',
-    icon: 'assets/icons/flags/flag_af_e_kenya.svg',
+    icon: '$_path/flag_af_e_kenya.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -2377,7 +2382,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'kir',
     iso2: 'KI',
-    icon: 'assets/icons/flags/flag_oc_micro_kiribati.svg',
+    icon: '$_path/flag_oc_micro_kiribati.svg',
     region: 'Micronesia',
     continent: 'Oceania',
     language: 'en',
@@ -2400,7 +2405,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'prk',
     iso2: 'KP',
-    icon: 'assets/icons/flags/flag_as_e_north_korea.svg',
+    icon: '$_path/flag_as_e_north_korea.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2423,7 +2428,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'kor',
     iso2: 'KR',
-    icon: 'assets/icons/flags/flag_as_e_south_korea.svg',
+    icon: '$_path/flag_as_e_south_korea.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2446,7 +2451,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'kwt',
     iso2: 'KW',
-    icon: 'assets/icons/flags/flag_as_w_kuwait.svg',
+    icon: '$_path/flag_as_w_kuwait.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -2469,7 +2474,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'kgz',
     iso2: 'KG',
-    icon: 'assets/icons/flags/flag_as_c_kyrgyzstan.svg',
+    icon: '$_path/flag_as_c_kyrgyzstan.svg',
     region: 'Central Asia',
     continent: 'Asia',
     language: 'en',
@@ -2492,7 +2497,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lao',
     iso2: 'LA',
-    icon: 'assets/icons/flags/flag_as_se_laos.svg',
+    icon: '$_path/flag_as_se_laos.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2515,7 +2520,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lva',
     iso2: 'LV',
-    icon: 'assets/icons/flags/flag_eu_n_latvia.svg',
+    icon: '$_path/flag_eu_n_latvia.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2538,7 +2543,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lbn',
     iso2: 'LB',
-    icon: 'assets/icons/flags/flag_as_w_lebanon.svg',
+    icon: '$_path/flag_as_w_lebanon.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -2561,7 +2566,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lso',
     iso2: 'LS',
-    icon: 'assets/icons/flags/flag_af_s_lesotho.svg',
+    icon: '$_path/flag_af_s_lesotho.svg',
     region: 'Southern Africa',
     continent: 'Africa',
     language: 'en',
@@ -2584,7 +2589,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lbr',
     iso2: 'LR',
-    icon: 'assets/icons/flags/flag_af_w_liberia.svg',
+    icon: '$_path/flag_af_w_liberia.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -2607,7 +2612,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lby',
     iso2: 'LY',
-    icon: 'assets/icons/flags/flag_af_n_libya.svg',
+    icon: '$_path/flag_af_n_libya.svg',
     region: 'Northern Africa',
     continent: 'Africa',
     language: 'en',
@@ -2630,7 +2635,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lie',
     iso2: 'LI',
-    icon: 'assets/icons/flags/flag_eu_w_liechtenstein.svg',
+    icon: '$_path/flag_eu_w_liechtenstein.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -2653,7 +2658,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ltu',
     iso2: 'LT',
-    icon: 'assets/icons/flags/flag_eu_n_lithuania.svg',
+    icon: '$_path/flag_eu_n_lithuania.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2676,7 +2681,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lux',
     iso2: 'LU',
-    icon: 'assets/icons/flags/flag_eu_w_luxembourg.svg',
+    icon: '$_path/flag_eu_w_luxembourg.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -2699,7 +2704,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mac',
     iso2: 'MO',
-    icon: 'assets/icons/flags/flag_as_e_macao.svg',
+    icon: '$_path/flag_as_e_macao.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2722,7 +2727,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mdg',
     iso2: 'MG',
-    icon: 'assets/icons/flags/flag_af_e_madagascar.svg',
+    icon: '$_path/flag_af_e_madagascar.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -2745,7 +2750,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mwi',
     iso2: 'MW',
-    icon: 'assets/icons/flags/flag_af_e_malawi.svg',
+    icon: '$_path/flag_af_e_malawi.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -2768,7 +2773,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mys',
     iso2: 'MY',
-    icon: 'assets/icons/flags/flag_as_se_malaysia.svg',
+    icon: '$_path/flag_as_se_malaysia.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2791,7 +2796,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mdv',
     iso2: 'MV',
-    icon: 'assets/icons/flags/flag_as_s_maldives.svg',
+    icon: '$_path/flag_as_s_maldives.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -2814,7 +2819,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mli',
     iso2: 'ML',
-    icon: 'assets/icons/flags/flag_af_w_mali.svg',
+    icon: '$_path/flag_af_w_mali.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -2837,7 +2842,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mlt',
     iso2: 'MT',
-    icon: 'assets/icons/flags/flag_eu_s_malta.svg',
+    icon: '$_path/flag_eu_s_malta.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -2860,7 +2865,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mhl',
     iso2: 'MH',
-    icon: 'assets/icons/flags/flag_oc_micro_marshall_island.svg',
+    icon: '$_path/flag_oc_micro_marshall_island.svg',
     region: 'Micronesia',
     continent: 'Oceania',
     language: 'en',
@@ -2883,7 +2888,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mrt',
     iso2: 'MR',
-    icon: 'assets/icons/flags/flag_af_w_mauritania.svg',
+    icon: '$_path/flag_af_w_mauritania.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -2906,7 +2911,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mus',
     iso2: 'MU',
-    icon: 'assets/icons/flags/flag_af_e_mauritius.svg',
+    icon: '$_path/flag_af_e_mauritius.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -2929,7 +2934,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'myt',
     iso2: 'YT',
-    icon: 'assets/icons/flags/flag_af_e_mayotte.svg',
+    icon: '$_path/flag_af_e_mayotte.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -2952,7 +2957,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mex',
     iso2: 'MX',
-    icon: 'assets/icons/flags/flag_na_c_mexico.svg',
+    icon: '$_path/flag_na_c_mexico.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -2975,7 +2980,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'fsm',
     iso2: 'FM',
-    icon: 'assets/icons/flags/flag_oc_micro_micronesia.svg',
+    icon: '$_path/flag_oc_micro_micronesia.svg',
     region: 'Micronesia',
     continent: 'Oceania',
     language: 'en',
@@ -2998,7 +3003,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mda',
     iso2: 'MD',
-    icon: 'assets/icons/flags/flag_eu_e_moldova.svg',
+    icon: '$_path/flag_eu_e_moldova.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3021,7 +3026,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mco',
     iso2: 'MC',
-    icon: 'assets/icons/flags/flag_eu_w_monaco.svg',
+    icon: '$_path/flag_eu_w_monaco.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -3044,7 +3049,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mng',
     iso2: 'MN',
-    icon: 'assets/icons/flags/flag_as_e_mongolia.svg',
+    icon: '$_path/flag_as_e_mongolia.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -3067,7 +3072,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mne',
     iso2: 'ME',
-    icon: 'assets/icons/flags/flag_eu_s_montenegro.svg',
+    icon: '$_path/flag_eu_s_montenegro.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3090,7 +3095,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mar',
     iso2: 'MA',
-    icon: 'assets/icons/flags/flag_af_n_morocco.svg',
+    icon: '$_path/flag_af_n_morocco.svg',
     region: 'Northern Africa',
     continent: 'Africa',
     language: 'en',
@@ -3113,7 +3118,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'moz',
     iso2: 'MZ',
-    icon: 'assets/icons/flags/flag_af_e_mozambique.svg',
+    icon: '$_path/flag_af_e_mozambique.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -3136,7 +3141,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mmr',
     iso2: 'MM',
-    icon: 'assets/icons/flags/flag_as_se_myanmar.svg',
+    icon: '$_path/flag_as_se_myanmar.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -3159,7 +3164,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'nam',
     iso2: 'NA',
-    icon: 'assets/icons/flags/flag_af_s_namibia.svg',
+    icon: '$_path/flag_af_s_namibia.svg',
     region: 'Southern Africa',
     continent: 'Africa',
     language: 'en',
@@ -3182,7 +3187,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'npl',
     iso2: 'NP',
-    icon: 'assets/icons/flags/flag_as_s_nepal.svg',
+    icon: '$_path/flag_as_s_nepal.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -3205,7 +3210,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'nld',
     iso2: 'NL',
-    icon: 'assets/icons/flags/flag_eu_w_netherlands.svg',
+    icon: '$_path/flag_eu_w_netherlands.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -3228,7 +3233,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ncl',
     iso2: 'NC',
-    icon: 'assets/icons/flags/flag_eu_w_france.svg',
+    icon: '$_path/flag_eu_w_france.svg',
     region: 'Melanesia',
     continent: 'Oceania',
     language: 'en',
@@ -3251,7 +3256,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'nzl',
     iso2: 'NZ',
-    icon: 'assets/icons/flags/flag_az_new_zealand.svg',
+    icon: '$_path/flag_az_new_zealand.svg',
     region: 'Australia and New Zealand',
     continent: 'Oceania',
     language: 'en',
@@ -3274,7 +3279,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'nic',
     iso2: 'NI',
-    icon: 'assets/icons/flags/flag_na_c_nicaragua.svg',
+    icon: '$_path/flag_na_c_nicaragua.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -3297,7 +3302,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ner',
     iso2: 'NE',
-    icon: 'assets/icons/flags/flag_af_w_niger.svg',
+    icon: '$_path/flag_af_w_niger.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -3320,7 +3325,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'nga',
     iso2: 'NG',
-    icon: 'assets/icons/flags/flag_af_w_nigeria.svg',
+    icon: '$_path/flag_af_w_nigeria.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -3343,7 +3348,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mkd',
     iso2: 'MK',
-    icon: 'assets/icons/flags/flag_eu_s_macedonia.svg',
+    icon: '$_path/flag_eu_s_macedonia.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3366,7 +3371,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'mnp',
     iso2: 'MP',
-    icon: 'assets/icons/flags/flag_oc_micro_northern_marianas_islands.svg',
+    icon: '$_path/flag_oc_micro_northern_marianas_islands.svg',
     region: 'Micronesia',
     continent: 'Oceania',
     language: 'en',
@@ -3389,7 +3394,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'nor',
     iso2: 'NO',
-    icon: 'assets/icons/flags/flag_eu_n_norway.svg',
+    icon: '$_path/flag_eu_n_norway.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3412,7 +3417,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'omn',
     iso2: 'OM',
-    icon: 'assets/icons/flags/flag_as_w_oman.svg',
+    icon: '$_path/flag_as_w_oman.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -3435,7 +3440,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'pak',
     iso2: 'PK',
-    icon: 'assets/icons/flags/flag_as_s_pakistan.svg',
+    icon: '$_path/flag_as_s_pakistan.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -3458,7 +3463,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'plw',
     iso2: 'PW',
-    icon: 'assets/icons/flags/flag_oc_micro_palau.svg',
+    icon: '$_path/flag_oc_micro_palau.svg',
     region: 'Micronesia',
     continent: 'Oceania',
     language: 'en',
@@ -3481,7 +3486,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'pse',
     iso2: 'PS',
-    icon: 'assets/icons/flags/flag_as_w_palestine.svg',
+    icon: '$_path/flag_as_w_palestine.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -3504,7 +3509,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'pan',
     iso2: 'PA',
-    icon: 'assets/icons/flags/flag_na_c_panama.svg',
+    icon: '$_path/flag_na_c_panama.svg',
     region: 'Central America',
     continent: 'South America',
     language: 'en',
@@ -3527,7 +3532,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'png',
     iso2: 'PG',
-    icon: 'assets/icons/flags/flag_oc_melan_papua_new_guinea.svg',
+    icon: '$_path/flag_oc_melan_papua_new_guinea.svg',
     region: 'Melanesia',
     continent: 'Oceania',
     language: 'en',
@@ -3550,7 +3555,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'pry',
     iso2: 'PY',
-    icon: 'assets/icons/flags/flag_sa_paraguay.svg',
+    icon: '$_path/flag_sa_paraguay.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -3573,7 +3578,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'per',
     iso2: 'PE',
-    icon: 'assets/icons/flags/flag_sa_peru.svg',
+    icon: '$_path/flag_sa_peru.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -3596,7 +3601,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'phl',
     iso2: 'PH',
-    icon: 'assets/icons/flags/flag_as_se_philippines.svg',
+    icon: '$_path/flag_as_se_philippines.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -3619,7 +3624,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'pol',
     iso2: 'PL',
-    icon: 'assets/icons/flags/flag_eu_e_poland.svg',
+    icon: '$_path/flag_eu_e_poland.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3642,7 +3647,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'prt',
     iso2: 'PT',
-    icon: 'assets/icons/flags/flag_eu_s_portugal.svg',
+    icon: '$_path/flag_eu_s_portugal.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3665,7 +3670,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'pri',
     iso2: 'PR',
-    icon: 'assets/icons/flags/flag_na_cr_puerto_rico.svg',
+    icon: '$_path/flag_na_cr_puerto_rico.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -3688,7 +3693,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'qat',
     iso2: 'QA',
-    icon: 'assets/icons/flags/flag_as_w_qatar.svg',
+    icon: '$_path/flag_as_w_qatar.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -3711,7 +3716,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'reu',
     iso2: 'RE',
-    icon: 'assets/icons/flags/flag_af_e_reunion.svg',
+    icon: '$_path/flag_af_e_reunion.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -3734,7 +3739,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'rou',
     iso2: 'RO',
-    icon: 'assets/icons/flags/flag_eu_e_romania.svg',
+    icon: '$_path/flag_eu_e_romania.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3757,7 +3762,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'rus',
     iso2: 'RU',
-    icon: 'assets/icons/flags/flag_eu_e_russia.svg',
+    icon: '$_path/flag_eu_e_russia.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3780,7 +3785,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'rwa',
     iso2: 'RW',
-    icon: 'assets/icons/flags/flag_af_e_rwanda.svg',
+    icon: '$_path/flag_af_e_rwanda.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -3803,7 +3808,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'shn',
     iso2: 'SH',
-    icon: 'assets/icons/flags/flag_af_w_saint_helena.svg',
+    icon: '$_path/flag_af_w_saint_helena.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -3826,7 +3831,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'kna',
     iso2: 'KN',
-    icon: 'assets/icons/flags/flag_na_cr_saint_kitts_and_nevis.svg',
+    icon: '$_path/flag_na_cr_saint_kitts_and_nevis.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -3849,7 +3854,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lca',
     iso2: 'LC',
-    icon: 'assets/icons/flags/flag_na_cr_saint_lucia.svg',
+    icon: '$_path/flag_na_cr_saint_lucia.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -3872,7 +3877,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'vct',
     iso2: 'VC',
-    icon: 'assets/icons/flags/flag_na_cr_saint_vincent_and_the_grenadines.svg',
+    icon: '$_path/flag_na_cr_saint_vincent_and_the_grenadines.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -3895,7 +3900,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'wsm',
     iso2: 'WS',
-    icon: 'assets/icons/flags/flag_oc_poly_samoa.svg',
+    icon: '$_path/flag_oc_poly_samoa.svg',
     region: 'Polynesia',
     continent: 'Oceania',
     language: 'en',
@@ -3918,7 +3923,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'smr',
     iso2: 'SM',
-    icon: 'assets/icons/flags/flag_eu_s_san_marino.svg',
+    icon: '$_path/flag_eu_s_san_marino.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -3941,7 +3946,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'stp',
     iso2: 'ST',
-    icon: 'assets/icons/flags/flag_af_m_sao_tome_and_principe.svg',
+    icon: '$_path/flag_af_m_sao_tome_and_principe.svg',
     region: 'Middle Africa',
     continent: 'Africa',
     language: 'en',
@@ -3964,7 +3969,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'sau',
     iso2: 'SA',
-    icon: 'assets/icons/flags/flag_as_w_saudi_arabia.svg',
+    icon: '$_path/flag_as_w_saudi_arabia.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -3987,7 +3992,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'sen',
     iso2: 'SN',
-    icon: 'assets/icons/flags/flag_af_w_senegal.svg',
+    icon: '$_path/flag_af_w_senegal.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -4010,7 +4015,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'srb',
     iso2: 'RS',
-    icon: 'assets/icons/flags/flag_eu_s_serbia.svg',
+    icon: '$_path/flag_eu_s_serbia.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -4033,7 +4038,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'syc',
     iso2: 'SC',
-    icon: 'assets/icons/flags/flag_af_e_seychelles.svg',
+    icon: '$_path/flag_af_e_seychelles.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4056,7 +4061,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'sle',
     iso2: 'SL',
-    icon: 'assets/icons/flags/flag_af_w_sierra_leone.svg',
+    icon: '$_path/flag_af_w_sierra_leone.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -4079,7 +4084,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'sgp',
     iso2: 'SG',
-    icon: 'assets/icons/flags/flag_as_se_singapore.svg',
+    icon: '$_path/flag_as_se_singapore.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -4102,7 +4107,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'svk',
     iso2: 'SK',
-    icon: 'assets/icons/flags/flag_eu_e_slovakia.svg',
+    icon: '$_path/flag_eu_e_slovakia.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -4125,7 +4130,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'svn',
     iso2: 'SI',
-    icon: 'assets/icons/flags/flag_eu_s_slovenia.svg',
+    icon: '$_path/flag_eu_s_slovenia.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -4148,7 +4153,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'slb',
     iso2: 'SB',
-    icon: 'assets/icons/flags/flag_oc_melan_solomon_islands.svg',
+    icon: '$_path/flag_oc_melan_solomon_islands.svg',
     region: 'Melanesia',
     continent: 'Oceania',
     language: 'en',
@@ -4171,7 +4176,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'som',
     iso2: 'SO',
-    icon: 'assets/icons/flags/flag_af_e_somalia.svg',
+    icon: '$_path/flag_af_e_somalia.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4194,7 +4199,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'zaf',
     iso2: 'ZA',
-    icon: 'assets/icons/flags/flag_af_s_south_africa.svg',
+    icon: '$_path/flag_af_s_south_africa.svg',
     region: 'Southern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4217,7 +4222,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ssd',
     iso2: 'SS',
-    icon: 'assets/icons/flags/flag_af_e_south_sudan.svg',
+    icon: '$_path/flag_af_e_south_sudan.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4240,7 +4245,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'esp',
     iso2: 'ES',
-    icon: 'assets/icons/flags/flag_eu_s_spain.svg',
+    icon: '$_path/flag_eu_s_spain.svg',
     region: 'Southern Europe',
     continent: 'Europe',
     language: 'en',
@@ -4263,7 +4268,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'lka',
     iso2: 'LK',
-    icon: 'assets/icons/flags/flag_as_s_sri_lanka.svg',
+    icon: '$_path/flag_as_s_sri_lanka.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',
@@ -4286,7 +4291,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'sdn',
     iso2: 'SD',
-    icon: 'assets/icons/flags/flag_af_e_sudan.svg',
+    icon: '$_path/flag_af_e_sudan.svg',
     region: 'Northern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4309,7 +4314,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'sur',
     iso2: 'SR',
-    icon: 'assets/icons/flags/flag_sa_suriname.svg',
+    icon: '$_path/flag_sa_suriname.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -4332,7 +4337,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'swe',
     iso2: 'SE',
-    icon: 'assets/icons/flags/flag_eu_n_sweden.svg',
+    icon: '$_path/flag_eu_n_sweden.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -4355,7 +4360,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'che',
     iso2: 'CH',
-    icon: 'assets/icons/flags/flag_eu_w_switzerland.svg',
+    icon: '$_path/flag_eu_w_switzerland.svg',
     region: 'Western Europe',
     continent: 'Europe',
     language: 'en',
@@ -4378,7 +4383,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'syr',
     iso2: 'SY',
-    icon: 'assets/icons/flags/flag_as_w_syria.svg',
+    icon: '$_path/flag_as_w_syria.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -4401,7 +4406,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'twn',
     iso2: 'TW',
-    icon: 'assets/icons/flags/flag_as_e_taiwan.svg',
+    icon: '$_path/flag_as_e_taiwan.svg',
     region: 'Eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -4424,7 +4429,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tjk',
     iso2: 'TJ',
-    icon: 'assets/icons/flags/flag_as_c_tajikistan.svg',
+    icon: '$_path/flag_as_c_tajikistan.svg',
     region: 'Central Asia',
     continent: 'Asia',
     language: 'en',
@@ -4447,7 +4452,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tza',
     iso2: 'TZ',
-    icon: 'assets/icons/flags/flag_af_e_tanzania.svg',
+    icon: '$_path/flag_af_e_tanzania.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4470,7 +4475,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tha',
     iso2: 'TH',
-    icon: 'assets/icons/flags/flag_as_se_thailand.svg',
+    icon: '$_path/flag_as_se_thailand.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -4493,7 +4498,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tls',
     iso2: 'TL',
-    icon: 'assets/icons/flags/flag_as_se_timor_leste.svg',
+    icon: '$_path/flag_as_se_timor_leste.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -4516,7 +4521,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tgo',
     iso2: 'TG',
-    icon: 'assets/icons/flags/flag_af_w_togo.svg',
+    icon: '$_path/flag_af_w_togo.svg',
     region: 'Western Africa',
     continent: 'Africa',
     language: 'en',
@@ -4539,7 +4544,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ton',
     iso2: 'TO',
-    icon: 'assets/icons/flags/flag_oc_poly_tonga.svg',
+    icon: '$_path/flag_oc_poly_tonga.svg',
     region: 'Polynesia',
     continent: 'Oceania',
     language: 'en',
@@ -4562,7 +4567,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tto',
     iso2: 'TT',
-    icon: 'assets/icons/flags/flag_na_cr_trinidad_and_tobago.svg',
+    icon: '$_path/flag_na_cr_trinidad_and_tobago.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -4585,7 +4590,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tun',
     iso2: 'TN',
-    icon: 'assets/icons/flags/flag_af_n_tunisia.svg',
+    icon: '$_path/flag_af_n_tunisia.svg',
     region: 'Northern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4608,7 +4613,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tur',
     iso2: 'TR',
-    icon: 'assets/icons/flags/flag_as_w_turkey.svg',
+    icon: '$_path/flag_as_w_turkey.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -4631,7 +4636,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tkm',
     iso2: 'TM',
-    icon: 'assets/icons/flags/flag_as_c_turkmenistan.svg',
+    icon: '$_path/flag_as_c_turkmenistan.svg',
     region: 'Central Asia',
     continent: 'Asia',
     language: 'en',
@@ -4654,7 +4659,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tca',
     iso2: 'TC',
-    icon: 'assets/icons/flags/flag_na_cr_turks_and_caicos.svg',
+    icon: '$_path/flag_na_cr_turks_and_caicos.svg',
     region: 'Caribbean',
     continent: 'South America',
     language: 'en',
@@ -4677,7 +4682,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'tuv',
     iso2: 'TV',
-    icon: 'assets/icons/flags/flag_oc_poly_tuvalu.svg',
+    icon: '$_path/flag_oc_poly_tuvalu.svg',
     region: 'Polynesia',
     continent: 'Oceania',
     language: 'en',
@@ -4700,7 +4705,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'uga',
     iso2: 'UG',
-    icon: 'assets/icons/flags/flag_af_e_uganda.svg',
+    icon: '$_path/flag_af_e_uganda.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4723,7 +4728,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ukr',
     iso2: 'UA',
-    icon: 'assets/icons/flags/flag_eu_e_ukraine.svg',
+    icon: '$_path/flag_eu_e_ukraine.svg',
     region: 'Eastern Europe',
     continent: 'Europe',
     language: 'en',
@@ -4746,7 +4751,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'are',
     iso2: 'AE',
-    icon: 'assets/icons/flags/flag_as_w_uae.svg',
+    icon: '$_path/flag_as_w_uae.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -4769,7 +4774,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'gbr',
     iso2: 'GB',
-    icon: 'assets/icons/flags/flag_eu_n_united_kingdom.svg',
+    icon: '$_path/flag_eu_n_united_kingdom.svg',
     region: 'Northern Europe',
     continent: 'Europe',
     language: 'en',
@@ -4792,7 +4797,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'usa',
     iso2: 'US',
-    icon: 'assets/icons/flags/flag_na_usa.svg',
+    icon: '$_path/flag_na_usa.svg',
     region: 'Northern America',
     continent: 'North America',
     language: 'en',
@@ -4815,7 +4820,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ury',
     iso2: 'UY',
-    icon: 'assets/icons/flags/flag_sa_uruguay.svg',
+    icon: '$_path/flag_sa_uruguay.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -4838,7 +4843,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'uzb',
     iso2: 'UZ',
-    icon: 'assets/icons/flags/flag_as_c_uzbekistn.svg',
+    icon: '$_path/flag_as_c_uzbekistn.svg',
     region: 'Central Asia',
     continent: 'Asia',
     language: 'en',
@@ -4861,7 +4866,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'vut',
     iso2: 'VU',
-    icon: 'assets/icons/flags/flag_oc_melan_vanuatu.svg',
+    icon: '$_path/flag_oc_melan_vanuatu.svg',
     region: 'Melanesia',
     continent: 'Oceania',
     language: 'en',
@@ -4884,7 +4889,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'ven',
     iso2: 'VE',
-    icon: 'assets/icons/flags/flag_sa_venezuela.svg',
+    icon: '$_path/flag_sa_venezuela.svg',
     region: 'South America',
     continent: 'South America',
     language: 'en',
@@ -4907,7 +4912,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'vnm',
     iso2: 'VN',
-    icon: 'assets/icons/flags/flag_as_se_vietnam.svg',
+    icon: '$_path/flag_as_se_vietnam.svg',
     region: 'South-eastern Asia',
     continent: 'Asia',
     language: 'en',
@@ -4930,7 +4935,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'wlf',
     iso2: 'WF',
-    icon: 'assets/icons/flags/flag_eu_w_france.svg',
+    icon: '$_path/flag_eu_w_france.svg',
     region: 'Polynesia',
     continent: 'Oceania',
     language: 'en',
@@ -4953,7 +4958,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'yem',
     iso2: 'YE',
-    icon: 'assets/icons/flags/flag_as_w_yemen.svg',
+    icon: '$_path/flag_as_w_yemen.svg',
     region: 'Western Asia',
     continent: 'Asia',
     language: 'en',
@@ -4976,7 +4981,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'zmb',
     iso2: 'ZM',
-    icon: 'assets/icons/flags/flag_af_e_zambia.svg',
+    icon: '$_path/flag_af_e_zambia.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -4999,7 +5004,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'zwe',
     iso2: 'ZW',
-    icon: 'assets/icons/flags/flag_af_e_zimbabwe.svg',
+    icon: '$_path/flag_af_e_zimbabwe.svg',
     region: 'Eastern Africa',
     continent: 'Africa',
     language: 'en',
@@ -5022,7 +5027,7 @@ const List<Flag> allFlags = <Flag>[
   Flag(
     id: 'afg',
     iso2: 'AF',
-    icon: 'assets/icons/flags/flag_as_s_afghanistan.svg',
+    icon: '$_path/flag_as_s_afghanistan.svg',
     region: 'Southern Asia',
     continent: 'Asia',
     language: 'en',

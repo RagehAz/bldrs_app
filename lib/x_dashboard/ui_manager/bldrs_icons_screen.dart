@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BldrsIconsScreen extends StatefulWidget {
@@ -68,7 +68,10 @@ class _BldrsIconsScreenState extends State<BldrsIconsScreen> {
   @override
   void initState() {
     super.initState();
-    _icons = UiProvider.proGetLocalAssetsPaths(context);
+    _icons = [
+      ...Iconz.allIconz(),
+      ...UiProvider.proGetLocalAssetsPaths(context),
+    ];
   }
   // --------------------
   @override
