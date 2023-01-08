@@ -57,6 +57,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.21"
+  bldrs_theme:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a790de69d841976cef26e81531357127c809e363
+      url: "https://github.com/RagehAz/bldrs_theme.git"
+    source: git
+    version: "0.0.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -343,7 +352,7 @@ packages:
       name: firebase_auth
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.2.4"
+    version: "4.2.5"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
@@ -1078,6 +1087,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.1"
+  super_image:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "51c1cf9d4cd70fe72ce0521b40316c6bf2d16e12"
+      url: "https://github.com/RagehAz/super_image.git"
+    source: git
+    version: "0.0.4"
   synchronized:
     dependency: transitive
     description:
