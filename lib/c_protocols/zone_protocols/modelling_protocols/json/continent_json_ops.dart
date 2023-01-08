@@ -14,7 +14,7 @@ class ContinentJsonOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> readAllContinents() async {
-    final String _jsonStringValues = await rootBundle.loadString('assets/planet/continents.json');
+    final String _jsonStringValues = await rootBundle.loadString('packages/bldrs_theme/lib/assets/planet/continents.json');
     final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
     return Continent.decipherContinents(_mappedJson);
   }

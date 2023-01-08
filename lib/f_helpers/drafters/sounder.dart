@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class Sounder  {
   // -----------------------------------------------------------------------------
@@ -46,7 +47,10 @@ class Sounder  {
   static Future<void> playAssetSound(String asset) async {
 
     final bool _isAndroid = DeviceChecker.deviceIsAndroid();
-    final bool _isIntroSound = asset == Sounder.bldrs_intro_wav || asset == Sounder.bldrs_intro;
+    final bool _isIntroSound =
+            asset == BldrsThemeSounds.bldrs_intro_wav
+            ||
+            asset == BldrsThemeSounds.bldrs_intro;
 
     if (_isAndroid == true && _isIntroSound == false){
       /// PLAN : ACTIVATE VOICES ON ANDROID LATER IN YOUR LIFE WHEN THINGS BECOME LITTLE HAPPIER
@@ -68,9 +72,9 @@ class Sounder  {
   static Future<void> playButtonClick() async {
 
     const List<String> _sounds = <String>[
-      click_a,
-      click_b,
-      click_c,
+      BldrsThemeSounds.click_a,
+      BldrsThemeSounds.click_b,
+      BldrsThemeSounds.click_c,
     ];
 
     final int _index = Numeric.createRandomIndex(
@@ -84,67 +88,11 @@ class Sounder  {
   static Future<void> playIntro() async {
 
     if (DeviceChecker.deviceIsAndroid() == true){
-      unawaited(Sounder.playAssetSound(Sounder.bldrs_intro_wav));
+      unawaited(Sounder.playAssetSound(BldrsThemeSounds.bldrs_intro_wav));
     }
 
     else {
-      unawaited(Sounder.playAssetSound(Sounder.bldrs_intro));
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// SOUND FX
-
-  // --------------------
-  static const String _soundsPath = 'assets/sounds';
-  // --------------------
-  static const String whip_high = '$_soundsPath/whip_high.mp3';
-  static const String whip_long = '$_soundsPath/whip_long.mp3';
-  static const String zip = '$_soundsPath/zip.mp3';
-  static const String click_a = '$_soundsPath/click_a.mp3';
-  static const String click_b = '$_soundsPath/click_b.mp3';
-  static const String click_c = '$_soundsPath/click_c.mp3';
-  static const String bldrs_intro = '$_soundsPath/bldrs_intro.mp3';
-  // --------------------
-  static const String whip_high_wav = '$_soundsPath/whip_high_wav.wav';
-  static const String whip_long_wav = '$_soundsPath/whip_long_wav.wav';
-  static const String zip_wav = '$_soundsPath/zip_wav.wav';
-  static const String click_a_wav = '$_soundsPath/click_a_wav.wav';
-  static const String click_b_wav = '$_soundsPath/click_b_wav.wav';
-  static const String click_c_wav = '$_soundsPath/click_c_wav.wav';
-  static const String bldrs_intro_wav = '$_soundsPath/bldrs_intro_wav.wav';
-  // --------------------
-  static const List<String> allIOSSounds = <String>[
-      whip_high,
-      whip_long,
-      zip,
-      click_a,
-      click_b,
-      click_c,
-      bldrs_intro,
-    ];
-  // --------------------
-  static const List<String> allAndroidSounds =<String>[
-      whip_high_wav,
-      whip_long_wav,
-      zip_wav,
-      click_a_wav,
-      click_b_wav,
-      click_c_wav,
-      bldrs_intro_wav,
-    ];
-  // --------------------
-  static List<String> allSounds(){
-
-    /// ANDROID
-    if (DeviceChecker.deviceIsAndroid() == true){
-      return allAndroidSounds;
-    }
-
-    /// IOS OR ELSE
-    else {
-      return allIOSSounds;
+      unawaited(Sounder.playAssetSound(BldrsThemeSounds.bldrs_intro));
     }
 
   }

@@ -12,6 +12,7 @@ import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 //
 // --- BEHOLD ---
@@ -45,20 +46,6 @@ class Localizer {
     final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
     return Localizations.of<Localizer>(_context, Localizer);
   }
-  // -----------------------------------------------------------------------------
-
-  /// CONSTANTS
-
-  // --------------------
-  static const List<String> langCodes = <String>[
-    'en',
-    'ar',
-    'es',
-    'fr',
-    'zh',
-    'de',
-    'it',
-  ];
   // -----------------------------------------------------------------------------
 
   /// DELEGATE
@@ -152,7 +139,12 @@ class Localizer {
   static Future<Map<String, String>> getJSONLangMap({
     @required String langCode
   }) async {
-    final String _jsonStringValues = await rootBundle.loadString('assets/languages/$langCode.json');
+
+    final String _langFilePath = BldrsThemeLangs.getLangFilePath(
+      langCode: langCode,
+    );
+
+    final String _jsonStringValues = await rootBundle.loadString(_langFilePath);
 
     final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
 
@@ -177,7 +169,11 @@ class Localizer {
       invoker: 'getCountryNameByLingo',
       functions: () async {
 
-        _jsonStringValues = await rootBundle.loadString('assets/languages/$langCode.json');
+        final String _langFilePath = BldrsThemeLangs.getLangFilePath(
+          langCode: langCode,
+        );
+
+        _jsonStringValues = await rootBundle.loadString(_langFilePath);
 
       },
       onError: (String error) {},

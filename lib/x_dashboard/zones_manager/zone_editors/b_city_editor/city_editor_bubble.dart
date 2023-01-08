@@ -14,7 +14,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
 
@@ -97,7 +96,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
   /// TESTED : WORKS PERFECT
   List<String> _getNonUsedLangCodes(){
     final List<String> _existingLangCodes = Phrase.getLangCodes(_draftCity.phrases);
-    final List<String> _langCodes = <String>[...Localizer.langCodes];
+    final List<String> _langCodes = <String>[...BldrsThemeLangs.langCodes];
     for (final String _existing in _existingLangCodes) {
       _langCodes.remove(_existing);
     }

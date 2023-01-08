@@ -5,6 +5,7 @@ import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class SoundsTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -119,7 +120,7 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> _allSounds = Sounder.allSounds();
+    final List<String> _allSounds = BldrsThemeSounds.allSoundsForPlatform();
 
     return DashBoardLayout(
         // loading: _loading,
