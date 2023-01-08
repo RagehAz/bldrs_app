@@ -100,17 +100,17 @@ dependencies:
   widget_fader:
     git:
       url: https://github.com/RagehAz/widget_fader.git
+  super_image:
+    git:
+      url: https://github.com/RagehAz/super_image.git
   # ------------------------------------
   # MY UN-USED PACKAGES
-#  bldrs_theme:
-#    git:
-#      url: https://github.com/RagehAz/bldrs_theme.git
+  bldrs_theme:
+    git:
+      url: https://github.com/RagehAz/bldrs_theme.git
   #  bldrs_ui:
   #    git:
   #      url: https://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@github.com/Bldrs-net/bldrs_ui.git
-#  super_image:
-#    git:
-#      url: https://github.com/RagehAz/super_image.git
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:
