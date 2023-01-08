@@ -13,7 +13,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
 
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class AnimationsLab extends StatefulWidget {
@@ -430,7 +430,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                   decoration: BoxDecoration(
                     color: Colorz.yellow80,
                     image: const DecorationImage(
-                        image: AssetImage(Iconz.dvDonaldDuck),
+                        image: AssetImage(Iconz.dvDonaldDuck, package: Iconz.bldrsTheme),
                         fit: BoxFit.fitHeight,
                     ),
                     borderRadius: Borderers.cornerOnly(
