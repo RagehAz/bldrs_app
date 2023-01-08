@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line_unit.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';

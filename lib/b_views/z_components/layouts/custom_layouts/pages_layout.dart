@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 
 class PagerBuilder extends StatefulWidget {

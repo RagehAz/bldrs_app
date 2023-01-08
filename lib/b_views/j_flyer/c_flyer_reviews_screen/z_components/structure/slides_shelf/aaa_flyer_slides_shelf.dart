@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 
 class FlyerSlidesShelf extends StatelessWidget {
@@ -39,7 +40,11 @@ class FlyerSlidesShelf extends StatelessWidget {
             ...List.generate(flyerModel.slides.length, (index){
 
               return Container(
-                margin: Scale.superInsets(context: context, enRight: 5),
+                margin: Scale.superInsets(
+                  context: context,
+                  appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                  enRight: 5,
+                ),
                 alignment: Alignment.center,
                 child: SingleSlide(
                   flyerBoxWidth: _flyerBoxWidth,

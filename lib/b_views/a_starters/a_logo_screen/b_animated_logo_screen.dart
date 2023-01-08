@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
@@ -9,7 +10,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -359,7 +360,11 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             width: _screenWidth,
             height: _screenHeight,
             alignment: Alignment.centerLeft,
-            margin: Scale.superInsets(context: context, top: _screenWidth * 0.07),
+            margin: Scale.superInsets(
+                context: context,
+                appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                top: _screenWidth * 0.07,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

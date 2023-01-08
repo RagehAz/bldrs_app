@@ -5,7 +5,8 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:scale/scale.dart';
 
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -99,6 +100,7 @@ class TileBubble extends StatelessWidget {
         Padding(
           padding: Scale.superInsets(
             context: context,
+            appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
             enLeft: iconBoxWidth,
           ),
           child: BulletPoints(
