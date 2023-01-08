@@ -192,7 +192,10 @@ class MainButton extends StatelessWidget {
                             height: _buttonZoneHeight * 0.4,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(icon, package: Iconz.bldrsTheme),
+                                image: AssetImage(
+                                    icon,
+                                    // package: Iconz.bldrsTheme,
+                                ),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -201,7 +204,7 @@ class MainButton extends StatelessWidget {
                           WebsafeSvg.asset(icon,
                               fit: BoxFit.fill,
                               color: iconColor,
-                              package: Iconz.bldrsTheme,
+                              // package: Iconz.bldrsTheme,
                           ),
                         ),
                       ),

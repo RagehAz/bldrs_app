@@ -19,7 +19,7 @@ class BldrsName extends StatelessWidget {
       height: size,
       child: WebsafeSvg.asset(
           Iconz.bldrsNameEn,
-          package: Iconz.bldrsTheme,
+          // package: Iconz.bldrsTheme,
       ),
     );
   }

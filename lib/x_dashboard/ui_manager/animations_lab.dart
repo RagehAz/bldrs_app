@@ -430,7 +430,10 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                   decoration: BoxDecoration(
                     color: Colorz.yellow80,
                     image: const DecorationImage(
-                        image: AssetImage(Iconz.dvDonaldDuck, package: Iconz.bldrsTheme),
+                        image: AssetImage(
+                            Iconz.dvDonaldDuck,
+                            // package: Iconz.bldrsTheme,
+                        ),
                         fit: BoxFit.fitHeight,
                     ),
                     borderRadius: Borderers.cornerOnly(

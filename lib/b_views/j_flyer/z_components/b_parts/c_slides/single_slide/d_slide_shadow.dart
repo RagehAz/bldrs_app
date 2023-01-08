@@ -30,7 +30,7 @@ class SlideShadow extends StatelessWidget {
         fit: BoxFit.cover,
         width: flyerBoxWidth,
         height: _height,
-        package: Iconz.bldrsTheme,
+        // package: Iconz.bldrsTheme,
       ),
     );
 

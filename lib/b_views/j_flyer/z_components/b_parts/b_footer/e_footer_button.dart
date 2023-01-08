@@ -78,7 +78,7 @@ class FooterButton extends StatelessWidget {
                   child: WebsafeSvg.asset(
                     icon,
                       color: _iconAndVerseColor,
-                      package: Iconz.bldrsTheme,
+                      // package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,
                       // width: _buttonSize * 0.8,
                       // height: _buttonSize * 0.9 ,
