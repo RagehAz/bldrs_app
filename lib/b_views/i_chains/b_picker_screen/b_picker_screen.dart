@@ -215,6 +215,7 @@ class _PickerScreenState extends State<PickerScreen> {
             picker: widget.picker,
           ),
         searchText: _searchController,
+
       ),
 
     );

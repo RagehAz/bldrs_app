@@ -105,9 +105,9 @@ class ChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
-        onTileLongTap: () => onTileLongTap(_cleanedPath, chain.id),
-        onTileTap: (bool isExpanded) => onTileTap(_cleanedPath, chain.id),
-        onTileDoubleTap: () => onTileDoubleTap(_cleanedPath, chain.id),
+        onTileLongTap: onTileLongTap == null ? null : () => onTileLongTap(_cleanedPath, chain.id),
+        onTileTap: onTileTap == null ? null : (bool isExpanded) => onTileTap(_cleanedPath, chain.id),
+        onTileDoubleTap: onTileDoubleTap == null ? null : () => onTileDoubleTap(_cleanedPath, chain.id),
         isCollapsable: isCollapsable,
         child: ChainSplitter(
           width: _sonWidth,
