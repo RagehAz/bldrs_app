@@ -42,6 +42,7 @@ class PickerScreenBrowseView extends StatelessWidget {
   final ValueChanged<List<SpecModel>> onExportSpecs;
   final Function(String path, String phid) onPhidTap;
   // -----------------------------------------------------------------------------
+  /// TASK : TEST ME
   double _getListZoneHeight(BuildContext context){
 
     final double _instructionsBoxHeight = showInstructions == true ?
