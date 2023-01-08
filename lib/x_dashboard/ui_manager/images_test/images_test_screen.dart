@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -803,6 +804,24 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                             color: Colorz.yellow20,
                           ),
 
+                          /// SEPARATOR
+                          const SeparatorLine(),
+
+                          /// BLDRS IMAGE PATH TO UI IMAGE
+                          BldrsImagePathToUiImage(
+                            imagePath: 'bzz/3DLacU3FZuSG6W1oFNS4/z0Obwze3JLYjoEl6uVeXfo4Luup1',
+                            builder: (bool isLoading, ui.Image uiImage){
+
+                              return OldSuperImage(
+                                height: 100,
+                                width: 100,
+                                pic: uiImage,
+                                loading: isLoading,
+                              );
+
+                            },
+                          ),
+
                           const Horizon(),
 
                         ]
@@ -818,7 +837,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                   maxWidth: uiImage?.width?.toDouble(),
                   childWidth: uiImage?.width?.toDouble(),
 
-                  child: SuperImage(
+                  child: OldSuperImage(
                     width: uiImage?.width?.toDouble(),
                     height: uiImage?.height?.toDouble(),
                     pic: _file,

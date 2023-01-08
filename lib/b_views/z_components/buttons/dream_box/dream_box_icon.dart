@@ -31,7 +31,7 @@ class DreamBoxIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return SuperImage(
+    return OldSuperImage(
       key: const ValueKey<String>('DreamBoxIcon'),
       width: size,
       height: size,
