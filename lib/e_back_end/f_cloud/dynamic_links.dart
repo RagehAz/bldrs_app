@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -104,13 +105,23 @@ class DynamicLinks {
   static Future<void> initializeDynamicLinks(BuildContext context) async {
 
     // blog('initializeDynamicLinks : START');
+    PendingDynamicLinkData _data;
 
-    /// 1 - GET INITIAL LINK AT APP STARTUP
-    final PendingDynamicLinkData _data = await FirebaseDynamicLinks.instance.getInitialLink();
+    await tryAndCatch(
+      invoker: 'initializeDynamicLinks',
+      functions: () async {
 
-    await _handleDynamicLink(_data);
+        /// 1 - GET INITIAL LINK AT APP STARTUP
+        _data = await FirebaseDynamicLinks.instance.getInitialLink();
+
+      }
+    );
 
     /// HANDLE LINK ON FOREGROUND
+    if (_data != null){
+      await _handleDynamicLink(_data);
+    }
+
 
     // blog('initializeDynamicLinks : END');
 

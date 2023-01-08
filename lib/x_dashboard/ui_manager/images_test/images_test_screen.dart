@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import
+
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -31,6 +33,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -44,10 +47,13 @@ import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart'
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:super_image/super_image.dart';
+import 'package:bldrs_theme/bldrs_theme.dart' as bldrs_iconz;
 
 class ImagesTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -564,7 +570,64 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
           },
         ),
-        
+
+        /// SEPARATOR
+        const DotSeparator(boxWidth: 20,),
+
+        /// TEST ROOT BUNDLE
+        AppBarButton(
+          icon: Iconz.info,
+          verse: Verse.plain('check\nAsset exists'),
+          onTap: () async {
+
+            blog('check Asset existssss');
+
+            const String _icon = bldrs_iconz.Iconz.play;
+            final bool _exists = await bldrs_iconz.Iconz.checkAssetExists(_icon);
+            final bool _exists2 = await bldrs_iconz.Iconz.checkAssetExists('lib/assets/icons/gi_play.svg');
+            blog('assetContent : assetsExists : $_exists : $_exists2');
+
+            // const String _path = 'packages/bldrs_theme/lib/assets/icons/gi_play.svg';
+
+            // Future<bool> hasAsset(String path) async {
+            //   return rootBundle.load(path).then((_) {
+            //     return true;
+            //   }).catchError((error) {
+            //     return false;
+            //   });
+            // }
+            //
+            // final bool assetExists = await hasAsset(_path);
+            //
+            // blog('assetContent : assetExists : $assetExists');
+
+
+            // bool _exists;
+            //
+            // try {
+            //   final String _thing = await rootBundle.loadString(_path);
+            //   blog('assetContent : _thing : ${_thing.length}');
+            //   _exists = true;
+            // }
+            //
+            // on Exception catch (e) {
+            //   blog('assetContent : e : $e');
+            //   _exists = false;
+            // }
+            //
+            // blog('assetContent : DONE : _exists : $_exists');
+
+          },
+        ),
+
+        const SuperImage(
+          width: 40,
+          height: 40,
+          pic: bldrs_iconz.Iconz.play,
+          iconColor: Colorz.green80,
+          package: 'bldrs_theme',
+        ),
+
       ],
       child: ValueListenableBuilder(
         valueListenable: _loading,
@@ -812,7 +875,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                             imagePath: 'bzz/3DLacU3FZuSG6W1oFNS4/z0Obwze3JLYjoEl6uVeXfo4Luup1',
                             builder: (bool isLoading, ui.Image uiImage){
 
-                              return OldSuperImage(
+                              return SuperImage(
                                 height: 100,
                                 width: 100,
                                 pic: uiImage,
@@ -821,6 +884,8 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                             },
                           ),
+
+
 
                           const Horizon(),
 
