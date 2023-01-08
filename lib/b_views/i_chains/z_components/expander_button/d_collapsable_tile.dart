@@ -102,10 +102,11 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     // ---
     _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
     // ---
+    final bool _storedExpanded = PageStorage.of(context)?.readState(context, identifier: 'expansion') as bool ?? false;
     setNotifier(
         notifier: _isExpanded,
         mounted: mounted,
-        value: PageStorage.of(context)?.readState(context) ?? widget.initiallyExpanded,
+        value: widget.initiallyExpanded ?? _storedExpanded,
     );
     // ---
     if (_isExpanded.value  == true) {
@@ -189,7 +190,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
 
         /// SAVE STATE
         if (mounted == true){
-          PageStorage.of(context)?.writeState(context, _isExpanded.value);
+          PageStorage.of(context)?.writeState(context, _isExpanded.value, identifier: 'expansion');
         }
 
         /// PASS ON TILE TAP
