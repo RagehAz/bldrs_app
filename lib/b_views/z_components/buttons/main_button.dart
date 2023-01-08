@@ -3,7 +3,7 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';

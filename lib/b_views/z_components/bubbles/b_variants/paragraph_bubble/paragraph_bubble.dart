@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/text_lines_analyz
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
 
 class ParagraphBubble extends StatefulWidget {
