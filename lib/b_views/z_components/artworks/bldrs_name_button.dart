@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class BldrsNameButton extends StatelessWidget {
   /// --------------------------------------------------------------------------

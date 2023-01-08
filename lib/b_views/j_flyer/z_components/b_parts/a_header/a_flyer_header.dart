@@ -12,8 +12,9 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigat
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 
 class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------

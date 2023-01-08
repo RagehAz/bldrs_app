@@ -17,9 +17,10 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 // -----------------------------------------------------------------------------
 
 /// CURRENCY DATA CREATOR

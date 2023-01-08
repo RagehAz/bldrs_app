@@ -17,9 +17,11 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
