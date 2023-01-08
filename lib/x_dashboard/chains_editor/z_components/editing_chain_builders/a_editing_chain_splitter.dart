@@ -13,7 +13,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 
 import 'package:bldrs/x_dashboard/chains_editor/z_components/editing_chain_builders/c_editing_chain_builder.dart';
 import 'package:bldrs/x_dashboard/chains_editor/z_components/editing_chain_builders/b_editing_chains_builder.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

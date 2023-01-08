@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -185,14 +185,14 @@ class MainButton extends StatelessWidget {
                           // padding: EdgeInsets.all(_buttonHeight * 0),
                           child: icon.runtimeType != String ? icon
                               :
-                          ObjectCheck.fileExtensionOf(icon) == 'jpg' ||
+                              ObjectCheck.fileExtensionOf(icon) == 'jpg' ||
                               ObjectCheck.fileExtensionOf(icon) == 'jpeg' ||
                               ObjectCheck.fileExtensionOf(icon) == 'png' ? Container(
                             width: _buttonZoneHeight * 0.4,
                             height: _buttonZoneHeight * 0.4,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(icon),
+                                image: AssetImage(icon, package: Iconz.bldrsTheme),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -200,7 +200,8 @@ class MainButton extends StatelessWidget {
                               :
                           WebsafeSvg.asset(icon,
                               fit: BoxFit.fill,
-                              color: iconColor
+                              color: iconColor,
+                              package: Iconz.bldrsTheme,
                           ),
                         ),
                       ),

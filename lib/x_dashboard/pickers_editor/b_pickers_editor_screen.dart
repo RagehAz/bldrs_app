@@ -16,7 +16,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/x_pickers_editor_controller.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/z_components/picker_editor.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class SpecPickerEditorScreen extends StatefulWidget {

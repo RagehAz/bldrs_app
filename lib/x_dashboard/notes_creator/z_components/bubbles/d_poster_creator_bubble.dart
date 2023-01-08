@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
 
 
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_poster_button.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PosterCreatorBubble extends StatelessWidget {
