@@ -51,7 +51,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
     topPaddingOnZoomedIn: Stratosphere.smallAppBarStratosphere - 10,
 
     smallItemWidth: _flyerBoxWidth,
-    smallItemHeight: FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth),
+    smallItemHeight: _flyerBoxWidth * FlyerDim.xFlyerBoxHeightRatioToWidth,
 
     columnsCount: columnsCount,
     // spacingRatio: _spacingRatio,
@@ -63,23 +63,77 @@ ZoomableGridController initializeBldrsZoomableGridController({
   return _controller;
 }
 
-class PackedZoomedLayout extends StatelessWidget {
+class PackedZoomedLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PackedZoomedLayout({
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
 
+  @override
+  State<PackedZoomedLayout> createState() => _PackedZoomedLayoutState();
+}
 
+class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
+  // -----------------------------------------------------------------------------
+  ZoomableGridController _controller;
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+    );
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+    _controller = initializeBldrsZoomableGridController(
+      context: context,
+      columnsCount: 3,
+    );
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      _triggerLoading(setTo: true).then((_) async {
+
+        /// FUCK
+
+        await _triggerLoading(setTo: false);
+      });
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
+  }
+  // --------------------
+  /*
+  @override
+  void didUpdateWidget(TheStatefulScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.thing != widget.thing) {
+      unawaited(_doStuff());
+    }
+  }
+   */
+  // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     blog('PackedZoomedLayout.build()');
-
-    final ZoomableGridController _controller = initializeBldrsZoomableGridController(
-      context: context,
-      columnsCount: 3,
-    );
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -111,14 +165,14 @@ class PackedZoomedLayout extends StatelessWidget {
         controller: _controller,
         bigItem: FlyerBox(
           flyerBoxWidth: _controller.getBigItemWidth(context),
-          boxColor: Colorz.green80,
+          boxColor: Colorz.bloodTest,
           stackWidgets: const [
             Loading(loading: true),
           ],
         ),
         bigItemFootprint: FlyerBox(
           flyerBoxWidth: _controller.getBigItemWidth(context),
-          boxColor: Colorz.black255,
+          boxColor: Colorz.black80,
         ),
 
         itemCount: 14,
@@ -155,5 +209,5 @@ class PackedZoomedLayout extends StatelessWidget {
     );
 
   }
-/// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

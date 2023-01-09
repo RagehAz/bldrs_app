@@ -304,20 +304,20 @@ class ZoomableGridController {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  double _getVerticalZoomOffset({
-    @required int rowIndex,
+  double _getTopPaddingZoomOffset({
+    // @required int rowIndex,
     @required BuildContext context,
   }){
 
     // blog('_getVerticalZoomOffset : rowIndex : $rowIndex');
     final double _scale = calculateMaxScale(context);
     final double _scaledTopPadding = _topPaddingOnZoomedOut * _scale;
-    final double _rowOffset = _getRowOffset(
-      context: context,
-      rowIndex: rowIndex,
-    ) * _scale;
+    // final double _rowOffset = _getRowOffset(
+    //   context: context,
+    //   rowIndex: rowIndex,
+    // ) * _scale;
 
-    return  - (_scaledTopPadding - _topPaddingOnZoomedIn) + _rowOffset;
+    return  - (_scaledTopPadding - _topPaddingOnZoomedIn);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -468,10 +468,11 @@ class ZoomableGridController {
       columnIndex: columnIndex,
       context: context,
     );
-    final double _transY = _getVerticalZoomOffset(
+    final double _transY = _getTopPaddingZoomOffset(
       context: context,
-      rowIndex: 0,
+      // rowIndex: 0,
     );
+    // const double _transY = 0;
 
     final Float64List _list = Float64List.fromList(<double>[
       _scale,  0,        0,        0,
