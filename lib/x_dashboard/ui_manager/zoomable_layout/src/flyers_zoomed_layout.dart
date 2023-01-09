@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_list_flyer_structure/a_light_small_flyer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_list_flyer_structure/b_light_big_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/a_light_small_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';

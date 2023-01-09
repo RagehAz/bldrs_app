@@ -1,6 +1,5 @@
 // ignore_for_file: noop_primitive_operations
 import 'dart:convert';
-
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
