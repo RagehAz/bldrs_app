@@ -3,7 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+/// PLAN : TO BE OPTIMIZED AND PACKED
 class BlurLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BlurLayer({

@@ -3,7 +3,8 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
-
+/// => TAMAM : AI TESTED
+@immutable
 /// The [ImageFilterModel] class to define a Filter which will applied to each color, consists of multiple [-SubFilter-]s
 class ImageFilterModel {
   /// --------------------------------------------------------------------------
@@ -88,10 +89,10 @@ class ImageFilterModel {
         matrixes: <List<double>>[
           ...matrixes,
           [
-            value, 0, 0, 0, 0,
-            0, value, 0, 0, 0,
-            0, 0, value, 0, 0,
-            0, 0, 0, 1, 0,
+            value,  0,      0,      0,  0,
+            0,      value,  0,      0,  0,
+            0,      0,      value,  0,  0,
+            0,      0,      0,      1,  0,
           ],
         ]
     );
@@ -298,5 +299,38 @@ class ImageFilterModel {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+  // --------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+  // --------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is ImageFilterModel){
+      _areIdentical = checkFiltersAreIdentical(
+        filter1: this,
+        filter2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      id.hashCode^
+      opacity.hashCode^
+      matrixes.hashCode;
   // -----------------------------------------------------------------------------
 }
