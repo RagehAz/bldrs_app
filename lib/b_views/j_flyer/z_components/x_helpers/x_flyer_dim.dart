@@ -14,7 +14,7 @@ class FlyerDim {
 
   /// --------------------------------------------------------------------------
   // flyer ratios multiplied by flyerBoxWidth
-  static const double _xFlyerBoxHeight = 1.74;
+  static const double xFlyerBoxHeightRatioToWidth = 1.74;
 
   static const double _xFlyerTopCorners = 0.05;
   static const double _xFlyerBottomCorners = 0.11;
@@ -54,7 +54,7 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerWidthByFlyerHeight(double flyerBoxHeight){
-    return flyerBoxHeight / _xFlyerBoxHeight;
+    return flyerBoxHeight / xFlyerBoxHeightRatioToWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
@@ -65,7 +65,7 @@ class FlyerDim {
     }
 
     else {
-      return flyerBoxWidth * _xFlyerBoxHeight;
+      return flyerBoxWidth * xFlyerBoxHeightRatioToWidth;
     }
 
   }
@@ -88,7 +88,7 @@ class FlyerDim {
     return flyerHeightByFlyerWidth(context, flyerWidthByFactor(context, flyerSizeFactor));
   }
   // ---------
-  static const double flyerAspectRatio = 1 / _xFlyerBoxHeight;
+  static const double flyerAspectRatio = 1 / xFlyerBoxHeightRatioToWidth;
   // ---------
 
   /// FLYER CORNERS
@@ -1053,7 +1053,7 @@ class FlyerDim {
         gridZoneHeight
         /
         (
-            (numberOfRows * _xFlyerBoxHeight)
+            (numberOfRows * xFlyerBoxHeightRatioToWidth)
             +
             (numberOfRows * _ratio) + _ratio
         );
@@ -1202,7 +1202,7 @@ class FlyerDim {
       mainAxisSpacing: _gridSpacingValue,
       childAspectRatio: flyerAspectRatio,
       crossAxisCount: numberOfColumnsOrRows,
-      mainAxisExtent: scrollDirection == Axis.vertical ? flyerBoxWidth * _xFlyerBoxHeight : flyerBoxWidth,
+      mainAxisExtent: scrollDirection == Axis.vertical ? flyerBoxWidth * xFlyerBoxHeightRatioToWidth : flyerBoxWidth,
       // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,
     );
 

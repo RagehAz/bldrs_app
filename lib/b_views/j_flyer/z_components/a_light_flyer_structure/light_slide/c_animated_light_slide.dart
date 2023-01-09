@@ -1,8 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedLightSlide extends StatefulWidget {
@@ -75,21 +72,7 @@ class _AnimatedLightSlideState extends State<AnimatedLightSlide> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return DashBoardLayout(
-      loading: _loading,
-      listWidgets: <Widget>[
-
-        WideButton(
-          verse: Verse.plain('~~~~~~~~~test~~~~~~~~~~'),
-          onTap: () async {
-
-            blog('~~~~~~~~~test~~~~~~~~~~ onTap');
-
-          },
-        ),
-
-      ],
-    );
+    return Container();
     // --------------------
   }
 // -----------------------------------------------------------------------------

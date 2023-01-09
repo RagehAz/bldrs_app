@@ -1,7 +1,17 @@
+import 'dart:ui' as ui;
+
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/b_slide_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:flutter/material.dart';
 
 class StaticLightSlide extends StatelessWidget {
@@ -14,28 +24,61 @@ class StaticLightSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final SlideModel slideModel;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return MainLayout(
-      appBarType: AppBarType.basic,
-      pyramidsAreOn: true,
-      title: const Verse(
-        text: '',
-        translate: false,
-      ),
-      skyType: SkyType.black,
-      appBarRowWidgets: <Widget>[
+    final double flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final bool tinyMode = FlyerDim.isTinyMode(context, flyerBoxWidth);
+    // --------------------
+    return SlideBox(
+      key: const ValueKey<String>('SingleSlideBox'),
+      flyerBoxWidth: flyerBoxWidth,
+      flyerBoxHeight: flyerBoxHeight,
+      tinyMode: tinyMode,
+      slideMidColor: slideModel?.midColor,
+      // shadowIsOn: false,
+      stackChildren: <Widget>[
 
-        const Expander(),
+        BldrsImagePathToUiImage(
+          imagePath: slideModel?.picPath,
+          builder: (bool isLoading, ui.Image image){
 
-        AppBarButton(
-          verse: Verse.plain(''),
+            return SuperFilteredImage(
+              width: flyerBoxWidth - 10,
+              height: flyerBoxHeight,
+              pic: image,
+              filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
+              boxFit: slideModel?.picFit,
+            );
+
+          },
+        ),
+
+
+        /// SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
+        SlideShadow(
+          key: const ValueKey<String>('SingleSlideShadow'),
+          flyerBoxWidth: flyerBoxWidth,
+        ),
+
+        /// BOTTOM SHADOW
+        FooterShadow(
+          key: const ValueKey<String>('FooterShadow'),
+          flyerBoxWidth: flyerBoxWidth,
+        ),
+
+        /// HEADLINE
+        SlideHeadline(
+          key: const ValueKey<String>('SlideHeadline'),
+          flyerBoxWidth: flyerBoxWidth,
+          verse: Verse(
+            text: slideModel?.headline,
+            translate: false,
+          ),
         ),
 
       ],
-      child: Container(),
     );
     // --------------------
   }
