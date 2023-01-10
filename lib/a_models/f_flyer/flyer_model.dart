@@ -56,6 +56,7 @@ class FlyerModel {
     @required this.pdfPath,
     this.bzLogoImage,
     this.authorImage,
+    this.bzModel,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -81,6 +82,7 @@ class FlyerModel {
   final String pdfPath;
   final ui.Image bzLogoImage;
   final ui.Image authorImage;
+  final BzModel bzModel;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -111,6 +113,7 @@ class FlyerModel {
     String pdfPath,
     ui.Image bzLogoImage,
     ui.Image authorImage,
+    BzModel bzModel,
   }){
 
     return FlyerModel(
@@ -136,6 +139,7 @@ class FlyerModel {
       pdfPath: pdfPath ?? this.pdfPath,
       bzLogoImage: bzLogoImage ?? this.bzLogoImage,
       authorImage: authorImage ?? this.authorImage,
+      bzModel: bzModel ?? this.bzModel,
     );
 
   }
@@ -431,6 +435,9 @@ class FlyerModel {
     blog('score : $score');
     blog('pdfPath : $pdfPath');
     SlideModel.blogSlides(slides);
+    blog('bzLogoImage exists : ${bzLogoImage != null}');
+    blog('authorImage exists : ${authorImage != null}');
+    bzModel?.blogBz(invoker: invoker);
 
     blog('> FLYER-PRINT in ( $invoker ) --------------------------------------------------END');
   }
@@ -529,6 +536,9 @@ class FlyerModel {
       }
       if (flyer1.authorImage != flyer2.authorImage){
         blog('flyers authorImage are not identical');
+      }
+      if (BzModel.checkBzzAreIdentical(bz1: flyer1.bzModel, bz2: flyer2.bzModel) == false){
+        blog('flyers bzz are not identical');
       }
 
     }
@@ -909,7 +919,7 @@ class FlyerModel {
     return _owners;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<String> getPicsPaths(FlyerModel flyer){
     final List<String> _output = <String>[];
 
@@ -922,7 +932,6 @@ class FlyerModel {
     }
 
     return _output;
-
   }
   // -----------------------------------------------------------------------------
 
@@ -1034,6 +1043,7 @@ class FlyerModel {
       pdfPath.hashCode^
       bzLogoImage.hashCode^
       authorImage.hashCode^
+      bzModel.hashCode^
       docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }

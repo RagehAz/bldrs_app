@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -12,16 +11,14 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigat
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
-import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/material.dart';
 
 class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerHeader({
     @required this.flyerBoxWidth,
     @required this.flyerModel,
-    @required this.bzModel,
     @required this.onHeaderTap,
     @required this.onFollowTap,
     @required this.onCallTap,
@@ -37,7 +34,6 @@ class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
-  final BzModel bzModel;
   final Function onHeaderTap;
   final Function onFollowTap;
   final Function onCallTap;
@@ -287,7 +283,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                     onCallTap: widget.onCallTap,
                     headerRightSpacerTween: _headerRightSpacerTween,
                     flyerModel: widget.flyerModel,
-                    bzModel: widget.bzModel,
                   ),
 
                   /// BZ NAME BELOW LOGO
@@ -295,12 +290,12 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                     key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                     flyerBoxWidth: widget.flyerBoxWidth,
                     firstLine: Verse(
-                      text: widget.bzModel.name,
+                      text: widget.flyerModel.bzModel.name,
                       translate: false,
                     ),
                     secondLine: ZoneModel.generateInZoneVerse(
                       context: context,
-                      zoneModel: widget.bzModel.zone,
+                      zoneModel: widget.flyerModel.bzModel.zone,
                     ),
                     headerIsExpanded: widget.headerIsExpanded,
                   ),
@@ -321,7 +316,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       child: BzSlideTree(
         key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
         flyerBoxWidth: widget.flyerBoxWidth,
-        bzModel: widget.bzModel,
+        bzModel: widget.flyerModel.bzModel,
         flyerModel: widget.flyerModel,
         headerPageOpacity: widget.headerPageOpacity,
         bzCounters: widget.bzCounters,

@@ -63,9 +63,10 @@ class _StaticFlyerTestScreenState extends State<StaticFlyerTestScreen> {
         );
         // final BzModel bz = await BzProtocols.fetch(context: context, bzID: flyer.bzID);
 
-        flyer = await FlyerProtocols.imagifySlides(flyer);
-        flyer = await FlyerProtocols.imagifyBzLogo(flyer);
-        flyer = await FlyerProtocols.imagifyAuthorPic(flyer);
+        flyer = await FlyerProtocols.renderBigFlyer(
+          context: context,
+          flyerModel: flyer,
+        );
 
         setState(() {
           _flyerModel = flyer;

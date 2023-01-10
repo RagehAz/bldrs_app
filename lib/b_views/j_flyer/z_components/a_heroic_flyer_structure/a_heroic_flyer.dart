@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
-import 'package:widget_fader/widget_fader.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class HeroicFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -29,8 +27,7 @@ class HeroicFlyer extends StatefulWidget {
 
 class _HeroicFlyerState extends State<HeroicFlyer> {
   // -----------------------------------------------------------------------------
-   final ValueNotifier<BzModel> _bzModel = ValueNotifier(null);
-   FlyerModel _flyerModel;
+   FlyerModel renderedSmallFlyer;
    String _heroPath;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -71,17 +68,22 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   void dispose() {
     _loading.dispose();
 
+    //
+    // if (mounted == true){
+    //   if (Mapper.checkCanLoopList(_flyerModel?.slides) == true){
+    //     blog('xxxxx - === >>> disposing flyer[0] SLIDE IMAGE');
+    //     _flyerModel?.slides?.first?.uiImage?.dispose();
+    //   }
+    //   blog('xxxxx - === >>> disposing flyer LOGO IMAGE');
+    //   _flyerModel?.bzLogoImage?.dispose();
+    //
+    // }
 
-    if (mounted == true){
-      if (Mapper.checkCanLoopList(_flyerModel?.slides) == true){
-        blog('xxxxx - === >>> disposing flyer[0] SLIDE IMAGE');
-        _flyerModel?.slides?.first?.uiImage?.dispose();
-      }
-      blog('xxxxx - === >>> disposing flyer LOGO IMAGE');
-      _flyerModel?.bzLogoImage?.dispose();
-      _bzModel.dispose();
+    FlyerProtocols.disposeRenderedFlyer(
+      mounted: mounted,
+      flyerModel: renderedSmallFlyer,
+    );
 
-    }
     super.dispose();
   }
    // --------------------
@@ -99,46 +101,49 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
 
       if (mounted == true){
 
-        FlyerModel _flyerWithUiImages = widget.flyerModel;
+        final FlyerModel _renderedSmallFlyer = await FlyerProtocols.renderSmallFlyer(
+          context: context,
+          flyerModel: widget.flyerModel,
+        );
 
-        await Future.wait(<Future>[
-
-          /// OVERRIDE SLIDES
-          FlyerProtocols.imagifyFirstSlide(widget.flyerModel)
-              .then((FlyerModel flyer){
-            _flyerWithUiImages = _flyerWithUiImages.copyWith(
-              slides: flyer.slides,
-            );
-          }),
-
-          /// OVERRIDE BZ LOGO IMAGE
-          FlyerProtocols.imagifyBzLogo(widget.flyerModel)
-              .then((FlyerModel flyer){
-                _flyerWithUiImages = _flyerWithUiImages.copyWith(
-                  bzLogoImage: flyer.bzLogoImage,
-                );
-              }),
-
-          /// GET BZ
-          BzProtocols.fetchBz(
-            context: context,
-            bzID: widget.flyerModel.bzID,
-          ).then((BzModel bzModel){
-
-            setNotifier(
-              notifier: _bzModel,
-              mounted: mounted,
-              value: bzModel,
-            );
-
-          }),
-
-        ]);
+        // await Future.wait(<Future>[
+        //
+        //   /// OVERRIDE SLIDES
+        //   FlyerProtocols._imagifyFirstSlide(widget.flyerModel)
+        //       .then((FlyerModel flyer){
+        //     _renderedSmallFlyer = _renderedSmallFlyer.copyWith(
+        //       slides: flyer.slides,
+        //     );
+        //   }),
+        //
+        //   /// OVERRIDE BZ LOGO IMAGE
+        //   FlyerProtocols._imagifyBzLogo(widget.flyerModel)
+        //       .then((FlyerModel flyer){
+        //         _renderedSmallFlyer = _renderedSmallFlyer.copyWith(
+        //           bzLogoImage: flyer.bzLogoImage,
+        //         );
+        //       }),
+        //
+        //   /// GET BZ
+        //   BzProtocols.fetchBz(
+        //     context: context,
+        //     bzID: widget.flyerModel.bzID,
+        //   ).then((BzModel bzModel){
+        //
+        //     setNotifier(
+        //       notifier: _bzModel,
+        //       mounted: mounted,
+        //       value: bzModel,
+        //     );
+        //
+        //   }),
+        //
+        // ]);
 
         if (mounted){
           setState(() {
-            _flyerModel = _flyerWithUiImages;
-            _heroPath = '${widget.screenName}/${_flyerModel?.id}/';
+            renderedSmallFlyer = _renderedSmallFlyer;
+            _heroPath = '${widget.screenName}/${renderedSmallFlyer?.id}/';
           });
         }
 
@@ -154,23 +159,13 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
     return  WidgetFader(
       fadeType: FadeType.fadeIn,
       duration: const Duration(milliseconds: 300),
-      child: ValueListenableBuilder(
-        valueListenable: _bzModel,
-        builder: (_, BzModel bzModel, Widget child){
-
-          blog('flyer : _heroPath : $_heroPath : widget.screenName : ${widget.screenName}');
-
-          return FlyerHero(
-            flyerModel: _flyerModel,
-            bzModel: bzModel,
-            canBuildBigFlyer: false,
-            flyerBoxWidth: widget.flyerBoxWidth,
-            heroPath: _heroPath,
-            invoker: 'Flyer',
-          );
-
-        },
-      ) ,
+      child: FlyerHero(
+        renderedFlyer: renderedSmallFlyer,
+        canBuildBigFlyer: false,
+        flyerBoxWidth: widget.flyerBoxWidth,
+        heroPath: _heroPath,
+        invoker: 'Flyer',
+      ),
     );
 
   }
