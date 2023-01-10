@@ -1,11 +1,12 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/light_slide/a_light_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -221,6 +222,7 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
           }
 
         },
+
       child: WidgetFader(
         fadeType: FadeType.fadeIn,
         duration: const Duration(milliseconds: 200),
@@ -230,16 +232,51 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
           onTap: () => widget.onTap(_flyerModel, _flyerModel?.bzModel),
           stackWidgets: <Widget>[
 
-            /// STATIC SINGLE SLIDE
-            LightSlide(
+            // /// STATIC SINGLE SLIDE
+            // LightSlide(
+            //   flyerBoxWidth: widget.flyerBoxWidth,
+            //   slideModel: _flyerModel?.slides?.first,
+            //   isAnimated: true,
+            //   // flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+            //   // tinyMode: false,
+            //   // onSlideNextTap: null,
+            //   // onSlideBackTap: null,
+            //   // onDoubleTap: null,
+            // ),
+
+            // if (Mapper.checkCanLoopList(_flyerModel?.slides) == true)
+            // AnimateWidgetToMatrix(
+            //   matrix: Trinity.renderSlideMatrix(
+            //     matrix: _flyerModel?.slides?.first?.matrix,
+            //     flyerBoxWidth: widget.flyerBoxWidth,
+            //     flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+            //   ),
+            //   child: SuperFilteredImage(
+            //     width: widget.flyerBoxWidth,
+            //     height: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+            //     pic: _flyerModel?.slides?.first?.uiImage,
+            //     filterModel: ImageFilterModel.getFilterByID(_flyerModel?.slides?.first?.filterID),
+            //     boxFit: _flyerModel?.slides?.first?.picFit,
+            //   ),
+            // ),
+
+            SingleSlide(
+              key: const ValueKey<String>('SingleSlideImagePart'),
               flyerBoxWidth: widget.flyerBoxWidth,
+              flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+              tinyMode: true,
               slideModel: _flyerModel?.slides?.first,
-              isAnimated: false,
-              // flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
-              // tinyMode: false,
-              // onSlideNextTap: null,
-              // onSlideBackTap: null,
-              // onDoubleTap: null,
+              onSlideBackTap: () {
+                blog('onSlideBackTap');
+              },
+              onSlideNextTap: () {
+                blog('onSlideBackTap');
+              },
+              onDoubleTap: () {
+                blog('onDoubleTap');
+              },
+              blurLayerIsOn: true,
+              slideShadowIsOn: true,
             ),
 
             /// STATIC HEADER
@@ -252,6 +289,8 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
               // flightTweenValue: 1,
               // flightDirection: flightDirection,
               // onTap: ,
+              // authorImage: _flyerModel?.authorImage,
+              bzImageLogo: _flyerModel?.bzLogoImage,
             ),
 
             /// STATIC FOOTER
@@ -271,6 +310,7 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
           ],
         ),
       ),
+
     );
 
   }

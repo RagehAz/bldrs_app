@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_mi
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/c_middle_spacer/e_header_middle_spacer_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/f_header_labels_tree.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/g_follow_and_call_buttons.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ConvertibleHeaderStripPart extends StatelessWidget {
@@ -76,7 +75,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
         BzLogo(
           key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
           width: logoMinWidth * logoSizeRatioTween.value,
-          image: flyerModel.bzLogoImage ?? Iconz.dvRageh,// ?? bzModel?.logoPath,
+          image: flyerModel.bzLogoImage ?? flyerModel.bzModel?.logoPath,
           isVerified: flyerModel?.bzModel?.isVerified,
           corners: logoCorners,
           zeroCornerIsOn: flyerModel.showsAuthor,
@@ -98,7 +97,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           logoSizeRatioTween: logoSizeRatioTween,
           flyerBoxWidth: flyerBoxWidth,
           flyerModel: flyerModel,
-          bzModel:flyerModel?.bzModel,
+          bzModel: flyerModel?.bzModel,
           tinyMode: tinyMode,
           headerIsExpanded: headerIsExpanded,
         ),

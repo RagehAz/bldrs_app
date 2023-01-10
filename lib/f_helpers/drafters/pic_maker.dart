@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
@@ -12,6 +10,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -335,8 +334,8 @@ class PicMaker {
       pickerConfig: CameraPickerConfig(
 
         /// TURNS - ORIENTATION
-        // cameraQuarterTurns: 0, // DEFAULT
-        // lockCaptureOrientation: DeviceOrientation.portraitUp, // DEFAULT
+        // cameraQuarterTurns: 1, // DEFAULT
+        lockCaptureOrientation: DeviceOrientation.portraitUp, // DEFAULT
 
         /// AUDIO
         // enableAudio: true, // DEFAULT

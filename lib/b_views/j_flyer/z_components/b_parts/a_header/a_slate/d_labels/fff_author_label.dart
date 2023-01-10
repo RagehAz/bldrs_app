@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart'
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 class AuthorLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -28,7 +29,7 @@ class AuthorLabel extends StatelessWidget {
   final bool showLabel;
   final bool labelIsOn;
   final Function onLabelTap;
-  final dynamic authorImage;
+  final ui.Image authorImage;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
