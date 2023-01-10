@@ -23,6 +23,7 @@ class StaticHeader extends StatelessWidget {
     this.showHeaderLabels = false,
     this.flightDirection = FlightDirection.non,
     this.bzImageLogo,
+    this.authorImage,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class StaticHeader extends StatelessWidget {
   final bool showHeaderLabels;
   final FlightDirection flightDirection;
   final ui.Image bzImageLogo;
+  final ui.Image authorImage;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -83,6 +85,7 @@ class StaticHeader extends StatelessWidget {
               headerIsExpanded: false,
               flyerShowsAuthor: _flyerShowsAuthor,
               showHeaderLabels: showHeaderLabels,
+              authorImage: authorImage,
             ),
           ),
 

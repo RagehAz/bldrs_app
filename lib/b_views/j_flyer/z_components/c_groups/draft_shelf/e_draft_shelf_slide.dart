@@ -71,7 +71,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
     // blog('ShelfSlide : BUILDING : picSize : ${widget.draftSlide?.picModel?.bytes?.length} bytes');
 
     return Container(
-      width: DraftShelfSlide.flyerBoxWidth - 10,
+      width: DraftShelfSlide.flyerBoxWidth,
       height: DraftShelfSlide.shelfSlideZoneHeight(context),
       margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding,),
       child: Column(
@@ -107,7 +107,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
             onDoubleTap: _onReAnimate,
             child: FlyerBox(
               key: const ValueKey<String>('shelf_slide_flyer_box'),
-              flyerBoxWidth: DraftShelfSlide.flyerBoxWidth - 10,
+              flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
               boxColor: widget.draftSlide?.midColor ?? Colorz.white10,
               stackWidgets: <Widget>[
 
@@ -153,7 +153,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
 
                     },
                     child: SuperFilteredImage(
-                      width: DraftShelfSlide.flyerBoxWidth - 10,
+                      width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
                       // bytes: widget.draftSlide.picModel.bytes,
                       pic: widget.draftSlide.picModel?.bytes,
@@ -183,14 +183,14 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                 /// STATIC HEADER
                 if (widget.draftSlide != null)
                   const HeaderTemplate(
-                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth - 10,
+                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                     opacity: 0.5,
                   ),
 
                 /// HEADLINE
                 if (widget.draftSlide != null)
                   SlideHeadline(
-                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth - 10, /// i don't know why i decreased the 10
+                    flyerBoxWidth: DraftShelfSlide.flyerBoxWidth, /// i don't know why i decreased the 10
                     verse: Verse(
                       text: widget.draftSlide.headline,
                       translate: false,
