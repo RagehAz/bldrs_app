@@ -249,7 +249,7 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
           flyerModel: _flyer,
           flyerBoxWidth: 150,
           bzModel: _bz,
-          flyerShadowIsOn: true,
+          // flyerShadowIsOn: true,
         ),
 
         // -------------------------------------

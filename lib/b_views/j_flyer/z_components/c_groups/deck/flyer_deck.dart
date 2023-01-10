@@ -398,8 +398,11 @@ class _TheDeck extends StatelessWidget {
                 flyerModel: flyerModel,
                 flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
                 bzModel: bzModel,
-                flyerShadowIsOn: true,
-                bluerLayerIsOn: true,
+                slideIndex: _index,
+                // flyerShadowIsOn: true,
+                // bluerLayerIsOn: true,
+                // slideShadowIsOn: true,
+                // canAnimateMatrix: true,
               )
 
                   :
@@ -414,7 +417,12 @@ class _TheDeck extends StatelessWidget {
                 onDoubleTap: null,
                 slideShadowIsOn: true,
                 blurLayerIsOn: true,
+                canTapSlide: false,
+                canAnimateMatrix: true,
+                canUseFilter: true,
+                canPinch: false,
               ),
+
             );
 
           }),

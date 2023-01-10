@@ -827,10 +827,11 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                                 final Map<String, dynamic> _map = _maps[index];
 
                                 return ImageTile(
-                                    pic: _map['pic'],
-                                    text: _map['text'],
-                                    tileWidth: (PageBubble.width(context) - 20) / 3,
-                                    imageSize: _imageSize
+                                  pic: _map['pic'],
+                                  text: _map['text'],
+                                  tileWidth: (PageBubble.width(context) - 20) / 3,
+                                  imageSize: _imageSize,
+                                  filter: _map['filter'], /// TASK : TEST FILTERS
                                 );
 
                               },

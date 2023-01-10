@@ -21,7 +21,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -272,22 +271,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   void _disposeBigFlyer(){
 
-    // // /// DISPOSE SLIDES IMAGES
-      // for (final SlideModel slide in _flyer.value.slides){
-      //   blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
-      //   slide.uiImage?.dispose();
-      //   // if (slide.uiImage?.debugDisposed)
-      // }
-      //
-      // /// DISPOSE AUTHOR IMAGE
-      // blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
-      // _flyer.value.authorImage?.dispose();
-      //
-
-    // FlyerProtocols.disposeRenderedFlyer(
-    //   flyerModel: _flyer.value,
-    //   mounted: mounted,
-    // );
+    ///  NOTE : rendered big flyer is to be disposed in small flyer
 
     _flyer.dispose();
     _loading?.dispose();
@@ -380,14 +364,13 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onSlideNextTap() async {
 
+    blog('_onSlideNextTap');
+
     final int _lastIndex = _flyer.value?.slides?.length ?? 0;
 
     /// WHEN AT LAST INDEX
     if (_progressBarModel.value.index == _lastIndex){
-      await Nav.goBack(
-        context: context,
-        invoker: '_onSlideNextTap',
-      );
+      await widget.onHorizontalExit();
     }
 
     /// WHEN AT ANY OTHER INDEX
@@ -408,10 +391,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     /// WHEN AT FIRST INDEX
     if (_progressBarModel.value.index == 0){
-      await Nav.goBack(
-        context: context,
-        invoker: '_onSlideBackTap',
-      );
+      await widget.onHorizontalExit();
     }
 
     /// WHEN AT ANY OTHER SLIDE
@@ -510,12 +490,10 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     // --------------------
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth);
     final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
-
+    // --------------------
     return ValueListenableBuilder(
       valueListenable: _flyer,
       builder: (_, FlyerModel flyerModel, Widget savingNotice) {
-
-        flyerModel?.blogFlyer(invoker: 'FlyerPage.build');
 
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),
@@ -538,6 +516,12 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               progressBarModel: _progressBarModel,
               flightDirection: FlightDirection.non,
               onHorizontalExit: widget.onHorizontalExit,
+              canTapSlides: true,
+              showSlidesShadows: true,
+              showSlidesBlurLayers: true,
+              canAnimateSlides: true,
+              canPinch: true,
+              canUseFilter: true,
             ),
 
             /// HEADER

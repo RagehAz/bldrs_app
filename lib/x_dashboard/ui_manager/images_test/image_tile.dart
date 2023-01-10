@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -14,6 +15,8 @@ class ImageTile extends StatelessWidget {
     @required this.tileWidth,
     @required this.imageSize,
     @required this.text,
+    @required this.filter,
+    this.title,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
@@ -21,6 +24,8 @@ class ImageTile extends StatelessWidget {
   final double tileWidth;
   final Dimensions imageSize;
   final String text;
+  final ImageFilterModel filter;
+  final Verse title;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,15 @@ class ImageTile extends StatelessWidget {
       );
 
       return GestureDetector(
-        onTap: () => Nav.goToNewScreen(context: context, screen: SlideFullScreen(image: pic, imageSize: imageSize)),
+        onTap: () => Nav.goToNewScreen(
+            context: context,
+            screen: SlideFullScreen(
+              image: pic,
+              imageSize: imageSize,
+              filter: filter,
+              title: title,
+            ),
+        ),
         child: SizedBox(
           width: tileWidth,
           height: _picHeight,

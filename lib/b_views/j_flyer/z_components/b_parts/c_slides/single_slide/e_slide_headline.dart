@@ -25,20 +25,22 @@ class SlideHeadline extends StatelessWidget {
     final double _headlineTopMargin = flyerBoxWidth * 0.3;
 
     /// FLYER TITLE
-    return Container(
-      width: flyerBoxWidth,
-      height: flyerBoxWidth,
-      // color: Colorz.BloodTest,
-      margin: EdgeInsets.only(top: _headlineTopMargin),
-      alignment: Alignment.topCenter,
-      padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.05),
-      child: SuperVerse(
-        verse: verse,
-        color: verseColor,
-        shadow: true,
-        size: headlineSize,
-        scaleFactor: flyerBoxWidth * headlineScaleFactor,
-        maxLines: 3,
+    return IgnorePointer(
+      child: Container(
+        width: flyerBoxWidth,
+        height: flyerBoxWidth,
+        // color: Colorz.BloodTest,
+        margin: EdgeInsets.only(top: _headlineTopMargin),
+        alignment: Alignment.topCenter,
+        padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.05),
+        child: SuperVerse(
+          verse: verse,
+          color: verseColor,
+          shadow: true,
+          size: headlineSize,
+          scaleFactor: flyerBoxWidth * headlineScaleFactor,
+          maxLines: 3,
+        ),
       ),
     );
 

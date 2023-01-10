@@ -1,4 +1,4 @@
-
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +10,9 @@ class SlideTapAreas extends StatelessWidget {
     @required this.onDoubleTap,
     @required this.flyerBoxWidth,
     @required this.flyerBoxHeight,
+    @required this.child,
+    @required this.canTap,
+    this.splashColor = Colorz.white255,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,37 +21,51 @@ class SlideTapAreas extends StatelessWidget {
   final Function onDoubleTap;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
+  final Widget child;
+  final bool canTap;
+  final Color splashColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Row(
-      children: <Widget>[
+    if (canTap == true){
+      return Stack(
+        children: <Widget>[
 
-        /// BACK
-        GestureDetector(
-          onTap: onTapBack,
-          onDoubleTap: onDoubleTap,
-          child: Container(
-            width: flyerBoxWidth * 0.25,
-            height: flyerBoxHeight,
-            color: Colorz.nothing,
+          child,
+
+          Row(
+            children: <Widget>[
+
+              /// BACK
+              DreamBox(
+                width: flyerBoxWidth * 0.25,
+                height: flyerBoxHeight,
+                bubble: false,
+                corners: 0,
+                onTap: onTapBack,
+                onDoubleTap: onDoubleTap,
+                splashColor: splashColor.withOpacity(0.2),
+              ),
+
+              /// NEXT
+              DreamBox(
+                width: flyerBoxWidth * 0.75,
+                height: flyerBoxHeight,
+                bubble: false,
+                corners: 0,
+                onTap: onTapNext,
+                onDoubleTap: onDoubleTap,
+                splashColor: splashColor.withOpacity(0.2),
+              ),
+
+            ],
           ),
-        ),
-
-        /// NEXT
-        GestureDetector(
-          onTap: onTapNext,
-          onDoubleTap: onDoubleTap,
-          child: Container(
-            width: flyerBoxWidth * 0.75,
-            height: flyerBoxHeight,
-            color: Colorz.nothing,
-          ),
-        ),
-
-      ],
-    );
+        ],
+      );
+    } else {
+      return child;
+    }
 
   }
   // -----------------------------------------------------------------------------

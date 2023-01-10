@@ -4,31 +4,69 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
-class ZoomablePicture extends StatefulWidget {
+class ZoomablePicture extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ZoomablePicture({
     @required this.child,
-    @required this.isOn,
     this.onTap,
     this.autoShrink = true,
     this.isFullScreen = false,
+    this.canZoom = true,
     this.transformationController,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Widget child;
-  final bool isOn;
+  final bool autoShrink;
+  final bool isFullScreen;
+  final Function onTap;
+  final TransformationController transformationController;
+  final bool canZoom;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    if (canZoom == true){
+      return _ZoomableChild(
+        onTap: onTap,
+        autoShrink: autoShrink,
+        isFullScreen: isFullScreen,
+        transformationController: transformationController,
+        child: child,
+      );
+    }
+
+    else {
+      return child;
+    }
+    // --------------------
+  }
+  /// --------------------------------------------------------------------------
+}
+
+class _ZoomableChild extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const _ZoomableChild({
+    @required this.child,
+    @required this.onTap,
+    @required this.autoShrink,
+    @required this.isFullScreen,
+    @required this.transformationController,
+    Key key,
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final Widget child;
   final bool autoShrink;
   final bool isFullScreen;
   final Function onTap;
   final TransformationController transformationController;
   /// --------------------------------------------------------------------------
   @override
-  _ZoomablePictureState createState() => _ZoomablePictureState();
+  _ZoomableChildState createState() => _ZoomableChildState();
   /// --------------------------------------------------------------------------
 }
 
-class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderStateMixin {
+class _ZoomableChildState extends State<_ZoomableChild> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   TransformationController _transformationController;
   AnimationController _zoomAnimationController;
@@ -91,6 +129,8 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     return GestureDetector(
       onTap: () async {
 
+        blog('tapping aho');
+
         if (widget.isFullScreen == true) {
           await _resetZoom();
         }
@@ -102,39 +142,39 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
       },
       onDoubleTap: widget.isFullScreen == false ? null : () => _onDoubleTap(),
 
-      child: RotatedBox(
-        quarterTurns: 0,
-        child: InteractiveViewer(
-          key: widget.key,
-          transformationController: _transformationController,
-          panEnabled: widget.isOn,
-          scaleEnabled: widget.isOn,
-          constrained: false,
-          maxScale: 10,
-          minScale: 0.5,
-          onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {
+      child: InteractiveViewer(
+        // key: widget.key,
+        // panEnabled: true,
+        // scaleEnabled: true,
+        transformationController: _transformationController,
+        constrained: false,
+        maxScale: 10,
+        minScale: 0.3,
+        // scaleFactor: 0.8,
+        onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {
 
-            if (widget.autoShrink == true) {
-              await _resetZoom();
-            }
+          blog('a77aaaaa');
 
-            else {
-              // await Future.delayed(Duration(seconds: 5), () async {
-              //   await resetZoom();
-              // });
-            }
+          if (widget.autoShrink == true) {
+            await _resetZoom();
+          }
 
-          },
+          else {
+            // await Future.delayed(Duration(seconds: 5), () async {
+            //   await resetZoom();
+            // });
+          }
 
-          // onInteractionStart: (ScaleStartDetails scaleStartDetails){
-          //   blog('scaleStartDetails : $scaleStartDetails');
-          //   },
-          // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
-          //   blog('scaleUpdateDetails : $scaleUpdateDetails');
-          //   },
+        },
 
-          child: widget.child ?? const SizedBox(),
-        ),
+        // onInteractionStart: (ScaleStartDetails scaleStartDetails){
+        //   blog('scaleStartDetails : $scaleStartDetails');
+        //   },
+        // onInteractionUpdate: (ScaleUpdateDetails scaleUpdateDetails){
+        //   blog('scaleUpdateDetails : $scaleUpdateDetails');
+        //   },
+
+        child: widget.child ?? const SizedBox(),
       ),
 
 

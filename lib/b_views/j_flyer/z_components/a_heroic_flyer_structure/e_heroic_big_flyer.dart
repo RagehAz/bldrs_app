@@ -595,6 +595,15 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 heroTag: widget.heroPath,
                 progressBarModel: _progressBarModel,
                 flightDirection: FlightDirection.non,
+                canTapSlides: true,
+                showSlidesBlurLayers: true,
+                showSlidesShadows: true,
+                canAnimateSlides: true,
+                onHorizontalExit: (){
+                  blog('HeroicBigFlyer exits horizontally');
+                },
+                canPinch: true,
+                canUseFilter: true,
               ),
 
               /// HEADER
