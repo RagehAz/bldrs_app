@@ -145,7 +145,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
                   fadeType: FadeType.fadeIn,
                   duration: const Duration(milliseconds: 500),
                   child: HeroicFlyerBigView(
-                    key: PageStorageKey<String>(_renderedFlyer.id),
+                    key: ValueKey<String>(_renderedFlyer.id),
                     flyerBoxWidth: Scale.screenWidth(context),
                     renderedFlyer: _renderedFlyer,
                     heroPath: 'FlyerPreviewScreen',
