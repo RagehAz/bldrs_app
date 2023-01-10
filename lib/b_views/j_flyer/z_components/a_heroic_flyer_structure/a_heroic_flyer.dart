@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -15,45 +17,49 @@ class HeroicFlyer extends StatefulWidget {
     @required this.screenName,
     Key key
   }) : super(key: key);
+
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final String screenName;
+
   /// --------------------------------------------------------------------------
   @override
   _HeroicFlyerState createState() => _HeroicFlyerState();
-  /// --------------------------------------------------------------------------
+
+/// --------------------------------------------------------------------------
 }
 
 class _HeroicFlyerState extends State<HeroicFlyer> {
   // -----------------------------------------------------------------------------
-   FlyerModel renderedSmallFlyer;
-   String _heroPath;
+  FlyerModel renderedSmallFlyer;
+  String _heroPath;
+
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(true);
+
   // --------------------
-   Future<void> _triggerLoading({@required bool setTo}) async {
-     setNotifier(
-       notifier: _loading,
-       mounted: mounted,
-       value: setTo,
-     );
-   }
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+    );
+  }
+
   // -----------------------------------------------------------------------------
   @override
   void initState() {
-     super.initState();
-     _heroPath = '${widget.screenName}/${widget.flyerModel?.id}/';
+    super.initState();
+    _heroPath = '${widget.screenName}/${widget.flyerModel?.id}/';
   }
   // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
-
       _triggerLoading(setTo: true).then((_) async {
-
         await _preparations();
 
         await _triggerLoading(setTo: false);
@@ -86,21 +92,19 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
 
     super.dispose();
   }
-   // --------------------
-   @override
-   void didUpdateWidget(HeroicFlyer oldWidget) {
+  // --------------------
+  @override
+  void didUpdateWidget(HeroicFlyer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.flyerModel != widget.flyerModel) {
       unawaited(_preparations());
     }
   }
-   // --------------------
+  // --------------------
+  ///
   Future<void> _preparations() async {
-
-    if (widget.flyerModel != null){
-
-      if (mounted == true){
-
+    if (widget.flyerModel != null) {
+      if (mounted == true) {
         final FlyerModel _renderedSmallFlyer = await FlyerProtocols.renderSmallFlyer(
           context: context,
           flyerModel: widget.flyerModel,
@@ -140,34 +144,56 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
         //
         // ]);
 
-        if (mounted){
+        if (mounted) {
           setState(() {
             renderedSmallFlyer = _renderedSmallFlyer;
             _heroPath = '${widget.screenName}/${renderedSmallFlyer?.id}/';
           });
         }
-
       }
-
     }
-
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+        valueListenable: _loading,
+        builder: (_, bool loading, Widget child) {
 
-    return  WidgetFader(
-      fadeType: FadeType.fadeIn,
-      duration: const Duration(milliseconds: 300),
-      child: FlyerHero(
-        renderedFlyer: renderedSmallFlyer,
-        canBuildBigFlyer: false,
-        flyerBoxWidth: widget.flyerBoxWidth,
-        heroPath: _heroPath,
-        invoker: 'Flyer',
-      ),
+          if (loading == true) {
+            return FlyerLoading(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              animate: true,
+              direction: Axis.vertical,
+            );
+          }
+
+          else {
+
+            if (renderedSmallFlyer == null){
+              return FlyerBox(
+                flyerBoxWidth: widget.flyerBoxWidth,
+              );
+            }
+
+            else {
+              return WidgetFader(
+                fadeType: FadeType.fadeIn,
+                duration: const Duration(milliseconds: 300),
+                child: FlyerHero(
+                  renderedFlyer: renderedSmallFlyer,
+                  canBuildBigFlyer: false,
+                  flyerBoxWidth: widget.flyerBoxWidth,
+                  heroPath: _heroPath,
+                  invoker: 'Flyer',
+                ),
+              );
+            }
+
+          }
+        }
     );
 
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }

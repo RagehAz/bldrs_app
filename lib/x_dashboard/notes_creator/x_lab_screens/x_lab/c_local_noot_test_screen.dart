@@ -312,6 +312,31 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
     blog('_listenToNotificationsStream --------- END');
   }
    */
+  // --------------------
+  void _clearPoster(){
+
+    if (_posterType == PosterType.flyer){
+      FlyerProtocols.disposeRenderedFlyer(
+        mounted: true,
+        flyerModel: _posterModel,
+      );
+    }
+    if (_posterType == PosterType.bz){
+      FlyerProtocols.disposeRenderedFlyer(
+        mounted: true,
+        flyerModel: _posterHelperModel,
+      );
+    }
+
+    setState(() {
+      _posterURL = null;
+      _posterType = null;
+      _posterModel = null;
+      _posterHelperModel = null;
+      _posterPicModel = null;
+    });
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -584,6 +609,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                       headlineVerse: Verse.plain('Poster'),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
 
                         Row(
@@ -595,15 +621,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                               height: 40,
                               icon: Iconz.xLarge,
                               iconSizeFactor: 0.4,
-                              onTap: (){
-                                setState(() {
-                                  _posterURL = null;
-                                  _posterType = null;
-                                  _posterModel = null;
-                                  _posterHelperModel = null;
-                                  _posterPicModel = null;
-                                });
-                              },
+                              onTap: _clearPoster,
                             ),
 
                             const SizedBox(height: 5, width: 5,),
@@ -688,12 +706,17 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                 if (Mapper.checkCanLoopList(bzModels) == true){
 
-                                  final FlyerModel _allBzSlidesInOneFlyer = await FlyerProtocols.fetchAndCombineBzSlidesInOneFlyer(
+                                  _clearPoster();
+
+                                  FlyerModel _allBzSlidesInOneFlyer = await FlyerProtocols.fetchAndCombineBzSlidesInOneFlyer(
                                     context: context,
                                     bzModel: bzModels.first,
                                     maxSlides: 20,
                                   );
-
+                                  _allBzSlidesInOneFlyer = await FlyerProtocols.renderBigFlyer(
+                                    context: context,
+                                    flyerModel: _allBzSlidesInOneFlyer,
+                                  );
                                   blog('slides are : ${_allBzSlidesInOneFlyer?.slides?.length} slides');
 
                                   setState(() {
@@ -729,6 +752,8 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                 if (Mapper.checkCanLoopList(_selectedFlyers) == true){
 
+                                  _clearPoster();
+
                                   final FlyerModel _flyer = await FlyerProtocols.renderBigFlyer(
                                     context: context,
                                     flyerModel: _selectedFlyers.first,
@@ -742,10 +767,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                   await _takePosterScreenshot();
 
-                                  FlyerProtocols.disposeRenderedFlyer(
-                                    mounted: mounted,
-                                    flyerModel: _flyer,
-                                  );
+
 
                                 }
 
@@ -776,7 +798,16 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             width: _tileChildWidth,
                             pic: _posterPicModel,
                         ),
-                        
+
+                        /// RE-SHOOT
+                        if (_posterPicModel != null)
+                        DreamBox(
+                          height: 50,
+                          verse: Verse.plain('Re-shoot'),
+                          onTap: _takePosterScreenshot,
+                          verseScaleFactor: 0.7,
+                          margins: 10,
+                        ),
                       ],
                     ),
                   ),

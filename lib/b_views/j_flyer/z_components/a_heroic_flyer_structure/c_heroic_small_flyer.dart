@@ -89,12 +89,6 @@ class HeroicSmallFlyer extends StatelessWidget {
           )
       );
 
-      /// TASK : CHECK TEST ME, FATYAA
-      FlyerProtocols.disposeRenderedFlyer(
-        mounted: true,
-        flyerModel: _renderBigFlyer,
-      );
-
     }
 
   }

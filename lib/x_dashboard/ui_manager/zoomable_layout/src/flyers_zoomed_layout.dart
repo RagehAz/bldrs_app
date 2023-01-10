@@ -101,40 +101,37 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
           boxColor: Colorz.black255,
         ),
 
-        bigItem: Opacity(
-          opacity: 0.5,
-          child: ValueListenableBuilder(
-            valueListenable: _selectedModels,
-            builder: (_, Map<String, dynamic> maps, Widget child){
+        bigItem: ValueListenableBuilder(
+          valueListenable: _selectedModels,
+          builder: (_, Map<String, dynamic> maps, Widget child){
 
-              final FlyerModel flyerModel = maps['flyerModel'];
-              // final BzModel bzModel = maps['bzModel'];
+            final FlyerModel flyerModel = maps['flyerModel'];
+            // final BzModel bzModel = maps['bzModel'];
 
-              return LightBigFlyer(
-                flyerBoxWidth: _controller.getBigItemWidth(context),
-                renderedFlyer: flyerModel,
-                onHorizontalExit: () async {
+            return LightBigFlyer(
+              flyerBoxWidth: _controller.getBigItemWidth(context),
+              renderedFlyer: flyerModel,
+              onHorizontalExit: () async {
 
-                  await _controller.zoomOut(
-                    mounted: true,
-                    onStart: onZoomOutStart,
-                    onEnd: onZoomOutEnd,
-                  );
+                await _controller.zoomOut(
+                  mounted: true,
+                  onStart: onZoomOutStart,
+                  onEnd: onZoomOutEnd,
+                );
 
-                  setNotifier(
-                    notifier: _selectedModels,
-                    mounted: mounted,
-                    value: {
-                      'flyerModel': null,
-                      'bzModel': null,
-                    },
-                  );
+                setNotifier(
+                  notifier: _selectedModels,
+                  mounted: mounted,
+                  value: {
+                    'flyerModel': null,
+                    'bzModel': null,
+                  },
+                );
 
-                },
-              );
+              },
+            );
 
-            },
-          ),
+          },
         ),
 
         itemCount: _flyersIDs.length,
@@ -148,7 +145,7 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
             // onMoreTap: (){blog('onMoreTap');},
             onTap: (FlyerModel flyerModel, BzModel bzModel) async {
 
-              if (flyerModel != null){
+              if (flyerModel != null && bzModel != null) {
 
                 setNotifier(
                   notifier: _selectedModels,

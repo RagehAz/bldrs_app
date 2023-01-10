@@ -1,9 +1,11 @@
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_flyer_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_image_poster.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class PosterSwitcher extends StatelessWidget {
@@ -24,12 +26,14 @@ class PosterSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    blog('poster Type : $posterType');
+
     if (posterType == PosterType.flyer){
       return FlyerPoster(
         width: width,
         flyerModel: model is FlyerModel ? model : null,
         draft: model is DraftFlyer ? model : null,
-        flyerBzModel: modelHelper,
+        flyerBzModel: modelHelper is BzModel ? modelHelper : null,
         screenName: 'NotePoster',
       );
     }
