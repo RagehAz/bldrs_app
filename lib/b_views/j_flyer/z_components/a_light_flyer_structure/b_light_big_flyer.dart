@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
@@ -19,29 +17,25 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
-import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/material.dart';
 
 class LightBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const LightBigFlyer({
     @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.bzModel,
+    @required this.renderedFlyer,
     @required this.onHorizontalExit,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
-  final BzModel bzModel;
+  final FlyerModel renderedFlyer;
   final Function onHorizontalExit;
   /// --------------------------------------------------------------------------
   @override
@@ -118,17 +112,11 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   @override
   void didUpdateWidget(LightBigFlyer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (
-    oldWidget.flyerModel != widget.flyerModel ||
-    oldWidget.bzModel != widget.bzModel
-    ) {
 
-      blog('LightBigFlyer : didUpdateWidget '
-          ': oldWidget.flyerModel != widget.flyerModel '
-          '|| '
-          'oldWidget.bzModel != widget.bzModel'
-      );
-
+    if (oldWidget.renderedFlyer != widget.renderedFlyer) {
+      setState(() {_heroPath = 'lightBigFlyer/${widget.renderedFlyer?.id}';});
+      _initializations();
+      blog('didUpdateWidget : Flyer has changed');
     }
 
   }
@@ -145,12 +133,12 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   void _initializations(){
 
-    _heroPath = 'lightBigFlyer/${widget.flyerModel?.id}';
+    _heroPath = 'lightBigFlyer/${widget.renderedFlyer?.id}';
 
     setNotifier(
       notifier: _flyer,
       mounted: mounted,
-      value: widget.flyerModel,
+      value: widget.renderedFlyer,
     );
 
     setNotifier(
@@ -158,7 +146,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       mounted: mounted,
       value: UserModel.checkFlyerIsSaved(
         userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
-        flyerID: widget.flyerModel?.id,
+        flyerID: _flyer.value?.id,
       ),
     );
 
@@ -169,8 +157,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         swipeDirection: SwipeDirection.next,
         index: 0,
         numberOfStrips: getNumberOfSlides(
-          flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
+          flyerModel: _flyer.value,
+          bzModel: _flyer.value.bzModel,
           heroPath: _heroPath,
         ),
       ),
@@ -201,7 +189,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   void _listenToHorizontalController(){
 
-    final int _realSlidesLength = widget.flyerModel?.slides?.length ?? 1;
+    final int _realSlidesLength = _flyer.value?.slides?.length ?? 1;
     final int _numberOfSlide = _realSlidesLength - 1;
     final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
 
@@ -235,75 +223,48 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _preparations() async {
 
-    if (widget.flyerModel?.id  != null){
+    if (_flyer.value?.id  != null){
 
-      unawaited(_imagifyFlyer());
+      // unawaited(_imagifyFlyer());
 
       setNotifier(
         notifier: _bzCounters,
         mounted: mounted,
-        value: BzCounterModel.createInitialModel(widget.bzModel.id),
+        value: BzCounterModel.createInitialModel(_flyer.value?.bzID),
       );
 
       setNotifier(
         notifier: _followIsOn,
         mounted: mounted,
-        value: checkFollowIsOn(context: context, bzModel: widget.bzModel,),
+        value: checkFollowIsOn(context: context, bzModel: _flyer.value?.bzModel),
       );
 
     }
 
   }
   // --------------------
-  Future<void> _imagifyFlyer() async {
-
-    // FlyerModel _imagified = widget.flyerModel;
-
-    if (widget.flyerModel != null){
-
-      await Future.wait(<Future>[
-
-        /// DOWNLOAD SLIDES
-        PicProtocols.downloadPics(SlideModel.getSlidePicsPaths(_flyer.value.slides)),
-
-        /// DOWNLOAD AUTHOR PIC
-        if (_flyer.value.showsAuthor == true)
-        PicProtocols.downloadPic(Storage.generateAuthorPicPath(
-          authorID: _flyer.value.authorID,
-          bzID: _flyer.value.bzID,
-        ))
-
-        // /// IMAGIFY REMAINING SLIDES
-        // FlyerProtocols.imagifySlides(widget.flyerModel)
-        //     .then((FlyerModel flyer){
-        //   _imagified = _imagified.copyWith(
-        //     slides: flyer.slides,
-        //   );
-        // }),
-
-        // /// IMAGIFY AUTHOR PIC
-        // if (_imagified.showsAuthor == true)
-        //   FlyerProtocols.imagifyAuthorPic(widget.flyerModel)
-        //       .then((FlyerModel flyer){
-        //     _imagified = _imagified.copyWith(
-        //       authorImage: flyer.authorImage,
-        //     );
-        //   }),
-
-      ]);
-
-      // assert(_imagified != null, 'received flyer with imagified slides is null');
-      // assert(_imagified.slides[_imagified.slides.length - 1].uiImage != null, 'last slide uiImage is null');
-      //
-      // setNotifier(
-      //   notifier: _flyer,
-      //   mounted: mounted,
-      //   value: _imagified,
-      // );
-
-    }
-
-  }
+  ///
+  // Future<void> _imagifyFlyer() async {
+  //
+  //   if (_flyer.value != null){
+  //
+  //     final FlyerModel _rendered = await FlyerProtocols.renderBigFlyer(
+  //       context: context,
+  //       flyerModel: _flyer.value,
+  //     );
+  //
+  //     // assert(_rendered != null, 'received flyer with imagified slides is null');
+  //     // assert(_rendered.slides[_rendered.slides.length - 1].uiImage != null, 'last slide uiImage is null');
+  //
+  //     setNotifier(
+  //       notifier: _flyer,
+  //       mounted: mounted,
+  //       value: _rendered,
+  //     );
+  //
+  //   }
+  //
+  // }
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
@@ -311,35 +272,40 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   void _disposeBigFlyer(){
 
-      // /// DISPOSE SLIDES IMAGES
+    // // /// DISPOSE SLIDES IMAGES
       // for (final SlideModel slide in _flyer.value.slides){
       //   blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
       //   slide.uiImage?.dispose();
-      //   if (slide.uiImage?.debugDisposed)
+      //   // if (slide.uiImage?.debugDisposed)
       // }
-
-      /// DISPOSE AUTHOR IMAGE
+      //
+      // /// DISPOSE AUTHOR IMAGE
       // blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
       // _flyer.value.authorImage?.dispose();
+      //
 
-      // / TASK : DISPOSE BZ LOGO
+    FlyerProtocols.disposeRenderedFlyer(
+      flyerModel: _flyer.value,
+      mounted: mounted,
+    );
 
-      _flyer.dispose();
-      _loading?.dispose();
-      _progressBarModel?.dispose();
-      _flyerIsSaved?.dispose();
-      _headerAnimationController?.dispose();
-      _headerScrollController?.dispose();
-      _savingAnimationController?.dispose();
-      _horizontalSlidesController?.dispose();
-      _footerPageController?.dispose();
-      _followIsOn?.dispose();
-      _progressBarOpacity?.dispose();
-      _headerIsExpanded?.dispose();
-      _headerPageOpacity?.dispose();
-      _graphicIsOn?.dispose();
-      _graphicOpacity?.dispose();
-      _bzCounters?.dispose();
+    _flyer.dispose();
+    _loading?.dispose();
+    _progressBarModel?.dispose();
+    _flyerIsSaved?.dispose();
+    _headerAnimationController?.dispose();
+    _headerScrollController?.dispose();
+    _savingAnimationController?.dispose();
+    _horizontalSlidesController?.dispose();
+    _footerPageController?.dispose();
+    _followIsOn?.dispose();
+    _progressBarOpacity?.dispose();
+    _headerIsExpanded?.dispose();
+    _headerPageOpacity?.dispose();
+    _graphicIsOn?.dispose();
+    _graphicOpacity?.dispose();
+    _bzCounters?.dispose();
+
 
   }
   // -----------------------------------------------------------------------------
@@ -363,7 +329,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     if (_headerIsExpanded.value  == true && _tinyMode == false){
       await readBzCounters(
-        bzID: widget.bzModel.id,
+        bzID: _flyer.value?.bzModel?.id,
         bzCounters: _bzCounters,
         mounted: mounted,
       );
@@ -374,7 +340,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   Future<void> _onFollowTap() async {
     await onFollowTap(
       context: context,
-      bzModel: widget.bzModel,
+      bzModel: _flyer.value?.bzModel,
       followIsOn: _followIsOn,
       mounted: mounted,
     );
@@ -383,8 +349,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   Future<void> _onCallTap() async {
     await onCallTap(
       context: context,
-      bzModel: widget.bzModel,
-      flyerModel: widget.flyerModel,
+      bzModel: _flyer.value?.bzModel,
+      flyerModel: _flyer.value,
     );
   }
   // -----------------------------------------------------------------------------
@@ -398,7 +364,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     unawaited(recordFlyerView(
       index: index,
-      flyerModel: widget.flyerModel,
+      flyerModel: _flyer.value,
     ));
 
     ProgressBarModel.onSwipe(
@@ -414,7 +380,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onSlideNextTap() async {
 
-    final int _lastIndex = widget.flyerModel?.slides?.length ?? 0;
+    final int _lastIndex = _flyer.value?.slides?.length ?? 0;
 
     /// WHEN AT LAST INDEX
     if (_progressBarModel.value.index == _lastIndex){
@@ -429,7 +395,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
       final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
         slidingController: _horizontalSlidesController,
-        numberOfSlides: (widget.flyerModel?.slides?.length ?? 0) + 1,
+        numberOfSlides: (_flyer.value?.slides?.length ?? 0) + 1,
         currentSlide: _progressBarModel.value.index,
       );
 
@@ -476,7 +442,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
           _triggerAnimation(!_flyerIsSaved.value),
           onSaveFlyer(
             context: context,
-            flyerModel: widget.flyerModel,
+            flyerModel: _flyer.value,
             slideIndex: _progressBarModel.value.index,
             flyerIsSaved: _flyerIsSaved,
             mounted: mounted,
@@ -558,7 +524,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
             /// SLIDES
             SlidesBuilder(
               flyerModel: flyerModel,
-              bzModel: widget.bzModel,
               flyerBoxWidth: widget.flyerBoxWidth,
               flyerBoxHeight: _flyerBoxHeight,
               tinyMode: false,
@@ -577,7 +542,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
             FlyerHeader(
               flyerBoxWidth: widget.flyerBoxWidth,
               flyerModel: flyerModel,
-              bzModel: widget.bzModel,
               onHeaderTap: _onHeaderTap,
               onFollowTap: _onFollowTap,
               onCallTap: _onCallTap,

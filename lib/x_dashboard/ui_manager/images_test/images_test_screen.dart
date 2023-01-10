@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
@@ -29,7 +28,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
@@ -41,10 +39,10 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
@@ -533,8 +531,10 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             await  _triggerLoading(setTo: true);
 
             FlyerModel _flyer = await FlyerProtocols.fetchFlyer(context: context, flyerID: '5VOZyFGDaY3WHfFKzzkH');
-            final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: _flyer?.bzID);
-            _flyer = await FlyerProtocols.imagifySlides(_flyer);
+            _flyer = await FlyerProtocols.renderBigFlyer(
+              flyerModel: _flyer,
+              context: context,
+            );
 
 
             // final BuildContext _context = context; //BldrsAppStarter.navigatorKey.currentContext;
@@ -552,7 +552,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                   posterType: PosterType.flyer,
                   width: Bubble.clearWidth(context),
                   model: _flyer,
-                  modelHelper: _bz,
+                  modelHelper: _flyer.bzModel,
                 ),
               ),
               context: context,
@@ -565,6 +565,11 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             await setImage(_bytes);
 
             await  _triggerLoading(setTo: false);
+
+            FlyerProtocols.disposeRenderedFlyer(
+              mounted: mounted,
+              flyerModel: _flyer,
+            );
 
           },
         ),

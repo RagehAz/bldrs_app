@@ -228,11 +228,16 @@ class FlyerDeck extends StatelessWidget {
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<FlyerModel> _transformDraft(DraftFlyer draft) async {
+  Future<FlyerModel> _transformDraft({
+    @required BuildContext context,
+    @required DraftFlyer draft,
+  }) async {
 
     FlyerModel _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
-    _flyer = await FlyerProtocols.imagifyBzLogo(_flyer);
-    _flyer = await FlyerProtocols.imagifyAuthorPic(_flyer);
+    _flyer = await FlyerProtocols.renderBigFlyer(
+      context: context,
+      flyerModel: _flyer,
+    );
 
     final List<SlideModel> _flyerSlides = <SlideModel>[];
 
@@ -277,7 +282,10 @@ class FlyerDeck extends StatelessWidget {
     else if (draft != null){
 
       return FutureBuilder(
-        future: _transformDraft(draft),
+        future: _transformDraft(
+          context: context,
+          draft: draft,
+        ),
         builder: (_, AsyncSnapshot<FlyerModel> snap){
 
           final FlyerModel _flyer = snap.data;

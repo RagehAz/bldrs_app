@@ -1,12 +1,11 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/gallery_slide/gallery_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ class SlidesBuilder extends StatefulWidget {
     @required this.flyerBoxHeight,
     @required this.tinyMode,
     @required this.flyerModel,
-    @required this.bzModel,
     @required this.horizontalController,
     @required this.onSwipeSlide,
     @required this.onSlideNextTap,
@@ -35,7 +33,6 @@ class SlidesBuilder extends StatefulWidget {
   final double flyerBoxHeight;
   final bool tinyMode;
   final FlyerModel flyerModel;
-  final BzModel bzModel;
   final PageController horizontalController;
   final ValueChanged<int> onSwipeSlide;
   final Function onSlideNextTap;
@@ -156,7 +153,7 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
           flyerBoxWidth: widget.flyerBoxWidth,
           flyerBoxHeight: widget.flyerBoxHeight,
           flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
+          bzModel: widget.flyerModel.bzModel,
           heroTag: widget.heroTag,
         ),
       );

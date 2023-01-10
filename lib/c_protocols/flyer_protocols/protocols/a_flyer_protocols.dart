@@ -63,16 +63,19 @@ class FlyerProtocols  {
   /// IMAGIFICATION
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static const imagifyFirstSlide = ImagifyFlyerProtocols.imagifyFirstSlide;
+  /// TASK : TEST ME
+  static const renderSmallFlyer = ImagifyFlyerProtocols.renderSmallFlyer;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static const imagifySlides = ImagifyFlyerProtocols.imagifySlides;
+  /// TASK : TEST ME
+  static const renderBigFlyer = ImagifyFlyerProtocols.renderBigFlyer;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static const imagifyBzLogo = ImagifyFlyerProtocols.imagifyBzLogo;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const imagifyAuthorPic = ImagifyFlyerProtocols.imagifyAuthorPic;
+  /// TASK : TEST ME
+  static const disposeRenderedFlyer = ImagifyFlyerProtocols.disposeRenderedFlyer;
+  // // --------------------
+  // /// TESTED : WORKS PERFECT
+  // static const imagifyBzLogo = ImagifyFlyerProtocols.imagifyBzLogo;
+  // // --------------------
+  // /// TESTED : WORKS PERFECT
+  // static const imagifyAuthorPic = ImagifyFlyerProtocols.imagifyAuthorPic;
   // -----------------------------------------------------------------------------
 }

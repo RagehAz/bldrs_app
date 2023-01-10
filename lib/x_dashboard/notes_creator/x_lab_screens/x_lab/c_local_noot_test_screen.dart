@@ -14,7 +14,6 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
-import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -31,7 +30,6 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -43,13 +41,12 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
-
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class LocalNootTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -732,21 +729,23 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                 if (Mapper.checkCanLoopList(_selectedFlyers) == true){
 
-                                  final FlyerModel _flyer = await FlyerProtocols.imagifySlides(_selectedFlyers.first);
-
-                                  final BzModel _bz = await BzProtocols.fetchBz(
-                                      context: context,
-                                      bzID: _flyer.bzID,
+                                  final FlyerModel _flyer = await FlyerProtocols.renderBigFlyer(
+                                    context: context,
+                                    flyerModel: _selectedFlyers.first,
                                   );
-
 
                                   setState(() {
                                     _posterType = PosterType.flyer;
                                     _posterModel = _flyer;
-                                    _posterHelperModel = _bz;
+                                    _posterHelperModel = _flyer.bzModel;
                                   });
 
                                   await _takePosterScreenshot();
+
+                                  FlyerProtocols.disposeRenderedFlyer(
+                                    mounted: mounted,
+                                    flyerModel: _flyer,
+                                  );
 
                                 }
 
