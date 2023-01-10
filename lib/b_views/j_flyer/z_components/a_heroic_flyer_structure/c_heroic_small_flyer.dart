@@ -146,6 +146,12 @@ class HeroicSmallFlyer extends StatelessWidget {
             onSlideNextTap: null,
             onSlideBackTap: null,
             onDoubleTap: null,
+            canTapSlide: false,
+            blurLayerIsOn: true,
+            slideShadowIsOn: true,
+            canAnimateMatrix: true,
+            canUseFilter: true,
+            canPinch: false,
           ),
         ),
 

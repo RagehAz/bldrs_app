@@ -1,11 +1,13 @@
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/b_slide_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/cc_slide_tap_area.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/images/cc_zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -22,8 +24,12 @@ class SingleSlide extends StatelessWidget {
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
     @required this.onDoubleTap,
-    this.slideShadowIsOn = false,
-    this.blurLayerIsOn = false,
+    @required this.canTapSlide,
+    @required this.canAnimateMatrix,
+    @required this.slideShadowIsOn,
+    @required this.blurLayerIsOn,
+    @required this.canUseFilter,
+    @required this.canPinch,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +42,10 @@ class SingleSlide extends StatelessWidget {
   final Function onDoubleTap;
   final bool slideShadowIsOn;
   final bool blurLayerIsOn;
+  final bool canTapSlide;
+  final bool canAnimateMatrix;
+  final bool canUseFilter;
+  final bool canPinch;
   /// --------------------------------------------------------------------------
   /*
   int _getSlideTitleSize(BuildContext context){
@@ -58,6 +68,7 @@ class SingleSlide extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // --------------------
     // assert(slideModel.midColor != null, 'slideModel.midColor is null');
     // --------------------
@@ -91,79 +102,35 @@ class SingleSlide extends StatelessWidget {
           ),
 
         /// ANIMATED SLIDE
-        AnimateWidgetToMatrix(
-          matrix: Trinity.renderSlideMatrix(
-            matrix: slideModel?.matrix,
+        ZoomablePicture(
+          canZoom: canPinch,
+          child: SlideTapAreas(
+            key: const ValueKey<String>('SlideTapAreas'),
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: flyerBoxHeight,
-          ),
-          child: SuperFilteredImage(
-            width: flyerBoxWidth,
-            height: flyerBoxHeight,
-            pic: slideModel?.uiImage,
-            filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
-            boxFit: slideModel?.picFit,
+            onTapNext: onSlideNextTap,
+            onTapBack: onSlideBackTap,
+            onDoubleTap: onDoubleTap,
+            canTap: canTapSlide,
+            splashColor: slideModel?.midColor,
+            child: AnimateWidgetToMatrix(
+              matrix: Trinity.renderSlideMatrix(
+                matrix: slideModel?.matrix,
+                flyerBoxWidth: flyerBoxWidth,
+                flyerBoxHeight: flyerBoxHeight,
+              ),
+              canAnimate: canAnimateMatrix,
+              child: SuperFilteredImage(
+                width: flyerBoxWidth,
+                height: flyerBoxHeight,
+                pic: slideModel?.uiImage,
+                filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
+                boxFit: slideModel?.picFit,
+                canUseFilter: canUseFilter,
+              ),
+            ),
           ),
         ),
-        // FutureBuilder(
-        //   future: Floaters.getUint8ListFromUiImage(slideModel?.uiImage),
-        //   builder: (_, AsyncSnapshot<Uint8List> snap){
-        //
-        //     final Uint8List _bytes = snap?.data;
-        //
-        //     if (Streamer.connectionIsLoading(snap) == true || _bytes == null){
-        //
-        //       return SuperFilteredImage(
-        //         width: flyerBoxWidth,
-        //         height: flyerBoxHeight,
-        //         pic: slideModel?.uiImage,
-        //         filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
-        //         boxFit: slideModel?.picFit,
-        //       );
-        //
-        //     // return SlideImagePart(
-        //     //     key: const ValueKey<String>('SingleSlideImagePart'),
-        //     //     flyerBoxWidth: flyerBoxWidth,
-        //     //     flyerBoxHeight: flyerBoxHeight,
-        //     //     tinyMode: tinyMode,
-        //     //     slideModel: slideModel,//?.copyWith(midColor: Colorz.red255),
-        //     //     onSlideBackTap: onSlideBackTap,
-        //     //     onSlideNextTap: onSlideNextTap,
-        //     //     onDoubleTap: onDoubleTap,
-        //     //   );
-        //     }
-        //
-        //     else {
-        //       return AnimateWidgetToMatrix(
-        //         matrix: Trinity.renderSlideMatrix(
-        //           matrix: slideModel?.matrix,
-        //           flyerBoxWidth: flyerBoxWidth,
-        //           flyerBoxHeight: flyerBoxHeight,
-        //         ),
-        //         child: SuperFilteredImage(
-        //           width: flyerBoxWidth,
-        //           height: flyerBoxHeight,
-        //           pic: slideModel?.uiImage,
-        //           filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
-        //           boxFit: slideModel?.picFit,
-        //         ),
-        //       );
-        //     }
-        //
-        //   },
-        // ),
-
-        /// STATIC IMAGE
-        //   SlideImagePart(
-        //     key: const ValueKey<String>('SingleSlideImagePart'),
-        //     flyerBoxWidth: flyerBoxWidth,
-        //     flyerBoxHeight: flyerBoxHeight,
-        //     tinyMode: tinyMode,
-        //     slideModel: slideModel,
-        //     onSlideBackTap: onSlideBackTap,
-        //     onSlideNextTap: onSlideNextTap,
-        //     onDoubleTap: onDoubleTap,
-        //   ),
 
         /// SHADOW UNDER PAGE HEADER & OVER PAGE PICTURE
         SlideShadow(
@@ -186,6 +153,7 @@ class SingleSlide extends StatelessWidget {
             translate: false,
           ),
         ),
+
 
       ],
     );

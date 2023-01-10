@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/images/cc_zoomable_pic.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:scale/scale.dart';
@@ -12,6 +13,7 @@ class SlideFullScreen extends StatelessWidget {
   const SlideFullScreen({
     @required this.image,
     @required this.imageSize,
+    @required this.filter,
     this.title,
     Key key,
   }) : super(key: key);
@@ -19,6 +21,7 @@ class SlideFullScreen extends StatelessWidget {
   final dynamic image;
   final Dimensions imageSize;
   final Verse title;
+  final ImageFilterModel filter;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,12 +43,12 @@ class SlideFullScreen extends StatelessWidget {
         alignment: Alignment.center,
         child: ZoomablePicture(
           // onTap: null,
-          isOn: true,
+          // canZoom: true,
           isFullScreen: true,
           autoShrink: false,
-          child: OldSuperImage(
+          child: SuperFilteredImage(
             pic: image,
-            fit: Dimensions.concludeBoxFit(
+            boxFit: Dimensions.concludeBoxFit(
               viewWidth: _screenWidth,
               viewHeight: _screenHeight,
               picWidth: imageSize.width,
@@ -53,6 +56,8 @@ class SlideFullScreen extends StatelessWidget {
             ),
             width: Scale.screenWidth(context),
             height: Scale.screenHeight(context),
+            filterModel: filter,
+            canUseFilter: filter != null,
           ),
         ),
       ),

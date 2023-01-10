@@ -24,15 +24,17 @@ class FooterShadow extends StatelessWidget {
     // --------------------
     return Positioned(
       bottom: -0.4,
-      child: SuperImageBox(
-        width: flyerBoxWidth,
-        height: _height,
-        corners: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: flyerBoxWidth),
-        boxFit: BoxFit.fitWidth,
-        child: WebsafeSvg.asset(
-          Iconz.footerShadow,
-          fit: BoxFit.fitWidth,
-          // package: Iconz.bldrsTheme,
+      child: IgnorePointer(
+        child: SuperImageBox(
+          width: flyerBoxWidth,
+          height: _height,
+          corners: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: flyerBoxWidth),
+          boxFit: BoxFit.fitWidth,
+          child: WebsafeSvg.asset(
+            Iconz.footerShadow,
+            fit: BoxFit.fitWidth,
+            // package: Iconz.bldrsTheme,
+          ),
         ),
       ),
     );
