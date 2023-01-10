@@ -27,6 +27,7 @@ class Pyramids extends StatelessWidget {
     this.onPyramidTap,
     this.color,
     this.putInCorner = true,
+    this.hide,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,20 +36,57 @@ class Pyramids extends StatelessWidget {
   final Function onPyramidTap;
   final Color color;
   final bool putInCorner;
+  final ValueNotifier<bool> hide;
   /// --------------------------------------------------------------------------
   static double verticalPositionFix = -0.2;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  Widget _getWidget(){
+
+    if (hide == null){
+      return _PyramidsWidgetTree(
+            pyramidType: pyramidType,
+            loading: loading,
+            onPyramidTap: onPyramidTap,
+            color: color,
+            putInCorner: putInCorner,
+          );
+    }
+
+    else {
+
+      return ValueListenableBuilder(
+        valueListenable: hide,
+        builder: (_, bool isHiding, Widget child) {
+
+          return IgnorePointer(
+            ignoring: isHiding,
+            child: WidgetFader(
+              fadeType: isHiding == true ? FadeType.fadeOut : FadeType.fadeIn,
+              duration: const Duration(milliseconds: 300),
+              child: child,
+            ),
+          );
+
+        },
+
+        child: _PyramidsWidgetTree(
+          pyramidType: pyramidType,
+          loading: loading,
+          onPyramidTap: onPyramidTap,
+          color: color,
+          putInCorner: putInCorner,
+        ),
+      );
+
+    }
+
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
 
-    final Widget pyramidsWidget = _PyramidsWidgetTree(
-      pyramidType: pyramidType,
-      loading: loading,
-      onPyramidTap: onPyramidTap,
-      color: color,
-      putInCorner: putInCorner,
-    );
+    final Widget pyramidsWidget = _getWidget();
 
     if (putInCorner == true){
       return Positioned(

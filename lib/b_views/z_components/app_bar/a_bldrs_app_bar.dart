@@ -7,16 +7,146 @@ import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 
 
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBar({
+    this.globalKey,
+    this.appBarType,
+    this.onBack,
+    this.pageTitleVerse,
+    this.appBarRowWidgets,
+    this.loading,
+    this.progressBarModel,
+    this.appBarScrollController,
+    this.sectionButtonIsOn,
+    this.searchController,
+    this.onSearchSubmit,
+    this.onPaste,
+    this.onSearchChanged,
+    this.historyButtonIsOn,
+    this.searchHintVerse,
+    this.canGoBack,
+    this.onSearchCancelled,
+    this.hide,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final AppBarType appBarType;
+  final Function onBack;
+  final Verse pageTitleVerse;
+  final List<Widget> appBarRowWidgets;
+  final ValueNotifier<bool> loading;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ScrollController appBarScrollController;
+  final bool sectionButtonIsOn;
+  final TextEditingController searchController;
+  final ValueChanged<String> onSearchSubmit;
+  final ValueChanged<String> onPaste;
+  final ValueChanged<String> onSearchChanged;
+  final bool historyButtonIsOn;
+  final Verse searchHintVerse;
+  final bool canGoBack;
+  final Function onSearchCancelled;
+  final GlobalKey globalKey;
+  final ValueNotifier<bool> hide;
+  /// --------------------------------------------------------------------------
+  static double width(BuildContext context) {
+    return Scale.screenWidth(context) - (2 * Ratioz.appBarMargin);
+  }
+  // --------------------
+  static double clearWidth(BuildContext context){
+    return width(context) - (2 * Ratioz.appBarPadding);
+  }
+  // --------------------
+  static double height(BuildContext context, AppBarType appBarType) {
+
+    if (appBarType == AppBarType.search){
+      return Ratioz.appBarBigHeight;
+    }
+    else {
+      return Ratioz.appBarSmallHeight;
+    }
+
+  }
+  // --------------------
+  static double scrollWidth(BuildContext context) {
+    return  Scale.screenWidth(context)
+            - (Ratioz.appBarMargin * 2)
+            - (Ratioz.appBarPadding * 2)
+            - Ratioz.appBarButtonSize
+            - Ratioz.appBarPadding;
+  }
+  // --------------------
+  static const BorderRadius corners = BorderRadius.all(Radius.circular(Ratioz.appBarCorner));
+  // --------------------
+  static const BorderRadius clearCorners = BorderRadius.all(Radius.circular(Ratioz.appBarCorner - 5));
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final Widget _theAppBar = _TheAppBar(
+      globalKey: globalKey,
+      appBarType: appBarType,
+      onBack: onBack,
+      pageTitleVerse: pageTitleVerse,
+      appBarRowWidgets: appBarRowWidgets,
+      loading: loading,
+      progressBarModel: progressBarModel,
+      appBarScrollController: appBarScrollController,
+      sectionButtonIsOn: sectionButtonIsOn,
+      searchController: searchController,
+      onSearchSubmit: onSearchSubmit,
+      onPaste: onPaste,
+      onSearchChanged: onSearchChanged,
+      historyButtonIsOn: historyButtonIsOn,
+      searchHintVerse: searchHintVerse,
+      canGoBack: canGoBack,
+      onSearchCancelled: onSearchCancelled,
+    );
+
+    // --------------------
+    if (hide == null){
+      return _theAppBar;
+    }
+
+    else {
+      return ValueListenableBuilder(
+        valueListenable: hide,
+        builder: (_, bool isHiding, Widget child) {
+
+          blog('bldrs app bar isHiding: $isHiding');
+
+          return IgnorePointer(
+            ignoring: isHiding,
+            child: WidgetFader(
+              fadeType: isHiding == true ? FadeType.fadeOut : FadeType.fadeIn,
+              duration: const Duration(milliseconds: 300),
+              child: child,
+            ),
+          );
+
+        },
+
+        child: _theAppBar,
+      );
+    }
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class _TheAppBar extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const _TheAppBar({
     this.globalKey,
     this.appBarType,
     this.onBack,
@@ -54,37 +184,6 @@ class BldrsAppBar extends StatelessWidget {
   final bool canGoBack;
   final Function onSearchCancelled;
   final GlobalKey globalKey;
-  /// --------------------------------------------------------------------------
-  static double width(BuildContext context) {
-    return Scale.screenWidth(context) - (2 * Ratioz.appBarMargin);
-  }
-  // --------------------
-  static double clearWidth(BuildContext context){
-    return width(context) - (2 * Ratioz.appBarPadding);
-  }
-  // --------------------
-  static double height(BuildContext context, AppBarType appBarType) {
-
-    if (appBarType == AppBarType.search){
-      return Ratioz.appBarBigHeight;
-    }
-    else {
-      return Ratioz.appBarSmallHeight;
-    }
-
-  }
-  // --------------------
-  static double scrollWidth(BuildContext context) {
-    return  Scale.screenWidth(context)
-            - (Ratioz.appBarMargin * 2)
-            - (Ratioz.appBarPadding * 2)
-            - Ratioz.appBarButtonSize
-            - Ratioz.appBarPadding;
-  }
-  // --------------------
-  static const BorderRadius corners = BorderRadius.all(Radius.circular(Ratioz.appBarCorner));
-  // --------------------
-  static const BorderRadius clearCorners = BorderRadius.all(Radius.circular(Ratioz.appBarCorner - 5));
   // -----------------------------------------------------------------------------
   bool _backButtonIsOnCheck() {
 
@@ -175,9 +274,9 @@ class BldrsAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _abWidth = width(context);
-    final double _abClearWidth = clearWidth(context);
-    final double _abHeight = height(context, appBarType);
+    final double _abWidth = BldrsAppBar.width(context);
+    final double _abClearWidth = BldrsAppBar.clearWidth(context);
+    final double _abHeight = BldrsAppBar.height(context, appBarType);
     // const double _blurValue = Ratioz.blur1;
     final bool _backButtonIsOn = _backButtonIsOnCheck();
     final bool _searchButtonIsOn = _searchButtonIsOnCheck();
@@ -205,7 +304,7 @@ class BldrsAppBar extends StatelessWidget {
       margin: const EdgeInsets.all(Ratioz.appBarMargin),
       decoration: const BoxDecoration(
         color: Colorz.black230,
-        borderRadius: corners,
+        borderRadius: BldrsAppBar.corners,
         boxShadow: Shadower.appBarShadow,
       ),
       child: Stack(
