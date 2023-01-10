@@ -18,12 +18,15 @@ import 'package:flutter/material.dart';
 Future<void> onZoomInStart() async {
   blog('onZoomInStart');
 }
+
 Future<void> onZoomInEnd() async {
   blog('onZoomInEnd');
 }
+
 Future<void> onZoomOutStart() async {
   blog('onZoomOutStart');
 }
+
 Future<void> onZoomOutEnd() async {
   blog('onZoomOutEnd');
 }
@@ -74,9 +77,10 @@ class PackedZoomedLayout extends StatefulWidget {
   const PackedZoomedLayout({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   State<PackedZoomedLayout> createState() => _PackedZoomedLayoutState();
+  /// --------------------------------------------------------------------------
 }
 
 class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {

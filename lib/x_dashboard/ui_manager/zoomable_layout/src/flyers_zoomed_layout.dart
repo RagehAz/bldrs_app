@@ -18,11 +18,12 @@ class FlyersZoomedLayout extends StatefulWidget {
     @required this.controller,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final ZoomableGridController controller;
-
+  /// --------------------------------------------------------------------------
   @override
   State<FlyersZoomedLayout> createState() => _FlyersZoomedLayoutState();
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
@@ -73,15 +74,22 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> onZoomInStart() async {
     blog('onZoomInStart');
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> onZoomInEnd() async {
     blog('onZoomInEnd');
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> onZoomOutStart() async {
     blog('onZoomOutStart');
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> onZoomOutEnd() async {
     blog('onZoomOutEnd');
 
@@ -190,56 +198,6 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
         onZoomOutEnd: onZoomOutEnd,
       ),
     );
-
-    /// FOR TESTING : WORKS PERFECT
-    // return MainLayout(
-    //   appBarType: AppBarType.basic,
-    //   child: ZoomableGrid(
-    //     controller: _controller,
-    //     bigItem: FlyerBox(
-    //       flyerBoxWidth: _controller.getBigItemWidth(context),
-    //       boxColor: Colorz.green80,
-    //       stackWidgets: const [
-    //         Loading(loading: true),
-    //       ],
-    //     ),
-    //     bigItemFootprint: FlyerBox(
-    //       flyerBoxWidth: _controller.getBigItemWidth(context),
-    //       boxColor: Colorz.black255,
-    //     ),
-    //
-    //     itemCount: 14,
-    //     builder: (int index){
-    //
-    //       return GestureDetector(
-    //         onTap: () => _controller.zoomIn(
-    //           context: context,
-    //           itemIndex: index,
-    //           mounted: true,
-    //           onStart: onZoomInStart,
-    //           onEnd: onZoomInEnd,
-    //         ),
-    //         child: FlyerBox(
-    //           flyerBoxWidth: _controller.smallItemWidth,
-    //           boxColor: Colorz.blue125.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
-    //           stackWidgets: [
-    //
-    //             SuperVerse(
-    //               verse: Verse.plain(index.toString()),
-    //               margin: 20,
-    //               labelColor: Colorz.black255,
-    //             ),
-    //
-    //           ],
-    //
-    //         ),
-    //       );
-    //
-    //     },
-    //     onZoomOutStart: onZoomOutStart,
-    //     onZoomOutEnd: onZoomOutEnd,
-    //   ),
-    // );
 
   }
   // -----------------------------------------------------------------------------
