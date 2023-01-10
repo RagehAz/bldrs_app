@@ -277,6 +277,10 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
               },
               blurLayerIsOn: true,
               slideShadowIsOn: true,
+              canTapSlide: false,
+              canAnimateMatrix: true,
+              canUseFilter: true,
+              canPinch: false,
             ),
 
             /// STATIC HEADER

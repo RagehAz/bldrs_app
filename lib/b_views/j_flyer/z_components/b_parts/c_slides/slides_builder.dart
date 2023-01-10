@@ -25,6 +25,12 @@ class SlidesBuilder extends StatefulWidget {
     @required this.progressBarModel,
     @required this.flightDirection,
     @required this.heroTag,
+    @required this.canTapSlides,
+    @required this.showSlidesShadows,
+    @required this.showSlidesBlurLayers,
+    @required this.canAnimateSlides,
+    @required this.canPinch,
+    @required this.canUseFilter,
     this.onHorizontalExit,
     Key key
   }) : super(key: key);
@@ -42,6 +48,12 @@ class SlidesBuilder extends StatefulWidget {
   final String heroTag;
   final FlightDirection flightDirection;
   final Function onHorizontalExit;
+  final bool canTapSlides;
+  final bool showSlidesShadows;
+  final bool showSlidesBlurLayers;
+  final bool canAnimateSlides;
+  final bool canUseFilter;
+  final bool canPinch;
   /// --------------------------------------------------------------------------
   @override
   State<SlidesBuilder> createState() => _SlidesBuilderState();
@@ -129,6 +141,12 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
                       onSlideNextTap: widget.onSlideNextTap,
                       onSlideBackTap: widget.onSlideBackTap,
                       onDoubleTap: widget.onDoubleTap,
+                      canTapSlide: widget.canTapSlides,
+                      slideShadowIsOn: widget.showSlidesShadows,
+                      blurLayerIsOn: widget.showSlidesBlurLayers,
+                      canAnimateMatrix: widget.canAnimateSlides,
+                      canUseFilter: widget.canUseFilter,
+                      canPinch: widget.canPinch,
                     );
                   }
 

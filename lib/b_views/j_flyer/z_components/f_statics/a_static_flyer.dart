@@ -55,6 +55,12 @@ class StaticFlyerStarter extends StatelessWidget {
                 onSlideNextTap: null,
                 onSlideBackTap: null,
                 onDoubleTap: null,
+                canTapSlide: false,
+                blurLayerIsOn: true,
+                slideShadowIsOn: true,
+                canAnimateMatrix: true,
+                canUseFilter: true,
+                canPinch: false,
               ),
 
               /// STATIC HEADER
@@ -92,8 +98,12 @@ class StaticFlyer extends StatelessWidget {
     @required this.bzModel,
     @required this.flyerBoxWidth,
     this.slideIndex = 0,
-    this.flyerShadowIsOn = false,
-    this.bluerLayerIsOn = false,
+    this.flyerShadowIsOn = true,
+    this.bluerLayerIsOn = true,
+    this.slideShadowIsOn = true,
+    this.canAnimateMatrix = true,
+    this.canUseFilter = true,
+    this.canPinch = false,
     Key key
   }) : super(key: key);
   // --------------------
@@ -103,6 +113,10 @@ class StaticFlyer extends StatelessWidget {
   final bool flyerShadowIsOn;
   final int slideIndex;
   final bool bluerLayerIsOn;
+  final bool slideShadowIsOn;
+  final bool canAnimateMatrix;
+  final bool canUseFilter;
+  final bool canPinch;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -124,6 +138,11 @@ class StaticFlyer extends StatelessWidget {
           onSlideBackTap: null,
           onDoubleTap: null,
           blurLayerIsOn: bluerLayerIsOn,
+          canTapSlide: false,
+          slideShadowIsOn: slideShadowIsOn,
+          canAnimateMatrix: canAnimateMatrix,
+          canUseFilter: canUseFilter,
+          canPinch: canPinch,
         ),
 
         /// STATIC HEADER
