@@ -177,7 +177,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     // ----------
     /// FOR SLIDES
     _horizontalSlidesController = PageController(initialPage: _progressBarModel?.value?.index ?? 0);
-    blog('horizontalSlidesController initial page : ${_progressBarModel?.value?.index}');
+    // blog('horizontalSlidesController initial page : ${_progressBarModel?.value?.index}');
     // ----------
     /// FOR FOOTER & PRICE TAG
     _horizontalSlidesController.addListener(_controlFooterScroll);
@@ -515,7 +515,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       valueListenable: _flyer,
       builder: (_, FlyerModel flyerModel, Widget savingNotice) {
 
-        blog('flyer is rebuilding ');
+        blog('light big flyer is rebuilding : ${flyerModel.id}');
 
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),

@@ -36,6 +36,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.onSearchCancelled,
     @required this.confirmButtonModel,
     @required this.globalKey,
+    @required this.hideLayout,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -63,6 +64,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool canGoBack;
   final Function onSearchCancelled;
   final ConfirmButtonModel confirmButtonModel;
+  final ValueNotifier<bool> hideLayout;
   final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
@@ -110,7 +112,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
       alignment: alignment,
       children: <Widget>[
 
-
         if (skyType != SkyType.non)
           Sky(
             key: const ValueKey<String>('sky'),
@@ -149,6 +150,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             searchHintVerse: searchHintVerse,
             canGoBack: canGoBack,
             onSearchCancelled: onSearchCancelled,
+            hide: hideLayout,
           ),
 
         /// --- PYRAMIDS
@@ -158,6 +160,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             pyramidType: _concludePyramidTypePerSkyType(),
             loading: loading,
             onPyramidTap: onPyramidTap,
+            hide: hideLayout,
           ),
 
         if (confirmButtonModel != null)
