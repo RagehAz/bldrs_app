@@ -57,6 +57,7 @@ class MainLayout extends StatelessWidget {
     this.globalKey,
     this.isInPhrasesScreen,
     this.pyramidButtons,
+    this.hideLayout,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -86,6 +87,7 @@ class MainLayout extends StatelessWidget {
   final GlobalKey globalKey;
   final bool isInPhrasesScreen;
   final List<Widget> pyramidButtons;
+  final ValueNotifier<bool> hideLayout;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void onCancelSearch({
@@ -263,6 +265,7 @@ class MainLayout extends StatelessWidget {
                     canGoBack: canGoBack,
                     onSearchCancelled: onSearchCancelled,
                     confirmButtonModel: confirmButtonModel,
+                    hideLayout: hideLayout,
                     layoutWidget: child,
                   ),
 

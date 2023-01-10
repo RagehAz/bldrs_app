@@ -9,10 +9,10 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/src/flyers_zoomed_layout.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/src/zoomable_grid.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/src/zoomable_grid_controller.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 Future<void> onZoomInStart() async {
@@ -37,7 +37,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
   final double _screenHeight = UiProvider.proGetScreenDimensions(context: context, listen: false).height;
   // const double _spacingRatio = 0.0;
 
-  final double _flyerBoxWidth = FlyerDim.flyerGridFlyerBoxWidth(
+  final double _gridFlyerWidth = FlyerDim.flyerGridFlyerBoxWidth(
     context: context,
     scrollDirection: Axis.vertical,
     numberOfColumnsOrRows: columnsCount,
@@ -46,12 +46,18 @@ ZoomableGridController initializeBldrsZoomableGridController({
     // spacingRatio: _spacingRatio,
   );
 
+  /// ZOOMED FLYER ALIGNMENT : IF YOU WANT TO CENTER
+  // final double _zoomedInFlyerHeight = BldrsAppBar.width(context) * FlyerDim.xFlyerBoxHeightRatioToWidth;
+  // final double _topPaddingOnZoomIn = (_screenHeight - _zoomedInFlyerHeight) / 2;
+  /// IF YOU WANT TO ALIGN TO TOP
+  const double _topPaddingOnZoomIn = 10;
+
   final ZoomableGridController _controller = ZoomableGridController()..initialize(
     topPaddingOnZoomedOut: Stratosphere.smallAppBarStratosphere,
-    topPaddingOnZoomedIn: Stratosphere.smallAppBarStratosphere - 10,
+    topPaddingOnZoomedIn: _topPaddingOnZoomIn, //Stratosphere.smallAppBarStratosphere - 10,
 
-    smallItemWidth: _flyerBoxWidth,
-    smallItemHeight: _flyerBoxWidth * FlyerDim.xFlyerBoxHeightRatioToWidth,
+    smallItemWidth: _gridFlyerWidth,
+    smallItemHeight: _gridFlyerWidth * FlyerDim.xFlyerBoxHeightRatioToWidth,
 
     columnsCount: columnsCount,
     // spacingRatio: _spacingRatio,
@@ -133,7 +139,7 @@ class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
   @override
   Widget build(BuildContext context) {
 
-    blog('PackedZoomedLayout.build()');
+    // blog('PackedZoomedLayout.build()');
 
     return MainLayout(
       appBarType: AppBarType.basic,
