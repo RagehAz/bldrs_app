@@ -42,7 +42,7 @@ class PosterDisplay extends StatelessWidget {
 
     final Uint8List _bytes = await _controller.captureFromWidget(
       PosterDisplay(
-        posterType: PosterType.flyer,
+        posterType: posterType,
         width: _screenWidth,
         model: model,
         modelHelper: helperModel,
