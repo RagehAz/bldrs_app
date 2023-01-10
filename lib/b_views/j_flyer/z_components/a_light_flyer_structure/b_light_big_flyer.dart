@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -224,7 +225,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     if (_flyer.value?.id  != null){
 
-      // unawaited(_imagifyFlyer());
+      unawaited(_imagifyFlyer());
 
       setNotifier(
         notifier: _bzCounters,
@@ -243,27 +244,27 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   }
   // --------------------
   ///
-  // Future<void> _imagifyFlyer() async {
-  //
-  //   if (_flyer.value != null){
-  //
-  //     final FlyerModel _rendered = await FlyerProtocols.renderBigFlyer(
-  //       context: context,
-  //       flyerModel: _flyer.value,
-  //     );
-  //
-  //     // assert(_rendered != null, 'received flyer with imagified slides is null');
-  //     // assert(_rendered.slides[_rendered.slides.length - 1].uiImage != null, 'last slide uiImage is null');
-  //
-  //     setNotifier(
-  //       notifier: _flyer,
-  //       mounted: mounted,
-  //       value: _rendered,
-  //     );
-  //
-  //   }
-  //
-  // }
+  Future<void> _imagifyFlyer() async {
+
+    if (_flyer.value != null){
+
+      final FlyerModel _rendered = await FlyerProtocols.renderBigFlyer(
+        context: context,
+        flyerModel: _flyer.value,
+      );
+
+      // assert(_rendered != null, 'received flyer with imagified slides is null');
+      // assert(_rendered.slides[_rendered.slides.length - 1].uiImage != null, 'last slide uiImage is null');
+
+      setNotifier(
+        notifier: _flyer,
+        mounted: mounted,
+        value: _rendered,
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
@@ -513,6 +514,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     return ValueListenableBuilder(
       valueListenable: _flyer,
       builder: (_, FlyerModel flyerModel, Widget savingNotice) {
+
+        flyerModel?.blogFlyer(invoker: 'FlyerPage.build');
 
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),

@@ -156,6 +156,7 @@ class SlideModel {
         'width : (${dimensions?.width}) : '
         'height : (${dimensions?.height}) : '
     );
+    blog('  has ui.Image : (${uiImage != null})');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
