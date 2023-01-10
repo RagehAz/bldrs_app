@@ -17,20 +17,22 @@ class SlideShadow extends StatelessWidget {
 
     final double _height = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
 
-    return SizedBox(
-      key: const ValueKey<String>('SlideShadow'),
-      width: flyerBoxWidth,
-      height: _height,
-      // decoration: BoxDecoration(
-      //   borderRadius: Borderers.superHeaderShadowCorners(context, flyerBoxWidth),
-      // ),
-      // alignment: Alignment.topCenter,
-      child: WebsafeSvg.asset(
-        Iconz.headerShadow,
-        fit: BoxFit.cover,
+    return IgnorePointer(
+      child: SizedBox(
+        key: const ValueKey<String>('SlideShadow'),
         width: flyerBoxWidth,
         height: _height,
-        // package: Iconz.bldrsTheme,
+        // decoration: BoxDecoration(
+        //   borderRadius: Borderers.superHeaderShadowCorners(context, flyerBoxWidth),
+        // ),
+        // alignment: Alignment.topCenter,
+        child: WebsafeSvg.asset(
+          Iconz.headerShadow,
+          fit: BoxFit.cover,
+          width: flyerBoxWidth,
+          height: _height,
+          // package: Iconz.bldrsTheme,
+        ),
       ),
     );
 

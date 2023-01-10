@@ -10,26 +10,81 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:image_editor/image_editor.dart' as image_editor;
 
-class SuperFilteredImage extends StatefulWidget {
+class SuperFilteredImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SuperFilteredImage({
     @required this.filterModel,
-    // @required this.bytes,
     @required this.width,
     @required this.height,
-    this.opacity,
+    @required this.pic,
+    // this.opacity,
     this.boxFit = BoxFit.cover,
     this.scale = 1,
-    this.pic,
+    this.canUseFilter = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ImageFilterModel filterModel;
+  final double width;
+  final double height;
+  final dynamic pic;
+  // final ValueNotifier<double> opacity;
+  final BoxFit boxFit;
+  final double scale;
+  final bool canUseFilter;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    if (canUseFilter == true && filterModel != null && pic != null) {
+      return _FilteredImage(
+        // opacity: opacity,
+        height: height,
+        pic: pic,
+        width: width,
+        scale: scale,
+        boxFit: boxFit,
+        filterModel: filterModel,
+      );
+    }
+
+    else {
+
+      return OldSuperImage(
+        width: width,
+        height: height,
+        pic: pic,
+        fit: boxFit,
+        scale: scale,
+      );
+
+    }
+    // --------------------
+  }
+  /// --------------------------------------------------------------------------
+}
+
+
+class _FilteredImage extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const _FilteredImage({
+    // @required this.bytes,
+    @required this.filterModel,
+    @required this.width,
+    @required this.height,
+    // @required this.opacity,
+    @required this.boxFit ,
+    @required this.scale,
+    @required this.pic,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   // final Uint8List bytes;
+  final ImageFilterModel filterModel;
   final double width;
   final double height;
   final BoxFit boxFit;
-  final ValueNotifier<double> opacity;
+  // final ValueNotifier<double> opacity;
   final double scale;
   final dynamic pic;
   // -----------------------------------------------------------------------------
@@ -102,11 +157,11 @@ class SuperFilteredImage extends StatefulWidget {
   }
   // -----------------------------------------------------------------------------
   @override
-  State<SuperFilteredImage> createState() => _SuperFilteredImageState();
+  State<_FilteredImage> createState() => _FilteredImageState();
   // -----------------------------------------------------------------------------
 }
 
-class _SuperFilteredImageState extends State<SuperFilteredImage> {
+class _FilteredImageState extends State<_FilteredImage> {
   // -----------------------------------------------------------------------------
   ui.Image _uiImage;
   // -----------------------------------------------------------------------------
@@ -137,7 +192,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 
         _triggerLoading(setTo: true).then((_) async {
 
-          final ui.Image uiImage = await SuperFilteredImage.processImage(
+          final ui.Image uiImage = await _FilteredImage.processImage(
             input: widget.pic,
             filterModel: widget.filterModel,
           );
@@ -159,7 +214,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   }
   // --------------------
   @override
-  void didUpdateWidget(covariant SuperFilteredImage oldWidget) {
+  void didUpdateWidget(covariant _FilteredImage oldWidget) {
 
      bool _bytesAreIdentical;
 
@@ -182,7 +237,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     widget.width != oldWidget.width ||
     widget.height != oldWidget.height ||
     _bytesAreIdentical == false ||
-    widget.opacity != oldWidget.opacity ||
+    // widget.opacity != oldWidget.opacity ||
     widget.scale != oldWidget.scale ||
     widget.boxFit != oldWidget.boxFit ||
     ImageFilterModel.checkFiltersAreIdentical(filter1: widget.filterModel, filter2: oldWidget.filterModel) == false
@@ -231,91 +286,22 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
         height: widget.height,
         pic: widget.pic,
         fit: widget.boxFit,
+        scale: widget.scale,
       );
     }
 
     else {
-      return SuperFilteredImage._createTree(
+      return _FilteredImage._createTree(
         matrixes: widget.filterModel?.matrixes,
         child: OldSuperImage(
           width: widget.width,
           height: widget.height,
           pic: _uiImage,
           fit: widget.boxFit,
+          scale: widget.scale,
         ),
       );
     }
-
-
-    // if (widget.filterModel == null){
-    //   return SuperImage(
-    //     width: widget.width,
-    //     height: widget.height,
-    //     pic: widget.bytes,
-    //     fit: widget.boxFit,
-    //   );
-    // }
-    //
-    // else {
-    //   return ValueListenableBuilder(
-    //       valueListenable: _loading,
-    //       builder: (_, bool _isLoading, Widget childA){
-    //
-    //         if (_isLoading == true){
-    //           return FlyerLoading(
-    //             flyerBoxWidth: widget.width,
-    //             animate: true,
-    //           );
-    //         }
-    //
-    //         else if (widget.opacity == null){
-    //           return SuperFilteredImage._createTree(
-    //             matrixes: widget.filterModel.matrixes,
-    //             child: SuperImage(
-    //               width: widget.width,
-    //               height: widget.height,
-    //               pic: _uiImage,
-    //               fit: widget.boxFit,
-    //             ),
-    //           );
-    //
-    //         }
-    //
-    //         else {
-    //           return ValueListenableBuilder(
-    //             valueListenable: widget.opacity,
-    //             builder: (_, double _opacity, Widget child){
-    //
-    //               return Stack(
-    //                 children: <Widget>[
-    //
-    //                   child,
-    //
-    //                   Opacity(
-    //                     opacity: _opacity,
-    //                     child: SuperFilteredImage._createTree(
-    //                       matrixes: widget.filterModel.matrixes,
-    //                       child: child,
-    //                     ),
-    //                   ),
-    //
-    //                 ],
-    //               );
-    //
-    //             },
-    //             child: SuperImage(
-    //               width: widget.width,
-    //               height: widget.height,
-    //               pic: _uiImage,
-    //               fit: widget.boxFit,
-    //               scale: widget.scale,
-    //             ),
-    //           );
-    //         }
-    //
-    //       }
-    //   );
-    // }
 
   }
   // -----------------------------------------------------------------------------
