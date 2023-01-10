@@ -17,7 +17,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -306,20 +305,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   void _disposeBigFlyer(){
 
     if (widget.canBuild == true){
-      // /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
-      // for (final SlideModel slide in _flyer.value.slides){
-      //   if (slide.slideIndex != 0){
-      //     blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
-      //     slide.uiImage?.dispose();
-      //   }
-      // }
-      // blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
-      // _flyer.value.authorImage?.dispose();
-
-      FlyerProtocols.disposeRenderedFlyer(
-        flyerModel: _flyer.value,
-        mounted: mounted,
-      );
 
       _flyer.dispose();
       _loading?.dispose();
