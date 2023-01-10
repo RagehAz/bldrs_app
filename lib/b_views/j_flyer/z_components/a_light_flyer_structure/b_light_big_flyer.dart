@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -515,7 +514,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       valueListenable: _flyer,
       builder: (_, FlyerModel flyerModel, Widget savingNotice) {
 
-        blog('light big flyer is rebuilding : ${flyerModel.id}');
+        // blog('light big flyer is rebuilding : ${flyerModel.id}');
 
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),
