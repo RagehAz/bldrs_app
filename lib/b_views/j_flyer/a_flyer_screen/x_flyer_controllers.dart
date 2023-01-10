@@ -98,13 +98,15 @@ ZoneModel getZoneModelForFlyer({
 int getNumberOfSlides({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
-  @required String heroPath,
+  // @required String heroPath,
+  @required bool showGallerySlide,
 }){
   int _numberOfSlides;
 
   final bool _canShowGallery = canShowGalleryPage(
     bzModel: bzModel,
-    heroPath: heroPath,
+    // heroPath: heroPath,
+    canShowGallerySlide: showGallerySlide,
   );
 
   if (_canShowGallery == true){
@@ -188,14 +190,14 @@ String createFlyerHeroTag({
 
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
   bool _has = false;
 
   if (TextCheck.isEmpty(heroTag) == false){
 
     final List<String> _nodes = ChainPathConverter.splitPathNodes(heroTag);
-    _has = _nodes.length == 3;
+    _has = _nodes.length == 2;
 
   }
 
@@ -298,27 +300,30 @@ FlightDirection getFlightDirection(String direction){
 /// TASK : TEST ME
 bool canShowGalleryPage({
   @required BzModel bzModel,
-  @required String heroPath,
+  // @required String heroPath,
+  @required bool canShowGallerySlide,
 }){
   bool _canShowGallery = false;
   assert(bzModel != null, 'canShowGalleryPage : BzModel can not be null');
 
-  if (bzModel != null){
+  if (canShowGallerySlide == true){
+    if (bzModel != null){
 
-    if (Mapper.checkCanLoopList(bzModel.flyersIDs)){
+      if (Mapper.checkCanLoopList(bzModel.flyersIDs) == true){
 
-      final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
+        final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
 
-      final bool isGalleryFlyer = checkFlyerHeroTagHasGalleryFlyerID(heroPath);
+        // final bool isGalleryFlyer = checkFlyerHeroTagHasGalleryFlyerID(heroPath);
 
-      if (_bzHasMoreThanOneFlyer == true && isGalleryFlyer == false){
+        if (_bzHasMoreThanOneFlyer == true){
 
-        _canShowGallery = true;
+          _canShowGallery = true;
+
+        }
 
       }
 
     }
-
   }
 
   return _canShowGallery;

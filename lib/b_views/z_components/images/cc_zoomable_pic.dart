@@ -82,7 +82,7 @@ class _ZoomableChildState extends State<_ZoomableChild> with TickerProviderState
     );
     _transformationController.addListener(() {
       if (_transformationController.value.getMaxScaleOnAxis() > 1.5) {
-        // blog('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX its bigger than 1.5 now');
+        // blog('XX its bigger than 1.5 now');
       }
     });
   }
@@ -153,8 +153,6 @@ class _ZoomableChildState extends State<_ZoomableChild> with TickerProviderState
         // scaleFactor: 0.8,
         onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {
 
-          blog('a77aaaaa');
-
           if (widget.autoShrink == true) {
             await _resetZoom();
           }
@@ -176,7 +174,6 @@ class _ZoomableChildState extends State<_ZoomableChild> with TickerProviderState
 
         child: widget.child ?? const SizedBox(),
       ),
-
 
     );
 

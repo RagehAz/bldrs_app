@@ -79,10 +79,10 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
     super.didUpdateWidget(oldWidget);
     if (
     oldWidget.flyerID != widget.flyerID ||
-    oldWidget.flyerModel != widget.flyerModel
+    oldWidget.flyerModel?.id != widget.flyerModel?.id
     ) {
 
-      _disposeModels();
+      // _disposeModels();
 
       _triggerLoading(setTo: true).then((_) async {
         await _prepareModels();
@@ -103,27 +103,10 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
   ///
   void _disposeModels() {
 
-    // blog('dispose stuff pre mounted');
-    //
-    // if (mounted == true) {
-    //
-    //   blog('dispose stuff');
-    //
-    //   /// DISPOSE FIRST SLIDE
-    //   if (Mapper.checkCanLoopList(_flyerModel?.slides) == true) {
-    //     blog('xxxxx - === >>> disposing flyer[0] SLIDE IMAGE');
-    //     _flyerModel?.slides?.first?.uiImage?.dispose();
-    //   }
-    //
-    //   /// DISPOSE BZ LOGE
-    //   blog('xxxxx - === >>> disposing flyer LOGO IMAGE');
-    //   _flyerModel?.bzLogoImage?.dispose();
-    //
-    // }
-
     FlyerProtocols.disposeRenderedFlyer(
       flyerModel: _flyerModel,
       mounted: mounted,
+      invoker: 'LightSmallFlyer',
     );
 
   }
