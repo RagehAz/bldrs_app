@@ -81,6 +81,8 @@ class __AnimatedChildState extends State<_AnimatedChild> with TickerProviderStat
       curve: widget.curve,
     );
 
+    _animationController.forward(from: 0);
+
   }
   // --------------------
   @override
@@ -98,18 +100,6 @@ class __AnimatedChildState extends State<_AnimatedChild> with TickerProviderStat
     }
 
     else {
-
-      // blog('matrix recieved : -');
-      /*
-      [0] 1.138749326453811,0.02232896657085917,0.0,-30.159553871702524
-      [1] -0.02232896657085917,1.138749326453811,0.0,-37.20054909383884
-      [2] 0.0,0.0,1.0,0.0
-      [3] 0.0,0.0,0.0,1.0
-       */
-      // blog(widget.matrix);
-
-      _animationController.forward(from: 0);
-
 
       return AnimatedBuilder(
         animation: _animationController,

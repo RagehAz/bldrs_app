@@ -30,12 +30,14 @@ class LightBigFlyer extends StatefulWidget {
     @required this.flyerBoxWidth,
     @required this.renderedFlyer,
     @required this.onHorizontalExit,
+    this.showGallerySlide = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel renderedFlyer;
   final Function onHorizontalExit;
+  final bool showGallerySlide;
   /// --------------------------------------------------------------------------
   @override
   _LightBigFlyerState createState() => _LightBigFlyerState();
@@ -112,7 +114,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   void didUpdateWidget(LightBigFlyer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.renderedFlyer != widget.renderedFlyer) {
+    if (oldWidget.renderedFlyer?.id != widget.renderedFlyer?.id) {
       setState(() {_heroPath = 'lightBigFlyer/${widget.renderedFlyer?.id}';});
       _initializations();
       blog('didUpdateWidget : Flyer has changed');
@@ -131,6 +133,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
   // --------------------
   void _initializations(){
+
+    blog('light big flyer initializations');
 
     _heroPath = 'lightBigFlyer/${widget.renderedFlyer?.id}';
 
@@ -158,7 +162,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         numberOfStrips: getNumberOfSlides(
           flyerModel: _flyer.value,
           bzModel: _flyer.value.bzModel,
-          heroPath: _heroPath,
+          showGallerySlide: widget.showGallerySlide,
+          // heroPath: _heroPath,
         ),
       ),
     );
@@ -172,9 +177,10 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     // ----------
     /// FOR SLIDES
     _horizontalSlidesController = PageController(initialPage: _progressBarModel?.value?.index ?? 0);
+    blog('horizontalSlidesController initial page : ${_progressBarModel?.value?.index}');
     // ----------
     /// FOR FOOTER & PRICE TAG
-    _horizontalSlidesController.addListener(_listenToHorizontalController);
+    _horizontalSlidesController.addListener(_controlFooterScroll);
     // ----------
     /// FOR SAVING GRAPHIC
     _savingAnimationController = AnimationController(
@@ -186,7 +192,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
   }
   // --------------------
-  void _listenToHorizontalController(){
+  void _controlFooterScroll(){
 
     final int _realSlidesLength = _flyer.value?.slides?.length ?? 1;
     final int _numberOfSlide = _realSlidesLength - 1;
@@ -271,8 +277,22 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   void _disposeBigFlyer(){
 
-    ///  NOTE : rendered big flyer is to be disposed in small flyer
+    // ------->
+    for (int i = 0; i < _flyer.value?.slides?.length ?? 0; i++){
+      if (i != 0){
 
+        blog('disposeRenderedFlyer (LightBigFlyer) : '
+            '${_flyer.value.id} => disposing flyer[$i] ''SLIDE ');
+
+        _flyer.value.slides[i].uiImage?.dispose();
+      }
+    }
+    // ------->
+    blog('disposeRenderedFlyer (LightBigFlyer) : '
+        '${_flyer.value.id} => disposing AUTHOR PIC : '
+        '${_flyer.value?.authorImage == null ? 'NULL' : 'NOT NULL'}');
+    _flyer.value?.authorImage?.dispose();
+    // ------->
     _flyer.dispose();
     _loading?.dispose();
     _progressBarModel?.dispose();
@@ -495,6 +515,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       valueListenable: _flyer,
       builder: (_, FlyerModel flyerModel, Widget savingNotice) {
 
+        blog('flyer is rebuilding ');
+
         return FlyerBox(
           key: const ValueKey<String>('FullScreenFlyer'),
           flyerBoxWidth: widget.flyerBoxWidth,
@@ -522,6 +544,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               canAnimateSlides: true,
               canPinch: true,
               canUseFilter: true,
+              showGallerySlide: widget.showGallerySlide,
             ),
 
             /// HEADER

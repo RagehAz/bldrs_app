@@ -104,6 +104,7 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
     FlyerProtocols.disposeRenderedFlyer(
       mounted: mounted,
       flyerModel: _flyer,
+      invoker: 'PosterTestScreen',
     );
     super.dispose();
   }

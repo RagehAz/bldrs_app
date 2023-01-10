@@ -201,6 +201,10 @@ class HeroicSmallFlyer extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           renderedFlyer: renderedFlyer,
           canBuild: canBuildBigFlyer == true && _flyerIsBigNow == true,
+          showGallerySlide: canShowGalleryPage(
+            bzModel: renderedFlyer?.bzModel,
+            canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID(heroTag),
+          ),
         ),
         /// -------
         // FutureBuilder(

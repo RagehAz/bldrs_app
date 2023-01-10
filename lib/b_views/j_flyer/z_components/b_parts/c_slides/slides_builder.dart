@@ -6,11 +6,12 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
-class SlidesBuilder extends StatefulWidget {
+class SlidesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlidesBuilder({
     @required this.flyerBoxWidth,
@@ -31,6 +32,7 @@ class SlidesBuilder extends StatefulWidget {
     @required this.canAnimateSlides,
     @required this.canPinch,
     @required this.canUseFilter,
+    @required this.showGallerySlide,
     this.onHorizontalExit,
     Key key
   }) : super(key: key);
@@ -54,21 +56,18 @@ class SlidesBuilder extends StatefulWidget {
   final bool canAnimateSlides;
   final bool canUseFilter;
   final bool canPinch;
-  /// --------------------------------------------------------------------------
-  @override
-  State<SlidesBuilder> createState() => _SlidesBuilderState();
-/// --------------------------------------------------------------------------
-}
-
-class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveClientMixin<SlidesBuilder>{
-  // -----------------------------------------------------------------------------
-  @override
-  bool get wantKeepAlive => true;
+  final bool showGallerySlide;
+  // --------------------
+  int concludeNumberOfPages(){
+    final int _gallerySlideCount = showGallerySlide == true ? 1 : 0;
+    final int _realSlidesCount = flyerModel?.slides?.length ?? 0;
+    return _gallerySlideCount + _realSlidesCount;
+  }
   // --------------------
   bool _canNavigateOnBounce(){
     bool _canNavigate;
 
-    if (widget.flightDirection == FlightDirection.pop){
+    if (flightDirection == FlightDirection.pop){
       _canNavigate = false;
     }
     else {
@@ -80,104 +79,93 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
   // --------------------
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    // super.build(context);
 
-    if (widget.flyerModel.slides.isEmpty){
+    if (Mapper.checkCanLoopList(flyerModel?.slides) == true){
 
-      blog('Building loading flyer blue : slides are empty');
+      final int _realNumberOfSlide = flyerModel.slides.length;
+      final int _numberOfStrips = concludeNumberOfPages();
 
-      return FlyerLoading(
-        flyerBoxWidth: widget.flyerBoxWidth,
-        animate: true,
-        boxColor: Colorz.cyan255,
+      blog('_numberOfStrips : $_numberOfStrips');
+
+      return HorizontalBouncer(
+        key: const ValueKey<String>('HorizontalBouncer'),
+        numberOfSlides: _numberOfStrips,
+        controller: horizontalController,
+        canNavigate: _canNavigateOnBounce(),
+        onNavigate: (){
+          blog('HorizontalBouncer : onNavigate');
+          onHorizontalExit();
+        },
+        child: PageView.builder(
+          // key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
+          controller: horizontalController,
+          physics: tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
+          // clipBehavior: Clip.antiAlias,
+          // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
+          onPageChanged: (int i) => onSwipeSlide(i),
+          itemCount: _numberOfStrips+1,
+          itemBuilder: (_, int index){
+
+            /// WHEN AT FLYER REAL SLIDES
+            if (index < _realNumberOfSlide){
+
+              final SlideModel _slide = flyerModel.slides[index];
+
+              blog('Building slide $index : ${_slide.slideIndex}');
+
+              return SingleSlide(
+                key: const ValueKey<String>('slide_key'),
+                flyerBoxWidth: flyerBoxWidth,
+                flyerBoxHeight: flyerBoxHeight,
+                slideModel: _slide,
+                tinyMode: tinyMode,
+                onSlideNextTap: onSlideNextTap,
+                onSlideBackTap: onSlideBackTap,
+                onDoubleTap: onDoubleTap,
+                canTapSlide: canTapSlides,
+                slideShadowIsOn: showSlidesShadows,
+                blurLayerIsOn: showSlidesBlurLayers,
+                canAnimateMatrix: canAnimateSlides,
+                canUseFilter: canUseFilter,
+                canPinch: canPinch,
+              );
+            }
+
+            /// WHEN AT FAKE BOUNCER SLIDE
+            else if (index == _numberOfStrips){
+              return const SizedBox();
+            }
+
+            /// WHEN AT GALLERY SLIDE IF EXISTED
+            else {
+              return GallerySlide(
+                flyerBoxWidth: flyerBoxWidth,
+                flyerBoxHeight: flyerBoxHeight,
+                flyerModel: flyerModel,
+                bzModel: flyerModel.bzModel,
+                heroTag: heroTag,
+              );
+            }
+
+          },
+        ),
       );
 
     }
 
     else {
 
-      return ValueListenableBuilder(
-        key: const ValueKey<String>('SlidesBuilder'),
-        valueListenable: widget.progressBarModel,
-          builder: (_, ProgressBarModel progModel, Widget gallerySlide){
+      blog('Building loading flyer blue : slides are empty');
 
-          final int _count =
-              /// keep one strip even if null
-          progModel?.numberOfStrips  == null ? 1
-              :
-              /// when only one strip : add the fake box to activate horizontal hero swipe
-          progModel?.numberOfStrips  == 1 ? 2
-              :
-              /// when one than 1 slide, do it normally
-          progModel?.numberOfStrips;
-
-
-            return HorizontalBouncer(
-              numberOfSlides: progModel?.numberOfStrips,
-              controller: widget.horizontalController,
-              canNavigate: _canNavigateOnBounce(),
-              onNavigate: widget.onHorizontalExit,
-              child: PageView.builder(
-                key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
-                controller: widget.horizontalController,
-                physics: widget.tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
-                // clipBehavior: Clip.antiAlias,
-                // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
-                onPageChanged: (int i) => widget.onSwipeSlide(i),
-                itemCount: _count + 1,
-                itemBuilder: (_, int index){
-
-                  /// WHEN AT FLYER REAL SLIDES
-                  if (index < widget.flyerModel.slides.length){
-
-                    final SlideModel _slide = widget.flyerModel.slides[index];
-
-                    return SingleSlide(
-                      key: const ValueKey<String>('slide_key'),
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      flyerBoxHeight: widget.flyerBoxHeight,
-                      slideModel: _slide,
-                      tinyMode: widget.tinyMode,
-                      onSlideNextTap: widget.onSlideNextTap,
-                      onSlideBackTap: widget.onSlideBackTap,
-                      onDoubleTap: widget.onDoubleTap,
-                      canTapSlide: widget.canTapSlides,
-                      slideShadowIsOn: widget.showSlidesShadows,
-                      blurLayerIsOn: widget.showSlidesBlurLayers,
-                      canAnimateMatrix: widget.canAnimateSlides,
-                      canUseFilter: widget.canUseFilter,
-                      canPinch: widget.canPinch,
-                    );
-                  }
-
-                  /// WHEN AT FAKE BOUNCER SLIDE
-                  else if (index == progModel.numberOfStrips){
-                    return const SizedBox();
-                  }
-
-                  /// WHEN AT GALLERY SLIDE IF EXISTED
-                  else {
-
-                    return gallerySlide;
-
-                  }
-
-                },
-              ),
-            );
-
-          },
-        child: GallerySlide(
-          flyerBoxWidth: widget.flyerBoxWidth,
-          flyerBoxHeight: widget.flyerBoxHeight,
-          flyerModel: widget.flyerModel,
-          bzModel: widget.flyerModel.bzModel,
-          heroTag: widget.heroTag,
-        ),
+      return FlyerLoading(
+        flyerBoxWidth: flyerBoxWidth,
+        animate: true,
+        boxColor: Colorz.cyan255,
       );
 
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

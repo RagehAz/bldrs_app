@@ -109,6 +109,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
     FlyerProtocols.disposeRenderedFlyer(
       mounted: mounted,
       flyerModel: _renderedFlyer,
+      invoker: 'FlyerPreviewScreen',
     );
 
     super.dispose();
