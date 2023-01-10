@@ -31,6 +31,7 @@ class HeroicBigFlyer extends StatefulWidget {
     @required this.heroPath,
     @required this.flyerBoxWidth,
     @required this.canBuild,
+    @required this.showGallerySlide,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +39,7 @@ class HeroicBigFlyer extends StatefulWidget {
   final String heroPath;
   final double flyerBoxWidth;
   final bool canBuild;
+  final bool showGallerySlide;
   /// --------------------------------------------------------------------------
   @override
   _HeroicBigFlyerState createState() => _HeroicBigFlyerState();
@@ -171,8 +173,10 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
         ),
         numberOfStrips: getNumberOfSlides(
           flyerModel: _flyer.value,
+          showGallerySlide: widget.showGallerySlide,
           bzModel: _flyer.value?.bzModel,
-          heroPath: widget.heroPath,
+          // heroPath: widget.heroPath,
+
         ),
       ),
     );
@@ -600,10 +604,14 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 showSlidesShadows: true,
                 canAnimateSlides: true,
                 onHorizontalExit: (){
-                  blog('HeroicBigFlyer exits horizontally');
+                  Nav.goBack(
+                      context: context,
+                      invoker: 'HeroicBigFlyer',
+                  );
                 },
                 canPinch: true,
                 canUseFilter: true,
+                showGallerySlide: widget.showGallerySlide,
               ),
 
               /// HEADER

@@ -88,7 +88,7 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: true);
+    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
     final List<String> _flyersIDs = [..._user.savedFlyers.all];
 

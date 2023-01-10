@@ -130,6 +130,7 @@ class ImagifyFlyerProtocols {
   static void disposeRenderedFlyer({
     @required FlyerModel flyerModel,
     @required bool mounted,
+    @required String invoker,
   }){
 
     if (flyerModel != null && mounted == true){
@@ -137,17 +138,19 @@ class ImagifyFlyerProtocols {
       /// SLIDES
       if (Mapper.checkCanLoopList(flyerModel?.slides) == true){
         for (int i = 0; i < flyerModel.slides.length; i++){
-          blog('disposeRenderedFlyer ${flyerModel.id} => disposing flyer[$i] SLIDE IMAGE : ${flyerModel.slides[i].uiImage == null ? 'null' : 'not null'}');
+          blog('disposeRenderedFlyer ($invoker) : ${flyerModel.id} => disposing flyer[$i] SLIDE '
+              'IMAGE : '
+              '${flyerModel.slides[i].uiImage == null ? 'null' : 'not null'}');
           flyerModel.slides[i]?.uiImage?.dispose();
         }
       }
 
       /// BZ LOGO
-      blog('disposeRenderedFlyer ${flyerModel.id} => disposing BZ LOGO : ${flyerModel?.bzLogoImage == null ? 'NULL' : 'NOT NULL'}');
+      blog('disposeRenderedFlyer ($invoker) : ${flyerModel.id} => disposing BZ LOGO : ${flyerModel?.bzLogoImage == null ? 'NULL' : 'NOT NULL'}');
       flyerModel?.bzLogoImage?.dispose();
 
       /// AUTHOR PIC
-      blog('disposeRenderedFlyer ${flyerModel.id} => disposing AUTHOR PIC : ${flyerModel?.authorImage == null ? 'NULL' : 'NOT NULL'}');
+      blog('disposeRenderedFlyer ($invoker) : ${flyerModel.id} => disposing AUTHOR PIC : ${flyerModel?.authorImage == null ? 'NULL' : 'NOT NULL'}');
       flyerModel?.authorImage?.dispose();
 
     }

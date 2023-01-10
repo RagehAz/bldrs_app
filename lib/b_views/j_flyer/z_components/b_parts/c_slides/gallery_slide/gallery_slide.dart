@@ -169,6 +169,8 @@ class _GallerySlideState extends State<GallerySlide> {
           child: Container(),
           builder: (_, List<FlyerModel> flyers, Widget child){
 
+            blog('GallerySlide : widget.heroTag : ${widget.heroTag}');
+
             return FlyersGrid(
               gridWidth: widget.flyerBoxWidth,
               gridHeight: widget.flyerBoxHeight,

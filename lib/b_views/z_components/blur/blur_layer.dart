@@ -26,36 +26,32 @@ class BlurLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return SizedBox(
-      key: const ValueKey<String>('BlurLayer'),
-      width: width,
-      height: height,
-      child: ClipRRect(
-        borderRadius: borders ?? BorderRadius.zero,
-        child: blurIsOn == true ?
-        BackdropFilter(
-          filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-          child: Container(
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: borders,
+    if (blurIsOn == true) {
+      return SizedBox(
+        key: const ValueKey<String>('BlurLayer'),
+        width: width,
+        height: height,
+        child: ClipRRect(
+          borderRadius: borders ?? BorderRadius.zero,
+          child: BackdropFilter(
+            filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+            child: Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: borders,
+              ),
             ),
           ),
-        )
-            :
-        Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: borders,
-          ),
-          // child: child,
         ),
-      ),
-    );
+      );
+    }
+
+    else {
+      return const SizedBox();
+    }
+
 
   }
 /// --------------------------------------------------------------------------

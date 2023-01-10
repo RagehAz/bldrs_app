@@ -47,30 +47,8 @@ class SingleSlide extends StatelessWidget {
   final bool canUseFilter;
   final bool canPinch;
   /// --------------------------------------------------------------------------
-  /*
-  int _getSlideTitleSize(BuildContext context){
-    final double _screenWidth = Scale.superScreenWidth(context);
-
-    final int _slideTitleSize = flyerBoxWidth <= _screenWidth && flyerBoxWidth > (_screenWidth * 0.75) ? 4
-        :
-    flyerBoxWidth <= (_screenWidth * 0.75) && flyerBoxWidth > (_screenWidth * 0.5) ? 3
-        :
-    flyerBoxWidth <= (_screenWidth * 0.5) && flyerBoxWidth > (_screenWidth * 0.25) ? 2
-        :
-    flyerBoxWidth <= (_screenWidth * 0.25) && flyerBoxWidth > (_screenWidth * 0.1) ? 1
-        :
-    0;
-
-    return _slideTitleSize;
-  }
-
-   */
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    // --------------------
-    // assert(slideModel.midColor != null, 'slideModel.midColor is null');
     // --------------------
     return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
@@ -84,6 +62,7 @@ class SingleSlide extends StatelessWidget {
         /// BACK GROUND COVER PIC
         if (blurLayerIsOn == true)
           SuperFilteredImage(
+            key: const ValueKey<String>('BACKGROUND_SLIDE_BLUR_PIC'),
             width: flyerBoxWidth,
             height: flyerBoxHeight,
             pic: slideModel?.uiImage,
@@ -103,9 +82,9 @@ class SingleSlide extends StatelessWidget {
 
         /// ANIMATED SLIDE
         ZoomablePicture(
+          key: const ValueKey<String>('FLYER_SLIDES_TREE'),
           canZoom: canPinch,
           child: SlideTapAreas(
-            key: const ValueKey<String>('SlideTapAreas'),
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: flyerBoxHeight,
             onTapNext: onSlideNextTap,
