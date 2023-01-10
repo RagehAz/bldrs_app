@@ -260,7 +260,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
               padding: EdgeInsets.zero,/// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
               controller: widget.headerScrollController,
               child: Column(
-                key: const PageStorageKey<String>('FlyerHeader_ListView'),
+                key: const ValueKey<String>('FlyerHeader_ListView'),
                 children: <Widget>[
 
                   /// MINI HEADER STRIP

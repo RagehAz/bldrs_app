@@ -1,4 +1,3 @@
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +26,7 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
+      key: const ValueKey<String>('miniHeaderStrip'),
       width: flyerBoxWidth,
       height: (minHeaderHeight * logoSizeRatioTween.value) + (headerLeftSpacerTween.value),
       alignment: Alignment.topCenter,
@@ -43,7 +43,6 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
         // ),
       // ),
       child: SingleChildScrollView(
-        key: const PageStorageKey<String>('miniHeaderStrip'),
         // shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),

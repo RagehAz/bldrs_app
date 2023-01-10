@@ -47,8 +47,6 @@ class FlyerHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // blog('heroTag : $heroPath');
-
     return Hero(
       key: const ValueKey<String>('FlyerHero'),
       tag: heroPath,
@@ -75,8 +73,6 @@ class FlyerHero extends StatelessWidget {
         canBuildBigFlyer: canBuildBigFlyer,
         flightTweenValue: 1,
         // flightDirection: FlightDirection.non,
-        // contextOwnerGlobalKeyCount: context.owner.globalKeyCount,
-        // flightTweenValue: 0, // DEFAULT
       ),
     );
 
