@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/src/zoomable_grid.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/src/zoomable_grid_controller.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class FlyersZoomedLayout extends StatefulWidget {
@@ -27,6 +27,7 @@ class FlyersZoomedLayout extends StatefulWidget {
 
 class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
   // -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _hideLayout = ValueNotifier<bool>(false);
   final ValueNotifier<Map<String, dynamic>> _selectedModels = ValueNotifier(null);
   ZoomableGridController _controller;
   // -----------------------------------------------------------------------------
@@ -83,6 +84,22 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
   }
   Future<void> onZoomOutEnd() async {
     blog('onZoomOutEnd');
+
+    setNotifier(
+      notifier: _selectedModels,
+      mounted: mounted,
+      value: {
+        'flyerModel': null,
+        'bzModel': null,
+      },
+    );
+
+    setNotifier(
+      notifier: _hideLayout,
+      value: false,
+      mounted: mounted,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -94,6 +111,8 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
+      pyramidsAreOn: true,
+      hideLayout: _hideLayout,
       child: ZoomableGrid(
         controller: _controller,
         bigItemFootprint: FlyerBox(
@@ -117,15 +136,6 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
                   mounted: true,
                   onStart: onZoomOutStart,
                   onEnd: onZoomOutEnd,
-                );
-
-                setNotifier(
-                  notifier: _selectedModels,
-                  mounted: mounted,
-                  value: {
-                    'flyerModel': null,
-                    'bzModel': null,
-                  },
                 );
 
               },
@@ -154,6 +164,12 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
                     'flyerModel': flyerModel,
                     'bzModel': bzModel,
                   },
+                );
+
+                setNotifier(
+                  notifier: _hideLayout,
+                  value: true,
+                  mounted: mounted,
                 );
 
                 await _controller.zoomIn(
