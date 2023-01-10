@@ -133,7 +133,6 @@ class SingleSlide extends StatelessWidget {
           ),
         ),
 
-
       ],
     );
     // --------------------
