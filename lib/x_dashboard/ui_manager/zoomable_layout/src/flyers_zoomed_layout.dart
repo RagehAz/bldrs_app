@@ -108,12 +108,11 @@ class _FlyersZoomedLayoutState extends State<FlyersZoomedLayout> {
             builder: (_, Map<String, dynamic> maps, Widget child){
 
               final FlyerModel flyerModel = maps['flyerModel'];
-              final BzModel bzModel = maps['bzModel'];
+              // final BzModel bzModel = maps['bzModel'];
 
               return LightBigFlyer(
                 flyerBoxWidth: _controller.getBigItemWidth(context),
-                flyerModel: flyerModel,
-                bzModel: bzModel,
+                renderedFlyer: flyerModel,
                 onHorizontalExit: () async {
 
                   await _controller.zoomOut(

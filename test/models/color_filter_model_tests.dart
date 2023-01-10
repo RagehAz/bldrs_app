@@ -46,7 +46,7 @@ void testAddOpacity() {
 
 /// AI GENERATED
 void testNoFilter() {
-  final ImageFilterModel expectedOutput = ImageFilterModel(
+  const ImageFilterModel expectedOutput = ImageFilterModel(
     id: 'phid_filter_normal',
     matrixes: <List<double>>[],
   );
@@ -157,9 +157,4 @@ void main (){
     testCheckFiltersAreIdentical();
   });
 
-
-
 }
- // --
-
-
