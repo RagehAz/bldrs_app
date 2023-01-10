@@ -16,16 +16,15 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 import 'package:screenshot/screenshot.dart';
 
 class PosterTestScreen extends StatefulWidget {
@@ -71,23 +70,24 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+        final UserModel _userModel = UsersProvider.proGetMyUserModel(
+            context: context,
+            listen: false,
+        );
 
         FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
           context: context,
           flyerID: _userModel.savedFlyers.all.first,
         );
 
-        _flyerModel = await FlyerProtocols.imagifySlides(_flyerModel);
-
-        final BzModel _bzModel = await BzProtocols.fetchBz(
+        _flyerModel = await FlyerProtocols.renderBigFlyer(
+          flyerModel: _flyerModel,
           context: context,
-          bzID: _flyerModel.bzID,
         );
 
         setState(() {
           _flyer = _flyerModel;
-          _bz = _bzModel;
+          _bz = _flyerModel.bzModel;
         });
 
         await _triggerLoading(setTo: false);
@@ -101,6 +101,10 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
   @override
   void dispose() {
     _loading.dispose();
+    FlyerProtocols.disposeRenderedFlyer(
+      mounted: mounted,
+      flyerModel: _flyer,
+    );
     super.dispose();
   }
   // -----------------------------------------------------------------------------

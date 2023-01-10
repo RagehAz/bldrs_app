@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
@@ -12,19 +11,19 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:scale/scale.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class HeroicSmallFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeroicSmallFlyer({
-    @required this.bzModel,
-    @required this.flyerModel,
+    @required this.renderedFlyer,
     @required this.flyerBoxWidth,
     @required this.heroTag,
     this.onMoreTap,
@@ -35,8 +34,7 @@ class HeroicSmallFlyer extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
-  final BzModel bzModel;
+  final FlyerModel renderedFlyer;
   final Function onMoreTap;
   final double flightTweenValue;
   final FlightDirection flightDirection;
@@ -74,17 +72,27 @@ class HeroicSmallFlyer extends StatelessWidget {
 
       unawaited(recordFlyerView(
         index: 0,
-        flyerModel: flyerModel,
+        flyerModel: renderedFlyer,
       ));
+
+      final FlyerModel _renderBigFlyer = await FlyerProtocols.renderBigFlyer(
+        context: context,
+        flyerModel: renderedFlyer,
+      );
 
       await context.pushTransparentRoute(
           HeroicFlyerBigView(
             key: const ValueKey<String>('Flyer_Full_Screen'),
-            flyerModel: flyerModel,
-            bzModel: bzModel,
+            renderedFlyer: _renderBigFlyer,
             flyerBoxWidth: flyerBoxWidth,
             heroPath: heroTag,
           )
+      );
+
+      /// TASK : CHECK TEST ME, FATYAA
+      FlyerProtocols.disposeRenderedFlyer(
+        mounted: true,
+        flyerModel: _renderBigFlyer,
       );
 
     }
@@ -139,7 +147,7 @@ class HeroicSmallFlyer extends StatelessWidget {
           child: SingleSlide(
             flyerBoxWidth: flyerBoxWidth,
             flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
-            slideModel: flyerModel?.slides?.first,
+            slideModel: renderedFlyer?.slides?.first,
             tinyMode: false,
             onSlideNextTap: null,
             onSlideBackTap: null,
@@ -153,10 +161,10 @@ class HeroicSmallFlyer extends StatelessWidget {
           duration: _duration,
           child: StaticHeader(
             flyerBoxWidth: flyerBoxWidth,
-            bzModel: bzModel,
-            bzImageLogo: flyerModel?.bzLogoImage,
-            authorID: flyerModel?.authorID,
-            flyerShowsAuthor: flyerModel?.showsAuthor,
+            bzModel: renderedFlyer.bzModel,
+            bzImageLogo: renderedFlyer?.bzLogoImage,
+            authorID: renderedFlyer?.authorID,
+            flyerShowsAuthor: renderedFlyer?.showsAuthor,
             flightTweenValue: _tweenValue,
             flightDirection: flightDirection,
             // onTap: ,
@@ -171,7 +179,7 @@ class HeroicSmallFlyer extends StatelessWidget {
             flyerBoxWidth: flyerBoxWidth,
             isSaved: UserModel.checkFlyerIsSaved(
               userModel: _myUserModel,
-              flyerID: flyerModel?.id,
+              flyerID: renderedFlyer?.id,
             ),
             onMoreTap: onMoreTap,
             flightTweenValue: _tweenValue,
@@ -191,8 +199,7 @@ class HeroicSmallFlyer extends StatelessWidget {
         HeroicBigFlyer(
           heroPath: heroTag,
           flyerBoxWidth: flyerBoxWidth,
-          flyerModel: flyerModel,
-          bzModel: bzModel,
+          renderedFlyer: renderedFlyer,
           canBuild: canBuildBigFlyer == true && _flyerIsBigNow == true,
         ),
         /// -------

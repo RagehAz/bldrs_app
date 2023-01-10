@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/c_heroic_small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/d_flight_flyer.dart';
@@ -14,8 +13,7 @@ enum FlightDirection{
 class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerHero({
-    @required this.flyerModel,
-    @required this.bzModel,
+    @required this.renderedFlyer,
     @required this.flyerBoxWidth,
     @required this.canBuildBigFlyer,
     @required this.heroPath,
@@ -23,8 +21,7 @@ class FlyerHero extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FlyerModel flyerModel;
-  final BzModel bzModel;
+  final FlyerModel renderedFlyer;
   final bool canBuildBigFlyer;
   final double flyerBoxWidth;
   final String heroPath;
@@ -40,8 +37,7 @@ class FlyerHero extends StatelessWidget {
       ){
 
     return FlightFlyer(
-      flyerModel: flyerModel,
-      bzModel: bzModel,
+      renderedFlyer: renderedFlyer,
       flyerBoxWidth: flyerBoxWidth,
       heroTag: heroPath,
       flightDirection: flightDirection,
@@ -75,8 +71,7 @@ class FlyerHero extends StatelessWidget {
       /// THIS IS TO BUILD BIG FLYER
       child: HeroicSmallFlyer(
         flyerBoxWidth: flyerBoxWidth,
-        bzModel: bzModel,
-        flyerModel: flyerModel,
+        renderedFlyer: renderedFlyer,
         heroTag: heroPath,
         canBuildBigFlyer: canBuildBigFlyer,
         flightTweenValue: 1,

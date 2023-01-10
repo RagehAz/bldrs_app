@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
@@ -24,23 +22,20 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
-import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/material.dart';
 
 class HeroicBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HeroicBigFlyer({
-    @required this.flyerModel, // will never be null at this point
-    @required this.bzModel,
+    @required this.renderedFlyer, // will never be null at this point
     @required this.heroPath,
     @required this.flyerBoxWidth,
     @required this.canBuild,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FlyerModel flyerModel;
-  final BzModel bzModel;
+  final FlyerModel renderedFlyer;
   final String heroPath;
   final double flyerBoxWidth;
   final bool canBuild;
@@ -106,7 +101,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   @override
   void didChangeDependencies() {
 
-    if (_isInit == true && widget.flyerModel != null) {
+    if (_isInit == true && _flyer.value != null) {
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -152,7 +147,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     setNotifier(
       notifier: _flyer,
       mounted: mounted,
-      value: widget.flyerModel,
+      value: widget.renderedFlyer,
     );
 
     setNotifier(
@@ -160,7 +155,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       mounted: mounted,
       value: UserModel.checkFlyerIsSaved(
         userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
-        flyerID: widget.flyerModel?.id,
+        flyerID: _flyer.value?.id,
       ),
     );
 
@@ -170,14 +165,14 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       value: ProgressBarModel(
         swipeDirection: SwipeDirection.next,
         index: getPossibleStartingIndex(
-          flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
+          flyerModel: _flyer.value,
+          bzModel: _flyer.value?.bzModel,
           heroTag: widget.heroPath,
           startFromIndex: 0,
         ),
         numberOfStrips: getNumberOfSlides(
-          flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
+          flyerModel: _flyer.value,
+          bzModel: _flyer.value?.bzModel,
           heroPath: widget.heroPath,
         ),
       ),
@@ -208,7 +203,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   void _listenToHorizontalController(){
 
-    final int _realSlidesLength = widget.flyerModel?.slides?.length ?? 1;
+    final int _realSlidesLength = _flyer.value?.slides?.length ?? 1;
     final int _numberOfSlide = _realSlidesLength - 1;
     final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
 
@@ -242,36 +237,37 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   Future<void> _preparations() async {
 
-    if (widget.flyerModel?.id  != null){
+    if (_flyer.value?.id  != null){
 
-      unawaited(_imagifySlidesAndAuthorPic());
+      // unawaited(_imagifySlidesAndAuthorPic());
 
       setNotifier(
         notifier: _bzCounters,
         mounted: mounted,
-        value: BzCounterModel.createInitialModel(widget.bzModel.id),
+        value: BzCounterModel.createInitialModel(_flyer.value?.id),
       );
 
       setNotifier(
         notifier: _followIsOn,
         mounted: mounted,
-        value: checkFollowIsOn(context: context, bzModel: widget.bzModel,),
+        value: checkFollowIsOn(context: context, bzModel: _flyer.value?.bzModel),
       );
 
     }
 
   }
   // --------------------
+  /*
   Future<void> _imagifySlidesAndAuthorPic() async {
 
-    FlyerModel _imagified = widget.flyerModel;
+    FlyerModel _imagified = _flyer.value;
 
-    if (widget.flyerModel != null){
+    if (_flyer.value != null){
 
       await Future.wait(<Future>[
 
         /// IMAGIFY REMAINING SLIDES
-        FlyerProtocols.imagifySlides(widget.flyerModel)
+        FlyerProtocols._imagifySlides(_flyer.value)
             .then((FlyerModel flyer){
           _imagified = _imagified.copyWith(
             slides: flyer.slides,
@@ -280,7 +276,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
         /// IMAGIFY AUTHOR PIC
         if (_imagified.showsAuthor == true)
-          FlyerProtocols.imagifyAuthorPic(widget.flyerModel)
+          FlyerProtocols._imagifyAuthorPic(_flyer.value)
               .then((FlyerModel flyer){
             _imagified = _imagified.copyWith(
               authorImage: flyer.authorImage,
@@ -301,6 +297,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     }
 
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
@@ -309,15 +306,20 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   void _disposeBigFlyer(){
 
     if (widget.canBuild == true){
-      /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
-      for (final SlideModel slide in _flyer.value.slides){
-        if (slide.slideIndex != 0){
-          blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
-          slide.uiImage?.dispose();
-        }
-      }
-      blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
-      _flyer.value.authorImage?.dispose();
+      // /// DISPOSE ALL IMAGES EXCEPT FOR FIRST ONE
+      // for (final SlideModel slide in _flyer.value.slides){
+      //   if (slide.slideIndex != 0){
+      //     blog('yyyyy - === >>> disposing flyer[${slide.slideIndex}] SLIDE IMAGE');
+      //     slide.uiImage?.dispose();
+      //   }
+      // }
+      // blog('yyyyy - === >>> disposing flyer AUTHOR IMAGE');
+      // _flyer.value.authorImage?.dispose();
+
+      FlyerProtocols.disposeRenderedFlyer(
+        flyerModel: _flyer.value,
+        mounted: mounted,
+      );
 
       _flyer.dispose();
       _loading?.dispose();
@@ -360,7 +362,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     if (_headerIsExpanded.value  == true && _tinyMode == false){
       await readBzCounters(
-        bzID: widget.bzModel.id,
+        bzID: _flyer.value?.bzID,
         bzCounters: _bzCounters,
         mounted: mounted,
       );
@@ -371,7 +373,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   Future<void> _onFollowTap() async {
     await onFollowTap(
       context: context,
-      bzModel: widget.bzModel,
+      bzModel: _flyer.value?.bzModel,
       followIsOn: _followIsOn,
       mounted: mounted,
     );
@@ -380,8 +382,8 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   Future<void> _onCallTap() async {
     await onCallTap(
       context: context,
-      bzModel: widget.bzModel,
-      flyerModel: widget.flyerModel,
+      bzModel: _flyer.value?.bzModel,
+      flyerModel: _flyer.value,
     );
   }
   // -----------------------------------------------------------------------------
@@ -395,7 +397,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     unawaited(recordFlyerView(
       index: index,
-      flyerModel: widget.flyerModel,
+      flyerModel: _flyer.value,
     ));
 
     ProgressBarModel.onSwipe(
@@ -411,7 +413,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   Future<void> _onSlideNextTap() async {
 
-    final int _lastIndex = widget.flyerModel?.slides?.length ?? 0;
+    final int _lastIndex = _flyer.value?.slides?.length ?? 0;
 
     /// WHEN AT LAST INDEX
     if (_progressBarModel.value.index == _lastIndex){
@@ -426,7 +428,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
       final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
         slidingController: _horizontalSlidesController,
-        numberOfSlides: (widget.flyerModel?.slides?.length ?? 0) + 1,
+        numberOfSlides: (_flyer.value?.slides?.length ?? 0) + 1,
         currentSlide: _progressBarModel.value.index,
       );
 
@@ -473,7 +475,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
           _triggerAnimation(!_flyerIsSaved.value),
           onSaveFlyer(
             context: context,
-            flyerModel: widget.flyerModel,
+            flyerModel: _flyer.value,
             slideIndex: _progressBarModel.value.index,
             flyerIsSaved: _flyerIsSaved,
             mounted: mounted,
@@ -597,7 +599,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
               /// SLIDES
               SlidesBuilder(
                 flyerModel: flyerModel,
-                bzModel: widget.bzModel,
                 flyerBoxWidth: widget.flyerBoxWidth,
                 flyerBoxHeight: _flyerBoxHeight,
                 tinyMode: false,
@@ -615,7 +616,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
               FlyerHeader(
                 flyerBoxWidth: widget.flyerBoxWidth,
                 flyerModel: flyerModel,
-                bzModel: widget.bzModel,
                 onHeaderTap: _onHeaderTap,
                 onFollowTap: _onFollowTap,
                 onCallTap: _onCallTap,

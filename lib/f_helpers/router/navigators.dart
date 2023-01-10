@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
@@ -17,7 +16,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
@@ -26,14 +24,13 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-
 import 'package:bldrs/main.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class Nav {
   // -----------------------------------------------------------------------------
@@ -644,28 +641,14 @@ class Nav {
 
     if (flyerID != null){
 
-      final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
-        flyerID: flyerID,
+      await Nav.goToNewScreen(
         context: context,
+        screen: FlyerPreviewScreen(
+          flyerID: flyerID,
+          // reviewID: ,
+          // bzModel: _bzModel,
+        ),
       );
-
-      final BzModel _bzModel = await BzProtocols.fetchBz(
-        bzID: _flyerModel?.bzID,
-        context: context,
-      );
-
-
-      if (_flyerModel != null && _bzModel != null){
-
-        await Nav.goToNewScreen(
-          context: context,
-          screen: FlyerPreviewScreen(
-            flyerModel: _flyerModel,
-            bzModel: _bzModel,
-          ),
-        );
-
-      }
 
     }
   }
@@ -701,28 +684,18 @@ class Nav {
       final String _flyerID = _flyerIDAndReviewID[0];
       final String _reviewID = _flyerIDAndReviewID[1];
 
-      final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
-        flyerID: _flyerID,
-        context: context,
-      );
-
-      final BzModel _bzModel = await BzProtocols.fetchBz(
-        bzID: _flyerModel?.bzID,
-        context: context,
-      );
-
-      if (_flyerModel != null && _bzModel != null){
+      if (_flyerID != null){
 
         await Nav.goToNewScreen(
           context: context,
           screen: FlyerPreviewScreen(
-            flyerModel: _flyerModel,
-            bzModel: _bzModel,
+            flyerID: _flyerID,
             reviewID: _reviewID,
           ),
         );
 
       }
+
 
     }
 

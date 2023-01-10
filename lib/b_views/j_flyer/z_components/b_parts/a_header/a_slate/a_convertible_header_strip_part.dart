@@ -1,12 +1,11 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_mini_header_strip_box_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header//a_slate/f_right_spacer/h_header_right_spacer_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/animated_header_left_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_mini_header_strip_box_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/c_middle_spacer/e_header_middle_spacer_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/f_header_labels_tree.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/g_follow_and_call_buttons.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header//a_slate/f_right_spacer/h_header_right_spacer_part.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +29,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
     @required this.onCallTap,
     @required this.headerRightSpacerTween,
     @required this.flyerModel,
-    @required this.bzModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -51,7 +49,6 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   final Function onCallTap;
   final Animation<double> headerRightSpacerTween;
   final FlyerModel flyerModel;
-  final BzModel bzModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -80,7 +77,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
           width: logoMinWidth * logoSizeRatioTween.value,
           image: flyerModel.bzLogoImage ?? Iconz.dvRageh,// ?? bzModel?.logoPath,
-          isVerified: bzModel?.isVerified,
+          isVerified: flyerModel?.bzModel?.isVerified,
           corners: logoCorners,
           zeroCornerIsOn: flyerModel.showsAuthor,
         ),
@@ -101,7 +98,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           logoSizeRatioTween: logoSizeRatioTween,
           flyerBoxWidth: flyerBoxWidth,
           flyerModel: flyerModel,
-          bzModel: bzModel,
+          bzModel:flyerModel?.bzModel,
           tinyMode: tinyMode,
           headerIsExpanded: headerIsExpanded,
         ),

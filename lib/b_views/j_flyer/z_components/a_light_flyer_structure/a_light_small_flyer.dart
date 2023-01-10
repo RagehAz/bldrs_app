@@ -141,15 +141,15 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
 
     if (_flyer != null){
 
-      /// IMAGIFY FIRST SLIDE
-      if (mounted){
-        _flyer = await FlyerProtocols.imagifyFirstSlide(_flyer);
-      }
+      // /// IMAGIFY FIRST SLIDE
+      // if (mounted){
+      //   _flyer = await FlyerProtocols.imagifyFirstSlide(_flyer);
+      // }
 
-      /// IMAGIFY BZ LOGO
-      if (mounted){
-        _flyer = await FlyerProtocols.imagifyBzLogo(_flyer);
-      }
+      // /// IMAGIFY BZ LOGO
+      // if (mounted){
+      //   _flyer = await FlyerProtocols.imagifyBzLogo(_flyer);
+      // }
 
       /// GET BZ MODEL
       BzModel _bz;
@@ -238,7 +238,7 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
             StaticHeader(
               flyerBoxWidth: widget.flyerBoxWidth,
               bzModel: _bzModel,
-              bzImageLogo: _flyerModel?.bzLogoImage,
+              // bzImageLogo: _flyerModel?.bzLogoImage,
               authorID: _flyerModel?.authorID,
               flyerShowsAuthor: _flyerModel?.showsAuthor,
               // flightTweenValue: 1,
