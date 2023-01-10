@@ -6,10 +6,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +38,7 @@ class LightSmallFlyer extends StatefulWidget {
 class _LightSmallFlyerState extends State<LightSmallFlyer> {
   // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
-  BzModel _bzModel;
+  // BzModel _bzModel;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -101,26 +99,32 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
+  ///
   void _disposeModels() {
 
-    blog('dispose stuff pre mounted');
+    // blog('dispose stuff pre mounted');
+    //
+    // if (mounted == true) {
+    //
+    //   blog('dispose stuff');
+    //
+    //   /// DISPOSE FIRST SLIDE
+    //   if (Mapper.checkCanLoopList(_flyerModel?.slides) == true) {
+    //     blog('xxxxx - === >>> disposing flyer[0] SLIDE IMAGE');
+    //     _flyerModel?.slides?.first?.uiImage?.dispose();
+    //   }
+    //
+    //   /// DISPOSE BZ LOGE
+    //   blog('xxxxx - === >>> disposing flyer LOGO IMAGE');
+    //   _flyerModel?.bzLogoImage?.dispose();
+    //
+    // }
 
-    if (mounted == true) {
+    FlyerProtocols.disposeRenderedFlyer(
+      flyerModel: _flyerModel,
+      mounted: mounted,
+    );
 
-      blog('dispose stuff');
-
-      /// DISPOSE FIRST SLIDE
-      if (Mapper.checkCanLoopList(_flyerModel?.slides) == true) {
-        blog('xxxxx - === >>> disposing flyer[0] SLIDE IMAGE');
-        _flyerModel?.slides?.first?.uiImage?.dispose();
-      }
-
-      /// DISPOSE BZ LOGE
-      blog('xxxxx - === >>> disposing flyer LOGO IMAGE');
-      _flyerModel?.bzLogoImage?.dispose();
-
-    }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -134,6 +138,10 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
       _flyer ??= await FlyerProtocols.fetchFlyer(
         context: context,
         flyerID: widget.flyerID,
+      );
+      _flyer = await FlyerProtocols.renderSmallFlyer(
+        context: context,
+        flyerModel: _flyer,
       );
     }
 
@@ -151,23 +159,23 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
       //   _flyer = await FlyerProtocols.imagifyBzLogo(_flyer);
       // }
 
-      /// GET BZ MODEL
-      BzModel _bz;
-      if (mounted){
-        _bz = await BzProtocols.fetchBz(
-          context: context,
-          bzID: _flyer?.bzID,
-        );
-      }
+      // /// GET BZ MODEL
+      // BzModel _bz;
+      // if (mounted){
+      //   _bz = await BzProtocols.fetchBz(
+      //     context: context,
+      //     bzID: _flyer?.bzID,
+      //   );
+      // }
 
       /// SET STUFF
-      if (_bz != null && mounted == true) {
+      // if (_bz != null && mounted == true) {
         blog('xxxxx - === >>> setting flyer and bz models');
         setState(() {
           _flyerModel = _flyer;
-          _bzModel = _bz;
+          // _bzModel = _bz;
         });
-      }
+      // }
 
     }
 
@@ -219,7 +227,7 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
         child: FlyerBox(
           key: const ValueKey<String>('LightSmallFlyer'),
           flyerBoxWidth: widget.flyerBoxWidth,
-          onTap: () => widget.onTap(_flyerModel, _bzModel),
+          onTap: () => widget.onTap(_flyerModel, _flyerModel?.bzModel),
           stackWidgets: <Widget>[
 
             /// STATIC SINGLE SLIDE
@@ -237,7 +245,7 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
             /// STATIC HEADER
             StaticHeader(
               flyerBoxWidth: widget.flyerBoxWidth,
-              bzModel: _bzModel,
+              bzModel: _flyerModel?.bzModel,
               // bzImageLogo: _flyerModel?.bzLogoImage,
               authorID: _flyerModel?.authorID,
               flyerShowsAuthor: _flyerModel?.showsAuthor,

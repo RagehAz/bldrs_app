@@ -3,7 +3,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
@@ -530,46 +529,49 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
             await  _triggerLoading(setTo: true);
 
-            FlyerModel _flyer = await FlyerProtocols.fetchFlyer(context: context, flyerID: '5VOZyFGDaY3WHfFKzzkH');
-            _flyer = await FlyerProtocols.renderBigFlyer(
-              flyerModel: _flyer,
-              context: context,
+            FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+                context: context,
+                flyerID: '5VOZyFGDaY3WHfFKzzkH',
             );
 
+            if (_flyer != null){
 
-            // final BuildContext _context = context; //BldrsAppStarter.navigatorKey.currentContext;
+              _flyer = await FlyerProtocols.renderBigFlyer(
+                flyerModel: _flyer,
+                context: context,
+              );
 
-            final Uint8List _bytes = await ScreenshotController().captureFromWidget(
-              // NotePoster(
-              //   posterType: PosterType.flyer,
-              //   width: Bubble.clearWidth(context),
-              //   model: _flyer,
-              //   modelHelper: _bz,
-              // ),
-              ChangeNotifierProvider(
-                create: (_) => PhraseProvider(),
-                child: PosterSwitcher(
-                  posterType: PosterType.flyer,
-                  width: Bubble.clearWidth(context),
-                  model: _flyer,
-                  modelHelper: _flyer.bzModel,
+              // final BuildContext _context = context; //BldrsAppStarter.navigatorKey.currentContext;
+
+              final Uint8List _bytes = await ScreenshotController().captureFromWidget(
+                // NotePoster(
+                //   posterType: PosterType.flyer,
+                //   width: Bubble.clearWidth(context),
+                //   model: _flyer,
+                //   modelHelper: _bz,
+                // ),
+                ChangeNotifierProvider(
+                  create: (_) => PhraseProvider(),
+                  child: PosterSwitcher(
+                    posterType: PosterType.flyer,
+                    width: Bubble.clearWidth(context),
+                    model: _flyer,
+                    modelHelper: _flyer.bzModel,
+                  ),
                 ),
-              ),
-              context: context,
-              pixelRatio: MediaQuery.of(context).devicePixelRatio,
-              delay: const Duration(milliseconds: 500),
-            );
+                context: context,
+                pixelRatio: MediaQuery.of(context).devicePixelRatio,
+                delay: const Duration(milliseconds: 500),
+              );
 
-            blog('_bytes : ${_bytes.length} bytes');
+              blog('_bytes : ${_bytes.length} bytes');
 
-            await setImage(_bytes);
+              await setImage(_bytes);
+
+
+            }
 
             await  _triggerLoading(setTo: false);
-
-            FlyerProtocols.disposeRenderedFlyer(
-              mounted: mounted,
-              flyerModel: _flyer,
-            );
 
           },
         ),
