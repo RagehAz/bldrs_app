@@ -171,7 +171,6 @@ class _PyramidsWidgetTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
 }
 
-
 class _PyramidGraphic extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _PyramidGraphic(
