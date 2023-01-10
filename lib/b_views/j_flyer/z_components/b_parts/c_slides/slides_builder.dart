@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.da
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -79,30 +78,22 @@ class SlidesBuilder extends StatelessWidget {
   // --------------------
   @override
   Widget build(BuildContext context) {
-    // super.build(context);
 
     if (Mapper.checkCanLoopList(flyerModel?.slides) == true){
 
       final int _realNumberOfSlide = flyerModel.slides.length;
       final int _numberOfStrips = concludeNumberOfPages();
 
-      blog('_numberOfStrips : $_numberOfStrips');
-
       return HorizontalBouncer(
         key: const ValueKey<String>('HorizontalBouncer'),
         numberOfSlides: _numberOfStrips,
         controller: horizontalController,
         canNavigate: _canNavigateOnBounce(),
-        onNavigate: (){
-          blog('HorizontalBouncer : onNavigate');
-          onHorizontalExit();
-        },
+        onNavigate: onHorizontalExit,
         child: PageView.builder(
-          // key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
+          key: const ValueKey<String>('FlyerSlides_PageView'),
           controller: horizontalController,
           physics: tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
-          // clipBehavior: Clip.antiAlias,
-          // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
           onPageChanged: (int i) => onSwipeSlide(i),
           itemCount: _numberOfStrips+1,
           itemBuilder: (_, int index){
@@ -112,10 +103,8 @@ class SlidesBuilder extends StatelessWidget {
 
               final SlideModel _slide = flyerModel.slides[index];
 
-              blog('Building slide $index : ${_slide.slideIndex}');
-
               return SingleSlide(
-                key: const ValueKey<String>('slide_key'),
+                key: const ValueKey<String>('SingleSlide'),
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: flyerBoxHeight,
                 slideModel: _slide,
@@ -130,6 +119,7 @@ class SlidesBuilder extends StatelessWidget {
                 canUseFilter: canUseFilter,
                 canPinch: canPinch,
               );
+
             }
 
             /// WHEN AT FAKE BOUNCER SLIDE
@@ -156,11 +146,9 @@ class SlidesBuilder extends StatelessWidget {
 
     else {
 
-      blog('Building loading flyer blue : slides are empty');
-
       return FlyerLoading(
         flyerBoxWidth: flyerBoxWidth,
-        animate: true,
+        animate: false,
         boxColor: Colorz.cyan255,
       );
 

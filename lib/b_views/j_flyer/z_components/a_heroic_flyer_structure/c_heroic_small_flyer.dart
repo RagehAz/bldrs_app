@@ -186,15 +186,6 @@ class HeroicSmallFlyer extends StatelessWidget {
           ),
         ),
 
-        // ----------------------------------<<
-       /// TASK : FIX FLYER REBUILDING & ANIMATION FLICKERING ISSUE
-        /*
-            - will revisit widget matrix animator and flyer building issue that flickers animation later
-            - its because BigFlyer widget gets called twice with each SmallFlyer Build
-            - because Hero animation starts animation with tween value 1 then 0 then moves to 1 again
-            - so the first 1 fires BigFlyer then the second 1 fires BigFlyer Again
-        */
-        // ----------------------------------<<
         /// BIG FLYER
         HeroicBigFlyer(
           heroPath: heroTag,
@@ -206,39 +197,7 @@ class HeroicSmallFlyer extends StatelessWidget {
             canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID(heroTag),
           ),
         ),
-        /// -------
-        // FutureBuilder(
-        //   future: Future<void>.delayed(const Duration(milliseconds: 300)),
-        //   builder: (_, AsyncSnapshot<void> snapshot) {
-        //
-        //     if (snapshot.connectionState == ConnectionState.done){
-        //       return BigFlyer(
-        //         heroPath: heroTag,
-        //         flyerBoxWidth: flyerBoxWidth,
-        //         flyerModel: flyerModel,
-        //         bzModel: bzModel,
-        //         canBuild: canBuildBigFlyer == true && _flyerIsBigNow == true,
-        //       );
-        //     }
-        //
-        //     else {
-        //       return const SizedBox.shrink();
-        //     }
-        //     },
-        // ),
-        /// -------
-        // WidgetFader(
-        //   fadeType: FadeType.fadeIn,
-        //   duration: const Duration(milliseconds: 200),
-        //   child: BigFlyer(
-        //       heroPath: heroTag,
-        //       flyerBoxWidth: flyerBoxWidth,
-        //       flyerModel: flyerModel,
-        //       bzModel: bzModel,
-        //       canBuild: canBuildBigFlyer == true && _flyerIsBigNow == true
-        //   ),
-        // ),
-        /// -------
+
       ],
     );
 

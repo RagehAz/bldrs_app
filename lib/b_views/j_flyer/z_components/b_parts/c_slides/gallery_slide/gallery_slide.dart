@@ -84,7 +84,6 @@ class _GallerySlideState extends State<GallerySlide> {
   // -----------------------------------------------------------------------------
   Future<void> _addScrollListener() async {
 
-
     /// TASK : REFACTOR THIS SCROLLER LISTENER : OR MAYBE CREATE FUTURE PAGINATOR WIDGET
     // Scrollers.createPaginationListener(
     //     controller: controller,
@@ -92,7 +91,6 @@ class _GallerySlideState extends State<GallerySlide> {
     //     canKeepReading: canKeepReading,
     //     onPaginate: onPaginate
     // );
-
 
     final double _maxScroll = _scrollController.position.maxScrollExtent;
     final double _currentScroll = _scrollController.position.pixels;
@@ -168,8 +166,6 @@ class _GallerySlideState extends State<GallerySlide> {
           valueListenable: _loadedFlyers,
           child: Container(),
           builder: (_, List<FlyerModel> flyers, Widget child){
-
-            blog('GallerySlide : widget.heroTag : ${widget.heroTag}');
 
             return FlyersGrid(
               gridWidth: widget.flyerBoxWidth,
