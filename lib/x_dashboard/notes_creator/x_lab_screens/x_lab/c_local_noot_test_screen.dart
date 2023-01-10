@@ -319,12 +319,14 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
       FlyerProtocols.disposeRenderedFlyer(
         mounted: true,
         flyerModel: _posterModel,
+        invoker: 'NootsScreen : flyer poster',
       );
     }
     if (_posterType == PosterType.bz){
       FlyerProtocols.disposeRenderedFlyer(
         mounted: true,
         flyerModel: _posterHelperModel,
+        invoker: 'NootsScreen : bz poster',
       );
     }
 

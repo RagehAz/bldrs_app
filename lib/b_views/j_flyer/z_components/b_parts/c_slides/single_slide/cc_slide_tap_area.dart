@@ -63,7 +63,9 @@ class SlideTapAreas extends StatelessWidget {
           ),
         ],
       );
-    } else {
+    }
+
+    else {
       return child;
     }
 

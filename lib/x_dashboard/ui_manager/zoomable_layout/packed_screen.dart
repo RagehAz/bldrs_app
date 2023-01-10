@@ -141,8 +141,28 @@ class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
 
         const Expander(),
 
+        ///2
         AppBarButton(
-          icon: Iconz.flyer,
+          verse: Verse.plain('[ 2 ]'),
+          onTap: () async {
+
+            final ZoomableGridController _controller = initializeBldrsZoomableGridController(
+              context: context,
+              columnsCount: 2,
+            );
+
+            await Nav.goToNewScreen(
+                context: context,
+                screen: FlyersZoomedLayout(
+                    controller: _controller,
+                ),
+            );
+          },
+        ),
+
+        /// 3
+        AppBarButton(
+          verse: Verse.plain('[ 3 ]'),
           onTap: () async {
 
             final ZoomableGridController _controller = initializeBldrsZoomableGridController(
@@ -150,6 +170,24 @@ class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
               columnsCount: 3,
             );
 
+            await Nav.goToNewScreen(
+                context: context,
+                screen: FlyersZoomedLayout(
+                    controller: _controller,
+                ),
+            );
+          },
+        ),
+
+        /// 4
+        AppBarButton(
+          verse: Verse.plain('[ 4 ]'),
+          onTap: () async {
+
+            final ZoomableGridController _controller = initializeBldrsZoomableGridController(
+              context: context,
+              columnsCount: 4,
+            );
 
             await Nav.goToNewScreen(
                 context: context,
