@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -87,7 +88,7 @@ class DynamicLinks {
   // --------------------
   static const IOSParameters iosParameters = IOSParameters(
     bundleId: Standards.iosBundleID,
-    minimumVersion: Standards.appVersion,
+    minimumVersion: '0',//Standards.appVersion,
     appStoreId: Standards.appStoreID,
     // fallbackUrl: ,
     // customScheme: ,
@@ -414,6 +415,8 @@ class FlyerShareLink{
     @required int slideIndex,
   }){
 
+    // return DynamicLinks.flyerDynamicLink;
+    return 'https://bldrs.page.link/flyer=${AuthFireOps.superUserID()}';
     return 'https://bldrs.page.link/flyer/$flyerID/$slideIndex';
 
   }
@@ -446,11 +449,6 @@ class FlyerShareLink{
     final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
-  // --------------------
-  /// NOT SURE ABOUT THIS
-  // String putIDInFlyerDynamicLink (){
-  //   return 'https://bldrs.page.link/flyer=${AuthFireOps.superUserID()}';
-  // }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
