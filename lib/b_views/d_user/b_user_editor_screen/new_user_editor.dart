@@ -444,7 +444,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
                       focusNode: draft?.titleNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      keyboardTextInputType: TextInputType.name,
+                      // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
                       textController: draft?.titleController,
                       onTextChanged: (String text) => onUserJobTitleChanged(
@@ -475,7 +475,7 @@ class _NewUserEditorState extends State<NewUserEditor> {
                       focusNode: draft?.companyNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      keyboardTextInputType: TextInputType.name,
+                      // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
                       textController: draft?.companyController,
                       // autoValidate: true,
