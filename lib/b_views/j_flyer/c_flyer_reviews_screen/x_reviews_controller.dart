@@ -422,12 +422,10 @@ Future<void> _onDeleteReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewUserBalloonTap({
-  @required BuildContext context,
   @required UserModel userModel,
 }) async {
 
   await Nav.jumpToUserPreviewScreen(
-    context: context,
     userID: userModel.id,
   );
 
@@ -435,12 +433,10 @@ Future<void> onReviewUserBalloonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReplyBzBalloonTap({
-  @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
   await Nav.jumpToBzPreviewScreen(
-    context: context,
     bzID: bzModel.id,
   );
 

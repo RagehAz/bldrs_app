@@ -1,14 +1,17 @@
+// ignore_for_file: constant_identifier_names
 import 'dart:async';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -18,22 +21,8 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /*
-
-Bldr.net Use cases that require dynamic link
-
---> FLYER PAGE Url
-  -> user1 share flyer
-  -> dynamic link generated
-  -> user2 clicks link
-  -> install app if not installed
-  -> open bldrs logo screen then home screen then flyer screen from url
-  -> goes back to home screen
-
---> BZ PAGE url
-  -> same steps as sharing a flyer but shows a special bz page then goes back to home page
 
 --> AUTHORSHIP INVITATION
   -> general invitation link
@@ -45,12 +34,9 @@ Bldr.net Use cases that require dynamic link
   -> receive a late note from the invitation bz to join
   -> redirect to notes page
 
---> BLDRS.NET App link
-  ->
-
  */
 
-/// FDL : FIREBASE DYNAMIC LINK
+/// => TAMAM
 class DynamicLinks {
   // --------------------
   /// private constructor to create instances of this class only in itself
@@ -75,10 +61,17 @@ class DynamicLinks {
   /// CONSTANTS
 
   // --------------------
-  static const String bldrsURLPrefix = 'https://bldrs.page.link';
-  static const String flyerDynamicLink = 'https://bldrs.page.link/flyer';
-  static const String bzPageDynamicLink = 'https://bldrs.page.link/business-page';
-  static const String flyerPageDynamicLink = 'https://bldrs.page.link/flyer-page';
+  /// URI PREFIX
+  static const String https_ll_bldrs_page_link = 'https://bldrs.page.link';
+  // --------------------
+  static const String bz_page = 'business-page';
+  static const String https_ll_bldrs_page_link_l_bz_page = '$https_ll_bldrs_page_link/$bz_page';
+  // --------------------
+  static const String flyer_page = 'flyer-page';
+  static const String https_ll_bldrs_page_link_l_flyer_page = '$https_ll_bldrs_page_link/$flyer_page';
+  // --------------------
+  static const String user_page = 'user-page';
+  static const String https_ll_bldrs_page_link_l_user_page = '$https_ll_bldrs_page_link/$user_page';
   // --------------------
   static const AndroidParameters androidParameters = AndroidParameters(
     packageName: Standards.androidPackageName,
@@ -109,107 +102,74 @@ class DynamicLinks {
   /// INITIALIZATION
 
   // --------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> initDynamicLinks(BuildContext context) async {
 
-    final FirebaseDynamicLinks _dynamicLinks = getFireDynamicLinks();
+    blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
 
-    blog('initDynamicLinks : starting to listen to onLink');
+    getFireDynamicLinks().onLink.listen((PendingDynamicLinkData dynamicLinkData) async {
 
-    _dynamicLinks.onLink.listen((PendingDynamicLinkData dynamicLinkData) async {
-
-      // Navigator.pushNamed(context, dynamicLinkData.link.path);
-
-      final String _link = dynamicLinkData.link?.path;
-
-      await Dialogs.centerNotice(
-          context: context,
-          verse: Verse.plain('onLink : $_link, and can navigate baby'),
-      );
-
-      final String _userID = TextMod.removeTextBeforeLastSpecialCharacter(_link, '=');
-
-      await Nav.jumpToUserPreviewScreen(
-          context: context,
-          userID: _userID,
-      );
+      final String _link = dynamicLinkData?.link?.path;
 
       blogPendingDynamicLinkData(dynamicLinkData);
+      // await Dialogs.centerNotice(
+      //     context: context,
+      //     verse: Verse.plain('onLink : $_link, and can navigate baby'),
+      // );
 
-      if (dynamicLinkData == null){
-        blog('initDynamicLinks : link is null');
-      }
+      await _jumpByReceivedDynamicLink(
+        link: _link,
+      );
 
     }).onError((Object error) {
       blog('initDynamicLinks : error : ${error.runtimeType} : $error');
     });
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// RECEIVING
+
   // --------------------
-  /// TESTED : old - not needed
-  static Future<void> initializeDynamicLinks(BuildContext context) async {
+  /// TESTED : WORKS PERFECT
+  static Future<void> _jumpByReceivedDynamicLink({
+    @required String link,
+  }) async {
 
-    // blog('initializeDynamicLinks : START');
-    PendingDynamicLinkData _data;
+    // link looks like this
+    /// /flyer-page/flyerID/0
+    /// /user-page/userID
+    /// /business-page/bzID
 
-    await tryAndCatch(
-      invoker: 'initializeDynamicLinks',
-      functions: () async {
+    if (link != null){
 
-        /// 1 - GET INITIAL LINK AT APP STARTUP
-        _data = await getFireDynamicLinks().getInitialLink();
+      final List<String> _nodes = ChainPathConverter.splitPathNodes(link);
+
+      if (Mapper.checkCanLoopList(_nodes) == true){
+
+        final String _firstNode = _nodes.first;
+
+        if (_firstNode == flyer_page){
+          await BldrsShareLink.jumpToFlyerScreenByLink(
+              link: link,
+          );
+        }
+
+        else if (_firstNode == user_page){
+          await BldrsShareLink.jumpToUserScreenByLink(
+              link: link,
+          );
+        }
+
+        else if (_firstNode == bz_page){
+          await BldrsShareLink.jumpToBzScreenByLink(
+              link: link,
+          );
+        }
 
       }
-    );
 
-    /// HANDLE LINK ON FOREGROUND
-    if (_data != null){
-      await _handleDynamicLink(_data);
     }
-
-
-    // blog('initializeDynamicLinks : END');
-
-  }
-  // --------------------
-  /// TESTED : old - not needed
-  static Future<void> _handleDynamicLink(PendingDynamicLinkData data) async {
-
-    // final FirebaseDynamicLinks _fdl = getFireDynamicLinks();
-    // final Uri _deepLink = data?.link;
-    //
-    // if (_deepLink != null) {
-    //
-    //   // await goToFlyerScreenByDynamicLink(
-    //   //   context: context,
-    //   //   link: _deepLink.toString(),
-    //   // );
-    //
-    //   blog('_handleDynamicLink : deepLink is : $_deepLink');
-    //
-    // }
-
-    // _fdl.
-
-    // _fdl.onLink.(
-    //
-    // onSuccess: (PendingDynamicLinkData data) async {
-    //   await goToFlyerScreenByDynamicLink(
-    //     context: context,
-    //     link: data.link.toString(),
-    //   );
-    // },
-    //
-    // onError: (OnLinkErrorException error) async {
-    //   blog(error.message);
-    //
-    //   await CenterDialog.showCenterDialog(
-    //     context: context,
-    //     title: 'ERROR',
-    //     body: 'THERE IS SOME ERROR : $error',
-    //   );
-    // });
-
 
   }
   // -----------------------------------------------------------------------------
@@ -217,7 +177,7 @@ class DynamicLinks {
   /// CREATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uri> generateURI({
     @required String dynamicLink,
     @required String title,
@@ -260,7 +220,7 @@ class DynamicLinks {
     return _uri;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static DynamicLinkParameters _createDynamicLinkParameters({
     @required String dynamicLink,
     @required String title,
@@ -273,7 +233,7 @@ class DynamicLinks {
 
     return DynamicLinkParameters(
       link: Uri.parse(dynamicLink),
-      uriPrefix: bldrsURLPrefix,
+      uriPrefix: https_ll_bldrs_page_link,
       androidParameters: androidParameters,
       iosParameters: iosParameters,
       googleAnalyticsParameters: googleAnalyticsParameters,
@@ -292,22 +252,32 @@ class DynamicLinks {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogPendingDynamicLinkData(PendingDynamicLinkData data){
+
     blog('blogPendingDynamicLinkData : START');
-    blog('PendingDynamicLinkData : android : ${data?.android}');
-    blog('PendingDynamicLinkData : android.clickTimestamp : ${data?.android?.clickTimestamp}');
-    blog('PendingDynamicLinkData : android.minimumVersion : ${data?.android?.minimumVersion}');
-    blog('PendingDynamicLinkData : ios : ${data?.ios}');
-    blog('PendingDynamicLinkData : ios.matchType : ${data?.ios?.matchType}');
-    blog('PendingDynamicLinkData : ios.minimumVersion : ${data?.ios?.minimumVersion}');
-    blog('PendingDynamicLinkData : utmParameters : ${data?.utmParameters}');
+    if (data == null){
+      blog('blogPendingDynamicLinkData : data is null');
+    }
+
+    else {
+      blog('blogPendingDynamicLinkData : START');
+      blog('PendingDynamicLinkData : android : ${data?.android}');
+      blog('PendingDynamicLinkData : android.clickTimestamp : ${data?.android?.clickTimestamp}');
+      blog('PendingDynamicLinkData : android.minimumVersion : ${data?.android?.minimumVersion}');
+      blog('PendingDynamicLinkData : ios : ${data?.ios}');
+      blog('PendingDynamicLinkData : ios.matchType : ${data?.ios?.matchType}');
+      blog('PendingDynamicLinkData : ios.minimumVersion : ${data?.ios?.minimumVersion}');
+      blog('PendingDynamicLinkData : utmParameters : ${data?.utmParameters}');
+      blogURI(
+        uri: data?.link,
+        invoker: 'PendingDynamicLinkData',
+      );
+    }
+
     blog('blogPendingDynamicLinkData : END');
-    blogURI(
-      uri: data?.link,
-      invoker: 'PendingDynamicLinkData',
-    );
+
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static void blogShortDynamicLink(ShortDynamicLink shortDynamicLink){
 
     if (shortDynamicLink == null){
@@ -325,46 +295,53 @@ class DynamicLinks {
     String invoker = ':',
   }){
 
-    blog('blogURI $invoker : link : $uri');
-    blog('blogURI $invoker : link.path : ${uri?.path}');
-    blog('blogURI $invoker : link.hashCode : ${uri?.hashCode}');
-    blog('blogURI $invoker : link.data : ${uri?.data}');
-    blog('blogURI $invoker : link.queryParameters : ${uri?.queryParameters}');
-    blog('blogURI $invoker : link.authority : ${uri?.authority}');
-    blog('blogURI $invoker : link.fragment : ${uri?.fragment}');
-    blog('blogURI $invoker : link.hasAbsolutePath : ${uri?.hasAbsolutePath}');
-    blog('blogURI $invoker : link.hasAuthority : ${uri?.hasAuthority}');
-    blog('blogURI $invoker : link.hasEmptyPath : ${uri?.hasEmptyPath}');
-    blog('blogURI $invoker : link.hasFragment : ${uri?.hasFragment}');
-    blog('blogURI $invoker : link.hasPort : ${uri?.hasPort}');
-    blog('blogURI $invoker : link.hasQuery : ${uri?.hasQuery}');
-    blog('blogURI $invoker : link.hasScheme : ${uri?.hasScheme}');
-    blog('blogURI $invoker : link.query : ${uri?.query}');
-    blog('blogURI $invoker : link.host : ${uri?.host}');
-    blog('blogURI $invoker : link.isAbsolute : ${uri?.isAbsolute}');
-    blog('blogURI $invoker : link.pathSegments : ${uri?.pathSegments}');
-    blog('blogURI $invoker : link.port : ${uri?.port}');
-    blog('blogURI $invoker : link.scheme : ${uri?.scheme}');
-    blog('blogURI $invoker : link.userInfo : ${uri?.userInfo}');
-    blog('blogURI $invoker : link.queryParametersAll : ${uri?.queryParametersAll}');
+    if (uri == null){
+      blog('blogURI $invoker : uri is null');
+    }
+    else {
+      blog('blogURI $invoker : uri : $uri');
+      blog('blogURI $invoker : uri.toString : ${uri.toString()}');
+      blog('blogURI $invoker : uri.path : ${uri?.path}');
+      blog('blogURI $invoker : uri.hashCode : ${uri?.hashCode}');
+      blog('blogURI $invoker : uri.data : ${uri?.data}');
+      blog('blogURI $invoker : uri.queryParameters : ${uri?.queryParameters}');
+      blog('blogURI $invoker : uri.authority : ${uri?.authority}');
+      blog('blogURI $invoker : uri.fragment : ${uri?.fragment}');
+      blog('blogURI $invoker : uri.hasAbsolutePath : ${uri?.hasAbsolutePath}');
+      blog('blogURI $invoker : uri.hasAuthority : ${uri?.hasAuthority}');
+      blog('blogURI $invoker : uri.hasEmptyPath : ${uri?.hasEmptyPath}');
+      blog('blogURI $invoker : uri.hasFragment : ${uri?.hasFragment}');
+      blog('blogURI $invoker : uri.hasPort : ${uri?.hasPort}');
+      blog('blogURI $invoker : uri.hasQuery : ${uri?.hasQuery}');
+      blog('blogURI $invoker : uri.hasScheme : ${uri?.hasScheme}');
+      blog('blogURI $invoker : uri.query : ${uri?.query}');
+      blog('blogURI $invoker : uri.host : ${uri?.host}');
+      blog('blogURI $invoker : uri.isAbsolute : ${uri?.isAbsolute}');
+      blog('blogURI $invoker : uri.pathSegments : ${uri?.pathSegments}');
+      blog('blogURI $invoker : uri.port : ${uri?.port}');
+      blog('blogURI $invoker : uri.scheme : ${uri?.scheme}');
+      blog('blogURI $invoker : uri.userInfo : ${uri?.userInfo}');
+      blog('blogURI $invoker : uri.queryParametersAll : ${uri?.queryParametersAll}');
+      // blog('blogURI $invoker : link.origin : ${uri?.origin}'); // Unhandled Exception: Bad state: Origin is only applicable schemes http and https:
+    }
 
-    // blog('blogURI $invoker : link.origin : ${uri?.origin}'); // Unhandled Exception: Bad state: Origin is only applicable schemes http and https:
   }
   // -----------------------------------------------------------------------------
 }
 
-class FlyerShareLink{
+/// => TAMAM
+class BldrsShareLink{
   // -----------------------------------------------------------------------------
 
-  const FlyerShareLink();
+  const BldrsShareLink();
 
   // -----------------------------------------------------------------------------
 
-  /// GENERATE
+  /// GENERATE FLYER LINK
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<String> generate({
+  /// TESTED : WORKS PERFECT
+  static Future<String> generateFlyerLink({
     @required BuildContext context,
     @required String flyerID,
     int slideIndex = 0,
@@ -381,15 +358,13 @@ class FlyerShareLink{
 
       if (_flyer != null){
 
-        final String _posterURL = await _getFlyerPosterURL(
+        final String _posterURL = await _createFlyerPosterURL(
           flyerID: flyerID,
         );
 
         final Uri _uri = await DynamicLinks.generateURI(
-          dynamicLink: _createFlyerShareLinkDynamicLink(
-            slideIndex: slideIndex,
-            flyerID: flyerID,
-          ),
+          // '$bldrsURLPrefix/flyer=${AuthFireOps.superUserID()}';
+          dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_flyer_page}/$flyerID/$slideIndex',
           title: _createFlyerShareLinkTitle(
             context: context,
             flyerType: _flyer.flyerType,
@@ -409,23 +384,11 @@ class FlyerShareLink{
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static String _createFlyerShareLinkDynamicLink({
-    @required String flyerID,
-    @required int slideIndex,
-  }){
-
-    // return DynamicLinks.flyerDynamicLink;
-    return 'https://bldrs.page.link/flyer=${AuthFireOps.superUserID()}';
-    return 'https://bldrs.page.link/flyer/$flyerID/$slideIndex';
-
-  }
-  // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String _createFlyerShareLinkTitle({
     @required BuildContext context,
     @required FlyerType flyerType,
-    @required String langCode,
+    @required String langCode, /// PLAN : IMPLEMENT ME
   }){
 
     final String _phid = FlyerTyper.getFlyerTypePhid(
@@ -433,16 +396,12 @@ class FlyerShareLink{
       pluralTranslation: false,
     );
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    return _chainsProvider.translatePhid(
-      phid: _phid,
-      langCode: langCode,
-    );
+    return xPhrase(context, _phid);
 
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<String> _getFlyerPosterURL({
+  /// TESTED : WORKS PERFECT
+  static Future<String> _createFlyerPosterURL({
     @required String flyerID,
   }) async {
     final String _posterPath = Storage.generateFlyerPosterPath(flyerID);
@@ -451,19 +410,36 @@ class FlyerShareLink{
   }
   // -----------------------------------------------------------------------------
 
-  /// GETTERS
+  /// FLYER LINK JUMPER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<void> jumpToFlyerScreenByLink({
+    @required String link,
+  }) async {
+
+    final String _flyerID = _getFlyerIDFromLink(link);
+    final int _index = _getSlideIndexFromLink(link);
+
+    blog('jumpToFlyerScreenByLink : link : ($link) : flyerID : $_flyerID : index : $_index');
+
+    await Nav.jumpToFlyerPreviewScreen(
+      flyerID: _flyerID,
+      // index: _index,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static String _getFlyerIDFromLink(String link) {
     /// sample link
-    /// https://bldrs.page.link/flyer/5FzRLxTgRekkRzKflsjs/0
+    /// flyer/5FzRLxTgRekkRzKflsjs/0
     final String _withoutIndex = TextMod.removeTextAfterLastSpecialCharacter(link, '/');
     final String _flyerID = TextMod.removeTextBeforeLastSpecialCharacter(_withoutIndex, '/');
     return _flyerID;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static int _getSlideIndexFromLink(String link) {
 
     final String indexString = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
@@ -475,157 +451,245 @@ class FlyerShareLink{
   }
   // -----------------------------------------------------------------------------
 
-  /// JUMPERS
+  /// GENERATE BZ LINK
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<void> jumpToFlyerScreenByLink({
+  /// TESTED : WORKS PERFECT
+  static Future<String> generateBzLink({
     @required BuildContext context,
-    @required String link,
+    @required String bzID,
   }) async {
 
-    final String _flyerID = _getFlyerIDFromLink(link);
-    final int _index = _getSlideIndexFromLink(link);
+    String _output;
 
-    blog('jumpToFlyerScreenByLink : flyerID : $_flyerID : index : $_index');
+    if (bzID != null){
 
-    await Nav.jumpToFlyerPreviewScreen(
-      context: context,
-      flyerID: _flyerID,
-      // index: _index,
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /*
-
-  references : SHOULD DELETE WHEN EVERY THING IS GOOD
-
-
-    /// TASK : TEST ME
-    static Future<dynamic> createFlyerDynamicLink({
-      @required BuildContext context,
-      @required bool isShortURL,
-      @required FlyerModel flyerModel,
-      @required int slideIndex,
-    }) async {
-
-
-      final DynamicLinkParameters _parameters = DynamicLinkParameters(
-        uriPrefix: bldrsURLPrefix,
-        link: Uri.parse('https://bldrs.page.link/flyer/${flyerModel.id}/$slideIndex'),
-        androidParameters: androidParameters,
-        iosParameters: iosParameters,
-
-        socialMetaTagParameters: SocialMetaTagParameters(
-          title: FlyerTyper.getFlyerTypePhid(
-            flyerType: flyerModel.flyerType,
-            pluralTranslation: false,
-          ),
-          description: flyerModel.slides[slideIndex].headline,
-          imageUrl: Uri.parse(flyerModel.slides[slideIndex].picPath),
-        ),
+      final BzModel _bzModel = await BzProtocols.fetchBz(
+        context: context,
+        bzID: bzID,
       );
 
-      Uri _url;
+      if (_bzModel != null){
 
-      final FirebaseDynamicLinks _fdl = getFireDynamicLinks();
+        final String _posterURL = await _createBzPosterURL(
+          bzID: bzID,
+        );
 
-      /// if short link
-      if (isShortURL) {
-        final ShortDynamicLink shortLink = await _fdl.buildShortLink(_parameters);
-        blog(shortLink.toString());
-        _url = shortLink.shortUrl;
+        final Uri _uri = await DynamicLinks.generateURI(
+          dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_bz_page}/$bzID',
+          title: _createBzShareLinkTitle(
+            context: context,
+            bzModel: _bzModel,
+            langCode: 'en',
+          ),
+          description: _bzModel.name,
+          picURL: _posterURL,
+          log: true,
+          // isShortLink: true,
+        );
+
+        _output = _uri.toString();
       }
 
-      /// if long link
-      else {
-        _url = await _fdl.buildLink(_parameters);
-      }
-
-      return _url.toString();
     }
 
-   */
-
-  // -----------------------------------------------------------------------------
-}
-
-class ReferralLink{
-  // -----------------------------------------------------------------------------
-
-  const ReferralLink();
-
-  // -----------------------------------------------------------------------------
-  /*
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  // --------------------
-  static void handleSuccessLinking(PendingDynamicLinkData data) {
-
-    final Uri _deepLink = data?.link;
-
-    if (_deepLink != null) {
-      final bool _isRefer = _deepLink.pathSegments.contains('refer');
-
-      if (_isRefer) {
-
-        final String _code = _deepLink.queryParameters['code'];
-        blog(_code);
-
-        if (_code != null) {
-          navigatorKey.currentState.pushNamed(Routing.dynamicLinkTest, arguments: _code);
-        }
-
-      }
-    }
+    return _output;
   }
   // --------------------
-  static Future<String> createReferralLink(String referralCode) async {
-    // final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
-    //   uriPrefix: 'https://bldrs.page.link',
-    //   link: Uri.parse('https://fluttertutorial.com/refer?code=$referralCode'),
-    //   androidParameters: AndroidParameters(
-    //     packageName: 'com.devscore.flutter_tutorials',
-    //   ),
-    //   socialMetaTagParameters: SocialMetaTagParameters(
-    //     title: 'Refer A Friend',
-    //     description: 'Refer and earn',
-    //     imageUrl: Uri.parse(
-    //         'https://www.insperity.com/wp-content/uploads/Referral-_Program1200x600.png'),
-    //   ),
-    // );
+  /// TESTED : WORKS PERFECT
+  static String _createBzShareLinkTitle({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String langCode, /// PLAN : IMPLEMENT LANG CODE
+  }){
 
-    final FirebaseDynamicLinks dynamicLink = DynamicLinks.getFireDynamicLinks();
-
-
-    final DynamicLinkParameters _parameters = DynamicLinkParameters(
-      uriPrefix: 'https://bldrs.page.link',
-      link: Uri.parse('https://bldrs.page.link/flyer'),
-      androidParameters: const AndroidParameters(
-        packageName: 'com.bldrs.net',
-        minimumVersion: 0,
-        // fallbackUrl: null,
-      ),
-      iosParameters: const IOSParameters(
-        bundleId: 'com.bldrs.net',
-        minimumVersion: '0',
-      ),
-      socialMetaTagParameters: const SocialMetaTagParameters(
-        title: 'Dynamic link title',
-        description: 'Dynamic link description',
-        imageUrl: null,
-      ),
+    final String _line = BzTyper.translateBzTypesIntoString(
+      context: context,
+      bzForm: bzModel.bzForm,
+      bzTypes: bzModel.bzTypes,
+      oneLine: true,
     );
 
-    final ShortDynamicLink _shortLink = await dynamicLink.buildShortLink(_parameters);
+    blog('_createBzShareLinkTitle : the line is : $_line');
 
-    final Uri _dynamicUrl = _shortLink.shortUrl;
+    return _line;
 
-    blog(_dynamicUrl);
-    return _dynamicUrl.toString();
   }
-   */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> _createBzPosterURL({
+    @required String bzID,
+  }) async {
+    final String _posterPath = Storage.generateBzLogoPath(bzID);
+    final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
+    return _picURL;
+  }
   // -----------------------------------------------------------------------------
-  void f(){}
+
+  /// BZ LINK JUMPER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> jumpToBzScreenByLink({
+    @required String link,
+  }) async {
+    /// ${DynamicLinks.bldrsURLPrefix}/bz/bzID
+    final String _bzID = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
+
+    blog('jumpToBzScreenByLink : link : ($link) : _bzID : $_bzID');
+
+    await Nav.jumpToBzPreviewScreen(
+      bzID: _bzID,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GENERATE USER LINK
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> generateUserLink({
+    @required BuildContext context,
+    @required String userID,
+  }) async {
+
+    String _output;
+
+    if (userID != null){
+
+      final UserModel _userModel = await UserProtocols.fetch(
+        context: context,
+        userID: userID,
+      );
+
+      if (_userModel != null){
+
+        final String _posterURL = await _createUserPosterURL(
+          userID: userID,
+        );
+
+        final Uri _uri = await DynamicLinks.generateURI(
+          dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_user_page}/$userID',
+          title: _userModel.name,
+          description: _userModel.title,
+          picURL: _posterURL,
+          log: true,
+          // isShortLink: true,
+        );
+
+        _output = _uri.toString();
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> _createUserPosterURL({
+    @required String userID,
+  }) async {
+    final String _posterPath = Storage.generateUserPicPath(userID);
+    final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
+    return _picURL;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BZ LINK JUMPER
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> jumpToUserScreenByLink({
+    @required String link,
+  }) async {
+    /// ${DynamicLinks.bldrsURLPrefix}/user/userID
+    final String _userID = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
+
+    blog('jumpToUserScreenByLink : link : ($link) : _userID : $_userID');
+
+    await Nav.jumpToUserPreviewScreen(
+      userID: _userID,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }
+
+// class ReferralLink{
+//   // -----------------------------------------------------------------------------
+//
+//   const ReferralLink();
+//
+//   // -----------------------------------------------------------------------------
+//   /*
+//   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+//   // --------------------
+//   static void handleSuccessLinking(PendingDynamicLinkData data) {
+//
+//     final Uri _deepLink = data?.link;
+//
+//     if (_deepLink != null) {
+//       final bool _isRefer = _deepLink.pathSegments.contains('refer');
+//
+//       if (_isRefer) {
+//
+//         final String _code = _deepLink.queryParameters['code'];
+//         blog(_code);
+//
+//         if (_code != null) {
+//           navigatorKey.currentState.pushNamed(Routing.dynamicLinkTest, arguments: _code);
+//         }
+//
+//       }
+//     }
+//   }
+//   // --------------------
+//   static Future<String> createReferralLink(String referralCode) async {
+//     // final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
+//     //   uriPrefix: '${DynamicLinks.bldrsURLPrefix}',
+//     //   link: Uri.parse('https://fluttertutorial.com/refer?code=$referralCode'),
+//     //   androidParameters: AndroidParameters(
+//     //     packageName: 'com.devscore.flutter_tutorials',
+//     //   ),
+//     //   socialMetaTagParameters: SocialMetaTagParameters(
+//     //     title: 'Refer A Friend',
+//     //     description: 'Refer and earn',
+//     //     imageUrl: Uri.parse(
+//     //         'https://www.insperity.com/wp-content/uploads/Referral-_Program1200x600.png'),
+//     //   ),
+//     // );
+//
+//     final FirebaseDynamicLinks dynamicLink = DynamicLinks.getFireDynamicLinks();
+//
+//
+//     final DynamicLinkParameters _parameters = DynamicLinkParameters(
+//       uriPrefix: '${DynamicLinks.bldrsURLPrefix}',
+//       link: Uri.parse('${DynamicLinks.bldrsURLPrefix}/flyer'),
+//       androidParameters: const AndroidParameters(
+//         packageName: 'com.bldrs.net',
+//         minimumVersion: 0,
+//         // fallbackUrl: null,
+//       ),
+//       iosParameters: const IOSParameters(
+//         bundleId: 'com.bldrs.net',
+//         minimumVersion: '0',
+//       ),
+//       socialMetaTagParameters: const SocialMetaTagParameters(
+//         title: 'Dynamic link title',
+//         description: 'Dynamic link description',
+//         imageUrl: null,
+//       ),
+//     );
+//
+//     final ShortDynamicLink _shortLink = await dynamicLink.buildShortLink(_parameters);
+//
+//     final Uri _dynamicUrl = _shortLink.shortUrl;
+//
+//     blog(_dynamicUrl);
+//     return _dynamicUrl.toString();
+//   }
+//    */
+//   // -----------------------------------------------------------------------------
+//   void f(){}
+// }
