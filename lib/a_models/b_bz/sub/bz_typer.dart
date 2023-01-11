@@ -337,12 +337,19 @@ class BzTyper {
     bool oneLine = false,
   }){
 
+    /// only gets translation according to current language
+    // blog('translateBzTypesIntoString : bzForm : $bzForm : bzTypes : $bzTypes');
+
     final List<String> _bzTypesPhids = getBzTypesPhids(
       context: context,
       bzTypes: bzTypes,
       pluralTranslation: false,
     );
+
+    // Stringer.blogStrings(strings: _bzTypesPhids, invoker: 'translateBzTypesIntoString');
+
     final List<String> _typesTranslated = xPhrases(context, _bzTypesPhids);
+
     final String _bzTypesOneString = Stringer.generateStringFromStrings(
       strings: _typesTranslated,
     );
@@ -352,7 +359,6 @@ class BzTyper {
       bzForm: bzForm,
     );
     final String _formTranslated = xPhrase(context, _bzFormPhid);
-
 
     String _output = '$_bzTypesOneString\n$_formTranslated';
 

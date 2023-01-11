@@ -19,7 +19,6 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
-import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
@@ -244,9 +243,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
         await FCMStarter.initializeNootsInBldrsAppStarter();
         /// NOOT LISTENERS
         _initializeNootListeners();
-
-        /// DYNAMIC LINKS
-        await DynamicLinks.initializeDynamicLinks(context);
 
         /// END
         await _triggerLoading(setTo: false);

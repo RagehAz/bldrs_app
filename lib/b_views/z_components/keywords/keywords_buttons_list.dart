@@ -45,12 +45,12 @@ class PhidsButtonsList extends StatelessWidget {
               son: _phid,
           );
 
-          final String _enName = _chainsProvider.translatePhid(
+          final String _enName = _chainsProvider.translateChainPhid(
             phid: _phid,
             langCode: 'en',
           );
 
-          final String _arName = _chainsProvider.translatePhid(
+          final String _arName = _chainsProvider.translateChainPhid(
             phid: _phid,
             langCode: 'ar',
           );

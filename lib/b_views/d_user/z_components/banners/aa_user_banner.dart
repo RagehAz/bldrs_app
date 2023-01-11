@@ -219,7 +219,6 @@ class UserBanner extends StatelessWidget {
                     bzModel: _bzModel,
                     height: 50,
                     onTap: () => Nav.jumpToBzPreviewScreen(
-                        context: context,
                         bzID: _bzModel.id,
                     ),
                   );

@@ -431,7 +431,7 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String translatePhid({
+  String translateChainPhid({
     @required String phid,
     @required String langCode,
   }){
@@ -443,6 +443,31 @@ class ChainsProvider extends ChangeNotifier {
     );
 
     return _phrase?.value;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  List<String> translateChainPhids({
+    @required List<String> phids,
+    @required String langCode,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      for (final String phid in phids){
+
+        final String _translation = translateChainPhid(
+          phid: phid,
+          langCode: langCode,
+        );
+        
+        _output.add(_translation);
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

@@ -17,6 +17,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -92,6 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
         if (mounted){
           await Nav.autoNavigateFromHomeScreen(context);
         }
+
+        /// DYNAMIC LINKS
+        await DynamicLinks.initDynamicLinks(context);
 
       });
 
