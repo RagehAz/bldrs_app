@@ -31,7 +31,7 @@ class Launcher {
       }
       /// WEB LINK
       else if (ContactModel.checkIsWebLink(contact.type) == true){
-        await _launchURL(contact.value);
+        await launchURL(contact.value);
       }
       /// EMAIL
       else if (contact.type == ContactType.email){
@@ -56,7 +56,7 @@ class Launcher {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> _launchURL(String link) async {
+  static Future<bool> launchURL(String link) async {
 
     Uri _uri;
     bool _success = false;
