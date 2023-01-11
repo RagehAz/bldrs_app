@@ -205,7 +205,7 @@ class PhraseProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String getTranslatedPhraseByID(String id){
+  String translatePhid(String phid){
 
     String _translation;
 
@@ -216,7 +216,7 @@ class PhraseProvider extends ChangeNotifier {
     ){
 
       final Phrase _phrase = _mainPhrases.firstWhere(
-              (phrase) => phrase.id == id,
+              (phrase) => phrase.id == phid,
           orElse: ()=> null
       );
 
@@ -316,7 +316,7 @@ class PhraseProvider extends ChangeNotifier {
 
       for (final String phid in _phidsPendingTranslation){
 
-        final String _xPhrase = getTranslatedPhraseByID(phid);
+        final String _xPhrase = translatePhid(phid);
 
         if (_xPhrase != null){
           _phidsPendingTranslation = Stringer.removeStringsFromStrings(
@@ -375,7 +375,7 @@ String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
   /// THE PHID VERSES
   else {
 
-     String _translation = _phraseProvider.getTranslatedPhraseByID(id);
+     String _translation = _phraseProvider.translatePhid(id);
 
     if (_translation == null){
       _phraseProvider.addToPhidsPendingTranslation(id);
