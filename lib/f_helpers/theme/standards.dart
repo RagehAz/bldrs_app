@@ -15,13 +15,14 @@ class Standards {
   /// APP STANDARDS
 
   // --------------------
+  static const String appVersion = '1.0.1';
   static const String androidPackageName = 'com.bldrs.net';
   static const String iosBundleID = 'com.bldrs.net';
+  static const String appStoreID = '161803398875';
   static const String iosTeamID = '6ADZTHNZN9';
   static const String databaseURL = 'https://bldrsnet.firebaseio.com';
   static const String storageBucket = 'bldrsnet.appspot.com';
   static const String projectID = 'bldrsnet';
-  static const String dynamicLinksPrefix = 'https://bldrs.page.link';
   // --------------------
   /// const String fcmSenderID = '439018969330';
   static const String fcmServerKey = 'AAAAZjeR2PI:APA91bFKc1fNq9zROuwRGnbTXWj-1REB9XDW9nIvWjAeM2dGtAORsJ-GrIMmppkUVWRgcGIAccZxMqABTQb6_ECkBKZeaWH81TBAXvvC74DiTJAuSmgIkbhkM224etLFLCnYiMzMTlcz';
