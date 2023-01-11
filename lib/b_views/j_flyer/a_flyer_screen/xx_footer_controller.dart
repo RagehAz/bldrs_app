@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// SAVE
@@ -43,6 +43,7 @@ Future<void> onSaveFlyer({
 /// REVIEW
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onReviewButtonTap({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -61,6 +62,7 @@ Future<void> onReviewButtonTap({
 /// SHARE
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onShareFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
