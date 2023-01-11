@@ -442,7 +442,7 @@ class _NewBzEditorState extends State<NewBzEditor> {
                       counterIsOn: true,
                       maxLength: 72,
                       maxLines: 2,
-                      keyboardTextInputType: TextInputType.name,
+                      // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
                       initialText: draft?.name,
 
