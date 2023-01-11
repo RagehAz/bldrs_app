@@ -233,6 +233,7 @@ class CenterDialog extends StatelessWidget {
                         child: GestureDetector(
                           onTap: (){
                             blog('tapping on dialog bubble');
+                            Keyboard.copyToClipboard(context: context, copy: title?.text);
                             Keyboard.closeKeyboard(context);
                           },
                           child: Container(
