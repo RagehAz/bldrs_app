@@ -31,7 +31,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class Nav {
   // -----------------------------------------------------------------------------
 
@@ -250,7 +250,7 @@ class Nav {
   }
   // -----------------------------------------------------------------------------
 
-  /// I DONT KNO ABOUT THIS SHIT
+  /// I DON'T KNO ABOUT THIS SHIT
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -598,7 +598,6 @@ class Nav {
 
 
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToBzPreviewScreen({
