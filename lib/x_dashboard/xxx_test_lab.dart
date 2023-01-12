@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:colorizer/colorizer.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
@@ -75,6 +76,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     //   );
     //
     // }
+
+    final String _hex = Colorizer.convertColorToHex(Colorz.yellow50);
+
+    blog('hex is $_hex');
+
+    final Color _color = Colorizer.convertHexToColor(_hex);
+
+    blog('color is ${_color.red}.${_color.green}.${_color.blue}');
 
   }
   // -------------------------------------------------

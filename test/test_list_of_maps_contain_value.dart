@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:colorizer/colorizer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

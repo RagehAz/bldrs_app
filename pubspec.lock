@@ -178,6 +178,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.16.0"
+  colorizer:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "4b1b92da2904f20d90897a9e1f40c8eb643a8d05"
+      url: "https://github.com/RagehAz/colorizer.git"
+    source: git
+    version: "0.0.1"
   connectivity_plus:
     dependency: "direct main"
     description:

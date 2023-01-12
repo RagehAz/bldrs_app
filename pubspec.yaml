@@ -119,6 +119,9 @@ dependencies:
   numeric:
     git:
       url: https://github.com/RagehAz/numeric.git
+  colorizer:
+    git:
+      url: https://github.com/RagehAz/colorizer.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:
