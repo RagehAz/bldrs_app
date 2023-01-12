@@ -1,7 +1,7 @@
 // ignore_for_file: always_put_control_body_on_new_line
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:clipboard/clipboard.dart';

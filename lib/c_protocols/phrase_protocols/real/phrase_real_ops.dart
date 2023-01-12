@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 
 class PhraseRealOps {

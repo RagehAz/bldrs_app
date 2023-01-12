@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_single_quotes
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:numeric/numeric.dart';
 // -----------------------------------------------------------------------------
 
 /// GETTERS

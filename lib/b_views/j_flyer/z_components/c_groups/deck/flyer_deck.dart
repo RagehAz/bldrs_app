@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:numeric/numeric.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 

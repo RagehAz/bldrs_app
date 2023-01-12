@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -48,8 +48,8 @@ class CountryPreviewBubble extends StatelessWidget {
       langCode: 'ar',
     );
 
-    final String _areaNumbers = Numeric.formatNumToCounterCaliber(context, _flag.areaSqKm);
-    final String _population = Numeric.formatNumToCounterCaliber(context, _flag.population);
+    final String _areaNumbers = counterCaliber(context, _flag.areaSqKm);
+    final String _population = counterCaliber(context, _flag.population);
     final double _popDensityValue = _flag.population / (_flag.areaSqKm);
     final String _popDensity = Numeric.formatNumToSeparatedKilos(
       number: _popDensityValue,
