@@ -1,3 +1,5 @@
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -9,7 +11,6 @@ import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -87,7 +88,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   // --------------------
   @override
   void dispose() {
-    _isExpanded.dispose();
     _tabController.dispose();
     _progressBarModel.dispose();
     _pageTitleVerse.notifier?.dispose();
@@ -103,12 +103,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   // --------------------
   /// TESTED : WORKS PERFECT
   void _initializeTabs(){
-
-      setNotifier(
-          notifier: _isExpanded,
-          mounted: mounted,
-          value: widget.initiallyExpanded,
-      );
 
       setNotifier(
           notifier: _progressBarModel,
@@ -205,21 +199,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     );
 
   }
-  // -----------------------------------------------------------------------------
-
-  /// PYRAMID EXPANSION
-
-  // --------------------
-  final ValueNotifier<bool> _isExpanded = ValueNotifier(false);
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void onTriggerExpansion(){
-    setNotifier(
-        notifier: _isExpanded,
-        mounted: mounted,
-        value: !_isExpanded.value
-    );
-  }
   // --------------------
   /// PAGE TITLE
   Verse _pageTitleVerse;
@@ -232,8 +211,8 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   Future<void> _onBack() async {
 
     /// WHEN PYRAMIDS EXPANDED
-    if (_isExpanded.value == true){
-      setNotifier(notifier: _isExpanded, mounted: mounted, value: false);
+    if (UiProvider.proGetPyramidsAreExpanded(context: context, listen: false) == true){
+      UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
     }
 
     /// WHEN PYRAMIDS COLLAPSED
@@ -261,10 +240,8 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     final Widget _normalView = _NormalView(
       progressBarModel: _progressBarModel,
-      isExpanded: _isExpanded,
       navModels: widget.navModels,
       onRowTap: onRowTap,
-      onTriggerExpansion: onTriggerExpansion,
       tabController: _tabController,
       mounted: mounted,
       abovePyramidsChild: widget.abovePyramidsChild,
@@ -315,8 +292,6 @@ class _NormalView extends StatelessWidget {
   const _NormalView({
     @required this.tabController,
     @required this.navModels,
-    @required this.isExpanded,
-    @required this.onTriggerExpansion,
     @required this.onRowTap,
     @required this.progressBarModel,
     @required this.abovePyramidsChild,
@@ -326,8 +301,6 @@ class _NormalView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final TabController tabController;
   final List<NavModel> navModels;
-  final ValueNotifier<bool> isExpanded;
-  final Function onTriggerExpansion;
   final ValueChanged<int> onRowTap;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final Widget abovePyramidsChild;
@@ -347,8 +320,6 @@ class _NormalView extends StatelessWidget {
 
         /// PYRAMIDS NAVIGATOR
         SuperPyramids(
-          isExpanded: isExpanded,
-          onExpansion: onTriggerExpansion,
           onRowTap: onRowTap,
           progressBarModel: progressBarModel,
           navModels: navModels,
@@ -357,15 +328,16 @@ class _NormalView extends StatelessWidget {
 
         /// ABOVE PYRAMIDS CHILD
         if (abovePyramidsChild != null)
-          ValueListenableBuilder(
-            valueListenable: isExpanded,
-            builder: (_, bool _isExpanded, Widget child){
+          Selector<UiProvider, bool>(
+            key: const ValueKey<String>('abovePyramidsChildIsNotNull'),
+            selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
+            builder: (_, bool expanded, Widget child) {
 
               return WidgetFader(
-                fadeType: _isExpanded == true ? FadeType.fadeOut : FadeType.fadeIn,
-                curve: _isExpanded == true ? Curves.easeInExpo : Curves.elasticInOut,
-                duration: Duration(milliseconds: _isExpanded == true ? 50 : 800),
-                ignorePointer: _isExpanded,
+                fadeType: expanded == true ? FadeType.fadeOut : FadeType.fadeIn,
+                curve: expanded == true ? Curves.easeInExpo : Curves.elasticInOut,
+                duration: Duration(milliseconds: expanded == true ? 50 : 800),
+                ignorePointer: expanded,
                 child: child,
               );
 

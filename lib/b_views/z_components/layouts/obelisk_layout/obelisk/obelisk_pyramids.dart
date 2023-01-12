@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -10,23 +11,21 @@ import 'package:provider/provider.dart';
 class ObeliskPyramids extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskPyramids({
-    @required this.isExpanded,
     @required this.isYellow,
     @required this.mounted,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> isExpanded;
   final bool isYellow;
   final bool mounted;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return ValueListenableBuilder(
-      key: const ValueKey<String>('ObeliskPyramids'),
-      valueListenable: isExpanded,
-      builder: (_, bool expanded, Widget child){
+    return Selector<UiProvider, bool>(
+          key: const ValueKey<String>('ObeliskPyramids'),
+          selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
+          builder: (_, bool expanded, Widget child) {
 
 
         return Positioned(
@@ -48,14 +47,19 @@ class ObeliskPyramids extends StatelessWidget {
 
           blog('the userID : ${AuthFireOps.superUserID()}');
 
+          final bool isExpanded = UiProvider.proGetPyramidsAreExpanded(
+              context: context,
+              listen: false,
+          );
+
           /// TO OPEN PYRAMIDS
-          if (isExpanded.value  == null || isExpanded.value  == false){
-            setNotifier(notifier: isExpanded, mounted: mounted, value: true);
+          if (isExpanded  == null || isExpanded  == false){
+            UiProvider.proSetPyramidsAreExpanded(context: context, setTo: true, notify: true);
           }
 
           /// TO CLOSE PYRAMIDS
           else {
-            setNotifier(notifier: isExpanded, mounted: mounted, value: false);
+            UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
           }
 
           /// STOP FLASHING

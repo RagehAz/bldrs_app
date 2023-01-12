@@ -2,21 +2,21 @@ import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:widget_fader/widget_fader.dart';
 
 class ObeliskVersesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskVersesBuilder({
-    @required this.isExpanded,
     @required this.navModels,
     @required this.progressBarModel,
     @required this.onRowTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> isExpanded;
   final List<NavModel> navModels;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final ValueChanged<int> onRowTap;
@@ -24,14 +24,14 @@ class ObeliskVersesBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ValueListenableBuilder(
+    return Selector<UiProvider, bool>(
       key: const ValueKey<String>('ObeliskVersesBuilder'),
-      valueListenable: isExpanded,
-      builder: (_, bool isBig, Widget xChild){
+      selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
+      builder: (_, bool expanded, Widget child) {
 
           return WidgetFader(
-            fadeType: isBig == null ? FadeType.stillAtMin : isBig == true ? FadeType.fadeIn : FadeType.fadeOut,
-            curve: isBig == true ? Curves.easeOutQuart : Curves.easeOut,
+            fadeType: expanded == null ? FadeType.stillAtMin : expanded == true ? FadeType.fadeIn : FadeType.fadeOut,
+            curve: expanded == true ? Curves.easeOutQuart : Curves.easeOut,
             duration: const Duration(milliseconds: 200),
             builder: (double value, Widget child){
 
@@ -45,10 +45,10 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
             },
             child: AnimatedOpacity(
-              duration: Duration(milliseconds: isBig == true ? 150 : 500),
-              curve: isBig == true ? Curves.easeOutBack : Curves.easeOutQuart,
-              opacity: isBig == true ? 1 : 0.5,
-              child: xChild,
+              duration: Duration(milliseconds: expanded == true ? 150 : 500),
+              curve: expanded == true ? Curves.easeOutBack : Curves.easeOutQuart,
+              opacity: expanded == true ? 1 : 0.5,
+              child: child,
             ),
 
           );
