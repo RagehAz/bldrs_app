@@ -101,7 +101,9 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
   @override
   void dispose() {
 
+    if (widget.controller == null) {
       _controller?.dispose();
+    }
 
     // _loading.dispose();
     super.dispose();

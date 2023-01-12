@@ -1,4 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -27,7 +29,7 @@ class Pyramids extends StatelessWidget {
     this.onPyramidTap,
     this.color,
     this.putInCorner = true,
-    this.hide,
+    this.listenToHideLayout,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,13 +38,61 @@ class Pyramids extends StatelessWidget {
   final Function onPyramidTap;
   final Color color;
   final bool putInCorner;
-  final ValueNotifier<bool> hide;
+  final bool listenToHideLayout;
   /// --------------------------------------------------------------------------
   static double verticalPositionFix = -0.2;
   // --------------------------------------------------------------------------
-  Widget _getWidget(){
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    final Widget pyramidsWidget = _PyramidsSwitcher(
+      pyramidType: pyramidType,
+      loading: loading,
+      onPyramidTap: onPyramidTap,
+      color: color,
+      putInCorner: putInCorner,
+      listenToHideLayout: listenToHideLayout,
+    );
+    // --------------------
+    if (putInCorner == true){
+      return Positioned(
+        bottom: Pyramids.verticalPositionFix,
+        right: 17 * 0.7,
+        child: pyramidsWidget,
+      );
+    }
+    // --------------------
+    else {
+      return pyramidsWidget;
+    }
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
+}
 
-    if (hide == null){
+class _PyramidsSwitcher extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _PyramidsSwitcher({
+    @required this.pyramidType,
+    @required this.loading,
+    @required this.onPyramidTap,
+    @required this.color,
+    @required this.putInCorner,
+    @required this.listenToHideLayout,
+    Key key,
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final PyramidType pyramidType;
+  final dynamic loading;
+  final Function onPyramidTap;
+  final Color color;
+  final bool putInCorner;
+  final bool listenToHideLayout;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    if (listenToHideLayout == false){
       return _PyramidsWidgetTree(
             pyramidType: pyramidType,
             loading: loading,
@@ -54,14 +104,14 @@ class Pyramids extends StatelessWidget {
 
     else {
 
-      return ValueListenableBuilder(
-        valueListenable: hide,
-        builder: (_, bool isHiding, Widget child) {
+      return Selector<UiProvider, bool>(
+        selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
+        builder: (_, bool isVisible, Widget child) {
 
           return IgnorePointer(
-            ignoring: isHiding,
+            ignoring: !isVisible,
             child: WidgetFader(
-              fadeType: isHiding == true ? FadeType.fadeOut : FadeType.fadeIn,
+              fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
               duration: const Duration(milliseconds: 300),
               child: child,
             ),
@@ -80,27 +130,6 @@ class Pyramids extends StatelessWidget {
 
     }
 
-  }
-  // --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    // --------------------
-
-    final Widget pyramidsWidget = _getWidget();
-
-    if (putInCorner == true){
-      return Positioned(
-        bottom: Pyramids.verticalPositionFix,
-        right: 17 * 0.7,
-        child: pyramidsWidget,
-      );
-    }
-
-    else {
-      return pyramidsWidget;
-    }
-
-    // --------------------
   }
   // -----------------------------------------------------------------------------
 }
