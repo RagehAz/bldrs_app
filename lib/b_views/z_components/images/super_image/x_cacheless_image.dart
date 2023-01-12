@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bldrs/b_views/z_components/images/super_image/x_infinity_loading_box.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;

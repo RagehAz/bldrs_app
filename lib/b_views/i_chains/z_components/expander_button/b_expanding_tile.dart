@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_non_collab
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/d_collapsable_tile.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
