@@ -19,6 +19,7 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -187,7 +188,6 @@ Future<void> onNavigate({
   @required List<NavModel> models,
   @required ValueNotifier<ProgressBarModel> progressBarModel,
   @required BuildContext context,
-  @required ValueNotifier<bool> isExpanded,
   @required bool mounted,
 }) async {
 
@@ -200,8 +200,6 @@ Future<void> onNavigate({
         index: index,
       ),
   );
-
-  // onTriggerExpansion();
 
   await Future.delayed(const Duration(milliseconds: 50), () async {
 
@@ -222,10 +220,9 @@ Future<void> onNavigate({
     }
 
     setNotifier(notifier: progressBarModel, mounted: mounted, value: ProgressBarModel.emptyModel());
-    setNotifier(notifier: isExpanded, mounted: mounted, value: false);
+    UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
 
   });
-
 
 }
 // -----------------------------------------------------------------------------

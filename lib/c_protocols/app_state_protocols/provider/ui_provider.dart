@@ -7,7 +7,7 @@ import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+// -----------------------------------------------------------------------------
 enum SearchingModel{
   country,
   city,
@@ -15,7 +15,8 @@ enum SearchingModel{
   flyersAndBzz
   // users,
 }
-
+// -----------------------------------------------------------------------------
+/// => TAMAM
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
@@ -263,6 +264,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   void startController(Function controllerMethod) {
 
+    Future<void> _start() async {}
+
     _start().then((_) async {
 
       await controllerMethod();
@@ -270,8 +273,6 @@ class UiProvider extends ChangeNotifier {
     });
 
   }
-  // --------------------
-  Future<void> _start() async {}
   // -----------------------------------------------------------------------------
 
   /// TEXT FIELD OBSCURED
@@ -314,7 +315,9 @@ class UiProvider extends ChangeNotifier {
   FlyerType _currentSavedFlyerTypeTab = FlyerType.general;
   // --------------------
   FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
+
   // --------------------
+  /// TESTED : WORKS PERFECT
   void setCurrentFlyerTypeTab({
     @required FlyerType flyerType,
     @required bool notify,
@@ -335,7 +338,9 @@ class UiProvider extends ChangeNotifier {
   BzTab _currentBzTab = BzTab.flyers;
   // --------------------
   BzTab get currentBzTab => _currentBzTab;
+
   // --------------------
+  /// TESTED : WORKS PERFECT
   void setCurrentBzTab({
     @required BzTab bzTab,
     @required bool notify,
@@ -356,6 +361,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   UserTab get currentUserTab => _currentUserTab;
   // --------------------
+  /// TESTED : WORKS PERFECT
   void setCurrentUserTab({
     @required UserTab userTab,
     @required bool notify,
@@ -376,6 +382,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   double get flyerWidthFactor => _flyerWidthFactor;
   // --------------------
+  /// TESTED : WORKS PERFECT
   void calculateSetFlyerWidthFactor({
     @required double tween,
     @required bool notify,
@@ -399,6 +406,7 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _setFlyerWidthSizeFactor({
     @required double widthFactor,
     @required bool notify,
@@ -412,6 +420,7 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   double _flyerWidthSizeFactor({
     @required double tween,
     @required double minFactor,
@@ -445,19 +454,25 @@ class UiProvider extends ChangeNotifier {
   bool _pyramidsAreExpanded = false;
   bool get pyramidsAreExpanded => _pyramidsAreExpanded;
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _setPyramidsAreExpanded({
     @required bool setTo,
     @required bool notify,
   }){
 
-    _pyramidsAreExpanded = setTo;
+    if (_pyramidsAreExpanded != setTo){
 
-    if (notify == true){
-      notifyListeners();
+      _pyramidsAreExpanded = setTo;
+
+      if (notify == true) {
+        notifyListeners();
+      }
+
     }
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void proSetPyramidsAreExpanded({
     @required BuildContext context,
     @required bool setTo,
@@ -470,6 +485,7 @@ class UiProvider extends ChangeNotifier {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool proGetPyramidsAreExpanded({
     @required BuildContext context,
     @required bool listen,
@@ -485,19 +501,25 @@ class UiProvider extends ChangeNotifier {
   bool _layoutIsVisible = true;
   bool get layoutIsVisible => _layoutIsVisible;
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _setLayoutIsVisible({
     @required bool setTo,
     @required bool notify,
   }){
 
-    _layoutIsVisible = setTo;
+    if (_layoutIsVisible != setTo){
 
-    if (notify == true){
-      notifyListeners();
+      _layoutIsVisible = setTo;
+
+      if (notify == true) {
+        notifyListeners();
+      }
+
     }
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void proSetLayoutIsVisible({
     @required BuildContext context,
     @required bool setTo,
@@ -510,6 +532,7 @@ class UiProvider extends ChangeNotifier {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool proGetLayoutIsVisible({
     @required BuildContext context,
     @required bool listen,
@@ -522,6 +545,7 @@ class UiProvider extends ChangeNotifier {
   /// WIPE OUT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -546,14 +570,17 @@ class UiProvider extends ChangeNotifier {
     /// _currentUserTab
     _uiProvider.setCurrentUserTab(userTab: UserTab.profile, notify: false);
     /// _flyerWidthFactor
-    _uiProvider._setFlyerWidthSizeFactor(widthFactor: 1,notify: true);
+    _uiProvider._setFlyerWidthSizeFactor(widthFactor: 1,notify: false);
 
+    _uiProvider._setLayoutIsVisible(setTo: true, notify: false);
+    _uiProvider._setPyramidsAreExpanded(setTo: false, notify: notify);
   }
   // -----------------------------------------------------------------------------
 }
-
+// -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 void triggerUILoading({
-  @required BuildContext context ,
+  @required BuildContext context,
   @required String callerName,
   bool listen = true,
 }){
@@ -563,7 +590,7 @@ void triggerUILoading({
     notify: true,
   );
 }
-
+  // --------------------
 /// TESTED : WORKS PERFECT
 bool localAssetExists({
   @required BuildContext context,
@@ -583,7 +610,7 @@ bool localAssetExists({
     return true;
   }
 }
-
+  // --------------------
 /// TESTED : WORKS PERFECT
 String getLocalAssetPath({
   @required BuildContext context,
@@ -598,3 +625,4 @@ String getLocalAssetPath({
 
   return _path;
 }
+// -----------------------------------------------------------------------------
