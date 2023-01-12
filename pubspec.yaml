@@ -122,6 +122,9 @@ dependencies:
   colorizer:
     git:
       url: https://github.com/RagehAz/colorizer.git
+  stringer:
+    git:
+      url: https://github.com/RagehAz/stringer.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:

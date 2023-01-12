@@ -793,7 +793,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fcbc91eb2feebf269de0eef5e5d31481541355ca
+      resolved-ref: "9387263b575fcfafc4ad212da153b742140aeb13"
       url: "https://github.com/RagehAz/mapper.git"
     source: git
     version: "0.0.2"
@@ -865,10 +865,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "08db5909c9170b989fd74dd981a79b3ca67a2169"
+      resolved-ref: "6240ae5b7f208859c618b8b385c4381bacebbb58"
       url: "https://github.com/RagehAz/numeric.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.2"
   package_info_plus:
     dependency: "direct main"
     description:
@@ -1061,7 +1061,7 @@ packages:
       name: sembast
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.3.1+1"
+    version: "3.4.0"
   share:
     dependency: "direct main"
     description:
@@ -1087,14 +1087,14 @@ packages:
       name: sqflite
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.3"
   sqflite_common:
     dependency: transitive
     description:
       name: sqflite_common
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.4.0+2"
+    version: "2.4.1"
   stack_trace:
     dependency: transitive
     description:
@@ -1130,6 +1130,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.1"
+  stringer:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "389e3be273a1bcea732a00fbb94b7b35d6344110"
+      url: "https://github.com/RagehAz/stringer.git"
+    source: git
+    version: "0.0.2"
   super_image:
     dependency: "direct main"
     description:

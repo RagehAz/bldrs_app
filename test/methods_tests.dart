@@ -12,7 +12,6 @@ import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -534,20 +533,6 @@ void main() {
     final bool _isURL = ObjectCheck.isAbsoluteURL(_thing);
 
     expect(_isURL, false);
-  });
-// -----------------------------------------------------------------------------
-  test('removeStringsFromStrings', () async {
-
-    const List<String> _source = <String>['wa7ed', 'etneen', 'talata', 'arba3a'];
-
-    const List<String> _toRemove = <String>['wa7ed', 'etneen'];
-
-    final List<String> _modified = Stringer.removeStringsFromStrings(
-        removeFrom: _source,
-        removeThis: _toRemove,
-    );
-
-    expect(_modified, <String>['talata', 'arba3a']);
   });
 // -----------------------------------------------------------------------------
   test('Mapper.chains Are the same', () {
