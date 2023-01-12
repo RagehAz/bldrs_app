@@ -7,7 +7,7 @@ import 'package:bldrs/e_back_end/c_real/widgets/real_coll_paginator.dart';
 import 'package:bldrs/e_back_end/c_real/widgets/real_coll_streamer.dart';
 import 'package:bldrs/e_back_end/c_real/widgets/real_doc_streamer.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:colorizer/colorizer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';

@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:colorizer/colorizer.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
