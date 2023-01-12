@@ -695,9 +695,18 @@ class Formers {
         final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
 
         if (_sizeLimitReached == true){
-          _message =  '${Verse.transBake(context, 'phid_file_size_should_be_less_than')} '
-                      '${Standards.maxFileSizeLimit} '
-                      '${Verse.transBake(context, 'phid_mb')}';
+
+          // _message =  '${Verse.transBake(context, 'phid_file_size_should_be_less_than')} '
+          //             '${Standards.maxFileSizeLimit} '
+          //             '${Verse.transBake(context, 'phid_mb')}';
+
+          _message = PDFModel.getSizeLine(
+                                  context: context,
+                                  size: pdfModel.sizeMB,
+                                  maxSize: Standards.maxFileSizeLimit,
+                                  sizeLimitReached: _sizeLimitReached,
+                                ).text;
+
         }
 
         else {
