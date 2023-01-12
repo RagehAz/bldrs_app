@@ -220,6 +220,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+    FlutterNativeSplash.remove();
     super.initState();
   }
   // --------------------
