@@ -6,8 +6,10 @@ import 'package:bldrs/b_views/i_phid_picker/app_bar_pick_phid_button/sections_bu
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 
@@ -36,7 +38,7 @@ class BldrsAppBar extends StatelessWidget {
     this.searchHintVerse,
     this.canGoBack,
     this.onSearchCancelled,
-    this.hide,
+    this.listenToHideLayout,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -57,7 +59,7 @@ class BldrsAppBar extends StatelessWidget {
   final bool canGoBack;
   final Function onSearchCancelled;
   final GlobalKey globalKey;
-  final ValueNotifier<bool> hide;
+  final bool listenToHideLayout;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context) {
     return Scale.screenWidth(context) - (2 * Ratioz.appBarMargin);
@@ -114,21 +116,21 @@ class BldrsAppBar extends StatelessWidget {
     );
 
     // --------------------
-    if (hide == null){
+    if (listenToHideLayout == false){
       return _theAppBar;
     }
 
     else {
-      return ValueListenableBuilder(
-        valueListenable: hide,
-        builder: (_, bool isHiding, Widget child) {
+      return Selector<UiProvider, bool>(
+        selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
+        builder: (_, bool isVisible, Widget child) {
 
-          blog('bldrs app bar isHiding: $isHiding');
+          blog('bldrs app bar isVisible: $isVisible');
 
           return IgnorePointer(
-            ignoring: isHiding,
+            ignoring: !isVisible,
             child: WidgetFader(
-              fadeType: isHiding == true ? FadeType.fadeOut : FadeType.fadeIn,
+              fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
               duration: const Duration(milliseconds: 300),
               child: child,
             ),

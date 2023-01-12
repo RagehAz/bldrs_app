@@ -34,10 +34,14 @@ Future<void> onZoomOutEnd() async {
 ZoomableGridController initializeBldrsZoomableGridController({
   @required BuildContext context,
   @required int columnsCount,
+  double gridWidth,
+  double gridHeight,
 }){
 
-  final double _screenWidth = UiProvider.proGetScreenDimensions(context: context, listen: false).width;
-  final double _screenHeight = UiProvider.proGetScreenDimensions(context: context, listen: false).height;
+  final double _screenWidth = gridWidth ?? UiProvider.proGetScreenDimensions(context: context,
+      listen: false).width;
+  final double _screenHeight = gridHeight ?? UiProvider.proGetScreenDimensions(context: context,
+      listen: false).height;
   // const double _spacingRatio = 0.0;
 
   final double _gridFlyerWidth = FlyerDim.flyerGridFlyerBoxWidth(
@@ -151,22 +155,16 @@ class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
 
         const Expander(),
 
-        ///2
+        /// 2
         AppBarButton(
           verse: Verse.plain('[ 2 ]'),
           onTap: () async {
 
-            final ZoomableGridController _controller = initializeBldrsZoomableGridController(
-              context: context,
-              columnsCount: 2,
-            );
-
             await Nav.goToNewScreen(
                 context: context,
-                screen: FlyersZoomedLayout(
-                    controller: _controller,
-                ),
+                screen: const FlyersZoomedLayout(),
             );
+
           },
         ),
 
@@ -175,17 +173,11 @@ class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
           verse: Verse.plain('[ 3 ]'),
           onTap: () async {
 
-            final ZoomableGridController _controller = initializeBldrsZoomableGridController(
-              context: context,
-              columnsCount: 3,
-            );
-
             await Nav.goToNewScreen(
                 context: context,
-                screen: FlyersZoomedLayout(
-                    controller: _controller,
-                ),
+                screen: const FlyersZoomedLayout(columnsCount: 3,),
             );
+
           },
         ),
 
@@ -194,17 +186,11 @@ class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
           verse: Verse.plain('[ 4 ]'),
           onTap: () async {
 
-            final ZoomableGridController _controller = initializeBldrsZoomableGridController(
-              context: context,
-              columnsCount: 4,
-            );
-
             await Nav.goToNewScreen(
                 context: context,
-                screen: FlyersZoomedLayout(
-                    controller: _controller,
-                ),
+                screen: const FlyersZoomedLayout(columnsCount: 4),
             );
+
           },
         ),
 

@@ -36,7 +36,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.onSearchCancelled,
     @required this.confirmButtonModel,
     @required this.globalKey,
-    @required this.hideLayout,
+    @required this.listenToHideLayout,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -64,7 +64,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool canGoBack;
   final Function onSearchCancelled;
   final ConfirmButtonModel confirmButtonModel;
-  final ValueNotifier<bool> hideLayout;
+  final bool listenToHideLayout;
   final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
@@ -150,7 +150,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             searchHintVerse: searchHintVerse,
             canGoBack: canGoBack,
             onSearchCancelled: onSearchCancelled,
-            hide: hideLayout,
+            listenToHideLayout: listenToHideLayout,
           ),
 
         /// --- PYRAMIDS
@@ -160,7 +160,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             pyramidType: _concludePyramidTypePerSkyType(),
             loading: loading,
             onPyramidTap: onPyramidTap,
-            hide: hideLayout,
+            listenToHideLayout: listenToHideLayout,
           ),
 
         if (confirmButtonModel != null)
