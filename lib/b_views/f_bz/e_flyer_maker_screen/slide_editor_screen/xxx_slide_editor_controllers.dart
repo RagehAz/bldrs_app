@@ -77,7 +77,9 @@ Future<void> onCropSlide({
   final Uint8List _bytes = await PicMaker.cropPic(
     context: context,
     bytes: draftNotifier.value.picModel.bytes,
-    aspectRatio: FlyerDim.flyerAspectRatio,
+    aspectRatio: FlyerDim.flyerAspectRatio(
+      forceMaxHeight: true,
+    ),
   );
 
   if (_bytes != null){

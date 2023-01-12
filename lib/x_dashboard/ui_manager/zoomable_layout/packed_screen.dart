@@ -64,7 +64,9 @@ ZoomableGridController initializeBldrsZoomableGridController({
     topPaddingOnZoomedIn: _topPaddingOnZoomIn, //Stratosphere.smallAppBarStratosphere - 10,
 
     smallItemWidth: _gridFlyerWidth,
-    smallItemHeight: _gridFlyerWidth * FlyerDim.xFlyerBoxHeightRatioToWidth,
+    smallItemHeight: _gridFlyerWidth * FlyerDim.flyerHeightRatioToWidth(
+      forceMaxRatio: false,
+    ),
 
     columnsCount: columnsCount,
     // spacingRatio: _spacingRatio,

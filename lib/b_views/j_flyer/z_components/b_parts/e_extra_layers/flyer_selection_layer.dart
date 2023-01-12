@@ -17,7 +17,10 @@ class FlyerSelectionLayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      forceMaxHeight: false,
+    );
     final BorderRadius _corners = FlyerDim.flyerCorners(context, flyerBoxWidth);
     final double _checkIconSize = FlyerDim.flyerBottomCornerValue(flyerBoxWidth) * 2;
     // --------------------

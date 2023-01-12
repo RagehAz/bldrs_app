@@ -37,7 +37,10 @@ class DraftShelfSlide extends StatefulWidget {
   static const double slideNumberBoxHeight = 20;
   // -----------------------------------------------------------------------------
   static double shelfSlideZoneHeight(BuildContext context){
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      forceMaxHeight: false,
+    );
     return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
   }
   // -----------------------------------------------------------------------------
@@ -67,7 +70,10 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, DraftShelfSlide.flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
+      forceMaxHeight: false,
+    );
     // blog('ShelfSlide : BUILDING : picSize : ${widget.draftSlide?.picModel?.bytes?.length} bytes');
 
     return Container(

@@ -39,6 +39,7 @@ class FlyerDeck extends StatelessWidget {
   final DraftFlyer draft;
   // -----------------------------------------------------------------------------
   static double concludeDeckWidth({
+    @required BuildContext context,
     @required int numberOfSlides,
     @required double deckHeight,
     @required double maxPossibleWidth,
@@ -46,7 +47,10 @@ class FlyerDeck extends StatelessWidget {
     @required double minSlideHeightFactor,
   }){
 
-    final double _biggestSlideWidth = FlyerDim.flyerWidthByFlyerHeight(deckHeight);
+    final double _biggestSlideWidth = FlyerDim.flyerWidthByFlyerHeight(
+      flyerBoxHeight: deckHeight,
+      forceMaxHeight: false,
+    );
 
     if (numberOfSlides == 0){
       return 0;
@@ -92,7 +96,10 @@ class FlyerDeck extends StatelessWidget {
 
     // blog('_scale : $_scale');
 
-    return FlyerDim.flyerWidthByFlyerHeight(_scale * maxSlideHeight);
+    return FlyerDim.flyerWidthByFlyerHeight(
+      flyerBoxHeight: _scale * maxSlideHeight,
+      forceMaxHeight: false,
+    );
   }
   // --------------------
   static double _getSumOfSlidesWidths({
@@ -353,6 +360,7 @@ class _TheDeck extends StatelessWidget {
     final int _slidesLength = flyerModel?.slides?.length ?? 0;
 
     final double _deckWidth = FlyerDeck.concludeDeckWidth(
+      context: context,
       numberOfSlides: _slidesLength,
       deckHeight: deckHeight,
       maxPossibleWidth: maxPossibleWidth,
@@ -396,7 +404,10 @@ class _TheDeck extends StatelessWidget {
               _index + 1 ==  _slidesLength?
               StaticFlyer(
                 flyerModel: flyerModel,
-                flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(deckHeight),
+                flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
+                  flyerBoxHeight: deckHeight,
+                  forceMaxHeight: false,
+                ),
                 bzModel: bzModel,
                 slideIndex: _index,
                 // flyerShadowIsOn: true,
@@ -409,7 +420,10 @@ class _TheDeck extends StatelessWidget {
 
               SingleSlide(
                 flyerBoxWidth: _flyerBoxWidth,
-                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth),
+                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+                  flyerBoxWidth: _flyerBoxWidth,
+                  forceMaxHeight: false,
+                ),
                 slideModel: flyerModel.slides[_reverseIndex],
                 tinyMode: false,
                 onSlideNextTap: null,

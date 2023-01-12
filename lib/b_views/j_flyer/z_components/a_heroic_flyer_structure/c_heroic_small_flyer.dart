@@ -140,7 +140,10 @@ class HeroicSmallFlyer extends StatelessWidget {
           duration: _duration,
           child: SingleSlide(
             flyerBoxWidth: flyerBoxWidth,
-            flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+            flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+              flyerBoxWidth: flyerBoxWidth,
+              forceMaxHeight: false,
+            ),
             slideModel: renderedFlyer?.slides?.first,
             tinyMode: false,
             onSlideNextTap: null,

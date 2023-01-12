@@ -15,7 +15,10 @@ class SlideShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _height = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final double _height = FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      forceMaxHeight: false,
+    );
 
     return IgnorePointer(
       child: SizedBox(

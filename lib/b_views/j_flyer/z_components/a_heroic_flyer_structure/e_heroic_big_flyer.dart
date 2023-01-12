@@ -572,7 +572,11 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
       // blog('H - BUILDING stful BigFlyer');
 
-      final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth);
+      final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+        flyerBoxWidth: widget.flyerBoxWidth,
+        forceMaxHeight: false,
+      );
+
       final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
 
       return ValueListenableBuilder(
