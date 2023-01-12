@@ -18,13 +18,16 @@ import 'package:flutter/material.dart';
 /// FLYERS
 
 // --------------------
-/// SEARCH FLYERS BY AREA AND FLYER TYPE
+///
 Future<List<FlyerModel>> flyersByZoneAndFlyerType({
   @required ZoneModel zone,
   @required FlyerType flyerType,
   bool addDocsIDs = false,
   bool addDocSnapshotToEachMap = false,
 }) async {
+
+  /// NOTE : SEARCH FLYERS BY AREA AND FLYER TYPE
+
   List<FlyerModel> _flyers = <FlyerModel>[];
 
   await tryAndCatch(
@@ -56,6 +59,7 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
   return _flyers;
 }
 // --------------------
+///
 Future<List<FlyerModel>> flyersByZoneAndKeywordID({
   @required ZoneModel zone,
   @required String keywordID,
@@ -96,10 +100,11 @@ Future<List<FlyerModel>> flyersByZoneAndKeywordID({
   return _flyers;
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<List<FlyerModel>> flyersByZoneAndTitle({
-  @required ZoneModel zone,
   @required String title,
   @required QueryDocumentSnapshot<Object> startAfter,
+  ZoneModel zone,
   bool addDocsIDs = false,
   int limit = 6,
 }) async {
@@ -111,6 +116,7 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
     limit: limit,
     startAfter: startAfter,
     finders: <FireFinder>[
+
       FireFinder(
           field: 'trigram',
           comparison: FireComparison.arrayContains,
@@ -119,11 +125,15 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
             numberOfChars: Standards.maxTrigramLength,
           )
       ),
+
+      if (zone?.countryID != null)
       FireFinder(
         field: 'zone.countryID',
         comparison: FireComparison.equalTo,
         value: zone.countryID,
       ),
+
+      if (zone?.countryID != null && zone?.cityID != null)
       FireFinder(
         field: 'zone.cityID',
         comparison: FireComparison.equalTo,
@@ -145,6 +155,7 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
 /// FLYER PROMOTION
 
 // --------------------
+///
 Future<List<FlyerPromotion>> flyerPromotionsByCity({
   @required String cityID,
   // @required List<String> districts,

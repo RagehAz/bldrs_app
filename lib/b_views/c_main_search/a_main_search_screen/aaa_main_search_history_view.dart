@@ -14,15 +14,17 @@ class SearchHistoryView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const SearchHistoryView({
     @required this.scrollController,
+    @required this.searchController,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final ScrollController scrollController;
+  final TextEditingController searchController;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
+    final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: true);
     final List<RecordModel> _searchRecords = _searchProvider.searchRecords;
     // --------------------
     _searchRecords.sort((RecordModel a, RecordModel b){
@@ -61,6 +63,7 @@ class SearchHistoryView extends StatelessWidget {
                   onTap: () => onSearchRecordTap(
                     context: context,
                     record: _searchRecord,
+                    searchController: searchController,
                   ),
                 ),
 
