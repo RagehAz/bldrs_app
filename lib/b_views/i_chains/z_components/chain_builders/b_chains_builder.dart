@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

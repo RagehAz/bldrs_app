@@ -5,7 +5,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';

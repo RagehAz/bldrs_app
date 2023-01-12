@@ -4,8 +4,8 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 

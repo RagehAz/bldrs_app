@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shel
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:scale/scale.dart';
 

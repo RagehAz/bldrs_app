@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.da
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
 

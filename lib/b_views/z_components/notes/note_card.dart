@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';

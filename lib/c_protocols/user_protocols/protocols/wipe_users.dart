@@ -18,7 +18,7 @@ import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

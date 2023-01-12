@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 

@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 
 

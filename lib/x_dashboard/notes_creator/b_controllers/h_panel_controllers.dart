@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';

@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

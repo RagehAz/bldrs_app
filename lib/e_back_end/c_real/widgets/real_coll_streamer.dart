@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 
 class RealCollStreamer extends StatelessWidget {
   /// --------------------------------------------------------------------------

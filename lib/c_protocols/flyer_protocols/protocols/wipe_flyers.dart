@@ -17,7 +17,7 @@ import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

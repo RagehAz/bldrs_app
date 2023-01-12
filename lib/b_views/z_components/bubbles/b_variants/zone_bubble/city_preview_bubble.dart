@@ -8,7 +8,8 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/zone_name_line.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -43,8 +44,8 @@ class CityPreviewBubble extends StatelessWidget {
       flags: allFlags,
       countryID: _countryID,
     );
-    final String _countryPop = Numeric.formatNumToCounterCaliber(context, _flag?.population);
-    final String _cityPop = Numeric.formatNumToCounterCaliber(context, cityModel?.population);
+    final String _countryPop = counterCaliber(context, _flag?.population);
+    final String _cityPop = counterCaliber(context, cityModel?.population);
     final String _percentage = Numeric.formatNumToSeparatedKilos(
       number: (cityModel?.population?? 0 / _flag?.population ?? 0) * 100,
       fractions: 1,

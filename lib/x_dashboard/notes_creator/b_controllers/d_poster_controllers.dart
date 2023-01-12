@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_scree
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';

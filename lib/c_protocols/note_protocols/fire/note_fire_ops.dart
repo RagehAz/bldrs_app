@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 

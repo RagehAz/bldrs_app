@@ -14,8 +14,8 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';

@@ -2,8 +2,8 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';

@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

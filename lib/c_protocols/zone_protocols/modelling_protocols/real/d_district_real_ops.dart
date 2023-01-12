@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

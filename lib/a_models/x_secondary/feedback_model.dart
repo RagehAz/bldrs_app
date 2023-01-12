@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:flutter/foundation.dart';
 

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';

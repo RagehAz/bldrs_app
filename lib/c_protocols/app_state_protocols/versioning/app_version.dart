@@ -1,6 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
