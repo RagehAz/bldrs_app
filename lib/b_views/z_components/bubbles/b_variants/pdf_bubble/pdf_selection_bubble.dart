@@ -15,7 +15,6 @@ import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +104,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
           final bool _bytesExist = pdfModel?.bytes != null;
           final bool _pathExists = pdfModel?.path != null;
-          final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
+          // final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
           // final String _fileName = pdf?.fileName;
 
           return Bubble(
@@ -162,20 +161,20 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       titleScaleFactor: 0.9,
                     ),
 
-                    /// SIZE
-                    if (pdfModel.sizeMB != null)
-                    SuperVerse(
-                      verse: PDFModel.getSizeLine(
-                        context: context,
-                        size: pdfModel.sizeMB,
-                        maxSize: Standards.maxFileSizeLimit,
-                        sizeLimitReached: _sizeLimitReached,
-                      ),
-                      italic: true,
-                      color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
-                      weight: VerseWeight.thin,
-                      scaleFactor: 0.9,
-                    ),
+                    // /// SIZE
+                    // if (pdfModel.sizeMB != null)
+                    // SuperVerse(
+                    //   verse: PDFModel.getSizeLine(
+                    //     context: context,
+                    //     size: pdfModel.sizeMB,
+                    //     maxSize: Standards.maxFileSizeLimit,
+                    //     sizeLimitReached: _sizeLimitReached,
+                    //   ),
+                    //   italic: true,
+                    //   color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
+                    //   weight: VerseWeight.thin,
+                    //   scaleFactor: 0.9,
+                    // ),
 
                     /// LOADING
                     if (pdfModel.sizeMB == null)

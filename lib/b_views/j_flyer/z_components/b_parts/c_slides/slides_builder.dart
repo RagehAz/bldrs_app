@@ -135,6 +135,7 @@ class SlidesBuilder extends StatelessWidget {
                 flyerModel: flyerModel,
                 bzModel: flyerModel.bzModel,
                 heroTag: heroTag,
+                onMaxBounce: onHorizontalExit,
               );
             }
 
