@@ -40,7 +40,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // --------------------
   /// KEYBOARD VISIBILITY
@@ -110,7 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _keyboardSubscription.cancel();
     _userNotesStreamSub?.cancel();
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
-    _isExpanded.dispose();
     _progressBarModel.dispose();
     super.dispose();
   }
@@ -144,21 +142,6 @@ class _HomeScreenState extends State<HomeScreen> {
       _userNotesStreamSub = listenToUserUnseenNotes(context);
       _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes(context);
     }
-  }
-  // -----------------------------------------------------------------------------
-
-  /// PYRAMID EXPANSION
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void onTriggerExpansion(){
-
-    setNotifier(
-        notifier: _isExpanded,
-        mounted: mounted,
-        value: !_isExpanded.value,
-    );
-
   }
   // -----------------------------------------------------------------------------
   @override
@@ -230,16 +213,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             /// PYRAMIDS NAVIGATOR
-            /// PLAN : SHOULD LISTEN TO NAV MODELS IN A PROVIDER,, AND SHOULD PUT THE SELECTOR DEEPTER INSIDE SUPER PYRAMIDS
             SuperPyramids(
-              isExpanded: _isExpanded,
-              onExpansion: onTriggerExpansion,
               onRowTap: (int index) => onNavigate(
                 context: context,
                 index: index,
                 models: _navModels,
                 progressBarModel: _progressBarModel,
-                isExpanded: _isExpanded,
                 mounted: mounted,
               ),
               progressBarModel: _progressBarModel,

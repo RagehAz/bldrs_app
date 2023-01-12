@@ -3,7 +3,9 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_icons_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verses_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:mapper/mapper.dart';
+import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:flutter/material.dart';
@@ -12,16 +14,12 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 class Obelisk extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Obelisk({
-    @required this.isExpanded,
-    @required this.onTriggerExpansion,
     @required this.onRowTap,
     @required this.progressBarModel,
     @required this.navModels,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> isExpanded;
-  final Function onTriggerExpansion;
   final ValueChanged<int> onRowTap;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final List<NavModel> navModels;
@@ -153,8 +151,18 @@ class Obelisk extends StatelessWidget {
       key: const ValueKey<String>('Obelisk'),
       left: Ratioz.appBarMargin,
       bottom: Ratioz.appBarMargin,
-      child: ValueListenableBuilder(
-        valueListenable: isExpanded,
+      child: Selector<UiProvider, bool>(
+        selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
+        builder: (_, bool expanded, Widget child) {
+
+          final bool _ignore = expanded == null || expanded == true ? false : true;
+
+          return IgnorePointer(
+            ignoring: _ignore,
+            child: child,
+          );
+
+        },
         child: SizedBox(
           height: getMaxHeight(context),
           // color: Colorz.bloodTest,
@@ -169,7 +177,6 @@ class Obelisk extends StatelessWidget {
                 /// ICONS
                 if (TextDir.checkAppIsLeftToRight(context) == true)
                   ObeliskIconsBuilder(
-                    isExpanded: isExpanded,
                     navModels: navModels,
                     progressBarModel: progressBarModel,
                     onRowTap: onRowTap,
@@ -177,7 +184,6 @@ class Obelisk extends StatelessWidget {
 
                 /// TEXTS
                 ObeliskVersesBuilder(
-                  isExpanded: isExpanded,
                   navModels: navModels,
                   progressBarModel: progressBarModel,
                   onRowTap: onRowTap,
@@ -186,7 +192,6 @@ class Obelisk extends StatelessWidget {
                 /// ICONS
                 if (TextDir.checkAppIsLeftToRight(context) == false)
                   ObeliskIconsBuilder(
-                    isExpanded: isExpanded,
                     navModels: navModels,
                     progressBarModel: progressBarModel,
                     onRowTap: onRowTap,
@@ -196,16 +201,6 @@ class Obelisk extends StatelessWidget {
             ),
           ),
         ),
-        builder: (_, bool expanded, Widget child){
-
-          final bool _ignore = expanded == null || expanded == true ? false : true;
-
-          return IgnorePointer(
-            ignoring: _ignore,
-            child: child,
-          );
-
-        },
       ),
     );
 

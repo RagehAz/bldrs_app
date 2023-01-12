@@ -10,17 +10,13 @@ class SuperPyramids extends StatelessWidget {
   const SuperPyramids({
     @required this.progressBarModel,
     @required this.onRowTap,
-    @required this.onExpansion,
-    @required this.isExpanded,
     @required this.navModels,
     @required this.mounted,
     this.isYellow = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> isExpanded;
   final ValueNotifier<ProgressBarModel> progressBarModel;
-  final Function onExpansion;
   final ValueChanged<int> onRowTap;
   final List<NavModel> navModels;
   final bool isYellow;
@@ -34,14 +30,10 @@ class SuperPyramids extends StatelessWidget {
       children: <Widget>[
 
         /// SINGLE PYRAMID
-        ObeliskExpandingPyramid(
-          isExpanded: isExpanded,
-        ),
+        const ObeliskExpandingPyramid(),
 
         /// OBELISK
         Obelisk(
-          isExpanded: isExpanded,
-          onTriggerExpansion: onExpansion,
           onRowTap: onRowTap,
           progressBarModel: progressBarModel,
           navModels: navModels,
@@ -49,7 +41,6 @@ class SuperPyramids extends StatelessWidget {
 
         /// PYRAMIDS
         ObeliskPyramids(
-          isExpanded: isExpanded,
           isYellow: isYellow,
           mounted: mounted,
         ),
