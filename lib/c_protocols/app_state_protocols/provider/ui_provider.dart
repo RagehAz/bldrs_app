@@ -20,7 +20,7 @@ enum SearchingModel{
 class UiProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
 
-  /// --- SCREEN DIMENSIONS
+  /// SCREEN DIMENSIONS
 
   // --------------------
   Dimensions _screenDims;
@@ -64,7 +64,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- LOCAL ASSETS
+  /// LOCAL ASSETS
 
   // --------------------
   List<String> _localAssetsPaths = <String>[];
@@ -105,7 +105,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- AFTER HOME ROUTE
+  /// AFTER HOME ROUTE
 
   // --------------------
   RouteSettings _afterHomeRoute;
@@ -168,7 +168,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- LOADING
+  /// LOADING
 
   // --------------------
   bool _loading = false;
@@ -226,7 +226,7 @@ class UiProvider extends ChangeNotifier {
    */
   // -----------------------------------------------------------------------------
 
-  /// --- KEYBOARD
+  /// KEYBOARD
 
   // --------------------
   bool _keyboardIsOn = false;
@@ -258,7 +258,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- TEXT FIELD OBSCURED
+  /// TEXT FIELD OBSCURED
 
   // --------------------
   void startController(Function controllerMethod) {
@@ -274,7 +274,7 @@ class UiProvider extends ChangeNotifier {
   Future<void> _start() async {}
   // -----------------------------------------------------------------------------
 
-  /// --- TEXT FIELD OBSCURED
+  /// TEXT FIELD OBSCURED
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -308,7 +308,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- SAVED FLYERS TAB CURRENT FLYER TYPE
+  /// SAVED FLYERS TAB CURRENT FLYER TYPE
 
   // --------------------
   FlyerType _currentSavedFlyerTypeTab = FlyerType.general;
@@ -329,7 +329,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- MY BZ SCREEN CURRENT TAB
+  /// MY BZ SCREEN CURRENT TAB
 
   // --------------------
   BzTab _currentBzTab = BzTab.flyers;
@@ -349,7 +349,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- USER SCREEN CURRENT TAB
+  /// USER SCREEN CURRENT TAB
 
   // --------------------
   UserTab _currentUserTab = UserTab.profile;
@@ -369,7 +369,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- FLYER TWEEN
+  /// FLYER TWEEN
 
   // --------------------
   double _flyerWidthFactor = 1;
@@ -423,7 +423,7 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// --- TOP DIALOG KEY
+  /// TOP DIALOG KEY
 
   // --------------------
   final GlobalKey _topDialogKey = GlobalKey();
@@ -436,6 +436,86 @@ class UiProvider extends ChangeNotifier {
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.topDialogKey;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PYRAMID IS EXPANDED
+
+  // --------------------
+  bool _pyramidsAreExpanded = false;
+  bool get pyramidsAreExpanded => _pyramidsAreExpanded;
+  // --------------------
+  void _setPyramidsAreExpanded({
+    @required bool setTo,
+    @required bool notify,
+  }){
+
+    _pyramidsAreExpanded = setTo;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  static void proSetPyramidsAreExpanded({
+    @required BuildContext context,
+    @required bool setTo,
+    @required bool notify,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider._setPyramidsAreExpanded(
+        setTo: setTo,
+        notify: notify,
+    );
+  }
+  // --------------------
+  static bool proGetPyramidsAreExpanded({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    return _uiProvider.pyramidsAreExpanded;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// LAYOUT IS VISIBLE
+
+  // --------------------
+  bool _layoutIsVisible = true;
+  bool get layoutIsVisible => _layoutIsVisible;
+  // --------------------
+  void _setLayoutIsVisible({
+    @required bool setTo,
+    @required bool notify,
+  }){
+
+    _layoutIsVisible = setTo;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  static void proSetLayoutIsVisible({
+    @required BuildContext context,
+    @required bool setTo,
+    @required bool notify,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider._setLayoutIsVisible(
+        setTo: setTo,
+        notify: notify,
+    );
+  }
+  // --------------------
+  static bool proGetLayoutIsVisible({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    return _uiProvider.layoutIsVisible;
   }
   // -----------------------------------------------------------------------------
 
