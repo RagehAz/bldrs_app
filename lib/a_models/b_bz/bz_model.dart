@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/alert_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
 import 'package:flutter/material.dart';

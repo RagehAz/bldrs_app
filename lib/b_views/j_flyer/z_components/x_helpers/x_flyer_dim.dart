@@ -65,7 +65,7 @@ class FlyerDim {
           );
   }
   // ---------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static double flyerHeightRatioToWidth({
     @required bool forceMaxRatio,
   }){
@@ -146,6 +146,7 @@ class FlyerDim {
   }
 
   // ---------
+  /// TESTED : WORKS PERFECT
   static double flyerAspectRatio({
     @required bool forceMaxHeight,
   }){

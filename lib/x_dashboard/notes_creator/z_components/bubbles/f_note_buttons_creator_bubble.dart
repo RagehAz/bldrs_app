@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_b
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:stringer/stringer.dart';
 
 
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/g_buttons_controller.dart';

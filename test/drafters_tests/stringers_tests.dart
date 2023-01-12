@@ -1,5 +1,5 @@
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:stringer/stringer.dart';
 
 void main(){
   // -----------------------------------------------------------------------------

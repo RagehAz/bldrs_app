@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/district_tile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
