@@ -26,7 +26,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -35,8 +34,6 @@ Future<void> initializeLogoScreen({
   @required BuildContext context,
   @required bool mounted,
 }) async {
-
-  FlutterNativeSplash.remove();
 
   // blog('1 - initializeLogoScreen : START');
 
