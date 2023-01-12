@@ -129,7 +129,18 @@ class _StreamingTestState extends State<StreamingTest> {
               onDataChanged: onDataChanged,
               builder: (_, Map<String, dynamic> map){
 
-                return WideButton(
+                if (map == null){
+                  return ColorButton(
+                    map: {
+                      'id' : Numeric.createUniqueID().toString(),
+                      'time' : Timers.cipherTime(time: DateTime.now(), toJSON: false),
+                      'color' : Colorizer.cipherColor(Colorizer.createRandomColor()),
+                    },
+                  );
+                }
+
+                else {
+                   return WideButton(
                   verse: Verse.plain('Add Data'),
                   color: Colorizer.decipherColor(map['color']),
                   onTap: () async {
@@ -138,7 +149,7 @@ class _StreamingTestState extends State<StreamingTest> {
                       collName: 'testing',
                       input: {
                         'time' : Timers.cipherTime(time: DateTime.now(), toJSON: false),
-                        'id' : Numeric.createUniqueID(),
+                        'id' : Numeric.createUniqueID().toString(),
                         'color' : Colorizer.cipherColor(Colorizer.createRandomColor()),
                       },
                     );
@@ -147,6 +158,8 @@ class _StreamingTestState extends State<StreamingTest> {
 
                   },
                 );
+                }
+
 
               }
           ),
@@ -236,6 +249,8 @@ class ColorButton extends StatelessWidget {
           fromJSON: mapIsFromJSON,
       ),
       builder: (int seconds, Widget child){
+
+        blog('the time is : $seconds');
 
         final DateTime _time = Timers.createClockFromSeconds(seconds);
         final String _mmss = Timers.generateString_hh_i_mm_i_ss(_time);
