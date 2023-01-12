@@ -318,16 +318,22 @@ class RecordModel {
     @required RecordModel record,
   }){
 
-    final bool _recordsContainRecord = recordsContainRecord(
-      records: records,
-      record: record,
-    );
+    final List<RecordModel> _output = <RecordModel>[...?records];
 
-    if (_recordsContainRecord == false){
-      records.add(record);
+    if (Mapper.checkCanLoopList(_output) == true){
+
+      final bool _recordsContainRecord = recordsContainRecord(
+        records: _output,
+        record: record,
+      );
+
+      if (_recordsContainRecord == false){
+        _output.add(record);
+      }
+
     }
 
-    return records;
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
