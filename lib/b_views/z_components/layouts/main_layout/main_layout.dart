@@ -203,6 +203,7 @@ class MainLayout extends StatelessWidget {
       child: GestureDetector(
         onTap: (){
 
+          UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
           Keyboard.closeKeyboard(context);
 
         },
