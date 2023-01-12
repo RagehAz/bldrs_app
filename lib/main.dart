@@ -84,7 +84,7 @@ git remote remove origin
  4. clean lib file
  5. clean tests file
  6. create package files - move code - do magic
- 7. adjust pubscpec.yaml
+ 7. adjust pubspec.yaml
    - description
    - environment: sdk: ">=2.10.5 <3.0.0"
    - homepage
