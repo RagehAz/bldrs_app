@@ -23,7 +23,10 @@ class FlyerSlidesShelf extends StatelessWidget {
     // --------------------
     final double _screenWidth = shelfWidth ?? Scale.screenWidth(context);
     final double _flyerBoxHeight = shelfHeight;
-    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight);
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(
+      flyerBoxHeight: _flyerBoxHeight,
+      forceMaxHeight: false,
+    );
     // --------------------
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),

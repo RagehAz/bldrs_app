@@ -100,7 +100,10 @@ class SlideTransformer extends StatelessWidget {
 
             return SuperFilteredImage(
               width: flyerBoxWidth,
-              height: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+              height: FlyerDim.flyerHeightByFlyerWidth(
+                flyerBoxWidth: flyerBoxWidth,
+                forceMaxHeight: false,
+              ),
               pic: slide.picModel.bytes,
               filterModel: _filterModel,
               boxFit: slide.picFit,

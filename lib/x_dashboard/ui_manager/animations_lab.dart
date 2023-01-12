@@ -220,12 +220,18 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
               matrix: getMatrix(normal: false),
               child: Container(
                 width: 100,
-                height: FlyerDim.flyerHeightByFlyerWidth(context, 100),
+                height: FlyerDim.flyerHeightByFlyerWidth(
+                  flyerBoxWidth: 100,
+                  forceMaxHeight: false,
+                ),
                 color: Colorz.bloodTest,
                 alignment: Alignment.center,
                 child: OldSuperImage(
                   width: 100,
-                  height: FlyerDim.flyerHeightByFlyerWidth(context, 100),
+                  height: FlyerDim.flyerHeightByFlyerWidth(
+                    flyerBoxWidth: 100,
+                    forceMaxHeight: false,
+                  ),
                   fit: BoxFit.fitWidth,
                   pic: Iconz.dvRageh,
                 ),

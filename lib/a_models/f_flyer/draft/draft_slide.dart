@@ -125,7 +125,11 @@ class DraftSlide {
           picWidth: _dimensions.width,
           picHeight: _dimensions.height,
           viewWidth: FlyerDim.flyerWidthByFactor(context, 1),
-          viewHeight: FlyerDim.heightBySizeFactor(context: context, flyerSizeFactor: 1),
+          viewHeight: FlyerDim.heightBySizeFactor(
+            context: context,
+            flyerSizeFactor: 1,
+            forceMaxHeight: false,
+          ),
         ),
         matrix: Matrix4.identity(),
         filter: ImageFilterModel.noFilter(),

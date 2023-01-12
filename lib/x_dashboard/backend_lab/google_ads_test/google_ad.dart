@@ -215,7 +215,10 @@ class GoogleAdSlideBanner extends StatelessWidget {
     return GoogleAd(
       adSize: AdSize(
         width: _slideWidth.toInt(),
-        height: FlyerDim.flyerHeightByFlyerWidth(context, _slideWidth).toInt(),
+        height: FlyerDim.flyerHeightByFlyerWidth(
+          flyerBoxWidth: _slideWidth,
+          forceMaxHeight: false,
+        ).toInt(),
       ),
       stretchToWidth: _slideWidth,
       scale: 1.08,

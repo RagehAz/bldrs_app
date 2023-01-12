@@ -150,8 +150,10 @@ class _GallerySlideState extends State<GallerySlide> {
   @override
   Widget build(BuildContext context) {
 
-    final double _headerAndProgressHeights =
-    FlyerDim.headerSlateAndProgressHeights(context, widget.flyerBoxWidth);
+    final double _headerAndProgressHeights = FlyerDim.headerSlateAndProgressHeights(
+      flyerBoxWidth: widget.flyerBoxWidth,
+      forceMaxHeight: false,
+    );
 
     return ClipRRect(
       key: const ValueKey<String>('Gallery_slide_of_Flyer'),
@@ -184,7 +186,10 @@ class _GallerySlideState extends State<GallerySlide> {
                   });
                 }
               },
-              boxDistance: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+              boxDistance: FlyerDim.flyerHeightByFlyerWidth(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                forceMaxHeight: false,
+              ),
               // numberOfScreens: 2,
               slideLimitRatio: 0.1,
               child: FlyersGrid(
