@@ -242,7 +242,10 @@ class SearchProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    final List<RecordModel> _recs = RecordModel.insertRecordToRecords(records: _searchRecords, record: record);
+    final List<RecordModel> _recs = RecordModel.insertRecordToRecords(
+        records: _searchRecords,
+        record: record,
+    );
     _searchRecords = _recs;
 
     if (notify == true){
