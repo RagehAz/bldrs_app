@@ -95,7 +95,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> _onSearchSubmit(String searchText) async {
 
     await controlOnSearchSubmit(
@@ -107,7 +107,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   void _onSearchChanged(String searchText){
 
     controlOnSearchChange(
@@ -167,7 +167,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
       onSearchChanged: _onSearchChanged,
       onBack: () async {
 
-        _searchProvider.clearSearchRecords(notify: false);
+        // _searchProvider.clearSearchRecords(notify: false);
         _searchProvider.clearSearchResult(notify: false);
         _searchProvider.triggerIsSearching(
           searchingModel: SearchingModel.flyersAndBzz,
@@ -186,8 +186,14 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
         );
 
       },
+      onSearchCancelled: (){
+        _searchController.text = '';
+        _searchProvider.clearSearchResult(notify: false);
+        _searchProvider.closeAllSearches(notify: true);
+      },
       child: SearchScreenView(
         scrollController: _scrollController,
+        searchController: _searchController,
       ),
 
     );

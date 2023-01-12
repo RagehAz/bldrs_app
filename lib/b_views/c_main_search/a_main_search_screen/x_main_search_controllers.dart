@@ -131,14 +131,18 @@ void controlOnSearchChange({
 
 }
 // --------------------
+///
 Future<void> onSearchRecordTap({
   @required BuildContext context,
   @required RecordModel record,
+  @required TextEditingController searchController,
 }) async {
 
   final String _recordText = record?.recordDetails.toString();
 
   if (_recordText != null){
+
+    searchController.text = _recordText;
 
     await controlOnSearchSubmit(
       context: context,
@@ -196,7 +200,7 @@ Future<List<SearchResult>> _searchKeywords({
   return _results;
 }
 // --------------------
-/// TESTED : WORKS PERECT
+/// TESTED : WORKS PERFECT
 Future<List<SearchResult>> _searchBzz({
   @required BuildContext context,
   @required String searchText,
@@ -233,6 +237,7 @@ Future<List<SearchResult>> _searchBzz({
   return _results;
 }
 // --------------------
+///
 Future<List<SearchResult>> _searchAuthors({
   @required BuildContext context,
   @required String searchText,
@@ -284,19 +289,19 @@ Future<List<SearchResult>> _searchAuthors({
   return _results;
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<List<SearchResult>> _searchFlyersByTitle({
   @required BuildContext context,
   @required String searchText,
   @required QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
   final List<SearchResult> _results = <SearchResult>[];
 
   final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndTitle(
-    zone: _zoneProvider.currentZone,
+    // zone: _zoneProvider.currentZone,
     title: searchText,
     startAfter: startAfter,
   );
