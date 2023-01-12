@@ -198,7 +198,10 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     //--------------------------------o
     _headerHeightTween = Animators.animateDouble(
       begin: _minHeaderHeight,
-      end: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+      end: FlyerDim.flyerHeightByFlyerWidth(
+        flyerBoxWidth: widget.flyerBoxWidth,
+        forceMaxHeight: false,
+      ),
       controller: widget.headerAnimationController,
     );
     // -----------------------------------------------------------------------
@@ -250,7 +253,10 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
             },
             // isOn: _canBounce,
-            boxDistance: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+            boxDistance: FlyerDim.flyerHeightByFlyerWidth(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              forceMaxHeight: false,
+            ),
             // numberOfScreens: 2,
             slideLimitRatio: 0.1,
             child: SingleChildScrollView(

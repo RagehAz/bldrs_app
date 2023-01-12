@@ -951,7 +951,10 @@ class Dialogs {
         child: AbsorbPointer(
           child: HeroicFlyer(
             flyerModel: flyer,
-            flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight),
+            flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
+              flyerBoxHeight: _flyerBoxHeight,
+              forceMaxHeight: false,
+            ),
             screenName: 'flyerDialogGrid',
           ),
         ),

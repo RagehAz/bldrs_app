@@ -246,7 +246,10 @@ class _LightSmallFlyerState extends State<LightSmallFlyer> {
             SingleSlide(
               key: const ValueKey<String>('SingleSlideImagePart'),
               flyerBoxWidth: widget.flyerBoxWidth,
-              flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+              flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                forceMaxHeight: false,
+              ),
               tinyMode: true,
               slideModel: _flyerModel?.slides?.first,
               onSlideBackTap: () {
