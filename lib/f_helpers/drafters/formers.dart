@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:colorizer/colorizer.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
