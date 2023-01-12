@@ -125,6 +125,10 @@ dependencies:
   stringer:
     git:
       url: https://github.com/RagehAz/stringer.git
+  # clock_rebuilder is only used in streaming test screen, so delete on release
+  clock_rebuilder:
+    git:
+      url: https://github.com/RagehAz/clock_rebuilder.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:
