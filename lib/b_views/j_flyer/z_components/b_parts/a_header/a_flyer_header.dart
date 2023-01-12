@@ -252,6 +252,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
             // isOn: _canBounce,
             boxDistance: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
             // numberOfScreens: 2,
+            slideLimitRatio: 0.1,
             child: SingleChildScrollView(
               physics: widget.tinyMode == true || widget.headerIsExpanded.value  == false ?
               const NeverScrollableScrollPhysics()

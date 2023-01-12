@@ -78,10 +78,11 @@ class Scrollers {
     @required bool goesBackOnly,
     @required Axis axis,
     int numberOfBoxes = 2,
+    double slideLimitRatio = 0.2,
   }) {
 
     final double _offset = details.metrics.pixels;
-    const double _limitRatio = 0.2;
+    final double _limitRatio = slideLimitRatio;
     final double _backLimit = boxDistance * _limitRatio * (-1);
     final double _nextLimit = (boxDistance * (numberOfBoxes - 1)) + (_backLimit * (-1));
 
