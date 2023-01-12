@@ -129,6 +129,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.1"
+  clock_rebuilder:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a578b106f73b0400d01d5a40d58cbba5b92c50b7
+      url: "https://github.com/RagehAz/clock_rebuilder.git"
+    source: git
+    version: "0.0.1"
   cloud_firestore:
     dependency: "direct main"
     description:
