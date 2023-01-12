@@ -113,6 +113,12 @@ dependencies:
   scale:
     git:
       url: https://github.com/RagehAz/scale.git
+  mapper:
+    git:
+      url: https://github.com/RagehAz/mapper.git
+  numeric:
+    git:
+      url: https://github.com/RagehAz/numeric.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:

@@ -6,7 +6,7 @@
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/borderers.dart';
-// import 'package:bldrs/f_helpers/drafters/numeric.dart';
+// import 'package:numeric/numeric.dart';
 // import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 // import 'package:scale/scale.dart';
 // import 'package:bldrs/f_helpers/drafters/tracers.dart';

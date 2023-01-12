@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/d_user/z_components/user_tile_button.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class FlyerVerses {
     final int _count = count ?? 0;
     if (_count >= 1000){
       _output = Verse(
-        text: Numeric.formatNumToCounterCaliber(context, _count),
+        text: counterCaliber(context, _count),
         translate: false,
       );
     }
@@ -83,7 +83,7 @@ class FlyerVerses {
     @required bool showLabel,
   }){
 
-      final String _galleryCountCalibrated = Numeric.formatNumToCounterCaliber(context, bzGalleryCount);
+      final String _galleryCountCalibrated = counterCaliber(context, bzGalleryCount);
 
       final String _followersCounter =
           (authorGalleryCount == 0 && followersCount == 0)
@@ -96,7 +96,7 @@ class FlyerVerses {
           '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
           '${xPhrase( context, 'phid_flyers')}'
           :
-          '${Numeric.formatNumToCounterCaliber(context, followersCount)} '
+          '${counterCaliber(context, followersCount)} '
           '${xPhrase( context, 'phid_followers')} . '
           '$_galleryCountCalibrated '
           '${xPhrase( context, 'phid_flyers')}';

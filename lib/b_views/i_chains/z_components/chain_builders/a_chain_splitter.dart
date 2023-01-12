@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 

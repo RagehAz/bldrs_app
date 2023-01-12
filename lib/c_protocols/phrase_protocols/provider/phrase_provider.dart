@@ -7,12 +7,13 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
 
 // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -417,3 +418,12 @@ String phidIcon(BuildContext context, dynamic icon){
 //-------------------------------------
 /// ----------------------------------------------------------------------------------------
 /// ----------------------------------------------------------------------------------------
+
+String counterCaliber(BuildContext context, int x){
+  return Numeric.formatNumToCounterCaliber(
+    context: context,
+    x: x,
+    thousand: xPhrase(context, 'phid_thousand'),
+    million: xPhrase(context, 'phid_million'),
+  );
+}

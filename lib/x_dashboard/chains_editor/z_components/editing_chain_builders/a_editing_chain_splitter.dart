@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 
 import 'package:bldrs/x_dashboard/chains_editor/z_components/editing_chain_builders/c_editing_chain_builder.dart';
