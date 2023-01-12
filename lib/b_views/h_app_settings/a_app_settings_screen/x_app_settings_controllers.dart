@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/c_about_bldrs_screen/c_about_bldrs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/d_feedback_screen/d_feedback_screen.dart';
-import 'package:bldrs/b_views/h_app_settings/e_terms_screen/e_terms_screen.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
@@ -61,11 +59,15 @@ Future<void> onFeedbackTap(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onTermsAndRegulationsTap(BuildContext context) async {
-  await Nav.goToNewScreen(
-    context: context,
-    pageTransitionType: PageTransitionType.fade,
-    screen: const TermsScreen(),
-  );
+
+  await Launcher.launchURL('https://www.bldrs.net/#/terms');
+
+  // await Nav.goToNewScreen(
+  //   context: context,
+  //   pageTransitionType: PageTransitionType.fade,
+  //   screen: const TermsScreen(),
+  // );
+
 }
 // --------------------
 /// TESTED : WORKS PERFECT
