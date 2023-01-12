@@ -14,6 +14,7 @@ class MaxBounceNavigator extends StatefulWidget {
     this.notificationListenerKey,
     this.axis = Axis.vertical,
     this.isOn = true,
+    this.slideLimitRatio = 0.18,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +25,7 @@ class MaxBounceNavigator extends StatefulWidget {
   final Key notificationListenerKey;
   final Axis axis;
   final bool isOn;
+  final double slideLimitRatio;
   /// --------------------------------------------------------------------------
   @override
   _MaxBounceNavigatorState createState() => _MaxBounceNavigatorState();
@@ -87,6 +89,7 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
             numberOfBoxes: widget.numberOfScreens,
             goesBackOnly: _goesBackOnly,
             axis: widget.axis,
+            slideLimitRatio: widget.slideLimitRatio,
           );
 
           // blog('_canSlide : $_canSlide : _canNavigate : $_canNavigate');

@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:flutter/material.dart';
 
 class DreamBoxIcon extends StatelessWidget {
@@ -31,19 +32,30 @@ class DreamBoxIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return OldSuperImage(
-      key: const ValueKey<String>('DreamBoxIcon'),
-      width: size,
-      height: size,
-      pic: icon,
-      // boxFit: BoxFit.cover,
-      scale: iconSizeFactor,
-      iconColor: iconColor,
-      loading: loading,
-      greyscale: greyscale,
-      corners: corners,
-      backgroundColor: backgroundColor,
-    );
+    if (loading == true){
+      return Loading(
+        loading: true,
+        size: size,
+        color: iconColor,
+      );
+    }
+
+    else {
+      return OldSuperImage(
+        key: const ValueKey<String>('DreamBoxIcon'),
+        width: size,
+        height: size,
+        pic: icon,
+        // boxFit: BoxFit.cover,
+        scale: iconSizeFactor,
+        iconColor: iconColor,
+        loading: loading,
+        greyscale: greyscale,
+        corners: corners,
+        backgroundColor: backgroundColor,
+      );
+    }
+
 
   }
   /// --------------------------------------------------------------------------

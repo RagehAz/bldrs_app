@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -18,6 +19,7 @@ class GallerySlide extends StatefulWidget {
     @required this.flyerBoxHeight,
     @required this.flyerModel,
     @required this.bzModel,
+    @required this.onMaxBounce,
     this.heroTag,
     Key key
   }) : super(key: key);
@@ -27,6 +29,7 @@ class GallerySlide extends StatefulWidget {
   final FlyerModel flyerModel;
   final BzModel bzModel;
   final String heroTag;
+  final Function onMaxBounce;
   /// --------------------------------------------------------------------------
   @override
   State<GallerySlide> createState() => _GallerySlideState();
@@ -34,6 +37,10 @@ class GallerySlide extends StatefulWidget {
 }
 
 class _GallerySlideState extends State<GallerySlide> {
+  /// --------------------------------------------------------------------------
+  final ScrollController _scrollController = ScrollController();
+  bool _canPaginate;
+  bool _canBounce = false;
   // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -46,14 +53,10 @@ class _GallerySlideState extends State<GallerySlide> {
     );
   }
   // -----------------------------------------------------------------------------
-  ScrollController _scrollController;
-  bool _canPaginate;
-  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
-    _scrollController = ScrollController();
     _scrollController.addListener(_addScrollListener);
 
   }
@@ -167,14 +170,32 @@ class _GallerySlideState extends State<GallerySlide> {
           child: Container(),
           builder: (_, List<FlyerModel> flyers, Widget child){
 
-            return FlyersGrid(
-              gridWidth: widget.flyerBoxWidth,
-              gridHeight: widget.flyerBoxHeight,
-              flyers: flyers,
-              topPadding: _headerAndProgressHeights,
-              // numberOfColumns: 2,
-              screenName: widget.heroTag,
-              scrollController: _scrollController,
+            return MaxBounceNavigator(
+              onNavigate: () async {
+
+                if (_canBounce = true) {
+                  _canBounce = false;
+                  blog('Bouncing back : $_canBounce');
+                  await widget.onMaxBounce();
+
+                  /// to wait header shrinkage until allowing new shrinkage
+                  await Future.delayed(Ratioz.duration750ms, () {
+                    _canBounce = true;
+                  });
+                }
+              },
+              boxDistance: FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth),
+              // numberOfScreens: 2,
+              slideLimitRatio: 0.1,
+              child: FlyersGrid(
+                gridWidth: widget.flyerBoxWidth,
+                gridHeight: widget.flyerBoxHeight,
+                flyers: flyers,
+                topPadding: _headerAndProgressHeights,
+                // numberOfColumns: 2,
+                screenName: widget.heroTag,
+                scrollController: _scrollController,
+              ),
             );
 
           },
