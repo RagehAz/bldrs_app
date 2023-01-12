@@ -56,7 +56,10 @@ class SlideEditorSlidePart extends StatelessWidget {
   ///
   static double getFlyerZoneWidth(BuildContext context, double zoneHeight){
     final double _flyerBoxHeight = zoneHeight - (2 * Ratioz.appBarMargin);
-    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight);
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(
+      flyerBoxHeight: _flyerBoxHeight,
+      forceMaxHeight: false,
+    );
     return _flyerBoxWidth;
   }
   // -----------------------------------------------------------------------------
@@ -66,7 +69,10 @@ class SlideEditorSlidePart extends StatelessWidget {
     final double _screenWidth = Scale.screenWidth(context);
     final double _slideZoneHeight = height;
     final double _flyerBoxWidth = getFlyerZoneWidth(context, _slideZoneHeight);
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth:_flyerBoxWidth,
+      forceMaxHeight: false,
+    );
     // --------------------
     return GestureDetector(
       key: const ValueKey<String>('SlideEditorSlidePart'),

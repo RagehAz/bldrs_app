@@ -29,7 +29,10 @@ class FlyerBox extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final BorderRadius _flyerBorders = FlyerDim.flyerCorners(context, flyerBoxWidth);
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      forceMaxHeight: false,
+    );
     // --------------------
     return Center(
       key: const ValueKey<String>('flyer_box'),

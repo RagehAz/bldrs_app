@@ -123,6 +123,8 @@ class FlyersGrid extends StatelessWidget {
               isVertical: scrollDirection == Axis.vertical,
             ),
             gridDelegate: FlyerDim.flyerGridDelegate(
+              context: context,
+              forceMaxHeight: false,
               flyerBoxWidth: _gridSlotWidth,
               numberOfColumnsOrRows: numberOfColumnsOrRows,
               scrollDirection: scrollDirection,

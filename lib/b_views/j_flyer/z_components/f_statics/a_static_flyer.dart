@@ -49,7 +49,10 @@ class StaticFlyerStarter extends StatelessWidget {
               /// STATIC SINGLE SLIDE
               SingleSlide(
                 flyerBoxWidth: flyerBoxWidth,
-                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+                flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+                  flyerBoxWidth: flyerBoxWidth,
+                  forceMaxHeight: false,
+                ),
                 slideModel: flyerModel.slides[slideIndex],
                 tinyMode: false,
                 onSlideNextTap: null,
@@ -131,7 +134,10 @@ class StaticFlyer extends StatelessWidget {
         if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
         SingleSlide(
           flyerBoxWidth: flyerBoxWidth,
-          flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
+          flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+            flyerBoxWidth: flyerBoxWidth,
+            forceMaxHeight: false,
+          ),
           slideModel: flyerModel.slides[slideIndex],
           tinyMode: false,
           onSlideNextTap: null,
