@@ -36,16 +36,16 @@
 		</dict>
 		<dict/>
 	</array>
-	<key>FirebaseDynamicLinksCustomDomains</key>
-    <array>
-        <string>https://www.bldrs.net/flyer</string>
-    </array>
 	<key>CFBundleVersion</key>
 	<string>1.0.1</string>
 	<key>FIRMessagingAutoRegisterEnabledflag</key>
 	<true/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://www.bldrs.net/flyer</string>
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-1416346029613600~5098797361</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -280,7 +280,7 @@
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen.storyboard</string>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIStatusBarHidden</key>
