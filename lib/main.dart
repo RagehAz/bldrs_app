@@ -57,7 +57,8 @@ import 'package:provider/single_child_widget.dart';
 /// steps to DEPLOY bldr_sweb
 /*
 // 1 - flutter build web
-// 2 - firebase deploy
+// 2 - fix build/web/main.dart.js in line 27435 and put this => else a.xZ(0,s,"Bldrs.net",b)},
+// 3 - firebase deploy
 */
 // ---------------------------------------------------------------------------
 /// GIT HUB TOKEN

@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';

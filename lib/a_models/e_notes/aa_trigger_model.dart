@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 

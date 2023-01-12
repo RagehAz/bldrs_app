@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
