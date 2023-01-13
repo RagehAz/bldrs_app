@@ -1,70 +1,12 @@
 import 'dart:ui';
 import 'package:colorizer/colorizer.dart';
-import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final List<Map<String, dynamic>> _listOfMaps = <Map<String, dynamic>>[
-    <String, dynamic>{
-      'id': 'a',
-      'name': 'Ahmad',
-    },
-    <String, dynamic>{
-      'id': 'b',
-      'name': 'meshmesh',
-    },
-  ];
-
-  test('test : list of maps contains', () {
-    // setup
-
-    // run
-
-    // verify
-  });
-
-// -----------------------------------------------------------------------------
-  test('correct input id = a', () {
-    final bool _result = Mapper.checkMapsContainValue(
-      listOfMaps: _listOfMaps,
-      field: 'id',
-      value: 'a',
-    );
-    expect(_result, true);
-  });
-// -----------------------------------------------------------------------------
-  test('in-correct input id = c', () {
-    final bool _result = Mapper.checkMapsContainValue(
-      listOfMaps: _listOfMaps,
-      field: 'id',
-      value: 'c',
-    );
-    expect(_result, false);
-  });
-// -----------------------------------------------------------------------------
-  test('in-correct input id = null', () {
-    final bool _result = Mapper.checkMapsContainValue(
-      listOfMaps: _listOfMaps,
-      field: 'id',
-      value: null,
-    );
-    expect(_result, false);
-  });
-// -----------------------------------------------------------------------------
-  test('in-correct field = koko, input = toto', () {
-    final bool _result = Mapper.checkMapsContainValue(
-      listOfMaps: _listOfMaps,
-      field: 'koko',
-      value: 'toto',
-    );
-    expect(_result, false);
-  });
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   final List<int> _numbers = <int>[0, 1, 2, 3, 4, 5, 6, 7, 8];
-
   test('createUniqueIntFrom', () {
     bool _allLoopsAreGood;
 
@@ -83,7 +25,7 @@ void main() {
 
     expect(_allLoopsAreGood, true);
   });
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   test('cipher and decipher color', () {
     const Color _color = Color.fromARGB(76, 54, 32, 10);
 
@@ -129,4 +71,5 @@ void main() {
 
     expect(_expectedString, _decipheredToString);
   });
+  // -----------------------------------------------------------------------------
 }
