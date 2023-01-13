@@ -24,7 +24,7 @@ class FlyersZoomedLayout extends StatelessWidget {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       listenToHideLayout: true,
-      child: FlyersZoomedGrid(
+      child: ZoomableFlyersGrid(
         flyersIDs: _flyersIDs,
         gridWidth: Scale.screenWidth(context),
         gridHeight: Scale.screenHeight(context),

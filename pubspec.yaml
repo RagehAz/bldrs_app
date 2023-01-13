@@ -97,16 +97,24 @@ dependencies:
   wechat_camera_picker: ^3.4.0
   wheel_chooser: ^1.0.0
   # ------------------------------------
-  # MY USED PACKAGES
-  rest:
-    git:
-      url: https://github.com/RagehAz/rest.git
+  # MY WIDGETS
   widget_fader:
     git:
       url: https://github.com/RagehAz/widget_fader.git
   super_image:
     git:
       url: https://github.com/RagehAz/super_image.git
+  # clock_rebuilder is only used in streaming test screen, so delete on release
+  clock_rebuilder:
+    git:
+      url: https://github.com/RagehAz/clock_rebuilder.git
+  # ------------------------------------
+  # MY BACK END PACKAGES
+  rest:
+    git:
+      url: https://github.com/RagehAz/rest.git
+  # ------------------------------------
+  # MY HELPERS
   bldrs_theme:
     git:
       url: https://github.com/RagehAz/bldrs_theme.git
@@ -125,10 +133,6 @@ dependencies:
   stringer:
     git:
       url: https://github.com/RagehAz/stringer.git
-  # clock_rebuilder is only used in streaming test screen, so delete on release
-  clock_rebuilder:
-    git:
-      url: https://github.com/RagehAz/clock_rebuilder.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:
