@@ -12,9 +12,9 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
-class FlyersZoomedGrid extends StatefulWidget {
+class ZoomableFlyersGrid extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyersZoomedGrid({
+  const ZoomableFlyersGrid({
     @required this.flyersIDs,
     @required this.gridWidth,
     @required this.gridHeight,
@@ -28,11 +28,11 @@ class FlyersZoomedGrid extends StatefulWidget {
   final int columnCount;
   /// --------------------------------------------------------------------------
   @override
-  State<FlyersZoomedGrid> createState() => _FlyersZoomedGridState();
+  State<ZoomableFlyersGrid> createState() => _ZoomableFlyersGridState();
   /// --------------------------------------------------------------------------
 }
 
-class _FlyersZoomedGridState extends State<FlyersZoomedGrid> {
+class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<FlyerModel> _zoomedFlyer = ValueNotifier(null);
   ZoomableGridController _controller;
@@ -79,7 +79,7 @@ class _FlyersZoomedGridState extends State<FlyersZoomedGrid> {
   }
   // --------------------
   @override
-  void didUpdateWidget(FlyersZoomedGrid oldWidget) {
+  void didUpdateWidget(ZoomableFlyersGrid oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (
     Mapper.checkListsAreIdentical(list1: widget.flyersIDs, list2: oldWidget.flyersIDs) == false

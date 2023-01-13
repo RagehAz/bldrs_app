@@ -153,7 +153,7 @@ class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
 
     return MainLayout(
       appBarType: AppBarType.basic,
-      appBarRowWidgets: [
+      appBarRowWidgets: <Widget>[
 
         const Expander(),
 

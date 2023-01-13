@@ -35,7 +35,7 @@ class FlyersGrid extends StatelessWidget {
   final double gridHeight;
   final ScrollController scrollController;
   final double topPadding;
-  /// depends on scroll dirction (vertical => numberOfColumns, horizontal => numberOfRows)
+  /// depends on scroll direction (vertical => numberOfColumns, horizontal => numberOfRows)
   final int numberOfColumnsOrRows;
   /// when grid is inside a flyer
   final String screenName;
@@ -80,14 +80,18 @@ class FlyersGrid extends StatelessWidget {
                 flyers != null
                 ||
                 flyersIDs != null
-                || isLoadingGrid == true;
+                ||
+                isLoadingGrid == true;
 
         if (_canBuild == false){
           throw FlutterError('FlyersGrid Widget should have either flyers or paginationFlyersIDs initialized');
         }
 
         return _canBuild;
-      }(), 'can not build flyer');
+      }(), 'You either give me (List<FlyerModel> flyers) or '
+          '(List<String> flyersIDs) or '
+          'switch on (isLoadingGrid) but '
+          'never leave me like this empty handed with nulls & nulls');
       // --------------------
       final bool _isLoadingGrid = showLoadingGridInstead(
         flyers : flyers,
