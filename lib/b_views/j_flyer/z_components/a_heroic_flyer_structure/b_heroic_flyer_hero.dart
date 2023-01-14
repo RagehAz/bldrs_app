@@ -77,7 +77,6 @@ class FlyerHero extends StatelessWidget {
         renderedFlyer: renderedFlyer,
         heroTag: heroPath,
         canBuildBigFlyer: canBuildBigFlyer,
-        flightTweenValue: 1,
         // flightDirection: FlightDirection.non,
       ),
     );

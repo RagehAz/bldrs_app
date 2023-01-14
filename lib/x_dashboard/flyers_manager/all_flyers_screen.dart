@@ -11,7 +11,6 @@ import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class AllFlyersScreen extends StatefulWidget {
