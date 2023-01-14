@@ -40,9 +40,9 @@ class FlightFlyer extends StatelessWidget {
     final Curve _curve = _flightDirectionName == 'push' ? Curves.fastOutSlowIn : Curves.fastOutSlowIn.flipped;
 
     final Tween<double> _tween = _flightDirectionName == 'push' ?
-    Tween<double>(begin: 0.01, end: 0.95)
+    Tween<double>(begin: 0.3, end: 1)
         :
-    Tween<double>(begin: 0.95, end: 0);
+    Tween<double>(begin: 1.5, end: 1);
 
     return TweenAnimationBuilder(
         key: const ValueKey<String>('FlyerHero_TweenAnimationBuilder'),
@@ -52,17 +52,44 @@ class FlightFlyer extends StatelessWidget {
         builder: (ctx, double value, Widget child){
 
           final FlightDirection _flightDirection = getFlightDirection(flightDirection.name);
+          // final double _maxWidth = Scale.screenWidth(context);
+          // final double _tweenWidth = (_maxWidth * (1 - value)) - (flyerBoxWidth * value);
+          // final double _scale = Animators.limitTweenImpact(
+          //     maxDouble: 1,
+          //     minDouble: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
+          //     tweenValue: value
+          // );
+          //
+          // blog('FLIGHT FLYER : value : $value : _flightDirection : $_flightDirection');
 
           return Material(
             type: MaterialType.transparency,
-            child: HeroicSmallFlyer(
-              renderedFlyer: renderedFlyer,
-              flyerBoxWidth: flyerBoxWidth,
-              flightTweenValue: value,
-              flightDirection: _flightDirection,
-              heroTag: heroTag,
-              // canBuildBigFlyer: false, // DEFAULT
+            child: Transform.scale(
+              scale: value,
+              child: HeroicSmallFlyer(
+                renderedFlyer: renderedFlyer,
+                flyerBoxWidth: flyerBoxWidth,
+                // flightTweenValue: 0,
+                flightDirection: _flightDirection,
+                heroTag: heroTag,
+                // canBuildBigFlyer: false, // DEFAULT
+              ),
             ),
+            // child: Transform.scale(
+            //   scale: value,
+            //   child: StaticFlyer(
+            //     flyerBoxWidth: flyerBoxWidth,
+            //     flyerModel: renderedFlyer,
+            //     bzModel: renderedFlyer.bzModel,
+            //     canPinch: false,
+            //     canUseFilter: false,
+            //     canAnimateMatrix: false,
+            //     // slideShadowIsOn: true,
+            //     // slideIndex: 0,
+            //     // flyerShadowIsOn: true,
+            //     // bluerLayerIsOn: true,
+            //   ),
+            // ),
           );
 
         }
