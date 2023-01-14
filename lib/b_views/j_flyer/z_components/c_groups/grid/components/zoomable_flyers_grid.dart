@@ -159,7 +159,7 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
         },
       ),
 
-      itemCount: widget.flyersIDs.length,
+      itemCount: widget.flyersIDs?.length ?? 0,
       builder: (int index) {
 
         final String _flyerID = widget.flyersIDs[index];

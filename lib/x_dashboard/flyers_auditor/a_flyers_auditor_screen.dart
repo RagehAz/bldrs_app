@@ -113,6 +113,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 controller: _paginatorController,
                 mounted: mounted,
               ),
+              isHeroicGrid: false,
             );
 
           }

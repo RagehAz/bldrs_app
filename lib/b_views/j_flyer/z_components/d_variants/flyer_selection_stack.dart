@@ -34,7 +34,7 @@ class FlyerSelectionStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _showAuditLayer = FlyerAuditLayer.showAuditLayer(flyerModel.auditState);
+    final bool _showAuditLayer = FlyerAuditLayer.showAuditLayer(flyerModel?.auditState);
     final bool _showOptionsButton = onFlyerOptionsTap != null;
 
     final bool _canBuildSelectionStack =

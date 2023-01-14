@@ -160,6 +160,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
             scrollController: ScrollController(),
             screenName: 'allFlyersScreenGrid',
             onFlyerOptionsTap: _onFlyerOptionsTap,
+            isHeroicGrid: true,
           );
 
         },

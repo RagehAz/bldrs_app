@@ -913,6 +913,7 @@ class Dialogs {
           topPadding: 0,
           numberOfColumnsOrRows: 1,
           screenName: 'flyersDialogGrid',
+          isHeroicGrid: true,
         ),
       ),
 
