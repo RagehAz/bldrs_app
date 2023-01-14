@@ -11,6 +11,7 @@ class FlyerBuilder extends StatelessWidget {
     @required this.flyerID,
     @required this.builder,
     @required this.flyerBoxWidth,
+    @required this.renderFlyer,
     this.flyerModel,
     this.onFlyerNotFound,
     Key key
@@ -20,12 +21,45 @@ class FlyerBuilder extends StatelessWidget {
   final double flyerBoxWidth;
   final Function onFlyerNotFound;
   final FlyerModel flyerModel;
+  final RenderFlyer renderFlyer;
   final Widget Function(FlyerModel flyerModel) builder;
+  // -----------------------------------------------------------------------------
+  bool shouldDirectlyBuildByFlyerModel(){
+    bool _shouldBuildByFlyer = false;
+
+    /// FLYER MODEL IS NULL
+    if (flyerModel == null){
+      _shouldBuildByFlyer = false;
+    }
+
+    /// FLYER MODEL IS NOT NULL
+    else {
+
+      /// WHEN KEEP NON RENDERED
+      if (renderFlyer == RenderFlyer.keep){
+        _shouldBuildByFlyer = true;
+      }
+      /// WHEN RENDER FIRST SLIDE
+      else if (renderFlyer == RenderFlyer.firstSlide){
+        _shouldBuildByFlyer = flyerModel.slides.first.uiImage != null;
+      }
+      /// WHEN RENDER ALL SLIDES
+      else {
+        final bool _allSlidesAreRendered = flyerModel.slides.every((slide) => slide.uiImage != null);
+        _shouldBuildByFlyer = _allSlidesAreRendered;
+      }
+
+    }
+
+    return _shouldBuildByFlyer;
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    if (flyerModel != null) {
+    final bool _shouldDirectlyBuildByFlyerModel = shouldDirectlyBuildByFlyerModel();
+
+    if (_shouldDirectlyBuildByFlyerModel == true) {
       return builder(flyerModel);
     }
 
@@ -33,8 +67,10 @@ class FlyerBuilder extends StatelessWidget {
 
       return _FutureFlyerBuilder(
         flyerID: flyerID,
+        flyerModel: flyerModel,
         flyerBoxWidth: flyerBoxWidth,
         onFlyerNotFound: onFlyerNotFound,
+        renderFlyer: renderFlyer,
         builder: builder,
       );
 
@@ -50,14 +86,18 @@ class _FutureFlyerBuilder extends StatefulWidget {
     @required this.flyerID,
     @required this.builder,
     @required this.flyerBoxWidth,
-    this.onFlyerNotFound,
+    @required this.renderFlyer,
+    @required this.flyerModel,
+    @required this.onFlyerNotFound,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final String flyerID;
   final double flyerBoxWidth;
   final Function onFlyerNotFound;
+  final RenderFlyer renderFlyer;
   final Widget Function(FlyerModel flyerModel) builder;
+  final FlyerModel flyerModel;
   // -----------------------------------------------------------------------------
   @override
   State<_FutureFlyerBuilder> createState() => _FutureFlyerBuilderState();
@@ -91,17 +131,33 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+        FlyerModel _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
           context: context,
           flyerID: widget.flyerID,
         );
 
         if (_flyer != null) {
+
+          if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
+            _flyer = await FlyerProtocols.renderSmallFlyer(
+              context: context,
+              flyerModel: _flyer,
+            );
+          }
+
+          else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
+            _flyer = await FlyerProtocols.renderBigFlyer(
+              context: context,
+              flyerModel: _flyer,
+            );
+          }
+
           if (mounted == true){
             setState(() {
               _flyerModel = _flyer;
             });
           }
+
         }
 
         else {
@@ -121,6 +177,13 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   @override
   void dispose() {
     _loading.dispose();
+
+    // FlyerProtocols.disposeRenderedFlyer(
+    //   mounted: mounted,
+    //   flyerModel: _flyerModel,
+    //   invoker: '_FutureFlyerBuilder',
+    // );
+
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -147,21 +210,12 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
       },
     );
 
-    // return FlyerSelectionStack(
-    //   flyerModel: _flyerModel,
-    //   flyerBoxWidth: widget.flyerBoxWidth,
-    //   screenName: widget.screenName,
-    //   onSelectFlyer: widget.onSelectFlyer == null ? null : () => widget.onSelectFlyer(_flyerModel),
-    //   onFlyerOptionsTap: widget.onFlyerOptionsTap == null ? null : () => widget.onFlyerOptionsTap(_flyerModel),
-    //   isSelected: widget.isSelected,
-    //   child: HeroicFlyer(
-    //               // key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
-    //               flyerModel: flyerModel,
-    //               flyerBoxWidth: flyerBoxWidth,
-    //               screenName: screenName,
-    //             ),
-    // );
-
   }
   // -----------------------------------------------------------------------------
+}
+
+enum RenderFlyer {
+  allSlides,
+  firstSlide,
+  keep,
 }

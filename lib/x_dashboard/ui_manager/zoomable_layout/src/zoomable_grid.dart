@@ -263,12 +263,10 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
                 padding: _controller.gridPadding(context: context),
                 itemCount: widget.itemCount,
                 physics: const BouncingScrollPhysics(),
-                itemBuilder: (_, int index){
-
+                itemBuilder: (_, int index) {
                   return widget.builder(index);
+                }),
 
-                }
-            ),
           ),
         ),
       ),

@@ -7,7 +7,8 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/a_static_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
@@ -246,9 +247,12 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
         // -------------------------------------
 
         /// FLYER PREVIEW
-        StaticFlyer(
+        SmallFlyer(
+          renderFlyer: RenderFlyer.firstSlide,
+          flyerID: _flyer?.id,
           flyerModel: _flyer,
           flyerBoxWidth: 150,
+          onTap: null,
           // flyerShadowIsOn: true,
         ),
 
