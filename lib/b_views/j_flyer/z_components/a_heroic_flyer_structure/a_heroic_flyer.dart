@@ -60,6 +60,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
       _triggerLoading(setTo: true).then((_) async {
+
         await _preparations();
 
         await _triggerLoading(setTo: false);
@@ -157,7 +158,9 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return ValueListenableBuilder(
+        key: const ValueKey<String>('HeroicFlyer'),
         valueListenable: _loading,
         builder: (_, bool loading, Widget child) {
 
@@ -171,7 +174,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
 
           else {
 
-            if (renderedSmallFlyer == null){
+            if (renderedSmallFlyer == null) {
               return FlyerBox(
                 flyerBoxWidth: widget.flyerBoxWidth,
               );
@@ -192,8 +195,8 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
             }
 
           }
-        }
-    );
+
+        });
 
   }
 // -----------------------------------------------------------------------------
