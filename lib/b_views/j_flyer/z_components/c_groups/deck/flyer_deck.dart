@@ -1,10 +1,9 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/a_static_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -20,7 +19,6 @@ class FlyerDeck extends StatelessWidget {
     @required this.maxPossibleWidth,
     @required this.deckHeight,
     @required this.flyerModel,
-    @required this.bzModel,
     @required this.expansion,
     @required this.minSlideHeightFactor,
     @required this.screenName,
@@ -31,7 +29,6 @@ class FlyerDeck extends StatelessWidget {
   final double maxPossibleWidth;
   final double deckHeight;
   final FlyerModel flyerModel;
-  final BzModel bzModel;
   /// HEIGHT FACTOR OF SMALLEST SLIDE TO THE BIGGEST SLIDE HEIGHT
   final double minSlideHeightFactor;
   final double expansion;
@@ -306,7 +303,6 @@ class FlyerDeck extends StatelessWidget {
             maxPossibleWidth: maxPossibleWidth,
             expansion: expansion,
             minSlideHeightFactor: minSlideHeightFactor,
-            bzModel: bzModel,
           );
 
         },
@@ -324,7 +320,6 @@ class FlyerDeck extends StatelessWidget {
         maxPossibleWidth: maxPossibleWidth,
         expansion: expansion,
         minSlideHeightFactor: minSlideHeightFactor,
-        bzModel: bzModel,
       );
 
     }
@@ -341,7 +336,6 @@ class _TheDeck extends StatelessWidget {
     @required this.flyerModel,
     @required this.expansion,
     @required this.minSlideHeightFactor,
-    @required this.bzModel,
     @required this.screenName,
     Key key
   }) : super(key: key);
@@ -351,7 +345,6 @@ class _TheDeck extends StatelessWidget {
   final FlyerModel flyerModel;
   final double minSlideHeightFactor;
   final double expansion;
-  final BzModel bzModel;
   final String screenName;
   /// --------------------------------------------------------------------------
   @override
@@ -408,7 +401,6 @@ class _TheDeck extends StatelessWidget {
                   flyerBoxHeight: deckHeight,
                   forceMaxHeight: false,
                 ),
-                bzModel: bzModel,
                 slideIndex: _index,
                 // flyerShadowIsOn: true,
                 // bluerLayerIsOn: true,

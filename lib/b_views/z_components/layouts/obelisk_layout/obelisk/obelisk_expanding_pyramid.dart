@@ -35,7 +35,7 @@ class ObeliskExpandingPyramid extends StatelessWidget {
           },
 
           /// THE BLACK EXPANDING TRIANGLE
-          child: const OldSuperImage(
+          child: const BldrsImage(
             width: 143.1 * 0.7,
             height: 66.4 * 0.7,
             pic: Iconz.pyramid,

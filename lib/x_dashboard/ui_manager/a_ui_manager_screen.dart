@@ -178,6 +178,20 @@ class UIManager extends StatelessWidget {
           },
         ),
 
+        /// POSTER TEST
+        WideButton(
+          verse: Verse.plain('Poster Test'),
+          icon: Iconz.flyerCollection,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const PosterTestScreen(),
+            );
+
+          },
+        ),
+
         // ------------------------------------------------
 
         /// SOUNDS
@@ -329,20 +343,6 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const StaticFlyerTestScreen(),
-            );
-
-          },
-        ),
-
-        /// POSTER TEST
-        WideButton(
-          verse: Verse.plain('Poster Test'),
-          icon: Iconz.flyerCollection,
-          onTap: () async {
-
-            await Nav.goToNewScreen(
-              context: context,
-              screen: const PosterTestScreen(),
             );
 
           },

@@ -1,6 +1,5 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/deck/flyer_deck.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ class FlyerPoster extends StatelessWidget {
   const FlyerPoster({
     @required this.width,
     @required this.flyerModel,
-    @required this.flyerBzModel,
     @required this.screenName,
     this.draft,
     Key key
@@ -18,7 +16,6 @@ class FlyerPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final double width;
   final FlyerModel flyerModel;
-  final BzModel flyerBzModel;
   final String screenName;
   final DraftFlyer draft;
   // -----------------------------------------------------------------------------
@@ -40,7 +37,6 @@ class FlyerPoster extends StatelessWidget {
       //     return
 
                 FlyerDeck(
-                  bzModel: flyerBzModel,
                   maxPossibleWidth: width,
                   deckHeight: NotePosterBox.getClearHeight(width),
                   flyerModel: flyerModel,

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_abstract_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/new_flyer_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,9 +64,11 @@ class AddFlyerButton extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         stackWidgets: <Widget>[
 
-          AbstractHeader(
+          StaticHeader(
             flyerBoxWidth: flyerBoxWidth,
             bzModel: _bzModel,
+            authorID: null,
+            flyerShowsAuthor: false,
           ),
 
           /// ADD FLYER BUTTON

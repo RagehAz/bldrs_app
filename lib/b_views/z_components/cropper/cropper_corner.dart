@@ -19,7 +19,7 @@ class CropperCorner extends StatelessWidget {
         color: Colorz.black20,
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
-      child: const OldSuperImage(
+      child: const BldrsImage(
         width: 10,
         height: 10,
         pic: Iconz.plus,
