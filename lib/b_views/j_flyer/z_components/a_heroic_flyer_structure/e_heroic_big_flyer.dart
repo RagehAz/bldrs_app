@@ -615,7 +615,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 },
                 canPinch: true,
                 canUseFilter: true,
-                showGallerySlide: true,// widget.showGallerySlide,
+                showGallerySlide: widget.showGallerySlide,
               ),
 
               /// HEADER

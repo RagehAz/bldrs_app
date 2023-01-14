@@ -3,7 +3,8 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/a_static_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -395,13 +396,16 @@ class _TheDeck extends StatelessWidget {
               child:
 
               _index + 1 ==  _slidesLength?
-              StaticFlyer(
+              SmallFlyer(
+                flyerID: flyerModel?.id,
                 flyerModel: flyerModel,
                 flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
                   flyerBoxHeight: deckHeight,
                   forceMaxHeight: false,
                 ),
                 slideIndex: _index,
+                onTap: null,
+                renderFlyer: RenderFlyer.allSlides,
                 // flyerShadowIsOn: true,
                 // bluerLayerIsOn: true,
                 // slideShadowIsOn: true,

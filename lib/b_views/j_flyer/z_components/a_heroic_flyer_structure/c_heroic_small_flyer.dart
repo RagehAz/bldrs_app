@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
@@ -12,13 +10,11 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/b_sta
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/d_static_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
-import 'package:widget_fader/widget_fader.dart';
 
 class HeroicSmallFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -93,6 +89,7 @@ class HeroicSmallFlyer extends StatelessWidget {
 
   }
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   FadeType _getFadeType({
     @required bool flyerIsBigNow,
@@ -106,6 +103,7 @@ class HeroicSmallFlyer extends StatelessWidget {
   }){
     return flyerIsBigNow == true ? const Duration(milliseconds: 500) : const Duration(milliseconds: 300);
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -116,13 +114,13 @@ class HeroicSmallFlyer extends StatelessWidget {
         && flightDirection == FlightDirection.non
         && _tweenValue == 1;
 
-    final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
-    final Duration _duration = _getFadeDuration(flyerIsBigNow: _flyerIsBigNow);
-
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: true,
-    );
+    // final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
+    // final Duration _duration = _getFadeDuration(flyerIsBigNow: _flyerIsBigNow);
+    //
+    // final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    //   context: context,
+    //   listen: true,
+    // );
 
     return FlyerBox(
       key: const ValueKey<String>('StaticFlyer'),
@@ -135,58 +133,46 @@ class HeroicSmallFlyer extends StatelessWidget {
       stackWidgets: <Widget>[
 
         /// STATIC SINGLE SLIDE
-        WidgetFader(
-          fadeType: _fadeType,
-          duration: _duration,
-          child: SingleSlide(
+        if (_flyerIsBigNow == false)
+        SingleSlide(
+          flyerBoxWidth: flyerBoxWidth,
+          flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
             flyerBoxWidth: flyerBoxWidth,
-            flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
-              flyerBoxWidth: flyerBoxWidth,
-              forceMaxHeight: false,
-            ),
-            slideModel: renderedFlyer?.slides?.first,
-            tinyMode: false,
-            onSlideNextTap: null,
-            onSlideBackTap: null,
-            onDoubleTap: null,
-            canTapSlide: false,
-            blurLayerIsOn: true,
-            slideShadowIsOn: true,
-            canAnimateMatrix: true,
-            canUseFilter: true,
-            canPinch: false,
+            forceMaxHeight: false,
           ),
+          slideModel: renderedFlyer?.slides?.first,
+          tinyMode: false,
+          onSlideNextTap: null,
+          onSlideBackTap: null,
+          onDoubleTap: null,
+          canTapSlide: false,
+          blurLayerIsOn: true,
+          slideShadowIsOn: true,
+          canAnimateMatrix: true,
+          canUseFilter: true,
+          canPinch: false,
         ),
 
         /// STATIC HEADER
-        WidgetFader(
-          fadeType: _fadeType,
-          duration: _duration,
-          child: StaticHeader(
-            flyerBoxWidth: flyerBoxWidth,
-            bzModel: renderedFlyer.bzModel,
-            bzImageLogo: renderedFlyer?.bzLogoImage,
-            authorID: renderedFlyer?.authorID,
-            flyerShowsAuthor: renderedFlyer?.showsAuthor,
-            flightTweenValue: _tweenValue,
-            flightDirection: flightDirection,
-            // onTap: ,
-          ),
+        if (_flyerIsBigNow == false)
+        StaticHeader(
+          flyerBoxWidth: flyerBoxWidth,
+          bzModel: renderedFlyer.bzModel,
+          bzImageLogo: renderedFlyer?.bzLogoImage,
+          authorID: renderedFlyer?.authorID,
+          flyerShowsAuthor: renderedFlyer?.showsAuthor,
+          flightTweenValue: _tweenValue,
+          flightDirection: flightDirection,
+          // onTap: ,
         ),
 
         /// STATIC FOOTER
-        WidgetFader(
-          fadeType: _fadeType,
-          duration: _duration,
-          child: StaticFooter(
-            flyerBoxWidth: flyerBoxWidth,
-            isSaved: UserModel.checkFlyerIsSaved(
-              userModel: _myUserModel,
-              flyerID: renderedFlyer?.id,
-            ),
-            onMoreTap: onMoreTap,
-            flightTweenValue: _tweenValue,
-          ),
+        if (_flyerIsBigNow == false)
+        StaticFooter(
+          flyerBoxWidth: flyerBoxWidth,
+          flyerID: renderedFlyer?.id,
+          onMoreTap: onMoreTap,
+          flightTweenValue: _tweenValue,
         ),
 
         /// BIG FLYER

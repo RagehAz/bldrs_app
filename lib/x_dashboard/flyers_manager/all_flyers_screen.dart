@@ -155,12 +155,12 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
           return FlyersGrid(
             gridWidth: Scale.screenWidth(context),
             gridHeight: Scale.screenHeight(context),
-            // numberOfColumns: 2,
             flyers: _flyers,
             scrollController: ScrollController(),
             screenName: 'allFlyersScreenGrid',
             onFlyerOptionsTap: _onFlyerOptionsTap,
             isHeroicGrid: true,
+            // numberOfColumns: 2,
           );
 
         },
