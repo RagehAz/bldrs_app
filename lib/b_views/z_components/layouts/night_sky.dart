@@ -224,7 +224,7 @@ class RandomStar extends StatelessWidget {
     return Positioned(
       left: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.screenWidth(context),
       bottom: (Numeric.createRandomIndex(listLength: 100) / 100) * Scale.screenHeight(context),
-      child: OldSuperImage(
+      child: BldrsImage(
         width: size,
         height: size,
         pic: Iconz.star,

@@ -908,7 +908,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                   maxWidth: uiImage?.width?.toDouble(),
                   childWidth: uiImage?.width?.toDouble(),
 
-                  child: OldSuperImage(
+                  child: BldrsImage(
                     width: uiImage?.width?.toDouble(),
                     height: uiImage?.height?.toDouble(),
                     pic: _file,

@@ -394,7 +394,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
 
-                          const OldSuperImage(
+                          const BldrsImage(
                             width: 40,
                             height: 40,
                             pic: Iconz.dvGouran,

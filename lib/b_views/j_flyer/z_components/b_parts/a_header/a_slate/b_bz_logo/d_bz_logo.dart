@@ -67,7 +67,7 @@ class BzLogo extends StatelessWidget {
               ClipRRect(
                 key: const ValueKey<String>('bz_logo_image'),
                 borderRadius: bzLogoCorners,
-                child: OldSuperImage(
+                child: BldrsImage(
                   width: width,
                   height: width,
                   pic: image,
@@ -79,7 +79,7 @@ class BzLogo extends StatelessWidget {
                   enAlignment: Alignment.topLeft,
                   horizontalOffset: width * 0.00,
                   verticalOffset: width * 0.00,
-                  child: OldSuperImage(
+                  child: BldrsImage(
                     width: width * 0.2,
                     height: width * 0.2,
                     pic: Iconz.bzBagdeWhite,
@@ -92,7 +92,7 @@ class BzLogo extends StatelessWidget {
                   enAlignment: Alignment.topLeft,
                   horizontalOffset: width * 0.00,
                   verticalOffset: width * 0.00,
-                  child: OldSuperImage(
+                  child: BldrsImage(
                     width: width * 0.2,
                     height: width * 0.2,
                     pic: Iconz.check,

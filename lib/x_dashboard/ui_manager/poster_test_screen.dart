@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/a_static_flyer.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
@@ -249,7 +249,6 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
         StaticFlyer(
           flyerModel: _flyer,
           flyerBoxWidth: 150,
-          bzModel: _bz,
           // flyerShadowIsOn: true,
         ),
 
@@ -336,7 +335,7 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
             valueListenable: _loading,
             builder: (_, bool loading, Widget child){
 
-              return OldSuperImage(
+              return BldrsImage(
                 width: _posterWidth,
                 height: _posterHeight,
                 pic: _posterBytes,

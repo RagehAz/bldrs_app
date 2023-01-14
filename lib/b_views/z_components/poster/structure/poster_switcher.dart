@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
@@ -33,7 +32,7 @@ class PosterSwitcher extends StatelessWidget {
         width: width,
         flyerModel: model is FlyerModel ? model : null,
         draft: model is DraftFlyer ? model : null,
-        flyerBzModel: modelHelper is BzModel ? modelHelper : null,
+        // flyerBzModel: modelHelper is BzModel ? modelHelper : null,
         screenName: 'NotePoster',
       );
     }

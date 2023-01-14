@@ -54,7 +54,7 @@ Future<void> onFlyerBzOptionsTap({
         children: <Widget>[
 
           /// POSTER
-          OldSuperImage(
+          BldrsImage(
             pic: Storage.generateFlyerPosterPath(flyer.id),
             height: _posterHeight,
             width: _posterWidth,

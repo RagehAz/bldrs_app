@@ -233,7 +233,7 @@ class _PyramidGraphic extends StatelessWidget {
 
       final String _pyramidIcon = getPyramid(PyramidType.glass);
 
-      return OldSuperImage(
+      return BldrsImage(
         width: 256 * 0.7,
         height: 80 * 0.7,
         iconColor: color,
@@ -248,7 +248,7 @@ class _PyramidGraphic extends StatelessWidget {
 
       final String _pyramidIcon = getPyramid(pyramidType);
 
-      return OldSuperImage(
+      return BldrsImage(
         width: 256 * 0.7,
         height: 80 * 0.7,
         iconColor: color,

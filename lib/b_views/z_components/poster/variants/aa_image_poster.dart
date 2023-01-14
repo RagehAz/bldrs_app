@@ -20,7 +20,7 @@ class ImagePoster extends StatelessWidget {
 
     return NotePosterBox(
       width: width,
-      child: OldSuperImage(
+      child: BldrsImage(
         width: width,
         height: _posterHeight,
         pic: pic,
