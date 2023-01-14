@@ -38,7 +38,7 @@ class BzFlyersPage extends StatelessWidget {
       flyersIDs: bzModel.flyersIDs?.reversed?.toList(),
       gridWidth: width ?? Scale.screenWidth(context),
       gridHeight: height ?? Scale.screenHeight(context),
-      authorMode: true,
+      showAddFlyerButton: true,
       onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
         context: context,
         flyer: flyerModel,
