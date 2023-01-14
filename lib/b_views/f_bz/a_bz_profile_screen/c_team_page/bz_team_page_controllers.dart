@@ -419,6 +419,7 @@ Future<bool> _showDeleteAllAuthorFlyers({
         gridHeight: 200,
         numberOfColumnsOrRows: 1,
         screenName: 'showDeleteAllAuthorFlyersGrid',
+        isHeroicGrid: true,
       ),
     ),
   );

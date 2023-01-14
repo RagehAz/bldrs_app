@@ -1,17 +1,15 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:flutter/material.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/material.dart';
 
 class FlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGrid({
     @required this.screenName,
+    @required this.isHeroicGrid,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -21,7 +19,6 @@ class FlyersGrid extends StatelessWidget {
     this.numberOfColumnsOrRows = 2,
     this.showAddFlyerButton = false,
     this.onFlyerOptionsTap,
-    this.selectedFlyers,
     this.onSelectFlyer,
     this.scrollDirection = Axis.vertical,
     this.isLoadingGrid = false,
@@ -31,6 +28,7 @@ class FlyersGrid extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final bool isHeroicGrid;
   final List<FlyerModel> flyers;
   final List<String> flyersIDs;
   final double gridWidth;
@@ -39,7 +37,6 @@ class FlyersGrid extends StatelessWidget {
   final double topPadding;
   final int numberOfColumnsOrRows;
   final String screenName;
-  final List<FlyerModel> selectedFlyers;
   final bool showAddFlyerButton;
   final Axis scrollDirection;
   final bool isLoadingGrid;
@@ -68,12 +65,13 @@ class FlyersGrid extends StatelessWidget {
   // --------------------
   @override
   Widget build(BuildContext context) {
-
+    // -----------------------------------------------------------------------------
+    /// NOTHING TO SHOW
     if (flyers == null && flyersIDs == null && isLoadingGrid == false){
-      // blog('B1 - BUILDING sizedBox');
       return const SizedBox();
     }
 
+    /// SHOW GRID
     else {
       // --------------------
       assert((){
@@ -100,110 +98,54 @@ class FlyersGrid extends StatelessWidget {
         isLoadingGrid: isLoadingGrid,
       );
       // --------------------
-      final double _gridSlotWidth = FlyerDim.flyerGridFlyerBoxWidth(
-        context: context,
-        scrollDirection: scrollDirection,
-        numberOfColumnsOrRows: numberOfColumnsOrRows,
-        gridHeight: gridHeight,
-        gridWidth: gridWidth,
-      );
+      final bool _isHeroicGrid = scrollDirection == Axis.horizontal || isHeroicGrid == true;
       // --------------------
-      return SizedBox(
-        key: const ValueKey<String>('Stack_of_flyers_grid'),
-        width: FlyerDim.flyerGridWidth(
-          context: context,
-          givenGridWidth: gridWidth,
-        ),
-        height: FlyerDim.flyerGridHeight(
-          context: context,
-          givenGridHeight: gridHeight,
-        ),
-        child: GridView.builder(
-            controller: scrollController,
-            physics: scrollable == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
-            padding: FlyerDim.flyerGridPadding(
-              context: context,
-              topPaddingValue: topPadding,
-              gridSpacingValue: FlyerDim.flyerGridGridSpacingValue(_gridSlotWidth),
-              isVertical: scrollDirection == Axis.vertical,
-            ),
-            gridDelegate: FlyerDim.flyerGridDelegate(
-              context: context,
-              forceMaxHeight: false,
-              flyerBoxWidth: _gridSlotWidth,
-              numberOfColumnsOrRows: numberOfColumnsOrRows,
-              scrollDirection: scrollDirection,
-            ),
-            itemCount: FlyerDim.flyerGridNumberOfSlots(
-              flyersCount: flyersIDs?.length ?? flyers?.length ?? 0,
-              addFlyerButtonIsOn: showAddFlyerButton,
-              isLoadingGrid: isLoadingGrid,
-              numberOfColumnsOrRows: numberOfColumnsOrRows,
-            ),
-            scrollDirection: scrollDirection,
-            itemBuilder: (BuildContext ctx, int index){
-              // ---------------------------------------------------------------
-              /// WHEN IS JUST A LOADING GRID
-              if (_isLoadingGrid == true){
-                return FlyerLoading(
-                  flyerBoxWidth: _gridSlotWidth,
-                  animate: true,
-                  // boxColor: Colorz.bloodTest,
-                );
-              }
-              // ---------------------------------------------------------------
-              /// ACTUAL FLYERS
-              else {
-                // ---------------------------------------------
-                /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
-                if (showAddFlyerButton == true && index == 0){
-                  return AddFlyerButton(
-                    flyerBoxWidth: _gridSlotWidth,
-                  );
-                }
-                // ---------------------------------------------
-                /// OTHERWISE
-                else {
+      /// LOADING GRID
+      if (_isLoadingGrid == true) {
+        return LoadingFlyersGrid(
+          gridWidth: gridWidth,
+          gridHeight: gridHeight,
+          scrollController: scrollController,
+          topPadding: topPadding,
+          numberOfColumnsOrRows: numberOfColumnsOrRows,
+          scrollDirection: scrollDirection,
+          scrollable: scrollable,
+        );
+      }
+      // --------------------
+      /// HEROIC FLYERS GRID
+      else if (_isHeroicGrid == true){
+        // --------------------
+        return HeroicFlyersGrid(
+          gridWidth: gridWidth,
+          gridHeight: gridHeight,
+          scrollController: scrollController,
+          scrollable: scrollable,
+          topPadding: topPadding,
+          numberOfColumnsOrRows: numberOfColumnsOrRows,
+          scrollDirection: scrollDirection,
+          screenName: screenName,
+          flyers: flyers,
+          flyersIDs: flyersIDs,
+          selectionMode: selectionMode,
+          onFlyerNotFound: onFlyerNotFound,
+          onFlyerOptionsTap: onFlyerOptionsTap,
+          onSelectFlyer: onSelectFlyer,
+          showAddFlyerButton: showAddFlyerButton,
+        );
+        // --------------------
 
-                  final int _flyerIndex = showAddFlyerButton == true ? index-1 : index;
-                  final String _flyerID = flyersIDs[_flyerIndex];
-
-                  final FlyerModel _flyer = FlyerModel.getFlyerFromFlyersByID(
-                      flyers: flyers,
-                      flyerID: _flyerID,
-                  );
-
-                  return FlyerBuilder(
-                    key: const ValueKey<String>('FlyerBuilder_inGrid'),
-                    flyerID: _flyerID,
-                    flyerModel: _flyer,
-                    flyerBoxWidth: _gridSlotWidth,
-                    onFlyerNotFound: () => onFlyerNotFound(_flyerID),
-                    builder: (FlyerModel _flyer) {
-
-                      return FlyerSelectionStack(
-                        flyerModel: _flyer,
-                        flyerBoxWidth: _gridSlotWidth,
-                        onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
-                        onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
-                        selectionMode: selectionMode,
-                        flyerWidget: HeroicFlyer(
-                          flyerModel: _flyer,
-                          flyerBoxWidth: _gridSlotWidth,
-                          screenName: screenName,
-                        ),
-                      );
-                    },
-                  );
-
-                }
-                // ---------------------------------------------
-              }
-              // ---------------------------------------------------------------
-            }
-
-        ),
-      );
+      }
+      // --------------------
+      /// ZOOMABLE FLYERS GRID
+      else {
+        return ZoomableFlyersGrid(
+          gridWidth: gridWidth,
+          gridHeight: gridHeight,
+          flyersIDs: flyersIDs,
+          columnCount: numberOfColumnsOrRows,
+        );
+      }
       // --------------------
     }
 

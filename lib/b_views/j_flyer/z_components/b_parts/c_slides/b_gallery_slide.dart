@@ -7,9 +7,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dar
 import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
-
-
 import 'package:flutter/material.dart';
 
 class GallerySlide extends StatefulWidget {
@@ -196,6 +193,7 @@ class _GallerySlideState extends State<GallerySlide> {
                 gridWidth: widget.flyerBoxWidth,
                 gridHeight: widget.flyerBoxHeight,
                 flyers: flyers,
+                isHeroicGrid: true,
                 topPadding: _headerAndProgressHeights,
                 // numberOfColumns: 2,
                 screenName: widget.heroTag,
