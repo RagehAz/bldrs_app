@@ -68,6 +68,7 @@ class FlyerSelectionStack extends StatelessWidget {
 
         /// IS-SELECTED GRAPHIC LAYER
         if (flyerModel != null && isSelected == true)
+          /// TASK : SHOULD LISTEN TO VALUE NOTIFIER TO PREVENT ENTIRE TREE REBUILDS
           FlyerSelectionLayer(
             flyerBoxWidth: flyerBoxWidth,
           ),
