@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/saved_flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class SavedFlyersScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -21,36 +20,31 @@ class SavedFlyersScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: true,
+    );
 
-    if (selectionMode == true){
-      return Consumer<FlyersProvider>(
-        builder: (_, FlyersProvider flyersProvider, Widget child){
-
-          final List<FlyerModel> _selectedFlyers = flyersProvider.selectedFlyers;
-
-          return SavedFlyersGrid(
-            scrollController: scrollController,
-            selectionMode: true,
-            onSelectFlyer: (FlyerModel flyer) => onSelectFlyerFromSavedFlyers(
-              context: context,
-              flyer: flyer,
-            ),
-            selectedFlyers: _selectedFlyers,
-            flyersIDs: _userModel.savedFlyers.all,
-          );
-
-        },
-      );
-    }
-
-    else {
-      return SavedFlyersGrid(
-        scrollController: scrollController,
-        selectionMode: false,
-        flyersIDs: _userModel.savedFlyers.all,
-      );
-    }
+    return FlyersGrid(
+      screenName: 'SavedFlyersGrid',
+      scrollController: scrollController,
+      selectionMode: selectionMode,
+      onSelectFlyer: (FlyerModel flyer) => onSelectFlyerFromSavedFlyers(
+        context: context,
+        flyer: flyer,
+      ),
+      flyersIDs: _userModel.savedFlyers.all,
+      onFlyerNotFound: (String flyerID) => autoRemoveSavedFlyerThatIsNotFound(
+        context: context,
+        flyerID: flyerID,
+      ),
+      numberOfColumnsOrRows: 3,
+      isHeroicGrid: false,
+      gridHeight: Scale.superScreenHeightWithoutSafeArea(context),
+      gridWidth: Scale.screenWidth(context),
+      // showAddFlyerButton: false,
+      // scrollDirection: Axis.vertical,
+    );
 
   }
   // -----------------------------------------------------------------------------
