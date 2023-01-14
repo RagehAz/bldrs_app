@@ -6,15 +6,14 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_he
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/e_heroic_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/b_static_header.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/static_flyer/d_static_footer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class HeroicSmallFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -23,7 +22,6 @@ class HeroicSmallFlyer extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.heroTag,
     this.onMoreTap,
-    this.flightTweenValue = 0,
     this.flightDirection = FlightDirection.non,
     this.canBuildBigFlyer = false,
     Key key
@@ -32,11 +30,11 @@ class HeroicSmallFlyer extends StatelessWidget {
   final double flyerBoxWidth;
   final FlyerModel renderedFlyer;
   final Function onMoreTap;
-  final double flightTweenValue;
   final FlightDirection flightDirection;
   final String heroTag;
   final bool canBuildBigFlyer;
   // --------------------------------------------------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   double _bakeTweenValue({
     @required BuildContext context,
@@ -53,6 +51,7 @@ class HeroicSmallFlyer extends StatelessWidget {
 
     return _opacity;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _openFullScreenFlyer({
@@ -108,11 +107,11 @@ class HeroicSmallFlyer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _tweenValue = _bakeTweenValue(context:  context);
+    // final double _tweenValue = _bakeTweenValue(context:  context);
 
     final bool _flyerIsBigNow = FlyerDim.checkFlyerIsFullScreen(context, flyerBoxWidth) == true
-        && flightDirection == FlightDirection.non
-        && _tweenValue == 1;
+        && flightDirection == FlightDirection.non;
+        // && _tweenValue == 1;
 
     // final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
     // final Duration _duration = _getFadeDuration(flyerIsBigNow: _flyerIsBigNow);
@@ -161,7 +160,6 @@ class HeroicSmallFlyer extends StatelessWidget {
           bzImageLogo: renderedFlyer?.bzLogoImage,
           authorID: renderedFlyer?.authorID,
           flyerShowsAuthor: renderedFlyer?.showsAuthor,
-          flightTweenValue: _tweenValue,
           flightDirection: flightDirection,
           // onTap: ,
         ),
@@ -171,11 +169,11 @@ class HeroicSmallFlyer extends StatelessWidget {
         StaticFooter(
           flyerBoxWidth: flyerBoxWidth,
           flyerID: renderedFlyer?.id,
-          onMoreTap: onMoreTap,
-          flightTweenValue: _tweenValue,
+          optionsButtonIsOn: false,
         ),
 
         /// BIG FLYER
+        if (canBuildBigFlyer == true && _flyerIsBigNow == true)
         HeroicBigFlyer(
           heroPath: heroTag,
           flyerBoxWidth: flyerBoxWidth,

@@ -7,8 +7,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/image_f
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_back_cover_image.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/template_flyer/b_header_template.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/template_flyer/d_footer_template.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
@@ -17,8 +17,6 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -47,13 +45,13 @@ class SlideEditorSlidePart extends StatelessWidget {
   final GlobalKey globalKey;
   final bool mounted;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.85;
     return _slideZoneHeight;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static double getFlyerZoneWidth(BuildContext context, double zoneHeight){
     final double _flyerBoxHeight = zoneHeight - (2 * Ratioz.appBarMargin);
     final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(

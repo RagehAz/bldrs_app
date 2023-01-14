@@ -123,7 +123,7 @@ class FlyerSelectionStack extends StatelessWidget {
                   ),
                 ),
                 canTap: true,
-                count: null,
+                count: 0,
               ),
 
             ),

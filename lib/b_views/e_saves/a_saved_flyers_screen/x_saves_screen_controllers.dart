@@ -37,6 +37,10 @@ void onSelectFlyerFromSavedFlyers({
     // _tabModels = createTabModels();
   }
 
+  blog('onSelectFlyerFromSavedFlyers _selectedFlyers : ${_flyersProvider.selectedFlyers.length} : '
+      '_alreadySelected : $_alreadySelected : ${flyer.id}');
+
+
 }
 // -----------------------------------------------------------------------------
 

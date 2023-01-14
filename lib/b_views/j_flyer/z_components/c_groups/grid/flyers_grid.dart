@@ -144,6 +144,11 @@ class FlyersGrid extends StatelessWidget {
           gridHeight: gridHeight,
           flyersIDs: flyersIDs,
           columnCount: numberOfColumnsOrRows,
+          onFlyerNotFound: onFlyerNotFound,
+          showAddFlyerButton: showAddFlyerButton,
+          onSelectFlyer: onSelectFlyer,
+          selectionMode: selectionMode,
+          onFlyerOptionsTap: onFlyerOptionsTap,
         );
       }
       // --------------------
