@@ -55,35 +55,41 @@ class FlyerLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    if (flyerBoxWidth == null || flyerBoxWidth == 0){
+      return const SizedBox();
+    }
 
+    else {
 
-    /// NOTE : DO NOT REMOVE THE STACK : IT CENTERS THE FLYER BOX IN FLYERS GRID
-    return Stack(
-      children: <Widget>[
+      /// NOTE : DO NOT REMOVE THE STACK : IT CENTERS THE FLYER BOX IN FLYERS GRID
+      return Stack(
+        children: <Widget>[
 
-        FlyerBox(
-          flyerBoxWidth: flyerBoxWidth,
-          boxColor: boxColor,
-          stackWidgets: <Widget>[
+          FlyerBox(
+            flyerBoxWidth: flyerBoxWidth,
+            boxColor: boxColor,
+            stackWidgets: <Widget>[
 
-            if (animate == true)
-              RotatedBox(
-                quarterTurns: _getRotation(context),
-                child: LinearProgressIndicator(
-                  color: loadingColor,
-                  backgroundColor: Colorz.nothing,
-                  minHeight: FlyerDim.flyerHeightByFlyerWidth(
-                    flyerBoxWidth: flyerBoxWidth,
-                    forceMaxHeight: false,
+              if (animate == true)
+                RotatedBox(
+                  quarterTurns: _getRotation(context),
+                  child: LinearProgressIndicator(
+                    color: loadingColor,
+                    backgroundColor: Colorz.nothing,
+                    minHeight: FlyerDim.flyerHeightByFlyerWidth(
+                      flyerBoxWidth: flyerBoxWidth,
+                      forceMaxHeight: false,
+                    ),
                   ),
                 ),
-              ),
 
-          ],
-        ),
+            ],
+          ),
 
-      ],
-    );
+        ],
+      );
+
+    }
 
   }
 /// --------------------------------------------------------------------------

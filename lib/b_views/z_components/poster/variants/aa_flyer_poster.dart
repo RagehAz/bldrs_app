@@ -36,15 +36,15 @@ class FlyerPoster extends StatelessWidget {
       //
       //     return
 
-                FlyerDeck(
-                  maxPossibleWidth: width,
-                  deckHeight: NotePosterBox.getClearHeight(width),
-                  flyerModel: flyerModel,
-                  draft: draft,
-                  expansion: 0.5,
-                  minSlideHeightFactor: 0.85,
-                  screenName: screenName,
-                )
+      FlyerDeck(
+        maxPossibleWidth: width,
+        deckHeight: NotePosterBox.getClearHeight(width),
+        flyerModel: flyerModel,
+        draft: draft,
+        expansion: 0.5,
+        minSlideHeightFactor: 0.85,
+        screenName: screenName,
+      )
 
           // ;
       //   },

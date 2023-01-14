@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
@@ -79,7 +78,7 @@ class FlyerDeck extends StatelessWidget {
 
   }
   // --------------------
-  static double _getSlideWidth({
+  static double getSlideWidth({
     @required double maxSlideHeight,
     @required int reverseIndex,
     @required double minSlideHeightFactor,
@@ -108,7 +107,7 @@ class FlyerDeck extends StatelessWidget {
 
     double _total = 0;
     for (int i = 0; i < numberOfSlides; i++){
-      final double _slideWidth = _getSlideWidth(
+      final double _slideWidth = getSlideWidth(
         numberOfSlides: numberOfSlides,
         minSlideHeightFactor: minSlideHeightFactor,
         maxSlideHeight: maxSlideHeight,
@@ -160,7 +159,7 @@ class FlyerDeck extends StatelessWidget {
         deckWidth: deckWidth,
       );
 
-      final double _lastSlideWidth = _getSlideWidth(
+      final double _lastSlideWidth = getSlideWidth(
         reverseIndex: reverseIndex - 1,
         numberOfSlides: numberOfSlides,
         minSlideHeightFactor: minSlideHeightFactor,
@@ -377,7 +376,7 @@ class _TheDeck extends StatelessWidget {
               index: _index,
             );
 
-            final double _flyerBoxWidth = FlyerDeck._getSlideWidth(
+            final double _flyerBoxWidth = FlyerDeck.getSlideWidth(
               maxSlideHeight: deckHeight,
               reverseIndex: _index,
               minSlideHeightFactor: minSlideHeightFactor,
@@ -397,15 +396,14 @@ class _TheDeck extends StatelessWidget {
 
               _index + 1 ==  _slidesLength?
               SmallFlyer(
-                flyerID: flyerModel?.id,
                 flyerModel: flyerModel,
                 flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
                   flyerBoxHeight: deckHeight,
                   forceMaxHeight: false,
                 ),
-                slideIndex: _index,
+                slideIndex: _reverseIndex,
                 onTap: null,
-                renderFlyer: RenderFlyer.allSlides,
+
                 // flyerShadowIsOn: true,
                 // bluerLayerIsOn: true,
                 // slideShadowIsOn: true,

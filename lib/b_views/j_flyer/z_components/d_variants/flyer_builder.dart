@@ -131,40 +131,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        FlyerModel _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
-          context: context,
-          flyerID: widget.flyerID,
-        );
-
-        if (_flyer != null) {
-
-          if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
-            _flyer = await FlyerProtocols.renderSmallFlyer(
-              context: context,
-              flyerModel: _flyer,
-            );
-          }
-
-          else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
-            _flyer = await FlyerProtocols.renderBigFlyer(
-              context: context,
-              flyerModel: _flyer,
-            );
-          }
-
-          if (mounted == true){
-            setState(() {
-              _flyerModel = _flyer;
-            });
-          }
-
-        }
-
-        else {
-          if (widget.onFlyerNotFound != null) {
-            widget.onFlyerNotFound();
-          }
-        }
+        await _fetchAndRenderFlyer();
 
         await _triggerLoading(setTo: false);
       });
@@ -172,6 +139,21 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
       _isInit = false;
     }
     super.didChangeDependencies();
+  }
+  // --------------------
+  @override
+  void didUpdateWidget(covariant _FutureFlyerBuilder oldWidget) {
+
+    if (oldWidget.flyerID != widget.flyerID ||
+    oldWidget.flyerModel != widget.flyerModel ||
+    oldWidget.renderFlyer != widget.renderFlyer
+    ){
+
+      unawaited(_fetchAndRenderFlyer());
+
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
   // --------------------
   @override
@@ -185,6 +167,51 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
     // );
 
     super.dispose();
+  }
+  // --------------------
+  Future<void> _fetchAndRenderFlyer() async {
+
+    await _triggerLoading(setTo: true);
+
+    FlyerModel _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
+      context: context,
+      flyerID: widget.flyerID,
+    );
+
+    if (_flyer != null) {
+
+      if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
+        _flyer = await FlyerProtocols.renderSmallFlyer(
+          context: context,
+          flyerModel: _flyer,
+        );
+      }
+
+      else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
+        _flyer = await FlyerProtocols.renderBigFlyer(
+          context: context,
+          flyerModel: _flyer,
+        );
+      }
+
+      if (mounted == true){
+        setState(() {
+          _flyerModel = _flyer;
+        });
+      }
+
+    }
+
+    else {
+
+      if (widget.onFlyerNotFound != null) {
+        widget.onFlyerNotFound();
+      }
+
+    }
+
+    await _triggerLoading(setTo: false);
+
   }
   // -----------------------------------------------------------------------------
   @override
