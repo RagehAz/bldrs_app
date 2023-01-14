@@ -7,9 +7,9 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
 
-class FlyerVerificationLayer extends StatelessWidget {
+class FlyerAuditLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerVerificationLayer({
+  const FlyerAuditLayer({
     @required this.flyerBoxWidth,
     @required this.auditState,
     Key key
@@ -18,11 +18,20 @@ class FlyerVerificationLayer extends StatelessWidget {
   final double flyerBoxWidth;
   final AuditState auditState;
   /// --------------------------------------------------------------------------
+  static bool showAuditLayer(AuditState auditState){
+    final bool _shouldHide =
+            auditState == null
+            ||
+            auditState == AuditState.verified;
+
+    return !_shouldHide;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     /// IF VERIFIED 0R NULL
-    if (auditState == null || auditState == AuditState.verified) {
+    if (showAuditLayer(auditState) == false) {
       return const SizedBox();
     }
 

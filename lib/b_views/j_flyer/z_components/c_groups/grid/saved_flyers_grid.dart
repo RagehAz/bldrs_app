@@ -30,6 +30,7 @@ class SavedFlyersGrid extends StatelessWidget {
         scrollController: scrollController,
         onSelectFlyer: onSelectFlyer,
         selectedFlyers: selectedFlyers,
+        selectionMode: selectionMode,
         flyersIDs: flyersIDs,
         onFlyerNotFound: (String flyerID) => autoRemoveSavedFlyerThatIsNotFound(
           context: context,

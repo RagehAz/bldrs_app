@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/future_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
@@ -18,7 +19,7 @@ class FlyersGrid extends StatelessWidget {
     this.flyersIDs,
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumnsOrRows = 2,
-    this.authorMode = false,
+    this.showAddFlyerButton = false,
     this.onFlyerOptionsTap,
     this.selectedFlyers,
     this.onSelectFlyer,
@@ -26,6 +27,7 @@ class FlyersGrid extends StatelessWidget {
     this.isLoadingGrid = false,
     this.onFlyerNotFound,
     this.scrollable = true,
+    this.selectionMode = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,18 +37,17 @@ class FlyersGrid extends StatelessWidget {
   final double gridHeight;
   final ScrollController scrollController;
   final double topPadding;
-  /// depends on scroll direction (vertical => numberOfColumns, horizontal => numberOfRows)
   final int numberOfColumnsOrRows;
-  /// when grid is inside a flyer
   final String screenName;
-  final bool authorMode;
-  final ValueChanged<FlyerModel> onFlyerOptionsTap;
   final List<FlyerModel> selectedFlyers;
-  final ValueChanged<FlyerModel> onSelectFlyer;
+  final bool showAddFlyerButton;
   final Axis scrollDirection;
   final bool isLoadingGrid;
-  final ValueChanged<String> onFlyerNotFound;
   final bool scrollable;
+  final bool selectionMode;
+  final Function(FlyerModel flyerModel) onFlyerOptionsTap;
+  final Function(FlyerModel flyerModel) onSelectFlyer;
+  final Function(String flyerID) onFlyerNotFound;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
@@ -135,7 +136,7 @@ class FlyersGrid extends StatelessWidget {
             ),
             itemCount: FlyerDim.flyerGridNumberOfSlots(
               flyersCount: flyersIDs?.length ?? flyers?.length ?? 0,
-              addFlyerButtonIsOn: authorMode,
+              addFlyerButtonIsOn: showAddFlyerButton,
               isLoadingGrid: isLoadingGrid,
               numberOfColumnsOrRows: numberOfColumnsOrRows,
             ),
@@ -155,7 +156,7 @@ class FlyersGrid extends StatelessWidget {
               else {
                 // ---------------------------------------------
                 /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
-                if (authorMode == true && index == 0){
+                if (showAddFlyerButton == true && index == 0){
                   return AddFlyerButton(
                     flyerBoxWidth: _gridSlotWidth,
                   );
@@ -164,25 +165,33 @@ class FlyersGrid extends StatelessWidget {
                 /// OTHERWISE
                 else {
 
-                  final int _flyerIndex = authorMode == true ? index-1 : index;
+                  final int _flyerIndex = showAddFlyerButton == true ? index-1 : index;
 
                   /// FLYER BY ID
                   if (flyersIDs != null){
 
                     final String _flyerID = flyersIDs[_flyerIndex];
 
-                    return FutureFlyer(
+                    return FlyerBuilder(
                       key: ValueKey<String>('FutureFlyer:flyerID:$_flyerID'),
                       flyerID: _flyerID,
-                      screenName: screenName,
                       flyerBoxWidth: _gridSlotWidth,
-                      isSelected: FlyerModel.flyersContainThisID(
-                        flyers: selectedFlyers,
-                        flyerID: _flyerID,
-                      ),
-                      onSelectFlyer: onSelectFlyer,
-                      onFlyerOptionsTap: onFlyerOptionsTap,
                       onFlyerNotFound: () => onFlyerNotFound(_flyerID),
+                      builder: (FlyerModel _flyer) {
+
+                        return FlyerSelectionStack(
+                          flyerModel: _flyer,
+                          flyerBoxWidth: _gridSlotWidth,
+                          onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
+                          onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
+                          selectionMode: selectionMode,
+                          flyerWidget: HeroicFlyer(
+                            flyerModel: _flyer,
+                            flyerBoxWidth: _gridSlotWidth,
+                            screenName: screenName,
+                          ),
+                        );
+                      },
                     );
 
                   }
@@ -196,12 +205,13 @@ class FlyersGrid extends StatelessWidget {
                       key: ValueKey<String>('FlyerSelectionStack:flyerID:${_flyer?.id}'),
                       flyerModel: _flyer,
                       flyerBoxWidth: _gridSlotWidth,
-                      screenName: screenName,
                       onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
                       onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
-                      isSelected: FlyerModel.flyersContainThisID(
-                        flyers: selectedFlyers,
-                        flyerID: _flyer.id,
+                      selectionMode: selectionMode,
+                      flyerWidget: HeroicFlyer(
+                        flyerModel: _flyer,
+                        flyerBoxWidth: _gridSlotWidth,
+                        screenName: screenName,
                       ),
                     );
 

@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
@@ -49,11 +50,18 @@ class FetchFlyerProtocols {
     // }
 
     if (_flyer != null){
+
+      final BzModel _bzModel = await BzProtocols.fetchBz(
+        context: context,
+        bzID: _flyer.bzID,
+      );
+
       _flyer = _flyer.copyWith(
         zone: await ZoneProtocols.completeZoneModel(
             context: context,
             incompleteZoneModel: _flyer.zone,
         ),
+        bzModel: _bzModel,
       );
     }
 
