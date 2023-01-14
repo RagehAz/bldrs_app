@@ -27,6 +27,24 @@ class FlyerHero extends StatelessWidget {
   final String invoker;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
+  // static Widget buildFlight(
+  //     BuildContext flightContext,
+  //     Animation<double> animation,
+  //     HeroFlightDirection flightDirection,
+  //     BuildContext fromHeroContext,
+  //     BuildContext toHeroContext,
+  //     ){
+  //
+  //   return FlightFlyer(
+  //     renderedFlyer: renderedFlyer,
+  //     flyerBoxWidth: flyerBoxWidth,
+  //     heroTag: heroPath,
+  //     flightDirection: flightDirection,
+  //   );
+  //
+  // }
+
+  /// TESTED : WORKS PERFECT
   Widget buildFlight(
       BuildContext flightContext,
       Animation<double> animation,
