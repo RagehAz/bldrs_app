@@ -29,7 +29,7 @@ class BldrsWelcomeBanner extends StatelessWidget {
       height: _welcomeBannerHeight,
       child: ClipRRect(
         borderRadius: Borderers.cornerAll(context, corners),
-        child: OldSuperImage(
+        child: BldrsImage(
           pic: Iconz.welcomeToBldrsBanner_22x18,
           fit: BoxFit.fitWidth,
           width: width,

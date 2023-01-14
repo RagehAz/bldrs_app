@@ -57,7 +57,7 @@ class ImageTile extends StatelessWidget {
           child: Stack(
             children: <Widget>[
 
-              OldSuperImage(
+              BldrsImage(
                 width: tileWidth,
                 height: _picHeight,
                 pic: pic,

@@ -118,7 +118,7 @@ class _SavingNoticeState extends State<SavingNotice> {
             );
 
           },
-          child: OldSuperImage(
+          child: BldrsImage(
             width: widget.flyerBoxWidth,
             height: widget.flyerBoxHeight,
             pic: widget.isStarGraphic ? Iconz.sexyStar : Iconz.saveOn,

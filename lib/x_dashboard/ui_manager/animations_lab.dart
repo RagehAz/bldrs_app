@@ -226,7 +226,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                 ),
                 color: Colorz.bloodTest,
                 alignment: Alignment.center,
-                child: OldSuperImage(
+                child: BldrsImage(
                   width: 100,
                   height: FlyerDim.flyerHeightByFlyerWidth(
                     flyerBoxWidth: 100,

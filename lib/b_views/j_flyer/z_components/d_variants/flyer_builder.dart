@@ -5,9 +5,48 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-class FlyerBuilder extends StatefulWidget {
+class FlyerBuilder extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FlyerBuilder({
+    @required this.flyerID,
+    @required this.builder,
+    @required this.flyerBoxWidth,
+    this.flyerModel,
+    this.onFlyerNotFound,
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
+  final String flyerID;
+  final double flyerBoxWidth;
+  final Function onFlyerNotFound;
+  final FlyerModel flyerModel;
+  final Widget Function(FlyerModel flyerModel) builder;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    if (flyerModel != null) {
+      return builder(flyerModel);
+    }
+
+    else {
+
+      return _FutureFlyerBuilder(
+        flyerID: flyerID,
+        flyerBoxWidth: flyerBoxWidth,
+        onFlyerNotFound: onFlyerNotFound,
+        builder: builder,
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class _FutureFlyerBuilder extends StatefulWidget {
+  // -----------------------------------------------------------------------------
+  const _FutureFlyerBuilder({
     @required this.flyerID,
     @required this.builder,
     @required this.flyerBoxWidth,
@@ -21,11 +60,11 @@ class FlyerBuilder extends StatefulWidget {
   final Widget Function(FlyerModel flyerModel) builder;
   // -----------------------------------------------------------------------------
   @override
-  State<FlyerBuilder> createState() => _FlyerBuilderState();
+  State<_FutureFlyerBuilder> createState() => _FutureFlyerBuilderState();
   // -----------------------------------------------------------------------------
 }
 
-class _FlyerBuilderState extends State<FlyerBuilder> {
+class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
   // -----------------------------------------------------------------------------

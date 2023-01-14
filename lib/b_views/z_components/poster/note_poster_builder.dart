@@ -54,31 +54,11 @@ class NotePosterBuilder extends StatelessWidget {
             /// FLYER IS FOUND
             else {
 
-              return FutureBuilder(
-                future: BzProtocols.fetchBz(context: context, bzID: _flyer.bzID),
-                  builder: (_, AsyncSnapshot<BzModel> bzSnap){
-
-                  final BzModel _bzModel = bzSnap.data;
-
-                  /// LOADING
-                  if (Streamer.connectionIsLoading(bzSnap) == true){
-                    return _empty;
-                  }
-
-                  /// FLYER POSTER
-                  else {
-
-                    return FlyerPoster(
-                      width: width,
-                      flyerModel: _flyer,
-                      flyerBzModel: _bzModel,
-                      screenName: noteModel.id,
-                    );
-
-                  }
-
-                  }
-              );
+              return FlyerPoster(
+                  width: width,
+                  flyerModel: _flyer,
+                  screenName: noteModel.id,
+                );
 
             }
 
