@@ -59,10 +59,16 @@ class FlyerHero extends StatelessWidget {
       //   );
       // },
       // placeholderBuilder: (BuildContext context, Size size, Widget child){
-      //   return Container(
-      //     width: 50,
-      //     height: 50,
-      //     color: Colorz.yellow255,
+      //   return Center(
+      //     child: Container(
+      //       width: flyerBoxWidth,
+      //       height: FlyerDim.flyerHeightByFlyerWidth(
+      //           flyerBoxWidth: flyerBoxWidth,
+      //           forceMaxHeight: false,
+      //       ),
+      //       color: Colorz.yellow255,
+      //       child: child,
+      //     ),
       //   );
       // },
       /// THIS IS TO BUILD BIG FLYER
