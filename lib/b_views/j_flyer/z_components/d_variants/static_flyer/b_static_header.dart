@@ -44,6 +44,7 @@ class StaticHeader extends StatelessWidget {
     final bool _flyerShowsAuthor = flyerShowsAuthor ?? false;
     // --------------------
     return HeaderBox(
+      key: const ValueKey<String>('StaticHeader'),
       flyerBoxWidth: flyerBoxWidth,
       headerHeightTween: FlyerDim.headerSlateHeight(flyerBoxWidth),
       headerBorders: FlyerDim.headerSlateCorners(

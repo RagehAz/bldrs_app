@@ -1,8 +1,8 @@
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/a_light_small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/packed_screen.dart';
@@ -99,11 +99,19 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
   /// TESTED : WORKS PERFECT
   Future<void> onZoomInStart() async {
     blog('onZoomInStart');
+
+    UiProvider.proSetLayoutIsVisible(
+        context: context,
+        setTo: false,
+        notify: true,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> onZoomInEnd() async {
     blog('onZoomInEnd');
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -164,23 +172,24 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
 
         final String _flyerID = widget.flyersIDs[index];
 
-        return LightSmallFlyer(
+        return SmallFlyer(
           flyerID: _flyerID,
           flyerBoxWidth: _controller.smallItemWidth,
           // onMoreTap: (){blog('onMoreTap');},
-          onTap: (FlyerModel flyerModel, BzModel bzModel) async {
-            if (flyerModel != null && bzModel != null) {
+          renderFlyer: RenderFlyer.firstSlide,
+          onTap: (FlyerModel flyerModel) async {
+            if (flyerModel != null) {
               setNotifier(
                 notifier: _zoomedFlyer,
                 mounted: mounted,
                 value: flyerModel,
               );
 
-              UiProvider.proSetLayoutIsVisible(
-                  context: context,
-                  setTo: false,
-                  notify: true,
-              );
+              // UiProvider.proSetLayoutIsVisible(
+              //     context: context,
+              //     setTo: false,
+              //     notify: true,
+              // );
 
               await _controller.zoomIn(
                 context: context,

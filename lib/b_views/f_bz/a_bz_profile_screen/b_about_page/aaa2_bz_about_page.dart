@@ -211,7 +211,6 @@ class AboutBzBubbles extends StatelessWidget {
         /// BZ FLYERS
         if (showGallery == true)
           FlyersGrid(
-            // scrollController: ScrollController(),
             flyersIDs: bzModel?.flyersIDs,
             topPadding: 0,
             screenName: 'BzAboutPageFlyersGrid',

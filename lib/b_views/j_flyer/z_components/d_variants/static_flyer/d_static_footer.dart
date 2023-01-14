@@ -1,24 +1,27 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StaticFooter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticFooter({
     @required this.flyerBoxWidth,
-    this.isSaved = false,
+    @required this.flyerID,
     this.flightTweenValue = 1,
     this.onMoreTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final bool isSaved;
   final double flightTweenValue;
   final Function onMoreTap;
+  final String flyerID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -132,18 +135,28 @@ class StaticFooter extends StatelessWidget {
 
             /// SAVE BUTTON
             if (onMoreTap == null)
-            Padding(
-              padding: _saveButtonPadding,
-              child: FooterButton(
-                flyerBoxWidth: flyerBoxWidth,
-                icon: Iconz.save,
-                phid: 'phid_save',
-                isOn: isSaved,
-                onTap: onMoreTap,
-                count: null,
-                canTap: onMoreTap == null,
+              Selector<UsersProvider, UserModel>(
+                selector: (_, UsersProvider userProvider) => userProvider.myUserModel,
+                builder: (_, UserModel userModel, Widget child) {
+
+                  return Padding(
+                    padding: _saveButtonPadding,
+                    child: FooterButton(
+                      flyerBoxWidth: flyerBoxWidth,
+                      icon: Iconz.save,
+                      phid: 'phid_save',
+                      isOn: UserModel.checkFlyerIsSaved(
+                        userModel: userModel,
+                        flyerID: flyerID,
+                      ),
+                      onTap: onMoreTap,
+                      count: null,
+                      canTap: onMoreTap == null,
+                    ),
+                  );
+
+                },
               ),
-            ),
 
             /// MORE FLYER OPTIONS BUTTON
             if (onMoreTap != null)
@@ -153,7 +166,7 @@ class StaticFooter extends StatelessWidget {
                   flyerBoxWidth: flyerBoxWidth,
                   icon: Iconz.more,
                   phid:  '',
-                  isOn: isSaved,
+                  isOn: false,
                   canTap: onMoreTap != null,
                   onTap: onMoreTap,
                   count: null,

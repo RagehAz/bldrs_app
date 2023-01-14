@@ -66,6 +66,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
         translate: true,
       ),
       onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
+      listenToHideLayout: true,
       child:
 
       SavedFlyersScreenView(
