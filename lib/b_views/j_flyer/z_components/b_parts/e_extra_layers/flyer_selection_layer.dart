@@ -9,74 +9,83 @@ class FlyerSelectionLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerSelectionLayer({
     @required this.flyerBoxWidth,
+    @required this.isSelected,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
+  final bool isSelected;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      flyerBoxWidth: flyerBoxWidth,
-      forceMaxHeight: false,
-    );
-    final BorderRadius _corners = FlyerDim.flyerCorners(context, flyerBoxWidth);
-    final double _checkIconSize = FlyerDim.flyerBottomCornerValue(flyerBoxWidth) * 2;
-    // --------------------
-    return Stack(
-      key: const ValueKey<String>('FlyerSelectionLayer'),
-      children: <Widget>[
 
-        /// BLACK COLOR OVERRIDE
-          DreamBox(
-            width: flyerBoxWidth,
-            height: _flyerBoxHeight,
-            color: Colorz.black150,
-            corners: _corners,
-          ),
+    if (isSelected == false){
+      return const SizedBox();
+    }
+    else {
+      // --------------------
+      final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+        flyerBoxWidth: flyerBoxWidth,
+        forceMaxHeight: false,
+      );
+      final BorderRadius _corners = FlyerDim.flyerCorners(context, flyerBoxWidth);
+      final double _checkIconSize = FlyerDim.flyerBottomCornerValue(flyerBoxWidth) * 2;
+      // --------------------
+      return Stack(
+        key: const ValueKey<String>('FlyerSelectionLayer'),
+        children: <Widget>[
 
-        /// SELECTED TEXT
-          Container(
-            width: flyerBoxWidth,
-            height: _flyerBoxHeight,
-            alignment: Alignment.center,
-            child: SuperVerse(
-              verse: const Verse(
-                text: 'phid_selected',
-                casing: Casing.upperCase,
-                translate: true,
+          /// BLACK COLOR OVERRIDE
+            DreamBox(
+              width: flyerBoxWidth,
+              height: _flyerBoxHeight,
+              color: Colorz.black150,
+              corners: _corners,
+            ),
+
+          /// SELECTED TEXT
+            Container(
+              width: flyerBoxWidth,
+              height: _flyerBoxHeight,
+              alignment: Alignment.center,
+              child: SuperVerse(
+                verse: const Verse(
+                  text: 'phid_selected',
+                  casing: Casing.upperCase,
+                  translate: true,
+                ),
+                weight: VerseWeight.black,
+                italic: true,
+                scaleFactor: flyerBoxWidth / 100,
+                shadow: true,
               ),
-              weight: VerseWeight.black,
-              italic: true,
-              scaleFactor: flyerBoxWidth / 100,
-              shadow: true,
             ),
-          ),
 
-        /// CHECK ICON
-          Container(
-            width: flyerBoxWidth,
-            height: _flyerBoxHeight,
-            alignment: Aligners.superInverseBottomAlignment(context),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colorz.white20,),
-              borderRadius: _corners,
+          /// CHECK ICON
+            Container(
+              width: flyerBoxWidth,
+              height: _flyerBoxHeight,
+              alignment: Aligners.superInverseBottomAlignment(context),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colorz.white20,),
+                borderRadius: _corners,
+              ),
+              child: DreamBox(
+                height: _checkIconSize,
+                width: _checkIconSize,
+                corners: _checkIconSize / 2,
+                color: Colorz.green255,
+                icon: Iconz.check,
+                iconSizeFactor: 0.4,
+                iconColor: Colorz.white255,
+              ),
             ),
-            child: DreamBox(
-              height: _checkIconSize,
-              width: _checkIconSize,
-              corners: _checkIconSize / 2,
-              color: Colorz.green255,
-              icon: Iconz.check,
-              iconSizeFactor: 0.4,
-              iconColor: Colorz.white255,
-            ),
-          ),
 
 
-      ],
-    );
+        ],
+      );
+      // --------------------
+    }
 
   }
   /// --------------------------------------------------------------------------
