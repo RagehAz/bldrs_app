@@ -262,6 +262,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       onSearchSubmit: widget.onSearchSubmit,
       onSearchCancelled: widget.onSearchCancelled,
       onBack: _onBack,
+      listenToHideLayout: true,
       child: widget.searchView == null || widget.isSearching == null?
       _normalView
           :

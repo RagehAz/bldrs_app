@@ -1,7 +1,7 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/f_flight_flyer.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -32,24 +32,6 @@ class HeroicFlyerBigView extends StatelessWidget {
     );
   }
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  Widget buildFlight(
-      BuildContext flightContext,
-      Animation<double> animation,
-      HeroFlightDirection flightDirection,
-      BuildContext fromHeroContext,
-      BuildContext toHeroContext,
-      ){
-
-    return FlightFlyer(
-      renderedFlyer: renderedFlyer,
-      flyerBoxWidth: flyerBoxWidth,
-      heroTag: heroPath,
-      flightDirection: flightDirection,
-    );
-
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -71,23 +53,6 @@ class HeroicFlyerBigView extends StatelessWidget {
           canBuildBigFlyer: true,
           invoker: 'FlyerBigView',
         ),
-
-        // child: Hero(
-        //   key: const ValueKey<String>('FlyerHero'),
-        //   tag: heroPath,
-        //   flightShuttleBuilder: buildFlight,
-        //   transitionOnUserGestures: true,
-        //   child: HeroicBigFlyer(
-        //     heroPath: heroPath,
-        //     flyerBoxWidth: Scale.screenWidth(context),
-        //     renderedFlyer: renderedFlyer,
-        //     canBuild: true,
-        //     showGallerySlide: canShowGalleryPage(
-        //       bzModel: renderedFlyer?.bzModel,
-        //       canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID(heroPath),
-        //     ),
-        //   ),
-        // ),
 
       ),
     );

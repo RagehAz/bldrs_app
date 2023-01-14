@@ -66,7 +66,6 @@ class FlightFlyer extends StatelessWidget {
             type: MaterialType.transparency,
             child: Transform.scale(
               scale: value,
-              // origin: Offset(10, 10),
               child: HeroicSmallFlyer(
                 renderedFlyer: renderedFlyer,
                 flyerBoxWidth: flyerBoxWidth,
