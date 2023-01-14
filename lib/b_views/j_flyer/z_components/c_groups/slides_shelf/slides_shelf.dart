@@ -142,7 +142,7 @@ class SlidesShelf extends StatelessWidget {
                               height: _flyerZoneHeight,
                               child: ClipRRect(
                                 borderRadius: _flyerBorderRadius,
-                                child: OldSuperImage(
+                                child: BldrsImage(
                                     pic: _pic,
                                     width: _flyerZoneWidth,
                                     height: _flyerZoneHeight),

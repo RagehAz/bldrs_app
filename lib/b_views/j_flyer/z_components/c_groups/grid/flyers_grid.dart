@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/future_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
@@ -166,56 +166,35 @@ class FlyersGrid extends StatelessWidget {
                 else {
 
                   final int _flyerIndex = showAddFlyerButton == true ? index-1 : index;
+                  final String _flyerID = flyersIDs[_flyerIndex];
 
-                  /// FLYER BY ID
-                  if (flyersIDs != null){
-
-                    final String _flyerID = flyersIDs[_flyerIndex];
-
-                    return FlyerBuilder(
-                      key: ValueKey<String>('FutureFlyer:flyerID:$_flyerID'),
+                  final FlyerModel _flyer = FlyerModel.getFlyerFromFlyersByID(
+                      flyers: flyers,
                       flyerID: _flyerID,
-                      flyerBoxWidth: _gridSlotWidth,
-                      onFlyerNotFound: () => onFlyerNotFound(_flyerID),
-                      builder: (FlyerModel _flyer) {
+                  );
 
-                        return FlyerSelectionStack(
-                          flyerModel: _flyer,
-                          flyerBoxWidth: _gridSlotWidth,
-                          onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
-                          onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
-                          selectionMode: selectionMode,
-                          flyerWidget: HeroicFlyer(
-                            flyerModel: _flyer,
-                            flyerBoxWidth: _gridSlotWidth,
-                            screenName: screenName,
-                          ),
-                        );
-                      },
-                    );
+                  return FlyerBuilder(
+                    key: const ValueKey<String>('FlyerBuilder_inGrid'),
+                    flyerID: _flyerID,
+                    flyerModel: _flyer,
+                    flyerBoxWidth: _gridSlotWidth,
+                    onFlyerNotFound: () => onFlyerNotFound(_flyerID),
+                    builder: (FlyerModel _flyer) {
 
-                  }
-
-                  /// FLYER BY MODEL
-                  else {
-
-                    final FlyerModel _flyer =  flyers[_flyerIndex];
-
-                    return FlyerSelectionStack(
-                      key: ValueKey<String>('FlyerSelectionStack:flyerID:${_flyer?.id}'),
-                      flyerModel: _flyer,
-                      flyerBoxWidth: _gridSlotWidth,
-                      onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
-                      onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
-                      selectionMode: selectionMode,
-                      flyerWidget: HeroicFlyer(
+                      return FlyerSelectionStack(
                         flyerModel: _flyer,
                         flyerBoxWidth: _gridSlotWidth,
-                        screenName: screenName,
-                      ),
-                    );
-
-                  }
+                        onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyer),
+                        onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyer),
+                        selectionMode: selectionMode,
+                        flyerWidget: HeroicFlyer(
+                          flyerModel: _flyer,
+                          flyerBoxWidth: _gridSlotWidth,
+                          screenName: screenName,
+                        ),
+                      );
+                    },
+                  );
 
                 }
                 // ---------------------------------------------

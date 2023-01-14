@@ -50,7 +50,7 @@ class SuperFilteredImage extends StatelessWidget {
 
     else {
 
-      return OldSuperImage(
+      return BldrsImage(
         width: width,
         height: height,
         pic: pic,
@@ -281,7 +281,7 @@ class _FilteredImageState extends State<_FilteredImage> {
   Widget build(BuildContext context) {
 
     if (_uiImage == null){
-      return OldSuperImage(
+      return BldrsImage(
         width: widget.width,
         height: widget.height,
         pic: widget.pic,
@@ -293,7 +293,7 @@ class _FilteredImageState extends State<_FilteredImage> {
     else {
       return _FilteredImage._createTree(
         matrixes: widget.filterModel?.matrixes,
-        child: OldSuperImage(
+        child: BldrsImage(
           width: widget.width,
           height: widget.height,
           pic: _uiImage,

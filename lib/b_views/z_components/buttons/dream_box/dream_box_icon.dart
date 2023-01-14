@@ -41,7 +41,7 @@ class DreamBoxIcon extends StatelessWidget {
     }
 
     else {
-      return OldSuperImage(
+      return BldrsImage(
         key: const ValueKey<String>('DreamBoxIcon'),
         width: size,
         height: size,

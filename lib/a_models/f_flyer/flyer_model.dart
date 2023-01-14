@@ -679,13 +679,16 @@ class FlyerModel {
     @required List<FlyerModel> flyers,
     @required String flyerID
   }){
+    FlyerModel _output;
 
-    final FlyerModel _flyer = flyers.singleWhere(
-            (FlyerModel tinyFlyer) => tinyFlyer.id == flyerID,
-        orElse: () => null
-    );
+    if (Mapper.checkCanLoopList(flyers) == true){
 
-    return _flyer;
+      _output = flyers.singleWhere((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID,
+             orElse: () => null);
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

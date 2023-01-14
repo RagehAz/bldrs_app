@@ -99,7 +99,7 @@ class CropperFooter extends StatelessWidget {
                             borderRadius: FlyerDim.flyerCorners(context, _miniImageWidth),
                             border: _isSelected == true ? Border.all(color: Colorz.white200) : null,
                           ),
-                          child: OldSuperImage(
+                          child: BldrsImage(
                             width: _miniImageWidth,
                             height: _miniImageWidth,
                             pic: bytezz[index],
