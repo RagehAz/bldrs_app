@@ -712,7 +712,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                   FlyerModel _allBzSlidesInOneFlyer = await FlyerProtocols.fetchAndCombineBzSlidesInOneFlyer(
                                     context: context,
-                                    bzModel: bzModels.first,
+                                    bzID: bzModels.first.id,
                                     maxSlides: 20,
                                   );
                                   _allBzSlidesInOneFlyer = await FlyerProtocols.renderBigFlyer(

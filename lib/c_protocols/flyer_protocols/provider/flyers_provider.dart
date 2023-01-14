@@ -229,7 +229,7 @@ class FlyersProvider extends ChangeNotifier {
     );
 
     if (_flyersContainThisFlyer == false){
-      _selectedFlyers.add(flyer);
+      _selectedFlyers = [...?_selectedFlyers, flyer];
       notifyListeners();
     }
 
@@ -244,7 +244,12 @@ class FlyersProvider extends ChangeNotifier {
     );
 
     if (_flyersContainThisFlyer == true){
-      _selectedFlyers.remove(flyer);
+
+      _selectedFlyers = FlyerModel.removeFlyerFromFlyersByID(
+        flyers: _selectedFlyers,
+        flyerIDToRemove: flyer?.id,
+      );
+
       notifyListeners();
     }
 

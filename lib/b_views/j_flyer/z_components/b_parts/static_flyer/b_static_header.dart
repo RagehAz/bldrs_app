@@ -18,7 +18,6 @@ class StaticHeader extends StatelessWidget {
     @required this.bzModel,
     @required this.authorID,
     @required this.flyerShowsAuthor,
-    this.flightTweenValue = 1,
     this.onTap,
     this.showHeaderLabels = false,
     this.flightDirection = FlightDirection.non,
@@ -28,7 +27,6 @@ class StaticHeader extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final double flightTweenValue;
   final BzModel bzModel;
   final String authorID;
   final Function onTap;
@@ -77,59 +75,53 @@ class StaticHeader extends StatelessWidget {
           ),
 
           /// HEADER LABELS
-          Opacity(
-            opacity: flightTweenValue,
-            child: HeaderLabels(
-              flyerBoxWidth: flyerBoxWidth,
-              authorID: authorID,
-              bzModel: bzModel,
-              headerIsExpanded: false,
-              flyerShowsAuthor: _flyerShowsAuthor,
-              showHeaderLabels: showHeaderLabels,
-              authorImage: authorImage,
-            ),
+          HeaderLabels(
+            flyerBoxWidth: flyerBoxWidth,
+            authorID: authorID,
+            bzModel: bzModel,
+            headerIsExpanded: false,
+            flyerShowsAuthor: _flyerShowsAuthor,
+            showHeaderLabels: showHeaderLabels,
+            authorImage: authorImage,
           ),
 
           /// FOLLOW AND CALL BUTTONS
-          Opacity(
-            opacity: flightTweenValue,
-            child: Container(
+          Container(
+            width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
+            height: FlyerDim.logoWidth(flyerBoxWidth),
+            alignment: Alignment.topCenter,
+            // margin: EdgeInsets.symmetric(horizontal: _paddings),
+            // color: Colorz.BloodTest,
+            child: SizedBox(
+              height: FlyerDim.followAndCallBoxHeight(flyerBoxWidth),
               width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-              height: FlyerDim.logoWidth(flyerBoxWidth),
-              alignment: Alignment.topCenter,
-              // margin: EdgeInsets.symmetric(horizontal: _paddings),
-              // color: Colorz.BloodTest,
-              child: SizedBox(
-                height: FlyerDim.followAndCallBoxHeight(flyerBoxWidth),
-                width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
 
-                    /// FOLLOW BUTTON
-                    if (showHeaderLabels == true)
-                    FollowButton(
-                      flyerBoxWidth: flyerBoxWidth,
-                      onFollowTap: null,
-                      tappingUnfollow: null,
-                      followIsOn: ValueNotifier(false),
-                    ),
+                  /// FOLLOW BUTTON
+                  if (showHeaderLabels == true)
+                  FollowButton(
+                    flyerBoxWidth: flyerBoxWidth,
+                    onFollowTap: null,
+                    tappingUnfollow: null,
+                    followIsOn: ValueNotifier(false),
+                  ),
 
-                    /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
-                    if (showHeaderLabels == true)
-                      StaticHeaderSlateSpacer(
-                      flyerBoxWidth: flyerBoxWidth,
-                    ),
+                  /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+                  if (showHeaderLabels == true)
+                    StaticHeaderSlateSpacer(
+                    flyerBoxWidth: flyerBoxWidth,
+                  ),
 
-                    /// Call BUTTON
-                    if (showHeaderLabels == true)
-                      CallButton(
-                      flyerBoxWidth: flyerBoxWidth,
-                      onCallTap: null,
-                    ),
+                  /// Call BUTTON
+                  if (showHeaderLabels == true)
+                    CallButton(
+                    flyerBoxWidth: flyerBoxWidth,
+                    onCallTap: null,
+                  ),
 
-                  ],
-                ),
+                ],
               ),
             ),
           ),

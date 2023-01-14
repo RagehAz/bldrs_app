@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -7,7 +6,6 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -36,7 +34,7 @@ class PosterTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _TheStatefulScreenState extends State<PosterTestScreen> {
@@ -248,8 +246,6 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
 
         /// FLYER PREVIEW
         SmallFlyer(
-          renderFlyer: RenderFlyer.firstSlide,
-          flyerID: _flyer?.id,
           flyerModel: _flyer,
           flyerBoxWidth: 150,
           onTap: null,

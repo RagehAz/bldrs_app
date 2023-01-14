@@ -116,7 +116,6 @@ class FooterTemplate extends StatelessWidget {
 
                 _spacer,
 
-
               ],
             ),
           ),

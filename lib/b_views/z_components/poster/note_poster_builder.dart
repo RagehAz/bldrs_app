@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_flyer_poster.dart';
@@ -40,29 +41,19 @@ class NotePosterBuilder extends StatelessWidget {
       /// FLYER POSTER
       if (noteModel?.poster?.type == PosterType.flyer){
 
-        return FutureBuilder(
-          future: FlyerProtocols.fetchFlyer(context: context, flyerID: noteModel?.poster?.modelID),
-            builder: (_, AsyncSnapshot<FlyerModel> flyerSnap){
+        return FlyerBuilder(
+          flyerID: noteModel?.poster?.modelID,
+          renderFlyer: RenderFlyer.allSlides,
+          flyerBoxWidth: null,
+          builder: (FlyerModel flyerModel){
 
-            final FlyerModel _flyer = flyerSnap.data;
+            return FlyerPoster(
+                width: width,
+                flyerModel: flyerModel,
+                screenName: noteModel.id,
+              );
 
-            /// LOADING OR NOT FOUND
-            if (Streamer.connectionIsLoading(flyerSnap) == true || _flyer == null){
-              return _empty;
-            }
-
-            /// FLYER IS FOUND
-            else {
-
-              return FlyerPoster(
-                  width: width,
-                  flyerModel: _flyer,
-                  screenName: noteModel.id,
-                );
-
-            }
-
-            }
+          },
         );
 
       }
@@ -87,7 +78,7 @@ class NotePosterBuilder extends StatelessWidget {
                 return FutureBuilder(
                   future: FlyerProtocols.fetchAndCombineBzSlidesInOneFlyer(
                     context: context,
-                    bzModel: _bzModel,
+                    bzID: noteModel.poster.modelID,
                     maxSlides: 7,
                   ),
                   builder: (_, AsyncSnapshot<FlyerModel> flyerSnap){
