@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/a_slide_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
@@ -133,57 +132,43 @@ class SlideEditorSlidePart extends StatelessWidget {
             ValueListenableBuilder(
                 valueListenable: isPlayingAnimation,
                 builder: (_, bool isPlaying, Widget child) {
+
                   if (isPlaying == true) {
                     return ValueListenableBuilder(
                       valueListenable: draftSlide,
                       builder: (_, DraftSlide draft, Widget child) {
                         Trinity.blogMatrix(draft?.matrix);
 
-                        return SlideBox(
-                          flyerBoxWidth: _flyerBoxWidth,
-                          flyerBoxHeight: _flyerBoxHeight,
-                          slideMidColor: Colorz.nothing,
-                          // shadowIsOn: false,
-                          tinyMode: false,
-                          stackChildren: [
-                            /// BLUR LAYER
-                            // BlurLayer(
-                            //   width: _flyerBoxWidth,
-                            //   height: _flyerBoxHeight,
-                            //   blurIsOn: true,
-                            //   blur: 40,
-                            //   borders: FlyerDim.flyerCorners(context, _flyerBoxWidth),
-                            // ),
-
-                            AnimateWidgetToMatrix(
-                              matrix: Trinity.renderSlideMatrix(
-                                matrix: draft?.matrix,
-                                flyerBoxWidth: _flyerBoxWidth,
-                                flyerBoxHeight: _flyerBoxHeight,
-                              ),
-                              // canAnimate: true,
-                              curve: draft.animationCurve,
-                              replayOnRebuild: true,
-                              onAnimationEnds: () {
-                                setNotifier(
-                                    notifier: isPlayingAnimation, mounted: mounted, value: false);
-                              },
-                              child: SuperFilteredImage(
-                                width: _flyerBoxWidth,
-                                height: _flyerBoxHeight,
-                                pic: draft?.picModel?.bytes,
-                                filterModel: ImageFilterModel.getFilterByID(draft?.filter?.id),
-                                boxFit: draft?.picFit,
-                                // canUseFilter: true,
-                              ),
-                            ),
-                          ],
+                        return AnimateWidgetToMatrix(
+                          matrix: Trinity.renderSlideMatrix(
+                            matrix: draft?.matrix,
+                            flyerBoxWidth: _flyerBoxWidth,
+                            flyerBoxHeight: _flyerBoxHeight,
+                          ),
+                          // canAnimate: true,
+                          curve: draft.animationCurve,
+                          replayOnRebuild: true,
+                          onAnimationEnds: () {
+                            setNotifier(
+                                notifier: isPlayingAnimation, mounted: mounted, value: false);
+                            },
+                          child: SuperFilteredImage(
+                            width: _flyerBoxWidth,
+                            height: _flyerBoxHeight,
+                            pic: draft?.picModel?.bytes,
+                            filterModel: ImageFilterModel.getFilterByID(draft?.filter?.id),
+                            boxFit: draft?.picFit,
+                            // canUseFilter: true,
+                          ),
                         );
                       },
                     );
-                  } else {
+                  }
+
+                  else {
                     return const SizedBox();
                   }
+
                 }),
 
             /// SLIDE SHADOW
