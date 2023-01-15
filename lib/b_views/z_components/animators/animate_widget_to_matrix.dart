@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class AnimateWidgetToMatrix extends StatelessWidget {
@@ -9,6 +10,8 @@ class AnimateWidgetToMatrix extends StatelessWidget {
     // this.origin,
     this.canAnimate = true,
     this.curve = Curves.easeInExpo,
+    this.onAnimationEnds,
+    this.replayOnRebuild = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,6 +21,8 @@ class AnimateWidgetToMatrix extends StatelessWidget {
   // final Offset origin;
   final bool canAnimate;
   final Curve curve;
+  final Function onAnimationEnds;
+  final bool replayOnRebuild;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -27,6 +32,8 @@ class AnimateWidgetToMatrix extends StatelessWidget {
         duration: duration,
         matrix: matrix,
         curve: curve,
+        onAnimationEnds: onAnimationEnds,
+        replayOnRebuild: replayOnRebuild,
         child: child,
       );
     }
@@ -46,6 +53,8 @@ class _AnimatedChild extends StatefulWidget {
     @required this.matrix,
     @required this.duration,
     @required this.curve,
+    @required this.onAnimationEnds,
+    @required this.replayOnRebuild,
     // @required this.origin,
     Key key
   }) : super(key: key);
@@ -54,6 +63,8 @@ class _AnimatedChild extends StatefulWidget {
   final Matrix4 matrix;
   final Duration duration;
   final Curve curve;
+  final Function onAnimationEnds;
+  final bool replayOnRebuild;
   // final Offset origin;
   /// --------------------------------------------------------------------------
   @override
@@ -78,10 +89,22 @@ class __AnimatedChildState extends State<_AnimatedChild> with TickerProviderStat
 
     _curvedAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: widget.curve,
+      curve: widget.curve ?? Curves.easeInExpo,
     );
 
-    _animationController.forward(from: 0);
+    blog('initState matrix animator');
+    play();
+
+  }
+  // --------------------
+  @override
+  void didUpdateWidget(_AnimatedChild oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.replayOnRebuild == true){
+      blog('didUpdateWidget in matrix animator');
+      play();
+    }
 
   }
   // --------------------
@@ -90,6 +113,19 @@ class __AnimatedChildState extends State<_AnimatedChild> with TickerProviderStat
     _animationController.dispose();
     _curvedAnimation.dispose();
     super.dispose();
+  }
+  // --------------------------------------------------------------------------
+  Future<void> play() async {
+
+    blog('should play the damn animation : ${_animationController.value}');
+    await _animationController.forward(from: 0);
+
+    if (widget.onAnimationEnds != null){
+      widget.onAnimationEnds();
+    }
+
+
+
   }
   // --------------------------------------------------------------------------
   @override

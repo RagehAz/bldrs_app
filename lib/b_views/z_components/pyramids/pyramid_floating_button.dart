@@ -38,7 +38,7 @@ class PyramidFloatingButton extends StatelessWidget {
         iconSizeFactor: 0.6,
         onTap: onTap,
         onLongTap: onLongTap,
-        isDeactivated: isDeactivated,
+        isDisabled: isDeactivated,
       ),
     );
 

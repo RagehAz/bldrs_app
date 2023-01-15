@@ -2,9 +2,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+// import 'dart:js_util/js_util_wasm.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:image/image.dart';
 import 'package:rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
@@ -650,4 +652,37 @@ static img.Image decodeToImgImage({
     return _bytes;
   }
   // -----------------------------------------------------------------------------
+}
+
+void blogExif(ExifData exif){
+
+  if (exif == null){
+    blog('exif is null');
+  }
+
+  else {
+
+    exif.exifIfd.data.forEach((key, value){
+      blog('$key : $value');
+    });
+    exif.gpsIfd.data.forEach((key, value){
+      blog('$key : $value');
+    });
+    exif.imageIfd.data.forEach((key, value){
+      blog('$key : $value');
+    });
+    exif.interopIfd.data.forEach((key, value){
+      blog('$key : $value');
+    });
+    exif.thumbnailIfd.data.forEach((key, value){
+      blog('$key : $value');
+    });
+
+    blog('exif.directories :  ${exif.directories.runtimeType} : ${exif.directories}');
+    blog('exif.isEmpty :      ${exif.isEmpty.runtimeType}     : ${exif.isEmpty}');
+    blog('exif.keys :         ${exif.keys.runtimeType}        : ${exif.keys}');
+    blog('exif.values :       ${exif.values.runtimeType}      : ${exif.values}');
+
+  }
+
 }

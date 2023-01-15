@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:colorizer/colorizer.dart';
-import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -19,17 +18,20 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_signed_in_button.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart' as image;
+import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -77,13 +79,59 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     //
     // }
 
-    final String _hex = Colorizer.convertColorToHex(Colorz.yellow50);
+    // final String _hex = Colorizer.convertColorToHex(Colorz.yellow50);
+    //
+    // blog('hex is $_hex');
+    //
+    // final Color _color = Colorizer.convertHexToColor(_hex);
+    //
+    // blog('color is ${_color.red}.${_color.green}.${_color.blue}');
 
-    blog('hex is $_hex');
+    // -----------------------------------------------------------------------------
 
-    final Color _color = Colorizer.convertHexToColor(_hex);
 
-    blog('color is ${_color.red}.${_color.green}.${_color.blue}');
+      blog('a77aaa');
+
+
+      image.Image _fromByteData(Uint8List data) {
+        final image.Image tempImage = image.decodeImage(data);
+        // check orientation
+        switch (tempImage.exif['0x0112']?.data[0x0112]?.toInt() ?? -1) {
+          case 3:
+            return image.copyRotate(tempImage, 180);
+          case 6:
+            return image.copyRotate(tempImage, 90);
+          case 8:
+            return image.copyRotate(tempImage, -90);
+        }
+        return tempImage;
+      }
+
+      const String url = 'https://www.galloway.me'
+          '.uk/media/images/2012-01-30-uiimageorientation-exif-orientation-sample-images/left-300x225.jpg';
+
+      final Uint8List _bytes = await Floaters.getUint8ListFromURL(url);
+
+
+      // final String path = Storage.generateUserPicPath('z0Obwze3JLYjoEl6uVeXfo4Luup1');
+      // final PicModel _pic = await PicProtocols.fetchPic(path);
+
+      final image.Image _img = _fromByteData(_bytes);
+
+      blogExif(_img.exif);
+
+      // int? get Orientation => data[0x0112]?.toInt();
+
+      final int thing = _img.exif['0x0112']?.data[0x0112]?.toInt();
+
+      // _img.exif.
+      // final int aho = int.parse(_img.exif.getTag(image.ExifTag.orientation).toString());
+      // final String _exit = _img.exif.toString();
+
+      blog('exif : thing : $thing : ${_img.exif['0x0112']?.hasOrientation}');
+
+      _thePic.value = _img;
+
 
   }
   // -------------------------------------------------

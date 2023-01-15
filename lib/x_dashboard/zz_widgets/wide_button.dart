@@ -46,7 +46,7 @@ class WideButton extends StatelessWidget {
       iconSizeFactor: iconSizeFactor,
       verseCentered: false,
       margins: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-      isDeactivated: !isActive,
+      isDisabled: !isActive,
       onTap: onTap,
       color: color,
       bubble: bubble,

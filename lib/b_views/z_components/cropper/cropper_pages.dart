@@ -87,7 +87,6 @@
 //                 color: Colorz.black255,
 //                 child: const SuperVerse(
 //                   verse: Verse(
-//                     pseudo: 'Image format is inCompatible\nPlease select another Image',
 //                     text: 'phid_image_format_incompatible',
 //                     translate: true,
 //                   ),
@@ -97,12 +96,13 @@
 //             }
 //
 //             else {
+//
 //               return KeepAlivePage(
-//                 child: Container(
+//                 child: SizedBox(
 //                   key: PageStorageKey<String>('image_$index'),
 //                   width: _screenWidth,
 //                   height: _imageSpaceHeight,
-//                   color: Colorz.black255,
+//                   // color: Colorz.bloodTest,
 //                   child: Crop(
 //                     image: originalBytezz[index],
 //                     controller: controllers[index],
@@ -117,8 +117,8 @@
 //                     // initialAreaBuilder: (rect) => Rect.fromLTRB(
 //                     //     rect.left + 24, rect.top + 32, rect.right - 24, rect.bottom - 32
 //                     // ),
-//                     baseColor: Colorz.black255,
-//                     maskColor: Colorz.black125,
+//                     baseColor: Colorz.bloodTest,
+//                     maskColor: Colorz.black150,
 //                     // radius: 0,
 //                     onMoved: (Rect newRect) {
 //                       _updateCropStatus(

@@ -31,7 +31,7 @@ class SlideTransformer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    blog('SlideTransformer : BUILDING : slide : ${slide.picModel.bytes.length} bytes');
+    // blog('SlideTransformer : BUILDING : slide : ${slide.picModel.bytes.length} bytes');
 
     return MatrixGestureDetector(
       key: const ValueKey<String>('SlideTransformer'),

@@ -2,7 +2,9 @@ import 'dart:typed_data';
 
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -29,40 +31,169 @@ Matrix4 initializeMatrix({
 }
 // -----------------------------------------------------------------------------
 
-/// SLIDE MODIFIERS
+/// CANCELLING
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onReset({
+Future<void> onCancelSlideEdits({
+  @required BuildContext context,
+}) async {
+
+  await Nav.goBack(
+    context: context,
+    invoker: 'onCancelSlideEdits',
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// RESET
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onResetMatrix({
+  @required BuildContext context,
   @required DraftSlide originalDraft,
   @required ValueNotifier<DraftSlide> draftNotifier,
-  @required ValueNotifier<ImageFilterModel> filter,
+  @required ValueNotifier<bool> canResetMatrix,
   @required ValueNotifier<Matrix4> matrix,
   @required bool mounted,
 }) async {
 
+  final bool _go = await Dialogs.confirmProceed(
+    context: context,
+    titleVerse: const Verse(
+      text: 'phid_reset_orientation_?',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      text: 'phid_this_will_reset_zoom_rotation_of_slide',
+      translate: true,
+    ),
+    invertButtons: true,
+  );
+
+  if (_go == true){
+
+    setNotifier(
+        notifier: draftNotifier,
+        mounted: mounted,
+        value: originalDraft.copyWith(
+          matrix: Matrix4.identity(),
+          filter: ImageFilterModel.noFilter(),
+        )
+    );
+
+    setNotifier(
+      notifier: matrix,
+      mounted: mounted,
+      value: Matrix4.identity(),
+    );
+
+    setNotifier(
+      notifier: canResetMatrix,
+      mounted: mounted,
+      value: false,
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// ANIMATION TRIGGER
+
+// --------------------
+/// TESTED : WORKS PERFECT
+void onTriggerAnimation({
+  @required ValueNotifier<DraftSlide> draftNotifier,
+  @required ValueNotifier<bool> canResetMatrix,
+  @required ValueNotifier<bool> isPlayingAnimation,
+  @required bool mounted,
+}){
+
+  final Curve _oldCurve = draftNotifier.value.animationCurve;
+  final Curve _newCurve = _oldCurve == Curves.easeInOut ? null : Curves.easeInOut;
+  bool _shouldReanimate = false;
+
+  DraftSlide _newSlide;
+  if (_oldCurve == null){
+    _newSlide = draftNotifier.value.copyWith(
+      animationCurve: _newCurve,
+    );
+
+    _shouldReanimate = true;
+
+  }
+
+  else {
+    _newSlide = draftNotifier.value.nullifyField(
+      animationCurve: true,
+    );
+  }
+
   setNotifier(
       notifier: draftNotifier,
       mounted: mounted,
-      value: originalDraft.copyWith(
-        matrix: Matrix4.identity(),
-        filter: ImageFilterModel.noFilter(),
-      )
+      value: _newSlide,
   );
 
-  setNotifier(
-      notifier: filter,
+  if (_shouldReanimate == true){
+    onReplayAnimation(
+       mounted: mounted,
+       draftNotifier: draftNotifier,
+       canResetMatrix: canResetMatrix,
+       isPlayingAnimation: isPlayingAnimation,
+     );
+  }
+  else {
+    stopAnimation(
       mounted: mounted,
-      value: ImageFilterModel.noFilter(),
-  );
-
-  setNotifier(
-    notifier: matrix,
-    mounted: mounted,
-    value: Matrix4.identity(),
-  );
+      isPlayingAnimation: isPlayingAnimation,
+    );
+  }
 
 }
+// --------------------
+/// TESTED : WORKS PERFECT
+void onReplayAnimation({
+  @required ValueNotifier<DraftSlide> draftNotifier,
+  @required ValueNotifier<bool> canResetMatrix,
+  @required ValueNotifier<bool> isPlayingAnimation,
+  @required bool mounted,
+}){
+
+    if (
+        isPlayingAnimation.value == false &&
+        canResetMatrix.value == true &&
+        draftNotifier.value.animationCurve != null
+    ){
+
+      setNotifier(
+        notifier: isPlayingAnimation,
+        mounted: mounted,
+        value: true,
+      );
+
+    }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void stopAnimation({
+  @required ValueNotifier<bool> isPlayingAnimation,
+  @required bool mounted,
+}){
+  setNotifier(
+      notifier: isPlayingAnimation,
+      mounted: mounted,
+      value: false,
+  );
+}
+// -----------------------------------------------------------------------------
+
+/// CROPPING
+
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCropSlide({
@@ -98,6 +229,10 @@ Future<void> onCropSlide({
   }
 
 }
+// -----------------------------------------------------------------------------
+
+/// COLOR FILTER
+
 // --------------------
 /// TESTED : WORKS PERFECT
 void onToggleFilter({
@@ -105,27 +240,6 @@ void onToggleFilter({
   @required ValueNotifier<ImageFilterModel> currentFilter,
   @required bool mounted,
 }){
-
-  /// --------------------------------------------- FOR TESTING START
-  // _index = _index == 0 ? 1 : 0;
-  // const Color _color = Color.fromRGBO(210, 137, 28, 1.0);
-  //
-  // blog('color : ${_color.value}');
-  //
-  // final _fii = _index == 0 ?
-  // bldrsImageFilters(context)[0]
-  //     :
-  // ColorFilterModel(
-  //   name: 'cool',
-  //   matrixes: <List<double>>[
-  //     ColorFilterLayer.sepia(0.1),
-  //     ColorFilterLayer.colorOverlay(255, 145, 0, 0.1),
-  //     ColorFilterLayer.brightness(10),
-  //     ColorFilterLayer.saturation(15),
-  //   ],
-  // );
-  // _filterModel.value  = _fii;
-  /// --------------------------------------------- FOR TESTING END
 
   final ImageFilterModel _currentFilter = currentFilter.value;
 
@@ -145,6 +259,9 @@ void onToggleFilter({
       ),
   );
 
+  // blog('currentFilter : ${currentFilter.value.id} :  _bldrsFilters[_filterIndex] : ${
+  //     _bldrsFilters[_filterIndex].id}');
+
   setNotifier(
       notifier: currentFilter,
       mounted: mounted,
@@ -152,6 +269,10 @@ void onToggleFilter({
   );
 
 }
+// -----------------------------------------------------------------------------
+
+/// HEADLINE
+
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSlideHeadlineChanged({
@@ -171,20 +292,8 @@ void onSlideHeadlineChanged({
 }
 // -----------------------------------------------------------------------------
 
-/// CONFIRMATION - CANCELLING
+/// CONFIRMATION
 
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> onCancelSlideEdits({
-  @required BuildContext context,
-}) async {
-
-  await Nav.goBack(
-    context: context,
-    invoker: 'onCancelSlideEdits',
-  );
-
-}
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmSlideEdits({

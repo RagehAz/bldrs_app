@@ -42,7 +42,7 @@ class DreamBox extends StatelessWidget {
     this.subChild,
     this.childAlignment = Alignment.center,
     this.opacity = 1,
-    this.isDeactivated = false,
+    this.isDisabled = false,
     this.splashColor = Colorz.white80,
     this.onTapDown,
     this.onTapUp,
@@ -88,7 +88,7 @@ class DreamBox extends StatelessWidget {
   final Widget subChild;
   final Alignment childAlignment;
   final double opacity;
-  final bool isDeactivated;
+  final bool isDisabled;
   final Color splashColor;
   final Function onTapDown;
   final Function onTapUp;
@@ -204,7 +204,7 @@ class DreamBox extends StatelessWidget {
     // --------------------
     return TheBoxOfDreamBox(
       key: const ValueKey<String>('Dream_box_the_box'),
-      inActiveMode: isDeactivated,
+      inActiveMode: isDisabled,
       opacity: opacity,
       boxMargins: Scale.superMargins(margin: margins),
       width: width,
@@ -261,7 +261,7 @@ class DreamBox extends StatelessWidget {
           greyscale: greyscale,
           bubble: bubble,
           iconColor: getIconColor(
-            inActiveMode: isDeactivated,
+            inActiveMode: isDisabled,
             blackAndWhite: greyscale,
             colorOverride: iconColor,
           ),
@@ -271,7 +271,7 @@ class DreamBox extends StatelessWidget {
           secondLine: secondLine,
           verseSize: iconSizeFactor == 1 ? 4 : 4,
           verseWeight: verseWeight,
-          inActiveMode: isDeactivated,
+          inActiveMode: isDisabled,
           verseColor: verseColor,
           verseShadow: verseShadow,
           verseMaxLines: verseMaxLines,
@@ -315,7 +315,7 @@ class DreamBox extends StatelessWidget {
             onTapUp: onTapUp,
             onTapDown: onTapDown,
             onTapCancel: onTapCancel,
-            deactivated: isDeactivated,
+            deactivated: isDisabled,
             onDeactivatedTap: onDeactivatedTap,
             onLongTap: onLongTap,
             onDoubleTap: onDoubleTap,

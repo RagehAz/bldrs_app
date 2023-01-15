@@ -82,7 +82,7 @@ class BzLogo extends StatelessWidget {
                   child: BldrsImage(
                     width: width * 0.2,
                     height: width * 0.2,
-                    pic: Iconz.bzBagdeWhite,
+                    pic: Iconz.bzBadgeWhite,
                     iconColor: Colorz.yellow255,
                   ),
               ),
