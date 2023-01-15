@@ -143,7 +143,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                           flyerBoxWidth: _flyerBoxWidth,
                           flyerBoxHeight: _flyerBoxHeight,
                           slideMidColor: Colorz.nothing,
-                          shadowIsOn: false,
+                          // shadowIsOn: false,
                           tinyMode: false,
                           stackChildren: [
                             /// BLUR LAYER
@@ -161,7 +161,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 flyerBoxWidth: _flyerBoxWidth,
                                 flyerBoxHeight: _flyerBoxHeight,
                               ),
-                              canAnimate: true,
+                              // canAnimate: true,
                               curve: draft.animationCurve,
                               replayOnRebuild: true,
                               onAnimationEnds: () {
@@ -174,7 +174,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 pic: draft?.picModel?.bytes,
                                 filterModel: ImageFilterModel.getFilterByID(draft?.filter?.id),
                                 boxFit: draft?.picFit,
-                                canUseFilter: true,
+                                // canUseFilter: true,
                               ),
                             ),
                           ],

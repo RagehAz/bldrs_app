@@ -3,7 +3,10 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_expanding_pyramid.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_pyramids.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class SuperPyramids extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -25,27 +28,43 @@ class SuperPyramids extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
-      key: const ValueKey('SuperPyramids'),
-      children: <Widget>[
+    return Selector<UiProvider, bool>(
+      selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
+      builder: (_, bool isVisible, Widget child) {
 
-        /// SINGLE PYRAMID
-        const ObeliskExpandingPyramid(),
+        return IgnorePointer(
+          ignoring: !isVisible,
+          child: WidgetFader(
+            fadeType: isVisible == false ? FadeType.fadeOut : FadeType.fadeIn,
+            duration: const Duration(milliseconds: 300),
+            child: child,
+          ),
+        );
 
-        /// OBELISK
-        Obelisk(
-          onRowTap: onRowTap,
-          progressBarModel: progressBarModel,
-          navModels: navModels,
-        ),
+      },
 
-        /// PYRAMIDS
-        ObeliskPyramids(
-          isYellow: isYellow,
-          mounted: mounted,
-        ),
+      child: Stack(
+            key: const ValueKey('SuperPyramids'),
+            children: <Widget>[
 
-      ],
+              /// SINGLE PYRAMID
+              const ObeliskExpandingPyramid(),
+
+              /// OBELISK
+              Obelisk(
+                onRowTap: onRowTap,
+                progressBarModel: progressBarModel,
+                navModels: navModels,
+              ),
+
+              /// PYRAMIDS
+              ObeliskPyramids(
+                isYellow: isYellow,
+                mounted: mounted,
+              ),
+
+            ],
+          ),
     );
 
   }
