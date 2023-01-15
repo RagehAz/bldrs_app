@@ -86,6 +86,7 @@ class FooterTemplate extends StatelessWidget {
                   canTap: true,
                   onTap: (){},
                   count: null,
+                  color: Colorz.black255,
                 ),
 
                 _spacer,
@@ -99,6 +100,7 @@ class FooterTemplate extends StatelessWidget {
                   canTap: false,
                   onTap: (){},
                   count: null,
+                  color: Colorz.black255,
                 ),
 
                 _spacer,
@@ -112,6 +114,7 @@ class FooterTemplate extends StatelessWidget {
                   canTap: false,
                   onTap: null,
                   count: null,
+                  color: Colorz.black255,
                 ),
 
                 _spacer,

@@ -30,6 +30,7 @@ class DraftSlide {
     @required this.opacity,
     @required this.matrix,
     @required this.filter,
+    @required this.animationCurve,
   });
   /// --------------------------------------------------------------------------
   final String flyerID;
@@ -42,6 +43,7 @@ class DraftSlide {
   final double opacity;
   final Matrix4 matrix;
   final ImageFilterModel filter;
+  final Curve animationCurve;
   // -----------------------------------------------------------------------------
 
   /// CREATION
@@ -132,6 +134,7 @@ class DraftSlide {
           ),
         ),
         matrix: Matrix4.identity(),
+        animationCurve: null,
         filter: ImageFilterModel.noFilter(),
       );
 
@@ -158,6 +161,7 @@ class DraftSlide {
         picFit: draft.picFit,
         midColor: draft.midColor,
         matrix: draft.matrix,
+        animationCurve: draft.animationCurve,
         filterID: draft.filter.id,
         picPath: draft.picModel.path,
         dimensions: draft.picModel.meta.dimensions,
@@ -207,6 +211,7 @@ class DraftSlide {
         midColor: slide.midColor,
         opacity: 1,
         matrix: slide.matrix,
+        animationCurve: slide.animationCurve,
         filter: ImageFilterModel.getFilterByID(slide.filterID),
       );
     }
@@ -263,6 +268,7 @@ class DraftSlide {
         'midColor': Colorizer.cipherColor(draft.midColor),
         'opacity': draft.opacity,
         'matrix' : Trinity.cipherMatrix(draft.matrix),
+        'animationCurve' : Trinity.cipherAnimationCurve(draft.animationCurve),
         'filterID' : draft.filter.id,
       };
     }
@@ -303,6 +309,7 @@ class DraftSlide {
         midColor: Colorizer.decipherColor(map['midColor']),
         opacity: map['opacity'],
         matrix: Trinity.decipherMatrix(map['matrix']),
+        animationCurve: Trinity.decipherAnimationCurve(map['animationCurve']),
         filter: ImageFilterModel.getFilterByID(map['filterID']),
       );
     }
@@ -343,6 +350,7 @@ class DraftSlide {
     double opacity,
     Matrix4 matrix,
     ImageFilterModel filter,
+    Curve animationCurve,
   }){
     return DraftSlide(
       flyerID: flyerID ?? this.flyerID,
@@ -355,6 +363,7 @@ class DraftSlide {
       opacity: opacity ?? this.opacity,
       matrix: matrix ?? this.matrix,
       filter: filter ?? this.filter,
+      animationCurve: animationCurve ?? this.animationCurve,
     );
   }
   // --------------------
@@ -370,6 +379,7 @@ class DraftSlide {
     bool opacity = false,
     bool matrix = false,
     bool filter = false,
+    bool animationCurve = false,
   }){
     return DraftSlide(
       flyerID: flyerID == true ? null : this.flyerID,
@@ -382,6 +392,7 @@ class DraftSlide {
       opacity: opacity == true ? null : this.opacity,
       matrix: matrix == true ? null : this.matrix,
       filter: filter == true ? null : this.filter,
+      animationCurve: animationCurve == true ? null : this.animationCurve,
     );
   }
   // -----------------------------------------------------------------------------
@@ -496,7 +507,8 @@ class DraftSlide {
 
     blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
     blog('headline : $headline : description : $description');
-    blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} : hasCustomMatrix : ${matrix != Matrix4.identity()}');
+    blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} :'
+        ' hasCustomMatrix : ${matrix != Matrix4.identity()} : animationCurve L $animationCurve');
     picModel.blogPic();
 
   }
@@ -560,7 +572,9 @@ class DraftSlide {
     if (ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter) == false){
       blog('MutableSlidesDifferences : filters are not Identical');
     }
-
+    if (slide1.animationCurve != slide2.animationCurve){
+      blog('MutableSlidesDifferences : animationCurves are not Identical');
+    }
   }
   // -----------------------------------------------------------------------------
 
@@ -673,6 +687,7 @@ class DraftSlide {
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == true &&
           slide1.opacity == slide2.opacity &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == true &&
+          slide1.animationCurve == slide2.animationCurve &&
           ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter) == true
       ){
         _identical = true;
@@ -794,6 +809,7 @@ class DraftSlide {
       midColor.hashCode^
       opacity.hashCode^
       matrix.hashCode^
+      animationCurve.hashCode^
       filter.hashCode;
   // -----------------------------------------------------------------------------
 }

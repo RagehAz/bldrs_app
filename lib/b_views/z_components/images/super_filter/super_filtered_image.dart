@@ -94,29 +94,38 @@ class _FilteredImage extends StatefulWidget {
     @required ImageFilterModel filterModel,
   }) async {
 
-    ui.Image _output = input is Uint8List ?
-    await Floaters.getUiImageFromUint8List(input) : input;
+    ui.Image _output;
 
+    blog('processImage : input : ${input.runtimeType} : input is Uint8List ${input is Uint8List}');
 
-    if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
+    if (
+        input != null &&
+        filterModel != null &&
+        Mapper.checkCanLoopList(filterModel.matrixes) == true
+    ){
 
-      final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
+      Uint8List _bytes = input is Uint8List ? input
+          :
+      await Floaters.getUint8ListFromUiImage(_output);
 
-      // blog('processImage : filterModel : ${filterModel.id} : matrixes : ${filterModel.matrixes}');
+      if (_bytes != null){
 
-      final List<double> _combinedMatrix = ImageFilterModel.combineMatrixes(
-        matrixes: filterModel.matrixes,
-      );
+        final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
 
-      option.addOption(
-          image_editor.ColorOption(
-              matrix: _combinedMatrix
-          ),
-      );
+        // blog('processImage : filterModel : ${filterModel.id} : matrixes : ${filterModel.matrixes}');
 
-      if (_output != null){
-        final Uint8List _bytes = await image_editor.ImageEditor.editImage(
-          image: await Floaters.getUint8ListFromUiImage(input),
+        final List<double> _combinedMatrix = ImageFilterModel.combineMatrixes(
+          matrixes: filterModel.matrixes,
+        );
+
+        option.addOption(
+            image_editor.ColorOption(
+                matrix: _combinedMatrix
+            ),
+        );
+
+        _bytes = await image_editor.ImageEditor.editImage(
+          image: _bytes,
           imageEditorOption: option,
         );
 
@@ -126,15 +135,12 @@ class _FilteredImage extends StatefulWidget {
 
       }
 
+
       // blog('processImage : uint8list is : ${input?.length} bytes');
 
-      return _output;
     }
 
-    else {
-      return _output;
-    }
-
+    return _output;
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

@@ -132,7 +132,7 @@ class InfoPageContents extends StatelessWidget {
                         color: Colorz.blue80,
                         verse: Verse.plain(_name),
                         verseScaleFactor: 0.6,
-                        isDeactivated: _pdfModel == null,
+                        isDisabled: _pdfModel == null,
                         onTap: () async {
 
                           await Nav.goToNewScreen(

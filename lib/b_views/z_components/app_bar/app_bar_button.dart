@@ -43,7 +43,7 @@ class AppBarButton extends StatelessWidget {
       iconSizeFactor: 0.6,
       bubble: bubble,
       onTap: onTap,
-      isDeactivated: isDeactivated,
+      isDisabled: isDeactivated,
       onDeactivatedTap: onDeactivatedTap,
       verseMaxLines: 2,
       // loading: loading,

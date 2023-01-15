@@ -431,7 +431,7 @@ class _CityEditorBubbleState extends State<CityEditorBubble> {
 
         /// SYNC
         DreamBox(
-          isDeactivated: _identical,
+          isDisabled: _identical,
           height: 40,
           width: _clearWidth,
           margins: const EdgeInsets.only(bottom: 10),

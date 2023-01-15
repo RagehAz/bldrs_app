@@ -94,7 +94,7 @@ class ReviewCreatorBubble extends StatelessWidget {
                               translate: true,
                               casing: Casing.upperCase,
                             ),
-                            isDeactivated: _isUploading,
+                            isDisabled: _isUploading,
                             icon: Iconz.share,
                             iconColor: Colorz.black255,
                             loading: _isUploading,

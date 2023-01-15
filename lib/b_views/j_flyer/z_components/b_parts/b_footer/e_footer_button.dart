@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class FooterButton extends StatelessWidget {
     @required this.isOn,
     @required this.canTap,
     @required this.count,
+    this.color,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +30,7 @@ class FooterButton extends StatelessWidget {
   final bool isOn;
   final bool canTap;
   final int count;
+  final Color color;
   // --------------------
   @override
   Widget build(BuildContext context) {
@@ -37,10 +40,23 @@ class FooterButton extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
-    if (icon == null){
+    if (icon == null && color == null){
       return SizedBox(
         width: _buttonSize,
         height: _buttonSize,
+      );
+    }
+    else if (icon == null && color != null){
+      return Container(
+        width: _buttonSize,
+        height: _buttonSize,
+         decoration: BoxDecoration(
+           color: Colorz.black255,
+           borderRadius: Borderers.superCorners(
+               context: context,
+               corners: _buttonSize * 0.5,
+           ),
+         )
       );
     }
     // --------------------
@@ -65,7 +81,7 @@ class FooterButton extends StatelessWidget {
                 context: context,
                 flyerBoxWidth: flyerBoxWidth,
               ),
-              color: FlyerColors.footerButtonColor(buttonIsOn: isOn),
+              color: color ?? FlyerColors.footerButtonColor(buttonIsOn: isOn),
               onTap: canTap == true ? onTap : null,
               childAlignment: Alignment.topCenter,
               splashColor: isOn ? Colorz.black255 : Colorz.yellow255,
