@@ -156,7 +156,7 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
 
     if (flyerModel != null) {
 
-      if (widget.onSelectFlyer != null) {
+      if (widget.onSelectFlyer != null && widget.selectionMode == true) {
         widget.onSelectFlyer(flyerModel);
       }
 
@@ -242,7 +242,10 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
                 return FlyerSelectionStack(
                   flyerModel: flyerModel,
                   flyerBoxWidth: _flyerBoxWidth,
-                  onSelectFlyer: widget.onSelectFlyer == null ? null : () => widget.onSelectFlyer(flyerModel),
+                  onSelectFlyer: widget.onSelectFlyer == null ?
+                      null //() => _onFlyerTap(flyerModel: flyerModel, index: index)
+                      :
+                      () => widget.onSelectFlyer(flyerModel),
                   onFlyerOptionsTap: widget.onFlyerOptionsTap == null ? null : () => widget.onFlyerOptionsTap(flyerModel),
                   selectionMode: widget.selectionMode,
                   flyerWidget: SmallFlyer(

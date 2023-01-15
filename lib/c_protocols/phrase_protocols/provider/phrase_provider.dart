@@ -379,7 +379,7 @@ String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
      String _translation = _phraseProvider.translatePhid(id);
 
     if (_translation == null){
-      _phraseProvider.addToPhidsPendingTranslation(id);
+      _phraseProvider.addToPhidsPendingTranslation(id ?? phid);
       _translation = '^^$phid';
     }
 
