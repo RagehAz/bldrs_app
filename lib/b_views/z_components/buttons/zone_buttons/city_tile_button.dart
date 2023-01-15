@@ -42,7 +42,7 @@ class WideCityButton extends StatelessWidget {
         /// CITY WIDE TILE
         DreamBox(
           height: 40,
-          isDeactivated: !isActive,
+          isDisabled: !isActive,
           width: Bubble.bubbleWidth(context),
           iconSizeFactor: 0.8,
           verse: verse ?? Verse.plain(_cityNameValue),

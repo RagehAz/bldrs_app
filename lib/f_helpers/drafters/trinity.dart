@@ -105,6 +105,7 @@ class Trinity {
   /// CHECKERS
 
   // --------------------
+  ///
   static bool checkMatrixesAreIdentical({
     @required Matrix4 matrix1,
     @required Matrix4 matrixReloaded,
@@ -170,5 +171,93 @@ class Trinity {
                     [2] 0.0,0.0,1.0,0.0
                     [3] 0.0,0.0,0.0,1.0
                      */
+  // -----------------------------------------------------------------------------
+
+  /// CURVES CYPHERS
+
+  // --------------------
+  ///
+  static String cipherAnimationCurve(Curve curve){
+
+    switch (curve){
+      case Curves.fastLinearToSlowEaseIn : return 'fastLinearToSlowEaseIn'; break;
+      case Curves.ease : return 'ease'; break;
+      case Curves.easeIn : return 'easeIn'; break;
+      case Curves.easeInToLinear : return 'easeInToLinear'; break;
+      case Curves.easeInSine : return 'easeInSine'; break;
+      case Curves.easeInQuad : return 'easeInQuad'; break;
+      case Curves.easeInCubic : return 'easeInCubic'; break;
+      case Curves.easeInQuart : return 'easeInQuart'; break;
+      case Curves.easeInQuint : return 'easeInQuint'; break;
+      case Curves.easeInExpo : return 'easeInExpo'; break;
+      case Curves.easeInCirc : return 'easeInCirc'; break;
+      case Curves.easeInBack : return 'easeInBack'; break;
+      case Curves.easeOut : return 'easeOut'; break;
+      case Curves.linearToEaseOut : return 'linearToEaseOut'; break;
+      case Curves.easeOutSine : return 'easeOutSine'; break;
+      case Curves.easeOutQuad : return 'easeOutQuad'; break;
+      case Curves.easeOutCubic : return 'easeOutCubic'; break;
+      case Curves.easeOutQuart : return 'easeOutQuart'; break;
+      case Curves.easeOutQuint : return 'easeOutQuint'; break;
+      case Curves.easeOutExpo : return 'easeOutExpo'; break;
+      case Curves.easeOutCirc : return 'easeOutCirc'; break;
+      case Curves.easeOutBack : return 'easeOutBack'; break;
+      case Curves.easeInOut : return 'easeInOut'; break;
+      case Curves.easeInOutSine : return 'easeInOutSine'; break;
+      case Curves.easeInOutQuad : return 'easeInOutQuad'; break;
+      case Curves.easeInOutCubic : return 'easeInOutCubic'; break;
+      case Curves.easeInOutQuart : return 'easeInOutQuart'; break;
+      case Curves.easeInOutQuint : return 'easeInOutQuint'; break;
+      case Curves.easeInOutExpo : return 'easeInOutExpo'; break;
+      case Curves.easeInOutCirc : return 'easeInOutCirc'; break;
+      case Curves.easeInOutBack : return 'easeInOutBack'; break;
+      case Curves.fastOutSlowIn : return 'fastOutSlowIn'; break;
+      case Curves.slowMiddle : return 'slowMiddle'; break;
+      default: return null;
+    }
+
+  }
+  // --------------------
+  ///
+  static Curve decipherAnimationCurve(String curve){
+
+    switch(curve){
+      case 'fastLinearToSlowEaseIn': return Curves.fastLinearToSlowEaseIn; break;
+      case 'ease': return Curves.ease; break;
+      case 'easeIn': return Curves.easeIn; break;
+      case 'easeInToLinear': return Curves.easeInToLinear; break;
+      case 'easeInSine': return Curves.easeInSine; break;
+      case 'easeInQuad': return Curves.easeInQuad; break;
+      case 'easeInCubic': return Curves.easeInCubic; break;
+      case 'easeInQuart': return Curves.easeInQuart; break;
+      case 'easeInQuint': return Curves.easeInQuint; break;
+      case 'easeInExpo': return Curves.easeInExpo; break;
+      case 'easeInCirc': return Curves.easeInCirc; break;
+      case 'easeInBack': return Curves.easeInBack; break;
+      case 'easeOut': return Curves.easeOut; break;
+      case 'linearToEaseOut': return Curves.linearToEaseOut; break;
+      case 'easeOutSine': return Curves.easeOutSine; break;
+      case 'easeOutQuad': return Curves.easeOutQuad; break;
+      case 'easeOutCubic': return Curves.easeOutCubic; break;
+      case 'easeOutQuart': return Curves.easeOutQuart; break;
+      case 'easeOutQuint': return Curves.easeOutQuint; break;
+      case 'easeOutExpo': return Curves.easeOutExpo; break;
+      case 'easeOutCirc': return Curves.easeOutCirc; break;
+      case 'easeOutBack': return Curves.easeOutBack; break;
+      case 'easeInOut': return Curves.easeInOut; break;
+      case 'easeInOutSine': return Curves.easeInOutSine; break;
+      case 'easeInOutQuad': return Curves.easeInOutQuad; break;
+      case 'easeInOutCubic': return Curves.easeInOutCubic; break;
+      case 'easeInOutQuart': return Curves.easeInOutQuart; break;
+      case 'easeInOutQuint': return Curves.easeInOutQuint; break;
+      case 'easeInOutExpo': return Curves.easeInOutExpo; break;
+      case 'easeInOutCircle': return Curves.easeInOutCirc; break;
+      case 'easeInOutBack': return Curves.easeInOutBack; break;
+      case 'fastOutSlowIn': return Curves.fastOutSlowIn; break;
+      case 'slowMiddle': return Curves.slowMiddle; break;
+      default: return null;
+    }
+
+  }
   // -----------------------------------------------------------------------------
 }

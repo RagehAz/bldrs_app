@@ -471,7 +471,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
 
                     /// CONFIRM
                     DreamBox(
-                      isDeactivated: !canSubmit,
+                      isDisabled: !canSubmit,
                       height: 40,
                       color: Colorz.green50,
                       verseScaleFactor: 0.6,
@@ -521,7 +521,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                         translate: false,
                       ),
                       verseItalic: true,
-                      isDeactivated: TextCheck.isEmpty(text.text),
+                      isDisabled: TextCheck.isEmpty(text.text),
                       onTap: () => _onClear(),
                     ),
 
@@ -540,7 +540,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                         translate: false,
                       ),
                       verseItalic: true,
-                      isDeactivated: TextCheck.isEmpty(text.text),
+                      isDisabled: TextCheck.isEmpty(text.text),
                       onTap: () => _onDeleteLastNode(),
                     ),
 
@@ -559,7 +559,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                         translate: false,
                       ),
                       verseItalic: true,
-                      isDeactivated: !_canAddDataCreator(),
+                      isDisabled: !_canAddDataCreator(),
                       onTap: () => _onAddDataCreator(),
                     ),
 

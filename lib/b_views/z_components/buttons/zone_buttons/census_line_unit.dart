@@ -25,7 +25,7 @@ class CensusLineUnit extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DreamBox(
-      isDeactivated: !isActive,
+      isDisabled: !isActive,
       height: height,
       width: width,
       icon: icon,

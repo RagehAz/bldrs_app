@@ -67,7 +67,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                 /// LOADING
                 DreamBox(
                   height: 35,
-                  isDeactivated: note?.progress == null,
+                  isDisabled: note?.progress == null,
                   icon: Iconz.reload,
                   iconColor: Colorz.white200,
                   iconSizeFactor: 0.4,
@@ -82,7 +82,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                 /// MINUS
                 DreamBox(
                   height: 35,
-                  isDeactivated: note.progress == -1 || note.progress == null,
+                  isDisabled: note.progress == -1 || note.progress == null,
                   icon: Iconz.arrowLeft,
                   iconColor: Colorz.white200,
                   iconSizeFactor: 0.4,
@@ -99,7 +99,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                 DreamBox(
                   height: 35,
                   icon: Iconz.arrowRight,
-                  isDeactivated: note.progress == -1 || note.progress == null,
+                  isDisabled: note.progress == -1 || note.progress == null,
                   iconColor: Colorz.white200,
                   iconSizeFactor: 0.4,
                   onTap: () => onIncrement(1),

@@ -32,7 +32,7 @@ class SettingsWideButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return DreamBox(
-      isDeactivated: !isOn,
+      isDisabled: !isOn,
       height: height,
       verse: verse.copyWith(casing: Casing.upperCase),
       verseColor: verseColor,

@@ -69,7 +69,6 @@ class SingleSlide extends StatelessWidget {
         /// BLUR LAYER
         if (blurLayerIsOn == true)
           BlurLayer(
-            key: const ValueKey<String>('blur_layer'),
             width: flyerBoxWidth,
             height: flyerBoxHeight,
             blurIsOn: true,

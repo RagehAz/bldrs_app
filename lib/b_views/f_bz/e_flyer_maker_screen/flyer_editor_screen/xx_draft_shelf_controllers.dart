@@ -167,6 +167,15 @@ Future<void> _addImagesForNewFlyer({
           value: _newDraft,
       );
 
+      if (_newMutableSlides.length == 1){
+        await  onSlideTap(
+          context: context,
+          slide: _newMutableSlides.first,
+          draftFlyer: draftFlyer,
+          mounted: mounted,
+        );
+      }
+
       await Future.delayed(Ratioz.duration150ms,() async {
         await Scrollers.scrollTo(
           controller: scrollController,

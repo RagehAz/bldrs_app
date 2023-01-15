@@ -39,7 +39,7 @@ class NotePanelButton extends StatelessWidget {
       verseItalic: true,
       color: Colorz.yellow255,
       onTap: onTap,
-      isDeactivated: isDeactivated,
+      isDisabled: isDeactivated,
     );
 
   }

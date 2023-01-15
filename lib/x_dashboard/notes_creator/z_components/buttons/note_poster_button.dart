@@ -45,7 +45,7 @@ class PosterTypeButton extends StatelessWidget {
 
     return DreamBox(
       height: 40,
-      isDeactivated: note?.poster == null,
+      isDisabled: note?.poster == null,
       width: Scale.getUniformRowItemWidth(
         context: context,
         numberOfItems: 5,
