@@ -4,12 +4,14 @@ import 'dart:typed_data';
 
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -451,13 +453,13 @@ class PicMaker {
 
       _bytezz = bytezz;
 
-      // _bytezz = await Nav.goToNewScreen(
-      //   context: context,
-      //   screen: CroppingScreen(
-      //     bytezz: bytezz,
-      //     aspectRatio: aspectRatio,
-      //   ),
-      // );
+      _bytezz = await Nav.goToNewScreen(
+        context: context,
+        screen: CroppingScreen(
+          bytezz: bytezz,
+          aspectRatio: aspectRatio,
+        ),
+      );
 
     }
 
