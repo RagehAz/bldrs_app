@@ -26,6 +26,7 @@ class CenterDialog extends StatelessWidget {
     @required this.child,
     @required this.onOk,
     @required this.color,
+    @required this.copyOnTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +39,7 @@ class CenterDialog extends StatelessWidget {
   final Color color;
   final Function onOk;
   final bool invertButtons;
+  final bool copyOnTap;
   // -----------------------------------------------------------------------------
 
   /// SIZES
@@ -89,6 +91,7 @@ class CenterDialog extends StatelessWidget {
     Color color = Colorz.skyDarkBlue,
     Function onOk,
     bool invertButtons = false,
+    bool copyOnTap,
   }) async {
 
     final bool _result = await showDialog(
@@ -102,6 +105,7 @@ class CenterDialog extends StatelessWidget {
         color: color,
         onOk: onOk,
         invertButtons: invertButtons,
+        copyOnTap: copyOnTap,
         child: child,
       ),
     );
@@ -233,7 +237,11 @@ class CenterDialog extends StatelessWidget {
                         child: GestureDetector(
                           onTap: (){
                             blog('tapping on dialog bubble');
-                            Keyboard.copyToClipboard(context: context, copy: title?.text);
+
+                            if (copyOnTap == true){
+                              Keyboard.copyToClipboard(context: context, copy: title?.text);
+                            }
+
                             Keyboard.closeKeyboard(context);
                           },
                           child: Container(

@@ -10,6 +10,7 @@ class SlideEditorButton extends StatelessWidget {
     @required this.icon,
     @required this.verse,
     @required this.onTap,
+    this.isDisabled,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,13 +18,16 @@ class SlideEditorButton extends StatelessWidget {
   final String icon;
   final Verse verse;
   final Function onTap;
-  /// --------------------------------------------------------------------------
+  final bool isDisabled;
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static double getVerseZoneHeight({
     @required double buttonSize,
   }){
     return buttonSize * 0.4;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double getBoxHeight({
     @required double buttonSize,
   }){
@@ -51,16 +55,15 @@ class SlideEditorButton extends StatelessWidget {
             icon: icon,
             iconSizeFactor: 0.6,
             margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+            isDisabled: isDisabled,
             onTap: onTap,
           ),
 
-          SizedBox(
+          SuperVerse(
             width: size,
-            height: _verseZoneHeight,
-            child: SuperVerse(
-              verse: verse,
-              weight: VerseWeight.thin,
-            ),
+            verse: verse,
+            weight: VerseWeight.thin,
+            scaleFactor: 0.9,
           ),
 
         ],

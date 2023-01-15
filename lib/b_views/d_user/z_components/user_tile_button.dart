@@ -107,7 +107,7 @@ class UserTileButtonOld extends StatelessWidget {
               verseScaleFactor: 0.6,
               verseMaxLines: 2,
               onTap: onSideButtonTap,
-              isDeactivated: sideButtonDeactivated,
+              isDisabled: sideButtonDeactivated,
             ),
 
         ],

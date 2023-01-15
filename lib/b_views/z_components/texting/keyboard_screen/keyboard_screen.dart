@@ -223,7 +223,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     DreamBox(
-                      isDeactivated: !canSubmit,
+                      isDisabled: !canSubmit,
                       height: 40,
                       verseScaleFactor: 0.6,
                       margins: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

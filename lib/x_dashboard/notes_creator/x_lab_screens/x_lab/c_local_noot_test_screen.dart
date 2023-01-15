@@ -534,7 +534,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                       /// URL
                       DreamBox(
                         height: 50,
-                        isDeactivated: !isGlobal,
+                        isDisabled: !isGlobal,
                         icon: _largeIconURL ?? Iconz.comWebsite,
                         iconSizeFactor: 0.5,
                         onTap: () async {
@@ -571,7 +571,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                       /// GALLERY
                       DreamBox(
                         height: 50,
-                        isDeactivated: isGlobal,
+                        isDisabled: isGlobal,
                         icon: isGlobal == true ? (_largeImageFile ?? Iconz.phoneGallery) : Iconz.phoneGallery,
                         iconSizeFactor: 0.5,
                         onTap: () async {
@@ -631,7 +631,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// URL
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_posterIsOn,
+                              isDisabled: !_posterIsOn,
                               icon: Iconz.comWebsite,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -660,7 +660,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// GALLERY
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_posterIsOn,
+                              isDisabled: !_posterIsOn,
                               icon: Iconz.phoneGallery,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -695,7 +695,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// BZ
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_posterIsOn,
+                              isDisabled: !_posterIsOn,
                               icon: Iconz.bz,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -739,7 +739,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             /// FLYER
                             DreamBox(
                               height: 40,
-                              isDeactivated: !_posterIsOn,
+                              isDisabled: !_posterIsOn,
                               icon: Iconz.addFlyer,
                               iconSizeFactor: 0.5,
                               // verse: Verse.plain('URL'),
@@ -863,7 +863,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                           /// LOADING
                           DreamBox(
                             height: 35,
-                            isDeactivated: _progress == null,
+                            isDisabled: _progress == null,
                             icon: Iconz.reload,
                             iconColor: Colorz.white200,
                             iconSizeFactor: 0.4,
@@ -884,7 +884,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                           /// MINUS
                           DreamBox(
                             height: 35,
-                            isDeactivated: _nootProgressIsLoading == true || _progress == null,
+                            isDisabled: _nootProgressIsLoading == true || _progress == null,
                             icon: Iconz.arrowLeft,
                             iconColor: Colorz.white200,
                             iconSizeFactor: 0.4,
@@ -910,7 +910,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                           DreamBox(
                             height: 35,
                             icon: Iconz.arrowRight,
-                            isDeactivated: _nootProgressIsLoading == true || _progress == null,
+                            isDisabled: _nootProgressIsLoading == true || _progress == null,
                             iconColor: Colorz.white200,
                             iconSizeFactor: 0.4,
                             onTap: (){

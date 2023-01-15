@@ -226,7 +226,7 @@ class _TheButton extends StatelessWidget {
     return DreamBox(
       height: buttonHeight,
       icon: icon,
-      isDeactivated: isDeactivated,
+      isDisabled: isDeactivated,
       verse: verse,
       color: isSelected == true ?
       Colorz.yellow255

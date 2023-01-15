@@ -122,7 +122,7 @@ class _SearchBarState extends State<SearchBar> {
                         width: _searchButtonWidth,
                         height: _searchButtonHeight,
                         icon: Iconz.search,
-                        isDeactivated: !_canSubmit,
+                        isDisabled: !_canSubmit,
                         iconSizeFactor: 0.5,
                         bubble: false,
                         onTap: () async {

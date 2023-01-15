@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -595,7 +596,7 @@ class Dialogs {
 
                 if (confirmButtonIsOn == true)
                   DreamBox(
-                    isDeactivated: _buttonDeactivated,
+                    isDisabled: _buttonDeactivated,
                     height: 40,
                     verseScaleFactor: 0.6,
                     margins: const EdgeInsets.symmetric(horizontal: 10),
@@ -980,7 +981,7 @@ class Dialogs {
 
     final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.7;
-    // final double _flyerBoxHeight = _dialogHeight * 0.5;
+    final double _flyerBoxHeight = _dialogHeight * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
@@ -990,21 +991,29 @@ class Dialogs {
       confirmButtonVerse: confirmButtonVerse,
       height: _dialogHeight,
       invertButtons: invertButtons,
-      // child: Container(
-      //   width: CenterDialog.getWidth(context),
-      //   alignment: Alignment.center,
-      //   child: SingleSlide(
-      //     flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(_flyerBoxHeight),
-      //     flyerBoxHeight: _flyerBoxHeight,
-      //     slideModel: slideModel,
-      //     tinyMode: true,
-      //     slideShadowIsOn: true,
-      //     onDoubleTap: null,
-      //     onSlideBackTap: null,
-      //     onSlideNextTap: null,
-      //     blurLayerIsOn: true,
-      //   ),
-      // ),
+      copyOnTap: false,
+      child: Container(
+        width: CenterDialog.getWidth(context),
+        alignment: Alignment.center,
+        child: SingleSlide(
+          flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
+            forceMaxHeight: false,
+            flyerBoxHeight: _flyerBoxHeight,
+          ),
+          flyerBoxHeight: _flyerBoxHeight,
+          slideModel: slideModel,
+          tinyMode: true,
+          slideShadowIsOn: true,
+          onDoubleTap: null,
+          onSlideBackTap: null,
+          onSlideNextTap: null,
+          blurLayerIsOn: true,
+          canTapSlide: false,
+          canPinch: false,
+          canAnimateMatrix: true,
+          canUseFilter: true,
+        ),
+      ),
     );
 
     return _result;
