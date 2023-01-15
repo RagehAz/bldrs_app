@@ -3,7 +3,6 @@ import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class ImageFilterAnimatedName extends StatelessWidget {
