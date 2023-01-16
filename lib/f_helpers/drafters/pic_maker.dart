@@ -1,7 +1,8 @@
+// ignore_for_file: unnecessary_import
+
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -37,7 +38,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
       bubbleWidthOverride: _bubbleWidth,
     );
     // --------------------
-    final bool isDeactivated = note.poster != null;
+    final bool isDeactivated = note.poster != null || DeviceChecker.deviceIsIOS();
     // --------------------
     return WidgetFader(
       fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
