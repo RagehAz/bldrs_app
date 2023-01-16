@@ -34,7 +34,7 @@ import 'package:bldrs/x_dashboard/ui_manager/super_rage7.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_text_test/super_text_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/video_player.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/packed_screen.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 

@@ -125,6 +125,23 @@ class Nav {
 
     await Navigator.of(context).pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
 
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> pushAndRemoveAllBelow({
+    @required BuildContext context,
+    @required Widget screen,
+  }) async {
+
+    await Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (_) => screen,
+        ),
+            (Route<dynamic> route) => false);
+
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

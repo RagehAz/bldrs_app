@@ -33,6 +33,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+
+// ---------------------------------------------------------------------------
+///  TO SWITCH DASHBOARD ON AND
+/*
+  1. search lib for ( ONLY_FOR_BLDRS_DASHBOARD_VERSION )
+  2. uncomment the following lines
+ */
+// ---------------------------------------------------------------------------
+/// flutter build apk --split-per-abi
 // ---------------------------------------------------------------------------
 /// IOS PUSH NOTIFICATION STUFF
 /*

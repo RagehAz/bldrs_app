@@ -43,7 +43,7 @@ class Routing {
   static const String flyerEditor = '/FlyerEditorScreen';
   static const String flyerScreen = '/FlyerFullScreen'; /// TASK : WHO ARE YOU ?
   // --------------------
-  static const String ragehDashBoard = '/RagehDashBoardScreen';
+  // static const String ragehDashBoard = '/RagehDashBoardScreen';
   static const String obelisk = '/ObeliskScreen';
   static const String dynamicLinkTest = '/DynamicLinkTest';
   // --------------------
@@ -111,10 +111,13 @@ class Routing {
         break;
      */
     // --------------------------
+    /*
     ///  s51
       case Routing.ragehDashBoard:
         return Nav.fadeToScreen(const DashBoardHomeScreen(), settings);
         break;
+
+     */
     // --------------------------
     }
     return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);

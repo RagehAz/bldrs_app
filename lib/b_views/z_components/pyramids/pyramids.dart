@@ -156,7 +156,8 @@ class _PyramidsWidgetTree extends StatelessWidget {
 
     return GestureDetector(
         onTap: onPyramidTap,
-        onDoubleTap: () => onPyramidAdminDoubleTap(context),
+        /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
+        // onDoubleTap: () => onPyramidAdminDoubleTap(context),
         child:
 
         loading is ValueNotifier<bool> ?
