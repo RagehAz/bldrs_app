@@ -115,22 +115,22 @@ class SlideEditorControlPanel extends StatelessWidget {
                     });
               }),
 
-          /// FILTER
-          ValueListenableBuilder(
-              valueListenable: draftNotifier,
-              builder: (_, DraftSlide draftSlide, Widget child){
-
-                return SlideEditorButton(
-                  size: _buttonSize,
-                  icon: Iconz.colors,
-                  verse: const Verse(
-                    text: 'phid_filter',
-                    translate: true,
-                  ),
-                  onTap: onToggleFilter,
-                );
-              }
-              ),
+          ///  PLAN : SLIDE COLOR FILTER FEATURE
+          // ValueListenableBuilder(
+          //     valueListenable: draftNotifier,
+          //     builder: (_, DraftSlide draftSlide, Widget child){
+          //
+          //       return SlideEditorButton(
+          //         size: _buttonSize,
+          //         icon: Iconz.colors,
+          //         verse: const Verse(
+          //           text: 'phid_filter',
+          //           translate: true,
+          //         ),
+          //         onTap: onToggleFilter,
+          //       );
+          //     }
+          //     ),
 
           // /// CROP
           // SlideEditorButton(

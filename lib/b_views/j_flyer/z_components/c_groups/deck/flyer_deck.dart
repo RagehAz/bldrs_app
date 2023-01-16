@@ -427,7 +427,7 @@ class _TheDeck extends StatelessWidget {
                 blurLayerIsOn: true,
                 canTapSlide: false,
                 canAnimateMatrix: true,
-                canUseFilter: true,
+                canUseFilter: false,
                 canPinch: false,
               ),
 
