@@ -41,7 +41,7 @@
 	<key>FIRMessagingAutoRegisterEnabledflag</key>
 	<true/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
+	<true/>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>https://www.bldrs.net/flyer</string>

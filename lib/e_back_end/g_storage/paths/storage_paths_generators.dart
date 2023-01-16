@@ -117,5 +117,10 @@ class StoragePathGenerator {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String generateTestPosterPath (String id){
+    return '${StorageColl.posters}/tests/$id';
+  }
   // -----------------------------------------------------------------------------
 }

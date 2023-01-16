@@ -81,13 +81,15 @@ class FCMStarter {
     await FCM.getLocalNootsPlugin().initialize(
 
       /// INITIALIZATION SETTINGS
-      const InitializationSettings(
-        android: AndroidInitializationSettings(FCM.fcmWhiteLogoFileName),
+      InitializationSettings(
+        android: const AndroidInitializationSettings(FCM.fcmWhiteLogoFileName),
         iOS: IOSInitializationSettings(
-          // defaultPresentAlert: ,
+          // defaultPresentAlert: true,
           // defaultPresentBadge: ,
           // defaultPresentSound: ,
-          // onDidReceiveLocalNotification: ,
+          onDidReceiveLocalNotification: (int integer, String a, String b, String c){
+            blog('onDidReceiveLocalNotification : int $integer, String $a, String $b, String $c');
+          },
           // requestAlertPermission: ,
           // requestBadgePermission: ,
           // requestSoundPermission: ,
