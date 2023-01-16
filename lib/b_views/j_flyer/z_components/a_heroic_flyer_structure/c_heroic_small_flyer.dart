@@ -148,7 +148,7 @@ class HeroicSmallFlyer extends StatelessWidget {
           blurLayerIsOn: true,
           slideShadowIsOn: true,
           canAnimateMatrix: true,
-          canUseFilter: true,
+          canUseFilter: false,
           canPinch: false,
         ),
 

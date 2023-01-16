@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_import
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
@@ -53,6 +52,7 @@ enum PicType {
   notiBanner,
 }
 
+/// => TAMAM
 class PicMaker {
   // -----------------------------------------------------------------------------
 
@@ -63,7 +63,7 @@ class PicMaker {
   /// PICK IMAGE FROM GALLERY
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> pickAndCropSinglePic({
     @required BuildContext context,
     @required bool cropAfterPick,
@@ -95,7 +95,7 @@ class PicMaker {
     return _bytes;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<Uint8List>> pickAndCropMultiplePics({
     @required BuildContext context,
     @required double aspectRatio,
@@ -134,7 +134,7 @@ class PicMaker {
     return _bytezz;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<Uint8List>> _pickMultiplePics({
     @required BuildContext context,
     @required int maxAssets,
@@ -282,7 +282,7 @@ class PicMaker {
   /// TAKE IMAGE FROM CAMERA
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> shootAndCropCameraPic({
     @required BuildContext context,
     @required bool cropAfterPick,
@@ -329,7 +329,7 @@ class PicMaker {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> _shootCameraPic({
     @required BuildContext context,
   }) async {
@@ -420,7 +420,7 @@ class PicMaker {
   /// CROP IMAGE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> cropPic({
     @required BuildContext context,
     @required Uint8List bytes,
@@ -441,7 +441,7 @@ class PicMaker {
     return _bytes;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<Uint8List>> cropPics({
     @required BuildContext context,
     @required List<Uint8List> bytezz,
@@ -471,7 +471,7 @@ class PicMaker {
   /// RESIZE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> resizePic({
     @required Uint8List bytes,
     /// image width will be resized to this final width
@@ -508,7 +508,7 @@ class PicMaker {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<Uint8List>> resizePics({
     @required List<Uint8List> bytezz,
     @required double resizeToWidth,
@@ -682,8 +682,11 @@ class PicMaker {
   // -----------------------------------------------------------------------------
 }
 
-/// Text delegate implements with Arabic.
+/// => TAMAM
 class ArabicCameraPickerTextDelegate extends CameraPickerTextDelegate {
+
+  /// Text delegate implements with Arabic.
+
   const ArabicCameraPickerTextDelegate();
 
   @override
