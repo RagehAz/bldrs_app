@@ -46,6 +46,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+/// TESTED : WORKS PERFECT
 Future<void> onPyramidAdminDoubleTap(BuildContext context) async {
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
@@ -63,9 +64,9 @@ Future<void> onPyramidAdminDoubleTap(BuildContext context) async {
 
     if (_result == true){
 
-      await Nav.pushNamedAndRemoveAllBelow(
+      await Nav.pushAndRemoveAllBelow(
         context: context,
-        goToRoute: Routing.ragehDashBoard,
+        screen: const DashBoardHomeScreen(),
       );
 
     }

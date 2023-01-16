@@ -5,7 +5,7 @@ import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_lab/b_notes_view
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_lab/c_local_noot_test_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_lab/d_noot_route_to_screen.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_lab/e_badge_test.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
