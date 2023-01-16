@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/d_footer_template.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/image_filter_animated_name.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_back_cover_image.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_headline_text_field.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_transformer.dart';
@@ -139,28 +138,44 @@ class SlideEditorSlidePart extends StatelessWidget {
                       builder: (_, DraftSlide draft, Widget child) {
                         Trinity.blogMatrix(draft?.matrix);
 
-                        return AnimateWidgetToMatrix(
-                          matrix: Trinity.renderSlideMatrix(
-                            matrix: draft?.matrix,
-                            flyerBoxWidth: _flyerBoxWidth,
-                            flyerBoxHeight: _flyerBoxHeight,
-                          ),
-                          // canAnimate: true,
-                          curve: draft.animationCurve,
-                          replayOnRebuild: true,
-                          onAnimationEnds: () {
-                            setNotifier(
-                                notifier: isPlayingAnimation, mounted: mounted, value: false);
-                            },
-                          child: SuperFilteredImage(
-                            width: _flyerBoxWidth,
-                            height: _flyerBoxHeight,
-                            pic: draft?.picModel?.bytes,
-                            filterModel: ImageFilterModel.getFilterByID(draft?.filter?.id),
-                            boxFit: draft?.picFit,
-                            // canUseFilter: true,
-                          ),
+                        return Stack(
+                          children: <Widget>[
+
+                            /// BLUR LAYER
+                            BlurLayer(
+                              width: _flyerBoxWidth,
+                              height: _flyerBoxHeight,
+                              blurIsOn: true,
+                              blur: 20,
+                              borders: FlyerDim.flyerCorners(context, _flyerBoxWidth),
+                            ),
+
+                            AnimateWidgetToMatrix(
+                              matrix: Trinity.renderSlideMatrix(
+                                matrix: draft?.matrix,
+                                flyerBoxWidth: _flyerBoxWidth,
+                                flyerBoxHeight: _flyerBoxHeight,
+                              ),
+                              // canAnimate: true,
+                              curve: draft.animationCurve,
+                              replayOnRebuild: true,
+                              onAnimationEnds: () {
+                                setNotifier(
+                                    notifier: isPlayingAnimation, mounted: mounted, value: false);
+                                },
+                              child: SuperFilteredImage(
+                                width: _flyerBoxWidth,
+                                height: _flyerBoxHeight,
+                                pic: draft?.picModel?.bytes,
+                                filterModel: ImageFilterModel.getFilterByID(draft?.filter?.id),
+                                boxFit: draft?.picFit,
+                                // canUseFilter: false,
+                              ),
+                            ),
+
+                          ],
                         );
+
                       },
                     );
                   }
@@ -172,19 +187,18 @@ class SlideEditorSlidePart extends StatelessWidget {
                 }),
 
             /// SLIDE SHADOW
-            IgnorePointer(
-              child: SlideShadow(
-                flyerBoxWidth: _flyerBoxWidth,
-              ),
+            SlideShadow(
+              flyerBoxWidth: _flyerBoxWidth,
             ),
 
-            /// FILTER NAME
-            IgnorePointer(
-              child: ImageFilterAnimatedName(
-                flyerBoxWidth: _flyerBoxWidth,
-                filterModel: filterModel,
-              ),
-            ),
+            ///  PLAN : SLIDE COLOR FILTER FEATURE
+            // / FILTER NAME
+            // IgnorePointer(
+            //   child: ImageFilterAnimatedName(
+            //     flyerBoxWidth: _flyerBoxWidth,
+            //     filterModel: filterModel,
+            //   ),
+            // ),
 
             /// HEADLINE TEXT FIELD
             EditorSlideHeadlineTextField(
@@ -215,11 +229,13 @@ class SlideEditorSlidePart extends StatelessWidget {
                 opacity: 0.5,
               ),
             ),
+
           ],
-                    ),
+
+        ),
       ),
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

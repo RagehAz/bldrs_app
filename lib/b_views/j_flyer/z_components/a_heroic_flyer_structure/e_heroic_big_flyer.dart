@@ -613,8 +613,8 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                       invoker: 'HeroicBigFlyer',
                   );
                 },
-                canPinch: true,
-                canUseFilter: true,
+                canPinch: false,
+                canUseFilter: false,
                 showGallerySlide: widget.showGallerySlide,
               ),
 
