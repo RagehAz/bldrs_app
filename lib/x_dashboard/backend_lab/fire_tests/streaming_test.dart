@@ -8,7 +8,7 @@ import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_doc_streamer.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:clock_rebuilder/clock_rebuilder.dart';

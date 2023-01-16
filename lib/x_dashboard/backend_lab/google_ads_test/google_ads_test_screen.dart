@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/x_dashboard/backend_lab/google_ads_test/google_ad.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/layout/dashboard_layout.dart';
+import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
