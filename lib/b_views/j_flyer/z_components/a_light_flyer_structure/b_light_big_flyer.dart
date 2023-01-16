@@ -544,8 +544,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               showSlidesShadows: true,
               showSlidesBlurLayers: true,
               canAnimateSlides: true,
-              canPinch: true,
-              canUseFilter: true,
+              canPinch: false,
+              canUseFilter: false,
               showGallerySlide: widget.showGallerySlide,
             ),
 

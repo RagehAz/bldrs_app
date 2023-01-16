@@ -148,6 +148,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                               flyerBoxHeight: _flyerBoxHeight
                           ),
+                          replayOnRebuild: true,
                           child: child,
                         );
                       }

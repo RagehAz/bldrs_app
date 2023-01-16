@@ -10,12 +10,13 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+/// => TAMAM
 // -----------------------------------------------------------------------------
 
 /// INITIALIZATION
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Matrix4 initializeMatrix({
   @required DraftSlide slide,
 }){
@@ -164,10 +165,16 @@ void onReplayAnimation({
 }){
 
     if (
-        isPlayingAnimation.value == false &&
+        // isPlayingAnimation.value == false && // to allow reanimate when playing
         canResetMatrix.value == true &&
         draftNotifier.value.animationCurve != null
     ){
+
+      setNotifier(
+          notifier: isPlayingAnimation,
+          mounted: mounted,
+          value: false, // to allow reanimate when playing
+        );
 
       setNotifier(
         notifier: isPlayingAnimation,

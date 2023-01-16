@@ -61,7 +61,7 @@ class FlyerSlidesShelf extends StatelessWidget {
                   canAnimateMatrix: true,
                   slideShadowIsOn: true,
                   blurLayerIsOn: true,
-                  canUseFilter: true,
+                  canUseFilter: false,
                   canPinch: false,
                 ),
               );
