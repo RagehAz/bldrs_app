@@ -5,10 +5,10 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:rest/rest.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
@@ -18,7 +18,6 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -299,8 +298,8 @@ class FCM {
           content: _createGlobalNootContent(
             body: body,
             title: title,
-            largeIconURL: _largeIconURL,
-            bannerURL: _posterURL,
+            nootIcon: _largeIconURL,
+            posterURL: _posterURL,
             progress: progress,
             payloadMap: payloadMap,
             progressBarIsLoading: progressBarIsLoading,
@@ -342,7 +341,7 @@ class FCM {
 
     }
 
-    blog('the bitch ass fucking url isssss :$_url');
+    // blog('the bitch ass fucking url isssss :$_url');
 
     return _url;
   }
@@ -356,8 +355,8 @@ class FCM {
     @required String title,
     @required String body,
     bool canBeDismissedWithoutTapping = true,
-    String largeIconURL,
-    String bannerURL,
+    String nootIcon,
+    String posterURL,
     Map<String, String> payloadMap,
     Progress progress,
     bool progressBarIsLoading = false,
@@ -371,10 +370,13 @@ class FCM {
     }
 
     NotificationLayout _layout;
-    if (progress != null || progressBarIsLoading == true){
+    if (DeviceChecker.deviceIsIOS() == true){
+      _layout = NotificationLayout.BigText;
+    }
+    else if (progress != null || progressBarIsLoading == true){
       _layout = NotificationLayout.ProgressBar;
     }
-    else if (bannerURL != null){
+    else if (posterURL != null){
       _layout = NotificationLayout.BigPicture;
     }
     else {
@@ -399,22 +401,23 @@ class FCM {
 
       /// IMAGES
       notificationLayout: _layout,
-      bigPicture: bannerURL, //redBldrsBanner,
+      /// NOOT POSTER
+      bigPicture: posterURL, // redBldrsBanner,
+      /// NOOT ICON
+      largeIcon: nootIcon, //NoteParties.bldrsLogoStaticURL,
+      roundedLargeIcon: true,
+      hideLargeIconOnExpand: posterURL == null, // in-effective anyways
 
-      /// ICON
+      /// DEVICE STATUS BAR ICON
       icon: fcmWhiteLogoFilePath,
       backgroundColor: Colorz.black255, /// is icon color bardo , bas override color
       color: Colorz.bloodTest, /// is icon color.. is ignored when backgroundColor is assigned
 
-      /// LARGE ICON
-      largeIcon: largeIconURL, //NoteModel.bldrsLogoStaticURL,//fcmColorLogoFilePath,
-      roundedLargeIcon: true,
-      // hideLargeIconOnExpand: false,
 
       /// BEHAVIOUR
       locked: !canBeDismissedWithoutTapping,
-      // displayOnBackground: true,
-      // displayOnForeground: true,
+      displayOnBackground: true,
+      displayOnForeground: true,
       wakeUpScreen: true,
 
       /// SOUND
@@ -430,7 +433,7 @@ class FCM {
       // roundedBigPicture: false, /// very silly
       // autoDismissible: false,
       // fullScreenIntent: false,
-      // showWhen: null,
+      showWhen: true,
       // category: NotificationCategory.Email,
       // criticalAlert: false,
       // ticker: 'wtf is ticker',
@@ -488,7 +491,7 @@ class FCM {
       // isDangerousOption: false,
 
       /// NOT WORKING - NOT IMPACTFUL
-      icon: NoteParties.bldrsLogoStaticURL,
+      icon: redBldrsBanner, //NoteParties.bldrsLogoStaticURL,
       showInCompactView: true,
       // buttonType: ActionButtonType.Default, // ActionButtonType.Default is default
 

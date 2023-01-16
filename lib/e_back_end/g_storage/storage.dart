@@ -22,6 +22,8 @@ class Storage {
   static const generateFlyerSlidePath = StoragePathGenerator.generateFlyerSlidePath;
   static const generateFlyerPosterPath = StoragePathGenerator.generateFlyerPosterPath;
   static const generateFlyerPDFPath = StoragePathGenerator.generateFlyerPDFPath;
+
+  static const generateTestPosterPath = StoragePathGenerator.generateTestPosterPath;
   // -----------------------------------------------------------------------------
 
   /// REFERENCES

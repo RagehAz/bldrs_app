@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
+import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
@@ -20,24 +21,30 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
+import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_image_poster.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:numeric/numeric.dart';
 import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -66,8 +73,12 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   final ScreenshotController screenshotController = ScreenshotController();
   // --------------------
   /// JUST TO ACTIVATE VALIDATORS
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _bodyController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController(
+    text: 'This is Awesome'
+  );
+  final TextEditingController _bodyController = TextEditingController(
+    text: 'Notification'
+  );
   // --------------------
   bool isGlobal = true;
   bool _isNotificationAllowed = false;
@@ -178,16 +189,19 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
       if (_posterPicModel != null){
 
-        /// TASK : FIX US
-        // final String _url = await Storage.createStoragePicAndGetURL(
-        //   collName: 'testNotesBanners',
-        //   docName: Numeric.createUniqueID().toString(),
-        //   ownersIDs: [AuthFireOps.superUserID()],
-        //   inputFile: _posterPreviewFile,
-        // );
-        // setState(() {
-        //   _posterURL = _url;
-        // });
+        final Reference _ref = await Storage.uploadBytes(
+          bytes: _posterPicModel.bytes,
+          metaData: _posterPicModel.meta.toSettableMetadata(),
+          path: Storage.generateTestPosterPath(Numeric.createUniqueID().toString()),
+        );
+
+        final String _url = await Storage.createURLByRef(
+          ref: _ref,
+        );
+
+        setState(() {
+          _posterURL = _url;
+        });
 
       }
 
@@ -315,20 +329,20 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   // --------------------
   void _clearPoster(){
 
-    if (_posterType == PosterType.flyer){
-      FlyerProtocols.disposeRenderedFlyer(
-        mounted: true,
-        flyerModel: _posterModel,
-        invoker: 'NootsScreen : flyer poster',
-      );
-    }
-    if (_posterType == PosterType.bz){
-      FlyerProtocols.disposeRenderedFlyer(
-        mounted: true,
-        flyerModel: _posterHelperModel,
-        invoker: 'NootsScreen : bz poster',
-      );
-    }
+    // if (_posterType == PosterType.flyer){
+    //   FlyerProtocols.disposeRenderedFlyer(
+    //     mounted: true,
+    //     flyerModel: _posterModel,
+    //     invoker: 'NootsScreen : flyer poster',
+    //   );
+    // }
+    // if (_posterType == PosterType.bz){
+    //   FlyerProtocols.disposeRenderedFlyer(
+    //     mounted: true,
+    //     flyerModel: _posterHelperModel,
+    //     invoker: 'NootsScreen : bz poster',
+    //   );
+    // }
 
     setState(() {
       _posterURL = null;
@@ -353,10 +367,16 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
         bubbleWidthOverride: Bubble.clearWidth(context)
     );
 
+    final bool _deviceIsIOS = DeviceChecker.deviceIsIOS();
+
     return MainLayout(
       appBarType: AppBarType.basic,
       title: Verse.plain('Awesome notification test'),
       loading: _loading,
+      onBack: () async {
+        blog('should delete all Storage test images now');
+        await Nav.goBack(context: context);
+      },
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -381,6 +401,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
             key: _formKey,
             onChanged: (){
               blog('something changed in this form');
+
             },
             child: Bubble(
               bubbleHeaderVM: BubbleHeaderVM(
@@ -543,20 +564,24 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                           if (_user != null){
 
-                            final File _file = await Filers.getFileFromURL(_user.picPath);
+                            setState(() {
+                              _largeIconURL = _user.picPath;
+                            });
 
-                            if (_file == null){
-                              await Dialogs.errorDialog(
-                                context: context,
-                                titleVerse: Verse.plain('Something is wrong with this image'),
-                                bodyVerse: Verse.plain('Maybe check another picture !'),
-                              );
-                            }
-                            else {
-                              setState(() {
-                                _largeIconURL = _user.picPath;
-                              });
-                            }
+                            // final File _file = await Filers.getFileFromURL(_user.picPath);
+                            //
+                            // if (_file == null){
+                            //   await Dialogs.errorDialog(
+                            //     context: context,
+                            //     titleVerse: Verse.plain('Something is wrong with this image'),
+                            //     bodyVerse: Verse.plain('Maybe check another picture !'),
+                            //   );
+                            // }
+                            // else {
+                            //   setState(() {
+                            //     _largeIconURL = _user.picPath;
+                            //   });
+                            // }
 
                           }
 
@@ -593,7 +618,6 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         },
                       ),
 
-
                     ],
                   ),
                 ),
@@ -614,6 +638,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
 
+                        /// POSTER TYPES BUTTONS
                         Row(
                           children: <Widget>[
 
@@ -637,20 +662,27 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                               // verse: Verse.plain('URL'),
                               onTap: () async {
 
-                                // final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
-                                //   context: context,
-                                //   screen: const SavedFlyersScreen(
-                                //     selectionMode: true,
-                                //   ),
-                                // );
-                                //
-                                // if (Mapper.checkCanLoopList(_selectedFlyers) == true){
-                                //
-                                //   setState(() {
-                                //     _bannerURL = _selectedFlyers.first.slides[0].pic;
-                                //   });
-                                //
-                                // }
+                                final String _url = await KeyboardScreen.goToKeyboardScreen(
+                                  context: context,
+                                  keyboardModel: KeyboardModel.standardModel().copyWith(
+                                    validator: (String text) => Formers.webSiteValidator(
+                                        context: context,
+                                        website: text
+                                    ),
+                                  ),
+                                );
+
+                                if (_url != null && ObjectCheck.isAbsoluteURL(_url) == true){
+
+                                  setState(() {
+                                    _posterType = PosterType.url;
+                                    _posterModel = _url;
+                                    _posterHelperModel = null;
+                                    _posterURL = _url;
+                                  });
+
+                                  await _takePosterScreenshot();
+                                }
 
                               },
                             ),
@@ -668,23 +700,24 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                 /// TASK : FIX US
 
-                                // final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
-                                //   context: context,
-                                //   cropAfterPick: true,
-                                //   aspectRatio: NotePosterBox.getAspectRatio(),
-                                // );
-                                //
-                                // if (_pickedFileModel != null){
-                                //
-                                //   setState(() {
-                                //     _posterType = PosterType.galleryImage;
-                                //     _posterModel = _pickedFileModel._bytes;
-                                //     _posterHelperModel = null;
-                                //   });
-                                //
-                                //   await _takePosterScreenshot();
-                                //
-                                // }
+                                final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
+                                  context: context,
+                                  cropAfterPick: true,
+                                  aspectRatio: NotePosterBox.getAspectRatio(),
+                                );
+
+                                if (_bytes != null){
+
+                                  setState(() {
+                                    _posterType = PosterType.galleryImage;
+                                    _posterModel = _bytes;
+                                    _posterHelperModel = null;
+                                    _posterURL = null;
+                                  });
+
+                                  await _takePosterScreenshot();
+
+                                }
 
 
                               },
@@ -725,6 +758,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                     _posterType = PosterType.bz;
                                     _posterModel = bzModels.first;
                                     _posterHelperModel = _allBzSlidesInOneFlyer;
+                                    _posterURL = null;
                                   });
 
                                   await _takePosterScreenshot();
@@ -765,11 +799,10 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                     _posterType = PosterType.flyer;
                                     _posterModel = _flyer;
                                     _posterHelperModel = _flyer.bzModel;
+                                    _posterURL = null;
                                   });
 
                                   await _takePosterScreenshot();
-
-
 
                                 }
 
@@ -779,7 +812,15 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                           ],
                         ),
 
+                        /// WIDGET TREE POSTER ----------->
+
                         const SizedBox(height: 5, width: 5,),
+
+                        if (_posterModel != null)
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: SuperVerse.verseInfo(verse: Verse.plain('Widget tree'))
+                          ),
 
                         if (_posterModel != null)
                           Screenshot(
@@ -792,8 +833,16 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             ),
                           ),
 
+                        /// SNAPSHOT POSTER ----------->
+
                         if (_posterPicModel != null)
                         const SizedBox(height: 5, width: 5,),
+
+                        if (_posterPicModel != null)
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SuperVerse.verseInfo(verse: Verse.plain('Snapshot')),
+                          ),
 
                         if (_posterPicModel != null)
                         ImagePoster(
@@ -801,7 +850,9 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             pic: _posterPicModel,
                         ),
 
-                        /// RE-SHOOT
+                        /// ---------------------->
+
+                        // RE-SHOOT
                         if (_posterPicModel != null)
                         DreamBox(
                           height: 50,
@@ -810,150 +861,156 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                           verseScaleFactor: 0.7,
                           margins: 10,
                         ),
+
                       ],
                     ),
                   ),
                 ),
 
                 /// PROGRESS
-                TileBubble(
-                  bubbleWidth: Bubble.clearWidth(context),
-                  bubbleHeaderVM: BubbleHeaderVM(
-                    headerWidth: Bubble.clearWidth(context) - 20,
-                    leadingIcon: Iconz.phoneGallery,
-                    headlineVerse: Verse.plain(
-                        _progress == null ? 'Progress'
-                            :
-                        'Progress : ( ${((_progress.current / _progress.objective) * 100).toInt()} % )'
+                WidgetFader(
+                  fadeType: _deviceIsIOS == true ? FadeType.stillAtMin : FadeType.stillAtMax,
+                  min: 0.2,
+                  ignorePointer: _deviceIsIOS,
+                  child: TileBubble(
+                    bubbleWidth: Bubble.clearWidth(context),
+                    bubbleHeaderVM: BubbleHeaderVM(
+                      headerWidth: Bubble.clearWidth(context) - 20,
+                      leadingIcon: Iconz.phoneGallery,
+                      headlineVerse: Verse.plain(
+                          _progress == null ? 'Progress'
+                              :
+                          'Progress : ( ${((_progress.current / _progress.objective) * 100).toInt()} % )'
+                      ),
+                      hasSwitch: true,
+                      switchValue: _progress != null,
+                      onSwitchTap: (bool value){
+
+                        if (value == true){
+
+                          setState(() {
+                            _progress = const Progress(
+                              targetID: 'noot',
+                              current: 0,
+                              objective: 20,
+                            );
+                          });
+
+
+                        }
+                        else {
+
+                          setState(() {
+                            _progress = null;
+                            _nootProgressIsLoading = false;
+                          });
+
+                        }
+
+                      },
                     ),
-                    hasSwitch: true,
-                    switchValue: _progress != null,
-                    onSwitchTap: (bool value){
+                    child: Column(
+                      children: <Widget>[
 
-                      if (value == true){
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
 
-                        setState(() {
-                          _progress = const Progress(
-                            targetID: 'noot',
-                            current: 0,
-                            objective: 20,
-                          );
-                        });
+                            /// LOADING
+                            DreamBox(
+                              height: 35,
+                              isDisabled: _progress == null,
+                              icon: Iconz.reload,
+                              iconColor: Colorz.white200,
+                              iconSizeFactor: 0.4,
+                              onTap: (){
 
-
-                      }
-                      else {
-
-                        setState(() {
-                          _progress = null;
-                          _nootProgressIsLoading = false;
-                        });
-
-                      }
-
-                    },
-                  ),
-                  child: Column(
-                    children: <Widget>[
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-
-                          /// LOADING
-                          DreamBox(
-                            height: 35,
-                            isDisabled: _progress == null,
-                            icon: Iconz.reload,
-                            iconColor: Colorz.white200,
-                            iconSizeFactor: 0.4,
-                            onTap: (){
-
-                              setState(() {
-                                _nootProgressIsLoading = !_nootProgressIsLoading;
-                              });
-
-                            },
-                          ),
-
-                          const SizedBox(
-                            width: 5,
-                            height: 5,
-                          ),
-
-                          /// MINUS
-                          DreamBox(
-                            height: 35,
-                            isDisabled: _nootProgressIsLoading == true || _progress == null,
-                            icon: Iconz.arrowLeft,
-                            iconColor: Colorz.white200,
-                            iconSizeFactor: 0.4,
-                            onTap: (){
-
-                              if (_progress.current > 0){
                                 setState(() {
-                                  _progress = _progress.copyWith(
-                                    current: _progress.current - 1,
-                                  );
+                                  _nootProgressIsLoading = !_nootProgressIsLoading;
                                 });
-                              }
 
-                            },
-                          ),
+                              },
+                            ),
 
-                          const SizedBox(
-                            width: 5,
-                            height: 5,
-                          ),
+                            const SizedBox(
+                              width: 5,
+                              height: 5,
+                            ),
 
-                          /// PLUS
-                          DreamBox(
-                            height: 35,
-                            icon: Iconz.arrowRight,
-                            isDisabled: _nootProgressIsLoading == true || _progress == null,
-                            iconColor: Colorz.white200,
-                            iconSizeFactor: 0.4,
-                            onTap: (){
+                            /// MINUS
+                            DreamBox(
+                              height: 35,
+                              isDisabled: _nootProgressIsLoading == true || _progress == null,
+                              icon: Iconz.arrowLeft,
+                              iconColor: Colorz.white200,
+                              iconSizeFactor: 0.4,
+                              onTap: (){
 
-                              if (_progress.current < _progress.objective){
-                                setState(() {
-                                  _progress = _progress.copyWith(
-                                    current: _progress.current + 1,
-                                  );
-                                });
-                              }
+                                if (_progress.current > 0){
+                                  setState(() {
+                                    _progress = _progress.copyWith(
+                                      current: _progress.current - 1,
+                                    );
+                                  });
+                                }
 
-                            },
-                          ),
+                              },
+                            ),
 
-                          const SizedBox(
-                            width: 20,
-                            height: 20,
-                          ),
+                            const SizedBox(
+                              width: 5,
+                              height: 5,
+                            ),
 
-                        ],
-                      ),
+                            /// PLUS
+                            DreamBox(
+                              height: 35,
+                              icon: Iconz.arrowRight,
+                              isDisabled: _nootProgressIsLoading == true || _progress == null,
+                              iconColor: Colorz.white200,
+                              iconSizeFactor: 0.4,
+                              onTap: (){
 
-                      StaticProgressBar(
-                        numberOfSlides: _progress == null ? 1 : _progress.objective,
-                        index: _progress == null ? 0 : _progress.current - 1,
-                        opacity: _progress == null ? 0.2 : 1,
-                        flyerBoxWidth: _clearWidth - 50,
-                        swipeDirection: SwipeDirection.freeze,
-                        loading: _nootProgressIsLoading,
-                        stripThicknessFactor: 2,
-                        margins: const EdgeInsets.only(top: 10),
-                      ),
+                                if (_progress.current < _progress.objective){
+                                  setState(() {
+                                    _progress = _progress.copyWith(
+                                      current: _progress.current + 1,
+                                    );
+                                  });
+                                }
 
-                    ],
+                              },
+                            ),
+
+                            const SizedBox(
+                              width: 20,
+                              height: 20,
+                            ),
+
+                          ],
+                        ),
+
+                        StaticProgressBar(
+                          numberOfSlides: _progress == null ? 1 : _progress.objective,
+                          index: _progress == null ? 0 : _progress.current - 1,
+                          opacity: _progress == null ? 0.2 : 1,
+                          flyerBoxWidth: _clearWidth - 50,
+                          swipeDirection: SwipeDirection.freeze,
+                          loading: _nootProgressIsLoading,
+                          stripThicknessFactor: 2,
+                          margins: const EdgeInsets.only(top: 10),
+                        ),
+
+                      ],
+                    ),
                   ),
                 ),
 
                 /// BUTTONS
                 WidgetFader(
-                  fadeType: isGlobal == true ? FadeType.stillAtMax : FadeType.stillAtMin,
+                  fadeType: isGlobal == true && _deviceIsIOS == false ? FadeType.stillAtMax : FadeType.stillAtMin,
                   min: 0.35,
-                  ignorePointer: !isGlobal,
+                  ignorePointer: !isGlobal || _deviceIsIOS,
                   child: TileBubble(
                     bubbleWidth: Bubble.clearWidth(context),
                     bubbleHeaderVM: const BubbleHeaderVM(
