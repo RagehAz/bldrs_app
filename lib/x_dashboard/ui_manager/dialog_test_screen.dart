@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -24,7 +25,7 @@ class DialogsTestScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
-        text: 'Notes',
+        text: 'Dialogs',
         translate: false,
       ),
       skyType: SkyType.black,
@@ -103,6 +104,22 @@ class DialogsTestScreen extends StatelessWidget {
 
             },
           ),
+
+          const DotSeparator(),
+
+          /// WAIT DIALOG
+          WideButton(
+            verse: Verse.plain('Wait Dialog'),
+            onTap: () async {
+
+              WaitDialog.showUnawaitedWaitDialog(
+                context: context,
+                canManuallyGoBack: true,
+              );
+
+            },
+          ),
+
 
         ],
       ),
