@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -10,20 +9,15 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
 import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
-export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 // ---------------------------------------------------------------------------
 
 /// INITIALIZATION
@@ -135,88 +129,6 @@ void onPhrasesSearchSubmit({
     mounted: mounted,
   );
 
-}
-// --------------------
-///  TESTED : WORKS PERFECT
-List<Phrase> onSearchPhrases({
-  @required BuildContext context,
-  @required ValueNotifier<bool> isSearching,
-  @required TextEditingController searchController,
-  @required List<Phrase> phrasesToSearchIn,
-  @required PageController pageController,
-  @required bool mounted,
-  /// mixes between en & ar values in one list
-  ValueNotifier<List<Phrase>> mixedSearchResult,
-}){
-
-  List<Phrase> _foundPhrases = <Phrase>[];
-
-  if (isSearching.value  == true){
-
-    // final List<Phrase> _enResults = Phrase.searchPhrases(
-    //   phrases: enPhrase,
-    //   text: searchController.text,
-    //   byValue: true,
-    // );
-    //
-    // blog('onSearchPhrases : _enResults = $_enResults');
-
-    // final List<Phrase> _result
-    _foundPhrases = Phrase.searchPhrasesRegExp(
-      phrases: phrasesToSearchIn,
-      text: searchController.text,
-      lookIntoValues: true,
-      // byID: true,
-    );
-
-    final List<String> _phids = Phrase.getPhrasesIDs(_foundPhrases);
-
-    _foundPhrases = Phrase.searchPhrasesByIDs(
-      phrases: phrasesToSearchIn,
-      phids: _phids,
-    );
-
-    // blog('onSearchPhrases : _arResults = $_arResults');
-    //
-    // _foundPhrases = Phrase.insertPhrases(
-    //   insertIn: _foundPhrases,
-    //   phrasesToInsert: _enResults,
-    //   forceUpdate: false,
-    //   addLanguageCode: 'en',
-    //   allowDuplicateIDs: false,
-    // );
-    //
-    // blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding en');
-    //
-    // _foundPhrases = Phrase.insertPhrases(
-    //   insertIn: _foundPhrases,
-    //   phrasesToInsert: _arResults,
-    //   forceUpdate: false,
-    //   addLanguageCode: 'ar',
-    //   allowDuplicateIDs: false,
-    // );
-
-    _foundPhrases = Phrase.cleanIdenticalPhrases(_foundPhrases);
-
-  }
-
-  if (mixedSearchResult != null){
-    if (isSearching.value  == true){
-      setNotifier(notifier: mixedSearchResult, mounted: mounted, value: _foundPhrases);
-    }
-    else {
-      setNotifier(notifier: mixedSearchResult, mounted: mounted, value: <Phrase>[]);
-    }
-  }
-
-  if (pageController.position.pixels >= Scale.screenWidth(context) == true){
-    Sliders.slideToBackFrom(
-      pageController: pageController,
-      currentSlide: 1,
-    );
-  }
-
-  return _foundPhrases;
 }
 // ---------------------------------------------------------------------------
 
@@ -782,4 +694,27 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
   );
 
 }
+// ---------------------------------------------------------------------------
+
+/// TESTED : WORKS PERFECT
+Future<void> goToFastTranslator({
+  @required BuildContext context,
+  @required Verse verse,
+}) async {
+
+  blog('fuck you : $verse');
+
+  if (verse.pseudo != null){
+
+  }
+
+  await createAPhidFast(
+    context: context,
+    verse: verse,
+  );
+
+  await Keyboard.copyToClipboard(context: context, copy: verse.text);
+
+}
+
 // ---------------------------------------------------------------------------

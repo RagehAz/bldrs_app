@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/d_zone/x_money/big_mac.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
@@ -13,6 +14,12 @@ import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
+import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 
 class ExoticMethods {
   // -----------------------------------------------------------------------------
@@ -700,5 +707,104 @@ class ExoticMethods {
     }
 
   }
-  /// ----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// CENSUS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> scanAllDBAndCreateInitialCensuses({
+    @required BuildContext context,
+  }) async {
+
+    final bool _go = await Dialogs.confirmProceed(
+      context: context,
+      titleVerse: Verse.plain('This is Dangerous !'),
+      bodyVerse: Verse.plain('This will read all Users - All Bzz - All Flyers and create a Census for each of them'),
+      invertButtons: true,
+    );
+
+    if (_go == true){
+
+      /// ALL USERS
+      await ExoticMethods.readAllUserModels(
+        limit: 900,
+        onRead: (int index, UserModel _userModel) async {
+
+          await CensusListener.onComposeUser(_userModel);
+          blog('DONE : $index : UserModel: ${_userModel.name}');
+
+        },
+      );
+
+      /// ALL BZZ
+      await ExoticMethods.readAllBzzModels(
+        limit: 900,
+        onRead: (int i, BzModel _bzModel) async {
+
+          blog('DONE : $i : BzModel: ${_bzModel.name}');
+          await CensusListener.onComposeBz(_bzModel);
+
+          final BzCounterModel _bzCounter = await BzRecordRealOps.readBzCounters(
+              bzID: _bzModel.id,
+          );
+
+          if (_bzCounter != null){
+            await Future.wait(<Future>[
+
+              if (_bzCounter?.calls != null && _bzCounter.calls > 0)
+                CensusListener.onCallBz(
+                  bzModel: _bzModel,
+                  count: _bzCounter.calls,
+                ),
+
+              if (_bzCounter?.follows != null && _bzCounter.follows > 0)
+                CensusListener.onFollowBz(
+                  bzModel: _bzModel,
+                  isFollowing: true,
+                  count: _bzCounter.follows,
+                ),
+
+            ]);
+          }
+
+        },
+      );
+
+      /// ALL FLYERS
+      await ExoticMethods.readAllFlyers(
+        limit: 1000,
+        onRead: (int index, FlyerModel _flyerModel) async {
+
+          blog('DONE : $index : FlyerModel: ${_flyerModel.id}');
+          await CensusListener.onComposeFlyer(_flyerModel);
+
+          final FlyerCounterModel _flyerCounter = await FlyerRecordRealOps.readFlyerCounters(
+              flyerID: _flyerModel.id,
+          );
+
+          if (_flyerCounter != null){
+
+            await CensusListener.onSaveFlyer(
+              flyerModel: _flyerModel,
+              isSaving: true,
+              count: _flyerCounter.saves,
+            );
+
+          }
+
+
+        },
+      );
+
+      await Dialogs.centerNotice(
+          context: context,
+          verse: Verse.plain('DONE'),
+      );
+
+    }
+
+
+  }
+  // ----------------------------------------------------------------------------
 }

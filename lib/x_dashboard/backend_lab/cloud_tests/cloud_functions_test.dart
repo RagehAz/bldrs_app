@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -8,9 +8,6 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
-
-import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
