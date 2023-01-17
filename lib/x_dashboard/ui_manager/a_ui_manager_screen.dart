@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
+import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/new_user_editor.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart';
@@ -487,18 +489,50 @@ class UIManager extends StatelessWidget {
 
         /// ZOOMABLE LAYOUT
         WideButton(
-          verse: Verse.plain('New Flyer Editor'),
+          verse: Verse.plain('Zoomable layout'),
           icon: Iconz.addFlyer,
           onTap: () async {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: const PackedZoomedLayout(),
+              screen: const PackedZoomableLayout(),
             );
 
           },
         ),
 
+        // ------------------------------------------------
+
+        /// NEW EDITORS
+        SuperHeadline(verse: Verse.plain('Loading Screens'),),
+
+        /// ANIMATED ZOOMABLE SCREEN
+        WideButton(
+          verse: Verse.plain('Animated Loading Screen'),
+          icon: Iconz.bldrsNameEn,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const AnimatedLogoScreen(),
+            );
+
+          },
+        ),
+
+        /// STATIC LOGO SCREEN
+        WideButton(
+          verse: Verse.plain('Static Loading Screen'),
+          icon: Iconz.bldrsNameEn,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const StaticLogoScreen(),
+            );
+
+          },
+        ),
 
         const Horizon(),
 

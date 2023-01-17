@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
@@ -41,7 +42,7 @@ class SuperVerse extends StatelessWidget {
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
-    this.textDirection = TextDirection.ltr,
+    this.textDirection,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -536,11 +537,15 @@ class SuperVerse extends StatelessWidget {
         verse: verse,
       );
 
+      final bool _appIsLeftToRight = TextDir.checkAppIsLeftToRight(context);
+
       return SuperVerseBox(
         width: width,
         onTap: onTap,
         margin: margin,
         centered: centered,
+        textDirection: textDirection,
+        appIsLeftToRight: _appIsLeftToRight,
         leadingDot: leadingDot,
         redDot: redDot,
         /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
@@ -600,6 +605,8 @@ class SuperVerseBox extends StatelessWidget {
     @required this.redDot,
     @required this.children,
     @required this.width,
+    @required this.textDirection,
+    @required this.appIsLeftToRight,
     this.onDoubleTap,
     Key key
   }) : super(key: key);
@@ -612,14 +619,47 @@ class SuperVerseBox extends StatelessWidget {
   final List<Widget> children;
   final Function onDoubleTap;
   final double width;
+  final TextDirection textDirection;
+  final bool appIsLeftToRight;
   /// --------------------------------------------------------------------------
   static MainAxisAlignment _getMainAxisAlignment({
     @required bool centered,
+    @required TextDirection textDirection,
+    @required bool appIsLeftToRight,
   }){
-    return centered == true ?
-    MainAxisAlignment.center
-        :
-    MainAxisAlignment.start;
+
+    if (textDirection == null){
+      return centered == true ? MainAxisAlignment.center : MainAxisAlignment.start;
+    }
+    else {
+
+      /// APP IS LTR (ENGLISH)
+      if (appIsLeftToRight == true){
+
+        if (textDirection == TextDirection.ltr){
+          return MainAxisAlignment.start;
+        }
+        else {
+          return MainAxisAlignment.end;
+        }
+
+      }
+
+      /// APP IS RTL (ARABIC)
+      else {
+
+        if (textDirection == TextDirection.rtl){
+          return MainAxisAlignment.start;
+        }
+        else {
+          return MainAxisAlignment.end;
+        }
+
+
+      }
+
+    }
+
   }
   // --------------------
   static CrossAxisAlignment _getCrossAxisAlignment({
@@ -647,7 +687,11 @@ class SuperVerseBox extends StatelessWidget {
         width: width,
         margin: Scale.superMargins(margin: margin),
         child: Row(
-          mainAxisAlignment: _getMainAxisAlignment(centered: centered,),
+          mainAxisAlignment: _getMainAxisAlignment(
+            appIsLeftToRight: appIsLeftToRight,
+            centered: centered,
+            textDirection: textDirection,
+          ),
           crossAxisAlignment: _getCrossAxisAlignment(
             leadingDot: leadingDot,
             redDot: redDot,
