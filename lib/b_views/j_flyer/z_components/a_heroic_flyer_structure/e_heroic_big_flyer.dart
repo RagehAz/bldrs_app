@@ -21,6 +21,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -363,6 +364,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     await onFollowTap(
       context: context,
       bzModel: _flyer.value?.bzModel,
+      flyerID: _flyer.value?.id,
       followIsOn: _followIsOn,
       mounted: mounted,
     );
@@ -477,7 +479,11 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     else {
 
-      await Dialogs.youNeedToBeSignedInDialog(context);
+      await Dialogs.youNeedToBeSignedInDialog(
+        context: context,
+        afterHomeRouteName: Routing.flyerPreview,
+        afterHomeRouteArgument: _flyer.value.id,
+      );
 
     }
 
