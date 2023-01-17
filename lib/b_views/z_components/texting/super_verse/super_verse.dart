@@ -2,13 +2,12 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:colorizer/colorizer.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
-
-
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+/// ONLY_FOR_BLDRS_DASHBOARD_VERSION
+import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
 
 enum VerseWeight {
   black,
@@ -537,14 +536,15 @@ class SuperVerse extends StatelessWidget {
         verse: verse,
       );
 
-      return _SuperVerseBox(
+      return SuperVerseBox(
         width: width,
         onTap: onTap,
         margin: margin,
         centered: centered,
         leadingDot: leadingDot,
         redDot: redDot,
-        onDoubleTap: _shouldTranslateButNotFound == false ? null : () => Verse.goToFastTranslator(
+        /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
+        onDoubleTap: _shouldTranslateButNotFound == false ? null : () => goToFastTranslator(
           context: context,
           verse: verse,
         ),
@@ -590,17 +590,17 @@ class SuperVerse extends StatelessWidget {
   // -----------------------------------------------------------------------------
 }
 
-class _SuperVerseBox extends StatelessWidget {
+class SuperVerseBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const _SuperVerseBox({
+  const SuperVerseBox({
     @required this.onTap,
     @required this.margin,
     @required this.centered,
     @required this.leadingDot,
     @required this.redDot,
     @required this.children,
-    @required this.onDoubleTap,
     @required this.width,
+    this.onDoubleTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

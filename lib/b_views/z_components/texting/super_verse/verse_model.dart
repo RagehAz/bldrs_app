@@ -1,11 +1,9 @@
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -166,27 +164,6 @@ class Verse {
 
   /// TRANSLATION
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> goToFastTranslator({
-    @required BuildContext context,
-    @required Verse verse,
-  }) async {
-
-    blog('fuck you : $verse');
-
-    if (verse.pseudo != null){
-
-    }
-
-    await createAPhidFast(
-      context: context,
-      verse: verse,
-    );
-
-    await Keyboard.copyToClipboard(context: context, copy: verse.text);
-
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldTranslateButNotFound({

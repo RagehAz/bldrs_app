@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -10,7 +11,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/app_controls/b_pricing_screen.dart';
 import 'package:bldrs/x_dashboard/app_controls/x_app_controls_controller.dart';
-import 'package:bldrs/x_dashboard/app_controls/xx_app_controls_model.dart';
 import 'package:flutter/material.dart';
 
 class AppControlsManager extends StatefulWidget {

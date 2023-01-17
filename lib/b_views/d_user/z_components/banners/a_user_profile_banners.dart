@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_needs_banner.d
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/x_dashboard/backend_lab/google_ads_test/google_ad.dart';
+import 'package:bldrs/e_back_end/j_ads/google_ad.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileBanners extends StatelessWidget {

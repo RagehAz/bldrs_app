@@ -7,12 +7,12 @@ import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_contro
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/users_tile_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/users_tile_buttons_list.dart';
 import 'package:flutter/material.dart';
 
 class AuthorSearchScreenView extends StatelessWidget {

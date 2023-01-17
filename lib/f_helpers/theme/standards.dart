@@ -19,7 +19,7 @@ class Standards {
   static const String androidPackageName = 'com.bldrs.net';
   static const String iosBundleID = 'com.bldrs.net';
   static const String appStoreID = '161803398875';
-  static const String iosTeamID = '6ADZTHNZN9';
+  // static const String iosTeamID = '6ADZTHNZN9';
   static const String databaseURL = 'https://bldrsnet.firebaseio.com';
   static const String storageBucket = 'bldrsnet.appspot.com';
   static const String projectID = 'bldrsnet';
@@ -29,22 +29,34 @@ class Standards {
   // --------------------
   /// APP CHECK
   // -------
-  static const String androidSha256CertificateFingerprint = '87:94:db:51:e4:e1:05:ab:e1:c2:fd:9f:14:84:eb:da:a3:d1:88:94:1d:bc:46:b4:f7:9e:c3:a6:db:e0:ec:7c';
+  // static const String androidSha256CertificateFingerprint = '87:94:db:51:e4:e1:05:ab:e1:c2:fd:9f:14:84:eb:da:a3:d1:88:94:1d:bc:46:b4:f7:9e:c3:a6:db:e0:ec:7c';
   static const String recaptchaSiteKey = '6Lel0dUiAAAAAEsveTwOOHn5vy6YQgIupaSQyRhb';
-  static const String recaptchaSecretKey = '6Lel0dUiAAAAAGr34tOOmo823XhChFZVds2wgY8K';
-
-  static const String txt = 'google-site-verification=wxjFdASVfSXbvutUts55hGKlLCfazk2Tyv_TlG_vCv8';
-  static const String aRecord = '199.36.158.100';
+  // static const String recaptchaSecretKey = '6Lel0dUiAAAAAGr34tOOmo823XhChFZVds2wgY8K';
+  // --------------------
+  /// ?
+  // -------
+  // static const String txt = 'google-site-verification=wxjFdASVfSXbvutUts55hGKlLCfazk2Tyv_TlG_vCv8';
+  // static const String aRecord = '199.36.158.100';
+  // --------------------
+  /// IOS PUSH NOTIFICATIONS
+  // -------
+  // static String bldrsPushKeyID = 'PA59ZYRS79';
+  // --------------------
+  /// APP LINKS
+  // -------
+  /// TASK : add android and ios app store link
+  static const String iosAppStoreLink = 'www.apple.com';
+  static const String androidAppStoreLink = 'www.google.com';
   // --------------------
   static String getBldrsAppUpdateLink(BuildContext context){
 
     String _url;
 
     if (DeviceChecker.deviceIsIOS() == true){
-      _url = 'www.apple.com';
+      _url = iosAppStoreLink;
     }
     else if (DeviceChecker.deviceIsAndroid() == true){
-      _url = 'www.google.com';
+      _url = androidAppStoreLink;
     }
 
     return _url;
