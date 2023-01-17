@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
@@ -20,6 +21,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -101,7 +103,14 @@ Future<void> onSubmitReview({
 
   /// USER IS NOT SIGNED IN
   if (AuthModel.userIsSignedIn() == false){
-    await Dialogs.youNeedToBeSignedInDialog(context);
+    await Dialogs.youNeedToBeSignedInDialog(
+      context: context,
+      afterHomeRouteName: Routing.flyerReviews,
+      afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+        flyerID: flyerModel.id,
+        reviewID: null,
+      )
+    );
   }
 
   /// USER IS SIGNED IN
@@ -191,7 +200,14 @@ Future<void> onReviewAgree({
 
   /// USER IS NOT SIGNED IN
   if (AuthFireOps.superUserID() == null){
-    await Dialogs.youNeedToBeSignedInDialog(context);
+    await Dialogs.youNeedToBeSignedInDialog(
+      context: context,
+      afterHomeRouteName: Routing.flyerReviews,
+      afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+        flyerID: reviewModel.flyerID,
+        reviewID: reviewModel.id,
+      ),
+    );
   }
 
   /// USER IS SIGNED IN
@@ -733,4 +749,18 @@ Future<void> _onDeleteReply({
 
 
 }
+// -----------------------------------------------------------------------------
+
+String createReviewsScreenRoutingArgument({
+  @required String flyerID,
+  @required String reviewID,
+}){
+
+  return ChainPathConverter.combinePathNodes([
+    flyerID,
+    reviewID,
+  ]);
+
+}
+
 // -----------------------------------------------------------------------------

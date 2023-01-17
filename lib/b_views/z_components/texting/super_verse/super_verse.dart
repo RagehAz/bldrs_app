@@ -17,7 +17,6 @@ enum VerseWeight {
   thin,
 }
 
-
 /// TASK : need to study Text_theme.dart class and text sizes
 class SuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
