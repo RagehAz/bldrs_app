@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_profile_page/x1_user_profile_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/buttons/contact_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,7 +26,6 @@ class ContactsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     const double _abPadding = Ratioz.appBarPadding;
-    const double _contactBoxHeight = 35;
     final List<ContactModel> _contactsWithStrings = ContactModel.filterContactsWhichShouldViewValue(contacts);
     final List<ContactModel> _socialMediaContacts = ContactModel.filterSocialMediaContacts(contacts);
     // --------------------
@@ -48,16 +47,9 @@ class ContactsBubble extends StatelessWidget {
 
                 final ContactModel _contact = _contactsWithStrings[index];
 
-                return DreamBox(
-                  height: _contactBoxHeight,
-                  icon: ContactModel.concludeContactIcon(_contact.type),
+                return ContactButton(
+                  contactModel: _contact,
                   margins: const EdgeInsets.all(_abPadding),
-                  verse: Verse.plain(_contact?.value),
-                  verseWeight: VerseWeight.thin,
-                  verseItalic: true,
-                  iconSizeFactor: 0.6,
-                  bubble: false,
-                  color: Colorz.white10,
                   onTap: () => onUserContactTap(
                     context: context,
                     contact: _contact,
@@ -78,9 +70,8 @@ class ContactsBubble extends StatelessWidget {
 
                 final ContactModel _contact = _socialMediaContacts[index];
 
-                return DreamBox(
-                  height: _contactBoxHeight,
-                  icon: ContactModel.concludeContactIcon(_contact.type),
+                return ContactButton(
+                  contactModel: _contact,
                   margins: const EdgeInsets.all(_abPadding),
                   onTap: () => onUserContactTap(
                     context: context,
@@ -94,7 +85,7 @@ class ContactsBubble extends StatelessWidget {
               /// USER LOCATION
               if (location != null)
                 DreamBox(
-                  height: _contactBoxHeight,
+                  height: ContactButton.buttonHeight,
                   icon: Iconz.comMap,
                   margins: const EdgeInsets.all(_abPadding),
                   onTap: () => onUserLocationTap(location),
