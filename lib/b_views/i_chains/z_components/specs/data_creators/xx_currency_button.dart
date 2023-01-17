@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyButton extends StatelessWidget {
