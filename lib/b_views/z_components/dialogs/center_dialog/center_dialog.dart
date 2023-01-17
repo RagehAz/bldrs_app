@@ -352,8 +352,7 @@ class CenterDialog extends StatelessWidget {
                                           verse: _getConfirmButtonVerse(),
                                           verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
                                           color: invertButtons == true ? defaultButtonColor : activeButtonColor,
-                                          onTap:
-                                          boolDialog == true ? () => Nav.goBack(
+                                          onTap: boolDialog == true ? () => Nav.goBack(
                                             context: xxx,
                                             invoker: 'CenterDialog.yes',
                                             passedData: true,

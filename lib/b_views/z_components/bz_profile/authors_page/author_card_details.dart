@@ -33,7 +33,7 @@ class AuthorCardDetail extends StatelessWidget {
       width: boxWidth,
       icon: icon,
       iconSizeFactor: bubble == true ? 0.5 : 0.7,
-      verseScaleFactor: bubble == true ? 1.3 : 1,
+      verseScaleFactor: bubble == true ? 1.2 : 0.9,
       iconColor: iconColor,
       verse: verse,
       bubble: bubble,

@@ -620,40 +620,49 @@ class SuperVerseBox extends StatelessWidget {
   final double width;
   final TextDirection textDirection;
   final bool appIsLeftToRight;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static MainAxisAlignment _getMainAxisAlignment({
     @required bool centered,
     @required TextDirection textDirection,
     @required bool appIsLeftToRight,
   }){
 
-    if (textDirection == null){
-      return centered == true ? MainAxisAlignment.center : MainAxisAlignment.start;
+    if (centered == true){
+      return MainAxisAlignment.center;
     }
+
     else {
 
-      /// APP IS LTR (ENGLISH)
-      if (appIsLeftToRight == true){
-
-        if (textDirection == TextDirection.ltr){
-          return MainAxisAlignment.start;
-        }
-        else {
-          return MainAxisAlignment.end;
-        }
-
+      if (textDirection == null){
+        return MainAxisAlignment.start;
       }
-
-      /// APP IS RTL (ARABIC)
       else {
 
-        if (textDirection == TextDirection.rtl){
-          return MainAxisAlignment.start;
-        }
-        else {
-          return MainAxisAlignment.end;
+        /// APP IS LTR (ENGLISH)
+        if (appIsLeftToRight == true){
+
+          if (textDirection == TextDirection.ltr){
+            return MainAxisAlignment.start;
+          }
+          else {
+            return MainAxisAlignment.end;
+          }
+
         }
 
+        /// APP IS RTL (ARABIC)
+        else {
+
+          if (textDirection == TextDirection.rtl){
+            return MainAxisAlignment.start;
+          }
+          else {
+            return MainAxisAlignment.end;
+          }
+
+
+        }
 
       }
 
@@ -661,6 +670,7 @@ class SuperVerseBox extends StatelessWidget {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static CrossAxisAlignment _getCrossAxisAlignment({
     @required bool redDot,
     @required bool leadingDot,
