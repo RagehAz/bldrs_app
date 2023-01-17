@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/new_user_editor.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/new_flyer_editor.dart';
+import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -35,7 +36,6 @@ import 'package:bldrs/x_dashboard/ui_manager/super_text_test/super_text_screen.d
 import 'package:bldrs/x_dashboard/ui_manager/video_player.dart';
 import 'package:bldrs/x_dashboard/ui_manager/zoomable_layout/packed_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class UIManager extends StatelessWidget {

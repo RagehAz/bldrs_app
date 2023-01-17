@@ -5,8 +5,10 @@ import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/a_dashboard_home_screen.dart';
 import 'package:flutter/material.dart';
+
+/// ONLY_FOR_BLDRS_DASHBOARD_VERSION
+import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/a_dashboard_home_screen.dart';
 
 enum PyramidType{
   yellow,
@@ -157,7 +159,7 @@ class _PyramidsWidgetTree extends StatelessWidget {
     return GestureDetector(
         onTap: onPyramidTap,
         /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
-        // onDoubleTap: () => onPyramidAdminDoubleTap(context),
+        onDoubleTap: () => onPyramidAdminDoubleTap(context),
         child:
 
         loading is ValueNotifier<bool> ?

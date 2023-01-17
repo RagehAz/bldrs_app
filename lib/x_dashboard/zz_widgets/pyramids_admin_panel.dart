@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -10,9 +11,6 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/notes_creator/notes_creator_home.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
-
-export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
-export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 class PyramidsAdminPanel extends StatelessWidget {
   /// ---------------------------------------------------------------------------
