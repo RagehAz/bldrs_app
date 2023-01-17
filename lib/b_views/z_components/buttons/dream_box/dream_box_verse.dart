@@ -383,6 +383,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                         italic: verseItalic,
                         redDot: redDot,
                         highlight: highlight,
+                        textDirection: textDirection,
                         highlightColor: highlightColor,
                         // margin:
                         // _verseWidth == null ?

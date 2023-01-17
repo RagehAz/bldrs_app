@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
@@ -149,10 +149,10 @@ class NoteEvent {
       sendFCM: !_imAuthorOfThisBz, // do not send if im author in this bz
       navTo: TriggerModel(
         name: Routing.flyerReviews,
-        argument: ChainPathConverter.combinePathNodes([
-          reviewModel.flyerID,
-          reviewModel.id,
-        ]),
+        argument: createReviewsScreenRoutingArgument(
+          flyerID: reviewModel.flyerID,
+          reviewID: reviewModel.id,
+        ),
         done: const [],
       ),
     );
@@ -207,10 +207,10 @@ class NoteEvent {
       ),
       navTo: TriggerModel(
         name: Routing.flyerReviews,
-        argument: ChainPathConverter.combinePathNodes([
-          reviewModel.flyerID,
-          reviewModel.id,
-        ]),
+        argument: createReviewsScreenRoutingArgument(
+          flyerID: reviewModel.flyerID,
+          reviewID: reviewModel.id,
+        ),
         done: const [],
       ),
     );

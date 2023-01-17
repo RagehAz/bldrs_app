@@ -15,6 +15,7 @@ import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -251,6 +252,7 @@ bool checkFollowIsOn({
 Future<void> onFollowTap({
   @required BuildContext context,
   @required BzModel bzModel,
+  @required String flyerID,
   @required ValueNotifier<bool> followIsOn,
   @required bool mounted,
 }) async {
@@ -273,7 +275,11 @@ Future<void> onFollowTap({
 
   else {
 
-    await Dialogs.youNeedToBeSignedInDialog(context);
+    await Dialogs.youNeedToBeSignedInDialog(
+      context: context,
+      afterHomeRouteArgument: flyerID != null ? Routing.flyerPreview : Routing.bzPreview,
+      afterHomeRouteName: flyerID ?? bzModel.id,
+    );
 
   }
 
@@ -299,7 +305,13 @@ Future<void> onCallTap({
     //     notify: notify
     // );
 
-    await Dialogs.youNeedToBeSignedInDialog(context);
+    await Dialogs.youNeedToBeSignedInDialog(
+      context: context,
+      afterHomeRouteArgument: flyerModel?.id != null ? Routing.flyerPreview : Routing.bzPreview,
+      afterHomeRouteName: flyerModel?.id ?? bzModel.id,
+    );
+
+
 
   }
 

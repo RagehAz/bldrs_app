@@ -22,6 +22,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:scale/scale.dart';
@@ -132,15 +133,33 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> youNeedToBeSignedInDialog(BuildContext context) async {
+  static Future<void> youNeedToBeSignedInDialog({
+    @required BuildContext context,
+    @required String afterHomeRouteName,
+    @required String afterHomeRouteArgument,
+  }) async {
 
-    await CenterDialog.showCenterDialog(
+    final bool _go = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
         text: 'phid_you_need_to_sign_in',
         translate: true,
       ),
+      boolDialog: true,
     );
+
+    if (_go == true){
+
+      UiProvider.proSetAfterHomeRoute(
+          context: context,
+          routeName: afterHomeRouteName,
+          arguments: afterHomeRouteArgument,
+          notify: true,
+      );
+
+      await Nav.jumpToAuthScreen();
+
+    }
 
   }
   // -----------------------------------------------------------------------------
