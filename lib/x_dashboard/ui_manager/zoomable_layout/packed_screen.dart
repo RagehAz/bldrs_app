@@ -28,18 +28,18 @@ Future<void> onZoomOutEnd() async {
   blog('onZoomOutEnd');
 }
 
-class PackedZoomedLayout extends StatefulWidget {
+class PackedZoomableLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const PackedZoomedLayout({
+  const PackedZoomableLayout({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<PackedZoomedLayout> createState() => _PackedZoomedLayoutState();
+  State<PackedZoomableLayout> createState() => _PackedZoomableLayoutState();
   /// --------------------------------------------------------------------------
 }
 
-class _PackedZoomedLayoutState extends State<PackedZoomedLayout> {
+class _PackedZoomableLayoutState extends State<PackedZoomableLayout> {
   // -----------------------------------------------------------------------------
   ZoomableGridController _controller;
   // -----------------------------------------------------------------------------

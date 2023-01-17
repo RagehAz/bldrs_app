@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class DashboardUserButton extends StatelessWidget {
