@@ -11,33 +11,40 @@ class ContactButton extends StatelessWidget {
     @required this.onTap,
     this.height,
     this.margins,
+    this.width,
+    this.forceShowVerse = false,
     Key key
   }) : super(key: key);
   // -----------------------------------------------------------------------------
   final double height;
+  final double width;
   final ContactModel contactModel;
   final dynamic margins;
   final Function onTap;
+  final bool forceShowVerse;
   // -----------------------------------------------------------------------------
-  static const double buttonHeight = 35;
+  static const double buttonHeight = 40;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final bool _isSocialMediaContact = ContactModel.checkContactIsSocialMedia(contactModel?.type) == true;
+    final bool _showVerse = forceShowVerse ??
+        ContactModel.checkContactIsSocialMedia(contactModel?.type) == false;
 
     return DreamBox(
       key: const ValueKey<String>('ContactButton'),
       height: height ?? buttonHeight,
+      width: width,
       icon: ContactModel.concludeContactIcon(contactModel?.type),
       margins: margins,
-      verse: _isSocialMediaContact == true ? null : Verse.plain(contactModel?.value),
+      verse: _showVerse == true ? Verse.plain(contactModel?.value) : null,
       verseWeight: VerseWeight.thin,
       verseItalic: true,
-      iconSizeFactor: _isSocialMediaContact == true ? 1 : 0.6,
+      iconSizeFactor: _showVerse == true ? 0.6 : 1,
       bubble: false,
       color: Colorz.white10,
       textDirection: TextDirection.ltr,
+      verseCentered: false,
       onTap: onTap,
     );
 
