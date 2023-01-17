@@ -23,7 +23,7 @@ class AppCheck {
     /// TRIAL ONE
     // blog('AppCheck INITIALIZATION START');
     await FirebaseAppCheck.instance.activate(
-      webRecaptchaSiteKey: Standards.recaptchaSiteKey, // 'recaptcha-v3-site-key'
+      webRecaptchaSiteKey: Standards.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
       androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
     );
     // blog('AppCheck INITIALIZATION END');

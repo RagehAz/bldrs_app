@@ -443,7 +443,12 @@ class CityModel {
     cities.sort((CityModel cityA, CityModel cityB){
       final double _distanceA = Atlas.haversineGeoPoints(pointA: cityA.position, pointB: city.position);
       final double _distanceB = Atlas.haversineGeoPoints(pointA: cityB.position, pointB: city.position);
-      return _distanceA.compareTo(_distanceB);
+      if (_distanceA != null && _distanceB != null){
+        return _distanceA.compareTo(_distanceB);
+      }
+      else {
+        return 0;
+      }
     });
 
     /// blogger
@@ -480,7 +485,13 @@ class CityModel {
           city: b,
         );
 
-        return _nameA.compareTo(_nameB);
+        if (_nameA != null && _nameB != null){
+          return _nameA.compareTo(_nameB);
+        }
+        else {
+          return 0;
+        }
+
       });
 
     }
