@@ -1,24 +1,23 @@
 import 'dart:async';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:widget_fader/widget_fader.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
+import 'package:scale/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class AnimatedLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -31,24 +30,24 @@ class AnimatedLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   static const double trackLength = 8775; // milli seconds
   /// --------------------------------------------------------------------------
-  static double getBeatRatio(double milliSecond){
+  static double getBeatRatio(double milliSecond) {
     return milliSecond / trackLength;
   }
   // --------------------
   static Map<String, dynamic> createBeat({
     @required double start, // in milliseconds
-    @required double duration,// in milliseconds
+    @required double duration, // in milliseconds
     @required String text,
     Color color = Colorz.white255,
-  }){
+  }) {
     return {
-      'first' : getBeatRatio(start),
-      'second' : getBeatRatio(start + duration),
+      'first': getBeatRatio(start),
+      'second': getBeatRatio(start + duration),
       'verse': text,
-      'color' : color,
+      'color': color,
     };
   }
-
+  /// --------------------------------------------------------------------------
 }
 
 class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProviderStateMixin {
@@ -70,35 +69,62 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   void initState() {
     super.initState();
 
-
     _linesMap = <Map<String, dynamic>>[
-      AnimatedLogoScreen.createBeat(start: 1900, duration: 200,   text: xPhrase(context, 'phid_search'), color: Colorz.white200),  // 1
-      AnimatedLogoScreen.createBeat(start: 2800, duration: 200,   text: xPhrase(context, 'phid_connect'), color: Colorz.white200), // 5
-      AnimatedLogoScreen.createBeat(start: 2700, duration: 200,   text: xPhrase(context, 'phid_ask'), color: Colorz.white200), // 4
-      AnimatedLogoScreen.createBeat(start: 2350, duration: 450,   text: xPhrase(context, 'phid_answer'), color: Colorz.white200), // 3
-      AnimatedLogoScreen.createBeat(start: 2000, duration: 450,   text: xPhrase(context, 'phid_grow'), color: Colorz.white200), // 2
-      AnimatedLogoScreen.createBeat(start: 4700,  duration: 300,  text: xPhrase(context, 'phid_on'), color: Colorz.white200), // 6
-      AnimatedLogoScreen.createBeat(start: 5550,  duration: 1000, text: xPhrase(context, 'phid_bldrsFullName'), color: Colorz.yellow255), // 10
-      AnimatedLogoScreen.createBeat(start: 4800,  duration: 300,  text: '- ${xPhrase(context, 'phid_designers')}'), // 7
-      AnimatedLogoScreen.createBeat(start: 5150,  duration: 300,  text: '- ${xPhrase(context, 'phid_contractors')}'), // 8
-      AnimatedLogoScreen.createBeat(start: 5450,  duration: 300,  text: '- ${xPhrase(context, 'phid_artisans')}'), // 9
+      AnimatedLogoScreen.createBeat(
+          start: 1900,
+          duration: 200,
+          text: xPhrase(context, 'phid_search'),
+          color: Colorz.white200),
+      // 1
+      AnimatedLogoScreen.createBeat(
+          start: 2800,
+          duration: 200,
+          text: xPhrase(context, 'phid_connect'),
+          color: Colorz.white200),
+      // 5
+      AnimatedLogoScreen.createBeat(
+          start: 2700, duration: 200, text: xPhrase(context, 'phid_ask'), color: Colorz.white200),
+      // 4
+      AnimatedLogoScreen.createBeat(
+          start: 2350,
+          duration: 450,
+          text: xPhrase(context, 'phid_answer'),
+          color: Colorz.white200),
+      // 3
+      AnimatedLogoScreen.createBeat(
+          start: 2000, duration: 450, text: xPhrase(context, 'phid_grow'), color: Colorz.white200),
+      // 2
+      AnimatedLogoScreen.createBeat(
+          start: 4700, duration: 300, text: xPhrase(context, 'phid_on'), color: Colorz.white200),
+      // 6
+      AnimatedLogoScreen.createBeat(
+          start: 5550,
+          duration: 1000,
+          text: xPhrase(context, 'phid_bldrsFullName'),
+          color: Colorz.yellow255),
+      // 10
+      AnimatedLogoScreen.createBeat(
+          start: 4800, duration: 300, text: '- ${xPhrase(context, 'phid_designers')}'),
+      // 7
+      AnimatedLogoScreen.createBeat(
+          start: 5150, duration: 300, text: '- ${xPhrase(context, 'phid_contractors')}'),
+      // 8
+      AnimatedLogoScreen.createBeat(
+          start: 5450, duration: 300, text: '- ${xPhrase(context, 'phid_artisans')}'),
+      // 9
     ];
 
     _initializeAnimationControllers();
-
   }
   // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-
       _triggerLoading(setTo: true).then((_) async {
-
         Keyboard.closeKeyboard(context);
 
         await Future.delayed(const Duration(milliseconds: 500), () async {
-
           await Future.wait(<Future<void>>[
 
             initializeLogoScreen(
@@ -107,7 +133,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             ),
 
             _startAnimationSequence(),
-
           ]);
 
           await Nav.pushNamedAndRemoveAllBelow(
@@ -117,10 +142,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
         });
 
-
         await _triggerLoading(setTo: false);
       });
-
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -128,15 +151,14 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // --------------------
   @override
   void dispose() {
-
     _loading.dispose();
     // _sloganAniController.dispose();
     _sloganCurvedAnimation.dispose();
     _logoAniController.dispose();
     _logoCurvedAnimation.dispose();
 
-    if (Mapper.checkCanLoopList(_linesControllers) == true){
-      for (final CurvedAnimation cont in _linesControllers){
+    if (Mapper.checkCanLoopList(_linesControllers) == true) {
+      for (final CurvedAnimation cont in _linesControllers) {
         cont.dispose();
       }
     }
@@ -154,35 +176,42 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   /// INITIALIZATION
 
   // --------------------
-  void _initializeAnimationControllers(){
-
+  void _initializeAnimationControllers() {
     /// LOGO CONTROLLERS
-    _logoAniController = AnimationController(
-        duration: const Duration(milliseconds: 8500),
-        vsync: this
-    );
+    _logoAniController =
+        AnimationController(duration: const Duration(milliseconds: 8500), vsync: this);
 
     _logoCurvedAnimation = CurvedAnimation(
       parent: _logoAniController,
-      curve:  Interval(AnimatedLogoScreen.getBeatRatio(600), AnimatedLogoScreen.getBeatRatio(1800), curve: Curves.easeInOutExpo,),
-
+      curve: Interval(
+        AnimatedLogoScreen.getBeatRatio(600),
+        AnimatedLogoScreen.getBeatRatio(1800),
+        curve: Curves.easeInOutExpo,
+      ),
     );
 
     _sloganCurvedAnimation = CurvedAnimation(
       parent: _logoAniController,
-      curve: Interval(AnimatedLogoScreen.getBeatRatio(3200), AnimatedLogoScreen.getBeatRatio(4500), curve: Curves.easeInOutExpo,),
+      curve: Interval(
+        AnimatedLogoScreen.getBeatRatio(3200),
+        AnimatedLogoScreen.getBeatRatio(4500),
+        curve: Curves.easeInOutExpo,
+      ),
     );
 
     _linesControllers = _initializedLinesAnimations();
   }
   // --------------------
-  List<CurvedAnimation> _initializedLinesAnimations(){
-
+  List<CurvedAnimation> _initializedLinesAnimations() {
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
-    for (final Map<String, dynamic> map in _linesMap){
+    for (final Map<String, dynamic> map in _linesMap) {
       final CurvedAnimation _curvedAni = CurvedAnimation(
         parent: _logoAniController,
-        curve: Interval(map['first'], map['second'], curve: Curves.easeInOutExpo,),
+        curve: Interval(
+          map['first'],
+          map['second'],
+          curve: Curves.easeInOutExpo,
+        ),
       );
       _animations.add(_curvedAni);
     }
@@ -219,22 +248,18 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    // /// for dev
-    // _initializeAnimationControllers();
-
+    // -----------------------------------------------------------------------------
     const double _logoWidth = 200;
     const double _logoHeight = 50;
     const double _logoBox = _logoWidth * 3;
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     final double _leftOffset = _screenWidth - Ratioz.pyramidsWidth - (_logoBox * 0.5) + 30;
-
+    // -----------------------------------------------------------------------------
     return MainLayout(
       pyramidsAreOn: true,
       pyramidType: PyramidType.yellow,
       appBarType: AppBarType.non,
-      // loading: ValueNotifier(true),
       // onBack: () async {
       //
       //   await Nav.replaceScreen(
@@ -247,7 +272,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-
           /// FADING SPLASH LOGO
           const WidgetFader(
             fadeType: FadeType.fadeOut,
@@ -271,7 +295,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                 child: AnimatedBuilder(
                   animation: _logoCurvedAnimation,
                   builder: (BuildContext context, Widget child) {
-
                     final double _val = _tween.evaluate(_logoCurvedAnimation);
 
                     return Opacity(
@@ -284,12 +307,12 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                         child: child,
                       ),
                     );
-
                   },
                   child: SizedBox(
                     width: _logoWidth,
                     height: _logoHeight,
-                    child: WebsafeSvg.asset(Iconz.bldrsNameSingleLine,
+                    child: WebsafeSvg.asset(
+                      Iconz.bldrsNameSingleLine,
                       fit: BoxFit.fitHeight,
                       // package: Iconz.bldrsTheme,
                     ),
@@ -316,7 +339,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                     AnimatedBuilder(
                         animation: _sloganCurvedAnimation,
                         builder: (BuildContext context, Widget child) {
-
                           final double _val = _tween.evaluate(_sloganCurvedAnimation);
 
                           return Opacity(
@@ -325,7 +347,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                               width: 700,
                               height: 50,
                               // color: Colorz.bloodTest,
-                              alignment: Alignment.bottomRight,
+                              alignment: Alignment.bottomCenter,
                               padding: EdgeInsets.only(right: _val * 300),
                               child: const SuperVerse(
                                 verse: Verse(
@@ -340,9 +362,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                               ),
                             ),
                           );
-
-                        }
-                    ),
+                        }),
 
                     const SizedBox(
                       width: _logoBox,
@@ -361,15 +381,15 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             height: _screenHeight,
             alignment: Alignment.centerLeft,
             margin: Scale.superInsets(
-                context: context,
-                appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
-                top: _screenWidth * 0.07,
+              context: context,
+              appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+              top: _screenWidth * 0.07,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
 
-                ...List.generate(_linesControllers.length, (index){
+                ...List.generate(_linesControllers.length, (index) {
                   return AnimatedLine(
                     curvedAnimation: _linesControllers[index],
                     tween: _tween,
@@ -379,48 +399,74 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                 })
 
               ],
-
             ),
           ),
 
           /// FOR DEV ONLY
-          // /// PLAY BUTTON
           // Container(
-          //   width: superScreenWidth(context),
-          //   height: superScreenHeight(context),
+          //   width: Scale.screenWidth(context),
+          //   height: Scale.screenHeight(context),
           //   // color: Colorz.bloodTest,
           //   alignment: Alignment.topRight,
-          //   child: ValueListenableBuilder(
-          //       valueListenable: _isPlaying,
-          //       builder: (_, bool isPlaying, Widget child) {
+          //   child: Column(
+          //     children: [
           //
-          //         return DreamBox(
-          //           width: 50,
-          //           height: 50,
-          //           icon: isPlaying ? Iconz.stop : Iconz.play,
-          //           iconSizeFactor: 0.6,
-          //           onTap: isPlaying ?
-          //               /// when playing
-          //               (){
-          //             _isPlaying.value  = false;
-          //             _restartControllers();
-          //             _logoAniController.stop();
-          //           }
-          //           :
-          //               /// when paused
-          //               () async {
+          //       /// REPLAY
+          //       DreamBox(
+          //         width: 50,
+          //         height: 50,
+          //         icon: Iconz.play,
+          //         iconSizeFactor: 0.6,
+          //         onTap: () async {
           //
-          //                 await _startAnimationSequence();
-          //             },
-          //         );
+          //           await _startAnimationSequence();
           //
-          //       }
+          //         },
           //       ),
+          //
+          //       /// CHANGE LANG
+          //       DreamBox(
+          //         width: 50,
+          //         height: 50,
+          //         icon: Iconz.language,
+          //         iconSizeFactor: 0.6,
+          //         onTap: () async {
+          //           WaitDialog.showUnawaitedWaitDialog(context: context);
+          //
+          //           final PhraseProvider _phraseProvider =
+          //               Provider.of<PhraseProvider>(context, listen: false);
+          //
+          //           String langCode = PhraseProvider.proGetCurrentLangCode(
+          //             context: context,
+          //             listen: false,
+          //           );
+          //
+          //           langCode = langCode == 'en' ? 'ar' : 'en';
+          //
+          //           await Localizer.changeAppLanguage(context, langCode);
+          //
+          //           await _phraseProvider.fetchSetCurrentLangAndAllPhrases(
+          //             context: context,
+          //             setLangCode: langCode,
+          //           );
+          //
+          //           await WaitDialog.closeWaitDialog(context);
+          //
+          //           await Nav.replaceScreen(
+          //             context: context,
+          //             screen: const AnimatedLogoScreen(),
+          //           );
+          //         },
+          //       ),
+          //
+          //     ],
+          //   ),
           // ),
 
         ],
       ),
     );
+    // -----------------------------------------------------------------------------
   }
   // -----------------------------------------------------------------------------
 }
@@ -456,7 +502,6 @@ class AnimatedLine extends StatelessWidget {
     return AnimatedBuilder(
       animation: curvedAnimation,
       builder: (BuildContext context, Widget child) {
-
         final double _val = tween.evaluate(curvedAnimation);
 
         return SizedBox(
@@ -467,7 +512,7 @@ class AnimatedLine extends StatelessWidget {
             children: <Widget>[
 
               Positioned(
-                left: - _screenWidth,
+                left: -_screenWidth,
                 top: 0,
                 child: Opacity(
                   opacity: _val > 1 ? 1 : _val,
@@ -481,14 +526,12 @@ class AnimatedLine extends StatelessWidget {
                   ),
                 ),
               ),
-
             ],
           ),
         );
-
       },
       child: SizedBox(
-        width: 200,
+        width: 220,
         height: 35,
         child: SuperVerse(
           verse: Verse(
@@ -496,6 +539,7 @@ class AnimatedLine extends StatelessWidget {
             casing: Casing.upperCase,
             translate: false,
           ),
+          textDirection: TextDirection.ltr,
           size: 3,
           weight: VerseWeight.black,
           italic: true,
@@ -507,5 +551,5 @@ class AnimatedLine extends StatelessWidget {
     );
     // --------------------
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }
