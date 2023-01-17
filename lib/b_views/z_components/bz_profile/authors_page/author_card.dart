@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_la
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/buttons/contact_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -75,6 +76,22 @@ class AuthorCard extends StatelessWidget {
       text: '$title @ $companyName',
       translate: false,
     );
+  }
+  // -----------------------------------------------------------------------------
+  Future<void> _onContactTap({
+    @required BuildContext context,
+    @required ContactModel contactModel,
+  }) async {
+
+    if (onContactTap != null){
+      onContactTap(contactModel);
+    }
+
+    await Launcher.launchContactModel(
+      context: context,
+      contact: contactModel,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -233,6 +250,17 @@ class AuthorCard extends StatelessWidget {
               ...List.generate(author.contacts.length, (index){
 
                 final ContactModel _contact = author.contacts[index];
+
+                return ContactButton(
+                    contactModel: _contact,
+                    width: _bubbleWidth - authorPicSize - 40,
+                    forceShowVerse: true,
+                    margins: const EdgeInsets.only(top: 5),
+                    onTap: () => _onContactTap(
+                      context: context,
+                      contactModel: _contact,
+                    ),
+                );
 
                 return AuthorCardDetail(
                     icon: ContactModel.concludeContactIcon(_contact.type),
