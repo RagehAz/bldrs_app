@@ -1,6 +1,6 @@
+import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 // import 'package:mailer/mailer.dart';
 // import 'package:mailer/smtp_server.dart';

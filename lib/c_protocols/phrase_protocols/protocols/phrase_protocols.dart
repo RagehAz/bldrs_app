@@ -9,10 +9,13 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/real/phrase_real_ops.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 /// => TAMAM
 class PhraseProtocols {
   // -----------------------------------------------------------------------------
@@ -358,4 +361,88 @@ class PhraseProtocols {
     return _phrases;
   }
 // -----------------------------------------------------------------------------
+}
+
+///  TESTED : WORKS PERFECT
+List<Phrase> onSearchPhrases({
+  @required BuildContext context,
+  @required ValueNotifier<bool> isSearching,
+  @required TextEditingController searchController,
+  @required List<Phrase> phrasesToSearchIn,
+  @required PageController pageController,
+  @required bool mounted,
+  /// mixes between en & ar values in one list
+  ValueNotifier<List<Phrase>> mixedSearchResult,
+}){
+
+  List<Phrase> _foundPhrases = <Phrase>[];
+
+  if (isSearching.value  == true){
+
+    // final List<Phrase> _enResults = Phrase.searchPhrases(
+    //   phrases: enPhrase,
+    //   text: searchController.text,
+    //   byValue: true,
+    // );
+    //
+    // blog('onSearchPhrases : _enResults = $_enResults');
+
+    // final List<Phrase> _result
+    _foundPhrases = Phrase.searchPhrasesRegExp(
+      phrases: phrasesToSearchIn,
+      text: searchController.text,
+      lookIntoValues: true,
+      // byID: true,
+    );
+
+    final List<String> _phids = Phrase.getPhrasesIDs(_foundPhrases);
+
+    _foundPhrases = Phrase.searchPhrasesByIDs(
+      phrases: phrasesToSearchIn,
+      phids: _phids,
+    );
+
+    // blog('onSearchPhrases : _arResults = $_arResults');
+    //
+    // _foundPhrases = Phrase.insertPhrases(
+    //   insertIn: _foundPhrases,
+    //   phrasesToInsert: _enResults,
+    //   forceUpdate: false,
+    //   addLanguageCode: 'en',
+    //   allowDuplicateIDs: false,
+    // );
+    //
+    // blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding en');
+    //
+    // _foundPhrases = Phrase.insertPhrases(
+    //   insertIn: _foundPhrases,
+    //   phrasesToInsert: _arResults,
+    //   forceUpdate: false,
+    //   addLanguageCode: 'ar',
+    //   allowDuplicateIDs: false,
+    // );
+
+    _foundPhrases = Phrase.cleanIdenticalPhrases(_foundPhrases);
+
+  }
+
+  if (mixedSearchResult != null){
+    if (isSearching.value  == true){
+      setNotifier(notifier: mixedSearchResult, mounted: mounted, value: _foundPhrases);
+    }
+    else {
+      setNotifier(notifier: mixedSearchResult, mounted: mounted, value: <Phrase>[]);
+    }
+  }
+
+  if (pageController != null){
+    if (pageController.position.pixels >= Scale.screenWidth(context) == true){
+      Sliders.slideToBackFrom(
+        pageController: pageController,
+        currentSlide: 1,
+      );
+    }
+  }
+
+  return _foundPhrases;
 }
